@@ -1,0 +1,131 @@
+﻿@using WebKarbord.Controllers.Unit;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-4 col-md-3 col-sm-2 col-xs-2">
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-8 col-xs-8">
+        <div class="card" style=" box-shadow: none;  background-color: #f0f8ff00;">
+            <!--margin: 5% 35% 0% 35%;-->
+            <div class="header center">
+                <h3>تنظیمات نرم افزار</h3>
+                <br />
+                <b>نرم افزار مورد نظر را از لیست زیر انتخاب کنید</b>
+            </div>
+            <br />
+            <div class="body">
+                <div class="form-group form-float" style=" border: 1px solid white;
+                                                           border-radius: 30px;
+                                                           padding: 20px;
+                                                           background-color: white;
+                                                           box-shadow: 5px 5px 20px 1px #4048524f;">
+                    <div class="form-line">
+                        <label id="DropAce" class="form-control" style="text-indent: 30px;direction: rtl;"></label>
+                        <!--<select id="DropAce" class="form-control" style="text-indent: 30px;direction: rtl;">
+                            <option value="0">نرم افزار را انتخاب کنید</option>
+                        </select>-->
+                        <img class="form-label" src="~/Content/img/Setting/streamline-icon-cd-partition@48x48.png" width="16" height="16" style="top: 0px;" />
+                    </div>
+                </div>
+
+
+                <div class="form-group form-float" style=" border: 1px solid white;
+                                                                border-radius: 30px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                    <div class="form-line">
+                        <select id="DropGroup" class="form-control" style="text-indent: 30px;direction: rtl;">
+                            <option value="0">گروه را انتخاب کنید</option>
+                        </select>
+                        <img class="form-label" src="~/Content/img/Setting/streamline-icon-checklist@48x48.png" width="16" height="16" style="top: 0px;" />
+                    </div>
+                </div>
+
+                <div class="form-group form-float" style=" border: 1px solid white;
+                                                                border-radius: 30px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                    <div class="form-line">
+                        <select id="DropSal" class="form-control" style="text-indent: 30px;direction: rtl;">
+                            <option value="0">سال را انتخاب کنید</option>
+                        </select>
+                        <img class="form-label" src="~/Content/img/Setting/streamline-icon-calendar-3@48x48.png" width="16" height="16" style="top: 0px;" />
+                    </div>
+                </div>
+                <div class="form-group btn-container" style="padding: 0px;">
+                    <button type="button" id="SaveParam" class="btn btn-primary btn-block" style="background-color: #eb8121 !important; margin-left:0px;">ثبت</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="information">
+            <div class="card">
+                <div class="header">
+                    <h2><strong>اطلاعات</strong></h2>
+                    <div class="row header-dropdown m-r--5">
+                    </div>
+                </div>
+                <br />
+                <div class="body">
+                    <div class="col-xs-6">
+                        <p class="lead">اطلاعات نرم افزار انتخاب شده</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th style="width:50%">نام نرم افزار</th>
+                                        <td id="param1"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>گروه</th>
+                                        <td id="param2"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>سال</th>
+                                        <td id="param3"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>تاریخ شروع سال مالی</th>
+                                        <td id="param4"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>تاریخ پایان سال مالی</th>
+                                        <td id="param5"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>دقت اعشار مبلغ</th>
+                                        <td id="param6"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>انبار پیش فرض</th>
+                                        <td id="param7"></td>
+                                    </tr>
+                                    <tr>
+                                        <th> گروه قیمت پیش فرض فروش</th>
+                                        <td id="param8"></td>
+                                    </tr>
+                                    <tr>
+                                        <th> گروه قیمت پیش فرض خرید</th>
+                                        <td id="param9"></td>
+                                    </tr>
+                                    <tr>
+                                        <th> گروه قیمت پیش فرض اسناد وارده به انبار</th>
+                                        <td id="param10"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+@section scripts{
+    <script src="~/Scripts/SelectProgram.js"></script>
+}

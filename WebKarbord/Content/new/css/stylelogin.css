@@ -1,0 +1,62 @@
+﻿.stretchedToMargin {
+    display: block;
+    position: absolute;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 80px;
+    margin-left: 80px;
+    background-color: green;
+}
+
+/*@media screen and (min-width: 0px) and (max-width: 950px) {
+    #datalogin {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 951px) {
+    #datalogin {
+        width: 50%;
+    }
+}
+    */
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+body {
+    background-image: url('../../img/Login/BackLogin.jpg');
+    background-color: #273444;
+    background-repeat: no-repeat;
+    background-blend-mode: soft-light;
+    background-size: cover;
+}
+
+
+
+
+.PanelLeftLogin {
+    padding: 10px;
+    border: 1px solid #273444;
+    margin: 0;
+    height: 100%;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    height: 100vh;
+    background-color: #273444;
+}
+
+
+#login {
+    background-color: #eb8121 !important;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+    color: #909;
+}

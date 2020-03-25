@@ -1,0 +1,1 @@
+"use strict"; $(function () { $(".dd").nestable(), $(".dd").on("change", function () { var n = $(this), e = window.JSON.stringify($(n).nestable("serialize")); n.parents("div.body").find("textarea").val(e) }) });

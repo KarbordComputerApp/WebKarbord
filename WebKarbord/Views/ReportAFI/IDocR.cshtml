@@ -1,0 +1,488 @@
+﻿@{
+    ViewBag.Title = "IDocR";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <strong id="">صورت ریز انبار</strong>
+            </div>
+            <div class="body" style="padding-left: 15px;padding-right: 15px;">
+
+                <form class="clearfix">
+                    <div class="row form-inline ">
+                        <div class="col-sm-3 form-inline">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="aztarikh" data-bind="value:AzDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">از تاریخ</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group-addon"> 
+                                        <span class="input-group-btn">
+                                            <a id="btnaztarikh"><img src="~/Content/img/icon/Calendar_24x24.png" /></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input id="tatarikh" data-bind="value:TaDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">تا تاریخ</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btntatarikh"><img src="~/Content/img/icon/Calendar_24x24.png" /></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 form-inline">
+                            <div class="col-sm-2">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input type="text" id="azsanad" class="form-control float" />
+                                        <label class="form-label">از سند</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input type="text" id="tasanad" class="form-control float" />
+                                        <label class="form-label">تا سند</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <div class="form-group">
+                                        <select id="inv" data-bind="options: InvList,
+                                           optionsText: function(item) {return item.Name},
+                                           optionsValue: 'Code',
+                                           value: InvCode,
+                                           optionsCaption: OptionsCaptionAnbar()"></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <div class="form-group">
+                                        <select id="modeCode"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row form-inline ">
+                        <div class="col-sm-8 form-inline">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line">
+                                            <input id="nameThvl" class="form-control" />
+                                            <label class="form-label" id="LableThvlCode"></label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group-addon">
+                                        <a class="dropdown-toggle" data-toggle="modal" data-target="#modal-Thvl">
+                                            <img src="~/Content/img/icon/user office_24x24.png" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameKala" class="form-control" />
+                                            <label class="form-label"> کالا</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group-addon">
+                                        <a id="btnkala" class="dropdown-toggle" data-toggle="modal" data-target="#modal-kala">
+                                            <img src="~/Content/img/icon/Search_24x24.png" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <hr />
+                <div style="height:400px;overflow:auto;">
+                    <!--   <div class="table-responsive">
+                         <table class="table table-hover table-striped">
+                             <thead style="cursor: pointer;">
+                                 <tr>
+                                     <th>
+                                         ردیف
+                                     </th>
+                                     <th>
+                                         کد کالا
+                                     </th>
+                                     <th>
+                                         نام کالا
+                                     </th>
+                                     <th>
+                                         واحد
+                                     </th>
+                                     <th>
+                                         مقدار 1
+                                     </th>
+                                     <th>
+                                         مقدار 2
+                                     </th>
+                                     <th>
+                                         مقدار 3
+                                     </th>
+                                     <th id="unitpriceshowgridtitle">
+                                         قیمت واحد
+                                     </th>
+                                     <th id="totalpriceshowgridtitle">
+                                         قیمت کل
+                                     </th>
+
+                                     <th style="width: 160px">
+                                         شرح
+                                     </th>
+                                 </tr>
+                             </thead>
+
+                             <tbody data-bind="foreach: IDocBList" style="cursor: default;">
+                                 <tr data-bind="click: $parent.selectFactor">
+                                     <td data-bind="text: BandNo"></td>
+                                     <td data-bind="text: KalaCode"></td>
+                                     <td data-bind="text: KalaName"></td>
+                                     <td data-bind="text: MainUnitName"></td>
+                                     <td data-bind="text: NumberToNumberString(Amount1.toFixed(DeghatM1))"></td>
+                                     <td data-bind="text: Amount2 == 0 ? '' : NumberToNumberString(Amount2.toFixed(DeghatM2)) "></td>
+                                     <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(DeghatM3)) "></td>
+                                     <td data-bind="text: NumberToNumberString(UnitPrice.toFixed(DeghatR))" id="unitpriceshowgridbody"></td>
+                                     <td data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))" id="totalpriceshowgridbody"></td>
+                                     <td data-bind="text: Comm"></td>
+                                 </tr>
+                             </tbody>
+                             <tfoot>
+                                 <tr id="footertext">
+                                     <td id="foottextsum"> </td>
+                                     <td></td>
+                                     <td></td>
+                                     <td></td>
+                                     <td id="foottextamount1"> </td>
+                                     <td id="foottextamount2"> </td>
+                                     <td id="foottextamount3"> </td>
+                                     <td id="foottextunitprice"></td>
+                                     <td id="foottexttotalprice"></td>
+                                     <td></td>
+                                 </tr>
+                             </tfoot>
+                         </table>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-Thvl" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="TitleModalThvl"></h4>
+                <a id="refreshThvl"><img src="~/Content/img/icon/Refresh_24x24.png" /></a>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input data-bind="value: filterThvl, valueUpdate: 'afterkeydown'" id="searchThvl" class="form-control" />
+                                <label class="form-label">عنوان جستجو را وارد کنید</label>
+                            </div>
+                            <div class="help-info"><label id="allSearchThvlText">جستجو بر اساس همه موارد</label></div>
+                        </div>
+                        <div class="input-group-addon">
+                            <label class="form-check-label">
+                                <input class="form-check-input" id="allSearchThvl" type="checkbox" value="" checked>
+
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="height:300px;overflow:auto;border: 1px #ddd solid;">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <thead style="cursor: pointer;">
+                                        <tr data-bind="click: sortTableThvl">
+                                            <th data-column="Code">
+                                                کد
+                                                <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                                    <i data-bind="attr: { class: iconType }"></i>
+                                                </span>
+                                            </th>
+                                            <th data-column="Name">
+                                                نام و نام خانوادگی
+                                                <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                                    <i data-bind="attr: { class: iconType }"></i>
+                                                </span>
+                                            </th>
+                                            <th data-column="Spec">
+                                                ملاحظات
+                                                <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                                    <i data-bind="attr: { class: iconType }"></i>
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: currentPageThvl" style="cursor: default;">
+                                        <tr data-bind="click: $parent.selectThvl">
+                                            <td data-bind="text: Code"></td>
+                                            <td data-bind="text: Name"></td>
+                                            <td data-bind="text: Spec"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="height:300px;overflow:auto;border: 1px #ddd solid;">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <thead style="cursor: pointer;">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="cursor: default;">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeThvl">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+                        <a data-bind="click: firstPageThvl"><img src="~/Content/img/icon/last.png" /></a>
+                        <a data-bind="click: previousPageThvl"><img src="~/Content/img/icon/play.png" /></a>
+                        <b data-bind="text: currentPageIndexThvl() + 1"></b>
+                        <a data-bind="click: nextPageThvl"><img src="~/Content/img/icon/play_rev.png" /></a>
+                        <a data-bind="click: lastPageThvl"><img src="~/Content/img/icon/first.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-kala" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست کالا ها</h4>
+                <a id="refreshkala"><img src="~/Content/img/icon/Refresh_24x24.png" /></a>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input data-bind="value: filterKala, valueUpdate: 'afterkeydown'" id="searchKala" class="form-control" />
+                                <label class="form-label">عنوان جستجو را وارد کنید</label>
+                            </div>
+                            <div class="help-info"><label id="allSearchKalaText">جستجو بر اساس همه موارد</label></div>
+                        </div>
+                        <div class="input-group-addon">
+                            <label class="form-check-label">
+                                <input class="form-check-input" id="allSearchKala" type="checkbox" value="" checked>
+
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="height:300px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped">
+                                <thead style="cursor: pointer;">
+                                    <tr data-bind="click: sortTableKala">
+                                        <th data-column="Code">
+                                            کد کالا
+                                            <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Name">
+                                            نام کالا
+                                            <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="FanniNo">
+                                            شماره فنی
+                                            <span data-bind="attr: { class: currentColumn() == 'FanniNo' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Spec">
+                                            ملاحظات
+                                            <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: currentPageKala" style="cursor: default;">
+                                    <tr data-bind="click: $parent.selectKala">
+                                        <td data-bind="text: Code"></td>
+                                        <td data-bind="text: Name"></td>
+                                        <td data-bind="text: FanniNo"></td>
+                                        <td data-bind="text: Spec"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="height:300px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped">
+                                <thead style="cursor: pointer;">
+                                    <tr>
+                                        <th>کد کالا</th>
+                                        <th>نام کالا</th>
+                                        <th>شماره فنی</th>
+                                        <th>ملاحظات</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="cursor: default;">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeKala">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+                        <a data-bind="click: firstPageKala"><img src="~/Content/img/icon/last.png" /></a>
+                        <a data-bind="click: previousPageKala"><img src="~/Content/img/icon/play.png" /></a>
+                        <b data-bind="text: currentPageIndexKala() + 1"></b>
+                        <a data-bind="click: nextPageKala"><img src="~/Content/img/icon/play_rev.png" /></a>
+                        <a data-bind="click: lastPageKala"><img src="~/Content/img/icon/first.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#btnaztarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#aztarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        $('#btntatarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#tatarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        //'use strict';
+        $(function () {
+            $('.dd').nestable();
+            $('.dd').on('change', function () {
+                var $this = $(this);
+                var serializedData = window.JSON.stringify($($this).nestable('serialize'));
+                $this.parents('div.body').find('textarea').val(serializedData);
+            });
+        });
+    </script>
+    <script src="~/Scripts/ReportAFI_Inv.js"></script>
+}

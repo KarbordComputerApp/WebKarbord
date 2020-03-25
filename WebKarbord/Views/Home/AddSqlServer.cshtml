@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "تنظیمات دیتابیس سرور";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<section class="material-half-bg">
+    <div class="cover"></div>
+</section>
+<section class="login-content">
+    <div class="login-box">
+
+        @using (Ajax.BeginForm("AddSqlServer", "Home", ajaxOptions: new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "result" },
+           routeValues: null, htmlAttributes: new { id = "AddSqlServer", @class = "login-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h3 class="login-head"><i class="fa fa-lg fa-fw fa-database"></i>تنظیمات دیتابیس سرور</h3>
+            <div class="form-group">
+                <label class="control-label">نام سرور</label>
+                @Html.TextBox("serverName", null, htmlAttributes: new { @class = "form-control", placeholder = "نام سرور", autofocus = "" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">نام کاربری</label>
+                @Html.TextBox("userName", null, htmlAttributes: new { @class = "form-control", placeholder = "نام کاربری" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">کلمه عبور</label>
+                @Html.TextBox("password", null, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "کلمه عبور" })
+            </div>
+
+            <div class="form-group btn-container">
+                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>ثبت</button>
+            </div>
+        }
+
+    </div>
+</section>
+<footer class="main-footer text-center">
+    <!-- <strong>طراحی و ساخت توسط <a href="http://partopc.ir"> حسین احسانی فر</a> </strong> -->
+    <strong>  </strong>
+</footer>
+

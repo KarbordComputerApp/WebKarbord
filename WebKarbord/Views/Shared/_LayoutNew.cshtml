@@ -1,0 +1,550 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>کاربرد کامپیوتر</title>
+    <link rel="icon" href="~/Content/new/img/loading.png" type="image/x-icon" />
+    <link href="~/Content/new/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/new/css/materialize.min.css" rel="stylesheet" />
+    <link href="~/Content/new/css/style.css" rel="stylesheet" />
+    <link href="~/Content/new/css/all-themes.css" rel="stylesheet" />
+    <link href="~/Content/new/js/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+    <link href="~/Content/new/css/site.css" rel="stylesheet" />
+    <script type="text/javascript">
+        // window.history.forward();
+        // function noBack() {
+        //      window.history.forward();
+        //  }
+    </script>
+</head>
+<body class="light rtl" ondragstart="return false;" ondrop="return false;" onpaste="return false">
+    <!-- onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""-->
+   
+    
+    
+    
+    
+    
+    <!-- <div class="page-loader-wrapper">
+         <div class="loader">
+             <div class="m-t-30">
+                 <img class="loading-img-spin" src="~/Content/new/img/loading.png" width="20" height="20" alt="کاربرد" />
+             </div>
+             <p>لطفا صبر کنید...</p>
+         </div>
+     </div>-->
+
+    <div class="overlay"></div>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"
+                   aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="https://www.karbordcomputer.ir/">
+
+                    <!--<img src="~/Content/img/LLL.png" width="30" />
+                    <span class="logo-name">کاربرد کامپیوتر</span>-->
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+
+
+
+                <ul class="pull-right">
+                    <li>
+                        <a href="javascript:void(0);" class="sidemenu-collapse">
+                            <i class="material-icons">reorder</i>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown user_profile pull-left">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" style="margin-left: 50px;">
+                            <img src="~/Content/img/list/profile.png" width="32" height="32" alt="User" style="border: #ec8121 2px solid;" />
+                            مدیر سیستم
+                            <img src="~/Content/img/streamline-icon-arrow-button-down-2@48x48.png" width="10" height="10" />
+                        </a>
+                        <ul class="dropdown-menu pullDown" style="margin-left: 49px;">
+                            <li class="body">
+                                <ul class="user_dw_menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="material-icons">person</i>پروفایل
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="material-icons">feedback</i>بازخورد
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="material-icons">help</i>راهنما
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            <i class="material-icons">power_settings_new</i>خروج
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li style="color: #e77e22;font-size: 35px;margin-top: 5px;margin-right: 8px;" class="pull-left">|</li>
+                    <li class="pull-left">
+                        <a href="/Home/Setting" class="dropdown-toggle" data-close="true">
+                            <img src="~/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16" />
+                        </a>
+                    </li>
+
+                    <!--                    <li class="dropdown pull-left">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                <img src="~/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16" />
+                            </a>
+                            <ul class="dropdown-menu pullDown" style="padding: 20px;border-radius: 25px;">
+                                <li class="header" style="margin: 10px;padding-bottom: 15px;">
+                                    <h3>تنظیمات نرم افزار</h3>
+                                </li>
+                                <li class="body" style="margin-top: 10px;">
+
+                                    <ul class="" style="height:300px !important">
+
+                                        <li style="width: 100%;">
+                                            <div class="form-group form-float" style=" border: 1px solid white;
+                                                                    border-radius: 30px;
+                                                                    padding: 20px;
+                                                                    background-color: white;
+                                                                    box-shadow: 5px 5px 20px 1px #4048524f;">
+                                                <div class="form-line">
+                                                    <select id="DropAce" class="form-control" style="text-indent: 30px;direction: rtl;">
+                                                        <option value="0">نرم افزار را انتخاب کنید</option>
+                                                    </select>
+                                                    <img class="form-label" src="~/Content/img/Setting/streamline-icon-cd-partition@48x48.png" width="16" height="16" style="top: 0px;" />
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li style="width: 100%;">
+                                            <div class="form-group form-float" style=" border: 1px solid white;
+                                                                    border-radius: 30px;
+                                                                    padding: 20px;
+                                                                    background-color: white;
+                                                                    box-shadow: 5px 5px 20px 1px #4048524f;">
+                                                <div class="form-line">
+                                                    <select id="DropGroup" class="form-control" style="text-indent: 30px;direction: rtl;">
+                                                        <option value="0">گروه را انتخاب کنید</option>
+                                                    </select>
+                                                    <img class="form-label" src="~/Content/img/Setting/streamline-icon-checklist@48x48.png" width="16" height="16" style="top: 0px;" />
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li style="width: 100%;">
+                                            <div class="form-group form-float" style=" border: 1px solid white;
+                                                                    border-radius: 30px;
+                                                                    padding: 20px;
+                                                                    background-color: white;
+                                                                    box-shadow: 5px 5px 20px 1px #4048524f;">
+                                                <div class="form-line">
+                                                    <select id="DropSal" class="form-control" style="text-indent: 30px;direction: rtl;">
+                                                        <option value="0">سال را انتخاب کنید</option>
+                                                    </select>
+                                                    <img class="form-label" src="~/Content/img/Setting/streamline-icon-calendar-3@48x48.png" width="16" height="16" style="top: 0px;" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <button type="button" id="SaveParam" class="btn btn-primary btn-block" style="background-color: #eb8121 !important; margin-left:0px;">ثبت</button>
+                                </li>
+                            </ul>
+                        </li>-->
+
+
+
+                    <li class="pull-left">
+                        <a href="/Home/Index" class="dropdown-toggle" data-close="true">
+                            <img src="~/Content/img/streamline-icon-house-2@48x48.png" width="16" height="16" />
+                        </a>
+                    </li>
+
+                    <li class="dropdown pull-left">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span class="label-count bg-orange"></span>
+                            <img src="~/Content/img/streamline-icon-alarm-bell-1@48x48.png" width="16" height="16" />
+                        </a>
+                        <ul class="dropdown-menu pullDown">
+                            <li class="header">اطلاعیه ها</li>
+                            <li class="body">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span class="table-img msg-user">
+                                                <!--  <img src="assets/images/user/user1.jpg" alt="">-->
+                                            </span>
+                                            <span class="menu-info">
+                                                <span class="menu-title">ACE</span>
+
+                                                <span class="menu-desc">
+                                                    <i class="material-icons">access_time</i>
+                                                </span>
+                                                <span class="menu-desc"></span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">مشاهده تمام اطلاعیه ها</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="fullscreen">
+                        <a href="javascript:;" class="fullscreen-btn">
+                            <i class="fa fa-expand"></i>
+                        </a>
+                    </li>-->
+                    <!-- <li style="color:black">|</li>-->
+                </ul>
+            </div>  
+        </div>
+    </nav>
+
+
+
+    <aside id="leftsidebar" class="sidebar">
+        <div class="menu">
+            <ul class="list">
+                <li class="sidebar-user-panel active">
+                    <div class="center">
+                        <img src="~/Content/img/Logo.jpg" style="width: 250px;" />
+                        <img src="~/Content/img/new item/line.png" style="padding :5px 0px;" />
+                    </div>
+                    <div class="profile-usertitle">
+                        <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
+            <div class="profile-usertitle-job " id="TextNoUser"></div>-->
+                        <div class="profile-usertitle-job ">ورژن تست  :162 </div>
+                    </div>
+                </li>
+                <!--<li id="Select_ACE">
+        @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
+    </li>-->
+                <li id="FDOC_Menu">
+
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i>
+                            <img src="~/Content/img/docsels.png" width="24" />
+                        </i>
+                        <span>اسناد خرید و فروش</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li id="FDOC_SP">@Html.ActionLink("پیش فاکتور فروش", "Index", "AFIFactor")</li>
+                        <li id="FDOC_S"> @Html.ActionLink("فاکتور فروش", "Index", "AFIFactor")</li>
+                        <li id="FDOC_SR">@Html.ActionLink("برگشت از فروش", "Index", "AFIFactor")</li>
+                        <li id="FDOC_PP">@Html.ActionLink("پیش فاکتور خرید", "Index", "AFIFactor")</li>
+                        <li id="FDOC_P"> @Html.ActionLink("فاکتور خرید", "Index", "AFIFactor")</li>
+                        <li id="FDOC_PR">@Html.ActionLink("برگشت از خرید", "Index", "AFIFactor")</li>
+                    </ul>
+                </li>
+
+                 
+                <li id="IDOC_Menu">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i>
+                            <!-- <img src="~/Content/img/SanadAnbar.png" width="24" />-->
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                        </i>
+                        <span>اسناد انبار</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li id="IDOC_I">@Html.ActionLink("اسناد وارده به انبار", "Index", "AFISanadAnbar")</li>
+                        <li id="IDOC_O">@Html.ActionLink("اسناد صادره از انبار", "Index", "AFISanadAnbar")</li>
+                    </ul>
+                </li>
+
+                <!-- <li id="Setting_Menu">
+        <a href="javascript:void(0);" class="menu-toggle">
+            <i class="fa fa-tachometer"></i>
+            <span>تنظیمات</span>
+        </a>
+        <ul class="ml-menu">
+            <li>@Html.ActionLink("ورود", "Login", "Home")</li>
+            <li>@Html.ActionLink("تنظیمات دیتابیس سرور", "AddSqlServer", "Home")</li>
+        </ul>
+    </li>-->
+
+
+                <li id="IReport_Menu">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa fa-tachometer"></i>
+                        <span>گزارشات انبار</span>
+                    </a>
+                    <ul class="ml-menu"> 
+                        <!-- <li id="Report_IDocR">@Html.ActionLink("ریز انبار", "IDocR", "ReportAFI")</li>-->
+                        <li id="TrzIKala">@Html.ActionLink("موجودی کالا", "TrzIKala", "ReportAFI")</li>
+                        <!--<li id="FDOC_S"> @Html.ActionLink("فاکتور فروش", "Index", "ReportAFI")</li>
+            <li id="FDOC_SR">@Html.ActionLink("برگشت از فروش", "Index", "ReportAFI")</li>
+            <li id="FDOC_PP">@Html.ActionLink("پیش فاکتور خرید", "Index", "ReportAFI")</li>
+            <li id="FDOC_P"> @Html.ActionLink("فاکتور خرید", "Index", "ReportAFI")</li>
+            <li id="FDOC_PR">@Html.ActionLink("برگشت از خرید", "Index", "ReportAFI")</li>-->
+                    </ul>
+                </li>
+
+                <li id="EReport_Menu">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa fa-tachometer"></i>
+                        <span>گزارشات اتوماسیون اداری</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li id="ErjDocK">@Html.ActionLink("فهرست پرونده ها", "ErjDocK", "ReportERJ")</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <!-- <aside id="rightsidebar" class="right-sidebar">
+             <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                 <li role="presentation">
+                     <a href="#skins" data-toggle="tab" class="active">پوسته ها</a>
+                 </li>
+                 <li role="presentation">
+                     <a href="#settings" data-toggle="tab">تنظیمات</a>
+                 </li>
+             </ul>
+             <div class="tab-content">
+                 <div role="tabpanel" class="tab-pane in active in active stretchLeft" id="skins">
+                     <div class="demo-skin">
+                         <div class="rightSetting">
+                             <p>تنظیمات عمومی</p>
+                             <ul class="setting-list list-unstyled m-t-20">
+                                 <li>
+                                     <div class="form-check">
+                                         <div class="form-check m-l-10">
+                                             <label class="form-check-label">
+                                                 <input class="form-check-input" type="checkbox" value="" checked> ذخیره تاریخچه
+                                                 <span class="form-check-sign">
+                                                     <span class="check"></span>
+                                                 </span>
+                                             </label>
+                                         </div>
+                                     </div>
+                                 </li>
+                                 <li>
+                                     <div class="form-check">
+                                         <div class="form-check m-l-10">
+                                             <label class="form-check-label">
+                                                 <input class="form-check-input" type="checkbox" value="" checked> نمایش وضعیت
+                                                 <span class="form-check-sign">
+                                                     <span class="check"></span>
+                                                 </span>
+                                             </label>
+                                         </div>
+                                     </div>
+                                 </li>
+                                 <li>
+                                     <div class="form-check">
+                                         <div class="form-check m-l-10">
+                                             <label class="form-check-label">
+                                                 <input class="form-check-input" type="checkbox" value="" checked> تایید خودکار
+                                                 <span class="form-check-sign">
+                                                     <span class="check"></span>
+                                                 </span>
+                                             </label>
+                                         </div>
+                                     </div>
+                                 </li>
+                                 <li>
+                                     <div class="form-check">
+                                         <div class="form-check m-l-10">
+                                             <label class="form-check-label">
+                                                 <input class="form-check-input" type="checkbox" value="" checked> نمایش وضعیت به همه
+                                                 <span class="form-check-sign">
+                                                     <span class="check"></span>
+                                                 </span>
+                                             </label>
+                                         </div>
+                                     </div>
+                                 </li>
+                             </ul>
+                         </div>
+                         <div class="rightSetting">
+                             <p>رنگ منو نوار کناری</p>
+                             <button type="button" class="btn btn-sidebar-light btn-border-radius p-l-20 p-r-20">روشن</button>
+                             <button type="button" class="btn btn-sidebar-dark btn-default btn-border-radius p-l-20 p-r-20">تاریک</button>
+                         </div>
+                         <div class="rightSetting">
+                             <p>رنگ های قالب</p>
+                             <button type="button" class="btn btn-theme-light btn-border-radius p-l-20 p-r-20">روشن</button>
+                             <button type="button" class="btn btn-theme-dark btn-default btn-border-radius p-l-20 p-r-20">تاریک</button>
+                         </div>
+                         <div class="rightSetting">
+                             <p>پوسته ها</p>
+                             <ul class="demo-choose-skin choose-theme list-unstyled">
+                                 <li data-theme="black" class="actived">
+                                     <div class="black-theme"></div>
+                                 </li>
+                                 <li data-theme="white">
+                                     <div class="white-theme white-theme-border"></div>
+                                 </li>
+                                 <li data-theme="purple">
+                                     <div class="purple-theme"></div>
+                                 </li>
+                                 <li data-theme="blue">
+                                     <div class="blue-theme"></div>
+                                 </li>
+                                 <li data-theme="cyan">
+                                     <div class="cyan-theme"></div>
+                                 </li>
+                                 <li data-theme="green">
+                                     <div class="green-theme"></div>
+                                 </li>
+                                 <li data-theme="orange">
+                                     <div class="orange-theme"></div>
+                                 </li>
+                             </ul>
+                         </div>
+                         <div class="rightSetting">
+                             <p>فضای دیسک</p>
+                             <div class="sidebar-progress">
+                                 <div class="progress m-t-20">
+                                     <div class="progress-bar l-bg-cyan shadow-style width-per-45" role="progressbar"
+                                          aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                 </div>
+                                 <span class="progress-description">
+                                     <small>26٪ باقی مانده</small>
+                                 </span>
+                             </div>
+                         </div>
+                         <div class="rightSetting">
+                             <p>بارگذاری سرور</p>
+                             <div class="sidebar-progress">
+                                 <div class="progress m-t-20">
+                                     <div class="progress-bar l-bg-orange shadow-style width-per-63" role="progressbar"
+                                          aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                 </div>
+                                 <span class="progress-description">
+                                     <small>بسیار بارگذاری شده</small>
+                                 </span>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div role="tabpanel" class="tab-pane stretchRight" id="settings">
+                     <div class="demo-settings">
+                         <p>تنظیمات عمومی</p>
+                         <ul class="setting-list">
+                             <li>
+                                 <span>گزارش استفاده از پانل</span>
+                                 <div class="switch">
+                                     <label>
+                                         <input type="checkbox" checked>
+                                         <span class="lever switch-col-green"></span>
+                                     </label>
+                                 </div>
+                             </li>
+                             <li>
+                                 <span>تغییر مسیر ایمیل</span>
+                                 <div class="switch">
+                                     <label>
+                                         <input type="checkbox">
+                                         <span class="lever switch-col-blue"></span>
+                                     </label>
+                                 </div>
+                             </li>
+                         </ul>
+                         <p>تنظیمات سیستم</p>
+                         <ul class="setting-list">
+                             <li>
+                                 <span>اطلاعیه ها</span>
+                                 <div class="switch">
+                                     <label>
+                                         <input type="checkbox" checked>
+                                         <span class="lever switch-col-purple"></span>
+                                     </label>
+                                 </div>
+                             </li>
+                             <li>
+                                 <span>به روز رسانی خودکار</span>
+                                 <div class="switch">
+                                     <label>
+                                         <input type="checkbox" checked>
+                                         <span class="lever switch-col-cyan"></span>
+                                     </label>
+                                 </div>
+                             </li>
+                         </ul>
+                         <p>تنظیمات حساب</p>
+                         <ul class="setting-list">
+                             <li>
+                                 <span>آفلاین</span>
+                                 <div class="switch">
+                                     <label>
+                                         <input type="checkbox" checked>
+                                         <span class="lever switch-col-red"></span>
+                                     </label>
+                                 </div>
+                             </li>
+                             <li>
+                                 <span>مجوز محل سکونت</span>
+                                 <div class="switch">
+                                     <label>
+                                         <input type="checkbox">
+                                         <span class="lever switch-col-lime"></span>
+                                     </label>
+                                 </div>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+         </aside>-->
+
+
+    <section class="content">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </section>
+
+
+    <!--    <script src="~/Content/new/js/app.min.js"></script>
+        <script src="~/Content/new/js/jquery.multi-select.js"></script>
+        <script src="~/Content/new/js/bootstrap-colorpicker.js"></script>
+        <script src="~/Content/new/js/admin.js"></script>
+        <script src="~/Content/new/js/advanced-form-elements.js"></script>
+        <script src="~/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+        <script src="~/Content/js/knockout-3.5.0.js"></script>
+        <script src="~/Content/js/sweet2.js"></script>
+        <script src="~/Content/js/jalaali.js"></script>
+        <script src="~/Scripts/app.js"></script>
+        <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
+        <script src="~/Scripts/PublicAFI.js"></script>
+    -->
+    <script src="~/Content/new/js/app.min.js"></script>
+    <script src="~/Content/new/js/admin.js"></script>
+    <script src="~/Content/new/js/advanced-form-elements.js"></script>
+    <script src="~/Content/js/knockout-3.5.0.js"></script>
+    <script src="~/Content/js/sweet2.js"></script>
+    <script src="~/Content/js/jalaali.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/PublicAFI.js"></script>
+    <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
+    <!-- <script src="~/Scripts/SelectProgram.js"></script>-->
+    @RenderSection("scripts", false)
+
+    <!--<script>
+         $('.dropdown-menu').click(function (e) {
+             e.stopPropagation();
+         });
+    </script>-->
+</body>
+</html>

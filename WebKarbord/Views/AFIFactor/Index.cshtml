@@ -1,0 +1,321 @@
+﻿@using WebKarbord.Controllers.Unit;@{ ViewBag.Title = "Index"; Layout = "~/Views/Shared/_LayoutNew.cshtml"; }
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2><strong>لیست <b id="TitleListFactor"></b></strong></h2>
+                <div class="row header-dropdown m-r--5">
+                    <a id="refreshFDocH" class="">
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                    </a>
+                    <a id="AddNewFactor" class="">
+                        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="24" height="24" />
+                    </a>
+                </div>
+            </div>
+            <div class="body">
+                <br />
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+
+                        <!-- <div class="input-group">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input data-bind="value: filterFDocH, valueUpdate: 'afterkeydown'" id="searchFDocH" class="form-control" />
+                        <label class="form-label">عنوان جستجو را وارد کنید</label>
+                    </div>
+                    <div class="help-info">
+                        <label id="allSearchFDocHText">جستجو بر اساس همه موارد</label>
+                    </div>
+                </div>
+                <div class="input-group-addon">
+                    <label class="form-check-label">
+                        <input type="checkbox" id="allSearchFDocH" checked> <span class="form-check-sign"> <span class="check"></span> </span>
+                    </label>
+                </div>
+            </div>-->
+
+
+
+                    </div>
+                </div>
+                <div style="height:465px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableFDocH">
+                                <th data-column="SortDocNo">
+                                    شماره سند
+                                    <span data-bind="attr: { class: currentColumn() == 'SortDocNo' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeDocNo }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="DocDate">
+                                    تاریخ سند
+                                    <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeDocDate }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="CustName">
+                                    <span id="TitleCustName">نام خریدار</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeCustName }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="FinalPrice">
+                                    قابل پرداخت <span data-bind="attr: { class: currentColumn() == 'FinalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeFinalPrice }"></i> </span>
+                                </th>
+                                <th data-column="Status">
+                                    وضعیت <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
+                                </th>
+                                <th data-column="Eghdam">
+                                    اقدام <span data-bind="attr: { class: currentColumn() == 'Eghdam' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeEghdam }"></i> </span>
+                                </th>
+                                <th data-column="Tanzim">
+                                    تنظیم <span data-bind="attr: { class: currentColumn() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTanzim }"></i> </span>
+                                </th>
+                                <th data-column="Taeed">
+                                    تایید <span data-bind="attr: { class: currentColumn() == 'Taeed' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTaeed }"></i> </span>
+                                </th>
+                                <th data-column="SerialNumber">
+                                    شماره مبنا <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
+                                </th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectFactor , css: { matched: $data === $root.firstMatch() }">
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: CustName"></td>
+                                <td data-bind="text: FinalPrice != null ? NumberToNumberString(parseFloat(FinalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="direction: ltr;text-align: right;"></td>
+                                <td data-bind="text: Status"></td>
+                                <td data-bind="text: Eghdam"></td>
+                                <td data-bind="text: Tanzim"></td>
+                                <td data-bind="text: Taeed"></td>
+                                <td data-bind="text: SerialNumber"></td>
+                                <td>
+                                    <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">
+                                        <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px" />
+                                    </a>
+                                    <a id="DeleteFactor" data-bind="click: $root.DeleteFactor , visible: $root.ShowAction(Eghdam)">
+                                        <img src="~/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH3, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <!--  <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI9, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                    -->
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeFDocH">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageFDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageFDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexFDocH() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageFDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageFDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-inline pull-left">
+                            <label>تعداد کل رکورد ها</label>
+                            <label id="countAllRecord" style="margin: 5px; margin-left: 20px;"></label>
+
+                            <label>نمایش</label>
+                            <div>
+                                <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
+                                    <option value="0">100 رکورد آخر</option>
+                                    <option value="3">تمام رکوردها</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-info fade" id="modal-SelectFactor">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">انتخاب فاکتور</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-info">
+                        <form class="form-horizontal">
+                            <div class="form-group" style="margin-top: 10px;">
+                                <label for="" class="col-md-7 control-label" style="text-align: right;">از سال</label>
+                                <div class="col-md-5">@Html.DropDownList("salList", null, "سال را انتخاب کنید", htmlAttributes: new { @class = "form-control", id = "sal" })</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-7 control-label" style="text-align: right;">
+                                    <span id="CaptionSelectFactor"></span>
+                                </label>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control int" id="docnumber" placeholder="شماره فاکتور" readonly> <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info" id="btnfactor" data-toggle="modal" data-target="#modal-Factor">
+                                                <span class="glyphicon glyphicon-list-alt"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bind="" id="SaveFDocH1">ثبت</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modalTwo modal modal-info fade " id="modal-Factor">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">لیست فاکتور ها</h4>
+                    <a class="glyphicon glyphicon-refresh pull-left" id="refreshfactor"></a>
+                </div>
+                <div class="modal-body">
+                    <input data-bind="value: filterFDocH1, valueUpdate: 'afterkeydown'" id="searchFDocH1" class="form-control" placeholder="جستجو بر اساس همه موارد" />
+                    <div class="col-sm-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="allSearchFDocH1" checked>همه موارد
+                            </label>
+                        </div>
+                    </div>
+                    <br />
+                    <div style="height:300px;overflow:auto;border: 1px #ddd solid;">
+                        <table class="table table-hover table-striped">
+                            <thead style="cursor: pointer;">
+                                <tr data-bind="click: sortTableFDocH1">
+                                    <th data-column="DocNo">
+                                        شماره سند <span data-bind="attr: { class: currentColumn1() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                    </th>
+                                    <th data-column="DocDate">
+                                        تاریخ سند <span data-bind="attr: { class: currentColumn1() == 'DocDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                    </th>
+                                    <th data-column="CustName">
+                                        <span id="TitleCustName1"></span>  <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                    </th>
+                                    <th data-column="Spec">
+                                        ملاحضات <span data-bind="attr: { class: currentColumn1() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                    </th>
+                                    <th data-column="Tanzim">
+                                        تنظیم <span data-bind="attr: { class: currentColumn1() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: currentPageFDocH1" data-dismiss="modal" style="cursor: default;">
+                                <tr data-bind="click: $parent.selectFactor1 , css: { matched: $data === $root.firstMatch() }">
+                                    <td data-bind="text: DocNo"></td>
+                                    <td data-bind="text: DocDate"></td>
+                                    <td data-bind="text: CustName"></td>
+                                    <td data-bind="text: Spec"></td>
+                                    <td data-bind="text: Tanzim"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <center>
+                        <button data-bind="click: firstPageFDocH1" class="btn">
+                            اولین <i class="glyphicon glyphicon-triangle-right"></i>
+                        </button>
+                        <button data-bind="click: previousPageFDocH1" class="btn">
+                            قبلی <i class="glyphicon glyphicon-chevron-right"></i>
+                        </button>صفحه
+                        <label data-bind="text: currentPageIndexFDocH1() + 1" class="badge"></label>
+                        <button data-bind="click: nextPageFDocH1" class="btn">
+                            بعدی <i class="glyphicon glyphicon-chevron-left"></i>
+                        </button>
+                        <button data-bind="click: lastPageFDocH1" class="btn">
+                            آخرین <i class="glyphicon glyphicon-triangle-left"></i>
+                        </button>
+                        <div class="pull-right">
+                            <select id="pageSizeSelector" data-bind="value: pageSizeFDocH1" class="form-control">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                                <option value="90">90</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+		sessionStorage.urlFDocH='@Url.Action("AddFdoc", "AFIFactor")';
+    </script>
+    <script type="text/javascript"></script>
+    <script src="~/Scripts/AFIIndexFactor.js"></script>}

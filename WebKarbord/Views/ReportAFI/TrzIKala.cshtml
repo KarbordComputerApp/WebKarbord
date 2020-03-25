@@ -1,0 +1,460 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "TrzIKala";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <!--border: 1px solid #eb8020;-->
+            <div class="header">
+                <strong id="">موجودی کالا</strong>
+            </div>
+            <div class="body" style="padding-left: 15px;padding-right: 15px;">
+                <form class="clearfix">
+                    <div class="row form-inline ">
+                        <div class="col-sm-3 form-inline">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btnaztarikh">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="aztarikh" data-bind="value:AzDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">از تاریخ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btntatarikh">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="tatarikh" data-bind="value:TaDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">تا تاریخ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 form-inline">
+                            <div class="col-sm-4">
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <div class="form-group">
+                                        <select id="inv" data-bind="options: InvList,
+                                           optionsText: function(item) {return item.Name},
+                                           optionsValue: 'Code',
+                                           value: InvCode,
+                                           optionsCaption: OptionsCaptionAnbar()"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnkala" class="dropdown-toggle" data-toggle="modal" data-target="#modal-kala">
+                                            <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        </a>
+                                    </div>
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameKala" class="form-control" readonly />
+                                            <label class="form-label"> کالا</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <button type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i>گزارش گیری</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <hr />
+                <div style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
+                    <table class="table table-hover table-striped">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableTrzI">
+                                <th data-column="KalaCode">
+                                    کد کالا <span data-bind="attr: { class: currentColumn() == 'KalaCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaCode }"></i> </span>
+                                </th>
+                                <th data-column="KalaName" style="width:500px">
+                                    نام کالا <span data-bind="attr: { class: currentColumn() == 'KalaName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaName }"></i> </span>
+                                </th>
+                                <th data-column="InvCode">
+                                    کد انبار <span data-bind="attr: { class: currentColumn() == 'InvCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvCode }"></i> </span>
+                                </th>
+                                <th data-column="InvName">
+                                    نام انبار <span data-bind="attr: { class: currentColumn() == 'InvName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvName }"></i> </span>
+                                </th>
+                                <!-- <th data-column="KalaFanniNo">
+                                    شماره فنی <span data-bind="attr: { class: currentColumn() == 'KalaFanniNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                </th>-->
+                                <th data-column="AAmount1">
+                                    مقدار اول دوره 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount1 }"></i> </span>
+                                </th>
+                                <th data-column="AAmount2">
+                                    مقدار اول دوره 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount2 }"></i> </span>
+                                </th>
+                                <th data-column="AAmount3">
+                                    مقدار اول دوره 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount3 }"></i> </span>
+                                </th>
+                                <th data-column="ATotalPrice">
+                                    مبلغ اول دوره <span data-bind="attr: { class: currentColumn() == 'ATotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeATotalPrice }"></i> </span>
+                                </th>
+                                <th data-column="VAmount1">
+                                    مقدار وارده 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVAmount1 }"></i> </span>
+                                </th>
+                                <th data-column="VAmount2">
+                                    مقدار وارده 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVAmount2 }"></i> </span>
+                                </th>
+                                <th data-column="VAmount3">
+                                    مقدار وارده 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVAmount3 }"></i> </span>
+                                </th>
+                                <th data-column="VTotalPrice">
+                                    مبلغ وارده <span data-bind="attr: { class: currentColumn() == 'VTotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVTotalPrice }"></i> </span>
+                                </th>
+                                <th data-column="SAmount1">
+                                    مقدار صادره 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSAmount1 }"></i> </span>
+                                </th>
+                                <th data-column="SAmount2">
+                                    مقدار صادره 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSAmount2 }"></i> </span>
+                                </th>
+                                <th data-column="SAmount3">
+                                    مقدار صادره 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSAmount3 }"></i> </span>
+                                </th>
+                                <th data-column="STotalPrice">
+                                    مبلغ صادره <span data-bind="attr: { class: currentColumn() == 'STotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSTotalPrice }"></i> </span>
+                                </th>
+                                <th data-column="MAmount1">
+                                    مقدار مانده 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMAmount1 }"></i> </span>
+                                </th>
+                                <th data-column="MAmount2">
+                                    مقدار مانده 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMAmount2 }"></i> </span>
+                                </th>
+                                <th data-column="MAmount3">
+                                    مقدار مانده 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMAmount3 }"></i> </span>
+                                </th>
+                                <th data-column="MTotalPrice">
+                                    مبلغ مانده <span data-bind="attr: { class: currentColumn() == 'MTotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMTotalPrice }"></i> </span>
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody data-bind="foreach: currentPageTrzI" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectTrzI , css: { matched: $data === $root.firstMatch() }">
+                                <td data-bind="text: KalaCode"></td>
+                                <td data-bind="text: KalaName" style="width:500px"></td>
+                                <td data-bind="text: InvCode"></td>
+                                <td data-bind="text: InvName"></td>
+                                <!-- <td data-bind="text:KalaFanniNo "></td> -->
+                                <td style="direction: ltr;" data-bind="text: AAmount1 == 0 ? '0' : NumberToNumberString(AAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: AAmount1 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: AAmount2 == 0 ? '0' : NumberToNumberString(AAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: AAmount2 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: AAmount3 == 0 ? '0' : NumberToNumberString(AAmount3.toFixed(KalaDeghat3 % 10)) , style: { color: AAmount3 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: ATotalPrice != null ? NumberToNumberString(parseFloat(ATotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: ATotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: VAmount1 == 0 ? '0' : NumberToNumberString(VAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: VAmount1 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: VAmount2 == 0 ? '0' : NumberToNumberString(VAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: VAmount2 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: VAmount3 == 0 ? '0' : NumberToNumberString(VAmount3.toFixed(KalaDeghat3 % 10)) , style: { color: VAmount3 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: VTotalPrice != null ? NumberToNumberString(parseFloat(VTotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: VTotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: SAmount1 == 0 ? '0' : NumberToNumberString(SAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: SAmount1 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: SAmount2 == 0 ? '0' : NumberToNumberString(SAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: SAmount2 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: SAmount3 == 0 ? '0' : NumberToNumberString(SAmount3.toFixed(KalaDeghat3 % 10)) , style: { color: SAmount3 < 0 ? 'red' : 'black' } "></td>
+                                <td style="direction: ltr;" data-bind="text: STotalPrice != null ? NumberToNumberString(parseFloat(STotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: STotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: MAmount1 == 0 ? '0' : NumberToNumberString(MAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: MAmount1 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: MAmount2 == 0 ? '0' : NumberToNumberString(MAmount2.toFixed(KalaDeghat2 % 10))  , style: { color: MAmount2 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: MAmount3 == 0 ? '0' : NumberToNumberString(MAmount3.toFixed(KalaDeghat3 % 10))  , style: { color: MAmount3 < 0 ? 'red' : 'black' }"></td>
+                                <td style="direction: ltr;" data-bind="text: MTotalPrice != null ? NumberToNumberString(parseFloat(MTotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: MTotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color:#e37d228f;">
+                                <td id="textTotal"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td id="totalAAmount1" style="direction: ltr;"></td>
+                                <td id="totalAAmount2" style="direction: ltr;"></td>
+                                <td id="totalAAmount3" style="direction: ltr;"></td>
+                                <td id="totalATotalPrice" style="direction: ltr;"></td>
+                                <td id="totalVAmount1" style="direction: ltr;"></td>
+                                <td id="totalVAmount2" style="direction: ltr;"></td>
+                                <td id="totalVAmount3" style="direction: ltr;"></td>
+                                <td id="totalVTotalPrice" style="direction: ltr;"></td>
+                                <td id="totalSAmount1" style="direction: ltr;"></td>
+                                <td id="totalSAmount2" style="direction: ltr;"></td>
+                                <td id="totalSAmount3" style="direction: ltr;"></td>
+                                <td id="totalSTotalPrice" style="direction: ltr;"></td>
+                                <td id="totalMAmount1" style="direction: ltr;"></td>
+                                <td id="totalMAmount2" style="direction: ltr;"></td>
+                                <td id="totalMAmount3" style="direction: ltr;"></td>
+                                <td id="totalMTotalPrice" style="direction: ltr;"></td>
+                            </tr>
+
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI2, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI4, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI5, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI6, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI7, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI8, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI9, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI10, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI11, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI12, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI13, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI14, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI15, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI16, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI17, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI18, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI19, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeTrzI" class="selectorange">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                            <label id="sumA"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageTrzI">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageTrzI">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a> <b data-bind="text: currentPageIndexTrzI() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageTrzI">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageTrzI">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-kala" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست کالا ها</h4>
+                <a id="refreshkala">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+
+
+                <!--<a id="refreshkala"><img src="~/Content/img/icon/Refresh_24x24.png" /></a>-->
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped">
+                                <thead style="cursor: pointer;">
+                                    <tr data-bind="click: sortTableKala">
+                                        <th data-column="Code">
+                                            کد کالا
+                                            <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Name">
+                                            نام کالا
+                                            <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="FanniNo">
+                                            شماره فنی
+                                            <span data-bind="attr: { class: currentColumn() == 'FanniNo' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Spec">
+                                            ملاحظات
+                                            <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconType }"></i>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: currentPageKala" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.selectKala }">
+                                        <td data-bind="text: Code"></td>
+                                        <td data-bind="text: Name"></td>
+                                        <td data-bind="text: FanniNo"></td>
+                                        <td data-bind="text: Spec"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background-color: #efb68399;">
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKala0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKala1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKala2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKala3, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-2 centered">
+                        <div class="row centered">
+                            <button data-bind="click: lastPageTrzI" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: nextPageTrzI" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: previousPageTrzI" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: firstPageTrzI" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped" id="TableSelectedKala">
+                                <thead style="cursor: pointer;">
+                                    <tr>
+                                        <th>کد کالا</th>
+                                        <th>نام کالا</th>
+                                        <th>شماره فنی</th>
+                                        <th>ملاحظات</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="cursor: default;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeKala">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+
+                        <a data-bind="click: firstPageKala">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageKala">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexKala() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageKala">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageKala">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                        <!-- <a data-bind="click: firstPageKala"><img src="~/Content/img/icon/last.png" /></a>
+                        <a data-bind="click: previousPageKala"><img src="~/Content/img/icon/play.png" /></a>
+                        <b data-bind="text: currentPageIndexKala() + 1"></b>
+                        <a data-bind="click: nextPageKala"><img src="~/Content/img/icon/play_rev.png" /></a>
+                        <a data-bind="click: lastPageKala"><img src="~/Content/img/icon/first.png" /></a>-->
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#btnaztarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#aztarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        $('#btntatarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#tatarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        //'use strict';
+        $(function () {
+            $('.dd').nestable();
+            $('.dd').on('change', function () {
+                var $this = $(this);
+                var serializedData = window.JSON.stringify($($this).nestable('serialize'));
+                $this.parents('div.body').find('textarea').val(serializedData);
+            });
+        });
+    </script>
+    <script src="~/Scripts/R_AFI_TrzIKala.js"></script>
+}
+

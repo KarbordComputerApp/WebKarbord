@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>کاربرد کامپیوتر</title>
+    <link rel="icon" href="~/Content/new/img/loading.png" type="image/x-icon" />
+    <link href="~/Content/new/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/new/css/materialize.min.css" rel="stylesheet" />
+    <link href="~/Content/new/css/style.css" rel="stylesheet" />
+    <link href="~/Content/new/css/all-themes.css" rel="stylesheet" />
+    <link href="~/Content/new/css/site.css" rel="stylesheet" />
+    <link href="~/Content/new/css/stylelogin.css" rel="stylesheet" />
+    <script type="text/javascript">
+        // window.history.forward();
+        // function noBack() {
+        //      window.history.forward();
+        //  }
+    </script>
+</head>
+<body ondragstart="return false;" ondrop="return false;" onpaste="return false">
+
+    <aside id="leftsidebar" class="sidebar" hidden>
+        <div class="menu">
+            <ul class="list">
+                <li class="sidebar-user-panel active">
+                </li>
+
+            </ul>
+        </div>
+    </aside>
+
+    @RenderBody()
+    <script src="~/Content/new/js/app.min.js"></script>
+    <script src="~/Content/new/js/admin.js"></script>
+    <script src="~/Content/new/js/advanced-form-elements.js"></script>
+    <script src="~/Content/js/knockout-3.5.0.js"></script>
+    <script src="~/Content/js/sweet2.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/PublicAFI.js"></script>
+    <script src="~/Scripts/Login.js"></script>
+    <script src="/Content/new/js/form.min.js"></script>
+    <script type="text/javascript">
+        sessionStorage.urlIndex = '@Url.Action("Index", "Home")';
+        sessionStorage.urlSetting = '@Url.Action("Setting", "Home")';
+    </script>
+</body>
+</html>
+
+
+
+
+
+

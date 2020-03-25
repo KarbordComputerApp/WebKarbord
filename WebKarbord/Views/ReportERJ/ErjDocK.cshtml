@@ -1,0 +1,590 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "ErjDocK";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <!--border: 1px solid #eb8020;-->
+            <div class="header">
+                <strong id="">فهرست پرونده ها</strong>
+            </div>
+            <div class="body" style="padding-left: 15px;padding-right: 15px;">
+                <form class="clearfix">
+                    <div class="row form-inline ">
+                        <div class="col-sm-3 form-inline">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btnaztarikh">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="aztarikh" data-bind="value:AzDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">از تاریخ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btntatarikh">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="tatarikh" data-bind="value:TaDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">تا تاریخ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3"> 
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <a id="btnErjCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjCust">
+                                        <img src="~/Content/img/list/man.png" class="icon" height="20" width="20" />
+                                    </a>
+                                </div>
+                                <div class="form-group form-float" style="margin-left: 250px;">
+                                    <div class="form-line focused fix">
+                                        <input id="nameErjCust" class="form-control" readonly />
+                                        <label class="form-label"> مشتری</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <a id="btnKhdt" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Khdt">
+                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                    </a>
+                                </div>
+                                <div class="form-group form-float" style="margin-left: 250px;">
+                                    <div class="form-line focused fix">
+                                        <input id="nameKhdt" class="form-control" readonly />
+                                        <label class="form-label"> نوع کار</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                <div class="form-group">
+                                    <select id="status" data-bind="
+                                   options: ErjStatusList,
+                                   optionsText: function(item) {return item.Status},
+                                   optionsValue: 'Status',
+                                   optionsCaption: 'همه موارد'"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+
+                        <div class="col-sm-10" id="ViewSrchSt">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="SrchSt" class="form-control string" />
+                                    <label class="form-label active">جستجو برای</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pull-left">
+                            <button type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i>گزارش گیری</button>
+                        </div>
+
+                    </div>
+                </form>
+                <hr />
+                <div style="height:425px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
+                    <table class="table table-hover table-striped">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableDocK">
+                                <th data-column="DocNo">
+                                    شماره پرونده <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
+                                </th>
+                                <th data-column="DocDate" style="width:500px">
+                                    تاريخ پرونده <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocDate }"></i> </span>
+                                </th>
+                                <th data-column="MahramanehName">
+                                    نوع <span data-bind="attr: { class: currentColumn() == 'MahramanehName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMahramanehName }"></i> </span>
+                                </th>
+                                <th data-column="Eghdam">
+                                    اقدام  <span data-bind="attr: { class: currentColumn() == 'Eghdam' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeEghdam }"></i> </span>
+                                </th>
+                                <th data-column="Tanzim">
+                                    تنظيم <span data-bind="attr: { class: currentColumn() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTanzim }"></i> </span>
+                                </th>
+                                <th data-column="AmalDate">
+                                    تاريخ عمل <span data-bind="attr: { class: currentColumn() == 'AmalDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmalDate }"></i> </span>
+                                </th>
+                                <th data-column="MhltDate">
+                                    مهلت پرونده <span data-bind="attr: { class: currentColumn() == 'MhltDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMhltDate }"></i> </span>
+                                </th>
+                                <th data-column="EndDate">
+                                    تاريخ اتمام پرونده<span data-bind="attr: { class: currentColumn() == 'EndDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeEndDate }"></i> </span>
+                                </th>
+                                <th data-column="CustCode">
+                                    کد مشتري  <span data-bind="attr: { class: currentColumn() == 'CustCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustCode }"></i> </span>
+                                </th>
+                                <th data-column="CustName">
+                                    نام مشتري <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
+                                </th>
+                                <th data-column="DocDesc">
+                                    توضيحات عمومي<span data-bind="attr: { class: currentColumn() == 'DocDesc' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocDesc }"></i> </span>
+                                </th>
+                                <th data-column="EghdamComm">
+                                    توضيحات اقدام<span data-bind="attr: { class: currentColumn() == 'EghdamComm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeEghdamComm }"></i> </span>
+                                </th>
+                                <th data-column="FinalComm">
+                                    توضيحات نهايي<span data-bind="attr: { class: currentColumn() == 'FinalComm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeFinalComm }"></i> </span>
+                                </th>
+                                <!-- <th data-column="SpecialComm">
+        توضيحات مديران <span data-bind="attr: { class: currentColumn() == 'SpecialComm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpecialComm }"></i> </span>
+    </th>-->
+                                <th data-column="Status">
+                                    وضعيت <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
+                                </th>
+                                <th data-column="Spec">
+                                    ملاحظات<span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpec }"></i> </span>
+                                </th>
+                                <th data-column="KhdtName">
+                                    نوع کار <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKhdtName }"></i> </span>
+                                </th>
+                                <!--<th data-column="RjTime">
+        زمان صرف شده  <span data-bind="attr: { class: currentColumn() == 'RjTime' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeRjTime }"></i> </span>
+    </th>-->
+                                <th data-column="SerialNumber">
+                                    شماره مبنا  <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
+                                </th>
+                            </tr>
+
+                        </thead>
+                              
+                        <tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectDocK , css: { matched: $data === $root.firstMatch() }">
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: MahramanehName"></td>
+                                <td data-bind="text: Eghdam"></td>
+                                <td data-bind="text: Tanzim"></td>
+                                <td data-bind="text: AmalDate"></td>
+                                <td data-bind="text: MhltDate"></td>
+                                <td data-bind="text: EndDate"></td>
+                                <td data-bind="text: CustCode"></td>
+                                <td data-bind="text: CustName"></td>
+                                <td data-bind="text: DocDesc"></td>
+                                <td data-bind="text: EghdamComm"></td>
+                                <td data-bind="text: FinalComm"></td>
+                                <!-- <td data-bind="text: SpecialComm"></td>-->
+                                <td data-bind="text: Status"></td>
+                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: KhdtName"></td>
+                                <!-- <td data-bind="text: RjTime"></td>-->
+                                <td data-bind="text: SerialNumber"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK10, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK11, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK12, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterDocK13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+     --> 
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK14, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK15, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK16, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK17, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocK18, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeDocK" class="selectorange">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select> 
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                            <label id="sumA"></label>
+                        </div> 
+                    </div>
+
+
+                    <div class="col-md-4" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageDocK">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageDocK">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a> <b data-bind="text: currentPageIndexDocK() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageDocK">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageDocK">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-ErjCust" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست مشتریان</h4>
+                <a id="refreshErjCust">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+
+
+                <!--<a id="refreshErjCust"><img src="~/Content/img/icon/Refresh_24x24.png" /></a>-->
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped" id="TableErjCust">
+                                <thead style="cursor: pointer;">
+                                    <tr data-bind="click: sortTableErjCust">
+                                        <th data-column="Code">
+                                            کد مشتری
+                                            <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeCode }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Name">
+                                            نام مشتری
+                                            <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeName }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Spec">
+                                            ملاحظات
+                                            <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: currentPageErjCust" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.AddErjCust }">
+                                        <td data-bind="text: Code"></td>
+                                        <td data-bind="text: Name"></td>
+                                        <td data-bind="text: Spec"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background-color: #efb68399;">
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterErjCust0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterErjCust1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterErjCust2, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-2 centered">
+                        <div class="row centered">
+                            <button data-bind="click: AddAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: AddAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: DelErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: DelAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped" id="TableListErjCust">
+                                <thead style="cursor: pointer;">
+                                    <tr>
+                                        <th>کد شخص</th>
+                                        <th>نام شخص</th>
+                                        <th>ملاحظات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="TableBodyListErjCust" style="cursor: default;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeErjCust">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+
+                        <a data-bind="click: firstPageErjCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageErjCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexErjCust() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageErjCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageErjCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                        <!-- <a data-bind="click: firstPageErjCust"><img src="~/Content/img/icon/last.png" /></a>
+                        <a data-bind="click: previousPageErjCust"><img src="~/Content/img/icon/play.png" /></a>
+                        <b data-bind="text: currentPageIndexErjCust() + 1"></b>
+                        <a data-bind="click: nextPageErjCust"><img src="~/Content/img/icon/play_rev.png" /></a>
+                        <a data-bind="click: lastPageErjCust"><img src="~/Content/img/icon/first.png" /></a>-->
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Khdt" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">نوع کار</h4>
+                <a id="refreshKhdt">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped">
+                                <thead style="cursor: pointer;">
+                                    <tr data-bind="click: sortTableKhdt">
+                                        <th data-column="Code">
+                                            کد
+                                            <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeCode }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Name">
+                                            نام
+                                            <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeName }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Spec">
+                                            ملاحظات
+                                            <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: currentPageKhdt" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.selectKhdt }">
+                                        <td data-bind="text: Code"></td>
+                                        <td data-bind="text: Name"></td>
+                                        <td data-bind="text: Spec"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background-color: #efb68399;">
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKhdt0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKhdt1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKhdt2, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-2 centered">
+                        <div class="row centered">
+                            <button data-bind="click: lastPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: nextPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: previousPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: firstPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped" id="TableSelectedKhdt">
+                                <thead style="cursor: pointer;">
+                                    <tr>
+                                        <th>کد </th>
+                                        <th>نام </th>
+                                        <th>ملاحظات</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="cursor: default;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeKhdt">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+
+                        <a data-bind="click: firstPageKhdt">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageKhdt">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexKhdt() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageKhdt">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageKhdt">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#btnaztarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#aztarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        $('#btntatarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#tatarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        //'use strict';
+        $(function () {
+            $('.dd').nestable();
+            $('.dd').on('change', function () {
+                var $this = $(this);
+                var serializedData = window.JSON.stringify($($this).nestable('serialize'));
+                $this.parents('div.body').find('textarea').val(serializedData);
+            });
+        });
+    </script>
+    <script src="~/Scripts/R_ERJ_ErjDocK.js"></script>
+}
+

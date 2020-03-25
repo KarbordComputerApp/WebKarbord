@@ -1,0 +1,272 @@
+﻿@using WebKarbord.Controllers.Unit;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2><strong>لیست <b id="TitleListAnbar"></b></strong></h2>
+                <div class="row header-dropdown m-r--5">
+                    <a id="refreshIdocH" class="">
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                    </a>
+                    <a id="AddNewSanadAnbar" class="">
+                        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="24" height="24" />
+                    </a>
+                </div>
+            </div>
+            <br />
+            <div class="body">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="form-inline">
+                            <label>انبار</label>
+                            <div class="col-md-10" style="text-align: center;">
+                                <select id="invSelect" data-bind="options: InvList,
+                                       optionsText: function(item) {return item.Name},
+                                       optionsValue: 'Code',
+                                       value: InvCode,
+                                       optionsCaption: OptionsCaptionAnbar(),
+                                       event:{ change: $root.PageCountView}"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                   <!-- <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input data-bind="value: filterIDocH, valueUpdate: 'afterkeydown'" id="searchIDocH" class="form-control" />
+                                    <label class="form-label">عنوان جستجو را وارد کنید</label>
+                                </div>
+                                <div class="help-info"><label id="allSearchIDocHText">جستجو بر اساس همه موارد</label></div>
+                            </div>
+                            <div class="input-group-addon">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" id="allSearchIDocH" type="checkbox" value="" checked>
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+                <br />
+
+                <div style="height:465px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableIDocH">
+                                <th data-column="SortDocNo">
+                                    شماره سند
+                                    <span data-bind="attr: { class: currentColumn() == 'SortDocNo' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeDocNo }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="DocDate">
+                                    تاریخ سند
+                                    <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeDocDate }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="InvName">
+                                    نام انبار
+                                    <span data-bind="attr: { class: currentColumn() == 'InvName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeInvName }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="thvlname">
+                                    <span id="Titlethvlname">نام تحویل</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'thvlname' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypethvlname }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="ModeName">
+                                    نوع
+                                    <span data-bind="attr: { class: currentColumn() == 'ModeName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeModeName }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="Spec">
+                                    ملاحظات
+                                    <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="Status">
+                                    وضعیت
+                                    <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeStatus }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="Eghdam">
+                                    اقدام
+                                    <span data-bind="attr: { class: currentColumn() == 'Eghdam' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeEghdam }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Tanzim">
+                                    تنظیم
+                                    <span data-bind="attr: { class: currentColumn() == 'Tanzim' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeTanzim }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Taeed">
+                                    تایید
+                                    <span data-bind="attr: { class: currentColumn() == 'Taeed' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeTaeed }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="SerialNumber">
+                                    شماره مبنا
+                                    <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSerialNumber }"></i>
+                                    </span>
+                                </th>
+                                <!--   <th data-column="SerialNumber">
+                شماره مبنای سند حسابداری
+                <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="SerialNumber">
+                سند حسابداری
+                <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="SerialNumber">
+                شماره مبنای سند خرید و فروش
+                <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="SerialNumber">
+                سند خرید و فروش
+                <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>-->
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind=" css: { matched: $data === $root.firstMatch() } ">
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: InvName"></td>
+                                <td data-bind="text: thvlname"></td>
+                                <td data-bind="text: ModeName"></td>
+                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Status"></td>
+                                <td data-bind="text: Eghdam"></td>
+                                <td data-bind="text: Tanzim"></td>
+                                <td><span data-bind="text: Taeed , css:(Taeed == null || Taeed == ''  ? '' : 'TaeedView' ) "></span> </td>
+                                <td data-bind="text: SerialNumber"></td>
+                                <td style="width:80px;">
+                                    <a id="UpdateSanadAnbar" data-bind="click: $root.UpdateHeader">
+                                        <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px" />
+                                    </a>
+                                    <a id="DeleteSanadAnbar" data-bind="click: $root.DeleteIDocH ,  visible: $root.ShowAction(Eghdam)">
+                                        <img src="~/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocH10, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeIDocH">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageIDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageIDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexIDocH() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageIDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageIDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-inline pull-left">
+                            <label>تعداد کل رکورد ها</label>
+                            <label id="countAllRecord" style="margin: 5px; margin-left: 20px;"></label>
+
+                            <label>نمایش</label>
+                            <div>
+                                <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
+                                    <option value="0">100 رکورد آخر</option>
+                                    <option value="3">تمام رکوردها</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        sessionStorage.urlIDocH = '@Url.Action("AddIdoc", "AFISanadAnbar")';
+    </script>
+    <script src="~/Scripts/AFIIndexSanadAnbar.js"></script>
+}
+
+

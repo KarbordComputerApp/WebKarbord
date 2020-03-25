@@ -1,0 +1,1 @@
+"use strict"; function initLoading() { $('[data-toggle="cardloading"]').on("click", function () { var t = $(this).data("loadingEffect"), i = $(this).parents(".card").waitMe({ effect: t, text: "بارگذاری...", bg: "rgba(255,255,255,0.90)", color: "#555" }); setTimeout(function () { i.waitMe("hide") }, 3200) }) } $(function () { initLoading() });

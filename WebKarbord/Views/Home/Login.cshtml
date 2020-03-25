@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "ورود";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-6 PanelLeftLogin d-none d-lg-block">
+        <div class="row" style="text-align:center;">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                </div>
+
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                    <img src="~/Content/img/Login/LogoLogin.png" style="padding: 35% 20% 0% 20%;" />
+                    <div  style="padding: 35% 20% 0% 20%;"  >
+                        <p style="color: #fefefe;">کلیه حقوق این نرم افزار متعلق به شرکت مهندسی کاربرد
+                        کامپیوتر بوده و هر گونه نسخه برداری پیگرد قانونی دارد</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " id="datalogin">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-3 col-sm-2 col-xs-2">
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-8 col-xs-8">
+
+                <div class="login-form" style="direction:rtl; padding-top: 100%">
+                    <!--padding: 40% 30% 0% 30%;-->
+                    <div class="col-sm-12">
+                        <div class="form-group form-float ">
+                            <div class="form-line focused fix">
+                                <input type="text" id="user" class="form-control" style="border-bottom: 1px solid #ec8121;text-indent: 30px;direction: rtl; color: #f3f4f3;" placeholder="نام کاربری" />
+                                <img class="form-label" src="~/Content/img/Login/streamline-icon-single-man@48x48.png" width="16" height="16" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line focused fix">
+                                <input type="password" id="pass" class="form-control" style="border-bottom: 1px solid #ec8121;text-indent: 30px;direction: rtl; color: #f3f4f3;" placeholder="کلمه عبور" />
+                                <img class="form-label" src="~/Content/img/Login/streamline-icon-lock-5@48x48.png" width="16" height="16" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div class="form-group btn-container">
+                        <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginUser" id="Login" style="background-color: #eb8121 !important;">ورود</button>
+                    </div>
+
+                    <div class="form-group" style="padding-top:100px;text-align: center;">
+
+                        <a class="col-md-12" data-toggle="modal" data-target="#modal-service" style="color: #fdfdfd;">
+
+                            <img src="~/Content/img/Login/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
+                            تنظیمات اتصال به وب
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modalTwo modal modal-info fade" id="modal-service">
+    <div class="modal-dialog" style="width: 400px;">
+        <div class="modal-content" style="background-color: #ededef;">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <h5 class="" style="text-align: center; padding: 25px;">تنظیمات اتصال به وب</h5>
+                </div>
+                <br />
+                <br />
+                <div class="col-sm-12">
+                    <div class="form-group form-float" style="  border: 1px solid white;
+                                                                border-radius: 10px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                        <div class="form-line">
+                            <input type="text" id="userAccount" class="form-control login" style="border-bottom: 1px solid #ec8121;text-indent: 30px;direction: rtl;" placeholder="نام مجوز ورود" />
+                            <img class="form-label" src="~/Content/img/Login/streamline-icon-single-man@48x48.png" width="16" height="16" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group form-float" style="  border: 1px solid white;
+                                                                border-radius: 10px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                        <div class="form-line">
+                            <input type="password" id="passAccount" class="form-control login" style="border-bottom: 1px solid #ec8121;text-indent: 30px;direction: rtl;" placeholder="کلمه عبور" />
+                            <img class="form-label" src="~/Content/img/Login/streamline-icon-lock-5@48x48.png" width="16" height="16" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-group btn-container" style="padding: 20px;">
+                    <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginAccount" id="ConnectAccount" style="background-color: #eb8121 !important; margin-left:0px;">اتصال</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<section class="material-half-bg">
+    <div class="cover"></div>
+</section>
+<section class="login-content">
+    <div class="login-box">
+        <div class="login-form">
+            <h3 class="login-head"> <i class="fa fa-lg fa-fw fa-user"></i>ورود</h3>
+            <button type="button" class="btn btn-primary btn-block col-md-12" data-toggle="modal" data-target="#modal-service">مشخصات سرویس</button>
+            <br />
+            <br />
+            <div class="form-group">
+                <label class="control-label">نام کاربری</label>
+                <input type="text" id="user" class="form-control login" placeholder="نام کاربری" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">کلمه عبور</label>
+                <input type="password" id="pass" class="form-control login" placeholder="کلمه عبور" />
+            </div>
+            <div class="form-group btn-container">
+                <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginUser" id="Login"><i class="fa fa-sign-in fa-lg fa-fw"></i>ورود</button>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="main-footer text-center">
+    <strong>  </strong>
+</footer>
+
+
+<div class="modalTwo modal modal-info fade" id="modal-service">
+    <div class="modal-dialog" style="width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">مشخصات سرویس</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">نام کاربری</label>
+                    <input type="text" id="userAccount" class="form-control login" placeholder="نام کاربری" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">کلمه عبور</label>
+                    <input type="password" id="passAccount" class="form-control login" placeholder="کلمه عبور" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-group btn-container">
+                    <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginAccount" id="ConnectAccount"><i class="fa fa-sign-in fa-lg fa-fw"></i>اتصال</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>-->
