@@ -53,7 +53,7 @@
                         </div>
 
 
-                        <div class="col-sm-3"> 
+                        <div class="col-sm-3">
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnErjCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjCust">
@@ -164,8 +164,8 @@
                                     توضيحات نهايي<span data-bind="attr: { class: currentColumn() == 'FinalComm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeFinalComm }"></i> </span>
                                 </th>
                                 <!-- <th data-column="SpecialComm">
-        توضيحات مديران <span data-bind="attr: { class: currentColumn() == 'SpecialComm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpecialComm }"></i> </span>
-    </th>-->
+                                    توضيحات مديران <span data-bind="attr: { class: currentColumn() == 'SpecialComm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpecialComm }"></i> </span>
+                                </th>-->
                                 <th data-column="Status">
                                     وضعيت <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
                                 </th>
@@ -176,15 +176,15 @@
                                     نوع کار <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKhdtName }"></i> </span>
                                 </th>
                                 <!--<th data-column="RjTime">
-        زمان صرف شده  <span data-bind="attr: { class: currentColumn() == 'RjTime' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeRjTime }"></i> </span>
-    </th>-->
+                                    زمان صرف شده  <span data-bind="attr: { class: currentColumn() == 'RjTime' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeRjTime }"></i> </span>
+                                </th>-->
                                 <th data-column="SerialNumber">
                                     شماره مبنا  <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
                                 </th>
                             </tr>
 
                         </thead>
-                              
+
                         <tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectDocK , css: { matched: $data === $root.firstMatch() }">
                                 <td data-bind="text: DocNo"></td>
@@ -224,7 +224,7 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocK11, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocK12, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterDocK13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-     --> 
+                                -->
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocK14, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocK15, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocK16, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
@@ -253,11 +253,11 @@
                                     <option value="80">80</option>
                                     <option value="90">90</option>
                                     <option value="100">100</option>
-                                </select> 
+                                </select>
                             </div>
                             <label>رکورد در هر صفحه</label>
                             <label id="sumA"></label>
-                        </div> 
+                        </div>
                     </div>
 
 
@@ -343,16 +343,16 @@
                     </div>
                     <div class="col-md-2 centered">
                         <div class="row centered">
-                            <button data-bind="click: AddAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                            <button data-bind="click: AddAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </button>
-                            <button data-bind="click: AddAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
-                            </button>
-                            <button data-bind="click: DelErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
-                            </button>
-                            <button data-bind="click: DelAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                            <!--<button data-bind="click: AddAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+        <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
+    </button>-->
+                            <!--<button data-bind="click: DelErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+        <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
+    </button>-->
+                            <button data-bind="click: DelAllErjCust" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </button>
                         </div>
@@ -466,7 +466,7 @@
                                     </tr>
                                 </thead>
                                 <tbody data-bind="foreach: currentPageKhdt" style="cursor: default;">
-                                    <tr data-bind=" event: { dblclick: $parent.selectKhdt }">
+                                    <tr data-bind=" event: { dblclick: $parent.AddKhdt }">
                                         <td data-bind="text: Code"></td>
                                         <td data-bind="text: Name"></td>
                                         <td data-bind="text: Spec"></td>
@@ -484,23 +484,24 @@
                     </div>
                     <div class="col-md-2 centered">
                         <div class="row centered">
-                            <button data-bind="click: lastPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+
+                            <button data-bind="click: AddAllKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </button>
-                            <button data-bind="click: nextPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
-                            </button>
-                            <button data-bind="click: previousPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
-                            </button>
-                            <button data-bind="click: firstPageKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+                            <!--<button data-bind="click: AddAllKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+        <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" />
+    </button>-->
+                            <!--<button data-bind="click: DelKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 10px 30px 30px 10px">
+        <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" />
+    </button>-->
+                            <button data-bind="click: DelAllKhdt" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </button>
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-md-5">
                         <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table table-hover table-striped" id="TableSelectedKhdt">
+                            <table class="table table-hover table-striped" id="TableListKhdt">
                                 <thead style="cursor: pointer;">
                                     <tr>
                                         <th>کد </th>
@@ -508,7 +509,7 @@
                                         <th>ملاحظات</th>
                                     </tr>
                                 </thead>
-                                <tbody style="cursor: default;"></tbody>
+                                <tbody id="TableBodyListKhdt" style="cursor: default;"></tbody>
                             </table>
                         </div>
                     </div>

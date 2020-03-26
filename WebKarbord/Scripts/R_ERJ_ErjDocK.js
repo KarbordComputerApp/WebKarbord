@@ -565,17 +565,20 @@
         }
     };
 
-    self.DelErjCust = function () {
-        ///$("#TableSelectedErjCust td").parent().remove();
-        var table = document.getElementById("TableListErjCust");
-        table.deleteRow(1);
-    };
-
     self.DelAllErjCust = function () {
         list_ErjCustSelect = new Array();
         counterErjCust = 0;
         $("#TableBodyListErjCust").empty();
     };
+
+
+   /* self.DelErjCust = function () {
+        ///$("#TableSelectedErjCust td").parent().remove();
+        var table = document.getElementById("TableListErjCust");
+        table.deleteRow(1);
+    };*/
+
+
 
     $('#modal-ErjCust').on('hide.bs.modal', function () {
         if (counterErjCust > 0)
@@ -589,11 +592,11 @@
     });
 
 
-    self.delErjCust = function () {
-        $(this).closest("tr").remove();
+   // self.delErjCust = function () {
+    //    $(this).closest("tr").remove();
         //$('#nameErjCust').val('(' + item.Code + ') ' + item.Name);
         //$('.fix').attr('class', 'form-line date focused fix');
-    };
+   // };
 
     $('#refreshErjCust').click(function () {
         Swal.fire({
@@ -704,7 +707,7 @@
     };
 
 
-    self.selectKhdt = function (item) {
+    self.AddKhdt = function (item) {
         KhdtCode = item.Code;
         find = false;
         list_KhdtSelect.forEach(function (item, key) {
@@ -717,8 +720,8 @@
             counterKhdt = counterKhdt + 1;
             list_KhdtSelect[counterKhdt] = item.Code;
 
-            $('#TableSelectedKhdt').append(
-                '<tr data-bind=" event: { dblclick: delselectKhdt }">'
+            $('#TableListKhdt').append( 
+                '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
@@ -729,6 +732,29 @@
         //$('.fix').attr('class', 'form-line date focused fix');
     };
 
+
+    self.AddAllKhdt = function () {
+        list_KhdtSelect = new Array();
+        list = self.KhdtList();
+        $("#TableBodyListKhdt").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableListKhdt').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
+                + '</tr>'
+            );
+            list_KhdtSelect[i] = list[i].Code;
+            counterKhdt = i + 1;
+        }
+    };
+
+    self.DelAllKhdt = function () {
+        list_KhdtSelect = new Array();
+        counterKhdt = 0;
+        $("#TableBodyListKhdt").empty();
+    };
 
 
     $('#modal-Khdt').on('hide.bs.modal', function () {
