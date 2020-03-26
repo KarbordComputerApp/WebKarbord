@@ -13,5 +13,11 @@ namespace WebKarbord.Controllers.ERJ
         {
             return View();
         }
+
+        // GET: ReportERJ
+        public ActionResult ErjDocB_Last()
+        {
+            return View();
+        }
     }
 }

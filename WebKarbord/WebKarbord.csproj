@@ -410,6 +410,7 @@
     <Content Include="Views\ReportAFI\TrzIKala.cshtml" />
     <Content Include="Views\Home\Setting.cshtml" />
     <Content Include="Views\ReportERJ\ErjDocK.cshtml" />
+    <Content Include="Views\ReportERJ\ErjDocB_Last.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
