@@ -333,79 +333,6 @@
     };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     self.currentPageErjCust = ko.observable();
     self.pageSizeErjCust = ko.observable(10);
     self.currentPageIndexErjCust = ko.observable(0);
@@ -416,19 +343,15 @@
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
 
-
     self.filterErjCust0 = ko.observable("");
     self.filterErjCust1 = ko.observable("");
     self.filterErjCust2 = ko.observable("");
 
-
     self.filterErjCustList = ko.computed(function () {
-
         self.currentPageIndexErjCust(0);
         var filter0 = self.filterErjCust0().toUpperCase();
         var filter1 = self.filterErjCust1().toUpperCase();
         var filter2 = self.filterErjCust2().toUpperCase();
-
 
         if (!filter0 && !filter1 && !filter2) {
             return self.ErjCustList();
@@ -443,7 +366,6 @@
             return tempData;
         }
     });
-
 
     self.currentPageErjCust = ko.computed(function () {
         var pageSizeErjCust = parseInt(self.pageSizeErjCust(), 10),
@@ -501,27 +423,6 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-
-
-   // self.SelectErjCustList = function (item) {
-      //  alert(document.getElementById("TableSelectedErjCust").rows.item(0).innerHTML);
-    //};
-
-    //function highlight(e) {
-    //    if (selected[0]) selected[0].className = '';
-    //    e.target.parentNode.className = 'selected';
-    //}
-
-   // var tableErjCust = document.getElementById('TableErjCust'),
-    //    selected = tableErjCust.getElementsByClassName('selected');
-    //tableErjCust.onclick = highlight;
-
-    // var tableListErjCust = document.getElementById('TableListErjCust'),
-   //     selected = tableListErjCust.getElementsByClassName('selected');
-    //tableListErjCust.onclick = highlight;
-
-
-
     self.AddErjCust = function (item) {
         ErjCustCode = item.Code;
         find = false;
@@ -543,8 +444,6 @@
                 + '</tr>'
             );
         }
-        //$('#nameErjCust').val('(' + item.Code + ') ' + item.Name);
-        //$('.fix').attr('class', 'form-line date focused fix');
     };
 
 
@@ -572,14 +471,6 @@
     };
 
 
-   /* self.DelErjCust = function () {
-        ///$("#TableSelectedErjCust td").parent().remove();
-        var table = document.getElementById("TableListErjCust");
-        table.deleteRow(1);
-    };*/
-
-
-
     $('#modal-ErjCust').on('hide.bs.modal', function () {
         if (counterErjCust > 0)
             $('#nameErjCust').val(counterErjCust + ' مورد انتخاب شده ')
@@ -591,12 +482,6 @@
             $('.fix').attr('class', 'form-line focused fix');
     });
 
-
-   // self.delErjCust = function () {
-    //    $(this).closest("tr").remove();
-        //$('#nameErjCust').val('(' + item.Code + ') ' + item.Name);
-        //$('.fix').attr('class', 'form-line date focused fix');
-   // };
 
     $('#refreshErjCust').click(function () {
         Swal.fire({
@@ -633,7 +518,6 @@
         var filter0 = self.filterKhdt0().toUpperCase();
         var filter1 = self.filterKhdt1().toUpperCase();
         var filter2 = self.filterKhdt2().toUpperCase();
-
 
         if (!filter0 && !filter1 && !filter2) {
             return self.KhdtList();
@@ -728,8 +612,6 @@
                 + '</tr>'
             );
         }
-        //$('#nameKhdt').val('(' + item.Code + ') ' + item.Name);
-        //$('.fix').attr('class', 'form-line date focused fix');
     };
 
 
@@ -771,8 +653,6 @@
 
     self.delselectKhdt = function () {
         $(this).closest("tr").remove();
-        //$('#nameKhdt').val('(' + item.Code + ') ' + item.Name);
-        //$('.fix').attr('class', 'form-line date focused fix');
     };
 
     $('#refreshKhdt').click(function () {
@@ -794,9 +674,6 @@
             }
         })
     })
-
-
-
 
     $('.fix').attr('class', 'form-line date focused fix');
 

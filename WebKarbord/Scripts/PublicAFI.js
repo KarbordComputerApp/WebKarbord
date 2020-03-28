@@ -114,6 +114,8 @@ erjaccess = [false, false]
 if (CheckGroupErj(sessionStorage.group) == true) {
     for (var i = 0; i < 2; i++) {
         erjAccessApi[i] == 'ErjDocK' ? erjaccess[1] = true : null;
+        erjAccessApi[i] == 'ErjDocK' ? erjaccess[2] = true : null;
+
     }
 }
 
@@ -1129,11 +1131,3 @@ $.fn.inputFilter = function (inputFilter) {
         }
     });
 };
-
-
-
-
-
-
-
-

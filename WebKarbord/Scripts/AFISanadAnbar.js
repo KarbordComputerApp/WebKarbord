@@ -829,30 +829,6 @@
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
 
-
-    /* self.filterThvl = ko.observable("");
-    self.filterThvlList = ko.computed(function () {
-        self.currentPageIndexThvl(0);
-        var filter = self.filterThvl().toLowerCase();
-        if (!filter) {
-            return self.ThvlList();
-        } else {
-            return ko.utils.arrayFilter(self.ThvlList(), function (item) {
-                if ($("#allSearchThvl").is(':checked')) {
-                    result = ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter) || ko.utils.stringStartsWith(item.Name.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Spec.toLowerCase(), filter)
-                    //(item.Code.toLowerCase().search(filter) >= 0 || item.Name.toLowerCase().search(filter) >= 0 || item.Spec.toLowerCase().search(filter) >= 0)
-                    return result;
-                }
-                else {
-                    result = ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter);//    (item.Code.toLowerCase().search(filter) >= 0);
-                    //return ko.utils.stringStartsWith(item.Name().toLowerCase(), filter);
-                    return result;
-                }
-            });
-        }
-    });*/
-
-
     self.filterThvl0 = ko.observable("");
     self.filterThvl1 = ko.observable("");
     self.filterThvl2 = ko.observable("");
@@ -893,18 +869,12 @@
         if (((self.currentPageIndexThvl() + 1) * self.pageSizeThvl()) < self.filterThvlList().length) {
             self.currentPageIndexThvl(self.currentPageIndexThvl() + 1);
         }
-        //else {
-        //   self.currentPageIndexThvl(0);
-        //}
     };
 
     self.previousPageThvl = function () {
         if (self.currentPageIndexThvl() > 0) {
             self.currentPageIndexThvl(self.currentPageIndexThvl() - 1);
         }
-        // else {
-        //     self.currentPageIndexThvl((Math.ceil(self.filterThvlList().length / self.pageSizeThvl())) - 1);
-        // }
     };
 
     self.firstPageThvl = function () {
@@ -941,28 +911,6 @@
         if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
-
-
-
-    /*self.filterKala = ko.observable("");
-    self.filterKalaList = ko.computed(function () {
-        self.currentPageIndexKala(0);
-        var filter = self.filterKala().toLowerCase();
-        if (!filter) {
-            return self.KalaList();
-        } else {
-            return ko.utils.arrayFilter(self.KalaList(), function (item) {
-                if ($("#allSearchKala").is(':checked')) {
-                    result = ko.utils.stringStartsWith(item.Code.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Name.toLowerCase(), filter) || ko.utils.stringStartsWith(item.FanniNo.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Spec.toLowerCase(), filter)
-                    return result;
-                }
-                else {
-                    result = ko.utils.stringStartsWith(item.Code.toLowerCase(), filter);//    (item.Code.toLowerCase().search(filter) >= 0);
-                    return result;
-                }
-            });
-        }
-    });*/
 
     self.filterKala0 = ko.observable("");
     self.filterKala1 = ko.observable("");
@@ -1003,18 +951,12 @@
         if (((self.currentPageIndexKala() + 1) * self.pageSizeKala()) < self.filterKalaList().length) {
             self.currentPageIndexKala(self.currentPageIndexKala() + 1);
         }
-        //else {
-        //    self.currentPageIndexKala(0);
-        //}
     };
 
     self.previousPageKala = function () {
         if (self.currentPageIndexKala() > 0) {
             self.currentPageIndexKala(self.currentPageIndexKala() - 1);
         }
-        //else {
-        //    self.currentPageIndexKala((Math.ceil(self.filterKalaList().length / self.pageSizeKala())) - 1);
-        //}
     };
 
     self.firstPageKala = function () {
