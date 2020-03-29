@@ -1,4 +1,4 @@
-﻿var ViewModel = function() {
+﻿var ViewModel = function () {
     var self = this;
     var ace = sessionStorage.ace;
     var sal = sessionStorage.sal;
@@ -20,8 +20,8 @@
     var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس ارجاع شونده / دهنده
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
-    var DocB_LastUri = server + '/api/Web_Data/ErjDocB_Last/'; // آدرس گزارش
-    var DocB_LastCountUri = server + '/api/Web_Data/ErjDocB_LastCount/'; // تعداد رکورد های گزارش
+    var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
+    var DocB_LastCountUri = server + '/api/Web_Data/Web_ErjDocB_LastCount/'; // تعداد رکورد های گزارش
 
     self.AzDocDate = ko.observable('');
     self.TaDocDate = ko.observable('');
@@ -44,28 +44,30 @@
 
     //Get ErjCust List
     function getErjCustList() {
-        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function(data) {
+        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.ErjCustList(data);
         });
     }
 
     //Get Khdt List
     function getKhdtList() {
-        ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function(data) {
+        ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.KhdtList(data);
         });
     }
 
     //Get ErjUsers List
     function getErjUsersList() {
-        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function(data) {
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.ErjUsersList(data);
+            $('#ToUser').val(sessionStorage.userName);
+            $('#FromUser').val(''); 
         });
     }
 
     //Get ErjStatus List
     function getErjStatusList() {
-        ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function(data) {
+        ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.ErjStatusList(data);
         });
     }
@@ -104,7 +106,7 @@
             if (i == 2) {
                 opt.value = i;
                 opt.innerHTML = 'کليه ارجاعات اصلی';
-            } 
+            }
             if (i == 3) {
                 opt.value = i;
                 opt.innerHTML = 'کليه رونوشتها';
@@ -163,7 +165,7 @@
         SrchSt = $("#SrchSt").val();
         if (SrchSt == null) SrchSt = "";
 
-       
+
 
         var ErjCust = '';
         for (var i = 1; i <= counterErjCust; i++) {
@@ -192,50 +194,193 @@
             taRjDate: TaRjDate,
             azMhltDate: AzMhltDate,
             taMhltDate: TaMhltDate,
-            Status: Status,
-            CustCode: ErjCust,
-            KhdtCode: Khdt,
-            SrchSt: SrchSt,
+            status: Status,
+            custCode: ErjCust,
+            khdtCode: Khdt,
+            srchSt: SrchSt,
         };
-        ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject).done(function(response) {
+        ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject).done(function (response) {
             self.DocB_LastList(response);
         });
     }
 
 
-    $("#CreateReport").click(function() {
+    $("#CreateReport").click(function () {
         getDocB_Last();
     });
 
 
 
 
+    $('#nameErjCust').val('همه موارد');
+    $('#nameKhdt').val('همه موارد');
+
+
+    self.currentPageDocB_Last = ko.observable();
+    self.pageSizeDocB_Last = ko.observable(10);
+    self.currentPageIndexDocB_Last = ko.observable(0);
+    self.sortType = "ascending";
+    self.currentColumn = ko.observable("");
+    self.iconType = ko.observable("");
+
+    self.filterDocB_Last0 = ko.observable("");
+    self.filterDocB_Last1 = ko.observable("");
+    self.filterDocB_Last2 = ko.observable("");
+    self.filterDocB_Last3 = ko.observable("");
+    self.filterDocB_Last4 = ko.observable("");
+    self.filterDocB_Last5 = ko.observable("");
+    self.filterDocB_Last6 = ko.observable("");
+    self.filterDocB_Last7 = ko.observable("");
+    self.filterDocB_Last8 = ko.observable("");
+    self.filterDocB_Last9 = ko.observable("");
+
+
+    self.filterDocB_LastList = ko.computed(function () {
+
+        self.currentPageIndexDocB_Last(0);
+        var filter0 = self.filterDocB_Last0().toUpperCase();
+        var filter1 = self.filterDocB_Last1().toUpperCase();
+        var filter2 = self.filterDocB_Last2().toUpperCase();
+        var filter3 = self.filterDocB_Last3().toUpperCase();
+        var filter4 = self.filterDocB_Last4().toUpperCase();
+        var filter5 = self.filterDocB_Last5().toUpperCase();
+        var filter6 = self.filterDocB_Last6().toUpperCase();
+        var filter7 = self.filterDocB_Last7().toUpperCase();
+        var filter8 = self.filterDocB_Last8().toUpperCase();
+        var filter9 = self.filterDocB_Last9().toUpperCase();
+
+
+        tempData = ko.utils.arrayFilter(self.DocB_LastList(), function (item) {
+            result =
+                (item.RjStatus == null ? '' : item.RjStatus.toString().search(filter0) >= 0) &&
+            (item.RjDate == null ? '' : item.RjDate.toString().search(filter1) >= 0) &&
+            (item.RjMhltDate == null ? '' : item.RjMhltDate.toString().search(filter2) >= 0) &&
+            (item.CustName == null ? '' : item.CustName.toString().search(filter3) >= 0) &&
+            (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter4) >= 0) &&
+            (item.FromUserName == null ? '' : item.FromUserName.toString().search(filter5) >= 0) &&
+            (item.Spec == null ? '' : item.Spec.toString().search(filter6) >= 0) &&
+            (item.Status == null ? '' : item.Status.toString().search(filter7) >= 0) &&
+            (item.DocNo == null ? '' : item.DocNo.toString().search(filter8) >= 0) &&
+            (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter9) >= 0)
+            return result;
+        })
+        return tempData;
+    });
+
+    self.search = ko.observable("");
+    self.search(sessionStorage.searchDocB_Last);
+    self.firstMatch = ko.dependentObservable(function () {
+        var indexDocB_Last = 0;
+        sessionStorage.searchDocB_Last = "";
+        var search = self.search();
+        if (!search) {
+            self.currentPageIndexDocB_Last(0);
+            return null;
+        } else {
+            value = ko.utils.arrayFirst(self.DocB_LastList(), function (item) {
+                indexDocB_Last += 1;
+                return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
+            });
+            if (indexDocB_Last < self.pageSizeDocB_Last())
+                self.currentPageIndexDocB_Last(0);
+            else {
+                var a = Math.round((indexDocB_Last / self.pageSizeDocB_Last()), 0);
+                if (a < (indexDocB_Last / self.pageSizeDocB_Last())) a += 1;
+                self.currentPageIndexDocB_Last(a - 1);
+            }
+            return value;
+        }
+    });
+
+
+    self.currentPageDocB_Last = ko.computed(function () {
+        var pageSizeDocB_Last = parseInt(self.pageSizeDocB_Last(), 10),
+            startIndex = pageSizeDocB_Last * self.currentPageIndexDocB_Last(),
+            endIndex = startIndex + pageSizeDocB_Last;
+        return self.filterDocB_LastList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageDocB_Last = function () {
+        if (((self.currentPageIndexDocB_Last() + 1) * self.pageSizeDocB_Last()) < self.filterDocB_LastList().length) {
+            self.currentPageIndexDocB_Last(self.currentPageIndexDocB_Last() + 1);
+        }
+    };
+
+    self.previousPageDocB_Last = function () {
+        if (self.currentPageIndexDocB_Last() > 0) {
+            self.currentPageIndexDocB_Last(self.currentPageIndexDocB_Last() - 1);
+        }
+    };
+
+    self.firstPageDocB_Last = function () {
+        self.currentPageIndexDocB_Last(0);
+    };
+
+    self.lastPageDocB_Last = function () {
+        tempCountDocB_Last = parseInt(self.filterDocB_LastList().length / self.pageSizeDocB_Last(), 10);
+        if ((self.filterDocB_LastList().length % self.pageSizeDocB_Last()) == 0)
+            self.currentPageIndexDocB_Last(tempCountDocB_Last - 1);
+        else
+            self.currentPageIndexDocB_Last(tempCountDocB_Last);
+    };
 
 
 
 
 
 
+    self.iconTypeRjStatus = ko.observable("");
+    self.iconTypeRjDate = ko.observable("");
+    self.iconTypeRjMhltDate = ko.observable("");
+    self.iconTypeCustName = ko.observable("");
+    self.iconTypeKhdtName = ko.observable("");
+    self.iconTypeFromUserName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+    self.iconTypeStatus = ko.observable("");
+    self.iconTypeDocNo = ko.observable("");
+    self.iconTypeMhltDate = ko.observable("");
+
+    self.sortTableDocB_Last = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.DocB_LastList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
 
 
+        self.iconTypeRjStatus('');
+        self.iconTypeRjDate('');
+        self.iconTypeRjMhltDate('');
+        self.iconTypeCustName('');
+        self.iconTypeKhdtName('');
+        self.iconTypeFromUserName('');
+        self.iconTypeSpec('');
+        self.iconTypeStatus('');
+        self.iconTypeDocNo('');
+        self.iconTypeMhltDate('');
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (orderProp == 'RjStatus') self.iconTypeRjStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RjDate') self.iconTypeRjDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RjMhltDate') self.iconTypeRjMhltDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KhdtName') self.iconTypeKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'FromUserName') self.iconTypeFromUserName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MhltDate') self.iconTypeMhltDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
 
 
     self.currentPageErjCust = ko.observable();
@@ -252,7 +397,7 @@
     self.filterErjCust1 = ko.observable("");
     self.filterErjCust2 = ko.observable("");
 
-    self.filterErjCustList = ko.computed(function() {
+    self.filterErjCustList = ko.computed(function () {
         self.currentPageIndexErjCust(0);
         var filter0 = self.filterErjCust0().toUpperCase();
         var filter1 = self.filterErjCust1().toUpperCase();
@@ -261,7 +406,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.ErjCustList();
         } else {
-            tempData = ko.utils.arrayFilter(self.ErjCustList(), function(item) {
+            tempData = ko.utils.arrayFilter(self.ErjCustList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -272,30 +417,30 @@
         }
     });
 
-    self.currentPageErjCust = ko.computed(function() {
+    self.currentPageErjCust = ko.computed(function () {
         var pageSizeErjCust = parseInt(self.pageSizeErjCust(), 10),
             startIndex = pageSizeErjCust * self.currentPageIndexErjCust(),
             endIndex = startIndex + pageSizeErjCust;
         return self.filterErjCustList().slice(startIndex, endIndex);
     });
 
-    self.nextPageErjCust = function() {
+    self.nextPageErjCust = function () {
         if (((self.currentPageIndexErjCust() + 1) * self.pageSizeErjCust()) < self.filterErjCustList().length) {
             self.currentPageIndexErjCust(self.currentPageIndexErjCust() + 1);
         }
     };
 
-    self.previousPageErjCust = function() {
+    self.previousPageErjCust = function () {
         if (self.currentPageIndexErjCust() > 0) {
             self.currentPageIndexErjCust(self.currentPageIndexErjCust() - 1);
         }
     };
 
-    self.firstPageErjCust = function() {
+    self.firstPageErjCust = function () {
         self.currentPageIndexErjCust(0);
     };
 
-    self.lastPageErjCust = function() {
+    self.lastPageErjCust = function () {
         countErjCust = parseInt(self.filterErjCustList().length / self.pageSizeErjCust(), 10);
         if ((self.filterErjCustList().length % self.pageSizeErjCust()) == 0)
             self.currentPageIndexErjCust(countErjCust - 1);
@@ -303,10 +448,10 @@
             self.currentPageIndexErjCust(countErjCust);
     };
 
-    self.sortTableErjCust = function(viewModel, e) {
+    self.sortTableErjCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.ErjCustList.sort(function(left, right) {
+        self.ErjCustList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -328,10 +473,10 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.AddErjCust = function(item) {
+    self.AddErjCust = function (item) {
         ErjCustCode = item.Code;
         find = false;
-        list_ErjCustSelect.forEach(function(item, key) {
+        list_ErjCustSelect.forEach(function (item, key) {
             if (item == ErjCustCode) {
                 find = true;
             }
@@ -352,7 +497,7 @@
     };
 
 
-    self.AddAllErjCust = function() {
+    self.AddAllErjCust = function () {
         list_ErjCustSelect = new Array();
         list = self.ErjCustList();
         $("#TableBodyListErjCust").empty();
@@ -369,26 +514,26 @@
         }
     };
 
-    self.DelAllErjCust = function() {
+    self.DelAllErjCust = function () {
         list_ErjCustSelect = new Array();
         counterErjCust = 0;
         $("#TableBodyListErjCust").empty();
     };
 
 
-    $('#modal-ErjCust').on('hide.bs.modal', function() {
+    $('#modal-ErjCust').on('hide.bs.modal', function () {
         if (counterErjCust > 0)
             $('#nameErjCust').val(counterErjCust + ' مورد انتخاب شده ')
         else
             $('#nameErjCust').val('همه موارد');
     });
 
-    $('#modal-ErjCust').on('shown.bs.modal', function() {
+    $('#modal-ErjCust').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
 
 
-    $('#refreshErjCust').click(function() {
+    $('#refreshErjCust').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
             text: "لیست مشتری ها به روز رسانی شود ؟",
@@ -417,7 +562,7 @@
     self.filterKhdt2 = ko.observable("");
 
 
-    self.filterKhdtList = ko.computed(function() {
+    self.filterKhdtList = ko.computed(function () {
 
         self.currentPageIndexKhdt(0);
         var filter0 = self.filterKhdt0().toUpperCase();
@@ -427,7 +572,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.KhdtList();
         } else {
-            tempData = ko.utils.arrayFilter(self.KhdtList(), function(item) {
+            tempData = ko.utils.arrayFilter(self.KhdtList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -439,30 +584,30 @@
     });
 
 
-    self.currentPageKhdt = ko.computed(function() {
+    self.currentPageKhdt = ko.computed(function () {
         var pageSizeKhdt = parseInt(self.pageSizeKhdt(), 10),
             startIndex = pageSizeKhdt * self.currentPageIndexKhdt(),
             endIndex = startIndex + pageSizeKhdt;
         return self.filterKhdtList().slice(startIndex, endIndex);
     });
 
-    self.nextPageKhdt = function() {
+    self.nextPageKhdt = function () {
         if (((self.currentPageIndexKhdt() + 1) * self.pageSizeKhdt()) < self.filterKhdtList().length) {
             self.currentPageIndexKhdt(self.currentPageIndexKhdt() + 1);
         }
     };
 
-    self.previousPageKhdt = function() {
+    self.previousPageKhdt = function () {
         if (self.currentPageIndexKhdt() > 0) {
             self.currentPageIndexKhdt(self.currentPageIndexKhdt() - 1);
         }
     };
 
-    self.firstPageKhdt = function() {
+    self.firstPageKhdt = function () {
         self.currentPageIndexKhdt(0);
     };
 
-    self.lastPageKhdt = function() {
+    self.lastPageKhdt = function () {
         countKhdt = parseInt(self.filterKhdtList().length / self.pageSizeKhdt(), 10);
         if ((self.filterKhdtList().length % self.pageSizeKhdt()) == 0)
             self.currentPageIndexKhdt(countKhdt - 1);
@@ -470,10 +615,10 @@
             self.currentPageIndexKhdt(countKhdt);
     };
 
-    self.sortTableKhdt = function(viewModel, e) {
+    self.sortTableKhdt = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.KhdtList.sort(function(left, right) {
+        self.KhdtList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -496,10 +641,10 @@
     };
 
 
-    self.AddKhdt = function(item) {
+    self.AddKhdt = function (item) {
         KhdtCode = item.Code;
         find = false;
-        list_KhdtSelect.forEach(function(item, key) {
+        list_KhdtSelect.forEach(function (item, key) {
             if (item == KhdtCode) {
                 find = true;
             }
@@ -520,7 +665,7 @@
     };
 
 
-    self.AddAllKhdt = function() {
+    self.AddAllKhdt = function () {
         list_KhdtSelect = new Array();
         list = self.KhdtList();
         $("#TableBodyListKhdt").empty();
@@ -537,30 +682,30 @@
         }
     };
 
-    self.DelAllKhdt = function() {
+    self.DelAllKhdt = function () {
         list_KhdtSelect = new Array();
         counterKhdt = 0;
         $("#TableBodyListKhdt").empty();
     };
 
 
-    $('#modal-Khdt').on('hide.bs.modal', function() {
+    $('#modal-Khdt').on('hide.bs.modal', function () {
         if (counterKhdt > 0)
             $('#nameKhdt').val(counterKhdt + ' مورد انتخاب شده ')
         else
             $('#nameKhdt').val('همه موارد');
     });
 
-    $('#modal-Khdt').on('shown.bs.modal', function() {
+    $('#modal-Khdt').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
 
 
-    self.delselectKhdt = function() {
+    self.delselectKhdt = function () {
         $(this).closest("tr").remove();
     };
 
-    $('#refreshKhdt').click(function() {
+    $('#refreshKhdt').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
             text: "نوع کار ها به روز رسانی شود ؟",
@@ -578,6 +723,21 @@
                 $("div.loadingZone").hide();
             }
         })
+    })
+
+    $('#ErjaMode').change(function () {
+        var erjaMode = $('#ErjaMode').val();
+        if (erjaMode == 1)
+        {
+            $('#ToUser').val(sessionStorage.userName); 
+            $('#FromUser').val(''); 
+        }
+        else
+        {
+            $('#ToUser').val('');
+            $('#FromUser').val(sessionStorage.userName); 
+        }
+       
     })
 
     $('.fix').attr('class', 'form-line date focused fix');

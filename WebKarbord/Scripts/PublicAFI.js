@@ -114,7 +114,7 @@ erjaccess = [false, false]
 if (CheckGroupErj(sessionStorage.group) == true) {
     for (var i = 0; i < 2; i++) {
         erjAccessApi[i] == 'ErjDocK' ? erjaccess[1] = true : null;
-        erjAccessApi[i] == 'ErjDocK' ? erjaccess[2] = true : null;
+        erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[2] = true : null;
 
     }
 }
@@ -356,7 +356,7 @@ function CheckAccessReportErj(Code) {
         if (accessReportErj[i].Code == 'DocK') {
             return accessReportErj[i].Trs;
         }
-        else if (accessReportErj[i].Code == 'DocKMin') {
+        else if (accessReportErj[i].Code == 'FERJ') {
             return accessReportErj[i].Trs;
         }
         else
@@ -434,6 +434,7 @@ function getAccessList() {
                 if (CheckGroupErj(sessionStorage.group) == true) {
                     for (var i = 0; i < 2; i++) {
                         erjAccessApi[i] == 'ErjDocK' ? erjaccess[1] = true : null;
+                        erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
                     }
 
                     ajaxFunction(AccessUri + 'ERJ1' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
@@ -865,7 +866,12 @@ function SetValidationErj() {
     validation = CheckAccessReportErj('DocK');
     ShowMenuErj[1] = validation;  // گزارش فهرست پرونده
 
-    if (ShowMenuErj[1]) {
+
+    validation = CheckAccessReportErj('FERJ');
+    ShowMenuErj[2] = validation;  // گزارش فهرست پرونده
+
+
+    if (ShowMenuErj[1] || ShowMenuErj[2]) {
         if (erjaccess[1] == true) {
             $("#EReport_Menu").show();
         }
@@ -873,6 +879,8 @@ function SetValidationErj() {
             $("#EReport_Menu").hide();
         }
     }
+
+    
 }
 
 

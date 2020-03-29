@@ -60,7 +60,6 @@
                 localStorage.setItem('fctList', fctList);
                 localStorage.setItem('erjList', erjList);
 
-
                 localStorage.setItem('afiAccess', afiAccess);
                 localStorage.setItem('accAccess', accAccess);
                 localStorage.setItem('invAccess', invAccess);

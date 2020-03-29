@@ -198,10 +198,12 @@
                                     <select id="ToUser" data-bind="
                                    options: ErjUsersList,
                                    optionsText: function(item) {return item.Name},
-                                   optionsValue: 'Code'"></select>
+                                   optionsValue: 'Code',
+                                   optionsCaption: ''"></select>
                                 </div>
                             </div>
                         </div>
+
                         <p>ارجاع دهنده</p>
                         <div class="col-sm-3">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
@@ -209,7 +211,8 @@
                                     <select id="FromUser" data-bind="
                                    options: ErjUsersList,
                                    optionsText: function(item) {return item.Name},
-                                   optionsValue: 'Code'"></select>
+                                   optionsValue: 'Code',
+                                   optionsCaption: ''"></select>
                                 </div>
                             </div>
                         </div>
@@ -259,8 +262,8 @@
                                 <th data-column="Status">
                                     وضعیت پرونده<span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
                                 </th>
-                                <th data-column="BandNo">
-                                    شماره پرونده  <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandNo }"></i> </span>
+                                <th data-column="DocNo">
+                                    شماره پرونده  <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
                                 </th>
                                 <th data-column="MhltDate">
                                     مهلت پرونده <span data-bind="attr: { class: currentColumn() == 'MhltDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMhltDate }"></i> </span>
@@ -279,7 +282,7 @@
                                 <td data-bind="text: FromUserName"></td>
                                 <td data-bind="text: Spec"></td>
                                 <td data-bind="text: Status"></td>
-                                <td data-bind="text: BandNo"></td>
+                                <td data-bind="text: DocNo"></td>
                                 <td data-bind="text: MhltDate"></td>
                             </tr>
                         </tbody>
@@ -599,7 +602,7 @@
     </div>
 </div>
 
-@section scripts{ 
+@section scripts{
     <script type="text/javascript">
 
         $('#btnazDocDate').MdPersianDateTimePicker({
