@@ -61,7 +61,7 @@
         ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.ErjUsersList(data);
             $('#ToUser').val(sessionStorage.userName);
-            $('#FromUser').val(''); 
+            $('#FromUser').val('');
         });
     }
 
@@ -165,19 +165,17 @@
         SrchSt = $("#SrchSt").val();
         if (SrchSt == null) SrchSt = "";
 
-
-
         var ErjCust = '';
-        for (var i = 1; i <= counterErjCust; i++) {
-            if (i < counterErjCust)
+        for (var i = 0; i <= counterErjCust - 1; i++) {
+            if (i < counterErjCust - 1)
                 ErjCust += list_ErjCustSelect[i] + '*';
             else
                 ErjCust += list_ErjCustSelect[i];
         }
 
         var Khdt = '';
-        for (var i = 1; i <= counterKhdt; i++) {
-            if (i < counterKhdt)
+        for (var i = 0; i <= counterKhdt - 1; i++) {
+            if (i < counterKhdt - 1)
                 Khdt += list_KhdtSelect[i] + '*';
             else
                 Khdt += list_KhdtSelect[i];
@@ -209,12 +207,8 @@
         getDocB_Last();
     });
 
-
-
-
     $('#nameErjCust').val('همه موارد');
     $('#nameKhdt').val('همه موارد');
-
 
     self.currentPageDocB_Last = ko.observable();
     self.pageSizeDocB_Last = ko.observable(10);
@@ -234,7 +228,6 @@
     self.filterDocB_Last8 = ko.observable("");
     self.filterDocB_Last9 = ko.observable("");
 
-
     self.filterDocB_LastList = ko.computed(function () {
 
         self.currentPageIndexDocB_Last(0);
@@ -249,19 +242,18 @@
         var filter8 = self.filterDocB_Last8().toUpperCase();
         var filter9 = self.filterDocB_Last9().toUpperCase();
 
-
         tempData = ko.utils.arrayFilter(self.DocB_LastList(), function (item) {
             result =
                 (item.RjStatus == null ? '' : item.RjStatus.toString().search(filter0) >= 0) &&
-            (item.RjDate == null ? '' : item.RjDate.toString().search(filter1) >= 0) &&
-            (item.RjMhltDate == null ? '' : item.RjMhltDate.toString().search(filter2) >= 0) &&
-            (item.CustName == null ? '' : item.CustName.toString().search(filter3) >= 0) &&
-            (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter4) >= 0) &&
-            (item.FromUserName == null ? '' : item.FromUserName.toString().search(filter5) >= 0) &&
-            (item.Spec == null ? '' : item.Spec.toString().search(filter6) >= 0) &&
-            (item.Status == null ? '' : item.Status.toString().search(filter7) >= 0) &&
-            (item.DocNo == null ? '' : item.DocNo.toString().search(filter8) >= 0) &&
-            (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter9) >= 0)
+                (item.RjDate == null ? '' : item.RjDate.toString().search(filter1) >= 0) &&
+                (item.RjMhltDate == null ? '' : item.RjMhltDate.toString().search(filter2) >= 0) &&
+                (item.CustName == null ? '' : item.CustName.toString().search(filter3) >= 0) &&
+                (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter4) >= 0) &&
+                (item.FromUserName == null ? '' : item.FromUserName.toString().search(filter5) >= 0) &&
+                (item.Spec == null ? '' : item.Spec.toString().search(filter6) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filter7) >= 0) &&
+                (item.DocNo == null ? '' : item.DocNo.toString().search(filter8) >= 0) &&
+                (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter9) >= 0)
             return result;
         })
         return tempData;
@@ -323,10 +315,6 @@
         else
             self.currentPageIndexDocB_Last(tempCountDocB_Last);
     };
-
-
-
-
 
 
     self.iconTypeRjStatus = ko.observable("");
@@ -483,9 +471,6 @@
         });
 
         if (find == false) {
-            counterErjCust = counterErjCust + 1;
-            list_ErjCustSelect[counterErjCust] = item.Code;
-
             $('#TableListErjCust').append(
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
@@ -493,9 +478,10 @@
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
+            list_ErjCustSelect[counterErjCust] = item.Code;
+            counterErjCust += 1;
         }
     };
-
 
     self.AddAllErjCust = function () {
         list_ErjCustSelect = new Array();
@@ -651,9 +637,6 @@
         });
 
         if (find == false) {
-            counterKhdt = counterKhdt + 1;
-            list_KhdtSelect[counterKhdt] = item.Code;
-
             $('#TableListKhdt').append(
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
@@ -661,6 +644,8 @@
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
+            list_KhdtSelect[counterKhdt] = item.Code;
+            counterKhdt += 1;
         }
     };
 
@@ -727,17 +712,15 @@
 
     $('#ErjaMode').change(function () {
         var erjaMode = $('#ErjaMode').val();
-        if (erjaMode == 1)
-        {
-            $('#ToUser').val(sessionStorage.userName); 
-            $('#FromUser').val(''); 
+        if (erjaMode == 1) {
+            $('#ToUser').val(sessionStorage.userName);
+            $('#FromUser').val('');
         }
-        else
-        {
+        else {
             $('#ToUser').val('');
-            $('#FromUser').val(sessionStorage.userName); 
+            $('#FromUser').val(sessionStorage.userName);
         }
-       
+
     })
 
     $('.fix').attr('class', 'form-line date focused fix');
