@@ -71,9 +71,8 @@ else {
 
 if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess") != "") {
     erjAccessApi = localStorage.getItem("erjAccess").split("*")
-    erjGroupApi = localStorage.getItem("erjList").split("*")
+    erjGroupApi = localStorage.getItem("erjList").split("-")
 }
-
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false]
