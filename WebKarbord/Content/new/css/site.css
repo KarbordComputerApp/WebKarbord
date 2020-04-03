@@ -1191,3 +1191,330 @@ select {
     color: #FFF;
 }
 
+.bg-light-blue {
+    background-color: #03A9F4 !important;
+    color: #fff;
+}
+
+.cardErj .headerErj .header-dropdownErj {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    list-style: none;
+}
+
+
+.cardErj {
+    background: #fff;
+    min-height: 50px;
+    box-shadow: none;
+    border: 0;
+    position: relative;
+    margin-bottom: 24px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+}
+
+    .cardErj .cardErj-inside-title {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        display: block;
+        font-size: 15px;
+        color: #000;
+    }
+
+        .cardErj .cardErj-inside-title small {
+            color: #999;
+            display: block;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+            .cardErj .cardErj-inside-title small a {
+                color: #777;
+                font-weight: bold;
+            }
+
+        .cardErj .cardErj-inside-title:first-child {
+            margin-top: 0;
+        }
+
+    .cardErj .bg-red,
+    .cardErj .bg-pink,
+    .cardErj .bg-purple,
+    .cardErj .bg-deep-purple,
+    .cardErj .bg-indigo,
+    .cardErj .bg-blue,
+    .cardErj .bg-light-blue,
+    .cardErj .bg-cyan,
+    .cardErj .bg-teal,
+    .cardErj .bg-green,
+    .cardErj .bg-light-green,
+    .cardErj .bg-lime,
+    .cardErj .bg-yellow,
+    .cardErj .bg-amber,
+    .cardErj .bg-orange,
+    .cardErj .bg-deep-orange,
+    .cardErj .bg-brown,
+    .cardErj .bg-grey,
+    .cardErj .bg-blue-grey,
+    .cardErj .bg-black {
+        border-bottom: none !important;
+        color: #fff !important;
+    }
+
+        .cardErj .bg-red h2, .cardErj .bg-red small, .cardErj .bg-red .material-icons,
+        .cardErj .bg-pink h2,
+        .cardErj .bg-pink small,
+        .cardErj .bg-pink .material-icons,
+        .cardErj .bg-purple h2,
+        .cardErj .bg-purple small,
+        .cardErj .bg-purple .material-icons,
+        .cardErj .bg-deep-purple h2,
+        .cardErj .bg-deep-purple small,
+        .cardErj .bg-deep-purple .material-icons,
+        .cardErj .bg-indigo h2,
+        .cardErj .bg-indigo small,
+        .cardErj .bg-indigo .material-icons,
+        .cardErj .bg-blue h2,
+        .cardErj .bg-blue small,
+        .cardErj .bg-blue .material-icons,
+        .cardErj .bg-light-blue h2,
+        .cardErj .bg-light-blue small,
+        .cardErj .bg-light-blue .material-icons,
+        .cardErj .bg-cyan h2,
+        .cardErj .bg-cyan small,
+        .cardErj .bg-cyan .material-icons,
+        .cardErj .bg-teal h2,
+        .cardErj .bg-teal small,
+        .cardErj .bg-teal .material-icons,
+        .cardErj .bg-green h2,
+        .cardErj .bg-green small,
+        .cardErj .bg-green .material-icons,
+        .cardErj .bg-light-green h2,
+        .cardErj .bg-light-green small,
+        .cardErj .bg-light-green .material-icons,
+        .cardErj .bg-lime h2,
+        .cardErj .bg-lime small,
+        .cardErj .bg-lime .material-icons,
+        .cardErj .bg-yellow h2,
+        .cardErj .bg-yellow small,
+        .cardErj .bg-yellow .material-icons,
+        .cardErj .bg-amber h2,
+        .cardErj .bg-amber small,
+        .cardErj .bg-amber .material-icons,
+        .cardErj .bg-orange h2,
+        .cardErj .bg-orange small,
+        .cardErj .bg-orange .material-icons,
+        .cardErj .bg-deep-orange h2,
+        .cardErj .bg-deep-orange small,
+        .cardErj .bg-deep-orange .material-icons,
+        .cardErj .bg-brown h2,
+        .cardErj .bg-brown small,
+        .cardErj .bg-brown .material-icons,
+        .cardErj .bg-grey h2,
+        .cardErj .bg-grey small,
+        .cardErj .bg-grey .material-icons,
+        .cardErj .bg-blue-grey h2,
+        .cardErj .bg-blue-grey small,
+        .cardErj .bg-blue-grey .material-icons,
+        .cardErj .bg-black h2,
+        .cardErj .bg-black small,
+        .cardErj .bg-black .material-icons {
+            color: #fff !important;
+        }
+
+        .cardErj .bg-red .badge,
+        .cardErj .bg-pink .badge,
+        .cardErj .bg-purple .badge,
+        .cardErj .bg-deep-purple .badge,
+        .cardErj .bg-indigo .badge,
+        .cardErj .bg-blue .badge,
+        .cardErj .bg-light-blue .badge,
+        .cardErj .bg-cyan .badge,
+        .cardErj .bg-teal .badge,
+        .cardErj .bg-green .badge,
+        .cardErj .bg-light-green .badge,
+        .cardErj .bg-lime .badge,
+        .cardErj .bg-yellow .badge,
+        .cardErj .bg-amber .badge,
+        .cardErj .bg-orange .badge,
+        .cardErj .bg-deep-orange .badge,
+        .cardErj .bg-brown .badge,
+        .cardErj .bg-grey .badge,
+        .cardErj .bg-blue-grey .badge,
+        .cardErj .bg-black .badge {
+            background-color: #fff;
+            color: #555;
+        }
+
+    .cardErj .header {
+        color: #555;
+        padding: 15px;
+        position: relative;
+    }
+
+        .cardErj .header .header-dropdown {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            list-style: none;
+        }
+
+            .cardErj .header .header-dropdown .dropdown-menu li {
+                display: block !important;
+            }
+
+            .cardErj .header .header-dropdown li {
+                display: inline-block;
+            }
+
+            .cardErj .header .header-dropdown i {
+                font-size: 20px;
+                color: #999;
+                -moz-transition: all 0.5s;
+                -o-transition: all 0.5s;
+                -webkit-transition: all 0.5s;
+                transition: all 0.5s;
+            }
+
+                .cardErj .header .header-dropdown i:hover {
+                    color: #000;
+                }
+
+        .cardErj .header h2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: normal;
+            color: #5b626b;
+        }
+
+            .cardErj .header h2 small {
+                display: block;
+                font-size: 12px;
+                margin-top: 5px;
+                color: #999;
+                line-height: 15px;
+            }
+
+                .cardErj .header h2 small a {
+                    font-weight: bold;
+                    color: #777;
+                }
+
+        .cardErj .header .col-xs-12 h2 {
+            margin-top: 5px;
+        }
+
+    .cardErj .body {
+        font-size: 14px;
+        color: #555;
+        padding: 15px;
+    }
+
+        .cardErj .body .col-xs-1,
+        .cardErj .body .col-sm-1,
+        .cardErj .body .col-md-1,
+        .cardErj .body .col-lg-1 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-2,
+        .cardErj .body .col-sm-2,
+        .cardErj .body .col-md-2,
+        .cardErj .body .col-lg-2 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-3,
+        .cardErj .body .col-sm-3,
+        .cardErj .body .col-md-3,
+        .cardErj .body .col-lg-3 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-4,
+        .cardErj .body .col-sm-4,
+        .cardErj .body .col-md-4,
+        .cardErj .body .col-lg-4 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-5,
+        .cardErj .body .col-sm-5,
+        .cardErj .body .col-md-5,
+        .cardErj .body .col-lg-5 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-6,
+        .cardErj .body .col-sm-6,
+        .cardErj .body .col-md-6,
+        .cardErj .body .col-lg-6 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-7,
+        .cardErj .body .col-sm-7,
+        .cardErj .body .col-md-7,
+        .cardErj .body .col-lg-7 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-8,
+        .cardErj .body .col-sm-8,
+        .cardErj .body .col-md-8,
+        .cardErj .body .col-lg-8 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-9,
+        .cardErj .body .col-sm-9,
+        .cardErj .body .col-md-9,
+        .cardErj .body .col-lg-9 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-10,
+        .cardErj .body .col-sm-10,
+        .cardErj .body .col-md-10,
+        .cardErj .body .col-lg-10 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-11,
+        .cardErj .body .col-sm-11,
+        .cardErj .body .col-md-11,
+        .cardErj .body .col-lg-11 {
+            margin-bottom: 20px;
+        }
+
+        .cardErj .body .col-xs-12,
+        .cardErj .body .col-sm-12,
+        .cardErj .body .col-md-12,
+        .cardErj .body .col-lg-12 {
+            margin-bottom: 20px;
+        }
+
+.plain-cardErj {
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    padding-left: 35px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+    margin-bottom: 26px;
+    margin: .5rem 0 1rem 0;
+}
+
+.cardErj-inner .progress {
+    height: 10px;
+    margin: 0px;
+}
+

@@ -267,6 +267,7 @@
                                 <th data-column="MhltDate">
                                     مهلت پرونده <span data-bind="attr: { class: currentColumn() == 'MhltDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMhltDate }"></i> </span>
                                 </th>
+                                <th>عملیات</th>
                             </tr>
 
                         </thead>
@@ -283,6 +284,11 @@
                                 <td data-bind="text: Status"></td>
                                 <td data-bind="text: DocNo"></td>
                                 <td data-bind="text: MhltDate"></td>
+                                <td>
+                                    <a id="ViewErjDocErja" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja">
+                                        <img src="~/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -600,6 +606,110 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modal-ErjDocErja" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">پرونده</h4>
+                <a id="refreshErjCust">
+
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="height:465px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            اقدام
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            عمومی
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            نهایی
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            مدیران
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div style="height:465px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table">
+                                <tbody>
+                                    <tr style="border-top: 0px solid #fff !important;">
+                                        <td>
+                                            <div class="cardErj">
+                                                <div class="header bg-cyan">
+                                                    <h2>
+                                                       احسانی فر -> قربانی
+                                                    </h2>
+                                                </div>
+                                                <div class="body">
+                                                    <textarea class="form-control no-resize auto-growth string" placeholder="بدون متن" style="text-align:justify">
+                                                        من در مورد رپتورهای دلسوز حضور داشتم که در آن منحرف شده بود. جمع آوری بلافاصله به طور قطع به ضروری به عنوان باقی مانده است. بیش از راه رفتن کسل کننده به پس پسر درب جدید رفت. در دل یا شادی دخترها را به عنوان فرماندهی فرمان دادند خوش تیپ اعلام شده در دریافت در مناطق مجاور گسترده است. از دست دادن او بیش از اواخر درد است. فقط چی بپرسید چی چیه مقیاس مقیاس در حال حاضر در حال حاضر سبک جنسی دور دور. من خیلی از شما گذشته ام..</textarea>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts{
     <script type="text/javascript">
