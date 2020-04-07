@@ -93,6 +93,7 @@ select {
     border-bottom: 1px solid #3f4853;
 }
 
+
 .selectorange {
     color: #ec8121;
     border-bottom: 1px solid #ec8121;
@@ -1210,7 +1211,7 @@ select {
     box-shadow: none;
     border: 0;
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 0px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
@@ -1518,3 +1519,7 @@ select {
     margin: 0px;
 }
 
+p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

@@ -285,7 +285,7 @@
                                 <td data-bind="text: DocNo"></td>
                                 <td data-bind="text: MhltDate"></td>
                                 <td>
-                                    <a id="ViewErjDocErja" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja">
+                                    <a data-bind="click: $root.ViewErjDocErja" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja">
                                         <img src="~/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />
                                     </a>
                                 </td>
@@ -623,53 +623,62 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div style="height:465px;overflow:auto;border: 1px #ddd solid;">
+                        <div style="height:600px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            اقدام
+                                        <td style="width: 10px;">
+                                            <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                اقدام
+                                            </a>
                                         </td>
                                         <td>
                                             <div class="form-group" style="margin-bottom: 0.5rem;">
                                                 <div class="form-line">
-                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                    <textarea rows="4" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            عمومی
+                                        <td style="width: 10px;">
+                                            <a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                عمومی
+                                            </a>
                                         </td>
                                         <td>
                                             <div class="form-group" style="margin-bottom: 0.5rem;">
                                                 <div class="form-line">
-                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                    <textarea rows="4" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                مدیران
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                <div class="form-line">
+                                                    <textarea rows="4" id="specialComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            نهایی
+                                        <td style="width: 10px;">
+                                            <a id="btn-finalComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                نهایی
+                                            </a>
                                         </td>
                                         <td>
                                             <div class="form-group" style="margin-bottom: 0.5rem;">
                                                 <div class="form-line">
-                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            مدیران
-                                        </td>
-                                        <td>
-                                            <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                <div class="form-line">
-                                                    <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                    <textarea rows="4" id="finalComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                 </div>
                                             </div>
                                         </td>
@@ -679,28 +688,42 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <div id="BodyErjDocErja" style="height:600px;overflow:auto;border: 1px #ddd solid;">
 
-                        <div style="height:465px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table">
-                                <tbody>
-                                    <tr style="border-top: 0px solid #fff !important;">
-                                        <td>
-                                            <div class="cardErj">
-                                                <div class="header bg-cyan">
-                                                    <h2>
-                                                       احسانی فر -> قربانی
-                                                    </h2>
-                                                </div>
-                                                <div class="body">
-                                                    <textarea class="form-control no-resize auto-growth string" placeholder="بدون متن" style="text-align:justify">
-                                                        من در مورد رپتورهای دلسوز حضور داشتم که در آن منحرف شده بود. جمع آوری بلافاصله به طور قطع به ضروری به عنوان باقی مانده است. بیش از راه رفتن کسل کننده به پس پسر درب جدید رفت. در دل یا شادی دخترها را به عنوان فرماندهی فرمان دادند خوش تیپ اعلام شده در دریافت در مناطق مجاور گسترده است. از دست دادن او بیش از اواخر درد است. فقط چی بپرسید چی چیه مقیاس مقیاس در حال حاضر در حال حاضر سبک جنسی دور دور. من خیلی از شما گذشته ام..</textarea>
+                            <!--  <table class="table">
+                            <tbody id="TableBodyErjDocErja" style="cursor: default;">
+
+                            </tbody>-->
+                            <!-- <tr style="border-top: 0px solid #fff !important;">
+                                <td>
+                                    <div class="cardErj">
+                                        <div class="header bg-light-blue">
+                                            <div class="row form-inline">
+                                                <h6>احسانی فر</h6>
+                                                <h6>-></h6>
+                                                <div class="col-sm-3">
+                                                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                        <div class="form-group">
+                                                            <select style="background-color: rgba(255, 255, 255, 0)"></select>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
+                                                <div class="col-sm-4"></div>
+                                                <div class="form-inline">
+                                                    <h6>(5:00)</h6>
+                                                    <h6>1398/01/01</h6>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </div>
+                                        <div class="body" style="padding:0px">
+                                            <textarea rows="10" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="text-align:justify" readonly> تست توضیحات </textarea>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>-->
+                            <!--  </table>-->
                         </div>
                     </div>
 
@@ -709,6 +732,25 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modal-Comm" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" style="padding-left: 200px;">توضیحات</h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="comm" rows="20" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="text-align:justify" readonly>
+                </textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @section scripts{

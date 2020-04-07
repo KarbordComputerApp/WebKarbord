@@ -14,6 +14,7 @@
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.DocB_LastList = ko.observableArray([]); // لیست گزارش  
+    self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
 
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
@@ -22,6 +23,7 @@
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
     var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
     var DocB_LastCountUri = server + '/api/Web_Data/Web_ErjDocB_LastCount/'; // تعداد رکورد های گزارش
+    var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
 
     self.AzDocDate = ko.observable('');
     self.TaDocDate = ko.observable('');
@@ -49,7 +51,7 @@
         });
     }
 
-    //Get Khdt List
+    //Get Khdt List 
     function getKhdtList() {
         ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.KhdtList(data);
@@ -62,6 +64,8 @@
             self.ErjUsersList(data);
             $('#ToUser').val(sessionStorage.userName);
             $('#FromUser').val('');
+
+            //getDocB_Last();
         });
     }
 
@@ -200,6 +204,104 @@
         ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject).done(function (response) {
             self.DocB_LastList(response);
         });
+    }
+
+    //Get ErjDocErja
+    function getErjDocErja(serialNumber) {
+        var ErjDocErjaObject = {
+            SerialNumber: serialNumber,
+        };
+        ajaxFunction(ErjDocErjaUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocErjaObject).done(function (response) {
+            self.ErjDocErja(response);
+            SetDataErjDocErja();
+        });
+    }
+
+
+    self.FilterErjValue = ko.observable("");
+    self.FilterErj = ko.computed(function () {
+        var filter = self.FilterErjValue();
+        return ko.utils.arrayFilter(self.ErjDocErja(), function (item) {
+            return item.BandNo == filter;
+        });
+    });
+
+
+    function ConvertComm(comm) {
+        var res = comm.split("\r\n");
+        tempText = '';
+        for (var i = 0; i < res.length; i++) {
+            tempText += '<p>' + res[i] + '</p> '
+        }
+        return tempText;
+    }
+
+    function SetDataErjDocErja() {
+        list = self.ErjDocErja();
+        countBand = list[list.length - 1].BandNo;
+        $("#BodyErjDocErja").empty();
+        for (var i = 1; i <= countBand; i++) {
+
+            self.FilterErjValue(i);
+            listBand = self.FilterErj();
+            text = ConvertComm(listBand[0].RjComm);
+
+            countRonevesht = listBand.length
+
+            if (countRonevesht > 1) {
+                text += ' <br\> '
+            }
+
+            for (var j = 1; j < countRonevesht; j++) {
+                text +=
+                    '  <div style="padding: 5px;margin: 0px 10px 0px 10px ;background-color: #29ceff !important; color: navy;"> '
+                    + '   <div class=" form-inline" > <h6>' + listBand[j].FromUserName + '</h6>'
+                    + '                    <h6>--></h6>'
+                    + '                    <h6>' + listBand[j].ToUserName + '</h6></div>'
+                    + '</div > '
+                text += ' <div style="margin: 0px 15px 0px 10px"> ';
+                if (listBand[j].RjComm == '')
+                    text += '!! هنوز رویت نشده !!';
+                else
+                    text += ConvertComm(listBand[j].RjComm);
+                text += ' </div> ';
+            }
+
+            if (listBand[0].RooneveshtUsers != '') {
+
+                text += '</br>'
+                    + '  <div style="padding: 5px;margin: 0px 10px 0px 10px ;background-color: #81f403 !important; color: navy;"> '
+                    + '   <div class=" form-inline" > <h6> رونوشت به :'
+                    + listBand[0].RooneveshtUsers
+                    + '</h6>'
+                    + '</div > '
+                text += ' </div> ';
+            }
+
+            $('#BodyErjDocErja').append(
+                '<div style="border-top: 0px solid #fff !important;">'
+                + '    <div style="padding: 10px">'
+                + '        <div class="cardErj">'
+                + '            <div class="header bg-light-blue">'
+                + '                    <div class=" form-inline"> <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
+                + '                    <h6>--></h6>'
+                + '                    <h6>' + listBand[0].ToUserName + '</h6></div>'
+                + '                    <div class="pull-left form-inline">'
+                + '                        <h6 style ="padding-left: 10px">(' + listBand[0].RjTimeSt + ')</h6>'
+                + '                        <h6>' + listBand[0].RjDate + '</h6>'
+                + '                    </div>'
+                + '                </div>'
+
+                + '            <div class="body" style="padding:5px; border: #03a9f4 solid 1px;">'
+                + text
+                + '            </div>'
+                + '        </div>'
+                + '    </div>'
+                + '</div>'
+            );
+
+
+        }
     }
 
 
@@ -724,6 +826,38 @@
     })
 
     $('.fix').attr('class', 'form-line date focused fix');
+
+
+    self.ViewErjDocErja = function (Band) {
+        var a = 1;
+        $("#eghdamComm").val(Band.EghdamComm);
+        $("#docDesc").val(Band.DocDesc);
+        $("#specialComm").val(Band.SpecialComm);
+        $("#finalComm").val(Band.FinalComm);
+        getErjDocErja(Band.SerialNumber);
+    }
+
+
+    $('#btn-eghdamComm').click(function () {
+        text = $('#eghdamComm').val();
+        $("#comm").val(text);
+    })
+
+    $('#btn-DocDesc').click(function () {
+        text = $('#docDesc').val();
+        $("#comm").val(text);
+    })
+
+    $('#btn-specialComm').click(function () {
+        text = $('#specialComm').val();
+        $("#comm").val(text);
+    })
+
+    $('#btn-finalComm').click(function () {
+        text = $('#finalComm').val();
+        $("#comm").val(text);
+    })
+
 };
 
 ko.applyBindings(new ViewModel());
