@@ -153,14 +153,14 @@
         var filter6 = self.filterDocK6().toUpperCase();
         var filter7 = self.filterDocK7().toUpperCase();
         var filter8 = self.filterDocK8().toUpperCase();
-        var filter9 = self.filterDocK9().toUpperCase();
+        var filter9 = self.filterDocK9();
         var filter10 = self.filterDocK10().toUpperCase();
         var filter11 = self.filterDocK11().toUpperCase();
         var filter12 = self.filterDocK12().toUpperCase();
         var filter13 = self.filterDocK13().toUpperCase();
         var filter14 = self.filterDocK14().toUpperCase();
         var filter15 = self.filterDocK15().toUpperCase();
-        var filter16 = self.filterDocK16().toUpperCase();
+        var filter16 = self.filterDocK16();
         var filter17 = self.filterDocK17().toUpperCase();
         var filter18 = self.filterDocK18().toUpperCase();
 
