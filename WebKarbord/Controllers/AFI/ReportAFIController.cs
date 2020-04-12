@@ -8,13 +8,13 @@ namespace WebKarbord.Controllers.AFI
 {
     public class ReportAFIController : Controller
     {
-        // GET: ReportAFI
-        public ActionResult IDocR()
+
+        public ActionResult TrzIKala()
         {
             return View();
         }
 
-        public ActionResult TrzIKala()
+        public ActionResult TrzIKalaExf()
         {
             return View();
         }

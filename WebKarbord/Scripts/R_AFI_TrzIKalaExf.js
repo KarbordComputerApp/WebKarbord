@@ -8,12 +8,12 @@
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.KalaList = ko.observableArray([]); // ليست کالا ها
-    self.TrzIList = ko.observableArray([]); // لیست گزارش  
+    self.TrzIExfList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
-    var TrzIUri = server + '/api/Web_Data/TrzI/'; // آدرس گزارش 
-    var TrzICountUri = server + '/api/Web_Data/TrzICount/'; // تعداد رکورد های گزارش 
+    var TrzIExfUri = server + '/api/Web_Data/TrzIExf/'; // آدرس گزارش 
+    var TrzIExfCountUri = server + '/api/Web_Data/TrzIExfCount/'; // تعداد رکورد های گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(ShamsiDate());
@@ -48,8 +48,8 @@
         return 'همه انبار ها';
     });
 
-    //Get TrzI
-    function getTrzI() {
+    //Get TrzIExf
+    function getTrzIExf() {
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
@@ -71,16 +71,16 @@
         }
 
 
-        var TrzIObject = {
+        var TrzIExfObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
             InvCode: invcode,
             KGruCode: '0',
             KalaCode: kalacode
         };
-        ajaxFunction(TrzIUri + ace + '/' + sal + '/' + group, 'POST', TrzIObject).done(function (response) {
-            self.TrzIList(response);
-            calcsum(self.TrzIList());
+        ajaxFunction(TrzIExfUri + ace + '/' + sal + '/' + group, 'POST', TrzIExfObject).done(function (response) {
+            self.TrzIExfList(response);
+            calcsum(self.TrzIExfList());
         });
     }
 
@@ -115,35 +115,38 @@
         maxKalaDeghat3 = 0;
 
         for (var i = 0; i < list.length; ++i) {
-            TrzIData = list[i];
-            totalAAmount1 += TrzIData.AAmount1;
-            totalAAmount2 += TrzIData.AAmount2;
-            totalAAmount3 += TrzIData.AAmount3;
 
-            totalVAmount1 += TrzIData.VAmount1;
-            totalVAmount2 += TrzIData.VAmount2;
-            totalVAmount3 += TrzIData.VAmount3;
+            TrzIExfData = list[i];
+            if (TrzIExfData.Tag == 2) {
+                totalAAmount1 += TrzIExfData.AAmount1;
+                totalAAmount2 += TrzIExfData.AAmount2;
+                totalAAmount3 += TrzIExfData.AAmount3;
 
-            totalSAmount1 += TrzIData.SAmount1;
-            totalSAmount2 += TrzIData.SAmount2;
-            totalSAmount3 += TrzIData.SAmount3;
+                totalVAmount1 += TrzIExfData.VAmount1;
+                totalVAmount2 += TrzIExfData.VAmount2;
+                totalVAmount3 += TrzIExfData.VAmount3;
 
-            totalMAmount1 += TrzIData.MAmount1;
-            totalMAmount2 += TrzIData.MAmount2;
-            totalMAmount3 += TrzIData.MAmount3;
+                totalSAmount1 += TrzIExfData.SAmount1;
+                totalSAmount2 += TrzIExfData.SAmount2;
+                totalSAmount3 += TrzIExfData.SAmount3;
 
-            totalATotalPrice += TrzIData.ATotalPrice;
-            totalVTotalPrice += TrzIData.VTotalPrice;
-            totalSTotalPrice += TrzIData.STotalPrice;
-            totalMTotalPrice += TrzIData.MTotalPrice;
+                totalMAmount1 += TrzIExfData.MAmount1;
+                totalMAmount2 += TrzIExfData.MAmount2;
+                totalMAmount3 += TrzIExfData.MAmount3;
 
-            KalaDeghat1 = TrzIData.KalaDeghat1 % 10;
-            KalaDeghat2 = TrzIData.KalaDeghat2 % 10;
-            KalaDeghat3 = TrzIData.KalaDeghat3 % 10;
+                totalATotalPrice += TrzIExfData.ATotalPrice;
+                totalVTotalPrice += TrzIExfData.VTotalPrice;
+                totalSTotalPrice += TrzIExfData.STotalPrice;
+                totalMTotalPrice += TrzIExfData.MTotalPrice;
 
-            KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
-            KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
-            KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
+                KalaDeghat1 = TrzIExfData.KalaDeghat1 % 10;
+                KalaDeghat2 = TrzIExfData.KalaDeghat2 % 10;
+                KalaDeghat3 = TrzIExfData.KalaDeghat3 % 10;
+
+                KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
+                KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
+                KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
+            }
         }
 
         $("#textTotal").text('جمع');
@@ -169,7 +172,7 @@
     }
 
     $("#CreateReport").click(function () {
-        getTrzI();
+        getTrzIExf();
     });
 
     getInvList();
@@ -179,91 +182,104 @@
     $('#nameInv').val('همه موارد');
 
     //------------------------------------------------------
-    self.currentPageTrzI = ko.observable();
-    self.pageSizeTrzI = ko.observable(10);
-    self.currentPageIndexTrzI = ko.observable(0);
+    self.currentPageTrzIExf = ko.observable();
+    self.pageSizeTrzIExf = ko.observable(10);
+    self.currentPageIndexTrzIExf = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
-    self.filterTrzI0 = ko.observable("");
-    self.filterTrzI1 = ko.observable("");
-    self.filterTrzI2 = ko.observable("");
-    self.filterTrzI3 = ko.observable("");
-    self.filterTrzI4 = ko.observable("");
-    self.filterTrzI5 = ko.observable("");
-    self.filterTrzI6 = ko.observable("");
-    self.filterTrzI7 = ko.observable("");
-    self.filterTrzI8 = ko.observable("");
-    self.filterTrzI9 = ko.observable("");
-    self.filterTrzI10 = ko.observable("");
-    self.filterTrzI11 = ko.observable("");
-    self.filterTrzI12 = ko.observable("");
-    self.filterTrzI13 = ko.observable("");
-    self.filterTrzI14 = ko.observable("");
-    self.filterTrzI15 = ko.observable("");
-    self.filterTrzI16 = ko.observable("");
-    self.filterTrzI17 = ko.observable("");
-    self.filterTrzI18 = ko.observable("");
-    self.filterTrzI19 = ko.observable("");
+    self.filterTrzIExf0 = ko.observable("");
+    self.filterTrzIExf1 = ko.observable("");
+    self.filterTrzIExf2 = ko.observable("");
+    self.filterTrzIExf3 = ko.observable("");
+    self.filterTrzIExf4 = ko.observable("");
+    self.filterTrzIExf5 = ko.observable("");
+    self.filterTrzIExf6 = ko.observable("");
+    self.filterTrzIExf7 = ko.observable("");
+    self.filterTrzIExf8 = ko.observable("");
+    self.filterTrzIExf9 = ko.observable("");
+    self.filterTrzIExf10 = ko.observable("");
+    self.filterTrzIExf11 = ko.observable("");
+    self.filterTrzIExf12 = ko.observable("");
+    self.filterTrzIExf13 = ko.observable("");
+    self.filterTrzIExf14 = ko.observable("");
+    self.filterTrzIExf15 = ko.observable("");
+    self.filterTrzIExf16 = ko.observable("");
+    self.filterTrzIExf17 = ko.observable("");
+    self.filterTrzIExf18 = ko.observable("");
+    self.filterTrzIExf19 = ko.observable("");
+    self.filterTrzIExf20 = ko.observable("");
+    self.filterTrzIExf21 = ko.observable("");
+    self.filterTrzIExf22 = ko.observable("");
+    self.filterTrzIExf23 = ko.observable("");
+    self.filterTrzIExf24 = ko.observable("");
+    self.filterTrzIExf25 = ko.observable("");
 
-    self.filterTrzIList = ko.computed(function () {
+    self.filterTrzIExfList = ko.computed(function () {
 
-        self.currentPageIndexTrzI(0);
-        var filter0 = self.filterTrzI0().toUpperCase();
-        var filter1 = self.filterTrzI1().toUpperCase();
-        var filter2 = self.filterTrzI2().toUpperCase();
-        var filter3 = self.filterTrzI3().toUpperCase();
-        var filter4 = self.filterTrzI4().toUpperCase();
-        var filter5 = self.filterTrzI5().toUpperCase();
-        var filter6 = self.filterTrzI6().toUpperCase();
-        var filter7 = self.filterTrzI7().toUpperCase();
-        var filter8 = self.filterTrzI8().toUpperCase();
-        var filter9 = self.filterTrzI9().toUpperCase();
-        var filter10 = self.filterTrzI10().toUpperCase();
-        var filter11 = self.filterTrzI11().toUpperCase();
-        var filter12 = self.filterTrzI12().toUpperCase();
-        var filter13 = self.filterTrzI13().toUpperCase();
-        var filter14 = self.filterTrzI14().toUpperCase();
-        var filter15 = self.filterTrzI15().toUpperCase();
-        var filter16 = self.filterTrzI16().toUpperCase();
-        var filter17 = self.filterTrzI17().toUpperCase();
-        var filter18 = self.filterTrzI18().toUpperCase();
-        var filter19 = self.filterTrzI19().toUpperCase();
+        self.currentPageIndexTrzIExf(0);
+        var filter0 = self.filterTrzIExf0().toUpperCase();
+        var filter1 = self.filterTrzIExf1().toUpperCase();
+        var filter2 = self.filterTrzIExf2().toUpperCase();
+        var filter3 = self.filterTrzIExf3().toUpperCase();
+        var filter4 = self.filterTrzIExf4().toUpperCase();
+        var filter5 = self.filterTrzIExf5().toUpperCase();
+        var filter6 = self.filterTrzIExf6().toUpperCase();
+        var filter7 = self.filterTrzIExf7().toUpperCase();
+        var filter8 = self.filterTrzIExf8().toUpperCase();
+        var filter9 = self.filterTrzIExf9().toUpperCase();
+        var filter10 = self.filterTrzIExf10().toUpperCase();
+        var filter11 = self.filterTrzIExf11().toUpperCase();
+        var filter12 = self.filterTrzIExf12().toUpperCase();
+        var filter13 = self.filterTrzIExf13().toUpperCase();
+        var filter14 = self.filterTrzIExf14().toUpperCase();
+        var filter15 = self.filterTrzIExf15().toUpperCase();
+        var filter16 = self.filterTrzIExf16().toUpperCase();
+        var filter17 = self.filterTrzIExf17().toUpperCase();
+        var filter18 = self.filterTrzIExf18().toUpperCase();
+        var filter19 = self.filterTrzIExf19().toUpperCase();
+        var filter20 = self.filterTrzIExf20().toUpperCase();
+        var filter21 = self.filterTrzIExf21().toUpperCase();
+        var filter22 = self.filterTrzIExf22().toUpperCase();
+        var filter23 = self.filterTrzIExf23().toUpperCase();
+        var filter24 = self.filterTrzIExf24().toUpperCase();
+        var filter25 = self.filterTrzIExf25().toUpperCase();
 
-        // if (!filter0) {
-        //    calcsum(self.TrzIList());
-        //    return self.TrzIList();
-        //} else {
 
-        tempData = ko.utils.arrayFilter(self.TrzIList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.TrzIExfList(), function (item) {
             result =
-                //(item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
                 ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filter0) &&
                 (item.KalaName == null ? '' : item.KalaName.toString().search(filter1) >= 0) &&
                 (item.InvCode == null ? '' : item.InvCode.toString().search(filter2) >= 0) &&
                 (item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
 
-                ko.utils.stringStartsWith(item.AAmount1.toString().toLowerCase(), filter4) &&
-                ko.utils.stringStartsWith(item.AAmount2.toString().toLowerCase(), filter5) &&
-                ko.utils.stringStartsWith(item.AAmount3.toString().toLowerCase(), filter6) &&
-                // ko.utils.startIndex(item.ATotalPrice.toString().toLowerCase(), filter7) &&
-                (item.ATotalPrice == null ? '' : item.ATotalPrice.toString().search(filter7) >= 0) &&
+                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter4) >= 0) &&
+                (item.KalaState == null ? '' : item.KalaState.toString().search(filter5) >= 0) &&
+                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter6) >= 0) &&
+                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter7) >= 0) &&
+                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter8) >= 0) &&
 
-                ko.utils.stringStartsWith(item.VAmount1.toString().toLowerCase(), filter8) &&
-                ko.utils.stringStartsWith(item.VAmount2.toString().toLowerCase(), filter9) &&
-                ko.utils.stringStartsWith(item.VAmount3.toString().toLowerCase(), filter10) &&
-                ko.utils.stringStartsWith(item.VTotalPrice.toString().toLowerCase(), filter11) &&
+                ko.utils.stringStartsWith(item.AAmount1.toString().toLowerCase(), filter9) &&
+                ko.utils.stringStartsWith(item.AAmount2.toString().toLowerCase(), filter10) &&
+                ko.utils.stringStartsWith(item.AAmount3.toString().toLowerCase(), filter11) &&
+                // ko.utils.startIndex(item.ATotalPrice.toString().toLowerCase(), filter12) &&
+                (item.ATotalPrice == null ? '' : item.ATotalPrice.toString().search(filter13) >= 0) &&
 
-                ko.utils.stringStartsWith(item.SAmount1.toString().toLowerCase(), filter12) &&
-                ko.utils.stringStartsWith(item.SAmount2.toString().toLowerCase(), filter13) &&
-                ko.utils.stringStartsWith(item.SAmount3.toString().toLowerCase(), filter14) &&
-                //ko.utils.startIndex(item.STotalPrice.toString().toLowerCase(), filter15) &&
+                ko.utils.stringStartsWith(item.VAmount1.toString().toLowerCase(), filter14) &&
+                ko.utils.stringStartsWith(item.VAmount2.toString().toLowerCase(), filter15) &&
+                ko.utils.stringStartsWith(item.VAmount3.toString().toLowerCase(), filter16) &&
+                ko.utils.stringStartsWith(item.VTotalPrice.toString().toLowerCase(), filter17) &&
 
-                ko.utils.stringStartsWith(item.MAmount1.toString().toLowerCase(), filter16) &&
-                ko.utils.stringStartsWith(item.MAmount2.toString().toLowerCase(), filter17) &&
-                ko.utils.stringStartsWith(item.MAmount3.toString().toLowerCase(), filter18) //&&
-            // ko.utils.startIndex(item.MTotalPrice.toString().toLowerCase(), filter19)
+                ko.utils.stringStartsWith(item.SAmount1.toString().toLowerCase(), filter18) &&
+                ko.utils.stringStartsWith(item.SAmount2.toString().toLowerCase(), filter19) &&
+                ko.utils.stringStartsWith(item.SAmount3.toString().toLowerCase(), filter20) &&
+                //ko.utils.startIndex(item.STotalPrice.toString().toLowerCase(), filter21) &&
+
+                ko.utils.stringStartsWith(item.MAmount1.toString().toLowerCase(), filter22) &&
+                ko.utils.stringStartsWith(item.MAmount2.toString().toLowerCase(), filter23) &&
+                ko.utils.stringStartsWith(item.MAmount3.toString().toLowerCase(), filter24) //&&
+            // ko.utils.startIndex(item.MTotalPrice.toString().toLowerCase(), filter25)
             return result;
         })
         calcsum(tempData);
@@ -273,66 +289,66 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchTrzI);
+    self.search(sessionStorage.searchTrzIExf);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexTrzI = 0;
-        sessionStorage.searchTrzI = "";
+        var indexTrzIExf = 0;
+        sessionStorage.searchTrzIExf = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexTrzI(0);
+            self.currentPageIndexTrzIExf(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.TrzIList(), function (item) {
-                indexTrzI += 1;
+            value = ko.utils.arrayFirst(self.TrzIExfList(), function (item) {
+                indexTrzIExf += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexTrzI < self.pageSizeTrzI())
-                self.currentPageIndexTrzI(0);
+            if (indexTrzIExf < self.pageSizeTrzIExf())
+                self.currentPageIndexTrzIExf(0);
             else {
-                var a = Math.round((indexTrzI / self.pageSizeTrzI()), 0);
-                if (a < (indexTrzI / self.pageSizeTrzI())) a += 1;
-                self.currentPageIndexTrzI(a - 1);
+                var a = Math.round((indexTrzIExf / self.pageSizeTrzIExf()), 0);
+                if (a < (indexTrzIExf / self.pageSizeTrzIExf())) a += 1;
+                self.currentPageIndexTrzIExf(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageTrzI = ko.computed(function () {
-        var pageSizeTrzI = parseInt(self.pageSizeTrzI(), 10),
-            startIndex = pageSizeTrzI * self.currentPageIndexTrzI(),
-            endIndex = startIndex + pageSizeTrzI;
-        return self.filterTrzIList().slice(startIndex, endIndex);
+    self.currentPageTrzIExf = ko.computed(function () {
+        var pageSizeTrzIExf = parseInt(self.pageSizeTrzIExf(), 10),
+            startIndex = pageSizeTrzIExf * self.currentPageIndexTrzIExf(),
+            endIndex = startIndex + pageSizeTrzIExf;
+        return self.filterTrzIExfList().slice(startIndex, endIndex);
     });
 
-    self.nextPageTrzI = function () {
-        if (((self.currentPageIndexTrzI() + 1) * self.pageSizeTrzI()) < self.filterTrzIList().length) {
-            self.currentPageIndexTrzI(self.currentPageIndexTrzI() + 1);
+    self.nextPageTrzIExf = function () {
+        if (((self.currentPageIndexTrzIExf() + 1) * self.pageSizeTrzIExf()) < self.filterTrzIExfList().length) {
+            self.currentPageIndexTrzIExf(self.currentPageIndexTrzIExf() + 1);
         }
     };
 
-    self.previousPageTrzI = function () {
-        if (self.currentPageIndexTrzI() > 0) {
-            self.currentPageIndexTrzI(self.currentPageIndexTrzI() - 1);
+    self.previousPageTrzIExf = function () {
+        if (self.currentPageIndexTrzIExf() > 0) {
+            self.currentPageIndexTrzIExf(self.currentPageIndexTrzIExf() - 1);
         }
     };
 
-    self.firstPageTrzI = function () {
-        self.currentPageIndexTrzI(0);
+    self.firstPageTrzIExf = function () {
+        self.currentPageIndexTrzIExf(0);
     };
 
-    self.lastPageTrzI = function () {
-        tempCountTrzI = parseInt(self.filterTrzIList().length / self.pageSizeTrzI(), 10);
-        if ((self.filterTrzIList().length % self.pageSizeTrzI()) == 0)
-            self.currentPageIndexTrzI(tempCountTrzI - 1);
+    self.lastPageTrzIExf = function () {
+        tempCountTrzIExf = parseInt(self.filterTrzIExfList().length / self.pageSizeTrzIExf(), 10);
+        if ((self.filterTrzIExfList().length % self.pageSizeTrzIExf()) == 0)
+            self.currentPageIndexTrzIExf(tempCountTrzIExf - 1);
         else
-            self.currentPageIndexTrzI(tempCountTrzI);
+            self.currentPageIndexTrzIExf(tempCountTrzIExf);
     };
 
-    self.sortTableTrzI = function (viewModel, e) {
+    self.sortTableTrzIExf = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.TrzIList.sort(function (left, right) {
+        self.TrzIExfList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -347,6 +363,13 @@
         self.iconTypeInvName('');
         self.iconTypeKalaCode('');
         self.iconTypeKalaName('');
+
+        self.iconTypeKalaFileNo('');
+        self.iconTypeKalaState('');
+        self.iconTypeKalaExf1('');
+        self.iconTypeKalaExf2('');
+        self.iconTypeKalaExf3('');
+
         self.iconTypeAAmount1('');
         self.iconTypeAAmount2('');
         self.iconTypeAAmount3('');
@@ -369,6 +392,15 @@
         if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+        if (orderProp == 'KalaFileNo') self.iconTypeKalaFileNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaState') self.iconTypeKalaState((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf1') self.iconTypeKalaExf1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf2') self.iconTypeKalaExf2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf3') self.iconTypeKalaExf3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+
+
         if (orderProp == 'AAmount1') self.iconTypeAAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AAmount2') self.iconTypeAAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AAmount3') self.iconTypeAAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -395,6 +427,13 @@
     self.iconTypeInvName = ko.observable("");
     self.iconTypeKalaCode = ko.observable("");
     self.iconTypeKalaName = ko.observable("");
+
+    self.iconTypeKalaFileNo = ko.observable("");
+    self.iconTypeKalaState = ko.observable("");
+    self.iconTypeKalaExf1 = ko.observable("");
+    self.iconTypeKalaExf2 = ko.observable("");
+    self.iconTypeKalaExf3 = ko.observable("");
+
     self.iconTypeAAmount1 = ko.observable("");
     self.iconTypeAAmount2 = ko.observable("");
     self.iconTypeAAmount3 = ko.observable("");

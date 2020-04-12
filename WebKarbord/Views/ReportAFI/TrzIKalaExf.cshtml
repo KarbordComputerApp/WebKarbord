@@ -1,7 +1,6 @@
-﻿@{
-    /**/
-
-    ViewBag.Title = "TrzIKala";
+﻿
+@{
+    ViewBag.Title = "TrzIExfKalaExf";
     Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
@@ -114,7 +113,7 @@
                 <div style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
                     <table class="table table-hover table-striped">
                         <thead style="cursor: pointer;">
-                            <tr data-bind="click: sortTableTrzI">
+                            <tr data-bind="click: sortTableTrzIExf">
                                 <th data-column="KalaCode">
                                     کد کالا <span data-bind="attr: { class: currentColumn() == 'KalaCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaCode }"></i> </span>
                                 </th>
@@ -128,8 +127,25 @@
                                     نام انبار <span data-bind="attr: { class: currentColumn() == 'InvName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvName }"></i> </span>
                                 </th>
                                 <!-- <th data-column="KalaFanniNo">
-                                    شماره فنی <span data-bind="attr: { class: currentColumn() == 'KalaFanniNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
-                                </th>-->
+        شماره فنی <span data-bind="attr: { class: currentColumn() == 'KalaFanniNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+    </th>-->
+                                
+                                <th data-column="KalaFileNo">
+                                    ویژگی 1<span data-bind="attr: { class: currentColumn() == 'KalaFileNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaFileNo }"></i> </span>
+                                </th>
+                                <th data-column="KalaState">
+                                    ویژگی 2  <span data-bind="attr: { class: currentColumn() == 'KalaState' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaState }"></i> </span>
+                                </th>
+                                <th data-column="KalaExf1">
+                                    ویژگی 3  <span data-bind="attr: { class: currentColumn() == 'KalaExf1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf1 }"></i> </span>
+                                </th>
+                                <th data-column="KalaExf2">
+                                    ویژگی 4 <span data-bind="attr: { class: currentColumn() == 'KalaExf2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf2 }"></i> </span>
+                                </th>
+                                <th data-column="KalaExf3">
+                                    ویژگی 5 <span data-bind="attr: { class: currentColumn() == 'KalaExf3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf3 }"></i> </span>
+                                </th>
+
                                 <th data-column="AAmount1">
                                     مقدار اول دوره 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount1 }"></i> </span>
                                 </th>
@@ -181,12 +197,19 @@
                             </tr>
 
                         </thead>
-                        <tbody data-bind="foreach: currentPageTrzI" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectTrzI , css: { matched: $data === $root.firstMatch() }">
-                                <td data-bind="text: KalaCode"></td>
-                                <td data-bind="text: KalaName" style="width:500px"></td>
-                                <td data-bind="text: InvCode"></td>
-                                <td data-bind="text: InvName"></td>
+                        <tbody data-bind="foreach: currentPageTrzIExf" data-dismiss="modal" style="cursor: default;">
+                            <!-- <tr data-bind="click: $parent.selectTrzIExf , css: { matched: $data === $root.firstMatch(), 'background-color': #efb68399} ">
+    -->
+                            <tr data-bind="click: $parent.selectTrzIExf , style: { 'background-color': Tag == 1 ? '#eae9e9' : '#ffffff' } ">
+                                <td data-bind="text: Tag == 1 ? KalaCode : '' "></td>
+                                <td data-bind="text: Tag == 1 ? KalaName : '' " style="width:500px"></td>
+                                <td data-bind="text: Tag == 1 ? InvCode : '' "></td>
+                                <td data-bind="text: Tag == 1 ? InvName : '' "></td>
+                                <td data-bind="text: KalaFileNo"></td>
+                                <td data-bind="text: KalaState"></td>
+                                <td data-bind="text: KalaExf1"></td>
+                                <td data-bind="text: KalaExf2"></td>
+                                <td data-bind="text: KalaExf3"></td>
                                 <!-- <td data-bind="text:KalaFanniNo "></td> -->
                                 <td style="direction: ltr;" data-bind="text: AAmount1 == 0 ? '0' : NumberToNumberString(AAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: AAmount1 < 0 ? 'red' : 'black' }"></td>
                                 <td style="direction: ltr;" data-bind="text: AAmount2 == 0 ? '0' : NumberToNumberString(AAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: AAmount2 < 0 ? 'red' : 'black' }"></td>
@@ -209,9 +232,17 @@
                         <tfoot>
                             <tr style="background-color:#e37d228f;">
                                 <td id="textTotal"></td>
+                                
                                 <td></td>
                                 <td></td>
                                 <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
                                 <td id="totalAAmount1" style="direction: ltr;"></td>
                                 <td id="totalAAmount2" style="direction: ltr;"></td>
                                 <td id="totalAAmount3" style="direction: ltr;"></td>
@@ -231,26 +262,33 @@
                             </tr>
 
                             <tr style="background-color: #efb68399;">
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI2, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI4, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI5, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI6, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI7, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI8, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI9, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI10, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI11, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI12, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI13, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI14, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI15, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI16, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI17, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI18, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI19, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf2, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf9, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf10, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf11, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf12, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf13, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf14, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf15, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf16, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf17, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf18, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf19, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf20, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf21, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf22, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf23, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf24, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -263,7 +301,7 @@
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
-                                <select id="pageSizeSelector" data-bind="value: pageSizeTrzI" class="selectorange">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeTrzIExf" class="selectorange">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -283,16 +321,16 @@
 
 
                     <div class="col-md-4" style="text-align: center; margin-top: 10px;">
-                        <a data-bind="click: firstPageTrzI">
+                        <a data-bind="click: firstPageTrzIExf">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
-                        <a data-bind="click: previousPageTrzI">
+                        <a data-bind="click: previousPageTrzIExf">
                             <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                        </a> <b data-bind="text: currentPageIndexTrzI() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                        <a data-bind="click: nextPageTrzI">
+                        </a> <b data-bind="text: currentPageIndexTrzIExf() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageTrzIExf">
                             <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <a data-bind="click: lastPageTrzI">
+                        <a data-bind="click: lastPageTrzIExf">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
@@ -566,8 +604,6 @@
 </div>
 
 
-
-
 @section scripts{
     <script type="text/javascript">
 
@@ -591,6 +627,8 @@
             });
         });
     </script>
-    <script src="~/Scripts/R_AFI_TrzIKala.js"></script>
+    <script src="~/Scripts/R_AFI_TrzIKalaExf.js"></script>
 }
+
+
 

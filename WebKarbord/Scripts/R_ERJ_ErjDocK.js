@@ -25,7 +25,7 @@
     self.AzDate = ko.observable('');
     self.TaDate = ko.observable('');
 
-    
+
 
     var allSearchErjCust = true;
 
@@ -72,25 +72,25 @@
         if (SrchSt == null) SrchSt = "";
 
         var ErjCust = '';
-        for (var i = 1; i <= counterErjCust; i++) {
-            if (i < counterErjCust)
+        for (var i = 0; i <= counterErjCust - 1; i++) {
+            if (i < counterErjCust - 1)
                 ErjCust += list_ErjCustSelect[i] + '*';
             else
                 ErjCust += list_ErjCustSelect[i];
         }
 
         var Khdt = '';
-        for (var i = 1; i <= counterKhdt; i++) {
-            if (i < counterKhdt)
+        for (var i = 0; i <= counterKhdt - 1; i++) {
+            if (i < counterKhdt - 1)
                 Khdt += list_KhdtSelect[i] + '*';
             else
                 Khdt += list_KhdtSelect[i];
         }
 
         var DocKObject = {
-            azTarikh: tarikh1,  
+            azTarikh: tarikh1,
             taTarikh: tarikh2,
-            Status: Status,  
+            Status: Status,
             CustCode: ErjCust,
             KhdtCode: Khdt,
             SrchSt: SrchSt,
@@ -122,7 +122,7 @@
     self.iconType = ko.observable("");
 
     self.filterDocK0 = ko.observable("");
-    self.filterDocK1 = ko.observable(""); 
+    self.filterDocK1 = ko.observable("");
     self.filterDocK2 = ko.observable("");
     self.filterDocK3 = ko.observable("");
     self.filterDocK4 = ko.observable("");
@@ -166,26 +166,26 @@
 
 
         tempData = ko.utils.arrayFilter(self.DocKList(), function (item) {
-             result =
-              (item.DocNo == null ? '' : item.DocNo.toString().search(filter0) >= 0) &&
-             (item.DocDate == null ? '' : item.DocDate.toString().search(filter1) >= 0) &&
-             (item.MahramanehName == null ? '' : item.MahramanehName.toString().search(filter2) >= 0) &&
-             (item.Eghdam == null ? '' : item.Eghdam.toString().search(filter3) >= 0) &&
-             (item.Tanzim == null ? '' : item.Tanzim.toString().search(filter4) >= 0) &&
-             (item.AmalDate == null ? '' : item.AmalDate.toString().search(filter5) >= 0) &&
-             (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter6) >= 0) &&
-             (item.EndDate == null ? '' : item.EndDate.toString().search(filter7) >= 0) &&
-             (item.CustCode == null ? '' : item.CustCode.toString().search(filter8) >= 0) &&
-             (item.CustName == null ? '' : item.CustName.toString().search(filter9) >= 0) &&
-             (item.DocDesc == null ? '' : item.DocDesc.toString().search(filter10) >= 0) &&
-             (item.EghdamComm == null ? '' : item.EghdamComm.toString().search(filter11) >= 0) &&
-             (item.FinalComm == null ? '' : item.FinalComm.toString().search(filter12) >= 0) &&
-             (item.SpecialComm == null ? '' : item.SpecialComm.toString().search(filter13) >= 0) &&
-             (item.Status == null ? '' : item.Status.toString().search(filter14) >= 0) &&
-             (item.Spec == null ? '' : item.Spec.toString().search(filter15) >= 0) &&
-             (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter16) >= 0) &&
-            // (item.RjTime == null ? '' : item.RjTime.toString().search(filter17) >= 0) &&
-             ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter18) 
+            result =
+                (item.DocNo == null ? '' : item.DocNo.toString().search(filter0) >= 0) &&
+                (item.DocDate == null ? '' : item.DocDate.toString().search(filter1) >= 0) &&
+                (item.MahramanehName == null ? '' : item.MahramanehName.toString().search(filter2) >= 0) &&
+                (item.Eghdam == null ? '' : item.Eghdam.toString().search(filter3) >= 0) &&
+                (item.Tanzim == null ? '' : item.Tanzim.toString().search(filter4) >= 0) &&
+                (item.AmalDate == null ? '' : item.AmalDate.toString().search(filter5) >= 0) &&
+                (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter6) >= 0) &&
+                (item.EndDate == null ? '' : item.EndDate.toString().search(filter7) >= 0) &&
+                (item.CustCode == null ? '' : item.CustCode.toString().search(filter8) >= 0) &&
+                (item.CustName == null ? '' : item.CustName.toString().search(filter9) >= 0) &&
+                (item.DocDesc == null ? '' : item.DocDesc.toString().search(filter10) >= 0) &&
+                (item.EghdamComm == null ? '' : item.EghdamComm.toString().search(filter11) >= 0) &&
+                (item.FinalComm == null ? '' : item.FinalComm.toString().search(filter12) >= 0) &&
+                (item.SpecialComm == null ? '' : item.SpecialComm.toString().search(filter13) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filter14) >= 0) &&
+                (item.Spec == null ? '' : item.Spec.toString().search(filter15) >= 0) &&
+                (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter16) >= 0) &&
+                // (item.RjTime == null ? '' : item.RjTime.toString().search(filter17) >= 0) &&
+                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter18)
 
             return result;
         })
@@ -287,7 +287,7 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-                          
+
 
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
@@ -306,10 +306,10 @@
         self.iconTypeStatus('');
         self.iconTypeSpec('');
         self.iconTypeKhdtName('');
-       // self.iconTypeRjTime('');
+        // self.iconTypeRjTime('');
         self.iconTypeSerialNumber('');
 
-                          
+
 
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -328,7 +328,7 @@
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KhdtName') self.iconTypeKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-       // if (orderProp == 'RjTime') self.iconTypeRjTime((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        // if (orderProp == 'RjTime') self.iconTypeRjTime((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
@@ -374,13 +374,13 @@
         return self.filterErjCustList().slice(startIndex, endIndex);
     });
 
-    self.nextPageErjCust = function () { 
+    self.nextPageErjCust = function () {
         if (((self.currentPageIndexErjCust() + 1) * self.pageSizeErjCust()) < self.filterErjCustList().length) {
             self.currentPageIndexErjCust(self.currentPageIndexErjCust() + 1);
         }
     };
 
-    self.previousPageErjCust = function () { 
+    self.previousPageErjCust = function () {
         if (self.currentPageIndexErjCust() > 0) {
             self.currentPageIndexErjCust(self.currentPageIndexErjCust() - 1);
         }
@@ -427,15 +427,12 @@
         ErjCustCode = item.Code;
         find = false;
         list_ErjCustSelect.forEach(function (item, key) {
-            if (item == ErjCustCode) { 
+            if (item == ErjCustCode) {
                 find = true;
             }
         });
 
         if (find == false) {
-            counterErjCust = counterErjCust + 1;
-            list_ErjCustSelect[counterErjCust] = item.Code;
-
             $('#TableListErjCust').append(
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
@@ -443,13 +440,15 @@
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
+            list_ErjCustSelect[counterErjCust] = item.Code;
+            counterErjCust = counterErjCust + 1;
         }
     };
 
 
     self.AddAllErjCust = function () {
         list_ErjCustSelect = new Array();
-        list = self.ErjCustList(); 
+        list = self.ErjCustList();
         $("#TableBodyListErjCust").empty();
         for (var i = 0; i < list.length; i++) {
             $('#TableListErjCust').append(
@@ -460,7 +459,7 @@
                 + '</tr>'
             );
             list_ErjCustSelect[i] = list[i].Code;
-            counterErjCust = i+1;
+            counterErjCust = i + 1;
         }
     };
 
@@ -479,7 +478,7 @@
     });
 
     $('#modal-ErjCust').on('shown.bs.modal', function () {
-            $('.fix').attr('class', 'form-line focused fix');
+        $('.fix').attr('class', 'form-line focused fix');
     });
 
 
@@ -601,16 +600,16 @@
         });
 
         if (find == false) {
-            counterKhdt = counterKhdt + 1;
-            list_KhdtSelect[counterKhdt] = item.Code;
 
-            $('#TableListKhdt').append( 
+            $('#TableListKhdt').append(
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
+            list_KhdtSelect[counterKhdt] = item.Code;
+            counterKhdt = counterKhdt + 1;
         }
     };
 
@@ -678,8 +677,8 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
-   
-    
+
+
 };
 
 ko.applyBindings(new ViewModel());

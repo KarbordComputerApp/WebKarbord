@@ -230,6 +230,8 @@ function SearchArry(Node, Key, myArray) {
         if (myArray[i].Node === Node && myArray[i].Key === Key) {
             return myArray[i].Param;
         }
+        else
+            return '';
     }
 }
 
