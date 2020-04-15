@@ -131,6 +131,54 @@ select {
     content: "\002a"
 }
 
+
+@media only screen and (min-device-width: 576px) {
+    .card {
+        margin: 30px 30px 30px 10px;
+        background: #fff;
+        min-height: 50px;
+        box-shadow: none;
+        border: 0;
+        position: relative;
+        margin-bottom: 24px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 25px;
+        box-shadow: 5px 5px 20px 1px #4048524f;
+    }
+}
+
+@media only screen and (max-device-width: 576px) {
+    .card {
+        margin: 0px 5px 0px 5px;
+        background: #fff;
+        min-height: 50px;
+        box-shadow: none;
+        border: 0;
+        position: relative;
+        margin-bottom: 24px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 25px;
+        box-shadow: 5px 5px 20px 1px #4048524f;
+    }
+
+        .card .body {
+            margin: 0px 5px 0px 5px;
+            font-size: 14px;
+            color: #3f4853;
+            padding: 0px 5px 5px 5px;
+        }
+
+    .container-fluid {
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
 .glyphicon-plus:before {
     content: "\002b"
 }

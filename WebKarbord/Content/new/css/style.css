@@ -1,48 +1,5 @@
 ﻿@charset "UTF-8";
-/*
- *  Document   : style.css
- *  Author     : RedStar Template
- *  Description: This is a main style scss file for import all scss files.
- *
- *  Structure (with shortcodes):
-                 [1. Variables ]
-                 [2. Animations ]                   
-                 [3. Components ]                   
-                 [4. General Styles ]                   
-                 [5. Media Queries ]                   
-                 [6. Icons ]                   
-                 [7. Form Components ]                   
-                 [8. Left Sidebar ]                   
-                 [9. Navbar ]                   
-                 [10. Slider ]                   
-                 [11. Search Bar ]                   
-                 [12. Todo ]                   
-                 [13. Notice Board ]                   
-                 [14. Apps]                   
-                 [15. Pages ]                   
-                 [16. Pugins ]                   
-                 [17. Ecommerce ]                   
-                 [18. Material Components ]                   
-                 [19. Browser ]                              
 
-
-
-/*                 [1. Variables ]                   			*/
-/*
- *  Document   : _mixins.scss
- *  Author     : RedStar Template
- *  Description: This scss file for all common mixin
- */
-/*
- *  Document   : _variables.scss
- *  Author     : RedStar Template
- *  Description: This scss file for declare variable for colors
- */
-/*
- *  Document   : _helpers.scss
- *  Author     : RedStar Template
- *  Description: This scss file for helper classes for reduce css effort
- */
 .m-l--125 {
     margin-left: -125px;
 }
@@ -16702,6 +16659,7 @@ nav.navbar {
         .pricingTable:hover .pricingTable-header {
             background: #ff9624;
         }
+
             .pricingTable:hover .pricingTable-header i {
                 color: #fff;
             }
@@ -19191,7 +19149,7 @@ table.shoping-cart-table {
 
 .alert-success {
     background-color: rgba(24, 206, 15, 0.8);
-    border-radius : 15px;
+    border-radius: 15px;
 }
 
 .alert-info {
@@ -19204,7 +19162,7 @@ table.shoping-cart-table {
 
 .alert-danger {
     background-color: #ec8121;
-    border-radius : 15px;
+    border-radius: 15px;
 }
 
 .alert-dismissible .close {

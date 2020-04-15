@@ -1732,7 +1732,8 @@
     color: #3f4853 !important
 }
 
-.theme-red .card .header h2 strong {
+.theme-red .card .header h2 strong
+{
     color: #3f4853 !important;
     position: absolute;
     top: 20px
