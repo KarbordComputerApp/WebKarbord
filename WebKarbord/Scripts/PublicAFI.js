@@ -341,10 +341,16 @@ function CheckAccess(TrsName) {
 
 function CheckAccessReport(Code) {
     for (var i = 0; i < accessReport.length; i++) {
-        if (accessReport[i].Code == 'TiKala') {
+        if (accessReport[i].Code == 'TrzIKala') {
             return accessReport[i].Trs;
         }
-        else if (accessReport[i].Code == 'TiKalaMin') {
+        else if (accessReport[i].Code == 'TrzIKalaExf') {
+            return accessReport[i].Trs;
+        }
+        else if (accessReport[i].Code == 'IDocR') {
+            return accessReport[i].Trs;
+        }
+        else if (accessReport[i].Code == 'FDocR') {
             return accessReport[i].Trs;
         }
         else
@@ -354,10 +360,10 @@ function CheckAccessReport(Code) {
 
 function CheckAccessReportErj(Code) {
     for (var i = 0; i < accessReportErj.length; i++) {
-        if (accessReportErj[i].Code == 'DocK') {
+        if (accessReportErj[i].Code == 'ErjDocK') {
             return accessReportErj[i].Trs;
         }
-        else if (accessReportErj[i].Code == 'FERJ') {
+        else if (accessReportErj[i].Code == 'ErjDocErja') {
             return accessReportErj[i].Trs;
         }
         else
@@ -490,7 +496,7 @@ SetValidation();
 SetValidationErj();
 
 function SetValidation() {
-    var ShowMenu = [false, false, false, false, false, false, false, false, false, false, false, false, false];
+    var ShowMenu = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
     if (access == null) return false;
     if (access.length == 0) return false;
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
@@ -531,8 +537,33 @@ function SetValidation() {
     validation = CheckAccess('RPRT'); // گزارشات
     ShowMenu[11] = validation;
 
-    validation = CheckAccessReport('TiKala');
+    validation = CheckAccessReport('TrzIKala');
     ShowMenu[12] = validation;  // گزارش موجودی کالا
+
+    validation = CheckAccessReport('TrzIKalaExf');
+    ShowMenu[13] = validation;  // گزارش موجودی کالا به تفکیک ویژگیها
+
+    validation = CheckAccessReport('IDocR');
+    ShowMenu[14] = validation;  // گزارش ريز گردش اسناد انبارداری
+
+    validation = CheckAccessReport('FDocR');
+    ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
+
+
+    if (accessReport[i].Code == 'TrzIKala') {
+        return accessReport[i].Trs;
+    }
+    else if (accessReport[i].Code == 'TrzIKalaExf') {
+        return accessReport[i].Trs;
+    }
+    else if (accessReport[i].Code == 'IDocR') {
+        return accessReport[i].Trs;
+    }
+    else if (accessReport[i].Code == 'FDocR') {
+        return accessReport[i].Trs;
+    }
+
+
 
     validation = CheckAccess('SPDOC');
     ShowMenu[3] = validation;  // پیش فاکتور قروش
@@ -864,12 +895,12 @@ function SetValidationErj() {
         sessionStorage.AccessSanadErj = true;
     }
 
-    validation = CheckAccessReportErj('DocK');
+    validation = CheckAccessReportErj('ErjDocK');
     ShowMenuErj[1] = validation;  // گزارش فهرست پرونده
 
 
-    validation = CheckAccessReportErj('FERJ');
-    ShowMenuErj[2] = validation;  // گزارش فهرست پرونده
+    validation = CheckAccessReportErj('ErjDocErja');
+    ShowMenuErj[2] = validation;  // گزارش فهرست ارجاعات
 
 
     if (ShowMenuErj[1] || ShowMenuErj[2]) {
