@@ -75,8 +75,8 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 }
 
 
-afiaccess = [false, false, false, false, false, false, false, false, false]
-for (var i = 0; i < 9; i++) {
+afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+for (var i = 0; i < 12; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -85,7 +85,10 @@ for (var i = 0; i < 9; i++) {
     afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
     afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
     afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-    afiAccessApi[i] == 'TIKALA' ? afiaccess[8] = true : null;
+    afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
+    afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
+    afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
+    afiAccessApi[i] == 'FDocR' ? afiaccess[11] = true : null;
 }
 
 
@@ -113,7 +116,7 @@ erjaccess = [false, false]
 if (CheckGroupErj(sessionStorage.group) == true) {
     for (var i = 0; i < 2; i++) {
         erjAccessApi[i] == 'ErjDocK' ? erjaccess[1] = true : null;
-        erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[2] = true : null;
+        erjAccessApi[i] == 'ErjDocErja' ? erjaccess[2] = true : null;
 
     }
 }
@@ -144,6 +147,8 @@ $("#IDOC_I").hide();
 $("#IDOC_O").hide();
 
 $("#TrzIKala").hide();
+$("#TrzIKalaExf").hide();
+$("#IDocR").hide();
 $("#FDOC_Menu").hide();
 $("#IDOC_Menu").hide();
 $("#IReport_Menu").hide();
@@ -422,9 +427,9 @@ function getAccessList() {
                     afiAccessApi = tempAccess.split("*");
                 }
 
-                afiaccess = [false, false, false, false, false, false, false, false, false]
+                afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i < 9; i++) {
+                for (var i = 0; i < 12; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -433,7 +438,11 @@ function getAccessList() {
                     afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
                     afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
                     afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-                    afiAccessApi[i] == 'TIKALA' ? afiaccess[8] = true : null;
+                    afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
+                    afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
+                    afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
+                    afiAccessApi[i] == 'FDocR' ? afiaccess[11] = true : null;
+
                 }
 
                 erjaccess = [false, false]
@@ -550,18 +559,18 @@ function SetValidation() {
     ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
 
 
-    if (accessReport[i].Code == 'TrzIKala') {
-        return accessReport[i].Trs;
-    }
-    else if (accessReport[i].Code == 'TrzIKalaExf') {
-        return accessReport[i].Trs;
-    }
-    else if (accessReport[i].Code == 'IDocR') {
-        return accessReport[i].Trs;
-    }
-    else if (accessReport[i].Code == 'FDocR') {
-        return accessReport[i].Trs;
-    }
+    /*  if (accessReport[i].Code == 'TrzIKala') {
+          return accessReport[i].Trs;
+      }
+      else if (accessReport[i].Code == 'TrzIKalaExf') {
+          return accessReport[i].Trs;
+      }
+      else if (accessReport[i].Code == 'IDocR') {
+          return accessReport[i].Trs;
+      }
+      else if (accessReport[i].Code == 'FDocR') {
+          return accessReport[i].Trs;
+      }*/
 
 
 
@@ -853,10 +862,12 @@ function SetValidation() {
     }
 
     if (ShowMenu[11]) {    // گزارشات
-        if (afiaccess[8] == true) {
+        if (afiaccess[8] || afiaccess[9]) {
             if (ShowMenu[11]) {
                 $("#IReport_Menu").show();
                 ShowMenu[12] == true ? $("#TrzIKala").show() : $("#TrzIKala").hide();
+                ShowMenu[13] == true && afiaccess[9] == true ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
+                ShowMenu[14] == true ? $("#IDocR").show() : $("#IDocR").hide();
             }
             else {
                 $("#IReport_Menu").hide();
@@ -889,7 +900,19 @@ function SetValidationErj() {
     var ShowMenuErj = [false, false];
     if (accessErj == null) return false;
     if (accessErj.length == 0) return false;
-    sessionStorage.userName == 'ACE' ? accessErj[0].TrsName = 'ADMIN' : null
+
+
+    if (sessionStorage.userName == 'ACE')
+        accessErj[0].TrsName = 'ADMIN';
+
+    if (access[0].TrsName == 'ADMIN')
+        sessionStorage.userModeErj = 'ADMIN';
+    else
+        sessionStorage.userModeErj = 'USER';
+
+
+
+
 
     if (accessErj[0].Trs == 0) {
         sessionStorage.AccessSanadErj = true;
@@ -904,19 +927,16 @@ function SetValidationErj() {
 
 
     if (ShowMenuErj[1] || ShowMenuErj[2]) {
-        if (erjaccess[1] == true) {
-            $("#EReport_Menu").show();
-        }
-        else {
-            $("#EReport_Menu").hide();
-        }
+        $("#EReport_Menu").show();
+        ShowMenuErj[1] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+        ShowMenuErj[2] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+    }
+    else {
+        $("#EReport_Menu").hide();
     }
 
-    
+
 }
-
-
-
 
 
 $("#FDOC_SP").click(function () {

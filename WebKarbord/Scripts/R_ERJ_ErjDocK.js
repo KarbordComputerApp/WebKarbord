@@ -88,6 +88,8 @@
         }
 
         var DocKObject = {
+            userName: sessionStorage.userName,
+            userMode: sessionStorage.userModeErj,
             azTarikh: tarikh1,
             taTarikh: tarikh2,
             Status: Status,

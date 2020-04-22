@@ -10,7 +10,7 @@
     var check = 0;
 
     var LoginUri; // آدرس حساب
-    var serverAccount = 'http://localhost:902/api/';
+    var serverAccount = 'http://192.168.0.109:902/api/';
     sessionStorage.serverAccount = serverAccount;
 
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
@@ -90,6 +90,7 @@
         sessionStorage.group = 0;
         sessionStorage.sal = 0;
         localStorage.setItem('Access', null);
+        localStorage.setItem('AccessErj', null);
         sessionStorage.SelectMenu = 0;
         getLoginData();
     }

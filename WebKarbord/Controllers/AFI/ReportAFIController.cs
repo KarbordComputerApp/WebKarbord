@@ -18,5 +18,10 @@ namespace WebKarbord.Controllers.AFI
         {
             return View();
         }
+
+        public ActionResult IDocR()
+        {
+            return View();
+        }
     }
 }

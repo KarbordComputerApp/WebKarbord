@@ -858,6 +858,15 @@
         $("#comm").val(text);
     })
 
+    if (sessionStorage.userModeErj == 'USER') {
+        $('#FromUser').prop('disabled', true);
+        $('#ToUser').prop('disabled', true);
+    }
+    else {
+        $('#FromUser').prop('disabled', false);
+        $('#ToUser').prop('disabled', false);
+    }
+
 };
 
 ko.applyBindings(new ViewModel());
