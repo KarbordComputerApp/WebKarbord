@@ -1139,45 +1139,45 @@ $('#IDOC_Menu').click(function () {
     sessionStorage.SelectMenu = 2;
 });
 
-$('#Setting_Menu').click(function () {
+
+$('#IReport_Menu').click(function () {
     sessionStorage.SelectMenu = 3;
 });
 
-$('#IReport_Menu').click(function () {
+$('#FReport_Menu').click(function () {
     sessionStorage.SelectMenu = 4;
 });
 
+$('#EReport_Menu').click(function () {
+    sessionStorage.SelectMenu = 5;
+});
+
+$('#FDOC_Menu').removeAttr('class');
+$('#IDOC_Menu').removeAttr('class');
+$('#IReport_Menu').removeAttr('class');
+$('#FReport_Menu').removeAttr('class');
+$('#EReport_Menu').removeAttr('class');
 
 if (sessionStorage.SelectMenu == 1) {
     $('#FDOC_Menu').attr('class', 'active');
-    $('#IDOC_Menu').removeAttr('class');
-    $('#IReport_Menu').removeAttr('class');
-    //$('#Setting_Menu').removeAttr('class');
 }
+
 else if (sessionStorage.SelectMenu == 2) {
     $('#IDOC_Menu').attr('class', 'active');
-    $('#FDOC_Menu').removeAttr('class');
-    $('#IReport_Menu').removeAttr('class');
-    //$('#Setting_Menu').removeAttr('class');
 }
+
 else if (sessionStorage.SelectMenu == 3) {
-    //$('#Setting_Menu').attr('class', 'active');
-    $('#FDOC_Menu').removeAttr('class');
-    $('#IDOC_Menu').removeAttr('class');
-    $('#IReport_Menu').removeAttr('class');
-}
-else if (sessionStorage.SelectMenu == 4) {
-    //$('#Setting_Menu').attr('class', 'active');
     $('#IReport_Menu').attr('class', 'active');
-    $('#FDOC_Menu').removeAttr('class');
-    $('#IDOC_Menu').removeAttr('class');
 }
-else {
-    $('#FDOC_Menu').removeAttr('class');
-    $('#IDOC_Menu').removeAttr('class');
-    $('#IReport_Menu').removeAttr('class');
-    //$('#Setting_Menu').removeAttr('class');
+
+else if (sessionStorage.SelectMenu == 4) {
+    $('#FReport_Menu').attr('class', 'active');
 }
+
+else if (sessionStorage.SelectMenu == 5) {
+    $('#EReport_Menu').attr('class', 'active');
+}
+
 
 $.fn.inputFilter = function (inputFilter) {
     return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {

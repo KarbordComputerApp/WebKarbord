@@ -665,6 +665,7 @@
     function hidePopover($element) {
         if (!$element) return;
         $element.popover('hide');
+        $('.fix').attr('class', 'form-line focused date fix'); 
     }
 
     function convertToNumber1(dateTimeJson) {

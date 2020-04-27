@@ -838,8 +838,8 @@
 
         self.currentPageIndexThvl(0);
         var filter0 = self.filterThvl0().toUpperCase();
-        var filter1 = self.filterThvl1().toUpperCase();
-        var filter2 = self.filterThvl2().toUpperCase();
+        var filter1 = self.filterThvl1();
+        var filter2 = self.filterThvl2();
 
         if (!filter0 && !filter1 && !filter2) {
             return self.ThvlList();
@@ -920,9 +920,9 @@
     self.filterKalaList = ko.computed(function () {
         self.currentPageIndexKala(0);
         var filter0 = self.filterKala0().toUpperCase();
-        var filter1 = self.filterKala1().toUpperCase();
-        var filter2 = self.filterKala2().toUpperCase();
-        var filter3 = self.filterKala3().toUpperCase();
+        var filter1 = self.filterKala1();
+        var filter2 = self.filterKala2();
+        var filter3 = self.filterKala3();
 
         if (!filter0 && !filter1 && !filter2 && !filter3) {
             return self.KalaList();

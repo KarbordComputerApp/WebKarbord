@@ -121,15 +121,12 @@
     self.filterFDocH8 = ko.observable("");
 
 
-    
-
-
     self.filterFDocHList = ko.computed(function () {
 
         self.currentPageIndexFDocH(0);
         var filter0 = self.filterFDocH0().toUpperCase();
         var filter1 = self.filterFDocH1().toUpperCase();
-        var filter2 = self.filterFDocH2().toUpperCase();
+        var filter2 = self.filterFDocH2();
         var filter3 = self.filterFDocH3().toUpperCase();
         var filter4 = self.filterFDocH4().toUpperCase();
         var filter5 = self.filterFDocH5().toUpperCase();

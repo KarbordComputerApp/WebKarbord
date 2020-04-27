@@ -159,10 +159,10 @@
         self.currentPageIndexIDocH(0);
         var filter0 = self.filterIDocH0().toUpperCase();
         var filter1 = self.filterIDocH1().toUpperCase();
-        var filter2 = self.filterIDocH2().toUpperCase();
-        var filter3 = self.filterIDocH3().toUpperCase();
-        var filter4 = self.filterIDocH4().toUpperCase();
-        var filter5 = self.filterIDocH5().toUpperCase();
+        var filter2 = self.filterIDocH2();
+        var filter3 = self.filterIDocH3();
+        var filter4 = self.filterIDocH4();
+        var filter5 = self.filterIDocH5();
         var filter6 = self.filterIDocH6().toUpperCase();
         var filter7 = self.filterIDocH7().toUpperCase();
         var filter8 = self.filterIDocH8().toUpperCase();

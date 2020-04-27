@@ -336,10 +336,10 @@
         var filter0 = self.filterDocB_Last0().toUpperCase();
         var filter1 = self.filterDocB_Last1().toUpperCase();
         var filter2 = self.filterDocB_Last2().toUpperCase();
-        var filter3 = self.filterDocB_Last3().toUpperCase();
-        var filter4 = self.filterDocB_Last4().toUpperCase();
-        var filter5 = self.filterDocB_Last5().toUpperCase();
-        var filter6 = self.filterDocB_Last6().toUpperCase();
+        var filter3 = self.filterDocB_Last3();
+        var filter4 = self.filterDocB_Last4();
+        var filter5 = self.filterDocB_Last5();
+        var filter6 = self.filterDocB_Last6();
         var filter7 = self.filterDocB_Last7().toUpperCase();
         var filter8 = self.filterDocB_Last8().toUpperCase();
         var filter9 = self.filterDocB_Last9().toUpperCase();
@@ -490,8 +490,8 @@
     self.filterErjCustList = ko.computed(function () {
         self.currentPageIndexErjCust(0);
         var filter0 = self.filterErjCust0().toUpperCase();
-        var filter1 = self.filterErjCust1().toUpperCase();
-        var filter2 = self.filterErjCust2().toUpperCase();
+        var filter1 = self.filterErjCust1();
+        var filter2 = self.filterErjCust2();
 
         if (!filter0 && !filter1 && !filter2) {
             return self.ErjCustList();
@@ -654,8 +654,8 @@
 
         self.currentPageIndexKhdt(0);
         var filter0 = self.filterKhdt0().toUpperCase();
-        var filter1 = self.filterKhdt1().toUpperCase();
-        var filter2 = self.filterKhdt2().toUpperCase();
+        var filter1 = self.filterKhdt1();
+        var filter2 = self.filterKhdt2();
 
         if (!filter0 && !filter1 && !filter2) {
             return self.KhdtList();

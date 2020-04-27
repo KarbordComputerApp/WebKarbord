@@ -220,14 +220,14 @@
 
         self.currentPageIndexTrzIExf(0);
         var filter0 = self.filterTrzIExf0().toUpperCase();
-        var filter1 = self.filterTrzIExf1().toUpperCase();
+        var filter1 = self.filterTrzIExf1();
         var filter2 = self.filterTrzIExf2().toUpperCase();
-        var filter3 = self.filterTrzIExf3().toUpperCase();
-        var filter4 = self.filterTrzIExf4().toUpperCase();
-        var filter5 = self.filterTrzIExf5().toUpperCase();
-        var filter6 = self.filterTrzIExf6().toUpperCase();
-        var filter7 = self.filterTrzIExf7().toUpperCase();
-        var filter8 = self.filterTrzIExf8().toUpperCase();
+        var filter3 = self.filterTrzIExf3();
+        var filter4 = self.filterTrzIExf4();
+        var filter5 = self.filterTrzIExf5();
+        var filter6 = self.filterTrzIExf6();
+        var filter7 = self.filterTrzIExf7();
+        var filter8 = self.filterTrzIExf8();
         var filter9 = self.filterTrzIExf9().toUpperCase();
         var filter10 = self.filterTrzIExf10().toUpperCase();
         var filter11 = self.filterTrzIExf11().toUpperCase();
@@ -490,8 +490,8 @@
 
         self.currentPageIndexInv(0);
         var filter0 = self.filterInv0().toUpperCase();
-        var filter1 = self.filterInv1().toUpperCase();
-        var filter2 = self.filterInv2().toUpperCase();
+        var filter1 = self.filterInv1();
+        var filter2 = self.filterInv2();
 
         if (!filter0 && !filter1 && !filter2) {
             return self.InvList();
@@ -710,9 +710,9 @@
 
         self.currentPageIndexKala(0);
         var filter0 = self.filterKala0().toUpperCase();
-        var filter1 = self.filterKala1().toUpperCase();
-        var filter2 = self.filterKala2().toUpperCase();
-        var filter3 = self.filterKala3().toUpperCase();
+        var filter1 = self.filterKala1();
+        var filter2 = self.filterKala2();
+        var filter3 = self.filterKala3();
 
         if (!filter0 && !filter1 && !filter2 && !filter3) {
             return self.KalaList();

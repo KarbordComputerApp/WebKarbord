@@ -352,8 +352,8 @@
     self.filterErjCustList = ko.computed(function () {
         self.currentPageIndexErjCust(0);
         var filter0 = self.filterErjCust0().toUpperCase();
-        var filter1 = self.filterErjCust1().toUpperCase();
-        var filter2 = self.filterErjCust2().toUpperCase();
+        var filter1 = self.filterErjCust1();
+        var filter2 = self.filterErjCust2();
 
         if (!filter0 && !filter1 && !filter2) {
             return self.ErjCustList();
@@ -517,8 +517,8 @@
 
         self.currentPageIndexKhdt(0);
         var filter0 = self.filterKhdt0().toUpperCase();
-        var filter1 = self.filterKhdt1().toUpperCase();
-        var filter2 = self.filterKhdt2().toUpperCase();
+        var filter1 = self.filterKhdt1();
+        var filter2 = self.filterKhdt2();
 
         if (!filter0 && !filter1 && !filter2) {
             return self.KhdtList();
