@@ -250,13 +250,13 @@
                                     مبلغ واحد <span data-bind="attr: { class: currentColumn() == 'UnitPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeUnitPrice }"></i> </span>
                                 </th>
                                 <th data-column="TotalPrice">
-                                    مبلغ کل ناخالص<span data-bind="attr: { class: currentColumn() == 'TotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypTotalPrice }"></i> </span>
+                                    مبلغ کل ناخالص<span data-bind="attr: { class: currentColumn() == 'TotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTotalPrice }"></i> </span>
                                 </th>
                                 <th data-column="BandSpec">
                                     ملاحظات بند <span data-bind="attr: { class: currentColumn() == 'BandSpec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandSpec }"></i> </span>
                                 </th>
                                 <th data-column="Comm">
-                                    شرح <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypComm }"></i> </span>
+                                    شرح <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeComm }"></i> </span>
                                 </th>
                             </tr>
 
@@ -284,11 +284,11 @@
                                 <td data-bind="text: KalaExf3"></td>
                                 <td data-bind="text: MainUnitName"></td>
 
-                                <td style="direction: ltr;" data-bind="text: Amount1 == 0 ? '0' : NumberToNumberString(Amount1.toFixed(KalaDeghat1 % 10)) , style: { color: Amount1 < 0 ? 'red' : 'black' }"></td>
-                                <td style="direction: ltr;" data-bind="text: Amount2 == 0 ? '0' : NumberToNumberString(Amount2.toFixed(KalaDeghat2 % 10)) , style: { color: Amount2 < 0 ? 'red' : 'black' }"></td>
-                                <td style="direction: ltr;" data-bind="text: Amount3 == 0 ? '0' : NumberToNumberString(Amount3.toFixed(KalaDeghat3 % 10)) , style: { color: Amount3 < 0 ? 'red' : 'black' }"></td>
-                                <td style="direction: ltr;" data-bind="text: UnitPrice  != null ? NumberToNumberString(parseFloat(UnitPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: UnitPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
-                                <td style="direction: ltr;" data-bind="text: TotalPrice != null ? NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: TotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: Amount1 == 0 ? '0' : NumberToNumberString(Amount1.toFixed(DeghatM1 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: Amount2 == 0 ? '0' : NumberToNumberString(Amount2.toFixed(DeghatM2 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: Amount3 == 0 ? '0' : NumberToNumberString(Amount3.toFixed(DeghatM3 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: UnitPrice  != null ? NumberToNumberString(parseFloat(UnitPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: TotalPrice != null ? NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
 
                                 <td data-bind="text: BandSpec"></td>
                                 <td data-bind="text: Comm"></td>
@@ -308,22 +308,23 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td id="totalAAmount1" style="direction: ltr;"></td>
-                                <td id="totalAAmount2" style="direction: ltr;"></td>
-                                <td id="totalAAmount3" style="direction: ltr;"></td>
-                                <td id="totalATotalPrice" style="direction: ltr;"></td>
-                                <td id="totalVAmount1" style="direction: ltr;"></td>
-                                <td id="totalVAmount2" style="direction: ltr;"></td>
-                                <td id="totalVAmount3" style="direction: ltr;"></td>
-                                <td id="totalVTotalPrice" style="direction: ltr;"></td>
-                                <td id="totalSAmount1" style="direction: ltr;"></td>
-                                <td id="totalSAmount2" style="direction: ltr;"></td>
-                                <td id="totalSAmount3" style="direction: ltr;"></td>
-                                <td id="totalSTotalPrice" style="direction: ltr;"></td>
-                                <td id="totalMAmount1" style="direction: ltr;"></td>
-                                <td id="totalMAmount2" style="direction: ltr;"></td>
-                                <td id="totalMAmount3" style="direction: ltr;"></td>
-                                <td id="totalMTotalPrice" style="direction: ltr;"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td id="totalAmount1" style="direction: ltr;"></td>
+                                <td id="totalAmount2" style="direction: ltr;"></td>
+                                <td id="totalAmount3" style="direction: ltr;"></td>
+                                <td id="totalUnitPrice" style="direction: ltr;"></td>
+                                <td id="totalTotalPrice" style="direction: ltr;"></td>
+                                <td></td>
+                                <td></td>
                             </tr>
 
                             <tr style="background-color: #efb68399;">
@@ -1198,6 +1199,6 @@
             });
         });
     </script>
-    <script src="~/Scripts/IDocR.js"></script>
+    <script src="~/Scripts/R_AFI_IDocR.js"></script>
 }
 
