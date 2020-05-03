@@ -9,6 +9,20 @@ namespace WebKarbord.Controllers.AFI
     public class ReportAFIController : Controller
     {
 
+
+        // حسابداری ------------------------------------------
+
+        public ActionResult TrzAcc()
+        {
+            return View();
+        }
+
+
+
+
+        // انبار داری ------------------------------------------
+
+
         public ActionResult TrzIKala()
         {
             return View();
@@ -23,5 +37,9 @@ namespace WebKarbord.Controllers.AFI
         {
             return View();
         }
+
+
+       
+
     }
 }

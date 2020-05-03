@@ -16,7 +16,7 @@
     var TrzICountUri = server + '/api/Web_Data/TrzICount/'; // تعداد رکورد های گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(ShamsiDate());
+    self.TaDate = ko.observable(sessionStorage.EndDate);
     self.InvCode = ko.observable();
     var allSearchKala = true;
 
@@ -212,7 +212,7 @@
         self.currentPageIndexTrzI(0);
         var filter0 = self.filterTrzI0().toUpperCase();
         var filter1 = self.filterTrzI1();
-        var filter2 = self.filterTrzI2().toUpperCase();
+        var filter2 = self.filterTrzI2();
         var filter3 = self.filterTrzI3();
         var filter4 = self.filterTrzI4().toUpperCase();
         var filter5 = self.filterTrzI5().toUpperCase();

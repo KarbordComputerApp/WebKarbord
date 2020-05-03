@@ -347,6 +347,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\R_AFI_IDocR.js" />
     <Content Include="Scripts\JavaScript.js" />
+    <Content Include="Scripts\R_AFI_TrzAcc.js" />
     <Content Include="Scripts\R_AFI_TrzIKalaExf.js" />
     <Content Include="Scripts\R_ERJ_ErjDocB_Last.js" />
     <Content Include="Scripts\R_ERJ_ErjDocK.js" />
@@ -415,6 +416,7 @@
     <Content Include="Views\ReportERJ\ErjDocB_Last.cshtml" />
     <Content Include="Views\ReportAFI\TrzIKalaExf.cshtml" />
     <Content Include="Views\ReportAFI\IDocR.cshtml" />
+    <Content Include="Views\ReportAFI\TrzAcc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

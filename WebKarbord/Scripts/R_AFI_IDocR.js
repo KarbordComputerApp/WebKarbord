@@ -30,7 +30,7 @@
     var IDocRCountUri = server + '/api/Web_Data/IDocRCount/'; // تعداد رکورد های گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(ShamsiDate());
+    self.TaDate = ko.observable(sessionStorage.EndDate);
     self.InvCode = ko.observable();
     var allSearchKala = true;
 
@@ -317,29 +317,29 @@
                 (item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filter4) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filter5) >= 0) &&
-                //(item.Taeed == null ? '' : item.Taeed.toString().search(filter6) >= 0) &&
-                //(item.Tasvib == null ? '' : item.Tasvib.toString().search(filter7) >= 0) &&
+                (item.Taeed == null ? '' : item.Taeed.toString().search(filter6) >= 0) &&
+                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filter7) >= 0) &&
                 (item.ThvlName == null ? '' : item.ThvlName.toString().search(filter8) >= 0) &&
                 (item.MkzName == null ? '' : item.MkzName.toString().search(filter9) >= 0) &&
                 (item.OprName == null ? '' : item.OprName.toString().search(filter10) >= 0) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter11) &&
                 ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter12) &&
-                // (item.KalaName == null ? '' : item.KalaName.toString().search(filter13) >= 0) &&
-                // (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter14) >= 0) &&
-                // (item.KalaState == null ? '' : item.KalaState.toString().search(filter15) >= 0) &&
-                // (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter16) >= 0) &&
-                // (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter17) >= 0) &&
-                // (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter18) >= 0) &&
+                 (item.KalaName == null ? '' : item.KalaName.toString().search(filter13) >= 0) &&
+                 (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter14) >= 0) &&
+                 (item.KalaState == null ? '' : item.KalaState.toString().search(filter15) >= 0) &&
+                 (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter16) >= 0) &&
+                 (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter17) >= 0) &&
+                 (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter18) >= 0) &&
                 (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter19) >= 0) &&
                 ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter20) &&
                 ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter21) &&
                 ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter22) &&
                 ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filter23) &&
                 ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter24) &&
-                //  (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter25) >= 0) &&
-                // (item.Comm == null ? '' : item.Comm.toString().search(filter26) >= 0)
+                  (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter25) >= 0) &&
+                 (item.Comm == null ? '' : item.Comm.toString().search(filter26) >= 0)
 
-                1 == 1
+               // 1 == 1
 
             return result;
         })

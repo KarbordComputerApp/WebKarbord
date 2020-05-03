@@ -64,7 +64,7 @@ else {
     fctAccess = localStorage.getItem("fctAccess");
     invAccess = localStorage.getItem("invAccess");
 
-    tempAccess = invAccess + '*' + fctAccess;
+    tempAccess = accAccess + '*' + invAccess + '*' + fctAccess;
     afiAccessApi = tempAccess.split("*");
 }
 
@@ -76,7 +76,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i < 12; i++) {
+for (var i = 0; i <= 12; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -89,6 +89,7 @@ for (var i = 0; i < 12; i++) {
     afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
     afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
     afiAccessApi[i] == 'FDocR' ? afiaccess[11] = true : null;
+    afiAccessApi[i] == 'TrzAcc' ? afiaccess[12] = true : null;
 }
 
 
@@ -151,6 +152,8 @@ $("#TrzIKalaExf").hide();
 $("#IDocR").hide();
 $("#FDOC_Menu").hide();
 $("#IDOC_Menu").hide();
+$("#AReport_Menu").hide();
+$("#FReport_Menu").hide();
 $("#IReport_Menu").hide();
 $("#EReport_Menu").hide();
 
@@ -235,9 +238,8 @@ function SearchArry(Node, Key, myArray) {
         if (myArray[i].Node === Node && myArray[i].Key === Key) {
             return myArray[i].Param;
         }
-        else
-            return '';
     }
+    return '';
 }
 
 function SetSelectProgram() {
@@ -358,6 +360,9 @@ function CheckAccessReport(Code) {
         else if (accessReport[i].Code == 'FDocR') {
             return accessReport[i].Trs;
         }
+        else if (accessReport[i].Code == 'TrzAcc') {
+            return accessReport[i].Trs;
+        }
         else
             return false;
     }
@@ -429,7 +434,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i < 12; i++) {
+                for (var i = 0; i <= 12; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -442,6 +447,7 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
                     afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
                     afiAccessApi[i] == 'FDocR' ? afiaccess[11] = true : null;
+                    afiAccessApi[i] == 'TrzAcc' ? afiaccess[12] = true : null;
 
                 }
 
@@ -546,6 +552,7 @@ function SetValidation() {
     validation = CheckAccess('RPRT'); // گزارشات
     ShowMenu[11] = validation;
 
+
     validation = CheckAccessReport('TrzIKala');
     ShowMenu[12] = validation;  // گزارش موجودی کالا
 
@@ -557,6 +564,10 @@ function SetValidation() {
 
     validation = CheckAccessReport('FDocR');
     ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
+
+    validation = CheckAccessReport('TrzAcc');
+    ShowMenu[16] = validation;  // تراز دفاتر حسابداری
+
 
 
     /*  if (accessReport[i].Code == 'TrzIKala') {
@@ -862,7 +873,7 @@ function SetValidation() {
     }
 
     if (ShowMenu[11]) {    // گزارشات
-        if (afiaccess[8] || afiaccess[9]) {
+        if (afiaccess[8] || afiaccess[9] || afiaccess[10]) {
             if (ShowMenu[11]) {
                 $("#IReport_Menu").show();
                 ShowMenu[12] == true ? $("#TrzIKala").show() : $("#TrzIKala").hide();
@@ -875,6 +886,22 @@ function SetValidation() {
         }
         else {
             $("#IReport_Menu").hide();
+        }
+
+        if (afiaccess[11]) {
+            $("#FReport_Menu").show();
+            ShowMenu[15] == true ? $("#FDocR").show() : $("#FDocR").hide();
+        }
+        else {
+            $("#FReport_Menu").hide();
+        }
+
+        if (afiaccess[12]) {
+            $("#AReport_Menu").show();
+            ShowMenu[16] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
+        }
+        else {
+            $("#AReport_Menu").hide();
         }
     }
 
@@ -1139,8 +1166,7 @@ $('#IDOC_Menu').click(function () {
     sessionStorage.SelectMenu = 2;
 });
 
-
-$('#IReport_Menu').click(function () {
+$('#AReport_Menu').click(function () {
     sessionStorage.SelectMenu = 3;
 });
 
@@ -1148,12 +1174,18 @@ $('#FReport_Menu').click(function () {
     sessionStorage.SelectMenu = 4;
 });
 
-$('#EReport_Menu').click(function () {
+$('#IReport_Menu').click(function () {
     sessionStorage.SelectMenu = 5;
+});
+
+
+$('#EReport_Menu').click(function () {
+    sessionStorage.SelectMenu = 6;
 });
 
 $('#FDOC_Menu').removeAttr('class');
 $('#IDOC_Menu').removeAttr('class');
+$('#AReport_Menu').removeAttr('class');
 $('#IReport_Menu').removeAttr('class');
 $('#FReport_Menu').removeAttr('class');
 $('#EReport_Menu').removeAttr('class');
@@ -1167,7 +1199,7 @@ else if (sessionStorage.SelectMenu == 2) {
 }
 
 else if (sessionStorage.SelectMenu == 3) {
-    $('#IReport_Menu').attr('class', 'active');
+    $('#AReport_Menu').attr('class', 'active');
 }
 
 else if (sessionStorage.SelectMenu == 4) {
@@ -1175,6 +1207,10 @@ else if (sessionStorage.SelectMenu == 4) {
 }
 
 else if (sessionStorage.SelectMenu == 5) {
+    $('#IReport_Menu').attr('class', 'active');
+}
+
+else if (sessionStorage.SelectMenu == 6) {
     $('#EReport_Menu').attr('class', 'active');
 }
 

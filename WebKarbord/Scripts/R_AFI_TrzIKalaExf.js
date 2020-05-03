@@ -16,7 +16,7 @@
     var TrzIExfCountUri = server + '/api/Web_Data/TrzIExfCount/'; // تعداد رکورد های گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(ShamsiDate());
+    self.TaDate = ko.observable(sessionStorage.EndDate);
     self.InvCode = ko.observable();
     var allSearchKala = true;
 

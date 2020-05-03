@@ -232,7 +232,7 @@
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
             <div class="profile-usertitle-job " id="TextNoUser"></div>-->
-                        <div class="profile-usertitle-job ">ورژن تست  :167 </div>
+                        <div class="profile-usertitle-job ">ورژن تست  :168 </div>
                     </div>
                 </li>
                 <!--<li id="Select_ACE">
@@ -256,7 +256,7 @@
                     </ul>
                 </li>
 
-                 
+
                 <li id="IDOC_Menu">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
@@ -282,6 +282,25 @@
         </ul>
     </li>-->
 
+                <li id="AReport_Menu">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa fa-tachometer"></i>
+                        <span>گزارشات حسابداری</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li id="TrzAcc">@Html.ActionLink("تراز دفاتر", "TrzAcc", "ReportAFI")</li>
+                    </ul>
+                </li>
+
+                <li id="FReport_Menu">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa fa-tachometer"></i>
+                        <span>گزارشات خرید و فروش</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li id="FDocR">@Html.ActionLink("ريز گردش اسناد خرید و فروش", "TrzAcc", "ReportAFI")</li>
+                    </ul>
+                </li>
 
                 <li id="IReport_Menu">
                     <a href="javascript:void(0);" class="menu-toggle">
@@ -289,15 +308,9 @@
                         <span>گزارشات انبار</span>
                     </a>
                     <ul class="ml-menu">
-                        <!-- <li id="Report_IDocR">@Html.ActionLink("ریز انبار", "IDocR", "ReportAFI")</li>-->
                         <li id="TrzIKala">@Html.ActionLink("موجودی کالا", "TrzIKala", "ReportAFI")</li>
-                        <li id="TrzIKalaExf">@Html.ActionLink("موجودی بر اساس ویژگی کالا", "TrzIKalaExf", "ReportAFI")</li>
+                        <li id="TrzIKalaExf">@Html.ActionLink("موجودی کالا به تفکیک ویژگی", "TrzIKalaExf", "ReportAFI")</li>
                         <li id="IDocR">@Html.ActionLink("ريز گردش اسناد انبارداری", "IDocR", "ReportAFI")</li>
-                        <!--<li id="FDOC_S"> @Html.ActionLink("فاکتور فروش", "Index", "ReportAFI")</li>
-    <li id="FDOC_SR">@Html.ActionLink("برگشت از فروش", "Index", "ReportAFI")</li>
-    <li id="FDOC_PP">@Html.ActionLink("پیش فاکتور خرید", "Index", "ReportAFI")</li>
-    <li id="FDOC_P"> @Html.ActionLink("فاکتور خرید", "Index", "ReportAFI")</li>
-    <li id="FDOC_PR">@Html.ActionLink("برگشت از خرید", "Index", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
