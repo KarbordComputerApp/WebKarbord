@@ -101,7 +101,7 @@
     self.StatusList = ko.observableArray([]); // وضعیت  
 
 
-    if (sessionStorage.ModeCode == 'in') {
+    if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
         $('#LableThvlCode').text('نام تحویل دهنده ');
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل دهنده');
@@ -131,10 +131,10 @@
     var IDocBiUri = server + '/api/AFI_IDocBi/'; // آدرس بند سند 
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
-    var IDocHUri = server + '/api/Web_Data/IDocH/'; // آدرس هدر سند 
-    var IDocBUri = server + '/api/Web_Data/IDocB/'; // آدرس لیست بند های سند 
+    var IDocHUri = server + '/api/IDocData/IDocH/'; // آدرس هدر سند 
+    var IDocBUri = server + '/api/IDocData/IDocB/'; // آدرس لیست بند های سند 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
-    var IDocHLastDateUri = server + '/api/Web_Data/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
+    var IDocHLastDateUri = server + '/api/IDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
     var UpdatePriceUri = server + '/api/Web_Data/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت
 
 
@@ -169,14 +169,9 @@
                 if (flagupdateHeader == 1)
                     sessionStorage.PriceCode > 0 ? $("#gGhimat").val(sessionStorage.PriceCode) : null;
                 else {
-                    if (sessionStorage.ModeCode == 'in') {
+                    if (sessionStorage.InOut == 1) {
                         sessionStorage.GPriceDefultI == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultI);
                     }
-                    
-
-                    //sessionStorage.ModeCode == 'in' ?
-                    //    $("#gGhimat").val(sessionStorage.GPriceDefultI) :
-                    //    $("#gGhimat").val('');
                 }
             }
         });
@@ -287,7 +282,7 @@
     }
 
     function getIDocHLastDate() {
-        ajaxFunction(IDocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (data) {
+        ajaxFunction(IDocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.DocDate(data);
         });
     }
@@ -472,9 +467,7 @@
         }
 
         if (codeThvl == '') {
-            showNotification(sessionStorage.ModeCode != 'in' ? 'تحویل گیرنده انتخاب نشده است' : 'تحویل دهنده انتخاب نشده است');
-            //showNotification(sessionStorage.ModeCode != 'in' ? 'تحویل گیرنده را انتخاب کنيد' : 'تحویل دهنده را انتخاب کنيد');
-            //            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.ModeCode < 54 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
+            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است');
         }
 
 
@@ -548,16 +541,13 @@
         }
         else {
             return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
-        }
+         }
 
         if (codeThvl == '') {
-            showNotification(sessionStorage.ModeCode != 'in' ? 'تحویل گیرنده انتخاب نشده است' : 'تحویل دهنده انتخاب نشده است', 0);
-            //            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.ModeCode < 54 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
+            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 0);
         }
 
         if ($('#docnoout').text() == '0') {
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنيد ' });
             return showNotification('ابتدا بند ها وارد کنید', 0);
         }
 
@@ -672,10 +662,9 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'مقدار را وارد کنيد' });
         }
 
-        if ((unitprice == '' && totalPrice == '') || (sessionStorage.ModeCode == 'out')) {
+        if ((unitprice == '' && totalPrice == '') || (sessionStorage.InOut == 2)) {
             unitprice = 0;
             totalPrice = 0;
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'قيمت را وارد کنيد' });
         }
 
         $('#Save').attr('disabled', 'disabled');
@@ -735,7 +724,7 @@
             amount = 0;
         }
 
-        if ((unitprice == '' && totalPrice == '') || (sessionStorage.ModeCode == 'out')) {
+        if ((unitprice == '' && totalPrice == '') || (sessionStorage.InOut == 2)) {
             unitprice = 0;
             totalPrice = 0;
         }
@@ -1241,13 +1230,14 @@
 
     $('#modal-Band').on('show.bs.modal', function () {
 
-        if (sessionStorage.ModeCode == 'out') {
-            $('#unitPriceShow').hide();
-            $('#totalPriceShow').hide();
+        if (sessionStorage.ModeCode == 1) {
+            $('#unitPriceShow').show();
+            $('#totalPriceShow').show(); 
         }
         else {
-            $('#unitPriceShow').show();
-            $('#totalPriceShow').show();
+            $('#unitPriceShow').hide();
+            $('#totalPriceShow').hide();
+
         }
 
         if (self.flagupdateband == false) {
@@ -1282,7 +1272,7 @@
 
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
-            text: sessionStorage.ModeCode != 'in' ? 'لیست تحویل گیرندگان به روز رسانی شود ؟' : 'لیست تحویل دهندگان به روز رسانی شود ؟',
+            text: sessionStorage.InOut == 1 ? 'لیست تحویل دهندگان به روز رسانی شود ؟' : 'لیست تحویل گیرندگان به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1510,7 +1500,7 @@
 
         }
         else {
-            $('#allSearchThvlText').text(sessionStorage.ModeCode == 'out' ? 'جستجو بر اساس کد تحویل گیرنده' : 'جستجو بر اساس کد تحویل دهنده');
+            $('#allSearchThvlText').text(sessionStorage.InOut == 1 ? 'جستجو بر اساس کد تحویل دهنده' : 'جستجو بر اساس کد تحویل گیرنده');
             allSearchThvl = false;
         }
     });
@@ -1565,7 +1555,7 @@
     function AddModeCode() {
         select = document.getElementById('modeCode');
 
-        if (sessionStorage.ModeCode == 'in') {
+        if (sessionStorage.InOut == 1) {
             for (var i = 1; i <= 6; i++) {
                 opt = document.createElement('option');
                 if (i == 1) {
@@ -1726,7 +1716,7 @@
 
     var viewAction = false;
 
-    if (sessionStorage.ModeCode == 'in') {
+    if (sessionStorage.InOut == 1) {
         if (sessionStorage.AccessViewSanadAnbarVarede == 'true') {
             viewAction = true;
         }
@@ -1736,7 +1726,8 @@
             }
         }
     }
-    else if (sessionStorage.ModeCode == 'out') {
+    else
+    {
         if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
             viewAction = true;
         }

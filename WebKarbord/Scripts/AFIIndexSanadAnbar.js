@@ -16,11 +16,11 @@
     self.InvList = ko.observableArray([]); // ليست انبار ها
 
     self.InvCode = ko.observable();
-    var IDocHUri = server + '/api/Web_Data/IDocH/'; // آدرس لیست اسناد انبار 
+    var IDocHUri = server + '/api/IDocData/IDocH/'; // آدرس لیست اسناد انبار 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
 
-    var IDocHCountUri = server + '/api/Web_Data/IDocH/'; // تعداد رکورد های سند 
+    var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
 
     //Get Inv List
     function getInvList() {
@@ -48,11 +48,11 @@
         //$('#invSelect').val(sessionStorage.invSelect);         
         if (sessionStorage.invSelect == "" || sessionStorage.invSelect == "null" || sessionStorage.invSelect == null)
             invCode = 0;
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode + '/top' + select + '/' + invCode + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/top' + select + '/' + invCode + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.IDocHList(data);
-            ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (dataCount) {
+            ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (dataCount) {
                 $('#countAllRecord').text(dataCount);
             });
         });
@@ -344,7 +344,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
+                ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
                     getIDocH(0, sessionStorage.invSelect == "" ? 0 : sessionStorage.invSelect);
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
                 });
@@ -385,7 +385,7 @@
         }
     });
 
-    if (sessionStorage.ModeCode == 'in') {
+    if (sessionStorage.InOut == 1) {
         sessionStorage.sels = true;
         $('#Titlethvlname').text('نام تحویل دهنده');
         $('#TitleListAnbar').text('اسناد وارده به انبار');
@@ -431,7 +431,7 @@
 
 
     self.ShowAction = function (Eghdam) {
-        if (sessionStorage.ModeCode == 'in') {
+        if (sessionStorage.InOut == 1) {
             if (sessionStorage.AccessViewSanadAnbarVarede == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
@@ -439,7 +439,7 @@
                 return true;
             }
         }
-        else if (sessionStorage.ModeCode == 'out') {
+        else {
             if (sessionStorage.AccessViewSanadAnbarSadere == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }

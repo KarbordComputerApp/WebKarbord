@@ -204,7 +204,8 @@ function ajaxFunction(uri, method, data) {
         // xhrFields: { withCredentials: true },
         data: data ? JSON.stringify(data) : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
+        showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
+       // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
     });
 }
 
@@ -757,7 +758,7 @@ function SetValidation() {
     validation = CheckAccess('IIDOC');
     ShowMenu[9] = validation;  // وارده انبار
 
-    if (sessionStorage.ModeCode == 'in') {
+    if (sessionStorage.InOut == 1) {
         validation = CheckAccess('NEW_IIDOC');// new varedae anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
         validation = CheckAccess('CHG_IIDOC');// edit varedae anbar
@@ -797,7 +798,7 @@ function SetValidation() {
     validation = CheckAccess('IODOC');
     ShowMenu[10] = validation;  // صادره انبار
 
-    if (sessionStorage.ModeCode == 'out') {
+    if (sessionStorage.InOut == 2) {
         validation = CheckAccess('NEW_IODOC');// new sadere anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
         validation = CheckAccess('CHG_IODOC');// edit sadere anbar
@@ -991,11 +992,11 @@ $("#FDOC_PR").click(function () {
 });
 
 $("#IDOC_I").click(function () {
-    sessionStorage.ModeCode = 'in';
+    sessionStorage.InOut = 1;
 });
 
 $("#IDOC_O").click(function () {
-    sessionStorage.ModeCode = 'out';
+    sessionStorage.InOut = 2;
 });
 
 
