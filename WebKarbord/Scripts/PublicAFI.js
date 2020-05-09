@@ -6,17 +6,30 @@ var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
 var accessErj = JSON.parse(localStorage.getItem("AccessErj"));
 var accessReportErj = JSON.parse(localStorage.getItem("AccessReportErj"));
 
+
+
 const MODECODE_ADOC_A = 1;
 const MODECODE_ADOC_EFT = 2;
 const MODECODE_ADOC_EKH = 3;
 const MODECODE_ADOC_SODZYN = 4;
 
-const MODECODE_FDOC_SP = 51;
-const MODECODE_FDOC_S = 52;
-const MODECODE_FDOC_SR = 53;
-const MODECODE_FDOC_PP = 54;
-const MODECODE_FDOC_P = 55;
-const MODECODE_FDOC_PR = 56;
+if (sessionStorage.ace == 'AFI1') {
+    sessionStorage.MODECODE_FDOC_SP = 51;
+    sessionStorage.MODECODE_FDOC_S = 52;
+    sessionStorage.MODECODE_FDOC_SR = 53;
+    sessionStorage.MODECODE_FDOC_PP = 54;
+    sessionStorage.MODECODE_FDOC_P = 55;
+    sessionStorage.MODECODE_FDOC_PR = 56;
+
+} else {
+    sessionStorage.MODECODE_FDOC_SP = 'SPFCT';
+    sessionStorage.MODECODE_FDOC_S = 'SFCT';
+    sessionStorage.MODECODE_FDOC_SR = 'SRFCT';
+    sessionStorage.MODECODE_FDOC_PP = 'PPFCT';
+    sessionStorage.MODECODE_FDOC_P = 'PFCT';
+    sessionStorage.MODECODE_FDOC_PR = 'PRFCT';
+}
+
 
 const MODECODE_FDOC_SandSR = 81;
 const MODECODE_FDOC_PandPR = 82;
@@ -205,7 +218,7 @@ function ajaxFunction(uri, method, data) {
         data: data ? JSON.stringify(data) : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
         showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
-       // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
+        // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
     });
 }
 
@@ -280,6 +293,7 @@ function SetSelectProgram() {
         getAccessList();
         $('#SaveParam').removeAttr('disabled');
 
+        sessionStorage.ModeCode = '';
 
         return true;
     } catch (e) {
@@ -591,7 +605,7 @@ function SetValidation() {
 
     sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
 
-    if (sessionStorage.ModeCode == MODECODE_FDOC_SP) {
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
         validation = CheckAccess('NEW_SPDOC');// new pish Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_SPDOC');// edit pish Factor forosh
@@ -623,13 +637,13 @@ function SetValidation() {
     validation = CheckAccess('SDOC');
     ShowMenu[4] = validation;  //  فاکتور قروش
 
-    if (sessionStorage.ModeCode == MODECODE_FDOC_S) {
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
         validation = CheckAccess('NEW_SDOC');// new Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_SDOC');// edit Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SDOC'); // delete Factor forosh
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         //validation = CheckAccess('PRN_SDOC'); // Print Factor forosh
         //validation == true ? $("#").show() : $("#").hide()
 
@@ -649,7 +663,7 @@ function SetValidation() {
     validation = CheckAccess('SRDOC');
     ShowMenu[5] = validation;  // برگشت فاکتور قروش
 
-    if (sessionStorage.ModeCode == MODECODE_FDOC_SR) {
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
         validation = CheckAccess('NEW_SRDOC');// new back Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_SRDOC');// edit back Factor forosh
@@ -675,7 +689,7 @@ function SetValidation() {
     validation = CheckAccess('PPDOC');
     ShowMenu[6] = validation;  // پیش فاکتور خرید
 
-    if (sessionStorage.ModeCode == MODECODE_FDOC_PP) {
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
         validation = CheckAccess('NEW_PPDOC');// new pish Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_PPDOC');// edit pish Factor kharid
@@ -703,7 +717,7 @@ function SetValidation() {
     validation = CheckAccess('PDOC');
     ShowMenu[7] = validation;  //  فاکتور خرید
 
-    if (sessionStorage.ModeCode == MODECODE_FDOC_P) {
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
         validation = CheckAccess('NEW_PDOC');// new Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_PDOC');// edit Factor kharid
@@ -731,7 +745,7 @@ function SetValidation() {
     validation = CheckAccess('PRDOC');
     ShowMenu[8] = validation;  // برگشت فاکتور خرید
 
-    if (sessionStorage.ModeCode == MODECODE_FDOC_PR) {
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         validation = CheckAccess('NEW_PRDOC');// new back Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_PRDOC');// edit back Factor kharid
@@ -968,27 +982,33 @@ function SetValidationErj() {
 
 
 $("#FDOC_SP").click(function () {
-    sessionStorage.ModeCode = MODECODE_FDOC_SP;
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SP;
+    sessionStorage.InOut = 2; // فروش
 });
 
 $("#FDOC_S").click(function () {
-    sessionStorage.ModeCode = MODECODE_FDOC_S;
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_S;
+    sessionStorage.InOut = 2;// فروش
 });
 
 $("#FDOC_SR").click(function () {
-    sessionStorage.ModeCode = MODECODE_FDOC_SR;
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SR;
+    sessionStorage.InOut = 2;// فروش
 });
 
 $("#FDOC_PP").click(function () {
-    sessionStorage.ModeCode = MODECODE_FDOC_PP;
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PP;
+    sessionStorage.InOut = 1;// خرید
 });
 
 $("#FDOC_P").click(function () {
-    sessionStorage.ModeCode = MODECODE_FDOC_P;
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_P;
+    sessionStorage.InOut = 1;// خرید
 });
 
 $("#FDOC_PR").click(function () {
-    sessionStorage.ModeCode = MODECODE_FDOC_PR;
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PR;
+    sessionStorage.InOut = 1;// خرید
 });
 
 $("#IDOC_I").click(function () {
@@ -1228,3 +1248,5 @@ $.fn.inputFilter = function (inputFilter) {
         }
     });
 };
+
+

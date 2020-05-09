@@ -116,38 +116,38 @@
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
 
     switch (sessionStorage.ModeCode.toString()) {
-        case "51":
+        case sessionStorage.MODECODE_FDOC_SP:
             $('#TitleHeaderFactor').text('پیش فاکتور فروش ');
             $('#TitleBodyFactor').text('پیش فاکتور فروش ');
             $('#TitleFooterFactor').text('پیش فاکتور فروش ');
             break; 
-        case "52":
+        case sessionStorage.MODECODE_FDOC_S:
             $('#TitleHeaderFactor').text('فاکتور فروش ');
             $('#TitleBodyFactor').text('فاکتور فروش ');
             $('#TitleFooterFactor').text('فاکتور فروش ');
             break;
-        case "53":
+        case sessionStorage.MODECODE_FDOC_SR:
             $('#TitleHeaderFactor').text('برگشت از فروش ');
             $('#TitleBodyFactor').text('برگشت از فروش ');
             $('#TitleFooterFactor').text('برگشت از فروش ');
             break;
-        case "54":
+        case sessionStorage.MODECODE_FDOC_PP:
             $('#TitleHeaderFactor').text('پیش فاکتور خرید ');
             $('#TitleBodyFactor').text('پیش فاکتور خرید ');
             $('#TitleFooterFactor').text('پیش فاکتور خرید ');
             break;
-        case "55":
+        case sessionStorage.MODECODE_FDOC_P:
             $('#TitleHeaderFactor').text('فاکتور خرید ');
             $('#TitleBodyFactor').text('فاکتور خرید ');
             $('#TitleFooterFactor').text('فاکتور خرید ');
             break;
-        case "56":
+        case sessionStorage.MODECODE_FDOC_PR:
             $('#TitleHeaderFactor').text('برگشت از خرید ');
             $('#TitleBodyFactor').text('برگشت از خرید ');
             $('#TitleFooterFactor').text('برگشت از خرید ');
     }
 
-    if (sessionStorage.ModeCode < 54) {
+    if (sessionStorage.InOut == 1) {
         $('#LableCustCode').text('خریدار ');
         $('#LableHesabCode').text('نام خریدار');
         //$('#codeHesab').attr('placeholder', 'کد خریدار');
@@ -167,21 +167,24 @@
         $('#TitleNameTableModalCust').text('نام فروشنده ');
     }
 
+
+    var FDocHUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
+    var FDocBUri = server + '/api/AFI_FDocBi/'; // آدرس بند فاکتور 
+    var UpdatePriceUri = server + '/api/FDocData/UpdatePrice/'; // آدرس اعمال گروه قیمت
+    var FDocHListUri = server + '/api/FDocData/FDocH/'; //آدر اطلاعات فاکتور  
+    var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
+    var FDocHLastDateUri = server + '/api/FDocData/FDocH/LastDate/'; // آدرس آخرین تاریخ سند
+
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس حساب
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
     var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قيمت
     var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قيمت کالا بر اساس گروه قیمت
-    var FDocHUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
-    var FDocBUri = server + '/api/AFI_FDocBi/'; // آدرس بند فاکتور 
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var AddMinUri = server + '/api/Web_Data/AddMin/'; // آدرس کسورات و افزایشات 
-    var FDocHListUri = server + '/api/Web_Data/FDocH/'; //آدر اطلاعات فاکتور  
-    var FDocBListUri = server + '/api/Web_Data/FDocB/'; // آدرس لیست بند های فاکتور 
     var PaymentUri = server + '/api/Web_Data/Payment/'; // آدرس نحوه پرداخت 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
-    var UpdatePriceUri = server + '/api/Web_Data/UpdatePrice/'; // آدرس اعمال گروه قیمت
-    var FDocHLastDateUri = server + '/api/Web_Data/FDocH/LastDate/'; // آدرس آخرین تاریخ سند
+
 
     //Get Cust List
     function getCustList() {
@@ -190,7 +193,7 @@
         // self.CustList(storedArray);
         // storedArray = self.CustList();
         $("div.loadingZone").show();
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group + '/' + (sessionStorage.ModeCode < 54 ? true : false), 'GET').done(function (data) {
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group + '/' + (sessionStorage.InOut == 1 ? true : false), 'GET').done(function (data) {
             self.CustList(data);
         });
     }
@@ -595,8 +598,8 @@
         }
 
         if (codeCust == '') {
-            return showNotification(sessionStorage.ModeCode < 54 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.ModeCode < 54 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
+            return showNotification(sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
         }
 
 
@@ -696,8 +699,8 @@
 
         //if (codeCust == '') {
         //codeCust = ' ';
-        //     return showNotification(sessionStorage.ModeCode < 54 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
-        //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.ModeCode < 54 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
+        //     return showNotification(sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
+        //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
         // }
 
 
@@ -1285,7 +1288,7 @@
         if (Serial != '') {
             Swal.fire({
                 title: 'تایید و ثبت نهایی تغییرات ؟',
-                text: 'در صورت تغییر' + (sessionStorage.ModeCode < 54 ? ' خریدار ' : ' فروشنده ') + ' تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟',
+                text: 'در صورت تغییر' + (sessionStorage.InOut == 1 ? ' خریدار ' : ' فروشنده ') + ' تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟',
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1306,14 +1309,14 @@
                         sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
 
-                    if (sessionStorage.ModeCode < 54 && item.CGruKalaPriceCode_S > 0)
+                    if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_S > 0)
                         $("#gGhimat").val(item.CGruKalaPriceCode_S);
-                    else if (sessionStorage.ModeCode > 54 && item.CGruKalaPriceCode_P > 0)
+                    else if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_P > 0)
                         $("#gGhimat").val(item.CGruKalaPriceCode_P);
 
-                    if (sessionStorage.ModeCode < 54 && item.KalaPriceCode_S > 0)
+                    if (sessionStorage.InOut == 1 && item.KalaPriceCode_S > 0)
                         $("#gGhimat").val(item.KalaPriceCode_S);
-                    else if (sessionStorage.ModeCode > 54 && item.KalaPriceCode_P > 0)
+                    else if (sessionStorage.InOut == 2 && item.KalaPriceCode_P > 0)
                         $("#gGhimat").val(item.KalaPriceCode_P);
 
 
@@ -1340,14 +1343,14 @@
                 else
                     sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
-                if (sessionStorage.ModeCode < 54 && item.CGruKalaPriceCode_S > 0)
+                if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_S > 0)
                     $("#gGhimat").val(item.CGruKalaPriceCode_S);
-                else if (sessionStorage.ModeCode > 54 && item.CGruKalaPriceCode_P > 0)
+                else if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_P > 0)
                     $("#gGhimat").val(item.CGruKalaPriceCode_P);
 
-                if (sessionStorage.ModeCode < 54 && item.KalaPriceCode_S > 0)
+                if (sessionStorage.InOut == 1 && item.KalaPriceCode_S > 0)
                     $("#gGhimat").val(item.KalaPriceCode_S);
-                else if (sessionStorage.ModeCode > 54 && item.KalaPriceCode_P > 0)
+                else if (sessionStorage.InOut == 2 && item.KalaPriceCode_P > 0)
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
             self.CustCode(item.Code)
@@ -1623,7 +1626,7 @@
 
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
-            text: sessionStorage.ModeCode < 54 ? 'لیست خریداران به روز رسانی شود ؟' : 'لیست فروشندگان به روز رسانی شود ؟',
+            text: sessionStorage.InOut == 1 ? 'لیست خریداران به روز رسانی شود ؟' : 'لیست فروشندگان به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1635,7 +1638,7 @@
             if (result.value) {
                 getCustList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: sessionStorage.ModeCode < 54 ? 'لیست خریداران به روز رسانی شد' : 'لیست فروشندگان به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: sessionStorage.InOut == 1 ? 'لیست خریداران به روز رسانی شد' : 'لیست فروشندگان به روز رسانی شد' });
             }
         })
     })
@@ -1863,7 +1866,7 @@
               $('#searchHesab').attr('placeholder', 'جستجو بر اساس همه موارد');
           }
           else {
-              $('#searchHesab').attr('placeholder', sessionStorage.ModeCode < 54 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
+              $('#searchHesab').attr('placeholder', sessionStorage.InOut == 1 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
           }
       });
   
@@ -2044,7 +2047,7 @@
         }
 
         else {
-            $('#allSearchHesabText').text(sessionStorage.ModeCode < 54 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
+            $('#allSearchHesabText').text(sessionStorage.InOut == 1 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
             allSearchHesab = false;
         }
     });
@@ -2072,7 +2075,7 @@
 
     $.fn.CheckAccess = function () {
 
-        if (sessionStorage.ModeCode == 51) {
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
             if (sessionStorage.AccessViewPishFactorForosh == 'true') {
                 viewAction = true;
             }
@@ -2082,7 +2085,7 @@
                 }
             }
         }
-        else if (sessionStorage.ModeCode == 52) {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
             if (sessionStorage.AccessViewFactorForosh == 'true') {
                 viewAction = true;
             }
@@ -2092,7 +2095,7 @@
                 }
             }
         }
-        else if (sessionStorage.ModeCode == 53) {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
             if (sessionStorage.AccessViewBackFactorForosh == 'true') {
                 viewAction = true;
             }
@@ -2102,7 +2105,7 @@
                 }
             }
         }
-        else if (sessionStorage.ModeCode == 54) {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
             }
@@ -2112,7 +2115,7 @@
                 }
             }
         }
-        else if (sessionStorage.ModeCode == 55) {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
             if (sessionStorage.AccessViewFactorKharid == 'true') {
                 viewAction = true;
             }
@@ -2122,7 +2125,7 @@
                 }
             }
         }
-        else if (sessionStorage.ModeCode == 56) {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
             if (sessionStorage.AccessViewBackFactorKharid == 'true') {
                 viewAction = true;
             }

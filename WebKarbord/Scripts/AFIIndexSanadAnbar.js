@@ -52,7 +52,7 @@
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.IDocHList(data);
-            ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (dataCount) {
+            ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut +'/Count', 'GET').done(function (dataCount) {
                 $('#countAllRecord').text(dataCount);
             });
         });

@@ -47,13 +47,22 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
-                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <div class="form-group">
-                                    <select id="modeCode"></select>
-                                </div>
+                        <div class="col-sm-2" style="margin-left: 5px; margin-right: 5px; width: 200px;">
+                            <div class="form-group">
+                                <select id="modeCode" data-bind="options: IModeList,
+                                   optionsText: function(item) {return item.Name},
+                                   optionsValue: 'Code',
+                                   value: modeCode "></select>
                             </div>
                         </div>
+
+                        <!--<div class="col-sm-2">
+        <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+            <div class="form-group">
+                <select id="modeCode"></select>
+            </div>
+        </div>
+    </div>-->
 
                         <div class="col-sm-2" id="ViewGGhimat">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">

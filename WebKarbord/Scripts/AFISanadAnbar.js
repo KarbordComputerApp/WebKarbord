@@ -99,6 +99,8 @@
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.IDocHList = ko.observableArray([]); // اطلاعات  سند  
     self.StatusList = ko.observableArray([]); // وضعیت  
+    self.IModeList = ko.observableArray([]); // نوع سند  
+
 
 
     if (sessionStorage.InOut == 1) {
@@ -135,6 +137,7 @@
     var IDocBUri = server + '/api/IDocData/IDocB/'; // آدرس لیست بند های سند 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
     var IDocHLastDateUri = server + '/api/IDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
+    var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع سند
     var UpdatePriceUri = server + '/api/Web_Data/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت
 
 
@@ -249,10 +252,21 @@
         });
     }
 
+    //Get IMode List
+    function getIModeList() {
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
+            self.IModeList(data);
+            if (flagupdateHeader == 1)
+                $("#modeCode").val(sessionStorage.ModeCodeValue);
+           // else
+             //   $("#modeCode").val();
+        });
+    }
+
 
     //Get IDocH 
     function getIDocH(serialNumber) {
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + serialNumber + '/' + $("#modeCode").val(), 'GET').done(function (data) {
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + serialNumber , 'GET').done(function (data) {
             self.IDocHList(data);
             if (self.IDocHList().length > 0 && self.IDocBList().length > 0) { // اگر شامل اطلاعات سند بود
                 $('#footertext').show();
@@ -467,7 +481,7 @@
         }
 
         if (codeThvl == '') {
-            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است');
+            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است',0);
         }
 
 
@@ -541,7 +555,7 @@
         }
         else {
             return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
-         }
+        }
 
         if (codeThvl == '') {
             showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 0);
@@ -766,11 +780,13 @@
         getIDocHLastDate();
     }
 
+    getIModeList();
     getThvlList();
     getKalaList();
-    AddModeCode();
+    //AddModeCode();
     flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
     getInvList();
+
 
     getStatusList();
 
@@ -790,7 +806,7 @@
         $('#nameThvl').val('(' + sessionStorage.ThvlCode + ') ' + sessionStorage.thvlname)
 
         $("#docnoout").text(sessionStorage.DocNo);
-        $("#modeCode").val(sessionStorage.ModeCodeValue);
+      //  $("#modeCode").val(sessionStorage.ModeCodeValue);
 
         self.PriceCode(sessionStorage.PriceCode);
         $("#gGhimat").val(sessionStorage.PriceCode);
@@ -1230,9 +1246,9 @@
 
     $('#modal-Band').on('show.bs.modal', function () {
 
-        if (sessionStorage.ModeCode == 1) {
+        if (sessionStorage.InOut == 1) {
             $('#unitPriceShow').show();
-            $('#totalPriceShow').show(); 
+            $('#totalPriceShow').show();
         }
         else {
             $('#unitPriceShow').hide();
@@ -1552,67 +1568,67 @@
         }
     })
 
-    function AddModeCode() {
-        select = document.getElementById('modeCode');
-
-        if (sessionStorage.InOut == 1) {
-            for (var i = 1; i <= 6; i++) {
-                opt = document.createElement('option');
-                if (i == 1) {
-                    opt.value = 101;
-                    opt.innerHTML = 'موجودي اول دوره';
-                }
-                if (i == 2) {
-                    opt.value = 102;
-                    opt.innerHTML = 'رسيد ورود';
-                    opt.selected = true;
-                }
-                if (i == 3) {
-                    opt.value = 103;
-                    opt.innerHTML = 'رسيد برگشت از فروش';
-                }
-                if (i == 4) {
-                    opt.value = 106;
-                    opt.innerHTML = 'رسيد انتقال به انبار';
-                }
-                if (i == 5) {
-                    opt.value = 108;
-                    opt.innerHTML = 'رسيد خريد';
-                }
-                if (i == 6) {
-                    opt.value = 110;
-                    opt.innerHTML = 'رسيد محصول';
-                }
-                select.appendChild(opt);
-            }
-        } else {
-            for (var i = 1; i <= 5; i++) {
-                opt = document.createElement('option');
-                if (i == 1) {
-                    opt.value = 104;
-                    opt.innerHTML = 'حواله خروج';
-                    opt.selected = true;
-                }
-                if (i == 2) {
-                    opt.value = 105;
-                    opt.innerHTML = 'حواله برگشت از خريد';
-                }
-                if (i == 3) {
-                    opt.value = 107;
-                    opt.innerHTML = 'حواله انتقال از انبار';
-                }
-                if (i == 4) {
-                    opt.value = 109;
-                    opt.innerHTML = 'حواله فروش';
-                }
-                if (i == 5) {
-                    opt.value = 111;
-                    opt.innerHTML = 'حواله مواد';
-                }
-                select.appendChild(opt);
-            }
-        }
-    }
+    /* function AddModeCode() {
+         select = document.getElementById('modeCode');
+ 
+         if (sessionStorage.InOut == 1) {
+             for (var i = 1; i <= 6; i++) {
+                 opt = document.createElement('option');
+                 if (i == 1) {
+                     opt.value = 101;
+                     opt.innerHTML = 'موجودي اول دوره';
+                 }
+                 if (i == 2) {
+                     opt.value = 102;
+                     opt.innerHTML = 'رسيد ورود';
+                     opt.selected = true;
+                 }
+                 if (i == 3) {
+                     opt.value = 103;
+                     opt.innerHTML = 'رسيد برگشت از فروش';
+                 }
+                 if (i == 4) {
+                     opt.value = 106;
+                     opt.innerHTML = 'رسيد انتقال به انبار';
+                 }
+                 if (i == 5) {
+                     opt.value = 108;
+                     opt.innerHTML = 'رسيد خريد';
+                 }
+                 if (i == 6) {
+                     opt.value = 110;
+                     opt.innerHTML = 'رسيد محصول';
+                 }
+                 select.appendChild(opt);
+             }
+         } else {
+             for (var i = 1; i <= 5; i++) {
+                 opt = document.createElement('option');
+                 if (i == 1) {
+                     opt.value = 104;
+                     opt.innerHTML = 'حواله خروج';
+                     opt.selected = true;
+                 }
+                 if (i == 2) {
+                     opt.value = 105;
+                     opt.innerHTML = 'حواله برگشت از خريد';
+                 }
+                 if (i == 3) {
+                     opt.value = 107;
+                     opt.innerHTML = 'حواله انتقال از انبار';
+                 }
+                 if (i == 4) {
+                     opt.value = 109;
+                     opt.innerHTML = 'حواله فروش';
+                 }
+                 if (i == 5) {
+                     opt.value = 111;
+                     opt.innerHTML = 'حواله مواد';
+                 }
+                 select.appendChild(opt);
+             }
+         }
+     }*/
 
 
     $('#AddNewSanadAnbar').click(function () {
@@ -1726,8 +1742,7 @@
             }
         }
     }
-    else
-    {
+    else {
         if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
             viewAction = true;
         }

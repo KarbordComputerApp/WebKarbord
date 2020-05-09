@@ -14,9 +14,10 @@
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.FDocHList1 = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش
 
-    var FDocHUri = server + '/api/Web_Data/FDocH/'; // آدرس کسورات و افزایشات 
+    var FDocHUri = server + '/api/FDocData/FDocH/'; // آدرس کسورات و افزایشات 
+    var FDocHCountUri = server + '/api/FDocData/FDocH/'; // تعداد رکورد های فاکتور 
+
     var FDocHHiUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
-    var FDocHCountUri = server + '/api/Web_Data/FDocH/'; // تعداد رکورد های فاکتور 
 
     var allSearchFDocH = true;
 
@@ -39,16 +40,16 @@
     }
 
     function getFDocH1(salselect) {
-        if (sessionStorage.ModeCode == 53)
-            tempmode = 52;
-        else if (sessionStorage.ModeCode == 56)
-            tempmode = 55;
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)//53
+            tempmode = sessionStorage.MODECODE_FDOC_S; //52
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR)//56
+            tempmode = sessionStorage.MODECODE_FDOC_P; //55
         ajaxFunction(FDocHUri + ace + '/' + salselect + '/' + group + '/' + tempmode, 'GET').done(function (data) {
             self.FDocHList1(data);
         });
     }
-    
-    if (sessionStorage.ModeCode == 53 || sessionStorage.ModeCode == 56) {
+
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         // getFDocH1(sessionStorage.sal);
     }
 
@@ -197,7 +198,7 @@
         }
     };
 
-    self.previousPageFDocH = function () { 
+    self.previousPageFDocH = function () {
         if (self.currentPageIndexFDocH() > 0) {
             self.currentPageIndexFDocH(self.currentPageIndexFDocH() - 1);
         }
@@ -363,9 +364,9 @@
     $('#AddNewFactor').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
-        if (sessionStorage.ModeCode == "53" || sessionStorage.ModeCode == "56") {
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
             $('#modal-SelectFactor').modal('show');
-            if (sessionStorage.ModeCode == "53")
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
                 $('#CaptionSelectFactor').text('برگشت از فروش متناظر با فاکتور فروش شماره');
             else
                 $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
@@ -461,7 +462,7 @@
         }
     });
 
-    if (sessionStorage.ModeCode < 54) {
+    if (sessionStorage.InOut == 1) {
         sessionStorage.sels = true;
         $('#TitleCustName').text('نام خریدار');
     } else {
@@ -471,22 +472,22 @@
 
 
     switch (sessionStorage.ModeCode.toString()) {
-        case "51":
+        case sessionStorage.MODECODE_FDOC_SP:
             $('#TitleListFactor').text('پیش فاکتور فروش');
             break;
-        case "52":
+        case sessionStorage.MODECODE_FDOC_S:
             $('#TitleListFactor').text('فاکتور فروش');
             break;
-        case "53":
+        case sessionStorage.MODECODE_FDOC_SR:
             $('#TitleListFactor').text('برگشت از فروش');
             break;
-        case "54":
+        case sessionStorage.MODECODE_FDOC_PP:
             $('#TitleListFactor').text('پیش فاکتور خرید');
             break;
-        case "55":
+        case sessionStorage.MODECODE_FDOC_P:
             $('#TitleListFactor').text('فاکتور خرید');
             break;
-        case "56":
+        case sessionStorage.MODECODE_FDOC_PR:
             $('#TitleListFactor').text('برگشت از خرید');
     }
 
@@ -520,7 +521,7 @@
     }
 
     self.ShowAction = function (Eghdam) {
-        if (sessionStorage.ModeCode == '51') {
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
             if (sessionStorage.AccessViewPishFactorForosh == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
@@ -528,7 +529,7 @@
                 return true;
             }
         }
-        else if (sessionStorage.ModeCode == '52') {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
             if (sessionStorage.AccessViewFactorForosh == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
@@ -537,7 +538,7 @@
             }
         }
 
-        else if (sessionStorage.ModeCode == '53') {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
             if (sessionStorage.AccessViewBackFactorForosh == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
@@ -546,7 +547,7 @@
             }
         }
 
-        else if (sessionStorage.ModeCode == '54') {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
             if (sessionStorage.AccessViewPishFactorKharid == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
@@ -555,7 +556,7 @@
             }
         }
 
-        else if (sessionStorage.ModeCode == '55') {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
             if (sessionStorage.AccessViewFactorKharid == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
@@ -564,7 +565,7 @@
             }
         }
 
-        else if (sessionStorage.ModeCode == '56') {
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
             if (sessionStorage.AccessViewBackFactorKharid == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
