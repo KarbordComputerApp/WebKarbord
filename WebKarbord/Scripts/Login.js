@@ -66,7 +66,12 @@
                 localStorage.setItem('fctAccess', fctAccess);
                 localStorage.setItem('erjAccess', erjAccess);
 
-                return Swal.fire({ type: 'info', title: 'عملیات موفق', text: 'اتصال برقرار شد' });
+                $('#modal-service').modal('hide');
+               // $('#modal-service').hide();
+
+                return showNotification('اتصال برقرار شد', 1);
+
+                //Swal.fire({ type: 'info', title: 'عملیات موفق', text: 'اتصال برقرار شد' });
             }
         });
     }

@@ -462,7 +462,7 @@
         }
     });
 
-    if (sessionStorage.InOut == 1) {
+    if (sessionStorage.InOut == 2) {
         sessionStorage.sels = true;
         $('#TitleCustName').text('نام خریدار');
     } else {

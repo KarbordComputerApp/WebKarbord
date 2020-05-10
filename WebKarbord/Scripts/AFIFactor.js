@@ -147,7 +147,7 @@
             $('#TitleFooterFactor').text('برگشت از خرید ');
     }
 
-    if (sessionStorage.InOut == 1) {
+    if (sessionStorage.InOut == 2) {
         $('#LableCustCode').text('خریدار ');
         $('#LableHesabCode').text('نام خریدار');
         //$('#codeHesab').attr('placeholder', 'کد خریدار');
@@ -598,7 +598,7 @@
         }
 
         if (codeCust == '') {
-            return showNotification(sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
+            return showNotification(sessionStorage.InOut == 2 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
         }
 
@@ -1288,7 +1288,7 @@
         if (Serial != '') {
             Swal.fire({
                 title: 'تایید و ثبت نهایی تغییرات ؟',
-                text: 'در صورت تغییر' + (sessionStorage.InOut == 1 ? ' خریدار ' : ' فروشنده ') + ' تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟',
+                text: 'در صورت تغییر' + (sessionStorage.InOut == 2 ? ' خریدار ' : ' فروشنده ') + ' تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟',
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1309,14 +1309,14 @@
                         sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
 
-                    if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_S > 0)
+                    if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
                         $("#gGhimat").val(item.CGruKalaPriceCode_S);
-                    else if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_P > 0)
+                    else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
                         $("#gGhimat").val(item.CGruKalaPriceCode_P);
 
-                    if (sessionStorage.InOut == 1 && item.KalaPriceCode_S > 0)
+                    if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
                         $("#gGhimat").val(item.KalaPriceCode_S);
-                    else if (sessionStorage.InOut == 2 && item.KalaPriceCode_P > 0)
+                    else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
                         $("#gGhimat").val(item.KalaPriceCode_P);
 
 
@@ -1343,14 +1343,14 @@
                 else
                     sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
-                if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_S > 0)
+                if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
                     $("#gGhimat").val(item.CGruKalaPriceCode_S);
-                else if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_P > 0)
+                else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
                     $("#gGhimat").val(item.CGruKalaPriceCode_P);
 
-                if (sessionStorage.InOut == 1 && item.KalaPriceCode_S > 0)
+                if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
                     $("#gGhimat").val(item.KalaPriceCode_S);
-                else if (sessionStorage.InOut == 2 && item.KalaPriceCode_P > 0)
+                else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
             self.CustCode(item.Code)
@@ -1626,7 +1626,7 @@
 
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
-            text: sessionStorage.InOut == 1 ? 'لیست خریداران به روز رسانی شود ؟' : 'لیست فروشندگان به روز رسانی شود ؟',
+            text: sessionStorage.InOut == 2 ? 'لیست خریداران به روز رسانی شود ؟' : 'لیست فروشندگان به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2047,7 +2047,7 @@
         }
 
         else {
-            $('#allSearchHesabText').text(sessionStorage.InOut == 1 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
+            $('#allSearchHesabText').text(sessionStorage.InOut == 2 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
             allSearchHesab = false;
         }
     });

@@ -213,9 +213,9 @@
                                 <th data-column="SerialNumber">
                                     شماره مبنا <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
                                 </th>
-                                <th data-column="BandNo">
-                                    شماره بند <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandNo }"></i> </span>
-                                </th>
+                                <!-- <th data-column="BandNo">
+         شماره بند <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandNo }"></i> </span>
+     </th>-->
                                 <th data-column="KalaName">
                                     نام کالا <span data-bind="attr: { class: currentColumn() == 'KalaName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaName }"></i> </span>
                                 </th>
@@ -275,7 +275,7 @@
                                 <td data-bind="text: MkzName"></td>
                                 <td data-bind="text: OprName"></td>
                                 <td data-bind="text: SerialNumber"></td>
-                                <td data-bind="text: BandNo"></td>
+                               <!-- <td data-bind="text: BandNo"></td> -->
                                 <td data-bind="text: KalaName"></td>
                                 <td data-bind="text: KalaFileNo"></td>
                                 <td data-bind="text: KalaState"></td>
@@ -309,7 +309,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                              <!--  <td></td> -->
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -340,8 +340,8 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR10, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR11, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR12, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                              <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR12, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                              -->  <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR14, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR15, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR16, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
@@ -587,7 +587,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKala0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKala0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterKala1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterKala2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterKala3, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
@@ -717,7 +717,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterThvl0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterThvl0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterThvl1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterThvl2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
@@ -843,7 +843,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKGru0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterKGru0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterKGru1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterKGru2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
@@ -970,7 +970,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterOpr0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterOpr0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterOpr1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterOpr2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
@@ -1096,7 +1096,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterMkz0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterMkz0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterMkz1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterMkz2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>

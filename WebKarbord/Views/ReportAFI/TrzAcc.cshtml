@@ -154,6 +154,140 @@
 
                     </div>
                 </form>
+
+                <hr />
+                <div style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
+                    <table class="table table-hover table-striped">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableIDocR">
+
+                            </tr>
+
+                        </thead>
+                        <tbody data-bind="foreach: currentPageIDocR" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectIDocR , css: { matched: $data === $root.firstMatch() }">
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: ModeName"></td>
+                                <td data-bind="text: InvName"></td>
+                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Status"></td>
+                                <td style="direction: ltr;" data-bind="text: Amount1 == 0 ? '0' : NumberToNumberString(Amount1.toFixed(DeghatM1 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: Amount2 == 0 ? '0' : NumberToNumberString(Amount2.toFixed(DeghatM2 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: Amount3 == 0 ? '0' : NumberToNumberString(Amount3.toFixed(DeghatM3 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: UnitPrice  != null ? NumberToNumberString(parseFloat(UnitPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: TotalPrice != null ? NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+
+                                <td data-bind="text: BandSpec"></td>
+                                <td data-bind="text: Comm"></td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color:#e37d228f;">
+                                <td id="textTotal"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td id="totalAmount1" style="direction: ltr;"></td>
+                                <td id="totalAmount2" style="direction: ltr;"></td>
+                                <td id="totalAmount3" style="direction: ltr;"></td>
+                                <td id="totalUnitPrice" style="direction: ltr;"></td>
+                                <td id="totalTotalPrice" style="direction: ltr;"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR1, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR10, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR11, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR12, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR14, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR15, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR16, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR17, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR18, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR19, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR20, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR21, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR22, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR23, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR24, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR25, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR26, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeIDocR" class="selectorange">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                            <label id="sumA"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageIDocR">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageIDocR">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a> <b data-bind="text: currentPageIndexIDocR() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageIDocR">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageIDocR">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -337,7 +471,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterOpr0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterOpr0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterOpr1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterOpr2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
@@ -463,7 +597,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterMkz0, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterMkz0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterMkz1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterMkz2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
