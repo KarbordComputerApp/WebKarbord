@@ -212,6 +212,7 @@ function ajaxFunction(uri, method, data) {
         dataType: 'json',
         //async: true,
         //crossDomain: true,
+        cache: false,
         contentType: 'application/json',
         //contentType: 'application/x-www-form-urlencoded',
         // xhrFields: { withCredentials: true },

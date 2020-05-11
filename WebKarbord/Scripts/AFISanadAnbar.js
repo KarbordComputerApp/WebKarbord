@@ -138,7 +138,7 @@
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
     var IDocHLastDateUri = server + '/api/IDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع سند
-    var UpdatePriceUri = server + '/api/Web_Data/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت
+    var UpdatePriceUri = server + '/api/IDocData/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت
 
 
 
