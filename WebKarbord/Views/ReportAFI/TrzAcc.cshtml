@@ -73,13 +73,13 @@
                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <a id="btnNoSanad" class="dropdown-toggle" data-toggle="modal" data-target="#modal-NoSanad">
+                                        <a id="btnAMode" class="dropdown-toggle" data-toggle="modal" data-target="#modal-AMode">
                                             <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
                                         </a>
                                     </div>
                                     <div class="form-group form-float" style="margin-left: 250px;">
                                         <div class="form-line focused fix">
-                                            <input id="nameNoSanad" class="form-control" readonly />
+                                            <input id="nameAMode" class="form-control" readonly />
                                             <label class="form-label">نوع سند</label>
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                 <div class="form-group">
-                                    <select id="noTaraz"></select>
+                                    <select id="SathTaraz"></select>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                 <div class="form-group">
-                                    <select id="noSathTaraz"></select>
+                                    <select id="Level"></select>
                                 </div>
                             </div>
                         </div>
@@ -154,106 +154,78 @@
 
                     </div>
                 </form>
-
                 <hr />
+
                 <div style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover">
                         <thead style="cursor: pointer;">
-                            <tr data-bind="click: sortTableIDocR">
-
+                            <tr data-bind="click: sortTableTrzAcc">
+                                <th data-column="AccCode">
+                                    کد حساب <span data-bind="attr: { class: currentColumn() == 'AccCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAccCode }"></i> </span>
+                                </th>
+                                <th data-column="AccName" style="width:500px">
+                                    نام حساب <span data-bind="attr: { class: currentColumn() == 'AccName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAccName }"></i> </span>
+                                </th>
+                                <th data-column="Bede">
+                                    مبلغ بدهکار <span data-bind="attr: { class: currentColumn() == 'Bede' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBede }"></i> </span>
+                                </th>
+                                <th data-column="Best">
+                                    مبلغ بستانکار <span data-bind="attr: { class: currentColumn() == 'Best' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBest }"></i> </span>
+                                </th>
+                                <th data-column="MonBede">
+                                    مانده بدهکار<span data-bind="attr: { class: currentColumn() == 'MonBede' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMonBede }"></i> </span>
+                                </th>
+                                <th data-column="MonBest">
+                                    مانده بستانکار<span data-bind="attr: { class: currentColumn() == 'MonBest' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMonBest }"></i> </span>
+                                </th>
+                                <th data-column="MonTotal">
+                                    مانده <span data-bind="attr: { class: currentColumn() == 'MonTotal' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMonTotal }"></i> </span>
+                                </th>
                             </tr>
-
                         </thead>
-                        <tbody data-bind="foreach: currentPageIDocR" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectIDocR , css: { matched: $data === $root.firstMatch() }">
-                                <td data-bind="text: DocDate"></td>
-                                <td data-bind="text: DocNo"></td>
-                                <td data-bind="text: ModeName"></td>
-                                <td data-bind="text: InvName"></td>
-                                <td data-bind="text: Spec"></td>
-                                <td data-bind="text: Status"></td>
-                                <td style="direction: ltr;" data-bind="text: Amount1 == 0 ? '0' : NumberToNumberString(Amount1.toFixed(DeghatM1 % 10))"></td>
-                                <td style="direction: ltr;" data-bind="text: Amount2 == 0 ? '0' : NumberToNumberString(Amount2.toFixed(DeghatM2 % 10))"></td>
-                                <td style="direction: ltr;" data-bind="text: Amount3 == 0 ? '0' : NumberToNumberString(Amount3.toFixed(DeghatM3 % 10))"></td>
-                                <td style="direction: ltr;" data-bind="text: UnitPrice  != null ? NumberToNumberString(parseFloat(UnitPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
-                                <td style="direction: ltr;" data-bind="text: TotalPrice != null ? NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
-
-                                <td data-bind="text: BandSpec"></td>
-                                <td data-bind="text: Comm"></td>
-
+                        <tbody data-bind="foreach: currentPageTrzAcc" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() }">
+                                <td data-bind="text: AccCode" style=" text-align: left;"></td>
+                                <td data-bind="text: AccName"></td>
+                                <td data-bind="text: Bede" style="direction: ltr;"></td>
+                                <td data-bind="text: Best" style="direction: ltr;"></td>
+                                <td data-bind="text: MonBede" style="direction: ltr;"></td>
+                                <td data-bind="text: MonBest" style="direction: ltr;"></td>
+                                 <td data-bind="text: MonTotal" style="direction: ltr;"></td> 
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color:#e37d228f;">
                                 <td id="textTotal"></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-
-                                <td id="totalAmount1" style="direction: ltr;"></td>
-                                <td id="totalAmount2" style="direction: ltr;"></td>
-                                <td id="totalAmount3" style="direction: ltr;"></td>
-                                <td id="totalUnitPrice" style="direction: ltr;"></td>
-                                <td id="totalTotalPrice" style="direction: ltr;"></td>
-                                <td></td>
-                                <td></td>
+                                <td id="Bede" style="direction: ltr;"></td>
+                                <td id="Best" style="direction: ltr;"></td>
+                                <td id="MonBede" style="direction: ltr;"></td>
+                                <td id="MonBest" style="direction: ltr;"></td>
+                                <td id="MonTotal" style="direction: ltr;"></td>
                             </tr>
 
                             <tr style="background-color: #efb68399;">
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR1, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR10, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR11, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR12, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR14, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR15, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR16, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR17, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR18, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR19, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR20, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR21, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR22, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR23, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR24, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR25, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterIDocR26, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc2, valueUpdate: 'afterkeydown'" type="text" class="form-control float " style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc3, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc4, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc5, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc6, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
                 <br />
+
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
-                                <select id="pageSizeSelector" data-bind="value: pageSizeIDocR" class="selectorange">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeTrzAcc" class="selectorange">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -273,20 +245,23 @@
 
 
                     <div class="col-md-4" style="text-align: center; margin-top: 10px;">
-                        <a data-bind="click: firstPageIDocR">
+                        <a data-bind="click: firstPageTrzAcc">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
-                        <a data-bind="click: previousPageIDocR">
+                        <a data-bind="click: previousPageTrzAcc">
                             <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                        </a> <b data-bind="text: currentPageIndexIDocR() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                        <a data-bind="click: nextPageIDocR">
+                        </a> <b data-bind="text: currentPageIndexTrzAcc() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageTrzAcc">
                             <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <a data-bind="click: lastPageIDocR">
+                        <a data-bind="click: lastPageTrzAcc">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
+
+
+
 
             </div>
         </div>
@@ -420,8 +395,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="modal fade" id="modal-Opr" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog modal-entesab">
@@ -675,9 +648,7 @@
     </div>
 </div>
 
-
-
-<div class="modal fade" id="modal-NoSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+<div class="modal fade" id="modal-AMode" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
@@ -685,7 +656,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">لیست نوع سند</h4>
-                <a id="refreshNoSanad">
+                <a id="refreshAMode">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -695,7 +666,7 @@
                         <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped">
                                 <thead style="cursor: pointer;">
-                                    <tr data-bind="click: sortTableNoSanad">
+                                    <tr data-bind="click: sortTableAMode">
                                         <th data-column="Code">
                                             کد
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
@@ -710,16 +681,16 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody data-bind="foreach: currentPageNoSanad" style="cursor: default;">
-                                    <tr data-bind=" event: { dblclick: $parent.AddNoSanad }">
+                                <tbody data-bind="foreach: currentPageAMode" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.AddAMode }">
                                         <td data-bind="text: Code , style: { color: Level == 1 ? '#009688' : Level == 2 ? '#212529' : '#4caf50'} " style=" text-align: left;"></td>
                                         <td data-bind="text: Name , style: { color: Level == 1 ? '#009688' : Level == 2 ? '#212529' : '#4caf50'} "></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterNoSanad0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filterNoSanad1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterAMode0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterAMode1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -728,24 +699,24 @@
 
                     <div class="col-md-2 centered">
                         <div class="row centered">
-                            <button data-bind="click: AddAllNoSanad" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
+                            <button data-bind="click: AddAllAMode" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </button>
-                            <button data-bind="click: DelAllNoSanad" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                            <button data-bind="click: DelAllAMode" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </button>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table table-hover table-striped" id="TableSelectedNoSanad">
+                            <table class="table table-hover table-striped" id="TableSelectedAMode">
                                 <thead style="cursor: pointer;">
                                     <tr>
                                         <th>کد</th>
                                         <th>نام</th>
                                     </tr>
                                 </thead>
-                                <tbody id="TableBodyListNoSanad" style="cursor: default;"></tbody>
+                                <tbody id="TableBodyListAMode" style="cursor: default;"></tbody>
                             </table>
                         </div>
                     </div>
@@ -756,7 +727,7 @@
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px;">
-                                <select id="pageSizeSelector" data-bind="value: pageSizeNoSanad">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeAMode">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -774,17 +745,17 @@
                     </div>
                     <div class="col-md-5" style="text-align: center;">
 
-                        <a data-bind="click: firstPageNoSanad">
+                        <a data-bind="click: firstPageAMode">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
-                        <a data-bind="click: previousPageNoSanad">
+                        <a data-bind="click: previousPageAMode">
                             <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <b data-bind="text: currentPageIndexNoSanad() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                        <a data-bind="click: nextPageNoSanad">
+                        <b data-bind="text: currentPageIndexAMode() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageAMode">
                             <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <a data-bind="click: lastPageNoSanad">
+                        <a data-bind="click: lastPageAMode">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
@@ -804,7 +775,7 @@
         $('#btnaztarikh').MdPersianDateTimePicker({
             targetTextSelector: '#aztarikh',
             dateFormat: 'yyyy-MM-dd',
-             Placement: 'bottom', // default is 'bottom'
+            Placement: 'bottom', // default is 'bottom'
             Trigger: 'focus', // default is 'focus',
             EnableTimePicker: true, // default is true,
             TargetSelector: '', // default is empty,
