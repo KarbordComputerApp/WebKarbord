@@ -19154,14 +19154,16 @@ table.shoping-cart-table {
 
 .alert-info {
     background-color: rgba(44, 168, 255, 0.8);
+    border-radius: 15px;
 }
 
 .alert-warning {
     background-color: rgba(255, 178, 54, 0.8);
+    border-radius: 15px;
 }
 
 .alert-danger {
-    background-color: #ec8121;
+     background-color: red;
     border-radius: 15px;
 }
 

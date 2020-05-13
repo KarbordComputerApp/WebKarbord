@@ -73,7 +73,7 @@
     var Serial = '';
     self.DocNoOut = ko.observable();
 
-    self.DocDate = ko.observable(ShamsiDate());
+    self.DocDate = ko.observable();
     self.Spec = ko.observable();
     self.ThvlCode = ko.observable();
     self.PriceCode = ko.observable();
@@ -144,8 +144,6 @@
 
     //Get Thvl List
     function getThvlList() {
-        //var storedNames = JSON.parse(sessionStorage.getItem("Thvl"));
-        //self.ThvlList(storedNames);
         ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.ThvlList(data);
         });
@@ -153,8 +151,6 @@
 
     //Get kala List
     function getKalaList() {
-        //var storedNames = JSON.parse(sessionStorage.getItem("kala"));
-        //self.KalaList(storedNames);
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.KalaList(data);
         });
@@ -166,8 +162,6 @@
     function getKalaPriceList(insert) {
         ajaxFunction(KalaPriceUri + ace + '/' + sal + '/' + group + '/' + insert, 'GET').done(function (data) {
             self.KalaPriceList(data);
-            //var storedNames = JSON.parse(sessionStorage.getItem("kalaprice"));
-            //self.KalaPriceList(storedNames);
             if (self.KalaPriceList().length > 0) {
                 if (flagupdateHeader == 1)
                     sessionStorage.PriceCode > 0 ? $("#gGhimat").val(sessionStorage.PriceCode) : null;
@@ -258,15 +252,15 @@
             self.IModeList(data);
             if (flagupdateHeader == 1)
                 $("#modeCode").val(sessionStorage.ModeCodeValue);
-           // else
-             //   $("#modeCode").val();
+            // else
+            //   $("#modeCode").val();
         });
     }
 
 
     //Get IDocH 
     function getIDocH(serialNumber) {
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + serialNumber , 'GET').done(function (data) {
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.IDocHList(data);
             if (self.IDocHList().length > 0 && self.IDocBList().length > 0) { // اگر شامل اطلاعات سند بود
                 $('#footertext').show();
@@ -481,7 +475,7 @@
         }
 
         if (codeThvl == '') {
-            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است',0);
+            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
         }
 
 
@@ -558,7 +552,7 @@
         }
 
         if (codeThvl == '') {
-            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 0);
+            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
         }
 
         if ($('#docnoout').text() == '0') {
@@ -606,7 +600,7 @@
             //            Serial = res[0];
             //            DocNoOut = res[1];
             //            $('#docnoout').val(DocNoOut);
-            sessionStorage.searchIDocH = $("#docnoout").text();
+            sessionStorage.searchIDocH = Serial;
             //flagInsertIDoch = 0;
             //FinalSave
 
@@ -803,10 +797,13 @@
         self.PriceCode(sessionStorage.PriceCode);
         self.InvCode(sessionStorage.InvCode);
         $("#inv").val(sessionStorage.InvCode);
-        $('#nameThvl').val('(' + sessionStorage.ThvlCode + ') ' + sessionStorage.thvlname)
+        if (sessionStorage.ThvlCode != '') 
+            $('#nameThvl').val('(' + sessionStorage.ThvlCode + ') ' + sessionStorage.thvlname);
+        else
+            $('#nameThvl').val('');
 
         $("#docnoout").text(sessionStorage.DocNo);
-      //  $("#modeCode").val(sessionStorage.ModeCodeValue);
+        //  $("#modeCode").val(sessionStorage.ModeCodeValue);
 
         self.PriceCode(sessionStorage.PriceCode);
         $("#gGhimat").val(sessionStorage.PriceCode);

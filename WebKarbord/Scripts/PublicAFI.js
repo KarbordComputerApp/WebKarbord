@@ -1060,6 +1060,7 @@ function showNotification(text, colorNumber) {
     else if (colorNumber == 3)
         colorName = 'alert-info';
 
+
     if (colorName === null || colorName === '') { colorName = 'bg-black'; }
     if (text === null || text === '') { text = 'خطای برنامه نویسی : متن هشدار وارد نشده است'; }
     if (animateEnter === null || animateEnter === '') { animateEnter = 'animated fadeInDown'; }

@@ -85,7 +85,7 @@
     var Serial = '';
     self.DocNoOut = ko.observable();
 
-    self.DocDate = ko.observable(ShamsiDate());//(ShamsiDate()); 
+    self.DocDate = ko.observable();//(ShamsiDate()); 
     self.Spec = ko.observable();
     self.CustCode = ko.observable();
     self.PriceCode = ko.observable();

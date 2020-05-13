@@ -203,7 +203,7 @@
         } else {
             value = ko.utils.arrayFirst(self.IDocHList(), function (item) {
                 indexIDocH += 1;
-                return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
+                return ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), search);
             });
             if (indexIDocH < self.pageSizeIDocH())
                 self.currentPageIndexIDocH(0);
