@@ -163,7 +163,7 @@
                                 <th data-column="AccCode">
                                     کد حساب <span data-bind="attr: { class: currentColumn() == 'AccCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAccCode }"></i> </span>
                                 </th>
-                                <th data-column="AccName" style="width:500px">
+                                <th data-column="AccName">
                                     نام حساب <span data-bind="attr: { class: currentColumn() == 'AccName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAccName }"></i> </span>
                                 </th>
                                 <th data-column="Bede">
@@ -187,22 +187,22 @@
                             <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() }">
                                 <td data-bind="text: AccCode" style=" text-align: left;"></td>
                                 <td data-bind="text: AccName"></td>
-                                <td data-bind="text: Bede" style="direction: ltr;"></td>
-                                <td data-bind="text: Best" style="direction: ltr;"></td>
-                                <td data-bind="text: MonBede" style="direction: ltr;"></td>
-                                <td data-bind="text: MonBest" style="direction: ltr;"></td>
-                                 <td data-bind="text: MonTotal" style="direction: ltr;"></td> 
+                                <td data-bind="text: Bede == 0 ? '0' : NumberToNumberString(Bede) , style: { color: Bede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
+                                <td data-bind="text: Best == 0 ? '0' : NumberToNumberString(Best) , style: { color: Best < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
+                                <td data-bind="text: MonBede == 0 ? '0' : NumberToNumberString(MonBede) , style: { color: MonBede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
+                                <td data-bind="text: MonBest == 0 ? '0' : NumberToNumberString(MonBest) , style: { color: MonBest < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
+                                 <td data-bind="text: MonTotal== 0 ? '0' : NumberToNumberString(MonTotal) , style: { color: MonTotal < 0 ? 'red' : 'black' }" style="direction: ltr;"></td> 
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color:#e37d228f;">
                                 <td id="textTotal"></td>
                                 <td></td>
-                                <td id="Bede" style="direction: ltr;"></td>
-                                <td id="Best" style="direction: ltr;"></td>
-                                <td id="MonBede" style="direction: ltr;"></td>
-                                <td id="MonBest" style="direction: ltr;"></td>
-                                <td id="MonTotal" style="direction: ltr;"></td>
+                                <td id="totalBede"  style="direction: ltr;"></td>
+                                <td id="totalBest"  style="direction: ltr;"></td>
+                                <td id="totalMonBede" style="direction: ltr;"></td>
+                                <td id="totalMonBest" style="direction: ltr;"></td>
+                                <td id="totalMonTotal" style="direction: ltr;"></td>
                             </tr>
 
                             <tr style="background-color: #efb68399;">

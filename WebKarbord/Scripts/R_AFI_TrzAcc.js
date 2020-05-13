@@ -161,50 +161,34 @@
         };
         ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject).done(function (response) {
             self.TrzAccList(response);
-            // calcsum(self.TrzAccList());
+            calcsum(self.TrzAccList());
         });
     }
 
-    /* function calcsum(list) {
-         totalAmount1 = 0;
-         totalAmount2 = 0;
-         totalAmount3 = 0;
-         totalUnitPrice = 0;
-         totalTotalPrice = 0;
- 
-         KalaDeghat1 = 0;
-         KalaDeghat2 = 0;
-         KalaDeghat3 = 0;
- 
-         maxKalaDeghat1 = 0;
-         maxKalaDeghat2 = 0;
-         maxKalaDeghat3 = 0;
- 
-         for (var i = 0; i < list.length; ++i) {
-             TrzAccData = list[i];
-             totalAmount1 += TrzAccData.Amount1;
-             totalAmount2 += TrzAccData.Amount2;
-             totalAmount3 += TrzAccData.Amount3;
- 
-             totalUnitPrice += TrzAccData.UnitPrice;
-             totalTotalPrice += TrzAccData.TotalPrice;
- 
-             KalaDeghat1 = TrzAccData.DeghatM1 % 10;
-             KalaDeghat2 = TrzAccData.DeghatM2 % 10;
-             KalaDeghat3 = TrzAccData.DeghatM3 % 10;
- 
-             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
-             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
-             KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
-         }
- 
-         $("#textTotal").text('جمع');
-         $("#totalAmount1").text(NumberToNumberString(totalAmount1.toFixed(maxKalaDeghat1)));
-         $("#totalAmount2").text(NumberToNumberString(totalAmount2.toFixed(maxKalaDeghat2)));
-         $("#totalAmount3").text(NumberToNumberString(totalAmount3.toFixed(maxKalaDeghat3)));
-         $("#totalUnitPrice").text(NumberToNumberString(totalUnitPrice.toFixed(parseInt(sessionStorage.Deghat))));
-         $("#totalTotalPrice").text(NumberToNumberString(totalTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
-     }*/
+    function calcsum(list) {
+        totalBede = 0;
+        totalBest = 0;
+        totalMonBede = 0;
+        totalMonBest = 0;
+        totalMonTotal = 0;
+
+
+        for (var i = 0; i < list.length; ++i) {
+            TrzAccData = list[i];
+            totalBede += TrzAccData.Bede;
+            totalBest += TrzAccData.Best;
+            totalMonBede += TrzAccData.MonBede;
+            totalMonBest += TrzAccData.MonBest;
+            totalMonTotal += TrzAccData.MonTotal;
+        }
+
+        $("#textTotal").text('جمع');
+        $("#totalBede").text(NumberToNumberString(totalBede));
+        $("#totalBest").text(NumberToNumberString(totalBest));
+        $("#totalMonBede").text(NumberToNumberString(totalMonBede));
+        $("#totalMonBest").text(NumberToNumberString(totalMonBest));
+        $("#totalMonTotal").text(NumberToNumberString(totalMonTotal));
+    }
 
     $("#CreateReport").click(function () {
         getTrzAcc();
@@ -259,17 +243,17 @@
         tempData = ko.utils.arrayFilter(self.TrzAccList(), function (item) {
             result =
                 (item.AccCode == null ? '' : item.AccCode.toString().search(filter0) >= 0) &&
-                ko.utils.stringStartsWith(item.AccName.toString().toLowerCase(), filter1) &&
+                (item.AccName == null ? '' : item.AccName.toString().search(filter1) >= 0) &&
                 (item.Bede == null ? '' : item.Bede.toString().search(filter2) >= 0) &&
                 (item.Best == null ? '' : item.Best.toString().search(filter3) >= 0) &&
                 (item.MonBede == null ? '' : item.MonBede.toString().search(filter4) >= 0) &&
                 (item.MonBest == null ? '' : item.MonBest.toString().search(filter5) >= 0) &&
-                (item.MonTotal == null ? '' : item.MonTotal.toString().search(filter6) >= 0) 
+                (item.MonTotal == null ? '' : item.MonTotal.toString().search(filter6) >= 0)
             // 1 == 1
 
             return result;
         })
-        // calcsum(tempData);
+         calcsum(tempData);
         return tempData;
 
     });
@@ -347,7 +331,7 @@
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
 
-                 
+
         self.iconTypeAccCode('');
         self.iconTypeAccName('');
         self.iconTypeBede('');
@@ -1101,7 +1085,6 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
-                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
             list_AModeSelect[counterAMode] = item.Code;
@@ -1119,7 +1102,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_AModeSelect[i] = list[i].Code;
