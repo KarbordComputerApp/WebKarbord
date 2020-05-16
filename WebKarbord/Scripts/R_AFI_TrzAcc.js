@@ -161,7 +161,7 @@
         };
         ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject).done(function (response) {
             self.TrzAccList(response);
-            calcsum(self.TrzAccList());
+            //calcsum(self.TrzAccList());
         });
     }
 
@@ -172,14 +172,25 @@
         totalMonBest = 0;
         totalMonTotal = 0;
 
+        sathTaraz = $('#SathTaraz').val();
 
         for (var i = 0; i < list.length; ++i) {
             TrzAccData = list[i];
-            totalBede += TrzAccData.Bede;
-            totalBest += TrzAccData.Best;
-            totalMonBede += TrzAccData.MonBede;
-            totalMonBest += TrzAccData.MonBest;
-            totalMonTotal += TrzAccData.MonTotal;
+
+            if (sathTaraz == 2 && TrzAccData.Level == 1) {
+                totalBede += TrzAccData.Bede;
+                totalBest += TrzAccData.Best;
+                totalMonBede += TrzAccData.MonBede;
+                totalMonBest += TrzAccData.MonBest;
+                totalMonTotal += TrzAccData.MonTotal;
+            }
+            else if (sathTaraz == 1) {
+                totalBede += TrzAccData.Bede;
+                totalBest += TrzAccData.Best;
+                totalMonBede += TrzAccData.MonBede;
+                totalMonBest += TrzAccData.MonBest;
+                totalMonTotal += TrzAccData.MonTotal;
+            }
         }
 
         $("#textTotal").text('جمع');
@@ -242,7 +253,7 @@
 
         tempData = ko.utils.arrayFilter(self.TrzAccList(), function (item) {
             result =
-                (item.AccCode == null ? '' : item.AccCode.toString().search(filter0) >= 0) &&
+                ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filter0) &&
                 (item.AccName == null ? '' : item.AccName.toString().search(filter1) >= 0) &&
                 (item.Bede == null ? '' : item.Bede.toString().search(filter2) >= 0) &&
                 (item.Best == null ? '' : item.Best.toString().search(filter3) >= 0) &&
@@ -253,7 +264,7 @@
 
             return result;
         })
-         calcsum(tempData);
+        calcsum(tempData);
         return tempData;
 
     });
