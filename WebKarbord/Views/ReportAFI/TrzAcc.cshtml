@@ -184,7 +184,7 @@
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: currentPageTrzAcc" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() }">
+                            <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() } , style: { 'background-color': Level == 1 ? '#8ee6de': ''}">
                                 <td data-bind="text: AccCode" style=" text-align: left;"></td>
                                 <td data-bind="text: AccName"></td>
                                 <td data-bind="text: Bede == 0 ? '0' : NumberToNumberString(Bede) , style: { color: Bede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
@@ -310,10 +310,10 @@
                                     </tr>
                                 </thead>
                                 <tbody data-bind="foreach: currentPageAcc" style="cursor: default;">
-                                    <tr data-bind=" event: { dblclick: $parent.AddAcc }">
-                                        <td data-bind="text: Code , style: { color: Level == 1 ? '#009688' : Level == 2 ? '#212529' : '#4caf50'} " style=" text-align: left;"></td>
-                                        <td data-bind="text: Name , style: { color: Level == 1 ? '#009688' : Level == 2 ? '#212529' : '#4caf50'} "></td>
-                                        <td data-bind="text: Spec , style: { color: Level == 1 ? '#009688' : Level == 2 ? '#212529' : '#4caf50'} "></td>
+                                    <tr data-bind=" event: { dblclick: $parent.AddAcc } , style: { color: Level == 1 ? '#009688': '#212529'}">
+                                        <td data-bind="text: Code" style=" text-align: left;"></td>
+                                        <td data-bind="text: Name"></td>
+                                        <td data-bind="text: Spec"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
