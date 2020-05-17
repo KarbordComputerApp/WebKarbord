@@ -184,7 +184,8 @@
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: currentPageTrzAcc" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() } , style: { 'background-color': Level == 1 ? '#8ee6de': ''}">
+                            <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() }
+                                , style: { 'background-color': Level == 1 ? '#f5efeb': ''}">
                                 <td data-bind="text: AccCode" style=" text-align: left;"></td>
                                 <td data-bind="text: AccName"></td>
                                 <td data-bind="text: Bede == 0 ? '0' : NumberToNumberString(Bede) , style: { color: Bede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>

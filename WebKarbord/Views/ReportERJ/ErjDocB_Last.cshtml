@@ -274,7 +274,7 @@
 
                         <tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() },
-                                style: { color: FromUserName == ''  ? 'cornflowerblue' : '#3f4853'}
+                                style: { 'background-color': DocBMode == 1  ? '#f5efeb' : ''}
                                 ">
                                 <td data-bind="text: RjStatus"></td>
                                 <td data-bind="text: RjDate"></td>

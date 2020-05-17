@@ -442,21 +442,6 @@
 
         bandnumber = 0;
 
-        if (inv == '' || inv == null) {
-            return showNotification('انبار را انتخاب کنيد', 0);
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
-        }
-
-        if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
-        }
-
-        if (self.DocNoOut == '') {
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنيد ' });
-            return showNotification('شماره سند را وارد کنيد', 0);
-        }
-
         if (tarikh.length != 10) {
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -473,6 +458,23 @@
             return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
         }
+
+        if (inv == '' || inv == null) {
+            return showNotification('انبار را انتخاب کنيد', 0);
+            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+        }
+
+        if (self.DocNoOut == '') {
+            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنيد ' });
+            return showNotification('شماره سند را وارد کنيد', 0);
+        }
+
+
 
         if (codeThvl == '') {
             showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
@@ -525,16 +527,6 @@
         inv = $("#inv").val();
         modeCode = $("#modeCode").val();
 
-        if (inv == '' || inv == null) {
-            return showNotification('انبار را انتخاب کنيد', 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
-        }
-
-        if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
-        }
-
         if (tarikh.length != 10) {
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -549,7 +541,19 @@
         }
         else {
             return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
         }
+
+        if (inv == '' || inv == null) {
+            return showNotification('انبار را انتخاب کنيد', 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+        }
+
 
         if (codeThvl == '') {
             showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
@@ -640,14 +644,42 @@
     //Add new IDocB  
     self.AddIDocB = function AddIDocB(newIDocB) {
 
+        var tarikh = $("#tarikh").val().toEnglishDigit();
+        inv = $("#inv").val();
+        modeCode = $("#modeCode").val();
         //var serialNumber = $("#docnoout").val();
         //bandnumber = bandnumber + 1;
         GetBandNumber();
         bandnumber = bandnumber;
         if (Serial == '') {
-            // return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه سند ثبت نشده است ' });
             return showNotification('اطلاعات اوليه سند ثبت نشده است', 0);
         }
+
+        if (tarikh.length != 10) {
+            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification('تاريخ را وارد کنيد', 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+        }
+
+        if (inv == '' || inv == null) {
+            return showNotification('انبار را انتخاب کنيد', 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+        }
+
+
+
+
 
         //        var cKala = $('#codeKala').val();
         var nKala = $('#nameKala').val();

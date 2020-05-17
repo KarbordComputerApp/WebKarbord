@@ -8,25 +8,25 @@
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.KalaList = ko.observableArray([]); // ليست کالا ها
-    self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
+    self.CustList = ko.observableArray([]); // ليست وارده صادره 
     self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
 
 
-    self.IDocRList = ko.observableArray([]); // لیست گزارش  
+    self.FDocRList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
 
-    var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس وارده صادره
+    var CustUri = server + '/api/Web_Data/Cust/'; // آدرس وارده صادره
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
 
 
-    var IDocRUri = server + '/api/ReportInv/IDocR/'; // آدرس گزارش 
-    var IDocRCountUri = server + '/api/ReportInv/IDocRCount/'; // تعداد رکورد های گزارش 
+    var FDocRUri = server + '/api/ReportInv/FDocR/'; // آدرس گزارش 
+    var FDocRCountUri = server + '/api/ReportInv/FDocRCount/'; // تعداد رکورد های گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
@@ -45,9 +45,9 @@
     var counterKGru = 0;
     var list_KGruSelect = new Array();
 
-    var ThvlCode = '';
-    var counterThvl = 0;
-    var list_ThvlSelect = new Array();
+    var CustCode = '';
+    var counterCust = 0;
+    var list_CustSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
@@ -85,12 +85,10 @@
     });
 
 
-    //Get Thvl List
-    function getThvlList() {
-        //var storedNames = JSON.parse(sessionStorage.getItem("Thvl"));
-        //self.ThvlList(storedNames);
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
-            self.ThvlList(data);
+    //Get Cust List
+    function getCustList() {
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.CustList(data);
         });
     }
 
@@ -108,8 +106,8 @@
         });
     }
 
-    //Get IDocR
-    function getIDocR() {
+    //Get FDocR
+    function getFDocR() {
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
@@ -139,12 +137,12 @@
                 kalacode += list_KalaSelect[i];
         }
 
-        var thvlcode = '';
-        for (var i = 0; i <= counterThvl - 1; i++) {
-            if (i < counterThvl - 1)
-                thvlcode += list_ThvlSelect[i] + '*';
+        var Custcode = '';
+        for (var i = 0; i <= counterCust - 1; i++) {
+            if (i < counterCust - 1)
+                Custcode += list_CustSelect[i] + '*';
             else
-                thvlcode += list_ThvlSelect[i];
+                Custcode += list_CustSelect[i];
         }
 
         var mkzcode = '';
@@ -164,20 +162,20 @@
         }
 
 
-        var IDocRObject = {
+        var FDocRObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
             NoSanadAnbar: noSanadAnbar,
             InvCode: invcode,
             KGruCode: kGrucode,
             KalaCode: kalacode,
-            ThvlCode: thvlcode,
+            CustCode: Custcode,
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject).done(function (response) {
-            self.IDocRList(response);
-            calcsum(self.IDocRList());
+        ajaxFunction(FDocRUri + ace + '/' + sal + '/' + group, 'POST', FDocRObject).done(function (response) {
+            self.FDocRList(response);
+            calcsum(self.FDocRList());
         });
     }
 
@@ -197,17 +195,17 @@
         maxKalaDeghat3 = 0;
 
         for (var i = 0; i < list.length; ++i) {
-            IDocRData = list[i];
-            totalAmount1 += IDocRData.Amount1;
-            totalAmount2 += IDocRData.Amount2;
-            totalAmount3 += IDocRData.Amount3;
+            FDocRData = list[i];
+            totalAmount1 += FDocRData.Amount1;
+            totalAmount2 += FDocRData.Amount2;
+            totalAmount3 += FDocRData.Amount3;
 
-            totalUnitPrice += IDocRData.UnitPrice;
-            totalTotalPrice += IDocRData.TotalPrice;
+            totalUnitPrice += FDocRData.UnitPrice;
+            totalTotalPrice += FDocRData.TotalPrice;
 
-            KalaDeghat1 = IDocRData.DeghatM1 % 10;
-            KalaDeghat2 = IDocRData.DeghatM2 % 10;
-            KalaDeghat3 = IDocRData.DeghatM3 % 10;
+            KalaDeghat1 = FDocRData.DeghatM1 % 10;
+            KalaDeghat2 = FDocRData.DeghatM2 % 10;
+            KalaDeghat3 = FDocRData.DeghatM3 % 10;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
@@ -223,13 +221,13 @@
     }
 
     $("#CreateReport").click(function () {
-        getIDocR();
+        getFDocR();
     });
 
     getInvList();
     getKalaList();
     getNoSanad();
-    getThvlList();
+    getCustList();
     getKGruList();
     getOprList();
     getMkzList();
@@ -237,78 +235,78 @@
     $('#nameKala').val('همه موارد');
     $('#nameInv').val('همه موارد');
     $('#nameKGru').val('همه موارد');
-    $('#nameThvl').val('همه موارد');
+    $('#nameCust').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
 
     //------------------------------------------------------
-    self.currentPageIDocR = ko.observable();
-    self.pageSizeIDocR = ko.observable(10);
-    self.currentPageIndexIDocR = ko.observable(0);
+    self.currentPageFDocR = ko.observable();
+    self.pageSizeFDocR = ko.observable(10);
+    self.currentPageIndexFDocR = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
-    self.filterIDocR0 = ko.observable("");
-    self.filterIDocR1 = ko.observable("");
-    self.filterIDocR2 = ko.observable("");
-    self.filterIDocR3 = ko.observable("");
-    self.filterIDocR4 = ko.observable("");
-    self.filterIDocR5 = ko.observable("");
-    self.filterIDocR6 = ko.observable("");
-    self.filterIDocR7 = ko.observable("");
-    self.filterIDocR8 = ko.observable("");
-    self.filterIDocR9 = ko.observable("");
-    self.filterIDocR10 = ko.observable("");
-    self.filterIDocR11 = ko.observable("");
-    self.filterIDocR12 = ko.observable("");
-    self.filterIDocR13 = ko.observable("");
-    self.filterIDocR14 = ko.observable("");
-    self.filterIDocR15 = ko.observable("");
-    self.filterIDocR16 = ko.observable("");
-    self.filterIDocR17 = ko.observable("");
-    self.filterIDocR18 = ko.observable("");
-    self.filterIDocR19 = ko.observable("");
-    self.filterIDocR20 = ko.observable("");
-    self.filterIDocR21 = ko.observable("");
-    self.filterIDocR22 = ko.observable("");
-    self.filterIDocR23 = ko.observable("");
-    self.filterIDocR24 = ko.observable("");
-    self.filterIDocR25 = ko.observable("");
-    self.filterIDocR26 = ko.observable("");
+    self.filterFDocR0 = ko.observable("");
+    self.filterFDocR1 = ko.observable("");
+    self.filterFDocR2 = ko.observable("");
+    self.filterFDocR3 = ko.observable("");
+    self.filterFDocR4 = ko.observable("");
+    self.filterFDocR5 = ko.observable("");
+    self.filterFDocR6 = ko.observable("");
+    self.filterFDocR7 = ko.observable("");
+    self.filterFDocR8 = ko.observable("");
+    self.filterFDocR9 = ko.observable("");
+    self.filterFDocR10 = ko.observable("");
+    self.filterFDocR11 = ko.observable("");
+    self.filterFDocR12 = ko.observable("");
+    self.filterFDocR13 = ko.observable("");
+    self.filterFDocR14 = ko.observable("");
+    self.filterFDocR15 = ko.observable("");
+    self.filterFDocR16 = ko.observable("");
+    self.filterFDocR17 = ko.observable("");
+    self.filterFDocR18 = ko.observable("");
+    self.filterFDocR19 = ko.observable("");
+    self.filterFDocR20 = ko.observable("");
+    self.filterFDocR21 = ko.observable("");
+    self.filterFDocR22 = ko.observable("");
+    self.filterFDocR23 = ko.observable("");
+    self.filterFDocR24 = ko.observable("");
+    self.filterFDocR25 = ko.observable("");
+    self.filterFDocR26 = ko.observable("");
 
-    self.filterIDocRList = ko.computed(function () {
+    self.filterFDocRList = ko.computed(function () {
 
-        self.currentPageIndexIDocR(0);
-        var filter0 = self.filterIDocR0();
-        var filter1 = self.filterIDocR1();
-        var filter2 = self.filterIDocR2();
-        var filter3 = self.filterIDocR3();
-        var filter4 = self.filterIDocR4();
-        var filter5 = self.filterIDocR5();
-        var filter6 = self.filterIDocR6().toUpperCase();
-        var filter7 = self.filterIDocR7().toUpperCase();
-        var filter8 = self.filterIDocR8().toUpperCase();
-        var filter9 = self.filterIDocR9();
-        var filter10 = self.filterIDocR10();
-        var filter11 = self.filterIDocR11();
-        var filter12 = self.filterIDocR12();
-        var filter13 = self.filterIDocR13();
-        var filter14 = self.filterIDocR14();
-        var filter15 = self.filterIDocR15();
-        var filter16 = self.filterIDocR16();
-        var filter17 = self.filterIDocR17();
-        var filter18 = self.filterIDocR18();
-        var filter19 = self.filterIDocR19();
-        var filter20 = self.filterIDocR20();
-        var filter21 = self.filterIDocR21();
-        var filter22 = self.filterIDocR22();
-        var filter23 = self.filterIDocR23();
-        var filter24 = self.filterIDocR24();
-        var filter25 = self.filterIDocR25();
-        var filter26 = self.filterIDocR26();
+        self.currentPageIndexFDocR(0);
+        var filter0 = self.filterFDocR0();
+        var filter1 = self.filterFDocR1();
+        var filter2 = self.filterFDocR2();
+        var filter3 = self.filterFDocR3();
+        var filter4 = self.filterFDocR4();
+        var filter5 = self.filterFDocR5();
+        var filter6 = self.filterFDocR6().toUpperCase();
+        var filter7 = self.filterFDocR7().toUpperCase();
+        var filter8 = self.filterFDocR8().toUpperCase();
+        var filter9 = self.filterFDocR9();
+        var filter10 = self.filterFDocR10();
+        var filter11 = self.filterFDocR11();
+        var filter12 = self.filterFDocR12();
+        var filter13 = self.filterFDocR13();
+        var filter14 = self.filterFDocR14();
+        var filter15 = self.filterFDocR15();
+        var filter16 = self.filterFDocR16();
+        var filter17 = self.filterFDocR17();
+        var filter18 = self.filterFDocR18();
+        var filter19 = self.filterFDocR19();
+        var filter20 = self.filterFDocR20();
+        var filter21 = self.filterFDocR21();
+        var filter22 = self.filterFDocR22();
+        var filter23 = self.filterFDocR23();
+        var filter24 = self.filterFDocR24();
+        var filter25 = self.filterFDocR25();
+        var filter26 = self.filterFDocR26();
 
-        tempData = ko.utils.arrayFilter(self.IDocRList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.FDocRList(), function (item) {
             result =
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filter0) >= 0) &&
                 ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter1) &&
@@ -318,7 +316,7 @@
                 (item.Status == null ? '' : item.Status.toString().search(filter5) >= 0) &&
                 (item.Taeed == null ? '' : item.Taeed.toString().search(filter6) >= 0) &&
                 (item.Tasvib == null ? '' : item.Tasvib.toString().search(filter7) >= 0) &&
-                (item.ThvlName == null ? '' : item.ThvlName.toString().search(filter8) >= 0) &&
+                (item.CustName == null ? '' : item.CustName.toString().search(filter8) >= 0) &&
                 (item.MkzName == null ? '' : item.MkzName.toString().search(filter9) >= 0) &&
                 (item.OprName == null ? '' : item.OprName.toString().search(filter10) >= 0) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter11) &&
@@ -348,66 +346,66 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchIDocR);
+    self.search(sessionStorage.searchFDocR);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexIDocR = 0;
-        sessionStorage.searchIDocR = "";
+        var indexFDocR = 0;
+        sessionStorage.searchFDocR = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexIDocR(0);
+            self.currentPageIndexFDocR(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.IDocRList(), function (item) {
-                indexIDocR += 1;
+            value = ko.utils.arrayFirst(self.FDocRList(), function (item) {
+                indexFDocR += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexIDocR < self.pageSizeIDocR())
-                self.currentPageIndexIDocR(0);
+            if (indexFDocR < self.pageSizeFDocR())
+                self.currentPageIndexFDocR(0);
             else {
-                var a = Math.round((indexIDocR / self.pageSizeIDocR()), 0);
-                if (a < (indexIDocR / self.pageSizeIDocR())) a += 1;
-                self.currentPageIndexIDocR(a - 1);
+                var a = Math.round((indexFDocR / self.pageSizeFDocR()), 0);
+                if (a < (indexFDocR / self.pageSizeFDocR())) a += 1;
+                self.currentPageIndexFDocR(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageIDocR = ko.computed(function () {
-        var pageSizeIDocR = parseInt(self.pageSizeIDocR(), 10),
-            startIndex = pageSizeIDocR * self.currentPageIndexIDocR(),
-            endIndex = startIndex + pageSizeIDocR;
-        return self.filterIDocRList().slice(startIndex, endIndex);
+    self.currentPageFDocR = ko.computed(function () {
+        var pageSizeFDocR = parseInt(self.pageSizeFDocR(), 10),
+            startIndex = pageSizeFDocR * self.currentPageIndexFDocR(),
+            endIndex = startIndex + pageSizeFDocR;
+        return self.filterFDocRList().slice(startIndex, endIndex);
     });
 
-    self.nextPageIDocR = function () {
-        if (((self.currentPageIndexIDocR() + 1) * self.pageSizeIDocR()) < self.filterIDocRList().length) {
-            self.currentPageIndexIDocR(self.currentPageIndexIDocR() + 1);
+    self.nextPageFDocR = function () {
+        if (((self.currentPageIndexFDocR() + 1) * self.pageSizeFDocR()) < self.filterFDocRList().length) {
+            self.currentPageIndexFDocR(self.currentPageIndexFDocR() + 1);
         }
     };
 
-    self.previousPageIDocR = function () {
-        if (self.currentPageIndexIDocR() > 0) {
-            self.currentPageIndexIDocR(self.currentPageIndexIDocR() - 1);
+    self.previousPageFDocR = function () {
+        if (self.currentPageIndexFDocR() > 0) {
+            self.currentPageIndexFDocR(self.currentPageIndexFDocR() - 1);
         }
     };
 
-    self.firstPageIDocR = function () {
-        self.currentPageIndexIDocR(0);
+    self.firstPageFDocR = function () {
+        self.currentPageIndexFDocR(0);
     };
 
-    self.lastPageIDocR = function () {
-        tempCountIDocR = parseInt(self.filterIDocRList().length / self.pageSizeIDocR(), 10);
-        if ((self.filterIDocRList().length % self.pageSizeIDocR()) == 0)
-            self.currentPageIndexIDocR(tempCountIDocR - 1);
+    self.lastPageFDocR = function () {
+        tempCountFDocR = parseInt(self.filterFDocRList().length / self.pageSizeFDocR(), 10);
+        if ((self.filterFDocRList().length % self.pageSizeFDocR()) == 0)
+            self.currentPageIndexFDocR(tempCountFDocR - 1);
         else
-            self.currentPageIndexIDocR(tempCountIDocR);
+            self.currentPageIndexFDocR(tempCountFDocR);
     };
 
-    self.sortTableIDocR = function (viewModel, e) {
+    self.sortTableFDocR = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.IDocRList.sort(function (left, right) {
+        self.FDocRList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -427,7 +425,7 @@
         self.iconTypeStatus('');
         self.iconTypeTaeed('');
         self.iconTypeTasvib('');
-        self.iconTypeThvlName('');
+        self.iconTypeCustName('');
         self.iconTypeMkzName('');
         self.iconTypeOprName('');
         self.iconTypeSerialNumber('');
@@ -455,7 +453,7 @@
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Taeed') self.iconTypeTaeed((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Tasvib') self.iconTypeTasvib((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'ThvlName') self.iconTypeThvlName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -491,7 +489,7 @@
     self.iconTypeStatus = ko.observable("");
     self.iconTypeTaeed = ko.observable("");
     self.iconTypeTasvib = ko.observable("");
-    self.iconTypeThvlName = ko.observable("");
+    self.iconTypeCustName = ko.observable("");
     self.iconTypeMkzName = ko.observable("");
     self.iconTypeOprName = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
@@ -1060,25 +1058,25 @@
 
 
 
-    self.currentPageThvl = ko.observable();
-    self.pageSizeThvl = ko.observable(10);
-    self.currentPageIndexThvl = ko.observable(0);
+    self.currentPageCust = ko.observable();
+    self.pageSizeCust = ko.observable(10);
+    self.currentPageIndexCust = ko.observable(0);
 
-    self.filterThvl0 = ko.observable("");
-    self.filterThvl1 = ko.observable("");
-    self.filterThvl2 = ko.observable("");
+    self.filterCust0 = ko.observable("");
+    self.filterCust1 = ko.observable("");
+    self.filterCust2 = ko.observable("");
 
-    self.filterThvlList = ko.computed(function () {
+    self.filterCustList = ko.computed(function () {
 
-        self.currentPageIndexThvl(0);
-        var filter0 = self.filterThvl0().toUpperCase();
-        var filter1 = self.filterThvl1();
-        var filter2 = self.filterThvl2();
+        self.currentPageIndexCust(0);
+        var filter0 = self.filterCust0().toUpperCase();
+        var filter1 = self.filterCust1();
+        var filter2 = self.filterCust2();
 
         if (!filter0 && !filter1 && !filter2) {
-            return self.ThvlList();
+            return self.CustList();
         } else {
-            tempData = ko.utils.arrayFilter(self.ThvlList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.CustList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -1090,41 +1088,41 @@
     });
 
 
-    self.currentPageThvl = ko.computed(function () {
-        var pageSizeThvl = parseInt(self.pageSizeThvl(), 10),
-            startIndex = pageSizeThvl * self.currentPageIndexThvl(),
-            endIndex = startIndex + pageSizeThvl;
-        return self.filterThvlList().slice(startIndex, endIndex);
+    self.currentPageCust = ko.computed(function () {
+        var pageSizeCust = parseInt(self.pageSizeCust(), 10),
+            startIndex = pageSizeCust * self.currentPageIndexCust(),
+            endIndex = startIndex + pageSizeCust;
+        return self.filterCustList().slice(startIndex, endIndex);
     });
 
-    self.nextPageThvl = function () {
-        if (((self.currentPageIndexThvl() + 1) * self.pageSizeThvl()) < self.filterThvlList().length) {
-            self.currentPageIndexThvl(self.currentPageIndexThvl() + 1);
+    self.nextPageCust = function () {
+        if (((self.currentPageIndexCust() + 1) * self.pageSizeCust()) < self.filterCustList().length) {
+            self.currentPageIndexCust(self.currentPageIndexCust() + 1);
         }
     };
 
-    self.previousPageThvl = function () {
-        if (self.currentPageIndexThvl() > 0) {
-            self.currentPageIndexThvl(self.currentPageIndexThvl() - 1);
+    self.previousPageCust = function () {
+        if (self.currentPageIndexCust() > 0) {
+            self.currentPageIndexCust(self.currentPageIndexCust() - 1);
         }
     };
 
-    self.firstPageThvl = function () {
-        self.currentPageIndexThvl(0);
+    self.firstPageCust = function () {
+        self.currentPageIndexCust(0);
     };
 
-    self.lastPageThvl = function () {
-        countThvl = parseInt(self.filterThvlList().length / self.pageSizeThvl(), 10);
-        if ((self.filterThvlList().length % self.pageSizeThvl()) == 0)
-            self.currentPageIndexThvl(countThvl - 1);
+    self.lastPageCust = function () {
+        countCust = parseInt(self.filterCustList().length / self.pageSizeCust(), 10);
+        if ((self.filterCustList().length % self.pageSizeCust()) == 0)
+            self.currentPageIndexCust(countCust - 1);
         else
-            self.currentPageIndexThvl(countThvl);
+            self.currentPageIndexCust(countCust);
     };
 
-    self.sortTableThvl = function (viewModel, e) {
+    self.sortTableCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.ThvlList.sort(function (left, right) {
+        self.CustList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -1155,7 +1153,7 @@
 
 
 
-    $('#refreshThvl').click(function () {
+    $('#refreshCust').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
             text: "لیست تحویل دهنده / گیرنده به روز رسانی شود ؟",
@@ -1169,70 +1167,70 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getThvlList();
+                getCustList();
                 $("div.loadingZone").hide();
             }
         })
     })
 
 
-    self.AddThvl = function (item) {
+    self.AddCust = function (item) {
 
-        ThvlCode = item.Code;
+        CustCode = item.Code;
         find = false;
-        list_ThvlSelect.forEach(function (item, key) {
-            if (item == ThvlCode) {
+        list_CustSelect.forEach(function (item, key) {
+            if (item == CustCode) {
                 find = true;
             }
         });
 
         if (find == false) {
-            $('#TableBodyListThvl').append(
+            $('#TableBodyListCust').append(
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
-            list_ThvlSelect[counterThvl] = item.Code;
-            counterThvl = counterThvl + 1;
+            list_CustSelect[counterCust] = item.Code;
+            counterCust = counterCust + 1;
         }
     };
 
 
-    self.AddAllThvl = function () {
-        list_ThvlSelect = new Array();
-        list = self.ThvlList();
-        $("#TableBodyListThvl").empty();
+    self.AddAllCust = function () {
+        list_CustSelect = new Array();
+        list = self.CustList();
+        $("#TableBodyListCust").empty();
         for (var i = 0; i < list.length; i++) {
-            $('#TableBodyListThvl').append(
+            $('#TableBodyListCust').append(
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
                 + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
-            list_ThvlSelect[i] = list[i].Code;
-            counterThvl = i + 1;
+            list_CustSelect[i] = list[i].Code;
+            counterCust = i + 1;
         }
     };
 
 
-    self.DelAllThvl = function () {
-        list_ThvlSelect = new Array();
-        counterThvl = 0;
-        $("#TableBodyListThvl").empty();
+    self.DelAllCust = function () {
+        list_CustSelect = new Array();
+        counterCust = 0;
+        $("#TableBodyListCust").empty();
     };
 
 
-    $('#modal-Thvl').on('hide.bs.modal', function () {
-        if (counterThvl > 0)
-            $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ')
+    $('#modal-Cust').on('hide.bs.modal', function () {
+        if (counterCust > 0)
+            $('#nameCust').val(counterCust + ' مورد انتخاب شده ')
         else
-            $('#nameThvl').val('همه موارد');
+            $('#nameCust').val('همه موارد');
     });
 
-    $('#modal-Thvl').on('shown.bs.modal', function () {
+    $('#modal-Cust').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
 

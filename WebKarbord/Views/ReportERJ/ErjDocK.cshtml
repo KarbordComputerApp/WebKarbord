@@ -183,7 +183,9 @@
 
                         <tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectDocK , css: { matched: $data === $root.firstMatch() },
-                                style: { color: Status == 'پايان يافته'  ? 'cornflowerblue' : Status == 'باطل' ? 'red' : '#3f4853'}">
+                                style: { color: Status == 'پايان يافته'  ?
+                                '#4caf50': Status == 'باطل' ? 'red' : ''}">
+
                                 <td data-bind="text: DocNo"></td>
                                 <td data-bind="text: DocDate"></td>
                                 <td data-bind="text: MahramanehName"></td>

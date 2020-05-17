@@ -417,6 +417,7 @@
     <Content Include="Views\ReportAFI\TrzIKalaExf.cshtml" />
     <Content Include="Views\ReportAFI\IDocR.cshtml" />
     <Content Include="Views\ReportAFI\TrzAcc.cshtml" />
+    <Content Include="Views\ReportAFI\FDocR.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
