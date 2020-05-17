@@ -10,7 +10,7 @@
             <div class="header">
                 <strong id="">ليست ارجاعات پرونده ها</strong>
             </div>
-            <div class="body"">
+            <div class="body" ">
                 <form class="clearfix">
                     <div class="row form-inline ">
                         <div class="col-sm-2">
@@ -273,10 +273,9 @@
                         </thead>
 
                         <tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() },
-                                style: { 'background-color': DocBMode == 1  ? '#f5efeb' : ''}
-                                ">
-                                <td data-bind="text: RjStatus"></td>
+                            <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }                        ">
+
+                                <td data-bind="text: RjStatus,style: { color: DocBMode == 1  ? '#e48f43' : ''}"></td>
                                 <td data-bind="text: RjDate"></td>
                                 <td data-bind="text: RjMhltDate"></td>
                                 <td data-bind="text: CustName"></td>

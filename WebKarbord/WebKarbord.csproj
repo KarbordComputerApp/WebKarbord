@@ -345,6 +345,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\R_AFI_FDocR.js" />
     <Content Include="Scripts\R_AFI_IDocR.js" />
     <Content Include="Scripts\JavaScript.js" />
     <Content Include="Scripts\R_AFI_TrzAcc.js" />

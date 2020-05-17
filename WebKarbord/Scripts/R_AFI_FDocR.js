@@ -12,7 +12,7 @@
     self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
-
+    
 
     self.FDocRList = ko.observableArray([]); // لیست گزارش  
 
@@ -1235,6 +1235,184 @@
     });
 
 
+    self.currentPageOpr = ko.observable();
+    self.pageSizeOpr = ko.observable(10);
+    self.currentPageIndexOpr = ko.observable(0);
+
+    self.filterOpr0 = ko.observable("");
+    self.filterOpr1 = ko.observable("");
+    self.filterOpr2 = ko.observable("");
+
+    self.filterOprList = ko.computed(function () {
+
+        self.currentPageIndexOpr(0);
+        var filter0 = self.filterOpr0().toUpperCase();
+        var filter1 = self.filterOpr1();
+        var filter2 = self.filterOpr2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.OprList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageOpr = ko.computed(function () {
+        var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
+            startIndex = pageSizeOpr * self.currentPageIndexOpr(),
+            endIndex = startIndex + pageSizeOpr;
+        return self.filterOprList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageOpr = function () {
+        if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
+        }
+    };
+
+    self.previousPageOpr = function () {
+        if (self.currentPageIndexOpr() > 0) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
+        }
+    };
+
+    self.firstPageOpr = function () {
+        self.currentPageIndexOpr(0);
+    };
+
+    self.lastPageOpr = function () {
+        countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
+        if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
+            self.currentPageIndexOpr(countOpr - 1);
+        else
+            self.currentPageIndexOpr(countOpr);
+    };
+
+    self.sortTableOpr = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.OprList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshOpr').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست پروژه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getOprList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.AddOpr = function (item) {
+
+        OprCode = item.Code;
+        find = false;
+        list_OprSelect.forEach(function (item, key) {
+            if (item == OprCode) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListOpr').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + item.Code + '</td > '
+                + ' <td data-bind="text: Name">' + item.Name + '</td > '
+                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
+                + '</tr>'
+            );
+            list_OprSelect[counterOpr] = item.Code;
+            counterOpr = counterOpr + 1;
+        }
+    };
+
+
+    self.AddAllOpr = function () {
+        list_OprSelect = new Array();
+        list = self.OprList();
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListOpr').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
+                + '</tr>'
+            );
+            list_OprSelect[i] = list[i].Code;
+            counterOpr = i + 1;
+        }
+    };
+
+
+    self.DelAllOpr = function () {
+        list_OprSelect = new Array();
+        counterOpr = 0;
+        $("#TableBodyListOpr").empty();
+    };
+
+
+    $('#modal-Opr').on('hide.bs.modal', function () {
+        if (counterOpr > 0)
+            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
+        else
+            $('#nameOpr').val('همه موارد');
+    });
+
+    $('#modal-Opr').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
     self.currentPageMkz = ko.observable();
     self.pageSizeMkz = ko.observable(10);
     self.currentPageIndexMkz = ko.observable(0);
@@ -1413,261 +1591,7 @@
     });
 
 
-    self.currentPageOpr = ko.observable();
-    self.pageSizeOpr = ko.observable(10);
-    self.currentPageIndexOpr = ko.observable(0);
-
-    self.filterOpr0 = ko.observable("");
-    self.filterOpr1 = ko.observable("");
-    self.filterOpr2 = ko.observable("");
-
-    self.filterOprList = ko.computed(function () {
-
-        self.currentPageIndexOpr(0);
-        var filter0 = self.filterOpr0().toUpperCase();
-        var filter1 = self.filterOpr1();
-        var filter2 = self.filterOpr2();
-
-        if (!filter0 && !filter1 && !filter2) {
-            return self.OprList();
-        } else {
-            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
-                result =
-                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
-                return result;
-            })
-            return tempData;
-        }
-    });
-
-
-    self.currentPageOpr = ko.computed(function () {
-        var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
-            startIndex = pageSizeOpr * self.currentPageIndexOpr(),
-            endIndex = startIndex + pageSizeOpr;
-        return self.filterOprList().slice(startIndex, endIndex);
-    });
-
-    self.nextPageOpr = function () {
-        if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
-            self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
-        }
-    };
-
-    self.previousPageOpr = function () {
-        if (self.currentPageIndexOpr() > 0) {
-            self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
-        }
-    };
-
-    self.firstPageOpr = function () {
-        self.currentPageIndexOpr(0);
-    };
-
-    self.lastPageOpr = function () {
-        countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
-        if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
-            self.currentPageIndexOpr(countOpr - 1);
-        else
-            self.currentPageIndexOpr(countOpr);
-    };
-
-    self.sortTableOpr = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
-        self.OprList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
-
-        self.iconTypeCode('');
-        self.iconTypeName('');
-        self.iconTypeSpec('');
-
-
-        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-    };
-
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
-    }
-
-
-
-    $('#refreshOpr').click(function () {
-        Swal.fire({
-            title: 'تایید به روز رسانی ؟',
-            text: "لیست پروژه به روز رسانی شود ؟",
-            type: 'info',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                $("div.loadingZone").show();
-                getOprList();
-                $("div.loadingZone").hide();
-            }
-        })
-    })
-
-
-    self.AddOpr = function (item) {
-
-        OprCode = item.Code;
-        find = false;
-        list_OprSelect.forEach(function (item, key) {
-            if (item == OprCode) {
-                find = true;
-            }
-        });
-
-        if (find == false) {
-            $('#TableBodyListOpr').append(
-                '<tr data-bind="">'
-                + ' <td data-bind="text: Code">' + item.Code + '</td > '
-                + ' <td data-bind="text: Name">' + item.Name + '</td > '
-                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
-                + '</tr>'
-            );
-            list_OprSelect[counterOpr] = item.Code;
-            counterOpr = counterOpr + 1;
-        }
-    };
-
-
-    self.AddAllOpr = function () {
-        list_OprSelect = new Array();
-        list = self.OprList();
-        $("#TableBodyListOpr").empty();
-        for (var i = 0; i < list.length; i++) {
-            $('#TableBodyListOpr').append(
-                '  <tr data-bind="">'
-                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
-                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
-                + '</tr>'
-            );
-            list_OprSelect[i] = list[i].Code;
-            counterOpr = i + 1;
-        }
-    };
-
-
-    self.DelAllOpr = function () {
-        list_OprSelect = new Array();
-        counterOpr = 0;
-        $("#TableBodyListOpr").empty();
-    };
-
-
-    $('#modal-Opr').on('hide.bs.modal', function () {
-        if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
-        else
-            $('#nameOpr').val('همه موارد');
-    });
-
-    $('#modal-Opr').on('shown.bs.modal', function () {
-        $('.fix').attr('class', 'form-line focused fix');
-    });
-
-
-    function getNoSanad() {
-        select = document.getElementById('noSanadAnbar');
-        for (var i = 0; i <= 2; i++) {
-            opt = document.createElement('option');
-            if (i == 0) {
-                opt.value = 0;
-                opt.innerHTML = 'همه موارد';
-                opt.selected = true;
-            }
-            if (i == 1) {
-                opt.value = 1;
-                opt.innerHTML = 'وارده به انبار';
-
-            }
-            if (i == 2) {
-                opt.value = 2;
-                opt.innerHTML = 'صادره از انبار';
-            }
-            select.appendChild(opt);
-        }
-    };
-
-
-    /* function getModeCode() {
-         select = document.getElementById('modeCode');
-         for (var i = 1; i <= 11; i++) {
-             opt = document.createElement('option');
-             if (i == 1) {
-                 opt.value = 101;
-                 opt.innerHTML = 'موجودي اول دوره';
-             }
-             if (i == 2) {
-                 opt.value = 102;
-                 opt.innerHTML = 'رسيد ورود';
-                 opt.selected = true;
-             }
-             if (i == 3) {
-                 opt.value = 103;
-                 opt.innerHTML = 'رسيد برگشت از فروش';
-             }
-             if (i == 4) {
-                 opt.value = 106;
-                 opt.innerHTML = 'رسيد انتقال به انبار';
-             }
-             if (i == 5) {
-                 opt.value = 108;
-                 opt.innerHTML = 'رسيد خريد';
-             }
-             if (i == 6) {
-                 opt.value = 110;
-                 opt.innerHTML = 'رسيد محصول';
-             }
-     
-             if (i == 7) {
-                 opt.value = 104;
-                 opt.innerHTML = 'حواله خروج';
-                 //opt.selected = true;
-             }
-             if (i == 8) {
-                 opt.value = 105;
-                 opt.innerHTML = 'حواله برگشت از خريد';
-             }
-             if (i == 9) {
-                 opt.value = 107;
-                 opt.innerHTML = 'حواله انتقال از انبار';
-             }
-             if (i == 10) {
-                 opt.value = 109;
-                 opt.innerHTML = 'حواله فروش';
-             }
-             if (i == 11) {
-                 opt.value = 111;
-                 opt.innerHTML = 'حواله مواد';
-             }
-             select.appendChild(opt);
-         }
-     } */
-
+   
 
     $('.fix').attr('class', 'form-line date focused fix');
 
