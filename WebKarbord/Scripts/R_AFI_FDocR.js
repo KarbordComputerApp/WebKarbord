@@ -12,21 +12,21 @@
     self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
-    
+    self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
+
 
     self.FDocRList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
-
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس وارده صادره
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
+    var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
 
-
-    var FDocRUri = server + '/api/ReportInv/FDocR/'; // آدرس گزارش 
-    var FDocRCountUri = server + '/api/ReportInv/FDocRCount/'; // تعداد رکورد های گزارش 
+    var FDocRUri = server + '/api/ReportFct/FDocR/'; // آدرس گزارش 
+    var FDocRCountUri = server + '/api/ReportFct/FDocRCount/'; // تعداد رکورد های گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
@@ -59,6 +59,48 @@
 
     $("#textTotal").text('');
 
+    //Get  FMode List
+    function getFModeList() {
+        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.FModeList(data);
+
+            select = document.getElementById('modeCode');
+            for (var i = 0; i < data.length; i++) {
+                opt = document.createElement('option');
+
+
+                /* if (i == 3) {
+                     opt.value = data[1].Code + ',' + data[2].Code;
+                     opt.innerHTML = data[1].Name + ' - ' + data[2].Name;
+                 }
+                 else if (i == 7) {
+                     opt.value = data[5].Code + ',' + data[6].Code;
+                     opt.innerHTML = data[5].Name + ' - ' + data[6].Name;
+                 }
+                 else {
+                     opt.value = data[i].Code;
+                     opt.innerHTML = data[i].Name;
+                 }*/
+                opt.value = data[i].Code;
+                opt.innerHTML = data[i].Name;
+                select.appendChild(opt);
+            }
+
+            opt = document.createElement('option');
+            opt.value = data[1].Code + '*' + data[2].Code;
+            opt.innerHTML = data[1].Name + ' - ' + data[2].Name;
+            select.appendChild(opt);
+
+            opt = document.createElement('option');
+            opt.value = data[4].Code + '*' + data[5].Code;
+            opt.innerHTML = data[4].Name + ' - ' + data[5].Name;
+            select.appendChild(opt);
+
+
+
+        });
+    }
+
     //Get kala List
     function getKalaList() {
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
@@ -87,7 +129,7 @@
 
     //Get Cust List
     function getCustList() {
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group + '/' + null, 'GET').done(function (data) {
             self.CustList(data);
         });
     }
@@ -108,10 +150,18 @@
 
     //Get FDocR
     function getFDocR() {
+
+        
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
-        noSanadAnbar = $("#noSanadAnbar").val();
+        modeCode = $("#modeCode").val().split("*");
+
+        modeCode1 = modeCode[0];
+        modeCode2 = modeCode[1];
+
+        if (modeCode.length == 1)
+            modeCode2 = '';
 
         var invcode = '';
         for (var i = 0; i <= counterInv - 1; i++) {
@@ -162,10 +212,12 @@
         }
 
 
+
         var FDocRObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
-            NoSanadAnbar: noSanadAnbar,
+            ModeCode1: modeCode1,
+            ModeCode2: modeCode2,
             InvCode: invcode,
             KGruCode: kGrucode,
             KalaCode: kalacode,
@@ -176,6 +228,7 @@
         ajaxFunction(FDocRUri + ace + '/' + sal + '/' + group, 'POST', FDocRObject).done(function (response) {
             self.FDocRList(response);
             calcsum(self.FDocRList());
+            $("div.loader").hide();
         });
     }
 
@@ -224,9 +277,9 @@
         getFDocR();
     });
 
+    getFModeList();
     getInvList();
     getKalaList();
-    getNoSanad();
     getCustList();
     getKGruList();
     getOprList();
@@ -309,7 +362,7 @@
         tempData = ko.utils.arrayFilter(self.FDocRList(), function (item) {
             result =
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filter0) >= 0) &&
-                ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter1) &&
+              /*  ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter1) &&
                 (item.ModeName == null ? '' : item.ModeName.toString().search(filter2) >= 0) &&
                 (item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filter4) >= 0) &&
@@ -321,22 +374,22 @@
                 (item.OprName == null ? '' : item.OprName.toString().search(filter10) >= 0) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter11) &&
                 ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter12) &&
-                 (item.KalaName == null ? '' : item.KalaName.toString().search(filter13) >= 0) &&
-                 (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter14) >= 0) &&
-                 (item.KalaState == null ? '' : item.KalaState.toString().search(filter15) >= 0) &&
-                 (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter16) >= 0) &&
-                 (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter17) >= 0) &&
-                 (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter18) >= 0) &&
+                (item.KalaName == null ? '' : item.KalaName.toString().search(filter13) >= 0) &&
+                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter14) >= 0) &&
+                (item.KalaState == null ? '' : item.KalaState.toString().search(filter15) >= 0) &&
+                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter16) >= 0) &&
+                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter17) >= 0) &&
+                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter18) >= 0) &&
                 (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter19) >= 0) &&
                 ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter20) &&
                 ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter21) &&
                 ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter22) &&
-               // ko.utils.stringStartsWith(item.UnitPrice.toString(), filter23) &&
+                // ko.utils.stringStartsWith(item.UnitPrice.toString(), filter23) &&
                 ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter24) &&
-                  (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter25) >= 0) &&
-                 (item.Comm == null ? '' : item.Comm.toString().search(filter26) >= 0)
+                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter25) >= 0) &&*/
+                (item.Comm == null ? '' : item.Comm.toString().search(filter26) >= 0)
 
-               // 1 == 1
+            // 1 == 1
 
             return result;
         })
@@ -1591,7 +1644,7 @@
     });
 
 
-   
+
 
     $('.fix').attr('class', 'form-line date focused fix');
 

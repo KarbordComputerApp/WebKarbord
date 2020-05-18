@@ -38,8 +38,13 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult FDocR()
+        {
+            return View();
+        }
 
-       
+
+
 
     }
 }

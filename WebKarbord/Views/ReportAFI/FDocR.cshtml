@@ -107,11 +107,10 @@
                     <br />
 
                     <div class="row form-inline ">
-
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                 <div class="form-group">
-                                    <select id="noSanadAnbar"></select>
+                                    <select id="modeCode"></select>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +125,7 @@
                                 <div class="form-group form-float" style="margin-left: 250px;">
                                     <div class="form-line focused fix">
                                         <input id="nameCust" class="form-control" readonly />
-                                        <label class="form-label"> تحویل دهنده / گیرنده</label>
+                                        <label class="form-label"> خریدار / فروشنده</label>
                                     </div>
                                 </div>
                             </div>
@@ -183,9 +182,6 @@
                                 <th data-column="DocNo" style="width:500px">
                                     شماره سند <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
                                 </th>
-                                <th data-column="ModeName">
-                                    نوع سند<span data-bind="attr: { class: currentColumn() == 'ModeName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeModeName }"></i> </span>
-                                </th>
                                 <th data-column="InvName">
                                     نام انبار <span data-bind="attr: { class: currentColumn() == 'InvName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvName }"></i> </span>
                                 </th>
@@ -202,7 +198,7 @@
                                     تصویب<span data-bind="attr: { class: currentColumn() == 'Tasvib' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTasvib }"></i> </span>
                                 </th>
                                 <th data-column="CustName">
-                                    تحويل دهنده/گیرنده <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
+                                    خریدار / فروشنده <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
                                 </th>
                                 <th data-column="MkzName">
                                     مرکزهزینه <span data-bind="attr: { class: currentColumn() == 'MkzName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMkzName }"></i> </span>
@@ -210,9 +206,9 @@
                                 <th data-column="OprName">
                                     پروژه<span data-bind="attr: { class: currentColumn() == 'OprName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeOprName }"></i> </span>
                                 </th>
-                                <th data-column="SerialNumber">
+                               <!-- <th data-column="SerialNumber">
                                     شماره مبنا <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
-                                </th>
+                                </th>-->
                                 <!-- <th data-column="BandNo">
          شماره بند <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandNo }"></i> </span>
      </th>-->
@@ -265,7 +261,6 @@
                             <tr data-bind="click: $parent.selectFDocR , css: { matched: $data === $root.firstMatch() }">
                                 <td data-bind="text: DocDate"></td>
                                 <td data-bind="text: DocNo"></td>
-                                <td data-bind="text: ModeName"></td>
                                 <td data-bind="text: InvName"></td>
                                 <td data-bind="text: Spec"></td>
                                 <td data-bind="text: Status"></td>
@@ -274,7 +269,7 @@
                                 <td data-bind="text: CustName"></td>
                                 <td data-bind="text: MkzName"></td>
                                 <td data-bind="text: OprName"></td>
-                                <td data-bind="text: SerialNumber"></td>
+                               <!--<td data-bind="text: SerialNumber"></td>-->
                                <!-- <td data-bind="text: BandNo"></td> -->
                                 <td data-bind="text: KalaName"></td>
                                 <td data-bind="text: KalaFileNo"></td>
@@ -282,7 +277,7 @@
                                 <td data-bind="text: KalaExf1"></td>
                                 <td data-bind="text: KalaExf2"></td>
                                 <td data-bind="text: KalaExf3"></td>
-                                <td data-bind="text: MainUnitName"></td>
+                               <td data-bind="text: MainUnitName"></td>
 
                                 <td style="direction: ltr;" data-bind="text: Amount1 == 0 ? '0' : NumberToNumberString(Amount1.toFixed(DeghatM1 % 10))"></td>
                                 <td style="direction: ltr;" data-bind="text: Amount2 == 0 ? '0' : NumberToNumberString(Amount2.toFixed(DeghatM2 % 10))"></td>
@@ -298,7 +293,6 @@
                         <tfoot>
                             <tr style="background-color:#e37d228f;">
                                 <td id="textTotal"></td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -676,7 +670,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست تحویل دهنده / گیرنده</h4>
+                <h4 class="modal-title">لیست خریدار / فروشنده</h4>
                 <a id="refreshCust">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
                 </a>
