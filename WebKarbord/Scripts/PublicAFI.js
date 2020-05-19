@@ -5,6 +5,7 @@ var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
 
 var accessErj = JSON.parse(localStorage.getItem("AccessErj"));
 var accessReportErj = JSON.parse(localStorage.getItem("AccessReportErj"));
+var FldNames = JSON.parse(localStorage.getItem("FldNames"));
 
 
 
@@ -187,11 +188,13 @@ var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتاب
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
 var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
 var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
+var FldNamesUri = server + '/api/Web_Data/FldNames/'; // آدرس مشخصات ستون ها 
 
 ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال
 AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
+FldNamesList = ko.observableArray([]); // مشخصات ستونها
 
 //function ajaxFunction(uri, method, data) {
 //    return $.ajax({
@@ -292,6 +295,7 @@ function SetSelectProgram() {
         $('#SaveParam').attr('disabled', 'disabled');
         getParamList();
         getAccessList();
+        getFldNamesList();
         $('#SaveParam').removeAttr('disabled');
 
         sessionStorage.ModeCode = '';
@@ -348,6 +352,23 @@ function getParamList() {
     });
 }
 
+
+//Get FldNames List
+function getFldNamesList() {
+    ajaxFunction(FldNamesUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET').done(function (data) {
+        FldNamesList(data);
+        if (self.FldNamesList().length > 0) {
+
+            localStorage.setItem('FldNames', JSON.stringify(data));
+            FldNames = JSON.parse(localStorage.getItem("FldNames"));
+
+            //temp = JSON.stringify(data);
+            //sessionStorage.FldNames = JSON.parse(temp);
+        }
+    });
+}
+
+
 function CheckAccess(TrsName) {
     //access = JSON.parse(localStorage.getItem("Access"));//localStorage.getItem("Access");
     if (access[0].TrsName == 'ADMIN') {
@@ -398,6 +419,19 @@ function CheckAccessReportErj(Code) {
 }
 
 
+function GetNameField(Code, InOut) {
+    for (var i = 0; i < FldNames.length; i++) {
+        if (FldNames[i].Code == Code && FldNames[i].InOut == InOut ) {
+            return FldNames[i].Name;
+        }
+    }
+}
+
+
+a = GetNameField('AddMinPrice1', 1);
+a = GetNameField('AddMinPrice1', 2);
+b = GetNameField('VAmount1', 0);
+b = GetNameField('VAmount1', 0);
 //Get Access List
 function getAccessList() {
 

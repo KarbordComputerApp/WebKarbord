@@ -176,83 +176,116 @@
                     <table class="table table-hover">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableFDocR">
+                                <th data-column="DocNo">
+                                    <span id="DocNo"></span><span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
+                                </th>
                                 <th data-column="DocDate">
-                                    تاريخ سند <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocDate }"></i> </span>
+                                    <span id="DocDate"></span><span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocDate }"></i> </span>
                                 </th>
-                                <th data-column="DocNo" style="width:500px">
-                                    شماره سند <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
-                                </th>
-                                <th data-column="InvName">
-                                    نام انبار <span data-bind="attr: { class: currentColumn() == 'InvName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvName }"></i> </span>
+                                <th data-column="ModeName">
+                                    <span id="ModeName"></span><span data-bind="attr: { class: currentColumn() == 'ModeName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeModeName }"></i> </span>
                                 </th>
                                 <th data-column="Spec">
-                                    ملاحظات<span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpec }"></i> </span>
+                                    <span id="Spec"></span><span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpec }"></i> </span>
                                 </th>
                                 <th data-column="Status">
-                                    وضعيت <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
+                                    <span id="Status"></span><span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
                                 </th>
                                 <th data-column="Taeed">
-                                    تاييد <span data-bind="attr: { class: currentColumn() == 'Taeed' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTaeed }"></i> </span>
+                                    <span id="Taeed"></span> <span data-bind="attr: { class: currentColumn() == 'Taeed' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTaeed }"></i> </span>
                                 </th>
                                 <th data-column="Tasvib">
-                                    تصویب<span data-bind="attr: { class: currentColumn() == 'Tasvib' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTasvib }"></i> </span>
+                                    <span id="Tasvib"></span><span data-bind="attr: { class: currentColumn() == 'Tasvib' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTasvib }"></i> </span>
                                 </th>
                                 <th data-column="CustName">
-                                    خریدار / فروشنده <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
+                                    <span id="CustName"></span> <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
                                 </th>
                                 <th data-column="MkzName">
-                                    مرکزهزینه <span data-bind="attr: { class: currentColumn() == 'MkzName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMkzName }"></i> </span>
+                                    <span id="MkzName"></span><span data-bind="attr: { class: currentColumn() == 'MkzName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMkzName }"></i> </span>
                                 </th>
                                 <th data-column="OprName">
-                                    پروژه<span data-bind="attr: { class: currentColumn() == 'OprName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeOprName }"></i> </span>
+                                    <span id="OprName"></span><span data-bind="attr: { class: currentColumn() == 'OprName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeOprName }"></i> </span>
                                 </th>
-                               <!-- <th data-column="SerialNumber">
-                                    شماره مبنا <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
-                                </th>-->
-                                <!-- <th data-column="BandNo">
-         شماره بند <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandNo }"></i> </span>
-     </th>-->
                                 <th data-column="KalaName">
-                                    نام کالا <span data-bind="attr: { class: currentColumn() == 'KalaName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaName }"></i> </span>
+                                    <span id="KalaName"></span><span data-bind="attr: { class: currentColumn() == 'KalaName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaName }"></i> </span>
                                 </th>
                                 <th data-column="KalaFileNo">
-                                    ویژگی 1 <span data-bind="attr: { class: currentColumn() == 'KalaFileNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaFileNo }"></i> </span>
+                                    <span id="KalaFileNo"></span> <span data-bind="attr: { class: currentColumn() == 'KalaFileNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaFileNo }"></i> </span>
                                 </th>
                                 <th data-column="KalaState">
-                                    ویژگی 2 <span data-bind="attr: { class: currentColumn() == 'KalaState' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaState }"></i> </span>
+                                    <span id="KalaState"></span><span data-bind="attr: { class: currentColumn() == 'KalaState' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaState }"></i> </span>
                                 </th>
                                 <th data-column="KalaExf1">
-                                    ویژگی 3 <span data-bind="attr: { class: currentColumn() == 'KalaExf1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf1 }"></i> </span>
+                                    <span id="KalaExf1"></span><span data-bind="attr: { class: currentColumn() == 'KalaExf1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf1 }"></i> </span>
                                 </th>
                                 <th data-column="KalaExf2">
-                                    ویژگی 4 <span data-bind="attr: { class: currentColumn() == 'KalaExf2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf2 }"></i> </span>
+                                    <span id="KalaExf2"></span> <span data-bind="attr: { class: currentColumn() == 'KalaExf2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf2 }"></i> </span>
                                 </th>
                                 <th data-column="KalaExf3">
-                                    ویژگی 5 <span data-bind="attr: { class: currentColumn() == 'KalaExf3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf3 }"></i> </span>
+                                    <span id="KalaExf3"></span> <span data-bind="attr: { class: currentColumn() == 'KalaExf3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf3 }"></i> </span>
                                 </th>
                                 <th data-column="MainUnitName">
-                                    واحد شمارش <span data-bind="attr: { class: currentColumn() == 'MainUnitName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMainUnitName }"></i> </span>
+                                    <span id="MainUnitName"></span> <span data-bind="attr: { class: currentColumn() == 'MainUnitName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMainUnitName }"></i> </span>
                                 </th>
                                 <th data-column="Amount1">
-                                    مقدار 1 <span data-bind="attr: { class: currentColumn() == 'Amount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmount1 }"></i> </span>
+                                    <span id="Amount1"></span><span data-bind="attr: { class: currentColumn() == 'Amount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmount1 }"></i> </span>
                                 </th>
                                 <th data-column="Amount2">
-                                    مقدار 2 <span data-bind="attr: { class: currentColumn() == 'Amount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmount2 }"></i> </span>
+                                    <span id="Amount2"></span><span data-bind="attr: { class: currentColumn() == 'Amount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmount2 }"></i> </span>
                                 </th>
                                 <th data-column="Amount3">
-                                    مقدار 3 <span data-bind="attr: { class: currentColumn() == 'Amount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmount3 }"></i> </span>
+                                    <span id="Amount3"></span> <span data-bind="attr: { class: currentColumn() == 'Amount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAmount3 }"></i> </span>
+                                </th>
+                                <th data-column="Discount">
+                                    <span id="Discount"></span> <span data-bind="attr: { class: currentColumn() == 'Discount' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDiscount }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice1">
+                                    <span id="AddMinPrice1"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice1 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice2">
+                                    <span id="AddMinPrice2"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice2 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice3">
+                                    <span id="AddMinPrice3"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice3 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice4">
+                                    <span id="AddMinPrice4"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice4' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice4 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice5">
+                                    <span id="AddMinPrice5"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice5' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice5 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice6">
+                                    <span id="AddMinPrice6"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice6' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice6 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice7">
+                                    <span id="AddMinPrice7"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice7' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice7 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice8">
+                                    <span id="AddMinPrice8"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice8' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice8 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice9">
+                                    <span id="AddMinPrice9"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice9' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice9 }"></i> </span>
+                                </th>
+                                <th data-column="AddMinPrice10">
+                                    <span id="AddMinPrice10"></span> <span data-bind="attr: { class: currentColumn() == 'AddMinPrice10' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAddMinPrice10 }"></i> </span>
                                 </th>
                                 <th data-column="UnitPrice">
-                                    مبلغ واحد <span data-bind="attr: { class: currentColumn() == 'UnitPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeUnitPrice }"></i> </span>
+                                    <span id="UnitPrice"></span> <span data-bind="attr: { class: currentColumn() == 'UnitPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeUnitPrice }"></i> </span>
                                 </th>
                                 <th data-column="TotalPrice">
-                                    مبلغ کل ناخالص<span data-bind="attr: { class: currentColumn() == 'TotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTotalPrice }"></i> </span>
+                                    <span id="TotalPrice"></span><span data-bind="attr: { class: currentColumn() == 'TotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTotalPrice }"></i> </span>
                                 </th>
                                 <th data-column="BandSpec">
-                                    ملاحظات بند <span data-bind="attr: { class: currentColumn() == 'BandSpec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandSpec }"></i> </span>
+                                    <span id="BandSpec"></span><span data-bind="attr: { class: currentColumn() == 'BandSpec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandSpec }"></i> </span>
                                 </th>
                                 <th data-column="Comm">
-                                    شرح <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeComm }"></i> </span>
+                                    <span id="Comm"></span> <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeComm }"></i> </span>
+                                </th>
+                                <th data-column="SerialNumber">
+                                    <span id="SerialNumber"></span> <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
+                                </th>
+                                <th data-column="BandNo">
+                                    <span id="BandNo"></span> <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBandNo }"></i> </span>
                                 </th>
                             </tr>
 
@@ -261,7 +294,7 @@
                             <tr data-bind="click: $parent.selectFDocR , css: { matched: $data === $root.firstMatch() }">
                                 <td data-bind="text: DocDate"></td>
                                 <td data-bind="text: DocNo"></td>
-                                <td data-bind="text: InvName"></td>
+                                <td data-bind="text: ModeName"></td>
                                 <td data-bind="text: Spec"></td>
                                 <td data-bind="text: Status"></td>
                                 <td data-bind="text: Taeed"></td>
@@ -269,25 +302,33 @@
                                 <td data-bind="text: CustName"></td>
                                 <td data-bind="text: MkzName"></td>
                                 <td data-bind="text: OprName"></td>
-                               <!--<td data-bind="text: SerialNumber"></td>-->
-                               <!-- <td data-bind="text: BandNo"></td> -->
                                 <td data-bind="text: KalaName"></td>
                                 <td data-bind="text: KalaFileNo"></td>
                                 <td data-bind="text: KalaState"></td>
                                 <td data-bind="text: KalaExf1"></td>
                                 <td data-bind="text: KalaExf2"></td>
                                 <td data-bind="text: KalaExf3"></td>
-                               <td data-bind="text: MainUnitName"></td>
-
+                                <td data-bind="text: MainUnitName"></td>
                                 <td style="direction: ltr;" data-bind="text: Amount1 == 0 ? '0' : NumberToNumberString(Amount1.toFixed(DeghatM1 % 10))"></td>
                                 <td style="direction: ltr;" data-bind="text: Amount2 == 0 ? '0' : NumberToNumberString(Amount2.toFixed(DeghatM2 % 10))"></td>
                                 <td style="direction: ltr;" data-bind="text: Amount3 == 0 ? '0' : NumberToNumberString(Amount3.toFixed(DeghatM3 % 10))"></td>
+                                <td style="direction: ltr;" data-bind="text: Discount == 0 ? '0' : NumberToNumberString(Discount.toFixed(parseInt(sessionStorage.Deghat)))"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice1  != null ? NumberToNumberString(parseFloat(AddMinPrice1).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice2  != null ? NumberToNumberString(parseFloat(AddMinPrice2).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice3  != null ? NumberToNumberString(parseFloat(AddMinPrice3).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice4  != null ? NumberToNumberString(parseFloat(AddMinPrice4).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice5  != null ? NumberToNumberString(parseFloat(AddMinPrice5).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice6  != null ? NumberToNumberString(parseFloat(AddMinPrice6).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice7  != null ? NumberToNumberString(parseFloat(AddMinPrice7).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice8  != null ? NumberToNumberString(parseFloat(AddMinPrice8).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice9  != null ? NumberToNumberString(parseFloat(AddMinPrice9).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
+                                <td style="direction: ltr;" data-bind="text: AddMinPrice10 != null ? NumberToNumberString(parseFloat(AddMinPrice10).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
                                 <td style="direction: ltr;" data-bind="text: UnitPrice  != null ? NumberToNumberString(parseFloat(UnitPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
                                 <td style="direction: ltr;" data-bind="text: TotalPrice != null ? NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0'" style="text-align: right;"></td>
-
                                 <td data-bind="text: BandSpec"></td>
                                 <td data-bind="text: Comm"></td>
-
+                                <td data-bind="text: SerialNumber"></td>
+                                <td data-bind="text: BandNo"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -303,20 +344,30 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                              <!--  <td></td> -->
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-
                                 <td id="totalAmount1" style="direction: ltr;"></td>
                                 <td id="totalAmount2" style="direction: ltr;"></td>
                                 <td id="totalAmount3" style="direction: ltr;"></td>
+                                <td id="totalDiscount" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice1" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice2" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice3" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice4" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice5" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice6" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice7" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice8" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice9" style="direction: ltr;"></td>
+                                <td id="totalAddMinPrice10" style="direction: ltr;"></td>
                                 <td id="totalUnitPrice" style="direction: ltr;"></td>
                                 <td id="totalTotalPrice" style="direction: ltr;"></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -334,8 +385,8 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR10, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR11, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                              <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR12, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                              -->  <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR12, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR13, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR14, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR15, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR16, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
@@ -348,7 +399,17 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR23, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR24, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR25, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR26, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR26, valueUpdate: 'afterkeydown'" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR27, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR28, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR29, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR30, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR31, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR32, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR33, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR34, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR35, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR36, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                             </tr>
                         </tfoot>
                     </table>

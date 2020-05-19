@@ -59,6 +59,44 @@
 
     $("#textTotal").text('');
 
+    $("#DocDate").text(GetNameField('DocDate', 0)); 
+    $("#DocNo").text(GetNameField('DocNo', 0)); 
+    $("#ModeName").text(GetNameField('ModeName', 0)); 
+    $("#Spec").text(GetNameField('Spec', 0)); 
+    $("#Status").text(GetNameField('Status', 0)); 
+    $("#Taeed").text(GetNameField('Taeed', 0)); 
+    $("#Tasvib").text(GetNameField('Tasvib', 0)); 
+    $("#CustName").text(GetNameField('CustName', 0));
+    $("#MkzName").text(GetNameField('MkzName', 0));
+    $("#OprName").text(GetNameField('OprName', 0));
+    $("#KalaName").text(GetNameField('KalaName', 0));
+    $("#KalaFileNo").text(GetNameField('KalaFileNo', 0));
+    $("#KalaState").text(GetNameField('KalaState', 0)); 
+    $("#KalaExf1").text(GetNameField('KalaExf1', 0));
+    $("#KalaExf2").text(GetNameField('KalaExf2', 0));
+    $("#KalaExf3").text(GetNameField('KalaExf3', 0));
+    $("#MainUnitName").text(GetNameField('MainUnitName', 0));
+    $("#Amount1").text(GetNameField('Amount1', 0));
+    $("#Amount2").text(GetNameField('Amount2', 0));
+    $("#Amount3").text(GetNameField('Amount3', 0)); 
+    $("#Discount").text(GetNameField('Discount', 0)); 
+    $("#AddMinPrice1").text(GetNameField('AddMinPrice1', 2)); 
+    $("#AddMinPrice2").text(GetNameField('AddMinPrice2', 2)); 
+    $("#AddMinPrice3").text(GetNameField('AddMinPrice3', 2)); 
+    $("#AddMinPrice4").text(GetNameField('AddMinPrice4', 2)); 
+    $("#AddMinPrice5").text(GetNameField('AddMinPrice5', 2)); 
+    $("#AddMinPrice6").text(GetNameField('AddMinPrice6', 2)); 
+    $("#AddMinPrice7").text(GetNameField('AddMinPrice7', 2)); 
+    $("#AddMinPrice8").text(GetNameField('AddMinPrice8', 2)); 
+    $("#AddMinPrice9").text(GetNameField('AddMinPrice9', 2)); 
+    $("#AddMinPrice10").text(GetNameField('AddMinPrice10', 2)); 
+    $("#UnitPrice").text(GetNameField('UnitPrice', 0));
+    $("#TotalPrice").text(GetNameField('TotalPrice', 0));
+    $("#BandSpec").text(GetNameField('BandSpec', 0));
+    $("#Comm").text(GetNameField('Comm', 0));
+    $("#SerialNumber").text(GetNameField('SerialNumber', 0));
+    $("#BandNo").text(GetNameField('BandNo', 0));
+    
     //Get  FMode List
     function getFModeList() {
         ajaxFunction(FModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
@@ -67,8 +105,6 @@
             select = document.getElementById('modeCode');
             for (var i = 0; i < data.length; i++) {
                 opt = document.createElement('option');
-
-
                 /* if (i == 3) {
                      opt.value = data[1].Code + ',' + data[2].Code;
                      opt.innerHTML = data[1].Name + ' - ' + data[2].Name;
@@ -95,9 +131,6 @@
             opt.value = data[4].Code + '*' + data[5].Code;
             opt.innerHTML = data[4].Name + ' - ' + data[5].Name;
             select.appendChild(opt);
-
-
-
         });
     }
 
@@ -327,9 +360,18 @@
     self.filterFDocR24 = ko.observable("");
     self.filterFDocR25 = ko.observable("");
     self.filterFDocR26 = ko.observable("");
+    self.filterFDocR27 = ko.observable("");
+    self.filterFDocR28 = ko.observable("");
+    self.filterFDocR29 = ko.observable("");
+    self.filterFDocR30 = ko.observable("");
+    self.filterFDocR31 = ko.observable("");
+    self.filterFDocR32 = ko.observable("");
+    self.filterFDocR33 = ko.observable("");
+    self.filterFDocR34 = ko.observable("");
+    self.filterFDocR35 = ko.observable("");
+    self.filterFDocR36 = ko.observable("");
 
     self.filterFDocRList = ko.computed(function () {
-
         self.currentPageIndexFDocR(0);
         var filter0 = self.filterFDocR0();
         var filter1 = self.filterFDocR1();
@@ -358,6 +400,17 @@
         var filter24 = self.filterFDocR24();
         var filter25 = self.filterFDocR25();
         var filter26 = self.filterFDocR26();
+
+        var filter27 = self.filterFDocR27();
+        var filter28 = self.filterFDocR28();
+        var filter29 = self.filterFDocR29();
+        var filter30 = self.filterFDocR30();
+        var filter31 = self.filterFDocR31();
+        var filter32 = self.filterFDocR32();
+        var filter33 = self.filterFDocR33();
+        var filter34 = self.filterFDocR34();
+        var filter35 = self.filterFDocR35();
+        var filter36 = self.filterFDocR36();
 
         tempData = ko.utils.arrayFilter(self.FDocRList(), function (item) {
             result =
@@ -473,7 +526,6 @@
         self.iconTypeDocDate('');
         self.iconTypeDocNo('');
         self.iconTypeModeName('');
-        self.iconTypeInvName('');
         self.iconTypeSpec('');
         self.iconTypeStatus('');
         self.iconTypeTaeed('');
@@ -481,8 +533,6 @@
         self.iconTypeCustName('');
         self.iconTypeMkzName('');
         self.iconTypeOprName('');
-        self.iconTypeSerialNumber('');
-        self.iconTypeBandNo('');
         self.iconTypeKalaName('');
         self.iconTypeKalaFileNo('');
         self.iconTypeKalaState('');
@@ -493,15 +543,27 @@
         self.iconTypeAmount1('');
         self.iconTypeAmount2('');
         self.iconTypeAmount3('');
+        self.iconTypeDiscount('');
+        self.iconTypeAddMinPrice1('');
+        self.iconTypeAddMinPrice2('');
+        self.iconTypeAddMinPrice3('');
+        self.iconTypeAddMinPrice4('');
+        self.iconTypeAddMinPrice5('');
+        self.iconTypeAddMinPrice6('');
+        self.iconTypeAddMinPrice7('');
+        self.iconTypeAddMinPrice8('');
+        self.iconTypeAddMinPrice9('');
+        self.iconTypeAddMinPrice10('');
         self.iconTypeUnitPrice('');
         self.iconTypeTotalPrice('');
         self.iconTypeBandSpec('');
         self.iconTypeComm('');
+        self.iconTypeSerialNumber('');
+        self.iconTypeBandNo('');
 
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ModeName') self.iconTypeModeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Taeed') self.iconTypeTaeed((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -509,8 +571,6 @@
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaFileNo') self.iconTypeKalaFileNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaState') self.iconTypeKalaState((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -521,10 +581,23 @@
         if (orderProp == 'Amount1') self.iconTypeAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount2') self.iconTypeAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount3') self.iconTypeAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Discount') self.iconTypeDiscount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice1') self.iconTypeAddMinPrice1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice2') self.iconTypeAddMinPrice2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice3') self.iconTypeAddMinPrice3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice4') self.iconTypeAddMinPrice4((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice5') self.iconTypeAddMinPrice5((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice6') self.iconTypeAddMinPrice6((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice7') self.iconTypeAddMinPrice7((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice8') self.iconTypeAddMinPrice8((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice9') self.iconTypeAddMinPrice9((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AddMinPrice10') self.iconTypeAddMinPrice10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'UnitPrice') self.iconTypeUnitPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'BandSpec') self.iconTypeBandSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
     }
 
@@ -537,7 +610,6 @@
     self.iconTypeDocDate = ko.observable("");
     self.iconTypeDocNo = ko.observable("");
     self.iconTypeModeName = ko.observable("");
-    self.iconTypeInvName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
     self.iconTypeTaeed = ko.observable("");
@@ -545,8 +617,6 @@
     self.iconTypeCustName = ko.observable("");
     self.iconTypeMkzName = ko.observable("");
     self.iconTypeOprName = ko.observable("");
-    self.iconTypeSerialNumber = ko.observable("");
-    self.iconTypeBandNo = ko.observable("");
     self.iconTypeKalaName = ko.observable("");
     self.iconTypeKalaFileNo = ko.observable("");
     self.iconTypeKalaState = ko.observable("");
@@ -557,10 +627,25 @@
     self.iconTypeAmount1 = ko.observable("");
     self.iconTypeAmount2 = ko.observable("");
     self.iconTypeAmount3 = ko.observable("");
+    self.iconTypeDiscount = ko.observable("");
+
+    self.iconTypeAddMinPrice1 = ko.observable("");
+    self.iconTypeAddMinPrice2 = ko.observable("");
+    self.iconTypeAddMinPrice3 = ko.observable("");
+    self.iconTypeAddMinPrice4 = ko.observable("");
+    self.iconTypeAddMinPrice5 = ko.observable("");
+    self.iconTypeAddMinPrice6 = ko.observable("");
+    self.iconTypeAddMinPrice7 = ko.observable("");
+    self.iconTypeAddMinPrice8 = ko.observable("");
+    self.iconTypeAddMinPrice9 = ko.observable("");
+    self.iconTypeAddMinPrice10 = ko.observable("");
+
     self.iconTypeUnitPrice = ko.observable("");
     self.iconTypeTotalPrice = ko.observable("");
     self.iconTypeBandSpec = ko.observable("");
     self.iconTypeComm = ko.observable("");
+    self.iconTypeSerialNumber = ko.observable("");
+    self.iconTypeBandNo = ko.observable("");
 
 
 
