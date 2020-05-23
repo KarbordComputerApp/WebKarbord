@@ -425,13 +425,18 @@ function GetNameField(Code, InOut) {
             return FldNames[i].Name;
         }
     }
+    return '';
 }
 
+function GetShowField(Code, InOut) {
+    for (var i = 0; i < FldNames.length; i++) {
+        if (FldNames[i].Code == Code && FldNames[i].InOut == InOut) {
+            return FldNames[i].Visible;
+        }
+    }
+    return 0;
+}
 
-a = GetNameField('AddMinPrice1', 1);
-a = GetNameField('AddMinPrice1', 2);
-b = GetNameField('VAmount1', 0);
-b = GetNameField('VAmount1', 0);
 //Get Access List
 function getAccessList() {
 

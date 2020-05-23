@@ -61,44 +61,6 @@
     $("#textTotal").text('');
     CreateTableReport();
 
-    $("#DocDate").text(GetNameField('DocDate', 0));
-    $("#DocNo").text(GetNameField('DocNo', 0));
-    $("#ModeName").text(GetNameField('ModeName', 0));
-    $("#Spec").text(GetNameField('Spec', 0));
-    $("#Status").text(GetNameField('Status', 0));
-    $("#Taeed").text(GetNameField('Taeed', 0));
-    $("#Tasvib").text(GetNameField('Tasvib', 0));
-    $("#CustName").text(GetNameField('CustName', 0));
-    $("#MkzName").text(GetNameField('MkzName', 0));
-    $("#OprName").text(GetNameField('OprName', 0));
-    $("#KalaName").text(GetNameField('KalaName', 0));
-    $("#KalaFileNo").text(GetNameField('KalaFileNo', 0));
-    $("#KalaState").text(GetNameField('KalaState', 0));
-    $("#KalaExf1").text(GetNameField('KalaExf1', 0));
-    $("#KalaExf2").text(GetNameField('KalaExf2', 0));
-    $("#KalaExf3").text(GetNameField('KalaExf3', 0));
-    $("#MainUnitName").text(GetNameField('MainUnitName', 0));
-    $("#Amount1").text(GetNameField('Amount1', 0));
-    $("#Amount2").text(GetNameField('Amount2', 0));
-    $("#Amount3").text(GetNameField('Amount3', 0));
-    $("#Discount").text(GetNameField('Discount', 0));
-    $("#AddMinPrice1").text(GetNameField('AddMinPrice1', 1));
-    $("#AddMinPrice2").text(GetNameField('AddMinPrice2', 1));
-    $("#AddMinPrice3").text(GetNameField('AddMinPrice3', 1));
-    $("#AddMinPrice4").text(GetNameField('AddMinPrice4', 1));
-    $("#AddMinPrice5").text(GetNameField('AddMinPrice5', 1));
-    $("#AddMinPrice6").text(GetNameField('AddMinPrice6', 1));
-    $("#AddMinPrice7").text(GetNameField('AddMinPrice7', 1));
-    $("#AddMinPrice8").text(GetNameField('AddMinPrice8', 1));
-    $("#AddMinPrice9").text(GetNameField('AddMinPrice9', 1));
-    $("#AddMinPrice10").text(GetNameField('AddMinPrice10', 1));
-    $("#UnitPrice").text(GetNameField('UnitPrice', 0));
-    $("#TotalPrice").text(GetNameField('TotalPrice', 0));
-    $("#BandSpec").text(GetNameField('BandSpec', 0));
-    $("#Comm").text(GetNameField('Comm', 0));
-    $("#SerialNumber").text(GetNameField('SerialNumber', 0));
-    $("#BandNo").text(GetNameField('BandNo', 0));
-
     //Get  FMode List
     function getFModeList() {
         ajaxFunction(FModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
@@ -271,6 +233,17 @@
         totalAmount1 = 0;
         totalAmount2 = 0;
         totalAmount3 = 0;
+        totalDiscount = 0;
+        totalAddMinPrice1 = 0;
+        totalAddMinPrice2 = 0;
+        totalAddMinPrice3 = 0;
+        totalAddMinPrice4 = 0;
+        totalAddMinPrice5 = 0;
+        totalAddMinPrice6 = 0;
+        totalAddMinPrice7 = 0;
+        totalAddMinPrice8 = 0;
+        totalAddMinPrice9 = 0;
+        totalAddMinPrice10 = 0;
         totalUnitPrice = 0;
         totalTotalPrice = 0;
 
@@ -288,7 +261,19 @@
             totalAmount2 += FDocRData.Amount2;
             totalAmount3 += FDocRData.Amount3;
 
-            totalUnitPrice += FDocRData.UnitPrice;
+            totalDiscount += FDocRData.Discount;
+            totalAddMinPrice1 += FDocRData.AddMinPrice1;
+            totalAddMinPrice2 += FDocRData.AddMinPrice2;
+            totalAddMinPrice3 += FDocRData.AddMinPrice3;
+            totalAddMinPrice4 += FDocRData.AddMinPrice4;
+            totalAddMinPrice5 += FDocRData.AddMinPrice5;
+            totalAddMinPrice6 += FDocRData.AddMinPrice6;
+            totalAddMinPrice7 += FDocRData.AddMinPrice7;
+            totalAddMinPrice8 += FDocRData.AddMinPrice8;
+            totalAddMinPrice9 += FDocRData.AddMinPrice9;
+            totalAddMinPrice10 += FDocRData.AddMinPrice10;
+
+           // totalUnitPrice += FDocRData.UnitPrice;
             totalTotalPrice += FDocRData.TotalPrice;
 
             KalaDeghat1 = FDocRData.DeghatM1 % 10;
@@ -304,13 +289,23 @@
         $("#totalAmount1").text(NumberToNumberString(totalAmount1.toFixed(maxKalaDeghat1)));
         $("#totalAmount2").text(NumberToNumberString(totalAmount2.toFixed(maxKalaDeghat2)));
         $("#totalAmount3").text(NumberToNumberString(totalAmount3.toFixed(maxKalaDeghat3)));
-        $("#totalUnitPrice").text(NumberToNumberString(totalUnitPrice.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalDiscount").text(NumberToNumberString(totalDiscount.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice1").text(NumberToNumberString(totalAddMinPrice1.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice2").text(NumberToNumberString(totalAddMinPrice2.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice3").text(NumberToNumberString(totalAddMinPrice3.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice4").text(NumberToNumberString(totalAddMinPrice4.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice5").text(NumberToNumberString(totalAddMinPrice5.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice6").text(NumberToNumberString(totalAddMinPrice6.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice7").text(NumberToNumberString(totalAddMinPrice7.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice8").text(NumberToNumberString(totalAddMinPrice8.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice9").text(NumberToNumberString(totalAddMinPrice9.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAddMinPrice10").text(NumberToNumberString(totalAddMinPrice10.toFixed(parseInt(sessionStorage.Deghat))));
+        //$("#totalUnitPrice").text(NumberToNumberString(totalUnitPrice.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalTotalPrice").text(NumberToNumberString(totalTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
     }
 
     $("#CreateReport").click(function () {
         getFDocR();
-
     });
 
     getFModeList();
@@ -336,118 +331,121 @@
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
-    self.filterFDocR0 = ko.observable("");
-    self.filterFDocR1 = ko.observable("");
-    self.filterFDocR2 = ko.observable("");
-    self.filterFDocR3 = ko.observable("");
-    self.filterFDocR4 = ko.observable("");
-    self.filterFDocR5 = ko.observable("");
-    self.filterFDocR6 = ko.observable("");
-    self.filterFDocR7 = ko.observable("");
-    self.filterFDocR8 = ko.observable("");
-    self.filterFDocR9 = ko.observable("");
-    self.filterFDocR10 = ko.observable("");
-    self.filterFDocR11 = ko.observable("");
-    self.filterFDocR12 = ko.observable("");
-    self.filterFDocR13 = ko.observable("");
-    self.filterFDocR14 = ko.observable("");
-    self.filterFDocR15 = ko.observable("");
-    self.filterFDocR16 = ko.observable("");
-    self.filterFDocR17 = ko.observable("");
-    self.filterFDocR18 = ko.observable("");
-    self.filterFDocR19 = ko.observable("");
-    self.filterFDocR20 = ko.observable("");
-    self.filterFDocR21 = ko.observable("");
-    self.filterFDocR22 = ko.observable("");
-    self.filterFDocR23 = ko.observable("");
-    self.filterFDocR24 = ko.observable("");
-    self.filterFDocR25 = ko.observable("");
-    self.filterFDocR26 = ko.observable("");
-    self.filterFDocR27 = ko.observable("");
-    self.filterFDocR28 = ko.observable("");
-    self.filterFDocR29 = ko.observable("");
-    self.filterFDocR30 = ko.observable("");
-    self.filterFDocR31 = ko.observable("");
-    self.filterFDocR32 = ko.observable("");
-    self.filterFDocR33 = ko.observable("");
-    self.filterFDocR34 = ko.observable("");
-    self.filterFDocR35 = ko.observable("");
-    self.filterFDocR36 = ko.observable("");
+    self.filterDocNo = ko.observable("");
+    self.filterDocDate = ko.observable("");
+    self.filterModeName = ko.observable("");
+    self.filterStatus = ko.observable("");
+    self.filterTaeed = ko.observable("");
+    self.filterTasvib = ko.observable("");
+    self.filterCustName = ko.observable("");
+    self.filterMkzName = ko.observable("");
+    self.filterOprName = ko.observable("");
+    self.filterKalaName = ko.observable("");
+    self.filterKalaFileNo = ko.observable("");
+    self.filterKalaState = ko.observable("");
+    self.filterKalaExf1 = ko.observable("");
+    self.filterKalaExf2 = ko.observable("");
+    self.filterKalaExf3 = ko.observable("");
+    self.filterMainUnitName = ko.observable("");
+    self.filterAmount1 = ko.observable("");
+    self.filterAmount2 = ko.observable("");
+    self.filterAmount3 = ko.observable("");
+    self.filterDiscount = ko.observable("");
+    self.filterAddMinPrice1 = ko.observable("");
+    self.filterAddMinPrice2 = ko.observable("");
+    self.filterAddMinPrice3 = ko.observable("");
+    self.filterAddMinPrice4 = ko.observable("");
+    self.filterAddMinPrice5 = ko.observable("");
+    self.filterAddMinPrice6 = ko.observable("");
+    self.filterAddMinPrice7 = ko.observable("");
+    self.filterAddMinPrice8 = ko.observable("");
+    self.filterAddMinPrice9 = ko.observable("");
+    self.filterAddMinPrice10 = ko.observable("");
+    self.filterUnitPrice = ko.observable("");
+    self.filterTotalPrice = ko.observable("");
+    self.filterBandSpec = ko.observable("");
+    self.filterComm = ko.observable("");
+    self.filterSerialNumber = ko.observable("");
+    self.filterBandNo = ko.observable("");
+
 
     self.filterFDocRList = ko.computed(function () {
         self.currentPageIndexFDocR(0);
-        var filter0 = self.filterFDocR0();
-        var filter1 = self.filterFDocR1();
-        var filter2 = self.filterFDocR2();
-        var filter3 = self.filterFDocR3();
-        var filter4 = self.filterFDocR4();
-        var filter5 = self.filterFDocR5();
-        var filter6 = self.filterFDocR6().toUpperCase();
-        var filter7 = self.filterFDocR7().toUpperCase();
-        var filter8 = self.filterFDocR8().toUpperCase();
-        var filter9 = self.filterFDocR9();
-        var filter10 = self.filterFDocR10();
-        var filter11 = self.filterFDocR11();
-        var filter12 = self.filterFDocR12();
-        var filter13 = self.filterFDocR13();
-        var filter14 = self.filterFDocR14();
-        var filter15 = self.filterFDocR15();
-        var filter16 = self.filterFDocR16();
-        var filter17 = self.filterFDocR17();
-        var filter18 = self.filterFDocR18();
-        var filter19 = self.filterFDocR19();
-        var filter20 = self.filterFDocR20();
-        var filter21 = self.filterFDocR21();
-        var filter22 = self.filterFDocR22();
-        var filter23 = self.filterFDocR23();
-        var filter24 = self.filterFDocR24();
-        var filter25 = self.filterFDocR25();
-        var filter26 = self.filterFDocR26();
-
-        var filter27 = self.filterFDocR27();
-        var filter28 = self.filterFDocR28();
-        var filter29 = self.filterFDocR29();
-        var filter30 = self.filterFDocR30();
-        var filter31 = self.filterFDocR31();
-        var filter32 = self.filterFDocR32();
-        var filter33 = self.filterFDocR33();
-        var filter34 = self.filterFDocR34();
-        var filter35 = self.filterFDocR35();
-        var filter36 = self.filterFDocR36();
+        var filterDocNo = self.filterDocNo();
+        var filterDocDate = self.filterDocDate();
+        var filterModeName = self.filterModeName();
+        var filterStatus = self.filterStatus();
+        var filterTaeed = self.filterTaeed().toUpperCase();
+        var filterTasvib = self.filterTasvib().toUpperCase();
+        var filterCustName = self.filterCustName();
+        var filterMkzName = self.filterMkzName();
+        var filterOprName = self.filterOprName();
+        var filterKalaName = self.filterKalaName();
+        var filterKalaFileNo = self.filterKalaFileNo();
+        var filterKalaState = self.filterKalaState();
+        var filterKalaExf1 = self.filterKalaExf1();
+        var filterKalaExf2 = self.filterKalaExf2();
+        var filterKalaExf3 = self.filterKalaExf3();
+        var filterMainUnitName = self.filterMainUnitName();
+        var filterAmount1 = self.filterAmount1();
+        var filterAmount2 = self.filterAmount2();
+        var filterAmount3 = self.filterAmount3();
+        var filterDiscount = self.filterDiscount();
+        var filterAddMinPrice1 = self.filterAddMinPrice1();
+        var filterAddMinPrice2 = self.filterAddMinPrice2();
+        var filterAddMinPrice3 = self.filterAddMinPrice3();
+        var filterAddMinPrice4 = self.filterAddMinPrice4();
+        var filterAddMinPrice5 = self.filterAddMinPrice5();
+        var filterAddMinPrice6 = self.filterAddMinPrice6();
+        var filterAddMinPrice7 = self.filterAddMinPrice7();
+        var filterAddMinPrice8 = self.filterAddMinPrice8();
+        var filterAddMinPrice9 = self.filterAddMinPrice9();
+        var filterAddMinPrice10 = self.filterAddMinPrice10();
+        var filterUnitPrice = self.filterUnitPrice();
+        var filterTotalPrice = self.filterTotalPrice();
+        var filterBandSpec = self.filterBandSpec();
+        var filterComm = self.filterComm();
+        var filterSerialNumber = self.filterSerialNumber();
+        var filterBandNo = self.filterBandNo();
 
         tempData = ko.utils.arrayFilter(self.FDocRList(), function (item) {
             result =
-                // ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter1)
-                /* (item.DocDate == null ? '' : item.DocDate.toString().search(filter0) >= 0) &&
-                   ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter1) &&
-                   (item.ModeName == null ? '' : item.ModeName.toString().search(filter2) >= 0) &&
-                   (item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
-                   (item.Spec == null ? '' : item.Spec.toString().search(filter4) >= 0) &&
-                   (item.Status == null ? '' : item.Status.toString().search(filter5) >= 0) &&
-                   (item.Taeed == null ? '' : item.Taeed.toString().search(filter6) >= 0) &&
-                   (item.Tasvib == null ? '' : item.Tasvib.toString().search(filter7) >= 0) &&
-                   (item.CustName == null ? '' : item.CustName.toString().search(filter8) >= 0) &&
-                   (item.MkzName == null ? '' : item.MkzName.toString().search(filter9) >= 0) &&
-                   (item.OprName == null ? '' : item.OprName.toString().search(filter10) >= 0) &&
-                   ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter11) &&
-                   ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter12) &&
-                   (item.KalaName == null ? '' : item.KalaName.toString().search(filter13) >= 0) &&
-                   (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter14) >= 0) &&
-                   (item.KalaState == null ? '' : item.KalaState.toString().search(filter15) >= 0) &&
-                   (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter16) >= 0) &&
-                   (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter17) >= 0) &&
-                   (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter18) >= 0) &&
-                   (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter19) >= 0) &&
-                   ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter20) &&
-                   ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter21) &&
-                   ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter22) &&
-                   // ko.utils.stringStartsWith(item.UnitPrice.toString(), filter23) &&
-                   ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter24) &&
-                   (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter25) >= 0) &&
-                 (item.Comm == null ? '' : item.Comm.toString().search(filter26) >= 0)*/
-
-                1 == 1
-
+                ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
+                (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
+                (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
+                (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
+                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
+                (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
+                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
+                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
+                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
+                (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
+                ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
+                ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
+                ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
+                ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
+                ko.utils.stringStartsWith(item.AddMinPrice1.toString().toLowerCase(), filterAddMinPrice1) &&
+                ko.utils.stringStartsWith(item.AddMinPrice2.toString().toLowerCase(), filterAddMinPrice2) &&
+                ko.utils.stringStartsWith(item.AddMinPrice3.toString().toLowerCase(), filterAddMinPrice3) &&
+                ko.utils.stringStartsWith(item.AddMinPrice4.toString().toLowerCase(), filterAddMinPrice4) &&
+                ko.utils.stringStartsWith(item.AddMinPrice5.toString().toLowerCase(), filterAddMinPrice5) &&
+                ko.utils.stringStartsWith(item.AddMinPrice6.toString().toLowerCase(), filterAddMinPrice6) &&
+                ko.utils.stringStartsWith(item.AddMinPrice7.toString().toLowerCase(), filterAddMinPrice7) &&
+                ko.utils.stringStartsWith(item.AddMinPrice8.toString().toLowerCase(), filterAddMinPrice8) &&
+                ko.utils.stringStartsWith(item.AddMinPrice9.toString().toLowerCase(), filterAddMinPrice9) &&
+                ko.utils.stringStartsWith(item.AddMinPrice10.toString().toLowerCase(), filterAddMinPrice10) &&
+                ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filterUnitPrice) &&
+                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
+                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
+                (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0) &&
+                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo)
             return result;
         })
         // calcsum(tempData);
@@ -1743,47 +1741,231 @@
         $("#TableReport").empty();
 
         $('#TableReport').append(
-
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableFDocR">' +
-
-            CreateTableTh('DocNo') +
-            CreateTableTh('DocDate') +
-
+            CreateTableTh('DocNo', 0) +
+            CreateTableTh('DocDate', 0) +
+            CreateTableTh('ModeName', 0) +
+            CreateTableTh('Status', 0) +
+            CreateTableTh('Taeed', 0) +
+            CreateTableTh('Tasvib', 0) +
+            CreateTableTh('CustName', 0) +
+            CreateTableTh('MkzName', 0) +
+            CreateTableTh('OprName', 0) +
+            CreateTableTh('KalaName', 0) +
+            CreateTableTh('KalaFileNo', 0) +
+            CreateTableTh('KalaState', 0) +
+            CreateTableTh('KalaExf1', 0) +
+            CreateTableTh('KalaExf2', 0) +
+            CreateTableTh('KalaExf3', 0) +
+            CreateTableTh('MainUnitName', 0) +
+            CreateTableTh('Amount1', 0) +
+            CreateTableTh('Amount2', 0) +
+            CreateTableTh('Amount3', 0) +
+            CreateTableTh('Discount', 0) +
+            CreateTableTh('AddMinPrice1', 1) +
+            CreateTableTh('AddMinPrice2', 1) +
+            CreateTableTh('AddMinPrice3', 1) +
+            CreateTableTh('AddMinPrice4', 1) +
+            CreateTableTh('AddMinPrice5', 1) +
+            CreateTableTh('AddMinPrice6', 1) +
+            CreateTableTh('AddMinPrice7', 1) +
+            CreateTableTh('AddMinPrice8', 1) +
+            CreateTableTh('AddMinPrice9', 1) +
+            CreateTableTh('AddMinPrice10', 1) +
+            CreateTableTh('UnitPrice', 0) +
+            CreateTableTh('TotalPrice', 0) +
+            CreateTableTh('BandSpec', 0) +
+            CreateTableTh('Comm', 0) +
+            CreateTableTh('SerialNumber', 0) +
+            CreateTableTh('BandNo', 0) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocR" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="click: $parent.selectFDocR , css: { matched: $data === $root.firstMatch() }">' +
-            CreateTableTd('DocNo') +
-            CreateTableTd('DocDate') +
+            CreateTableTd('DocNo', 0, 0, 0) +
+            CreateTableTd('DocDate', 0, 0, 0) +
+            CreateTableTd('ModeName', 0, 0, 0) +
+            CreateTableTd('Status', 0, 0, 0) +
+            CreateTableTd('Taeed', 0, 0, 0) +
+            CreateTableTd('Tasvib', 0, 0, 0) +
+            CreateTableTd('CustName', 0, 0, 0) +
+            CreateTableTd('MkzName', 0, 0, 0) +
+            CreateTableTd('OprName', 0, 0, 0) +
+            CreateTableTd('KalaName', 0, 0, 0) +
+            CreateTableTd('KalaFileNo', 0, 0, 0) +
+            CreateTableTd('KalaState', 0, 0, 0) +
+            CreateTableTd('KalaExf1', 0, 0, 0) +
+            CreateTableTd('KalaExf2', 0, 0, 0) +
+            CreateTableTd('KalaExf3', 0, 0, 0) +
+            CreateTableTd('MainUnitName', 0, 0, 0) +
+            CreateTableTd('Amount1', 'DeghatM1', 1, 0) +
+            CreateTableTd('Amount2', 'DeghatM2', 1, 0) +
+            CreateTableTd('Amount3', 'DeghatM3', 1, 0) +
+            CreateTableTd('Discount', sessionStorage.Deghat, 2, 0) +
+            CreateTableTd('AddMinPrice1', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice2', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice3', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice4', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice5', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice6', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice7', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice8', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice9', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, 1) +
+            CreateTableTd('UnitPrice', sessionStorage.Deghat, 2, 0) +
+            CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, 0) +
+            CreateTableTd('BandSpec', 0, 0, 0) +
+            CreateTableTd('Comm', 0, 0, 0) +
+            CreateTableTd('SerialNumber', 0, 0, 0) +
+            CreateTableTd('BandNo', 0, 0, 0) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '     <td id="textTotal"></td>' +
+            CreateTableTdSum('DocNo', 0, 0) +
+            CreateTableTdSum('DocDate', 1, 0) +
+            CreateTableTdSum('ModeName', 1, 0) +
+            CreateTableTdSum('Status', 1, 0) +
+            CreateTableTdSum('Taeed', 1, 0) +
+            CreateTableTdSum('Tasvib', 1, 0) +
+            CreateTableTdSum('CustName', 1, 0) +
+            CreateTableTdSum('MkzName', 1, 0) +
+            CreateTableTdSum('OprName', 1, 0) +
+            CreateTableTdSum('KalaName', 1, 0) +
+            CreateTableTdSum('KalaFileNo', 1, 0) +
+            CreateTableTdSum('KalaState', 1, 0) +
+            CreateTableTdSum('KalaExf1', 1, 0) +
+            CreateTableTdSum('KalaExf2', 1, 0) +
+            CreateTableTdSum('KalaExf3', 1, 0) +
+            CreateTableTdSum('MainUnitName', 1, 0) +
+            CreateTableTdSum('Amount1', 2, 0) +
+            CreateTableTdSum('Amount2', 2, 0) +
+            CreateTableTdSum('Amount3', 2, 0) +
+            CreateTableTdSum('Discount', 2, 0) +
+            CreateTableTdSum('AddMinPrice1', 2, 1) +
+            CreateTableTdSum('AddMinPrice2', 2, 1) +
+            CreateTableTdSum('AddMinPrice3', 2, 1) +
+            CreateTableTdSum('AddMinPrice4', 2, 1) +
+            CreateTableTdSum('AddMinPrice5', 2, 1) +
+            CreateTableTdSum('AddMinPrice6', 2, 1) +
+            CreateTableTdSum('AddMinPrice7', 2, 1) +
+            CreateTableTdSum('AddMinPrice8', 2, 1) +
+            CreateTableTdSum('AddMinPrice9', 2, 1) +
+            CreateTableTdSum('AddMinPrice10', 2, 1) +
+            CreateTableTdSum('UnitPrice', 2, 0) +
+            CreateTableTdSum('TotalPrice', 2, 0) +
+            CreateTableTdSum('BandSpec', 1, 0) +
+            CreateTableTdSum('Comm', 1, 0) +
+            CreateTableTdSum('SerialNumber', 1, 0) +
+            CreateTableTdSum('BandNo', 1, 0) +
             ' </tr>' +
-
             '  <tr style="background-color: #efb68399;">' +
-            '       <td style="padding: 0px 3px;"><input data-bind="value: filterFDocR0, valueUpdate: "afterkeydown" type="text" class="form-control" style="height: 2.4rem;" /> </td>' +
-            '   </tr>' +
-            '</tfoot>' +
-            '        </table >'
+            CreateTableTdSearch('DocNo', 0) +
+            CreateTableTdSearch('DocDate', 0) +
+            CreateTableTdSearch('ModeName', 0) +
+            CreateTableTdSearch('Status', 0) +
+            CreateTableTdSearch('Taeed', 0) +
+            CreateTableTdSearch('Tasvib', 0) +
+            CreateTableTdSearch('CustName', 0) +
+            CreateTableTdSearch('MkzName', 0) +
+            CreateTableTdSearch('OprName', 0) +
+            CreateTableTdSearch('KalaName', 0) +
+            CreateTableTdSearch('KalaFileNo', 0) +
+            CreateTableTdSearch('KalaState', 0) +
+            CreateTableTdSearch('KalaExf1', 0) +
+            CreateTableTdSearch('KalaExf2', 0) +
+            CreateTableTdSearch('KalaExf3', 0) +
+            CreateTableTdSearch('MainUnitName', 0) +
+            CreateTableTdSearch('Amount1', 0) +
+            CreateTableTdSearch('Amount2', 0) +
+            CreateTableTdSearch('Amount3', 0) +
+            CreateTableTdSearch('Discount', 0) +
+            CreateTableTdSearch('AddMinPrice1', 1) +
+            CreateTableTdSearch('AddMinPrice2', 1) +
+            CreateTableTdSearch('AddMinPrice3', 1) +
+            CreateTableTdSearch('AddMinPrice4', 1) +
+            CreateTableTdSearch('AddMinPrice5', 1) +
+            CreateTableTdSearch('AddMinPrice6', 1) +
+            CreateTableTdSearch('AddMinPrice7', 1) +
+            CreateTableTdSearch('AddMinPrice8', 1) +
+            CreateTableTdSearch('AddMinPrice9', 1) +
+            CreateTableTdSearch('AddMinPrice10', 1) +
+            CreateTableTdSearch('UnitPrice', 0) +
+            CreateTableTdSearch('TotalPrice', 0) +
+            CreateTableTdSearch('BandSpec', 0) +
+            CreateTableTdSearch('Comm', 0) +
+            CreateTableTdSearch('SerialNumber', 0) +
+            CreateTableTdSearch('BandNo', 0) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
         );
     }
 
-    function CreateTableTh(field) {
-        return '<th data-column="' + field + '">' +
-            '    <span id="' + field + '"></span><span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+    function CreateTableTh(field, InOut) {
+        text = '<th ';
+        if (GetShowField(field, InOut) == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span>' + GetNameField(field, InOut) + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
             '</th>';
+        return text;
     }
 
-    function CreateTableTd(field) {
-        return '<td data-bind="text: ' + field + '"></td>' 
+    function CreateTableTd(field, Deghat, no, InOut) {
+
+        text = '<td ';
+        if (GetShowField(field, InOut) == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
     }
 
+    function CreateTableTdSum(field, no, InOut) {
+        text = '<td ';
+        if (GetShowField(field, InOut) == 0)
+            text += 'Hidden ';
 
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, InOut) {
+        text = '<td ';
+        if (GetShowField(field, InOut) == 0)
+            text += 'Hidden ';
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
 
 };
 
