@@ -5,7 +5,6 @@
     var group = sessionStorage.group;
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
-    var RprtColsList = JSON.parse(localStorage.getItem("FDocR_S"));
 
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
@@ -26,6 +25,7 @@
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
+    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     var FDocR_SUri = server + '/api/ReportFct/FDocR/'; // آدرس گزارش 
 
@@ -59,16 +59,16 @@
     var list_OprSelect = new Array();
 
 
-    CreateTableReport(RprtColsList);
+    //CreateTableReport(RprtColsList);
     $("#textTotal").text('');
 
 
-   /* //Get RprtCols List
+    //Get RprtCols List
     function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/FDocR_P/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/FDocR_S/' + sessionStorage.userName, 'GET').done(function (data) {
             CreateTableReport(data);
         });
-    }*/
+    }
 
     //Get  FMode List
     function getFModeList() {
@@ -303,7 +303,7 @@
         getFDocR_S();
     });
 
-   // getRprtColsList(); 
+    getRprtColsList(); 
     getFModeList();
     getInvList();
     getKalaList();

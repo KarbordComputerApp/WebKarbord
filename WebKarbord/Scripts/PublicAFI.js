@@ -65,7 +65,7 @@ var afiAccessApi;
 var erjAccessApi;
 var erjGroupApi;
 
-var RprtColsList;
+
 
 //access = JSON.parse(localStorage.getItem("Access"));
 
@@ -187,7 +187,6 @@ var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتاب
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
 var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
 var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
-var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
 
 
@@ -213,9 +212,12 @@ function ajaxFunction(uri, method, data) {
         type: method,
         url: uri,
         dataType: 'json',
+        async: false,
+        cache: false,
+        timeout: 30000,
         //async: true,
         //crossDomain: true,
-        cache: false,
+        //cache: false,
         contentType: 'application/json',
         //contentType: 'application/x-www-form-urlencoded',
         // xhrFields: { withCredentials: true },
@@ -298,10 +300,6 @@ function SetSelectProgram() {
         $('#SaveParam').removeAttr('disabled');
 
         sessionStorage.ModeCode = '';
-
-        getRprtColsList('FDocR_P');
-        getRprtColsList('FDocR_S');
-
 
         return true;
     } catch (e) {
@@ -407,18 +405,6 @@ function CheckAccessReportErj(Code) {
 }
 
 
-//Get RprtCols List
-function getRprtColsList(RprtId) {
-    ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + RprtId+'/' + sessionStorage.userName, 'GET').done(function (data) {
-        if (RprtId == 'FDocR_P')
-            localStorage.setItem('FDocR_P', JSON.stringify(data));
-        else if (RprtId == 'FDocR_S')
-            localStorage.setItem('FDocR_S', JSON.stringify(data));
-
-
-        FldNames = JSON.parse(localStorage.getItem("FldNames"));
-    });
-}
 
 function FindTextField(field, data) {
     for (var i = 0; i < data.length; i++) {

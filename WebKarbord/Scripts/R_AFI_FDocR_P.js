@@ -5,7 +5,6 @@
     var group = sessionStorage.group;
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
-    var RprtColsList = JSON.parse(localStorage.getItem("FDocR_P"));
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.KalaList = ko.observableArray([]); // ليست کالا ها
@@ -59,7 +58,6 @@
     var counterOpr = 0;
     var list_OprSelect = new Array();
 
-    CreateTableReport(RprtColsList);
     $("#textTotal").text('');
 
     //Get  FMode List
@@ -84,14 +82,13 @@
         });
     }
 
-    /*
+    
     //Get RprtCols List
     function getRprtColsList() {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/FDocR_P/' + sessionStorage.userName, 'GET').done(function (data) {
-            RprtColsList = data;
-            CreateTableReport(RprtColsList);
+            CreateTableReport(data);
         });
-    }*/
+    }
 
 
     //Get kala List
@@ -302,7 +299,7 @@
         getFDocR_P();
     });
 
-    //getRprtColsList();
+    getRprtColsList();
     getFModeList();
     getInvList();
     getKalaList();
