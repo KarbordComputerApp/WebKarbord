@@ -5,9 +5,6 @@ var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
 
 var accessErj = JSON.parse(localStorage.getItem("AccessErj"));
 var accessReportErj = JSON.parse(localStorage.getItem("AccessReportErj"));
-var FldNames = JSON.parse(localStorage.getItem("FldNames"));
-
-
 
 const MODECODE_ADOC_A = 1;
 const MODECODE_ADOC_EFT = 2;
@@ -67,6 +64,8 @@ const MODECODE_IDOC_OMAVAD = 111;
 var afiAccessApi;
 var erjAccessApi;
 var erjGroupApi;
+
+var RprtColsList;
 
 //access = JSON.parse(localStorage.getItem("Access"));
 
@@ -188,13 +187,14 @@ var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتاب
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
 var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
 var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
-var FldNamesUri = server + '/api/Web_Data/FldNames/'; // آدرس مشخصات ستون ها 
+var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+
+
 
 ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال
 AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
-FldNamesList = ko.observableArray([]); // مشخصات ستونها
 
 //function ajaxFunction(uri, method, data) {
 //    return $.ajax({
@@ -295,10 +295,13 @@ function SetSelectProgram() {
         $('#SaveParam').attr('disabled', 'disabled');
         getParamList();
         getAccessList();
-        getFldNamesList();
         $('#SaveParam').removeAttr('disabled');
 
         sessionStorage.ModeCode = '';
+
+        getRprtColsList('FDocR_P');
+        getRprtColsList('FDocR_S');
+
 
         return true;
     } catch (e) {
@@ -353,21 +356,6 @@ function getParamList() {
 }
 
 
-//Get FldNames List
-function getFldNamesList() {
-    ajaxFunction(FldNamesUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET').done(function (data) {
-        FldNamesList(data);
-        if (self.FldNamesList().length > 0) {
-
-            localStorage.setItem('FldNames', JSON.stringify(data));
-            FldNames = JSON.parse(localStorage.getItem("FldNames"));
-
-            //temp = JSON.stringify(data);
-            //sessionStorage.FldNames = JSON.parse(temp);
-        }
-    });
-}
-
 
 function CheckAccess(TrsName) {
     //access = JSON.parse(localStorage.getItem("Access"));//localStorage.getItem("Access");
@@ -419,6 +407,29 @@ function CheckAccessReportErj(Code) {
 }
 
 
+//Get RprtCols List
+function getRprtColsList(RprtId) {
+    ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + RprtId+'/' + sessionStorage.userName, 'GET').done(function (data) {
+        if (RprtId == 'FDocR_P')
+            localStorage.setItem('FDocR_P', JSON.stringify(data));
+        else if (RprtId == 'FDocR_S')
+            localStorage.setItem('FDocR_S', JSON.stringify(data));
+
+
+        FldNames = JSON.parse(localStorage.getItem("FldNames"));
+    });
+}
+
+function FindTextField(field, data) {
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].Code == field) {
+            return data[i].Name;
+        }
+    }
+    return 0;
+}
+
+/*
 function GetNameField(Code, InOut) {
     for (var i = 0; i < FldNames.length; i++) {
         if (FldNames[i].Code == Code && FldNames[i].InOut == InOut ) {
@@ -436,6 +447,7 @@ function GetShowField(Code, InOut) {
     }
     return 0;
 }
+*/
 
 //Get Access List
 function getAccessList() {

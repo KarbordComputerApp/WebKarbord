@@ -38,7 +38,12 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
-        public ActionResult FDocR()
+        public ActionResult FDocR_S()
+        {
+            return View();
+        }
+
+        public ActionResult FDocR_P()
         {
             return View();
         }

@@ -5,6 +5,8 @@
     var group = sessionStorage.group;
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
+    var RprtColsList = JSON.parse(localStorage.getItem("FDocR_S"));
+
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.KalaList = ko.observableArray([]); // ليست کالا ها
@@ -15,7 +17,7 @@
     self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
 
 
-    self.FDocRList = ko.observableArray([]); // لیست گزارش  
+    self.FDocR_SList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
@@ -25,8 +27,7 @@
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
 
-    var FDocRUri = server + '/api/ReportFct/FDocR/'; // آدرس گزارش 
-    var FDocRCountUri = server + '/api/ReportFct/FDocRCount/'; // تعداد رکورد های گزارش 
+    var FDocR_SUri = server + '/api/ReportFct/FDocR/'; // آدرس گزارش 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
@@ -58,31 +59,29 @@
     var list_OprSelect = new Array();
 
 
+    CreateTableReport(RprtColsList);
     $("#textTotal").text('');
-    CreateTableReport();
+
+
+   /* //Get RprtCols List
+    function getRprtColsList() {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/FDocR_P/' + sessionStorage.userName, 'GET').done(function (data) {
+            CreateTableReport(data);
+        });
+    }*/
 
     //Get  FMode List
     function getFModeList() {
-        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function (data) {
             self.FModeList(data);
 
             select = document.getElementById('modeCode');
             for (var i = 0; i < data.length; i++) {
                 opt = document.createElement('option');
-                /* if (i == 3) {
-                     opt.value = data[1].Code + ',' + data[2].Code;
-                     opt.innerHTML = data[1].Name + ' - ' + data[2].Name;
-                 }
-                 else if (i == 7) {
-                     opt.value = data[5].Code + ',' + data[6].Code;
-                     opt.innerHTML = data[5].Name + ' - ' + data[6].Name;
-                 }
-                 else {
-                     opt.value = data[i].Code;
-                     opt.innerHTML = data[i].Name;
-                 }*/
                 opt.value = data[i].Code;
                 opt.innerHTML = data[i].Name;
+                if (i == 1)
+                    opt.selected = true;
                 select.appendChild(opt);
             }
 
@@ -90,13 +89,10 @@
             opt.value = data[1].Code + '*' + data[2].Code;
             opt.innerHTML = data[1].Name + ' - ' + data[2].Name;
             select.appendChild(opt);
-
-            opt = document.createElement('option');
-            opt.value = data[4].Code + '*' + data[5].Code;
-            opt.innerHTML = data[4].Name + ' - ' + data[5].Name;
-            select.appendChild(opt);
         });
     }
+
+
 
     //Get kala List
     function getKalaList() {
@@ -145,8 +141,8 @@
         });
     }
 
-    //Get FDocR
-    function getFDocR() {
+    //Get FDocR_S
+    function getFDocR_S() {
 
 
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
@@ -209,8 +205,7 @@
         }
 
 
-
-        var FDocRObject = {
+        var FDocR_SObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
             ModeCode1: modeCode1,
@@ -222,9 +217,9 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(FDocRUri + ace + '/' + sal + '/' + group, 'POST', FDocRObject).done(function (response) {
-            self.FDocRList(response);
-            calcsum(self.FDocRList());
+        ajaxFunction(FDocR_SUri + ace + '/' + sal + '/' + group, 'POST', FDocR_SObject).done(function (response) {
+            self.FDocR_SList(response);
+            calcsum(self.FDocR_SList());
             $("div.loader").hide();
         });
     }
@@ -256,29 +251,29 @@
         maxKalaDeghat3 = 0;
 
         for (var i = 0; i < list.length; ++i) {
-            FDocRData = list[i];
-            totalAmount1 += FDocRData.Amount1;
-            totalAmount2 += FDocRData.Amount2;
-            totalAmount3 += FDocRData.Amount3;
+            FDocR_SData = list[i];
+            totalAmount1 += FDocR_SData.Amount1;
+            totalAmount2 += FDocR_SData.Amount2;
+            totalAmount3 += FDocR_SData.Amount3;
 
-            totalDiscount += FDocRData.Discount;
-            totalAddMinPrice1 += FDocRData.AddMinPrice1;
-            totalAddMinPrice2 += FDocRData.AddMinPrice2;
-            totalAddMinPrice3 += FDocRData.AddMinPrice3;
-            totalAddMinPrice4 += FDocRData.AddMinPrice4;
-            totalAddMinPrice5 += FDocRData.AddMinPrice5;
-            totalAddMinPrice6 += FDocRData.AddMinPrice6;
-            totalAddMinPrice7 += FDocRData.AddMinPrice7;
-            totalAddMinPrice8 += FDocRData.AddMinPrice8;
-            totalAddMinPrice9 += FDocRData.AddMinPrice9;
-            totalAddMinPrice10 += FDocRData.AddMinPrice10;
+            totalDiscount += FDocR_SData.Discount;
+            totalAddMinPrice1 += FDocR_SData.AddMinPrice1;
+            totalAddMinPrice2 += FDocR_SData.AddMinPrice2;
+            totalAddMinPrice3 += FDocR_SData.AddMinPrice3;
+            totalAddMinPrice4 += FDocR_SData.AddMinPrice4;
+            totalAddMinPrice5 += FDocR_SData.AddMinPrice5;
+            totalAddMinPrice6 += FDocR_SData.AddMinPrice6;
+            totalAddMinPrice7 += FDocR_SData.AddMinPrice7;
+            totalAddMinPrice8 += FDocR_SData.AddMinPrice8;
+            totalAddMinPrice9 += FDocR_SData.AddMinPrice9;
+            totalAddMinPrice10 += FDocR_SData.AddMinPrice10;
 
-           // totalUnitPrice += FDocRData.UnitPrice;
-            totalTotalPrice += FDocRData.TotalPrice;
+            // totalUnitPrice += FDocR_SData.UnitPrice;
+            totalTotalPrice += FDocR_SData.TotalPrice;
 
-            KalaDeghat1 = FDocRData.DeghatM1 % 10;
-            KalaDeghat2 = FDocRData.DeghatM2 % 10;
-            KalaDeghat3 = FDocRData.DeghatM3 % 10;
+            KalaDeghat1 = FDocR_SData.DeghatM1 % 10;
+            KalaDeghat2 = FDocR_SData.DeghatM2 % 10;
+            KalaDeghat3 = FDocR_SData.DeghatM3 % 10;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
@@ -305,9 +300,10 @@
     }
 
     $("#CreateReport").click(function () {
-        getFDocR();
+        getFDocR_S();
     });
 
+   // getRprtColsList(); 
     getFModeList();
     getInvList();
     getKalaList();
@@ -324,9 +320,9 @@
     $('#nameMkz').val('همه موارد');
 
     //------------------------------------------------------
-    self.currentPageFDocR = ko.observable();
-    self.pageSizeFDocR = ko.observable(10);
-    self.currentPageIndexFDocR = ko.observable(0);
+    self.currentPageFDocR_S = ko.observable();
+    self.pageSizeFDocR_S = ko.observable(10);
+    self.currentPageIndexFDocR_S = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
@@ -369,8 +365,8 @@
     self.filterBandNo = ko.observable("");
 
 
-    self.filterFDocRList = ko.computed(function () {
-        self.currentPageIndexFDocR(0);
+    self.filterFDocR_SList = ko.computed(function () {
+        self.currentPageIndexFDocR_S(0);
         var filterDocNo = self.filterDocNo();
         var filterDocDate = self.filterDocDate();
         var filterModeName = self.filterModeName();
@@ -408,7 +404,7 @@
         var filterSerialNumber = self.filterSerialNumber();
         var filterBandNo = self.filterBandNo();
 
-        tempData = ko.utils.arrayFilter(self.FDocRList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.FDocR_SList(), function (item) {
             result =
                 ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
@@ -454,66 +450,66 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchFDocR);
+    self.search(sessionStorage.searchFDocR_S);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexFDocR = 0;
-        sessionStorage.searchFDocR = "";
+        var indexFDocR_S = 0;
+        sessionStorage.searchFDocR_S = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexFDocR(0);
+            self.currentPageIndexFDocR_S(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.FDocRList(), function (item) {
-                indexFDocR += 1;
+            value = ko.utils.arrayFirst(self.FDocR_SList(), function (item) {
+                indexFDocR_S += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexFDocR < self.pageSizeFDocR())
-                self.currentPageIndexFDocR(0);
+            if (indexFDocR_S < self.pageSizeFDocR_S())
+                self.currentPageIndexFDocR_S(0);
             else {
-                var a = Math.round((indexFDocR / self.pageSizeFDocR()), 0);
-                if (a < (indexFDocR / self.pageSizeFDocR())) a += 1;
-                self.currentPageIndexFDocR(a - 1);
+                var a = Math.round((indexFDocR_S / self.pageSizeFDocR_S()), 0);
+                if (a < (indexFDocR_S / self.pageSizeFDocR_S())) a += 1;
+                self.currentPageIndexFDocR_S(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageFDocR = ko.computed(function () {
-        var pageSizeFDocR = parseInt(self.pageSizeFDocR(), 10),
-            startIndex = pageSizeFDocR * self.currentPageIndexFDocR(),
-            endIndex = startIndex + pageSizeFDocR;
-        return self.filterFDocRList().slice(startIndex, endIndex);
+    self.currentPageFDocR_S = ko.computed(function () {
+        var pageSizeFDocR_S = parseInt(self.pageSizeFDocR_S(), 10),
+            startIndex = pageSizeFDocR_S * self.currentPageIndexFDocR_S(),
+            endIndex = startIndex + pageSizeFDocR_S;
+        return self.filterFDocR_SList().slice(startIndex, endIndex);
     });
 
-    self.nextPageFDocR = function () {
-        if (((self.currentPageIndexFDocR() + 1) * self.pageSizeFDocR()) < self.filterFDocRList().length) {
-            self.currentPageIndexFDocR(self.currentPageIndexFDocR() + 1);
+    self.nextPageFDocR_S = function () {
+        if (((self.currentPageIndexFDocR_S() + 1) * self.pageSizeFDocR_S()) < self.filterFDocR_SList().length) {
+            self.currentPageIndexFDocR_S(self.currentPageIndexFDocR_S() + 1);
         }
     };
 
-    self.previousPageFDocR = function () {
-        if (self.currentPageIndexFDocR() > 0) {
-            self.currentPageIndexFDocR(self.currentPageIndexFDocR() - 1);
+    self.previousPageFDocR_S = function () {
+        if (self.currentPageIndexFDocR_S() > 0) {
+            self.currentPageIndexFDocR_S(self.currentPageIndexFDocR_S() - 1);
         }
     };
 
-    self.firstPageFDocR = function () {
-        self.currentPageIndexFDocR(0);
+    self.firstPageFDocR_S = function () {
+        self.currentPageIndexFDocR_S(0);
     };
 
-    self.lastPageFDocR = function () {
-        tempCountFDocR = parseInt(self.filterFDocRList().length / self.pageSizeFDocR(), 10);
-        if ((self.filterFDocRList().length % self.pageSizeFDocR()) == 0)
-            self.currentPageIndexFDocR(tempCountFDocR - 1);
+    self.lastPageFDocR_S = function () {
+        tempCountFDocR_S = parseInt(self.filterFDocR_SList().length / self.pageSizeFDocR_S(), 10);
+        if ((self.filterFDocR_SList().length % self.pageSizeFDocR_S()) == 0)
+            self.currentPageIndexFDocR_S(tempCountFDocR_S - 1);
         else
-            self.currentPageIndexFDocR(tempCountFDocR);
+            self.currentPageIndexFDocR_S(tempCountFDocR_S);
     };
 
-    self.sortTableFDocR = function (viewModel, e) {
+    self.sortTableFDocR_S = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.FDocRList.sort(function (left, right) {
+        self.FDocR_SList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -1737,190 +1733,193 @@
 
 
 
-    function CreateTableReport() {
+    function CreateTableReport(data) {
         $("#TableReport").empty();
-
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableFDocR">' +
-            CreateTableTh('DocNo', 0) +
-            CreateTableTh('DocDate', 0) +
-            CreateTableTh('ModeName', 0) +
-            CreateTableTh('Status', 0) +
-            CreateTableTh('Taeed', 0) +
-            CreateTableTh('Tasvib', 0) +
-            CreateTableTh('CustName', 0) +
-            CreateTableTh('MkzName', 0) +
-            CreateTableTh('OprName', 0) +
-            CreateTableTh('KalaName', 0) +
-            CreateTableTh('KalaFileNo', 0) +
-            CreateTableTh('KalaState', 0) +
-            CreateTableTh('KalaExf1', 0) +
-            CreateTableTh('KalaExf2', 0) +
-            CreateTableTh('KalaExf3', 0) +
-            CreateTableTh('MainUnitName', 0) +
-            CreateTableTh('Amount1', 0) +
-            CreateTableTh('Amount2', 0) +
-            CreateTableTh('Amount3', 0) +
-            CreateTableTh('Discount', 0) +
-            CreateTableTh('AddMinPrice1', 1) +
-            CreateTableTh('AddMinPrice2', 1) +
-            CreateTableTh('AddMinPrice3', 1) +
-            CreateTableTh('AddMinPrice4', 1) +
-            CreateTableTh('AddMinPrice5', 1) +
-            CreateTableTh('AddMinPrice6', 1) +
-            CreateTableTh('AddMinPrice7', 1) +
-            CreateTableTh('AddMinPrice8', 1) +
-            CreateTableTh('AddMinPrice9', 1) +
-            CreateTableTh('AddMinPrice10', 1) +
-            CreateTableTh('UnitPrice', 0) +
-            CreateTableTh('TotalPrice', 0) +
-            CreateTableTh('BandSpec', 0) +
-            CreateTableTh('Comm', 0) +
-            CreateTableTh('SerialNumber', 0) +
-            CreateTableTh('BandNo', 0) +
+            '       <tr data-bind="click: sortTableFDocR_S">' +
+            CreateTableTh('DocNo', data) +
+            CreateTableTh('DocDate', data) +
+            CreateTableTh('ModeName', data) +
+            CreateTableTh('Status', data) +
+            CreateTableTh('Taeed', data) +
+            CreateTableTh('Tasvib', data) +
+            CreateTableTh('CustName', data) +
+            CreateTableTh('MkzName', data) +
+            CreateTableTh('OprName', data) +
+            CreateTableTh('KalaName', data) +
+            CreateTableTh('KalaFileNo', data) +
+            CreateTableTh('KalaState', data) +
+            CreateTableTh('KalaExf1', data) +
+            CreateTableTh('KalaExf2', data) +
+            CreateTableTh('KalaExf3', data) +
+            CreateTableTh('MainUnitName', data) +
+            CreateTableTh('Amount1', data) +
+            CreateTableTh('Amount2', data) +
+            CreateTableTh('Amount3', data) +
+            CreateTableTh('Discount', data) +
+            CreateTableTh('AddMinPrice1', data) +
+            CreateTableTh('AddMinPrice2', data) +
+            CreateTableTh('AddMinPrice3', data) +
+            CreateTableTh('AddMinPrice4', data) +
+            CreateTableTh('AddMinPrice5', data) +
+            CreateTableTh('AddMinPrice6', data) +
+            CreateTableTh('AddMinPrice7', data) +
+            CreateTableTh('AddMinPrice8', data) +
+            CreateTableTh('AddMinPrice9', data) +
+            CreateTableTh('AddMinPrice10', data) +
+            CreateTableTh('UnitPrice', data) +
+            CreateTableTh('TotalPrice', data) +
+            CreateTableTh('BandSpec', data) +
+            CreateTableTh('Comm', data) +
+            CreateTableTh('SerialNumber', data) +
+            CreateTableTh('BandNo', data) +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind="foreach: currentPageFDocR" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind="click: $parent.selectFDocR , css: { matched: $data === $root.firstMatch() }">' +
-            CreateTableTd('DocNo', 0, 0, 0) +
-            CreateTableTd('DocDate', 0, 0, 0) +
-            CreateTableTd('ModeName', 0, 0, 0) +
-            CreateTableTd('Status', 0, 0, 0) +
-            CreateTableTd('Taeed', 0, 0, 0) +
-            CreateTableTd('Tasvib', 0, 0, 0) +
-            CreateTableTd('CustName', 0, 0, 0) +
-            CreateTableTd('MkzName', 0, 0, 0) +
-            CreateTableTd('OprName', 0, 0, 0) +
-            CreateTableTd('KalaName', 0, 0, 0) +
-            CreateTableTd('KalaFileNo', 0, 0, 0) +
-            CreateTableTd('KalaState', 0, 0, 0) +
-            CreateTableTd('KalaExf1', 0, 0, 0) +
-            CreateTableTd('KalaExf2', 0, 0, 0) +
-            CreateTableTd('KalaExf3', 0, 0, 0) +
-            CreateTableTd('MainUnitName', 0, 0, 0) +
-            CreateTableTd('Amount1', 'DeghatM1', 1, 0) +
-            CreateTableTd('Amount2', 'DeghatM2', 1, 0) +
-            CreateTableTd('Amount3', 'DeghatM3', 1, 0) +
-            CreateTableTd('Discount', sessionStorage.Deghat, 2, 0) +
-            CreateTableTd('AddMinPrice1', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice2', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice3', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice4', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice5', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice6', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice7', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice8', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice9', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, 1) +
-            CreateTableTd('UnitPrice', sessionStorage.Deghat, 2, 0) +
-            CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, 0) +
-            CreateTableTd('BandSpec', 0, 0, 0) +
-            CreateTableTd('Comm', 0, 0, 0) +
-            CreateTableTd('SerialNumber', 0, 0, 0) +
-            CreateTableTd('BandNo', 0, 0, 0) +
+            ' <tbody data-bind="foreach: currentPageFDocR_S" data-dismiss="modal" style="cursor: default;">' +
+            '     <tr>' +
+            CreateTableTd('DocNo', 0, 0, data) +
+            CreateTableTd('DocDate', 0, 0, data) +
+            CreateTableTd('ModeName', 0, 0, data) +
+            CreateTableTd('Status', 0, 0, data) +
+            CreateTableTd('Taeed', 0, 0, data) +
+            CreateTableTd('Tasvib', 0, 0, data) +
+            CreateTableTd('CustName', 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, data) +
+            CreateTableTd('KalaName', 0, 0, data) +
+            CreateTableTd('KalaFileNo', 0, 0, data) +
+            CreateTableTd('KalaState', 0, 0, data) +
+            CreateTableTd('KalaExf1', 0, 0, data) +
+            CreateTableTd('KalaExf2', 0, 0, data) +
+            CreateTableTd('KalaExf3', 0, 0, data) +
+            CreateTableTd('MainUnitName', 0, 0, data) +
+            CreateTableTd('Amount1', 'DeghatM1', 1, data) +
+            CreateTableTd('Amount2', 'DeghatM2', 1, data) +
+            CreateTableTd('Amount3', 'DeghatM3', 1, data) +
+            CreateTableTd('Discount', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice1', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice2', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice3', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice4', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice5', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice6', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice7', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice8', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice9', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('UnitPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('BandSpec', 0, 0, data) +
+            CreateTableTd('Comm', 0, 0, data) +
+            CreateTableTd('SerialNumber', 0, 0, data) +
+            CreateTableTd('BandNo', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('DocNo', 0, 0) +
-            CreateTableTdSum('DocDate', 1, 0) +
-            CreateTableTdSum('ModeName', 1, 0) +
-            CreateTableTdSum('Status', 1, 0) +
-            CreateTableTdSum('Taeed', 1, 0) +
-            CreateTableTdSum('Tasvib', 1, 0) +
-            CreateTableTdSum('CustName', 1, 0) +
-            CreateTableTdSum('MkzName', 1, 0) +
-            CreateTableTdSum('OprName', 1, 0) +
-            CreateTableTdSum('KalaName', 1, 0) +
-            CreateTableTdSum('KalaFileNo', 1, 0) +
-            CreateTableTdSum('KalaState', 1, 0) +
-            CreateTableTdSum('KalaExf1', 1, 0) +
-            CreateTableTdSum('KalaExf2', 1, 0) +
-            CreateTableTdSum('KalaExf3', 1, 0) +
-            CreateTableTdSum('MainUnitName', 1, 0) +
-            CreateTableTdSum('Amount1', 2, 0) +
-            CreateTableTdSum('Amount2', 2, 0) +
-            CreateTableTdSum('Amount3', 2, 0) +
-            CreateTableTdSum('Discount', 2, 0) +
-            CreateTableTdSum('AddMinPrice1', 2, 1) +
-            CreateTableTdSum('AddMinPrice2', 2, 1) +
-            CreateTableTdSum('AddMinPrice3', 2, 1) +
-            CreateTableTdSum('AddMinPrice4', 2, 1) +
-            CreateTableTdSum('AddMinPrice5', 2, 1) +
-            CreateTableTdSum('AddMinPrice6', 2, 1) +
-            CreateTableTdSum('AddMinPrice7', 2, 1) +
-            CreateTableTdSum('AddMinPrice8', 2, 1) +
-            CreateTableTdSum('AddMinPrice9', 2, 1) +
-            CreateTableTdSum('AddMinPrice10', 2, 1) +
-            CreateTableTdSum('UnitPrice', 2, 0) +
-            CreateTableTdSum('TotalPrice', 2, 0) +
-            CreateTableTdSum('BandSpec', 1, 0) +
-            CreateTableTdSum('Comm', 1, 0) +
-            CreateTableTdSum('SerialNumber', 1, 0) +
-            CreateTableTdSum('BandNo', 1, 0) +
+            CreateTableTdSum('DocNo', 0, data) +
+            CreateTableTdSum('DocDate', 1, data) +
+            CreateTableTdSum('ModeName', 1, data) +
+            CreateTableTdSum('Status', 1, data) +
+            CreateTableTdSum('Taeed', 1, data) +
+            CreateTableTdSum('Tasvib', 1, data) +
+            CreateTableTdSum('CustName', 1, data) +
+            CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('OprName', 1, data) +
+            CreateTableTdSum('KalaName', 1, data) +
+            CreateTableTdSum('KalaFileNo', 1, data) +
+            CreateTableTdSum('KalaState', 1, data) +
+            CreateTableTdSum('KalaExf1', 1, data) +
+            CreateTableTdSum('KalaExf2', 1, data) +
+            CreateTableTdSum('KalaExf3', 1, data) +
+            CreateTableTdSum('MainUnitName', 1, data) +
+            CreateTableTdSum('Amount1', 2, data) +
+            CreateTableTdSum('Amount2', 2, data) +
+            CreateTableTdSum('Amount3', 2, data) +
+            CreateTableTdSum('Discount', 2, data) +
+            CreateTableTdSum('AddMinPrice1', 2, data) +
+            CreateTableTdSum('AddMinPrice2', 2, data) +
+            CreateTableTdSum('AddMinPrice3', 2, data) +
+            CreateTableTdSum('AddMinPrice4', 2, data) +
+            CreateTableTdSum('AddMinPrice5', 2, data) +
+            CreateTableTdSum('AddMinPrice6', 2, data) +
+            CreateTableTdSum('AddMinPrice7', 2, data) +
+            CreateTableTdSum('AddMinPrice8', 2, data) +
+            CreateTableTdSum('AddMinPrice9', 2, data) +
+            CreateTableTdSum('AddMinPrice10', 2, data) +
+            CreateTableTdSum('UnitPrice', 2, data) +
+            CreateTableTdSum('TotalPrice', 2, data) +
+            CreateTableTdSum('BandSpec', 1, data) +
+            CreateTableTdSum('Comm', 1, data) +
+            CreateTableTdSum('SerialNumber', 1, data) +
+            CreateTableTdSum('BandNo', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
-            CreateTableTdSearch('DocNo', 0) +
-            CreateTableTdSearch('DocDate', 0) +
-            CreateTableTdSearch('ModeName', 0) +
-            CreateTableTdSearch('Status', 0) +
-            CreateTableTdSearch('Taeed', 0) +
-            CreateTableTdSearch('Tasvib', 0) +
-            CreateTableTdSearch('CustName', 0) +
-            CreateTableTdSearch('MkzName', 0) +
-            CreateTableTdSearch('OprName', 0) +
-            CreateTableTdSearch('KalaName', 0) +
-            CreateTableTdSearch('KalaFileNo', 0) +
-            CreateTableTdSearch('KalaState', 0) +
-            CreateTableTdSearch('KalaExf1', 0) +
-            CreateTableTdSearch('KalaExf2', 0) +
-            CreateTableTdSearch('KalaExf3', 0) +
-            CreateTableTdSearch('MainUnitName', 0) +
-            CreateTableTdSearch('Amount1', 0) +
-            CreateTableTdSearch('Amount2', 0) +
-            CreateTableTdSearch('Amount3', 0) +
-            CreateTableTdSearch('Discount', 0) +
-            CreateTableTdSearch('AddMinPrice1', 1) +
-            CreateTableTdSearch('AddMinPrice2', 1) +
-            CreateTableTdSearch('AddMinPrice3', 1) +
-            CreateTableTdSearch('AddMinPrice4', 1) +
-            CreateTableTdSearch('AddMinPrice5', 1) +
-            CreateTableTdSearch('AddMinPrice6', 1) +
-            CreateTableTdSearch('AddMinPrice7', 1) +
-            CreateTableTdSearch('AddMinPrice8', 1) +
-            CreateTableTdSearch('AddMinPrice9', 1) +
-            CreateTableTdSearch('AddMinPrice10', 1) +
-            CreateTableTdSearch('UnitPrice', 0) +
-            CreateTableTdSearch('TotalPrice', 0) +
-            CreateTableTdSearch('BandSpec', 0) +
-            CreateTableTdSearch('Comm', 0) +
-            CreateTableTdSearch('SerialNumber', 0) +
-            CreateTableTdSearch('BandNo', 0) +
+            CreateTableTdSearch('DocNo', data) +
+            CreateTableTdSearch('DocDate', data) +
+            CreateTableTdSearch('ModeName', data) +
+            CreateTableTdSearch('Status', data) +
+            CreateTableTdSearch('Taeed', data) +
+            CreateTableTdSearch('Tasvib', data) +
+            CreateTableTdSearch('CustName', data) +
+            CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('KalaName', data) +
+            CreateTableTdSearch('KalaFileNo', data) +
+            CreateTableTdSearch('KalaState', data) +
+            CreateTableTdSearch('KalaExf1', data) +
+            CreateTableTdSearch('KalaExf2', data) +
+            CreateTableTdSearch('KalaExf3', data) +
+            CreateTableTdSearch('MainUnitName', data) +
+            CreateTableTdSearch('Amount1', data) +
+            CreateTableTdSearch('Amount2', data) +
+            CreateTableTdSearch('Amount3', data) +
+            CreateTableTdSearch('Discount', data) +
+            CreateTableTdSearch('AddMinPrice1', data) +
+            CreateTableTdSearch('AddMinPrice2', data) +
+            CreateTableTdSearch('AddMinPrice3', data) +
+            CreateTableTdSearch('AddMinPrice4', data) +
+            CreateTableTdSearch('AddMinPrice5', data) +
+            CreateTableTdSearch('AddMinPrice6', data) +
+            CreateTableTdSearch('AddMinPrice7', data) +
+            CreateTableTdSearch('AddMinPrice8', data) +
+            CreateTableTdSearch('AddMinPrice9', data) +
+            CreateTableTdSearch('AddMinPrice10', data) +
+            CreateTableTdSearch('UnitPrice', data) +
+            CreateTableTdSearch('TotalPrice', data) +
+            CreateTableTdSearch('BandSpec', data) +
+            CreateTableTdSearch('Comm', data) +
+            CreateTableTdSearch('SerialNumber', data) +
+            CreateTableTdSearch('BandNo', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
         );
     }
 
-    function CreateTableTh(field, InOut) {
+    function CreateTableTh(field, data) {
+
         text = '<th ';
-        if (GetShowField(field, InOut) == 0)
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
             text += 'Hidden ';
 
         text += 'data-column="' + field + '">' +
-            '<span>' + GetNameField(field, InOut) + '</span>' +
+            '<span>' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
             '</th>';
         return text;
     }
 
-    function CreateTableTd(field, Deghat, no, InOut) {
-
+    function CreateTableTd(field, Deghat, no, data) {
         text = '<td ';
-        if (GetShowField(field, InOut) == 0)
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
             text += 'Hidden ';
 
         switch (no) {
@@ -1940,9 +1939,11 @@
         return text;
     }
 
-    function CreateTableTdSum(field, no, InOut) {
+    function CreateTableTdSum(field, no, data) {
         text = '<td ';
-        if (GetShowField(field, InOut) == 0)
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
             text += 'Hidden ';
 
         switch (no) {
@@ -1959,10 +1960,13 @@
         return text;
     }
 
-    function CreateTableTdSearch(field, InOut) {
+    function CreateTableTdSearch(field, data) {
         text = '<td ';
-        if (GetShowField(field, InOut) == 0)
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
             text += 'Hidden ';
+
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
