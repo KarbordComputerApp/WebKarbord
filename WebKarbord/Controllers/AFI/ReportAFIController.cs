@@ -17,6 +17,11 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult Dftr()
+        {
+            return View();
+        }
+
 
 
 
