@@ -74,16 +74,16 @@
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                     <div class="form-group">
-                                        <select id="SathTaraz"></select>
+                                        <select id="DispBands"></select>
                                     </div>
                                 </div>
                             </div>
 
                             نوع نمایش
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                     <div class="form-group">
-                                        <select id="Level"></select>
+                                        <select id="JamRooz"></select>
                                     </div>
                                 </div>
                             </div>
@@ -193,6 +193,50 @@
                     </div>
 
                 </form>
+                <hr />
+                <div id="TableReport" style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeDftr" class="selectorange">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                            <label id="sumA"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageDftr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageDftr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a> <b data-bind="text: currentPageIndexDftr() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageDftr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageDftr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -222,19 +266,19 @@
                                 <th data-column="Code">
                                     کد
                                     <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeCodeAcc }"></i>
+                                        <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Name">
                                     نام
                                     <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeNameAcc }"></i>
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Spec">
                                     ملاحظات
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeSpecAcc }"></i>
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>
                                 </th>
                             </tr>
@@ -250,7 +294,7 @@
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterAcc0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterAcc1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterAcc3, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterAcc2, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -662,6 +706,115 @@
                             <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageAMode">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Status" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست وضعیت سند</h4>
+                <a id="refreshStatus">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped">
+                                <thead style="cursor: pointer;">
+                                    <tr data-bind="click: sortTableStatus">
+                                        <th data-column="Status">
+                                            نام
+                                            <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeStatus }"></i>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: currentPageStatus" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.AddStatus }">
+                                        <td data-bind="text: Status"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background-color: #efb68399;">
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterStatus0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 centered">
+                        <div class="row centered">
+                            <button data-bind="click: AddAllStatus" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: DelAllStatus" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped" id="TableSelectedStatus">
+                                <thead style="cursor: pointer;">
+                                    <tr>
+                                        <th>نام</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="TableBodyListStatus" style="cursor: default;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeStatus">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+
+                        <a data-bind="click: firstPageStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexStatus() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageStatus">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>

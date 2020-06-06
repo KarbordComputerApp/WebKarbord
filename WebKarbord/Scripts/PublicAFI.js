@@ -317,6 +317,21 @@ $("#SaveParam").click(function () {
     SetSelectProgram();
 });
 
+function getProgName(value) {
+    if (sessionStorage.ace == 'AFI8') {
+        if (value == 'A')
+            return 'Acc5';
+        else if (value == 'S')
+            return 'Fct5';
+        else if (value == 'P')
+            return 'Inv5';
+    }
+    else if (sessionStorage.ace == 'AFI1')
+        return 'Afi1';
+    else
+        return 'نامشخص';
+}
+
 //Get Param List
 function getParamList() {
     ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET').done(function (data) {

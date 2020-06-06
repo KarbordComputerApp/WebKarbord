@@ -125,26 +125,28 @@
                             </div>
                         </div>
 
-                        نوع تراز
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <div class="form-group">
+                                <span class="col-md-4">نوع تراز</span>
+                                <div class="form-group  col-md-8">
                                     <select id="SathTaraz"></select>
                                 </div>
                             </div>
                         </div>
 
-                        سطح تراز
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <div class="form-group">
+                                <span class="col-md-4">سطح تراز</span>
+                                <div class="form-group col-md-8">
                                     <select id="Level"></select>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 
 
                             <div class="pull-left">
@@ -192,15 +194,15 @@
                                 <td data-bind="text: Best == 0 ? '0' : NumberToNumberString(Best) , style: { color: Best < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
                                 <td data-bind="text: MonBede == 0 ? '0' : NumberToNumberString(MonBede) , style: { color: MonBede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
                                 <td data-bind="text: MonBest == 0 ? '0' : NumberToNumberString(MonBest) , style: { color: MonBest < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
-                                 <td data-bind="text: MonTotal== 0 ? '0' : NumberToNumberString(MonTotal) , style: { color: MonTotal < 0 ? 'red' : 'black' }" style="direction: ltr;"></td> 
+                                <td data-bind="text: MonTotal== 0 ? '0' : NumberToNumberString(MonTotal) , style: { color: MonTotal < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color:#e37d228f;">
                                 <td id="textTotal"></td>
                                 <td></td>
-                                <td id="totalBede"  style="direction: ltr;"></td>
-                                <td id="totalBest"  style="direction: ltr;"></td>
+                                <td id="totalBede" style="direction: ltr;"></td>
+                                <td id="totalBest" style="direction: ltr;"></td>
                                 <td id="totalMonBede" style="direction: ltr;"></td>
                                 <td id="totalMonBest" style="direction: ltr;"></td>
                                 <td id="totalMonTotal" style="direction: ltr;"></td>

@@ -239,7 +239,8 @@
 
     //Get Status List
     function getStatusList() {
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        progName = getProgName('S');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
             if (self.StatusList().length > 0) {
                 if (flagupdateHeader == 1)
