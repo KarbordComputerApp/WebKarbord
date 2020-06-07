@@ -114,6 +114,12 @@
         dispBands = $("#DispBands").val();
         jamRooz = $("#JamRooz").val();
 
+        codeAcc = self.AccCode();
+
+        if (codeAcc == null) {
+            return showNotification('حساب را انتخاب کنید', 0);
+        }
+
 
         var aModeCode = '';
         for (var i = 0; i <= counterAMode - 1; i++) {
@@ -155,100 +161,49 @@
             taTarikh: tarikh2,
             azShomarh: azShomarh,
             taShomarh: taShomarh,
-            AccCode: self.AccCode(),
+            AccCode: codeAcc,
             AModeCode: aModeCode,
-            StatusCode :statusCode,
+            StatusCode: statusCode,
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
         ajaxFunction(DftrUri + ace + '/' + sal + '/' + group, 'POST', DftrObject).done(function (response) {
             self.DftrList(response);
-            //calcsum(self.DftrList());
-            $("div.loader").hide();
+            calcsum(self.DftrList());
         });
     }
 
-    /*  function calcsum(list) {
-           totalAmount1 = 0;
-           totalAmount2 = 0;
-           totalAmount3 = 0;
-           totalDiscount = 0;
-           totalAddMinPrice1 = 0;
-           totalAddMinPrice2 = 0;
-           totalAddMinPrice3 = 0;
-           totalAddMinPrice4 = 0;
-           totalAddMinPrice5 = 0;
-           totalAddMinPrice6 = 0;
-           totalAddMinPrice7 = 0;
-           totalAddMinPrice8 = 0;
-           totalAddMinPrice9 = 0;
-           totalAddMinPrice10 = 0;
-           totalUnitPrice = 0;
-           totalTotalPrice = 0;
-   
-           KalaDeghat1 = 0;
-           KalaDeghat2 = 0;
-           KalaDeghat3 = 0;
-   
-           maxKalaDeghat1 = 0;
-           maxKalaDeghat2 = 0;
-           maxKalaDeghat3 = 0;
-   
-           for (var i = 0; i < list.length; ++i) {
-               DftrData = list[i];
-               totalAmount1 += DftrData.Amount1;
-               totalAmount2 += DftrData.Amount2;
-               totalAmount3 += DftrData.Amount3;
-   
-               totalDiscount += DftrData.Discount;
-               totalAddMinPrice1 += DftrData.AddMinPrice1;
-               totalAddMinPrice2 += DftrData.AddMinPrice2;
-               totalAddMinPrice3 += DftrData.AddMinPrice3;
-               totalAddMinPrice4 += DftrData.AddMinPrice4;
-               totalAddMinPrice5 += DftrData.AddMinPrice5;
-               totalAddMinPrice6 += DftrData.AddMinPrice6;
-               totalAddMinPrice7 += DftrData.AddMinPrice7;
-               totalAddMinPrice8 += DftrData.AddMinPrice8;
-               totalAddMinPrice9 += DftrData.AddMinPrice9;
-               totalAddMinPrice10 += DftrData.AddMinPrice10;
-   
-               // totalUnitPrice += DftrData.UnitPrice;
-               totalTotalPrice += DftrData.TotalPrice;
-   
-               KalaDeghat1 = DftrData.DeghatM1 % 10;
-               KalaDeghat2 = DftrData.DeghatM2 % 10;
-               KalaDeghat3 = DftrData.DeghatM3 % 10;
-   
-               KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
-               KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
-               KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
-           }
-   
-           $("#textTotal").text('جمع');
-           $("#totalAmount1").text(NumberToNumberString(totalAmount1.toFixed(maxKalaDeghat1)));
-           $("#totalAmount2").text(NumberToNumberString(totalAmount2.toFixed(maxKalaDeghat2)));
-           $("#totalAmount3").text(NumberToNumberString(totalAmount3.toFixed(maxKalaDeghat3)));
-           $("#totalDiscount").text(NumberToNumberString(totalDiscount.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice1").text(NumberToNumberString(totalAddMinPrice1.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice2").text(NumberToNumberString(totalAddMinPrice2.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice3").text(NumberToNumberString(totalAddMinPrice3.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice4").text(NumberToNumberString(totalAddMinPrice4.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice5").text(NumberToNumberString(totalAddMinPrice5.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice6").text(NumberToNumberString(totalAddMinPrice6.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice7").text(NumberToNumberString(totalAddMinPrice7.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice8").text(NumberToNumberString(totalAddMinPrice8.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice9").text(NumberToNumberString(totalAddMinPrice9.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalAddMinPrice10").text(NumberToNumberString(totalAddMinPrice10.toFixed(parseInt(sessionStorage.Deghat))));
-           //$("#totalUnitPrice").text(NumberToNumberString(totalUnitPrice.toFixed(parseInt(sessionStorage.Deghat))));
-           $("#totalTotalPrice").text(NumberToNumberString(totalTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
-       }*/
+    function calcsum(list) {
+        totalBede = 0;
+        totalBest = 0;
+        totalMonBede = 0;
+        totalMonBest = 0;
+        totalMonTotal = 0;
+
+        for (var i = 0; i < list.length; ++i) {
+            DftrData = list[i];
+            totalBede += DftrData.Bede;
+            totalBest += DftrData.Best;
+            totalMonBede += DftrData.MonBede;
+            totalMonBest += DftrData.MonBest;
+            totalMonTotal += DftrData.MonTotal;
+        }
+
+        $("#textTotal").text('جمع');
+        $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
+        //$("#totalMonBede").text(NumberToNumberString(totalMonBede.toFixed(parseInt(sessionStorage.Deghat))));
+        //$("#totalMonBest").text(NumberToNumberString(totalMonBest.toFixed(parseInt(sessionStorage.Deghat))));
+        // $("#totalMonTotal").text(NumberToNumberString(totalMonTotal.toFixed(parseInt(sessionStorage.Deghat))));
+
+    }
 
     $("#CreateReport").click(function () {
         getDftr();
     });
 
 
-    getRprtColsList(); 
+    getRprtColsList();
     getAccList();
     getOprList();
     getMkzList();
@@ -1154,121 +1109,148 @@
 
     self.filterDocNo = ko.observable("");
     self.filterDocDate = ko.observable("");
-    self.filterModeName = ko.observable("");
-    self.filterStatus = ko.observable("");
-    self.filterTaeed = ko.observable("");
-    self.filterTasvib = ko.observable("");
-    self.filterCustName = ko.observable("");
-    self.filterMkzName = ko.observable("");
-    self.filterOprName = ko.observable("");
-    self.filterKalaName = ko.observable("");
-    self.filterKalaFileNo = ko.observable("");
-    self.filterKalaState = ko.observable("");
-    self.filterKalaExf1 = ko.observable("");
-    self.filterKalaExf2 = ko.observable("");
-    self.filterKalaExf3 = ko.observable("");
-    self.filterMainUnitName = ko.observable("");
-    self.filterAmount1 = ko.observable("");
-    self.filterAmount2 = ko.observable("");
-    self.filterAmount3 = ko.observable("");
-    self.filterDiscount = ko.observable("");
-    self.filterAddMinPrice1 = ko.observable("");
-    self.filterAddMinPrice2 = ko.observable("");
-    self.filterAddMinPrice3 = ko.observable("");
-    self.filterAddMinPrice4 = ko.observable("");
-    self.filterAddMinPrice5 = ko.observable("");
-    self.filterAddMinPrice6 = ko.observable("");
-    self.filterAddMinPrice7 = ko.observable("");
-    self.filterAddMinPrice8 = ko.observable("");
-    self.filterAddMinPrice9 = ko.observable("");
-    self.filterAddMinPrice10 = ko.observable("");
-    self.filterUnitPrice = ko.observable("");
-    self.filterTotalPrice = ko.observable("");
-    self.filterBandSpec = ko.observable("");
+    self.filterAccCode = ko.observable("");
+    self.filterAccName = ko.observable("");
     self.filterComm = ko.observable("");
-    self.filterSerialNumber = ko.observable("");
-    self.filterBandNo = ko.observable("");
-
+    self.filterBede = ko.observable("");
+    self.filterBest = ko.observable("");
+    self.filterMonBede = ko.observable("");
+    self.filterMonBest = ko.observable("");
+    self.filterMonTotal = ko.observable("");
+    self.filterCheckNo = ko.observable("");
+    self.filterCheckDate = ko.observable("");
+    self.filterBank = ko.observable("");
+    self.filterShobe = ko.observable("");
+    self.filterJari = ko.observable("");
+    self.filterTrafCode = ko.observable("");
+    self.filterTrafName = ko.observable("");
+    self.filterModeName = ko.observable("");
+    self.filterMkzCode = ko.observable("");
+    self.filterMkzName = ko.observable("");
+    self.filterOprCode = ko.observable("");
+    self.filterOprName = ko.observable("");
+    self.filterAmount = ko.observable("");
+    self.filterSpec = ko.observable("");
+    self.filterStatus = ko.observable("");
+    self.filterF01 = ko.observable("");
+    self.filterF02 = ko.observable("");
+    self.filterF03 = ko.observable("");
+    self.filterF04 = ko.observable("");
+    self.filterF05 = ko.observable("");
+    self.filterF06 = ko.observable("");
+    self.filterF07 = ko.observable("");
+    self.filterF08 = ko.observable("");
+    self.filterF09 = ko.observable("");
+    self.filterF10 = ko.observable("");
+    self.filterF11 = ko.observable("");
+    self.filterF12 = ko.observable("");
+    self.filterF13 = ko.observable("");
+    self.filterF14 = ko.observable("");
+    self.filterF15 = ko.observable("");
+    self.filterF16 = ko.observable("");
+    self.filterF17 = ko.observable("");
+    self.filterF18 = ko.observable("");
+    self.filterF19 = ko.observable("");
+    self.filterF20 = ko.observable("");
 
     self.filterDftrList = ko.computed(function () {
         self.currentPageIndexDftr(0);
         var filterDocNo = self.filterDocNo();
         var filterDocDate = self.filterDocDate();
-        var filterModeName = self.filterModeName();
-        var filterStatus = self.filterStatus();
-        var filterTaeed = self.filterTaeed().toUpperCase();
-        var filterTasvib = self.filterTasvib().toUpperCase();
-        var filterCustName = self.filterCustName();
-        var filterMkzName = self.filterMkzName();
-        var filterOprName = self.filterOprName();
-        var filterKalaName = self.filterKalaName();
-        var filterKalaFileNo = self.filterKalaFileNo();
-        var filterKalaState = self.filterKalaState();
-        var filterKalaExf1 = self.filterKalaExf1();
-        var filterKalaExf2 = self.filterKalaExf2();
-        var filterKalaExf3 = self.filterKalaExf3();
-        var filterMainUnitName = self.filterMainUnitName();
-        var filterAmount1 = self.filterAmount1();
-        var filterAmount2 = self.filterAmount2();
-        var filterAmount3 = self.filterAmount3();
-        var filterDiscount = self.filterDiscount();
-        var filterAddMinPrice1 = self.filterAddMinPrice1();
-        var filterAddMinPrice2 = self.filterAddMinPrice2();
-        var filterAddMinPrice3 = self.filterAddMinPrice3();
-        var filterAddMinPrice4 = self.filterAddMinPrice4();
-        var filterAddMinPrice5 = self.filterAddMinPrice5();
-        var filterAddMinPrice6 = self.filterAddMinPrice6();
-        var filterAddMinPrice7 = self.filterAddMinPrice7();
-        var filterAddMinPrice8 = self.filterAddMinPrice8();
-        var filterAddMinPrice9 = self.filterAddMinPrice9();
-        var filterAddMinPrice10 = self.filterAddMinPrice10();
-        var filterUnitPrice = self.filterUnitPrice();
-        var filterTotalPrice = self.filterTotalPrice();
-        var filterBandSpec = self.filterBandSpec();
+        var filterAccCode = self.filterAccCode();
+        var filterAccName = self.filterAccName();
         var filterComm = self.filterComm();
-        var filterSerialNumber = self.filterSerialNumber();
-        var filterBandNo = self.filterBandNo();
+        var filterBede = self.filterBede();
+        var filterBest = self.filterBest();
+        var filterMonBede = self.filterMonBede();
+        var filterMonBest = self.filterMonBest();
+        var filterMonTotal = self.filterMonTotal();
+        var filterCheckNo = self.filterCheckNo();
+        var filterCheckDate = self.filterCheckDate();
+        var filterBank = self.filterBank();
+        var filterShobe = self.filterShobe();
+        var filterJari = self.filterJari();
+        var filterTrafCode = self.filterTrafCode();
+        var filterTrafName = self.filterTrafName();
+        var filterMkzCode = self.filterMkzCode();
+        var filterMkzName = self.filterMkzName();
+        var filterOprCode = self.filterOprCode();
+        var filterOprName = self.filterOprName();
+        var filterAmount = self.filterAmount();
+        var filterSpec = self.filterSpec();
+        var filterStatus = self.filterStatus();
+        var filterModeName = self.filterModeName();
+        var filterF01 = self.filterF01();
+        var filterF02 = self.filterF02();
+        var filterF03 = self.filterF03();
+        var filterF04 = self.filterF04();
+        var filterF05 = self.filterF05();
+        var filterF06 = self.filterF06();
+        var filterF07 = self.filterF07();
+        var filterF08 = self.filterF08();
+        var filterF09 = self.filterF09();
+        var filterF10 = self.filterF10();
+        var filterF11 = self.filterF11();
+        var filterF12 = self.filterF12();
+        var filterF13 = self.filterF13();
+        var filterF14 = self.filterF14();
+        var filterF15 = self.filterF15();
+        var filterF16 = self.filterF16();
+        var filterF17 = self.filterF17();
+        var filterF18 = self.filterF18();
+        var filterF19 = self.filterF19();
+        var filterF20 = self.filterF20();
 
         tempData = ko.utils.arrayFilter(self.DftrList(), function (item) {
             result =
                 ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
-                (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
-                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
-                (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
-                (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
-                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
-                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
-                (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
-                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
-                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
-                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
-                (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
-                ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
-                ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
-                ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
-                ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
-                ko.utils.stringStartsWith(item.AddMinPrice1.toString().toLowerCase(), filterAddMinPrice1) &&
-                ko.utils.stringStartsWith(item.AddMinPrice2.toString().toLowerCase(), filterAddMinPrice2) &&
-                ko.utils.stringStartsWith(item.AddMinPrice3.toString().toLowerCase(), filterAddMinPrice3) &&
-                ko.utils.stringStartsWith(item.AddMinPrice4.toString().toLowerCase(), filterAddMinPrice4) &&
-                ko.utils.stringStartsWith(item.AddMinPrice5.toString().toLowerCase(), filterAddMinPrice5) &&
-                ko.utils.stringStartsWith(item.AddMinPrice6.toString().toLowerCase(), filterAddMinPrice6) &&
-                ko.utils.stringStartsWith(item.AddMinPrice7.toString().toLowerCase(), filterAddMinPrice7) &&
-                ko.utils.stringStartsWith(item.AddMinPrice8.toString().toLowerCase(), filterAddMinPrice8) &&
-                ko.utils.stringStartsWith(item.AddMinPrice9.toString().toLowerCase(), filterAddMinPrice9) &&
-                ko.utils.stringStartsWith(item.AddMinPrice10.toString().toLowerCase(), filterAddMinPrice10) &&
-                ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filterUnitPrice) &&
-                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
-                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
+                (item.AccCode == null ? '' : item.AccCode.toString().search(filterAccCode) >= 0) &&
+                (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
                 (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
-                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo)
+                ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
+                ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
+                ko.utils.stringStartsWith(item.MonBede.toString().toLowerCase(), filterMonBede) &&
+                ko.utils.stringStartsWith(item.MonBest.toString().toLowerCase(), filterMonBest) &&
+                ko.utils.stringStartsWith(item.MonTotal.toString().toLowerCase(), filterMonTotal) &&
+                ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
+                (item.CheckDate == null ? '' : item.CheckDate.toString().search(filterCheckDate) >= 0) &&
+                (item.Bank == null ? '' : item.Bank.toString().search(filterBank) >= 0) &&
+                (item.Shobe == null ? '' : item.Shobe.toString().search(filterShobe) >= 0) &&
+                (item.Jari == null ? '' : item.Jari.toString().search(filterJari) >= 0) &&
+                ko.utils.stringStartsWith(item.TrafCode.toString().toLowerCase(), filterTrafCode) &&
+                (item.TrafName == null ? '' : item.TrafName.toString().search(filterTrafName) >= 0) &&
+                (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
+                ko.utils.stringStartsWith(item.MkzCode.toString().toLowerCase(), filterMkzCode) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                ko.utils.stringStartsWith(item.OprCode.toString().toLowerCase(), filterOprCode) &&
+                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                ko.utils.stringStartsWith(item.Amount.toString().toLowerCase(), filterAmount) &&
+                (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
+                (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
+                (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
+                (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
+                (item.F05 == null ? '' : item.F05.toString().search(filterF05) >= 0) &&
+                (item.F06 == null ? '' : item.F06.toString().search(filterF06) >= 0) &&
+                (item.F07 == null ? '' : item.F07.toString().search(filterF07) >= 0) &&
+                (item.F08 == null ? '' : item.F08.toString().search(filterF08) >= 0) &&
+                (item.F09 == null ? '' : item.F09.toString().search(filterF09) >= 0) &&
+                (item.F10 == null ? '' : item.F10.toString().search(filterF10) >= 0) &&
+                (item.F11 == null ? '' : item.F11.toString().search(filterF11) >= 0) &&
+                (item.F12 == null ? '' : item.F12.toString().search(filterF12) >= 0) &&
+                (item.F13 == null ? '' : item.F13.toString().search(filterF13) >= 0) &&
+                (item.F14 == null ? '' : item.F14.toString().search(filterF14) >= 0) &&
+                (item.F15 == null ? '' : item.F15.toString().search(filterF15) >= 0) &&
+                (item.F16 == null ? '' : item.F16.toString().search(filterF16) >= 0) &&
+                (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
+                (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
+                (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
+                (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
             return result;
         })
+        $("#CountRecord").text(tempData.length);
         // calcsum(tempData);
         return tempData;
 
@@ -1346,85 +1328,98 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-        self.iconTypeDocDate('');
         self.iconTypeDocNo('');
+        self.iconTypeDocDate('');
+        self.iconTypeAccCode('');
+        self.iconTypeAccName('');
+        self.iconTypeComm('');
+        self.iconTypeBede('');
+        self.iconTypeBest('');
+        self.iconTypeMonBede('');
+        self.iconTypeMonBest('');
+        self.iconTypeMonTotal('');
+        self.iconTypeCheckNo('');
+        self.iconTypeCheckDate('');
+        self.iconTypeBank('');
+        self.iconTypeShobe('');
+        self.iconTypeJari('');
+        self.iconTypeTrafCode('');
+        self.iconTypeTrafName('');
         self.iconTypeModeName('');
+        self.iconTypeMkzCode('');
+        self.iconTypeMkzName('');
+        self.iconTypeOprCode('');
+        self.iconTypeOprName('');
+        self.iconTypeAmount('');
         self.iconTypeSpec('');
         self.iconTypeStatus('');
-        self.iconTypeTaeed('');
-        self.iconTypeTasvib('');
-        self.iconTypeCustName('');
-        self.iconTypeMkzName('');
-        self.iconTypeOprName('');
-        self.iconTypeKalaName('');
-        self.iconTypeKalaFileNo('');
-        self.iconTypeKalaState('');
-        self.iconTypeKalaExf1('');
-        self.iconTypeKalaExf2('');
-        self.iconTypeKalaExf3('');
-        self.iconTypeMainUnitName('');
-        self.iconTypeAmount1('');
-        self.iconTypeAmount2('');
-        self.iconTypeAmount3('');
-        self.iconTypeDiscount('');
-        self.iconTypeAddMinPrice1('');
-        self.iconTypeAddMinPrice2('');
-        self.iconTypeAddMinPrice3('');
-        self.iconTypeAddMinPrice4('');
-        self.iconTypeAddMinPrice5('');
-        self.iconTypeAddMinPrice6('');
-        self.iconTypeAddMinPrice7('');
-        self.iconTypeAddMinPrice8('');
-        self.iconTypeAddMinPrice9('');
-        self.iconTypeAddMinPrice10('');
-        self.iconTypeUnitPrice('');
-        self.iconTypeTotalPrice('');
-        self.iconTypeBandSpec('');
-        self.iconTypeComm('');
-        self.iconTypeSerialNumber('');
-        self.iconTypeBandNo('');
+        self.iconTypeF01('');
+        self.iconTypeF02('');
+        self.iconTypeF03('');
+        self.iconTypeF04('');
+        self.iconTypeF05('');
+        self.iconTypeF06('');
+        self.iconTypeF07('');
+        self.iconTypeF08('');
+        self.iconTypeF09('');
+        self.iconTypeF10('');
+        self.iconTypeF11('');
+        self.iconTypeF12('');
+        self.iconTypeF13('');
+        self.iconTypeF14('');
+        self.iconTypeF15('');
+        self.iconTypeF16('');
+        self.iconTypeF17('');
+        self.iconTypeF18('');
+        self.iconTypeF19('');
+        self.iconTypeF20('');
 
-        if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MonBede') self.iconTypeMonBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MonBest') self.iconTypeMonBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MonTotal') self.iconTypeMonTotal((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bank') self.iconTypeBank((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Shobe') self.iconTypeShobe((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Jari') self.iconTypeJari((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafCode') self.iconTypeTrafCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafName') self.iconTypeTrafName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ModeName') self.iconTypeModeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Amount') self.iconTypeAmount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Taeed') self.iconTypeTaeed((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Tasvib') self.iconTypeTasvib((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaFileNo') self.iconTypeKalaFileNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaState') self.iconTypeKalaState((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaExf1') self.iconTypeKalaExf1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaExf2') self.iconTypeKalaExf2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaExf3') self.iconTypeKalaExf3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MainUnitName') self.iconTypeMainUnitName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Amount1') self.iconTypeAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Amount2') self.iconTypeAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Amount3') self.iconTypeAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Discount') self.iconTypeDiscount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice1') self.iconTypeAddMinPrice1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice2') self.iconTypeAddMinPrice2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice3') self.iconTypeAddMinPrice3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice4') self.iconTypeAddMinPrice4((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice5') self.iconTypeAddMinPrice5((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice6') self.iconTypeAddMinPrice6((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice7') self.iconTypeAddMinPrice7((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice8') self.iconTypeAddMinPrice8((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice9') self.iconTypeAddMinPrice9((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AddMinPrice10') self.iconTypeAddMinPrice10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'UnitPrice') self.iconTypeUnitPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'BandSpec') self.iconTypeBandSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-
+        if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F04') self.iconTypeF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F05') self.iconTypeF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F06') self.iconTypeF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F07') self.iconTypeF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F08') self.iconTypeF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F09') self.iconTypeF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F10') self.iconTypeF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F11') self.iconTypeF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F12') self.iconTypeF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F13') self.iconTypeF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F14') self.iconTypeF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F15') self.iconTypeF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F16') self.iconTypeF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F17') self.iconTypeF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     }
-
-
 
 
     self.sortType = "ascending";
@@ -1432,46 +1427,49 @@
 
     self.iconTypeDocDate = ko.observable("");
     self.iconTypeDocNo = ko.observable("");
+    self.iconTypeAccCode = ko.observable("");
+    self.iconTypeAccName = ko.observable("");
+    self.iconTypeComm = ko.observable("");
+    self.iconTypeBede = ko.observable("");
+    self.iconTypeBest = ko.observable("");
+    self.iconTypeMonBede = ko.observable("");
+    self.iconTypeMonBest = ko.observable("");
+    self.iconTypeMonTotal = ko.observable("");
+    self.iconTypeCheckNo = ko.observable("");
+    self.iconTypeCheckDate = ko.observable("");
+    self.iconTypeBank = ko.observable("");
+    self.iconTypeShobe = ko.observable("");
+    self.iconTypeJari = ko.observable("");
+    self.iconTypeTrafCode = ko.observable("");
+    self.iconTypeTrafName = ko.observable("");
     self.iconTypeModeName = ko.observable("");
+    self.iconTypeMkzCode = ko.observable("");
+    self.iconTypeMkzName = ko.observable("");
+    self.iconTypeOprCode = ko.observable("");
+    self.iconTypeOprName = ko.observable("");
+    self.iconTypeAmount = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
-    self.iconTypeTaeed = ko.observable("");
-    self.iconTypeTasvib = ko.observable("");
-    self.iconTypeCustName = ko.observable("");
-    self.iconTypeMkzName = ko.observable("");
-    self.iconTypeOprName = ko.observable("");
-    self.iconTypeKalaName = ko.observable("");
-    self.iconTypeKalaFileNo = ko.observable("");
-    self.iconTypeKalaState = ko.observable("");
-    self.iconTypeKalaExf1 = ko.observable("");
-    self.iconTypeKalaExf2 = ko.observable("");
-    self.iconTypeKalaExf3 = ko.observable("");
-    self.iconTypeMainUnitName = ko.observable("");
-    self.iconTypeAmount1 = ko.observable("");
-    self.iconTypeAmount2 = ko.observable("");
-    self.iconTypeAmount3 = ko.observable("");
-    self.iconTypeDiscount = ko.observable("");
-
-    self.iconTypeAddMinPrice1 = ko.observable("");
-    self.iconTypeAddMinPrice2 = ko.observable("");
-    self.iconTypeAddMinPrice3 = ko.observable("");
-    self.iconTypeAddMinPrice4 = ko.observable("");
-    self.iconTypeAddMinPrice5 = ko.observable("");
-    self.iconTypeAddMinPrice6 = ko.observable("");
-    self.iconTypeAddMinPrice7 = ko.observable("");
-    self.iconTypeAddMinPrice8 = ko.observable("");
-    self.iconTypeAddMinPrice9 = ko.observable("");
-    self.iconTypeAddMinPrice10 = ko.observable("");
-
-    self.iconTypeUnitPrice = ko.observable("");
-    self.iconTypeTotalPrice = ko.observable("");
-    self.iconTypeBandSpec = ko.observable("");
-    self.iconTypeComm = ko.observable("");
-    self.iconTypeSerialNumber = ko.observable("");
-    self.iconTypeBandNo = ko.observable("");
-
-
-
+    self.iconTypeF01 = ko.observable("");
+    self.iconTypeF02 = ko.observable("");
+    self.iconTypeF03 = ko.observable("");
+    self.iconTypeF04 = ko.observable("");
+    self.iconTypeF05 = ko.observable("");
+    self.iconTypeF06 = ko.observable("");
+    self.iconTypeF07 = ko.observable("");
+    self.iconTypeF08 = ko.observable("");
+    self.iconTypeF09 = ko.observable("");
+    self.iconTypeF10 = ko.observable("");
+    self.iconTypeF11 = ko.observable("");
+    self.iconTypeF12 = ko.observable("");
+    self.iconTypeF13 = ko.observable("");
+    self.iconTypeF14 = ko.observable("");
+    self.iconTypeF15 = ko.observable("");
+    self.iconTypeF16 = ko.observable("");
+    self.iconTypeF17 = ko.observable("");
+    self.iconTypeF18 = ko.observable("");
+    self.iconTypeF19 = ko.observable("");
+    self.iconTypeF20 = ko.observable("");
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
@@ -1496,14 +1494,34 @@
             CreateTableTh('Jari', data) +
             CreateTableTh('TrafCode', data) +
             CreateTableTh('TrafName', data) +
-            CreateTableTh('MkzCode', data) + 
+            CreateTableTh('MkzCode', data) +
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
             CreateTableTh('Amount', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('Status', data) +
-            CreateTableTh('ModeName', data) +           
+            CreateTableTh('ModeName', data) +
+            CreateTableTh('F01', data) +
+            CreateTableTh('F02', data) +
+            CreateTableTh('F03', data) +
+            CreateTableTh('F04', data) +
+            CreateTableTh('F05', data) +
+            CreateTableTh('F06', data) +
+            CreateTableTh('F07', data) +
+            CreateTableTh('F08', data) +
+            CreateTableTh('F09', data) +
+            CreateTableTh('F10', data) +
+            CreateTableTh('F11', data) +
+            CreateTableTh('F12', data) +
+            CreateTableTh('F13', data) +
+            CreateTableTh('F14', data) +
+            CreateTableTh('F15', data) +
+            CreateTableTh('F16', data) +
+            CreateTableTh('F17', data) +
+            CreateTableTh('F18', data) +
+            CreateTableTh('F19', data) +
+            CreateTableTh('F20', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageDftr" data-dismiss="modal" style="cursor: default;">' +
@@ -1513,11 +1531,11 @@
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
-            CreateTableTd('Bede', 0, 0, data) +
-            CreateTableTd('Best', 0, 0, data) +
-            CreateTableTd('MonBede', 0, 0, data) +
-            CreateTableTd('MonBest', 0, 0, data) +
-            CreateTableTd('MonTotal', 0, 0, data) +
+            CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
             CreateTableTd('CheckNo', 0, 0, data) +
             CreateTableTd('CheckDate', 0, 0, data) +
             CreateTableTd('Bank', 0, 0, data) +
@@ -1531,8 +1549,28 @@
             CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('Amount', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
-            CreateTableTd('Status', 0, 1, data) +
+            CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +
+            CreateTableTd('F01', 0, 0, data) +
+            CreateTableTd('F02', 0, 0, data) +
+            CreateTableTd('F03', 0, 0, data) +
+            CreateTableTd('F04', 0, 0, data) +
+            CreateTableTd('F05', 0, 0, data) +
+            CreateTableTd('F06', 0, 0, data) +
+            CreateTableTd('F07', 0, 0, data) +
+            CreateTableTd('F08', 0, 0, data) +
+            CreateTableTd('F09', 0, 0, data) +
+            CreateTableTd('F10', 0, 0, data) +
+            CreateTableTd('F11', 0, 0, data) +
+            CreateTableTd('F12', 0, 0, data) +
+            CreateTableTd('F13', 0, 0, data) +
+            CreateTableTd('F14', 0, 0, data) +
+            CreateTableTd('F15', 0, 0, data) +
+            CreateTableTd('F16', 0, 0, data) +
+            CreateTableTd('F17', 0, 0, data) +
+            CreateTableTd('F18', 0, 0, data) +
+            CreateTableTd('F19', 0, 0, data) +
+            CreateTableTd('F20', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -1542,11 +1580,11 @@
             CreateTableTdSum('AccCode', 1, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Comm', 1, data) +
-            CreateTableTdSum('Bede', 1, data) +
-            CreateTableTdSum('Best', 1, data) +
-            CreateTableTdSum('MonBede', 1, data) +
-            CreateTableTdSum('MonBest', 1, data) +
-            CreateTableTdSum('MonTotal', 1, data) +
+            CreateTableTdSum('Bede', 2, data) +
+            CreateTableTdSum('Best', 2, data) +
+            CreateTableTdSum('MonBede', 2, data) +
+            CreateTableTdSum('MonBest', 2, data) +
+            CreateTableTdSum('MonTotal', 2, data) +
             CreateTableTdSum('CheckNo', 1, data) +
             CreateTableTdSum('CheckDate', 1, data) +
             CreateTableTdSum('Bank', 1, data) +
@@ -1560,8 +1598,28 @@
             CreateTableTdSum('OprName', 1, data) +
             CreateTableTdSum('Amount', 1, data) +
             CreateTableTdSum('Spec', 1, data) +
-            CreateTableTdSum('Status', 2, data) +
+            CreateTableTdSum('Status', 1, data) +
             CreateTableTdSum('ModeName', 1, data) +
+            CreateTableTdSum('F01', 1, data) +
+            CreateTableTdSum('F02', 1, data) +
+            CreateTableTdSum('F03', 1, data) +
+            CreateTableTdSum('F04', 1, data) +
+            CreateTableTdSum('F05', 1, data) +
+            CreateTableTdSum('F06', 1, data) +
+            CreateTableTdSum('F07', 1, data) +
+            CreateTableTdSum('F08', 1, data) +
+            CreateTableTdSum('F09', 1, data) +
+            CreateTableTdSum('F10', 1, data) +
+            CreateTableTdSum('F11', 1, data) +
+            CreateTableTdSum('F12', 1, data) +
+            CreateTableTdSum('F13', 1, data) +
+            CreateTableTdSum('F14', 1, data) +
+            CreateTableTdSum('F15', 1, data) +
+            CreateTableTdSum('F16', 1, data) +
+            CreateTableTdSum('F17', 1, data) +
+            CreateTableTdSum('F18', 1, data) +
+            CreateTableTdSum('F19', 1, data) +
+            CreateTableTdSum('F20', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('DocNo', data) +
@@ -1581,7 +1639,6 @@
             CreateTableTdSearch('Jari', data) +
             CreateTableTdSearch('TrafCode', data) +
             CreateTableTdSearch('TrafName', data) +
-            CreateTableTdSearch('ModeName', data) +
             CreateTableTdSearch('MkzCode', data) +
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
@@ -1589,6 +1646,27 @@
             CreateTableTdSearch('Amount', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('Status', data) +
+            CreateTableTdSearch('ModeName', data) +
+            CreateTableTdSearch('F01', data) +
+            CreateTableTdSearch('F02', data) +
+            CreateTableTdSearch('F03', data) +
+            CreateTableTdSearch('F04', data) +
+            CreateTableTdSearch('F05', data) +
+            CreateTableTdSearch('F06', data) +
+            CreateTableTdSearch('F07', data) +
+            CreateTableTdSearch('F08', data) +
+            CreateTableTdSearch('F09', data) +
+            CreateTableTdSearch('F10', data) +
+            CreateTableTdSearch('F11', data) +
+            CreateTableTdSearch('F12', data) +
+            CreateTableTdSearch('F13', data) +
+            CreateTableTdSearch('F14', data) +
+            CreateTableTdSearch('F15', data) +
+            CreateTableTdSearch('F16', data) +
+            CreateTableTdSearch('F17', data) +
+            CreateTableTdSearch('F18', data) +
+            CreateTableTdSearch('F19', data) +
+            CreateTableTdSearch('F20', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
