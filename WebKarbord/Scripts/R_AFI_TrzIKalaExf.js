@@ -283,6 +283,7 @@
             return result;
         })
         calcsum(tempData);
+        $("#CountRecord").text(tempData.length);
         return tempData;
 
         //}

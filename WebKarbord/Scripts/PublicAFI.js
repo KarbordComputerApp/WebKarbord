@@ -386,14 +386,14 @@ function CheckAccess(TrsName) {
     return false
 }
 
+
 function CheckAccessReport(Code) {
     for (var i = 0; i < accessReport.length; i++) {
         if (accessReport[i].Code == Code) {
             return accessReport[i].Trs;
         }
-        else
-            return false;
     }
+    return false;
 }
 
 function CheckAccessReportErj(Code) {
@@ -401,9 +401,8 @@ function CheckAccessReportErj(Code) {
         if (accessReportErj[i].Code == Code) {
             return accessReportErj[i].Trs;
         }
-        else
-            return false;
     }
+    return false;
 }
 
 
