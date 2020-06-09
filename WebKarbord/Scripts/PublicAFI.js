@@ -89,7 +89,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 12; i++) {
+for (var i = 0; i <= 14; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -101,8 +101,10 @@ for (var i = 0; i <= 12; i++) {
     afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
     afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
     afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-    afiAccessApi[i] == 'FDocR' ? afiaccess[11] = true : null;
-    afiAccessApi[i] == 'TrzAcc' ? afiaccess[12] = true : null;
+    afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
+    afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
+    afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
+    afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
 }
 
 
@@ -395,10 +397,16 @@ function CheckAccessReport(Code) {
         else if (accessReport[i].Code == 'IDocR') {
             return accessReport[i].Trs;
         }
-        else if (accessReport[i].Code == 'FDocR') {
+        else if (accessReport[i].Code == 'FDocR_S') {
+            return accessReport[i].Trs;
+        }
+        else if (accessReport[i].Code == 'FDocR_P') {
             return accessReport[i].Trs;
         }
         else if (accessReport[i].Code == 'TrzAcc') {
+            return accessReport[i].Trs;
+        }
+        else if (accessReport[i].Code == 'Dftr') {
             return accessReport[i].Trs;
         }
         else
@@ -495,14 +503,13 @@ function getAccessList() {
                     afiAccess != null ? afiAccessApi = afiAccess.split("*") : afiAccessApi = null
                 }
                 else {
-                    //tempAccess = accAccess +'*'+ invAccess + '*' + fctAccess;
-                    tempAccess = invAccess + '*' + fctAccess;
+                    tempAccess = accAccess + '*' + invAccess + '*' + fctAccess;
                     afiAccessApi = tempAccess.split("*");
                 }
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 12; i++) {
+                for (var i = 0; i <= 14; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -514,8 +521,10 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
                     afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
                     afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-                    afiAccessApi[i] == 'FDocR' ? afiaccess[11] = true : null;
-                    afiAccessApi[i] == 'TrzAcc' ? afiaccess[12] = true : null;
+                    afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
+                    afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
+                    afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
+                    afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
 
                 }
 
@@ -579,7 +588,9 @@ SetValidation();
 SetValidationErj();
 
 function SetValidation() {
-    var ShowMenu = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+    var ShowMenu = [false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false];
     if (access == null) return false;
     if (access.length == 0) return false;
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
@@ -620,7 +631,6 @@ function SetValidation() {
     validation = CheckAccess('RPRT'); // گزارشات
     ShowMenu[11] = validation;
 
-
     validation = CheckAccessReport('TrzIKala');
     ShowMenu[12] = validation;  // گزارش موجودی کالا
 
@@ -630,11 +640,17 @@ function SetValidation() {
     validation = CheckAccessReport('IDocR');
     ShowMenu[14] = validation;  // گزارش ريز گردش اسناد انبارداری
 
-    validation = CheckAccessReport('FDocR');
+    validation = CheckAccessReport('FDocR_S');
     ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
 
+    validation = CheckAccessReport('FDocR_P');
+    ShowMenu[16] = validation;  // گزارش ريز گردش خرید و فروش
+
     validation = CheckAccessReport('TrzAcc');
-    ShowMenu[16] = validation;  // تراز دفاتر حسابداری
+    ShowMenu[17] = validation;  // تراز دفاتر حسابداری
+
+    validation = CheckAccessReport('Dftr');
+    ShowMenu[18] = validation;  // دفتر حساب حسابداری
 
 
 
@@ -942,31 +958,37 @@ function SetValidation() {
 
     if (ShowMenu[11]) {    // گزارشات
         if (afiaccess[8] || afiaccess[9] || afiaccess[10]) {
-            if (ShowMenu[11]) {
-                $("#IReport_Menu").show();
-                ShowMenu[12] == true ? $("#TrzIKala").show() : $("#TrzIKala").hide();
-                ShowMenu[13] == true && afiaccess[9] == true ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
-                ShowMenu[14] == true ? $("#IDocR").show() : $("#IDocR").hide();
-            }
-            else {
+            $("#IReport_Menu").show();
+            afiaccess[8] && ShowMenu[12] ? $("#TrzIKala").show() : $("#TrzIKala").hide();
+            afiaccess[9] && ShowMenu[13] ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
+            afiaccess[10] && ShowMenu[14] ? $("#IDocR").show() : $("#IDocR").hide();
+
+            if (ShowMenu[12] == false && ShowMenu[13] == false && ShowMenu[14] == false)
                 $("#IReport_Menu").hide();
-            }
         }
         else {
             $("#IReport_Menu").hide();
         }
 
-        if (afiaccess[11]) {
+        if (afiaccess[11] || afiaccess[12]) {
             $("#FReport_Menu").show();
-            ShowMenu[15] == true ? $("#FDocR").show() : $("#FDocR").hide();
+            afiaccess[11] && ShowMenu[15] ? $("#FDocR_S").show() : $("#FDocR_S").hide();
+            afiaccess[12] && ShowMenu[16] ? $("#FDocR_P").show() : $("#FDocR_P").hide();
+
+            if (ShowMenu[15] == false && ShowMenu[16] == false)
+                $("#FReport_Menu").hide();
         }
         else {
             $("#FReport_Menu").hide();
         }
 
-        if (afiaccess[12]) {
+        if (afiaccess[13] || afiaccess[14]) {
             $("#AReport_Menu").show();
-            ShowMenu[16] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
+            afiaccess[13] && ShowMenu[17] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
+            afiaccess[14] && ShowMenu[18] == true ? $("#Dftr").show() : $("#Dftr").hide();
+
+            if (ShowMenu[17] == false && ShowMenu[18] == false)
+                $("#AReport_Menu").hide();
         }
         else {
             $("#AReport_Menu").hide();
