@@ -388,25 +388,7 @@ function CheckAccess(TrsName) {
 
 function CheckAccessReport(Code) {
     for (var i = 0; i < accessReport.length; i++) {
-        if (accessReport[i].Code == 'TrzIKala') {
-            return accessReport[i].Trs;
-        }
-        else if (accessReport[i].Code == 'TrzIKalaExf') {
-            return accessReport[i].Trs;
-        }
-        else if (accessReport[i].Code == 'IDocR') {
-            return accessReport[i].Trs;
-        }
-        else if (accessReport[i].Code == 'FDocR_S') {
-            return accessReport[i].Trs;
-        }
-        else if (accessReport[i].Code == 'FDocR_P') {
-            return accessReport[i].Trs;
-        }
-        else if (accessReport[i].Code == 'TrzAcc') {
-            return accessReport[i].Trs;
-        }
-        else if (accessReport[i].Code == 'Dftr') {
+        if (accessReport[i].Code == Code) {
             return accessReport[i].Trs;
         }
         else
@@ -416,10 +398,7 @@ function CheckAccessReport(Code) {
 
 function CheckAccessReportErj(Code) {
     for (var i = 0; i < accessReportErj.length; i++) {
-        if (accessReportErj[i].Code == 'ErjDocK') {
-            return accessReportErj[i].Trs;
-        }
-        else if (accessReportErj[i].Code == 'ErjDocErja') {
+        if (accessReportErj[i].Code == Code) {
             return accessReportErj[i].Trs;
         }
         else
