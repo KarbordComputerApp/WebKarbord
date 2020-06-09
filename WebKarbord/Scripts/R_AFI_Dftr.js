@@ -166,7 +166,10 @@
             StatusCode: statusCode,
             MkzCode: mkzcode,
             OprCode: oprcode,
+            DispBands: $('#DispBands').val(),
+            JamRooz: $('#JamRooz').val(),
         };
+
         ajaxFunction(DftrUri + ace + '/' + sal + '/' + group, 'POST', DftrObject).done(function (response) {
             self.DftrList(response);
             calcsum(self.DftrList());
@@ -1068,13 +1071,14 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'حساب های کل';
-            }
-            if (i == 1) {
-                opt.value = 1;
                 opt.innerHTML = 'ریز حساب ها';
                 opt.selected = true;
             }
+            if (i == 1) {
+                opt.value = 1;
+                opt.innerHTML = 'حساب های کل';
+            }
+            
             select.appendChild(opt);
         }
     };
@@ -1083,15 +1087,16 @@
         select = document.getElementById('JamRooz');
         for (var i = 0; i <= 1; i++) {
             opt = document.createElement('option');
-            if (i == 0) {
+             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'با جمع روزانه';
-            }
-            if (i == 1) {
-                opt.value = 1;
                 opt.innerHTML = 'بدون جمع روزانه';
                 opt.selected = true;
             }
+            if (i == 1) {
+                opt.value = 1;
+                opt.innerHTML = 'با جمع روزانه';
+            }
+
             select.appendChild(opt);
         }
     };

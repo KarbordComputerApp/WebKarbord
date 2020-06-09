@@ -195,6 +195,7 @@
 
             return result;
         })
+        $("#CountRecord").text(tempData.length);
         return tempData;
     });
 

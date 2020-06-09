@@ -358,6 +358,7 @@
                 (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter9) >= 0)
             return result;
         })
+        $("#CountRecord").text(tempData.length);
         return tempData;
     });
 
