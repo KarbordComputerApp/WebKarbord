@@ -157,72 +157,11 @@
                     </div>
                 </form>
                 <hr />
-
-                <div style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
-                    <table class="table table-hover">
-                        <thead style="cursor: pointer;">
-                            <tr data-bind="click: sortTableTrzAcc">
-                                <th data-column="AccCode">
-                                    کد حساب <span data-bind="attr: { class: currentColumn() == 'AccCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAccCode }"></i> </span>
-                                </th>
-                                <th data-column="AccName">
-                                    نام حساب <span data-bind="attr: { class: currentColumn() == 'AccName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAccName }"></i> </span>
-                                </th>
-                                <th data-column="Bede">
-                                    مبلغ بدهکار <span data-bind="attr: { class: currentColumn() == 'Bede' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBede }"></i> </span>
-                                </th>
-                                <th data-column="Best">
-                                    مبلغ بستانکار <span data-bind="attr: { class: currentColumn() == 'Best' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeBest }"></i> </span>
-                                </th>
-                                <th data-column="MonBede">
-                                    مانده بدهکار<span data-bind="attr: { class: currentColumn() == 'MonBede' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMonBede }"></i> </span>
-                                </th>
-                                <th data-column="MonBest">
-                                    مانده بستانکار<span data-bind="attr: { class: currentColumn() == 'MonBest' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMonBest }"></i> </span>
-                                </th>
-                                <th data-column="MonTotal">
-                                    مانده <span data-bind="attr: { class: currentColumn() == 'MonTotal' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMonTotal }"></i> </span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody data-bind="foreach: currentPageTrzAcc" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectTrzAcc , css: { matched: $data === $root.firstMatch() }
-                                , style: { 'background-color': Level == 1 ? '#f5efeb': ''}">
-                                <td data-bind="text: AccCode" style=" text-align: left;"></td>
-                                <td data-bind="text: AccName"></td>
-                                <td data-bind="text: Bede == 0 ? '0' : NumberToNumberString(Bede) , style: { color: Bede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
-                                <td data-bind="text: Best == 0 ? '0' : NumberToNumberString(Best) , style: { color: Best < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
-                                <td data-bind="text: MonBede == 0 ? '0' : NumberToNumberString(MonBede) , style: { color: MonBede < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
-                                <td data-bind="text: MonBest == 0 ? '0' : NumberToNumberString(MonBest) , style: { color: MonBest < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
-                                <td data-bind="text: MonTotal== 0 ? '0' : NumberToNumberString(MonTotal) , style: { color: MonTotal < 0 ? 'red' : 'black' }" style="direction: ltr;"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr style="background-color:#e37d228f;">
-                                <td id="textTotal"></td>
-                                <td></td>
-                                <td id="totalBede" style="direction: ltr;"></td>
-                                <td id="totalBest" style="direction: ltr;"></td>
-                                <td id="totalMonBede" style="direction: ltr;"></td>
-                                <td id="totalMonBest" style="direction: ltr;"></td>
-                                <td id="totalMonTotal" style="direction: ltr;"></td>
-                            </tr>
-
-                            <tr style="background-color: #efb68399;">
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc2, valueUpdate: 'afterkeydown'" type="text" class="form-control float " style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc3, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc4, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc5, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzAcc6, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                
+                <div id="TableReport" style="height:490px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
                 </div>
+                
                 <br />
-
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-inline">
@@ -266,9 +205,6 @@
                         <span>تعداد رکورد ها = <span id="CountRecord">0</span></span>
                     </div>
                 </div>
-
-
-
 
             </div>
         </div>

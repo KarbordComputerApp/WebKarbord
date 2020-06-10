@@ -20,6 +20,7 @@
 
     var TrzAccUri = server + '/api/ReportAcc/TrzAcc/'; // آدرس گزارش 
     var TrzAccCountUri = server + '/api/ReportAcc/TrzAccCount/'; // تعداد رکورد های گزارش 
+    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -59,6 +60,14 @@
     var counterAMode = 0;
     var list_AModeSelect = new Array();
 
+
+    //Get RprtCols List
+    function getRprtColsList() {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TrzAcc/' + sessionStorage.userName, 'GET').done(function (data) {
+            CreateTableReport(data);
+        });
+    }
+
     //Get Acc List
     function getAccList() {
         ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
@@ -88,6 +97,7 @@
     }
 
 
+    getRprtColsList();
     getAccList();
     getOprList();
     getMkzList();
@@ -230,38 +240,44 @@
     self.iconTypeMonBest = ko.observable("");
     self.iconTypeMonTotal = ko.observable("");
 
-    self.filterTrzAcc0 = ko.observable("");
-    self.filterTrzAcc1 = ko.observable("");
-    self.filterTrzAcc2 = ko.observable("");
-    self.filterTrzAcc3 = ko.observable("");
-    self.filterTrzAcc4 = ko.observable("");
-    self.filterTrzAcc5 = ko.observable("");
-    self.filterTrzAcc6 = ko.observable("");
 
+    // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
+    // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
+    // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
+    // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
+    // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
+    // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
+
+    self.filterAccCode = ko.observable("");
+    self.filterAccName = ko.observable("");
+    self.filterBede = ko.observable("");
+    self.filterBest = ko.observable("");
+    self.filterMonBede = ko.observable("");
+    self.filterMonBest = ko.observable("");
+    self.filterMonTotal = ko.observable("");
 
     self.filterTrzAccList = ko.computed(function () {
 
         self.currentPageIndexTrzAcc(0);
-        var filter0 = self.filterTrzAcc0();
-        var filter1 = self.filterTrzAcc1();
-        var filter2 = self.filterTrzAcc2();
-        var filter3 = self.filterTrzAcc3();
-        var filter4 = self.filterTrzAcc4();
-        var filter5 = self.filterTrzAcc5();
-        var filter6 = self.filterTrzAcc6();
-
+        var filterAccCode = self.filterAccCode();
+        var filterAccName = self.filterAccName();
+        var filterBede = self.filterBede();
+        var filterBest = self.filterBest();
+        var filterMonBede = self.filterMonBede();
+        var filterMonBest = self.filterMonBest();
+        var filterMonTotal = self.filterMonTotal();
+        // , AccName, Bede, Best, MonBede, MonBest, MonTotal
+        // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
 
         tempData = ko.utils.arrayFilter(self.TrzAccList(), function (item) {
             result =
-                ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filter0) &&
-                (item.AccName == null ? '' : item.AccName.toString().search(filter1) >= 0) &&
-                (item.Bede == null ? '' : item.Bede.toString().search(filter2) >= 0) &&
-                (item.Best == null ? '' : item.Best.toString().search(filter3) >= 0) &&
-                (item.MonBede == null ? '' : item.MonBede.toString().search(filter4) >= 0) &&
-                (item.MonBest == null ? '' : item.MonBest.toString().search(filter5) >= 0) &&
-                (item.MonTotal == null ? '' : item.MonTotal.toString().search(filter6) >= 0)
-            // 1 == 1
-
+                ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filterAccCode) &&
+                (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
+                ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
+                ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
+                ko.utils.stringStartsWith(item.MonBede.toString().toLowerCase(), filterMonBede) &&
+                ko.utils.stringStartsWith(item.MonBest.toString().toLowerCase(), filterMonBest) &&
+                ko.utils.stringStartsWith(item.MonTotal.toString().toLowerCase(), filterMonTotal)
             return result;
         })
         calcsum(tempData);
@@ -360,65 +376,6 @@
         if (orderProp == 'MonBest') self.iconTypeMonBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MonTotal') self.iconTypeMonTotal((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     self.iconTypeCode = ko.observable("");
@@ -1143,6 +1100,129 @@
 
 
 
+
+
+    function CreateTableReport(data) {
+        $("#TableReport").empty();
+        $('#TableReport').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableTrzAcc">' +
+            CreateTableTh('AccCode', data) +
+            CreateTableTh('AccName', data) +
+            CreateTableTh('Bede', data) +
+            CreateTableTh('Best', data) +
+            CreateTableTh('MonBede', data) +
+            CreateTableTh('MonBest', data) +
+            CreateTableTh('MonTotal', data) +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">' +
+            '     <tr data-bind="style: { \'background-color\': Level == 1 ? \'##f5efeb\' : \'\' }" >' +
+            CreateTableTd('AccCode', 0, 0, data) +
+            CreateTableTd('AccName', 0, 0, data) +
+            CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('AccCode', 0, data) +
+            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('Bede', 2, data) +
+            CreateTableTdSum('Best', 2, data) +
+            CreateTableTdSum('MonBede', 2, data) +
+            CreateTableTdSum('MonBest', 2, data) +
+            CreateTableTdSum('MonTotal', 2, data) +
+            ' </tr>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('AccCode', data) +
+            CreateTableTdSearch('AccName', data) +
+            CreateTableTdSearch('Bede', data) +
+            CreateTableTdSearch('Best', data) +
+            CreateTableTdSearch('MonBede', data) +
+            CreateTableTdSearch('MonBest', data) +
+            CreateTableTdSearch('MonTotal', data) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    function CreateTableTh(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span>' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSum(field, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
 
 
 

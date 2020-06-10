@@ -56,16 +56,16 @@
 
 
                             <!--  <div class="col-sm-4">
-                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                    <div class="form-group">
-                                        <select id="inv" data-bind="options: InvList,
-                                           optionsText: function(item) {return item.Name},
-                                           optionsValue: 'Code',
-                                           value: InvCode,
-                                           optionsCaption: OptionsCaptionInv()"></select>
-                                    </div>
-                                </div>
-                            </div>-->
+                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                        <div class="form-group">
+                            <select id="inv" data-bind="options: InvList,
+                               optionsText: function(item) {return item.Name},
+                               optionsValue: 'Code',
+                               value: InvCode,
+                               optionsCaption: OptionsCaptionInv()"></select>
+                        </div>
+                    </div>
+                </div>-->
 
                             <div class="col-sm-5">
                                 <div class="input-group">
@@ -110,215 +110,10 @@
                     </div>
                 </form>
                 <hr />
-                <div style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
-                    <table class="table table-hover">
-                        <thead style="cursor: pointer;">
-                            <tr data-bind="click: sortTableTrzIExf">
-                                <th data-column="KalaCode">
-                                    کد کالا <span data-bind="attr: { class: currentColumn() == 'KalaCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaCode }"></i> </span>
-                                </th>
-                                <th data-column="KalaName" style="width:500px">
-                                    نام کالا <span data-bind="attr: { class: currentColumn() == 'KalaName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaName }"></i> </span>
-                                </th>
-                                <!--<th data-column="InvCode">
-                                    کد انبار <span data-bind="attr: { class: currentColumn() == 'InvCode' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvCode }"></i> </span>
-                                </th>-->
-                                <!-- <th data-column="KalaFanniNo">
-                                    شماره فنی <span data-bind="attr: { class: currentColumn() == 'KalaFanniNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
-                                </th>-->
+                <div id="TableReport" style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
 
-                                <th data-column="KalaFileNo">
-                                    ویژگی 1<span data-bind="attr: { class: currentColumn() == 'KalaFileNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaFileNo }"></i> </span>
-                                </th>
-                                <th data-column="KalaState">
-                                    ویژگی 2  <span data-bind="attr: { class: currentColumn() == 'KalaState' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaState }"></i> </span>
-                                </th>
-                                <th data-column="KalaExf1">
-                                    ویژگی 3  <span data-bind="attr: { class: currentColumn() == 'KalaExf1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf1 }"></i> </span>
-                                </th>
-
-
-                                <!-- <th data-column="KalaExf2">
-                                    ویژگی 4 <span data-bind="attr: { class: currentColumn() == 'KalaExf2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf2 }"></i> </span>
-                                </th>
-                                <th data-column="KalaExf3">
-                                    ویژگی 5 <span data-bind="attr: { class: currentColumn() == 'KalaExf3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKalaExf3 }"></i> </span>
-                                </th>-->
-                                <th data-column="InvName">
-                                    نام انبار <span data-bind="attr: { class: currentColumn() == 'InvName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeInvName }"></i> </span>
-                                </th>
-
-                                <th data-column="AAmount1">
-                                    مقدار اول دوره 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount1 }"></i> </span>
-                                </th>
-                                <!--<th data-column="AAmount2">
-                                    مقدار اول دوره 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount2 }"></i> </span>
-                                </th>
-                                <th data-column="AAmount3">
-                                    مقدار اول دوره 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeAAmount3 }"></i> </span>
-                                </th>-->
-                                <th data-column="ATotalPrice">
-                                    مبلغ اول دوره <span data-bind="attr: { class: currentColumn() == 'ATotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeATotalPrice }"></i> </span>
-                                </th>
-                                <th data-column="VAmount1">
-                                    مقدار وارده 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVAmount1 }"></i> </span>
-                                </th>
-                                <!--<th data-column="VAmount2">
-                                    مقدار وارده 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVAmount2 }"></i> </span>
-                                </th>
-                                <th data-column="VAmount3">
-                                    مقدار وارده 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVAmount3 }"></i> </span>
-                                </th>-->
-                                <th data-column="VTotalPrice">
-                                    مبلغ وارده <span data-bind="attr: { class: currentColumn() == 'VTotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeVTotalPrice }"></i> </span>
-                                </th>
-                                <th data-column="SAmount1">
-                                    مقدار صادره 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSAmount1 }"></i> </span>
-                                </th>
-                                <!--<th data-column="SAmount2">
-                                    مقدار صادره 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSAmount2 }"></i> </span>
-                                </th>
-                                <th data-column="SAmount3">
-                                    مقدار صادره 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSAmount3 }"></i> </span>
-                                </th>-->
-                                <th data-column="STotalPrice">
-                                    مبلغ صادره <span data-bind="attr: { class: currentColumn() == 'STotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSTotalPrice }"></i> </span>
-                                </th>
-                                <th data-column="MAmount1">
-                                    مقدار مانده 1 <span data-bind="attr: { class: currentColumn() == 'AAmount1' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMAmount1 }"></i> </span>
-                                </th>
-                                <!-- <th data-column="MAmount2">
-                                    مقدار مانده 2 <span data-bind="attr: { class: currentColumn() == 'AAmount2' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMAmount2 }"></i> </span>
-                                </th>
-                                <th data-column="MAmount3">
-                                    مقدار مانده 3 <span data-bind="attr: { class: currentColumn() == 'AAmount3' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMAmount3 }"></i> </span>
-                                </th>-->
-                                <th data-column="MTotalPrice">
-                                    مبلغ مانده <span data-bind="attr: { class: currentColumn() == 'MTotalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMTotalPrice }"></i> </span>
-                                </th>
-                            </tr>
-
-                        </thead>
-                        <tbody data-bind="foreach: currentPageTrzIExf" data-dismiss="modal" style="cursor: default;">
-                            <!-- <tr data-bind="click: $parent.selectTrzIExf , css: { matched: $data === $root.firstMatch(), 'background-color': #efb68399} ">
-                            -->
-                            <tr data-bind="click: $parent.selectTrzIExf , style: { 'background-color': Tag == 1 ? '#f5efeb' : '#ffffff' } ">
-                                <!--<td data-bind="text: Tag == 1 ? KalaCode : '' "></td>
-                                <td data-bind="text: Tag == 1 ? KalaName : '' " style="width:500px"></td>
-                                <td data-bind="text: Tag == 1 ? InvCode : '' "></td>
-                                <td data-bind="text: Tag == 1 ? InvName : '' "></td>-->
-
-                                <td data-bind="text: Tag == 1 ? KalaCode : '' "></td>
-                                <td data-bind="text: Tag == 1 ? KalaName : '' " style="width:500px"></td>
-                                <!--<td data-bind="text:  InvCode"></td>-->
-
-
-                                <td data-bind="text: KalaFileNo"></td>
-                                <td data-bind="text: KalaState"></td>
-                                <td data-bind="text: KalaExf1"></td>
-                                <!-- <td data-bind="text: KalaExf2"></td>
-                                <td data-bind="text: KalaExf3"></td>
-                                <!-- <td data-bind="text:KalaFanniNo "></td> -->
-                                <td data-bind="text: InvName"></td>
-                                <td style="direction: ltr;" data-bind="text: AAmount1 == 0 ? '0' : NumberToNumberString(AAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: AAmount1 < 0 ? 'red' : 'black' }"></td>
-                                <!--<td style="direction: ltr;" data-bind="text: AAmount2 == 0 ? '0' : NumberToNumberString(AAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: AAmount2 < 0 ? 'red' : 'black' }"></td>
-                                  <td style="direction: ltr;" data-bind="text: AAmount3 == 0 ? '0' : NumberToNumberString(AAmount3.toFixed(KalaDeghat3 % 10)) , style: { color: AAmount3 < 0 ? 'red' : 'black' }"></td>
-                                -->
-                                <td style="direction: ltr;" data-bind="text: ATotalPrice != null ? NumberToNumberString(parseFloat(ATotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: ATotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
-                                <td style="direction: ltr;" data-bind="text: VAmount1 == 0 ? '0' : NumberToNumberString(VAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: VAmount1 < 0 ? 'red' : 'black' }"></td>
-                                <!--  <td style="direction: ltr;" data-bind="text: VAmount2 == 0 ? '0' : NumberToNumberString(VAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: VAmount2 < 0 ? 'red' : 'black' }"></td>
-                                  <td style="direction: ltr;" data-bind="text: VAmount3 == 0 ? '0' : NumberToNumberString(VAmount3.toFixed(KalaDeghat3 % 10)) , style: { color: VAmount3 < 0 ? 'red' : 'black' }"></td>
-                                -->
-                                <td style="direction: ltr;" data-bind="text: VTotalPrice != null ? NumberToNumberString(parseFloat(VTotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: VTotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
-                                <td style="direction: ltr;" data-bind="text: SAmount1 == 0 ? '0' : NumberToNumberString(SAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: SAmount1 < 0 ? 'red' : 'black' }"></td>
-                                <!--  <td style="direction: ltr;" data-bind="text: SAmount2 == 0 ? '0' : NumberToNumberString(SAmount2.toFixed(KalaDeghat2 % 10)) , style: { color: SAmount2 < 0 ? 'red' : 'black' }"></td>
-                                   <td style="direction: ltr;" data-bind="text: SAmount3 == 0 ? '0' : NumberToNumberString(SAmount3.toFixed(KalaDeghat3 % 10)) , style: { color: SAmount3 < 0 ? 'red' : 'black' } "></td>
-                                -->
-                                <td style="direction: ltr;" data-bind="text: STotalPrice != null ? NumberToNumberString(parseFloat(STotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: STotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
-                                <td style="direction: ltr;" data-bind="text: MAmount1 == 0 ? '0' : NumberToNumberString(MAmount1.toFixed(KalaDeghat1 % 10)) , style: { color: MAmount1 < 0 ? 'red' : 'black' }"></td>
-                                <!--    <td style="direction: ltr;" data-bind="text: MAmount2 == 0 ? '0' : NumberToNumberString(MAmount2.toFixed(KalaDeghat2 % 10))  , style: { color: MAmount2 < 0 ? 'red' : 'black' }"></td>
-                                    <td style="direction: ltr;" data-bind="text: MAmount3 == 0 ? '0' : NumberToNumberString(MAmount3.toFixed(KalaDeghat3 % 10))  , style: { color: MAmount3 < 0 ? 'red' : 'black' }"></td>
-                                -->
-                                <td style="direction: ltr;" data-bind="text: MTotalPrice != null ? NumberToNumberString(parseFloat(MTotalPrice).toFixed(parseInt(sessionStorage.Deghat))) : '0' , style: { color: MTotalPrice < 0 ? 'red' : 'black' }" style="text-align: right;"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr style="background-color:#e37d228f;">
-                                <td id="textTotal"></td>
-
-                                <td></td>
-                                <!--<td></td>-->
-                                <td></td>
-
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <!-- <td></td>
-                                <td></td>-->
-
-                                <td id="totalAAmount1" style="direction: ltr;"></td>
-                                <!--<td id="totalAAmount2" style="direction: ltr;"></td>
-                                 <td id="totalAAmount3" style="direction: ltr;"></td>
-                                -->
-                                <td id="totalATotalPrice" style="direction: ltr;"></td>
-                                <td id="totalVAmount1" style="direction: ltr;"></td>
-                                <!--<td id="totalVAmount2" style="direction: ltr;"></td>
-                                 <td id="totalVAmount3" style="direction: ltr;"></td>
-                                -->
-                                <td id="totalVTotalPrice" style="direction: ltr;"></td>
-                                <td id="totalSAmount1" style="direction: ltr;"></td>
-                                <!-- <td id="totalSAmount2" style="direction: ltr;"></td>
-                                  <td id="totalSAmount3" style="direction: ltr;"></td>
-                                -->
-                                <td id="totalSTotalPrice" style="direction: ltr;"></td>
-                                <td id="totalMAmount1" style="direction: ltr;"></td>
-                                <!-- <td id="totalMAmount2" style="direction: ltr;"></td>
-                                 <td id="totalMAmount3" style="direction: ltr;"></td>
-                                -->
-                                <td id="totalMTotalPrice" style="direction: ltr;"></td>
-                            </tr>
-
-                            <tr style="background-color: #efb68399;">
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf2, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
-                                -->
-
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                                                    <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                -->
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf9, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <!--  <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf10, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                 <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf11, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                -->
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf12, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf13, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <!--<td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf14, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                 <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf15, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                -->
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf16, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf17, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <!--  <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf18, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                 <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf19, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                -->
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf20, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf21, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                <!-- <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf22, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                 <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf23, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                -->
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrzIExf24, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                            </tr>
-                        </tfoot>
-                    </table>
                 </div>
                 <br />
-
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-inline">
