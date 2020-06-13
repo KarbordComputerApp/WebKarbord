@@ -22,6 +22,11 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult ADocR()
+        {
+            return View();
+        }
+
 
 
 

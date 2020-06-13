@@ -480,7 +480,7 @@
     $('#refreshAcc').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
-            text: "لیست تحویل دهنده / گیرنده به روز رسانی شود ؟",
+            text: "لیست حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

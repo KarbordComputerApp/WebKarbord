@@ -89,7 +89,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 14; i++) {
+for (var i = 0; i <= 15; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -105,6 +105,7 @@ for (var i = 0; i <= 14; i++) {
     afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
     afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
     afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
+    afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
 }
 
 
@@ -487,7 +488,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 14; i++) {
+                for (var i = 0; i <= 15; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -503,6 +504,7 @@ function getAccessList() {
                     afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
                     afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
                     afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
+                    afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
 
                 }
 
@@ -628,7 +630,10 @@ function SetValidation() {
     ShowMenu[17] = validation;  // تراز دفاتر حسابداری
 
     validation = CheckAccessReport('Dftr');
-    ShowMenu[18] = validation;  // دفتر حساب حسابداری
+    ShowMenu[18] = validation;  // دفتر حساب حسابداری 
+
+    validation = CheckAccessReport('ADocR');
+    ShowMenu[19] = validation;  // دفتر حساب روزنامه
 
 
 
@@ -960,12 +965,13 @@ function SetValidation() {
             $("#FReport_Menu").hide();
         }
 
-        if (afiaccess[13] || afiaccess[14]) {
+        if (afiaccess[13] || afiaccess[14] || afiaccess[15]) {
             $("#AReport_Menu").show();
             afiaccess[13] && ShowMenu[17] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
             afiaccess[14] && ShowMenu[18] == true ? $("#Dftr").show() : $("#Dftr").hide();
+            afiaccess[15] && ShowMenu[19] == true ? $("#ADocR").show() : $("#ADocR").hide();
 
-            if (ShowMenu[17] == false && ShowMenu[18] == false)
+            if (ShowMenu[17] == false && ShowMenu[18] == false && ShowMenu[19] == false)
                 $("#AReport_Menu").hide();
         }
         else {
