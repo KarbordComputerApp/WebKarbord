@@ -79,6 +79,8 @@
     var flag = -1;
     var flagdiscount = -1;
     var flagInsertFdoch = 0;
+
+    var firstUpdateShow;
     self.flagupdateband = false;
 
     self.SerialNumber = ko.observable();
@@ -120,7 +122,7 @@
             $('#TitleHeaderFactor').text('پیش فاکتور فروش ');
             $('#TitleBodyFactor').text('پیش فاکتور فروش ');
             $('#TitleFooterFactor').text('پیش فاکتور فروش ');
-            break; 
+            break;
         case sessionStorage.MODECODE_FDOC_S:
             $('#TitleHeaderFactor').text('فاکتور فروش ');
             $('#TitleBodyFactor').text('فاکتور فروش ');
@@ -212,8 +214,10 @@
             if (self.KalaPriceList().length > 0) {
                 //$("#gGhimat").val('شکری');
                 //aaaaa = $("#gGhimat").val();
-                if (flagupdateHeader == 1)
+                if (flagupdateHeader == 1) {
+                    firstUpdateShow = 1;
                     sessionStorage.PriceCode != "0" ? $("#gGhimat").val(sessionStorage.PriceCode) : $("#gGhimat").val(sessionStorage.GPriceDefult);
+                }
                 else
                     if (sessionStorage.sels == "true")
                         sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
@@ -284,8 +288,8 @@
         var CalcAddminObject = {
             forSale: forSale,
             serialNumber: serialNumber,
-            custCode: custCode ,
-            typeJob: typeJob ,
+            custCode: custCode,
+            typeJob: typeJob,
             spec1: spec1,
             spec2: spec2,
             spec3: spec3,
@@ -313,16 +317,16 @@
         $('#ghabelpardakht').val('');
         //getFDocH(Serial == '' ? -1 : Serial);
         ajaxFunction(AddMinUri + ace + '/' + sal + '/' + group, 'POST', CalcAddminObject).done(function (data) {
-                if (data.length > 0) {
-                    var obj = JSON.parse(data);
-                    self.AddMinList(obj);
-                    var dataAddminTemp = self.AddMinList()[0];
-                    discountCol = dataAddminTemp.SumDiscount;
-                    tempsumfactor = FDocHTotalPrice + FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
-                    $("#discountCol").val(NumberToNumberString(discountCol.toFixed(parseInt(sessionStorage.Deghat))));
-                    $('#ghabelpardakht').val(NumberToNumberString(parseFloat(parseFloat(tempsumfactor) + discountCol).toFixed(parseInt(sessionStorage.Deghat))))
-                }
-            });
+            if (data.length > 0) {
+                var obj = JSON.parse(data);
+                self.AddMinList(obj);
+                var dataAddminTemp = self.AddMinList()[0];
+                discountCol = dataAddminTemp.SumDiscount;
+                tempsumfactor = FDocHTotalPrice + FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
+                $("#discountCol").val(NumberToNumberString(discountCol.toFixed(parseInt(sessionStorage.Deghat))));
+                $('#ghabelpardakht').val(NumberToNumberString(parseFloat(parseFloat(tempsumfactor) + discountCol).toFixed(parseInt(sessionStorage.Deghat))))
+            }
+        });
     }
 
 
@@ -400,14 +404,14 @@
         }
         getAddMinList(sessionStorage.sels, Serial, castCode, 0,
             $("#AddMinSharh1").val(),
-             $("#AddMinSharh2").val(),
-             $("#AddMinSharh3").val(),
-             $("#AddMinSharh4").val(),
-             $("#AddMinSharh5").val(),
-             $("#AddMinSharh6").val(),
-             $("#AddMinSharh7").val(),
-             $("#AddMinSharh8").val(),
-             $("#AddMinSharh8").val(),
+            $("#AddMinSharh2").val(),
+            $("#AddMinSharh3").val(),
+            $("#AddMinSharh4").val(),
+            $("#AddMinSharh5").val(),
+            $("#AddMinSharh6").val(),
+            $("#AddMinSharh7").val(),
+            $("#AddMinSharh8").val(),
+            $("#AddMinSharh8").val(),
             $("#AddMinSharh10").val(),
             mp[1], mp[2], mp[3], mp[4],
             mp[5], mp[6], mp[7], mp[8],
@@ -769,28 +773,28 @@
             //flagInsertFdoch = 0;
             //FinalSave
 
-        /* getAddMinList(sessionStorage.sels, Serial, sessionStorage.CustCode,
-                0,
-                $("#AddMinSharh1").val(),
-                $("#AddMinSharh2").val(),
-                $("#AddMinSharh3").val(),
-                $("#AddMinSharh4").val(),
-                $("#AddMinSharh5").val(),
-                $("#AddMinSharh6").val(),
-                $("#AddMinSharh7").val(),
-                $("#AddMinSharh8").val(),
-                $("#AddMinSharh8").val(),
-                $("#AddMinSharh10").val(),
-                sessionStorage.AddMin1,
-                sessionStorage.AddMin2,
-                sessionStorage.AddMin3,
-                sessionStorage.AddMin4,
-                sessionStorage.AddMin5,
-                sessionStorage.AddMin6,
-                sessionStorage.AddMin7,
-                sessionStorage.AddMin8,
-                sessionStorage.AddMin9,
-                sessionStorage.AddMin10);*/
+            /* getAddMinList(sessionStorage.sels, Serial, sessionStorage.CustCode,
+                    0,
+                    $("#AddMinSharh1").val(),
+                    $("#AddMinSharh2").val(),
+                    $("#AddMinSharh3").val(),
+                    $("#AddMinSharh4").val(),
+                    $("#AddMinSharh5").val(),
+                    $("#AddMinSharh6").val(),
+                    $("#AddMinSharh7").val(),
+                    $("#AddMinSharh8").val(),
+                    $("#AddMinSharh8").val(),
+                    $("#AddMinSharh10").val(),
+                    sessionStorage.AddMin1,
+                    sessionStorage.AddMin2,
+                    sessionStorage.AddMin3,
+                    sessionStorage.AddMin4,
+                    sessionStorage.AddMin5,
+                    sessionStorage.AddMin6,
+                    sessionStorage.AddMin7,
+                    sessionStorage.AddMin8,
+                    sessionStorage.AddMin9,
+                    sessionStorage.AddMin10);*/
 
             if (flagKalaPrice == true) {
                 ajaxFunction(UpdatePriceUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST').done(function (response) {
@@ -988,7 +992,7 @@
         self.SerialNumber(Serial);
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
-        self.Spec(sessionStorage.Spec); 
+        self.Spec(sessionStorage.Spec);
         codeCust = sessionStorage.CustCode;
         self.CustCode(sessionStorage.CustCode);
         self.PriceCode(sessionStorage.PriceCode);
@@ -1158,25 +1162,6 @@
 
 
 
-    /* self.filterKala = ko.observable("");
-     self.filterKalaList = ko.computed(function () {
-         self.currentPageIndexKala(0);
-         var filter = self.filterKala().toLowerCase();
-         if (!filter) {
-             return self.KalaList();
-         } else {
-             return ko.utils.arrayFilter(self.KalaList(), function (item) {
-                 if ($("#allSearchKala").is(':checked')) {
-                     result = ko.utils.stringStartsWith(item.Code.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Name.toLowerCase(), filter) || ko.utils.stringStartsWith(item.FanniNo.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Spec.toLowerCase(), filter)
-                     return result;
-                 }
-                 else {
-                     result = ko.utils.stringStartsWith(item.Code.toLowerCase(), filter);//    (item.Code.toLowerCase().search(filter) >= 0);
-                     return result;
-                 }
-             });
-         }
-     });*/
 
     self.filterKala0 = ko.observable("");
     self.filterKala1 = ko.observable("");
@@ -1228,19 +1213,12 @@
         if (self.currentPageIndexKala() > 0) {
             self.currentPageIndexKala(self.currentPageIndexKala() - 1);
         }
-        //else {
-        //    self.currentPageIndexKala((Math.ceil(self.filterKalaList().length / self.pageSizeKala())) - 1);
-        //}
     };
 
     self.firstPageKala = function () {
         self.currentPageIndexKala(0);
     };
 
-    //self.lastPageKala = function () {
-    //    countKala = parseInt(self.filterKalaList().length / self.pageSizeKala(), 10);
-    //    self.currentPageIndexKala(countKala);
-    // };
 
     self.lastPageKala = function () {
         countKala = parseInt(self.filterKalaList().length / self.pageSizeKala(), 10);
@@ -1362,7 +1340,7 @@
     self.getById = function (id) {
         return ko.utils.arrayFirst(self.KalaPriceBList(), function (q) {
             if (q.Code === id) {
-                return q.Price1; 
+                return q.Price1;
             }
             else {
                 return 'not found';
@@ -1371,6 +1349,7 @@
     };
 
     self.selectKala = function (item) {
+        self.ClearFDocB();
         kalapricecode = $("#gGhimat").val();
         if (kalapricecode == null) kalapricecode = "";
 
@@ -1378,7 +1357,6 @@
         getUnit(item.Code);
         getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.Code);
 
-        self.ClearFDocB();
         zarib1 = item.zarib1;
         zarib2 = item.zarib2;
         zarib3 = item.zarib3;
@@ -1403,7 +1381,7 @@
 
         $('#codeKala').val(item.Code);
         $('#nameKala').val('(' + item.Code + ') ' + item.Name);
-        $('#unitName').val(item.UnitName1);
+        //$('#unitName').val(item.UnitName1);
         Price1 > 0 ? $("#unitPrice").val(NumberToNumberString(Price1)) : $("#unitPrice").val('');
         $("#amounttext").text(item.UnitName1);
         $("#txtzarib1").text(item.UnitName1);
@@ -1558,7 +1536,6 @@
 
     $('#modal-hesab').on('shown.bs.modal', function () {
         $('#searchHesab').val('');
-        self.filterCust('');
         self.filterCustList();
         $('#searchHesab').focus();
     });
@@ -1566,7 +1543,6 @@
     $('#modal-kala').on('shown.bs.modal', function () {
         $('#searchKala').val('');
         $('.fix').attr('class', 'form-line focused fix');
-        self.filterKala('');
         self.filterKalaList();
         $('#searchKala').focus();
     });
@@ -1907,9 +1883,9 @@
     })
 
 
-    $('#gGhimat').change(function () {
+    $("#gGhimat").change(function () {
         a = $("#sumfactor").val();
-        if ($("#sumfactor").val() != '' && viewAction == true) {
+        if ($("#sumfactor").val() != '' && viewAction == true && firstUpdateShow == 0) {
 
             Swal.fire({
                 title: 'تایید و ثبت نهایی تغییرات ؟',
@@ -1936,6 +1912,8 @@
                 }
             })
         }
+        if (firstUpdateShow == 1)
+            firstUpdateShow = 0;
     })
 
 

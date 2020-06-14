@@ -172,7 +172,7 @@
 
         ajaxFunction(DftrUri + ace + '/' + sal + '/' + group, 'POST', DftrObject).done(function (response) {
             self.DftrList(response);
-            calcsum(self.DftrList());
+
         });
     }
 
@@ -187,17 +187,26 @@
             DftrData = list[i];
             totalBede += DftrData.Bede;
             totalBest += DftrData.Best;
-            totalMonBede += DftrData.MonBede;
-            totalMonBest += DftrData.MonBest;
-            totalMonTotal += DftrData.MonTotal;
+            //totalMonBede += DftrData.MonBede;
+            //totalMonBest += DftrData.MonBest;
+            //totalMonTotal += DftrData.MonTotal;
         }
 
         $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
-        //$("#totalMonBede").text(NumberToNumberString(totalMonBede.toFixed(parseInt(sessionStorage.Deghat))));
-        //$("#totalMonBest").text(NumberToNumberString(totalMonBest.toFixed(parseInt(sessionStorage.Deghat))));
-        // $("#totalMonTotal").text(NumberToNumberString(totalMonTotal.toFixed(parseInt(sessionStorage.Deghat))));
+
+        totalMonTotal = totalBede - totalBest;
+        if (totalMonTotal > 0) {
+            $("#totalMonBede").text(NumberToNumberString(totalMonTotal.toFixed(parseInt(sessionStorage.Deghat))));
+            $("#totalMonBest").text('0');
+        }
+        else {
+            $("#totalMonBede").text('0');
+            $("#totalMonBest").text(NumberToNumberString(Math.abs(totalMonTotal.toFixed(parseInt(sessionStorage.Deghat)))));
+
+        }
+        $("#totalMonTotal").text(NumberToNumberString(totalMonTotal.toFixed(parseInt(sessionStorage.Deghat))));
 
     }
 
@@ -1078,7 +1087,7 @@
                 opt.value = 1;
                 opt.innerHTML = 'حساب های کل';
             }
-            
+
             select.appendChild(opt);
         }
     };
@@ -1087,7 +1096,7 @@
         select = document.getElementById('JamRooz');
         for (var i = 0; i <= 1; i++) {
             opt = document.createElement('option');
-             if (i == 0) {
+            if (i == 0) {
                 opt.value = 0;
                 opt.innerHTML = 'بدون جمع روزانه';
                 opt.selected = true;
@@ -1256,7 +1265,7 @@
             return result;
         })
         $("#CountRecord").text(tempData.length);
-        // calcsum(tempData);
+        calcsum(tempData);
         return tempData;
 
     });
