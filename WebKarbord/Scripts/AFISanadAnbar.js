@@ -384,7 +384,7 @@
     self.ClearIDocB = function ClearIDocB() {
         $('#codeKala').val('');
         $('#nameKala').val('');
-        $("#unitName").empty();
+        //$("#unitName").empty();
         self.KalaCode('');
         self.Amount1('');
         self.Amount2('');
@@ -1104,7 +1104,7 @@
         $('#codeKala').val(item.Code);
         $('#nameKala').val('(' + item.Code + ') ' + item.Name);
 
-        $('#unitName').val(item.UnitName1);
+        //$('#unitName').val(item.UnitName1);
         Price1 > 0 ? $("#unitPrice").val(NumberToNumberString(Price1)) : $("#unitPrice").val('');
         $("#amounttext").text(item.UnitName1);
         $("#txtzarib1").text(item.UnitName1);
