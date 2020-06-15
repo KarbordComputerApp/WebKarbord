@@ -25,6 +25,7 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
+
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
 
@@ -1104,7 +1105,10 @@
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
-        $('#TableReport').append(
+
+        level = $("#Level").val();
+
+        createTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzAcc">' +
@@ -1117,8 +1121,15 @@
             CreateTableTh('MonTotal', data) +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">' +
-            '     <tr data-bind="style: { \'background-color\': Level == 1 ? \'##f5efeb\' : \'\' }" >' +
+            ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">';
+        if (level == 1)
+            createTable +=
+                '     <tr>'
+        else
+            createTable +=
+                '     <tr data-bind="style: { \'background-color\': Level == 1 ? \'##f5efeb\' : \'\' }" >'
+
+        createTable +=
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
@@ -1149,6 +1160,8 @@
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
+        $('#TableReport').append(
+            createTable
         );
     }
 

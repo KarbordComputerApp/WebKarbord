@@ -391,8 +391,10 @@
         }).then((result) => {
             if (result.value) {
                 ajaxFunction(FDocHHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
+                    currentPage = self.currentPageIndexFDocH();
                     //self.IDocHList(response);
                     getFDocH($('#pageCountSelector').val());
+                    self.currentPageIndexFDocH(currentPage);
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' فاکتور حذف شد ' });
                 });
             }

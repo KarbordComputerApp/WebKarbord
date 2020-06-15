@@ -43,6 +43,8 @@
     //var storedNames = JSON.parse(sessionStorage.getItem("inv"));
     // self.InvList(storedNames);
 
+    self.currentPageIndexIDocH = ko.observable(0);
+
     //Get IDocH
     function getIDocH(select, invCode) {
         //$('#invSelect').val(sessionStorage.invSelect);         
@@ -52,7 +54,8 @@
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.IDocHList(data);
-            ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut +'/Count', 'GET').done(function (dataCount) {
+            //self.currentPageIndexIDocH(0);
+            ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/Count', 'GET').done(function (dataCount) {
                 $('#countAllRecord').text(dataCount);
             });
         });
@@ -72,7 +75,6 @@
     //------------------------------------------------------
     self.currentPageIDocH = ko.observable();
     self.pageSizeIDocH = ko.observable(10);
-    self.currentPageIndexIDocH = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
@@ -345,7 +347,9 @@
         }).then((result) => {
             if (result.value) {
                 ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
+                    currentPage = self.currentPageIndexIDocH();
                     getIDocH(0, sessionStorage.invSelect == "" ? 0 : sessionStorage.invSelect);
+                    self.currentPageIndexIDocH(currentPage);
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
                 });
             }
