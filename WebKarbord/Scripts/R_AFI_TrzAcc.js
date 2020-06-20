@@ -1127,7 +1127,7 @@
                 '     <tr>'
         else
             createTable +=
-                '     <tr data-bind="style: { \'background-color\': Level == 1 ? \'##f5efeb\' : \'\' }" >'
+                '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
 
         createTable +=
             CreateTableTd('AccCode', 0, 0, data) +

@@ -1,0 +1,287 @@
+﻿
+@{
+    ViewBag.Title = "CheckInf";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <strong id="">صورت خلاصه چک ها</strong>
+            </div>
+            <div class="body">
+                <form class="clearfix">
+                    <div class="row form-inline ">
+                        <div class="col-sm-3 form-inline">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btnaztarikh">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="aztarikh" data-bind="value:AzDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">از تاریخ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btntatarikh">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="tatarikh" data-bind="value:TaDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">تا تاریخ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 form-inline">
+                            <div class="col-sm-6">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input id="azshomarh" data-bind="value:AzShomarh" class="form-control" type="text" maxlength="10">
+                                        <label class="form-label" for="">از شماره</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input id="tashomarh" data-bind="value:TaShomarh" class="form-control date" type="text" maxlength="10">
+                                        <label class="form-label" for="">تا شماره</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 form-inline">
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <span class="col-md-5">
+                                        نوع چک
+                                    </span>
+                                    <div class="form-group col-md-7">
+                                        <select id="PDMode"></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnCheckStatus" class="dropdown-toggle" data-toggle="modal" data-target="#modal-CheckStatus">
+                                            <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        </a>
+                                    </div>
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameCheckStatus" class="form-control" readonly />
+                                            <label class="form-label">وضعیت چک</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div class="row form-inline ">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <a id="btnAcc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Acc">
+                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                    </a>
+                                </div>
+                                <div class="form-group form-float" style="margin-left: 250px;">
+                                    <div class="form-line focused fix">
+                                        <input id="nameAcc" class="form-control" readonly />
+                                        <label class="form-label">طرف حساب</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div class="pull-left">
+                                <button type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i>گزارش گیری</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-CheckStatus" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست وضعیت چک</h4>
+                <a id="refreshCheckStatus">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped">
+                                <thead style="cursor: pointer;">
+                                    <tr data-bind="click: sortTableCheckStatus">
+                                        <th data-column="CheckStatus">
+                                            نام
+                                            <span data-bind="attr: { class: currentColumn() == 'CheckStatus' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeCheckStatus }"></i>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: currentPageCheckStatus" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.AddCheckStatus }">
+                                        <td data-bind="text: CheckStatus"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="background-color: #efb68399;">
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterCheckStatus0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 centered">
+                        <div class="row centered">
+                            <button data-bind="click: AddAllCheckStatus" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            </button>
+                            <button data-bind="click: DelAllCheckStatus" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                            <table class="table table-hover table-striped" id="TableSelectedCheckStatus">
+                                <thead style="cursor: pointer;">
+                                    <tr>
+                                        <th>نام</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="TableBodyListCheckStatus" style="cursor: default;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeCheckStatus">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="text-align: center;">
+
+                        <a data-bind="click: firstPageCheckStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageCheckStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexCheckStatus() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageCheckStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageCheckStatus">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#btnaztarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#aztarikh',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+        $('#btntatarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#tatarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        $(function () {
+            $('.dd').nestable();
+            $('.dd').on('change', function () {
+                var $this = $(this);
+                var serializedData = window.JSON.stringify($($this).nestable('serialize'));
+                $this.parents('div.body').find('textarea').val(serializedData);
+            });
+        });
+    </script>
+    <script src="~/Scripts/R_AFI_CheckInf.js"></script>
+}
+

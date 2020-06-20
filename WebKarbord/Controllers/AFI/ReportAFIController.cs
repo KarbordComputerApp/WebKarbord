@@ -27,6 +27,10 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult CheckInf()
+        {
+            return View();
+        }
 
 
 
