@@ -97,7 +97,6 @@
         });
     }
 
-
     getRprtColsList();
     getAccList();
     getOprList();
@@ -106,15 +105,10 @@
     getLevel();
     getSathTaraz();
 
-
     $('#nameAcc').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
     $('#nameAMode').val('همه موارد');
-
-
-
-
 
 
     //Get TrzAcc

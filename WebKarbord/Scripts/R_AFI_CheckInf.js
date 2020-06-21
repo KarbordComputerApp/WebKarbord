@@ -35,6 +35,10 @@
     });
 
 
+    var AccCode = '';
+    var counterAcc = 0;
+    var list_AccSelect = new Array();
+
 
     var CheckStatusCode = '';
     var counterCheckStatus = 0;
@@ -49,9 +53,8 @@
 
 
     //Get CheckStatus List
-    function getCheckStatusList() {
-        progName = getProgName('A');
-        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+    function getCheckStatusList(PDMode) {
+        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
             self.CheckStatusList(data);
         });
     }
@@ -65,13 +68,55 @@
     }
 
 
+    //Get CheckInf
+    function getCheckInf() {
+        tarikh1 = $("#aztarikh").val().toEnglishDigit();
+        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+
+        azShomarh = $("#azshomarh").val();
+        taShomarh = $("#tashomarh").val();
+
+        pDMode = $("#PDMode").val();
+
+        var accCode = '';
+        for (var i = 0; i <= counterAcc - 1; i++) {
+            if (i < counterAcc - 1)
+                accCode += list_AccSelect[i] + '*';
+            else
+                accCode += list_AccSelect[i];
+        }
+
+
+        var checkStatus = '';
+        for (var i = 0; i <= counterCheckStatus - 1; i++) {
+            if (i < counterCheckStatus - 1)
+                checkStatus += list_CheckStatusSelect[i] + '*';
+            else
+                checkStatus += list_CheckStatusSelect[i];
+        }
+
+        var CheckInfObject = {
+            azTarikh: tarikh1,
+            taTarikh: tarikh2,
+            azShomarh: azShomarh,
+            taShomarh: taShomarh,
+            AccCode: accCode,
+            PDMode: pDMode,
+            CheckStatus: checkStatus,
+        };
+        ajaxFunction(CheckInfUri + ace + '/' + sal + '/' + group, 'POST', CheckInfObject).done(function (response) {
+            self.CheckInfList(response);
+            //calcsum(self.CheckInfList());
+        });
+    }
+
     $("#CreateReport").click(function () {
         getCheckInf();
     });
 
 
     getAccList();
-    getCheckStatusList();
+    getCheckStatusList(2);
 
     $('#nameAcc').val('همه موارد');
 
@@ -224,7 +269,7 @@
         } else {
             tempData = ko.utils.arrayFilter(self.CheckStatusList(), function (item) {
                 result =
-                    item.CheckStatus == null ? '' : item.CheckStatus.toString().search(filter0) >= 0
+                    item.Name == null ? '' : item.Name.toString().search(filter0) >= 0
                 return result;
             })
             return tempData;
@@ -278,10 +323,10 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-        self.iconTypeCheckStatus('');
+        self.iconTypeName('');
 
 
-        if (orderProp == 'CheckStatus') self.iconTypeCheckStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
     self.PageCountView = function () {
@@ -307,7 +352,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getCheckStatusList();
+                getCheckStatusList(1);
                 $("div.loadingZone").hide();
             }
         })
@@ -327,7 +372,7 @@
         if (find == false) {
             $('#TableBodyListCheckStatus').append(
                 '<tr data-bind="">'
-                + ' <td data-bind="text: CheckStatus">' + item.CheckStatus + '</td > '
+                + ' <td data-bind="text: Name">' + item.Name + '</td > '
                 + '</tr>'
             );
             list_CheckStatusSelect[counterCheckStatus] = item.CheckStatus;
@@ -343,7 +388,7 @@
         for (var i = 0; i < list.length; i++) {
             $('#TableBodyListCheckStatus').append(
                 '  <tr data-bind="">'
-                + ' <td data-bind="text: CheckStatus">' + list[i].CheckStatus + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
                 + '</tr>'
             );
             list_CheckStatusSelect[i] = list[i].CheckStatus;
@@ -555,6 +600,268 @@
         $('.fix').attr('class', 'form-line focused fix');
     });
 
+
+
+    getPDMode();
+
+    function getPDMode() {
+        select = document.getElementById('PDMode');
+        for (var i = 1; i <= 2; i++) {
+            opt = document.createElement('option');
+            if (i == 1) {
+                opt.value = 1;
+                opt.innerHTML = 'پرداختنی';
+                opt.selected = true;
+            }
+            if (i == 2) {
+                opt.value = 2;
+                opt.innerHTML = 'دریافتنی';
+            }
+            select.appendChild(opt);
+        }
+    };
+
+
+
+
+
+    //------------------------------------------------------
+    self.currentPageCheckInf = ko.observable();
+    self.pageSizeCheckInf = ko.observable(10);
+    self.currentPageIndexCheckInf = ko.observable(0);
+    self.sortType = "ascending";
+    self.currentColumn = ko.observable("");
+    self.iconType = ko.observable("");
+
+    self.filterCheckNo = ko.observable("");
+    self.filterCheckDate = ko.observable("");
+    self.filterAccCode = ko.observable("");
+    self.filterAccName = ko.observable("");
+    self.filterBank = ko.observable("");
+    self.filterShobe = ko.observable("");
+    self.filterJari = ko.observable("");
+    self.filterTrafCode = ko.observable("");
+    self.filterTrafName = ko.observable("");
+    self.filterValue = ko.observable("");
+    self.filterCheckStatusSt = ko.observable("");
+
+
+
+    self.filterCheckInfList = ko.computed(function () {
+        self.currentPageIndexCheckInf(0);
+        var filterCheckNo = self.filterCheckNo();
+        var filterCheckDate = self.filterCheckDate();
+        var filterAccCode = self.filterAccCode();
+        var filterAccName = self.filterAccName();
+        var filterBank = self.filterBank();
+        var filterShobe = self.filterShobe();
+        var filterJari = self.filterJari();
+        var filterTrafCode = self.filterTrafCode();
+        var filterTrafName = self.filterTrafName();
+        var filterValue = self.filterValue();
+        var filterCheckStatusSt = self.filterCheckStatusSt();
+
+        tempData = ko.utils.arrayFilter(self.CheckInfList(), function (item) {
+            result =
+                ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
+                (item.CheckDate == null ? '' : item.CheckDate.toString().search(filterCheckDate) >= 0) &&
+                (item.AccCode == null ? '' : item.AccCode.toString().search(filterAccCode) >= 0) &&
+                (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
+                (item.Bank == null ? '' : item.Bank.toString().search(filterBank) >= 0) &&
+                (item.Shobe == null ? '' : item.Shobe.toString().search(filterShobe) >= 0) &&
+                (item.Jari == null ? '' : item.Jari.toString().search(filterJari) >= 0) &&
+                ko.utils.stringStartsWith(item.TrafCode.toString().toLowerCase(), filterTrafCode) &&
+                (item.TrafName == null ? '' : item.TrafName.toString().search(filterTrafName) >= 0) &&
+                ko.utils.stringStartsWith(item.Value.toString().toLowerCase(), filterValue) &&
+                (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0) 
+            return result;
+        })
+        $("#CountRecord").text(tempData.length);
+        calcsum(tempData);
+        return tempData;
+
+    });
+
+    self.search = ko.observable("");
+    self.search(sessionStorage.searchCheckInf);
+    self.firstMatch = ko.dependentObservable(function () {
+        var indexCheckInf = 0;
+        sessionStorage.searchCheckInf = "";
+        var search = self.search();
+        if (!search) {
+            self.currentPageIndexCheckInf(0);
+            return null;
+        } else {
+            value = ko.utils.arrayFirst(self.CheckInfList(), function (item) {
+                indexCheckInf += 1;
+                return ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), search);
+            });
+            if (indexCheckInf < self.pageSizeCheckInf())
+                self.currentPageIndexCheckInf(0);
+            else {
+                var a = Math.round((indexCheckInf / self.pageSizeCheckInf()), 0);
+                if (a < (indexCheckInf / self.pageSizeCheckInf())) a += 1;
+                self.currentPageIndexCheckInf(a - 1);
+            }
+            return value;
+        }
+    });
+
+
+    self.currentPageCheckInf = ko.computed(function () {
+        var pageSizeCheckInf = parseInt(self.pageSizeCheckInf(), 10),
+            startIndex = pageSizeCheckInf * self.currentPageIndexCheckInf(),
+            endIndex = startIndex + pageSizeCheckInf;
+        return self.filterCheckInfList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageCheckInf = function () {
+        if (((self.currentPageIndexCheckInf() + 1) * self.pageSizeCheckInf()) < self.filterCheckInfList().length) {
+            self.currentPageIndexCheckInf(self.currentPageIndexCheckInf() + 1);
+        }
+    };
+
+    self.previousPageCheckInf = function () {
+        if (self.currentPageIndexCheckInf() > 0) {
+            self.currentPageIndexCheckInf(self.currentPageIndexCheckInf() - 1);
+        }
+    };
+
+    self.firstPageCheckInf = function () {
+        self.currentPageIndexCheckInf(0);
+    };
+
+    self.lastPageCheckInf = function () {
+        tempCountCheckInf = parseInt(self.filterCheckInfList().length / self.pageSizeCheckInf(), 10);
+        if ((self.filterCheckInfList().length % self.pageSizeCheckInf()) == 0)
+            self.currentPageIndexCheckInf(tempCountCheckInf - 1);
+        else
+            self.currentPageIndexCheckInf(tempCountCheckInf);
+    };
+
+    self.sortTableCheckInf = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.CheckInfList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCheckNo('');
+        self.iconTypeCheckDate('');
+        self.iconTypeAccCode('');
+        self.iconTypeAccName('');
+        self.iconTypeBank('');
+        self.iconTypeShobe('');
+        self.iconTypeJari('');
+        self.iconTypeTrafCode('');
+        self.iconTypeTrafName('');
+        self.iconTypeValue('');
+        self.iconTypeCheckStatusSt('');
+
+
+
+        if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bank') self.iconTypeBank((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Shobe') self.iconTypeShobe((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Jari') self.iconTypeJari((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafCode') self.iconTypeTrafCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafName') self.iconTypeTrafName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Value') self.iconTypeValue((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckStatusSt') self.iconTypeCheckStatusSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    }
+
+
+    self.sortType = "ascending";
+    self.currentColumn = ko.observable("");
+
+    self.iconTypeCheckDate = ko.observable("");
+    self.iconTypeCheckNo = ko.observable("");
+    self.iconTypeAccCode = ko.observable("");
+    self.iconTypeAccName = ko.observable("");
+    self.iconTypeBank = ko.observable("");
+    self.iconTypeShobe = ko.observable("");
+    self.iconTypeJari = ko.observable("");
+    self.iconTypeTrafCode = ko.observable("");
+    self.iconTypeTrafName = ko.observable("");
+    self.iconTypeValue = ko.observable("");
+    self.iconTypeCheckStatusSt = ko.observable("");
+
+    function CreateTableReport(data) {
+        $("#TableReport").empty();
+        $('#TableReport').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableCheckInf">' +
+            CreateTableTh('CheckNo', data) +
+            CreateTableTh('CheckDate', data) +
+            CreateTableTh('AccCode', data) +
+            CreateTableTh('AccName', data) +
+            CreateTableTh('Bank', data) +
+            CreateTableTh('Shobe', data) +
+            CreateTableTh('Jari', data) +
+            CreateTableTh('TrafCode', data) +
+            CreateTableTh('TrafName', data) +
+            CreateTableTh('Value', data) +
+            CreateTableTh('CheckStatusSt', data) +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind="foreach: currentPageCheckInf" data-dismiss="modal" style="cursor: default;">' +
+            '     <tr>' +
+            CreateTableTd('CheckNo', 0, 0, data) +
+            CreateTableTd('CheckDate', 0, 0, data) +
+            CreateTableTd('AccCode', 0, 0, data) +
+            CreateTableTd('AccName', 0, 0, data) +
+            CreateTableTd('Bank', 0, 0, data) +
+            CreateTableTd('Shobe', 0, 0, data) +
+            CreateTableTd('Jari', 0, 0, data) +
+            CreateTableTd('TrafCode', 0, 0, data) +
+            CreateTableTd('TrafName', 0, 0, data) +
+            CreateTableTd('Value', 0, 0, data) +
+            CreateTableTd('CheckStatusSt', 0, 0, data) +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('CheckNo', 0, data) +
+            CreateTableTdSum('CheckDate', 1, data) +
+            CreateTableTdSum('AccCode', 1, data) +
+            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('Bank', 1, data) +
+            CreateTableTdSum('Shobe', 1, data) +
+            CreateTableTdSum('Jari', 1, data) +
+            CreateTableTdSum('TrafCode', 1, data) +
+            CreateTableTdSum('TrafName', 1, data) +
+            CreateTableTdSum('Value', 1, data) +
+            CreateTableTdSum('CheckStatusSt', 1, data) +
+            ' </tr>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('CheckNo', data) +
+            CreateTableTdSearch('CheckDate', data) +
+            CreateTableTdSearch('AccCode', data) +
+            CreateTableTdSearch('AccName', data) +
+            CreateTableTdSearch('Bank', data) +
+            CreateTableTdSearch('Shobe', data) +
+            CreateTableTdSearch('Jari', data) +
+            CreateTableTdSearch('TrafCode', data) +
+            CreateTableTdSearch('TrafName', data) +
+            CreateTableTdSearch('Value', data) +
+            CreateTableTdSearch('CheckStatusSt', data) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
 
 
 
