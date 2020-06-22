@@ -106,7 +106,6 @@
         };
         ajaxFunction(CheckInfUri + ace + '/' + sal + '/' + group, 'POST', CheckInfObject).done(function (response) {
             self.CheckInfList(response);
-            //calcsum(self.CheckInfList());
         });
     }
 
@@ -115,10 +114,13 @@
     });
 
 
+    getRprtColsList();
+    getPDMode();
     getAccList();
-    getCheckStatusList(2);
+    getCheckStatusList(1);
 
     $('#nameAcc').val('همه موارد');
+    $('#nameCheckStatus').val('همه موارد');
 
     self.iconTypeCode = ko.observable("");
     self.iconTypeName = ko.observable("");
@@ -375,14 +377,14 @@
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
                 + '</tr>'
             );
-            list_CheckStatusSelect[counterCheckStatus] = item.CheckStatus;
+            list_CheckStatusSelect[counterCheckStatus] = item.Code;
             counterCheckStatus = counterCheckStatus + 1;
         }
     };
 
 
     self.AddAllCheckStatus = function () {
-        list_CheckStatusSelect = new Array();
+        list_CheckStatusSelect = new Array(); 
         list = self.CheckStatusList();
         $("#TableBodyListCheckStatus").empty();
         for (var i = 0; i < list.length; i++) {
@@ -391,7 +393,7 @@
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
                 + '</tr>'
             );
-            list_CheckStatusSelect[i] = list[i].CheckStatus;
+            list_CheckStatusSelect[i] = list[i].Code;
             counterCheckStatus = i + 1;
         }
     };
@@ -400,9 +402,10 @@
     self.DelAllCheckStatus = function () {
         list_CheckStatusSelect = new Array();
         counterCheckStatus = 0;
+        $('#nameCheckStatus').val('همه موارد');
         $("#TableBodyListCheckStatus").empty();
     };
-
+    
 
     $('#modal-CheckStatus').on('hide.bs.modal', function () {
         if (counterCheckStatus > 0)
@@ -602,7 +605,6 @@
 
 
 
-    getPDMode();
 
     function getPDMode() {
         select = document.getElementById('PDMode');
@@ -623,6 +625,11 @@
 
 
 
+    $("#PDMode").change(function () {
+        value = $("#PDMode").val();
+        self.DelAllCheckStatus();
+        getCheckStatusList(value);
+    });
 
 
     //------------------------------------------------------
@@ -677,7 +684,7 @@
             return result;
         })
         $("#CountRecord").text(tempData.length);
-        calcsum(tempData);
+        //calcsum(tempData);
         return tempData;
 
     });
