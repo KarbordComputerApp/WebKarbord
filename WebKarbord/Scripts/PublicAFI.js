@@ -89,7 +89,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 15; i++) {
+for (var i = 0; i <= 16; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -106,6 +106,7 @@ for (var i = 0; i <= 15; i++) {
     afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
     afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
     afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
+    afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
 }
 
 
@@ -488,7 +489,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 15; i++) {
+                for (var i = 0; i <= 16; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -505,6 +506,7 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
                     afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
                     afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
+                    afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
 
                 }
 
@@ -635,6 +637,9 @@ function SetValidation() {
     validation = CheckAccessReport('ADocR');
     ShowMenu[19] = validation;  // دفتر حساب روزنامه
 
+    validation = CheckAccessReport('TChk');
+    ShowMenu[20] = validation;  // صورت ریز چک 
+
 
 
     /*  if (accessReport[i].Code == 'TrzIKala') {
@@ -655,7 +660,7 @@ function SetValidation() {
     validation = CheckAccess('SPDOC');
     ShowMenu[3] = validation;  // پیش فاکتور قروش
 
-    sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
+    //sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
         validation = CheckAccess('NEW_SPDOC');// new pish Factor forosh
@@ -663,8 +668,10 @@ function SetValidation() {
         validation = CheckAccess('CHG_SPDOC');// edit pish Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SPDOC'); // delete pish Factor forosh
+        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_SPDOC = true : sessionStorage.DEL_SPDOC = false
 
-        validation = CheckAccess('OTHERUSER_SPDOC');
+        validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
         //validation = CheckAccess('PRN_SPDOC'); // Print pish Factor forosh
@@ -673,9 +680,7 @@ function SetValidation() {
         validation = CheckAccess('AccessSanad_SPDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        sessionStorage.AccessSanad = true;
-
-        validation = CheckAccess('OTHERUSER_SPDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_SPDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewPishFactorForosh = true;
         }
@@ -695,15 +700,17 @@ function SetValidation() {
         validation = CheckAccess('CHG_SDOC');// edit Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SDOC'); // delete Factor forosh
-        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
+
         //validation = CheckAccess('PRN_SDOC'); // Print Factor forosh
         //validation == true ? $("#").show() : $("#").hide()
 
-        validation = CheckAccess('AccessSanad_SDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_SDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
+        //sessionStorage.AccessSanad = true;
 
-        validation = CheckAccess('OTHERUSER_SDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_SDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewFactorForosh = true;
         }
@@ -722,14 +729,14 @@ function SetValidation() {
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SRDOC'); // delete back Factor forosh
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
         //validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
         //validation == true ? $("#").show() : $("#").hide()
-        validation = CheckAccess('AccessSanad_SRDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_SRDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
 
 
-        validation = CheckAccess('OTHERUSER_SRDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_SRDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewBackFactorForosh = true;
         }
@@ -748,16 +755,16 @@ function SetValidation() {
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_PPDOC'); // delete pish Factor kharid
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_PPDOC = true : sessionStorage.DEL_PPDOC = false
         //validation = CheckAccess('PRN_PPDOC'); // Print pish Factor kharid
         //validation == true ? $("#").show() : $("#").hide()
         //validation = CheckAccess('OTHERUSER_PPDOC');// AccessSanad
         //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        validation = CheckAccess('AccessSanad_SRDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_SRDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
 
-        validation = CheckAccess('OTHERUSER_PPDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_PPDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewPishFactorKharid = true;
         }
@@ -776,15 +783,14 @@ function SetValidation() {
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_PDOC'); // delete Factor kharid
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
         //validation = CheckAccess('PRN_PDOC'); // Print Factor kharid
         //validation == true ? $("#").show() : $("#").hide()
 
-        validation = CheckAccess('AccessSanad_PDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_PDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
 
-
-        validation = CheckAccess('OTHERUSER_PDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_PDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewFactorKharid = true;
         }
@@ -802,16 +808,17 @@ function SetValidation() {
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         validation = CheckAccess('CHG_PRDOC');// edit back Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+
         validation = CheckAccess('DEL_PRDOC'); // delete back Factor kharid
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_PRDOC = true : sessionStorage.DEL_PRDOC = false
+
         //validation = CheckAccess('PRN_PRDOC'); // Print back Factor kharid
         //validation == true ? $("#").show() : $("#").hide()
-        validation = CheckAccess('AccessSanad_PRDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_PRDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
 
-
-        validation = CheckAccess('OTHERUSER_PRDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_PRDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewBackFactorKharid = true;
         }
@@ -824,22 +831,22 @@ function SetValidation() {
     validation = CheckAccess('IIDOC');
     ShowMenu[9] = validation;  // وارده انبار
 
-    if (sessionStorage.InOut == 1) {
+    if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
         validation = CheckAccess('NEW_IIDOC');// new varedae anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
         validation = CheckAccess('CHG_IIDOC');// edit varedae anbar
         validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
         validation = CheckAccess('DEL_IIDOC'); // delete varedae anbar
         validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
+        validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
         //validation = CheckAccess('PRN_IIDOC'); // Print varedae anbar
         //validation == true ? $("#").show() : $("#").hide()
 
 
-        validation = CheckAccess('AccessSanad_IIDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
 
-        validation = CheckAccess('OTHERUSER_IIDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewSanadAnbarVarede = true;
             //$('#action_header').removeAttr('style');
@@ -864,23 +871,23 @@ function SetValidation() {
     validation = CheckAccess('IODOC');
     ShowMenu[10] = validation;  // صادره انبار
 
-    if (sessionStorage.InOut == 2) {
+    if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
         validation = CheckAccess('NEW_IODOC');// new sadere anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
         validation = CheckAccess('CHG_IODOC');// edit sadere anbar
         validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
         validation = CheckAccess('DEL_IODOC'); // delete sadere anbar
         validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
+        validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
         //validation = CheckAccess('PRN_IODOC'); // delete sadere anbar
         // validation == true ? $("#").show() : $("#").hide()
 
-        validation = CheckAccess('AccessSanad_IODOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        sessionStorage.AccessSanad = true;
 
 
 
-        validation = CheckAccess('OTHERUSER_IODOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewSanadAnbarSadere = true;
         }
@@ -900,11 +907,11 @@ function SetValidation() {
             if (ShowMenu[1] || ShowMenu[2]) {
                 if (ShowMenu[3] || ShowMenu[4] || ShowMenu[5] || ShowMenu[6] || ShowMenu[7] || ShowMenu[8]) {
                     $("#FDOC_Menu").show();
-                    (ShowMenu[3] == true) && (afiaccess[0] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
-                    (ShowMenu[4] == true) && (afiaccess[1] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
+                    (ShowMenu[3] == true) && (afiaccess[0] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
+                    (ShowMenu[4] == true) && (afiaccess[1] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
                     (ShowMenu[5] == true) && (afiaccess[2] == true) ? $("#FDOC_SR").show() : $("#FDOC_SR").hide();
-                    (ShowMenu[6] == true) && (afiaccess[3] == true) ? $("#FDOC_P").show() : $("#FDOC_P").hide();
-                    (ShowMenu[7] == true) && (afiaccess[4] == true) ? $("#FDOC_PP").show() : $("#FDOC_PP").hide();
+                    (ShowMenu[6] == true) && (afiaccess[3] == true) ? $("#FDOC_PP").show() : $("#FDOC_PP").hide();
+                    (ShowMenu[7] == true) && (afiaccess[4] == true) ? $("#FDOC_P").show() : $("#FDOC_P").hide();
                     (ShowMenu[8] == true) && (afiaccess[5] == true) ? $("#FDOC_PR").show() : $("#FDOC_PR").hide();
                 }
                 else {
@@ -965,11 +972,12 @@ function SetValidation() {
             $("#FReport_Menu").hide();
         }
 
-        if (afiaccess[13] || afiaccess[14] || afiaccess[15]) {
+        if (afiaccess[13] || afiaccess[14] || afiaccess[15] || afiaccess[16]) {
             $("#AReport_Menu").show();
             afiaccess[13] && ShowMenu[17] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
             afiaccess[14] && ShowMenu[18] == true ? $("#Dftr").show() : $("#Dftr").hide();
             afiaccess[15] && ShowMenu[19] == true ? $("#ADocR").show() : $("#ADocR").hide();
+            afiaccess[16] && ShowMenu[20] == true ? $("#TChk").show() : $("#TChk").hide();
 
             if (ShowMenu[17] == false && ShowMenu[18] == false && ShowMenu[19] == false)
                 $("#AReport_Menu").hide();
@@ -1071,10 +1079,12 @@ $("#FDOC_PR").click(function () {
 });
 
 $("#IDOC_I").click(function () {
+    sessionStorage.ModeCode = '';
     sessionStorage.InOut = 1;
 });
 
 $("#IDOC_O").click(function () {
+    sessionStorage.ModeCode = '';
     sessionStorage.InOut = 2;
 });
 

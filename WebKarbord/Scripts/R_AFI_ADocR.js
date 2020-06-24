@@ -177,7 +177,7 @@
 
         ajaxFunction(ADocRUri + ace + '/' + sal + '/' + group, 'POST', ADocRObject).done(function (response) {
             self.ADocRList(response);
-            calcsum(self.ADocRList());
+           // calcsum(self.ADocRList());
         });
     }
 
@@ -1291,7 +1291,7 @@
             return result;
         })
         $("#CountRecord").text(tempData.length);
-        // calcsum(tempData);
+        calcsum(tempData);
         return tempData;
 
     });

@@ -100,9 +100,10 @@
                                 <td data-bind="text: SerialNumber"></td>
                                 <td>
                                     <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">
+                                        <!--data-bind="click: $root.UpdateHeader , visible: $root.ShowAction(Eghdam)"-->
                                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px" />
                                     </a>
-                                    <a id="DeleteFactor" data-bind="click: $root.DeleteFactor , visible: $root.ShowAction(Eghdam)">
+                                    <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">
                                         <img src="~/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20" />
                                     </a>
                                 </td>

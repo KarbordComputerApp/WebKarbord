@@ -523,57 +523,87 @@
     }
 
     self.ShowAction = function (Eghdam) {
+
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
-            if (sessionStorage.AccessViewPishFactorForosh == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_SPDOC == 'true') {
+                if (sessionStorage.AccessViewPishFactorForosh == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
             }
-            else {
-                return true;
-            }
+            else
+                return false;
+
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
-            if (sessionStorage.AccessViewFactorForosh == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_SDOC == 'true') {
+                if (sessionStorage.AccessViewFactorForosh == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
+
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
-            if (sessionStorage.AccessViewBackFactorForosh == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_SRDOC == 'true') {
+                if (sessionStorage.AccessViewBackFactorForosh == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
+
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-            if (sessionStorage.AccessViewPishFactorKharid == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_PPDOC == 'true') {
+                if (sessionStorage.AccessViewPishFactorKharid == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
+
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-            if (sessionStorage.AccessViewFactorKharid == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_PDOC == 'true') {
+                if (sessionStorage.AccessViewFactorKharid == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
+
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-            if (sessionStorage.AccessViewBackFactorKharid == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_PRDOC == 'true') {
+                if (sessionStorage.AccessViewBackFactorKharid == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
     }
 

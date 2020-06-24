@@ -5,22 +5,22 @@
     var group = sessionStorage.group;
     var server = localStorage.getItem("ApiAddress");
 
-    self.AccList = ko.observableArray([]); // ليست طرف حساب ها
+    self.AccList = ko.observableArray([]); // ليست حساب ها
     self.CheckStatusList = ko.observableArray([]); // ليست نوع چک ها
 
-    self.CheckInfList = ko.observableArray([]); // لیست گزارش 
+    self.TChkList = ko.observableArray([]); // لیست گزارش 
 
-    var AccUri = server + '/api/Web_Data/Acc/'; // آدرس طرف حساب ها
+    var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
-    var CheckInfUri = server + '/api/ReportAcc/CheckInf/'; // آدرس گزارش 
+    var TChkUri = server + '/api/ReportAcc/TChk/'; // آدرس گزارش 
     var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت  
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
-    self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(sessionStorage.EndDate);
+    self.AzDate = ko.observable("");
+    self.TaDate = ko.observable("");
 
     self.AzShomarh = ko.observable();
     self.TaShomarh = ko.observable();
@@ -62,14 +62,14 @@
 
     //Get RprtCols List
     function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/CheckInf/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TChk/' + sessionStorage.userName, 'GET').done(function (data) {
             CreateTableReport(data);
         });
     }
 
 
-    //Get CheckInf
-    function getCheckInf() {
+    //Get TChk
+    function getTChk() {
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
@@ -95,7 +95,7 @@
                 checkStatus += list_CheckStatusSelect[i];
         }
 
-        var CheckInfObject = {
+        var TChkObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
             azShomarh: azShomarh,
@@ -104,13 +104,24 @@
             PDMode: pDMode,
             CheckStatus: checkStatus,
         };
-        ajaxFunction(CheckInfUri + ace + '/' + sal + '/' + group, 'POST', CheckInfObject).done(function (response) {
-            self.CheckInfList(response);
+        ajaxFunction(TChkUri + ace + '/' + sal + '/' + group, 'POST', TChkObject).done(function (response) {
+            self.TChkList(response);
         });
     }
 
+    function calcsum(list) {
+        totalvalue = 0;
+        for (var i = 0; i < list.length; ++i) {
+            TChkData = list[i];
+            totalvalue += TChkData.Value;
+        }
+
+        $("#textTotal").text('جمع');
+        $("#totalValue").text(NumberToNumberString(totalvalue));
+    }
+
     $("#CreateReport").click(function () {
-        getCheckInf();
+        getTChk();
     });
 
 
@@ -121,139 +132,6 @@
 
     $('#nameAcc').val('همه موارد');
     $('#nameCheckStatus').val('همه موارد');
-
-    self.iconTypeCode = ko.observable("");
-    self.iconTypeName = ko.observable("");
-    self.iconTypeSpec = ko.observable("");
-    self.iconTypeStatus = ko.observable("");
-
-
-    self.currentPageAcc = ko.observable();
-    self.pageSizeAcc = ko.observable(10);
-    self.currentPageIndexAcc = ko.observable(0);
-
-    self.filterAcc0 = ko.observable("");
-    self.filterAcc1 = ko.observable("");
-    self.filterAcc2 = ko.observable("");
-
-    self.filterAccList = ko.computed(function () {
-
-        self.currentPageIndexAcc(0);
-        var filter0 = self.filterAcc0().toUpperCase();
-        var filter1 = self.filterAcc1();
-        var filter2 = self.filterAcc2();
-
-        if (!filter0 && !filter1 && !filter2) {
-            return self.AccList();
-        } else {
-            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
-                result =
-                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
-                return result;
-            })
-            return tempData;
-        }
-    });
-
-
-    self.currentPageAcc = ko.computed(function () {
-        var pageSizeAcc = parseInt(self.pageSizeAcc(), 10),
-            startIndex = pageSizeAcc * self.currentPageIndexAcc(),
-            endIndex = startIndex + pageSizeAcc;
-        return self.filterAccList().slice(startIndex, endIndex);
-    });
-
-    self.nextPageAcc = function () {
-        if (((self.currentPageIndexAcc() + 1) * self.pageSizeAcc()) < self.filterAccList().length) {
-            self.currentPageIndexAcc(self.currentPageIndexAcc() + 1);
-        }
-    };
-
-    self.previousPageAcc = function () {
-        if (self.currentPageIndexAcc() > 0) {
-            self.currentPageIndexAcc(self.currentPageIndexAcc() - 1);
-        }
-    };
-
-    self.firstPageAcc = function () {
-        self.currentPageIndexAcc(0);
-    };
-
-    self.lastPageAcc = function () {
-        countAcc = parseInt(self.filterAccList().length / self.pageSizeAcc(), 10);
-        if ((self.filterAccList().length % self.pageSizeAcc()) == 0)
-            self.currentPageIndexAcc(countAcc - 1);
-        else
-            self.currentPageIndexAcc(countAcc);
-    };
-
-    self.sortTableAcc = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
-        self.AccList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
-
-        self.iconTypeCode('');
-        self.iconTypeName('');
-        self.iconTypeSpec('');
-
-
-        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-    };
-
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
-    }
-
-
-
-    $('#refreshAcc').click(function () {
-        Swal.fire({
-            title: 'تایید به روز رسانی ؟',
-            text: "لیست طرف حساب ها به روز رسانی شود ؟",
-            type: 'info',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                $("div.loadingZone").show();
-                getAccList();
-                $("div.loadingZone").hide();
-            }
-        })
-    })
-
-
-    self.selectAcc = function (item) {
-        $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
-        self.AccCode(item.Code);
-    }
-
-
-    $('#modal-Acc').on('shown.bs.modal', function () {
-        $('.fix').attr('class', 'form-line focused fix');
-    });
-
 
     self.currentPageCheckStatus = ko.observable();
     self.pageSizeCheckStatus = ko.observable(10);
@@ -525,7 +403,7 @@
     $('#refreshAcc').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
-            text: "لیست طرف حساب ها به روز رسانی شود ؟",
+            text: "لیست حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -633,9 +511,9 @@
 
 
     //------------------------------------------------------
-    self.currentPageCheckInf = ko.observable();
-    self.pageSizeCheckInf = ko.observable(10);
-    self.currentPageIndexCheckInf = ko.observable(0);
+    self.currentPageTChk = ko.observable();
+    self.pageSizeTChk = ko.observable(10);
+    self.currentPageIndexTChk = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
@@ -654,8 +532,8 @@
 
 
 
-    self.filterCheckInfList = ko.computed(function () {
-        self.currentPageIndexCheckInf(0);
+    self.filterTChkList = ko.computed(function () {
+        self.currentPageIndexTChk(0);
         var filterCheckNo = self.filterCheckNo();
         var filterCheckDate = self.filterCheckDate();
         var filterAccCode = self.filterAccCode();
@@ -668,7 +546,7 @@
         var filterValue = self.filterValue();
         var filterCheckStatusSt = self.filterCheckStatusSt();
 
-        tempData = ko.utils.arrayFilter(self.CheckInfList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.TChkList(), function (item) {
             result =
                 ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
                 (item.CheckDate == null ? '' : item.CheckDate.toString().search(filterCheckDate) >= 0) &&
@@ -684,72 +562,72 @@
             return result;
         })
         $("#CountRecord").text(tempData.length);
-        //calcsum(tempData);
+        calcsum(tempData);
         return tempData;
 
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchCheckInf);
+    self.search(sessionStorage.searchTChk);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexCheckInf = 0;
-        sessionStorage.searchCheckInf = "";
+        var indexTChk = 0;
+        sessionStorage.searchTChk = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexCheckInf(0);
+            self.currentPageIndexTChk(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.CheckInfList(), function (item) {
-                indexCheckInf += 1;
+            value = ko.utils.arrayFirst(self.TChkList(), function (item) {
+                indexTChk += 1;
                 return ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), search);
             });
-            if (indexCheckInf < self.pageSizeCheckInf())
-                self.currentPageIndexCheckInf(0);
+            if (indexTChk < self.pageSizeTChk())
+                self.currentPageIndexTChk(0);
             else {
-                var a = Math.round((indexCheckInf / self.pageSizeCheckInf()), 0);
-                if (a < (indexCheckInf / self.pageSizeCheckInf())) a += 1;
-                self.currentPageIndexCheckInf(a - 1);
+                var a = Math.round((indexTChk / self.pageSizeTChk()), 0);
+                if (a < (indexTChk / self.pageSizeTChk())) a += 1;
+                self.currentPageIndexTChk(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageCheckInf = ko.computed(function () {
-        var pageSizeCheckInf = parseInt(self.pageSizeCheckInf(), 10),
-            startIndex = pageSizeCheckInf * self.currentPageIndexCheckInf(),
-            endIndex = startIndex + pageSizeCheckInf;
-        return self.filterCheckInfList().slice(startIndex, endIndex);
+    self.currentPageTChk = ko.computed(function () {
+        var pageSizeTChk = parseInt(self.pageSizeTChk(), 10),
+            startIndex = pageSizeTChk * self.currentPageIndexTChk(),
+            endIndex = startIndex + pageSizeTChk;
+        return self.filterTChkList().slice(startIndex, endIndex);
     });
 
-    self.nextPageCheckInf = function () {
-        if (((self.currentPageIndexCheckInf() + 1) * self.pageSizeCheckInf()) < self.filterCheckInfList().length) {
-            self.currentPageIndexCheckInf(self.currentPageIndexCheckInf() + 1);
+    self.nextPageTChk = function () {
+        if (((self.currentPageIndexTChk() + 1) * self.pageSizeTChk()) < self.filterTChkList().length) {
+            self.currentPageIndexTChk(self.currentPageIndexTChk() + 1);
         }
     };
 
-    self.previousPageCheckInf = function () {
-        if (self.currentPageIndexCheckInf() > 0) {
-            self.currentPageIndexCheckInf(self.currentPageIndexCheckInf() - 1);
+    self.previousPageTChk = function () {
+        if (self.currentPageIndexTChk() > 0) {
+            self.currentPageIndexTChk(self.currentPageIndexTChk() - 1);
         }
     };
 
-    self.firstPageCheckInf = function () {
-        self.currentPageIndexCheckInf(0);
+    self.firstPageTChk = function () {
+        self.currentPageIndexTChk(0);
     };
 
-    self.lastPageCheckInf = function () {
-        tempCountCheckInf = parseInt(self.filterCheckInfList().length / self.pageSizeCheckInf(), 10);
-        if ((self.filterCheckInfList().length % self.pageSizeCheckInf()) == 0)
-            self.currentPageIndexCheckInf(tempCountCheckInf - 1);
+    self.lastPageTChk = function () {
+        tempCountTChk = parseInt(self.filterTChkList().length / self.pageSizeTChk(), 10);
+        if ((self.filterTChkList().length % self.pageSizeTChk()) == 0)
+            self.currentPageIndexTChk(tempCountTChk - 1);
         else
-            self.currentPageIndexCheckInf(tempCountCheckInf);
+            self.currentPageIndexTChk(tempCountTChk);
     };
 
-    self.sortTableCheckInf = function (viewModel, e) {
+    self.sortTableTChk = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.CheckInfList.sort(function (left, right) {
+        self.TChkList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -809,7 +687,7 @@
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableCheckInf">' +
+            '       <tr data-bind="click: sortTableTChk">' +
             CreateTableTh('CheckNo', data) +
             CreateTableTh('CheckDate', data) +
             CreateTableTh('AccCode', data) +
@@ -823,7 +701,7 @@
             CreateTableTh('CheckStatusSt', data) +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind="foreach: currentPageCheckInf" data-dismiss="modal" style="cursor: default;">' +
+            ' <tbody data-bind="foreach: currentPageTChk" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
             CreateTableTd('CheckNo', 0, 0, data) +
             CreateTableTd('CheckDate', 0, 0, data) +
@@ -849,7 +727,7 @@
             CreateTableTdSum('Jari', 1, data) +
             CreateTableTdSum('TrafCode', 1, data) +
             CreateTableTdSum('TrafName', 1, data) +
-            CreateTableTdSum('Value', 1, data) +
+            CreateTableTdSum('Value', 2, data) +
             CreateTableTdSum('CheckStatusSt', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +

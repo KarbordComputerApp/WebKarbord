@@ -346,7 +346,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\R_AFI_ADocR.js" />
-    <Content Include="Scripts\R_AFI_CheckInf.js" />
+    <Content Include="Scripts\R_AFI_TChk.js" />
     <Content Include="Scripts\R_AFI_Dftr.js" />
     <Content Include="Scripts\R_AFI_FDocR_S.js" />
     <Content Include="Scripts\R_AFI_FDocR_P.js" />
@@ -426,7 +426,7 @@
     <Content Include="Views\ReportAFI\FDocR_P.cshtml" />
     <Content Include="Views\ReportAFI\Dftr.cshtml" />
     <Content Include="Views\ReportAFI\ADocR.cshtml" />
-    <Content Include="Views\ReportAFI\CheckInf.cshtml" />
+    <Content Include="Views\ReportAFI\TChk.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
