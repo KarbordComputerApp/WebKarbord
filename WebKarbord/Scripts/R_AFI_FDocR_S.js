@@ -87,7 +87,7 @@
 
             opt = document.createElement('option');
             opt.value = data[1].Code + '*' + data[2].Code;
-            opt.innerHTML = data[1].Name + ' - ' + data[2].Name;
+            opt.innerHTML = data[1].Name + + ' با احتساب برگشتی';;
             select.appendChild(opt);
         });
     }

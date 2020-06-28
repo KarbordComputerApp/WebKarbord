@@ -535,7 +535,6 @@
             }
             else
                 return false;
-
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
             if (sessionStorage.DEL_SDOC == 'true') {

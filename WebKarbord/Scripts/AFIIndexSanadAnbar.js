@@ -435,21 +435,31 @@
 
 
     self.ShowAction = function (Eghdam) {
+
+
         if (sessionStorage.InOut == 1) {
-            if (sessionStorage.AccessViewSanadAnbarVarede == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_IIDOC == 'true') {
+                if (sessionStorage.AccessViewSanadAnbarVarede == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
         else {
-            if (sessionStorage.AccessViewSanadAnbarSadere == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+            if (sessionStorage.DEL_IODOC == 'true') {
+                if (sessionStorage.AccessViewSanadAnbarSadere == 'false') {
+                    return Eghdam == sessionStorage.userName ? true : false
+                }
+                else {
+                    return true;
+                }
             }
-            else {
-                return true;
-            }
+            else
+                return false;
         }
     }
 

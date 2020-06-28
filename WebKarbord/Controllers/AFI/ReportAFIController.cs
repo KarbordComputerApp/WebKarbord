@@ -52,6 +52,12 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+
+
+
+        // خرید و فروش -------------------------------------------
+
+
         public ActionResult FDocR_S()
         {
             return View();
@@ -62,6 +68,16 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+
+        public ActionResult TrzFKala_S()
+        {
+            return View();
+        }
+
+        public ActionResult TrzFKala_P()
+        {
+            return View();
+        }
 
 
 
