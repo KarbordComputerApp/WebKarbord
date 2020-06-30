@@ -18,7 +18,7 @@
     self.StatusList = ko.observableArray([]); // ليست نوع سند ها
 
 
-    self.TrzFKala_SList = ko.observableArray([]); // لیست گزارش  
+    self.TrzFKala_PList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
@@ -31,7 +31,7 @@
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
-    var TrzFKala_SUri = server + '/api/ReportFct/TrzFKala/'; // آدرس گزارش 
+    var TrzFKala_PUri = server + '/api/ReportFct/TrzFKala/'; // آدرس گزارش 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -86,7 +86,7 @@
 
     //Get RprtCols List
     function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TrzFKala_S/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TrzFKala_P/' + sessionStorage.userName, 'GET').done(function (data) {
              CreateTableReport(data);
         });
     }
@@ -101,7 +101,7 @@
 
     //Get  FMode List
     function getFModeList() {
-        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function (data) {
+        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/1', 'GET').done(function (data) {
             self.FModeList(data);
 
             select = document.getElementById('modeCode');
@@ -175,7 +175,7 @@
 
     //Get CGru List
     function getCGruList() {
-        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group + '/1', 'GET').done(function (data) {
+        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function (data) {
             self.CGruList(data);
         });
     }
@@ -194,8 +194,8 @@
         });
     }
 
-    //Get TrzFKala_S
-    function getTrzFKala_S() {
+    //Get TrzFKala_P
+    function getTrzFKala_P() {
 
 
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
@@ -277,7 +277,7 @@
         }
 
 
-        var TrzFKala_SObject = {
+        var TrzFKala_PObject = {
             ModeCode1: modeCode1,
             ModeCode2: modeCode2,
             azTarikh: tarikh1,
@@ -294,8 +294,8 @@
             KGruCode: kGrucode,
             KalaCode: kalacode,
         };
-        ajaxFunction(TrzFKala_SUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_SObject).done(function (response) {
-            self.TrzFKala_SList(response);
+        ajaxFunction(TrzFKala_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_PObject).done(function (response) {
+            self.TrzFKala_PList(response);
             $("div.loader").hide();
         });
     }
@@ -339,30 +339,30 @@
         maxPriceDeghat3 = 0;
 
         for (var i = 0; i < list.length; ++i) {
-            TrzFKala_SData = list[i];
-            totalAmount1 += TrzFKala_SData.Amount1;
-            totalAmount2 += TrzFKala_SData.Amount2;
-            totalAmount3 += TrzFKala_SData.Amount3;
+            TrzFKala_PData = list[i];
+            totalAmount1 += TrzFKala_PData.Amount1;
+            totalAmount2 += TrzFKala_PData.Amount2;
+            totalAmount3 += TrzFKala_PData.Amount3;
 
-            totalAddMinPrice1 += TrzFKala_SData.AddMinPrice1;
-            totalAddMinPrice2 += TrzFKala_SData.AddMinPrice2;
-            totalAddMinPrice3 += TrzFKala_SData.AddMinPrice3;
-            totalAddMinPrice4 += TrzFKala_SData.AddMinPrice4;
-            totalAddMinPrice5 += TrzFKala_SData.AddMinPrice5;
-            totalAddMinPrice6 += TrzFKala_SData.AddMinPrice6;
-            totalAddMinPrice7 += TrzFKala_SData.AddMinPrice7;
-            totalAddMinPrice8 += TrzFKala_SData.AddMinPrice8;
-            totalAddMinPrice9 += TrzFKala_SData.AddMinPrice9;
-            totalAddMinPrice10 += TrzFKala_SData.AddMinPrice10;
+            totalAddMinPrice1 += TrzFKala_PData.AddMinPrice1;
+            totalAddMinPrice2 += TrzFKala_PData.AddMinPrice2;
+            totalAddMinPrice3 += TrzFKala_PData.AddMinPrice3;
+            totalAddMinPrice4 += TrzFKala_PData.AddMinPrice4;
+            totalAddMinPrice5 += TrzFKala_PData.AddMinPrice5;
+            totalAddMinPrice6 += TrzFKala_PData.AddMinPrice6;
+            totalAddMinPrice7 += TrzFKala_PData.AddMinPrice7;
+            totalAddMinPrice8 += TrzFKala_PData.AddMinPrice8;
+            totalAddMinPrice9 += TrzFKala_PData.AddMinPrice9;
+            totalAddMinPrice10 += TrzFKala_PData.AddMinPrice10;
 
-            totalDiscount += TrzFKala_SData.Discount;
-            totalNoDiscountPrice += TrzFKala_SData.NoDiscountPrice;
-            totalFinalPrice += TrzFKala_SData.FinalPrice;
-            totalTotalPrice += TrzFKala_SData.TotalPrice;
+            totalDiscount += TrzFKala_PData.Discount;
+            totalNoDiscountPrice += TrzFKala_PData.NoDiscountPrice;
+            totalFinalPrice += TrzFKala_PData.FinalPrice;
+            totalTotalPrice += TrzFKala_PData.TotalPrice;
 
-            KalaDeghat1 = TrzFKala_SData.DeghatM1;
-            KalaDeghat2 = TrzFKala_SData.DeghatM2;
-            KalaDeghat3 = TrzFKala_SData.DeghatM3;
+            KalaDeghat1 = TrzFKala_PData.DeghatM1;
+            KalaDeghat2 = TrzFKala_PData.DeghatM2;
+            KalaDeghat3 = TrzFKala_PData.DeghatM3;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
@@ -393,7 +393,7 @@
 
 
     $("#CreateReport").click(function () {
-        getTrzFKala_S();
+        getTrzFKala_P();
     });
 
     getRprtColsList();
@@ -417,9 +417,9 @@
     $('#nameMkz').val('همه موارد');
     $('#nameStatus').val('همه موارد');
 
-    self.currentPageTrzFKala_S = ko.observable();
-    self.pageSizeTrzFKala_S = ko.observable(10);
-    self.currentPageIndexTrzFKala_S = ko.observable(0);
+    self.currentPageTrzFKala_P = ko.observable();
+    self.pageSizeTrzFKala_P = ko.observable(10);
+    self.currentPageIndexTrzFKala_P = ko.observable(0);
     self.iconType = ko.observable("");
 
     self.filterKalaCode = ko.observable("");
@@ -468,8 +468,8 @@
     self.filterFinalPrice = ko.observable("");
     self.filterTotalPrice = ko.observable("");
 
-    self.filterTrzFKala_SList = ko.computed(function () {
-        self.currentPageIndexTrzFKala_S(0);
+    self.filterTrzFKala_PList = ko.computed(function () {
+        self.currentPageIndexTrzFKala_P(0);
         var filterKalaCode = self.filterKalaCode();
         var filterKalaName = self.filterKalaName();
         var filterKalaF01 = self.filterKalaF01();
@@ -516,7 +516,7 @@
         var filterFinalPrice = self.filterFinalPrice();
         var filterTotalPrice = self.filterTotalPrice();
 
-        tempData = ko.utils.arrayFilter(self.TrzFKala_SList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.TrzFKala_PList(), function (item) {
             result =
                 (item.KalaCode == null ? '' : item.KalaCode.toString().search(filterKalaCode) >= 0) &&
                 (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
@@ -572,60 +572,60 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchTrzFKala_S);
+    self.search(sessionStorage.searchTrzFKala_P);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexTrzFKala_S = 0;
-        sessionStorage.searchTrzFKala_S = "";
+        var indexTrzFKala_P = 0;
+        sessionStorage.searchTrzFKala_P = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexTrzFKala_S(0);
+            self.currentPageIndexTrzFKala_P(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.TrzFKala_SList(), function (item) {
-                indexTrzFKala_S += 1;
+            value = ko.utils.arrayFirst(self.TrzFKala_PList(), function (item) {
+                indexTrzFKala_P += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexTrzFKala_S < self.pageSizeTrzFKala_S())
-                self.currentPageIndexTrzFKala_S(0);
+            if (indexTrzFKala_P < self.pageSizeTrzFKala_P())
+                self.currentPageIndexTrzFKala_P(0);
             else {
-                var a = Math.round((indexTrzFKala_S / self.pageSizeTrzFKala_S()), 0);
-                if (a < (indexTrzFKala_S / self.pageSizeTrzFKala_S())) a += 1;
-                self.currentPageIndexTrzFKala_S(a - 1);
+                var a = Math.round((indexTrzFKala_P / self.pageSizeTrzFKala_P()), 0);
+                if (a < (indexTrzFKala_P / self.pageSizeTrzFKala_P())) a += 1;
+                self.currentPageIndexTrzFKala_P(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageTrzFKala_S = ko.computed(function () {
-        var pageSizeTrzFKala_S = parseInt(self.pageSizeTrzFKala_S(), 10),
-            startIndex = pageSizeTrzFKala_S * self.currentPageIndexTrzFKala_S(),
-            endIndex = startIndex + pageSizeTrzFKala_S;
-        return self.filterTrzFKala_SList().slice(startIndex, endIndex);
+    self.currentPageTrzFKala_P = ko.computed(function () {
+        var pageSizeTrzFKala_P = parseInt(self.pageSizeTrzFKala_P(), 10),
+            startIndex = pageSizeTrzFKala_P * self.currentPageIndexTrzFKala_P(),
+            endIndex = startIndex + pageSizeTrzFKala_P;
+        return self.filterTrzFKala_PList().slice(startIndex, endIndex);
     });
 
-    self.nextPageTrzFKala_S = function () {
-        if (((self.currentPageIndexTrzFKala_S() + 1) * self.pageSizeTrzFKala_S()) < self.filterTrzFKala_SList().length) {
-            self.currentPageIndexTrzFKala_S(self.currentPageIndexTrzFKala_S() + 1);
+    self.nextPageTrzFKala_P = function () {
+        if (((self.currentPageIndexTrzFKala_P() + 1) * self.pageSizeTrzFKala_P()) < self.filterTrzFKala_PList().length) {
+            self.currentPageIndexTrzFKala_P(self.currentPageIndexTrzFKala_P() + 1);
         }
     };
 
-    self.previousPageTrzFKala_S = function () {
-        if (self.currentPageIndexTrzFKala_S() > 0) {
-            self.currentPageIndexTrzFKala_S(self.currentPageIndexTrzFKala_S() - 1);
+    self.previousPageTrzFKala_P = function () {
+        if (self.currentPageIndexTrzFKala_P() > 0) {
+            self.currentPageIndexTrzFKala_P(self.currentPageIndexTrzFKala_P() - 1);
         }
     };
 
-    self.firstPageTrzFKala_S = function () {
-        self.currentPageIndexTrzFKala_S(0);
+    self.firstPageTrzFKala_P = function () {
+        self.currentPageIndexTrzFKala_P(0);
     };
 
-    self.lastPageTrzFKala_S = function () {
-        tempCountTrzFKala_S = parseInt(self.filterTrzFKala_SList().length / self.pageSizeTrzFKala_S(), 10);
-        if ((self.filterTrzFKala_SList().length % self.pageSizeTrzFKala_S()) == 0)
-            self.currentPageIndexTrzFKala_S(tempCountTrzFKala_S - 1);
+    self.lastPageTrzFKala_P = function () {
+        tempCountTrzFKala_P = parseInt(self.filterTrzFKala_PList().length / self.pageSizeTrzFKala_P(), 10);
+        if ((self.filterTrzFKala_PList().length % self.pageSizeTrzFKala_P()) == 0)
+            self.currentPageIndexTrzFKala_P(tempCountTrzFKala_P - 1);
         else
-            self.currentPageIndexTrzFKala_S(tempCountTrzFKala_S);
+            self.currentPageIndexTrzFKala_P(tempCountTrzFKala_P);
     };
 
 
@@ -676,10 +676,10 @@
     self.iconTypeFinalPrice = ko.observable("");
     self.iconTypeTotalPrice = ko.observable("");
 
-    self.sortTableTrzFKala_S = function (viewModel, e) {
+    self.sortTableTrzFKala_P = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.TrzFKala_SList.sort(function (left, right) {
+        self.TrzFKala_PList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -2234,7 +2234,7 @@
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableTrzFKala_S">' +
+            '       <tr data-bind="click: sortTableTrzFKala_P">' +
             CreateTableTh('KalaCode', data) +
             CreateTableTh('KalaName', data) +
             CreateTableTh('KalaF01', data) +
@@ -2282,7 +2282,7 @@
             CreateTableTh('TotalPrice', data) +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind="foreach: currentPageTrzFKala_S" data-dismiss="modal" style="cursor: default;">' +
+            ' <tbody data-bind="foreach: currentPageTrzFKala_P" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
             CreateTableTd('KalaCode', 0, 0, data) +
             CreateTableTd('KalaName', 0, 0, data) +

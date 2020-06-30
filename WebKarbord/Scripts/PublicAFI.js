@@ -89,7 +89,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 16; i++) {
+for (var i = 0; i <= 18; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -107,6 +107,8 @@ for (var i = 0; i <= 16; i++) {
     afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
     afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
     afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
+    afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
+    afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
 }
 
 
@@ -489,7 +491,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 16; i++) {
+                for (var i = 0; i <= 18; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -507,6 +509,8 @@ function getAccessList() {
                     afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
                     afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
                     afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
+                    afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
+                    afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
 
                 }
 
@@ -638,7 +642,13 @@ function SetValidation() {
     ShowMenu[19] = validation;  // دفتر حساب روزنامه
 
     validation = CheckAccessReport('TChk');
-    ShowMenu[20] = validation;  // صورت ریز چک 
+    ShowMenu[20] = validation;  // صورت ریز چک  
+
+    validation = CheckAccessReport('TrzFKala_S');
+    ShowMenu[21] = validation;  // صورت ریز چک   
+
+    validation = CheckAccessReport('TrzFKala_P');
+    ShowMenu[22] = validation;  // صورت ریز چک 
 
 
 
@@ -964,6 +974,9 @@ function SetValidation() {
             $("#FReport_Menu").show();
             afiaccess[11] && ShowMenu[15] ? $("#FDocR_S").show() : $("#FDocR_S").hide();
             afiaccess[12] && ShowMenu[16] ? $("#FDocR_P").show() : $("#FDocR_P").hide();
+            afiaccess[17] && ShowMenu[21] ? $("#TrzFKala_S").show() : $("#TrzFKala_S").hide();
+            afiaccess[18] && ShowMenu[22] ? $("#TrzFKala_P").show() : $("#TrzFKala_P").hide();
+
 
             if (ShowMenu[15] == false && ShowMenu[16] == false)
                 $("#FReport_Menu").hide();
