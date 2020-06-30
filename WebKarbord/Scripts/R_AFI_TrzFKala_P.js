@@ -318,7 +318,7 @@
         totalUnitPrice2 = 0;
         totalUnitPrice3 = 0;
         totalDiscount = 0;
-        totalNoDiscountPrice = 0;
+        totalOnlyDiscountPrice = 0;
         totalFinalPrice = 0;
         totalTotalPrice = 0;
 
@@ -356,7 +356,7 @@
             totalAddMinPrice10 += TrzFKala_PData.AddMinPrice10;
 
             totalDiscount += TrzFKala_PData.Discount;
-            totalNoDiscountPrice += TrzFKala_PData.NoDiscountPrice;
+            totalOnlyDiscountPrice += TrzFKala_PData.OnlyDiscountPrice;
             totalFinalPrice += TrzFKala_PData.FinalPrice;
             totalTotalPrice += TrzFKala_PData.TotalPrice;
 
@@ -385,7 +385,7 @@
         $("#totalAddMinPrice10").text(NumberToNumberString(totalAddMinPrice10.toFixed(parseInt(sessionStorage.Deghat))));
         //$("#totalUnitPrice").text(NumberToNumberString(totalUnitPrice.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalDiscount").text(NumberToNumberString(totalDiscount.toFixed(parseInt(sessionStorage.Deghat))));
-        $("#totalNoDiscountPrice").text(NumberToNumberString(totalNoDiscountPrice.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalOnlyDiscountPrice").text(NumberToNumberString(totalOnlyDiscountPrice.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalFinalPrice").text(NumberToNumberString(totalFinalPrice.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalTotalPrice").text(NumberToNumberString(totalTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
 
@@ -464,7 +464,7 @@
     self.filterUnitPrice2 = ko.observable("");
     self.filterUnitPrice3 = ko.observable("");
     self.filterDiscount = ko.observable("");
-    self.filterNoDiscountPrice = ko.observable("");
+    self.filterOnlyDiscountPrice = ko.observable("");
     self.filterFinalPrice = ko.observable("");
     self.filterTotalPrice = ko.observable("");
 
@@ -512,7 +512,7 @@
         var filterUnitPrice2 = self.filterUnitPrice2();
         var filterUnitPrice3 = self.filterUnitPrice3();
         var filterDiscount = self.filterDiscount();
-        var filterNoDiscountPrice = self.filterNoDiscountPrice();
+        var filterOnlyDiscountPrice = self.filterOnlyDiscountPrice();
         var filterFinalPrice = self.filterFinalPrice();
         var filterTotalPrice = self.filterTotalPrice();
 
@@ -560,7 +560,7 @@
                 ko.utils.stringStartsWith(item.UnitPrice2.toString().toLowerCase(), filterUnitPrice2) &&
                 ko.utils.stringStartsWith(item.UnitPrice3.toString().toLowerCase(), filterUnitPrice3) &&
                 ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
-                ko.utils.stringStartsWith(item.NoDiscountPrice.toString().toLowerCase(), filterNoDiscountPrice) &&
+                ko.utils.stringStartsWith(item.OnlyDiscountPrice.toString().toLowerCase(), filterOnlyDiscountPrice) &&
                 ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
                 ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice)
             return result;
@@ -672,7 +672,7 @@
     self.iconTypeUnitPrice2 = ko.observable("");
     self.iconTypeUnitPrice3 = ko.observable("");
     self.iconTypeDiscount = ko.observable("");
-    self.iconTypeNoDiscountPrice = ko.observable("");
+    self.iconTypeOnlyDiscountPrice = ko.observable("");
     self.iconTypeFinalPrice = ko.observable("");
     self.iconTypeTotalPrice = ko.observable("");
 
@@ -735,7 +735,7 @@
         self.iconTypeUnitPrice2('');
         self.iconTypeUnitPrice3('');
         self.iconTypeDiscount('');
-        self.iconTypeNoDiscountPrice('');
+        self.iconTypeOnlyDiscountPrice('');
         self.iconTypeFinalPrice('');
         self.iconTypeTotalPrice('');
 
@@ -781,7 +781,7 @@
         if (orderProp == 'UnitPrice2') self.iconTypeUnitPrice2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'UnitPrice3') self.iconTypeUnitPrice3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Discount') self.iconTypeDiscount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'NoDiscountPrice') self.iconTypeNoDiscountPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OnlyDiscountPrice') self.iconTypeOnlyDiscountPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FinalPrice') self.iconTypeFinalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     }
@@ -2277,7 +2277,7 @@
             CreateTableTh('UnitPrice2', data) +
             CreateTableTh('UnitPrice3', data) +
             CreateTableTh('Discount', data) +
-            CreateTableTh('NoDiscountPrice', data) +
+            CreateTableTh('OnlyDiscountPrice', data) +
             CreateTableTh('FinalPrice', data) +
             CreateTableTh('TotalPrice', data) +
             '      </tr>' +
@@ -2326,7 +2326,7 @@
             CreateTableTd('UnitPrice2', 'DeghatR2', 2, data) +
             CreateTableTd('UnitPrice3', 'DeghatR3', 2, data) +
             CreateTableTd('Discount', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('NoDiscountPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('OnlyDiscountPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
             '        </tr>' +
@@ -2375,7 +2375,7 @@
             CreateTableTdSum('UnitPrice2', 2, data) +
             CreateTableTdSum('UnitPrice3', 2, data) +
             CreateTableTdSum('Discount', 2, data) +
-            CreateTableTdSum('NoDiscountPrice', 2, data) +
+            CreateTableTdSum('OnlyDiscountPrice', 2, data) +
             CreateTableTdSum('FinalPrice', 2, data) +
             CreateTableTdSum('TotalPrice', 2, data) +
             ' </tr>' +
@@ -2422,7 +2422,7 @@
             CreateTableTdSearch('UnitPrice2', data) +
             CreateTableTdSearch('UnitPrice3', data) +
             CreateTableTdSearch('Discount', data) +
-            CreateTableTdSearch('NoDiscountPrice', data) +
+            CreateTableTdSearch('OnlyDiscountPrice', data) +
             CreateTableTdSearch('FinalPrice', data) +
             CreateTableTdSearch('TotalPrice', data) +
             '      </tr>' +
