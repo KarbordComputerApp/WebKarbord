@@ -404,6 +404,48 @@
             self.currentPageIndexTrzIExf(tempCountTrzIExf);
     };
 
+    self.iconTypeInvCode = ko.observable("");
+    self.iconTypeInvName = ko.observable("");
+    self.iconTypeKalaCode = ko.observable("");
+    self.iconTypeKalaName = ko.observable("");
+    self.iconTypeKalaFanniNo = ko.observable("");
+
+    self.iconTypeKalaFileNo = ko.observable("");
+    self.iconTypeKalaState = ko.observable("");
+    self.iconTypeKalaExf1 = ko.observable("");
+    self.iconTypeKalaExf2 = ko.observable("");
+    self.iconTypeKalaExf3 = ko.observable("");
+    self.iconTypeKalaExf4 = ko.observable("");
+    self.iconTypeKalaExf5 = ko.observable("");
+    self.iconTypeKalaExf6 = ko.observable("");
+    self.iconTypeKalaExf7 = ko.observable("");
+    self.iconTypeKalaExf8 = ko.observable("");
+    self.iconTypeKalaExf9 = ko.observable("");
+    self.iconTypeKalaExf10 = ko.observable("");
+    self.iconTypeKalaExf11 = ko.observable("");
+    self.iconTypeKalaExf12 = ko.observable("");
+    self.iconTypeKalaExf13 = ko.observable("");
+    self.iconTypeKalaExf14 = ko.observable("");
+    self.iconTypeKalaExf15 = ko.observable("");
+
+    self.iconTypeAAmount1 = ko.observable("");
+    self.iconTypeAAmount2 = ko.observable("");
+    self.iconTypeAAmount3 = ko.observable("");
+    self.iconTypeATotalPrice = ko.observable("");
+    self.iconTypeVAmount1 = ko.observable("");
+    self.iconTypeVAmount2 = ko.observable("");
+    self.iconTypeVAmount3 = ko.observable("");
+    self.iconTypeVTotalPrice = ko.observable("");
+    self.iconTypeSAmount1 = ko.observable("");
+    self.iconTypeSAmount2 = ko.observable("");
+    self.iconTypeSAmount3 = ko.observable("");
+    self.iconTypeSTotalPrice = ko.observable("");
+    self.iconTypeMAmount1 = ko.observable("");
+    self.iconTypeMAmount2 = ko.observable("");
+    self.iconTypeMAmount3 = ko.observable("");
+    self.iconTypeMTotalPrice = ko.observable("");
+
+
     self.sortTableTrzIExf = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
@@ -504,48 +546,6 @@
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
-
-    self.iconTypeInvCode = ko.observable("");
-    self.iconTypeInvName = ko.observable("");
-    self.iconTypeKalaCode = ko.observable("");
-    self.iconTypeKalaName = ko.observable("");
-    self.iconTypeKalaFanniNo = ko.observable("");
-
-    self.iconTypeKalaFileNo = ko.observable("");
-    self.iconTypeKalaState = ko.observable("");
-    self.iconTypeKalaExf1 = ko.observable("");
-    self.iconTypeKalaExf2 = ko.observable("");
-    self.iconTypeKalaExf3 = ko.observable("");
-    self.iconTypeKalaExf4 = ko.observable("");
-    self.iconTypeKalaExf5 = ko.observable("");
-    self.iconTypeKalaExf6 = ko.observable("");
-    self.iconTypeKalaExf7 = ko.observable("");
-    self.iconTypeKalaExf8 = ko.observable("");
-    self.iconTypeKalaExf9 = ko.observable("");
-    self.iconTypeKalaExf10 = ko.observable("");
-    self.iconTypeKalaExf11 = ko.observable("");
-    self.iconTypeKalaExf12 = ko.observable("");
-    self.iconTypeKalaExf13 = ko.observable("");
-    self.iconTypeKalaExf14 = ko.observable("");
-    self.iconTypeKalaExf15 = ko.observable("");
-
-    self.iconTypeAAmount1 = ko.observable("");
-    self.iconTypeAAmount2 = ko.observable("");
-    self.iconTypeAAmount3 = ko.observable("");
-    self.iconTypeATotalPrice = ko.observable("");
-    self.iconTypeVAmount1 = ko.observable("");
-    self.iconTypeVAmount2 = ko.observable("");
-    self.iconTypeVAmount3 = ko.observable("");
-    self.iconTypeVTotalPrice = ko.observable("");
-    self.iconTypeSAmount1 = ko.observable("");
-    self.iconTypeSAmount2 = ko.observable("");
-    self.iconTypeSAmount3 = ko.observable("");
-    self.iconTypeSTotalPrice = ko.observable("");
-    self.iconTypeMAmount1 = ko.observable("");
-    self.iconTypeMAmount2 = ko.observable("");
-    self.iconTypeMAmount3 = ko.observable("");
-    self.iconTypeMTotalPrice = ko.observable("");
-
 
     /*  self.filterKala = ko.observable("");
       self.filterKalaList = ko.computed(function () {

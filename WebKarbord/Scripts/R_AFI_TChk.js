@@ -712,7 +712,7 @@
             CreateTableTd('Jari', 0, 0, data) +
             CreateTableTd('TrafCode', 0, 0, data) +
             CreateTableTd('TrafName', 0, 0, data) +
-            CreateTableTd('Value', 0, 0, data) +
+            CreateTableTd('Value', sessionStorage.Deghat, 2, data) +
             CreateTableTd('CheckStatusSt', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +

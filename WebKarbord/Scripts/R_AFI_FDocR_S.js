@@ -410,37 +410,6 @@
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
                 (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
-                (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
-                (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
-                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
-                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
-                (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
-                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
-                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
-                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
-                (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
-                ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
-                ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
-                ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
-                ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
-                ko.utils.stringStartsWith(item.AddMinPrice1.toString().toLowerCase(), filterAddMinPrice1) &&
-                ko.utils.stringStartsWith(item.AddMinPrice2.toString().toLowerCase(), filterAddMinPrice2) &&
-                ko.utils.stringStartsWith(item.AddMinPrice3.toString().toLowerCase(), filterAddMinPrice3) &&
-                ko.utils.stringStartsWith(item.AddMinPrice4.toString().toLowerCase(), filterAddMinPrice4) &&
-                ko.utils.stringStartsWith(item.AddMinPrice5.toString().toLowerCase(), filterAddMinPrice5) &&
-                ko.utils.stringStartsWith(item.AddMinPrice6.toString().toLowerCase(), filterAddMinPrice6) &&
-                ko.utils.stringStartsWith(item.AddMinPrice7.toString().toLowerCase(), filterAddMinPrice7) &&
-                ko.utils.stringStartsWith(item.AddMinPrice8.toString().toLowerCase(), filterAddMinPrice8) &&
-                ko.utils.stringStartsWith(item.AddMinPrice9.toString().toLowerCase(), filterAddMinPrice9) &&
-                ko.utils.stringStartsWith(item.AddMinPrice10.toString().toLowerCase(), filterAddMinPrice10) &&
-                ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filterUnitPrice) &&
-                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
-                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
-                (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                 ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo)
             return result;
         })
@@ -1931,7 +1900,7 @@
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
                 break;
             case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'#3f4853\' : \'black\' }"" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"" style="text-align: right;"></td>'
                 break;
             case 3:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'

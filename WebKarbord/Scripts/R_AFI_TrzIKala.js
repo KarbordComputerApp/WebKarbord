@@ -14,6 +14,7 @@
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
     var TrzIUri = server + '/api/Web_Data/TrzI/'; // آدرس گزارش 
     var TrzICountUri = server + '/api/Web_Data/TrzICount/'; // تعداد رکورد های گزارش 
+    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
@@ -29,6 +30,13 @@
     var list_InvSelect = new Array()
 
     $("#textTotal").text('');
+
+    //Get RprtCols List
+    function getRprtColsList() {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TrzIKala/' + sessionStorage.userName, 'GET').done(function (data) {
+            CreateTableReport(data);
+        });
+    }
 
     //Get kala List
     function getKalaList() {
@@ -172,6 +180,7 @@
         getTrzI();
     });
 
+    getRprtColsList();
     getInvList();
     getKalaList();
 
@@ -186,84 +195,86 @@
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
-    self.filterTrzI0 = ko.observable("");
-    self.filterTrzI1 = ko.observable("");
-    self.filterTrzI2 = ko.observable("");
-    self.filterTrzI3 = ko.observable("");
-    self.filterTrzI4 = ko.observable("");
-    self.filterTrzI5 = ko.observable("");
-    self.filterTrzI6 = ko.observable("");
-    self.filterTrzI7 = ko.observable("");
-    self.filterTrzI8 = ko.observable("");
-    self.filterTrzI9 = ko.observable("");
-    self.filterTrzI10 = ko.observable("");
-    self.filterTrzI11 = ko.observable("");
-    self.filterTrzI12 = ko.observable("");
-    self.filterTrzI13 = ko.observable("");
-    self.filterTrzI14 = ko.observable("");
-    self.filterTrzI15 = ko.observable("");
-    self.filterTrzI16 = ko.observable("");
-    self.filterTrzI17 = ko.observable("");
-    self.filterTrzI18 = ko.observable("");
-    self.filterTrzI19 = ko.observable("");
+
+    self.filterInvCode = ko.observable("");
+    self.filterInvName = ko.observable("");
+    self.filterKalaCode = ko.observable("");
+    self.filterKalaName = ko.observable("");
+    self.filterKalaFanniNo = ko.observable("");
+
+    self.filterAAmount1 = ko.observable("");
+    self.filterAAmount2 = ko.observable("");
+    self.filterAAmount3 = ko.observable("");
+    self.filterATotalPrice = ko.observable("");
+    self.filterVAmount1 = ko.observable("");
+    self.filterVAmount2 = ko.observable("");
+    self.filterVAmount3 = ko.observable("");
+    self.filterVTotalPrice = ko.observable("");
+    self.filterSAmount1 = ko.observable("");
+    self.filterSAmount2 = ko.observable("");
+    self.filterSAmount3 = ko.observable("");
+    self.filterSTotalPrice = ko.observable("");
+    self.filterMAmount1 = ko.observable("");
+    self.filterMAmount2 = ko.observable("");
+    self.filterMAmount3 = ko.observable("");
+    self.filterMTotalPrice = ko.observable("");
+
 
     self.filterTrzIList = ko.computed(function () {
 
         self.currentPageIndexTrzI(0);
-        var filter0 = self.filterTrzI0().toUpperCase();
-        var filter1 = self.filterTrzI1();
-        var filter2 = self.filterTrzI2();
-        var filter3 = self.filterTrzI3();
-        var filter4 = self.filterTrzI4().toUpperCase();
-        var filter5 = self.filterTrzI5().toUpperCase();
-        var filter6 = self.filterTrzI6().toUpperCase();
-        var filter7 = self.filterTrzI7().toUpperCase();
-        var filter8 = self.filterTrzI8().toUpperCase();
-        var filter9 = self.filterTrzI9().toUpperCase();
-        var filter10 = self.filterTrzI10().toUpperCase();
-        var filter11 = self.filterTrzI11().toUpperCase();
-        var filter12 = self.filterTrzI12().toUpperCase();
-        var filter13 = self.filterTrzI13().toUpperCase();
-        var filter14 = self.filterTrzI14().toUpperCase();
-        var filter15 = self.filterTrzI15().toUpperCase();
-        var filter16 = self.filterTrzI16().toUpperCase();
-        var filter17 = self.filterTrzI17().toUpperCase();
-        var filter18 = self.filterTrzI18().toUpperCase();
-        var filter19 = self.filterTrzI19().toUpperCase();
 
-        // if (!filter0) {
-        //    calcsum(self.TrzIList());
-        //    return self.TrzIList();
-        //} else {
+        var filterInvCode = self.filterInvCode();
+        var filterInvName = self.filterInvName();
+        var filterKalaCode = self.filterKalaCode();
+        var filterKalaName = self.filterKalaName();
+        var filterKalaFanniNo = self.filterKalaFanniNo();
+
+        var filterAAmount1 = self.filterAAmount1();
+        var filterAAmount2 = self.filterAAmount2();
+        var filterAAmount3 = self.filterAAmount3();
+        var filterATotalPrice = self.filterATotalPrice();
+        var filterVAmount1 = self.filterVAmount1();
+        var filterVAmount2 = self.filterVAmount2();
+        var filterVAmount3 = self.filterVAmount3();
+        var filterVTotalPrice = self.filterVTotalPrice();
+        var filterSAmount1 = self.filterSAmount1();
+        var filterSAmount2 = self.filterSAmount2();
+        var filterSAmount3 = self.filterSAmount3();
+        var filterSTotalPrice = self.filterSTotalPrice();
+        var filterMAmount1 = self.filterMAmount1();
+        var filterMAmount2 = self.filterMAmount2();
+        var filterMAmount3 = self.filterMAmount3();
+        var filterMTotalPrice = self.filterMTotalPrice();
 
         tempData = ko.utils.arrayFilter(self.TrzIList(), function (item) {
             result =
-                //(item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
-                ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filter0) &&
-                (item.KalaName == null ? '' : item.KalaName.toString().search(filter1) >= 0) &&
-                (item.InvCode == null ? '' : item.InvCode.toString().search(filter2) >= 0) &&
-                (item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
+                ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filterKalaCode) &&
+                (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
+                ko.utils.stringStartsWith(item.InvCode.toString().toLowerCase(), filterInvCode) &&
+                (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
+                (item.KalaFanniNo == null ? '' : item.KalaFanniNo.toString().search(filterKalaFanniNo) >= 0) &&
 
-                ko.utils.stringStartsWith(item.AAmount1.toString().toLowerCase(), filter4) &&
-                ko.utils.stringStartsWith(item.AAmount2.toString().toLowerCase(), filter5) &&
-                ko.utils.stringStartsWith(item.AAmount3.toString().toLowerCase(), filter6) &&
-                // ko.utils.startIndex(item.ATotalPrice.toString().toLowerCase(), filter7) &&
-                (item.ATotalPrice == null ? '' : item.ATotalPrice.toString().search(filter7) >= 0) &&
+                ko.utils.stringStartsWith(item.AAmount1.toString().toLowerCase(), filterAAmount1) &&
+                ko.utils.stringStartsWith(item.AAmount2.toString().toLowerCase(), filterAAmount2) &&
+                ko.utils.stringStartsWith(item.AAmount3.toString().toLowerCase(), filterAAmount3) &&
+                ko.utils.stringStartsWith(item.ATotalPrice.toString().toLowerCase(), filterATotalPrice) &&
 
-                ko.utils.stringStartsWith(item.VAmount1.toString().toLowerCase(), filter8) &&
-                ko.utils.stringStartsWith(item.VAmount2.toString().toLowerCase(), filter9) &&
-                ko.utils.stringStartsWith(item.VAmount3.toString().toLowerCase(), filter10) &&
-                ko.utils.stringStartsWith(item.VTotalPrice.toString().toLowerCase(), filter11) &&
+                ko.utils.stringStartsWith(item.VAmount1.toString().toLowerCase(), filterVAmount1) &&
+                ko.utils.stringStartsWith(item.VAmount2.toString().toLowerCase(), filterVAmount2) &&
+                ko.utils.stringStartsWith(item.VAmount3.toString().toLowerCase(), filterVAmount3) &&
+                ko.utils.stringStartsWith(item.VTotalPrice.toString().toLowerCase(), filterVTotalPrice) &&
 
-                ko.utils.stringStartsWith(item.SAmount1.toString().toLowerCase(), filter12) &&
-                ko.utils.stringStartsWith(item.SAmount2.toString().toLowerCase(), filter13) &&
-                ko.utils.stringStartsWith(item.SAmount3.toString().toLowerCase(), filter14) &&
-                //ko.utils.startIndex(item.STotalPrice.toString().toLowerCase(), filter15) &&
+                ko.utils.stringStartsWith(item.SAmount1.toString().toLowerCase(), filterSAmount1) &&
+                ko.utils.stringStartsWith(item.SAmount2.toString().toLowerCase(), filterSAmount2) &&
+                ko.utils.stringStartsWith(item.SAmount3.toString().toLowerCase(), filterSAmount3) &&
+                ko.utils.stringStartsWith(item.STotalPrice.toString().toLowerCase(), filterSTotalPrice) &&
 
-                ko.utils.stringStartsWith(item.MAmount1.toString().toLowerCase(), filter16) &&
-                ko.utils.stringStartsWith(item.MAmount2.toString().toLowerCase(), filter17) &&
-                ko.utils.stringStartsWith(item.MAmount3.toString().toLowerCase(), filter18) //&&
-            // ko.utils.startIndex(item.MTotalPrice.toString().toLowerCase(), filter19)
+                ko.utils.stringStartsWith(item.MAmount1.toString().toLowerCase(), filterMAmount1) &&
+                ko.utils.stringStartsWith(item.MAmount2.toString().toLowerCase(), filterMAmount2) &&
+                ko.utils.stringStartsWith(item.MAmount3.toString().toLowerCase(), filterMAmount3) &&
+                ko.utils.stringStartsWith(item.MTotalPrice.toString().toLowerCase(), filterMTotalPrice)
+
             return result;
         })
         calcsum(tempData);
@@ -272,6 +283,7 @@
 
         //}
     });
+
 
     self.search = ko.observable("");
     self.search(sessionStorage.searchTrzI);
@@ -330,72 +342,11 @@
             self.currentPageIndexTrzI(tempCountTrzI);
     };
 
-    self.sortTableTrzI = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
-        self.TrzIList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
-        self.iconTypeInvCode('');
-        self.iconTypeInvName('');
-        self.iconTypeKalaCode('');
-        self.iconTypeKalaName('');
-        self.iconTypeAAmount1('');
-        self.iconTypeAAmount2('');
-        self.iconTypeAAmount3('');
-        self.iconTypeATotalPrice('');
-        self.iconTypeVAmount1('');
-        self.iconTypeVAmount2('');
-        self.iconTypeVAmount3('');
-        self.iconTypeVTotalPrice('');
-        self.iconTypeSAmount1('');
-        self.iconTypeSAmount2('');
-        self.iconTypeSAmount3('');
-        self.iconTypeSTotalPrice('');
-        self.iconTypeMAmount1('');
-        self.iconTypeMAmount2('');
-        self.iconTypeMAmount3('');
-        self.iconTypeMTotalPrice('');
-
-
-        if (orderProp == 'InvCode') self.iconTypeInvCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AAmount1') self.iconTypeAAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AAmount2') self.iconTypeAAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AAmount3') self.iconTypeAAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'ATotalPrice') self.iconTypeATotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'VAmount1') self.iconTypeVAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'VAmount2') self.iconTypeVAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'VAmount3') self.iconTypeVAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'VTotalPrice') self.iconTypeVTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SAmount1') self.iconTypeSAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SAmount2') self.iconTypeSAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SAmount3') self.iconTypeSAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'STotalPrice') self.iconTypeSTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MAmount1') self.iconTypeMAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MAmount2') self.iconTypeMAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MAmount3') self.iconTypeMAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MTotalPrice') self.iconTypeMTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-    };
-
-
-    self.sortType = "ascending";
-    self.currentColumn = ko.observable("");
-
     self.iconTypeInvCode = ko.observable("");
     self.iconTypeInvName = ko.observable("");
     self.iconTypeKalaCode = ko.observable("");
     self.iconTypeKalaName = ko.observable("");
+    self.iconTypeKalaFanniNo = ko.observable("");
     self.iconTypeAAmount1 = ko.observable("");
     self.iconTypeAAmount2 = ko.observable("");
     self.iconTypeAAmount3 = ko.observable("");
@@ -414,26 +365,65 @@
     self.iconTypeMTotalPrice = ko.observable("");
 
 
-    /*  self.filterKala = ko.observable("");
-      self.filterKalaList = ko.computed(function () {
-          self.currentPageIndexKala(0);
-          var filter = self.filterKala().toLowerCase();
-          if (!filter) {
-              return self.KalaList();
-          } else {
-              return ko.utils.arrayFilter(self.KalaList(), function (item) {
-                  if ($("#allSearchKala").is(':checked')) {
-                      result = ko.utils.stringStartsWith(item.Code.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Name.toLowerCase(), filter) || ko.utils.stringStartsWith(item.FanniNo.toLowerCase(), filter) || ko.utils.stringStartsWith(item.Spec.toLowerCase(), filter)
-                      return result;
-                  }
-                  else {
-                      result = ko.utils.stringStartsWith(item.Code.toLowerCase(), filter);//    (item.Code.toLowerCase().search(filter) >= 0);
-                      return result;
-                  }
-              });
-          }
+    self.sortTableTrzI = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.TrzIList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+        self.iconTypeInvCode('');
+        self.iconTypeInvName('');
+        self.iconTypeKalaCode('');
+        self.iconTypeKalaName('');
+        self.iconTypeKalaFanniNo('');
+        self.iconTypeAAmount1('');
+        self.iconTypeAAmount2('');
+        self.iconTypeAAmount3('');
+        self.iconTypeATotalPrice('');
+        self.iconTypeVAmount1('');
+        self.iconTypeVAmount2('');
+        self.iconTypeVAmount3('');
+        self.iconTypeVTotalPrice('');
+        self.iconTypeSAmount1('');
+        self.iconTypeSAmount2('');
+        self.iconTypeSAmount3('');
+        self.iconTypeSTotalPrice('');
+        self.iconTypeMAmount1('');
+        self.iconTypeMAmount2('');
+        self.iconTypeMAmount3('');
+        self.iconTypeMTotalPrice('');
 
-      });*/
+        if (orderProp == 'InvCode') self.iconTypeInvCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaFanniNo') self.iconTypeKalaFanniNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AAmount1') self.iconTypeAAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AAmount2') self.iconTypeAAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AAmount3') self.iconTypeAAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ATotalPrice') self.iconTypeATotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'VAmount1') self.iconTypeVAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'VAmount2') self.iconTypeVAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'VAmount3') self.iconTypeVAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'VTotalPrice') self.iconTypeVTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SAmount1') self.iconTypeSAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SAmount2') self.iconTypeSAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SAmount3') self.iconTypeSAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'STotalPrice') self.iconTypeSTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MAmount1') self.iconTypeMAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MAmount2') self.iconTypeMAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MAmount3') self.iconTypeMAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MTotalPrice') self.iconTypeMTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
 
 
     self.currentPageInv = ko.observable();
@@ -877,6 +867,188 @@
 
 
     $('.fix').attr('class', 'form-line date focused fix');
+
+
+
+    function CreateTableReport(data) {
+        $("#TableReport").empty();
+        $('#TableReport').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableTrzI">' +
+            CreateTableTh('KalaCode', data) +
+            CreateTableTh('KalaName', data) +
+            CreateTableTh('InvCode', data) +
+            CreateTableTh('InvName', data) +
+            CreateTableTh('KalaFanniNo', data) +
+            CreateTableTh('AAmount1', data) +
+            CreateTableTh('AAmount2', data) +
+            CreateTableTh('AAmount3', data) +
+            CreateTableTh('ATotalPrice', data) +
+            CreateTableTh('VAmount1', data) +
+            CreateTableTh('VAmount2', data) +
+            CreateTableTh('VAmount3', data) +
+            CreateTableTh('VTotalPrice', data) +
+            CreateTableTh('SAmount1', data) +
+            CreateTableTh('SAmount2', data) +
+            CreateTableTh('SAmount3', data) +
+            CreateTableTh('STotalPrice', data) +
+            CreateTableTh('MAmount1', data) +
+            CreateTableTh('MAmount2', data) +
+            CreateTableTh('MAmount3', data) +
+            CreateTableTh('MTotalPrice', data) +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind=" {foreach: currentPageTrzI}" style="cursor: default;">' +
+            '     <tr >' +
+            CreateTableTd('KalaCode', 0, 0, data) +
+            CreateTableTd('KalaName', 0, 0, data) +
+            CreateTableTd('InvCode', 0, 0, data) +
+            CreateTableTd('InvName', 0, 0, data) +
+            CreateTableTd('KalaFanniNo', 0, 0, data) +
+            CreateTableTd('AAmount1', 'KalaDeghat1', 1, data) +
+            CreateTableTd('AAmount2', 'KalaDeghat2', 1, data) +
+            CreateTableTd('AAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('ATotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('VAmount1', 'KalaDeghat1', 1, data) +
+            CreateTableTd('VAmount2', 'KalaDeghat2', 1, data) +
+            CreateTableTd('VAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('SAmount1', 'KalaDeghat1', 1, data) +
+            CreateTableTd('SAmount2', 'KalaDeghat2', 1, data) +
+            CreateTableTd('SAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MAmount1', 'KalaDeghat1', 1, data) +
+            CreateTableTd('MAmount2', 'KalaDeghat2', 1, data) +
+            CreateTableTd('MAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data) +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('KalaCode', 0, data) +
+            CreateTableTdSum('KalaName', 1, data) +
+            CreateTableTdSum('InvCode', 1, data) +
+            CreateTableTdSum('InvName', 1, data) +
+            CreateTableTdSum('KalaFanniNo', 1, data) +
+            CreateTableTdSum('AAmount1', 2, data) +
+            CreateTableTdSum('AAmount2', 2, data) +
+            CreateTableTdSum('AAmount3', 2, data) +
+            CreateTableTdSum('ATotalPrice', 2, data) +
+            CreateTableTdSum('VAmount1', 2, data) +
+            CreateTableTdSum('VAmount2', 2, data) +
+            CreateTableTdSum('VAmount3', 2, data) +
+            CreateTableTdSum('VTotalPrice', 2, data) +
+            CreateTableTdSum('SAmount1', 2, data) +
+            CreateTableTdSum('SAmount2', 2, data) +
+            CreateTableTdSum('SAmount3', 2, data) +
+            CreateTableTdSum('STotalPrice', 2, data) +
+            CreateTableTdSum('MAmount1', 2, data) +
+            CreateTableTdSum('MAmount2', 2, data) +
+            CreateTableTdSum('MAmount3', 2, data) +
+            CreateTableTdSum('MTotalPrice', 2, data) +
+            ' </tr>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('KalaCode', data) +
+            CreateTableTdSearch('KalaName', data) +
+            CreateTableTdSearch('InvCode', data) +
+            CreateTableTdSearch('InvName', data) +
+            CreateTableTdSearch('KalaFanniNo', data) +
+            CreateTableTdSearch('AAmount1', data) +
+            CreateTableTdSearch('AAmount2', data) +
+            CreateTableTdSearch('AAmount3', data) +
+            CreateTableTdSearch('ATotalPrice', data) +
+            CreateTableTdSearch('VAmount1', data) +
+            CreateTableTdSearch('VAmount2', data) +
+            CreateTableTdSearch('VAmount3', data) +
+            CreateTableTdSearch('VTotalPrice', data) +
+            CreateTableTdSearch('SAmount1', data) +
+            CreateTableTdSearch('SAmount2', data) +
+            CreateTableTdSearch('SAmount3', data) +
+            CreateTableTdSearch('STotalPrice', data) +
+            CreateTableTdSearch('MAmount1', data) +
+            CreateTableTdSearch('MAmount2', data) +
+            CreateTableTdSearch('MAmount3', data) +
+            CreateTableTdSearch('MTotalPrice', data) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    function CreateTableTh(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span>' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSum(field, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
+
+
 
 };
 

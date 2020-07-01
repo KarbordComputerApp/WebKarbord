@@ -14,6 +14,7 @@
     self.OprList = ko.observableArray([]); // ليست پروژه ها
 
 
+
     self.IDocRList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
@@ -24,9 +25,10 @@
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
 
+    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     var IDocRUri = server + '/api/ReportInv/IDocR/'; // آدرس گزارش 
-    var IDocRCountUri = server + '/api/ReportInv/IDocRCount/'; // تعداد رکورد های گزارش 
+
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
@@ -58,6 +60,13 @@
     var list_OprSelect = new Array();
 
     $("#textTotal").text('');
+
+    //Get RprtCols List
+    function getRprtColsList() {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/IDocR/' + sessionStorage.userName, 'GET').done(function (data) {
+            CreateTableReport(data);
+        });
+    }
 
     //Get kala List
     function getKalaList() {
@@ -177,7 +186,7 @@
         };
         ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject).done(function (response) {
             self.IDocRList(response);
-            calcsum(self.IDocRList());
+          //  calcsum(self.IDocRList());
         });
     }
 
@@ -226,6 +235,7 @@
         getIDocR();
     });
 
+    getRprtColsList();
     getInvList();
     getKalaList();
     getNoSanad();
@@ -241,6 +251,7 @@
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
 
+
     //------------------------------------------------------
     self.currentPageIDocR = ko.observable();
     self.pageSizeIDocR = ko.observable(10);
@@ -249,103 +260,138 @@
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
-    self.filterIDocR0 = ko.observable("");
-    self.filterIDocR1 = ko.observable("");
-    self.filterIDocR2 = ko.observable("");
-    self.filterIDocR3 = ko.observable("");
-    self.filterIDocR4 = ko.observable("");
-    self.filterIDocR5 = ko.observable("");
-    self.filterIDocR6 = ko.observable("");
-    self.filterIDocR7 = ko.observable("");
-    self.filterIDocR8 = ko.observable("");
-    self.filterIDocR9 = ko.observable("");
-    self.filterIDocR10 = ko.observable("");
-    self.filterIDocR11 = ko.observable("");
-    self.filterIDocR12 = ko.observable("");
-    self.filterIDocR13 = ko.observable("");
-    self.filterIDocR14 = ko.observable("");
-    self.filterIDocR15 = ko.observable("");
-    self.filterIDocR16 = ko.observable("");
-    self.filterIDocR17 = ko.observable("");
-    self.filterIDocR18 = ko.observable("");
-    self.filterIDocR19 = ko.observable("");
-    self.filterIDocR20 = ko.observable("");
-    self.filterIDocR21 = ko.observable("");
-    self.filterIDocR22 = ko.observable("");
-    self.filterIDocR23 = ko.observable("");
-    self.filterIDocR24 = ko.observable("");
-    self.filterIDocR25 = ko.observable("");
-    self.filterIDocR26 = ko.observable("");
+    self.filterDocDate = ko.observable("");
+    self.filterDocNo = ko.observable("");
+    self.filterModeName = ko.observable("");
+    self.filterInvName = ko.observable("");
+    self.filterSpec = ko.observable("");
+    self.filterStatus = ko.observable("");
+    self.filterTaeed = ko.observable("");
+    self.filterTasvib = ko.observable("");
+    self.filterThvlName = ko.observable("");
+    self.filterMkzName = ko.observable("");
+    self.filterOprName = ko.observable("");
+    self.filterSerialNumber = ko.observable("");
+    self.filterBandNo = ko.observable("");
+    self.filterKalaName = ko.observable("");
+    self.filterKalaFileNo = ko.observable("");
+    self.filterKalaState = ko.observable("");
+    self.filterKalaExf1 = ko.observable("");
+    self.filterKalaExf2 = ko.observable("");
+    self.filterKalaExf3 = ko.observable("");
+    self.filterKalaExf4 = ko.observable("");
+    self.filterKalaExf5 = ko.observable("");
+    self.filterKalaExf6 = ko.observable("");
+    self.filterKalaExf7 = ko.observable("");
+    self.filterKalaExf8 = ko.observable("");
+    self.filterKalaExf9 = ko.observable("");
+    self.filterKalaExf10 = ko.observable("");
+    self.filterKalaExf11 = ko.observable("");
+    self.filterKalaExf12 = ko.observable("");
+    self.filterKalaExf13 = ko.observable("");
+    self.filterKalaExf14 = ko.observable("");
+    self.filterKalaExf15 = ko.observable("");
+    self.filterMainUnitName = ko.observable("");
+    self.filterAmount1 = ko.observable("");
+    self.filterAmount2 = ko.observable("");
+    self.filterAmount3 = ko.observable("");
+    self.filterUnitPrice = ko.observable("");
+    self.filterTotalPrice = ko.observable("");
+    self.filterBandSpec = ko.observable("");
+    self.filterComm = ko.observable("");
 
     self.filterIDocRList = ko.computed(function () {
 
         self.currentPageIndexIDocR(0);
-        var filter0 = self.filterIDocR0();
-        var filter1 = self.filterIDocR1();
-        var filter2 = self.filterIDocR2();
-        var filter3 = self.filterIDocR3();
-        var filter4 = self.filterIDocR4();
-        var filter5 = self.filterIDocR5();
-        var filter6 = self.filterIDocR6().toUpperCase();
-        var filter7 = self.filterIDocR7().toUpperCase();
-        var filter8 = self.filterIDocR8().toUpperCase();
-        var filter9 = self.filterIDocR9();
-        var filter10 = self.filterIDocR10();
-        var filter11 = self.filterIDocR11();
-        var filter12 = self.filterIDocR12();
-        var filter13 = self.filterIDocR13();
-        var filter14 = self.filterIDocR14();
-        var filter15 = self.filterIDocR15();
-        var filter16 = self.filterIDocR16();
-        var filter17 = self.filterIDocR17();
-        var filter18 = self.filterIDocR18();
-        var filter19 = self.filterIDocR19();
-        var filter20 = self.filterIDocR20();
-        var filter21 = self.filterIDocR21();
-        var filter22 = self.filterIDocR22();
-        var filter23 = self.filterIDocR23();
-        var filter24 = self.filterIDocR24();
-        var filter25 = self.filterIDocR25();
-        var filter26 = self.filterIDocR26();
+        var filterDocDate = self.filterDocDate();
+        var filterDocNo = self.filterDocNo();
+        var filterModeName = self.filterModeName();
+        var filterInvName = self.filterInvName();
+        var filterSpec = self.filterSpec();
+        var filterStatus = self.filterStatus();
+        var filterTaeed = self.filterTaeed().toUpperCase();
+        var filterTasvib = self.filterTasvib().toUpperCase();
+        var filterThvlName = self.filterThvlName().toUpperCase();
+        var filterMkzName = self.filterMkzName();
+        var filterOprName = self.filterOprName();
+        var filterSerialNumber = self.filterSerialNumber();
+        var filterBandNo = self.filterBandNo();
+        var filterKalaName = self.filterKalaName();
+        var filterKalaFileNo = self.filterKalaFileNo();
+        var filterKalaState = self.filterKalaState();
+        var filterKalaExf1 = self.filterKalaExf1();
+        var filterKalaExf2 = self.filterKalaExf2();
+        var filterKalaExf3 = self.filterKalaExf3();
+        var filterKalaExf4 = self.filterKalaExf4();
+        var filterKalaExf5 = self.filterKalaExf5();
+        var filterKalaExf6 = self.filterKalaExf6();
+        var filterKalaExf7 = self.filterKalaExf7();
+        var filterKalaExf8 = self.filterKalaExf8();
+        var filterKalaExf9 = self.filterKalaExf9();
+        var filterKalaExf10 = self.filterKalaExf10();
+        var filterKalaExf11 = self.filterKalaExf11();
+        var filterKalaExf12 = self.filterKalaExf12();
+        var filterKalaExf13 = self.filterKalaExf13();
+        var filterKalaExf14 = self.filterKalaExf14();
+        var filterKalaExf15 = self.filterKalaExf15();
+
+        var filterMainUnitName = self.filterMainUnitName();
+        var filterAmount1 = self.filterAmount1();
+        var filterAmount2 = self.filterAmount2();
+        var filterAmount3 = self.filterAmount3();
+        var filterUnitPrice = self.filterUnitPrice();
+        var filterTotalPrice = self.filterTotalPrice();
+        var filterBandSpec = self.filterBandSpec();
+        var filterComm = self.filterComm();
 
         tempData = ko.utils.arrayFilter(self.IDocRList(), function (item) {
             result =
-                (item.DocDate == null ? '' : item.DocDate.toString().search(filter0) >= 0) &&
-                ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter1) &&
-                (item.ModeName == null ? '' : item.ModeName.toString().search(filter2) >= 0) &&
-                (item.InvName == null ? '' : item.InvName.toString().search(filter3) >= 0) &&
-                (item.Spec == null ? '' : item.Spec.toString().search(filter4) >= 0) &&
-                (item.Status == null ? '' : item.Status.toString().search(filter5) >= 0) &&
-                (item.Taeed == null ? '' : item.Taeed.toString().search(filter6) >= 0) &&
-                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filter7) >= 0) &&
-                (item.ThvlName == null ? '' : item.ThvlName.toString().search(filter8) >= 0) &&
-                (item.MkzName == null ? '' : item.MkzName.toString().search(filter9) >= 0) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filter10) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter11) &&
-                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter12) &&
-                 (item.KalaName == null ? '' : item.KalaName.toString().search(filter13) >= 0) &&
-                 (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filter14) >= 0) &&
-                 (item.KalaState == null ? '' : item.KalaState.toString().search(filter15) >= 0) &&
-                 (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filter16) >= 0) &&
-                 (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filter17) >= 0) &&
-                 (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filter18) >= 0) &&
-                (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter19) >= 0) &&
-                ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter20) &&
-                ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter21) &&
-                ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter22) &&
-               // ko.utils.stringStartsWith(item.UnitPrice.toString(), filter23) &&
-                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter24) &&
-                  (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter25) >= 0) &&
-                 (item.Comm == null ? '' : item.Comm.toString().search(filter26) >= 0)
+            (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
+            ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
+            (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
+            (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
+            (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+            (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+            (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+            (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
+            (item.ThvlName == null ? '' : item.ThvlName.toString().search(filterThvlName) >= 0) &&
+            (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+            (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+            ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+            ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo) &&
+            (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
 
-               // 1 == 1
+            (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
+            (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
+            (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
+            (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
+            (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
+            (item.KalaExf4 == null ? '' : item.KalaExf4.toString().search(filterKalaExf4) >= 0) &&
+            (item.KalaExf5 == null ? '' : item.KalaExf5.toString().search(filterKalaExf5) >= 0) &&
+            (item.KalaExf6 == null ? '' : item.KalaExf6.toString().search(filterKalaExf6) >= 0) &&
+            (item.KalaExf7 == null ? '' : item.KalaExf7.toString().search(filterKalaExf7) >= 0) &&
+            (item.KalaExf8 == null ? '' : item.KalaExf8.toString().search(filterKalaExf8) >= 0) &&
+            (item.KalaExf9 == null ? '' : item.KalaExf9.toString().search(filterKalaExf9) >= 0) &&
+            (item.KalaExf10 == null ? '' : item.KalaExf10.toString().search(filterKalaExf10) >= 0) &&
+            (item.KalaExf11 == null ? '' : item.KalaExf11.toString().search(filterKalaExf11) >= 0) &&
+            (item.KalaExf12 == null ? '' : item.KalaExf12.toString().search(filterKalaExf12) >= 0) &&
+            (item.KalaExf13 == null ? '' : item.KalaExf13.toString().search(filterKalaExf13) >= 0) &&
+            (item.KalaExf14 == null ? '' : item.KalaExf14.toString().search(filterKalaExf14) >= 0) &&
+            (item.KalaExf15 == null ? '' : item.KalaExf15.toString().search(filterKalaExf15) >= 0) &&
 
+            (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
+            ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
+            ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
+            ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
+            ko.utils.stringStartsWith(item.UnitPrice.toString(), filterUnitPrice) &&
+            ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
+            (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
+            (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0)
             return result;
         })
-        // calcsum(tempData);
+         calcsum(tempData);
         $("#CountRecord").text(tempData.length);
         return tempData;
-
     });
 
     self.search = ko.observable("");
@@ -405,6 +451,53 @@
             self.currentPageIndexIDocR(tempCountIDocR);
     };
 
+    self.sortType = "ascending";
+    self.currentColumn = ko.observable("");
+
+    self.iconTypeDocDate = ko.observable("");
+    self.iconTypeDocNo = ko.observable("");
+    self.iconTypeModeName = ko.observable("");
+    self.iconTypeInvName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+    self.iconTypeStatus = ko.observable("");
+    self.iconTypeTaeed = ko.observable("");
+    self.iconTypeTasvib = ko.observable("");
+    self.iconTypeThvlName = ko.observable("");
+    self.iconTypeMkzName = ko.observable("");
+    self.iconTypeOprName = ko.observable("");
+    self.iconTypeSerialNumber = ko.observable("");
+    self.iconTypeBandNo = ko.observable("");
+    self.iconTypeKalaName = ko.observable("");
+    self.iconTypeKalaFileNo = ko.observable("");
+    self.iconTypeKalaState = ko.observable("");
+    self.iconTypeKalaExf1 = ko.observable("");
+    self.iconTypeKalaExf2 = ko.observable("");
+    self.iconTypeKalaExf3 = ko.observable("");
+    self.iconTypeKalaExf4 = ko.observable("");
+    self.iconTypeKalaExf5 = ko.observable("");
+    self.iconTypeKalaExf6 = ko.observable("");
+    self.iconTypeKalaExf7 = ko.observable("");
+    self.iconTypeKalaExf8 = ko.observable("");
+    self.iconTypeKalaExf9 = ko.observable("");
+    self.iconTypeKalaExf10 = ko.observable("");
+    self.iconTypeKalaExf11 = ko.observable("");
+    self.iconTypeKalaExf12 = ko.observable("");
+    self.iconTypeKalaExf13 = ko.observable("");
+    self.iconTypeKalaExf14 = ko.observable("");
+    self.iconTypeKalaExf15 = ko.observable("");
+    self.iconTypeMainUnitName = ko.observable("");
+    self.iconTypeAmount1 = ko.observable("");
+    self.iconTypeAmount2 = ko.observable("");
+    self.iconTypeAmount3 = ko.observable("");
+    self.iconTypeUnitPrice = ko.observable("");
+    self.iconTypeTotalPrice = ko.observable("");
+    self.iconTypeBandSpec = ko.observable("");
+    self.iconTypeComm = ko.observable("");
+
+
+
+
+
     self.sortTableIDocR = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
@@ -434,11 +527,25 @@
         self.iconTypeSerialNumber('');
         self.iconTypeBandNo('');
         self.iconTypeKalaName('');
+
         self.iconTypeKalaFileNo('');
         self.iconTypeKalaState('');
         self.iconTypeKalaExf1('');
         self.iconTypeKalaExf2('');
         self.iconTypeKalaExf3('');
+        self.iconTypeKalaExf4('');
+        self.iconTypeKalaExf5('');
+        self.iconTypeKalaExf6('');
+        self.iconTypeKalaExf7('');
+        self.iconTypeKalaExf8('');
+        self.iconTypeKalaExf9('');
+        self.iconTypeKalaExf10('');
+        self.iconTypeKalaExf11('');
+        self.iconTypeKalaExf12('');
+        self.iconTypeKalaExf13('');
+        self.iconTypeKalaExf14('');
+        self.iconTypeKalaExf15('');
+
         self.iconTypeMainUnitName('');
         self.iconTypeAmount1('');
         self.iconTypeAmount2('');
@@ -447,6 +554,12 @@
         self.iconTypeTotalPrice('');
         self.iconTypeBandSpec('');
         self.iconTypeComm('');
+
+            /*
+    DocDate - DocNo - ModeName - InvName - Spec - Status - Taeed - Tasvib - ThvlName -
+    MkzName - OprName - SerialNumber - BandNo - KalaName - KalaFileNo - KalaState - KalaExf1.. 15 -
+    MainUnitName - Amount1 - Amount2 - Amount3 - UnitPrice - TotalPrice - BandSpec - Comm
+    */
 
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -462,11 +575,25 @@
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
         if (orderProp == 'KalaFileNo') self.iconTypeKalaFileNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaState') self.iconTypeKalaState((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaExf1') self.iconTypeKalaExf1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaExf2') self.iconTypeKalaExf2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaExf3') self.iconTypeKalaExf3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf4') self.iconTypeKalaExf4((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf5') self.iconTypeKalaExf5((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf6') self.iconTypeKalaExf6((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf7') self.iconTypeKalaExf7((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf8') self.iconTypeKalaExf8((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf9') self.iconTypeKalaExf9((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf10') self.iconTypeKalaExf10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf11') self.iconTypeKalaExf11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf12') self.iconTypeKalaExf12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf13') self.iconTypeKalaExf13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf14') self.iconTypeKalaExf14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf15') self.iconTypeKalaExf15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
         if (orderProp == 'MainUnitName') self.iconTypeMainUnitName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount1') self.iconTypeAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount2') self.iconTypeAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -478,39 +605,6 @@
 
     }
 
-
-
-
-    self.sortType = "ascending";
-    self.currentColumn = ko.observable("");
-
-    self.iconTypeDocDate = ko.observable("");
-    self.iconTypeDocNo = ko.observable("");
-    self.iconTypeModeName = ko.observable("");
-    self.iconTypeInvName = ko.observable("");
-    self.iconTypeSpec = ko.observable("");
-    self.iconTypeStatus = ko.observable("");
-    self.iconTypeTaeed = ko.observable("");
-    self.iconTypeTasvib = ko.observable("");
-    self.iconTypeThvlName = ko.observable("");
-    self.iconTypeMkzName = ko.observable("");
-    self.iconTypeOprName = ko.observable("");
-    self.iconTypeSerialNumber = ko.observable("");
-    self.iconTypeBandNo = ko.observable("");
-    self.iconTypeKalaName = ko.observable("");
-    self.iconTypeKalaFileNo = ko.observable("");
-    self.iconTypeKalaState = ko.observable("");
-    self.iconTypeKalaExf1 = ko.observable("");
-    self.iconTypeKalaExf2 = ko.observable("");
-    self.iconTypeKalaExf3 = ko.observable("");
-    self.iconTypeMainUnitName = ko.observable("");
-    self.iconTypeAmount1 = ko.observable("");
-    self.iconTypeAmount2 = ko.observable("");
-    self.iconTypeAmount3 = ko.observable("");
-    self.iconTypeUnitPrice = ko.observable("");
-    self.iconTypeTotalPrice = ko.observable("");
-    self.iconTypeBandSpec = ko.observable("");
-    self.iconTypeComm = ko.observable("");
 
 
 
@@ -1673,6 +1767,257 @@
 
 
     $('.fix').attr('class', 'form-line date focused fix');
+
+
+    function CreateTableReport(data) {
+        $("#TableReport").empty();
+        $('#TableReport').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableIDocR">' +
+            CreateTableTh('DocDate', data) +
+            CreateTableTh('DocNo', data) +
+            CreateTableTh('ModeName', data) +
+            CreateTableTh('InvName', data) +
+            CreateTableTh('Spec', data) +
+            CreateTableTh('Status', data) +
+            CreateTableTh('Taeed', data) +
+            CreateTableTh('Tasvib', data) +
+            CreateTableTh('ThvlName', data) +
+            CreateTableTh('MkzName', data) +
+            CreateTableTh('OprName', data) +
+            CreateTableTh('SerialNumber', data) +
+            CreateTableTh('BandNo', data) +
+            CreateTableTh('KalaName', data) +
+            CreateTableTh('KalaFileNo', data) +
+            CreateTableTh('KalaState', data) +
+            CreateTableTh('KalaExf1', data) +
+            CreateTableTh('KalaExf2', data) +
+            CreateTableTh('KalaExf3', data) +
+            CreateTableTh('KalaExf4', data) +
+            CreateTableTh('KalaExf5', data) +
+            CreateTableTh('KalaExf6', data) +
+            CreateTableTh('KalaExf7', data) +
+            CreateTableTh('KalaExf8', data) +
+            CreateTableTh('KalaExf9', data) +
+            CreateTableTh('KalaExf10', data) +
+            CreateTableTh('KalaExf11', data) +
+            CreateTableTh('KalaExf12', data) +
+            CreateTableTh('KalaExf13', data) +
+            CreateTableTh('KalaExf14', data) +
+            CreateTableTh('KalaExf15', data) +
+            CreateTableTh('MainUnitName', data) +
+            CreateTableTh('Amount1', data) +
+            CreateTableTh('Amount2', data) +
+            CreateTableTh('Amount3', data) +
+            CreateTableTh('UnitPrice', data) +
+            CreateTableTh('TotalPrice', data) +
+            CreateTableTh('BandSpec', data) +
+            CreateTableTh('Comm', data) +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind=" {foreach: currentPageIDocR}" style="cursor: default;">' +
+            '     <tr >' +
+            CreateTableTd('DocDate', 0, 0, data) +
+            CreateTableTd('DocNo', 0, 0, data) +
+            CreateTableTd('ModeName', 0, 0, data) +
+            CreateTableTd('InvName', 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Status', 0, 0, data) +
+            CreateTableTd('Taeed', 0, 0, data) +
+            CreateTableTd('Tasvib', 0, 0, data) +
+            CreateTableTd('ThvlName',0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, data) +
+            CreateTableTd('SerialNumber', 0, 0, data) +
+            CreateTableTd('BandNo', 0, 0, data) +
+            CreateTableTd('KalaName', 0, 0, data) +
+            CreateTableTd('KalaFileNo', 0, 0, data) +
+            CreateTableTd('KalaState', 0, 0, data) +
+            CreateTableTd('KalaExf1', 0, 0, data) +
+            CreateTableTd('KalaExf2', 0, 0, data) +
+            CreateTableTd('KalaExf3', 0, 0, data) +
+            CreateTableTd('KalaExf4', 0, 0, data) +
+            CreateTableTd('KalaExf5', 0, 0, data) +
+            CreateTableTd('KalaExf6', 0, 0, data) +
+            CreateTableTd('KalaExf7', 0, 0, data) +
+            CreateTableTd('KalaExf8', 0, 0, data) +
+            CreateTableTd('KalaExf9', 0, 0, data) +
+            CreateTableTd('KalaExf10', 0, 0, data) +
+            CreateTableTd('KalaExf11', 0, 0, data) +
+            CreateTableTd('KalaExf12', 0, 0, data) +
+            CreateTableTd('KalaExf13', 0, 0, data) +
+            CreateTableTd('KalaExf14', 0, 0, data) +
+            CreateTableTd('KalaExf15', 0, 0, data) +
+            CreateTableTd('MainUnitName', 0, 0, data) +
+            CreateTableTd('Amount1', 'DeghatM1', 1, data) +
+            CreateTableTd('Amount2', 'DeghatM2', 1, data) +
+            CreateTableTd('Amount3', 'DeghatM3', 1, data) +
+            CreateTableTd('UnitPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('BandSpec',0, 0, data) +
+            CreateTableTd('Comm', 0, 0, data) +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('DocDate', 0, data) +
+            CreateTableTdSum('DocNo', 1, data) +
+            CreateTableTdSum('ModeName', 1, data) +
+            CreateTableTdSum('InvName', 1, data) +
+            CreateTableTdSum('Spec', 1, data) +
+            CreateTableTdSum('Status', 1, data) +
+            CreateTableTdSum('Taeed', 1, data) +
+            CreateTableTdSum('Tasvib', 1, data) +
+            CreateTableTdSum('ThvlName', 1, data) +
+            CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('OprName', 1, data) +
+            CreateTableTdSum('SerialNumber', 1, data) +
+            CreateTableTdSum('BandNo', 1, data) +
+            CreateTableTdSum('KalaName', 1, data) +
+            CreateTableTdSum('KalaFileNo', 1, data) +
+            CreateTableTdSum('KalaState', 1, data) +
+            CreateTableTdSum('KalaExf1', 1, data) +
+            CreateTableTdSum('KalaExf2', 1, data) +
+            CreateTableTdSum('KalaExf3', 1, data) +
+            CreateTableTdSum('KalaExf4', 1, data) +
+            CreateTableTdSum('KalaExf5', 1, data) +
+            CreateTableTdSum('KalaExf6', 1, data) +
+            CreateTableTdSum('KalaExf7', 1, data) +
+            CreateTableTdSum('KalaExf8', 1, data) +
+            CreateTableTdSum('KalaExf9', 1, data) +
+            CreateTableTdSum('KalaExf10', 1, data) +
+            CreateTableTdSum('KalaExf11', 1, data) +
+            CreateTableTdSum('KalaExf12', 1, data) +
+            CreateTableTdSum('KalaExf13', 1, data) +
+            CreateTableTdSum('KalaExf14', 1, data) +
+            CreateTableTdSum('KalaExf15', 1, data) +
+            CreateTableTdSum('MainUnitName', 1, data) +
+            CreateTableTdSum('Amount1', 2, data) +
+            CreateTableTdSum('Amount2', 2, data) +
+            CreateTableTdSum('Amount3', 2, data) +
+            CreateTableTdSum('UnitPrice', 2, data) +
+            CreateTableTdSum('TotalPrice', 2, data) +
+            CreateTableTdSum('BandSpec', 1, data) +
+            CreateTableTdSum('Comm', 1, data) +
+            ' </tr>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('DocDate', data) +
+            CreateTableTdSearch('DocNo', data) +
+            CreateTableTdSearch('ModeName', data) +
+            CreateTableTdSearch('InvName', data) +
+            CreateTableTdSearch('Spec', data) +
+            CreateTableTdSearch('Status', data) +
+            CreateTableTdSearch('Taeed', data) +
+            CreateTableTdSearch('Tasvib', data) +
+            CreateTableTdSearch('ThvlName', data) +
+            CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('SerialNumber', data) +
+            CreateTableTdSearch('BandNo', data) +
+            CreateTableTdSearch('KalaName', data) +
+            CreateTableTdSearch('KalaFileNo', data) +
+            CreateTableTdSearch('KalaState', data) +
+            CreateTableTdSearch('KalaExf1', data) +
+            CreateTableTdSearch('KalaExf2', data) +
+            CreateTableTdSearch('KalaExf3', data) +
+            CreateTableTdSearch('KalaExf4', data) +
+            CreateTableTdSearch('KalaExf5', data) +
+            CreateTableTdSearch('KalaExf6', data) +
+            CreateTableTdSearch('KalaExf7', data) +
+            CreateTableTdSearch('KalaExf8', data) +
+            CreateTableTdSearch('KalaExf9', data) +
+            CreateTableTdSearch('KalaExf10', data) +
+            CreateTableTdSearch('KalaExf11', data) +
+            CreateTableTdSearch('KalaExf12', data) +
+            CreateTableTdSearch('KalaExf13', data) +
+            CreateTableTdSearch('KalaExf14', data) +
+            CreateTableTdSearch('KalaExf15', data) +
+            CreateTableTdSearch('MainUnitName', data) +
+            CreateTableTdSearch('Amount1', data) +
+            CreateTableTdSearch('Amount2', data) +
+            CreateTableTdSearch('Amount3', data) +
+            CreateTableTdSearch('UnitPrice', data) +
+            CreateTableTdSearch('TotalPrice', data) +
+            CreateTableTdSearch('BandSpec', data) +
+            CreateTableTdSearch('Comm', data) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    function CreateTableTh(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span>' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSum(field, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
 
 };
 
