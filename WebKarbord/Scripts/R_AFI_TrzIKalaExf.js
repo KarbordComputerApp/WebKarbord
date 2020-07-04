@@ -20,7 +20,7 @@
     self.TaDate = ko.observable(sessionStorage.EndDate);
     self.InvCode = ko.observable();
     var allSearchKala = true;
-
+    
     var KalaCode = '';
     var counterKala = 0;
     var list_KalaSelect = new Array()
@@ -1213,7 +1213,7 @@
                 text += 'data-bind="text: ' + field + '"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
                 break;
             case 2:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'

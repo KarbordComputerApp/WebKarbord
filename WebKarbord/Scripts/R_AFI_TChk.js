@@ -262,7 +262,7 @@
 
 
     self.AddAllCheckStatus = function () {
-        list_CheckStatusSelect = new Array(); 
+        list_CheckStatusSelect = new Array();
         list = self.CheckStatusList();
         $("#TableBodyListCheckStatus").empty();
         for (var i = 0; i < list.length; i++) {
@@ -283,7 +283,7 @@
         $('#nameCheckStatus').val('همه موارد');
         $("#TableBodyListCheckStatus").empty();
     };
-    
+
 
     $('#modal-CheckStatus').on('hide.bs.modal', function () {
         if (counterCheckStatus > 0)
@@ -558,7 +558,7 @@
                 ko.utils.stringStartsWith(item.TrafCode.toString().toLowerCase(), filterTrafCode) &&
                 (item.TrafName == null ? '' : item.TrafName.toString().search(filterTrafName) >= 0) &&
                 ko.utils.stringStartsWith(item.Value.toString().toLowerCase(), filterValue) &&
-                (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0) 
+                (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0)
             return result;
         })
         $("#CountRecord").text(tempData.length);
@@ -773,12 +773,22 @@
         if (TextField == 0)
             text += 'Hidden ';
 
+        CheckStatusSt1 = 'نامشخص';
+        CheckStatusSt2 = 'نزد صندوق';
+        CheckStatusSt3 = 'در جریان وصول';
+        CheckStatusSt4 = 'برگشتی';
+        CheckStatusSt5 = 'عودت';
+        CheckStatusSt6 = 'واگذار شده';
+        CheckStatusSt7 = 'پاس شده';
+        CheckStatusSt8 = 'صادر شده';
+        CheckStatusSt9 = 'وصول شده';
+
         switch (no) {
             case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
+                text += 'data-bind="text: ' + field + ', style: { color: ' + field + ' == \'پاس شده\' ? \'blue\' : \'black\' }"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
                 break;
             case 2:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'

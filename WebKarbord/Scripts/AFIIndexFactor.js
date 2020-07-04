@@ -29,9 +29,9 @@
             sessionStorage.flagupdateHeader = 0;
             self.FDocHList(data);
 
-            ajaxFunction(FDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (dataCount) {
-                $('#countAllRecord').text(dataCount);
-            });
+            //ajaxFunction(FDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (dataCount) {
+           //     $('#countAllRecord').text(dataCount);
+           // });
 
             // if (self.FDocHList().length > 0) {
             //     $('#countAllRecord').text(self.FDocHList().length);
@@ -138,6 +138,7 @@
 
 
         if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8) {
+            $("#CountRecord").text(self.FDocHList().length);
             return self.FDocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
@@ -153,6 +154,7 @@
                     ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter8)// &&
                 return result;
             })
+            $("#CountRecord").text(tempData.length);
             return tempData;
         }
     });

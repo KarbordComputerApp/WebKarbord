@@ -2228,7 +2228,6 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
-
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
@@ -2258,11 +2257,16 @@
             CreateTableTh('KalaF19', data) +
             CreateTableTh('KalaF20', data) +
             CreateTableTh('KalaUnitName1', data) +
-            CreateTableTh('KalaUnitName2', data) +
-            CreateTableTh('KalaUnitName3', data) +
             CreateTableTh('Amount1', data) +
+            CreateTableTh('UnitPrice1', data) +
+            CreateTableTh('KalaUnitName2', data) +
             CreateTableTh('Amount2', data) +
+            CreateTableTh('UnitPrice2', data) +
+            CreateTableTh('KalaUnitName3', data) +
             CreateTableTh('Amount3', data) +
+            CreateTableTh('UnitPrice3', data) +
+            CreateTableTh('TotalPrice', data) +
+            CreateTableTh('Discount', data) +
             CreateTableTh('AddMinPrice1', data) +
             CreateTableTh('AddMinPrice2', data) +
             CreateTableTh('AddMinPrice3', data) +
@@ -2273,13 +2277,8 @@
             CreateTableTh('AddMinPrice8', data) +
             CreateTableTh('AddMinPrice9', data) +
             CreateTableTh('AddMinPrice10', data) +
-            CreateTableTh('UnitPrice1', data) +
-            CreateTableTh('UnitPrice2', data) +
-            CreateTableTh('UnitPrice3', data) +
-            CreateTableTh('Discount', data) +
             CreateTableTh('OnlyDiscountPrice', data) +
             CreateTableTh('FinalPrice', data) +
-            CreateTableTh('TotalPrice', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTrzFKala_S" data-dismiss="modal" style="cursor: default;">' +
@@ -2307,11 +2306,16 @@
             CreateTableTd('KalaF19', 0, 0, data) +
             CreateTableTd('KalaF20', 0, 0, data) +
             CreateTableTd('KalaUnitName1', 0, 0, data) +
-            CreateTableTd('KalaUnitName2', 0, 0, data) +
-            CreateTableTd('KalaUnitName3', 0, 0, data) +
             CreateTableTd('Amount1', 'DeghatM1', 1, data) +
+            CreateTableTd('UnitPrice1', 'DeghatR1', 2, data) +
+            CreateTableTd('KalaUnitName2', 0, 0, data) +
             CreateTableTd('Amount2', 'DeghatM2', 1, data) +
+            CreateTableTd('UnitPrice2', 'DeghatR2', 2, data) +
+            CreateTableTd('KalaUnitName3', 0, 0, data) +
             CreateTableTd('Amount3', 'DeghatM3', 1, data) +
+            CreateTableTd('UnitPrice3', 'DeghatR3', 2, data) +
+            CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('Discount', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AddMinPrice1', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AddMinPrice2', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AddMinPrice3', sessionStorage.Deghat, 2, data) +
@@ -2322,13 +2326,8 @@
             CreateTableTd('AddMinPrice8', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AddMinPrice9', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('UnitPrice1', 'DeghatR1', 2, data) +
-            CreateTableTd('UnitPrice2', 'DeghatR2', 2, data) +
-            CreateTableTd('UnitPrice3', 'DeghatR3', 2, data) +
-            CreateTableTd('Discount', sessionStorage.Deghat, 2, data) +
             CreateTableTd('OnlyDiscountPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -2356,11 +2355,16 @@
             CreateTableTdSum('KalaF19', 1, data) +
             CreateTableTdSum('KalaF20', 1, data) +
             CreateTableTdSum('KalaUnitName1', 1, data) +
-            CreateTableTdSum('KalaUnitName2', 1, data) +
-            CreateTableTdSum('KalaUnitName3', 1, data) +
             CreateTableTdSum('Amount1', 2, data) +
+            CreateTableTdSum('UnitPrice1', 2, data) +
+            CreateTableTdSum('KalaUnitName2', 1, data) +
             CreateTableTdSum('Amount2', 2, data) +
+            CreateTableTdSum('UnitPrice2', 2, data) +
+            CreateTableTdSum('KalaUnitName3', 1, data) +
             CreateTableTdSum('Amount3', 2, data) +
+            CreateTableTdSum('UnitPrice3', 2, data) +
+            CreateTableTdSum('TotalPrice', 2, data) +
+            CreateTableTdSum('Discount', 2, data) +
             CreateTableTdSum('AddMinPrice1', 2, data) +
             CreateTableTdSum('AddMinPrice2', 2, data) +
             CreateTableTdSum('AddMinPrice3', 2, data) +
@@ -2371,13 +2375,8 @@
             CreateTableTdSum('AddMinPrice8', 2, data) +
             CreateTableTdSum('AddMinPrice9', 2, data) +
             CreateTableTdSum('AddMinPrice10', 2, data) +
-            CreateTableTdSum('UnitPrice1', 2, data) +
-            CreateTableTdSum('UnitPrice2', 2, data) +
-            CreateTableTdSum('UnitPrice3', 2, data) +
-            CreateTableTdSum('Discount', 2, data) +
             CreateTableTdSum('OnlyDiscountPrice', 2, data) +
             CreateTableTdSum('FinalPrice', 2, data) +
-            CreateTableTdSum('TotalPrice', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('KalaCode', data) +
@@ -2403,11 +2402,16 @@
             CreateTableTdSearch('KalaF19', data) +
             CreateTableTdSearch('KalaF20', data) +
             CreateTableTdSearch('KalaUnitName1', data) +
-            CreateTableTdSearch('KalaUnitName2', data) +
-            CreateTableTdSearch('KalaUnitName3', data) +
             CreateTableTdSearch('Amount1', data) +
+            CreateTableTdSearch('UnitPrice1', data) +
+            CreateTableTdSearch('KalaUnitName2', data) +
             CreateTableTdSearch('Amount2', data) +
+            CreateTableTdSearch('UnitPrice2', data) +
+            CreateTableTdSearch('KalaUnitName3', data) +
             CreateTableTdSearch('Amount3', data) +
+            CreateTableTdSearch('UnitPrice3', data) +
+            CreateTableTdSearch('TotalPrice', data) +
+            CreateTableTdSearch('Discount', data) +
             CreateTableTdSearch('AddMinPrice1', data) +
             CreateTableTdSearch('AddMinPrice2', data) +
             CreateTableTdSearch('AddMinPrice3', data) +
@@ -2418,13 +2422,8 @@
             CreateTableTdSearch('AddMinPrice8', data) +
             CreateTableTdSearch('AddMinPrice9', data) +
             CreateTableTdSearch('AddMinPrice10', data) +
-            CreateTableTdSearch('UnitPrice1', data) +
-            CreateTableTdSearch('UnitPrice2', data) +
-            CreateTableTdSearch('UnitPrice3', data) +
-            CreateTableTdSearch('Discount', data) +
             CreateTableTdSearch('OnlyDiscountPrice', data) +
             CreateTableTdSearch('FinalPrice', data) +
-            CreateTableTdSearch('TotalPrice', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -2447,6 +2446,7 @@
         return text;
     }
 
+
     function CreateTableTd(field, Deghat, no, data) {
         text = '<td ';
 
@@ -2459,7 +2459,7 @@
                 text += 'data-bind="text: ' + field + '"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10))"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ')) , style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
                 break;
             case 2:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"" style="text-align: right;"></td>'
