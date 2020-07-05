@@ -233,83 +233,10 @@
                 </form>
 
                 <hr />
-                <div style="height:425px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
-                    <table class="table table-hover table-striped">
-                        <thead style="cursor: pointer;">
-                            <tr data-bind="click: sortTableDocB_Last">
-                                <th data-column="RjStatus">
-                                    وضعیت ارجاع <span data-bind="attr: { class: currentColumn() == 'RjStatus' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeRjStatus }"></i> </span>
-                                </th>
-                                <th data-column="RjDate">
-                                    تاريخ ارجاع <span data-bind="attr: { class: currentColumn() == 'RjDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeRjDate }"></i> </span>
-                                </th>
-                                <th data-column="RjMhltDate">
-                                    مهلت ارجاع <span data-bind="attr: { class: currentColumn() == 'RjMhltDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeRjMhltDate }"></i> </span>
-                                </th>
-                                <th data-column="CustName">
-                                    نام مشتری  <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
-                                </th>
-                                <th data-column="KhdtName">
-                                    نوع کار <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeKhdtName }"></i> </span>
-                                </th>
-                                <th data-column="FromUserName">
-                                    ارجاع دهنده <span data-bind="attr: { class: currentColumn() == 'FromUserName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeFromUserName }"></i> </span>
-                                </th>
-                                <th data-column="Spec">
-                                    ملاحظات پرونده <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpec }"></i> </span>
-                                </th>
-                                <th data-column="Status">
-                                    وضعیت پرونده<span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
-                                </th>
-                                <th data-column="DocNo">
-                                    شماره پرونده  <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
-                                </th>
-                                <th data-column="MhltDate">
-                                    مهلت پرونده <span data-bind="attr: { class: currentColumn() == 'MhltDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeMhltDate }"></i> </span>
-                                </th>
-                                <th>عملیات</th>
-                            </tr>
+                <div id="TableReport" style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
 
-                        </thead>
-
-                        <tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }                        ">
-
-                                <td data-bind="text: RjStatus,style: { color: DocBMode == 1  ? '#e48f43' : ''}"></td>
-                                <td data-bind="text: RjDate"></td>
-                                <td data-bind="text: RjMhltDate"></td>
-                                <td data-bind="text: CustName"></td>
-                                <td data-bind="text: KhdtName"></td>
-                                <td data-bind="text: FromUserName"></td>
-                                <td data-bind="text: Spec"></td>
-                                <td data-bind="text: Status"></td>
-                                <td data-bind="text: DocNo"></td>
-                                <td data-bind="text: MhltDate"></td>
-                                <td>
-                                    <a data-bind="click: $root.ViewErjDocErja" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja">
-                                        <img src="~/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr style="background-color: #efb68399;">
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last5, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocB_Last9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                            </tr>
-                        </tfoot>
-                    </table>
                 </div>
                 <br />
-
 
                 <div class="row">
                     <div class="col-md-4">

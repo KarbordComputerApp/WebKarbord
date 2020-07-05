@@ -22,8 +22,8 @@
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
     var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
-    var DocB_LastCountUri = server + '/api/Web_Data/Web_ErjDocB_LastCount/'; // تعداد رکورد های گزارش
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
+    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.AzDocDate = ko.observable('');
     self.TaDocDate = ko.observable('');
@@ -43,6 +43,13 @@
     var list_KhdtSelect = new Array()
 
     $("#textTotal").text('');
+
+    //Get RprtCols List
+    function getRprtColsList() {
+        ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/ErjDocB_Last/' + sessionStorage.userName, 'GET').done(function (data) {
+            CreateTableReport(data);
+        });
+    }
 
     //Get ErjCust List
     function getErjCustList() {
@@ -77,6 +84,7 @@
     }
 
 
+    getRprtColsList();
     getErjStatusList();
     getErjCustList();
     getKhdtList();
@@ -319,43 +327,44 @@
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
-    self.filterDocB_Last0 = ko.observable("");
-    self.filterDocB_Last1 = ko.observable("");
-    self.filterDocB_Last2 = ko.observable("");
-    self.filterDocB_Last3 = ko.observable("");
-    self.filterDocB_Last4 = ko.observable("");
-    self.filterDocB_Last5 = ko.observable("");
-    self.filterDocB_Last6 = ko.observable("");
-    self.filterDocB_Last7 = ko.observable("");
-    self.filterDocB_Last8 = ko.observable("");
-    self.filterDocB_Last9 = ko.observable("");
+
+    self.filterRjStatus = ko.observable("");
+    self.filterRjDate = ko.observable("");
+    self.filterRjMhltDate = ko.observable("");
+    self.filterCustName = ko.observable("");
+    self.filterKhdtName = ko.observable("");
+    self.filterFromUserName = ko.observable("");
+    self.filterSpec = ko.observable("");
+    self.filterStatus = ko.observable("");
+    self.filterDocNo = ko.observable("");
+    self.filterMhltDate = ko.observable("");
 
     self.filterDocB_LastList = ko.computed(function () {
-
         self.currentPageIndexDocB_Last(0);
-        var filter0 = self.filterDocB_Last0().toUpperCase();
-        var filter1 = self.filterDocB_Last1().toUpperCase();
-        var filter2 = self.filterDocB_Last2().toUpperCase();
-        var filter3 = self.filterDocB_Last3();
-        var filter4 = self.filterDocB_Last4();
-        var filter5 = self.filterDocB_Last5();
-        var filter6 = self.filterDocB_Last6();
-        var filter7 = self.filterDocB_Last7().toUpperCase();
-        var filter8 = self.filterDocB_Last8().toUpperCase();
-        var filter9 = self.filterDocB_Last9().toUpperCase();
+        var filterRjStatus = self.filterRjStatus();
+        var filterRjDate = self.filterRjDate();
+        var filterRjMhltDate = self.filterRjMhltDate();
+        var filterCustName = self.filterCustName();
+        var filterKhdtName = self.filterKhdtName();
+        var filterFromUserName = self.filterFromUserName();
+        var filterSpec = self.filterSpec();
+        var filterStatus = self.filterStatus().toUpperCase();
+        var filterDocNo = self.filterDocNo();
+        var filterMhltDate = self.filterMhltDate();
+
 
         tempData = ko.utils.arrayFilter(self.DocB_LastList(), function (item) {
             result =
-                (item.RjStatus == null ? '' : item.RjStatus.toString().search(filter0) >= 0) &&
-                (item.RjDate == null ? '' : item.RjDate.toString().search(filter1) >= 0) &&
-                (item.RjMhltDate == null ? '' : item.RjMhltDate.toString().search(filter2) >= 0) &&
-                (item.CustName == null ? '' : item.CustName.toString().search(filter3) >= 0) &&
-                (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter4) >= 0) &&
-                (item.FromUserName == null ? '' : item.FromUserName.toString().search(filter5) >= 0) &&
-                (item.Spec == null ? '' : item.Spec.toString().search(filter6) >= 0) &&
-                (item.Status == null ? '' : item.Status.toString().search(filter7) >= 0) &&
-                (item.DocNo == null ? '' : item.DocNo.toString().search(filter8) >= 0) &&
-                (item.MhltDate == null ? '' : item.MhltDate.toString().search(filter9) >= 0)
+                (item.RjStatus == null ? '' : item.RjStatus.toString().search(filterRjStatus) >= 0) &&
+                (item.RjDate == null ? '' : item.RjDate.toString().search(filterRjDate) >= 0) &&
+                (item.RjMhltDate == null ? '' : item.RjMhltDate.toString().search(filterRjMhltDate) >= 0) &&
+                (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
+                (item.KhdtName == null ? '' : item.KhdtName.toString().search(filterKhdtName) >= 0) &&
+                (item.FromUserName == null ? '' : item.FromUserName.toString().search(filterFromUserName) >= 0) &&
+                (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                (item.DocNo == null ? '' : item.DocNo.toString().search(filterDocNo) >= 0) &&
+                (item.MhltDate == null ? '' : item.MhltDate.toString().search(filterMhltDate) >= 0)
             return result;
         })
         $("#CountRecord").text(tempData.length);
@@ -418,6 +427,12 @@
         else
             self.currentPageIndexDocB_Last(tempCountDocB_Last);
     };
+
+
+
+
+        //RjStatus - RjDate - RjMhltDate - CustName - KhdtName - FromUserName - Spec - Status - DocNo - MhltDate
+    //RjStatus - RjDate - RjMhltDate - CustName - KhdtName - FromUserName - Spec - Status - DocNo - MhltDate
 
 
     self.iconTypeRjStatus = ko.observable("");
@@ -866,6 +881,143 @@
     else {
         $('#FromUser').prop('disabled', false);
         $('#ToUser').prop('disabled', false);
+    }
+
+
+
+    function CreateTableReport(data) {
+        $("#TableReport").empty();
+        $('#TableReport').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableDocB_Last">' +
+            CreateTableTh('RjStatus', data) +
+            CreateTableTh('RjDate', data) +
+            CreateTableTh('RjMhltDate', data) +
+            CreateTableTh('CustName', data) +
+            CreateTableTh('KhdtName', data) +
+            CreateTableTh('FromUserName', data) +
+            CreateTableTh('Spec', data) +
+            CreateTableTh('Status', data) +
+            CreateTableTh('DocNo', data) +
+            CreateTableTh('MhltDate', data) +
+            '<th>عملیات</th>'+
+            '      </tr>' +
+            '   </thead >' +
+            '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
+            '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
+            CreateTableTd('RjStatus',0, 1, data) +
+            CreateTableTd('RjDate', 0, 0, data) +
+            CreateTableTd('RjMhltDate', 0, 0, data) +
+            CreateTableTd('CustName', 0, 0, data) +
+            CreateTableTd('KhdtName', 0, 0, data) +
+            CreateTableTd('FromUserName', 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Status', 0, 0, data) +
+            CreateTableTd('DocNo', 0, 0, data) +
+            CreateTableTd('MhltDate', 0, 0, data) +
+            '<td>'+
+            '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >'+
+            '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />'+
+            '    </a >'+
+            '</td >'+
+            '</tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('RjStatus', 0, data) +
+            CreateTableTdSum('RjDate', 1, data) +
+            CreateTableTdSum('RjMhltDate', 1, data) +
+            CreateTableTdSum('CustName', 1, data) +
+            CreateTableTdSum('KhdtName', 1, data) +
+            CreateTableTdSum('FromUserName', 1, data) +
+            CreateTableTdSum('Spec', 1, data) +
+            CreateTableTdSum('Status', 1, data) +
+            CreateTableTdSum('DocNo', 1, data) +
+            CreateTableTdSum('MhltDate', 1, data) +
+            ' </tr>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('RjStatus', data) +
+            CreateTableTdSearch('RjDate', data) +
+            CreateTableTdSearch('RjMhltDate', data) +
+            CreateTableTdSearch('CustName', data) +
+            CreateTableTdSearch('KhdtName', data) +
+            CreateTableTdSearch('FromUserName', data) +
+            CreateTableTdSearch('Spec', data) +
+            CreateTableTdSearch('Status', data) +
+            CreateTableTdSearch('DocNo', data) +
+            CreateTableTdSearch('MhltDate', data) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    function CreateTableTh(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span>' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'data-bind="text: RjStatus,style: { color: DocBMode == 1  ? \'#e48f43\' : \'\'}"></td>';
+                //text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSum(field, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
     }
 
 };
