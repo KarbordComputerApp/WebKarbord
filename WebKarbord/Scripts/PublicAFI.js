@@ -687,8 +687,8 @@ function SetValidation() {
         //validation = CheckAccess('PRN_SPDOC'); // Print pish Factor forosh
         //validation == true ? $("#").show() : $("#").hide()
 
-        validation = CheckAccess('AccessSanad_SPDOC');// AccessSanad
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+        //validation = CheckAccess('AccessSanad_SPDOC');// AccessSanad
+        //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
         validation = CheckAccess('OTHERUSER_CHG_SPDOC');// AccessViewSanad
         if (validation == true) {
@@ -859,24 +859,11 @@ function SetValidation() {
         validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewSanadAnbarVarede = true;
-            //$('#action_header').removeAttr('style');
-            //$('#action_body').removeAttr('style');
-            //$('#action_footer').removeAttr('style');
-            //$('#action_Hdoc').removeAttr('style');
         }
         else {
             sessionStorage.AccessViewSanadAnbarVarede = false;
-            //$('#action_header').attr('style', 'display: none');
-            //$('#action_body').attr('style', 'display: none');
-            //$('#action_footer').attr('style', 'display: none');
-            //$('#action_Hdoc').attr('style', 'display: none');
         }
     }
-
-    // $('#action_header').attr('style', 'display: none');
-    //$('#action_body').attr('style', 'display: none');
-    //$('#action_footer').attr('style', 'display: none');
-    //$('#action_Hdoc').attr('style', 'display: none');
 
     validation = CheckAccess('IODOC');
     ShowMenu[10] = validation;  // صادره انبار
@@ -889,13 +876,11 @@ function SetValidation() {
         validation = CheckAccess('DEL_IODOC'); // delete sadere anbar
         validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
         validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
-        //validation = CheckAccess('PRN_IODOC'); // delete sadere anbar
+        //validation = CheckAccess('PRN_IODOC'); // print sadere anbar
         // validation == true ? $("#").show() : $("#").hide()
 
         validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-
-
 
         validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
         if (validation == true) {
@@ -1031,8 +1016,6 @@ function SetValidationErj() {
         sessionStorage.userModeErj = 'ADMIN';
     else
         sessionStorage.userModeErj = 'USER';
-
-
 
 
 

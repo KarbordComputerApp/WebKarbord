@@ -300,6 +300,7 @@
 
     $('#AddNewSanadAnbar').click(function () {
         sessionStorage.flagupdateHeader = 0;
+        sessionStorage.Eghdam = sessionStorage.userName;
         invCode = $('#invSelect').val();
         //if (invCode == '' || invCode == null) 
         //{

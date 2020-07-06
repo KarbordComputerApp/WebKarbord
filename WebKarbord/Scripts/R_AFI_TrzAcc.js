@@ -340,6 +340,9 @@
 
     self.sortTableTrzAcc = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null;
+        
         self.currentColumn(orderProp);
         self.TrzAccList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1168,9 +1171,9 @@
             text += 'Hidden ';
 
         text += 'data-column="' + field + '">' +
-            '<span>' + TextField + '</span>' +
+            '<span data-column="' + field + '" >' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" data-column="' + field + '" ></i> </span> ' +
             '</th>';
         return text;
     }

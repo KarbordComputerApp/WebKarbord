@@ -985,7 +985,7 @@
             text += 'Hidden ';
 
         text += 'data-column="' + field + '">' +
-            '<span>' + TextField + '</span>' +
+            '<span data-column="' + field + '">' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
             '</th>';

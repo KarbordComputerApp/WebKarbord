@@ -300,6 +300,9 @@
 
     self.sortTableAcc = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
         self.currentColumn(orderProp);
         self.AccList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -429,6 +432,9 @@
 
     self.sortTableMkz = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -607,6 +613,9 @@
 
     self.sortTableOpr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -785,6 +794,9 @@
 
     self.sortTableAMode = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
         self.currentColumn(orderProp);
         self.AModeList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -968,6 +980,9 @@
 
     self.sortTableStatus = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
         self.currentColumn(orderProp);
         self.StatusList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1329,6 +1344,9 @@
 
     self.sortTableDftr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
         self.currentColumn(orderProp);
         self.DftrList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1696,7 +1714,7 @@
             text += 'Hidden ';
 
         text += 'data-column="' + field + '">' +
-            '<span>' + TextField + '</span>' +
+            '<span data-column="' + field + '">' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
             '</th>';

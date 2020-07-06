@@ -49,40 +49,40 @@
                                 <th data-column="SortDocNo">
                                     شماره سند
                                     <span data-bind="attr: { class: currentColumn() == 'SortDocNo' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeDocNo }"></i>
+                                        <i data-bind="attr: { class: iconTypeDocNo }" data-column="SortDocNo"></i>
                                     </span>
                                 </th>
                                 <th data-column="DocDate">
                                     تاریخ سند
                                     <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeDocDate }"></i>
+                                        <i data-bind="attr: { class: iconTypeDocDate }" data-column="DocDate"></i>
                                     </span>
                                 </th>
 
                                 <th data-column="CustName">
                                     <span id="TitleCustName">نام خریدار</span>
                                     <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeCustName }"></i>
+                                        <i data-bind="attr: { class: iconTypeCustName } " data-column="CustName"></i>
                                     </span>
                                 </th>
 
                                 <th data-column="FinalPrice">
-                                    قابل پرداخت <span data-bind="attr: { class: currentColumn() == 'FinalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeFinalPrice }"></i> </span>
+                                    قابل پرداخت <span data-bind="attr: { class: currentColumn() == 'FinalPrice' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeFinalPrice }" data-column="FinalPrice"></i> </span>
                                 </th>
                                 <th data-column="Status">
-                                    وضعیت <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }"></i> </span>
+                                    وضعیت <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeStatus }" data-column="Status"></i> </span>
                                 </th>
                                 <th data-column="Eghdam">
-                                    اقدام <span data-bind="attr: { class: currentColumn() == 'Eghdam' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeEghdam }"></i> </span>
+                                    اقدام <span data-bind="attr: { class: currentColumn() == 'Eghdam' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeEghdam }" data-column="Eghdam"></i> </span>
                                 </th>
                                 <th data-column="Tanzim">
-                                    تنظیم <span data-bind="attr: { class: currentColumn() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTanzim }"></i> </span>
+                                    تنظیم <span data-bind="attr: { class: currentColumn() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTanzim }" data-column="Tanzim"></i> </span>
                                 </th>
                                 <th data-column="Taeed">
-                                    تایید <span data-bind="attr: { class: currentColumn() == 'Taeed' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTaeed }"></i> </span>
+                                    تایید <span data-bind="attr: { class: currentColumn() == 'Taeed' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTaeed }" data-column="Taeed"></i> </span>
                                 </th>
                                 <th data-column="SerialNumber">
-                                    شماره مبنا <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }"></i> </span>
+                                    شماره مبنا <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSerialNumber }" data-column="SerialNumber"></i> </span>
                                 </th>
                                 <th>عملیات</th>
                             </tr>
@@ -252,19 +252,19 @@
                             <thead style="cursor: pointer;">
                                 <tr data-bind="click: sortTableFDocH1">
                                     <th data-column="DocNo">
-                                        شماره سند <span data-bind="attr: { class: currentColumn1() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                        شماره سند <span data-bind="attr: { class: currentColumn1() == 'DocNo' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocNo }"></i> </span>
                                     </th>
                                     <th data-column="DocDate">
-                                        تاریخ سند <span data-bind="attr: { class: currentColumn1() == 'DocDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                        تاریخ سند <span data-bind="attr: { class: currentColumn1() == 'DocDate' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeDocDate }"></i> </span>
                                     </th>
                                     <th data-column="CustName">
-                                        <span id="TitleCustName1"></span>  <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                        <span id="TitleCustName1"></span>  <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
                                     </th>
                                     <th data-column="Spec">
-                                        ملاحضات <span data-bind="attr: { class: currentColumn1() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                        ملاحضات <span data-bind="attr: { class: currentColumn1() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpec }"></i> </span>
                                     </th>
                                     <th data-column="Tanzim">
-                                        تنظیم <span data-bind="attr: { class: currentColumn1() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconType }"></i> </span>
+                                        تنظیم <span data-bind="attr: { class: currentColumn1() == 'Tanzim' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeTanzim }"></i> </span>
                                     </th>
                                 </tr>
                             </thead>

@@ -220,6 +220,8 @@
 
     self.sortTableFDocH = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return  null
         //if (orderProp == "") {
         //    orderProp = "";
         // }
