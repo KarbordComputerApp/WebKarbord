@@ -26,6 +26,7 @@
     self.TaShomarh = ko.observable();
     self.AccCode = ko.observable();
 
+
     $('#btnaztarikh').click(function () {
         $('#aztarikh').change();
     });
@@ -62,6 +63,7 @@
 
     //Get RprtCols List
     function getRprtColsList() {
+        //$.md5(sessionStorage.ace)
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TChk/' + sessionStorage.userName, 'GET').done(function (data) {
             CreateTableReport(data);
         });
@@ -785,7 +787,7 @@
 
         switch (no) {
             case 0:
-                text += 'data-bind="text: ' + field + ', style: { color: ' + field + ' == \'پاس شده\' ? \'blue\' : \'black\' }"></td>';
+                text += 'data-bind="text: ' + field + ', style: { color: ' + field + ' == \'نامشخص\' ? \'red\' : ' + field + ' == \'پاس شده\' || ' + field + ' == \'وصول شده\'  ? \'green\' : ' + field + ' == \'برگشتی\' || ' + field + ' == \'عودت\' || ' + field + ' == \'واگذار شده\'  ? \'#ec8121\' :  \'black\' }"></td>';
                 break;
             case 1:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'

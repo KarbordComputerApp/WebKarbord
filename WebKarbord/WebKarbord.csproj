@@ -315,6 +315,7 @@
     <Content Include="Content\new\js\jquery-knob.js" />
     <Content Include="Content\new\js\jquery.md.bootstrap.datetimepicker.js" />
     <Content Include="Content\new\js\jquery.md.bootstrap.datetimepicker.style.css" />
+    <Content Include="Content\new\js\jquery.md5.js" />
     <Content Include="Content\new\js\jquery.multi-select.js" />
     <Content Include="Content\new\js\knob.js" />
     <Content Include="Content\new\js\materialize.min.js" />
