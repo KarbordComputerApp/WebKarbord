@@ -32,7 +32,7 @@
 
     function getAccountData() {
         //window.localStorage.clear();
-        ajaxFunction(AccountUri + userAccount + '/' + passAccount, 'GET').done(function (data) {
+        ajaxFunctionAccount(AccountUri + userAccount + '/' + passAccount, 'GET').done(function (data) {
             if (data === null) {
                 return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
             }

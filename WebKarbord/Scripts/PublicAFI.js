@@ -213,10 +213,29 @@ AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 //    });
 //}
 
-function ajaxFunction(uri, method, data) {
+function ajaxFunctionAccount(uri, method, data) {
     return $.ajax({
         type: method,
-        url: uri,
+        url: uri ,
+        dataType: 'json',
+        async: false,
+        cache: false,
+        timeout: 30000,
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
+    });
+}
+
+function ajaxFunction(uri, method, data) {
+
+    var userNameAccount = localStorage.getItem("userNameAccount");
+    var passAccount = localStorage.getItem("passAccount");
+
+    return $.ajax({
+        type: method,
+        url: uri + '/' + userNameAccount + '/' + passAccount ,
         dataType: 'json',
         async: false,
         cache: false,
@@ -444,7 +463,7 @@ function GetShowField(Code, InOut) {
 function getAccessList() {
 
     AccountUri = sessionStorage.serverAccount + 'Account/'; // آدرس حساب
-    ajaxFunction(AccountUri + localStorage.getItem("userNameAccount") + '/' +
+    ajaxFunctionAccount(AccountUri + localStorage.getItem("userNameAccount") + '/' +
         localStorage.getItem("passAccount"), 'GET').done(function (data) {
             if (data === null) {
                 return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });

@@ -381,7 +381,6 @@
     <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\ini\SqlServerConfigServer.Ini" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
