@@ -11,6 +11,7 @@
 
     var LoginUri; // آدرس حساب
     var serverAccount = 'http://localhost:902/api/';
+   // var serverAccount = 'http://localhost:49961/api/';
     sessionStorage.serverAccount = serverAccount;
 
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
@@ -43,7 +44,7 @@
                 invList = data.INV_Group;//.split("-") : invList = null;
                 fctList = data.FCT_Group;//.split("-") : fctList = null;
                 erjList = data.ERJ_Group;
-                 
+
                 afiAccess = data.AFI_Access;//.split("");
                 accAccess = data.ACC_Access;//.split("");
                 invAccess = data.INV_Access;//.split("");
@@ -53,6 +54,7 @@
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);
                 localStorage.setItem('passAccount', passAccount);
+
                 localStorage.setItem('DataAccount', JSON.stringify(data));
                 localStorage.setItem('afiList', afiList);
                 localStorage.setItem('accList', accList);
@@ -67,7 +69,7 @@
                 localStorage.setItem('erjAccess', erjAccess);
 
                 $('#modal-service').modal('hide');
-               // $('#modal-service').hide();
+                // $('#modal-service').hide();
 
                 return showNotification('اتصال برقرار شد', 1);
 
@@ -101,19 +103,37 @@
     }
 
     self.LoginAccount = function LoginAccount() {
+
         userAccount = $("#userAccount").val();
         passAccount = $("#passAccount").val();
+
         if (userAccount === "" || userAccount === null) {
             return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
         }
         if (passAccount === "" || passAccount === null) {
             return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
         }
+
+        asciiuserAccount = '';
+        for (var i = 0; i < userAccount.length; i++)
+            asciiuserAccount += (userAccount[i].charCodeAt(0) * 1024) + ',';
+        asciiuserAccount += i;
+
+        asciipassAccount = '';
+        for (var i = 0; i < passAccount.length; i++)
+            asciipassAccount += (passAccount[i].charCodeAt(0) * 1024) + ',';
+        asciipassAccount += i;
+
+        userAccount = get(userAccount);
+        passAccount = get(passAccount);
+
         sessionStorage.ace = 0;
         sessionStorage.group = 0;
         sessionStorage.sal = 0;
         getAccountData();
     }
+
+
 };
 
 ko.applyBindings(new ViewModel());
