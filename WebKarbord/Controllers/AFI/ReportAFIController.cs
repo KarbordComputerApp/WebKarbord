@@ -79,6 +79,16 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult TrzFCust_S()
+        {
+            return View();
+        }
+
+        public ActionResult TrzFCust_P()
+        {
+            return View();
+        }
+
 
 
     }
