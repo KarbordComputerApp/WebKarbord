@@ -89,7 +89,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 18; i++) {
+for (var i = 0; i <= 21; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -109,9 +109,10 @@ for (var i = 0; i <= 18; i++) {
     afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
     afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
     afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
+    afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
+    afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
+    afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
 }
-
-
 
 function CheckGroupErj(GroupName) {
     if (GroupName == '') {
@@ -169,6 +170,7 @@ $("#IDOC_O").hide();
 $("#TrzIKala").hide();
 $("#TrzIKalaExf").hide();
 $("#IDocR").hide();
+$("#ADOC_Menu").hide();
 $("#FDOC_Menu").hide();
 $("#IDOC_Menu").hide();
 $("#AReport_Menu").hide();
@@ -216,7 +218,7 @@ AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 function ajaxFunctionAccount(uri, method, data) {
     return $.ajax({
         type: method,
-        url: uri ,
+        url: uri,
         dataType: 'json',
         async: false,
         cache: false,
@@ -235,7 +237,7 @@ function ajaxFunction(uri, method, data) {
 
     return $.ajax({
         type: method,
-        url: uri + '/' + userNameAccount + '/' + passAccount ,
+        url: uri + '/' + userNameAccount + '/' + passAccount,
         dataType: 'json',
         async: false,
         cache: false,
@@ -411,23 +413,31 @@ function CheckAccess(TrsName) {
 
 
 function CheckAccessReport(Code) {
-    for (var i = 0; i < accessReport.length; i++) {
-        if (accessReport[i].Code == Code) {
-            return accessReport[i].Trs;
+    if (access[0].TrsName == 'ADMIN') {
+        return true;
+    }
+    else {
+        for (var i = 0; i < accessReport.length; i++) {
+            if (accessReport[i].Code == Code)
+                return accessReport[i].Trs;
         }
     }
     return false;
 }
+
 
 function CheckAccessReportErj(Code) {
-    for (var i = 0; i < accessReportErj.length; i++) {
-        if (accessReportErj[i].Code == Code) {
-            return accessReportErj[i].Trs;
+    if (access[0].TrsName == 'ADMIN') {
+        return true;
+    }
+    else {
+        for (var i = 0; i < accessReportErj.length; i++) {
+            if (accessReportErj[i].Code == Code)
+                return accessReportErj[i].Trs;
         }
     }
     return false;
 }
-
 
 
 function FindTextField(field, data) {
@@ -448,7 +458,7 @@ function GetNameField(Code, InOut) {
     }
     return '';
 }
-
+ 
 function GetShowField(Code, InOut) {
     for (var i = 0; i < FldNames.length; i++) {
         if (FldNames[i].Code == Code && FldNames[i].InOut == InOut) {
@@ -510,7 +520,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 18; i++) {
+                for (var i = 0; i <= 21; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -530,6 +540,9 @@ function getAccessList() {
                     afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
                     afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
                     afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
+                    afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
+                    afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
+                    afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
 
                 }
 
@@ -595,7 +608,8 @@ SetValidationErj();
 function SetValidation() {
     var ShowMenu = [false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false, false];
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false];
     if (access == null) return false;
     if (access.length == 0) return false;
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
@@ -617,8 +631,8 @@ function SetValidation() {
         $("#FDOC_Menu").hide();
     else
         $("#FDOC_Menu").show();
-
-
+ 
+ 
     if (afiaccess[6] == 0 && afiaccess[7] == 0)
         $("#IDOC_Menu").hide();
     else
@@ -626,6 +640,9 @@ function SetValidation() {
 
     validation = CheckAccess('DOC'); //ثبت اسناد
     ShowMenu[0] = validation;
+
+    validation = CheckAccess('FADOC'); //اسناد حسابداری
+    ShowMenu[25] = validation;
 
     validation = CheckAccess('FSDOC'); //اسناد فروش
     ShowMenu[1] = validation;
@@ -668,6 +685,12 @@ function SetValidation() {
 
     validation = CheckAccessReport('TrzFKala_P');
     ShowMenu[22] = validation;  // صورت ریز چک 
+
+    validation = CheckAccessReport('TrzFCust_S');
+    ShowMenu[23] = validation;  // تراز فروش به خریداران 
+
+    validation = CheckAccessReport('TrzFCust_P');
+    ShowMenu[24] = validation;  // تراز خرید از فروشندگان
 
 
 
@@ -911,12 +934,25 @@ function SetValidation() {
 
     }
 
-    if (access[0].Trs == 0) {
+    if (access[0].TrsName == 'ADMIN') {
         sessionStorage.AccessSanad = true;
-        sessionStorage.AccessViewSanadAnbarVarede = true;
+        //sessionStorage.AccessViewSanadAnbarVarede = true;
     }
 
     if (ShowMenu[0]) {
+        if (afiaccess[21] == true) {
+            if (ShowMenu[25]) {
+                $("#ADOC_Menu").show();
+                (ShowMenu[25] == true) && (afiaccess[21] == true) ? $("#ADOC").show() : $("#ADOC").hide();
+            }
+            else {
+                $("#ADOC_Menu").hide();
+            }
+        }
+        else {
+            $("#ADOC_Menu").hide();
+        }
+
         if (afiaccess[0] == true || afiaccess[1] == true || afiaccess[2] == true || afiaccess[3] == true || afiaccess[4] == true || afiaccess[5] == true) {
             if (ShowMenu[1] || ShowMenu[2]) {
                 if (ShowMenu[3] || ShowMenu[4] || ShowMenu[5] || ShowMenu[6] || ShowMenu[7] || ShowMenu[8]) {
@@ -956,6 +992,7 @@ function SetValidation() {
         }
     }
     else {
+        $("#ADOC_Menu").hide();
         $("#FDOC_Menu").hide();
         $("#IDOC_Menu").hide();
     }
@@ -980,6 +1017,8 @@ function SetValidation() {
             afiaccess[12] && ShowMenu[16] ? $("#FDocR_P").show() : $("#FDocR_P").hide();
             afiaccess[17] && ShowMenu[21] ? $("#TrzFKala_S").show() : $("#TrzFKala_S").hide();
             afiaccess[18] && ShowMenu[22] ? $("#TrzFKala_P").show() : $("#TrzFKala_P").hide();
+            afiaccess[19] && ShowMenu[23] ? $("#TrzFCust_S").show() : $("#TrzFCust_S").hide();
+            afiaccess[20] && ShowMenu[24] ? $("#TrzFCust_P").show() : $("#TrzFCust_P").hide();
 
 
             if (ShowMenu[15] == false && ShowMenu[16] == false)
@@ -1012,8 +1051,8 @@ function SetValidation() {
    $("#FDOC_Menu").hide();
 else
    $("#FDOC_Menu").show();
-
-
+ 
+ 
 if (afiaccess[6] == 0 && afiaccess[7] == 0)
    $("#IDOC_Menu").hide();
 else
@@ -1062,6 +1101,10 @@ function SetValidationErj() {
 
 }
 
+
+$("#ADOC").click(function () {
+    sessionStorage.ModeCode = 101;
+});
 
 $("#FDOC_SP").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SP;
@@ -1182,7 +1225,7 @@ function showNotification(text, colorNumber) {
 /*$(function () {
     //Textare auto growth
     autosize($('textarea.auto-growth'));
-
+ 
     //Datetimepicker plugin
     $('.datetimepicker').bootstrapMaterialDatePicker({
         format: 'dddd DD MMMM YYYY - HH:mm',
@@ -1190,7 +1233,7 @@ function showNotification(text, colorNumber) {
         rtl: true,
         weekStart: 1
     });
-
+ 
     $('.datepicker').bootstrapMaterialDatePicker({
         format: 'dddd DD MMMM YYYY',
         clearButton: true,
@@ -1204,20 +1247,20 @@ function showNotification(text, colorNumber) {
         rtl: true,
         time: false
     });
-
+ 
     $('.timepicker').bootstrapMaterialDatePicker({
         format: 'HH:mm',
         clearButton: true,
         rtl: true,
         date: false
     });
-
+ 
     $('input#input_text, textarea#textarea2').characterCounter();
 });*/
 
 
 /*
-
+ 
 $("#ace0").click(function () {
     $("#group").empty();
     $("#sal").empty();
@@ -1238,8 +1281,8 @@ $("#ace0").click(function () {
         }
     });
 });
-
-
+ 
+ 
 $("#group0").click(function () {
     var ace = $("#ace").val();
     var group = $("#group").val();
@@ -1247,14 +1290,14 @@ $("#group0").click(function () {
     ajaxFunction(DatabseSalUrl + ace + '/' + group, 'GET').done(function (data) {
         self.DatabseSalList(data);
         if (self.DatabseSalList().length > 0) {
-
+ 
             for (var i = 1; i < self.DatabseSalList().length + 1; i++) {
                 var sal = self.DatabseSalList()[i - 1];
                 $("#sal").append('<option value="'
                     + sal.Name + '">'
                     + sal.Name + '</option>');
             }
-
+ 
         }//else{
         //    Swal.fire({ type: 'info', title: 'توجه', text: 'انتخاب نرم افزار اجباری است' });
         //}
@@ -1263,6 +1306,10 @@ $("#group0").click(function () {
 */
 
 
+
+$('#ADOC_Menu').click(function () {
+    sessionStorage.SelectMenu = 0;
+});
 
 $('#FDOC_Menu').click(function () {
     sessionStorage.SelectMenu = 1;
@@ -1289,12 +1336,17 @@ $('#EReport_Menu').click(function () {
     sessionStorage.SelectMenu = 6;
 });
 
+$('#ADOC_Menu').removeAttr('class');
 $('#FDOC_Menu').removeAttr('class');
 $('#IDOC_Menu').removeAttr('class');
 $('#AReport_Menu').removeAttr('class');
 $('#IReport_Menu').removeAttr('class');
 $('#FReport_Menu').removeAttr('class');
 $('#EReport_Menu').removeAttr('class');
+
+if (sessionStorage.SelectMenu == 0) {
+    $('#ADOC_Menu').attr('class', 'active');
+}
 
 if (sessionStorage.SelectMenu == 1) {
     $('#FDOC_Menu').attr('class', 'active');

@@ -221,7 +221,7 @@
 
 
 
-0    <aside id="leftsidebar" class="sidebar">
+        <aside id="leftsidebar" class="sidebar">
         <div class="menu">
             <ul class="list">
                 <li class="sidebar-user-panel active">
@@ -231,16 +231,27 @@
                     </div>
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
-    <div class="profile-usertitle-job " id="TextNoUser"></div>-->
-                        <div class="profile-usertitle-job ">ورژن تست  :196</div>
+                        <div class="profile-usertitle-job " id="TextNoUser"></div>-->
+                        <div class="profile-usertitle-job ">ورژن تست  :197</div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1.001</div> -->
-        </div>
-    </li>
-    <!--<li id="Select_ACE">
-        @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
-    </li>-->
-<li id="FDOC_Menu">
+                    </div>
+                </li>
+                <!--<li id="Select_ACE">
+                    @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
+                </li>-->
+                <li id="ADOC_Menu">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i>
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                        </i>
+                        <span>اسناد حسابداری</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li id="ADOC">@Html.ActionLink("سند حسابداری", "Index", "AFISanad")</li>
+                    </ul>
+                </li>
 
+                <li id="FDOC_Menu">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
                             <img src="~/Content/img/docsels.png" width="24" />
@@ -306,8 +317,8 @@
                         <li id="FDocR_P">@Html.ActionLink("ريز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
                         <li id="TrzFKala_S">@Html.ActionLink("تراز فروش کالاها", "TrzFKala_S", "ReportAFI")</li>
                         <li id="TrzFKala_P">@Html.ActionLink("تراز خرید کالاها", "TrzFKala_P", "ReportAFI")</li>
-                        <li id="TrzFCust_S">@Html.ActionLink("تراز فروش مشتری", "TrzFCust_S", "ReportAFI")</li>
-                        <li id="TrzFCust_P">@Html.ActionLink("تراز خرید مشتری", "TrzFCust_P", "ReportAFI")</li>
+                        <li id="TrzFCust_S">@Html.ActionLink("تراز فروش به خریداران", "TrzFCust_S", "ReportAFI")</li>
+                        <li id="TrzFCust_P">@Html.ActionLink("تراز خرید از فروشندگان", "TrzFCust_P", "ReportAFI")</li>
                     </ul>
                 </li>
 
