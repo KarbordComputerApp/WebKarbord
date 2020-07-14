@@ -438,6 +438,7 @@
     <Content Include="Views\ReportAFI\TrzFCust_S.cshtml" />
     <Content Include="Views\ReportAFI\TrzFCust_P.cshtml" />
     <Content Include="Views\AFISanad\Index.cshtml" />
+    <Content Include="Views\AFISanad\AddAdoc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

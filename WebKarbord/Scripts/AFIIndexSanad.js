@@ -23,7 +23,7 @@
 
     //Get ADocH 
     function getADocH(select) {
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode + '/top' + select + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);
@@ -113,32 +113,32 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                     (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
-                (item.Eghdam == null ? 'null' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
-                (item.Tanzim == null ? 'null' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
-                (item.Taeed == null ? 'null' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-                (item.ModeName == null ? 'null' : item.ModeName.toString().search(filterModeName) >= 0) &&
-                (item.Status == null ? 'null' : item.Status.toString().search(filterStatus) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
-                (item.F01 == null ? 'null' : item.F01.toString().search(filterF01) >= 0) &&
-                (item.F02 == null ? 'null' : item.F02.toString().search(filterF02) >= 0) &&
-                (item.F03 == null ? 'null' : item.F03.toString().search(filterF03) >= 0) &&
-                (item.F04 == null ? 'null' : item.F04.toString().search(filterF04) >= 0) &&
-                (item.F05 == null ? 'null' : item.F05.toString().search(filterF05) >= 0) &&
-                (item.F06 == null ? 'null' : item.F06.toString().search(filterF06) >= 0) &&
-                (item.F07 == null ? 'null' : item.F07.toString().search(filterF07) >= 0) &&
-                (item.F08 == null ? 'null' : item.F08.toString().search(filterF08) >= 0) &&
-                (item.F09 == null ? 'null' : item.F09.toString().search(filterF09) >= 0) &&
-                (item.F10 == null ? 'null' : item.F10.toString().search(filterF10) >= 0) &&
-                (item.F11 == null ? 'null' : item.F11.toString().search(filterF11) >= 0) &&
-                (item.F12 == null ? 'null' : item.F12.toString().search(filterF12) >= 0) &&
-                (item.F13 == null ? 'null' : item.F13.toString().search(filterF13) >= 0) &&
-                (item.F14 == null ? 'null' : item.F14.toString().search(filterF14) >= 0) &&
-                (item.F15 == null ? 'null' : item.F15.toString().search(filterF15) >= 0) &&
-                (item.F16 == null ? 'null' : item.F16.toString().search(filterF16) >= 0) &&
-                (item.F17 == null ? 'null' : item.F17.toString().search(filterF17) >= 0) &&
-                (item.F18 == null ? 'null' : item.F18.toString().search(filterF18) >= 0) &&
-                (item.F19 == null ? 'null' : item.F19.toString().search(filterF19) >= 0) &&
-                (item.F20 == null ? 'null' : item.F20.toString().search(filterF20) >= 0) 
+                    (item.Eghdam == null ? 'null' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
+                    (item.Tanzim == null ? 'null' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
+                    (item.Taeed == null ? 'null' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                    (item.ModeName == null ? 'null' : item.ModeName.toString().search(filterModeName) >= 0) &&
+                    (item.Status == null ? 'null' : item.Status.toString().search(filterStatus) >= 0) &&
+                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+                    (item.F01 == null ? 'null' : item.F01.toString().search(filterF01) >= 0) &&
+                    (item.F02 == null ? 'null' : item.F02.toString().search(filterF02) >= 0) &&
+                    (item.F03 == null ? 'null' : item.F03.toString().search(filterF03) >= 0) &&
+                    (item.F04 == null ? 'null' : item.F04.toString().search(filterF04) >= 0) &&
+                    (item.F05 == null ? 'null' : item.F05.toString().search(filterF05) >= 0) &&
+                    (item.F06 == null ? 'null' : item.F06.toString().search(filterF06) >= 0) &&
+                    (item.F07 == null ? 'null' : item.F07.toString().search(filterF07) >= 0) &&
+                    (item.F08 == null ? 'null' : item.F08.toString().search(filterF08) >= 0) &&
+                    (item.F09 == null ? 'null' : item.F09.toString().search(filterF09) >= 0) &&
+                    (item.F10 == null ? 'null' : item.F10.toString().search(filterF10) >= 0) &&
+                    (item.F11 == null ? 'null' : item.F11.toString().search(filterF11) >= 0) &&
+                    (item.F12 == null ? 'null' : item.F12.toString().search(filterF12) >= 0) &&
+                    (item.F13 == null ? 'null' : item.F13.toString().search(filterF13) >= 0) &&
+                    (item.F14 == null ? 'null' : item.F14.toString().search(filterF14) >= 0) &&
+                    (item.F15 == null ? 'null' : item.F15.toString().search(filterF15) >= 0) &&
+                    (item.F16 == null ? 'null' : item.F16.toString().search(filterF16) >= 0) &&
+                    (item.F17 == null ? 'null' : item.F17.toString().search(filterF17) >= 0) &&
+                    (item.F18 == null ? 'null' : item.F18.toString().search(filterF18) >= 0) &&
+                    (item.F19 == null ? 'null' : item.F19.toString().search(filterF19) >= 0) &&
+                    (item.F20 == null ? 'null' : item.F20.toString().search(filterF20) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -338,14 +338,14 @@
         })
     })
 
-    $('#AddNewFactor').click(function () {
+    $('#AddNewSanad').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         window.location.href = sessionStorage.urlADocH;
     });
 
 
-    self.DeleteFactor = function (factorBand) {
+    self.DeleteSanad = function (SanadBand) {
         Swal.fire({
             title: 'تایید حذف ؟',
             text: "آیا سند انتخابی حذف شود",
@@ -358,7 +358,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(ADocHHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
+                ajaxFunction(ADocHHiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
                     currentPage = self.currentPageIndexADocH();
                     //self.IDocHList(response);
                     getADocH($('#pageCountSelector').val());
@@ -369,11 +369,6 @@
         })
     };
 
-
-    self.selectFactor1 = function (item) {
-        $('#docnumber').val(item.DocNo);
-        $("#docnumber").focus();
-    };
 
     self.UpdateHeader = function (item) {
         sessionStorage.flagupdateHeader = 1;
@@ -416,18 +411,16 @@
     }
 
     self.ShowAction = function (Eghdam) {
-        if (sessionStorage.ModeCode == 101) {
-            if (sessionStorage.DEL_ADOC == 'true') {
-                if (sessionStorage.AccessViewADoc == 'false') {
-                    return Eghdam == sessionStorage.userName ? true : false
-                }
-                else {
-                    return true;
-                }
+        if (sessionStorage.DEL_ADOC == 'true') {
+            if (sessionStorage.AccessViewADoc == 'false') {
+                return Eghdam == sessionStorage.userName ? true : false
             }
-            else
-                return false;
+            else {
+                return true;
+            }
         }
+        else
+            return false;
     }
 
     $("#searchADocH").on("keydown", function search(e) {
@@ -501,6 +494,7 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
@@ -534,7 +528,13 @@
             CreateTableTd('F18', 0, 0, data) +
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
-            '        </tr>' +
+            '<td>' +
+            '<a id = "UpdateSanad" data - bind="click: $root.UpdateHeader" >' +
+            '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px"/></a >' +
+            '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Tanzim)">' +
+            '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20"/></a>' +
+            '</td >' +
+            '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +

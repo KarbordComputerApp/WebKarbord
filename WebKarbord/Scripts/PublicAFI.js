@@ -641,7 +641,7 @@ function SetValidation() {
     validation = CheckAccess('DOC'); //ثبت اسناد
     ShowMenu[0] = validation;
 
-    validation = CheckAccess('FADOC'); //اسناد حسابداری
+    validation = CheckAccess('ADOC'); //اسناد حسابداری
     ShowMenu[25] = validation;
 
     validation = CheckAccess('FSDOC'); //اسناد فروش
