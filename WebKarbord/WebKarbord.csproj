@@ -342,6 +342,7 @@
     <Content Include="Content\fonts\Vazir-FD-WOL.woff" />
     <Content Include="Scripts\AFIIndexSanad.js" />
     <Content Include="Scripts\AFIIndexSanadAnbar.js" />
+    <Content Include="Scripts\AFISanad.js" />
     <Content Include="Scripts\AFISanadAnbar.js" />
     <Content Include="Scripts\AFIFactor.js" />
     <Content Include="Scripts\AFIIndexFactor.js" />
