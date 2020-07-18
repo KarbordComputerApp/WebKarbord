@@ -42,9 +42,10 @@
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
-    var ADocHUri = server + '/api/AFI_ADocHi/'; // آدرس هدر سند 
-    var ADocBUri = server + '/api/AFI_IDocBi/'; // آدرس بند سند 
+    var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس هدر سند 
+    var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند
+    var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.DocDate($('#tarikh').val().toEnglishDigit());
 
@@ -63,25 +64,47 @@
         });
     }
 
+    //Get RprtCols List
+    function getColsList() {
+        ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
+           CreateTableSanad(data);
+        });
+    }
+
     //Get ADocH 
     function getADocH(serialNumber) {
 
     }
 
+    //Get FDocB 
+    function getADocB(serialNumber) {
+        ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.ADocBList(data);
+            calcsum(data);
+        });
+    }
+
+    getColsList();
     getAccList();
     getAModeList();
 
+    getADocB(39);
 
+    function calcsum(list) {
+        totalBede = 0;
+        totalBest = 0;
+        for (var i = 0; i < list.length; ++i) {
+            ADocBData = list[i];
+            totalBede += ADocBData.Bede;
+            totalBest += ADocBData.Best;
+        }
 
+        $("#textTotal").text('جمع');
+        $("#textMon").text('تفاوت');
+        $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
 
-
-
-
-
-
-
-
-
+            }
 
 
 
@@ -221,8 +244,175 @@
     $('#modal-Acc').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
+
     self.ButtonADocH = function ButtonADocH(newIDocH) {
+        if (flagInsertAdoch == 0) {
+            self.ClearADocB();
+            AddADocH(newADocH);
+            flagInsertAdoch == 1 ? $('#modal-Band').modal() : null
+        } else {
+            $('#modal-Band').modal()
+        }
     }
+
+    function CreateTableSanad(data) {
+        $("#TableSanad").empty();
+        $('#TableSanad').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr>' +
+            CreateTableTh('AccCode', data) +
+            CreateTableTh('AccName', data) +
+            CreateTableTh('Comm', data) +
+            CreateTableTh('Bede', data) +
+            CreateTableTh('Best', data) +
+            CreateTableTh('CheckNo', data) +
+            CreateTableTh('CheckDate', data) +
+            CreateTableTh('Bank', data) +
+            CreateTableTh('Shobe', data) +
+            CreateTableTh('Jari', data) +
+            CreateTableTh('TrafCode', data) +
+            CreateTableTh('TrafName', data) +
+            CreateTableTh('MkzCode', data) +
+            CreateTableTh('MkzName', data) +
+            CreateTableTh('OprCode', data) +
+            CreateTableTh('OprName', data) +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
+            '     <tr>' +
+            CreateTableTd('AccCode', 0, 0, data) +
+            CreateTableTd('AccName', 0, 0, data) +
+            CreateTableTd('Comm', 0, 0, data) +
+            CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('CheckNo', 0, 0, data) +
+            CreateTableTd('CheckDate', 0, 0, data) +
+            CreateTableTd('Bank', 0, 0, data) +
+            CreateTableTd('Shobe', 0, 0, data) +
+            CreateTableTd('Jari', 0, 0, data) +
+            CreateTableTd('TrafCode', 0, 0, data) +
+            CreateTableTd('TrafName', 0, 0, data) +
+            CreateTableTd('MkzCode', 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, data) +
+            CreateTableTd('OprCode', 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, data) +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('AccCode', 0, data) +
+            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('Comm', 1, data) +
+            CreateTableTdSum('Bede', 2, data) +
+            CreateTableTdSum('Best', 2, data) +
+            CreateTableTdSum('CheckNo', 1, data) +
+            CreateTableTdSum('CheckDate', 1, data) +
+            CreateTableTdSum('Bank', 1, data) +
+            CreateTableTdSum('Shobe', 1, data) +
+            CreateTableTdSum('Jari', 1, data) +
+            CreateTableTdSum('TrafCode', 1, data) +
+            CreateTableTdSum('TrafName', 1, data) +
+            CreateTableTdSum('MkzCode', 1, data) +
+            CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('OprCode', 1, data) +
+            CreateTableTdSum('OprName', 1, data) +
+            ' </tr>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('AccCode', 3, data) +
+            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('Comm', 1, data) +
+            CreateTableTdSum('MonBede', 2, data) +
+            CreateTableTdSum('MonBest', 2, data) +
+            CreateTableTdSum('CheckNo', 1, data) +
+            CreateTableTdSum('CheckDate', 1, data) +
+            CreateTableTdSum('Bank', 1, data) +
+            CreateTableTdSum('Shobe', 1, data) +
+            CreateTableTdSum('Jari', 1, data) +
+            CreateTableTdSum('TrafCode', 1, data) +
+            CreateTableTdSum('TrafName', 1, data) +
+            CreateTableTdSum('MkzCode', 1, data) +
+            CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('OprCode', 1, data) +
+            CreateTableTdSum('OprName', 1, data) +
+            ' </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    function CreateTableTh(field, data) {
+        text = '<th>';
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+        text += 
+            '<span data-column="' + field + '">' + TextField + '</span>' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSum(field, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (field != "MonBede" && field != "MonBest") {
+            if (TextField == 0)
+                text += 'Hidden ';
+        }
+
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+            case 3:
+                text += 'id="textMon"></td>';
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
+
 
 };
 
