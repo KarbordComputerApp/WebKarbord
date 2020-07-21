@@ -708,10 +708,40 @@ function SetValidation() {
       }*/
 
 
+     // سند حسابداری
+    if (sessionStorage.ModeCode == 'ADOC') {
+        validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
+        validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
+        validation = CheckAccess('CHG_ADOC');// edit Sanad Hesab
+        validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
+        validation = CheckAccess('DEL_ADOC'); // delete Sanad Hesab
+        validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
+        validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
+
+        validation = CheckAccess('OTHERUSER_VIEW_ADOC');
+        validation == true ? sessionStorage.AccessViewADoc = true : sessionStorage.AccessViewADoc = false
+
+        //validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
+        //validation == true ? $("#").show() : $("#").hide()
+
+        //validation = CheckAccess('AccessSanad_ADOC');// AccessSanad
+        //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
+        validation = CheckAccess('OTHERUSER_CHG_ADOC');// AccessViewADoc
+        if (validation == true) {
+            sessionStorage.AccessViewADoc = true;
+        }
+        else {
+            sessionStorage.AccessViewADoc = false;
+        }
+    }
+
+
+
+
 
     validation = CheckAccess('SPDOC');
     ShowMenu[3] = validation;  // پیش فاکتور قروش
-
     //sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
@@ -741,7 +771,7 @@ function SetValidation() {
         }
     }
 
-    // OTHERUSER_ADOC
+    // OTHERUSER_SDOC
 
     validation = CheckAccess('SDOC');
     ShowMenu[4] = validation;  //  فاکتور قروش
@@ -1103,7 +1133,7 @@ function SetValidationErj() {
 
 
 $("#ADOC").click(function () {
-    sessionStorage.ModeCode = 101;
+    sessionStorage.ModeCode = 'ADOC';
 });
 
 $("#FDOC_SP").click(function () {

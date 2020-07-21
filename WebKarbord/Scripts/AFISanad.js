@@ -26,8 +26,12 @@
     self.SerialNumber = ko.observable();
     var Serial = '';
     self.DocNoOut = ko.observable();
+    self.MkzCode = ko.observable();
+    self.OprCode = ko.observable();
+
 
     self.DocDate = ko.observable();
+    self.CheckDate = ko.observable();
     self.Spec = ko.observable();
 
     self.BandNo = ko.observable();
@@ -35,10 +39,12 @@
     self.Bede = ko.observable();
     self.Best = ko.observable();
 
-    self.AccList = ko.observableArray([]); // ليست حساب ها
+    self.AccList = ko.observableArray([]); // ليست پ ها
     self.ADocBList = ko.observableArray([]); // ليست بند های سند
     self.ADocHList = ko.observableArray([]); // اطلاعات  سند  
     self.AModeList = ko.observableArray([]); // نوع سند  
+    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
+    self.OprList = ko.observableArray([]); // ليست پروژه ها
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
@@ -46,6 +52,8 @@
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند
     var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
+    var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
 
     self.DocDate($('#tarikh').val().toEnglishDigit());
 
@@ -64,10 +72,24 @@
         });
     }
 
+    //Get Opr List
+    function getOprList() {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.OprList(data);
+        });
+    }
+
+    //Get  Mkz List
+    function getMkzList() {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.MkzList(data);
+        });
+    }
+
     //Get RprtCols List
     function getColsList() {
         ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
-           CreateTableSanad(data);
+            CreateTableSanad(data);
         });
     }
 
@@ -76,7 +98,7 @@
 
     }
 
-    //Get FDocB 
+    //Get ADocB 
     function getADocB(serialNumber) {
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.ADocBList(data);
@@ -87,6 +109,8 @@
     getColsList();
     getAccList();
     getAModeList();
+    getOprList();
+    getMkzList();
 
     getADocB(39);
 
@@ -104,7 +128,7 @@
         $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
 
-            }
+    }
 
 
 
@@ -205,14 +229,6 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
-    }
-
-
 
     $('#refreshAcc').click(function () {
         Swal.fire({
@@ -245,15 +261,351 @@
         $('.fix').attr('class', 'form-line focused fix');
     });
 
-    self.ButtonADocH = function ButtonADocH(newIDocH) {
-        if (flagInsertAdoch == 0) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageOpr = ko.observable();
+    self.pageSizeOpr = ko.observable(10);
+    self.currentPageIndexOpr = ko.observable(0);
+
+    self.filterOpr0 = ko.observable("");
+    self.filterOpr1 = ko.observable("");
+    self.filterOpr2 = ko.observable("");
+
+    self.filterOprList = ko.computed(function () {
+
+        self.currentPageIndexOpr(0);
+        var filter0 = self.filterOpr0().toUpperCase();
+        var filter1 = self.filterOpr1();
+        var filter2 = self.filterOpr2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.OprList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageOpr = ko.computed(function () {
+        var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
+            startIndex = pageSizeOpr * self.currentPageIndexOpr(),
+            endIndex = startIndex + pageSizeOpr;
+        return self.filterOprList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageOpr = function () {
+        if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
+        }
+    };
+
+    self.previousPageOpr = function () {
+        if (self.currentPageIndexOpr() > 0) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
+        }
+    };
+
+    self.firstPageOpr = function () {
+        self.currentPageIndexOpr(0);
+    };
+
+    self.lastPageOpr = function () {
+        countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
+        if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
+            self.currentPageIndexOpr(countOpr - 1);
+        else
+            self.currentPageIndexOpr(countOpr);
+    };
+
+    self.sortTableOpr = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.OprList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshOpr').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست پروژه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getOprList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectOpr = function (item) {
+        $('#nameOpr').val('(' + item.Code + ') ' + item.Name);
+        self.OprCode(item.Code);
+    }
+
+
+    $('#modal-Opr').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageMkz = ko.observable();
+    self.pageSizeMkz = ko.observable(10);
+    self.currentPageIndexMkz = ko.observable(0);
+
+    self.filterMkz0 = ko.observable("");
+    self.filterMkz1 = ko.observable("");
+    self.filterMkz2 = ko.observable("");
+
+    self.filterMkzList = ko.computed(function () {
+
+        self.currentPageIndexMkz(0);
+        var filter0 = self.filterMkz0().toUpperCase();
+        var filter1 = self.filterMkz1();
+        var filter2 = self.filterMkz2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.MkzList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.MkzList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageMkz = ko.computed(function () {
+        var pageSizeMkz = parseInt(self.pageSizeMkz(), 10),
+            startIndex = pageSizeMkz * self.currentPageIndexMkz(),
+            endIndex = startIndex + pageSizeMkz;
+        return self.filterMkzList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageMkz = function () {
+        if (((self.currentPageIndexMkz() + 1) * self.pageSizeMkz()) < self.filterMkzList().length) {
+            self.currentPageIndexMkz(self.currentPageIndexMkz() + 1);
+        }
+    };
+
+    self.previousPageMkz = function () {
+        if (self.currentPageIndexMkz() > 0) {
+            self.currentPageIndexMkz(self.currentPageIndexMkz() - 1);
+        }
+    };
+
+    self.firstPageMkz = function () {
+        self.currentPageIndexMkz(0);
+    };
+
+    self.lastPageMkz = function () {
+        countMkz = parseInt(self.filterMkzList().length / self.pageSizeMkz(), 10);
+        if ((self.filterMkzList().length % self.pageSizeMkz()) == 0)
+            self.currentPageIndexMkz(countMkz - 1);
+        else
+            self.currentPageIndexMkz(countMkz);
+    };
+
+    self.sortTableMkz = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.MkzList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshMkz').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست مرکز هزینه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getMkzList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectMkz = function (item) {
+        $('#nameMkz').val('(' + item.Code + ') ' + item.Name);
+        self.MkzCode(item.Code);
+    }
+
+
+    $('#modal-Mkz').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    self.ClearADocB = function ClearADocB() {
+        // $('#codeKala').val('');
+        //$('#nameKala').val('');
+        // $("#unitName").empty();
+        // self.KalaCode('');
+        //self.Amount1('');
+        //self.Amount2('');
+        //self.Amount3('');
+        //self.UnitPrice('');
+        // self.TotalPrice('');
+        // self.Discount('');
+        //self.MainUnit('');
+        // self.Comm('');
+
+        //        $("#totalPrice").css("backgroundColor", "white");
+        //        $("#unitPrice").css("backgroundColor", "white");
+        //$("#discountdarsad").css("backgroundColor", "white");
+        //$("#discountprice").css("backgroundColor", "white");
+        //        flag = -1;
+        //       flagdiscount = -1;
+    };
+
+    self.ImportBand = function (item) {
+        self.ClearADocB();
+        self.flagupdateband = false;
+        self.bundNumberImport = item.BandNo;
+    }
+
+
+
+    self.ButtonADocH = function ButtonADocH(newADocH) {
+        if (flagInsertADocH == 0) {
             self.ClearADocB();
             AddADocH(newADocH);
-            flagInsertAdoch == 1 ? $('#modal-Band').modal() : null
+            flagInsertADocH == 1 ? $('#modal-Band').modal() : null
         } else {
             $('#modal-Band').modal()
         }
     }
+
+    //Add new ADocH 
+    function AddADocH(newADocH) {
+        var tarikh = $("#tarikh").val().toEnglishDigit();
+        flagInsertADocH = 1;
+    };
+
+
+    //AddADocB
+    self.AddADocB = function AddADocB(newADocB) {
+    };
+
+
+
+
+    //update ADocB
+    self.UpdateADocB = function UpdateADocB(newADocB) {
+
+    };
+
+
 
     function CreateTableSanad(data) {
         $("#TableSanad").empty();
@@ -277,6 +629,7 @@
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
+            CreateTableTh('BandSpec', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
@@ -297,6 +650,7 @@
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
+            CreateTableTd('BandSpec', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -317,6 +671,7 @@
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
             CreateTableTdSum('OprName', 1, data) +
+            CreateTableTdSum('BandSpec', 1, data) +
             ' </tr>' +
             ' <tr style="background-color:#e37d228f;">' +
             CreateTableTdSum('AccCode', 3, data) +
@@ -335,6 +690,7 @@
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
             CreateTableTdSum('OprName', 1, data) +
+            CreateTableTdSum('BandSpec', 1, data) +
             ' </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -346,7 +702,7 @@
         TextField = FindTextField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
-        text += 
+        text +=
             '<span data-column="' + field + '">' + TextField + '</span>' +
             '</th>';
         return text;

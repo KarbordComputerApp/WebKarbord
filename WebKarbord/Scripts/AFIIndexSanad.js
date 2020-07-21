@@ -10,6 +10,7 @@
 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
+    var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
 
     var allSearchADocH = true;
 
@@ -358,9 +359,8 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(ADocHHiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
+                ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber , 'DELETE').done(function (response) {
                     currentPage = self.currentPageIndexADocH();
-                    //self.IDocHList(response);
                     getADocH($('#pageCountSelector').val());
                     self.currentPageIndexADocH(currentPage);
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });

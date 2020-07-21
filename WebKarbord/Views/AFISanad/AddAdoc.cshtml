@@ -72,9 +72,6 @@
 
                 </div>
 
-                <a id="btnAcc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Acc">
-                    test
-                </a>
                 <a class="col-md-12" id="insertband" data-bind="click:ButtonADocH" style="color: #fdfdfd;">
                     <img src="~/Content/img/sanad/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
                     <label>سطر جدید</label>
@@ -83,6 +80,190 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modal-Band" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="box box-info">
+                    <form class="clearfix">
+                        <div class="row form-inline ">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnAcc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Acc">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameAcc" class="form-control" readonly />
+                                            <label class="form-label"> حساب</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-inline">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="bede" class="form-control float" type="text">
+                                            <label class="form-label" for="">بدهکار</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="best" class="form-control float" type="text">
+                                            <label class="form-label" for="">بستانکار</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row form-inline ">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnOpr" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Opr">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameOpr" class="form-control" readonly />
+                                            <label class="form-label">پروژه</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnMkz" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Mkz">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameMkz" class="form-control" readonly />
+                                            <label class="form-label">مرکز هزینه</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row form-inline ">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-inline">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="checkNo" class="form-control" type="text" maxlength="10">
+                                            <label class="form-label" for="">شماره چک</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span class="input-group-btn">
+                                                <a id="btnCheckDate">
+                                                    <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-float">
+                                            <div class="form-line focused fix">
+                                                <input id="checkDate" data-bind="value:CheckDate" class="form-control date" type="text" maxlength="10">
+                                                <label class="form-label" for="">تاریخ چک</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnBank" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Bank">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameBank" class="form-control" readonly />
+                                            <label class="form-label"> بانک</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <a id="btnTraf" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Traf">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float" style="margin-left: 250px;">
+                                        <div class="form-line focused fix">
+                                            <input id="nameTraf" class="form-control" readonly />
+                                            <label class="form-label"> طرف چک</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <div class="form-line focused">
+                                    <textarea rows="1" id="comm" class="form-control no-resize auto-growth" placeholder="شرح"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <div class="form-line focused">
+                                    <textarea rows="1" id="bandSpec" class="form-control no-resize auto-growth" placeholder="ملاحظات بند"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                <button type="button" data-bind="click: flagupdateband == 1 ? UpdateADocB : AddADocB" id="Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;max-width:200px;">
+                    ثبت
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 
 <div class="modal fade" id="modal-Acc" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -123,7 +304,7 @@
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: currentPageAcc" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectAcc">
+                            <tr data-bind="click: $parent.selectAcc  , style: {color: Level == 1 ? '#009688': '#212529'}">
                                 <td data-bind="text: Code"></td>
                                 <td data-bind="text: Name"></td>
                                 <td data-bind="text: Spec"></td>
@@ -181,6 +362,199 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-Mkz" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست مرکز هزینه</h4>
+                <a id="refreshMkz">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:420px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableMkz">
+                                <th data-column="Code">
+                                    کد
+                                    <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeCode }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Name">
+                                    نام
+                                    <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Spec">
+                                    ملاحظات
+                                    <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectMkz">
+                                <td data-bind="text: Code"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Spec"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterMkz0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterMkz1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterMkz2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeMkz">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageMkz">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageMkz">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexMkz() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageMkz">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageMkz">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-Opr" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">لیست پروژه</h4>
+                <a id="refreshOpr">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:420px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableOpr">
+                                <th data-column="Code">
+                                    کد
+                                    <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeCode }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Name">
+                                    نام
+                                    <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Spec">
+                                    ملاحظات
+                                    <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageOpr" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectOpr">
+                                <td data-bind="text: Code"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Spec"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterOpr0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterOpr1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterOpr2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeOpr">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageOpr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageOpr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexOpr() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageOpr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageOpr">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal modal-info fade" id="modal-delete">
     <div class="modal-dialog">
@@ -205,9 +579,15 @@
 @section scripts{
     <script type="text/javascript">
         sessionStorage.urlADocH = '@Url.Action("Index", "AFISanad")';
+
         $('#btntarikh').MdPersianDateTimePicker({
-        targetTextSelector: '#tarikh',
-        dateFormat: 'yyyy-MM-dd'
+            targetTextSelector: '#tarikh',
+            dateFormat: 'yyyy-MM-dd'
+        });
+
+        $('#btnCheckDate').MdPersianDateTimePicker({
+            targetTextSelector: '#checkDate',
+            dateFormat: 'yyyy-MM-dd'
         });
 
         //'use strict';
@@ -222,5 +602,6 @@
 
     </script>
     <script src="~/Content/new/js/form.min.js"></script>
+    <script src="~/Content/new/js/advanced-form-elements.js"></script>
     <script src="~/Scripts/AFISanad.js"></script>
 }

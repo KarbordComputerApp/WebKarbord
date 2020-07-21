@@ -569,7 +569,6 @@
         } else {
             $('#modal-Band').modal()
         }
-
     }
 
     //Add new FDocH 
