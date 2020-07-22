@@ -252,8 +252,11 @@
 
 
     self.selectAcc = function (item) {
-        $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
-        self.AccCode(item.Code);
+        if (item.HasChild == 0) {
+            $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
+            self.AccCode(item.Code);
+            $('#modal-Acc').modal('toggle');
+        }
     }
 
 
@@ -698,10 +701,10 @@
     }
 
     function CreateTableTh(field, data) {
-        text = '<th>';
+        text = '<th ';
         TextField = FindTextField(field, data);
         if (TextField == 0)
-            text += 'Hidden ';
+            text += 'Hidden >';
         text +=
             '<span data-column="' + field + '">' + TextField + '</span>' +
             '</th>';
