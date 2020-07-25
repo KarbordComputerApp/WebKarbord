@@ -28,6 +28,7 @@
     self.DocNoOut = ko.observable();
     self.MkzCode = ko.observable();
     self.OprCode = ko.observable();
+    self.CheckVosoolDate  = ko.observable();
 
 
     self.DocDate = ko.observable();
@@ -45,6 +46,10 @@
     self.AModeList = ko.observableArray([]); // نوع سند  
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.CheckList = ko.observableArray([]); // ليست چک ها
+    self.BankList = ko.observableArray([]); // ليست چک ها
+    self.ShobeList = ko.observableArray([]); // ليست چک ها
+    self.JariList = ko.observableArray([]); // ليست چک ها
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
@@ -54,6 +59,10 @@
     var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
+    var CheckUri = server + '/api/ADocData/CheckList/'; // آدرس لیست چک  
+    var BankUri = server + '/api/ADocData/Bank/'; // آدرس لیست بانک  
+    var ShobeUri = server + '/api/ADocData/Shobe/'; // آدرس لیست شعبه  
+    var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری  
 
     self.DocDate($('#tarikh').val().toEnglishDigit());
 
@@ -76,6 +85,34 @@
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.OprList(data);
+        });
+    }
+
+    //Get CheckList List
+    function getCheckList() {
+        ajaxFunction(CheckUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.CheckList(data);
+        });
+    }
+
+    //Get BankList List
+    function getBankList() {
+        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.BankList(data);
+        });
+    }
+
+    //Get ShobeList List
+    function getShobeList() {
+        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.ShobeList(data);
+        });
+    }
+
+    //Get JariList List
+    function getJariList() {
+        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.JariList(data);
         });
     }
 
@@ -111,8 +148,12 @@
     getAModeList();
     getOprList();
     getMkzList();
+    getCheckList();
+    getBankList();
+    getShobeList();
+    getJariList();
 
-    getADocB(39);
+    getADocB(40);
 
     function calcsum(list) {
         totalBede = 0;
