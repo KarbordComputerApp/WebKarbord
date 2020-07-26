@@ -375,38 +375,15 @@
         sessionStorage.SerialNumber = item.SerialNumber;
         sessionStorage.DocNo = item.DocNo;
         sessionStorage.DocDate = item.DocDate;
-        sessionStorage.CustCode = item.CustCode;
-        sessionStorage.CustName = item.CustName;
         sessionStorage.Spec = item.Spec;
-        sessionStorage.PriceCode = item.KalaPriceCode;
-        sessionStorage.InvCode = item.InvCode;
+        sessionStorage.Tanzim = item.Tanzim;
+        sessionStorage.Taeed = item.Taeed;
         sessionStorage.Eghdam = item.Eghdam;
-
-        sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
-        sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
-        sessionStorage.AddMinSpec3 = item.AddMinSpec3// == "" ? null : item.AddMinSpec3;
-        sessionStorage.AddMinSpec4 = item.AddMinSpec4// == "" ? null : item.AddMinSpec4;
-        sessionStorage.AddMinSpec5 = item.AddMinSpec5// == "" ? null : item.AddMinSpec5;
-        sessionStorage.AddMinSpec6 = item.AddMinSpec6// == "" ? null : item.AddMinSpec6;
-        sessionStorage.AddMinSpec7 = item.AddMinSpec7// == "" ? null : item.AddMinSpec7;
-        sessionStorage.AddMinSpec8 = item.AddMinSpec8// == "" ? null : item.AddMinSpec8;
-        sessionStorage.AddMinSpec9 = item.AddMinSpec9// == "" ? null : item.AddMinSpec9;
-        sessionStorage.AddMinSpec10 = item.AddMinSpec10 //== "" ? null : item.AddMinSpec10;
-
-        sessionStorage.AddMin1 = item.AddMinPrice1 == null ? 0 : item.AddMinPrice1;
-        sessionStorage.AddMin2 = item.AddMinPrice2 == null ? 0 : item.AddMinPrice2;
-        sessionStorage.AddMin3 = item.AddMinPrice3 == null ? 0 : item.AddMinPrice3;
-        sessionStorage.AddMin4 = item.AddMinPrice4 == null ? 0 : item.AddMinPrice4;
-        sessionStorage.AddMin5 = item.AddMinPrice5 == null ? 0 : item.AddMinPrice5;
-        sessionStorage.AddMin6 = item.AddMinPrice6 == null ? 0 : item.AddMinPrice6;
-        sessionStorage.AddMin7 = item.AddMinPrice7 == null ? 0 : item.AddMinPrice7;
-        sessionStorage.AddMin8 = item.AddMinPrice8 == null ? 0 : item.AddMinPrice8;
-        sessionStorage.AddMin9 = item.AddMinPrice9 == null ? 0 : item.AddMinPrice9;
-        sessionStorage.AddMin10 = item.AddMinPrice10 == null ? 0 : item.AddMinPrice10;
-
+        sessionStorage.Tasvib = item.Tasvib;
         sessionStorage.Status = item.Status;
-        sessionStorage.PaymentType = item.PaymentType;
-        sessionStorage.Footer = item.Footer;
+        sessionStorage.Eghdam = item.Eghdam;
+        sessionStorage.ModeCodeSanad = item.ModeCode;
+
         window.location.href = sessionStorage.urlADocH;
     }
 
@@ -529,7 +506,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '<a id = "UpdateSanad" data - bind="click: $root.UpdateHeader" >' +
+            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
             '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px"/></a >' +
             '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Tanzim)">' +
             '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20"/></a>' +

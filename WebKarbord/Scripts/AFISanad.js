@@ -16,7 +16,7 @@
     var flagFinalSave = false;
     var flagEditBand = false;
     var flag = -1;
-    var flagInsertADocH = 0;
+    var flagInsertADocH;
     self.flagupdateband = false;
     self.AModeCode = ko.observable();
 
@@ -28,7 +28,9 @@
     self.DocNoOut = ko.observable();
     self.MkzCode = ko.observable();
     self.OprCode = ko.observable();
-    self.CheckVosoolDate  = ko.observable();
+    self.ArzCode = ko.observable();
+    self.ArzRate = ko.observable();
+    self.CheckVosoolDate = ko.observable();
 
 
     self.DocDate = ko.observable();
@@ -46,6 +48,7 @@
     self.AModeList = ko.observableArray([]); // نوع سند  
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.ArzList = ko.observableArray([]); // ليست ارز ها
     self.CheckList = ko.observableArray([]); // ليست چک ها
     self.BankList = ko.observableArray([]); // ليست چک ها
     self.ShobeList = ko.observableArray([]); // ليست چک ها
@@ -53,18 +56,26 @@
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
+
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس هدر سند 
+    var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
+
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
+    var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
+
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند
     var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
+    var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
     var CheckUri = server + '/api/ADocData/CheckList/'; // آدرس لیست چک  
     var BankUri = server + '/api/ADocData/Bank/'; // آدرس لیست بانک  
     var ShobeUri = server + '/api/ADocData/Shobe/'; // آدرس لیست شعبه  
-    var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری  
+    var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری 
+    var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
 
-    self.DocDate($('#tarikh').val().toEnglishDigit());
+
+
 
     //Get Acc List
     function getAccList() {
@@ -78,6 +89,8 @@
     function getAModeList() {
         ajaxFunction(AModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.AModeList(data);
+            if (flagupdateHeader == 1)
+                $("#modeCode").val(sessionStorage.ModeCodeValue);
         });
     }
 
@@ -85,6 +98,13 @@
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.OprList(data);
+        });
+    }
+
+    //Get Arz List
+    function getArzList() {
+        ajaxFunction(ArzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.ArzList(data);
         });
     }
 
@@ -130,6 +150,12 @@
         });
     }
 
+    function getADocHLastDate() {
+        ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
+            self.DocDate(data);
+        });
+    }
+
     //Get ADocH 
     function getADocH(serialNumber) {
 
@@ -147,13 +173,39 @@
     getAccList();
     getAModeList();
     getOprList();
+    getArzList();
     getMkzList();
     getCheckList();
     getBankList();
     getShobeList();
     getJariList();
 
-    getADocB(40);
+    self.ClearADocH = function ClearADocH() {
+        Serial = '';
+        sessionStorage.flagupdateHeader = '0';
+        flagupdateHeader = 0;
+        self.DocNoOut('');
+        self.DocDate($('#tarikh').val().toEnglishDigit());
+        self.Spec('');
+        self.Spec('');
+    };
+
+    if (flagupdateHeader == 1) {
+        flagInsertADocH = 1;
+        Serial = sessionStorage.SerialNumber;
+        self.SerialNumber(Serial);
+        self.DocNoOut(sessionStorage.DocNo);
+        self.DocDate(sessionStorage.DocDate);
+        self.Spec(sessionStorage.Spec);
+        $("#docnoout").text(sessionStorage.DocNo);
+        getADocB(Serial);
+        getADocH(Serial);
+    }
+    else {
+        flagInsertADocH = 0;
+        getADocHLastDate();
+    }
+
 
     function calcsum(list) {
         totalBede = 0;
@@ -179,6 +231,7 @@
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
+    self.iconTypeRate = ko.observable("");
 
 
     self.currentPageAcc = ko.observable();
@@ -298,23 +351,14 @@
             self.AccCode(item.Code);
             $('#modal-Acc').modal('toggle');
         }
+        else
+            return showNotification('این حساب قابل انتخاب نیست', 2);
     }
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -590,6 +634,506 @@
     });
 
 
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageArz = ko.observable();
+    self.pageSizeArz = ko.observable(10);
+    self.currentPageIndexArz = ko.observable(0);
+
+    self.filterArz0 = ko.observable("");
+    self.filterArz1 = ko.observable("");
+    self.filterArz2 = ko.observable("");
+    self.filterArz3 = ko.observable("");
+
+    self.filterArzList = ko.computed(function () {
+
+        self.currentPageIndexArz(0);
+        var filter0 = self.filterArz0().toUpperCase();
+        var filter1 = self.filterArz1();
+        var filter2 = self.filterArz2();
+        var filter3 = self.filterArz3();
+
+        if (!filter0 && !filter1 && !filter2 && !filter3) {
+            return self.ArzList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ArzList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    ko.utils.stringStartsWith(item.Rate.toString().toLowerCase(), filter3)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageArz = ko.computed(function () {
+        var pageSizeArz = parseInt(self.pageSizeArz(), 10),
+            startIndex = pageSizeArz * self.currentPageIndexArz(),
+            endIndex = startIndex + pageSizeArz;
+        return self.filterArzList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageArz = function () {
+        if (((self.currentPageIndexArz() + 1) * self.pageSizeArz()) < self.filterArzList().length) {
+            self.currentPageIndexArz(self.currentPageIndexArz() + 1);
+        }
+    };
+
+    self.previousPageArz = function () {
+        if (self.currentPageIndexArz() > 0) {
+            self.currentPageIndexArz(self.currentPageIndexArz() - 1);
+        }
+    };
+
+    self.firstPageArz = function () {
+        self.currentPageIndexArz(0);
+    };
+
+    self.lastPageArz = function () {
+        countArz = parseInt(self.filterArzList().length / self.pageSizeArz(), 10);
+        if ((self.filterArzList().length % self.pageSizeArz()) == 0)
+            self.currentPageIndexArz(countArz - 1);
+        else
+            self.currentPageIndexArz(countArz);
+    };
+
+    self.sortTableArz = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ArzList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+        self.iconTypeRate('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Rate') self.iconTypeRate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshArz').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست ارز به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getArzList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectArz = function (item) {
+        $('#nameArz').val('(' + item.Code + ') ' + item.Name);
+        self.ArzCode(item.Code);
+        //ArzRate(item.Rate);
+        $('#ArzRate').val(item.Rate);
+    }
+
+
+    $('#modal-Arz').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+    self.currentPageBank = ko.observable();
+    self.pageSizeBank = ko.observable(10);
+    self.currentPageIndexBank = ko.observable(0);
+
+    self.filterBank0 = ko.observable("");
+
+    self.filterBankList = ko.computed(function () {
+
+        self.currentPageIndexBank(0);
+        var filter0 = self.filterBank0();
+
+        if (!filter0) {
+            return self.BankList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.BankList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageBank = ko.computed(function () {
+        var pageSizeBank = parseInt(self.pageSizeBank(), 10),
+            startIndex = pageSizeBank * self.currentPageIndexBank(),
+            endIndex = startIndex + pageSizeBank;
+        return self.filterBankList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageBank = function () {
+        if (((self.currentPageIndexBank() + 1) * self.pageSizeBank()) < self.filterBankList().length) {
+            self.currentPageIndexBank(self.currentPageIndexBank() + 1);
+        }
+    };
+
+    self.previousPageBank = function () {
+        if (self.currentPageIndexBank() > 0) {
+            self.currentPageIndexBank(self.currentPageIndexBank() - 1);
+        }
+    };
+
+    self.firstPageBank = function () {
+        self.currentPageIndexBank(0);
+    };
+
+    self.lastPageBank = function () {
+        countBank = parseInt(self.filterBankList().length / self.pageSizeBank(), 10);
+        if ((self.filterBankList().length % self.pageSizeBank()) == 0)
+            self.currentPageIndexBank(countBank - 1);
+        else
+            self.currentPageIndexBank(countBank);
+    };
+
+    self.sortTableBank = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.BankList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshBank').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست بانک به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getBankList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectBank = function (item) {
+        $('#nameBank').val(item.Name);
+    }
+
+
+    $('#modal-Bank').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+    self.currentPageShobe = ko.observable();
+    self.pageSizeShobe = ko.observable(10);
+    self.currentPageIndexShobe = ko.observable(0);
+
+    self.filterShobe0 = ko.observable("");
+
+    self.filterShobeList = ko.computed(function () {
+
+        self.currentPageIndexShobe(0);
+        var filter0 = self.filterShobe0();
+
+        if (!filter0) {
+            return self.ShobeList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ShobeList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageShobe = ko.computed(function () {
+        var pageSizeShobe = parseInt(self.pageSizeShobe(), 10),
+            startIndex = pageSizeShobe * self.currentPageIndexShobe(),
+            endIndex = startIndex + pageSizeShobe;
+        return self.filterShobeList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageShobe = function () {
+        if (((self.currentPageIndexShobe() + 1) * self.pageSizeShobe()) < self.filterShobeList().length) {
+            self.currentPageIndexShobe(self.currentPageIndexShobe() + 1);
+        }
+    };
+
+    self.previousPageShobe = function () {
+        if (self.currentPageIndexShobe() > 0) {
+            self.currentPageIndexShobe(self.currentPageIndexShobe() - 1);
+        }
+    };
+
+    self.firstPageShobe = function () {
+        self.currentPageIndexShobe(0);
+    };
+
+    self.lastPageShobe = function () {
+        countShobe = parseInt(self.filterShobeList().length / self.pageSizeShobe(), 10);
+        if ((self.filterShobeList().length % self.pageSizeShobe()) == 0)
+            self.currentPageIndexShobe(countShobe - 1);
+        else
+            self.currentPageIndexShobe(countShobe);
+    };
+
+    self.sortTableShobe = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ShobeList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshShobe').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست شعبه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getShobeList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectShobe = function (item) {
+        $('#nameShobe').val(item.Name);
+    }
+
+
+    $('#modal-Shobe').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageJari = ko.observable();
+    self.pageSizeJari = ko.observable(10);
+    self.currentPageIndexJari = ko.observable(0);
+
+    self.filterJari0 = ko.observable("");
+
+    self.filterJariList = ko.computed(function () {
+
+        self.currentPageIndexJari(0);
+        var filter0 = self.filterJari0();
+
+
+        if (!filter0) {
+            return self.JariList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.JariList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageJari = ko.computed(function () {
+        var pageSizeJari = parseInt(self.pageSizeJari(), 10),
+            startIndex = pageSizeJari * self.currentPageIndexJari(),
+            endIndex = startIndex + pageSizeJari;
+        return self.filterJariList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageJari = function () {
+        if (((self.currentPageIndexJari() + 1) * self.pageSizeJari()) < self.filterJariList().length) {
+            self.currentPageIndexJari(self.currentPageIndexJari() + 1);
+        }
+    };
+
+    self.previousPageJari = function () {
+        if (self.currentPageIndexJari() > 0) {
+            self.currentPageIndexJari(self.currentPageIndexJari() - 1);
+        }
+    };
+
+    self.firstPageJari = function () {
+        self.currentPageIndexJari(0);
+    };
+
+    self.lastPageJari = function () {
+        countJari = parseInt(self.filterJariList().length / self.pageSizeJari(), 10);
+        if ((self.filterJariList().length % self.pageSizeJari()) == 0)
+            self.currentPageIndexJari(countJari - 1);
+        else
+            self.currentPageIndexJari(countJari);
+    };
+
+    self.sortTableJari = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.JariList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshJari').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست جاری به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getJariList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectJari = function (item) {
+        $('#nameJari').val(item.Name);
+    }
+
+
+    $('#modal-Jari').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
     self.ClearADocB = function ClearADocB() {
         // $('#codeKala').val('');
         //$('#nameKala').val('');
@@ -619,6 +1163,14 @@
     }
 
 
+    function GetBandNumber() {
+
+        if (self.ADocBList().length > 0) {
+            bandnumber = self.ADocBList().length + 1;
+        } else {
+            bandnumber = 1;
+        }
+    }
 
     self.ButtonADocH = function ButtonADocH(newADocH) {
         if (flagInsertADocH == 0) {
@@ -633,7 +1185,59 @@
     //Add new ADocH 
     function AddADocH(newADocH) {
         var tarikh = $("#tarikh").val().toEnglishDigit();
-        flagInsertADocH = 1;
+        modeCode = $("#modeCode").val();
+        bandnumber = 0;
+
+        if (tarikh.length != 10) {
+            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification('تاريخ را وارد کنيد', 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+        }
+
+        if (self.DocNoOut == '') {
+            return showNotification('شماره سند را وارد کنيد', 0);
+        }
+
+
+
+        var ADocObject = {
+            SerialNumber: 0,//self.SerialNumber(),
+            DocDate: tarikh,//self.DocDate(),
+            mDocDate: 'null',
+            Spec: self.Spec(),
+            DocNoMode: 1,
+            UserCode: sessionStorage.userName,
+            ModeCode: modeCode,
+            InsertMode: 0,
+            DocNo: 0,
+            StartNo: 0,
+            EndNo: 0,
+            BranchCode: 0,
+            Tanzim: sessionStorage.userName,
+            TahieShode: 'null',
+            Eghdam: sessionStorage.userName
+        };
+
+        ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
+            var res = response.split("-");
+            Serial = res[0];
+            DocNoOut = res[1];
+            $('#docnoout').text(DocNoOut);
+            flagInsertADocH = 1;
+        });
+        flagInsertADoc = 1;
     };
 
 
@@ -642,13 +1246,10 @@
     };
 
 
-
-
     //update ADocB
     self.UpdateADocB = function UpdateADocB(newADocB) {
 
     };
-
 
 
     function CreateTableSanad(data) {
@@ -817,13 +1418,3 @@
 };
 
 ko.applyBindings(new ViewModel());
-
-
-
-
-
-
-
-
-
-
