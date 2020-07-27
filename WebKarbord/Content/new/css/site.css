@@ -1595,4 +1595,11 @@ th {
     background: #d9d9d9;
 }
 
+.isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
 

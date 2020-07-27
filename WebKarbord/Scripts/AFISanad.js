@@ -11,6 +11,7 @@
     self.bundNumberImport = 0;
 
     var AccCode = "";
+    var ZAccCode = "";
     var bandnumber = 0;
     var bandnumberedit = 0;
     var flagFinalSave = false;
@@ -19,6 +20,7 @@
     var flagInsertADocH;
     self.flagupdateband = false;
     self.AModeCode = ko.observable();
+    self.CheckStatusCode = ko.observable();
 
     var allSearchAcc = true;
     var allSearchAcc = true;
@@ -39,13 +41,16 @@
 
     self.BandNo = ko.observable();
     self.AccCode = ko.observable();
+    self.ZAccCode = ko.observable();
     self.Bede = ko.observable();
     self.Best = ko.observable();
 
-    self.AccList = ko.observableArray([]); // ليست پ ها
+    self.AccList = ko.observableArray([]); // ليست حساب ها
+    self.ZAccList = ko.observableArray([]); // ليست زیر حساب ها
     self.ADocBList = ko.observableArray([]); // ليست بند های سند
     self.ADocHList = ko.observableArray([]); // اطلاعات  سند  
     self.AModeList = ko.observableArray([]); // نوع سند  
+    self.CheckStatusList = ko.observableArray([]); // ليست نوع چک ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
     self.ArzList = ko.observableArray([]); // ليست ارز ها
@@ -56,6 +61,7 @@
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
+    var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس حساب ها
 
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس هدر سند 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
@@ -73,6 +79,7 @@
     var ShobeUri = server + '/api/ADocData/Shobe/'; // آدرس لیست شعبه  
     var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری 
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
+    var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت  
 
 
 
@@ -81,6 +88,15 @@
     function getAccList() {
         ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.AccList(data);
+        });
+    }
+
+
+
+    //Get ZAcc List
+    function getZAccList() {
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.ZAccList(data);
         });
     }
 
@@ -143,16 +159,30 @@
         });
     }
 
-    //Get RprtCols List
-    function getColsList() {
+    //Get SanadCols List
+    function getColsSanadList() {
         ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
             CreateTableSanad(data);
+        });
+    }
+
+    //Get CheckCols List
+    function getColsCheckList() {
+        ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/CheckList/' + sessionStorage.userName, 'GET').done(function (data) {
+            CreateTableCheck(data);
         });
     }
 
     function getADocHLastDate() {
         ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.DocDate(data);
+        });
+    }
+
+    //Get CheckStatus List
+    function getCheckStatusList(PDMode) {
+        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
+            self.CheckStatusList(data);
         });
     }
 
@@ -169,8 +199,10 @@
         });
     }
 
-    getColsList();
+    getColsSanadList();
+    getColsCheckList();
     getAccList();
+    getZAccList();
     getAModeList();
     getOprList();
     getArzList();
@@ -179,6 +211,7 @@
     getBankList();
     getShobeList();
     getJariList();
+    getCheckStatusList(1);
 
     self.ClearADocH = function ClearADocH() {
         Serial = '';
@@ -250,13 +283,19 @@
         var filter2 = self.filterAcc2();
 
         if (!filter0 && !filter1 && !filter2) {
-            return self.AccList();
+            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
+                result =
+                    item.AutoCreate == 0
+                return result;
+            })
+            return tempData;
         } else {
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    item.AutoCreate == 0
                 return result;
             })
             return tempData;
@@ -346,19 +385,176 @@
 
 
     self.selectAcc = function (item) {
-        if (item.HasChild == 0) {
+        if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
+
+            if (item.NextLevelFromZAcc == 1) {
+                $("#btnZAcc").removeClass("isDisabled");
+                $('#btnZAcc').attr('data-toggle', 'modal');
+                zGru = item.ZGru.split(",");
+              
+            }
+            else {
+                $("#btnZAcc").addClass("isDisabled");
+                $("#btnZAcc").removeAttr("data-toggle");
+            }
             $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
             self.AccCode(item.Code);
             $('#modal-Acc').modal('toggle');
         }
         else
-            return showNotification('این حساب قابل انتخاب نیست', 2);
+            return showNotification('این حساب قابل انتخاب نیست', 0);
     }
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageZAcc = ko.observable();
+    self.pageSizeZAcc = ko.observable(10);
+    self.currentPageIndexZAcc = ko.observable(0);
+
+    self.filterZAcc0 = ko.observable("");
+    self.filterZAcc1 = ko.observable("");
+    self.filterZAcc2 = ko.observable("");
+
+    self.filterZAccList = ko.computed(function () {
+
+        self.currentPageIndexZAcc(0);
+        var filter0 = self.filterZAcc0().toUpperCase();
+        var filter1 = self.filterZAcc1();
+        var filter2 = self.filterZAcc2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ZAccList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ZAccList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageZAcc = ko.computed(function () {
+        var pageSizeZAcc = parseInt(self.pageSizeZAcc(), 10),
+            startIndex = pageSizeZAcc * self.currentPageIndexZAcc(),
+            endIndex = startIndex + pageSizeZAcc;
+        return self.filterZAccList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageZAcc = function () {
+        if (((self.currentPageIndexZAcc() + 1) * self.pageSizeZAcc()) < self.filterZAccList().length) {
+            self.currentPageIndexZAcc(self.currentPageIndexZAcc() + 1);
+        }
+    };
+
+    self.previousPageZAcc = function () {
+        if (self.currentPageIndexZAcc() > 0) {
+            self.currentPageIndexZAcc(self.currentPageIndexZAcc() - 1);
+        }
+    };
+
+    self.firstPageZAcc = function () {
+        self.currentPageIndexZAcc(0);
+    };
+
+    self.lastPageZAcc = function () {
+        countZAcc = parseInt(self.filterZAccList().length / self.pageSizeZAcc(), 10);
+        if ((self.filterZAccList().length % self.pageSizeZAcc()) == 0)
+            self.currentPageIndexZAcc(countZAcc - 1);
+        else
+            self.currentPageIndexZAcc(countZAcc);
+    };
+
+    self.sortTableZAcc = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ZAccList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshZAcc').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست زیر حساب ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getZAccList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectZAcc = function (item) {
+        $('#nameZAcc').val('(' + item.Code + ') ' + item.Name);
+        self.ZAccCode(item.Code);
+        $('#modal-ZAcc').modal('toggle');
+    }
+
+
+    $('#modal-ZAcc').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1134,6 +1330,226 @@
 
 
 
+
+    self.currentPageCheck = ko.observable();
+    self.pageSizeCheck = ko.observable(10);
+    self.currentPageIndexCheck = ko.observable(0);
+
+    self.filterCheckNo = ko.observable("");
+    self.filterCheckDate = ko.observable("");
+    self.filterValue = ko.observable("");
+    self.filterBank = ko.observable("");
+    self.filterShobe = ko.observable("");
+    self.filterJari = ko.observable("");
+    self.filterBaratNo = ko.observable("");
+    self.filterCheckStatus = ko.observable("");
+    self.filterCheckStatusSt = ko.observable("");
+    self.filterCheckRadif = ko.observable("");
+    self.filterCheckComm = ko.observable("");
+    self.filterTrafCode = ko.observable("");
+    self.filterTrafName = ko.observable("");
+
+    self.filterCheckList = ko.computed(function () {
+
+        self.currentPageIndexCheck(0);
+        var filterCheckNo = self.filterCheckNo();
+        var filterCheckDate = self.filterCheckDate();
+        var filterValue = self.filterValue();
+        var filterBank = self.filterBank();
+        var filterShobe = self.filterShobe();
+        var filterJari = self.filterJari();
+        var filterBaratNo = self.filterBaratNo();
+        var filterCheckStatus = self.filterCheckStatus();
+        var filterCheckStatusSt = self.filterCheckStatusSt();
+        var filterCheckRadif = self.filterCheckRadif();
+        var filterCheckComm = self.filterCheckComm();
+        var filterTrafCode = self.filterTrafCode();
+        var filterTrafName = self.filterTrafName();
+
+        if (!filterCheckNo && !filterCheckDate && !filterValue && !filterBank && !filterShobe && !filterJari && !filterBaratNo
+            && !filterCheckStatus && !filterCheckStatusSt && !filterCheckRadif && !filterCheckComm && !filterTrafCode && !filterTrafName) {
+            return self.CheckList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.CheckList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
+                    (item.CheckDate == null ? '' : item.CheckDate.toString().search(filterCheckDate) >= 0) &&
+                    ko.utils.stringStartsWith(item.Value.toString().toLowerCase(), filterValue) &&
+                    (item.Bank == null ? '' : item.Bank.toString().search(filterBank) >= 0) &&
+                    (item.Shobe == null ? '' : item.Shobe.toString().search(filterShobe) >= 0) &&
+                    (item.Jari == null ? '' : item.Jari.toString().search(filterJari) >= 0) &&
+                    ko.utils.stringStartsWith(item.BaratNo.toString().toLowerCase(), filterBaratNo) &&
+                    (item.CheckStatus == null ? '' : item.CheckStatus.toString().search(filterCheckStatus) >= 0) &&
+                    (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0) &&
+                    ko.utils.stringStartsWith(item.CheckRadif.toString().toLowerCase(), filterCheckRadif) &&
+                    (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
+                    ko.utils.stringStartsWith(item.TrafCode.toString().toLowerCase(), filterTrafCode) &&
+                    (item.TrafName == null ? '' : item.TrafName.toString().search(filterTrafName) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageCheck = ko.computed(function () {
+        var pageSizeCheck = parseInt(self.pageSizeCheck(), 10),
+            startIndex = pageSizeCheck * self.currentPageIndexCheck(),
+            endIndex = startIndex + pageSizeCheck;
+        return self.filterCheckList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageCheck = function () {
+        if (((self.currentPageIndexCheck() + 1) * self.pageSizeCheck()) < self.filterCheckList().length) {
+            self.currentPageIndexCheck(self.currentPageIndexCheck() + 1);
+        }
+    };
+
+    self.previousPageCheck = function () {
+        if (self.currentPageIndexCheck() > 0) {
+            self.currentPageIndexCheck(self.currentPageIndexCheck() - 1);
+        }
+    };
+
+    self.firstPageCheck = function () {
+        self.currentPageIndexCheck(0);
+    };
+
+    self.lastPageCheck = function () {
+        countCheck = parseInt(self.filterCheckList().length / self.pageSizeCheck(), 10);
+        if ((self.filterCheckList().length % self.pageSizeCheck()) == 0)
+            self.currentPageIndexCheck(countCheck - 1);
+        else
+            self.currentPageIndexCheck(countCheck);
+    };
+
+    self.iconTypeCode = ko.observable("");
+
+    self.iconTypeCheckNo = ko.observable("");
+    self.iconTypeCheckDate = ko.observable("");
+    self.iconTypeValue = ko.observable("");
+    self.iconTypeBank = ko.observable("");
+    self.iconTypeShobe = ko.observable("");
+    self.iconTypeJari = ko.observable("");
+    self.iconTypeBaratNo = ko.observable("");
+    self.iconTypeCheckStatus = ko.observable("");
+    self.iconTypeCheckStatusSt = ko.observable("");
+    self.iconTypeCheckRadif = ko.observable("");
+    self.iconTypeCheckComm = ko.observable("");
+    self.iconTypeTrafCode = ko.observable("");
+    self.iconTypeTrafName = ko.observable("");
+    self.sortTableCheck = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.CheckList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafName
+
+        self.iconTypeCheckNo('');
+        self.iconTypeCheckDate('');
+        self.iconTypeValue('');
+        self.iconTypeBank('');
+        self.iconTypeShobe('');
+        self.iconTypeJari('');
+        self.iconTypeBaratNo('');
+        self.iconTypeCheckStatus('');
+        self.iconTypeCheckStatusSt('');
+        self.iconTypeCheckRadif('');
+        self.iconTypeCheckComm('');
+        self.iconTypeTrafCode('');
+        self.iconTypeTrafName('');
+
+        if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Value') self.iconTypeValue((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bank') self.iconTypeBank((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Shobe') self.iconTypeShobe((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Jari') self.iconTypeJari((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'BaratNo') self.iconTypeBaratNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckStatus') self.iconTypeCheckStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckStatusSt') self.iconTypeCheckStatusSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckRadif') self.iconTypeCheckRadif((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckComm') self.iconTypeCheckComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafCode') self.iconTypeTrafCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafName') self.iconTypeTrafName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshCheck').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست حساب ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getCheckList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectCheck = function (item) {
+        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafName
+
+        $('#CheckNo').val(item.CheckNo);
+        $('#CheckDate').val(item.CheckDate);
+        $('#Value').val(item.Value);
+        $('#nameBank').val(item.Bank);
+        $('#nameShobe').val(item.Shobe);
+        $('#nameJari').val(item.Jari);
+        $('#BaratNo').val(item.BaratNo);
+        $('#CheckRadif').val(item.CheckRadif);
+        if (item.TrafCode != '') {
+            $('#nameTraf').val('(' + item.TrafCode + ') ' + item.TrafName);
+        }
+        else {
+            $('#nameTraf').val('');
+        }
+
+
+        $('#modal-Check').modal('toggle');
+    }
+
+
+    $('#modal-Check').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     self.ClearADocB = function ClearADocB() {
         // $('#codeKala').val('');
         //$('#nameKala').val('');
@@ -1173,6 +1589,9 @@
     }
 
     self.ButtonADocH = function ButtonADocH(newADocH) {
+        $("#btnZAcc").addClass("isDisabled");
+        $("#btnZAcc").removeAttr("data-toggle");
+
         if (flagInsertADocH == 0) {
             self.ClearADocB();
             AddADocH(newADocH);
@@ -1403,7 +1822,109 @@
         return text;
     }
 
-    function CreateTableTdSearch(field, data) {
+
+    function CreateTableCheck(data) {
+        $("#TableCheck").empty();
+        $('#TableCheck').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableCheck">' +
+            CreateTableThCheck('CheckNo', data) +
+            CreateTableThCheck('CheckDate', data) +
+            CreateTableThCheck('Value', data) +
+            CreateTableThCheck('Bank', data) +
+            CreateTableThCheck('Shobe', data) +
+            CreateTableThCheck('Jari', data) +
+            CreateTableThCheck('BaratNo', data) +
+            CreateTableThCheck('CheckStatus', data) +
+            CreateTableThCheck('CheckStatusSt', data) +
+            CreateTableThCheck('CheckRadif', data) +
+            CreateTableThCheck('CheckComm', data) +
+            CreateTableThCheck('TrafCode', data) +
+            CreateTableThCheck('TrafName', data) +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind="foreach: currentPageCheck" data-dismiss="modal" style="cursor: default;">' +
+            '     <tr data-bind="click: $parent.selectCheck">' +
+            CreateTableTdCheck('CheckNo', 0, 0, data) +
+            CreateTableTdCheck('CheckDate', 0, 0, data) +
+            CreateTableTdCheck('Value', 0, 0, data) +
+            CreateTableTdCheck('Bank', 0, 0, data) +
+            CreateTableTdCheck('Shobe', 0, 0, data) +
+            CreateTableTdCheck('Jari', 0, 0, data) +
+            CreateTableTdCheck('BaratNo', 0, 0, data) +
+            CreateTableTdCheck('CheckStatus', 0, 0, data) +
+            CreateTableTdCheck('CheckStatusSt', 0, 0, data) +
+            CreateTableTdCheck('CheckRadif', 0, 0, data) +
+            CreateTableTdCheck('CheckComm', 0, 0, data) +
+            CreateTableTdCheck('TrafCode', 0, 0, data) +
+            CreateTableTdCheck('TrafName', 0, 0, data) +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearchCheck('CheckNo', data) +
+            CreateTableTdSearchCheck('CheckDate', data) +
+            CreateTableTdSearchCheck('Value', data) +
+            CreateTableTdSearchCheck('Bank', data) +
+            CreateTableTdSearchCheck('Shobe', data) +
+            CreateTableTdSearchCheck('Jari', data) +
+            CreateTableTdSearchCheck('BaratNo', data) +
+            CreateTableTdSearchCheck('CheckStatus', data) +
+            CreateTableTdSearchCheck('CheckStatusSt', data) +
+            CreateTableTdSearchCheck('CheckRadif', data) +
+            CreateTableTdSearchCheck('CheckComm', data) +
+            CreateTableTdSearchCheck('TrafCode', data) +
+            CreateTableTdSearchCheck('TrafName', data) +
+
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+
+    function CreateTableThCheck(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span data-column="' + field + '">' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTdCheck(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearchCheck(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);

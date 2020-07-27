@@ -55,7 +55,7 @@
 
     //Get CheckStatus List
     function getCheckStatusList(PDMode) {
-        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
+        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/1', 'GET').done(function (data) {
             self.CheckStatusList(data);
         });
     }
