@@ -18,6 +18,7 @@
     var flagEditBand = false;
     var flag = -1;
     var flagInsertADocH;
+    var zGruAcc = "";
     self.flagupdateband = false;
     self.AModeCode = ko.observable();
     self.CheckStatusCode = ko.observable();
@@ -42,6 +43,11 @@
     self.BandNo = ko.observable();
     self.AccCode = ko.observable();
     self.ZAccCode = ko.observable();
+
+    self.TrafCode = ko.observable();
+    self.TrafZCode = ko.observable();
+
+
     self.Bede = ko.observable();
     self.Best = ko.observable();
 
@@ -94,8 +100,8 @@
 
 
     //Get ZAcc List
-    function getZAccList() {
-        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+    function getZAccList(filter) {
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + filter, 'GET').done(function (data) {
             self.ZAccList(data);
         });
     }
@@ -202,7 +208,6 @@
     getColsSanadList();
     getColsCheckList();
     getAccList();
-    getZAccList();
     getAModeList();
     getOprList();
     getArzList();
@@ -385,18 +390,38 @@
 
 
     self.selectAcc = function (item) {
+        zGruAcc = "";
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
-
             if (item.NextLevelFromZAcc == 1) {
-                $("#btnZAcc").removeClass("isDisabled");
-                $('#btnZAcc').attr('data-toggle', 'modal');
-                zGru = item.ZGru.split(",");
-              
+                $('#btnZAcc').removeAttr('hidden', '');
+                if (item.ZGru != "") {
+                    getZAccList(item.ZGru);
+                    $('#modal-ZAcc').modal('show');
+                }
             }
             else {
-                $("#btnZAcc").addClass("isDisabled");
-                $("#btnZAcc").removeAttr("data-toggle");
+                $('#btnZAcc').attr('hidden', '');
+                $('#nameZAcc').val('');
+                self.ZAccCode(0);
             }
+
+
+            if (item.PDMode > 0) {
+                ShowCheck();
+            }
+            else {
+                HiddenCheck();
+            }
+
+            
+            if (item.Mkz > 0) {
+                $('#btnMkz').removeAttr('hidden', '');
+            }
+            else {
+                $('#btnMkz').attr('hidden', '');
+                $('#nameMkz').val('');
+            }
+
             $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
             self.AccCode(item.Code);
             $('#modal-Acc').modal('toggle');
@@ -415,14 +440,6 @@
 
 
 
-
-
-
-
-
-
-
-
     self.currentPageZAcc = ko.observable();
     self.pageSizeZAcc = ko.observable(10);
     self.currentPageIndexZAcc = ko.observable(0);
@@ -432,7 +449,6 @@
     self.filterZAcc2 = ko.observable("");
 
     self.filterZAccList = ko.computed(function () {
-
         self.currentPageIndexZAcc(0);
         var filter0 = self.filterZAcc0().toUpperCase();
         var filter1 = self.filterZAcc1();
@@ -544,6 +560,307 @@
     $('#modal-ZAcc').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageTraf = ko.observable();
+    self.pageSizeTraf = ko.observable(10);
+    self.currentPageIndexTraf = ko.observable(0);
+
+    self.filterTraf0 = ko.observable("");
+    self.filterTraf1 = ko.observable("");
+    self.filterTraf2 = ko.observable("");
+
+    self.filterTrafList = ko.computed(function () {
+
+        self.currentPageIndexTraf(0);
+        var filter0 = self.filterTraf0().toUpperCase();
+        var filter1 = self.filterTraf1();
+        var filter2 = self.filterTraf2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
+                result =
+                    item.AutoCreate == 0
+                return result;
+            })
+            return tempData;
+        } else {
+            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    item.AutoCreate == 0
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageTraf = ko.computed(function () {
+        var pageSizeTraf = parseInt(self.pageSizeTraf(), 10),
+            startIndex = pageSizeTraf * self.currentPageIndexTraf(),
+            endIndex = startIndex + pageSizeTraf;
+        return self.filterTrafList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageTraf = function () {
+        if (((self.currentPageIndexTraf() + 1) * self.pageSizeTraf()) < self.filterTrafList().length) {
+            self.currentPageIndexTraf(self.currentPageIndexTraf() + 1);
+        }
+    };
+
+    self.previousPageTraf = function () {
+        if (self.currentPageIndexTraf() > 0) {
+            self.currentPageIndexTraf(self.currentPageIndexTraf() - 1);
+        }
+    };
+
+    self.firstPageTraf = function () {
+        self.currentPageIndexTraf(0);
+    };
+
+    self.lastPageTraf = function () {
+        countTraf = parseInt(self.filterTrafList().length / self.pageSizeTraf(), 10);
+        if ((self.filterTrafList().length % self.pageSizeTraf()) == 0)
+            self.currentPageIndexTraf(countTraf - 1);
+        else
+            self.currentPageIndexTraf(countTraf);
+    };
+
+    self.sortTableTraf = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.AccList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshTraf').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست طرف حساب ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getAccList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectTraf = function (item) {
+        zGruTraf = "";
+        if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
+
+            if (item.NextLevelFromZAcc == 1) {
+                $('#btnTrafZ').removeAttr('hidden', '');
+                if (item.ZGru != "") {
+                    getZAccList(item.ZGru);
+                    $('#modal-TrafZ').modal('show');
+                }
+            }
+            else {
+                $('#btnTrafZ').attr('hidden', '');
+                $('#nameZAcc').val('');
+                self.ZAccCode(0);
+            }
+
+
+            $('#nameTraf').val('(' + item.Code + ') ' + item.Name);
+            self.TrafCode(item.Code);
+            $('#modal-Traf').modal('toggle');
+        }
+        else
+            return showNotification('این طرف حساب قابل انتخاب نیست', 0);
+    }
+
+
+    $('#modal-Traf').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+    self.currentPageTrafZ = ko.observable();
+    self.pageSizeTrafZ = ko.observable(10);
+    self.currentPageIndexTrafZ = ko.observable(0);
+
+    self.filterTrafZ0 = ko.observable("");
+    self.filterTrafZ1 = ko.observable("");
+    self.filterTrafZ2 = ko.observable("");
+
+    self.filterTrafZList = ko.computed(function () {
+
+        self.currentPageIndexTrafZ(0);
+        var filter0 = self.filterTrafZ0().toUpperCase();
+        var filter1 = self.filterTrafZ1();
+        var filter2 = self.filterTrafZ2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ZAccList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ZAccList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageTrafZ = ko.computed(function () {
+        var pageSizeTrafZ = parseInt(self.pageSizeTrafZ(), 10),
+            startIndex = pageSizeTrafZ * self.currentPageIndexTrafZ(),
+            endIndex = startIndex + pageSizeTrafZ;
+        return self.filterTrafZList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageTrafZ = function () {
+        if (((self.currentPageIndexTrafZ() + 1) * self.pageSizeTrafZ()) < self.filterTrafZList().length) {
+            self.currentPageIndexTrafZ(self.currentPageIndexTrafZ() + 1);
+        }
+    };
+
+    self.previousPageTrafZ = function () {
+        if (self.currentPageIndexTrafZ() > 0) {
+            self.currentPageIndexTrafZ(self.currentPageIndexTrafZ() - 1);
+        }
+    };
+
+    self.firstPageTrafZ = function () {
+        self.currentPageIndexTrafZ(0);
+    };
+
+    self.lastPageTrafZ = function () {
+        countTrafZ = parseInt(self.filterTrafZList().length / self.pageSizeTrafZ(), 10);
+        if ((self.filterTrafZList().length % self.pageSizeTrafZ()) == 0)
+            self.currentPageIndexTrafZ(countTrafZ - 1);
+        else
+            self.currentPageIndexTrafZ(countTrafZ);
+    };
+
+    self.sortTableTrafZ = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ZAccList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshTrafZ').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ؟',
+            text: "لیست زیر حساب ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getZAccList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectTrafZ = function (item) {
+        $('#nameTrafZ').val('(' + item.Code + ') ' + item.Name);
+        self.TrafZCode(item.Code);
+        $('#modal-TrafZ').modal('toggle');
+    }
+
+
+    $('#modal-TrafZ').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
 
 
 
@@ -1346,8 +1663,9 @@
     self.filterCheckStatusSt = ko.observable("");
     self.filterCheckRadif = ko.observable("");
     self.filterCheckComm = ko.observable("");
-    self.filterTrafCode = ko.observable("");
-    self.filterTrafName = ko.observable("");
+
+    self.filterTrafFullCode = ko.observable("");
+    self.filterTrafFullName = ko.observable("");
 
     self.filterCheckList = ko.computed(function () {
 
@@ -1363,11 +1681,11 @@
         var filterCheckStatusSt = self.filterCheckStatusSt();
         var filterCheckRadif = self.filterCheckRadif();
         var filterCheckComm = self.filterCheckComm();
-        var filterTrafCode = self.filterTrafCode();
-        var filterTrafName = self.filterTrafName();
+        var filterTrafFullCode = self.filterTrafFullCode();
+        var filterTrafFullName = self.filterTrafFullName();
 
         if (!filterCheckNo && !filterCheckDate && !filterValue && !filterBank && !filterShobe && !filterJari && !filterBaratNo
-            && !filterCheckStatus && !filterCheckStatusSt && !filterCheckRadif && !filterCheckComm && !filterTrafCode && !filterTrafName) {
+            && !filterCheckStatus && !filterCheckStatusSt && !filterCheckRadif && !filterCheckComm && !filterTrafFullCode && !filterTrafFullName) {
             return self.CheckList();
         } else {
             tempData = ko.utils.arrayFilter(self.CheckList(), function (item) {
@@ -1383,8 +1701,8 @@
                     (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0) &&
                     ko.utils.stringStartsWith(item.CheckRadif.toString().toLowerCase(), filterCheckRadif) &&
                     (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
-                    ko.utils.stringStartsWith(item.TrafCode.toString().toLowerCase(), filterTrafCode) &&
-                    (item.TrafName == null ? '' : item.TrafName.toString().search(filterTrafName) >= 0)
+                    ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
+                    (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0)
                 return result;
             })
             return tempData;
@@ -1436,8 +1754,8 @@
     self.iconTypeCheckStatusSt = ko.observable("");
     self.iconTypeCheckRadif = ko.observable("");
     self.iconTypeCheckComm = ko.observable("");
-    self.iconTypeTrafCode = ko.observable("");
-    self.iconTypeTrafName = ko.observable("");
+    self.iconTypeTrafFullCode = ko.observable("");
+    self.iconTypeTrafFullName = ko.observable("");
     self.sortTableCheck = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null) {
@@ -1456,7 +1774,7 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafName
+        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafFullName
 
         self.iconTypeCheckNo('');
         self.iconTypeCheckDate('');
@@ -1469,8 +1787,8 @@
         self.iconTypeCheckStatusSt('');
         self.iconTypeCheckRadif('');
         self.iconTypeCheckComm('');
-        self.iconTypeTrafCode('');
-        self.iconTypeTrafName('');
+        self.iconTypeTrafFullCode('');
+        self.iconTypeTrafFullName('');
 
         if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1483,8 +1801,8 @@
         if (orderProp == 'CheckStatusSt') self.iconTypeCheckStatusSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CheckRadif') self.iconTypeCheckRadif((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CheckComm') self.iconTypeCheckComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'TrafCode') self.iconTypeTrafCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'TrafName') self.iconTypeTrafName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafFullCode') self.iconTypeTrafFullCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafFullName') self.iconTypeTrafFullName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -1510,11 +1828,11 @@
 
 
     self.selectCheck = function (item) {
-        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafName
+        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafFullName
 
         $('#CheckNo').val(item.CheckNo);
         $('#CheckDate').val(item.CheckDate);
-        $('#Value').val(item.Value);
+        $('#Value').val(NumberToNumberString(item.Value));
         $('#nameBank').val(item.Bank);
         $('#nameShobe').val(item.Shobe);
         $('#nameJari').val(item.Jari);
@@ -1527,6 +1845,13 @@
             $('#nameTraf').val('');
         }
 
+        if (item.TrafZCode != '') {
+            $('#nameZName').val('(' + item.TrafZCode + ') ' + item.TrafZName);
+        }
+        else {
+            $('#nameZName').val('');
+        }
+        $('#CheckComm').val(item.CheckComm);
 
         $('#modal-Check').modal('toggle');
     }
@@ -1588,10 +1913,21 @@
         }
     }
 
-    self.ButtonADocH = function ButtonADocH(newADocH) {
-        $("#btnZAcc").addClass("isDisabled");
-        $("#btnZAcc").removeAttr("data-toggle");
+    function HiddenCheck() {
+        $('#panelCheck').attr('hidden', '');
+        $("#panelSanad").removeClass("col-md-8");
+        $("#panelSanad").addClass("col-md-12");
+    }
 
+    function ShowCheck() {
+        $('#panelCheck').removeAttr('hidden', '');
+        $("#panelSanad").removeClass("col-md-12");
+        $("#panelSanad").addClass("col-md-8");
+    }
+
+    self.ButtonADocH = function ButtonADocH(newADocH) {
+        $('#btnZAcc').attr('hidden', '');
+        HiddenCheck();
         if (flagInsertADocH == 0) {
             self.ClearADocB();
             AddADocH(newADocH);
@@ -1677,8 +2013,8 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr>' +
-            CreateTableTh('AccCode', data) +
-            CreateTableTh('AccName', data) +
+            CreateTableTh('AccFullCode', data) +
+            CreateTableTh('AccFullName', data) +
             CreateTableTh('Comm', data) +
             CreateTableTh('Bede', data) +
             CreateTableTh('Best', data) +
@@ -1687,8 +2023,8 @@
             CreateTableTh('Bank', data) +
             CreateTableTh('Shobe', data) +
             CreateTableTh('Jari', data) +
-            CreateTableTh('TrafCode', data) +
-            CreateTableTh('TrafName', data) +
+            CreateTableTh('TrafFullCode', data) +
+            CreateTableTh('TrafFullName', data) +
             CreateTableTh('MkzCode', data) +
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
@@ -1698,8 +2034,8 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
-            CreateTableTd('AccCode', 0, 0, data) +
-            CreateTableTd('AccName', 0, 0, data) +
+            CreateTableTd('AccFullCode', 0, 0, data) +
+            CreateTableTd('AccFullName', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
@@ -1708,8 +2044,8 @@
             CreateTableTd('Bank', 0, 0, data) +
             CreateTableTd('Shobe', 0, 0, data) +
             CreateTableTd('Jari', 0, 0, data) +
-            CreateTableTd('TrafCode', 0, 0, data) +
-            CreateTableTd('TrafName', 0, 0, data) +
+            CreateTableTd('TrafFullCode', 0, 0, data) +
+            CreateTableTd('TrafFullName', 0, 0, data) +
             CreateTableTd('MkzCode', 0, 0, data) +
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
@@ -1719,8 +2055,8 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('AccCode', 0, data) +
-            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('AccFullCode', 0, data) +
+            CreateTableTdSum('AccFullName', 1, data) +
             CreateTableTdSum('Comm', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
@@ -1729,8 +2065,8 @@
             CreateTableTdSum('Bank', 1, data) +
             CreateTableTdSum('Shobe', 1, data) +
             CreateTableTdSum('Jari', 1, data) +
-            CreateTableTdSum('TrafCode', 1, data) +
-            CreateTableTdSum('TrafName', 1, data) +
+            CreateTableTdSum('TrafFullCode', 1, data) +
+            CreateTableTdSum('TrafFullName', 1, data) +
             CreateTableTdSum('MkzCode', 1, data) +
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
@@ -1738,8 +2074,8 @@
             CreateTableTdSum('BandSpec', 1, data) +
             ' </tr>' +
             ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('AccCode', 3, data) +
-            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('AccFullCode', 3, data) +
+            CreateTableTdSum('AccFullName', 1, data) +
             CreateTableTdSum('Comm', 1, data) +
             CreateTableTdSum('MonBede', 2, data) +
             CreateTableTdSum('MonBest', 2, data) +
@@ -1748,8 +2084,8 @@
             CreateTableTdSum('Bank', 1, data) +
             CreateTableTdSum('Shobe', 1, data) +
             CreateTableTdSum('Jari', 1, data) +
-            CreateTableTdSum('TrafCode', 1, data) +
-            CreateTableTdSum('TrafName', 1, data) +
+            CreateTableTdSum('TrafFullCode', 1, data) +
+            CreateTableTdSum('TrafFullName', 1, data) +
             CreateTableTdSum('MkzCode', 1, data) +
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
@@ -1840,8 +2176,8 @@
             CreateTableThCheck('CheckStatusSt', data) +
             CreateTableThCheck('CheckRadif', data) +
             CreateTableThCheck('CheckComm', data) +
-            CreateTableThCheck('TrafCode', data) +
-            CreateTableThCheck('TrafName', data) +
+            CreateTableThCheck('TrafFullCode', data) +
+            CreateTableThCheck('TrafFullName', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCheck" data-dismiss="modal" style="cursor: default;">' +
@@ -1857,8 +2193,8 @@
             CreateTableTdCheck('CheckStatusSt', 0, 0, data) +
             CreateTableTdCheck('CheckRadif', 0, 0, data) +
             CreateTableTdCheck('CheckComm', 0, 0, data) +
-            CreateTableTdCheck('TrafCode', 0, 0, data) +
-            CreateTableTdCheck('TrafName', 0, 0, data) +
+            CreateTableTdCheck('TrafFullCode', 0, 0, data) +
+            CreateTableTdCheck('TrafFullName', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -1874,9 +2210,8 @@
             CreateTableTdSearchCheck('CheckStatusSt', data) +
             CreateTableTdSearchCheck('CheckRadif', data) +
             CreateTableTdSearchCheck('CheckComm', data) +
-            CreateTableTdSearchCheck('TrafCode', data) +
-            CreateTableTdSearchCheck('TrafName', data) +
-
+            CreateTableTdSearchCheck('TrafFullCode', data) +
+            CreateTableTdSearchCheck('TrafFullName', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
