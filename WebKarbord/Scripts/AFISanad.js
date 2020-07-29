@@ -3,15 +3,23 @@
     var ace = sessionStorage.ace;
     var sal = sessionStorage.sal;
     var group = sessionStorage.group;
-    var flagupdateHeader;
     var server = localStorage.getItem("ApiAddress");
 
+    var flagupdateHeader;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
     sessionStorage.searchADocH = "";
     self.bundNumberImport = 0;
 
     var AccCode = "";
     var ZAccCode = "";
+
+    var TrafCode = "";
+    var TrafZCode = "";
+
+    var ArzCode = "";
+    var OprCode = "";
+    var MkzCode = "";
+
     var bandnumber = 0;
     var bandnumberedit = 0;
     var flagFinalSave = false;
@@ -19,37 +27,43 @@
     var flag = -1;
     var flagInsertADocH;
     var zGruAcc = "";
-    self.flagupdateband = false;
-    self.AModeCode = ko.observable();
-    self.CheckStatusCode = ko.observable();
-
     var allSearchAcc = true;
     var allSearchAcc = true;
-
-    self.SerialNumber = ko.observable();
     var Serial = '';
+    self.flagupdateband = false;
+
+    self.AModeCode = ko.observable();
+    self.SerialNumber = ko.observable();
     self.DocNoOut = ko.observable();
-    self.MkzCode = ko.observable();
-    self.OprCode = ko.observable();
-    self.ArzCode = ko.observable();
-    self.ArzRate = ko.observable();
-    self.CheckVosoolDate = ko.observable();
-
-
     self.DocDate = ko.observable();
-    self.CheckDate = ko.observable();
     self.Spec = ko.observable();
 
     self.BandNo = ko.observable();
     self.AccCode = ko.observable();
     self.ZAccCode = ko.observable();
 
+    self.ArzCode = ko.observable();
+    self.ArzRate = ko.observable();
+    self.ArzValue = ko.observable();
+    self.OprCode = ko.observable();
+    self.MkzCode = ko.observable();
+    self.Comm = ko.observable();
+    self.BandSpec = ko.observable();
+
+    self.CheckNo = ko.observable();
+    self.CheckDate = ko.observable();
+    self.Bank = ko.observable();
+    self.Shobe = ko.observable();
+    self.Jari = ko.observable();
+    self.Value = ko.observable();
+    self.BaratNo = ko.observable();
+    self.CheckStatusCode = ko.observable();
     self.TrafCode = ko.observable();
     self.TrafZCode = ko.observable();
+    self.CheckRadif = ko.observable();
+    self.CheckVosoolDate = ko.observable();
+    self.CheckComm = ko.observable();
 
-
-    self.Bede = ko.observable();
-    self.Best = ko.observable();
 
     self.AccList = ko.observableArray([]); // ليست حساب ها
     self.ZAccList = ko.observableArray([]); // ليست زیر حساب ها
@@ -225,7 +239,6 @@
         self.DocNoOut('');
         self.DocDate($('#tarikh').val().toEnglishDigit());
         self.Spec('');
-        self.Spec('');
     };
 
     if (flagupdateHeader == 1) {
@@ -391,18 +404,16 @@
 
     self.selectAcc = function (item) {
         zGruAcc = "";
+        $('#nameZAcc').val('');
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
             if (item.NextLevelFromZAcc == 1) {
                 $('#btnZAcc').removeAttr('hidden', '');
-                if (item.ZGru != "") {
-                    getZAccList(item.ZGru);
-                    $('#modal-ZAcc').modal('show');
-                }
+                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                $('#modal-ZAcc').modal('show');
             }
             else {
                 $('#btnZAcc').attr('hidden', '');
-                $('#nameZAcc').val('');
-                self.ZAccCode(0);
+                ZAccCode = '';
             }
 
 
@@ -413,7 +424,7 @@
                 HiddenCheck();
             }
 
-            
+
             if (item.Mkz > 0) {
                 $('#btnMkz').removeAttr('hidden', '');
             }
@@ -423,7 +434,7 @@
             }
 
             $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
-            self.AccCode(item.Code);
+            AccCode = item.Code;
             $('#modal-Acc').modal('toggle');
         }
         else
@@ -552,7 +563,7 @@
 
     self.selectZAcc = function (item) {
         $('#nameZAcc').val('(' + item.Code + ') ' + item.Name);
-        self.ZAccCode(item.Code);
+        ZAccCode = item.Code;
         $('#modal-ZAcc').modal('toggle');
     }
 
@@ -703,24 +714,21 @@
 
     self.selectTraf = function (item) {
         zGruTraf = "";
+        $('#nameZAcc').val('');
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
-
             if (item.NextLevelFromZAcc == 1) {
                 $('#btnTrafZ').removeAttr('hidden', '');
-                if (item.ZGru != "") {
-                    getZAccList(item.ZGru);
-                    $('#modal-TrafZ').modal('show');
-                }
+                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                $('#modal-TrafZ').modal('show');
             }
             else {
                 $('#btnTrafZ').attr('hidden', '');
-                $('#nameZAcc').val('');
-                self.ZAccCode(0);
+                TrafZCode = '';
             }
 
 
             $('#nameTraf').val('(' + item.Code + ') ' + item.Name);
-            self.TrafCode(item.Code);
+            TrafCode = item.Code;
             $('#modal-Traf').modal('toggle');
         }
         else
@@ -850,7 +858,7 @@
 
     self.selectTrafZ = function (item) {
         $('#nameTrafZ').val('(' + item.Code + ') ' + item.Name);
-        self.TrafZCode(item.Code);
+        TrafZCode = item.Code;
         $('#modal-TrafZ').modal('toggle');
     }
 
@@ -988,7 +996,7 @@
 
     self.selectOpr = function (item) {
         $('#nameOpr').val('(' + item.Code + ') ' + item.Name);
-        self.OprCode(item.Code);
+        OprCode = item.Code;
     }
 
 
@@ -1138,7 +1146,7 @@
 
     self.selectMkz = function (item) {
         $('#nameMkz').val('(' + item.Code + ') ' + item.Name);
-        self.MkzCode(item.Code);
+        MkzCode = item.Code;
     }
 
 
@@ -1276,7 +1284,7 @@
 
     self.selectArz = function (item) {
         $('#nameArz').val('(' + item.Code + ') ' + item.Name);
-        self.ArzCode(item.Code);
+        ArzCode = item.Code;
         //ArzRate(item.Rate);
         $('#ArzRate').val(item.Rate);
     }
@@ -1666,6 +1674,7 @@
 
     self.filterTrafFullCode = ko.observable("");
     self.filterTrafFullName = ko.observable("");
+    self.filterCheckVosoolDate = ko.observable("");
 
     self.filterCheckList = ko.computed(function () {
 
@@ -1683,9 +1692,10 @@
         var filterCheckComm = self.filterCheckComm();
         var filterTrafFullCode = self.filterTrafFullCode();
         var filterTrafFullName = self.filterTrafFullName();
+        var filterCheckVosoolDate = self.filterCheckVosoolDate();
 
         if (!filterCheckNo && !filterCheckDate && !filterValue && !filterBank && !filterShobe && !filterJari && !filterBaratNo
-            && !filterCheckStatus && !filterCheckStatusSt && !filterCheckRadif && !filterCheckComm && !filterTrafFullCode && !filterTrafFullName) {
+            && !filterCheckStatus && !filterCheckStatusSt && !filterCheckRadif && !filterCheckComm && !filterTrafFullCode && !filterTrafFullName && !filterCheckVosoolDate) {
             return self.CheckList();
         } else {
             tempData = ko.utils.arrayFilter(self.CheckList(), function (item) {
@@ -1703,6 +1713,7 @@
                     (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
                     ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
                     (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0)
+                        (item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
                 return result;
             })
             return tempData;
@@ -1756,6 +1767,7 @@
     self.iconTypeCheckComm = ko.observable("");
     self.iconTypeTrafFullCode = ko.observable("");
     self.iconTypeTrafFullName = ko.observable("");
+    self.iconTypeCheckVosoolDate = ko.observable("");
     self.sortTableCheck = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null) {
@@ -1774,8 +1786,6 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafFullName
-
         self.iconTypeCheckNo('');
         self.iconTypeCheckDate('');
         self.iconTypeValue('');
@@ -1789,6 +1799,7 @@
         self.iconTypeCheckComm('');
         self.iconTypeTrafFullCode('');
         self.iconTypeTrafFullName('');
+        self.iconTypeCheckVosoolDate('');
 
         if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1803,6 +1814,7 @@
         if (orderProp == 'CheckComm') self.iconTypeCheckComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TrafFullCode') self.iconTypeTrafFullCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TrafFullName') self.iconTypeTrafFullName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckVosoolDate') self.iconTypeCheckVosoolDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -1828,8 +1840,6 @@
 
 
     self.selectCheck = function (item) {
-        // CheckNo,CheckDate,Value,Bank,Shobe,Jari,BaratNo,CheckStatus,CheckStatusSt,CheckRadif,CheckComm,TrafCode,TrafFullName
-
         $('#CheckNo').val(item.CheckNo);
         $('#CheckDate').val(item.CheckDate);
         $('#Value').val(NumberToNumberString(item.Value));
@@ -1838,6 +1848,7 @@
         $('#nameJari').val(item.Jari);
         $('#BaratNo').val(item.BaratNo);
         $('#CheckRadif').val(item.CheckRadif);
+        $('#checkVosoolDate').val(item.CheckVosoolDate);
         if (item.TrafCode != '') {
             $('#nameTraf').val('(' + item.TrafCode + ') ' + item.TrafName);
         }
@@ -1846,10 +1857,10 @@
         }
 
         if (item.TrafZCode != '') {
-            $('#nameZName').val('(' + item.TrafZCode + ') ' + item.TrafZName);
+            $('#nameTrafZ').val('(' + item.TrafZCode + ') ' + item.TrafZName);
         }
         else {
-            $('#nameZName').val('');
+            $('#nameTrafZ').val('');
         }
         $('#CheckComm').val(item.CheckComm);
 
@@ -1876,26 +1887,61 @@
 
 
     self.ClearADocB = function ClearADocB() {
-        // $('#codeKala').val('');
-        //$('#nameKala').val('');
-        // $("#unitName").empty();
-        // self.KalaCode('');
-        //self.Amount1('');
-        //self.Amount2('');
-        //self.Amount3('');
-        //self.UnitPrice('');
-        // self.TotalPrice('');
-        // self.Discount('');
-        //self.MainUnit('');
-        // self.Comm('');
+        $('#nameAcc').val('');
+        $('#nameZAcc').val('');
+        $('#bede').val('');
+        $('#best').val('');
+        $('#nameArz').val('');
+        $('#ArzRate').val('');
+        $('#ArzValue').val('');
+        $('#nameOpr').val('');
+        $('#nameMkz').val('');
+        $('#comm').val('');
+        $('#bandSpec').val('');
 
-        //        $("#totalPrice").css("backgroundColor", "white");
-        //        $("#unitPrice").css("backgroundColor", "white");
-        //$("#discountdarsad").css("backgroundColor", "white");
-        //$("#discountprice").css("backgroundColor", "white");
-        //        flag = -1;
-        //       flagdiscount = -1;
+        $('#CheckNo').val('');
+        $('#CheckDate').val('');
+        $('#nameBank').val('');
+        $('#nameShobe').val('');
+        $('#nameJari').val('');
+        $('#Value').val('');
+        $('#BaratNo').val('');
+        $('#checkStatus').val('');
+        $('#nameTraf').val('');
+        $('#nameTrafZ').val('');
+        $('#CheckRadif').val('');
+        $('#checkVosoolDate').val('');
+        $('#CheckComm').val('');
     };
+
+
+
+
+
+
+
+    $('#modal-Band').on('show.bs.modal', function () {
+        if (self.flagupdateband == false) {
+            self.ClearADocB();
+        } else {
+            flagEditBand = true;
+        }
+        $('.fix').attr('class', 'form-line focused fix');
+        $('#btnAcc').focus();
+    });
+
+    $('#modal-Band').on('hide.bs.modal', function () {
+        self.flagupdateband = false;
+        self.bundNumberImport = 0;
+        flagEditBand = false;
+    });
+
+
+    $('#insertband').click(function () {
+        self.flagupdateband = false;
+    })
+
+
 
     self.ImportBand = function (item) {
         self.ClearADocB();
@@ -1903,9 +1949,11 @@
         self.bundNumberImport = item.BandNo;
     }
 
+    self.UpdateBand = function (SanadBand) {
+        self.flagupdateband = true;
+    }
 
     function GetBandNumber() {
-
         if (self.ADocBList().length > 0) {
             bandnumber = self.ADocBList().length + 1;
         } else {
@@ -1928,8 +1976,8 @@
     self.ButtonADocH = function ButtonADocH(newADocH) {
         $('#btnZAcc').attr('hidden', '');
         HiddenCheck();
+        self.ClearADocB();
         if (flagInsertADocH == 0) {
-            self.ClearADocB();
             AddADocH(newADocH);
             flagInsertADocH == 1 ? $('#modal-Band').modal() : null
         } else {
@@ -1996,15 +2044,231 @@
     };
 
 
+
+    self.selectSanad = function (item) {
+        if (self.flagupdateband == true) {
+            bandnumberedit = item.BandNo;
+            AccCode = item.AccCode;
+            if (item.CheckNo > 0) {
+                ShowCheck();
+            }
+            else {
+                HiddenCheck();
+            }
+
+            $('#nameAcc').val('(' + item.AccCode + ') ' + item.AccName);
+            $('#nameZAcc').val(item.AccZCode == '' ? '' : '(' + item.AccZCode + ') ' + item.AccZName);
+
+            $('#bede').val(NumberToNumberString(item.Bede));
+            $('#best').val(NumberToNumberString(item.Best));
+            $('#nameArz').val(item.ArzCode == '' ? '' : '(' + item.ArzCode + ') ' + item.ArzName);
+            $('#ArzRate').val(item.ArzRate);
+            $('#ArzValue').val(item.ArzValue);
+            $('#nameOpr').val(item.OprCode == '' ? '' : '(' + item.OprCode + ') ' + item.OprName);
+            $('#nameMkz').val(item.MkzCode == '' ? '' : '(' + item.MkzCode + ') ' + item.MkzName);
+            $('#comm').val(item.Comm);
+            $('#bandSpec').val(item.BandSpec);
+
+            $('#CheckNo').val(item.CheckNo);
+            $('#CheckDate').val(item.CheckDate);
+            $('#nameBank').val(item.Bank);
+            $('#nameShobe').val(item.Shobe);
+            $('#nameJari').val(item.Jari);
+            $('#Value').val(item.Value);
+            $('#BaratNo').val(item.BaratNo);
+            $('#checkStatus').val(item.CheckStatus);
+            $('#nameTraf').val(item.TrafCode == '' ? '' : '(' + item.TrafCode + ') ' + item.TrafName);
+            $('#nameTrafZ').val(item.TrafZCode == '' ? '' : '(' + item.TrafZCode + ') ' + item.TrafZName);
+            $('#CheckRadif').val(item.CheckRadif);
+            $('#checkVosoolDate').val(item.CheckVosoolDate);
+            $('#CheckComm').val(item.CheckComm);
+
+            //SearchHesabArry(item.AccCode, self.AccList());
+
+            $('#modal-Band').modal();
+        }
+    };
+
+
+    function SearchHesabArry(Code, myArray) {
+        for (var i = 0; i < myArray.length; i++) {
+            if (myArray[i].Code === Code) {
+                return true;
+            }
+        }
+    }
+
+
+
     //AddADocB
     self.AddADocB = function AddADocB(newADocB) {
+        tarikh = $("#tarikh").val().toEnglishDigit();
+        modeCode = $("#modeCode").val();
+        GetBandNumber();
+        bandnumber = bandnumber;
+        if (Serial == '') {
+            return showNotification('اطلاعات اوليه سند ثبت نشده است', 0);
+        }
+
+        if (tarikh.length != 10) {
+            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification('تاريخ را وارد کنيد', 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+        }
+
+        if (AccCode == '') {
+            return showNotification('حساب را انتخاب کنید', 0);
+        }
+
+        $('#Save').attr('disabled', '');
+
+        var ADocBObject = {
+            SerialNumber: Serial,
+            BandNo: bandnumber,
+            AccCode: ZAccCode == '' ? AccCode : AccCode + '-' + ZAccCode,
+            Bede: SlashToDot($("#bede").val()),
+            Best: SlashToDot($("#best").val()),
+            Comm: $("#comm").val(),
+            BandSpec: $("#bandSpec").val(),
+            CheckNo: $("#CheckNo").val(),
+            CheckDate: $("#CheckDate").val(),
+            Bank: $("#nameBank").val(),
+            Shobe: $("#nameShobe").val(),
+            Jari: $("#nameJari").val(),
+            BaratNo: $("#BaratNo").val(),
+            TrafCode: TrafCode,
+            CheckRadif: $("#CheckRadif").val(),
+            CheckComm: $("#CheckComm").val(),
+            CheckVosoolDate: $("#checkVosoolDate").val(),
+            OprCode: OprCode,
+            MkzCode: MkzCode,
+            ArzCode: ArzCode,
+            ArzRate: $("#ArzRate").val(),
+            ArzValue: $("#ArzValue").val(),
+        };
+        if (self.bundNumberImport > 0) {
+            bandnumber = self.bundNumberImport;
+        }
+
+        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', ADocBObject).done(function (response) {
+            self.ADocBList(response);
+            getADocH(Serial);
+            self.flagupdateband = false;
+            self.bundNumberImport = 0;
+            self.ClearADocB();
+            $('#Save').removeAttr('disabled');
+            showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
+        });
+        $('#Save').removeAttr('disabled');
     };
 
 
     //update ADocB
     self.UpdateADocB = function UpdateADocB(newADocB) {
+        tarikh = $("#tarikh").val().toEnglishDigit();
+        modeCode = $("#modeCode").val();
+        if (Serial == '') {
+            return showNotification('اطلاعات اوليه سند ثبت نشده است', 0);
+        }
 
+        if (tarikh.length != 10) {
+            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification('تاريخ را وارد کنيد', 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+        }
+
+        if (AccCode == '') {
+            return showNotification('حساب را انتخاب کنید', 0);
+        }
+
+        var ADocBObject = {
+            SerialNumber: Serial,
+            BandNo: bandnumberedit,
+            AccCode: ZAccCode == '' ? AccCode : AccCode + '-' + ZAccCode,
+            Bede: SlashToDot($("#bede").val()),
+            Best: SlashToDot($("#best").val()),
+            Comm: $("#comm").val(),
+            BandSpec: $("#bandSpec").val(),
+            CheckNo: $("#CheckNo").val(),
+            CheckDate: $("#CheckDate").val(),
+            Bank: $("#nameBank").val(),
+            Shobe: $("#nameShobe").val(),
+            Jari: $("#nameJari").val(),
+            BaratNo: $("#BaratNo").val(),
+            TrafCode: TrafCode,
+            CheckRadif: $("#CheckRadif").val(),
+            CheckComm: $("#CheckComm").val(),
+            CheckVosoolDate: $("#checkVosoolDate").val(),
+            OprCode: OprCode,
+            MkzCode: MkzCode,
+            ArzCode: ArzCode,
+            ArzRate: $("#ArzRate").val(),
+            ArzValue: $("#ArzValue").val(),
+        };
+        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', ADocBObject).done(function (response) {
+            self.IDocBList(response);
+            getIDocH(Serial);
+            self.flagupdateband = false;
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumberedit + ' ویرایش شد ' });
+            flagFinalSave = false;
+            //if (flagupdateHeader == 1) {
+            //    self.UpdateIDocH();
+            //}
+            $('#modal-Band').modal('hide');
+            self.ClearIDocB();
+            showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+        });
     };
+
+
+    self.DeleteBand = function (SanadBand) {
+
+        Swal.fire({
+            title: 'تایید حذف ؟',
+            text: "آیا بند انتخابی حذف شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + SanadBand.BandNo, 'DELETE').done(function (response) {
+                    self.ADocBList(response);
+                    getADocH(Serial);
+                    flagFinalSave = false;
+                    Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
+                });
+            }
+        })
+    };
+
 
 
     function CreateTableSanad(data) {
@@ -2030,10 +2294,11 @@
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
             CreateTableTh('BandSpec', data) +
+            '<th id="action_headerfactor">عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr>' +
+            '     <tr data-bind="click: $parent.selectSanad">' +
             CreateTableTd('AccFullCode', 0, 0, data) +
             CreateTableTd('AccFullName', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
@@ -2051,6 +2316,17 @@
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('BandSpec', 0, 0, data) +
+            '<td id="action_body">' +
+            '<a data-bind="click: $root.UpdateBand">' +
+            '    <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px" />' +
+            '</a>' +
+            '<a data-bind="click: $root.DeleteBand">' +
+            '    <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20" style="margin-left:10px" />' +
+            '</a>' +
+            '<a data-bind="click: $root.ImportBand" data-toggle="modal" data-target="#modal-Band">' +
+            '    <img src="/Content/img/sanad/streamline-icon-logout-alternate@48x48.png" width="20" height="20" />' +
+            '</a>' +
+            '</td >' +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -2178,6 +2454,7 @@
             CreateTableThCheck('CheckComm', data) +
             CreateTableThCheck('TrafFullCode', data) +
             CreateTableThCheck('TrafFullName', data) +
+            CreateTableThCheck('CheckVosoolDate', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCheck" data-dismiss="modal" style="cursor: default;">' +
@@ -2195,6 +2472,7 @@
             CreateTableTdCheck('CheckComm', 0, 0, data) +
             CreateTableTdCheck('TrafFullCode', 0, 0, data) +
             CreateTableTdCheck('TrafFullName', 0, 0, data) +
+            CreateTableTdCheck('CheckVosoolDate', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -2212,6 +2490,7 @@
             CreateTableTdSearchCheck('CheckComm', data) +
             CreateTableTdSearchCheck('TrafFullCode', data) +
             CreateTableTdSearchCheck('TrafFullName', data) +
+            CreateTableTdSearchCheck('CheckVosoolDate', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

@@ -305,67 +305,6 @@
         }
     }
 
-    /*
-        self.NewFactor = function NewFactor() {
-            self.ClearIDocH();
-            self.IDocBList([]); // ليست اسناد
-            self.IDocHList([]); // لیست اطلاعات تکمیلی سند 
-            $('#foottextsum').text('');
-            $('#foottextamount1').text('');
-            $('#foottextamount2').text('');
-            $('#foottextamount3').text('');
-            $('#foottexttotalprice').text('');
-            $('#sumfactor').val('');
-            $('#ghabelpardakht').val('');
-            sessionStorage.searchIDocH = "";
-            zarib1 = 0;
-            zarib2 = 0;
-            zarib3 = 0;
-            DeghatR1 = 0;
-            DeghatR2 = 0;
-            DeghatR3 = 0;
-            DeghatM1 = 0;
-            DeghatM2 = 0;
-            DeghatM3 = 0;
-            oldAddMinPrice = 0;
-            amountTextUpdate = "";
-            amountValueUpdate = "";
-            IDocHAmount1 = 0;
-            IDocHAmount2 = 0;
-            IDocHAmount3 = 0;
-            IDocHTotalPrice = 0;
-            IDocHFinalPrice = 0;
-            self.bundNumberImport = 0;
-            unitvalue = "";
-            KalaCode = "";
-            kalapricecode = 0;
-            bandnumber = 0;
-            bandnumberedit = 0;
-            flagFinalSave = false;
-            flag = -1;
-            flagInsertIDoch = 0;
-            self.flagupdateband = false;
-            self.SerialNumber();
-            self.DocNoOut();
-            self.DocDate();
-            self.Spec();
-            self.ThvlCode();
-            self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
-            self.InvCode = ko.observable(sessionStorage.InvDefult);//invCode;
-            self.BandNo();
-            self.KalaCode();
-            self.Amount1();
-            self.Amount2();
-            self.Amount3();
-            self.UnitPrice();
-            self.TotalPrice();
-            self.MainUnit();
-            self.Comm();
-            if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
-            //$("#inv").val(sessionStorage.InvDefult);
-            $("#gGhimat").val(sessionStorage.GPriceDefult);
-        };
-        */
 
     self.ClearIDocH = function ClearIDocH() {
         Serial = '';
@@ -1602,78 +1541,8 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-
                 sessionStorage.flagupdateHeader = 0;
-                //invCode = $('#invSelect').val();
-                //sessionStorage.InvCode = invCode;
                 window.location.href = sessionStorage.urlAddIDocH;
-
-                /*
-                self.ClearFDocH();
-                self.FDocBList([]); // ليست فاکتور
-                self.AddMinList([]); // ليست کسورات و افزایشات 
-                self.FDocHList([]); // لیست اطلاعات تکمیلی فاکتور فروش 
-                $('#foottextsum').text('');
-                $('#foottextamount1').text('');
-                $('#foottextamount2').text('');
-                $('#foottextamount3').text('');
-                $('#foottexttotalprice').text('');
-                $('#foottextdiscount').text('');
-                $('#sumfactor').val('');
-                $('#discountCol').val('');
-                $('#ghabelpardakht').val('');
-                sessionStorage.searchFDocH = "";
-                zarib1 = 0;
-                zarib2 = 0;
-                zarib3 = 0;
-                DeghatR1 = 0;
-                DeghatR2 = 0;
-                DeghatR3 = 0;
-                DeghatM1 = 0;
-                DeghatM2 = 0;
-                DeghatM3 = 0;
-                discountCol = 0;
-                oldAddMinPrice = 0;
-                amountTextUpdate = "";
-                amountValueUpdate = "";
-                FDocHAmount1 = 0;
-                FDocHAmount2 = 0;
-                FDocHAmount3 = 0;
-                FDocHTotalPrice = 0;
-                FDocHFinalPrice = 0;
-                FDocHDiscount = 0;
-                self.bundNumberImport = 0;
-                unitvalue = "";
-                KalaCode = "";
-                kalapricecode = 0;
-                bandnumber = 0;
-                bandnumberedit = 0;
-                flagFinalSave = false;
-                flag = -1;
-                flagdiscount = -1;
-                flagInsertFdoch = 0;
-                self.flagupdateband = -1;
-                self.SerialNumber();
-                self.DocNoOut();
-                self.DocDate();
-                self.Spec();
-                self.CustCode();
-                self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
-                self.InvCode = ko.observable(sessionStorage.InvDefult);
-                self.BandNo();
-                self.KalaCode();
-                self.Amount1();
-                self.Amount2();
-                self.Amount3();
-                self.UnitPrice();
-                self.TotalPrice();
-                self.Discount();
-                self.MainUnit();
-                self.Comm();
-                if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
-                //$("#inv").val(sessionStorage.InvDefult);
-                $("#gGhimat").val(sessionStorage.GPriceDefult);
-                */
             }
         })
     });
