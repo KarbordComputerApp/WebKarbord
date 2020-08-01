@@ -407,12 +407,16 @@
         $('#nameZAcc').val('');
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
             if (item.NextLevelFromZAcc == 1) {
-                $('#btnZAcc').removeAttr('hidden', '');
+                $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+                $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
+                $('#panelZAcc').removeAttr('hidden', '');
                 getZAccList(item.ZGru == '' ? null : item.ZGru);
                 $('#modal-ZAcc').modal('show');
             }
             else {
-                $('#btnZAcc').attr('hidden', '');
+                $('#panelZAcc').attr('hidden', '');
+                $("#panelAcc").removeClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
+                $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
                 ZAccCode = '';
             }
 
@@ -425,12 +429,30 @@
             }
 
 
-            if (item.Mkz > 0) {
-                $('#btnMkz').removeAttr('hidden', '');
+
+            if (item.Arzi > 0) {
+                $('#panelArz').removeAttr('hidden', '');
             }
             else {
-                $('#btnMkz').attr('hidden', '');
+                $('#panelArz').attr('hidden', '');
+                $('#panelArz').val('');
+            }
+
+
+            if (item.Mkz > 0) {
+                $('#panelMkz').removeAttr('hidden', '');
+            }
+            else {
+                $('#panelMkz').attr('hidden', '');
                 $('#nameMkz').val('');
+            }
+
+            if (item.Opr > 0) {
+                $('#panelOpr').removeAttr('hidden', '');
+            }
+            else {
+                $('#panelOpr').attr('hidden', '');
+                $('#panelOpr').val('');
             }
 
             $('#nameAcc').val('(' + item.Code + ') ' + item.Name);
@@ -1974,7 +1996,15 @@
     }
 
     self.ButtonADocH = function ButtonADocH(newADocH) {
-        $('#btnZAcc').attr('hidden', '');
+        $('#panelZAcc').attr('hidden', '');
+        $('#panelArz').attr('hidden', '');
+        $('#panelOpr').attr('hidden', '');
+        $('#panelMkz').attr('hidden', '');
+
+        $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+        $('#comm').attr('rows', '18');
+
+
         HiddenCheck();
         self.ClearADocB();
         if (flagInsertADocH == 0) {
@@ -2137,7 +2167,8 @@
         var ADocBObject = {
             SerialNumber: Serial,
             BandNo: bandnumber,
-            AccCode: ZAccCode == '' ? AccCode : AccCode + '-' + ZAccCode,
+            AccCode: AccCode,
+            AccZCode: ZAccCode,
             Bede: SlashToDot($("#bede").val()),
             Best: SlashToDot($("#best").val()),
             Comm: $("#comm").val(),
@@ -2149,8 +2180,10 @@
             Jari: $("#nameJari").val(),
             BaratNo: $("#BaratNo").val(),
             TrafCode: TrafCode,
+            TrafZCode: TrafZCode,
             CheckRadif: $("#CheckRadif").val(),
             CheckComm: $("#CheckComm").val(),
+            CheckStatus: $("#checkStatus").val(),
             CheckVosoolDate: $("#checkVosoolDate").val(),
             OprCode: OprCode,
             MkzCode: MkzCode,
@@ -2207,8 +2240,9 @@
 
         var ADocBObject = {
             SerialNumber: Serial,
-            BandNo: bandnumberedit,
-            AccCode: ZAccCode == '' ? AccCode : AccCode + '-' + ZAccCode,
+            BandNo: bandnumber,
+            AccCode: AccCode,
+            AccZCode: ZAccCode,
             Bede: SlashToDot($("#bede").val()),
             Best: SlashToDot($("#best").val()),
             Comm: $("#comm").val(),
@@ -2220,8 +2254,10 @@
             Jari: $("#nameJari").val(),
             BaratNo: $("#BaratNo").val(),
             TrafCode: TrafCode,
+            TrafZCode: TrafZCode,
             CheckRadif: $("#CheckRadif").val(),
             CheckComm: $("#CheckComm").val(),
+            CheckStatus: $("#checkStatus").val(),
             CheckVosoolDate: $("#checkVosoolDate").val(),
             OprCode: OprCode,
             MkzCode: MkzCode,
@@ -2230,16 +2266,12 @@
             ArzValue: $("#ArzValue").val(),
         };
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', ADocBObject).done(function (response) {
-            self.IDocBList(response);
-            getIDocH(Serial);
+            self.ADocBList(response);
+            getADocH(Serial);
             self.flagupdateband = false;
-            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumberedit + ' ویرایش شد ' });
             flagFinalSave = false;
-            //if (flagupdateHeader == 1) {
-            //    self.UpdateIDocH();
-            //}
             $('#modal-Band').modal('hide');
-            self.ClearIDocB();
+            self.ClearADocB();
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
         });
     };

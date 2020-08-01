@@ -12,17 +12,25 @@ const MODECODE_ADOC_EKH = 3;
 const MODECODE_ADOC_SODZYN = 4;
 
 if (sessionStorage.ace == 'AFI1') {
+    sessionStorage.MODECODE_FDOC_SRD = 0;
     sessionStorage.MODECODE_FDOC_SP = 51;
     sessionStorage.MODECODE_FDOC_S = 52;
     sessionStorage.MODECODE_FDOC_SR = 53;
+    sessionStorage.MODECODE_FDOC_VL = 0;
+    sessionStorage.MODECODE_FDOC_XT = 0;
+    sessionStorage.MODECODE_FDOC_PRD = 0;
     sessionStorage.MODECODE_FDOC_PP = 54;
     sessionStorage.MODECODE_FDOC_P = 55;
     sessionStorage.MODECODE_FDOC_PR = 56;
 
 } else {
+    sessionStorage.MODECODE_FDOC_SRD = 'SORD';
     sessionStorage.MODECODE_FDOC_SP = 'SPFCT';
     sessionStorage.MODECODE_FDOC_S = 'SFCT';
     sessionStorage.MODECODE_FDOC_SR = 'SRFCT';
+    sessionStorage.MODECODE_FDOC_VL = 'SHVL';
+    sessionStorage.MODECODE_FDOC_XT = 'SEXT';
+    sessionStorage.MODECODE_FDOC_PRD = 'PORD';
     sessionStorage.MODECODE_FDOC_PP = 'PPFCT';
     sessionStorage.MODECODE_FDOC_P = 'PFCT';
     sessionStorage.MODECODE_FDOC_PR = 'PRFCT';
@@ -1136,6 +1144,11 @@ $("#ADOC").click(function () {
     sessionStorage.ModeCode = 'ADOC';
 });
 
+$("#FDOC_SRD").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SRD;
+    sessionStorage.InOut = 2; // فروش
+});
+
 $("#FDOC_SP").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SP;
     sessionStorage.InOut = 2; // فروش
@@ -1149,6 +1162,21 @@ $("#FDOC_S").click(function () {
 $("#FDOC_SR").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SR;
     sessionStorage.InOut = 2;// فروش
+});
+
+$("#FDOC_VL").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_VL;
+    sessionStorage.InOut = 2;// فروش
+});
+
+$("#FDOC_XT").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_XT;
+    sessionStorage.InOut = 2;// فروش
+});
+
+$("#FDOC_PRD").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PRD;
+    sessionStorage.InOut = 1;// خرید
 });
 
 $("#FDOC_PP").click(function () {
