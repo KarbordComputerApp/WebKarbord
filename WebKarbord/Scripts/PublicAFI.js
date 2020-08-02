@@ -12,25 +12,25 @@ const MODECODE_ADOC_EKH = 3;
 const MODECODE_ADOC_SODZYN = 4;
 
 if (sessionStorage.ace == 'AFI1') {
-    sessionStorage.MODECODE_FDOC_SRD = 0;
+    sessionStorage.MODECODE_FDOC_SO = 0;
     sessionStorage.MODECODE_FDOC_SP = 51;
     sessionStorage.MODECODE_FDOC_S = 52;
     sessionStorage.MODECODE_FDOC_SR = 53;
-    sessionStorage.MODECODE_FDOC_VL = 0;
-    sessionStorage.MODECODE_FDOC_XT = 0;
-    sessionStorage.MODECODE_FDOC_PRD = 0;
+    sessionStorage.MODECODE_FDOC_SH = 0;
+    sessionStorage.MODECODE_FDOC_SE = 0;
+    sessionStorage.MODECODE_FDOC_PO = 0;
     sessionStorage.MODECODE_FDOC_PP = 54;
     sessionStorage.MODECODE_FDOC_P = 55;
     sessionStorage.MODECODE_FDOC_PR = 56;
 
 } else {
-    sessionStorage.MODECODE_FDOC_SRD = 'SORD';
+    sessionStorage.MODECODE_FDOC_SO = 'SORD';
     sessionStorage.MODECODE_FDOC_SP = 'SPFCT';
     sessionStorage.MODECODE_FDOC_S = 'SFCT';
     sessionStorage.MODECODE_FDOC_SR = 'SRFCT';
-    sessionStorage.MODECODE_FDOC_VL = 'SHVL';
-    sessionStorage.MODECODE_FDOC_XT = 'SEXT';
-    sessionStorage.MODECODE_FDOC_PRD = 'PORD';
+    sessionStorage.MODECODE_FDOC_SH = 'SHVL';
+    sessionStorage.MODECODE_FDOC_SE = 'SEXT';
+    sessionStorage.MODECODE_FDOC_PO = 'PORD';
     sessionStorage.MODECODE_FDOC_PP = 'PPFCT';
     sessionStorage.MODECODE_FDOC_P = 'PFCT';
     sessionStorage.MODECODE_FDOC_PR = 'PRFCT';
@@ -97,7 +97,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 21; i++) {
+for (var i = 0; i <= 25; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -120,6 +120,12 @@ for (var i = 0; i <= 21; i++) {
     afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
     afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
+
+    afiAccessApi[i] == 'SORD' ? afiaccess[22] = true : null;
+    afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
+    afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
+    afiAccessApi[i] == 'PORD' ? afiaccess[25] = true : null;
+
 }
 
 function CheckGroupErj(GroupName) {
@@ -528,7 +534,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 21; i++) {
+                for (var i = 0; i <= 25; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -552,6 +558,10 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
                     afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
 
+                    afiAccessApi[i] == 'SORD' ? afiaccess[22] = true : null;
+                    afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
+                    afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
+                    afiAccessApi[i] == 'PORD' ? afiaccess[25] = true : null;
                 }
 
                 erjaccess = [false, false]
@@ -746,6 +756,30 @@ function SetValidation() {
 
 
 
+    validation = CheckAccess('SORD');
+    ShowMenu[26] = validation;  // سفارش فروش
+
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+        validation = CheckAccess('NEW_SORD');// new sefaresh forosh
+        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation = CheckAccess('CHG_SORD');// edit sefaresh forosh
+        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        validation = CheckAccess('DEL_SORD'); // delete sefaresh forosh
+        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_SORD = true : sessionStorage.DEL_SORD = false
+
+        validation = CheckAccess('OTHERUSER_VIEW_SORD');
+        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
+        validation = CheckAccess('OTHERUSER_CHG_SORD');// AccessViewSanad
+        if (validation == true) {
+            sessionStorage.AccessViewSefareshForosh = true;
+        }
+        else {
+            sessionStorage.AccessViewSefareshForosh = false;
+        }
+    }
+
 
 
     validation = CheckAccess('SPDOC');
@@ -835,6 +869,89 @@ function SetValidation() {
         }
     }
 
+
+    validation = CheckAccess('SHVL');
+    ShowMenu[27] = validation;  // حواله فروش
+
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+        validation = CheckAccess('NEW_SHVL');// new 
+        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation = CheckAccess('CHG_SHVL');// edit
+        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        validation = CheckAccess('DEL_SHVL'); // delete 
+        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_SHVL = true : sessionStorage.DEL_SHVL = false
+
+        validation = CheckAccess('OTHERUSER_VIEW_SHVL');
+        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
+        validation = CheckAccess('OTHERUSER_CHG_SHVL');
+        if (validation == true) {
+            sessionStorage.AccessViewHavaleForosh = true;
+        }
+        else {
+            sessionStorage.AccessViewHavaleForosh = false;
+        }
+    }
+
+
+    validation = CheckAccess('SEXT');
+    ShowMenu[28] = validation;  //برگه خروج 
+
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+        validation = CheckAccess('NEW_SEXT');// new 
+        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation = CheckAccess('CHG_SEXT');// edit 
+        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        validation = CheckAccess('DEL_SEXT'); // delete 
+        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_SEXT = true : sessionStorage.DEL_SEXT = false
+
+        validation = CheckAccess('OTHERUSER_VIEW_SEXT');
+        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
+        validation = CheckAccess('OTHERUSER_CHG_SEXT');
+        if (validation == true) {
+            sessionStorage.AccessViewBargeKhoroj = true;
+        }
+        else {
+            sessionStorage.AccessViewBargeKhoroj = false;
+        }
+    }
+
+
+    validation = CheckAccess('PORD');
+    ShowMenu[29] = validation;  // سفارش خرید
+
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+        validation = CheckAccess('NEW_PORD');// new
+        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation = CheckAccess('CHG_PORD');// edit
+        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        validation = CheckAccess('DEL_PORD'); // delete
+        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        validation == true ? sessionStorage.DEL_PORD = true : sessionStorage.DEL_PORD = false
+
+        validation = CheckAccess('OTHERUSER_VIEW_PORD');
+        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
+        validation = CheckAccess('OTHERUSER_CHG_PORD');
+        if (validation == true) {
+            sessionStorage.AccessViewSefareshKharid = true;
+        }
+        else {
+            sessionStorage.AccessViewSefareshKharid = false;
+        }
+    }
+
+
+
+
+
+
+
+
+
     validation = CheckAccess('PPDOC');
     ShowMenu[6] = validation;  // پیش فاکتور خرید
 
@@ -918,6 +1035,7 @@ function SetValidation() {
     }
 
 
+
     validation = CheckAccess('IIDOC');
     ShowMenu[9] = validation;  // وارده انبار
 
@@ -991,9 +1109,13 @@ function SetValidation() {
             $("#ADOC_Menu").hide();
         }
 
-        if (afiaccess[0] == true || afiaccess[1] == true || afiaccess[2] == true || afiaccess[3] == true || afiaccess[4] == true || afiaccess[5] == true) {
+
+
+
+        if (afiaccess[0] == true || afiaccess[1] == true || afiaccess[2] == true || afiaccess[3] == true || afiaccess[4] == true || afiaccess[5] == true
+            || afiaccess[22] == true || afiaccess[23] == true || afiaccess[24] == true || afiaccess[25] == true) {
             if (ShowMenu[1] || ShowMenu[2]) {
-                if (ShowMenu[3] || ShowMenu[4] || ShowMenu[5] || ShowMenu[6] || ShowMenu[7] || ShowMenu[8]) {
+                if (ShowMenu[3] || ShowMenu[4] || ShowMenu[5] || ShowMenu[6] || ShowMenu[7] || ShowMenu[8] || ShowMenu[26] || ShowMenu[27] || ShowMenu[28] || ShowMenu[29]) {
                     $("#FDOC_Menu").show();
                     (ShowMenu[3] == true) && (afiaccess[0] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
                     (ShowMenu[4] == true) && (afiaccess[1] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
@@ -1001,6 +1123,11 @@ function SetValidation() {
                     (ShowMenu[6] == true) && (afiaccess[3] == true) ? $("#FDOC_PP").show() : $("#FDOC_PP").hide();
                     (ShowMenu[7] == true) && (afiaccess[4] == true) ? $("#FDOC_P").show() : $("#FDOC_P").hide();
                     (ShowMenu[8] == true) && (afiaccess[5] == true) ? $("#FDOC_PR").show() : $("#FDOC_PR").hide();
+
+                    (ShowMenu[26] == true) && (afiaccess[22] == true) ? $("#FDOC_SO").show() : $("#FDOC_SO").hide(); //سفارش فروش
+                    (ShowMenu[27] == true) && (afiaccess[23] == true) ? $("#FDOC_SH").show() : $("#FDOC_SH").hide(); //حواله فروش
+                    (ShowMenu[28] == true) && (afiaccess[24] == true) ? $("#FDOC_SE").show() : $("#FDOC_SE").hide(); //برگه خروج
+                    (ShowMenu[29] == true) && (afiaccess[25] == true) ? $("#FDOC_PO").show() : $("#FDOC_PO").hide();// سفارش خرید 
                 }
                 else {
                     $("#FDOC_Menu").hide();
@@ -1144,8 +1271,8 @@ $("#ADOC").click(function () {
     sessionStorage.ModeCode = 'ADOC';
 });
 
-$("#FDOC_SRD").click(function () {
-    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SRD;
+$("#FDOC_SO").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SO;
     sessionStorage.InOut = 2; // فروش
 });
 
@@ -1164,18 +1291,18 @@ $("#FDOC_SR").click(function () {
     sessionStorage.InOut = 2;// فروش
 });
 
-$("#FDOC_VL").click(function () {
-    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_VL;
+$("#FDOC_SH").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SH;
     sessionStorage.InOut = 2;// فروش
 });
 
-$("#FDOC_XT").click(function () {
-    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_XT;
+$("#FDOC_SE").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SE;
     sessionStorage.InOut = 2;// فروش
 });
 
-$("#FDOC_PRD").click(function () {
-    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PRD;
+$("#FDOC_PO").click(function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PO;
     sessionStorage.InOut = 1;// خرید
 });
 

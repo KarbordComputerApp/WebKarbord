@@ -215,8 +215,8 @@
             //self.InvList(storedNames);
             if (self.InvList().length > 0) {
                 if (flagupdateHeader == 1) {
-                    $("#inv").val(sessionStorage.InvCode);
-                    self.InvCode(sessionStorage.InvCode);
+                   // $("#inv").val(sessionStorage.InvCode);
+                   // self.InvCode(sessionStorage.InvCode);
                 }
                 else {
 

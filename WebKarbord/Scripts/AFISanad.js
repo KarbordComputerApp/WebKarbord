@@ -78,6 +78,7 @@
     self.BankList = ko.observableArray([]); // ليست چک ها
     self.ShobeList = ko.observableArray([]); // ليست چک ها
     self.JariList = ko.observableArray([]); // ليست چک ها
+    self.StatusList = ko.observableArray([]); // وضعیت  
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
@@ -99,9 +100,23 @@
     var ShobeUri = server + '/api/ADocData/Shobe/'; // آدرس لیست شعبه  
     var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری 
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
-    var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت  
+    var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت چک
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت سند 
 
 
+
+
+    //Get Status List
+    function getStatusList() {
+        progName = getProgName('A');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+            self.StatusList(data);
+            if (self.StatusList().length > 0) {
+                if (flagupdateHeader == 1)
+                    $("#status").val(sessionStorage.Status);
+            }
+        });
+    }
 
 
     //Get Acc List
@@ -125,10 +140,9 @@
     function getAModeList() {
         ajaxFunction(AModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.AModeList(data);
-            if (flagupdateHeader == 1)
-                $("#modeCode").val(sessionStorage.ModeCodeValue);
         });
     }
+
 
     //Get Opr List
     function getOprList() {
@@ -231,6 +245,7 @@
     getShobeList();
     getJariList();
     getCheckStatusList(1);
+    getStatusList();
 
     self.ClearADocH = function ClearADocH() {
         Serial = '';
@@ -249,6 +264,8 @@
         self.DocDate(sessionStorage.DocDate);
         self.Spec(sessionStorage.Spec);
         $("#docnoout").text(sessionStorage.DocNo);
+        self.AModeCode(sessionStorage.ModeCodeSanad);
+        $("#modeCode").val(sessionStorage.ModeCodeSanad);
         getADocB(Serial);
         getADocH(Serial);
     }
@@ -268,7 +285,6 @@
         }
 
         $("#textTotal").text('جمع');
-        $("#textMon").text('تفاوت');
         $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
 
@@ -2075,6 +2091,63 @@
 
 
 
+    self.UpdateADocH = function UpdateIDocH(newADocH) {
+      /*  var tarikh = $("#tarikh").val().toEnglishDigit();
+        modeCode = $("#modeCode").val();
+        bandnumber = 0;
+
+        if (tarikh.length != 10) {
+            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification('تاريخ را وارد کنيد', 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+        }
+
+        if (self.DocNoOut == '') {
+            return showNotification('شماره سند را وارد کنيد', 0);
+        }
+
+        var ADocObject = {
+            SerialNumber: 0,//self.SerialNumber(),
+            DocDate: tarikh,//self.DocDate(),
+            mDocDate: 'null',
+            Spec: self.Spec(),
+            DocNoMode: 1,
+            UserCode: sessionStorage.userName,
+            ModeCode: modeCode,
+            InsertMode: 0,
+            DocNo: 0,
+            StartNo: 0,
+            EndNo: 0,
+            BranchCode: 0,
+            Tanzim: sessionStorage.userName,
+            TahieShode: 'null',
+            Eghdam: sessionStorage.userName
+        };
+
+        ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
+            var res = response.split("-");
+            Serial = res[0];
+            DocNoOut = res[1];
+            $('#docnoout').text(DocNoOut);
+            flagInsertADocH = 1;
+        });
+        flagInsertADoc = 1;*/
+    };
+
+
+
     self.selectSanad = function (item) {
         if (self.flagupdateband == true) {
             bandnumberedit = item.BandNo;
@@ -2381,25 +2454,6 @@
             CreateTableTdSum('OprName', 1, data) +
             CreateTableTdSum('BandSpec', 1, data) +
             ' </tr>' +
-            ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('AccFullCode', 3, data) +
-            CreateTableTdSum('AccFullName', 1, data) +
-            CreateTableTdSum('Comm', 1, data) +
-            CreateTableTdSum('MonBede', 2, data) +
-            CreateTableTdSum('MonBest', 2, data) +
-            CreateTableTdSum('CheckNo', 1, data) +
-            CreateTableTdSum('CheckDate', 1, data) +
-            CreateTableTdSum('Bank', 1, data) +
-            CreateTableTdSum('Shobe', 1, data) +
-            CreateTableTdSum('Jari', 1, data) +
-            CreateTableTdSum('TrafFullCode', 1, data) +
-            CreateTableTdSum('TrafFullName', 1, data) +
-            CreateTableTdSum('MkzCode', 1, data) +
-            CreateTableTdSum('MkzName', 1, data) +
-            CreateTableTdSum('OprCode', 1, data) +
-            CreateTableTdSum('OprName', 1, data) +
-            CreateTableTdSum('BandSpec', 1, data) +
-            ' </tr>' +
             '  </tfoot>' +
             '</table >'
         );
@@ -2458,9 +2512,6 @@
                 break;
             case 2:
                 text += 'id="total' + field + '" style="direction: ltr;"></td>'
-                break;
-            case 3:
-                text += 'id="textMon"></td>';
                 break;
         }
         return text;

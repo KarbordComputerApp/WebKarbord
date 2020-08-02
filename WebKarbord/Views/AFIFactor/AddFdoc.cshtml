@@ -722,15 +722,15 @@
                                         عنوان
                                     </th>
                                     <th style="background-color:#d9d9d9; color: black">
-                                        مقدار
+                                        اطلاعات
                                     </th>
                                 </tr>
                             </thead>
 
-                            <tbody data-bind="">
+                            <tbody data-bind="foreach: ExtraFieldsList">
                                 <tr>
-                                    <td> </td>
-                                    <td> </td>
+                                    <td data-bind="text: Name" ></td>
+                                    <td style="padding: 0px 10px;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control"/></td>
                                 </tr>
                             </tbody>
                         </table>

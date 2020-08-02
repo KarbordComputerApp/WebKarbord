@@ -10,7 +10,7 @@
     var allSearchKala = true;
 
     var flagupdateHeader;
-
+    var flagOtherFieldShow;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
@@ -75,6 +75,7 @@
     var flagFinalSave = false;
 
     var flagKalaPrice = false;
+    var ModeCodeExtraFields = '';
 
     var flag = -1;
     var flagdiscount = -1;
@@ -117,36 +118,69 @@
     self.PaymentList = ko.observableArray([]); // ليست نحوه پرداخت 
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
 
+    self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
+
     switch (sessionStorage.ModeCode.toString()) {
+        case sessionStorage.MODECODE_FDOC_SO:
+            $('#TitleHeaderFactor').text('سفارش فروش');
+            $('#TitleBodyFactor').text('سفارش فروش');
+            $('#TitleFooterFactor').text('سفارش فروش');
+            ModeCodeExtraFields = 'FDOCSO';
+            break;
         case sessionStorage.MODECODE_FDOC_SP:
             $('#TitleHeaderFactor').text('پیش فاکتور فروش ');
             $('#TitleBodyFactor').text('پیش فاکتور فروش ');
             $('#TitleFooterFactor').text('پیش فاکتور فروش ');
+            ModeCodeExtraFields = 'FDOCSP';
             break;
         case sessionStorage.MODECODE_FDOC_S:
             $('#TitleHeaderFactor').text('فاکتور فروش ');
             $('#TitleBodyFactor').text('فاکتور فروش ');
             $('#TitleFooterFactor').text('فاکتور فروش ');
+            ModeCodeExtraFields = 'FDOCS';
             break;
         case sessionStorage.MODECODE_FDOC_SR:
             $('#TitleHeaderFactor').text('برگشت از فروش ');
             $('#TitleBodyFactor').text('برگشت از فروش ');
             $('#TitleFooterFactor').text('برگشت از فروش ');
+            ModeCodeExtraFields = 'FDOCSR';
+            break;
+        case sessionStorage.MODECODE_FDOC_SH:
+            $('#TitleHeaderFactor').text('حواله فروش');
+            $('#TitleBodyFactor').text('حواله فروش');
+            $('#TitleFooterFactor').text('حواله فروش');
+            ModeCodeExtraFields = 'FDOCSH';
+            break;
+        case sessionStorage.MODECODE_FDOC_SE:
+            $('#TitleHeaderFactor').text('برگه خروج');
+            $('#TitleBodyFactor').text('برگه خروج');
+            $('#TitleFooterFactor').text('برگه خروج');
+            ModeCodeExtraFields = 'FDOCSE';
+            break;
+        case sessionStorage.MODECODE_FDOC_PO:
+            $('#TitleHeaderFactor').text('سفارش خرید');
+            $('#TitleBodyFactor').text('سفارش خرید');
+            $('#TitleFooterFactor').text('سفارش خرید');
+            ModeCodeExtraFields = 'FDOCPO';
             break;
         case sessionStorage.MODECODE_FDOC_PP:
             $('#TitleHeaderFactor').text('پیش فاکتور خرید ');
             $('#TitleBodyFactor').text('پیش فاکتور خرید ');
             $('#TitleFooterFactor').text('پیش فاکتور خرید ');
+            ModeCodeExtraFields = 'FDOCPP';
             break;
         case sessionStorage.MODECODE_FDOC_P:
             $('#TitleHeaderFactor').text('فاکتور خرید ');
             $('#TitleBodyFactor').text('فاکتور خرید ');
             $('#TitleFooterFactor').text('فاکتور خرید ');
+            ModeCodeExtraFields = 'FDOCP';
             break;
         case sessionStorage.MODECODE_FDOC_PR:
             $('#TitleHeaderFactor').text('برگشت از خرید ');
             $('#TitleBodyFactor').text('برگشت از خرید ');
             $('#TitleFooterFactor').text('برگشت از خرید ');
+            ModeCodeExtraFields = 'FDOCPR';
+            break;
     }
 
     if (sessionStorage.InOut == 2) {
@@ -187,6 +221,15 @@
     var PaymentUri = server + '/api/Web_Data/Payment/'; // آدرس نحوه پرداخت 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
 
+    var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
+
+
+    //Get ExtraFields List
+    function getExtraFieldsList() {
+       ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
+            self.ExtraFieldsList(data);
+        });
+    }
 
     //Get Cust List
     function getCustList() {
@@ -971,6 +1014,7 @@
         getFDocHLastDate();
     }
 
+    getExtraFieldsList();
     getCustList();
     getKalaList();
 
@@ -985,57 +1029,7 @@
     getStatusList();
 
 
-    if (flagupdateHeader == 1) {
-        flagInsertFdoch = 1;
-        Serial = sessionStorage.SerialNumber;
-        self.SerialNumber(Serial);
-        self.DocNoOut(sessionStorage.DocNo);
-        self.DocDate(sessionStorage.DocDate);
-        self.Spec(sessionStorage.Spec);
-        codeCust = sessionStorage.CustCode;
-        self.CustCode(sessionStorage.CustCode);
-        self.PriceCode(sessionStorage.PriceCode);
-        kalapricecode = sessionStorage.PriceCode;
-        self.InvCode(sessionStorage.InvCode);
-        $("#docnoout").text(sessionStorage.DocNo);
-        $('#textnumberfactor').show();
-        //$('#ghabelpardakht').text('');
-        $('#nameHesab').val(sessionStorage.CustCode == '' ? '' : '(' + sessionStorage.CustCode + ') ' + sessionStorage.CustName);
-        //$("#gGhimat").val(sessionStorage.PriceCode);
-
-        getFDocH(Serial);
-        getFDocB(Serial);
-
-        getAddMinList(
-            sessionStorage.sels,
-            Serial,
-            sessionStorage.CustCode,
-            1,
-            sessionStorage.AddMinSpec1,
-            sessionStorage.AddMinSpec2,
-            sessionStorage.AddMinSpec3,
-            sessionStorage.AddMinSpec4,
-            sessionStorage.AddMinSpec5,
-            sessionStorage.AddMinSpec6,
-            sessionStorage.AddMinSpec7,
-            sessionStorage.AddMinSpec8,
-            sessionStorage.AddMinSpec9,
-            sessionStorage.AddMinSpec10,
-            sessionStorage.AddMin1,
-            sessionStorage.AddMin2,
-            sessionStorage.AddMin3,
-            sessionStorage.AddMin4,
-            sessionStorage.AddMin5,
-            sessionStorage.AddMin6,
-            sessionStorage.AddMin7,
-            sessionStorage.AddMin8,
-            sessionStorage.AddMin9,
-            sessionStorage.AddMin10);
-        $("#footer").val(sessionStorage.Footer);
-        //sessionStorage.flagupdateHeader = 0;
-    }
-
-    //$(document).ready(function () { });
+      //$(document).ready(function () { });
     //------------------------------------------------------
     self.currentPageHesab = ko.observable();
     self.currentPageKala = ko.observable();
@@ -2053,6 +2047,16 @@
 
     $.fn.CheckAccess = function () {
 
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+            if (sessionStorage.AccessViewSefareshForosh == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
             if (sessionStorage.AccessViewPishFactorForosh == 'true') {
                 viewAction = true;
@@ -2083,6 +2087,51 @@
                 }
             }
         }
+
+
+
+
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+            if (sessionStorage.AccessViewHavaleForosh == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+            if (sessionStorage.AccessViewBargeKhoroj == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+            if (sessionStorage.AccessViewSefareshKharid == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
@@ -2168,6 +2217,84 @@
             }
         }
     });
+
+    if (flagupdateHeader == 1) {
+        flagInsertFdoch = 1;
+        Serial = sessionStorage.SerialNumber;
+        self.SerialNumber(Serial);
+        self.DocNoOut(sessionStorage.DocNo);
+        self.DocDate(sessionStorage.DocDate);
+        self.Spec(sessionStorage.Spec);
+        codeCust = sessionStorage.CustCode;
+        self.CustCode(sessionStorage.CustCode);
+        self.PriceCode(sessionStorage.PriceCode);
+        kalapricecode = sessionStorage.PriceCode;
+        self.InvCode(sessionStorage.InvCode);
+        $("#docnoout").text(sessionStorage.DocNo);
+        $('#textnumberfactor').show();
+        //$('#ghabelpardakht').text('');
+        $('#nameHesab').val(sessionStorage.CustCode == '' ? '' : '(' + sessionStorage.CustCode + ') ' + sessionStorage.CustName);
+        //$("#gGhimat").val(sessionStorage.PriceCode);
+
+        getFDocH(Serial);
+        getFDocB(Serial);
+
+        getAddMinList(
+            sessionStorage.sels,
+            Serial,
+            sessionStorage.CustCode,
+            1,
+            sessionStorage.AddMinSpec1,
+            sessionStorage.AddMinSpec2,
+            sessionStorage.AddMinSpec3,
+            sessionStorage.AddMinSpec4,
+            sessionStorage.AddMinSpec5,
+            sessionStorage.AddMinSpec6,
+            sessionStorage.AddMinSpec7,
+            sessionStorage.AddMinSpec8,
+            sessionStorage.AddMinSpec9,
+            sessionStorage.AddMinSpec10,
+            sessionStorage.AddMin1,
+            sessionStorage.AddMin2,
+            sessionStorage.AddMin3,
+            sessionStorage.AddMin4,
+            sessionStorage.AddMin5,
+            sessionStorage.AddMin6,
+            sessionStorage.AddMin7,
+            sessionStorage.AddMin8,
+            sessionStorage.AddMin9,
+            sessionStorage.AddMin10);
+        $("#footer").val(sessionStorage.Footer);
+        flagOtherFieldShow = true;
+        //sessionStorage.flagupdateHeader = 0;
+    }
+
+    $('#modal-OtherField').on('shown.bs.modal', function () {
+        if (flagOtherFieldShow == true) {
+            $("#ExtraFields1").val(sessionStorage.F01);
+            $("#ExtraFields2").val(sessionStorage.F02);
+            $("#ExtraFields3").val(sessionStorage.F03);
+            $("#ExtraFields4").val(sessionStorage.F04);
+            $("#ExtraFields5").val(sessionStorage.F05);
+            $("#ExtraFields6").val(sessionStorage.F06);
+            $("#ExtraFields7").val(sessionStorage.F07);
+            $("#ExtraFields8").val(sessionStorage.F08);
+            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields10").val(sessionStorage.F10);
+            $("#ExtraFields11").val(sessionStorage.F11);
+            $("#ExtraFields12").val(sessionStorage.F12);
+            $("#ExtraFields13").val(sessionStorage.F13);
+            $("#ExtraFields14").val(sessionStorage.F14);
+            $("#ExtraFields15").val(sessionStorage.F15);
+            $("#ExtraFields16").val(sessionStorage.F16);
+            $("#ExtraFields17").val(sessionStorage.F17);
+            $("#ExtraFields18").val(sessionStorage.F18);
+            $("#ExtraFields19").val(sessionStorage.F19);
+            $("#ExtraFields20").val(sessionStorage.F20);
+            flagOtherFieldShow = false;
+        }
+    });
+
 
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
 };
