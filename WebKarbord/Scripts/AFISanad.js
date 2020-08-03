@@ -30,6 +30,7 @@
     var allSearchAcc = true;
     var allSearchAcc = true;
     var Serial = '';
+    var PDModeAcc = 0;
     self.flagupdateband = false;
 
     self.AModeCode = ko.observable();
@@ -106,6 +107,7 @@
 
 
 
+
     //Get Status List
     function getStatusList() {
         progName = getProgName('A');
@@ -159,8 +161,8 @@
     }
 
     //Get CheckList List
-    function getCheckList() {
-        ajaxFunction(CheckUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+    function getCheckList(PDMode) {
+        ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
             self.CheckList(data);
         });
     }
@@ -222,6 +224,9 @@
 
     //Get ADocH 
     function getADocH(serialNumber) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.ADocHList(data);
+        });
 
     }
 
@@ -240,7 +245,6 @@
     getOprList();
     getArzList();
     getMkzList();
-    getCheckList();
     getBankList();
     getShobeList();
     getJariList();
@@ -267,7 +271,8 @@
         self.AModeCode(sessionStorage.ModeCodeSanad);
         $("#modeCode").val(sessionStorage.ModeCodeSanad);
         getADocB(Serial);
-        getADocH(Serial);
+        //$("#TafavotSanad").text(NumberToNumberString(TafavotSanad));
+        //getADocH(Serial);
     }
     else {
         flagInsertADocH = 0;
@@ -278,16 +283,17 @@
     function calcsum(list) {
         totalBede = 0;
         totalBest = 0;
-        for (var i = 0; i < list.length; ++i) {
+        for (var i = 0; i < list.length ; ++i) {
             ADocBData = list[i];
             totalBede += ADocBData.Bede;
             totalBest += ADocBData.Best;
         }
 
         $("#textTotal").text('جمع');
-        $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
-        $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
-
+        $("#totalBede").text(NumberToNumberString(totalBede));
+        $("#totalBest").text(NumberToNumberString(totalBest));
+        $("#TafavotSanad").val(NumberToNumberString(totalBede - totalBest));
+        $('#panelTafavot').removeClass('focused');
     }
 
 
@@ -436,8 +442,10 @@
                 ZAccCode = '';
             }
 
-
+            PDModeAcc = item.PDMode;
             if (item.PDMode > 0) {
+               
+                getCheckList(PDModeAcc);
                 ShowCheck();
             }
             else {
@@ -1870,7 +1878,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getCheckList();
+                getCheckList(PDModeAcc);
                 $("div.loadingZone").hide();
             }
         })
@@ -2092,58 +2100,58 @@
 
 
     self.UpdateADocH = function UpdateIDocH(newADocH) {
-      /*  var tarikh = $("#tarikh").val().toEnglishDigit();
-        modeCode = $("#modeCode").val();
-        bandnumber = 0;
-
-        if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
-        }
-
-        if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
-        }
-
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
-        }
-        else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
-        }
-
-        if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
-        }
-
-        if (self.DocNoOut == '') {
-            return showNotification('شماره سند را وارد کنيد', 0);
-        }
-
-        var ADocObject = {
-            SerialNumber: 0,//self.SerialNumber(),
-            DocDate: tarikh,//self.DocDate(),
-            mDocDate: 'null',
-            Spec: self.Spec(),
-            DocNoMode: 1,
-            UserCode: sessionStorage.userName,
-            ModeCode: modeCode,
-            InsertMode: 0,
-            DocNo: 0,
-            StartNo: 0,
-            EndNo: 0,
-            BranchCode: 0,
-            Tanzim: sessionStorage.userName,
-            TahieShode: 'null',
-            Eghdam: sessionStorage.userName
-        };
-
-        ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
-            var res = response.split("-");
-            Serial = res[0];
-            DocNoOut = res[1];
-            $('#docnoout').text(DocNoOut);
-            flagInsertADocH = 1;
-        });
-        flagInsertADoc = 1;*/
+        /*  var tarikh = $("#tarikh").val().toEnglishDigit();
+          modeCode = $("#modeCode").val();
+          bandnumber = 0;
+  
+          if (tarikh.length != 10) {
+              return showNotification('تاريخ را صحيح وارد کنيد', 0);
+          }
+  
+          if (tarikh == '') {
+              return showNotification('تاريخ را وارد کنيد', 0);
+          }
+  
+          if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+          }
+          else {
+              return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+          }
+  
+          if (modeCode == '') {
+              return showNotification('نوع سند را انتخاب کنید', 0);
+          }
+  
+          if (self.DocNoOut == '') {
+              return showNotification('شماره سند را وارد کنيد', 0);
+          }
+  
+          var ADocObject = {
+              SerialNumber: 0,//self.SerialNumber(),
+              DocDate: tarikh,//self.DocDate(),
+              mDocDate: 'null',
+              Spec: self.Spec(),
+              DocNoMode: 1,
+              UserCode: sessionStorage.userName,
+              ModeCode: modeCode,
+              InsertMode: 0,
+              DocNo: 0,
+              StartNo: 0,
+              EndNo: 0,
+              BranchCode: 0,
+              Tanzim: sessionStorage.userName,
+              TahieShode: 'null',
+              Eghdam: sessionStorage.userName
+          };
+  
+          ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
+              var res = response.split("-");
+              Serial = res[0];
+              DocNoOut = res[1];
+              $('#docnoout').text(DocNoOut);
+              flagInsertADocH = 1;
+          });
+          flagInsertADoc = 1;*/
     };
 
 
@@ -2152,7 +2160,9 @@
         if (self.flagupdateband == true) {
             bandnumberedit = item.BandNo;
             AccCode = item.AccCode;
-            if (item.CheckNo > 0) {
+            PDModeAcc = item.PDMode;
+
+            if (PDModeAcc > 0) {
                 ShowCheck();
             }
             else {
@@ -2202,6 +2212,28 @@
     }
 
 
+    $("#bede").keyup(function (e) {
+        $("#best").val(0);
+        bede = SlashToDot($("#bede").val());
+        clacArz(ArzCode, ArzRate,bede)
+        if (ArzCode != '' && bede > 0) {
+            ArzRate = SlashToDot($("#ArzRate").val());
+            if (ArzRate > 0) {
+                $("#ArzValue").val(NumberToNumberString(bede / ArzRate)); 
+            }
+        }
+    });
+
+    $("#best").keyup(function (e) {
+        $("#bede").val(0);
+        best = SlashToDot($("#best").val());
+        if (ArzCode != '' && best > 0) {
+            ArzRate = SlashToDot($("#ArzRate").val());
+            if (ArzRate > 0) {
+                $("#ArzValue").val(NumberToNumberString(best / ArzRate));
+            }
+        }
+    });
 
     //AddADocB
     self.AddADocB = function AddADocB(newADocB) {
@@ -2270,7 +2302,8 @@
 
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', ADocBObject).done(function (response) {
             self.ADocBList(response);
-            getADocH(Serial);
+            //getADocH(Serial);
+            calcsum(response);
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             self.ClearADocB();
@@ -2340,7 +2373,8 @@
         };
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', ADocBObject).done(function (response) {
             self.ADocBList(response);
-            getADocH(Serial);
+            // getADocH(Serial);
+            calcsum(response);
             self.flagupdateband = false;
             flagFinalSave = false;
             $('#modal-Band').modal('hide');
@@ -2366,7 +2400,7 @@
             if (result.value) {
                 ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + SanadBand.BandNo, 'DELETE').done(function (response) {
                     self.ADocBList(response);
-                    getADocH(Serial);
+                    //getADocH(Serial);
                     flagFinalSave = false;
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
                 });
@@ -2631,8 +2665,6 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
-
-
 };
 
 ko.applyBindings(new ViewModel());

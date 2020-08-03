@@ -41,7 +41,6 @@
             <div class="body">
                 <form class="clearfix">
                     <div class="row ">
-
                         <div class="col-sm-3" id="ViewAMode">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                 <span class="col-md-3">
@@ -53,7 +52,6 @@
                                    optionsValue: 'Code',
                                    value: AModeCode"></select>
                                 </div>
-
                             </div>
                         </div>
 
@@ -83,12 +81,12 @@
                 <div class="card" style="margin-top: 0px; margin-left: 0px;">
                     <div class="header">
                     </div>
-                    <div class="body">
+                    <div class="body" style="padding-bottom: 20px;">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea rows="4" id="footer" class="form-control no-resize auto-growth string" placeholder="زیر نویس" style="overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
+                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string" placeholder="زیر نویس" style="overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -110,14 +108,13 @@
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="card" style="margin-top: 0px;">
-                    <div class="header">
+                    <div class="header" style="margin-top: 0px;padding-top: 0px; padding-bottom: 10px;">
                     </div>
-                    <div class="body" style="padding-left: 15px;padding-right: 15px; padding-bottom: 35px;">
-                        
+                    <div class="body" style="padding-left: 15px;padding-right: 15px;padding-bottom: 15px;">
                         <div class="form-group form-float" style="margin-bottom: 15px;">
-                            <div class="form-line focused">
+                            <div id="panelTafavot" class="form-line">
                                 <input id="TafavotSanad" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled">
-                                <label class="form-label active" style="color: #404852;">تفاوت سند</label>
+                                <label class="form-label" style="color: #404852;">تفاوت سند</label>
                             </div>
                         </div>
 
@@ -231,7 +228,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group form-float">
                                             <div class="form-line focused fix">
-                                                <input id="ArzValue" class="form-control float" type="text">
+                                                <input id="ArzValue" class="form-control float" type="text" readonly>
                                                 <label class="form-label" for="">مبلغ ارز</label>
                                             </div>
                                         </div>
@@ -516,7 +513,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">لیست حساب ها</h4>
-                <a id="refreshacc">
+                <a id="refreshAcc">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
                 </a>
             </div>

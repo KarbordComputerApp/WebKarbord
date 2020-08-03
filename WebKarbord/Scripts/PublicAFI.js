@@ -22,7 +22,10 @@ if (sessionStorage.ace == 'AFI1') {
     sessionStorage.MODECODE_FDOC_PP = 54;
     sessionStorage.MODECODE_FDOC_P = 55;
     sessionStorage.MODECODE_FDOC_PR = 56;
-
+    $('#FDOC_SO').attr('hidden', '');
+    $('#FDOC_SH').attr('hidden', '');
+    $('#FDOC_SE').attr('hidden', '');
+    $('#FDOC_PO').attr('hidden', '');
 } else {
     sessionStorage.MODECODE_FDOC_SO = 'SORD';
     sessionStorage.MODECODE_FDOC_SP = 'SPFCT';
@@ -34,6 +37,10 @@ if (sessionStorage.ace == 'AFI1') {
     sessionStorage.MODECODE_FDOC_PP = 'PPFCT';
     sessionStorage.MODECODE_FDOC_P = 'PFCT';
     sessionStorage.MODECODE_FDOC_PR = 'PRFCT';
+    $('#FDOC_SO').removeAttr('hidden', '');
+    $('#FDOC_SH').removeAttr('hidden', '');
+    $('#FDOC_SE').removeAttr('hidden', '');
+    $('#FDOC_PO').removeAttr('hidden', '');
 }
 
 
