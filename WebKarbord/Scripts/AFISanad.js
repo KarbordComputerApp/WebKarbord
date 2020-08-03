@@ -2215,7 +2215,7 @@
     $("#bede").keyup(function (e) {
         $("#best").val(0);
         bede = SlashToDot($("#bede").val());
-        clacArz(ArzCode, ArzRate,bede)
+        //clacArz(ArzCode, ArzRate,bede)
         if (ArzCode != '' && bede > 0) {
             ArzRate = SlashToDot($("#ArzRate").val());
             if (ArzRate > 0) {
@@ -2346,7 +2346,7 @@
 
         var ADocBObject = {
             SerialNumber: Serial,
-            BandNo: bandnumber,
+            BandNo: bandnumberedit,
             AccCode: AccCode,
             AccZCode: ZAccCode,
             Bede: SlashToDot($("#bede").val()),
