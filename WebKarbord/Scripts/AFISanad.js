@@ -1700,8 +1700,6 @@
     });
 
 
-
-
     self.currentPageCheck = ko.observable();
     self.pageSizeCheck = ko.observable(10);
     self.currentPageIndexCheck = ko.observable(0);
@@ -1919,19 +1917,6 @@
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     self.ClearADocB = function ClearADocB() {
         $('#nameAcc').val('');
         $('#nameZAcc').val('');
@@ -1967,11 +1952,6 @@
         OprCode = "";
         MkzCode = "";
     };
-
-
-
-
-
 
 
     $('#modal-Band').on('show.bs.modal', function () {
@@ -2258,15 +2238,12 @@
                 ZAccCode = '';
             }
 
-
-
             if (PDModeAcc > 0) {
                 ShowCheck();
             }
             else {
                 HiddenCheck();
             }
-
 
             if (item.Arzi > 0) {
                 $('#panelArz').removeAttr('hidden', '');
@@ -2293,10 +2270,6 @@
                 $('#panelOpr').val('');
             }
 
-
-
-
-
             $('#nameAcc').val('(' + item.AccCode + ') ' + item.AccName);
             $('#nameZAcc').val(item.AccZCode == '' ? '' : '(' + item.AccZCode + ') ' + item.AccZName);
             $('#bede').val(NumberToNumberString(item.Bede));
@@ -2322,8 +2295,6 @@
             $('#CheckRadif').val(item.CheckRadif);
             $('#checkVosoolDate').val(item.CheckVosoolDate);
             $('#CheckComm').val(item.CheckComm);
-
-            //SearchHesabArry(item.AccCode, self.AccList());
 
             $('#modal-Band').modal();
         }
