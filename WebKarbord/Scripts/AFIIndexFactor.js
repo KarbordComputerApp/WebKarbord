@@ -506,7 +506,7 @@
     self.ShowAction = function (Eghdam) {
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-            if (sessionStorage.DEL_SORD == 'true') {
+            if (sessionStorage.DEL_SFORD == 'true') {
                 if (sessionStorage.AccessViewSefareshForosh == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
@@ -590,7 +590,7 @@
         }
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-            if (sessionStorage.DEL_PORD == 'true') {
+            if (sessionStorage.DEL_PFORD == 'true') {
                 if (sessionStorage.AccessViewSefareshKharid == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }

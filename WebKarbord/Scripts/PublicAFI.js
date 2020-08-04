@@ -128,10 +128,10 @@ for (var i = 0; i <= 25; i++) {
     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
     afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
 
-    afiAccessApi[i] == 'SORD' ? afiaccess[22] = true : null;
+    afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
     afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
     afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-    afiAccessApi[i] == 'PORD' ? afiaccess[25] = true : null;
+    afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
 
 }
 
@@ -565,10 +565,10 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
                     afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
 
-                    afiAccessApi[i] == 'SORD' ? afiaccess[22] = true : null;
+                    afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
                     afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
                     afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-                    afiAccessApi[i] == 'PORD' ? afiaccess[25] = true : null;
+                    afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
                 }
 
                 erjaccess = [false, false]
@@ -763,22 +763,22 @@ function SetValidation() {
 
 
 
-    validation = CheckAccess('SORD');
+    validation = CheckAccess('SFORD');
     ShowMenu[26] = validation;  // سفارش فروش
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-        validation = CheckAccess('NEW_SORD');// new sefaresh forosh
+        validation = CheckAccess('NEW_SFORD');// new sefaresh forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation = CheckAccess('CHG_SORD');// edit sefaresh forosh
+        validation = CheckAccess('CHG_SFORD');// edit sefaresh forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation = CheckAccess('DEL_SORD'); // delete sefaresh forosh
+        validation = CheckAccess('DEL_SFORD'); // delete sefaresh forosh
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_SORD = true : sessionStorage.DEL_SORD = false
+        validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
 
-        validation = CheckAccess('OTHERUSER_VIEW_SORD');
+        validation = CheckAccess('OTHERUSER_VIEW_SFORD');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        validation = CheckAccess('OTHERUSER_CHG_SORD');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_SFORD');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewSefareshForosh = true;
         }
@@ -927,22 +927,22 @@ function SetValidation() {
     }
 
 
-    validation = CheckAccess('PORD');
+    validation = CheckAccess('PFORD');
     ShowMenu[29] = validation;  // سفارش خرید
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-        validation = CheckAccess('NEW_PORD');// new
+        validation = CheckAccess('NEW_PFORD');// new
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation = CheckAccess('CHG_PORD');// edit
+        validation = CheckAccess('CHG_PFORD');// edit
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation = CheckAccess('DEL_PORD'); // delete
+        validation = CheckAccess('DEL_PFORD'); // delete
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_PORD = true : sessionStorage.DEL_PORD = false
+        validation == true ? sessionStorage.DEL_PFORD = true : sessionStorage.DEL_PFORD = false
 
-        validation = CheckAccess('OTHERUSER_VIEW_PORD');
+        validation = CheckAccess('OTHERUSER_VIEW_PFORD');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        validation = CheckAccess('OTHERUSER_CHG_PORD');
+        validation = CheckAccess('OTHERUSER_CHG_PFORD');
         if (validation == true) {
             sessionStorage.AccessViewSefareshKharid = true;
         }
