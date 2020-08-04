@@ -283,7 +283,7 @@
     function calcsum(list) {
         totalBede = 0;
         totalBest = 0;
-        for (var i = 0; i < list.length ; ++i) {
+        for (var i = 0; i < list.length; ++i) {
             ADocBData = list[i];
             totalBede += ADocBData.Bede;
             totalBest += ADocBData.Best;
@@ -444,7 +444,7 @@
 
             PDModeAcc = item.PDMode;
             if (item.PDMode > 0) {
-               
+
                 getCheckList(PDModeAcc);
                 ShowCheck();
             }
@@ -1958,6 +1958,14 @@
         $('#CheckRadif').val('');
         $('#checkVosoolDate').val('');
         $('#CheckComm').val('');
+
+        AccCode = "";
+        ZAccCode = "";
+        TrafCode = "";
+        TrafZCode = "";
+        ArzCode = "";
+        OprCode = "";
+        MkzCode = "";
     };
 
 
@@ -1990,6 +1998,18 @@
 
 
     self.ImportBand = function (item) {
+
+
+        $('#panelZAcc').attr('hidden', '');
+        $('#panelArz').attr('hidden', '');
+        $('#panelOpr').attr('hidden', '');
+        $('#panelMkz').attr('hidden', '');
+
+        $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+        $('#comm').attr('rows', '18');
+
+
+        HiddenCheck();
         self.ClearADocB();
         self.flagupdateband = false;
         self.bundNumberImport = item.BandNo;
@@ -2035,7 +2055,8 @@
             AddADocH(newADocH);
             flagInsertADocH == 1 ? $('#modal-Band').modal() : null
         } else {
-            $('#modal-Band').modal()
+
+            $('#modal-Band').modal();
         }
     }
 
@@ -2044,6 +2065,7 @@
         var tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
         bandnumber = 0;
+        status = $("#status").val();
 
         if (tarikh.length != 10) {
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -2067,24 +2089,45 @@
             return showNotification('شماره سند را وارد کنيد', 0);
         }
 
-
-
         var ADocObject = {
-            SerialNumber: 0,//self.SerialNumber(),
-            DocDate: tarikh,//self.DocDate(),
-            mDocDate: 'null',
-            Spec: self.Spec(),
             DocNoMode: 1,
-            UserCode: sessionStorage.userName,
-            ModeCode: modeCode,
             InsertMode: 0,
+            ModeCode: modeCode,
             DocNo: 0,
             StartNo: 0,
             EndNo: 0,
+            SerialNumber: 0,
+            DocDate: tarikh,
             BranchCode: 0,
+            UserCode: sessionStorage.userName,
             Tanzim: sessionStorage.userName,
-            TahieShode: 'null',
-            Eghdam: sessionStorage.userName
+            Taeed: status == "تاييد" ? sessionStorage.userName : 'null',
+            Tasvib: '',
+            TahieShode: sessionStorage.ace,
+            Eghdam: sessionStorage.userName,
+            Status: status,
+            Spec: self.Spec(),
+            Footer: $("#footer").val(),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()
         };
 
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
@@ -2099,59 +2142,92 @@
 
 
 
-    self.UpdateADocH = function UpdateIDocH(newADocH) {
-        /*  var tarikh = $("#tarikh").val().toEnglishDigit();
-          modeCode = $("#modeCode").val();
-          bandnumber = 0;
-  
-          if (tarikh.length != 10) {
-              return showNotification('تاريخ را صحيح وارد کنيد', 0);
-          }
-  
-          if (tarikh == '') {
-              return showNotification('تاريخ را وارد کنيد', 0);
-          }
-  
-          if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
-          }
-          else {
-              return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
-          }
-  
-          if (modeCode == '') {
-              return showNotification('نوع سند را انتخاب کنید', 0);
-          }
-  
-          if (self.DocNoOut == '') {
-              return showNotification('شماره سند را وارد کنيد', 0);
-          }
-  
-          var ADocObject = {
-              SerialNumber: 0,//self.SerialNumber(),
-              DocDate: tarikh,//self.DocDate(),
-              mDocDate: 'null',
-              Spec: self.Spec(),
-              DocNoMode: 1,
-              UserCode: sessionStorage.userName,
-              ModeCode: modeCode,
-              InsertMode: 0,
-              DocNo: 0,
-              StartNo: 0,
-              EndNo: 0,
-              BranchCode: 0,
-              Tanzim: sessionStorage.userName,
-              TahieShode: 'null',
-              Eghdam: sessionStorage.userName
-          };
-  
-          ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
-              var res = response.split("-");
-              Serial = res[0];
-              DocNoOut = res[1];
-              $('#docnoout').text(DocNoOut);
-              flagInsertADocH = 1;
-          });
-          flagInsertADoc = 1;*/
+    self.UpdateADocH = function UpdateADocH(newADocH) {
+
+        var tarikh = $("#tarikh").val().toEnglishDigit();
+        modeCode = $("#modeCode").val();
+        status = $("#status").val();
+
+        if (tarikh.length != 10) {
+            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification('تاريخ را وارد کنيد', 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification('نوع سند را انتخاب کنید', 0);
+        }
+
+        if (self.DocNoOut == '') {
+            return showNotification('شماره سند را وارد کنيد', 0);
+        }
+
+        if ($('#docnoout').text() == '0') {
+            return showNotification('ابتدا بند ها وارد کنید', 0);
+        }
+
+
+        if ($('#TafavotSanad').val() != '0') {
+            return showNotification('سند تراز نیست', 0);
+        }
+
+        var ADocObject = {
+            SerialNumber: Serial,
+            ModeCode: modeCode,
+            DocNo: $("#docnoout").text(),
+            DocDate: tarikh,
+            BranchCode: 0,
+            UserCode: sessionStorage.userName,
+            Tanzim: sessionStorage.userName,
+            Taeed: status == "تاييد" ? sessionStorage.userName : 'null',
+            Tasvib: '',
+            TahieShode: sessionStorage.ace,
+            Status: status,
+            Spec: self.Spec(),
+            Footer: $("#footer").val(),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()
+        };
+
+        ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
+            sessionStorage.searchADocH = Serial;
+            getADocH(Serial);
+
+            if (flagupdateHeader == 1) {
+                sessionStorage.flagupdateHeader = 0;
+                flagupdateHeader = 0;
+                window.location.href = sessionStorage.urlADocH;
+            }
+            else {
+                Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
+            }
+        });
     };
 
 
@@ -2160,7 +2236,29 @@
         if (self.flagupdateband == true) {
             bandnumberedit = item.BandNo;
             AccCode = item.AccCode;
+            AccZCode = item.AccZCode;
+            ArzCode = item.ArzCode;
+            OprCode = item.OprCode;
+            MkzCode = item.MkzCode;
+            TrafCode = item.TrafCode;
+            TrafZCode = item.TrafZCode;
             PDModeAcc = item.PDMode;
+
+            if (item.NextLevelFromZAcc == 1) {
+                $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+                $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
+                $('#panelZAcc').removeAttr('hidden', '');
+                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                $('#modal-ZAcc').modal('show');
+            }
+            else {
+                $('#panelZAcc').attr('hidden', '');
+                $("#panelAcc").removeClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
+                $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+                ZAccCode = '';
+            }
+
+
 
             if (PDModeAcc > 0) {
                 ShowCheck();
@@ -2169,9 +2267,38 @@
                 HiddenCheck();
             }
 
+
+            if (item.Arzi > 0) {
+                $('#panelArz').removeAttr('hidden', '');
+            }
+            else {
+                $('#panelArz').attr('hidden', '');
+                $('#panelArz').val('');
+            }
+
+
+            if (item.Mkz > 0) {
+                $('#panelMkz').removeAttr('hidden', '');
+            }
+            else {
+                $('#panelMkz').attr('hidden', '');
+                $('#nameMkz').val('');
+            }
+
+            if (item.Opr > 0) {
+                $('#panelOpr').removeAttr('hidden', '');
+            }
+            else {
+                $('#panelOpr').attr('hidden', '');
+                $('#panelOpr').val('');
+            }
+
+
+
+
+
             $('#nameAcc').val('(' + item.AccCode + ') ' + item.AccName);
             $('#nameZAcc').val(item.AccZCode == '' ? '' : '(' + item.AccZCode + ') ' + item.AccZName);
-
             $('#bede').val(NumberToNumberString(item.Bede));
             $('#best').val(NumberToNumberString(item.Best));
             $('#nameArz').val(item.ArzCode == '' ? '' : '(' + item.ArzCode + ') ' + item.ArzName);
@@ -2219,7 +2346,7 @@
         if (ArzCode != '' && bede > 0) {
             ArzRate = SlashToDot($("#ArzRate").val());
             if (ArzRate > 0) {
-                $("#ArzValue").val(NumberToNumberString(bede / ArzRate)); 
+                $("#ArzValue").val(NumberToNumberString(bede / ArzRate));
             }
         }
     });
@@ -2295,6 +2422,9 @@
             ArzCode: ArzCode,
             ArzRate: $("#ArzRate").val(),
             ArzValue: $("#ArzValue").val(),
+
+
+
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -2371,7 +2501,7 @@
             ArzRate: $("#ArzRate").val(),
             ArzValue: $("#ArzValue").val(),
         };
-        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', ADocBObject).done(function (response) {
+        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group , 'PUT', ADocBObject).done(function (response) {
             self.ADocBList(response);
             // getADocH(Serial);
             calcsum(response);

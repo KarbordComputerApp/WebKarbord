@@ -161,7 +161,7 @@
         } else {
             value = ko.utils.arrayFirst(self.ADocHList(), function (item) {
                 indexADocH += 1;
-                return item.SortDocNo == search;
+                return item.SerialNumber == search;
                 //return ko.utils.stringStartsWith(item.SortDocNo.toString(), search);
             });
             if (indexADocH < self.pageSizeADocH())
@@ -475,7 +475,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr>' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }" >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
