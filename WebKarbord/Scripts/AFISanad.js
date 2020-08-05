@@ -271,8 +271,6 @@
         self.AModeCode(sessionStorage.ModeCodeSanad);
         $("#modeCode").val(sessionStorage.ModeCodeSanad);
         getADocB(Serial);
-        //$("#TafavotSanad").text(NumberToNumberString(TafavotSanad));
-        //getADocH(Serial);
     }
     else {
         flagInsertADocH = 0;
@@ -292,8 +290,17 @@
         $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
-        $("#TafavotSanad").val(NumberToNumberString(totalBede - totalBest));
-        $('#panelTafavot').removeClass('focused');
+        tafavotSanad = totalBede - totalBest;
+
+
+        if (tafavotSanad >= 0) {
+            $("#TafavotSanad").css("color", "#404852");
+            $("#TafavotSanad").val(NumberToNumberString(tafavotSanad));
+        }
+        else {
+            $("#TafavotSanad").css("color", "red");
+            $("#TafavotSanad").val('(' + NumberToNumberString(Math.abs(tafavotSanad)) + ')');
+        }
     }
 
 
@@ -456,6 +463,13 @@
 
             if (item.Arzi > 0) {
                 $('#panelArz').removeAttr('hidden', '');
+                if (item.ArzCode != '') {
+                    $('#nameArz').val('(' + item.ArzCode + ') ' + item.ArzName);
+                    ArzCode = item.ArzCode;
+                }
+                else {
+                    $('#nameArz').val('');
+                }
             }
             else {
                 $('#panelArz').attr('hidden', '');
@@ -465,6 +479,13 @@
 
             if (item.Mkz > 0) {
                 $('#panelMkz').removeAttr('hidden', '');
+                if (item.MkzCode != '') {
+                    MkzCode = item.MkzCode;
+                    $('#nameMkz').val('(' + item.MkzCode + ') ' + item.MkzName);
+                }
+                else {
+                    $('#nameMkz').val('');
+                }
             }
             else {
                 $('#panelMkz').attr('hidden', '');
@@ -473,6 +494,13 @@
 
             if (item.Opr > 0) {
                 $('#panelOpr').removeAttr('hidden', '');
+                if (item.OprCode != '') {
+                    OprCode = item.OprCode;
+                    $('#nameOpr').val('(' + item.OprCode + ') ' + item.OprName);
+                }
+                else {
+                    $('#nameOpr').val('');
+                }
             }
             else {
                 $('#panelOpr').attr('hidden', '');
@@ -2156,7 +2184,7 @@
 
 
         if ($('#TafavotSanad').val() != '0') {
-            return showNotification('سند تراز نیست', 0);
+            return showNotification('سند بالانس نیست', 0);
         }
 
         var ADocObject = {
@@ -2224,12 +2252,11 @@
             TrafZCode = item.TrafZCode;
             PDModeAcc = item.PDMode;
 
-            if (item.NextLevelFromZAcc == 1) {
+            if (AccZCode != '') {
                 $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
                 $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
                 $('#panelZAcc').removeAttr('hidden', '');
                 getZAccList(item.ZGru == '' ? null : item.ZGru);
-                $('#modal-ZAcc').modal('show');
             }
             else {
                 $('#panelZAcc').attr('hidden', '');
@@ -2472,7 +2499,7 @@
             ArzRate: $("#ArzRate").val(),
             ArzValue: $("#ArzValue").val(),
         };
-        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group , 'PUT', ADocBObject).done(function (response) {
+        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group, 'PUT', ADocBObject).done(function (response) {
             self.ADocBList(response);
             // getADocH(Serial);
             calcsum(response);

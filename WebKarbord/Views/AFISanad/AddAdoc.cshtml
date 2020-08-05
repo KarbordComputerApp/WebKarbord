@@ -83,12 +83,22 @@
                     </div>
                     <div class="body" style="padding-bottom: 20px;">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-8" hidden>
                                 <div class="form-group">
                                     <div class="form-line">
                                         <textarea rows="1" id="footer" class="form-control no-resize auto-growth string" placeholder="زیر نویس" style="overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-float" style="margin-bottom: 15px;">
+                                    <div id="panelTafavot" class="form-line focused">
+                                        <input id="TafavotSanad" type="text" class="form-control" style="direction: ltr;border-bottom: 1px #404852 solid;" disabled="disabled">
+                                        <label class="form-label" style="color: #404852;">تفاوت سند</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                             </div>
 
                             <div class="col-md-4">
@@ -106,18 +116,12 @@
                 </div>
             </div>
 
+
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="card" style="margin-top: 0px;">
-                    <div class="header" style="margin-top: 0px;padding-top: 0px; padding-bottom: 10px;">
+                    <div class="header">
                     </div>
-                    <div class="body" style="padding-left: 15px;padding-right: 15px;padding-bottom: 15px;">
-                        <div class="form-group form-float" style="margin-bottom: 15px;">
-                            <div id="panelTafavot" class="form-line">
-                                <input id="TafavotSanad" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled">
-                                <label class="form-label" style="color: #404852;">تفاوت سند</label>
-                            </div>
-                        </div>
-
+                    <div class="body" style="padding-left: 15px;padding-right: 15px; padding-bottom: 35px;">
                         <div id="action_Hdoc">
                             <button type="button" id="FinalSave" data-bind="click:UpdateADocH" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
                                 ثبت نهایی
@@ -126,6 +130,31 @@
                     </div>
                 </div>
             </div>
+
+
+            <!--  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="card" style="margin-top: 0px;">
+                      <div class="header" style="margin-top: 0px;padding-top: 0px; padding-bottom: 10px;">
+                      </div>
+                      <div class="body" style="padding-left: 15px;padding-right: 15px;padding-bottom: 15px;">
+                         <div class="form-group form-float" style="margin-bottom: 15px;">
+                      <div id="panelTafavot" class="form-line">
+                          <input id="TafavotSanad" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled">
+                          <label class="form-label" style="color: #404852;">تفاوت سند</label>
+                      </div>
+                  </div>
+
+                          <div id="action_Hdoc">
+                              <button type="button" id="FinalSave" data-bind="click:UpdateADocH" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                                  ثبت نهایی
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>-->
+
+
+
         </div>
     </div>
 </div>
