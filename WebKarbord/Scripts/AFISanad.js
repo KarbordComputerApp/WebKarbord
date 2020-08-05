@@ -294,7 +294,7 @@
 
 
         if (tafavotSanad >= 0) {
-            $("#TafavotSanad").css("color", "#404852");
+            $("#TafavotSanad").css("color", "blue");
             $("#TafavotSanad").val(NumberToNumberString(tafavotSanad));
         }
         else {
@@ -1359,8 +1359,8 @@
     self.selectArz = function (item) {
         $('#nameArz').val('(' + item.Code + ') ' + item.Name);
         ArzCode = item.Code;
-        //ArzRate(item.Rate);
         $('#ArzRate').val(item.Rate);
+        CalcArz();
     }
 
 
@@ -1936,6 +1936,8 @@
         }
         $('#CheckComm').val(item.CheckComm);
 
+        CalcValue();
+
         $('#modal-Check').modal('toggle');
     }
 
@@ -2336,29 +2338,67 @@
         }
     }
 
+    function CalcArz() {
+        $('.fix').attr('class', 'form-line focused fix');
+        bede = SlashToDot($("#bede").val());
+        best = SlashToDot($("#best").val());
+
+        if (ArzCode != '')
+            ArzRate = SlashToDot($("#ArzRate").val());
+
+        if (best > 0 && ArzRate > 0) {
+            $("#ArzValue").val(NumberToNumberString(best / ArzRate));
+        }
+        else if (bede > 0 && ArzRate > 0) {
+            $("#ArzValue").val(NumberToNumberString(bede / ArzRate));
+        }
+        else {
+            $("#ArzValue").val(0);
+        }
+    }
+
+
+    function CalcValue() {
+        if (PDModeAcc > 0) {
+            bede = $("#bede").val();
+            best = $("#best").val();
+            value = SlashToDot($("#Value").val());
+            if (PDModeAcc == 1) {
+                $("#bede").val(0); 
+                $("#best").val(NumberToNumberString(value));
+                //value > 0 ? $("#best").val(NumberToNumberString(value)) : $("#Value").val(best);
+            }
+            else {
+                $("#best").val(0);
+                $("#bede").val(NumberToNumberString(value));
+                //value > 0 ? $("#bede").val(NumberToNumberString(value)) : $("#Value").val(bede);
+            }
+
+            $('.fix').attr('class', 'form-line focused fix');
+        }
+    }
 
     $("#bede").keyup(function (e) {
         $("#best").val(0);
-        bede = SlashToDot($("#bede").val());
-        //clacArz(ArzCode, ArzRate,bede)
-        if (ArzCode != '' && bede > 0) {
-            ArzRate = SlashToDot($("#ArzRate").val());
-            if (ArzRate > 0) {
-                $("#ArzValue").val(NumberToNumberString(bede / ArzRate));
-            }
-        }
+        CalcArz();
+       // CalcValue();
     });
 
     $("#best").keyup(function (e) {
         $("#bede").val(0);
-        best = SlashToDot($("#best").val());
-        if (ArzCode != '' && best > 0) {
-            ArzRate = SlashToDot($("#ArzRate").val());
-            if (ArzRate > 0) {
-                $("#ArzValue").val(NumberToNumberString(best / ArzRate));
-            }
-        }
+        CalcArz();
+        //CalcValue();
     });
+
+    $("#ArzRate").keyup(function (e) {
+        CalcArz();
+    });
+
+    $("#Value").keyup(function (e) {
+        $("#best").val(0);
+        CalcValue();
+    });
+
 
     //AddADocB
     self.AddADocB = function AddADocB(newADocB) {

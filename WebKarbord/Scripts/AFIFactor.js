@@ -183,6 +183,15 @@
             break;
     }
 
+    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+        $('#unitAddmin').hide();
+        $('#unitSumPrice').hide();
+    }
+    else {
+        $('#unitAddmin').show();
+        $('#unitSumPrice').show();
+    }
+
     if (sessionStorage.InOut == 2) {
         $('#LableCustCode').text('خریدار ');
         $('#LableHesabCode').text('نام خریدار');
@@ -1586,6 +1595,17 @@
 
 
     $('#modal-Band').on('show.bs.modal', function () {
+
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+            $('#unitPriceShow').hide();
+            $('#totalPriceShow').hide();
+            $('#unitdiscount').hide();
+        }
+        else {
+            $('#unitPriceShow').show();
+            $('#totalPriceShow').show();
+            $('#unitdiscount').show();
+        }
 
         if (self.flagupdateband == false) {
             self.ClearFDocB();

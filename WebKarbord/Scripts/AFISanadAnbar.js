@@ -1208,7 +1208,6 @@
         else {
             $('#unitPriceShow').hide();
             $('#totalPriceShow').hide();
-
         }
 
         if (self.flagupdateband == false) {

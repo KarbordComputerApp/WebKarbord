@@ -599,12 +599,13 @@
     <Content Include="Content\new\css\site.css" />
     <Content Include="Content\new\css\style.css" />
     <Content Include="Content\new\css\stylelogin.css" />
+    <Content Include="Content\new\img\loading.png" />
     <Content Include="Content\new\js\bootstrap.min.js" />
     <Content Include="Content\new\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\new\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\new\fonts\ionicons.svg" />
     <Content Include="Content\new\fonts\MaterialIcons-Regular.svg" />
-    <Content Include="Content\new\img\loading.png" />
+    <Content Include="Content\new\img\loading1.png" />
     <Content Include="Content\new\img\logo.png" />
     <Content Include="Content\new\img\user.png" />
     <Content Include="Content\new\js\admin.js" />
