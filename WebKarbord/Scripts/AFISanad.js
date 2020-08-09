@@ -11,7 +11,7 @@
     self.bundNumberImport = 0;
 
     var AccCode = "";
-    var ZAccCode = "";
+    var AccZCode = "";
 
     var TrafCode = "";
     var TrafZCode = "";
@@ -41,7 +41,7 @@
 
     self.BandNo = ko.observable();
     self.AccCode = ko.observable();
-    self.ZAccCode = ko.observable();
+    self.AccZCode = ko.observable();
 
     self.ArzCode = ko.observable();
     self.ArzRate = ko.observable();
@@ -52,7 +52,7 @@
     self.BandSpec = ko.observable();
 
     self.CheckNo = ko.observable();
-    self.CheckDate = ko.observable();
+    self.CheckDateBand = ko.observable();
     self.Bank = ko.observable();
     self.Shobe = ko.observable();
     self.Jari = ko.observable();
@@ -132,6 +132,8 @@
 
     //Get ZAcc List
     function getZAccList(filter) {
+        if (filter == null)
+            filter = null;
         ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + filter, 'GET').done(function (data) {
             self.ZAccList(data);
         });
@@ -432,6 +434,15 @@
 
 
     self.selectAcc = function (item) {
+
+        AccZCode = '';
+        ArzCode = '';
+        OprCode = '';
+        MkzCode = '';
+        TrafCode = '';
+        TrafZCode = '';
+        PDModeAcc = 0;
+
         zGruAcc = "";
         $('#nameZAcc').val('');
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
@@ -446,17 +457,29 @@
                 $('#panelZAcc').attr('hidden', '');
                 $("#panelAcc").removeClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
                 $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
-                ZAccCode = '';
+                AccZCode = '';
             }
 
             PDModeAcc = item.PDMode;
             if (item.PDMode > 0) {
-
                 getCheckList(PDModeAcc);
                 ShowCheck();
             }
             else {
                 HiddenCheck();
+                $('#CheckNo').val('');
+                $('#checkDateBand').val('');
+                $('#nameBank').val('');
+                $('#nameShobe').val('');
+                $('#nameJari').val('');
+                $('#Value').val('');
+                $('#BaratNo').val('');
+                $('#checkStatus').val('');
+                $('#nameTraf').val('');
+                $('#nameTrafZ').val('');
+                $('#CheckRadif').val('');
+                $('#checkVosoolDate').val('');
+                $('#CheckComm').val('');
             }
 
 
@@ -465,6 +488,7 @@
                 $('#panelArz').removeAttr('hidden', '');
                 if (item.ArzCode != '') {
                     $('#nameArz').val('(' + item.ArzCode + ') ' + item.ArzName);
+                    $('#ArzRate').val(item.ArzRate);
                     ArzCode = item.ArzCode;
                 }
                 else {
@@ -637,7 +661,7 @@
 
     self.selectZAcc = function (item) {
         $('#nameZAcc').val('(' + item.Code + ') ' + item.Name);
-        ZAccCode = item.Code;
+        AccZCode = item.Code;
         $('#modal-ZAcc').modal('toggle');
     }
 
@@ -1912,8 +1936,10 @@
 
 
     self.selectCheck = function (item) {
+        TrafCode = item.TrafCode;
+        TrafZCode = item.TrafZCode;
         $('#CheckNo').val(item.CheckNo);
-        $('#CheckDate').val(item.CheckDate);
+        $('#checkDateBand').val(item.CheckDate);
         $('#Value').val(NumberToNumberString(item.Value));
         $('#nameBank').val(item.Bank);
         $('#nameShobe').val(item.Shobe);
@@ -1961,7 +1987,7 @@
         $('#bandSpec').val('');
 
         $('#CheckNo').val('');
-        $('#CheckDate').val('');
+        $('#checkDateBand').val('');
         $('#nameBank').val('');
         $('#nameShobe').val('');
         $('#nameJari').val('');
@@ -1975,7 +2001,7 @@
         $('#CheckComm').val('');
 
         AccCode = "";
-        ZAccCode = "";
+        AccZCode = "";
         TrafCode = "";
         TrafZCode = "";
         ArzCode = "";
@@ -2111,7 +2137,7 @@
             BranchCode: 0,
             UserCode: sessionStorage.userName,
             Tanzim: sessionStorage.userName,
-            Taeed: status == "تاييد" ? sessionStorage.userName : 'null',
+            Taeed: status == "تایید" ? sessionStorage.userName : 'null',
             Tasvib: '',
             TahieShode: sessionStorage.ace,
             Eghdam: sessionStorage.userName,
@@ -2197,7 +2223,7 @@
             BranchCode: 0,
             UserCode: sessionStorage.userName,
             Tanzim: sessionStorage.userName,
-            Taeed: status == "تاييد" ? sessionStorage.userName : 'null',
+            Taeed: status == "تایید" ? sessionStorage.userName : 'null',
             Tasvib: '',
             TahieShode: sessionStorage.ace,
             Status: status,
@@ -2264,7 +2290,6 @@
                 $('#panelZAcc').attr('hidden', '');
                 $("#panelAcc").removeClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
                 $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
-                ZAccCode = '';
             }
 
             if (PDModeAcc > 0) {
@@ -2312,7 +2337,7 @@
             $('#bandSpec').val(item.BandSpec);
 
             $('#CheckNo').val(item.CheckNo);
-            $('#CheckDate').val(item.CheckDate);
+            $('#checkDateBand').val(item.CheckDate);
             $('#nameBank').val(item.Bank);
             $('#nameShobe').val(item.Shobe);
             $('#nameJari').val(item.Jari);
@@ -2364,7 +2389,7 @@
             best = $("#best").val();
             value = SlashToDot($("#Value").val());
             if (PDModeAcc == 1) {
-                $("#bede").val(0); 
+                $("#bede").val(0);
                 $("#best").val(NumberToNumberString(value));
                 //value > 0 ? $("#best").val(NumberToNumberString(value)) : $("#Value").val(best);
             }
@@ -2381,7 +2406,7 @@
     $("#bede").keyup(function (e) {
         $("#best").val(0);
         CalcArz();
-       // CalcValue();
+        // CalcValue();
     });
 
     $("#best").keyup(function (e) {
@@ -2438,13 +2463,13 @@
             SerialNumber: Serial,
             BandNo: bandnumber,
             AccCode: AccCode,
-            AccZCode: ZAccCode,
+            AccZCode: AccZCode,
             Bede: SlashToDot($("#bede").val()),
             Best: SlashToDot($("#best").val()),
             Comm: $("#comm").val(),
             BandSpec: $("#bandSpec").val(),
             CheckNo: $("#CheckNo").val(),
-            CheckDate: $("#CheckDate").val(),
+            CheckDate: $("#checkDateBand").val(),
             Bank: $("#nameBank").val(),
             Shobe: $("#nameShobe").val(),
             Jari: $("#nameJari").val(),
@@ -2460,9 +2485,6 @@
             ArzCode: ArzCode,
             ArzRate: $("#ArzRate").val(),
             ArzValue: $("#ArzValue").val(),
-
-
-
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -2516,13 +2538,13 @@
             SerialNumber: Serial,
             BandNo: bandnumberedit,
             AccCode: AccCode,
-            AccZCode: ZAccCode,
+            AccZCode: AccZCode,
             Bede: SlashToDot($("#bede").val()),
             Best: SlashToDot($("#best").val()),
             Comm: $("#comm").val(),
             BandSpec: $("#bandSpec").val(),
             CheckNo: $("#CheckNo").val(),
-            CheckDate: $("#CheckDate").val(),
+            CheckDate: $("#checkDateBand").val(),
             Bank: $("#nameBank").val(),
             Shobe: $("#nameShobe").val(),
             Jari: $("#nameJari").val(),

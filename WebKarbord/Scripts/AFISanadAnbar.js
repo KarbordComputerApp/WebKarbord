@@ -78,7 +78,8 @@
     self.ThvlCode = ko.observable();
     self.PriceCode = ko.observable();
     self.InvCode = ko.observable();
-
+    self.modeCode = ko.observable();
+    self.StatusSanad = ko.observable();
 
     self.BandNo = ko.observable();
     self.KalaCode = ko.observable();
@@ -180,10 +181,10 @@
         progName = getProgName('P');
         ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
-            if (self.StatusList().length > 0) {
-                if (flagupdateHeader == 1)
-                    $("#status").val(sessionStorage.Status);
-            }
+            //if (self.StatusList().length > 0) {
+               // if (flagupdateHeader == 1)
+            //        $("#status").val(sessionStorage.Status);
+            //}
         });
     }
 
@@ -251,8 +252,8 @@
     function getIModeList() {
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.IModeList(data);
-            if (flagupdateHeader == 1)
-                $("#modeCode").val(sessionStorage.ModeCodeValue);
+           // if (flagupdateHeader == 1)
+              //  $("#modeCode").val(sessionStorage.ModeCodeValue);
             // else
             //   $("#modeCode").val();
         });
@@ -527,7 +528,7 @@
             PakhshCode: '',
             InvCode: inv,
             Status: status,
-            Taeed: status == "تاييد" ? sessionStorage.userName : 'null',
+            Taeed: status == "تایید" ? sessionStorage.userName : 'null',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat)
@@ -779,7 +780,13 @@
         getIDocB(Serial);
         getIDocH(Serial);
 
+        $("#modeCode").val(sessionStorage.ModeCodeValue);
+        self.modeCode(sessionStorage.ModeCodeValue);
+
         $("#footer").val(sessionStorage.Footer);
+
+        self.StatusSanad(sessionStorage.Status);
+        $("#status").val(sessionStorage.Status);
         //sessionStorage.flagupdateHeader = 0;
     }
 

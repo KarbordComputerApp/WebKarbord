@@ -93,7 +93,8 @@
     self.CustCode = ko.observable();
     self.PriceCode = ko.observable();
     self.InvCode = ko.observable();
-
+    self.StatusFactor = ko.observable();
+    self.PaymentFactor = ko.observable();
 
     self.BandNo = ko.observable();
     self.KalaCode = ko.observable();
@@ -235,7 +236,7 @@
 
     //Get ExtraFields List
     function getExtraFieldsList() {
-       ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
+        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
     }
@@ -286,8 +287,8 @@
         ajaxFunction(PaymentUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.PaymentList(data);
             if (self.PaymentList().length > 0) {
-                if (flagupdateHeader == 1)
-                    $("#paymenttype").val(sessionStorage.PaymentType);
+                //if (flagupdateHeader == 1)
+                    //$("#paymenttype").val(sessionStorage.PaymentType);
             }
         });
     }
@@ -299,8 +300,10 @@
         ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
             if (self.StatusList().length > 0) {
-                if (flagupdateHeader == 1)
-                    $("#status").val(sessionStorage.Status);
+                //if (flagupdateHeader == 1) {
+                  //  $("#status").text(sessionStorage.Status);
+                  //  self.StatusFactor(sessionStorage.Status);
+                //}
             }
         });
     }
@@ -823,7 +826,7 @@
             AddMinPrice10: $("#AddMinMablagh10").val() == null ? 0 : ($("#iconAddMin10").text() == '+' ? SlashToDot($("#AddMinMablagh10").val()) : SlashToDot($("#AddMinMablagh10").val()) * (-1)), //SlashToDot($("#AddMinMablagh10").val()),//($("#iconAddMin10").text() == '+' ? SlashToDot($("#AddMinMablagh10").val()) : SlashToDot($("#AddMinMablagh10").val()) * (-1)),
             InvCode: inv,
             Status: status,
-            Taeed: status == "تاييد" ? sessionStorage.userName : 'null',
+            Taeed: status == "تایید" ? sessionStorage.userName : 'null',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat),
@@ -1074,7 +1077,7 @@
     getStatusList();
 
 
-      //$(document).ready(function () { });
+    //$(document).ready(function () { });
     //------------------------------------------------------
     self.currentPageHesab = ko.observable();
     self.currentPageKala = ko.observable();
@@ -2292,6 +2295,9 @@
         $('#nameHesab').val(sessionStorage.CustCode == '' ? '' : '(' + sessionStorage.CustCode + ') ' + sessionStorage.CustName);
         //$("#gGhimat").val(sessionStorage.PriceCode);
 
+        // sessionStorage.Status = item.Status;
+        // sessionStorage.PaymentType = item.PaymentType;
+
         getFDocH(Serial);
         getFDocB(Serial);
 
@@ -2322,6 +2328,11 @@
             sessionStorage.AddMin10);
         $("#footer").val(sessionStorage.Footer);
         flagOtherFieldShow = true;
+        self.StatusFactor(sessionStorage.Status);
+        $("#status").val(sessionStorage.Status);
+
+        self.PaymentFactor(sessionStorage.PaymentType);
+        $("#paymenttype").val(sessionStorage.PaymentType);
         //sessionStorage.flagupdateHeader = 0;
     }
 

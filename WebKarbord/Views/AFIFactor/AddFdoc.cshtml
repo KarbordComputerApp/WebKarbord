@@ -238,7 +238,8 @@
                                         <div class="form-group">
                                             <select id="status" data-bind="options: StatusList,
                                                                            optionsText: 'Status',
-                                                                           optionsValue: 'Status'"></select>
+                                                                           optionsValue: 'Status',
+                                                                           value: StatusFactor "></select>
                                         </div>
                                     </div>
                                     <br />
@@ -246,7 +247,8 @@
                                         <div class="form-group">
                                             <select id="paymenttype" data-bind="options: PaymentList,
                                                                                 optionsText: function(item) {return item.Name},
-                                                                                optionsValue: 'Code'"></select>
+                                                                                optionsValue: 'Code',
+                                                                                value: PaymentFactor"></select>
                                         </div>
                                     </div>
                                     <br />
@@ -720,7 +722,7 @@
                         <table class="table table-addmin">
                             <tbody data-bind="foreach: ExtraFieldsList">
                                 <tr>
-                                    <td data-bind="text: Name" style="background-color: #c4c4c4;"></td>
+                                    <td data-bind="text: Name" style="background-color: #c4c4c4; width:250px;"></td>
                                     <td style="padding: 0px 10px;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" /></td>
                                 </tr>
                             </tbody>
