@@ -1636,7 +1636,7 @@
             //}
             $('#amounttext').text(amountTextUpdate);
             $('#unitName').val(amountValueUpdate);
-            flagEditBand = true;
+            //flagEditBand = true;
             // $(this).AmountCalc();
         }
         $('.fix').attr('class', 'form-line focused fix');
