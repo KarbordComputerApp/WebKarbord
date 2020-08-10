@@ -159,17 +159,17 @@
     self.filterIDocHList = ko.computed(function () {
 
         self.currentPageIndexIDocH(0);
-        var filter0 = self.filterIDocH0().toUpperCase();
-        var filter1 = self.filterIDocH1().toUpperCase();
+        var filter0 = self.filterIDocH0();
+        var filter1 = self.filterIDocH1();
         var filter2 = self.filterIDocH2();
         var filter3 = self.filterIDocH3();
         var filter4 = self.filterIDocH4();
         var filter5 = self.filterIDocH5();
-        var filter6 = self.filterIDocH6().toUpperCase();
+        var filter6 = self.filterIDocH6();
         var filter7 = self.filterIDocH7().toUpperCase();
         var filter8 = self.filterIDocH8().toUpperCase();
         var filter9 = self.filterIDocH9().toUpperCase();
-        var filter10 = self.filterIDocH10().toUpperCase();
+        var filter10 = self.filterIDocH10();
 
         if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8 && !filter9 && !filter10) {
             $("#CountRecord").text(self.IDocHList().length);

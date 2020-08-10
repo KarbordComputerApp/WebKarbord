@@ -272,6 +272,7 @@
                     sessionStorage.PriceCode != "0" ? $("#gGhimat").val(sessionStorage.PriceCode) : $("#gGhimat").val(sessionStorage.GPriceDefult);
                 }
                 else
+                    firstUpdateShow = 0;
                     if (sessionStorage.sels == "true")
                         sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                     // $("#gGhimat").val(sessionStorage.GPriceDefultS);
@@ -1396,6 +1397,17 @@
 
         KalaCode = item.Code;
         getUnit(item.Code);
+
+        if (sessionStorage.sels == "true") {
+            Price1 = item.SPrice1;
+            Price2 = item.SPrice2;
+            Price3 = item.SPrice3;
+        } else {
+            Price1 = item.PPrice1;
+            Price2 = item.PPrice2;
+            Price3 = item.PPrice3;
+        }
+
         getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.Code);
 
         zarib1 = item.zarib1;
@@ -1409,16 +1421,6 @@
         DeghatM1 = item.DeghatM1;
         DeghatM2 = item.DeghatM2;
         DeghatM3 = item.DeghatM3;
-
-        if (sessionStorage.sels == "true") {
-            Price1 = item.SPrice1;
-            Price2 = item.SPrice2;
-            Price3 = item.SPrice3;
-        } else {
-            Price1 = item.PPrice1;
-            Price2 = item.PPrice2;
-            Price3 = item.PPrice3;
-        }
 
         $('#codeKala').val(item.Code);
         $('#nameKala').val('(' + item.Code + ') ' + item.Name);
@@ -1534,6 +1536,10 @@
                 $("#totalPrice").css("backgroundColor", "white");
                 $("#unitPrice").css("backgroundColor", "yellow");
             }
+
+            $('#amount1').text(NumberToNumberString(item.Amount1));
+            $('#amount2').text(NumberToNumberString(item.Amount2));
+            $('#amount3').text(NumberToNumberString(item.Amount3));
 
             //if (self.flagupdateband == 1)
             $('#modal-Band').modal();
@@ -1998,7 +2004,7 @@
                 sessionStorage.flagupdateHeader = 0;
                 self.ClearFDocH();
                 self.FDocBList([]); // ليست فاکتور
-                self.AddMinList([]); // ليست کسورات و افزایشات 
+               // self.AddMinList([]); // ليست کسورات و افزایشات 
                 self.FDocHList([]); // لیست اطلاعات تکمیلی فاکتور فروش 
                 $('#foottextsum').text('');
                 $('#foottextamount1').text('');

@@ -368,16 +368,16 @@
     $('#AddNewFactor').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
-        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-            $('#modal-SelectFactor').modal('show');
-            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
-                $('#CaptionSelectFactor').text('برگشت از فروش متناظر با فاکتور فروش شماره');
-            else
-                $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
-        }
-        else {
+        //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+        //    $('#modal-SelectFactor').modal('show');
+        //    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
+        //        $('#CaptionSelectFactor').text('برگشت از فروش متناظر با فاکتور فروش شماره');
+        //    else
+        //        $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
+        //}
+        //else {
             window.location.href = sessionStorage.urlFDocH;
-        }
+        //}
     });
 
 

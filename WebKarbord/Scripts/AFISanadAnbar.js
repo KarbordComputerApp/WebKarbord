@@ -337,12 +337,10 @@
         $('#txtzarib1').text('مقدار 1');
         $('#txtzarib2').text('مقدار 2');
         $('#txtzarib3').text('مقدار 3');
-
         $('#amounttext').text('مقدار');
-
+        $("#unitName").empty();
 
         $('#viewunit').hide();
-
         $('#amount1').text('');
         $('#amount2').text('');
         $('#amount3').text('');
@@ -1017,10 +1015,14 @@
 
     self.selectKala = function (item) {
         KalaCode = item.Code;
+        self.ClearIDocB();
         getUnit(item.Code);
         kalapricecode = $("#gGhimat").val();
+        Price1 = item.PPrice1;
+        Price2 = item.PPrice2;
+        Price3 = item.PPrice3;
+
         getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.Code);
-        self.ClearIDocB();
         zarib1 = item.zarib1;
         zarib2 = item.zarib2;
         zarib3 = item.zarib3;
@@ -1038,9 +1040,7 @@
         //     Price2 = item.SPrice2;
         //      Price3 = item.SPrice3;
         // } else {
-        Price1 = item.PPrice1;
-        Price2 = item.PPrice2;
-        Price3 = item.PPrice3;
+
         //  }
 
         $('#codeKala').val(item.Code);
@@ -1151,6 +1151,10 @@
                 $("#totalPrice").css("backgroundColor", "white");
                 $("#unitPrice").css("backgroundColor", "yellow");
             }
+
+            $('#amount1').text(NumberToNumberString(item.Amount1));
+            $('#amount2').text(NumberToNumberString(item.Amount2));
+            $('#amount3').text(NumberToNumberString(item.Amount3));
 
             //if (self.flagupdateband == true)
             $('#modal-Band').modal();
@@ -1499,7 +1503,7 @@
         flagFinalSave = true;
     })
 
-    $('#gGhimat').change(function () {
+    $("#gGhimat").change(function () {
 
         if ($("#textBandNo").text() > '0' && viewAction == true) {
             Swal.fire({
