@@ -384,6 +384,27 @@
         sessionStorage.Eghdam = item.Eghdam;
         sessionStorage.ModeCodeSanad = item.ModeCode;
 
+        sessionStorage.F01 = item.F01;
+        sessionStorage.F02 = item.F02;
+        sessionStorage.F03 = item.F03;
+        sessionStorage.F04 = item.F04;
+        sessionStorage.F05 = item.F05;
+        sessionStorage.F06 = item.F06;
+        sessionStorage.F07 = item.F07;
+        sessionStorage.F08 = item.F08;
+        sessionStorage.F09 = item.F09;
+        sessionStorage.F10 = item.F10;
+        sessionStorage.F11 = item.F11;
+        sessionStorage.F12 = item.F12;
+        sessionStorage.F13 = item.F13;
+        sessionStorage.F14 = item.F14;
+        sessionStorage.F15 = item.F15;
+        sessionStorage.F16 = item.F16;
+        sessionStorage.F17 = item.F17;
+        sessionStorage.F18 = item.F18;
+        sessionStorage.F19 = item.F19;
+        sessionStorage.F20 = item.F20;
+
         window.location.href = sessionStorage.urlADocH;
     }
 

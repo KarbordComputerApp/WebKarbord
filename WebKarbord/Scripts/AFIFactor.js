@@ -1509,21 +1509,31 @@
             if (item.MainUnit == 1) {
                 amo = item.Amount1;
                 Price1 = item.UnitPrice;
+                $("#iconzarib1").css("backgroundColor", "#c0bfbf");
+                $("#iconzarib2").css("backgroundColor", "white");
+                $("#iconzarib3").css("backgroundColor", "white");
             }
             else if (item.MainUnit == 2) {
                 amo = item.Amount2;
                 Price2 = item.UnitPrice;
+                $("#iconzarib1").css("backgroundColor", "white");
+                $("#iconzarib2").css("backgroundColor", "#c0bfbf");
+                $("#iconzarib3").css("backgroundColor", "white");
             }
             else if (item.MainUnit == 3) {
                 amo = item.Amount3;
                 Price3 = item.UnitPrice;
+                $("#iconzarib1").css("backgroundColor", "white");
+                $("#iconzarib2").css("backgroundColor", "white");
+                $("#iconzarib3").css("backgroundColor", "#c0bfbf");
             }
+
             amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 
             item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice)) : $('#unitPrice').val('');
             item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice)) : $('#totalPrice').val('');
             item.Discount != 0 ? $('#discountprice').val(NumberToNumberString(Math.abs(item.Discount))) : $('#discountprice').val('');
-            ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
+            ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 && item.TotalPrice > 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
             $('#comm').val(item.Comm);
 
             flag = item.UP_Flag;

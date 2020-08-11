@@ -32,6 +32,7 @@
     var Serial = '';
     var PDModeAcc = 0;
     self.flagupdateband = false;
+    var flagOtherFieldShow;
 
     self.AModeCode = ko.observable();
     self.SerialNumber = ko.observable();
@@ -80,17 +81,14 @@
     self.ShobeList = ko.observableArray([]); // ليست چک ها
     self.JariList = ko.observableArray([]); // ليست چک ها
     self.StatusList = ko.observableArray([]); // وضعیت  
-
+    self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس حساب ها
-
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس هدر سند 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
-
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
-
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند
     var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
@@ -103,9 +101,16 @@
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
     var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت چک
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت سند 
+    var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
 
 
 
+    //Get ExtraFields List
+    function getExtraFieldsList() {
+        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/adoc' , 'GET').done(function (data) {
+            self.ExtraFieldsList(data);
+        });
+    }
 
 
     //Get Status List
@@ -252,6 +257,7 @@
     getJariList();
     getCheckStatusList(1);
     getStatusList();
+    getExtraFieldsList();
 
     self.ClearADocH = function ClearADocH() {
         Serial = '';
@@ -273,6 +279,7 @@
         self.AModeCode(sessionStorage.ModeCodeSanad);
         $("#modeCode").val(sessionStorage.ModeCodeSanad);
         getADocB(Serial);
+        flagOtherFieldShow = true;
     }
     else {
         flagInsertADocH = 0;
@@ -1917,7 +1924,7 @@
     $('#refreshCheck').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی ؟',
-            text: "لیست حساب ها به روز رسانی شود ؟",
+            text: "لیست چک ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2590,7 +2597,7 @@
             if (result.value) {
                 ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + SanadBand.BandNo, 'DELETE').done(function (response) {
                     self.ADocBList(response);
-                    //getADocH(Serial);
+                    calcsum(response);
                     flagFinalSave = false;
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
                 });
@@ -2855,6 +2862,33 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
+
+
+    $('#modal-OtherField').on('shown.bs.modal', function () {
+        if (flagOtherFieldShow == true) {
+            $("#ExtraFields1").val(sessionStorage.F01);
+            $("#ExtraFields2").val(sessionStorage.F02);
+            $("#ExtraFields3").val(sessionStorage.F03);
+            $("#ExtraFields4").val(sessionStorage.F04);
+            $("#ExtraFields5").val(sessionStorage.F05);
+            $("#ExtraFields6").val(sessionStorage.F06);
+            $("#ExtraFields7").val(sessionStorage.F07);
+            $("#ExtraFields8").val(sessionStorage.F08);
+            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields10").val(sessionStorage.F10);
+            $("#ExtraFields11").val(sessionStorage.F11);
+            $("#ExtraFields12").val(sessionStorage.F12);
+            $("#ExtraFields13").val(sessionStorage.F13);
+            $("#ExtraFields14").val(sessionStorage.F14);
+            $("#ExtraFields15").val(sessionStorage.F15);
+            $("#ExtraFields16").val(sessionStorage.F16);
+            $("#ExtraFields17").val(sessionStorage.F17);
+            $("#ExtraFields18").val(sessionStorage.F18);
+            $("#ExtraFields19").val(sessionStorage.F19);
+            $("#ExtraFields20").val(sessionStorage.F20);
+            flagOtherFieldShow = false;
+        }
+    });
 };
 
 ko.applyBindings(new ViewModel());

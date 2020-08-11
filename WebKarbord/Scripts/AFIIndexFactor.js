@@ -376,7 +376,7 @@
         //        $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
         //}
         //else {
-            window.location.href = sessionStorage.urlFDocH;
+        window.location.href = sessionStorage.urlFDocH;
         //}
     });
 
@@ -740,6 +740,11 @@
         sessionStorage.PaymentType = item.PaymentType;
         sessionStorage.Footer = item.Footer;
         window.location.href = sessionStorage.urlFDocH;
+    }
+
+
+    self.MoveFactor = function (item) {
+        $('#modal-Move').modal();
     }
 
 };

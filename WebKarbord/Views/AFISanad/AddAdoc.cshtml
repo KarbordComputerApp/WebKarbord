@@ -28,6 +28,9 @@
                     </div>
 
                     <div class="row header-dropdown m-r--5">
+                        <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
+                            <img src="~/Content/img/sanad/paper-write.png" width="24" height="24" />
+                        </a>
                         <a id="" style="margin-left: 10px;">
                             <img src="~/Content/img/sanad/streamline-icon-print-text@48x48.png" width="24" height="24" />
                         </a>
@@ -1400,7 +1403,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست بانک</h4>
+                <h4 class="modal-title">لیست جاری</h4>
                 <a id="refreshJari">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
                 </a>
@@ -1547,6 +1550,35 @@
                         <a data-bind="click: lastPageCheck">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">مشخصات اضافی</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                    <div class="table-responsive">
+                        <table class="table table-addmin">
+                            <tbody data-bind="foreach: ExtraFieldsList">
+                                <tr>
+                                    <td data-bind="text: Name" style="background-color: #c4c4c4; width:250px;"></td>
+                                    <td style="padding: 0px 10px;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

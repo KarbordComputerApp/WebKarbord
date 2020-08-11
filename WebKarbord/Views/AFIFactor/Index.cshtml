@@ -22,21 +22,21 @@
                     <div class="col-md-6">
 
                         <!-- <div class="input-group">
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input data-bind="value: filterFDocH, valueUpdate: 'afterkeydown'" id="searchFDocH" class="form-control" />
-                        <label class="form-label">عنوان جستجو را وارد کنید</label>
-                    </div>
-                    <div class="help-info">
-                        <label id="allSearchFDocHText">جستجو بر اساس همه موارد</label>
-                    </div>
-                </div>
-                <div class="input-group-addon">
-                    <label class="form-check-label">
-                        <input type="checkbox" id="allSearchFDocH" checked> <span class="form-check-sign"> <span class="check"></span> </span>
-                    </label>
-                </div>
-            </div>-->
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input data-bind="value: filterFDocH, valueUpdate: 'afterkeydown'" id="searchFDocH" class="form-control" />
+                                    <label class="form-label">عنوان جستجو را وارد کنید</label>
+                                </div>
+                                <div class="help-info">
+                                    <label id="allSearchFDocHText">جستجو بر اساس همه موارد</label>
+                                </div>
+                            </div>
+                            <div class="input-group-addon">
+                                <label class="form-check-label">
+                                    <input type="checkbox" id="allSearchFDocH" checked> <span class="form-check-sign"> <span class="check"></span> </span>
+                                </label>
+                            </div>
+                        </div>-->
 
 
 
@@ -99,7 +99,7 @@
                                 <td data-bind="text: Taeed"></td>
                                 <td data-bind="text: SerialNumber"></td>
                                 <td>
-                                    <a id="ExportFactor" data-bind="click: $root.ExportHeader">
+                                    <a id="MoveFactor" data-bind="click: $root.MoveFactor, visible: $root.ShowAction(Eghdam)">
                                         <img src="~/Content/img/sanad/synchronize-arrows-square-warning.png" width="20" height="20" style="margin-left:10px" />
                                     </a>
                                     <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">
@@ -123,7 +123,7 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocH8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <!--  <td style="padding: 0px 3px;"><input data-bind="value: filterTrzI9, valueUpdate: 'afterkeydown'" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                    -->
+                                -->
                             </tr>
                         </tfoot>
                     </table>
@@ -316,6 +316,100 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="modal-Move" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">انتقال</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>سفارش فروش</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio" >
+                        <span>پیش فاکتور فروش</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio" checked="">
+                        <span>فاکتور فروش</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>برگشت از فروش</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>حواله فروش</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>برگه خروج</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>سفارش خرید</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>پیش فاکتور خرید</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>فاکتور خرید</span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label>
+                        <input name="group1" type="radio">
+                        <span>برگشت از خرید</span>
+                    </label>
+                </div>
+
+
+
+            </div>
+
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                <button type="button" data-bind="click: AddFDocB" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                    تایید
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
 @section scripts{
     <script type="text/javascript">
 		sessionStorage.urlFDocH='@Url.Action("AddFdoc", "AFIFactor")';
