@@ -326,77 +326,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">انتقال</h4>
+                <h4 class="modal-title">انتقال به</h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>سفارش فروش</span>
-                    </label>
+                <div class="row">
+                    <select id="modeCodeMove"></select>
                 </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio" >
-                        <span>پیش فاکتور فروش</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio" checked="">
-                        <span>فاکتور فروش</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>برگشت از فروش</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>حواله فروش</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>برگه خروج</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>سفارش خرید</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>پیش فاکتور خرید</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>فاکتور خرید</span>
-                    </label>
-                </div>
-                <div class="form-check form-check-radio">
-                    <label>
-                        <input name="group1" type="radio">
-                        <span>برگشت از خرید</span>
-                    </label>
-                </div>
-
-
-
             </div>
 
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                <button type="button" data-bind="click: AddFDocB" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                <button type="button" data-bind="click: SaveMove" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
                     تایید
                 </button>
             </div>

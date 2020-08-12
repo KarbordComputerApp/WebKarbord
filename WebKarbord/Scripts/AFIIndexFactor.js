@@ -13,13 +13,18 @@
 
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.FDocHList1 = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش
+    self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
 
     var FDocHUri = server + '/api/FDocData/FDocH/'; // آدرس کسورات و افزایشات 
     var FDocHCountUri = server + '/api/FDocData/FDocH/'; // تعداد رکورد های فاکتور 
-
     var FDocHHiUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
+    var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
+    var FMoveFactorUri = server + '/api/FDocData/MoveFactor/'; // آدرس نوع فاکتور ها 
 
     var allSearchFDocH = true;
+    var inOut;
+    var serial;
+    var defultMove;
 
     //Get FDocH 
     function getFDocH(select) {
@@ -75,10 +80,6 @@
     self.iconTypeTanzim = ko.observable("");
     self.iconTypeTaeed = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
-
-
-
-
 
 
     /* self.filterFDocH = ko.observable("");
@@ -438,40 +439,81 @@
 
 
     switch (sessionStorage.ModeCode.toString()) {
-
         case sessionStorage.MODECODE_FDOC_SO:
-            $('#TitleListFactor').text('سفارش فروش');
-            break;
+            {
+                $('#TitleListFactor').text('سفارش فروش');
+                defultMove = sessionStorage.Move_SORD;
+                inOut = 2;
+                break;
+            }
         case sessionStorage.MODECODE_FDOC_SP:
-            $('#TitleListFactor').text('پیش فاکتور فروش');
-            break;
+            {
+                $('#TitleListFactor').text('پیش فاکتور فروش');
+                defultMove = sessionStorage.Move_SPFCT;
+                inOut = 2;
+                break;
+            }
         case sessionStorage.MODECODE_FDOC_S:
-            $('#TitleListFactor').text('فاکتور فروش');
-            break;
+            {
+                $('#TitleListFactor').text('فاکتور فروش');
+                defultMove = sessionStorage.Move_SFCT;
+                inOut = 2;
+                break;
+            }
         case sessionStorage.MODECODE_FDOC_SR:
-            $('#TitleListFactor').text('برگشت از فروش');
-            break;
+            {
+                $('#TitleListFactor').text('برگشت از فروش');
+                defultMove = sessionStorage.Move_SRFCT;
+                inOut = 2;
+                break;
+            }
 
         case sessionStorage.MODECODE_FDOC_SH:
-            $('#TitleListFactor').text('حواله فروش');
-            break;
+            {
+                $('#TitleListFactor').text('حواله فروش');
+                defultMove = sessionStorage.Move_SHVL;
+                inOut = 2;
+                break;
+            }
 
         case sessionStorage.MODECODE_FDOC_SE:
-            $('#TitleListFactor').text('برگه خروج');
-            break;
+            {
+                $('#TitleListFactor').text('برگه خروج');
+                defultMove = sessionStorage.Move_SEXT;
+                inOut = 2;
+                break;
+            }
 
         case sessionStorage.MODECODE_FDOC_PO:
-            $('#TitleListFactor').text('سفارش خرید');
-            break;
+            {
+                $('#TitleListFactor').text('سفارش خرید');
+                defultMove = sessionStorage.Move_PORD;
+                inOut = 1;
+                break;
+            }
 
         case sessionStorage.MODECODE_FDOC_PP:
-            $('#TitleListFactor').text('پیش فاکتور خرید');
-            break;
+            {
+                $('#TitleListFactor').text('پیش فاکتور خرید');
+                defultMove = sessionStorage.Move_PPFCT;
+                inOut = 1;
+                break;
+            }
+
         case sessionStorage.MODECODE_FDOC_P:
-            $('#TitleListFactor').text('فاکتور خرید');
-            break;
+            {
+                $('#TitleListFactor').text('فاکتور خرید');
+                defultMove = sessionStorage.Move_PFCT;
+                inOut = 1;
+                break;
+            }
+
         case sessionStorage.MODECODE_FDOC_PR:
-            $('#TitleListFactor').text('برگشت از خرید');
+            {
+                $('#TitleListFactor').text('برگشت از خرید');
+                defultMove = sessionStorage.Move_PRFCT;
+                inOut = 1;
+            }
     }
 
     $('#SaveFDocH1').click(function () {
@@ -558,11 +600,6 @@
                 return false;
         }
 
-
-
-
-
-
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
             if (sessionStorage.DEL_SHVL == 'true') {
                 if (sessionStorage.AccessViewHavaleForosh == 'false') {
@@ -601,12 +638,6 @@
             else
                 return false;
         }
-
-
-
-
-
-
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
             if (sessionStorage.DEL_PPDOC == 'true') {
@@ -742,10 +773,114 @@
         window.location.href = sessionStorage.urlFDocH;
     }
 
-
     self.MoveFactor = function (item) {
+        serial = item.SerialNumber;
+        docDate = item.DocDate;
+        $('#modeCodeMove').val(defultMove);
         $('#modal-Move').modal();
     }
+
+    getFModeList();
+    //Get  FMode List
+    function getFModeList() {
+        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/' + inOut, 'GET').done(function (data) {
+            self.FModeList(data);
+            select = document.getElementById('modeCodeMove');
+            for (var i = 0; i < data.length; i++) {
+                opt = document.createElement('option');
+                opt.value = data[i].Code;
+                opt.innerHTML = data[i].Name;
+                //opt.selected = true;
+                select.appendChild(opt);
+            }
+        });
+    }
+
+
+    $('#Move').click(function () {
+        modeCodeMove = $('#modeCodeMove').val();
+        var MoveObject = {
+            SerialNumber: serial,
+            DocDate: docDate,
+            UserCode: sessionStorage.userName,
+            TahieShode: sessionStorage.ace,
+            ModeCode: modeCodeMove,
+            DocNoMode: 1,
+            InsertMode: 0,
+            DocNo: 1,
+            StartNo: 0,
+            EndNo: 0,
+            BranchCode: 0,
+        };
+
+        ajaxFunction(FMoveFactorUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
+            item = response;
+            item = item[0];
+
+            sessionStorage.ModeCode = modeCodeMove;
+
+            sessionStorage.flagupdateHeader = 1;
+            sessionStorage.SerialNumber = item.SerialNumber;
+            sessionStorage.DocNo = item.DocNo;
+            sessionStorage.DocDate = item.DocDate;
+            sessionStorage.CustCode = item.CustCode;
+            sessionStorage.CustName = item.CustName;
+            sessionStorage.Spec = item.Spec;
+            sessionStorage.PriceCode = item.KalaPriceCode;
+            sessionStorage.InvCode = item.InvCode;
+            sessionStorage.Eghdam = item.Eghdam;
+
+            sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
+            sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
+            sessionStorage.AddMinSpec3 = item.AddMinSpec3// == "" ? null : item.AddMinSpec3;
+            sessionStorage.AddMinSpec4 = item.AddMinSpec4// == "" ? null : item.AddMinSpec4;
+            sessionStorage.AddMinSpec5 = item.AddMinSpec5// == "" ? null : item.AddMinSpec5;
+            sessionStorage.AddMinSpec6 = item.AddMinSpec6// == "" ? null : item.AddMinSpec6;
+            sessionStorage.AddMinSpec7 = item.AddMinSpec7// == "" ? null : item.AddMinSpec7;
+            sessionStorage.AddMinSpec8 = item.AddMinSpec8// == "" ? null : item.AddMinSpec8;
+            sessionStorage.AddMinSpec9 = item.AddMinSpec9// == "" ? null : item.AddMinSpec9;
+            sessionStorage.AddMinSpec10 = item.AddMinSpec10 //== "" ? null : item.AddMinSpec10;
+
+            sessionStorage.AddMin1 = item.AddMinPrice1 == null ? 0 : item.AddMinPrice1;
+            sessionStorage.AddMin2 = item.AddMinPrice2 == null ? 0 : item.AddMinPrice2;
+            sessionStorage.AddMin3 = item.AddMinPrice3 == null ? 0 : item.AddMinPrice3;
+            sessionStorage.AddMin4 = item.AddMinPrice4 == null ? 0 : item.AddMinPrice4;
+            sessionStorage.AddMin5 = item.AddMinPrice5 == null ? 0 : item.AddMinPrice5;
+            sessionStorage.AddMin6 = item.AddMinPrice6 == null ? 0 : item.AddMinPrice6;
+            sessionStorage.AddMin7 = item.AddMinPrice7 == null ? 0 : item.AddMinPrice7;
+            sessionStorage.AddMin8 = item.AddMinPrice8 == null ? 0 : item.AddMinPrice8;
+            sessionStorage.AddMin9 = item.AddMinPrice9 == null ? 0 : item.AddMinPrice9;
+            sessionStorage.AddMin10 = item.AddMinPrice10 == null ? 0 : item.AddMinPrice10;
+
+            sessionStorage.F01 = item.F01;
+            sessionStorage.F02 = item.F02;
+            sessionStorage.F03 = item.F03;
+            sessionStorage.F04 = item.F04;
+            sessionStorage.F05 = item.F05;
+            sessionStorage.F06 = item.F06;
+            sessionStorage.F07 = item.F07;
+            sessionStorage.F08 = item.F08;
+            sessionStorage.F09 = item.F09;
+            sessionStorage.F10 = item.F10;
+            sessionStorage.F11 = item.F11;
+            sessionStorage.F12 = item.F12;
+            sessionStorage.F13 = item.F13;
+            sessionStorage.F14 = item.F14;
+            sessionStorage.F15 = item.F15;
+            sessionStorage.F16 = item.F16;
+            sessionStorage.F17 = item.F17;
+            sessionStorage.F18 = item.F18;
+            sessionStorage.F19 = item.F19;
+            sessionStorage.F20 = item.F20;
+
+            sessionStorage.Status = item.Status;
+            sessionStorage.PaymentType = item.PaymentType;
+            sessionStorage.Footer = item.Footer;
+
+            window.location.href = sessionStorage.urlFDocH;
+        });
+
+    });
 
 };
 

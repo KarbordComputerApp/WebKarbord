@@ -496,7 +496,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }" >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color: Balance == 1 ? \'red\' : \'#3f4853\' }" >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +

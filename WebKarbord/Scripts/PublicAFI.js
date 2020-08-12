@@ -394,7 +394,28 @@ function getParamList() {
             sessionStorage.GPriceDefultP = SearchArry("KalaPriceP", "Default", self.ParamList());
             sessionStorage.GPriceDefultI = SearchArry("KalaPriceI", "Default", self.ParamList());
 
-            //localStorage.setItem('', aa);
+            if (sessionStorage.ace == 'AFI8') {
+                sessionStorage.Move_SCONT = SearchArry("MoveTo", "SCONT", self.ParamList());
+                sessionStorage.Move_SORD = SearchArry("MoveTo", "SORD", self.ParamList());
+                sessionStorage.Move_SPFCT = SearchArry("MoveTo", "SPFCT", self.ParamList());
+                sessionStorage.Move_SFCT = SearchArry("MoveTo", "SFCT", self.ParamList());
+                sessionStorage.Move_SRFCT = SearchArry("MoveTo", "SRFCT", self.ParamList());
+                sessionStorage.Move_SHVL = SearchArry("MoveTo", "SHVL", self.ParamList());
+                sessionStorage.Move_SEXT = SearchArry("MoveTo", "SEXT", self.ParamList());
+                sessionStorage.Move_PCONT = SearchArry("MoveTo", "PCONT", self.ParamList());
+                sessionStorage.Move_PORD = SearchArry("MoveTo", "PORD", self.ParamList());
+                sessionStorage.Move_PPFCT = SearchArry("MoveTo", "PPFCT", self.ParamList());
+                sessionStorage.Move_PFCT = SearchArry("MoveTo", "PFCT", self.ParamList());
+                sessionStorage.Move_PRFCT = SearchArry("MoveTo", "PRFCT", self.ParamList());
+            }
+            else {
+                sessionStorage.Move_SPFCT = SearchArry("MoveTo", "51", self.ParamList());
+                sessionStorage.Move_SFCT = SearchArry("MoveTo", "52", self.ParamList());
+                sessionStorage.Move_SRFCT = SearchArry("MoveTo", "53", self.ParamList());
+                sessionStorage.Move_PPFCT = SearchArry("MoveTo", "54", self.ParamList());
+                sessionStorage.Move_PFCT = SearchArry("MoveTo", "55", self.ParamList());
+                sessionStorage.Move_PRFCT = SearchArry("MoveTo", "56", self.ParamList());
+            }
 
 
             sessionStorage.invSelect = "";
@@ -733,7 +754,7 @@ function SetValidation() {
       }*/
 
 
-     // سند حسابداری
+    // سند حسابداری
     if (sessionStorage.ModeCode == 'ADOC') {
         validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
         validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
