@@ -310,6 +310,16 @@ function SearchArry(Node, Key, myArray) {
     return '';
 }
 
+function SearchMode(name, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].Name === name) {
+            return myArray[i].Code;
+        }
+    }
+    return '';
+}
+
+
 function SetSelectProgram() {
     var ace = sessionStorage.ace;
     var group = $("#DropGroup").val();

@@ -99,6 +99,8 @@
         });
     }
 
+
+
     //Get  FMode List
     function getFModeList() {
         ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function (data) {
@@ -113,8 +115,9 @@
             }
 
             opt = document.createElement('option');
-            opt.value = data[1].Code + '*' + data[2].Code;
-            opt.innerHTML = data[1].Name + ' با احتساب برگشتی';
+            //opt.value = data[1].Code + '*' + data[2].Code;
+            opt.value = SearchMode('فاکتور فروش', self.FModeList()) + '*' + SearchMode('برگشت از فروش', self.FModeList());
+            opt.innerHTML = 'فاکتور فروش با احتساب برگشتی';
             opt.selected = true;
             select.appendChild(opt);
         });
