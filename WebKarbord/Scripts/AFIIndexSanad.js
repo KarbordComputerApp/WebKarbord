@@ -106,7 +106,8 @@
             !filterStatus && !filterSerialNumber &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
-            $("#CountRecord").text(self.ADocHList().length);
+            //$("#CountRecord").text(self.ADocHList().length);
+            $('#CountRecord').text(CountTable('ADocH', null , null));
             return self.ADocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.ADocHList(), function (item) {

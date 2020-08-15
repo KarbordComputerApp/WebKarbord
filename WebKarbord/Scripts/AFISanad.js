@@ -107,7 +107,7 @@
 
     //Get ExtraFields List
     function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/adoc' , 'GET').done(function (data) {
+        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/adoc', 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
     }
@@ -234,7 +234,6 @@
         ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.ADocHList(data);
         });
-
     }
 
     //Get ADocB 
@@ -2301,6 +2300,7 @@
 
             if (PDModeAcc > 0) {
                 ShowCheck();
+                PDModeAcc == 1 ? $('#Value').val(NumberToNumberString(item.Best)) : $('#Value').val(NumberToNumberString(item.Bede));
             }
             else {
                 HiddenCheck();
@@ -2348,7 +2348,6 @@
             $('#nameBank').val(item.Bank);
             $('#nameShobe').val(item.Shobe);
             $('#nameJari').val(item.Jari);
-            $('#Value').val(item.Value);
             $('#BaratNo').val(item.BaratNo);
             $('#checkStatus').val(item.CheckStatus);
             $('#nameTraf').val(item.TrafCode == '' ? '' : '(' + item.TrafCode + ') ' + item.TrafName);
@@ -2390,20 +2389,20 @@
     }
 
 
-    function CalcValue() {
+    function CalcValue(flag) {
         if (PDModeAcc > 0) {
             bede = $("#bede").val();
             best = $("#best").val();
-            value = SlashToDot($("#Value").val());
-            if (PDModeAcc == 1) {
+            value = SlashToDot($('#Value').val());
+            if (PDModeAcc == 1 && flag == 0) {
                 $("#bede").val(0);
                 $("#best").val(NumberToNumberString(value));
-                //value > 0 ? $("#best").val(NumberToNumberString(value)) : $("#Value").val(best);
+                //value > 0 ? $("#best").val(NumberToNumberString(value)) : $('#Value').val(best);
             }
-            else {
+            else if (PDModeAcc == 2 && flag == 0) {
                 $("#best").val(0);
                 $("#bede").val(NumberToNumberString(value));
-                //value > 0 ? $("#bede").val(NumberToNumberString(value)) : $("#Value").val(bede);
+                //value > 0 ? $("#bede").val(NumberToNumberString(value)) : $('#Value').val(bede);
             }
 
             $('.fix').attr('class', 'form-line focused fix');
@@ -2413,22 +2412,22 @@
     $("#bede").keyup(function (e) {
         $("#best").val(0);
         CalcArz();
-        // CalcValue();
+        CalcValue(1);
     });
 
     $("#best").keyup(function (e) {
         $("#bede").val(0);
         CalcArz();
-        //CalcValue();
+        CalcValue(1);
     });
 
     $("#ArzRate").keyup(function (e) {
         CalcArz();
     });
 
-    $("#Value").keyup(function (e) {
+    $('#Value').keyup(function (e) {
         $("#best").val(0);
-        CalcValue();
+        CalcValue(0);
     });
 
 

@@ -11,6 +11,20 @@ const MODECODE_ADOC_EFT = 2;
 const MODECODE_ADOC_EKH = 3;
 const MODECODE_ADOC_SODZYN = 4;
 
+var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
+var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
+var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
+var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
+var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
+var CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکورد ها 
+
+
+ParamList = ko.observableArray([]); // پارامتر ها
+DatabseSalList = ko.observableArray([]); // دیتابیس های سال
+AccessList = ko.observableArray([]); // سطح دسترسی
+AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
+
+
 if (sessionStorage.ace == 'AFI1') {
     sessionStorage.MODECODE_FDOC_SO = 0;
     sessionStorage.MODECODE_FDOC_SP = 51;
@@ -211,18 +225,7 @@ if (afiaccess[6] == 0 && afiaccess[7] == 0)
 else
     $("#IDOC_Menu").show();*/
 
-var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
-var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
-var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
-var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
-var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
 
-
-
-ParamList = ko.observableArray([]); // پارامتر ها
-DatabseSalList = ko.observableArray([]); // دیتابیس های سال
-AccessList = ko.observableArray([]); // سطح دسترسی
-AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 
 //function ajaxFunction(uri, method, data) {
 //    return $.ajax({
@@ -299,6 +302,14 @@ function GetDataApi(Url, localStorageName) { // دریافت اطلاعات از
         }
     });
 }
+
+function CountTable(tableName, ModeCode, InOut) {
+    ajaxFunction(CountTableUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + tableName + '/' + ModeCode + '/' + InOut, 'GET').done(function (dataCount) {
+        count = dataCount;
+    });
+    return count;
+}
+
 
 
 function SearchArry(Node, Key, myArray) {
@@ -981,12 +992,6 @@ function SetValidation() {
             sessionStorage.AccessViewSefareshKharid = false;
         }
     }
-
-
-
-
-
-
 
 
 

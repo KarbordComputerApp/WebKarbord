@@ -139,7 +139,8 @@
 
 
         if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8) {
-            $("#CountRecord").text(self.FDocHList().length);
+            //$("#CountRecord").text(self.FDocHList().length);
+            $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
             return self.FDocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
@@ -348,8 +349,8 @@
     $('#refreshFDocH').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
-            text: "لیست فاکتور ها به روز رسانی شود ؟",
+            title: 'تایید به روز رسانی',
+            text: "لیست " + $('#TitleListFactor').text()  +" به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -812,6 +813,8 @@
             EndNo: 0,
             BranchCode: 0,
         };
+        $('#modal-Move').modal('hide');
+        showNotification('در حال انتقال لطفا منتظر بمانید', 1);
 
         ajaxFunction(FMoveFactorUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
             item = response;
