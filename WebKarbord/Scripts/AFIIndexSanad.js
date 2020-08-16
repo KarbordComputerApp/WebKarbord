@@ -7,6 +7,7 @@
     var server = localStorage.getItem("ApiAddress");
 
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
@@ -15,9 +16,10 @@
     var allSearchADocH = true;
 
     //Get RprtCols List
-    function getRprtColsList() {
+    function getRprtColsList(FlagSetting) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocH/' + sessionStorage.userName, 'GET').done(function (data) {
-            CreateTableReport(data);
+            self.SettingColumnList(data);
+            FlagSetting == true ? CreateTableReport(data) : null
         });
     }
 
@@ -31,8 +33,9 @@
         });
     }
 
-    getRprtColsList();
+    getRprtColsList(true);
     getADocH($('#pageCountSelector').val());
+
 
     //------------------------------------------------------
     self.currentPageADocH = ko.observable();
@@ -107,7 +110,7 @@
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             //$("#CountRecord").text(self.ADocHList().length);
-            $('#CountRecord').text(CountTable('ADocH', null , null));
+            $('#CountRecord').text(CountTable('ADocH', null, null));
             return self.ADocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.ADocHList(), function (item) {
@@ -360,7 +363,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber , 'DELETE').done(function (response) {
+                ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber, 'DELETE').done(function (response) {
                     currentPage = self.currentPageIndexADocH();
                     getADocH($('#pageCountSelector').val());
                     self.currentPageIndexADocH(currentPage);
@@ -421,6 +424,7 @@
         else
             return false;
     }
+
 
     $("#searchADocH").on("keydown", function search(e) {
         var key = e.charCode || e.keyCode || 0;
@@ -639,6 +643,18 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
+
+    self.ShowField = function (Name) {
+        return Name == '' ? false : true
+    }
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        getRprtColsList(false);
+    });
+
+    $('#modal-SettingColumn').on('hide.bs.modal', function () {
+        //getRprtColsList(true);
+    });
 
 };
 

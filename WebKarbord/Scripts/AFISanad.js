@@ -82,6 +82,7 @@
     self.JariList = ko.observableArray([]); // ليست چک ها
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس حساب ها
@@ -205,6 +206,7 @@
     //Get SanadCols List
     function getColsSanadList() {
         ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.SettingColumnList(data);
             CreateTableSanad(data);
         });
     }

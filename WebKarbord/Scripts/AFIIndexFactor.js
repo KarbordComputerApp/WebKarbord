@@ -442,21 +442,21 @@
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             {
-                $('#TitleListFactor').text('سفارش فروش');
+                $('#TitleListFactor').text('سفارش های فروش');
                 defultMove = sessionStorage.Move_SORD;
                 inOut = 2;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_SP:
             {
-                $('#TitleListFactor').text('پیش فاکتور فروش');
+                $('#TitleListFactor').text('پیش فاکتور های فروش');
                 defultMove = sessionStorage.Move_SPFCT;
                 inOut = 2;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_S:
             {
-                $('#TitleListFactor').text('فاکتور فروش');
+                $('#TitleListFactor').text('فاکتور های فروش');
                 defultMove = sessionStorage.Move_SFCT;
                 inOut = 2;
                 break;
@@ -471,7 +471,7 @@
 
         case sessionStorage.MODECODE_FDOC_SH:
             {
-                $('#TitleListFactor').text('حواله فروش');
+                $('#TitleListFactor').text('حواله های فروش');
                 defultMove = sessionStorage.Move_SHVL;
                 inOut = 2;
                 break;
@@ -479,7 +479,7 @@
 
         case sessionStorage.MODECODE_FDOC_SE:
             {
-                $('#TitleListFactor').text('برگه خروج');
+                $('#TitleListFactor').text('برگه های خروج');
                 defultMove = sessionStorage.Move_SEXT;
                 inOut = 2;
                 break;
@@ -487,7 +487,7 @@
 
         case sessionStorage.MODECODE_FDOC_PO:
             {
-                $('#TitleListFactor').text('سفارش خرید');
+                $('#TitleListFactor').text('سفارش های خرید');
                 defultMove = sessionStorage.Move_PORD;
                 inOut = 1;
                 break;
@@ -495,7 +495,7 @@
 
         case sessionStorage.MODECODE_FDOC_PP:
             {
-                $('#TitleListFactor').text('پیش فاکتور خرید');
+                $('#TitleListFactor').text('پیش فاکتور های خرید');
                 defultMove = sessionStorage.Move_PPFCT;
                 inOut = 1;
                 break;
@@ -503,7 +503,7 @@
 
         case sessionStorage.MODECODE_FDOC_P:
             {
-                $('#TitleListFactor').text('فاکتور خرید');
+                $('#TitleListFactor').text('فاکتور های خرید');
                 defultMove = sessionStorage.Move_PFCT;
                 inOut = 1;
                 break;
