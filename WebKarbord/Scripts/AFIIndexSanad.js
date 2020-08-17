@@ -33,6 +33,30 @@
         });
     }
 
+    $('#SaveMove').click(function () {
+        listitem = self.SettingColumnList();
+        var obj = [];
+        for (i = 0; i < self.SettingColumnList().length; i++) {
+            item = listitem[i];
+            $('#SettingColumns' + (i + 1)).is(':checked') == true ? Visible = 1 : Visible = 0;
+            tmp = {
+                'UserCode': sessionStorage.userName,
+                'RprtId': item.RprtId,
+                'Code': item.Code,
+                'Visible': Visible,
+            };
+            obj.push(tmp);
+        }
+
+        $('#modal-SettingColumn').modal('hide');
+        showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
+
+        ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
+        });
+        window.location.href = "/AFISanad/Index";
+
+    });
+
     getRprtColsList(true);
     getADocH($('#pageCountSelector').val());
 

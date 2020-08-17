@@ -17,6 +17,7 @@ var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دست�
 var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
 var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
 var CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکورد ها 
+var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
 
 
 ParamList = ko.observableArray([]); // پارامتر ها
@@ -505,7 +506,7 @@ function CheckAccessReportErj(Code) {
 
 function FindTextField(field, data) {
     for (var i = 0; i < data.length; i++) {
-        if (data[i].Code == field) {
+        if (data[i].Code == field && data[i].Visible == 1) {
             return data[i].Name;
         }
     }
