@@ -19,6 +19,9 @@ var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آد�
 var CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکورد ها 
 var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
 
+var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
+var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
+
 
 ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال
@@ -1616,3 +1619,38 @@ $.fn.inputFilter = function (inputFilter) {
 };
 
 
+function SetColumn(code, indexId, data) {
+    var index = 0;
+    for (i = 0; i < data.length; i++) {
+        item = data[i];
+        if (item.Code == code) {
+            index = i;
+        }
+    }
+    name = data[index].Name;
+    visible = data[index].Visible;
+    $('#TextColumns' + indexId).text(name);
+    $('#SettingColumns' + indexId).prop('checked', visible == 1 ? true : false);
+}
+
+function SaveColumn(rprtId, route, columns, data) {
+    var obj = [];
+    for (i = 1; i <= columns.length; i++) {
+        item = data[i];
+        $('#SettingColumns' + (i)).is(':checked') == true ? Visible = 1 : Visible = 0;
+        tmp = {
+            'UserCode': sessionStorage.userName,
+            'RprtId': rprtId,
+            'Code': columns[i - 1],
+            'Visible': Visible,
+        };
+        obj.push(tmp);
+    }
+
+    $('#modal-SettingColumn').modal('hide');
+    showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
+
+    ajaxFunction(RprtColsSaveUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'POST', obj).done(function (response) {
+    });
+    window.location.href = route;
+}

@@ -9,19 +9,103 @@
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
+
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
 
     var allSearchADocH = true;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var columns = [
+        'DocNo',
+        'DocDate',
+        'Spec',
+        'Eghdam',
+        'Tanzim',
+        'Taeed',
+        'ModeName',
+        'Status',
+        'SerialNumber',
+        'F01',
+        'F02',
+        'F03',
+        'F04',
+        'F05',
+        'F06',
+        'F07',
+        'F08',
+        'F09',
+        'F10',
+        'F11',
+        'F12',
+        'F13',
+        'F14',
+        'F15',
+        'F16',
+        'F17',
+        'F18',
+        'F19',
+        'F20'
+    ];
+    rprtId = 'ADocH';
+
     //Get RprtCols List
-    function getRprtColsList(FlagSetting) {
+    function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocH/' + sessionStorage.userName, 'GET').done(function (data) {
             self.SettingColumnList(data);
-            FlagSetting == true ? CreateTableReport(data) : null
+            if (FlagSetting) {
+                CreateTableReport(data)
+            }
+            else {
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
         });
     }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocH/', 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
+        });
+    }
+
+    $('#SaveMove').click(function () {
+        SaveColumn(rprtId, "/AFISanad/Index", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+
+    $('#DefultColumn').click(function () {
+        getRprtColsDefultList();
+    });
+
 
 
     //Get ADocH 
@@ -33,31 +117,8 @@
         });
     }
 
-    $('#SaveMove').click(function () {
-        listitem = self.SettingColumnList();
-        var obj = [];
-        for (i = 0; i < self.SettingColumnList().length; i++) {
-            item = listitem[i];
-            $('#SettingColumns' + (i + 1)).is(':checked') == true ? Visible = 1 : Visible = 0;
-            tmp = {
-                'UserCode': sessionStorage.userName,
-                'RprtId': item.RprtId,
-                'Code': item.Code,
-                'Visible': Visible,
-            };
-            obj.push(tmp);
-        }
 
-        $('#modal-SettingColumn').modal('hide');
-        showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
-
-        ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
-        });
-        window.location.href = "/AFISanad/Index";
-
-    });
-
-    getRprtColsList(true);
+    getRprtColsList(true, sessionStorage.userName);
     getADocH($('#pageCountSelector').val());
 
 
@@ -667,18 +728,6 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
-
-    self.ShowField = function (Name) {
-        return Name == '' ? false : true
-    }
-
-    $('#modal-SettingColumn').on('show.bs.modal', function () {
-        getRprtColsList(false);
-    });
-
-    $('#modal-SettingColumn').on('hide.bs.modal', function () {
-        //getRprtColsList(true);
-    });
 
 };
 
