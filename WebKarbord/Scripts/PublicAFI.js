@@ -29,6 +29,8 @@ AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 
 
+
+
 if (sessionStorage.ace == 'AFI1') {
     sessionStorage.MODECODE_FDOC_SO = 0;
     sessionStorage.MODECODE_FDOC_SP = 51;
@@ -1620,17 +1622,24 @@ $.fn.inputFilter = function (inputFilter) {
 
 
 function SetColumn(code, indexId, data) {
-    var index = 0;
+    var index = -1;
+    var name = '';
     for (i = 0; i < data.length; i++) {
         item = data[i];
         if (item.Code == code) {
             index = i;
         }
     }
-    name = data[index].Name;
-    visible = data[index].Visible;
-    $('#TextColumns' + indexId).text(name);
-    $('#SettingColumns' + indexId).prop('checked', visible == 1 ? true : false);
+    if (index >= 0) {
+        name = data[index].Name;
+        visible = data[index].Visible;
+        $('#TextColumns' + indexId).text(name);
+        $('#SettingColumns' + indexId).prop('checked', visible == 1 ? true : false);
+    }
+    else {
+        $('#TextColumns' + indexId).text('تعریف نشده');
+        $('#SettingColumns' + indexId).prop('checked', false);
+    }
 }
 
 function SaveColumn(rprtId, route, columns, data) {

@@ -7,27 +7,14 @@
     var server = localStorage.getItem("ApiAddress");
 
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
-    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
-
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
 
     var allSearchADocH = true;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    var rprtId = 'ADocH';
     var columns = [
         'DocNo',
         'DocDate',
@@ -59,7 +46,7 @@
         'F19',
         'F20'
     ];
-    rprtId = 'ADocH';
+    
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {

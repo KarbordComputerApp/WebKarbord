@@ -914,7 +914,7 @@
 
             }
             else {
-                Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'فاکتور' + ' ذخيره شد ' });
+                Swal.fire({ type: 'success', title: 'ثبت موفق', text: $('#TitleHeaderFactor').text()  + ' ذخيره شد ' });
             }
 
         });

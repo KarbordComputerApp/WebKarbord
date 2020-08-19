@@ -63,12 +63,96 @@
     $("#textTotal").text('');
 
 
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var rprtId = 'FDocR_S';
+    var columns = [
+        'DocNo',
+        'DocDate',
+        'ModeName',
+        'Status',
+        'Taeed',
+        'Tasvib',
+        'CustName',
+        'MkzName',
+        'OprName',
+        'KalaName',
+        'KalaFileNo',
+        'KalaState',
+        'KalaExf1',
+        'KalaExf2',
+        'KalaExf3',
+        'MainUnitName',
+        'Amount1',
+        'Amount2',
+        'Amount3',
+        'Discount',
+        'AddMinPrice1',
+        'AddMinPrice2',
+        'AddMinPrice3',
+        'AddMinPrice4',
+        'AddMinPrice5',
+        'AddMinPrice6',
+        'AddMinPrice7',
+        'AddMinPrice8',
+        'AddMinPrice9',
+        'AddMinPrice10',
+        'UnitPrice',
+        'TotalPrice',
+        'BandSpec',
+        'Comm',
+        'SerialNumber',
+        'BandNo'
+    ];
+
+
     //Get RprtCols List
-    function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/FDocR_S/' + sessionStorage.userName, 'GET').done(function (data) {
-            CreateTableReport(data);
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            if (FlagSetting) {
+                CreateTableReport(data)
+            }
+            else {
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
         });
     }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
+        });
+    }
+
+    $('#SaveMove').click(function () {
+        SaveColumn(rprtId, "/ReportAFI/FDocR_S", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+    $('#DefultColumn').click(function () {
+        getRprtColsDefultList();
+    });
+
+    getRprtColsList(true, sessionStorage.userName);
+
+
 
     //Get  FMode List
     function getFModeList() {
@@ -305,7 +389,6 @@
         getFDocR_S();
     });
 
-    getRprtColsList(); 
     getFModeList();
     getInvList();
     getKalaList();

@@ -443,7 +443,7 @@
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             {
-                TitleFactor = 'سفارش فروش';
+                TitleListFactor = 'سفارش فروش';
                 $('#TitleListFactor').text('سفارشات فروش');
                 defultMove = sessionStorage.Move_SORD;
                 inOut = 2;
@@ -468,7 +468,7 @@
         case sessionStorage.MODECODE_FDOC_SR:
             {
                 TitleListFactor = 'برگشت از فروش';
-                $('#TitleListFactor').text('برگشت از فروش');
+                $('#TitleListFactor').text('برگشتی های فروش');
                 defultMove = sessionStorage.Move_SRFCT;
                 inOut = 2;
                 break;
@@ -495,7 +495,7 @@
         case sessionStorage.MODECODE_FDOC_PO:
             {
                 TitleListFactor = 'سفارش خرید';
-                $('#TitleListFactor').text('سفارش های خرید');
+                $('#TitleListFactor').text('سفارشات خرید');
                 defultMove = sessionStorage.Move_PORD;
                 inOut = 1;
                 break;
@@ -522,7 +522,7 @@
         case sessionStorage.MODECODE_FDOC_PR:
             {
                 TitleListFactor = 'برگشت از خرید';
-                $('#TitleListFactor').text('برگشت از خرید');
+                $('#TitleListFactor').text('برگشتی های خرید');
                 defultMove = sessionStorage.Move_PRFCT;
                 inOut = 1;
             }
