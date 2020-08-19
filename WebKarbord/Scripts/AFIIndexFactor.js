@@ -25,6 +25,7 @@
     var inOut;
     var serial;
     var defultMove;
+    var TitleListFactor;
 
     //Get FDocH 
     function getFDocH(select) {
@@ -350,7 +351,7 @@
 
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست " + $('#TitleListFactor').text()  +" به روز رسانی شود ؟",
+            text: "لیست " + $('#TitleListFactor').text() + " به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -385,8 +386,8 @@
 
     self.DeleteFactor = function (factorBand) {
         Swal.fire({
-            title: 'تایید حذف ؟',
-            text: "آیا فاکتور انتخابی حذف شود",
+            title: 'تایید حذف',
+            text: "آیا " + TitleListFactor + " انتخابی حذف شود ؟",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -442,13 +443,15 @@
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             {
-                $('#TitleListFactor').text('سفارش های فروش');
+                TitleFactor = 'سفارش فروش';
+                $('#TitleListFactor').text('سفارشات فروش');
                 defultMove = sessionStorage.Move_SORD;
                 inOut = 2;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_SP:
             {
+                TitleListFactor = 'پیش فاکتور فروش';
                 $('#TitleListFactor').text('پیش فاکتور های فروش');
                 defultMove = sessionStorage.Move_SPFCT;
                 inOut = 2;
@@ -456,6 +459,7 @@
             }
         case sessionStorage.MODECODE_FDOC_S:
             {
+                TitleListFactor = 'فاکتور فروش';
                 $('#TitleListFactor').text('فاکتور های فروش');
                 defultMove = sessionStorage.Move_SFCT;
                 inOut = 2;
@@ -463,6 +467,7 @@
             }
         case sessionStorage.MODECODE_FDOC_SR:
             {
+                TitleListFactor = 'برگشت از فروش';
                 $('#TitleListFactor').text('برگشت از فروش');
                 defultMove = sessionStorage.Move_SRFCT;
                 inOut = 2;
@@ -471,6 +476,7 @@
 
         case sessionStorage.MODECODE_FDOC_SH:
             {
+                TitleListFactor = 'حواله فروش';
                 $('#TitleListFactor').text('حواله های فروش');
                 defultMove = sessionStorage.Move_SHVL;
                 inOut = 2;
@@ -479,6 +485,7 @@
 
         case sessionStorage.MODECODE_FDOC_SE:
             {
+                TitleListFactor = 'برگه خروج';
                 $('#TitleListFactor').text('برگه های خروج');
                 defultMove = sessionStorage.Move_SEXT;
                 inOut = 2;
@@ -487,6 +494,7 @@
 
         case sessionStorage.MODECODE_FDOC_PO:
             {
+                TitleListFactor = 'سفارش خرید';
                 $('#TitleListFactor').text('سفارش های خرید');
                 defultMove = sessionStorage.Move_PORD;
                 inOut = 1;
@@ -495,6 +503,7 @@
 
         case sessionStorage.MODECODE_FDOC_PP:
             {
+                TitleListFactor = 'پیش فاکتور خرید';
                 $('#TitleListFactor').text('پیش فاکتور های خرید');
                 defultMove = sessionStorage.Move_PPFCT;
                 inOut = 1;
@@ -503,6 +512,7 @@
 
         case sessionStorage.MODECODE_FDOC_P:
             {
+                TitleListFactor = 'فاکتور خرید';
                 $('#TitleListFactor').text('فاکتور های خرید');
                 defultMove = sessionStorage.Move_PFCT;
                 inOut = 1;
@@ -511,6 +521,7 @@
 
         case sessionStorage.MODECODE_FDOC_PR:
             {
+                TitleListFactor = 'برگشت از خرید';
                 $('#TitleListFactor').text('برگشت از خرید');
                 defultMove = sessionStorage.Move_PRFCT;
                 inOut = 1;

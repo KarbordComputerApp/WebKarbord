@@ -85,9 +85,11 @@
                 select.appendChild(opt);
             }
 
+
             opt = document.createElement('option');
-            opt.value = data[1].Code + '*' + data[2].Code;
-            opt.innerHTML = data[1].Name + + ' با احتساب برگشتی';;
+            opt.value = SearchMode('فاکتور فروش', self.FModeList()) + '*' + SearchMode('برگشت از فروش', self.FModeList());
+            opt.innerHTML = 'فاکتور فروش با احتساب برگشتی';
+            opt.selected = true;
             select.appendChild(opt);
         });
     }
