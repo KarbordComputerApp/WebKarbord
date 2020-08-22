@@ -36,25 +36,25 @@
                         </div>
                     </div>
 
-                   <!-- <div class="col-md-6">
-                        <div class="input-group">
-                            <div class="form-group form-float">
-                                <div class="form-line">
-                                    <input data-bind="value: filterIDocH, valueUpdate: 'afterkeydown'" id="searchIDocH" class="form-control" />
-                                    <label class="form-label">عنوان جستجو را وارد کنید</label>
-                                </div>
-                                <div class="help-info"><label id="allSearchIDocHText">جستجو بر اساس همه موارد</label></div>
-                            </div>
-                            <div class="input-group-addon">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" id="allSearchIDocH" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                    </div> -->
+                    <!-- <div class="col-md-6">
+                         <div class="input-group">
+                             <div class="form-group form-float">
+                                 <div class="form-line">
+                                     <input data-bind="value: filterIDocH, valueUpdate: 'afterkeydown'" id="searchIDocH" class="form-control" />
+                                     <label class="form-label">عنوان جستجو را وارد کنید</label>
+                                 </div>
+                                 <div class="help-info"><label id="allSearchIDocHText">جستجو بر اساس همه موارد</label></div>
+                             </div>
+                             <div class="input-group-addon">
+                                 <label class="form-check-label">
+                                     <input class="form-check-input" id="allSearchIDocH" type="checkbox" value="" checked>
+                                     <span class="form-check-sign">
+                                         <span class="check"></span>
+                                     </span>
+                                 </label>
+                             </div>
+                         </div>
+                     </div> -->
 
                 </div>
                 <br />
@@ -237,6 +237,52 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-SettingColumn" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">تنظیم ستون ها</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-addmin">
+                        <thead style="cursor: pointer;">
+                            <tr>
+                                <td>ردیف</td>
+                                <td style="width:250px;"> نام ستون</td>
+                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                    <label for="AllSettingColumns">انتخاب همه</label>
+                                    <input id="AllSettingColumns" type="checkbox" />
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody id="TableColumn"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                            پیش فرض
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                            تایید
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts{
     <script type="text/javascript">

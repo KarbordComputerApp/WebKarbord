@@ -1621,24 +1621,165 @@ $.fn.inputFilter = function (inputFilter) {
 };
 
 
+
+
+
+
+var counterColumn;
+
+function CreateTableColumn(data) {
+    var cols = '';
+    $("#TableColumn").empty();
+
+    for (var i = 1; i <= data.length; i++) {
+        cols += ' <tr id="PanelColumns' + i + '"> ' +
+            '    <td id="RowColumns' + i + '"></td> ' +
+            '    <td id="TextColumns' + i + '"></td> ' +
+            '    <td style="padding: 0px 10px;text-align: left;"> ' +
+            '        <input id = "SettingColumns' + i + '" type = "checkbox" />' +
+            '    </td > ' +
+            '</tr> '
+    }
+
+    $('#TableColumn').append(
+        cols
+    );
+}
+
+
+/*function CreateTableColumn(data) {
+    var cols = '';
+    $("#TableColumn").empty();
+
+    for (var i = 1; i <= data.length; i++) {
+        cols += ' <tr id="PanelColumns' + i + '"> ' +
+            '    <td id="RowColumns' + i + '"></td> ' +
+            '    <td id="TextColumns' + i + '"></td> ' +
+            '    <td style="padding: 0px 10px;text-align: left;"> ' +
+            '        <input id = "SettingColumns' + i + '" type = "checkbox" />' +
+            '    </td > ' +
+            '</tr> '
+    }
+
+    $('#TableColumn').append(
+        ' <table class="table table-addmin">' +
+        '   <thead style="cursor: pointer;">' +
+        '       <tr>' +
+        '           <td>ردیف</td>' +
+        '           <td style="width:250px;"> نام ستون</td>' +
+        '           <td style="text-align: left;padding: 0px 10px 0px 10px;"> ' +
+        '                <label for="AllSettingColumns">انتخاب همه</label> ' +
+        '                <input id="AllSettingColumns" type="checkbox" /> ' +
+        '           </td> ' +
+        '      </tr>' +
+        '   </thead >' +
+        ' <tbody>' +
+        cols +
+        ' </tbody>' +
+        '</table >'
+    );
+}*/
+
 function SetColumn(code, indexId, data) {
     var index = -1;
     var name = '';
+    var user = '';
     for (i = 0; i < data.length; i++) {
         item = data[i];
+        user = item.UserCode;
         if (item.Code == code) {
             index = i;
         }
     }
     if (index >= 0) {
+        counterColumn++;
         name = data[index].Name;
         visible = data[index].Visible;
+        findCode = code.search("Code");
+        if (user == "*Default*" &&
+            (
+                (code.search("Code") > 0 && code != "AccCode") ||
+
+                code == "Amount" ||
+                code == "Shobe" ||
+                code == "Jari" ||
+                code == "F01" ||
+                code == "F02" ||
+                code == "F03" ||
+                code == "F04" ||
+                code == "F05" ||
+                code == "F06" ||
+                code == "F07" ||
+                code == "F08" ||
+                code == "F09" ||
+                code == "F10" ||
+                code == "F11" ||
+                code == "F12" ||
+                code == "F13" ||
+                code == "F14" ||
+                code == "F15" ||
+                code == "F16" ||
+                code == "F17" ||
+                code == "F18" ||
+                code == "F19" ||
+                code == "F20" ||
+
+                code == "CustF01" ||
+                code == "CustF02" ||
+                code == "CustF03" ||
+                code == "CustF04" ||
+                code == "CustF05" ||
+                code == "CustF06" ||
+                code == "CustF07" ||
+                code == "CustF08" ||
+                code == "CustF09" ||
+                code == "CustF10" ||
+                code == "CustF11" ||
+                code == "CustF12" ||
+                code == "CustF13" ||
+                code == "CustF14" ||
+                code == "CustF15" ||
+                code == "CustF16" ||
+                code == "CustF17" ||
+                code == "CustF18" ||
+                code == "CustF19" ||
+                code == "CustF20" ||
+
+                code == "KalaF01" ||
+                code == "KalaF02" ||
+                code == "KalaF03" ||
+                code == "KalaF04" ||
+                code == "KalaF05" ||
+                code == "KalaF06" ||
+                code == "KalaF07" ||
+                code == "KalaF08" ||
+                code == "KalaF09" ||
+                code == "KalaF10" ||
+                code == "KalaF11" ||
+                code == "KalaF12" ||
+                code == "KalaF13" ||
+                code == "KalaF14" ||
+                code == "KalaF15" ||
+                code == "KalaF16" ||
+                code == "KalaF17" ||
+                code == "KalaF18" ||
+                code == "KalaF19" ||
+                code == "KalaF20"
+            )
+        )
+        {
+            visible = 0;
+        }
+        $('#RowColumns' + indexId).text(counterColumn);
         $('#TextColumns' + indexId).text(name);
         $('#SettingColumns' + indexId).prop('checked', visible == 1 ? true : false);
+        $('#PanelColumns1').removeAttr('hidden', '');
     }
     else {
+        $('#PanelColumns' + indexId).attr('hidden', '');
         $('#TextColumns' + indexId).text('تعریف نشده');
         $('#SettingColumns' + indexId).prop('checked', false);
+        $('#RowColumns' + indexId).text(-1);
     }
 }
 
@@ -1658,7 +1799,6 @@ function SaveColumn(rprtId, route, columns, data) {
 
     $('#modal-SettingColumn').modal('hide');
     showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
-
     ajaxFunction(RprtColsSaveUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'POST', obj).done(function (response) {
     });
     window.location.href = route;

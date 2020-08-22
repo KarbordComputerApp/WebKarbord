@@ -78,18 +78,116 @@
     var list_OprSelect = new Array();
 
 
-
-
-    //CreateTableReport(RprtColsList);
     $("#textTotal").text('');
 
 
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var rprtId = 'TrzFCust_S';
+    var columns = [
+
+        'CustCode',
+        'CustName',
+        'CustF01',
+        'CustF02',
+        'CustF03',
+        'CustF04',
+        'CustF05',
+        'CustF06',
+        'CustF07',
+        'CustF08',
+        'CustF09',
+        'CustF10',
+        'CustF11',
+        'CustF12',
+        'CustF13',
+        'CustF14',
+        'CustF15',
+        'CustF16',
+        'CustF17',
+        'CustF18',
+        'CustF19',
+        'CustF20',
+        'Amount1',
+        'Amount2',
+        'Amount3',
+        'TotalPrice',
+        'Discount',
+        'AddMinPrice1',
+        'AddMinPrice2',
+        'AddMinPrice3',
+        'AddMinPrice4',
+        'AddMinPrice5',
+        'AddMinPrice6',
+        'AddMinPrice7',
+        'AddMinPrice8',
+        'AddMinPrice9',
+        'AddMinPrice10',
+        'OnlyDiscountPrice',
+        'FinalPrice'
+    ];
+
+
     //Get RprtCols List
-    function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TrzFCust_S/' + sessionStorage.userName, 'GET').done(function (data) {
-            CreateTableReport(data);
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            if (FlagSetting) {
+                CreateTableReport(data)
+            }
+            else {
+                CreateTableColumn(columns);
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
+        });
+
+    }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            counterColumn = 0;
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
         });
     }
+
+    $('#SaveColumns').click(function () {
+        SaveColumn(rprtId, "/ReportAFI/TrzFCust_S", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+    $('#DefultColumn').click(function () {
+        getRprtColsDefultList();
+    });
+
+    getRprtColsList(true, sessionStorage.userName);
+
+
+
+
+
+
+
+
+
+
+
 
     //Get Status List
     function getStatusList() {
@@ -369,7 +467,6 @@
         getTrzFCust_S();
     });
 
-    getRprtColsList();
     getFModeList();
     getInvList();
     getKalaList();

@@ -58,8 +58,6 @@
     var counterOpr = 0;
     var list_OprSelect = new Array();
 
-
-    //CreateTableReport(RprtColsList);
     $("#textTotal").text('');
 
 
@@ -82,6 +80,18 @@
         'KalaExf1',
         'KalaExf2',
         'KalaExf3',
+        'KalaExf4',
+        'KalaExf5',
+        'KalaExf6',
+        'KalaExf7',
+        'KalaExf8',
+        'KalaExf9',
+        'KalaExf10',
+        'KalaExf11',
+        'KalaExf12',
+        'KalaExf13',
+        'KalaExf14',
+        'KalaExf15',
         'MainUnitName',
         'Amount1',
         'Amount2',
@@ -108,34 +118,38 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             if (FlagSetting) {
                 CreateTableReport(data)
             }
             else {
+                CreateTableColumn(columns);
                 for (var i = 1; i <= columns.length; i++) {
                     SetColumn(columns[i - 1], i, data);
                 }
             }
         });
+
     }
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
                 SetColumn(columns[i - 1], i, data);
             }
         });
     }
 
-    $('#SaveMove').click(function () {
+    $('#SaveColumns').click(function () {
         SaveColumn(rprtId, "/ReportAFI/FDocR_S", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
         getRprtColsList(false, sessionStorage.userName);
     });
 
@@ -151,6 +165,9 @@
     });
 
     getRprtColsList(true, sessionStorage.userName);
+
+
+
 
 
 
@@ -427,6 +444,18 @@
     self.filterKalaExf1 = ko.observable("");
     self.filterKalaExf2 = ko.observable("");
     self.filterKalaExf3 = ko.observable("");
+    self.filterKalaExf4 = ko.observable("");
+    self.filterKalaExf5 = ko.observable("");
+    self.filterKalaExf6 = ko.observable("");
+    self.filterKalaExf7 = ko.observable("");
+    self.filterKalaExf8 = ko.observable("");
+    self.filterKalaExf9 = ko.observable("");
+    self.filterKalaExf10 = ko.observable("");
+    self.filterKalaExf11 = ko.observable("");
+    self.filterKalaExf12 = ko.observable("");
+    self.filterKalaExf13 = ko.observable("");
+    self.filterKalaExf14 = ko.observable("");
+    self.filterKalaExf15 = ko.observable("");
     self.filterMainUnitName = ko.observable("");
     self.filterAmount1 = ko.observable("");
     self.filterAmount2 = ko.observable("");
@@ -467,6 +496,18 @@
         var filterKalaExf1 = self.filterKalaExf1();
         var filterKalaExf2 = self.filterKalaExf2();
         var filterKalaExf3 = self.filterKalaExf3();
+        var filterKalaExf4 = self.filterKalaExf4();
+        var filterKalaExf5 = self.filterKalaExf5();
+        var filterKalaExf6 = self.filterKalaExf6();
+        var filterKalaExf7 = self.filterKalaExf7();
+        var filterKalaExf8 = self.filterKalaExf8();
+        var filterKalaExf9 = self.filterKalaExf9();
+        var filterKalaExf10 = self.filterKalaExf10();
+        var filterKalaExf11 = self.filterKalaExf11();
+        var filterKalaExf12 = self.filterKalaExf12();
+        var filterKalaExf13 = self.filterKalaExf13();
+        var filterKalaExf14 = self.filterKalaExf14();
+        var filterKalaExf15 = self.filterKalaExf15();
         var filterMainUnitName = self.filterMainUnitName();
         var filterAmount1 = self.filterAmount1();
         var filterAmount2 = self.filterAmount2();
@@ -495,6 +536,49 @@
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
                 (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
+                (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
+                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
+                (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
+                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
+                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
+                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
+                (item.KalaExf4 == null ? '' : item.KalaExf4.toString().search(filterKalaExf4) >= 0) &&
+                (item.KalaExf5 == null ? '' : item.KalaExf5.toString().search(filterKalaExf5) >= 0) &&
+                (item.KalaExf6 == null ? '' : item.KalaExf6.toString().search(filterKalaExf6) >= 0) &&
+                (item.KalaExf7 == null ? '' : item.KalaExf7.toString().search(filterKalaExf7) >= 0) &&
+                (item.KalaExf8 == null ? '' : item.KalaExf8.toString().search(filterKalaExf8) >= 0) &&
+                (item.KalaExf9 == null ? '' : item.KalaExf9.toString().search(filterKalaExf9) >= 0) &&
+                (item.KalaExf10 == null ? '' : item.KalaExf10.toString().search(filterKalaExf10) >= 0) &&
+                (item.KalaExf11 == null ? '' : item.KalaExf11.toString().search(filterKalaExf11) >= 0) &&
+                (item.KalaExf12 == null ? '' : item.KalaExf12.toString().search(filterKalaExf12) >= 0) &&
+                (item.KalaExf13 == null ? '' : item.KalaExf13.toString().search(filterKalaExf13) >= 0) &&
+                (item.KalaExf14 == null ? '' : item.KalaExf14.toString().search(filterKalaExf14) >= 0) &&
+                (item.KalaExf15 == null ? '' : item.KalaExf15.toString().search(filterKalaExf15) >= 0) &&
+                (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
+                ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
+                ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
+                ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
+                ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
+                ko.utils.stringStartsWith(item.AddMinPrice1.toString().toLowerCase(), filterAddMinPrice1) &&
+                ko.utils.stringStartsWith(item.AddMinPrice2.toString().toLowerCase(), filterAddMinPrice2) &&
+                ko.utils.stringStartsWith(item.AddMinPrice3.toString().toLowerCase(), filterAddMinPrice3) &&
+                ko.utils.stringStartsWith(item.AddMinPrice4.toString().toLowerCase(), filterAddMinPrice4) &&
+                ko.utils.stringStartsWith(item.AddMinPrice5.toString().toLowerCase(), filterAddMinPrice5) &&
+                ko.utils.stringStartsWith(item.AddMinPrice6.toString().toLowerCase(), filterAddMinPrice6) &&
+                ko.utils.stringStartsWith(item.AddMinPrice7.toString().toLowerCase(), filterAddMinPrice7) &&
+                ko.utils.stringStartsWith(item.AddMinPrice8.toString().toLowerCase(), filterAddMinPrice8) &&
+                ko.utils.stringStartsWith(item.AddMinPrice9.toString().toLowerCase(), filterAddMinPrice9) &&
+                ko.utils.stringStartsWith(item.AddMinPrice10.toString().toLowerCase(), filterAddMinPrice10) &&
+                ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filterUnitPrice) &&
+                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
+                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
+                (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0) &&
+                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                 ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo)
             return result;
         })
@@ -592,6 +676,18 @@
         self.iconTypeKalaExf1('');
         self.iconTypeKalaExf2('');
         self.iconTypeKalaExf3('');
+        self.iconTypeKalaExf4('');
+        self.iconTypeKalaExf5('');
+        self.iconTypeKalaExf6('');
+        self.iconTypeKalaExf7('');
+        self.iconTypeKalaExf8('');
+        self.iconTypeKalaExf9('');
+        self.iconTypeKalaExf10('');
+        self.iconTypeKalaExf11('');
+        self.iconTypeKalaExf12('');
+        self.iconTypeKalaExf13('');
+        self.iconTypeKalaExf14('');
+        self.iconTypeKalaExf15('');
         self.iconTypeMainUnitName('');
         self.iconTypeAmount1('');
         self.iconTypeAmount2('');
@@ -630,6 +726,18 @@
         if (orderProp == 'KalaExf1') self.iconTypeKalaExf1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaExf2') self.iconTypeKalaExf2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaExf3') self.iconTypeKalaExf3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf4') self.iconTypeKalaExf4((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf5') self.iconTypeKalaExf5((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf6') self.iconTypeKalaExf6((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf7') self.iconTypeKalaExf7((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf8') self.iconTypeKalaExf8((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf9') self.iconTypeKalaExf9((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf10') self.iconTypeKalaExf10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf11') self.iconTypeKalaExf11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf12') self.iconTypeKalaExf12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf13') self.iconTypeKalaExf13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf14') self.iconTypeKalaExf14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaExf15') self.iconTypeKalaExf15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MainUnitName') self.iconTypeMainUnitName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount1') self.iconTypeAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount2') self.iconTypeAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -676,6 +784,18 @@
     self.iconTypeKalaExf1 = ko.observable("");
     self.iconTypeKalaExf2 = ko.observable("");
     self.iconTypeKalaExf3 = ko.observable("");
+    self.iconTypeKalaExf4 = ko.observable("");
+    self.iconTypeKalaExf5 = ko.observable("");
+    self.iconTypeKalaExf6 = ko.observable("");
+    self.iconTypeKalaExf7 = ko.observable("");
+    self.iconTypeKalaExf8 = ko.observable("");
+    self.iconTypeKalaExf9 = ko.observable("");
+    self.iconTypeKalaExf10 = ko.observable("");
+    self.iconTypeKalaExf11 = ko.observable("");
+    self.iconTypeKalaExf12 = ko.observable("");
+    self.iconTypeKalaExf13 = ko.observable("");
+    self.iconTypeKalaExf14 = ko.observable("");
+    self.iconTypeKalaExf15 = ko.observable("");
     self.iconTypeMainUnitName = ko.observable("");
     self.iconTypeAmount1 = ko.observable("");
     self.iconTypeAmount2 = ko.observable("");
@@ -1786,8 +1906,6 @@
 
     $('.fix').attr('class', 'form-line date focused fix');
 
-
-
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
@@ -1809,6 +1927,18 @@
             CreateTableTh('KalaExf1', data) +
             CreateTableTh('KalaExf2', data) +
             CreateTableTh('KalaExf3', data) +
+            CreateTableTh('KalaExf4', data) +
+            CreateTableTh('KalaExf5', data) +
+            CreateTableTh('KalaExf6', data) +
+            CreateTableTh('KalaExf7', data) +
+            CreateTableTh('KalaExf8', data) +
+            CreateTableTh('KalaExf9', data) +
+            CreateTableTh('KalaExf10', data) +
+            CreateTableTh('KalaExf11', data) +
+            CreateTableTh('KalaExf12', data) +
+            CreateTableTh('KalaExf13', data) +
+            CreateTableTh('KalaExf14', data) +
+            CreateTableTh('KalaExf15', data) +
             CreateTableTh('MainUnitName', data) +
             CreateTableTh('Amount1', data) +
             CreateTableTh('Amount2', data) +
@@ -1849,6 +1979,18 @@
             CreateTableTd('KalaExf1', 0, 0, data) +
             CreateTableTd('KalaExf2', 0, 0, data) +
             CreateTableTd('KalaExf3', 0, 0, data) +
+            CreateTableTd('KalaExf4', 0, 0, data) +
+            CreateTableTd('KalaExf5', 0, 0, data) +
+            CreateTableTd('KalaExf6', 0, 0, data) +
+            CreateTableTd('KalaExf7', 0, 0, data) +
+            CreateTableTd('KalaExf8', 0, 0, data) +
+            CreateTableTd('KalaExf9', 0, 0, data) +
+            CreateTableTd('KalaExf10', 0, 0, data) +
+            CreateTableTd('KalaExf11', 0, 0, data) +
+            CreateTableTd('KalaExf12', 0, 0, data) +
+            CreateTableTd('KalaExf13', 0, 0, data) +
+            CreateTableTd('KalaExf14', 0, 0, data) +
+            CreateTableTd('KalaExf15', 0, 0, data) +
             CreateTableTd('MainUnitName', 0, 0, data) +
             CreateTableTd('Amount1', 'DeghatM1', 1, data) +
             CreateTableTd('Amount2', 'DeghatM2', 1, data) +
@@ -1889,6 +2031,18 @@
             CreateTableTdSum('KalaExf1', 1, data) +
             CreateTableTdSum('KalaExf2', 1, data) +
             CreateTableTdSum('KalaExf3', 1, data) +
+            CreateTableTdSum('KalaExf4', 1, data) +
+            CreateTableTdSum('KalaExf5', 1, data) +
+            CreateTableTdSum('KalaExf6', 1, data) +
+            CreateTableTdSum('KalaExf7', 1, data) +
+            CreateTableTdSum('KalaExf8', 1, data) +
+            CreateTableTdSum('KalaExf9', 1, data) +
+            CreateTableTdSum('KalaExf10', 1, data) +
+            CreateTableTdSum('KalaExf11', 1, data) +
+            CreateTableTdSum('KalaExf12', 1, data) +
+            CreateTableTdSum('KalaExf13', 1, data) +
+            CreateTableTdSum('KalaExf14', 1, data) +
+            CreateTableTdSum('KalaExf15', 1, data) +
             CreateTableTdSum('MainUnitName', 1, data) +
             CreateTableTdSum('Amount1', 2, data) +
             CreateTableTdSum('Amount2', 2, data) +
@@ -1927,6 +2081,18 @@
             CreateTableTdSearch('KalaExf1', data) +
             CreateTableTdSearch('KalaExf2', data) +
             CreateTableTdSearch('KalaExf3', data) +
+            CreateTableTdSearch('KalaExf4', data) +
+            CreateTableTdSearch('KalaExf5', data) +
+            CreateTableTdSearch('KalaExf6', data) +
+            CreateTableTdSearch('KalaExf7', data) +
+            CreateTableTdSearch('KalaExf8', data) +
+            CreateTableTdSearch('KalaExf9', data) +
+            CreateTableTdSearch('KalaExf10', data) +
+            CreateTableTdSearch('KalaExf11', data) +
+            CreateTableTdSearch('KalaExf12', data) +
+            CreateTableTdSearch('KalaExf13', data) +
+            CreateTableTdSearch('KalaExf14', data) +
+            CreateTableTdSearch('KalaExf15', data) +
             CreateTableTdSearch('MainUnitName', data) +
             CreateTableTdSearch('Amount1', data) +
             CreateTableTdSearch('Amount2', data) +

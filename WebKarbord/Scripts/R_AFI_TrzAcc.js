@@ -78,34 +78,38 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId+ '/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             if (FlagSetting) {
                 CreateTableReport(data)
             }
             else {
+                CreateTableColumn(columns);
                 for (var i = 1; i <= columns.length; i++) {
                     SetColumn(columns[i - 1], i, data);
                 }
             }
         });
+
     }
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId , 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
                 SetColumn(columns[i - 1], i, data);
             }
         });
     }
 
-    $('#SaveMove').click(function () {
+    $('#SaveColumns').click(function () {
         SaveColumn(rprtId, "/ReportAFI/TrzAcc", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
         getRprtColsList(false, sessionStorage.userName);
     });
 
