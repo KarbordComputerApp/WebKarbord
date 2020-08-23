@@ -105,7 +105,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(rprtId, "/ReportAFI/TrzAcc", columns, self.SettingColumnList());
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/TrzAcc", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -121,6 +121,7 @@
     });
 
     $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
     });
 
@@ -402,7 +403,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null;
-        
+
         self.currentColumn(orderProp);
         self.TrzAccList.sort(function (left, right) {
             leftVal = left[orderProp];

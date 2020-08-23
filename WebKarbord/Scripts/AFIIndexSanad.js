@@ -78,7 +78,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(rprtId, "/AFISanad/index", columns, self.SettingColumnList());
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -96,6 +96,7 @@
 
 
     $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
     });
 

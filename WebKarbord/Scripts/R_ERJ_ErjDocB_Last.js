@@ -44,12 +44,80 @@
 
     $("#textTotal").text('');
 
+
+
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var rprtId = 'ErjDocB_Last';
+    var columns = [
+        'RjStatus',
+        'RjDate',
+        'RjMhltDate',
+        'CustName',
+        'KhdtName',
+        'FromUserName',
+        'Spec',
+        'Status',
+        'DocNo',
+        'MhltDate'
+    ];
+
+
     //Get RprtCols List
-    function getRprtColsList() {
-        ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/ErjDocB_Last/' + sessionStorage.userName, 'GET').done(function (data) {
-            CreateTableReport(data);
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            if (FlagSetting) {
+                CreateTableReport(data)
+            }
+            else {
+                CreateTableColumn(columns);
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
+        });
+
+    }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            counterColumn = 0;
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
         });
     }
+
+    $('#SaveColumns').click(function () {
+        SaveColumn(aceErj, salErj, group, rprtId, "/ReportERJ/ErjDocB_Last", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+    $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
+        getRprtColsDefultList();
+    });
+
+    getRprtColsList(true, sessionStorage.userName);
+
+
+
+
+
 
     //Get ErjCust List
     function getErjCustList() {
@@ -84,7 +152,6 @@
     }
 
 
-    getRprtColsList();
     getErjStatusList();
     getErjCustList();
     getKhdtList();
@@ -431,7 +498,7 @@
 
 
 
-        //RjStatus - RjDate - RjMhltDate - CustName - KhdtName - FromUserName - Spec - Status - DocNo - MhltDate
+    //RjStatus - RjDate - RjMhltDate - CustName - KhdtName - FromUserName - Spec - Status - DocNo - MhltDate
     //RjStatus - RjDate - RjMhltDate - CustName - KhdtName - FromUserName - Spec - Status - DocNo - MhltDate
 
 
@@ -901,12 +968,12 @@
             CreateTableTh('Status', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('MhltDate', data) +
-            '<th>عملیات</th>'+
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
-            CreateTableTd('RjStatus',0, 1, data) +
+            CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data) +
@@ -916,11 +983,11 @@
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 0, data) +
-            '<td>'+
-            '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >'+
-            '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />'+
-            '    </a >'+
-            '</td >'+
+            '<td>' +
+            '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
+            '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +

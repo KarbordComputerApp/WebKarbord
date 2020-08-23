@@ -1698,9 +1698,23 @@ function SetColumn(code, indexId, data) {
         findCode = code.search("Code");
         if (user == "*Default*" &&
             (
-                (code.search("Code") > 0 && code != "AccCode") ||
+                (code.lastIndexOf("Code") > 0 && code != "AccCode") ||
+                code.lastIndexOf("Amount2") > 0 ||
+                code.lastIndexOf("Amount3") > 0 ||
+                code.lastIndexOf("UnitPrice2") > 0 ||
+                code.lastIndexOf("UnitPrice3") > 0 ||
+
+                code.lastIndexOf("UnitName2") > 0 ||
+                code.lastIndexOf("UnitName3") > 0 ||
+
 
                 code == "Amount" ||
+                code == "Amount2" ||
+                code == "Amount3" ||
+
+                code == "UnitPrice2" ||
+                code == "UnitPrice3" ||
+
                 code == "Shobe" ||
                 code == "Jari" ||
                 code == "F01" ||
@@ -1766,8 +1780,7 @@ function SetColumn(code, indexId, data) {
                 code == "KalaF19" ||
                 code == "KalaF20"
             )
-        )
-        {
+        ) {
             visible = 0;
         }
         $('#RowColumns' + indexId).text(counterColumn);
@@ -1783,7 +1796,7 @@ function SetColumn(code, indexId, data) {
     }
 }
 
-function SaveColumn(rprtId, route, columns, data) {
+function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
     var obj = [];
     for (i = 1; i <= columns.length; i++) {
         item = data[i];
@@ -1799,7 +1812,7 @@ function SaveColumn(rprtId, route, columns, data) {
 
     $('#modal-SettingColumn').modal('hide');
     showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
-    ajaxFunction(RprtColsSaveUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'POST', obj).done(function (response) {
+    ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
     });
     window.location.href = route;
 }

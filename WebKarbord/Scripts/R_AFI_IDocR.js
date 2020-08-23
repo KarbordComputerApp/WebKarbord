@@ -61,12 +61,109 @@
 
     $("#textTotal").text('');
 
+
+
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var rprtId = 'IDocR';
+    var columns = [
+        'DocDate',
+        'DocNo',
+        'ModeName',
+        'InvName',
+        'Spec',
+        'Status',
+        'Taeed',
+        'Tasvib',
+        'ThvlName',
+        'MkzName',
+        'OprName',
+        'SerialNumber',
+        'BandNo',
+        'KalaName',
+        'KalaFileNo',
+        'KalaState',
+        'KalaExf1',
+        'KalaExf2',
+        'KalaExf3',
+        'KalaExf4',
+        'KalaExf5',
+        'KalaExf6',
+        'KalaExf7',
+        'KalaExf8',
+        'KalaExf9',
+        'KalaExf10',
+        'KalaExf11',
+        'KalaExf12',
+        'KalaExf13',
+        'KalaExf14',
+        'KalaExf15',
+        'MainUnitName',
+        'Amount1',
+        'Amount2',
+        'Amount3',
+        'UnitPrice',
+        'TotalPrice',
+        'BandSpec',
+        'Comm'
+    ];
+
+
     //Get RprtCols List
-    function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/IDocR/' + sessionStorage.userName, 'GET').done(function (data) {
-            CreateTableReport(data);
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            if (FlagSetting) {
+                CreateTableReport(data)
+            }
+            else {
+                CreateTableColumn(columns);
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
+        });
+
+    }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            counterColumn = 0;
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
         });
     }
+
+    $('#SaveColumns').click(function () {
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/IDocR", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+    $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
+        getRprtColsDefultList();
+    });
+
+    getRprtColsList(true, sessionStorage.userName);
+
+
+
+
+
 
     //Get kala List
     function getKalaList() {
@@ -235,7 +332,6 @@
         getIDocR();
     });
 
-    getRprtColsList();
     getInvList();
     getKalaList();
     getNoSanad();

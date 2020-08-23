@@ -31,12 +31,104 @@
 
     $("#textTotal").text('');
 
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var rprtId = 'TrzIKalaExf';
+    var columns = [
+        'KalaCode',
+        'KalaName',
+        'InvCode',
+        'InvName',
+        'KalaFanniNo',
+        'KalaFileNo',
+        'KalaState',
+        'KalaExf1',
+        'KalaExf2',
+        'KalaExf3',
+        'KalaExf4',
+        'KalaExf5',
+        'KalaExf6',
+        'KalaExf7',
+        'KalaExf8',
+        'KalaExf9',
+        'KalaExf10',
+        'KalaExf11',
+        'KalaExf12',
+        'KalaExf13',
+        'KalaExf14',
+        'KalaExf15',
+        'AAmount1',
+        'AAmount2',
+        'AAmount3',
+        'ATotalPrice',
+        'VAmount1',
+        'VAmount2',
+        'VAmount3',
+        'VTotalPrice',
+        'SAmount1',
+        'SAmount2',
+        'SAmount3',
+        'STotalPrice',
+        'MAmount1',
+        'MAmount2',
+        'MAmount3',
+        'MTotalPrice'
+    ];
+
+
     //Get RprtCols List
-    function getRprtColsList() {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/TrzIKalaExf/' + sessionStorage.userName, 'GET').done(function (data) {
-            CreateTableReport(data);
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            if (FlagSetting) {
+                CreateTableReport(data)
+            }
+            else {
+                CreateTableColumn(columns);
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
+        });
+
+    }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            counterColumn = 0;
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
         });
     }
+
+    $('#SaveColumns').click(function () {
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/TrzIKalaExf", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+    $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
+        getRprtColsDefultList();
+    });
+
+    getRprtColsList(true, sessionStorage.userName);
+
+
+
 
     //Get kala List
     function getKalaList() {
@@ -183,7 +275,7 @@
         getTrzIExf();
     });
 
-    getRprtColsList();
+
     getInvList();
     getKalaList();
 

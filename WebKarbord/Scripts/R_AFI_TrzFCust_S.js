@@ -157,7 +157,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(rprtId, "/ReportAFI/TrzFCust_S", columns, self.SettingColumnList());
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/TrzFCust_S", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -173,6 +173,7 @@
     });
 
     $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
     });
 

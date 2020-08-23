@@ -166,7 +166,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(rprtId, "/ReportAFI/TrzFKala_S", columns, self.SettingColumnList());
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/TrzFKala_S", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -182,6 +182,7 @@
     });
 
     $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
     });
 
@@ -194,6 +195,14 @@
 
 
 
+
+    //Get Status List
+    function getStatusList() {
+        progName = getProgName('S');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+            self.StatusList(data);
+        });
+    }
 
 
 
