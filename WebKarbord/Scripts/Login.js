@@ -11,7 +11,7 @@
 
     var LoginUri; // آدرس حساب
     var serverAccount = 'http://localhost:902/api/';
-   // var serverAccount = 'http://localhost:49961/api/';
+    //var serverAccount = 'http://185.208.174.64:902/api/';
     sessionStorage.serverAccount = serverAccount;
 
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
