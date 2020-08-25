@@ -10,16 +10,19 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'IDocH';
+    var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
+
     var columns = [
         'DocNo',
         'DocDate',
+        'InvName',
+        'thvlname',
+        'ModeName',
         'Spec',
+        'Status',
         'Eghdam',
         'Tanzim',
         'Taeed',
-        'ModeName',
-        'Status',
         'SerialNumber',
         'F01',
         'F02',
@@ -42,7 +45,6 @@
         'F19',
         'F20'
     ];
-
 
 
     //Get RprtCols List
@@ -102,6 +104,10 @@
 
 
 
+
+
+
+
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
@@ -151,7 +157,7 @@
             //self.currentPageIndexIDocH(0);
             //ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/Count', 'GET').done(function (dataCount) {
             //    $('#countAllRecord').text(dataCount);
-           // });
+            // });
         });
     }
 
@@ -172,117 +178,114 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
-    self.iconTypeDocNo = ko.observable("");
-    self.iconTypeDocDate = ko.observable("");
-    self.iconTypeInvName = ko.observable("");
-    self.iconTypethvlname = ko.observable("");
-    self.iconTypeModeName = ko.observable("");
-    self.iconTypeSpec = ko.observable("");
-    self.iconTypeStatus = ko.observable("");
-    self.iconTypeEghdam = ko.observable("");
-    self.iconTypeTanzim = ko.observable("");
-    self.iconTypeTaeed = ko.observable("");
-    self.iconTypeSerialNumber = ko.observable("");
+    self.filterDocNo = ko.observable("");
+    self.filterDocDate = ko.observable("");
+    self.filterInvName = ko.observable("");
+    self.filterthvlname = ko.observable("");
+    self.filterModeName = ko.observable("");
+    self.filterSpec = ko.observable("");
+    self.filterStatus = ko.observable("");
+    self.filterEghdam = ko.observable("");
+    self.filterTanzim = ko.observable("");
+    self.filterTaeed = ko.observable("");
+    self.filterSerialNumber = ko.observable("");
+    self.filterF01 = ko.observable("");
+    self.filterF02 = ko.observable("");
+    self.filterF03 = ko.observable("");
+    self.filterF04 = ko.observable("");
+    self.filterF05 = ko.observable("");
+    self.filterF06 = ko.observable("");
+    self.filterF07 = ko.observable("");
+    self.filterF08 = ko.observable("");
+    self.filterF09 = ko.observable("");
+    self.filterF10 = ko.observable("");
+    self.filterF11 = ko.observable("");
+    self.filterF12 = ko.observable("");
+    self.filterF13 = ko.observable("");
+    self.filterF14 = ko.observable("");
+    self.filterF15 = ko.observable("");
+    self.filterF16 = ko.observable("");
+    self.filterF17 = ko.observable("");
+    self.filterF18 = ko.observable("");
+    self.filterF19 = ko.observable("");
+    self.filterF20 = ko.observable("");
 
-
-    /*    self.filterIDocH = ko.observable("");
-        self.filterIDocHList = ko.computed(function () {
-            self.currentPageIndexIDocH(0);
-            var filter = self.filterIDocH().toUpperCase();
-            if (!filter) {
-                return self.IDocHList();
-            } else {
-                invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-    
-    
-                return ko.utils.arrayFilter(self.IDocHList(), function (item) {
-                    if ($("#allSearchIDocH").is(':checked')) {
-                        result =
-                            //invSelect > 0 ? ko.utils.stringStartsWith(item.InvCode, invSelect)
-                            //&&
-                            (
-                                ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter) ||
-                                (item.InvName == null ? '' : item.InvName.toString().search(filter) >= 0) ||
-                                (item.DocDate == null ? '' : item.DocDate.toString().search(filter) >= 0) ||
-                                (item.thvlname == null ? '' : item.thvlname.toString().search(filter) >= 0) ||
-                                (item.ModeName == null ? '' : item.ModeName.toString().search(filter) >= 0) ||
-                                (item.Spec == null ? '' : item.Spec.toString().search(filter) >= 0) ||
-                                (item.Status == null ? '' : item.Status.toString().search(filter) >= 0) ||
-                                (item.Eghdam == null ? '' : item.Eghdam.toString().search(filter) >= 0) ||
-                                (item.Taeed == null ? '' : item.Taeed.toString().search(filter) >= 0) ||
-                                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter)
-                            )
-    
-                        --(
-                        ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter) ||
-                        ko.utils.stringStartsWith(item.InvName.match(filter), filter) ||
-                        ko.utils.stringStartsWith(item.DocDate, filter) ||
-                        ko.utils.stringStartsWith(item.thvlname, filter) ||
-                        ko.utils.stringStartsWith(item.ModeName, filter) ||
-                        ko.utils.stringStartsWith(item.Spec, filter) ||
-                        //ko.utils.startIndex(item.FinalPrice.toString().toLowerCase(), filter) ||
-                        ko.utils.stringStartsWith(item.Status, filter) ||
-                        ko.utils.stringStartsWith(item.Eghdam, filter) ||
-                        ko.utils.stringStartsWith(item.Tanzim, filter) ||
-                        ko.utils.stringStartsWith(item.Taeed, filter) ||
-                        ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter)
-                        )--
-                        return result;
-                    }
-                    else {
-                        result = ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter);//    (item.Code.toLowerCase().search(filter) >= 0);
-                        return result;
-                    }
-                });
-            }
-        });*/
-
-
-    self.filterIDocH0 = ko.observable("");
-    self.filterIDocH1 = ko.observable("");
-    self.filterIDocH2 = ko.observable("");
-    self.filterIDocH3 = ko.observable("");
-    self.filterIDocH4 = ko.observable("");
-    self.filterIDocH5 = ko.observable("");
-    self.filterIDocH6 = ko.observable("");
-    self.filterIDocH7 = ko.observable("");
-    self.filterIDocH8 = ko.observable("");
-    self.filterIDocH9 = ko.observable("");
-    self.filterIDocH10 = ko.observable("");
 
     self.filterIDocHList = ko.computed(function () {
-
         self.currentPageIndexIDocH(0);
-        var filter0 = self.filterIDocH0();
-        var filter1 = self.filterIDocH1();
-        var filter2 = self.filterIDocH2();
-        var filter3 = self.filterIDocH3();
-        var filter4 = self.filterIDocH4();
-        var filter5 = self.filterIDocH5();
-        var filter6 = self.filterIDocH6();
-        var filter7 = self.filterIDocH7().toUpperCase();
-        var filter8 = self.filterIDocH8().toUpperCase();
-        var filter9 = self.filterIDocH9().toUpperCase();
-        var filter10 = self.filterIDocH10();
+        var filterDocNo = self.filterDocNo();
+        var filterDocDate = self.filterDocDate();
+        var filterInvName = self.filterInvName();
+        var filterthvlname = self.filterthvlname();
+        var filterModeName = self.filterModeName();
+        var filterSpec = self.filterSpec();
+        var filterStatus = self.filterStatus();
+        var filterEghdam = self.filterEghdam().toUpperCase();
+        var filterTanzim = self.filterTanzim().toUpperCase();
+        var filterTaeed = self.filterTaeed().toUpperCase();
+        var filterSerialNumber = self.filterSerialNumber();
+        var filterF01 = self.filterF01();
+        var filterF02 = self.filterF02();
+        var filterF03 = self.filterF03();
+        var filterF04 = self.filterF04();
+        var filterF05 = self.filterF05();
+        var filterF06 = self.filterF06();
+        var filterF07 = self.filterF07();
+        var filterF08 = self.filterF08();
+        var filterF09 = self.filterF09();
+        var filterF10 = self.filterF10();
+        var filterF11 = self.filterF11();
+        var filterF12 = self.filterF12();
+        var filterF13 = self.filterF13();
+        var filterF14 = self.filterF14();
+        var filterF15 = self.filterF15();
+        var filterF16 = self.filterF16();
+        var filterF17 = self.filterF17();
+        var filterF18 = self.filterF18();
+        var filterF19 = self.filterF19();
+        var filterF20 = self.filterF20();
 
-        if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8 && !filter9 && !filter10) {
-            // $("#CountRecord").text(self.IDocHList().length);
+        if (!filterDocNo && !filterDocDate && !filterInvName && !filterthvlname && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
+            !filterTanzim && !filterTaeed && !filterSerialNumber &&
+            !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
+            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
+
             $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
             return self.IDocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
                 result =
-                    ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter0) &&
-                    ko.utils.stringStartsWith(item.DocDate, filter1) &&
-                    (item.InvName == null ? '' : item.InvName.toString().search(filter2) >= 0) &&
-                    (item.thvlname == null ? '' : item.thvlname.toString().search(filter3) >= 0) &&
-                    (item.ModeName == null ? '' : item.ModeName.toString().search(filter4) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter5) >= 0) &&
-                    (item.Status == null ? 'null' : item.Status.toString().search(filter6) >= 0) &&
-                    (item.Eghdam == null ? 'null' : item.Eghdam.toString().search(filter7) >= 0) &&
-                    (item.Tanzim == null ? 'null' : item.Tanzim.toString().search(filter8) >= 0) &&
-                    (item.Taeed == null ? 'null' : item.Taeed.toString().search(filter9) >= 0) &&
-                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filter10)
+                    ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
+                    ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
+                    (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
+                    (item.thvlname == null ? '' : item.thvlname.toString().search(filterthvlname) >= 0) &&
+                    (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                    (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                    (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
+                    (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
+                    (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber)&&
+                    (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
+                    (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
+                    (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
+                    (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
+                    (item.F05 == null ? '' : item.F05.toString().search(filterF05) >= 0) &&
+                    (item.F06 == null ? '' : item.F06.toString().search(filterF06) >= 0) &&
+                    (item.F07 == null ? '' : item.F07.toString().search(filterF07) >= 0) &&
+                    (item.F08 == null ? '' : item.F08.toString().search(filterF08) >= 0) &&
+                    (item.F09 == null ? '' : item.F09.toString().search(filterF09) >= 0) &&
+                    (item.F10 == null ? '' : item.F10.toString().search(filterF10) >= 0) &&
+                    (item.F11 == null ? '' : item.F11.toString().search(filterF11) >= 0) &&
+                    (item.F12 == null ? '' : item.F12.toString().search(filterF12) >= 0) &&
+                    (item.F13 == null ? '' : item.F13.toString().search(filterF13) >= 0) &&
+                    (item.F14 == null ? '' : item.F14.toString().search(filterF14) >= 0) &&
+                    (item.F15 == null ? '' : item.F15.toString().search(filterF15) >= 0) &&
+                    (item.F16 == null ? '' : item.F16.toString().search(filterF16) >= 0) &&
+                    (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
+                    (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
+                    (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
+                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -353,6 +356,40 @@
             self.currentPageIndexIDocH(tempCountIDocH);
     };
 
+
+
+    self.iconTypeDocNo = ko.observable("");
+    self.iconTypeDocDate = ko.observable("");
+    self.iconTypeInvName = ko.observable("");
+    self.iconTypethvlname = ko.observable("");
+    self.iconTypeModeName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+    self.iconTypeStatus = ko.observable("");
+    self.iconTypeEghdam = ko.observable("");
+    self.iconTypeTanzim = ko.observable("");
+    self.iconTypeTaeed = ko.observable("");
+    self.iconTypeSerialNumber = ko.observable("");
+    self.iconTypeF01 = ko.observable("");
+    self.iconTypeF02 = ko.observable("");
+    self.iconTypeF03 = ko.observable("");
+    self.iconTypeF04 = ko.observable("");
+    self.iconTypeF05 = ko.observable("");
+    self.iconTypeF06 = ko.observable("");
+    self.iconTypeF07 = ko.observable("");
+    self.iconTypeF08 = ko.observable("");
+    self.iconTypeF09 = ko.observable("");
+    self.iconTypeF10 = ko.observable("");
+    self.iconTypeF11 = ko.observable("");
+    self.iconTypeF12 = ko.observable("");
+    self.iconTypeF13 = ko.observable("");
+    self.iconTypeF14 = ko.observable("");
+    self.iconTypeF15 = ko.observable("");
+    self.iconTypeF16 = ko.observable("");
+    self.iconTypeF17 = ko.observable("");
+    self.iconTypeF18 = ko.observable("");
+    self.iconTypeF19 = ko.observable("");
+    self.iconTypeF20 = ko.observable("");
+
     self.sortTableIDocH = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
@@ -379,6 +416,26 @@
         self.iconTypeTanzim('');
         self.iconTypeTaeed('');
         self.iconTypeSerialNumber('');
+        self.iconTypeF01('');
+        self.iconTypeF02('');
+        self.iconTypeF03('');
+        self.iconTypeF04('');
+        self.iconTypeF05('');
+        self.iconTypeF06('');
+        self.iconTypeF07('');
+        self.iconTypeF08('');
+        self.iconTypeF09('');
+        self.iconTypeF10('');
+        self.iconTypeF11('');
+        self.iconTypeF12('');
+        self.iconTypeF13('');
+        self.iconTypeF14('');
+        self.iconTypeF15('');
+        self.iconTypeF16('');
+        self.iconTypeF17('');
+        self.iconTypeF18('');
+        self.iconTypeF19('');
+        self.iconTypeF20('');
 
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -391,6 +448,26 @@
         if (orderProp == 'Tanzim') self.iconTypeTanzim((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Taeed') self.iconTypeTaeed((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F04') self.iconTypeF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F05') self.iconTypeF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F06') self.iconTypeF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F07') self.iconTypeF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F08') self.iconTypeF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F09') self.iconTypeF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F10') self.iconTypeF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F11') self.iconTypeF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F12') self.iconTypeF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F13') self.iconTypeF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F14') self.iconTypeF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F15') self.iconTypeF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F16') self.iconTypeF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F17') self.iconTypeF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
     $('#AddNewSanadAnbar').click(function () {
@@ -499,7 +576,7 @@
 
 
     $('#SaveIDocH1').click(function () {
-        window.location.href = sessionStorage.urlFDocH;
+        window.location.href = sessionStorage.urlIDocH;
     });
 
     $('#modal-Factor').on('shown.bs.modal', function () {
@@ -584,6 +661,182 @@
             }
         }
     });
+
+
+
+    function CreateTableReport(data) {
+        $("#TableList").empty();
+        $('#TableList').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableIDocH">' +
+            CreateTableTh('DocNo', data) +
+            CreateTableTh('DocDate', data) +
+            CreateTableTh('InvName', data) +
+            CreateTableTh('thvlname', data) +
+            CreateTableTh('ModeName', data) +
+            CreateTableTh('Spec', data) +
+            CreateTableTh('Status', data) +
+            CreateTableTh('Eghdam', data) +
+            CreateTableTh('Tanzim', data) +
+            CreateTableTh('Taeed', data) +
+            CreateTableTh('SerialNumber', data) +
+            CreateTableTh('F01', data) +
+            CreateTableTh('F02', data) +
+            CreateTableTh('F03', data) +
+            CreateTableTh('F04', data) +
+            CreateTableTh('F05', data) +
+            CreateTableTh('F06', data) +
+            CreateTableTh('F07', data) +
+            CreateTableTh('F08', data) +
+            CreateTableTh('F09', data) +
+            CreateTableTh('F10', data) +
+            CreateTableTh('F11', data) +
+            CreateTableTh('F12', data) +
+            CreateTableTh('F13', data) +
+            CreateTableTh('F14', data) +
+            CreateTableTh('F15', data) +
+            CreateTableTh('F16', data) +
+            CreateTableTh('F17', data) +
+            CreateTableTh('F18', data) +
+            CreateTableTh('F19', data) +
+            CreateTableTh('F20', data) +
+            '<th>عملیات</th>' +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }" >' +
+            CreateTableTd('DocNo', 0, 0, data) +
+            CreateTableTd('DocDate', 0, 0, data) +
+            CreateTableTd('InvName', 0, 0, data) +
+            CreateTableTd('thvlname', 0, 0, data) +
+            CreateTableTd('ModeName', 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Status', 0, 0, data) +
+            CreateTableTd('Eghdam', 0, 0, data) +
+            CreateTableTd('Tanzim', 0, 0, data) +
+            CreateTableTd('Taeed', 0, 0, data) +
+            CreateTableTd('SerialNumber', 0, 0, data) +
+            CreateTableTd('F01', 0, 0, data) +
+            CreateTableTd('F02', 0, 0, data) +
+            CreateTableTd('F03', 0, 0, data) +
+            CreateTableTd('F04', 0, 0, data) +
+            CreateTableTd('F05', 0, 0, data) +
+            CreateTableTd('F06', 0, 0, data) +
+            CreateTableTd('F07', 0, 0, data) +
+            CreateTableTd('F08', 0, 0, data) +
+            CreateTableTd('F09', 0, 0, data) +
+            CreateTableTd('F10', 0, 0, data) +
+            CreateTableTd('F11', 0, 0, data) +
+            CreateTableTd('F12', 0, 0, data) +
+            CreateTableTd('F13', 0, 0, data) +
+            CreateTableTd('F14', 0, 0, data) +
+            CreateTableTd('F15', 0, 0, data) +
+            CreateTableTd('F16', 0, 0, data) +
+            CreateTableTd('F17', 0, 0, data) +
+            CreateTableTd('F18', 0, 0, data) +
+            CreateTableTd('F19', 0, 0, data) +
+            CreateTableTd('F20', 0, 0, data) +
+            '<td>' +
+            '   <a id="MoveFactor" data-bind="click: $root.MoveFactor, visible: $root.ShowAction(Eghdam)">' +
+            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="20" height="20" style="margin-left:10px" />' +
+            '   </a>' +
+            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
+            '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px" />' +
+            '   </a>' +
+            '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">' +
+            '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20" />' +
+            '   </a>' +
+            '</td >' +
+
+            '</tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('DocNo', data) +
+            CreateTableTdSearch('DocDate', data) +
+            CreateTableTdSearch('InvName', data) +
+            CreateTableTdSearch('thvlname', data) +
+            CreateTableTdSearch('ModeName', data) +
+            CreateTableTdSearch('Spec', data) +
+            CreateTableTdSearch('Status', data) +
+            CreateTableTdSearch('Eghdam', data) +
+            CreateTableTdSearch('Tanzim', data) +
+            CreateTableTdSearch('Taeed', data) +
+            CreateTableTdSearch('SerialNumber', data) +
+            CreateTableTdSearch('F01', data) +
+            CreateTableTdSearch('F02', data) +
+            CreateTableTdSearch('F03', data) +
+            CreateTableTdSearch('F04', data) +
+            CreateTableTdSearch('F05', data) +
+            CreateTableTdSearch('F06', data) +
+            CreateTableTdSearch('F07', data) +
+            CreateTableTdSearch('F08', data) +
+            CreateTableTdSearch('F10', data) +
+            CreateTableTdSearch('F11', data) +
+            CreateTableTdSearch('F12', data) +
+            CreateTableTdSearch('F13', data) +
+            CreateTableTdSearch('F14', data) +
+            CreateTableTdSearch('F15', data) +
+            CreateTableTdSearch('F16', data) +
+            CreateTableTdSearch('F17', data) +
+            CreateTableTdSearch('F18', data) +
+            CreateTableTdSearch('F19', data) +
+            CreateTableTdSearch('F20', data) +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    function CreateTableTh(field, data) {
+        text = '<th ';
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+        text += 'data-column="' + field + '">' +
+            '<span data-column="' + field + '" >' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" data-column="' + field + '" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
+
 
 };
 

@@ -1698,7 +1698,7 @@ function SetColumn(code, indexId, data) {
         findCode = code.search("Code");
         if (user == "*Default*" &&
             (
-                (code.lastIndexOf("Code") > 0 && code != "AccCode") ||
+            (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
                 code.lastIndexOf("Amount2") > 0 ||
                 code.lastIndexOf("Amount3") > 0 ||
                 code.lastIndexOf("UnitPrice2") > 0 ||

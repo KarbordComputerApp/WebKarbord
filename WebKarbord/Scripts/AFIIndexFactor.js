@@ -27,9 +27,98 @@
     var defultMove;
     var TitleListFactor;
 
+    switch (sessionStorage.ModeCode.toString()) {
+        case sessionStorage.MODECODE_FDOC_SO:
+            {
+                TitleListFactor = 'سفارش فروش';
+                $('#TitleListFactor').text('سفارشات فروش');
+                defultMove = sessionStorage.Move_SORD;
+                inOut = 2;
+                break;
+            }
+        case sessionStorage.MODECODE_FDOC_SP:
+            {
+                TitleListFactor = 'پیش فاکتور فروش';
+                $('#TitleListFactor').text('پیش فاکتور های فروش');
+                defultMove = sessionStorage.Move_SPFCT;
+                inOut = 2;
+                break;
+            }
+        case sessionStorage.MODECODE_FDOC_S:
+            {
+                TitleListFactor = 'فاکتور فروش';
+                $('#TitleListFactor').text('فاکتور های فروش');
+                defultMove = sessionStorage.Move_SFCT;
+                inOut = 2;
+                break;
+            }
+        case sessionStorage.MODECODE_FDOC_SR:
+            {
+                TitleListFactor = 'برگشت از فروش';
+                $('#TitleListFactor').text('برگشتی های فروش');
+                defultMove = sessionStorage.Move_SRFCT;
+                inOut = 2;
+                break;
+            }
+
+        case sessionStorage.MODECODE_FDOC_SH:
+            {
+                TitleListFactor = 'حواله فروش';
+                $('#TitleListFactor').text('حواله های فروش');
+                defultMove = sessionStorage.Move_SHVL;
+                inOut = 2;
+                break;
+            }
+
+        case sessionStorage.MODECODE_FDOC_SE:
+            {
+                TitleListFactor = 'برگه خروج';
+                $('#TitleListFactor').text('برگه های خروج');
+                defultMove = sessionStorage.Move_SEXT;
+                inOut = 2;
+                break;
+            }
+
+        case sessionStorage.MODECODE_FDOC_PO:
+            {
+                TitleListFactor = 'سفارش خرید';
+                $('#TitleListFactor').text('سفارشات خرید');
+                defultMove = sessionStorage.Move_PORD;
+                inOut = 1;
+                break;
+            }
+
+        case sessionStorage.MODECODE_FDOC_PP:
+            {
+                TitleListFactor = 'پیش فاکتور خرید';
+                $('#TitleListFactor').text('پیش فاکتور های خرید');
+                defultMove = sessionStorage.Move_PPFCT;
+                inOut = 1;
+                break;
+            }
+
+        case sessionStorage.MODECODE_FDOC_P:
+            {
+                TitleListFactor = 'فاکتور خرید';
+                $('#TitleListFactor').text('فاکتور های خرید');
+                defultMove = sessionStorage.Move_PFCT;
+                inOut = 1;
+                break;
+            }
+
+        case sessionStorage.MODECODE_FDOC_PR:
+            {
+                TitleListFactor = 'برگشت از خرید';
+                $('#TitleListFactor').text('برگشتی های خرید');
+                defultMove = sessionStorage.Move_PRFCT;
+                inOut = 1;
+            }
+    }
+
+
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'FDocH';
+    var rprtId = inOut == 1 ? 'FDocH_P' : 'FDocH_S';
     var columns = [
         'DocNo',
         'DocDate',
@@ -201,11 +290,6 @@
 
 
 
-    //  DocNo, DocDate,  CustName, FinalPrice, Status, Eghdam, Tanzim, Taeed, SerialNumber
-    //  DocNo, DocDate,  CustName, FinalPrice, Status, Eghdam, Tanzim, Taeed, SerialNumber
-    //  DocNo, DocDate,  CustName, FinalPrice, Status, Eghdam, Tanzim, Taeed, SerialNumber
-    //  DocNo, DocDate,  CustName, FinalPrice, Status, Eghdam, Tanzim, Taeed, SerialNumber
-    //  DocNo, DocDate,  CustName, FinalPrice, Status, Eghdam, Tanzim, Taeed, SerialNumber
     self.filterDocNo = ko.observable("");
     self.filterDocDate = ko.observable("");
     self.filterCustName = ko.observable("");
@@ -282,32 +366,32 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                     ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
-                    ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
-                    (item.Status == null ? 'null' : item.Status.toString().search(filterStatus) >= 0) &&
-                    (item.Eghdam == null ? 'null' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
-                    (item.Tanzim == null ? 'null' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
-                    (item.Taeed == null ? 'null' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                    //ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
+                    (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                    (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
+                    (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
+                    (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
                     ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
-                    (item.F01 == null ? 'null' : item.F01.toString().search(filterF01) >= 0) &&
-                    (item.F02 == null ? 'null' : item.F02.toString().search(filterF02) >= 0) &&
-                    (item.F03 == null ? 'null' : item.F03.toString().search(filterF03) >= 0) &&
-                    (item.F04 == null ? 'null' : item.F04.toString().search(filterF04) >= 0) &&
-                    (item.F05 == null ? 'null' : item.F05.toString().search(filterF05) >= 0) &&
-                    (item.F06 == null ? 'null' : item.F06.toString().search(filterF06) >= 0) &&
-                    (item.F07 == null ? 'null' : item.F07.toString().search(filterF07) >= 0) &&
-                    (item.F08 == null ? 'null' : item.F08.toString().search(filterF08) >= 0) &&
-                    (item.F09 == null ? 'null' : item.F09.toString().search(filterF09) >= 0) &&
-                    (item.F10 == null ? 'null' : item.F10.toString().search(filterF10) >= 0) &&
-                    (item.F11 == null ? 'null' : item.F11.toString().search(filterF11) >= 0) &&
-                    (item.F12 == null ? 'null' : item.F12.toString().search(filterF12) >= 0) &&
-                    (item.F13 == null ? 'null' : item.F13.toString().search(filterF13) >= 0) &&
-                    (item.F14 == null ? 'null' : item.F14.toString().search(filterF14) >= 0) &&
-                    (item.F15 == null ? 'null' : item.F15.toString().search(filterF15) >= 0) &&
-                    (item.F16 == null ? 'null' : item.F16.toString().search(filterF16) >= 0) &&
-                    (item.F17 == null ? 'null' : item.F17.toString().search(filterF17) >= 0) &&
-                    (item.F18 == null ? 'null' : item.F18.toString().search(filterF18) >= 0) &&
-                    (item.F19 == null ? 'null' : item.F19.toString().search(filterF19) >= 0) &&
-                    (item.F20 == null ? 'null' : item.F20.toString().search(filterF20) >= 0)
+                    (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
+                    (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
+                    (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
+                    (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
+                    (item.F05 == null ? '' : item.F05.toString().search(filterF05) >= 0) &&
+                    (item.F06 == null ? '' : item.F06.toString().search(filterF06) >= 0) &&
+                    (item.F07 == null ? '' : item.F07.toString().search(filterF07) >= 0) &&
+                    (item.F08 == null ? '' : item.F08.toString().search(filterF08) >= 0) &&
+                    (item.F09 == null ? '' : item.F09.toString().search(filterF09) >= 0) &&
+                    (item.F10 == null ? '' : item.F10.toString().search(filterF10) >= 0) &&
+                    (item.F11 == null ? '' : item.F11.toString().search(filterF11) >= 0) &&
+                    (item.F12 == null ? '' : item.F12.toString().search(filterF12) >= 0) &&
+                    (item.F13 == null ? '' : item.F13.toString().search(filterF13) >= 0) &&
+                    (item.F14 == null ? '' : item.F14.toString().search(filterF14) >= 0) &&
+                    (item.F15 == null ? '' : item.F15.toString().search(filterF15) >= 0) &&
+                    (item.F16 == null ? '' : item.F16.toString().search(filterF16) >= 0) &&
+                    (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
+                    (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
+                    (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
+                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -384,6 +468,8 @@
     self.iconTypeTanzim = ko.observable("");
     self.iconTypeTaeed = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
     self.iconTypeF03 = ko.observable("");
@@ -665,93 +751,7 @@
     }
 
 
-    switch (sessionStorage.ModeCode.toString()) {
-        case sessionStorage.MODECODE_FDOC_SO:
-            {
-                TitleListFactor = 'سفارش فروش';
-                $('#TitleListFactor').text('سفارشات فروش');
-                defultMove = sessionStorage.Move_SORD;
-                inOut = 2;
-                break;
-            }
-        case sessionStorage.MODECODE_FDOC_SP:
-            {
-                TitleListFactor = 'پیش فاکتور فروش';
-                $('#TitleListFactor').text('پیش فاکتور های فروش');
-                defultMove = sessionStorage.Move_SPFCT;
-                inOut = 2;
-                break;
-            }
-        case sessionStorage.MODECODE_FDOC_S:
-            {
-                TitleListFactor = 'فاکتور فروش';
-                $('#TitleListFactor').text('فاکتور های فروش');
-                defultMove = sessionStorage.Move_SFCT;
-                inOut = 2;
-                break;
-            }
-        case sessionStorage.MODECODE_FDOC_SR:
-            {
-                TitleListFactor = 'برگشت از فروش';
-                $('#TitleListFactor').text('برگشتی های فروش');
-                defultMove = sessionStorage.Move_SRFCT;
-                inOut = 2;
-                break;
-            }
 
-        case sessionStorage.MODECODE_FDOC_SH:
-            {
-                TitleListFactor = 'حواله فروش';
-                $('#TitleListFactor').text('حواله های فروش');
-                defultMove = sessionStorage.Move_SHVL;
-                inOut = 2;
-                break;
-            }
-
-        case sessionStorage.MODECODE_FDOC_SE:
-            {
-                TitleListFactor = 'برگه خروج';
-                $('#TitleListFactor').text('برگه های خروج');
-                defultMove = sessionStorage.Move_SEXT;
-                inOut = 2;
-                break;
-            }
-
-        case sessionStorage.MODECODE_FDOC_PO:
-            {
-                TitleListFactor = 'سفارش خرید';
-                $('#TitleListFactor').text('سفارشات خرید');
-                defultMove = sessionStorage.Move_PORD;
-                inOut = 1;
-                break;
-            }
-
-        case sessionStorage.MODECODE_FDOC_PP:
-            {
-                TitleListFactor = 'پیش فاکتور خرید';
-                $('#TitleListFactor').text('پیش فاکتور های خرید');
-                defultMove = sessionStorage.Move_PPFCT;
-                inOut = 1;
-                break;
-            }
-
-        case sessionStorage.MODECODE_FDOC_P:
-            {
-                TitleListFactor = 'فاکتور خرید';
-                $('#TitleListFactor').text('فاکتور های خرید');
-                defultMove = sessionStorage.Move_PFCT;
-                inOut = 1;
-                break;
-            }
-
-        case sessionStorage.MODECODE_FDOC_PR:
-            {
-                TitleListFactor = 'برگشت از خرید';
-                $('#TitleListFactor').text('برگشتی های خرید');
-                defultMove = sessionStorage.Move_PRFCT;
-                inOut = 1;
-            }
-    }
 
     $('#SaveFDocH1').click(function () {
         window.location.href = sessionStorage.urlFDocH;

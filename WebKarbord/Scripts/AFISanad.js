@@ -34,6 +34,90 @@
     self.flagupdateband = false;
     var flagOtherFieldShow;
 
+
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var rprtId = 'ADocB';
+    var columns = [
+        'AccFullCode',
+        'AccFullName',
+        'Comm',
+        'Bede',
+        'Best',
+        'CheckNo',
+        'CheckDate',
+        'Bank',
+        'Shobe',
+        'Jari',
+        'TrafFullCode',
+        'TrafFullName',
+        'MkzCode',
+        'MkzName',
+        'OprCode',
+        'OprName',
+        'BandSpec'
+    ];
+
+
+    //Get RprtCols List
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            if (FlagSetting) {
+                CreateTableSanad(data)
+            }
+            else {
+                CreateTableColumn(columns);
+                for (var i = 1; i <= columns.length; i++) {
+                    SetColumn(columns[i - 1], i, data);
+                }
+            }
+        });
+
+    }
+
+    //Get RprtColsDefult List
+    function getRprtColsDefultList() {
+        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            counterColumn = 0;
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
+        });
+    }
+
+    $('#SaveColumns').click(function () {
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/AddAdoc", columns, self.SettingColumnList());
+    });
+
+    $('#modal-SettingColumn').on('show.bs.modal', function () {
+        counterColumn = 0;
+        getRprtColsList(false, sessionStorage.userName);
+    });
+
+
+    $('#AllSettingColumns').change(function () {
+        var allCheck = $('#AllSettingColumns').is(':checked');
+        for (var i = 1; i <= columns.length; i++) {
+            $('#SettingColumns' + i).prop('checked', allCheck);
+        }
+    });
+
+
+    $('#DefultColumn').click(function () {
+        $('#AllSettingColumns').prop('checked', false);
+        getRprtColsDefultList();
+    });
+
+    getRprtColsList(true, sessionStorage.userName);
+
+
+
+
+
+
+
     self.AModeCode = ko.observable();
     self.SerialNumber = ko.observable();
     self.DocNoOut = ko.observable();
