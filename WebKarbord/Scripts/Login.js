@@ -17,15 +17,33 @@
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
     self.LoginList = ko.observableArray([]); // ليست حساب ها
 
+
+    $('#modal-service').on('show.bs.modal', function () {
+        var userNameAccount = localStorage.getItem("userNameAccount");
+        var passAccount = localStorage.getItem("passAccount");
+
+        $('#userAccount').val(userNameAccount);
+        $('#passAccount').val(userNameAccount);
+    });
+
     function getLoginData() {
         pass === '' ? pass = 'null' : pass = pass;
         ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET').done(function (data) {
             if (data === 0) {
                 return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+                sessionStorage.userName = '';
+                sessionStorage.pass = '';
+
+                localStorage.setItem("userName", '');
+                localStorage.setItem('password', '');
             }
             else {
                 sessionStorage.userName = user.toUpperCase();
                 sessionStorage.pass = pass;
+
+                localStorage.setItem("userName", user.toUpperCase());
+                localStorage.setItem('password', pass);
+
                 window.location.href = sessionStorage.urlSetting;
             }
         });
@@ -114,23 +132,30 @@
             return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
         }
 
-        asciiuserAccount = '';
-        for (var i = 0; i < userAccount.length; i++)
-            asciiuserAccount += (userAccount[i].charCodeAt(0) * 1024) + ',';
-        asciiuserAccount += i;
+        //asciiuserAccount = '';
+        //for (var i = 0; i < userAccount.length; i++)
+        //    asciiuserAccount += (userAccount[i].charCodeAt(0) * 1024) + ',';
+        //asciiuserAccount += i;
 
-        asciipassAccount = '';
-        for (var i = 0; i < passAccount.length; i++)
-            asciipassAccount += (passAccount[i].charCodeAt(0) * 1024) + ',';
-        asciipassAccount += i;
-
-        userAccount = get(userAccount);
-        passAccount = get(passAccount);
+        //asciipassAccount = '';
+        //for (var i = 0; i < passAccount.length; i++)
+        //    asciipassAccount += (passAccount[i].charCodeAt(0) * 1024) + ',';
+        //asciipassAccount += i;
 
         sessionStorage.ace = 0;
         sessionStorage.group = 0;
         sessionStorage.sal = 0;
         getAccountData();
+    }
+
+    tempUser = localStorage.getItem("userName");
+    tempPass = localStorage.getItem("password");
+    $('#user').val(tempUser);
+    $('#pass').val(tempPass == "null" ? '' : tempPass);
+
+    // ورود خودکار به صفحه خانه
+    if (tempUser != '') {
+        self.LoginUser();
     }
 
 

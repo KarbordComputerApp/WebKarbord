@@ -40,7 +40,7 @@
         }*/
 
         $('#DropAce').text('');
-        if (afiList == null || afiList == '') {
+        if (afiList == "null" || afiList == '') {
             sessionStorage.ace = 'AFI8';
             $('#DropAce').text('نرم افزار سیستم جامع');
 

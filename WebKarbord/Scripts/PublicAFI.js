@@ -267,11 +267,15 @@ function ajaxFunction(uri, method, data) {
 
     return $.ajax({
         type: method,
-        url: uri + '/' + userNameAccount + '/' + passAccount,
+        url: uri ,//+ '/' + userNameAccount + '/' + passAccount,
         dataType: 'json',
         async: false,
         cache: false,
         timeout: 30000,
+        headers: {
+            'userName': userNameAccount,
+            'password': passAccount
+        },
         //async: true,
         //crossDomain: true,
         //cache: false,
@@ -1816,3 +1820,12 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
     });
     window.location.href = route;
 }
+
+$('#LogOut').click(function () {
+    sessionStorage.userName = '';
+    sessionStorage.pass = '';
+
+    localStorage.setItem("userName", '');
+    localStorage.setItem('password', '');
+    window.location.href = 'Home/login';
+});

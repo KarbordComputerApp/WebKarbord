@@ -32,6 +32,10 @@
     </aside>
 
     @RenderBody()
+    <script type="text/javascript">
+        sessionStorage.urlIndex = '@Url.Action("Index", "Home")';
+        sessionStorage.urlSetting = '@Url.Action("Setting", "Home")';
+    </script>
     <script src="~/Content/new/js/app.min.js"></script>
     <script src="~/Content/new/js/admin.js"></script>
     <script src="~/Content/new/js/advanced-form-elements.js"></script>
@@ -41,10 +45,6 @@
     <script src="~/Scripts/PublicAFI.js"></script>
     <script src="~/Scripts/Login.js"></script>
     <script src="/Content/new/js/form.min.js"></script>
-    <script type="text/javascript">
-        sessionStorage.urlIndex = '@Url.Action("Index", "Home")';
-        sessionStorage.urlSetting = '@Url.Action("Setting", "Home")';
-    </script>
 </body>
 </html>
 
