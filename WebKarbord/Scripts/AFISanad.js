@@ -2551,6 +2551,9 @@
 
         $('#Save').attr('disabled', '');
 
+
+
+
         var ADocBObject = {
             SerialNumber: Serial,
             BandNo: bandnumber,
@@ -2561,7 +2564,7 @@
             Comm: $("#comm").val(),
             BandSpec: $("#bandSpec").val(),
             CheckNo: $("#CheckNo").val(),
-            CheckDate: $("#checkDateBand").val(),
+            CheckDate: $("#checkDateBand").val().toEnglishDigit(),
             Bank: $("#nameBank").val(),
             Shobe: $("#nameShobe").val(),
             Jari: $("#nameJari").val(),
@@ -2571,7 +2574,7 @@
             CheckRadif: $("#CheckRadif").val(),
             CheckComm: $("#CheckComm").val(),
             CheckStatus: $("#checkStatus").val(),
-            CheckVosoolDate: $("#checkVosoolDate").val(),
+            CheckVosoolDate: $("#checkVosoolDate").val().toEnglishDigit(),
             OprCode: OprCode,
             MkzCode: MkzCode,
             ArzCode: ArzCode,

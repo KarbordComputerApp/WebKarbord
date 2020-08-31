@@ -29,20 +29,29 @@
     function getLoginData() {
         pass === '' ? pass = 'null' : pass = pass;
         ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET').done(function (data) {
-            if (data === 0) {
+            if (data == null || data == 0)
+                return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+
+            var res = data.split("-");
+            userValid = res[0];
+
+
+            if (userValid === 0) {
                 return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
                 sessionStorage.userName = '';
                 sessionStorage.pass = '';
 
                 localStorage.setItem("userName", '');
                 localStorage.setItem('password', '');
+                sessionStorage.userNameFa = '';
             }
             else {
+                res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
                 sessionStorage.userName = user.toUpperCase();
                 sessionStorage.pass = pass;
-
                 localStorage.setItem("userName", user.toUpperCase());
                 localStorage.setItem('password', pass);
+
 
                 window.location.href = sessionStorage.urlSetting;
             }
@@ -155,7 +164,7 @@
 
     // ورود خودکار به صفحه خانه
     if (tempUser != '') {
-        self.LoginUser();
+        // self.LoginUser();
     }
 
 

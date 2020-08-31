@@ -28,6 +28,8 @@ DatabseSalList = ko.observableArray([]); // دیتابیس های سال
 AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 
+$('#userNameFa').text(sessionStorage.userNameFa);
+$('#userNameHome').text(sessionStorage.userNameFa + ' ');
 
 
 
