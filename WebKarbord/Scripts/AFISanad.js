@@ -633,6 +633,10 @@
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
+        self.filterAcc0("");
+        self.filterAcc1("");
+        self.filterAcc2("");
+        self.currentPageIndexAcc(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -759,28 +763,12 @@
 
 
     $('#modal-ZAcc').on('shown.bs.modal', function () {
+        self.filterZAcc0("");
+        self.filterZAcc1("");
+        self.filterZAcc2("");
+        self.currentPageIndexZAcc(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -927,10 +915,12 @@
 
 
     $('#modal-Traf').on('shown.bs.modal', function () {
+        self.filterTraf0 = ko.observable("");
+        self.filterTraf1 = ko.observable("");
+        self.filterTraf2 = ko.observable("");
+        self.currentPageIndexTraf(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
-
-
 
 
 
@@ -1054,22 +1044,12 @@
 
 
     $('#modal-TrafZ').on('shown.bs.modal', function () {
+        self.filterTrafZ0 = ko.observable("");
+        self.filterTrafZ1 = ko.observable("");
+        self.filterTrafZ2 = ko.observable("");
+        self.currentPageIndexTrafZ(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1597,7 +1577,10 @@
 
 
     $('#modal-Bank').on('shown.bs.modal', function () {
+        filterBank0("");
+        self.currentPageIndexBank(0);
         $('.fix').attr('class', 'form-line focused fix');
+
     });
 
 
@@ -1715,6 +1698,8 @@
 
 
     $('#modal-Shobe').on('shown.bs.modal', function () {
+        filterShobe0("");
+        self.currentPageIndexShobe(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1840,6 +1825,8 @@
 
 
     $('#modal-Jari').on('shown.bs.modal', function () {
+        filterJari0("");
+        self.currentPageIndexJari(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2054,13 +2041,25 @@
         }
         $('#CheckComm').val(item.CheckComm);
 
-        CalcValue();
+        CalcValue(1);
 
         $('#modal-Check').modal('toggle');
     }
 
 
     $('#modal-Check').on('shown.bs.modal', function () {
+        self.filterCheckNo("");
+        self.filterCheckDate("");
+        self.filterValue("");
+        self.filterBank("");
+        self.filterShobe("");
+        self.filterJari("");
+        self.filterBaratNo("");
+        self.filterCheckStatus("");
+        self.filterCheckStatusSt("");
+        self.filterCheckRadif("");
+        self.filterCheckComm("");
+        self.currentPageIndexCheck(0);
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2925,7 +2924,8 @@
 
         switch (no) {
             case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
+                text += 'data-bind="text: ' + field + ', style: { color: ' + field + ' == \'نامشخص\' ? \'red\' : ' + field + ' == \'پاس شده\' || ' + field + ' == \'وصول شده\'  ? \'green\' : ' + field + ' == \'برگشتی\' || ' + field + ' == \'عودت\' || ' + field + ' == \'واگذار شده\'  ? \'#ec8121\' :  \'black\' }"></td>';
+               // text += 'data-bind="text: ' + field + '"></td>';
                 break;
             case 1:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'

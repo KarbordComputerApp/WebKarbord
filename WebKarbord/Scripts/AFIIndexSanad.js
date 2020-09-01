@@ -585,7 +585,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color: Balance == 1 ? \'red\' : \'#3f4853\' }" >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color: Balance == 1 || ModeName == \'\' ? \'red\' : \'#3f4853\' }" >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
@@ -642,6 +642,7 @@
             CreateTableTdSearch('F06', data) +
             CreateTableTdSearch('F07', data) +
             CreateTableTdSearch('F08', data) +
+            CreateTableTdSearch('F09', data) +
             CreateTableTdSearch('F10', data) +
             CreateTableTdSearch('F11', data) +
             CreateTableTdSearch('F12', data) +
