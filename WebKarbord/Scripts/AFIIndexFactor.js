@@ -1226,6 +1226,7 @@
             CreateTableTdSearch('F06', data) +
             CreateTableTdSearch('F07', data) +
             CreateTableTdSearch('F08', data) +
+            CreateTableTdSearch('F09', data) +
             CreateTableTdSearch('F10', data) +
             CreateTableTdSearch('F11', data) +
             CreateTableTdSearch('F12', data) +

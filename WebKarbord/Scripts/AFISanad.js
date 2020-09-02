@@ -34,6 +34,34 @@
     self.flagupdateband = false;
     var flagOtherFieldShow;
 
+    var flagSearchAcc = 0;
+    var flagSearchZAcc = 0;
+    var flagSearchTraf = 0;
+    var flagSearchTrafZ = 0;
+    var flagSearchOpr = 0;
+    var flagSearchMkz = 0;
+    var flagSearchArz = 0;
+    var flagSearchBank = 0;
+    var flagSearchShobe = 0;
+    var flagSearchJari = 0;
+    var flagSearchCheck = 0;
+
+    function ClearSearch() {
+        flagSearchAcc = 0;
+        flagSearchZAcc = 0;
+        flagSearchTraf = 0;
+        flagSearchTrafZ = 0;
+        flagSearchOpr = 0;
+        flagSearchMkz = 0;
+        flagSearchArz = 0;
+        flagSearchBank = 0;
+        flagSearchShobe = 0;
+        flagSearchJari = 0;
+        flagSearchCheck = 0;
+    }
+
+    ClearSearch();
+
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -399,6 +427,63 @@
 
 
 
+    $('#NewSanad').click(function () {
+
+        Swal.fire({
+            title: '',
+            text: " سند جدید ایجاد می شود . آیا مطمئن هستید ؟",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                sessionStorage.flagupdateHeader = 0;
+                AccCode = "";
+                AccZCode = "";
+                TrafCode = "";
+                TrafZCode = "";
+                ArzCode = "";
+                OprCode = "";
+                MkzCode = "";
+                bandnumber = 0;
+                bandnumberedit = 0;
+                flagFinalSave = false;
+                flagEditBand = false;
+                flag = -1;
+                bandnumber = 0;
+                bandnumberedit = 0;
+                flagFinalSave = false;
+                flagInsertADocH = 0;
+                zGruAcc = "";
+                allSearchAcc = true;
+                allSearchAcc = true;
+                Serial = '';
+                PDModeAcc = 0;
+                self.flagupdateband = false;
+                flagOtherFieldShow;
+                ClearSearch();
+                self.ClearADocH();
+                self.ADocBList([]); 
+                self.ADocHList([]); 
+                $('#totalBede').text('');
+                $('#totalBest').text('');
+                $('#textTotal').text('');
+                $('#TafavotSanad').val('');
+                $('#docnoout').text('جدید');
+                sessionStorage.searchADocH = "";
+                $("#status").val('موقت');
+                sessionStorage.Eghdam = sessionStorage.userName;
+                self.bundNumberImport = 0;
+                $(this).CheckAccess();
+            }
+        })
+    });
+
+
 
     self.currentColumn = ko.observable("");
     self.iconTypeCode = ko.observable("");
@@ -633,10 +718,13 @@
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
-        self.filterAcc0("");
-        self.filterAcc1("");
-        self.filterAcc2("");
-        self.currentPageIndexAcc(0);
+        if (flagSearchAcc == 0) {
+            self.filterAcc0("");
+            self.filterAcc1("");
+            self.filterAcc2("");
+            self.currentPageIndexAcc(0);
+            flagSearchAcc = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -763,10 +851,14 @@
 
 
     $('#modal-ZAcc').on('shown.bs.modal', function () {
-        self.filterZAcc0("");
-        self.filterZAcc1("");
-        self.filterZAcc2("");
-        self.currentPageIndexZAcc(0);
+
+        if (flagSearchZAcc == 0) {
+            self.filterZAcc0("");
+            self.filterZAcc1("");
+            self.filterZAcc2("");
+            self.currentPageIndexZAcc(0);
+            flagSearchZAcc = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -915,10 +1007,14 @@
 
 
     $('#modal-Traf').on('shown.bs.modal', function () {
-        self.filterTraf0 = ko.observable("");
-        self.filterTraf1 = ko.observable("");
-        self.filterTraf2 = ko.observable("");
-        self.currentPageIndexTraf(0);
+        if (flagSearchZAcc == 0) {
+            self.filterTraf0 = ko.observable("");
+            self.filterTraf1 = ko.observable("");
+            self.filterTraf2 = ko.observable("");
+            self.currentPageIndexTraf(0);
+            flagSearchZAcc = 1;
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1044,10 +1140,13 @@
 
 
     $('#modal-TrafZ').on('shown.bs.modal', function () {
-        self.filterTrafZ0 = ko.observable("");
-        self.filterTrafZ1 = ko.observable("");
-        self.filterTrafZ2 = ko.observable("");
-        self.currentPageIndexTrafZ(0);
+        if (flagSearchTrafZ == 0) {
+            self.filterTrafZ0 = ko.observable("");
+            self.filterTrafZ1 = ko.observable("");
+            self.filterTrafZ2 = ko.observable("");
+            self.currentPageIndexTrafZ(0);
+            flagSearchTrafZ = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1171,33 +1270,15 @@
 
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        if (flagSearchOpr == 0) {
+            self.filterOpr0 = ko.observable("");
+            self.filterOpr1 = ko.observable("");
+            self.filterOpr2 = ko.observable("");
+            self.currentPageIndexOpr(0);
+            flagSearchOpr = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1321,6 +1402,13 @@
 
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+        if (flagSearchMkz == 0) {
+            self.filterMkz0 = ko.observable("");
+            self.filterMkz1 = ko.observable("");
+            self.filterMkz2 = ko.observable("");
+            self.currentPageIndexMkz(0);
+            flagSearchMkz = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1461,6 +1549,13 @@
 
 
     $('#modal-Arz').on('shown.bs.modal', function () {
+        if (flagSearchArz == 0) {
+            self.filterArz0 = ko.observable("");
+            self.filterArz1 = ko.observable("");
+            self.filterArz2 = ko.observable("");
+            self.currentPageIndexArz(0);
+            flagSearchArz = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1577,8 +1672,11 @@
 
 
     $('#modal-Bank').on('shown.bs.modal', function () {
-        filterBank0("");
-        self.currentPageIndexBank(0);
+        if (flagSearchBank == 0) {
+            filterBank0("");
+            self.currentPageIndexBank(0);
+            flagSearchBank = 1;
+        }
         $('.fix').attr('class', 'form-line focused fix');
 
     });
@@ -1698,8 +1796,12 @@
 
 
     $('#modal-Shobe').on('shown.bs.modal', function () {
-        filterShobe0("");
-        self.currentPageIndexShobe(0);
+        if (flagSearchShobe == 0) {
+            filterShobe0("");
+            self.currentPageIndexShobe(0);
+            flagSearchShobe = 1;
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1825,8 +1927,12 @@
 
 
     $('#modal-Jari').on('shown.bs.modal', function () {
-        filterJari0("");
-        self.currentPageIndexJari(0);
+        if (flagSearchJari == 0) {
+            filterJari0("");
+            self.currentPageIndexJari(0);
+            flagSearchJari = 1;
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2041,25 +2147,29 @@
         }
         $('#CheckComm').val(item.CheckComm);
 
-        CalcValue(1);
+        CalcValue(0);
 
         $('#modal-Check').modal('toggle');
     }
 
 
     $('#modal-Check').on('shown.bs.modal', function () {
-        self.filterCheckNo("");
-        self.filterCheckDate("");
-        self.filterValue("");
-        self.filterBank("");
-        self.filterShobe("");
-        self.filterJari("");
-        self.filterBaratNo("");
-        self.filterCheckStatus("");
-        self.filterCheckStatusSt("");
-        self.filterCheckRadif("");
-        self.filterCheckComm("");
-        self.currentPageIndexCheck(0);
+        if (flagSearchCheck == 0) {
+            self.filterCheckNo("");
+            self.filterCheckDate("");
+            self.filterValue("");
+            self.filterBank("");
+            self.filterShobe("");
+            self.filterJari("");
+            self.filterBaratNo("");
+            self.filterCheckStatus("");
+            self.filterCheckStatusSt("");
+            self.filterCheckRadif("");
+            self.filterCheckComm("");
+            self.currentPageIndexCheck(0);
+            flagSearchCheck = 1;
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2167,6 +2277,7 @@
     }
 
     self.ButtonADocH = function ButtonADocH(newADocH) {
+        ClearSearch();
         $('#panelZAcc').attr('hidden', '');
         $('#panelArz').attr('hidden', '');
         $('#panelOpr').attr('hidden', '');
@@ -2174,7 +2285,6 @@
 
         $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
         $('#comm').attr('rows', '18');
-
 
         HiddenCheck();
         self.ClearADocB();
@@ -2384,6 +2494,7 @@
             }
 
             if (PDModeAcc > 0) {
+                getCheckList(PDModeAcc);
                 ShowCheck();
                 PDModeAcc == 1 ? $('#Value').val(NumberToNumberString(item.Best)) : $('#Value').val(NumberToNumberString(item.Bede));
             }
@@ -2551,8 +2662,6 @@
         $('#Save').attr('disabled', '');
 
 
-
-
         var ADocBObject = {
             SerialNumber: Serial,
             BandNo: bandnumber,
@@ -2588,6 +2697,7 @@
             self.ADocBList(response);
             //getADocH(Serial);
             calcsum(response);
+            ClearSearch();
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             self.ClearADocB();
@@ -2661,6 +2771,7 @@
             calcsum(response);
             self.flagupdateband = false;
             flagFinalSave = false;
+            ClearSearch();
             $('#modal-Band').modal('hide');
             self.ClearADocB();
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
@@ -2862,7 +2973,7 @@
             '     <tr data-bind="click: $parent.selectCheck">' +
             CreateTableTdCheck('CheckNo', 0, 0, data) +
             CreateTableTdCheck('CheckDate', 0, 0, data) +
-            CreateTableTdCheck('Value', 0, 0, data) +
+            CreateTableTdCheck('Value', 0, 2, data) +
             CreateTableTdCheck('Bank', 0, 0, data) +
             CreateTableTdCheck('Shobe', 0, 0, data) +
             CreateTableTdCheck('Jari', 0, 0, data) +
@@ -2925,7 +3036,7 @@
         switch (no) {
             case 0:
                 text += 'data-bind="text: ' + field + ', style: { color: ' + field + ' == \'نامشخص\' ? \'red\' : ' + field + ' == \'پاس شده\' || ' + field + ' == \'وصول شده\'  ? \'green\' : ' + field + ' == \'برگشتی\' || ' + field + ' == \'عودت\' || ' + field + ' == \'واگذار شده\'  ? \'#ec8121\' :  \'black\' }"></td>';
-               // text += 'data-bind="text: ' + field + '"></td>';
+                // text += 'data-bind="text: ' + field + '"></td>';
                 break;
             case 1:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'

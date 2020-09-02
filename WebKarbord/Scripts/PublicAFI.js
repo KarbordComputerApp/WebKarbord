@@ -1829,5 +1829,5 @@ $('#LogOut').click(function () {
 
     localStorage.setItem("userName", '');
     localStorage.setItem('password', '');
-    window.location.href = 'Home/login';
+    window.location.href = sessionStorage.urlLogin;
 });
