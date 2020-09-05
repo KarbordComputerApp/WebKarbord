@@ -52,6 +52,11 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult Krdx()
+        {
+            return View();
+        }
+
 
 
 

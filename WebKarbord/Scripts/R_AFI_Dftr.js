@@ -1879,6 +1879,16 @@
         return text;
     }
 
+    function CallPrint(strid) {
+        var prtContent = document.getElementById(strid);
+        var WinPrint = window.open('', '', 'letf=0,top=0,width=1,height=1,t  oolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+        prtContent.innerHTML = strOldOne;
+    }
 
 };
 

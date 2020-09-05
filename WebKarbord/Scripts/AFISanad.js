@@ -467,8 +467,8 @@
                 flagOtherFieldShow;
                 ClearSearch();
                 self.ClearADocH();
-                self.ADocBList([]); 
-                self.ADocHList([]); 
+                self.ADocBList([]);
+                self.ADocHList([]);
                 $('#totalBede').text('');
                 $('#totalBest').text('');
                 $('#textTotal').text('');
@@ -718,12 +718,17 @@
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
-        if (flagSearchAcc == 0) {
+        if (flagSearchAcc == 0 && self.flagupdateband == false) {
             self.filterAcc0("");
             self.filterAcc1("");
             self.filterAcc2("");
             self.currentPageIndexAcc(0);
             flagSearchAcc = 1;
+        }
+        else if (flagSearchAcc == 0 && self.flagupdateband == true) {
+            self.filterAcc0(AccCode);
+            self.filterAcc1("");
+            self.filterAcc2("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -852,12 +857,16 @@
 
     $('#modal-ZAcc').on('shown.bs.modal', function () {
 
-        if (flagSearchZAcc == 0) {
+        if (flagSearchZAcc == 0 && self.flagupdateband == false) {
             self.filterZAcc0("");
             self.filterZAcc1("");
             self.filterZAcc2("");
             self.currentPageIndexZAcc(0);
             flagSearchZAcc = 1;
+        } else if (flagSearchZAcc == 0 && self.flagupdateband == true) {
+            self.filterZAcc0(AccZCode);
+            self.filterZAcc1("");
+            self.filterZAcc2("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1007,12 +1016,16 @@
 
 
     $('#modal-Traf').on('shown.bs.modal', function () {
-        if (flagSearchZAcc == 0) {
+        if (flagSearchTraf == 0 && self.flagupdateband == false) {
             self.filterTraf0 = ko.observable("");
             self.filterTraf1 = ko.observable("");
             self.filterTraf2 = ko.observable("");
             self.currentPageIndexTraf(0);
-            flagSearchZAcc = 1;
+            flagSearchTraf = 1;
+        } else if (flagSearchTraf == 0 && self.flagupdateband == true) {
+            self.filterTraf0(TrafCode);
+            self.filterTraf1 = ko.observable("");
+            self.filterTraf2 = ko.observable("");
         }
 
         $('.fix').attr('class', 'form-line focused fix');
@@ -1140,12 +1153,16 @@
 
 
     $('#modal-TrafZ').on('shown.bs.modal', function () {
-        if (flagSearchTrafZ == 0) {
+        if (flagSearchTrafZ == 0 && self.flagupdateband == false) {
             self.filterTrafZ0 = ko.observable("");
             self.filterTrafZ1 = ko.observable("");
             self.filterTrafZ2 = ko.observable("");
             self.currentPageIndexTrafZ(0);
             flagSearchTrafZ = 1;
+        } else if (flagSearchTrafZ == 0 && self.flagupdateband == true) {
+            self.filterTrafZ0(TrafZCode);
+            self.filterTrafZ1 = ko.observable("");
+            self.filterTrafZ2 = ko.observable("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1270,12 +1287,16 @@
 
 
     $('#modal-Opr').on('shown.bs.modal', function () {
-        if (flagSearchOpr == 0) {
+        if (flagSearchOpr == 0 && self.flagupdateband == false) {
             self.filterOpr0 = ko.observable("");
             self.filterOpr1 = ko.observable("");
             self.filterOpr2 = ko.observable("");
             self.currentPageIndexOpr(0);
             flagSearchOpr = 1;
+        } else if (flagSearchOpr == 0 && self.flagupdateband == true) {
+            self.filterOpr0(OprCode);
+            self.filterOpr1 = ko.observable("");
+            self.filterOpr2 = ko.observable("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1402,12 +1423,16 @@
 
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
-        if (flagSearchMkz == 0) {
+        if (flagSearchMkz == 0 && self.flagupdateband == false) {
             self.filterMkz0 = ko.observable("");
             self.filterMkz1 = ko.observable("");
             self.filterMkz2 = ko.observable("");
             self.currentPageIndexMkz(0);
             flagSearchMkz = 1;
+        } else if (flagSearchMkz == 0 && self.flagupdateband == true) {
+            self.filterMkz0(MkzCode);
+            self.filterMkz1 = ko.observable("");
+            self.filterMkz2 = ko.observable("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1549,12 +1574,16 @@
 
 
     $('#modal-Arz').on('shown.bs.modal', function () {
-        if (flagSearchArz == 0) {
+        if (flagSearchArz == 0 && self.flagupdateband == false) {
             self.filterArz0 = ko.observable("");
             self.filterArz1 = ko.observable("");
             self.filterArz2 = ko.observable("");
             self.currentPageIndexArz(0);
             flagSearchArz = 1;
+        } else if (flagSearchArz == 0 && self.flagupdateband == true) {
+            self.filterArz0(ArzCode);
+            self.filterArz1 = ko.observable("");
+            self.filterArz2 = ko.observable("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1672,10 +1701,12 @@
 
 
     $('#modal-Bank').on('shown.bs.modal', function () {
-        if (flagSearchBank == 0) {
+        if (flagSearchBank == 0 && self.flagupdateband == false) {
             filterBank0("");
             self.currentPageIndexBank(0);
             flagSearchBank = 1;
+        } else if (flagSearchBank == 0 && self.flagupdateband == true) {
+            self.filterBank0($('#nameBank').val());
         }
         $('.fix').attr('class', 'form-line focused fix');
 
@@ -1796,10 +1827,12 @@
 
 
     $('#modal-Shobe').on('shown.bs.modal', function () {
-        if (flagSearchShobe == 0) {
+        if (flagSearchShobe == 0 && self.flagupdateband == false) {
             filterShobe0("");
             self.currentPageIndexShobe(0);
             flagSearchShobe = 1;
+        } else if (flagSearchShobe == 0 && self.flagupdateband == true) {
+            self.filterShobe0($('#nameShobe').val());
         }
 
         $('.fix').attr('class', 'form-line focused fix');
@@ -1927,10 +1960,12 @@
 
 
     $('#modal-Jari').on('shown.bs.modal', function () {
-        if (flagSearchJari == 0) {
+        if (flagSearchJari == 0 && self.flagupdateband == false) {
             filterJari0("");
             self.currentPageIndexJari(0);
             flagSearchJari = 1;
+        } else if (flagSearchJari == 0 && self.flagupdateband == true) {
+            self.filterJari0($('#nameJari').val());
         }
 
         $('.fix').attr('class', 'form-line focused fix');
@@ -1993,8 +2028,8 @@
                     ko.utils.stringStartsWith(item.CheckRadif.toString().toLowerCase(), filterCheckRadif) &&
                     (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
                     ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
-                    (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0)
-                        (item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
+                    (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0)// &&
+                    //(item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
                 return result;
             })
             return tempData;
@@ -2154,7 +2189,7 @@
 
 
     $('#modal-Check').on('shown.bs.modal', function () {
-        if (flagSearchCheck == 0) {
+        if (flagSearchCheck == 0 && self.flagupdateband == false) {
             self.filterCheckNo("");
             self.filterCheckDate("");
             self.filterValue("");
@@ -2168,6 +2203,20 @@
             self.filterCheckComm("");
             self.currentPageIndexCheck(0);
             flagSearchCheck = 1;
+        } else if (flagSearchCheck == 0 && self.flagupdateband == true) {
+            a = $('#CheckNo').val();
+            self.filterCheckNo(a);
+            self.filterCheckDate("");
+            self.filterValue("");
+            self.filterBank("");
+            self.filterShobe("");
+            self.filterJari("");
+            self.filterBaratNo("");
+            self.filterCheckStatus("");
+            self.filterCheckStatusSt("");
+            self.filterCheckRadif("");
+            self.filterCheckComm("");
+            self.currentPageIndexCheck(0);
         }
 
         $('.fix').attr('class', 'form-line focused fix');
@@ -2771,7 +2820,7 @@
             calcsum(response);
             self.flagupdateband = false;
             flagFinalSave = false;
-            ClearSearch();
+            //ClearSearch();
             $('#modal-Band').modal('hide');
             self.ClearADocB();
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
