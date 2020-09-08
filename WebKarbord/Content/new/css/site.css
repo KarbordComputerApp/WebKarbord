@@ -1609,4 +1609,9 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+#StiViewerReportPanel {
+    position: initial !important;
+}
+
+
 

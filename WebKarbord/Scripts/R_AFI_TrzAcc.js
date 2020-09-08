@@ -44,7 +44,6 @@
     });
 
 
-
     var AccCode = '';
     var counterAcc = 0;
     var list_AccSelect = new Array();
@@ -166,6 +165,7 @@
     getLevel();
     getSathTaraz();
 
+
     $('#nameAcc').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
@@ -225,6 +225,7 @@
             Level: level,
             Sath: sath,
         };
+
         ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject).done(function (response) {
             self.TrzAccList(response);
             //calcsum(self.TrzAccList());
@@ -1356,6 +1357,10 @@
 
     $('.fix').attr('class', 'form-line date focused fix');
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzAccList(), 'TrzAcc');
+    });
 };
 
 ko.applyBindings(new ViewModel());

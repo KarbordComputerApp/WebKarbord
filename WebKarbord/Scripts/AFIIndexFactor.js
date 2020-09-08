@@ -27,6 +27,7 @@
     var defultMove;
     var TitleListFactor;
 
+
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             {
@@ -1292,6 +1293,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterFDocHList(), 'Free');
+    });
 
 };
 

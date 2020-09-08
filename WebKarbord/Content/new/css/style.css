@@ -4318,7 +4318,7 @@ a {
     }
 
 img {
-    max-width: 100%;
+  /*  max-width: 100%; */
 }
 
 .icon {
@@ -14000,7 +14000,7 @@ fieldset[disabled] .form-control {
     }
 
 .navbar-nav .user_profile .user_dw_menu li {
-    width: 100%;
+    width: 125%;
     border-bottom: 1px solid #eee;
 }
 

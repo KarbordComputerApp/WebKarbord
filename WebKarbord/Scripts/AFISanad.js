@@ -3137,6 +3137,11 @@
             flagOtherFieldShow = false;
         }
     });
+
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.ADocBList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

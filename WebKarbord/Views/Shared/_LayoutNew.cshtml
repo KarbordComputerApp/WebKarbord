@@ -12,17 +12,11 @@
     <link href="~/Content/new/css/all-themes.css" rel="stylesheet" />
     <link href="~/Content/new/js/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
     <link href="~/Content/new/css/site.css" rel="stylesheet" />
-    <script type="text/javascript">
-        // window.history.forward();
-        // function noBack() {
-        //      window.history.forward();
-        //  }
-    </script>
+    <link href="~/Content/new/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet" />
+    <link href="~/Content/new/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet" />
 </head>
-<body class="light rtl" ondragstart="return false;" ondrop="return false;" onpaste="return false">
+<body class="light rtlSite" ondragstart="return false;" ondrop="return false;" onpaste="return false">
     <!-- onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""-->
-
-
     <div class="page-loader-wrapper">
         <div class="loader">
             <div class="m-t-30">
@@ -217,18 +211,18 @@
 
 
 
-        <aside id="leftsidebar" class="sidebar">
-        <div class="menu"> 
+    <aside id="leftsidebar" class="sidebar">
+        <div class="menu">
             <ul class="list">
                 <li class="sidebar-user-panel active">
                     <div class="center">
                         <img src="~/Content/img/Logo.jpg" style="width: 250px;" />
-                        <img src="~/Content/img/new item/line.png" style="padding :5px 0px;" />
+                        <img src="~/Content/img/new item/line.png" style="padding :5px 0px; max-width:100%" />
                     </div>
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
-    <div class="profile-usertitle-job " id="TextNoUser"></div>-->
-                         <div class="profile-usertitle-job ">ورژن تست  :223</div>
+                        <div class="profile-usertitle-job " id="TextNoUser"></div>-->
+                        <div class="profile-usertitle-job ">ورژن تست  :224</div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1003</div>  -->
                     </div>
                 </li>
@@ -545,13 +539,31 @@
                  </div>
              </div>
          </aside>-->
-
+    <div id="designerContent" dir="ltr"></div>
 
     <section class="content">
         <div class="container-fluid">
             @RenderBody()
         </div>
     </section>
+
+    <div class="modal fade" id="modal-Report" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog" style="max-width:1000px">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">پیش نمایش چاپ</h4>
+                </div>
+                <div class="modal-body" dir="ltr">
+                    <table class="Main" cellpadding="0" cellspacing="10" style="width:100%">
+                        <tr>
+                            <td height="100%" id="viewerContent"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!--    <script src="~/Content/new/js/app.min.js"></script>
@@ -577,6 +589,12 @@
     <script src="~/Scripts/PublicAFI.js"></script>
     <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
     <script src="~/Content/new/js/jquery.md5.js"></script>
+
+
+    <script src="~/Content/new/js/stimulsoft.reports.js"></script>
+    <script src="~/Content/new/js/stimulsoft.viewer.js"></script>
+    <script src="~/Content/new/js/stimulsoft.designer.js"></script>
+
     <!-- <script src="~/Scripts/SelectProgram.js"></script>-->
     @RenderSection("scripts", false)
 

@@ -2195,6 +2195,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterFDocR_PList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

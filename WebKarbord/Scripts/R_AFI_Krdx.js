@@ -2252,6 +2252,10 @@
         $('.fix').attr('class', 'form-line focused fix');
     });
 
+    createViewer();
+    $('#Print').click(function () {
+       // setReport(self.filterTrzAccList(), 'Free');
+    });
 
 };
 

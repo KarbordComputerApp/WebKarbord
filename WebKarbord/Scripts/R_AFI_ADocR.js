@@ -1884,7 +1884,10 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
-
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterADocRList(), 'Free');
+    });
 
 };
 

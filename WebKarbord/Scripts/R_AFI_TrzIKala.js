@@ -1123,7 +1123,10 @@
         return text;
     }
 
-
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzIList(), 'Free');
+    });
 
 };
 

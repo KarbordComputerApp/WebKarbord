@@ -1162,7 +1162,10 @@
     }
 
 
-
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterDocKList(), 'Free');
+    });
 
 };
 

@@ -2346,7 +2346,8 @@ html {
 }
 
 *, *:before, *:after {
-    box-sizing: inherit
+    box-sizing: inherit;
+    
 }
 
 button, input, optgroup, select, textarea {
@@ -2718,7 +2719,7 @@ tr {
 td, th {
     padding: 15px 5px;
     display: table-cell;
-    text-align: right;
+    
     vertical-align: middle;
     border-radius: 2px
 }
@@ -8037,7 +8038,7 @@ input[type=range] {
     }
 }
 
-.rtl {
+.rtlSite {
     direction: rtl;
     text-align: right
 }

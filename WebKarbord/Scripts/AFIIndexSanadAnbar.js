@@ -838,6 +838,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterIDocHList(), 'Free');
+    });
 
 };
 

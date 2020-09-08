@@ -290,6 +290,10 @@
         getIDocH(select, invSelect);
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterThvl(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

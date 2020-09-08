@@ -2611,6 +2611,11 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzFKala_SList(), 'Free');
+    });
+
 };
 
 ko.applyBindings(new ViewModel());

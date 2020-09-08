@@ -1637,7 +1637,10 @@
         }
     });
 
-
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.IDocBList(), 'Free');
+    });
 
 
 

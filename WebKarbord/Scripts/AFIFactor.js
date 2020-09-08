@@ -23,6 +23,8 @@
 
     $('#textnumberfactor').hide();
 
+
+
     var codeCust = '';
 
     var zarib1 = 0;
@@ -2380,6 +2382,10 @@
 
 
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.FDocBList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

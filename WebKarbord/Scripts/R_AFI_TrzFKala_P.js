@@ -2601,6 +2601,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzFKala_PList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

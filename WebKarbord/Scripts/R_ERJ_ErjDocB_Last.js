@@ -1087,6 +1087,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterDocB_LastList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

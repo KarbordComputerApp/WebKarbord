@@ -729,6 +729,11 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterADocHList(), 'Free');
+    });
+
 };
 
 ko.applyBindings(new ViewModel());

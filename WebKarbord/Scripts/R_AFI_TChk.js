@@ -904,6 +904,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTChkList(), 'TChk');
+    });
 
 };
 

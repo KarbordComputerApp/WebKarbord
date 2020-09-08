@@ -1350,6 +1350,11 @@
     }
 
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzIExfList(), 'Free');
+    });
+
 };
 
 ko.applyBindings(new ViewModel());

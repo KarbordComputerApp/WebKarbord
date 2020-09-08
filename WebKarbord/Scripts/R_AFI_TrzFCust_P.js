@@ -2509,6 +2509,10 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzFCust_PList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

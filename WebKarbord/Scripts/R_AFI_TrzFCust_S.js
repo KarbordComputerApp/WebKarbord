@@ -2507,6 +2507,11 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterTrzFCust_SList(), 'Free');
+    });
+
 };
 
 ko.applyBindings(new ViewModel());

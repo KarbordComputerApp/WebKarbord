@@ -1890,6 +1890,10 @@
         prtContent.innerHTML = strOldOne;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterDftrList(), 'Free');
+    });
 };
 
 ko.applyBindings(new ViewModel());

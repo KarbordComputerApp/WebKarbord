@@ -2193,6 +2193,11 @@
         return text;
     }
 
+    createViewer();
+    $('#Print').click(function () {
+        setReport(self.filterFDocR_SList(), 'Free');
+    });
+
 };
 
 ko.applyBindings(new ViewModel());
