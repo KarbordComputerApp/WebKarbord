@@ -786,7 +786,6 @@
     <Content Include="Content\fonts\BSoorehB.ttf" />
     <Content Include="Content\fonts\BSorkhpu.ttf" />
     <Content Include="Content\fonts\BTABASSO.TTF" />
-    <Content Include="Content\fonts\BTanab.ttf" />
     <Content Include="Content\fonts\BTAWFIGO.TTF" />
     <Content Include="Content\fonts\BTir.ttf" />
     <Content Include="Content\fonts\BTITRBD.TTF" />
@@ -802,8 +801,8 @@
     <Content Include="Content\fonts\BZAR.TTF" />
     <Content Include="Content\fonts\BZARBOLD.TTF" />
     <Content Include="Content\fonts\BZiba.ttf" />
-    <Content Include="Content\Report\Report_TrzAcc.mrt" />
     <Content Include="Content\Report\Report_TChk.mrt" />
+    <Content Include="Content\Report\Report_TrzAcc.mrt" />
     <None Include="packages.config" />
     <Content Include="Views\AFIFactor\AddFdoc.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />

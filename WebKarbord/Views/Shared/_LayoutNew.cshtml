@@ -16,6 +16,7 @@
     <link href="~/Content/new/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet" />
 </head>
 <body class="light rtlSite" ondragstart="return false;" ondrop="return false;" onpaste="return false">
+
     <!-- onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""-->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -539,7 +540,7 @@
                  </div>
              </div>
          </aside>-->
-    <div id="designerContent" dir="ltr"></div>
+
 
     <section class="content">
         <div class="container-fluid">
@@ -547,24 +548,25 @@
         </div>
     </section>
 
-    <div class="modal fade" id="modal-Report" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-        <div class="modal-dialog" style="max-width:1000px">
-
+    <div class="modal fade" id="modal-Report" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true"  dir="ltr">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">پیش نمایش چاپ</h4>
                 </div>
-                <div class="modal-body" dir="ltr">
-                    <table class="Main" cellpadding="0" cellspacing="10" style="width:100%">
-                        <tr>
-                            <td height="100%" id="viewerContent"></td>
-                        </tr>
-                    </table>
+                <div class="modal-body">
+                    <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                    </div>
+                </div>
+                <div style="padding: 0px; margin: 10px;">
+                    <div class="row">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div id="designerContent"></div>
+        <div id="viewerContent"></div>
+    </div>
 
     <!--    <script src="~/Content/new/js/app.min.js"></script>
         <script src="~/Content/new/js/jquery.multi-select.js"></script>

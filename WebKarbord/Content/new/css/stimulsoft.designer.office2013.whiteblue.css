@@ -3938,6 +3938,21 @@ License: https://www.stimulsoft.com/en/licensing/reports
     color: #444
 }
 
+/*
+    .stiDesignerTextBox_Mouse {
+    font-size: 11px !important;
+    border: 1px solid #ababab !important;
+    margin: 0 !important;
+    padding: 0 0 0 4px !important;
+    font-family: vazir !important;
+    -webkit-border-radius: 0 !important;
+    outline: 0 !important;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(hsla(0,0%,100%,0)),to(hsla(0,0%,100%,0))) !important;
+    background-image: -webkit-linear-gradient(hsla(0,0%,100%,0),hsla(0,0%,100%,0)) !important;
+    color: #444 !important;
+}
+*/
+
 .stiDesignerTextBoxOver_Mouse {
     font-size:11px;
     border: 1px solid #a3bde3;

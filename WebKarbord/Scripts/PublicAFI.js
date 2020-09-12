@@ -1399,13 +1399,14 @@ $("#IDOC_O").click(function () {
 //MODECODE_IDOC_OMOVE: 107 'انتقال از انبار';
 //MODECODE_IDOC_OS: 109 'حواله فروش';
 //MODECODE_IDOC_OMAVAD: 111 'حواله مواد';
-
+var DateNow;
 function ShamsiDate() {
     d = new Date();
     date = toJalaali(d.getFullYear(), d.getMonth() + 1, d.getDate(), 'Short');
     date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
     date.jd <= 9 ? day = '0' + date.jd : day = date.jd;
     temp = date.jy + '/' + mah + '/' + day;
+    DateNow = temp;
     return temp;
 }
 
@@ -1836,12 +1837,15 @@ $('#LogOut').click(function () {
 
 var viewer = null;
 var designer = null;
+var options = null;
+var report = null;
+var dataSet = null;
 
 function createViewer() {
-   // var Stimulsoft = require('stimulsoft-reports-js');
+    // var Stimulsoft = require('stimulsoft-reports-js');
     Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("/Content/Report/Lang/fa.xml", true, "persion (fa)");
     //Stimulsoft.Base.StiFontCollection(Stimulsoft.Base.StiFontCollection.getFontFamilies());
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARABICS.ttf", "Karbord_ARABICS" );
+    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARABICS.ttf", "Karbord_ARABICS");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BArash.ttf", "Karbord_Arash");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BAria.ttf", "Karbord_Aria");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARSHIA.ttf", "Karbord_ARSHIA");
@@ -1898,7 +1902,6 @@ function createViewer() {
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSoorehB.ttf", "Karbord_SoorehB");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSorkhpu.ttf", "Karbord_Sorkhpu");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTABASSO.ttf", "Karbord_TABASSO");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTanab.ttf", "Karbord_Tanab");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTAWFIGO.ttf", "Karbord_TAWFIGO");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTir.ttf", "Karbord_Tir");
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTITRBD.ttf", "Karbord_TITRBD");
@@ -1917,43 +1920,50 @@ function createViewer() {
     Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZiba.ttf", "Karbord_Ziba");
     //Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("Vazir-FD-WOL.ttf", "Vazir-FD-WOL");
 
-    var options = new Stimulsoft.Viewer.StiViewerOptions();
+    options = new Stimulsoft.Viewer.StiViewerOptions();
+    viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+
+
 
     options.appearance.showSystemFonts = false;
-
     options.height = "100%";
+    options.appearance.fullScreenMode = true;
     options.appearance.scrollbarsMode = true;
+    options.toolbar.showSaveButton = false;
     options.toolbar.showDesignButton = true;
+
+    options.toolbar.showFullScreenButton = false;
+
     options.toolbar.printDestination = Stimulsoft.Viewer.StiPrintDestination.Direct;
     options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
-    options.toolbar.zoom = 50;
-   
+    options.toolbar.zoom = 100;
+    options.toolbar.showCloseButton = true;
 
-    //options.width = "1000px";
-    //options.height = "1000px";
-    // options.appearance.scrollbarsMode = true;
-    //options.appearance.backgroundColor = Stimulsoft.System.Drawing.Color.dodgerBlue;
-    //options.appearance.showTooltips = false;
-    //options.toolbar.showPrintButton = false;
-    //options.toolbar.showDesignButton = false;
-    //options.toolbar.showAboutButton = false;
-    //options.exports.showExportToPdf = true;
-    //options.exports.ShowExportToWord2007 = true;
 
-    viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+
+
+
+    report = new Stimulsoft.Report.StiReport();
     viewer.onDesignReport = function (e) {
         this.visible = false;
         if (designer == null) createDesigner();
-
-        var dataSet = new Stimulsoft.System.Data.DataSet("Database");
-        dataSet.readJson(DataReport);
-        e.report.regData(dataSet.dataSetName, "", dataSet);
-        e.report.dictionary.synchronize();
-        designer.report = e.report;
+        //report.synchronize();
+        designer.report = report;
         designer.visible = true;
-
     };
     viewer.renderHtml("viewerContent");
+
+    var userButton = viewer.jsObject.SmallButton("userButton", "خروج", "emptyImage");
+
+    userButton.action = function () {
+        $("#modal-Report").modal('hide');
+    }
+
+    var toolbarTable = viewer.jsObject.controls.toolbar.firstChild.firstChild;
+    var buttonsTable = toolbarTable.rows[0].firstChild.firstChild;
+    var userButtonCell = buttonsTable.rows[0].insertCell(0);
+    userButtonCell.className = "stiJsViewerClearAllStyles";
+    userButtonCell.appendChild(userButton);
 }
 
 var DataReport;
@@ -1962,30 +1972,66 @@ function createDesigner() {
     options.appearance.fullScreenMode = true;
     options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
     designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+    designer.renderHtml("designerContent");
 
     designer.onExit = function (e) {
         this.visible = false;
         viewer.visible = true;
     }
-    designer.renderHtml("designerContent");
 }
 
-function setReport(reportObject, mrtFileName) {
+function setReport(reportObject, mrtFileName, FromDate, ToDate ) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
         return showNotification('اطلاعات موجود نیست', 0);
     }
 
     addressMrt = '/Content/Report/Report_' + mrtFileName + '.mrt';
-    var report = new Stimulsoft.Report.StiReport();
 
     if (mrtFileName != "Free") {
         report.loadFile(addressMrt);
     }
-    var dataSet = new Stimulsoft.System.Data.DataSet("Database");
+    dataSet = new Stimulsoft.System.Data.DataSet("Database");
     DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
     dataSet.readJson(DataReport);
     report.regData(dataSet.dataSetName, "", dataSet);
+
+    ShamsiDate();
+    var variablesReportDate = null;
+     variablesReportDate = new Stimulsoft.Report.Dictionary.StiVariable();
+    variablesReportDate.name = "ReportDate";
+    variablesReportDate.value = DateNow;
+    report.dictionary.variables.add(variablesReportDate);
+
+    var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
+    variablesFromDate.name = "FromDate";
+    variablesFromDate.value = FromDate;
+    report.dictionary.variables.add(variablesFromDate);
+
+    var variablesToDate = new Stimulsoft.Report.Dictionary.StiVariable();
+    variablesToDate.name = "ToDate";
+    variablesToDate.value = ToDate;
+    report.dictionary.variables.add(variablesToDate);
+
+    report.dictionary.synchronize();
+
+    /* var variables = new Stimulsoft.Report.Dictionary.StiVariable();
+       variables.name = "Address";
+       variables.alias = "Address";
+       variables.Type = Stimulsoft.System.StimulsoftType;
+       variables.requestFromUser = false;
+       variables.value = "1234 Address ";
+       report.dictionary.variables.add(variables);
+   */
+
+    /*   var di = new Stimulsoft.Report.Dictionary.StiDialogInfo();
+       di.allowUserValues = false;
+        di.keys = ["1", "2", "3", "4"];
+        di.values = ["1", "2", "3", "4"];
+        newVariable.dialogInfo = di;
+        report.dictionary.variables.add(newVariable);
+    */
+
     report.render();
     viewer.report = report;
     $('#modal-Report').modal('show');

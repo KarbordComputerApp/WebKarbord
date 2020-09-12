@@ -1892,7 +1892,9 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterDftrList(), 'Free');
+        FromDate = $("#aztarikh").val().toEnglishDigit();
+        ToDate = $("#tatarikh").val().toEnglishDigit();
+        setReport(self.filterDftrList(), 'Dftr', FromDate, ToDate);
     });
 };
 

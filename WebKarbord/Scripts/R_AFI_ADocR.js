@@ -1886,7 +1886,9 @@
     }
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterADocRList(), 'Free');
+        FromDate = $("#aztarikh").val().toEnglishDigit();
+        ToDate = $("#tatarikh").val().toEnglishDigit();
+        setReport(self.filterADocRList(), 'ADocR', FromDate, ToDate);
     });
 
 };
