@@ -62,6 +62,9 @@
         'TrafName',
         'Value',
         'CheckStatusSt',
+        'CheckRadif',
+        'CheckComm',
+        'CheckVosoolDate',
     ];
 
 
@@ -601,6 +604,11 @@
     self.filterTrafName = ko.observable("");
     self.filterValue = ko.observable("");
     self.filterCheckStatusSt = ko.observable("");
+    self.filterCheckRadif = ko.observable("");
+    self.filterCheckComm = ko.observable("");
+    self.filterCheckVosoolDate = ko.observable("");
+
+
 
 
 
@@ -617,6 +625,9 @@
         var filterTrafName = self.filterTrafName();
         var filterValue = self.filterValue();
         var filterCheckStatusSt = self.filterCheckStatusSt();
+        var filterCheckRadif = self.filterCheckRadif();
+        var filterCheckComm = self.filterCheckComm();
+        var filterCheckVosoolDate = self.filterCheckVosoolDate();
 
         tempData = ko.utils.arrayFilter(self.TChkList(), function (item) {
             result =
@@ -630,7 +641,11 @@
                 ko.utils.stringStartsWith(item.TrafCode.toString().toLowerCase(), filterTrafCode) &&
                 (item.TrafName == null ? '' : item.TrafName.toString().search(filterTrafName) >= 0) &&
                 ko.utils.stringStartsWith(item.Value.toString().toLowerCase(), filterValue) &&
-                (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0)
+                (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0) &&
+                ko.utils.stringStartsWith(item.CheckRadif.toString().toLowerCase(), filterCheckRadif) &&
+                (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
+                (item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
+
             return result;
         })
         $("#CountRecord").text(tempData.length);
@@ -638,6 +653,9 @@
         return tempData;
 
     });
+
+
+
 
     self.search = ko.observable("");
     self.search(sessionStorage.searchTChk);
@@ -722,7 +740,9 @@
         self.iconTypeTrafName('');
         self.iconTypeValue('');
         self.iconTypeCheckStatusSt('');
-
+        self.iconTypeCheckRadif('');
+        self.iconTypeCheckComm('');
+        self.iconTypeCheckVosoolDate('');
 
 
         if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -736,6 +756,9 @@
         if (orderProp == 'TrafName') self.iconTypeTrafName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Value') self.iconTypeValue((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CheckStatusSt') self.iconTypeCheckStatusSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckRadif') self.iconTypeCheckRadif((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckComm') self.iconTypeCheckComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckVosoolDate') self.iconTypeCheckVosoolDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     }
 
 
@@ -753,6 +776,10 @@
     self.iconTypeTrafName = ko.observable("");
     self.iconTypeValue = ko.observable("");
     self.iconTypeCheckStatusSt = ko.observable("");
+    self.iconTypeCheckRadif = ko.observable("");
+    self.iconTypeCheckComm = ko.observable("");
+    self.iconTypeCheckVosoolDate = ko.observable("");
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
@@ -771,6 +798,9 @@
             CreateTableTh('TrafName', data) +
             CreateTableTh('Value', data) +
             CreateTableTh('CheckStatusSt', data) +
+            CreateTableTh('CheckRadif', data) +
+            CreateTableTh('CheckComm', data) +
+            CreateTableTh('CheckVosoolDate', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTChk" data-dismiss="modal" style="cursor: default;">' +
@@ -786,6 +816,9 @@
             CreateTableTd('TrafName', 0, 0, data) +
             CreateTableTd('Value', sessionStorage.Deghat, 2, data) +
             CreateTableTd('CheckStatusSt', 0, 0, data) +
+            CreateTableTd('CheckRadif', 0, 0, data) +
+            CreateTableTd('CheckComm', 0, 0, data) +
+            CreateTableTd('CheckVosoolDate', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -801,6 +834,9 @@
             CreateTableTdSum('TrafName', 1, data) +
             CreateTableTdSum('Value', 2, data) +
             CreateTableTdSum('CheckStatusSt', 1, data) +
+            CreateTableTdSum('CheckRadif', 1, data) +
+            CreateTableTdSum('CheckComm', 1, data) +
+            CreateTableTdSum('CheckVosoolDate', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('CheckNo', data) +
@@ -814,11 +850,16 @@
             CreateTableTdSearch('TrafName', data) +
             CreateTableTdSearch('Value', data) +
             CreateTableTdSearch('CheckStatusSt', data) +
+            CreateTableTdSearch('CheckRadif', data) +
+            CreateTableTdSearch('CheckComm', data) +
+            CreateTableTdSearch('CheckVosoolDate', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
         );
     }
+
+
 
 
 
@@ -908,7 +949,7 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterTChkList(), 'TChk', FromDate, ToDate );
+        setReport(self.filterTChkList(), 'TChk', FromDate, ToDate);
     });
 
 };

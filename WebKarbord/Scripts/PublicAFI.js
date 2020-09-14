@@ -1722,6 +1722,10 @@ function SetColumn(code, indexId, data) {
                 code == "UnitPrice2" ||
                 code == "UnitPrice3" ||
 
+                code == "CheckRadif" ||
+                code == "CheckComm" ||
+                code == "CheckVosoolDate" ||
+
                 code == "Shobe" ||
                 code == "Jari" ||
                 code == "F01" ||
@@ -1980,7 +1984,7 @@ function createDesigner() {
     }
 }
 
-function setReport(reportObject, mrtFileName, FromDate, ToDate ) {
+function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
         return showNotification('اطلاعات موجود نیست', 0);
@@ -1998,20 +2002,24 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate ) {
 
     ShamsiDate();
     var variablesReportDate = null;
-     variablesReportDate = new Stimulsoft.Report.Dictionary.StiVariable();
+    variablesReportDate = new Stimulsoft.Report.Dictionary.StiVariable();
     variablesReportDate.name = "ReportDate";
     variablesReportDate.value = DateNow;
     report.dictionary.variables.add(variablesReportDate);
 
-    var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
+   /* var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
     variablesFromDate.name = "FromDate";
     variablesFromDate.value = FromDate;
-    report.dictionary.variables.add(variablesFromDate);
+    report.dictionary.variables.add(variablesFromDate);*/
 
     var variablesToDate = new Stimulsoft.Report.Dictionary.StiVariable();
     variablesToDate.name = "ToDate";
     variablesToDate.value = ToDate;
     report.dictionary.variables.add(variablesToDate);
+
+
+    report.getDictionary().getVariables().get("var1").setValue("your value");
+    report.getVariables().put(paramName, value);
 
     report.dictionary.synchronize();
 
@@ -2031,8 +2039,8 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate ) {
         newVariable.dialogInfo = di;
         report.dictionary.variables.add(newVariable);
     */
-
-    report.render();
     viewer.report = report;
+    report.render();
+
     $('#modal-Report').modal('show');
 }
