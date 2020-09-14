@@ -2007,10 +2007,10 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     variablesReportDate.value = DateNow;
     report.dictionary.variables.add(variablesReportDate);
 
-   /* var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
+   var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
     variablesFromDate.name = "FromDate";
     variablesFromDate.value = FromDate;
-    report.dictionary.variables.add(variablesFromDate);*/
+    report.dictionary.variables.add(variablesFromDate);
 
     var variablesToDate = new Stimulsoft.Report.Dictionary.StiVariable();
     variablesToDate.name = "ToDate";
@@ -2018,10 +2018,10 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     report.dictionary.variables.add(variablesToDate);
 
 
-    report.getDictionary().getVariables().get("var1").setValue("your value");
-    report.getVariables().put(paramName, value);
+   // report.getDictionary().getVariables().get("var1").setValue("your value");
+    //report.getVariables().put(paramName, value);
 
-    report.dictionary.synchronize();
+   // report.dictionary.synchronize();
 
     /* var variables = new Stimulsoft.Report.Dictionary.StiVariable();
        variables.name = "Address";
