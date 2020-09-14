@@ -1933,7 +1933,7 @@ function createViewer() {
     options.height = "100%";
     options.appearance.fullScreenMode = true;
     options.appearance.scrollbarsMode = true;
-    options.toolbar.showSaveButton = false;
+    options.toolbar.showSaveButton = true;
     options.toolbar.showDesignButton = true;
 
     options.toolbar.showFullScreenButton = false;
@@ -1987,7 +1987,7 @@ function createDesigner() {
 function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
-        return showNotification('اطلاعات موجود نیست', 0);
+        return showNotification('ابتدا گزارش گیری کنید', 0);
     }
 
     addressMrt = '/Content/Report/Report_' + mrtFileName + '.mrt';
