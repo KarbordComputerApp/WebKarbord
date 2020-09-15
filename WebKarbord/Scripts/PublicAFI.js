@@ -105,17 +105,12 @@ var erjGroupApi;
 
 
 //access = JSON.parse(localStorage.getItem("Access"));
-
-if (localStorage.getItem("afiAccess") != null && localStorage.getItem("afiAccess") != "") {
-    afiAccessApi = localStorage.getItem("afiAccess").split("*")
+tempAccess = localStorage.getItem("afi1Access");
+if (tempAccess == "null" || tempAccess == "" || tempAccess == null ) {
+    afiAccessApi = localStorage.getItem("afi8Access").split("*")
 }
 else {
-    accAccess = localStorage.getItem("accAccess");
-    fctAccess = localStorage.getItem("fctAccess");
-    invAccess = localStorage.getItem("invAccess");
-
-    tempAccess = accAccess + '*' + invAccess + '*' + fctAccess;
-    afiAccessApi = tempAccess.split("*");
+    afiAccessApi = localStorage.getItem("afi1Access").split("*")
 }
 
 
@@ -133,6 +128,7 @@ for (var i = 0; i <= 25; i++) {
     afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
     afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
     afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
+
     afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
     afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
     afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
@@ -148,7 +144,7 @@ for (var i = 0; i <= 25; i++) {
     afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
     afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-    afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
+    afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
 
     afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
     afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
@@ -555,42 +551,32 @@ function getAccessList() {
             }
             else {
                 serverAddress = data.AddressApi;
-                afiList = data.AFI_Group;// : afiList = null;
-                accList = data.ACC_Group;
-                invList = data.INV_Group;//.split("-") : invList = null;
-                fctList = data.FCT_Group;//.split("-") : fctList = null;
+
+                afi1List = data.AFI1_Group;
+                afi8List = data.AFI8_Group;
                 erjList = data.ERJ_Group;
 
-                afiAccess = data.AFI_Access;//.split("");
-                accAccess = data.ACC_Access;//.split("");
-                invAccess = data.INV_Access;//.split("");
-                fctAccess = data.FCT_Access;//.split("");
-                erjAccess = data.ERJ_Access;//.split("");
+                afi1Access = data.AFI1_Access;
+                afi8Access = data.AFI8_Access;
+                erjAccess = data.ERJ_Access;
 
-                //localStorage.setItem("ApiAddress", serverAddress);
-                //localStorage.setItem('userNameAccount', userAccount);
-                //localStorage.setItem('passAccount', passAccount);
-                //localStorage.setItem('DataAccount', JSON.stringify(data));
-
-                localStorage.setItem('afiList', afiList);
-                localStorage.setItem('accList', accList);
-                localStorage.setItem('invList', invList);
-                localStorage.setItem('fctList', fctList);
+                localStorage.setItem('afi1List', afi1List);
+                localStorage.setItem('afi8List', afi8List);
                 localStorage.setItem('erjList', erjList);
 
-
-                localStorage.setItem('afiAccess', afiAccess);
-                localStorage.setItem('accAccess', accAccess);
-                localStorage.setItem('invAccess', invAccess);
-                localStorage.setItem('fctAccess', fctAccess);
+                localStorage.setItem('afi1Access', afi1Access);
+                localStorage.setItem('afi8Access', afi8Access);
                 localStorage.setItem('erjAccess', erjAccess);
 
+
+
+
+
                 if (sessionStorage.ace == 'AFI1') {
-                    afiAccess != null ? afiAccessApi = afiAccess.split("*") : afiAccessApi = null
+                    afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = null
                 }
                 else {
-                    tempAccess = accAccess + '*' + invAccess + '*' + fctAccess;
-                    afiAccessApi = tempAccess.split("*");
+                    afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = null
                 }
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
@@ -600,6 +586,7 @@ function getAccessList() {
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
                     afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
+
                     afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
                     afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
                     afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
@@ -617,7 +604,7 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
                     afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
                     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-                    afiAccessApi[i] == 'ADoc' ? afiaccess[21] = true : null;
+                    afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
 
                     afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
                     afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;

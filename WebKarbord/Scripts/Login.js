@@ -66,33 +66,25 @@
             }
             else {
                 serverAddress = data.AddressApi;
-                afiList = data.AFI_Group;// : afiList = null;
-                accList = data.ACC_Group;
-                invList = data.INV_Group;//.split("-") : invList = null;
-                fctList = data.FCT_Group;//.split("-") : fctList = null;
+                afi1List = data.AFI1_Group;
+                afi8List = data.AFI8_Group;
                 erjList = data.ERJ_Group;
 
-                afiAccess = data.AFI_Access;//.split("");
-                accAccess = data.ACC_Access;//.split("");
-                invAccess = data.INV_Access;//.split("");
-                fctAccess = data.FCT_Access;//.split("");
-                erjAccess = data.ERJ_Access;//.split("");
+                afi1Access = data.AFI1_Access;
+                afi8Access = data.AFI8_Access;
+                erjAccess = data.ERJ_Access;
 
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);
                 localStorage.setItem('passAccount', passAccount);
 
                 localStorage.setItem('DataAccount', JSON.stringify(data));
-                localStorage.setItem('afiList', afiList);
-                localStorage.setItem('accList', accList);
-                localStorage.setItem('invList', invList);
-                localStorage.setItem('fctList', fctList);
+                localStorage.setItem('afi1List', afi1List);
+                localStorage.setItem('afi8List', afi8List);
                 localStorage.setItem('erjList', erjList);
 
-                localStorage.setItem('afiAccess', afiAccess);
-                localStorage.setItem('accAccess', accAccess);
-                localStorage.setItem('invAccess', invAccess);
-                localStorage.setItem('fctAccess', fctAccess);
+                localStorage.setItem('afi1Access', afi1Access);
+                localStorage.setItem('afi8Access', afi8Access);
                 localStorage.setItem('erjAccess', erjAccess);
 
                 $('#modal-service').modal('hide');

@@ -1,10 +1,8 @@
 ﻿var ViewModel = function () {
     var self = this;
     var aceList = [];
-    var afiList = [];
-    var accList = [];
-    var invList = [];
-    var fctList = [];
+    var afi1List = [];
+    var afi8List = [];
     var erjList = [];
 
     var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
@@ -13,34 +11,14 @@
     $('#information').hide();
 
     function SetAceData() {
-        localStorage.getItem('afiList') != null ? afiList = localStorage.getItem('afiList').split("-") : afiList = null;
-        //localStorage.getItem('afi8List') != null ? afi8List = localStorage.getItem('afi8List').split("-") : afi8List = null;
-        localStorage.getItem('accList') != null ? accList = localStorage.getItem('accList').split("-") : accList = null;
-        localStorage.getItem('invList') != null ? invList = localStorage.getItem('invList').split("-") : invList = null;
-        localStorage.getItem('fctList') != null ? fctList = localStorage.getItem('fctList').split("-") : fctList = null;
+        localStorage.getItem('afi1List') != null ? afi1List = localStorage.getItem('afi1List').split("-") : afi1List = null;
+        localStorage.getItem('afi8List') != null ? afi8List = localStorage.getItem('afi8List').split("-") : afi8List = null;
         localStorage.getItem('erjList') != null ? erjList = localStorage.getItem('erjList').split("-") : erjList = null;
 
         var count = 0;
-        /*if (afiList[0] != "null") {
-            count = count + 1;
-
-            aceList[count] = 'نرم افزار مالی بازرگانی';
-        }
-        if (accList[0] != "null") {
-            count = count + 1;
-            aceList[count] = 'نرم افزار حسابداری';
-        }
-        if (invList[0] != "null") {
-            count = count + 1;
-            aceList[count] = 'نرم افزار انبار';
-        }
-        if (fctList[0] != "null") {
-            count = count + 1;
-            aceList[count] = 'نرم افزار فروش';
-        }*/
 
         $('#DropAce').text('');
-        if (afiList == "null" || afiList == '') {
+        if (afi1List == "null" || afi1List == '') {
             sessionStorage.ace = 'AFI8';
             $('#DropAce').text('نرم افزار سیستم جامع');
 
@@ -49,19 +27,6 @@
             sessionStorage.ace = 'AFI1';
             $('#DropAce').text('نرم افزار مالی بازرگانی')
         }
-
-        //$("#DropAce").append('<option value="0">نرم افزار را انتخاب کنید</option>');
-        //for (var i = 1; i < aceList.length; i++) {
-        //   if (aceList[i] == 'نرم افزار مالی بازرگانی') val = 'AFI1';
-        //   if (aceList[i] == 'نرم افزار سیستم جامع') val = 'AFI8';
-        /*if (aceList[i] == 'نرم افزار حسابداری') val = 'ACC5';
-        if (aceList[i] == 'نرم افزار انبار') val = 'INV5';
-        if (aceList[i] == 'نرم افزار فروش') val = 'FCT5';*/
-
-        //   $("#DropAce").append('<option value="'
-        //       + val + '">'
-        //       + aceList[i] + '</option>');
-        //}
     }
 
     function SetGroupData() {
@@ -72,33 +37,19 @@
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
         if (programSelect != 0) {
             if (programSelect == 'AFI1') {
-                for (var i = 0; i < afiList.length; i++) {
+                for (var i = 0; i < afi1List.length; i++) {
                     $("#DropGroup").append('<option value="'
-                        + afiList[i] + '">'
-                        + afiList[i] + '</option>');
+                        + afi1List[i] + '">'
+                        + afi1List[i] + '</option>');
                 }
             }
             if (programSelect == 'AFI8') {
-                for (var i = 0; i < accList.length; i++) {
+                for (var i = 0; i < afi8List.length; i++) {
                     $("#DropGroup").append('<option value="'
-                        + accList[i] + '">'
-                        + accList[i] + '</option>');
+                        + afi8List[i] + '">'
+                        + afi8List[i] + '</option>');
                 }
             }
-            /*if (programSelect == 'INV5') {
-                for (var i = 0; i < invList.length; i++) {
-                    $("#DropGroup").append('<option value="'
-                        + invList[i] + '">'
-                        + invList[i] + '</option>');
-                }
-            }
-            if (programSelect == 'FCT5') {
-                for (var i = 0; i < fctList.length; i++) {
-                    $("#DropGroup").append('<option value="'
-                        + fctList[i] + '">'
-                        + fctList[i] + '</option>');
-                }
-            }*/
         }
     }
 
