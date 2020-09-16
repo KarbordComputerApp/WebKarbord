@@ -19,12 +19,12 @@
 
         $('#DropAce').text('');
         if (afi1List == "null" || afi1List == '') {
-            sessionStorage.ace = 'AFI8';
+            sessionStorage.ace = 'Web8';
             $('#DropAce').text('نرم افزار سیستم جامع');
 
         }
         else {
-            sessionStorage.ace = 'AFI1';
+            sessionStorage.ace = 'Web1';
             $('#DropAce').text('نرم افزار مالی بازرگانی')
         }
     }
@@ -36,14 +36,14 @@
         $("#DropGroup").append('<option value="0">گروه را انتخاب کنید</option>');
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
         if (programSelect != 0) {
-            if (programSelect == 'AFI1') {
+            if (programSelect == 'Web1') {
                 for (var i = 0; i < afi1List.length; i++) {
                     $("#DropGroup").append('<option value="'
                         + afi1List[i] + '">'
                         + afi1List[i] + '</option>');
                 }
             }
-            if (programSelect == 'AFI8') {
+            if (programSelect == 'Web8') {
                 for (var i = 0; i < afi8List.length; i++) {
                     $("#DropGroup").append('<option value="'
                         + afi8List[i] + '">'

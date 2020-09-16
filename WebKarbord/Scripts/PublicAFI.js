@@ -33,7 +33,7 @@ $('#userNameHome').text(sessionStorage.userNameFa + ' ');
 
 
 
-if (sessionStorage.ace == 'AFI1') {
+if (sessionStorage.ace == 'Web1') {
     sessionStorage.MODECODE_FDOC_SO = 0;
     sessionStorage.MODECODE_FDOC_SP = 51;
     sessionStorage.MODECODE_FDOC_S = 52;
@@ -395,7 +395,7 @@ $("#SaveParam").click(function () {
 });
 
 function getProgName(value) {
-    if (sessionStorage.ace == 'AFI8') {
+    if (sessionStorage.ace == 'Web8') {
         if (value == 'A')
             return 'Acc5';
         else if (value == 'S')
@@ -403,7 +403,7 @@ function getProgName(value) {
         else if (value == 'P')
             return 'Inv5';
     }
-    else if (sessionStorage.ace == 'AFI1')
+    else if (sessionStorage.ace == 'Web1')
         return 'Afi1';
     else
         return 'نامشخص';
@@ -423,7 +423,7 @@ function getParamList() {
             sessionStorage.GPriceDefultP = SearchArry("KalaPriceP", "Default", self.ParamList());
             sessionStorage.GPriceDefultI = SearchArry("KalaPriceI", "Default", self.ParamList());
 
-            if (sessionStorage.ace == 'AFI8') {
+            if (sessionStorage.ace == 'Web8') {
                 sessionStorage.Move_SCONT = SearchArry("MoveTo", "SCONT", self.ParamList());
                 sessionStorage.Move_SORD = SearchArry("MoveTo", "SORD", self.ParamList());
                 sessionStorage.Move_SPFCT = SearchArry("MoveTo", "SPFCT", self.ParamList());
@@ -572,7 +572,7 @@ function getAccessList() {
 
 
 
-                if (sessionStorage.ace == 'AFI1') {
+                if (sessionStorage.ace == 'Web1') {
                     afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = null
                 }
                 else {
@@ -620,13 +620,13 @@ function getAccessList() {
                         erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
                     }
 
-                    ajaxFunction(AccessUri + 'ERJ1' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                    ajaxFunction(AccessUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
                         self.AccessList(data);
                         if (self.AccessList().length > 0) {
                             localStorage.setItem('AccessErj', JSON.stringify(data));
                             accssErj = JSON.parse(localStorage.getItem("AccessErj"));
 
-                            ajaxFunction(AccessReportErjUri + 'ERJ1' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
                                 self.AccessListReport(data);
                                 if (self.AccessListReport().length > 0) {
                                     localStorage.setItem('AccessReportErj', JSON.stringify(data));

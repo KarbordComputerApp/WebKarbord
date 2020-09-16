@@ -1123,17 +1123,27 @@
             kalapricecode = $("#gGhimat").val();
             getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
 
+
             if (item.MainUnit == 1) {
                 amo = item.Amount1;
                 Price1 = item.UnitPrice;
+                $("#iconzarib1").css("backgroundColor", "#c0bfbf");
+                $("#iconzarib2").css("backgroundColor", "white");
+                $("#iconzarib3").css("backgroundColor", "white");
             }
             else if (item.MainUnit == 2) {
                 amo = item.Amount2;
                 Price2 = item.UnitPrice;
+                $("#iconzarib1").css("backgroundColor", "white");
+                $("#iconzarib2").css("backgroundColor", "#c0bfbf");
+                $("#iconzarib3").css("backgroundColor", "white");
             }
             else if (item.MainUnit == 3) {
                 amo = item.Amount3;
                 Price3 = item.UnitPrice;
+                $("#iconzarib1").css("backgroundColor", "white");
+                $("#iconzarib2").css("backgroundColor", "white");
+                $("#iconzarib3").css("backgroundColor", "#c0bfbf");
             }
             amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 

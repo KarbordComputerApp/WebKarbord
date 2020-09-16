@@ -12343,7 +12343,7 @@ table .checkbox [type="checkbox"] + label {
  *  Description: This scss file for input form style classes
  */
 .form-check, label {
-    font-size: 14px;
+    font-size: 11px;
     line-height: 1.42857;
     color: #414244;
     font-weight: 400;
@@ -13386,7 +13386,7 @@ fieldset[disabled] .form-control {
                 color: #ffffff;
                 position: relative;
                 vertical-align: middle;
-                font-size: 12px;
+                font-size: 11px;
                 display: block;
                 overflow: hidden;
                 line-height: 2rem;
@@ -13409,7 +13409,7 @@ fieldset[disabled] .form-control {
                 .sidebar .menu .list a span {
                     margin: 7px 12px 7px 0;
                     color: #ffffff;
-                    font-size: 14px;
+                    font-size: 12px;
                     overflow: hidden;
                 }
 
@@ -20376,7 +20376,7 @@ span.badge {
 
     .card .body {
         margin: 0px 10px 0px 10px;
-        font-size: 14px;
+        font-size: 11px;
         color: #3f4853;
         padding: 0px 15px 15px 15px;
     }

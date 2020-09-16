@@ -274,7 +274,7 @@
 
     //Get CGru List
     function getCGruList() {
-        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function (data) {
+        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group + '/1', 'GET').done(function (data) {
             self.CGruList(data);
         });
     }

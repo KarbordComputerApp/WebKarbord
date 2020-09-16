@@ -3,7 +3,7 @@
     var ace = sessionStorage.ace;
     var sal = sessionStorage.sal;
 
-    var aceErj = 'ERJ1';
+    var aceErj = 'Web2';
     var salErj = '0000';
 
     var group = sessionStorage.group;
