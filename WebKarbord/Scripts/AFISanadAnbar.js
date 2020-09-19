@@ -112,7 +112,7 @@
         $('#TitleCodeTableModalThvl').text('کد تحویل دهنده ');
         $('#TitleNameTableModalThvl').text('نام تحویل دهنده ');
         $('#ViewGGhimat').show();
-        $('#ViewSpec').attr('class', 'col-sm-2');
+        $('#ViewSpec').attr('class', 'col-sm-3');
 
     } else {
         $('#TitleHeaderAnbar').text('سند صادره از انبار');
@@ -122,7 +122,7 @@
         $('#TitleCodeTableModalThvl').text('کد تحویل گیرنده ');
         $('#TitleNameTableModalThvl').text('نام تحویل گیرنده ');
         $('#ViewGGhimat').hide();
-        $('#ViewSpec').attr('class', 'col-sm-4');
+        $('#ViewSpec').attr('class', 'col-sm-5');
     }
 
 

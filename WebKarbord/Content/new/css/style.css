@@ -4266,7 +4266,7 @@ body, html {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     font-family: "vazir", "Poppins";
-    font-size: 13px;
+    font-size: 11px;
 }
 
 h1,
@@ -12430,6 +12430,7 @@ table .checkbox [type="checkbox"] + label {
         padding-right: 0;
         font-weight: bold;
         display: table-cell;
+        width : 1px;
     }
 
         .input-group .input-group-addon .material-icons {
@@ -12495,11 +12496,12 @@ table .checkbox [type="checkbox"] + label {
         -ms-border-radius: 0;
         border-radius: 0;
         padding-right: 0;
+        font-size:11px
     }
 
     .form-group input.form-control {
         margin: 0;
-        font-size: 13px;
+        font-size: 11px;
     }
 
     .form-group .help-info {
@@ -12577,13 +12579,13 @@ table .checkbox [type="checkbox"] + label {
         .form-group .form-line.focused .form-label {
             top: -10px;
             right: 0;
-            font-size: 12px;
+            font-size: 11px;
         }
 
 .input-group .form-group .form-line.focused .form-label {
     top: -20px;
     right: 0;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .form-group-sm .form-label {

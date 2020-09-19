@@ -1582,6 +1582,8 @@ p {
         position: sticky;
         top: 0;
     }
+
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -1612,6 +1614,3 @@ input[type="checkbox"] {
 #StiViewerReportPanel {
     position: initial !important;
 }
-
-
-

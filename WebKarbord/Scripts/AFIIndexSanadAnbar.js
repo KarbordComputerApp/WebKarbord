@@ -739,13 +739,13 @@
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
             '   <a id="MoveFactor" data-bind="click: $root.MoveFactor, visible: $root.ShowAction(Eghdam)">' +
-            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="20" height="20" style="margin-left:10px" />' +
+            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
-            '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px" />' +
+            '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">' +
-            '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20" />' +
+            '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +
 

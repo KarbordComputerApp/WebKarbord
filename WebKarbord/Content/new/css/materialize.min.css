@@ -8040,7 +8040,8 @@ input[type=range] {
 
 .rtlSite {
     direction: rtl;
-    text-align: right
+    text-align: right;
+    overflow: auto !important;
 }
 
     .rtl .row .col {

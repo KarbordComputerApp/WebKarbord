@@ -121,7 +121,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 25; i++) {
+for (var i = 0; i <= 26; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -581,7 +581,7 @@ function getAccessList() {
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 25; i++) {
+                for (var i = 0; i <= 26; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;

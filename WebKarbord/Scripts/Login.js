@@ -23,7 +23,7 @@
         var passAccount = localStorage.getItem("passAccount");
 
         $('#userAccount').val(userNameAccount);
-        $('#passAccount').val(userNameAccount);
+        $('#passAccount').val(passAccount);
     });
 
     function getLoginData() {

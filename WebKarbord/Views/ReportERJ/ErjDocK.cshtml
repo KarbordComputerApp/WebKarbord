@@ -5,15 +5,15 @@
     Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
-<div class="row clearfix">
+<div class="row clearfix" >
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
+        <div class="card"  style="margin-top:0px;">
            
             <div class="header">
                 <h2><strong>فهرست پرونده ها</strong></h2>
                 <div class="row header-dropdown m-r--5">
                     <a id="SettingColumn" class="">
-                        <img src="~/Content/img/sanad/list-add.png" width="24" height="24" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
                     </a>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                                         <img src="~/Content/img/list/man.png" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
-                                <div class="form-group form-float" style="margin-left: 250px;">
+                                <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameErjCust" class="form-control" readonly />
                                         <label class="form-label"> مشتری</label>
@@ -84,7 +84,7 @@
                                         <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
-                                <div class="form-group form-float" style="margin-left: 250px;">
+                                <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameKhdt" class="form-control" readonly />
                                         <label class="form-label"> نوع کار</label>
@@ -125,7 +125,7 @@
                     </div>
                 </form>
                 <hr />
-                <div id="TableReport" style="height:525px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
+                <div id="TableReport" style="height:410px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
 
                 </div>
                 <br />
@@ -189,7 +189,7 @@
                 </button>
                 <h4 class="modal-title">لیست مشتریان</h4>
                 <a id="refreshErjCust">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
 
 
@@ -199,7 +199,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-5">
-                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                        <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped" id="TableErjCust">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableErjCust">
@@ -257,7 +257,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                        <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped" id="TableListErjCust">
                                 <thead style="cursor: pointer;">
                                     <tr>
@@ -333,14 +333,14 @@
                 </button>
                 <h4 class="modal-title">نوع کار</h4>
                 <a id="refreshKhdt">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="24" height="24" style="margin-left: 10px;" />
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
 
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-5">
-                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                        <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableKhdt">
@@ -399,7 +399,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div style="height:455px;overflow:auto;border: 1px #ddd solid;">
+                        <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped" id="TableListKhdt">
                                 <thead style="cursor: pointer;">
                                     <tr>

@@ -617,9 +617,9 @@
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
-            '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="20" height="20" style="margin-left:10px"/></a >' +
+            '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
             '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Tanzim)">' +
-            '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20"/></a>' +
+            '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16"/></a>' +
             '</td >' +
             '</tr>' +
             '</tbody>' +
