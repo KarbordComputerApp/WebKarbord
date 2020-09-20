@@ -66,9 +66,9 @@
                 </div>
                 <br />
 
-                    <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
+                <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md">
 
-                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-4">
@@ -218,6 +218,53 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Move" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">انتقال به</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <select id="modeCodeMove"></select>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-inline">
+                            <label class="col-md-1">انبار</label>
+                            <div class="col-md-11" style="text-align: center;">
+                                <select id="invSelectMove" data-bind="options: InvList,
+                                       optionsText: function(item) {return item.Name},
+                                       optionsValue: 'Code'"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <br />
+            <br />
+            <br />
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                <button type="button" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                    تایید
+                </button>
+            </div>
+
+        </div>
+
     </div>
 </div>
 

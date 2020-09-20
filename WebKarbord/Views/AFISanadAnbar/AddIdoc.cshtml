@@ -31,9 +31,9 @@
                         <!--                        <a id="SettingColumn" class="">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
                         </a>-->
-                        <!-- <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
-                             <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
-                         </a>-->
+                        <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
+                            <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
+                        </a>
                         <a id="AddNewSanadAnbar">
                             <img src="~/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png" width="20" height="20" />
                         </a>
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div  style="margin-left: 5px; margin-right: 5px;">
+                                <div style="margin-left: 5px; margin-right: 5px;">
                                     <div class="form-group">
                                         <select id="modeCode" data-bind="options: IModeList,
                                    optionsText: function(item) {return item.Name},
@@ -640,6 +640,34 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">مشخصات اضافی</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                    <div class="table-responsive">
+                        <table class="table table-addmin">
+                            <tbody data-bind="foreach: ExtraFieldsList">
+                                <tr>
+                                    <td data-bind="text: Name" style="background-color: #c4c4c4; width:250px;"></td>
+                                    <td style="padding: 0px 10px;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts{

@@ -5,6 +5,7 @@
     var group = sessionStorage.group;
     var forSels = true;
     var flagupdateHeader;
+    var flagOtherFieldShow;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
@@ -100,7 +101,8 @@
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.IDocHList = ko.observableArray([]); // اطلاعات  سند  
     self.StatusList = ko.observableArray([]); // وضعیت  
-    self.IModeList = ko.observableArray([]); // نوع سند  
+    self.IModeList = ko.observableArray([]); // نوع سند 
+    self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
 
 
@@ -113,6 +115,7 @@
         $('#TitleNameTableModalThvl').text('نام تحویل دهنده ');
         $('#ViewGGhimat').show();
         $('#ViewSpec').attr('class', 'col-sm-3');
+        ModeCodeExtraFields = 'IDOCI';
 
     } else {
         $('#TitleHeaderAnbar').text('سند صادره از انبار');
@@ -123,6 +126,7 @@
         $('#TitleNameTableModalThvl').text('نام تحویل گیرنده ');
         $('#ViewGGhimat').hide();
         $('#ViewSpec').attr('class', 'col-sm-5');
+        ModeCodeExtraFields = 'IDOCO';
     }
 
 
@@ -140,6 +144,7 @@
     var IDocHLastDateUri = server + '/api/IDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع سند
     var UpdatePriceUri = server + '/api/IDocData/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت
+    var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
 
 
 
@@ -154,6 +159,13 @@
     function getKalaList() {
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.KalaList(data);
+        });
+    }
+
+    //Get ExtraFields List
+    function getExtraFieldsList() {
+        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
+            self.ExtraFieldsList(data);
         });
     }
 
@@ -443,7 +455,27 @@
             PakhshCode: '',
             InvCode: inv,
             Eghdam: sessionStorage.userName,
-            EghdamDate: 'null'
+            EghdamDate: 'null',
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
         };
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'POST', IDocHObject).done(function (response) {
             //$('#DatileFactor').show();
@@ -529,7 +561,27 @@
             Taeed: status == "تایید" ? sessionStorage.userName : 'null',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
-            deghat: parseInt(sessionStorage.Deghat)
+            deghat: parseInt(sessionStorage.Deghat),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
         };
 
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'PUT', IDocHObject).done(function (response) {
@@ -744,6 +796,7 @@
     getIModeList();
     getThvlList();
     getKalaList();
+    getExtraFieldsList();
     //AddModeCode();
     flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
     getInvList();
@@ -786,6 +839,7 @@
         self.StatusSanad(sessionStorage.Status);
         $("#status").val(sessionStorage.Status);
         //sessionStorage.flagupdateHeader = 0;
+        flagOtherFieldShow = true;
     }
 
     //$(document).ready(function () { });
@@ -1644,6 +1698,32 @@
 
                     (key >= 96 && key <= 105));
             }
+        }
+    });
+
+    $('#modal-OtherField').on('shown.bs.modal', function () {
+        if (flagOtherFieldShow == true) {
+            $("#ExtraFields1").val(sessionStorage.F01);
+            $("#ExtraFields2").val(sessionStorage.F02);
+            $("#ExtraFields3").val(sessionStorage.F03);
+            $("#ExtraFields4").val(sessionStorage.F04);
+            $("#ExtraFields5").val(sessionStorage.F05);
+            $("#ExtraFields6").val(sessionStorage.F06);
+            $("#ExtraFields7").val(sessionStorage.F07);
+            $("#ExtraFields8").val(sessionStorage.F08);
+            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields10").val(sessionStorage.F10);
+            $("#ExtraFields11").val(sessionStorage.F11);
+            $("#ExtraFields12").val(sessionStorage.F12);
+            $("#ExtraFields13").val(sessionStorage.F13);
+            $("#ExtraFields14").val(sessionStorage.F14);
+            $("#ExtraFields15").val(sessionStorage.F15);
+            $("#ExtraFields16").val(sessionStorage.F16);
+            $("#ExtraFields17").val(sessionStorage.F17);
+            $("#ExtraFields18").val(sessionStorage.F18);
+            $("#ExtraFields19").val(sessionStorage.F19);
+            $("#ExtraFields20").val(sessionStorage.F20);
+            flagOtherFieldShow = false;
         }
     });
 

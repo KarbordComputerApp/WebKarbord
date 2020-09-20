@@ -7,10 +7,17 @@
     var server = localStorage.getItem("ApiAddress");
 
     var allSearchIDocH = true;
+    var defultMove;
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+    self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها
 
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
+
+    var IMoveSanadUri = server + '/api/IDocData/MoveSanad/'; // آدرس انتقال اسناد 
+    var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
+
+  
 
     var columns = [
         'DocNo',
@@ -149,7 +156,7 @@
     function getIDocH(select, invCode) {
         //$('#invSelect').val(sessionStorage.invSelect);         
         if (sessionStorage.invSelect == "" || sessionStorage.invSelect == "null" || sessionStorage.invSelect == null)
-            invCode = 0;
+            invCode = "*~*!";
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/top' + select + '/' + invCode + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
@@ -549,7 +556,28 @@
         sessionStorage.PaymentType = item.PaymentType;
         sessionStorage.Footer = item.Footer;
         sessionStorage.Eghdam = item.Eghdam;
+        sessionStorage.F01 = item.F01;
+        sessionStorage.F02 = item.F02;
+        sessionStorage.F03 = item.F03;
+        sessionStorage.F04 = item.F04;
+        sessionStorage.F05 = item.F05;
+        sessionStorage.F06 = item.F06;
+        sessionStorage.F07 = item.F07;
+        sessionStorage.F08 = item.F08;
+        sessionStorage.F09 = item.F09;
+        sessionStorage.F10 = item.F10;
+        sessionStorage.F11 = item.F11;
+        sessionStorage.F12 = item.F12;
+        sessionStorage.F13 = item.F13;
+        sessionStorage.F14 = item.F14;
+        sessionStorage.F15 = item.F15;
+        sessionStorage.F16 = item.F16;
+        sessionStorage.F17 = item.F17;
+        sessionStorage.F18 = item.F18;
+        sessionStorage.F19 = item.F19;
+        sessionStorage.F20 = item.F20;
         window.location.href = sessionStorage.urlIDocH;
+
 
     }
 
@@ -664,6 +692,134 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.MoveSanad = function (item) {
+        serial = item.SerialNumber;
+        docDate = item.DocDate;
+        $('#modeCodeMove').val();
+        $('#modal-Move').modal();
+    }
+
+    getIModeList();
+    //Get  IMode List
+    function getIModeList() {
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
+            self.IModeList(data);
+            select = document.getElementById('modeCodeMove');
+            for (var i = 0; i < data.length; i++) {
+                opt = document.createElement('option');
+                opt.value = data[i].Code;
+                opt.innerHTML = data[i].Name;
+                //opt.selected = true;
+                select.appendChild(opt);
+            }
+        });
+    }
+
+
+    $('#Move').click(function () {
+        modeCodeMove = $('#modeCodeMove').val();
+        invSelectMove = $('#invSelectMove').val();
+        var MoveObject = {
+            SerialNumber: serial,
+            DocDate: docDate,
+            UserCode: sessionStorage.userName,
+            TahieShode: sessionStorage.ace,
+            ModeCode: modeCodeMove,
+            InvCode: invSelectMove,
+            DocNoMode: 1,
+            InsertMode: 0,
+            DocNo: 1,
+            StartNo: 0,
+            EndNo: 0,
+            BranchCode: 0,
+        };
+        $('#modal-Move').modal('hide');
+        showNotification('در حال انتقال لطفا منتظر بمانید', 1);
+
+        ajaxFunction(IMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
+            item = response;
+            item = item[0];
+
+
+            sessionStorage.flagupdateHeader = 1;
+            sessionStorage.SerialNumber = item.SerialNumber;
+            sessionStorage.DocNo = item.DocNo;
+            sessionStorage.DocDate = item.DocDate;
+            sessionStorage.ThvlCode = item.ThvlCode;
+
+            sessionStorage.thvlname = item.thvlname == null ? '' : item.thvlname;
+            sessionStorage.InvCode = item.InvCode;
+            sessionStorage.Spec = item.Spec;
+            sessionStorage.PriceCode = item.KalaPriceCode;
+            sessionStorage.ModeCodeValue = item.ModeCode;
+            sessionStorage.Status = item.Status;
+            sessionStorage.PaymentType = item.PaymentType;
+            sessionStorage.Footer = item.Footer;
+            sessionStorage.Eghdam = item.Eghdam;
+
+
+           // sessionStorage.ModeCodeValue = modeCodeMove;
+
+            sessionStorage.F01 = item.F01;
+            sessionStorage.F02 = item.F02;
+            sessionStorage.F03 = item.F03;
+            sessionStorage.F04 = item.F04;
+            sessionStorage.F05 = item.F05;
+            sessionStorage.F06 = item.F06;
+            sessionStorage.F07 = item.F07;
+            sessionStorage.F08 = item.F08;
+            sessionStorage.F09 = item.F09;
+            sessionStorage.F10 = item.F10;
+            sessionStorage.F11 = item.F11;
+            sessionStorage.F12 = item.F12;
+            sessionStorage.F13 = item.F13;
+            sessionStorage.F14 = item.F14;
+            sessionStorage.F15 = item.F15;
+            sessionStorage.F16 = item.F16;
+            sessionStorage.F17 = item.F17;
+            sessionStorage.F18 = item.F18;
+            sessionStorage.F19 = item.F19;
+            sessionStorage.F20 = item.F20;
+
+            sessionStorage.Status = item.Status;
+            sessionStorage.PaymentType = item.PaymentType;
+            sessionStorage.Footer = item.Footer;
+
+            window.location.href = sessionStorage.urlIDocH;
+        });
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
     function CreateTableReport(data) {
         $("#TableList").empty();
         $('#TableList').append(
@@ -738,7 +894,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveFactor" data-bind="click: $root.MoveFactor, visible: $root.ShowAction(Eghdam)">' +
+            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad, visible: $root.ShowAction(Eghdam)">' +
             '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
