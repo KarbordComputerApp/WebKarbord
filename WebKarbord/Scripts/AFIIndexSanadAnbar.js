@@ -156,8 +156,17 @@
     function getIDocH(select, invCode) {
         //$('#invSelect').val(sessionStorage.invSelect);         
         if (sessionStorage.invSelect == "" || sessionStorage.invSelect == "null" || sessionStorage.invSelect == null)
-            invCode = "*~*!";
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/top' + select + '/' + invCode + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
+            invCode = "";
+
+        var IDocHMinObject = {
+            InOut: sessionStorage.InOut,
+            select: select,
+            invSelect: invCode ,
+            user: sessionStorage.userName,
+            accessSanad: sessionStorage.AccessSanad,
+        }
+
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.IDocHList(data);
