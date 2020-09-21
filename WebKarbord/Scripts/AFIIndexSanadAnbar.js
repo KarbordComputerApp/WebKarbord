@@ -8,6 +8,8 @@
 
     var allSearchIDocH = true;
     var defultMove;
+    var docDate;
+    var serial;
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها

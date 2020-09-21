@@ -19,14 +19,14 @@
     var FDocHCountUri = server + '/api/FDocData/FDocH/'; // تعداد رکورد های فاکتور 
     var FDocHHiUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
     var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
-    var FMoveFactorUri = server + '/api/FDocData/MoveFactor/'; // آدرس نوع فاکتور ها 
+    var FMoveFactorUri = server + '/api/FDocData/MoveFactor/'; // آدرس انتقال فاکتور ها 
 
     var allSearchFDocH = true;
     var inOut;
     var serial;
     var defultMove;
     var TitleListFactor;
-
+    var docDate;
 
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:

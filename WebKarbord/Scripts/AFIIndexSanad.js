@@ -11,8 +11,11 @@
 
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
+    var AMoveSanadUri = server + '/api/ADocData/MoveSanad/'; // آدرس انتقال اسناد ها 
 
     var allSearchADocH = true;
+    var docDate;
+    var serial;
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -616,6 +619,9 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
+            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad, visible: $root.ShowAction(Eghdam)">' +
+            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
+            '   </a>' +
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
             '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
             '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Tanzim)">' +
@@ -732,6 +738,75 @@
     createViewer();
     $('#Print').click(function () {
         setReport(self.filterADocHList(), 'Free');
+    });
+
+
+    self.MoveSanad = function (item) {
+        serial = item.SerialNumber;
+        docDate = item.DocDate;
+        $('#modal-Move').modal();
+    }
+
+    $('#Move').click(function () {
+        modeCodeMove = $('#modeCodeMove').val();
+        var MoveObject = {
+            SerialNumber: serial,
+            DocDate: docDate,
+            UserCode: sessionStorage.userName,
+            TahieShode: sessionStorage.ace,
+            DocNoMode: 1,
+            InsertMode: 0,
+            DocNo: 1,
+            StartNo: 0,
+            EndNo: 0,
+            BranchCode: 0,
+        };
+
+        $('#modal-Move').modal('hide');
+        showNotification('در حال ایجاد لطفا منتظر بمانید', 1);
+
+        ajaxFunction(AMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
+            item = response;
+            item = item[0];
+
+
+            sessionStorage.flagupdateHeader = 1;
+            sessionStorage.SerialNumber = item.SerialNumber;
+            sessionStorage.DocNo = item.DocNo;
+            sessionStorage.DocDate = item.DocDate;
+            sessionStorage.Spec = item.Spec;
+            sessionStorage.Tanzim = item.Tanzim;
+            sessionStorage.Taeed = item.Taeed;
+            sessionStorage.Eghdam = item.Eghdam;
+            sessionStorage.Tasvib = item.Tasvib;
+            sessionStorage.Status = item.Status;
+            sessionStorage.Eghdam = item.Eghdam;
+            sessionStorage.ModeCodeSanad = item.ModeCode;
+
+            sessionStorage.F01 = item.F01;
+            sessionStorage.F02 = item.F02;
+            sessionStorage.F03 = item.F03;
+            sessionStorage.F04 = item.F04;
+            sessionStorage.F05 = item.F05;
+            sessionStorage.F06 = item.F06;
+            sessionStorage.F07 = item.F07;
+            sessionStorage.F08 = item.F08;
+            sessionStorage.F09 = item.F09;
+            sessionStorage.F10 = item.F10;
+            sessionStorage.F11 = item.F11;
+            sessionStorage.F12 = item.F12;
+            sessionStorage.F13 = item.F13;
+            sessionStorage.F14 = item.F14;
+            sessionStorage.F15 = item.F15;
+            sessionStorage.F16 = item.F16;
+            sessionStorage.F17 = item.F17;
+            sessionStorage.F18 = item.F18;
+            sessionStorage.F19 = item.F19;
+            sessionStorage.F20 = item.F20;
+
+            window.location.href = sessionStorage.urlADocH;
+        });
+
     });
 
 };

@@ -12443,7 +12443,7 @@ table .checkbox [type="checkbox"] + label {
         box-shadow: none;
         padding-right: 0;
         margin: 0;
-        font-size: 13px;
+        font-size: 11px;
     }
 
         .input-group .form-control:focus {
@@ -12583,7 +12583,7 @@ table .checkbox [type="checkbox"] + label {
         }
 
 .input-group .form-group .form-line.focused .form-label {
-    top: -20px;
+   /* top: -20px;*/
     right: 0;
     font-size: 11px;
 }
