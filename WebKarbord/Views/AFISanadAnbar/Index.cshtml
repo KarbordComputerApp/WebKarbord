@@ -229,7 +229,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">انتقال به</h4>
+                <h4 class="modal-title" id="titleMove"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -239,16 +239,9 @@
                 <br />
                 <br />
                 <div class="row">
-                    <div class="col-md-12 ">
-                        <div class="form-inline">
-                            <label class="col-md-1">انبار</label>
-                            <div class="col-md-11" style="text-align: center;">
-                                <select id="invSelectMove" data-bind="options: InvList,
+                    <select id="invSelectMove" data-bind="options: InvList,
                                        optionsText: function(item) {return item.Name},
                                        optionsValue: 'Code'"></select>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>

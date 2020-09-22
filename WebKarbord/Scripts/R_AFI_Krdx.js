@@ -13,7 +13,7 @@
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
     self.StatusList = ko.observableArray([]); // ليست نوع سند ها
-    self.IDocRList = ko.observableArray([]); // لیست گزارش  
+    self.KrdxList = ko.observableArray([]); // لیست گزارش  
 
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
@@ -23,7 +23,7 @@
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
-    var IDocRUri = server + '/api/ReportInv/IDocR/'; // آدرس گزارش 
+    var KrdxUri = server + '/api/ReportInv/Krdx/'; // آدرس گزارش 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
     
 
@@ -67,23 +67,19 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'IDocR';
+    var rprtId = 'Krdx';
     var columns = [
         'DocDate',
-        'DocNo',
+        //'InvName',
         'ModeName',
-        'InvName',
-        'Spec',
+        'BandSpec',
+        //'ThvlCode',
+        //'ThvlName',
         'Status',
-        'Taeed',
-        'Tasvib',
-        'ThvlName',
-        'MkzName',
-        'OprName',
-        'SerialNumber',
-        'BandNo',
-        'KalaName',
-        'KalaFileNo',
+        // طول
+        //عرض
+        // ارتفاع
+        /*'KalaFileNo',
         'KalaState',
         'KalaExf1',
         'KalaExf2',
@@ -99,14 +95,22 @@
         'KalaExf12',
         'KalaExf13',
         'KalaExf14',
-        'KalaExf15',
+        'KalaExf15',*/
+        'Spec',
+        'Taeed',
+        'Tasvib',
+        'ThvlName',
+        'MkzName',
+        'OprName',
+        'SerialNumber',
+        'BandNo',
+        'KalaName',
         'MainUnitName',
         'Amount1',
         'Amount2',
         'Amount3',
         'UnitPrice',
         'TotalPrice',
-        'BandSpec',
         'Comm'
     ];
 
@@ -140,7 +144,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/IDocR", columns, self.SettingColumnList());
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/Krdx", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -224,8 +228,8 @@
         });
     }
 
-    //Get IDocR
-    function getIDocR() {
+    //Get Krdx
+    function getKrdx() {
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
@@ -248,12 +252,7 @@
         }
 
         var kalacode = '';
-        for (var i = 0; i <= counterKala - 1; i++) {
-            if (i < counterKala - 1)
-                kalacode += list_KalaSelect[i] + '*';
-            else
-                kalacode += list_KalaSelect[i];
-        }
+
 
         var thvlcode = '';
         for (var i = 0; i <= counterThvl - 1; i++) {
@@ -280,7 +279,7 @@
         }
 
 
-        var IDocRObject = {
+        var KrdxObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
             NoSanadAnbar: noSanadAnbar,
@@ -291,9 +290,9 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject).done(function (response) {
-            self.IDocRList(response);
-          //  calcsum(self.IDocRList());
+        ajaxFunction(KrdxUri + ace + '/' + sal + '/' + group, 'POST', KrdxObject).done(function (response) {
+            self.KrdxList(response);
+          //  calcsum(self.KrdxList());
         });
     }
 
@@ -313,17 +312,17 @@
         maxKalaDeghat3 = 0;
 
         for (var i = 0; i < list.length; ++i) {
-            IDocRData = list[i];
-            totalAmount1 += IDocRData.Amount1;
-            totalAmount2 += IDocRData.Amount2;
-            totalAmount3 += IDocRData.Amount3;
+            KrdxData = list[i];
+            totalAmount1 += KrdxData.Amount1;
+            totalAmount2 += KrdxData.Amount2;
+            totalAmount3 += KrdxData.Amount3;
 
-            totalUnitPrice += IDocRData.UnitPrice;
-            totalTotalPrice += IDocRData.TotalPrice;
+            totalUnitPrice += KrdxData.UnitPrice;
+            totalTotalPrice += KrdxData.TotalPrice;
 
-            KalaDeghat1 = IDocRData.DeghatM1 % 10;
-            KalaDeghat2 = IDocRData.DeghatM2 % 10;
-            KalaDeghat3 = IDocRData.DeghatM3 % 10;
+            KalaDeghat1 = KrdxData.DeghatM1 % 10;
+            KalaDeghat2 = KrdxData.DeghatM2 % 10;
+            KalaDeghat3 = KrdxData.DeghatM3 % 10;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
@@ -339,7 +338,7 @@
     }
 
     $("#CreateReport").click(function () {
-        getIDocR();
+        getKrdx();
     });
 
     getInvList();
@@ -362,9 +361,9 @@
 
 
     //------------------------------------------------------
-    self.currentPageIDocR = ko.observable();
-    self.pageSizeIDocR = ko.observable(10);
-    self.currentPageIndexIDocR = ko.observable(0);
+    self.currentPageKrdx = ko.observable();
+    self.pageSizeKrdx = ko.observable(10);
+    self.currentPageIndexKrdx = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
@@ -409,9 +408,9 @@
     self.filterBandSpec = ko.observable("");
     self.filterComm = ko.observable("");
 
-    self.filterIDocRList = ko.computed(function () {
+    self.filterKrdxList = ko.computed(function () {
 
-        self.currentPageIndexIDocR(0);
+        self.currentPageIndexKrdx(0);
         var filterDocDate = self.filterDocDate();
         var filterDocNo = self.filterDocNo();
         var filterModeName = self.filterModeName();
@@ -453,7 +452,7 @@
         var filterBandSpec = self.filterBandSpec();
         var filterComm = self.filterComm();
 
-        tempData = ko.utils.arrayFilter(self.IDocRList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.KrdxList(), function (item) {
             result =
             (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
             ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
@@ -504,60 +503,60 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchIDocR);
+    self.search(sessionStorage.searchKrdx);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexIDocR = 0;
-        sessionStorage.searchIDocR = "";
+        var indexKrdx = 0;
+        sessionStorage.searchKrdx = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexIDocR(0);
+            self.currentPageIndexKrdx(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.IDocRList(), function (item) {
-                indexIDocR += 1;
+            value = ko.utils.arrayFirst(self.KrdxList(), function (item) {
+                indexKrdx += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexIDocR < self.pageSizeIDocR())
-                self.currentPageIndexIDocR(0);
+            if (indexKrdx < self.pageSizeKrdx())
+                self.currentPageIndexKrdx(0);
             else {
-                var a = Math.round((indexIDocR / self.pageSizeIDocR()), 0);
-                if (a < (indexIDocR / self.pageSizeIDocR())) a += 1;
-                self.currentPageIndexIDocR(a - 1);
+                var a = Math.round((indexKrdx / self.pageSizeKrdx()), 0);
+                if (a < (indexKrdx / self.pageSizeKrdx())) a += 1;
+                self.currentPageIndexKrdx(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageIDocR = ko.computed(function () {
-        var pageSizeIDocR = parseInt(self.pageSizeIDocR(), 10),
-            startIndex = pageSizeIDocR * self.currentPageIndexIDocR(),
-            endIndex = startIndex + pageSizeIDocR;
-        return self.filterIDocRList().slice(startIndex, endIndex);
+    self.currentPageKrdx = ko.computed(function () {
+        var pageSizeKrdx = parseInt(self.pageSizeKrdx(), 10),
+            startIndex = pageSizeKrdx * self.currentPageIndexKrdx(),
+            endIndex = startIndex + pageSizeKrdx;
+        return self.filterKrdxList().slice(startIndex, endIndex);
     });
 
-    self.nextPageIDocR = function () {
-        if (((self.currentPageIndexIDocR() + 1) * self.pageSizeIDocR()) < self.filterIDocRList().length) {
-            self.currentPageIndexIDocR(self.currentPageIndexIDocR() + 1);
+    self.nextPageKrdx = function () {
+        if (((self.currentPageIndexKrdx() + 1) * self.pageSizeKrdx()) < self.filterKrdxList().length) {
+            self.currentPageIndexKrdx(self.currentPageIndexKrdx() + 1);
         }
     };
 
-    self.previousPageIDocR = function () {
-        if (self.currentPageIndexIDocR() > 0) {
-            self.currentPageIndexIDocR(self.currentPageIndexIDocR() - 1);
+    self.previousPageKrdx = function () {
+        if (self.currentPageIndexKrdx() > 0) {
+            self.currentPageIndexKrdx(self.currentPageIndexKrdx() - 1);
         }
     };
 
-    self.firstPageIDocR = function () {
-        self.currentPageIndexIDocR(0);
+    self.firstPageKrdx = function () {
+        self.currentPageIndexKrdx(0);
     };
 
-    self.lastPageIDocR = function () {
-        tempCountIDocR = parseInt(self.filterIDocRList().length / self.pageSizeIDocR(), 10);
-        if ((self.filterIDocRList().length % self.pageSizeIDocR()) == 0)
-            self.currentPageIndexIDocR(tempCountIDocR - 1);
+    self.lastPageKrdx = function () {
+        tempCountKrdx = parseInt(self.filterKrdxList().length / self.pageSizeKrdx(), 10);
+        if ((self.filterKrdxList().length % self.pageSizeKrdx()) == 0)
+            self.currentPageIndexKrdx(tempCountKrdx - 1);
         else
-            self.currentPageIndexIDocR(tempCountIDocR);
+            self.currentPageIndexKrdx(tempCountKrdx);
     };
 
     self.sortType = "ascending";
@@ -607,10 +606,10 @@
 
 
 
-    self.sortTableIDocR = function (viewModel, e) {
+    self.sortTableKrdx = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         self.currentColumn(orderProp);
-        self.IDocRList.sort(function (left, right) {
+        self.KrdxList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -1195,26 +1194,6 @@
     $('#modal-Kala').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1840,7 +1819,7 @@
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableIDocR">' +
+            '       <tr data-bind="click: sortTableKrdx">' +
             CreateTableTh('DocDate', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('ModeName', data) +
@@ -1882,7 +1861,7 @@
             CreateTableTh('Comm', data) +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageIDocR}" style="cursor: default;">' +
+            ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
             '     <tr >' +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +

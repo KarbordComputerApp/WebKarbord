@@ -704,34 +704,18 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
         $('#modeCodeMove').val();
+        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' از ' + item.InvName + ' به ');
         $('#modal-Move').modal();
     }
 
     getIModeList();
     //Get  IMode List
     function getIModeList() {
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0' , 'GET').done(function (data) {
             self.IModeList(data);
             select = document.getElementById('modeCodeMove');
             for (var i = 0; i < data.length; i++) {

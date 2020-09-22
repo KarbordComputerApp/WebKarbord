@@ -1015,6 +1015,7 @@
         serial = item.SerialNumber;
         docDate = item.DocDate;
         $('#modeCodeMove').val(defultMove);
+        $('#titleMove').text(TitleListFactor + ' به شماره ' + item.DocNo + ' به ');
         $('#modal-Move').modal();
     }
 
