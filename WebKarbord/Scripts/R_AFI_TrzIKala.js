@@ -638,7 +638,7 @@
 
     $('#refreshInv').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست انبار ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -858,7 +858,7 @@
 
     $('#refreshkala').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست کالا ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,

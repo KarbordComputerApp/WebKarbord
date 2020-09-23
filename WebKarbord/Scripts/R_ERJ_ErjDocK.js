@@ -714,7 +714,7 @@
 
     $('#refreshErjCust').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست مشتری ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -886,7 +886,7 @@
 
     $('#refreshKhdt').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "نوع کار ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,

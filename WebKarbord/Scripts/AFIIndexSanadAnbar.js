@@ -506,7 +506,7 @@
     $('#refreshIdocH').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: 'لیست اسناد به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
@@ -708,7 +708,7 @@
         serial = item.SerialNumber;
         docDate = item.DocDate;
         $('#modeCodeMove').val();
-        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' از ' + item.InvName + ' به ');
+        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
         $('#modal-Move').modal();
     }
 

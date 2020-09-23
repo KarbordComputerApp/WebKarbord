@@ -928,7 +928,7 @@
 
     $('#refreshInv').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست انبار ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1105,7 +1105,7 @@
 
     $('#refreshKGru').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست گروه کالا به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1288,7 +1288,7 @@
 
     $('#refreshkala').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست کالا ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1468,7 +1468,7 @@
 
     $('#refreshCust').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست تحویل دهنده / گیرنده به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1645,7 +1645,7 @@
 
     $('#refreshOpr').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست پروژه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1823,7 +1823,7 @@
 
     $('#refreshMkz').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست مرکز هزینه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,

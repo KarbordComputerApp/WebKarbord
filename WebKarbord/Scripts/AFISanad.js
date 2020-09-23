@@ -591,7 +591,7 @@
 
     $('#refreshAcc').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -829,7 +829,7 @@
 
     $('#refreshZAcc').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست زیر حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -972,7 +972,7 @@
 
     $('#refreshTraf').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست طرف حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1126,7 +1126,7 @@
 
     $('#refreshTrafZ').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست زیر حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1261,7 +1261,7 @@
 
     $('#refreshOpr').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست پروژه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1397,7 +1397,7 @@
 
     $('#refreshMkz').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست مرکز هزینه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1546,7 +1546,7 @@
 
     $('#refreshArz').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست ارز به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1676,7 +1676,7 @@
 
     $('#refreshBank').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست بانک به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1802,7 +1802,7 @@
 
     $('#refreshShobe').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست شعبه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -1935,7 +1935,7 @@
 
     $('#refreshJari').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست جاری به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -2136,7 +2136,7 @@
 
     $('#refreshCheck').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست چک ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,

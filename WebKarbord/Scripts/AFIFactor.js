@@ -1672,7 +1672,7 @@
     $('#refreshcust').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: sessionStorage.InOut == 2 ? 'لیست خریداران به روز رسانی شود ؟' : 'لیست فروشندگان به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
@@ -1692,7 +1692,7 @@
 
     $('#refreshkala').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست کالا ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,

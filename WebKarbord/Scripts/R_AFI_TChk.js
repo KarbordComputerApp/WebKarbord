@@ -295,7 +295,7 @@
 
     $('#refreshCheckStatus').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست وضعیت چک به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
@@ -477,7 +477,7 @@
 
     $('#refreshAcc').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,

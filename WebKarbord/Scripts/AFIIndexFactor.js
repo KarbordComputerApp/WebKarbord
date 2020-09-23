@@ -1015,14 +1015,14 @@
         serial = item.SerialNumber;
         docDate = item.DocDate;
         $('#modeCodeMove').val(defultMove);
-        $('#titleMove').text(TitleListFactor + ' به شماره ' + item.DocNo + ' به ');
+        $('#titleMove').text(' انتقال '+TitleListFactor + ' ' + item.DocNo + ' به ');
         $('#modal-Move').modal();
     }
 
     getFModeList();
     //Get  FMode List
     function getFModeList() {
-        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/' + inOut, 'GET').done(function (data) {
+        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
             self.FModeList(data);
             select = document.getElementById('modeCodeMove');
             for (var i = 0; i < data.length; i++) {

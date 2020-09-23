@@ -1316,7 +1316,7 @@
     $('#refreshThvl').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: sessionStorage.InOut == 1 ? 'لیست تحویل دهندگان به روز رسانی شود ؟' : 'لیست تحویل گیرندگان به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
@@ -1337,7 +1337,7 @@
     $('#refreshkala').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی ؟',
+            title: 'تایید به روز رسانی',
             text: "لیست کالا ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
