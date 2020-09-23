@@ -759,8 +759,7 @@
             sessionStorage.DocNo = item.DocNo;
             sessionStorage.DocDate = item.DocDate;
             sessionStorage.ThvlCode = item.ThvlCode;
-
-            sessionStorage.thvlname = item.thvlname == null ? '' : item.thvlname;
+            sessionStorage.thvlname = item.ThvlName == null ? '' : item.ThvlName;
             sessionStorage.InvCode = item.InvCode;
             sessionStorage.Spec = item.Spec;
             sessionStorage.PriceCode = item.KalaPriceCode;
