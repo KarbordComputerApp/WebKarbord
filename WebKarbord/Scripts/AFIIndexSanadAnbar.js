@@ -768,6 +768,7 @@
             sessionStorage.PaymentType = item.PaymentType;
             sessionStorage.Footer = item.Footer;
             sessionStorage.Eghdam = item.Eghdam;
+            sessionStorage.InOut = item.InOut;
 
 
            // sessionStorage.ModeCodeValue = modeCodeMove;
@@ -894,7 +895,7 @@
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">' +
+            '   <a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

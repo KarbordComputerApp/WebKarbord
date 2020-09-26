@@ -106,7 +106,7 @@ var erjGroupApi;
 
 //access = JSON.parse(localStorage.getItem("Access"));
 tempAccess = localStorage.getItem("afi1Access");
-if (tempAccess == "null" || tempAccess == "" || tempAccess == null ) {
+if (tempAccess == "null" || tempAccess == "" || tempAccess == null) {
     afiAccessApi = localStorage.getItem("afi8Access").split("*")
 }
 else {
@@ -120,8 +120,11 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 }
 
 
-afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-for (var i = 0; i <= 26; i++) {
+
+afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+
+for (var i = 0; i <= 27; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -145,12 +148,11 @@ for (var i = 0; i <= 26; i++) {
     afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
     afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-
     afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
     afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
     afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
     afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-
+    afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
 }
 
 function CheckGroupErj(GroupName) {
@@ -209,6 +211,7 @@ $("#IDOC_O").hide();
 $("#TrzIKala").hide();
 $("#TrzIKalaExf").hide();
 $("#IDocR").hide();
+$("#Krdx").hide();
 $("#ADOC_Menu").hide();
 $("#FDOC_Menu").hide();
 $("#IDOC_Menu").hide();
@@ -579,9 +582,10 @@ function getAccessList() {
                     afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = null
                 }
 
-                afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+                afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 26; i++) {
+                for (var i = 0; i <= 27; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -605,11 +609,11 @@ function getAccessList() {
                     afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
                     afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
                     afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-
                     afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
                     afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
                     afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
                     afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
+                    afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
                 }
 
                 erjaccess = [false, false]
@@ -726,7 +730,7 @@ function SetValidation() {
     ShowMenu[13] = validation;  // گزارش موجودی کالا به تفکیک ویژگیها
 
     validation = CheckAccessReport('IDocR');
-    ShowMenu[14] = validation;  // گزارش ريز گردش اسناد انبارداری
+    ShowMenu[14] = validation;  // گزارش ريز گردش اسناد انبارداری 
 
     validation = CheckAccessReport('FDocR_S');
     ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
@@ -757,6 +761,9 @@ function SetValidation() {
 
     validation = CheckAccessReport('TrzFCust_P');
     ShowMenu[24] = validation;  // تراز خرید از فروشندگان
+
+    validation = CheckAccessReport('Krdx');
+    ShowMenu[25] = validation;  // گزارش کاردکس
 
 
 
@@ -790,6 +797,7 @@ function SetValidation() {
         //validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
         //validation == true ? $("#").show() : $("#").hide()
 
+        sessionStorage.AccessSanad = true; // باید اشکال بررسی شود
         //validation = CheckAccess('AccessSanad_ADOC');// AccessSanad
         //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
@@ -1205,11 +1213,12 @@ function SetValidation() {
     }
 
     if (ShowMenu[11]) {    // گزارشات
-        if (afiaccess[8] || afiaccess[9] || afiaccess[10]) {
+        if (afiaccess[8] || afiaccess[9] || afiaccess[10] || afiaccess[26]) {
             $("#IReport_Menu").show();
             afiaccess[8] && ShowMenu[12] ? $("#TrzIKala").show() : $("#TrzIKala").hide();
             afiaccess[9] && ShowMenu[13] ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
             afiaccess[10] && ShowMenu[14] ? $("#IDocR").show() : $("#IDocR").hide();
+            afiaccess[26] && ShowMenu[25] ? $("#Krdx").show() : $("#Krdx").hide();
 
             if (ShowMenu[12] == false && ShowMenu[13] == false && ShowMenu[14] == false)
                 $("#IReport_Menu").hide();
@@ -1701,6 +1710,13 @@ function SetColumn(code, indexId, data) {
                 code.lastIndexOf("UnitName2") > 0 ||
                 code.lastIndexOf("UnitName3") > 0 ||
 
+                code == "iAddMin1" ||
+                code == "iAddMin2" ||
+                code == "iAddMin3" ||
+
+                code == "DimX" ||
+                code == "DimY" ||
+                code == "DimZ" ||
 
                 code == "Amount" ||
                 code == "Amount2" ||
@@ -1984,6 +2000,7 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     if (mrtFileName != "Free") {
         report.loadFile(addressMrt);
     }
+    report.dictionary.databases.clear();
     dataSet = new Stimulsoft.System.Data.DataSet("Database");
     DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
     dataSet.readJson(DataReport);
@@ -1996,7 +2013,7 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     variablesReportDate.value = DateNow;
     report.dictionary.variables.add(variablesReportDate);
 
-   var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
+    var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
     variablesFromDate.name = "FromDate";
     variablesFromDate.value = FromDate;
     report.dictionary.variables.add(variablesFromDate);
@@ -2007,10 +2024,10 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
     report.dictionary.variables.add(variablesToDate);
 
 
-   // report.getDictionary().getVariables().get("var1").setValue("your value");
+    // report.getDictionary().getVariables().get("var1").setValue("your value");
     //report.getVariables().put(paramName, value);
 
-   // report.dictionary.synchronize();
+    // report.dictionary.synchronize();
 
     /* var variables = new Stimulsoft.Report.Dictionary.StiVariable();
        variables.name = "Address";
@@ -2028,6 +2045,9 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
         newVariable.dialogInfo = di;
         report.dictionary.variables.add(newVariable);
     */
+
+    report.dictionary.synchronize();
+
     viewer.report = report;
     report.render();
 

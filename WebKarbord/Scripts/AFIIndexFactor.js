@@ -1004,6 +1004,7 @@
         sessionStorage.F18 = item.F18;
         sessionStorage.F19 = item.F19;
         sessionStorage.F20 = item.F20;
+        sessionStorage.ModeCode = item.ModeCode;
 
         sessionStorage.Status = item.Status;
         sessionStorage.PaymentType = item.PaymentType;

@@ -407,11 +407,7 @@
             totalSAmount3 += KrdxData.SAmount3;
             totalSTotalPrice += KrdxData.STotalPrice;
 
-            totalMAmount1 += KrdxData.MAmount1;
-            totalMAmount2 += KrdxData.MAmount2;
-            totalMAmount3 += KrdxData.MAmount3;
-            totalMTotalPrice += KrdxData.MTotalPrice;
-
+           
             KalaDeghat1 = KrdxData.DeghatM1 % 10;
             KalaDeghat2 = KrdxData.DeghatM2 % 10;
             KalaDeghat3 = KrdxData.DeghatM3 % 10;
@@ -431,6 +427,11 @@
         $("#totalSAmount2").text(NumberToNumberString(totalSAmount2.toFixed(maxKalaDeghat2)));
         $("#totalSAmount3").text(NumberToNumberString(totalSAmount3.toFixed(maxKalaDeghat3)));
         $("#totalSTotalPrice").text(NumberToNumberString(totalSTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
+
+        totalMAmount1 = totalVAmount1 - totalSAmount1;
+        totalMAmount2 = totalVAmount2 - totalSAmount2;
+        totalMAmount3 = totalVAmount3 - totalSAmount3;
+        totalMTotalPrice = totalVTotalPrice - totalSTotalPrice;
 
         $("#totalMAmount1").text(NumberToNumberString(totalMAmount1.toFixed(maxKalaDeghat1)));
         $("#totalMAmount2").text(NumberToNumberString(totalMAmount2.toFixed(maxKalaDeghat2)));
