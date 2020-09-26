@@ -115,6 +115,13 @@
         'SAmount3',
         'SUnitPrice3',
         'STotalPrice',
+        'MAmount1',
+        'MUnitPrice1',
+        'MAmount2',
+        'MUnitPrice2',
+        'MAmount3',
+        'MUnitPrice3',
+        'MTotalPrice',
         'MkzCode',
         'MkzName',
         'OprCode',
@@ -139,26 +146,26 @@
         'F18',
         'F19',
         'F20',
-    /*    'Kalaf01',
-        'Kalaf02',
-        'Kalaf03',
-        'Kalaf04',
-        'Kalaf05',
-        'Kalaf06',
-        'Kalaf07',
-        'Kalaf08',
-        'Kalaf09',
-        'Kalaf10',
-        'Kalaf11',
-        'Kalaf12',
-        'Kalaf13',
-        'Kalaf14',
-        'Kalaf15',
-        'Kalaf16',
-        'Kalaf17',
-        'Kalaf18',
-        'Kalaf19',
-        'Kalaf20'*/
+        /*    'Kalaf01',
+            'Kalaf02',
+            'Kalaf03',
+            'Kalaf04',
+            'Kalaf05',
+            'Kalaf06',
+            'Kalaf07',
+            'Kalaf08',
+            'Kalaf09',
+            'Kalaf10',
+            'Kalaf11',
+            'Kalaf12',
+            'Kalaf13',
+            'Kalaf14',
+            'Kalaf15',
+            'Kalaf16',
+            'Kalaf17',
+            'Kalaf18',
+            'Kalaf19',
+            'Kalaf20'*/
     ];
 
 
@@ -365,7 +372,6 @@
     function calcsum(list) {
 
 
-
         totalVAmount1 = 0;
         totalVAmount2 = 0;
         totalVAmount3 = 0;
@@ -375,6 +381,11 @@
         totalSAmount2 = 0;
         totalSAmount3 = 0;
         totalSTotalPrice = 0;
+
+        totalMAmount1 = 0;
+        totalMAmount2 = 0;
+        totalMAmount3 = 0;
+        totalMTotalPrice = 0;
 
         KalaDeghat1 = 0;
         KalaDeghat2 = 0;
@@ -396,6 +407,11 @@
             totalSAmount3 += KrdxData.SAmount3;
             totalSTotalPrice += KrdxData.STotalPrice;
 
+            totalMAmount1 += KrdxData.MAmount1;
+            totalMAmount2 += KrdxData.MAmount2;
+            totalMAmount3 += KrdxData.MAmount3;
+            totalMTotalPrice += KrdxData.MTotalPrice;
+
             KalaDeghat1 = KrdxData.DeghatM1 % 10;
             KalaDeghat2 = KrdxData.DeghatM2 % 10;
             KalaDeghat3 = KrdxData.DeghatM3 % 10;
@@ -415,6 +431,11 @@
         $("#totalSAmount2").text(NumberToNumberString(totalSAmount2.toFixed(maxKalaDeghat2)));
         $("#totalSAmount3").text(NumberToNumberString(totalSAmount3.toFixed(maxKalaDeghat3)));
         $("#totalSTotalPrice").text(NumberToNumberString(totalSTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
+
+        $("#totalMAmount1").text(NumberToNumberString(totalMAmount1.toFixed(maxKalaDeghat1)));
+        $("#totalMAmount2").text(NumberToNumberString(totalMAmount2.toFixed(maxKalaDeghat2)));
+        $("#totalMAmount3").text(NumberToNumberString(totalMAmount3.toFixed(maxKalaDeghat3)));
+        $("#totalMTotalPrice").text(NumberToNumberString(totalMTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
     }
 
     $("#CreateReport").click(function () {
@@ -449,7 +470,7 @@
     self.iconType = ko.observable("");
 
     self.filterDocDate = ko.observable("");
-   // self.filterInvName = ko.observable("");
+    // self.filterInvName = ko.observable("");
     self.filterModeName = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterThvlCode = ko.observable("");
@@ -494,6 +515,13 @@
     self.filterSUnitPrice2 = ko.observable("");
     self.filterSUnitPrice3 = ko.observable("");
     self.filterSTotalPrice = ko.observable("");
+    self.filterMAmount1 = ko.observable("");
+    self.filterMAmount2 = ko.observable("");
+    self.filterMAmount3 = ko.observable("");
+    self.filterMUnitPrice1 = ko.observable("");
+    self.filterMUnitPrice2 = ko.observable("");
+    self.filterMUnitPrice3 = ko.observable("");
+    self.filterMTotalPrice = ko.observable("");
     self.filterMkzCode = ko.observable("");
     self.filterMkzName = ko.observable("");
     self.filterOprCode = ko.observable("");
@@ -589,6 +617,15 @@
         var filterSUnitPrice2 = self.filterSUnitPrice2();
         var filterSUnitPrice3 = self.filterSUnitPrice3();
         var filterSTotalPrice = self.filterSTotalPrice();
+
+        var filterMAmount1 = self.filterMAmount1();
+        var filterMAmount2 = self.filterMAmount2();
+        var filterMAmount3 = self.filterMAmount3();
+        var filterMUnitPrice1 = self.filterMUnitPrice1();
+        var filterMUnitPrice2 = self.filterMUnitPrice2();
+        var filterMUnitPrice3 = self.filterMUnitPrice3();
+        var filterMTotalPrice = self.filterMTotalPrice();
+
         var filterMkzCode = self.filterMkzCode();
         var filterMkzName = self.filterMkzName();
         var filterOprCode = self.filterOprCode();
@@ -614,26 +651,26 @@
         var filterF18 = self.filterF18();
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
-       /*   var filterKalaf01 = self.filterKalaf01();
-        var filterKalaf02 = self.filterKalaf02();
-        var filterKalaf03 = self.filterKalaf03();
-        var filterKalaf04 = self.filterKalaf04();
-        var filterKalaf05 = self.filterKalaf05();
-        var filterKalaf06 = self.filterKalaf06();
-        var filterKalaf07 = self.filterKalaf07();
-        var filterKalaf08 = self.filterKalaf08();
-        var filterKalaf09 = self.filterKalaf09();
-        var filterKalaf10 = self.filterKalaf10();
-        var filterKalaf11 = self.filterKalaf11();
-        var filterKalaf12 = self.filterKalaf12();
-        var filterKalaf13 = self.filterKalaf13();
-        var filterKalaf14 = self.filterKalaf14();
-        var filterKalaf15 = self.filterKalaf15();
-        var filterKalaf16 = self.filterKalaf16();
-        var filterKalaf17 = self.filterKalaf17();
-        var filterKalaf18 = self.filterKalaf18();
-        var filterKalaf19 = self.filterKalaf19();
-        var filterKalaf20 = self.filterKalaf20();*/
+        /*   var filterKalaf01 = self.filterKalaf01();
+         var filterKalaf02 = self.filterKalaf02();
+         var filterKalaf03 = self.filterKalaf03();
+         var filterKalaf04 = self.filterKalaf04();
+         var filterKalaf05 = self.filterKalaf05();
+         var filterKalaf06 = self.filterKalaf06();
+         var filterKalaf07 = self.filterKalaf07();
+         var filterKalaf08 = self.filterKalaf08();
+         var filterKalaf09 = self.filterKalaf09();
+         var filterKalaf10 = self.filterKalaf10();
+         var filterKalaf11 = self.filterKalaf11();
+         var filterKalaf12 = self.filterKalaf12();
+         var filterKalaf13 = self.filterKalaf13();
+         var filterKalaf14 = self.filterKalaf14();
+         var filterKalaf15 = self.filterKalaf15();
+         var filterKalaf16 = self.filterKalaf16();
+         var filterKalaf17 = self.filterKalaf17();
+         var filterKalaf18 = self.filterKalaf18();
+         var filterKalaf19 = self.filterKalaf19();
+         var filterKalaf20 = self.filterKalaf20();*/
 
 
 
@@ -683,6 +720,14 @@
                 ko.utils.stringStartsWith(item.SUnitPrice2.toString().toLowerCase(), filterSUnitPrice2) &&
                 ko.utils.stringStartsWith(item.SUnitPrice3.toString().toLowerCase(), filterSUnitPrice3) &&
                 ko.utils.stringStartsWith(item.STotalPrice.toString().toLowerCase(), filterSTotalPrice) &&
+                ko.utils.stringStartsWith(item.MAmount1.toString().toLowerCase(), filterMAmount1) &&
+                ko.utils.stringStartsWith(item.MAmount2.toString().toLowerCase(), filterMAmount2) &&
+                ko.utils.stringStartsWith(item.MAmount3.toString().toLowerCase(), filterMAmount3) &&
+                ko.utils.stringStartsWith(item.MUnitPrice1.toString().toLowerCase(), filterMUnitPrice1) &&
+                ko.utils.stringStartsWith(item.MUnitPrice2.toString().toLowerCase(), filterMUnitPrice2) &&
+                ko.utils.stringStartsWith(item.MUnitPrice3.toString().toLowerCase(), filterMUnitPrice3) &&
+                ko.utils.stringStartsWith(item.MTotalPrice.toString().toLowerCase(), filterMTotalPrice) &&
+
                 (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
                 (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
                 (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
@@ -707,26 +752,26 @@
                 (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
                 (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
                 (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
-               /*   (item.Kalaf01 == null ? '' : item.Kalaf01.toString().search(filterKalaf01) >= 0) &&
-                (item.Kalaf02 == null ? '' : item.Kalaf02.toString().search(filterKalaf02) >= 0) &&
-                (item.Kalaf03 == null ? '' : item.Kalaf03.toString().search(filterKalaf03) >= 0) &&
-                (item.Kalaf04 == null ? '' : item.Kalaf04.toString().search(filterKalaf04) >= 0) &&
-                (item.Kalaf05 == null ? '' : item.Kalaf05.toString().search(filterKalaf05) >= 0) &&
-                (item.Kalaf06 == null ? '' : item.Kalaf06.toString().search(filterKalaf06) >= 0) &&
-                (item.Kalaf07 == null ? '' : item.Kalaf07.toString().search(filterKalaf07) >= 0) &&
-                (item.Kalaf08 == null ? '' : item.Kalaf08.toString().search(filterKalaf08) >= 0) &&
-                (item.Kalaf09 == null ? '' : item.Kalaf09.toString().search(filterKalaf09) >= 0) &&
-                (item.Kalaf10 == null ? '' : item.Kalaf10.toString().search(filterKalaf10) >= 0) &&
-                (item.Kalaf11 == null ? '' : item.Kalaf11.toString().search(filterKalaf11) >= 0) &&
-                (item.Kalaf12 == null ? '' : item.Kalaf12.toString().search(filterKalaf12) >= 0) &&
-                (item.Kalaf13 == null ? '' : item.Kalaf13.toString().search(filterKalaf13) >= 0) &&
-                (item.Kalaf14 == null ? '' : item.Kalaf14.toString().search(filterKalaf14) >= 0) &&
-                (item.Kalaf15 == null ? '' : item.Kalaf15.toString().search(filterKalaf15) >= 0) &&
-                (item.Kalaf16 == null ? '' : item.Kalaf16.toString().search(filterKalaf16) >= 0) &&
-                (item.Kalaf17 == null ? '' : item.Kalaf17.toString().search(filterKalaf17) >= 0) &&
-                (item.Kalaf18 == null ? '' : item.Kalaf18.toString().search(filterKalaf18) >= 0) &&
-                (item.Kalaf19 == null ? '' : item.Kalaf19.toString().search(filterF19) >= 0) &&
-                (item.Kalaf20 == null ? '' : item.Kalaf20.toString().search(filterF20) >= 0)*/
+            /*   (item.Kalaf01 == null ? '' : item.Kalaf01.toString().search(filterKalaf01) >= 0) &&
+             (item.Kalaf02 == null ? '' : item.Kalaf02.toString().search(filterKalaf02) >= 0) &&
+             (item.Kalaf03 == null ? '' : item.Kalaf03.toString().search(filterKalaf03) >= 0) &&
+             (item.Kalaf04 == null ? '' : item.Kalaf04.toString().search(filterKalaf04) >= 0) &&
+             (item.Kalaf05 == null ? '' : item.Kalaf05.toString().search(filterKalaf05) >= 0) &&
+             (item.Kalaf06 == null ? '' : item.Kalaf06.toString().search(filterKalaf06) >= 0) &&
+             (item.Kalaf07 == null ? '' : item.Kalaf07.toString().search(filterKalaf07) >= 0) &&
+             (item.Kalaf08 == null ? '' : item.Kalaf08.toString().search(filterKalaf08) >= 0) &&
+             (item.Kalaf09 == null ? '' : item.Kalaf09.toString().search(filterKalaf09) >= 0) &&
+             (item.Kalaf10 == null ? '' : item.Kalaf10.toString().search(filterKalaf10) >= 0) &&
+             (item.Kalaf11 == null ? '' : item.Kalaf11.toString().search(filterKalaf11) >= 0) &&
+             (item.Kalaf12 == null ? '' : item.Kalaf12.toString().search(filterKalaf12) >= 0) &&
+             (item.Kalaf13 == null ? '' : item.Kalaf13.toString().search(filterKalaf13) >= 0) &&
+             (item.Kalaf14 == null ? '' : item.Kalaf14.toString().search(filterKalaf14) >= 0) &&
+             (item.Kalaf15 == null ? '' : item.Kalaf15.toString().search(filterKalaf15) >= 0) &&
+             (item.Kalaf16 == null ? '' : item.Kalaf16.toString().search(filterKalaf16) >= 0) &&
+             (item.Kalaf17 == null ? '' : item.Kalaf17.toString().search(filterKalaf17) >= 0) &&
+             (item.Kalaf18 == null ? '' : item.Kalaf18.toString().search(filterKalaf18) >= 0) &&
+             (item.Kalaf19 == null ? '' : item.Kalaf19.toString().search(filterF19) >= 0) &&
+             (item.Kalaf20 == null ? '' : item.Kalaf20.toString().search(filterF20) >= 0)*/
 
             return result;
         })
@@ -841,6 +886,15 @@
     self.iconTypeSUnitPrice2 = ko.observable("");
     self.iconTypeSUnitPrice3 = ko.observable("");
     self.iconTypeSTotalPrice = ko.observable("");
+
+    self.iconTypeMAmount1 = ko.observable("");
+    self.iconTypeMAmount2 = ko.observable("");
+    self.iconTypeMAmount3 = ko.observable("");
+    self.iconTypeMUnitPrice1 = ko.observable("");
+    self.iconTypeMUnitPrice2 = ko.observable("");
+    self.iconTypeMUnitPrice3 = ko.observable("");
+    self.iconTypeMTotalPrice = ko.observable("");
+
     self.iconTypeMkzCode = ko.observable("");
     self.iconTypeMkzName = ko.observable("");
     self.iconTypeOprCode = ko.observable("");
@@ -865,26 +919,26 @@
     self.iconTypeF18 = ko.observable("");
     self.iconTypeF19 = ko.observable("");
     self.iconTypeF20 = ko.observable("");
-     /* self.iconTypeKalaf01 = ko.observable("");
-    self.iconTypeKalaf02 = ko.observable("");
-    self.iconTypeKalaf03 = ko.observable("");
-    self.iconTypeKalaf04 = ko.observable("");
-    self.iconTypeKalaf05 = ko.observable("");
-    self.iconTypeKalaf06 = ko.observable("");
-    self.iconTypeKalaf07 = ko.observable("");
-    self.iconTypeKalaf08 = ko.observable("");
-    self.iconTypeKalaf09 = ko.observable("");
-    self.iconTypeKalaf10 = ko.observable("");
-    self.iconTypeKalaf11 = ko.observable("");
-    self.iconTypeKalaf12 = ko.observable("");
-    self.iconTypeKalaf13 = ko.observable("");
-    self.iconTypeKalaf14 = ko.observable("");
-    self.iconTypeKalaf15 = ko.observable("");
-    self.iconTypeKalaf16 = ko.observable("");
-    self.iconTypeKalaf17 = ko.observable("");
-    self.iconTypeKalaf18 = ko.observable("");
-    self.iconTypeKalaf19 = ko.observable("");
-    self.iconTypeKalaf20 = ko.observable("");*/
+    /* self.iconTypeKalaf01 = ko.observable("");
+   self.iconTypeKalaf02 = ko.observable("");
+   self.iconTypeKalaf03 = ko.observable("");
+   self.iconTypeKalaf04 = ko.observable("");
+   self.iconTypeKalaf05 = ko.observable("");
+   self.iconTypeKalaf06 = ko.observable("");
+   self.iconTypeKalaf07 = ko.observable("");
+   self.iconTypeKalaf08 = ko.observable("");
+   self.iconTypeKalaf09 = ko.observable("");
+   self.iconTypeKalaf10 = ko.observable("");
+   self.iconTypeKalaf11 = ko.observable("");
+   self.iconTypeKalaf12 = ko.observable("");
+   self.iconTypeKalaf13 = ko.observable("");
+   self.iconTypeKalaf14 = ko.observable("");
+   self.iconTypeKalaf15 = ko.observable("");
+   self.iconTypeKalaf16 = ko.observable("");
+   self.iconTypeKalaf17 = ko.observable("");
+   self.iconTypeKalaf18 = ko.observable("");
+   self.iconTypeKalaf19 = ko.observable("");
+   self.iconTypeKalaf20 = ko.observable("");*/
 
 
     self.sortTableKrdx = function (viewModel, e) {
@@ -902,9 +956,9 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-    //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
-    //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
-    //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
+        //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
+        //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
+        //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
 
         self.iconTypeDocDate('');
         //self.iconTypeInvName('');
@@ -952,6 +1006,15 @@
         self.iconTypeSUnitPrice2('');
         self.iconTypeSUnitPrice3('');
         self.iconTypeSTotalPrice('');
+
+        self.iconTypeMAmount1('');
+        self.iconTypeMAmount2('');
+        self.iconTypeMAmount3('');
+        self.iconTypeMUnitPrice1('');
+        self.iconTypeMUnitPrice2('');
+        self.iconTypeMUnitPrice3('');
+        self.iconTypeMTotalPrice('');
+
         self.iconTypeMkzCode('');
         self.iconTypeMkzName('');
         self.iconTypeOprCode('');
@@ -976,30 +1039,30 @@
         self.iconTypeF18('');
         self.iconTypeF19('');
         self.iconTypeF20('');
-       /*   self.iconTypeKalaf01('');
-        self.iconTypeKalaf02('');
-        self.iconTypeKalaf03('');
-        self.iconTypeKalaf04('');
-        self.iconTypeKalaf05('');
-        self.iconTypeKalaf06('');
-        self.iconTypeKalaf07('');
-        self.iconTypeKalaf08('');
-        self.iconTypeKalaf09('');
-        self.iconTypeKalaf10('');
-        self.iconTypeKalaf11('');
-        self.iconTypeKalaf12('');
-        self.iconTypeKalaf13('');
-        self.iconTypeKalaf14('');
-        self.iconTypeKalaf15('');
-        self.iconTypeKalaf16('');
-        self.iconTypeKalaf17('');
-        self.iconTypeKalaf18('');
-        self.iconTypeKalaf19('');
-        self.iconTypeKalaf20('');*/
+        /*   self.iconTypeKalaf01('');
+         self.iconTypeKalaf02('');
+         self.iconTypeKalaf03('');
+         self.iconTypeKalaf04('');
+         self.iconTypeKalaf05('');
+         self.iconTypeKalaf06('');
+         self.iconTypeKalaf07('');
+         self.iconTypeKalaf08('');
+         self.iconTypeKalaf09('');
+         self.iconTypeKalaf10('');
+         self.iconTypeKalaf11('');
+         self.iconTypeKalaf12('');
+         self.iconTypeKalaf13('');
+         self.iconTypeKalaf14('');
+         self.iconTypeKalaf15('');
+         self.iconTypeKalaf16('');
+         self.iconTypeKalaf17('');
+         self.iconTypeKalaf18('');
+         self.iconTypeKalaf19('');
+         self.iconTypeKalaf20('');*/
 
 
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-       // if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        // if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ModeName') self.iconTypeModeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ThvlCode') self.iconTypeThvlCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1045,6 +1108,15 @@
         if (orderProp == 'SUnitPrice2') self.iconTypeSUnitPrice2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SUnitPrice3') self.iconTypeSUnitPrice3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'STotalPrice') self.iconTypeSTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+        if (orderProp == 'MAmount1') self.iconTypeMAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MAmount2') self.iconTypeMAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MAmount3') self.iconTypeMAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MUnitPrice1') self.iconTypeMUnitPrice1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MUnitPrice2') self.iconTypeMUnitPrice2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MUnitPrice3') self.iconTypeMUnitPrice3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MTotalPrice') self.iconTypeMTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
         if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2188,6 +2260,15 @@
             CreateTableTh('SAmount3', data) +
             CreateTableTh('SUnitPrice3', data) +
             CreateTableTh('STotalPrice', data) +
+
+            CreateTableTh('MAmount1', data) +
+            CreateTableTh('MUnitPrice1', data) +
+            CreateTableTh('MAmount2', data) +
+            CreateTableTh('MUnitPrice2', data) +
+            CreateTableTh('MAmount3', data) +
+            CreateTableTh('MUnitPrice3', data) +
+            CreateTableTh('MTotalPrice', data) +
+
             CreateTableTh('MkzCode', data) +
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
@@ -2212,32 +2293,32 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
-           /*   CreateTableTh('Kalaf01', data) +
-            CreateTableTh('Kalaf02', data) +
-            CreateTableTh('Kalaf03', data) +
-            CreateTableTh('Kalaf04', data) +
-            CreateTableTh('Kalaf05', data) +
-            CreateTableTh('Kalaf06', data) +
-            CreateTableTh('Kalaf07', data) +
-            CreateTableTh('Kalaf08', data) +
-            CreateTableTh('Kalaf09', data) +
-            CreateTableTh('Kalaf10', data) +
-            CreateTableTh('Kalaf11', data) +
-            CreateTableTh('Kalaf12', data) +
-            CreateTableTh('Kalaf13', data) +
-            CreateTableTh('Kalaf14', data) +
-            CreateTableTh('Kalaf15', data) +
-            CreateTableTh('Kalaf16', data) +
-            CreateTableTh('Kalaf17', data) +
-            CreateTableTh('Kalaf18', data) +
-            CreateTableTh('Kalaf19', data) +
-            CreateTableTh('Kalaf20', data) +*/
+            /*   CreateTableTh('Kalaf01', data) +
+             CreateTableTh('Kalaf02', data) +
+             CreateTableTh('Kalaf03', data) +
+             CreateTableTh('Kalaf04', data) +
+             CreateTableTh('Kalaf05', data) +
+             CreateTableTh('Kalaf06', data) +
+             CreateTableTh('Kalaf07', data) +
+             CreateTableTh('Kalaf08', data) +
+             CreateTableTh('Kalaf09', data) +
+             CreateTableTh('Kalaf10', data) +
+             CreateTableTh('Kalaf11', data) +
+             CreateTableTh('Kalaf12', data) +
+             CreateTableTh('Kalaf13', data) +
+             CreateTableTh('Kalaf14', data) +
+             CreateTableTh('Kalaf15', data) +
+             CreateTableTh('Kalaf16', data) +
+             CreateTableTh('Kalaf17', data) +
+             CreateTableTh('Kalaf18', data) +
+             CreateTableTh('Kalaf19', data) +
+             CreateTableTh('Kalaf20', data) +*/
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
             '     <tr >' +
             CreateTableTd('DocDate', 0, 0, data) +
-           // CreateTableTd('InvName', 0, 0, data) +
+            // CreateTableTd('InvName', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('ThvlCode', 0, 0, data) +
@@ -2264,24 +2345,33 @@
             CreateTableTd('KalaExf14', 0, 0, data) +
             CreateTableTd('KalaExf15', 0, 0, data) +
             CreateTableTd('InDocNo', 0, 0, data) +
-            CreateTableTd('VAmount1', 0, 1, data) +
-            CreateTableTd('VUnitPrice1', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('VAmount2', 0, 1, data) +
-            CreateTableTd('VUnitPrice2', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('VAmount3', 0, 1, data) +
-            CreateTableTd('VUnitPrice3', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('VAmount1', 'DeghatM1', 1, data) +
+            CreateTableTd('VUnitPrice1', 'DeghatR1', 2, data) +
+            CreateTableTd('VAmount2', 'DeghatM2', 1, data) +
+            CreateTableTd('VUnitPrice2', 'DeghatR2', 2, data) +
+            CreateTableTd('VAmount3', 'DeghatM3', 1, data) +
+            CreateTableTd('VUnitPrice3', 'DeghatR3', 2, data) +
             CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('iAddMin1', 0, 0, data) +
             CreateTableTd('iAddMin2', 0, 0, data) +
             CreateTableTd('iAddMin3', 0, 0, data) +
             CreateTableTd('OutDocNo', 0, 0, data) +
-            CreateTableTd('SAmount1', 0, 1, data) +
-            CreateTableTd('SUnitPrice1', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('SAmount2', 0, 1, data) +
-            CreateTableTd('SUnitPrice2', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('SAmount3', 0, 1, data) +
-            CreateTableTd('SUnitPrice3', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('SAmount1', 'DeghatM1', 1, data) +
+            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, data) +
+            CreateTableTd('SAmount2', 'DeghatM2', 1, data) +
+            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, data) +
+            CreateTableTd('SAmount3', 'DeghatM3', 1, data) +
+            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, data) +
             CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, data) +
+
+            CreateTableTd('MAmount1', 'DeghatM1', 1, data) +
+            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, data) +
+            CreateTableTd('MAmount2', 'DeghatM2', 1, data) +
+            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, data) +
+            CreateTableTd('MAmount3', 'DeghatM3', 1, data) +
+            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, data) +
+            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data) +
+
             CreateTableTd('MkzCode', 0, 0, data) +
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
@@ -2306,26 +2396,26 @@
             CreateTableTd('F18', 0, 0, data) +
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
-             /* CreateTableTd('Kalaf01', 0, 0, data) +
-            CreateTableTd('Kalaf02', 0, 0, data) +
-            CreateTableTd('Kalaf03', 0, 0, data) +
-            CreateTableTd('Kalaf04', 0, 0, data) +
-            CreateTableTd('Kalaf05', 0, 0, data) +
-            CreateTableTd('Kalaf06', 0, 0, data) +
-            CreateTableTd('Kalaf07', 0, 0, data) +
-            CreateTableTd('Kalaf08', 0, 0, data) +
-            CreateTableTd('Kalaf09', 0, 0, data) +
-            CreateTableTd('Kalaf10', 0, 0, data) +
-            CreateTableTd('Kalaf11', 0, 0, data) +
-            CreateTableTd('Kalaf12', 0, 0, data) +
-            CreateTableTd('Kalaf13', 0, 0, data) +
-            CreateTableTd('Kalaf14', 0, 0, data) +
-            CreateTableTd('Kalaf15', 0, 0, data) +
-            CreateTableTd('Kalaf16', 0, 0, data) +
-            CreateTableTd('Kalaf17', 0, 0, data) +
-            CreateTableTd('Kalaf18', 0, 0, data) +
-            CreateTableTd('Kalaf19', 0, 0, data) +
-            CreateTableTd('Kalaf20', 0, 0, data) +*/
+            /* CreateTableTd('Kalaf01', 0, 0, data) +
+           CreateTableTd('Kalaf02', 0, 0, data) +
+           CreateTableTd('Kalaf03', 0, 0, data) +
+           CreateTableTd('Kalaf04', 0, 0, data) +
+           CreateTableTd('Kalaf05', 0, 0, data) +
+           CreateTableTd('Kalaf06', 0, 0, data) +
+           CreateTableTd('Kalaf07', 0, 0, data) +
+           CreateTableTd('Kalaf08', 0, 0, data) +
+           CreateTableTd('Kalaf09', 0, 0, data) +
+           CreateTableTd('Kalaf10', 0, 0, data) +
+           CreateTableTd('Kalaf11', 0, 0, data) +
+           CreateTableTd('Kalaf12', 0, 0, data) +
+           CreateTableTd('Kalaf13', 0, 0, data) +
+           CreateTableTd('Kalaf14', 0, 0, data) +
+           CreateTableTd('Kalaf15', 0, 0, data) +
+           CreateTableTd('Kalaf16', 0, 0, data) +
+           CreateTableTd('Kalaf17', 0, 0, data) +
+           CreateTableTd('Kalaf18', 0, 0, data) +
+           CreateTableTd('Kalaf19', 0, 0, data) +
+           CreateTableTd('Kalaf20', 0, 0, data) +*/
 
             '        </tr>' +
             '</tbody>' +
@@ -2377,6 +2467,15 @@
             CreateTableTdSum('SAmount3', 2, data) +
             CreateTableTdSum('SUnitPrice3', 2, data) +
             CreateTableTdSum('STotalPrice', 2, data) +
+
+            CreateTableTdSum('MAmount1', 2, data) +
+            CreateTableTdSum('MUnitPrice1', 2, data) +
+            CreateTableTdSum('MAmount2', 2, data) +
+            CreateTableTdSum('MUnitPrice2', 2, data) +
+            CreateTableTdSum('MAmount3', 2, data) +
+            CreateTableTdSum('MUnitPrice3', 2, data) +
+            CreateTableTdSum('MTotalPrice', 2, data) +
+
             CreateTableTdSum('MkzCode', 1, data) +
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
@@ -2401,26 +2500,26 @@
             CreateTableTdSum('F18', 1, data) +
             CreateTableTdSum('F19', 1, data) +
             CreateTableTdSum('F20', 1, data) +
-             /* CreateTableTdSum('Kalaf01', 1, data) +
-            CreateTableTdSum('Kalaf02', 1, data) +
-            CreateTableTdSum('Kalaf03', 1, data) +
-            CreateTableTdSum('Kalaf04', 1, data) +
-            CreateTableTdSum('Kalaf05', 1, data) +
-            CreateTableTdSum('Kalaf06', 1, data) +
-            CreateTableTdSum('Kalaf07', 1, data) +
-            CreateTableTdSum('Kalaf08', 1, data) +
-            CreateTableTdSum('Kalaf09', 1, data) +
-            CreateTableTdSum('Kalaf10', 1, data) +
-            CreateTableTdSum('Kalaf11', 1, data) +
-            CreateTableTdSum('Kalaf12', 1, data) +
-            CreateTableTdSum('Kalaf13', 1, data) +
-            CreateTableTdSum('Kalaf14', 1, data) +
-            CreateTableTdSum('Kalaf15', 1, data) +
-            CreateTableTdSum('Kalaf16', 1, data) +
-            CreateTableTdSum('Kalaf17', 1, data) +
-            CreateTableTdSum('Kalaf18', 1, data) +
-            CreateTableTdSum('Kalaf19', 1, data) +
-            CreateTableTdSum('Kalaf20', 1, data) +*/
+            /* CreateTableTdSum('Kalaf01', 1, data) +
+           CreateTableTdSum('Kalaf02', 1, data) +
+           CreateTableTdSum('Kalaf03', 1, data) +
+           CreateTableTdSum('Kalaf04', 1, data) +
+           CreateTableTdSum('Kalaf05', 1, data) +
+           CreateTableTdSum('Kalaf06', 1, data) +
+           CreateTableTdSum('Kalaf07', 1, data) +
+           CreateTableTdSum('Kalaf08', 1, data) +
+           CreateTableTdSum('Kalaf09', 1, data) +
+           CreateTableTdSum('Kalaf10', 1, data) +
+           CreateTableTdSum('Kalaf11', 1, data) +
+           CreateTableTdSum('Kalaf12', 1, data) +
+           CreateTableTdSum('Kalaf13', 1, data) +
+           CreateTableTdSum('Kalaf14', 1, data) +
+           CreateTableTdSum('Kalaf15', 1, data) +
+           CreateTableTdSum('Kalaf16', 1, data) +
+           CreateTableTdSum('Kalaf17', 1, data) +
+           CreateTableTdSum('Kalaf18', 1, data) +
+           CreateTableTdSum('Kalaf19', 1, data) +
+           CreateTableTdSum('Kalaf20', 1, data) +*/
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('DocDate', data) +
@@ -2469,6 +2568,15 @@
             CreateTableTdSearch('SAmount3', data) +
             CreateTableTdSearch('SUnitPrice3', data) +
             CreateTableTdSearch('STotalPrice', data) +
+
+            CreateTableTdSearch('MAmount1', data) +
+            CreateTableTdSearch('MUnitPrice1', data) +
+            CreateTableTdSearch('MAmount2', data) +
+            CreateTableTdSearch('MUnitPrice2', data) +
+            CreateTableTdSearch('MAmount3', data) +
+            CreateTableTdSearch('MUnitPrice3', data) +
+            CreateTableTdSearch('MTotalPrice', data) +
+
             CreateTableTdSearch('MkzCode', data) +
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
@@ -2493,26 +2601,26 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
-             /* CreateTableTdSearch('Kalaf01', data) +
-            CreateTableTdSearch('Kalaf02', data) +
-            CreateTableTdSearch('Kalaf03', data) +
-            CreateTableTdSearch('Kalaf04', data) +
-            CreateTableTdSearch('Kalaf05', data) +
-            CreateTableTdSearch('Kalaf06', data) +
-            CreateTableTdSearch('Kalaf07', data) +
-            CreateTableTdSearch('Kalaf08', data) +
-            CreateTableTdSearch('Kalaf09', data) +
-            CreateTableTdSearch('Kalaf10', data) +
-            CreateTableTdSearch('Kalaf11', data) +
-            CreateTableTdSearch('Kalaf12', data) +
-            CreateTableTdSearch('Kalaf13', data) +
-            CreateTableTdSearch('Kalaf14', data) +
-            CreateTableTdSearch('Kalaf15', data) +
-            CreateTableTdSearch('Kalaf16', data) +
-            CreateTableTdSearch('Kalaf17', data) +
-            CreateTableTdSearch('Kalaf18', data) +
-            CreateTableTdSearch('Kalaf19', data) +
-            CreateTableTdSearch('Kalaf20', data) +  */
+            /* CreateTableTdSearch('Kalaf01', data) +
+           CreateTableTdSearch('Kalaf02', data) +
+           CreateTableTdSearch('Kalaf03', data) +
+           CreateTableTdSearch('Kalaf04', data) +
+           CreateTableTdSearch('Kalaf05', data) +
+           CreateTableTdSearch('Kalaf06', data) +
+           CreateTableTdSearch('Kalaf07', data) +
+           CreateTableTdSearch('Kalaf08', data) +
+           CreateTableTdSearch('Kalaf09', data) +
+           CreateTableTdSearch('Kalaf10', data) +
+           CreateTableTdSearch('Kalaf11', data) +
+           CreateTableTdSearch('Kalaf12', data) +
+           CreateTableTdSearch('Kalaf13', data) +
+           CreateTableTdSearch('Kalaf14', data) +
+           CreateTableTdSearch('Kalaf15', data) +
+           CreateTableTdSearch('Kalaf16', data) +
+           CreateTableTdSearch('Kalaf17', data) +
+           CreateTableTdSearch('Kalaf18', data) +
+           CreateTableTdSearch('Kalaf19', data) +
+           CreateTableTdSearch('Kalaf20', data) +  */
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -2794,7 +2902,7 @@
             tempData = ko.utils.arrayFilter(self.IModeList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) 
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0)
                 return result;
             })
             return tempData;
