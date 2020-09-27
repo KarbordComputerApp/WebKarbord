@@ -763,7 +763,7 @@ function SetValidation() {
     ShowMenu[24] = validation;  // تراز خرید از فروشندگان
 
     validation = CheckAccessReport('Krdx');
-    ShowMenu[25] = validation;  // گزارش کاردکس
+    ShowMenu[30] = validation;  // گزارش کاردکس
 
 
 
@@ -1218,9 +1218,9 @@ function SetValidation() {
             afiaccess[8] && ShowMenu[12] ? $("#TrzIKala").show() : $("#TrzIKala").hide();
             afiaccess[9] && ShowMenu[13] ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
             afiaccess[10] && ShowMenu[14] ? $("#IDocR").show() : $("#IDocR").hide();
-            afiaccess[26] && ShowMenu[25] ? $("#Krdx").show() : $("#Krdx").hide();
+            afiaccess[26] && ShowMenu[30] ? $("#Krdx").show() : $("#Krdx").hide();
 
-            if (ShowMenu[12] == false && ShowMenu[13] == false && ShowMenu[14] == false)
+            if (ShowMenu[12] == false && ShowMenu[13] == false && ShowMenu[14] == false && ShowMenu[30] == false)
                 $("#IReport_Menu").hide();
         }
         else {

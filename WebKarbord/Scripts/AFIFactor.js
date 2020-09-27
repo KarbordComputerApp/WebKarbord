@@ -25,6 +25,7 @@
 
 
 
+
     var codeCust = '';
 
     var zarib1 = 0;
@@ -196,6 +197,7 @@
     }
 
     if (sessionStorage.InOut == 2) {
+
         $('#LableCustCode').text('خریدار ');
         $('#LableHesabCode').text('نام خریدار');
         //$('#codeHesab').attr('placeholder', 'کد خریدار');
@@ -204,6 +206,7 @@
         $('#TitleModalCust').text('لیست خریداران ');
         $('#TitleCodeTableModalCust').text('کد خریدار ');
         $('#TitleNameTableModalCust').text('نام خریدار ');
+        sessionStorage.sels = "false";
     } else {
         $('#LableCustCode').text('فروشنده ');
         $('#LableHesabCode').text('نام فروشنده');
@@ -213,6 +216,7 @@
         $('#TitleModalCust').text('لیست فروشندگان');
         $('#TitleCodeTableModalCust').text('کد فروشنده ');
         $('#TitleNameTableModalCust').text('نام فروشنده ');
+        sessionStorage.sels = "true";
     }
 
 
@@ -275,11 +279,11 @@
                 }
                 else
                     firstUpdateShow = 0;
-                    if (sessionStorage.sels == "true")
-                        sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                    // $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                    else
-                        sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
+                if (sessionStorage.sels == "true")
+                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                // $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                else
+                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
                 // $("#gGhimat").val(sessionStorage.GPriceDefultP);
             }
         });
@@ -291,7 +295,7 @@
             self.PaymentList(data);
             if (self.PaymentList().length > 0) {
                 //if (flagupdateHeader == 1)
-                    //$("#paymenttype").val(sessionStorage.PaymentType);
+                //$("#paymenttype").val(sessionStorage.PaymentType);
             }
         });
     }
@@ -304,8 +308,8 @@
             self.StatusList(data);
             if (self.StatusList().length > 0) {
                 //if (flagupdateHeader == 1) {
-                  //  $("#status").text(sessionStorage.Status);
-                  //  self.StatusFactor(sessionStorage.Status);
+                //  $("#status").text(sessionStorage.Status);
+                //  self.StatusFactor(sessionStorage.Status);
                 //}
             }
         });
@@ -916,7 +920,7 @@
 
             }
             else {
-                Swal.fire({ type: 'success', title: 'ثبت موفق', text: $('#TitleHeaderFactor').text()  + ' ذخيره شد ' });
+                Swal.fire({ type: 'success', title: 'ثبت موفق', text: $('#TitleHeaderFactor').text() + ' ذخيره شد ' });
             }
 
         });
@@ -2016,7 +2020,7 @@
                 sessionStorage.flagupdateHeader = 0;
                 self.ClearFDocH();
                 self.FDocBList([]); // ليست فاکتور
-               // self.AddMinList([]); // ليست کسورات و افزایشات 
+                // self.AddMinList([]); // ليست کسورات و افزایشات 
                 self.FDocHList([]); // لیست اطلاعات تکمیلی فاکتور فروش 
                 $('#foottextsum').text('');
                 $('#foottextamount1').text('');

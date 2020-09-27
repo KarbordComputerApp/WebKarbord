@@ -1060,6 +1060,8 @@
             item = item[0];
 
             sessionStorage.ModeCode = modeCodeMove;
+            a = sessionStorage.InOut;
+            //sessionStorage.sels = 
 
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;

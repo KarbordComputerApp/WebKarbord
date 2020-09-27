@@ -9,7 +9,6 @@
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.KalaList = ko.observableArray([]); // ليست کالا ها
     self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
-    self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه   
 
     self.IModeList = ko.observableArray([]); // ليست نوع سند
@@ -21,7 +20,6 @@
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس وارده صادره
-    var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
@@ -37,10 +35,6 @@
     var allSearchKala = true;
 
 
-    var KGruCode = '';
-    var counterKGru = 0;
-    var list_KGruSelect = new Array();
-
     var ThvlCode = '';
     var counterThvl = 0;
     var list_ThvlSelect = new Array();
@@ -54,8 +48,8 @@
     var list_OprSelect = new Array();
 
     var StatusCode = '';
-    var counterStatus = 0;
-    var list_StatusSelect = new Array();
+    var counterStatus = 3;
+    var list_StatusSelect = ["موقت", "تایید", "تصویب"];
 
     var IModeCode = '';
     var counterIMode = 0;
@@ -239,12 +233,6 @@
         });
     }
 
-    //Get  KGru List
-    function getKGruList() {
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
-            self.KGruList(data);
-        });
-    }
 
     self.OptionsCaptionAnbar = ko.computed(function () {
         return 'همه انبار ها';
@@ -301,14 +289,6 @@
         }
 
 
-        var kGrucode = '';
-        for (var i = 0; i <= counterKGru - 1; i++) {
-            if (i < counterKGru - 1)
-                kGrucode += list_KGruSelect[i] + '*';
-            else
-                kGrucode += list_KGruSelect[i];
-        }
-
 
         var thvlcode = '';
         for (var i = 0; i <= counterThvl - 1; i++) {
@@ -356,7 +336,7 @@
             taTarikh: tarikh2,
             ModeCode: imodecode,
             InvCode: invCode,
-            KGruCode: kGrucode,
+            KGruCode: '',
             KalaCode: kalaCode,
             ThvlCode: thvlcode,
             MkzCode: mkzcode,
@@ -382,10 +362,10 @@
         totalSAmount3 = 0;
         totalSTotalPrice = 0;
 
-        totalMAmount1 = 0;
+        /*totalMAmount1 = 0;
         totalMAmount2 = 0;
         totalMAmount3 = 0;
-        totalMTotalPrice = 0;
+        totalMTotalPrice = 0;*/
 
         KalaDeghat1 = 0;
         KalaDeghat2 = 0;
@@ -407,7 +387,7 @@
             totalSAmount3 += KrdxData.SAmount3;
             totalSTotalPrice += KrdxData.STotalPrice;
 
-           
+
             KalaDeghat1 = KrdxData.DeghatM1 % 10;
             KalaDeghat2 = KrdxData.DeghatM2 % 10;
             KalaDeghat3 = KrdxData.DeghatM3 % 10;
@@ -428,15 +408,15 @@
         $("#totalSAmount3").text(NumberToNumberString(totalSAmount3.toFixed(maxKalaDeghat3)));
         $("#totalSTotalPrice").text(NumberToNumberString(totalSTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
 
-        totalMAmount1 = totalVAmount1 - totalSAmount1;
-        totalMAmount2 = totalVAmount2 - totalSAmount2;
-        totalMAmount3 = totalVAmount3 - totalSAmount3;
-        totalMTotalPrice = totalVTotalPrice - totalSTotalPrice;
-
-        $("#totalMAmount1").text(NumberToNumberString(totalMAmount1.toFixed(maxKalaDeghat1)));
-        $("#totalMAmount2").text(NumberToNumberString(totalMAmount2.toFixed(maxKalaDeghat2)));
-        $("#totalMAmount3").text(NumberToNumberString(totalMAmount3.toFixed(maxKalaDeghat3)));
-        $("#totalMTotalPrice").text(NumberToNumberString(totalMTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
+        /* totalMAmount1 = totalVAmount1 - totalSAmount1;
+         totalMAmount2 = totalVAmount2 - totalSAmount2;
+         totalMAmount3 = totalVAmount3 - totalSAmount3;
+         totalMTotalPrice = totalVTotalPrice - totalSTotalPrice;
+ 
+         $("#totalMAmount1").text(NumberToNumberString(totalMAmount1.toFixed(maxKalaDeghat1)));
+         $("#totalMAmount2").text(NumberToNumberString(totalMAmount2.toFixed(maxKalaDeghat2)));
+         $("#totalMAmount3").text(NumberToNumberString(totalMAmount3.toFixed(maxKalaDeghat3)));
+         $("#totalMTotalPrice").text(NumberToNumberString(totalMTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));*/
     }
 
     $("#CreateReport").click(function () {
@@ -448,19 +428,17 @@
     getByKalaExf();
     getNaghlAzGhabl();
     getThvlList();
-    getKGruList();
     getOprList();
     getMkzList();
     getStatusList();
 
     $('#nameKala').val('');
     $('#nameInv').val('');
-    $('#nameKGru').val('همه موارد');
     $('#nameThvl').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
     $('#nameIMode').val('همه موارد');
-    $('#nameStatus').val('همه موارد');
+    $('#nameStatus').val('3 مورد انتخاب شده');
 
     //------------------------------------------------------
     self.currentPageKrdx = ko.observable();
@@ -714,6 +692,7 @@
                 (item.iAddMin1 == null ? '' : item.iAddMin1.toString().search(filteriAddMin1) >= 0) &&
                 (item.iAddMin2 == null ? '' : item.iAddMin2.toString().search(filteriAddMin2) >= 0) &&
                 (item.iAddMin3 == null ? '' : item.iAddMin3.toString().search(filteriAddMin3) >= 0) &&
+                ko.utils.stringStartsWith(item.OutDocNo.toString().toLowerCase(), filterOutDocNo) &&
                 ko.utils.stringStartsWith(item.SAmount1.toString().toLowerCase(), filterSAmount1) &&
                 ko.utils.stringStartsWith(item.SAmount2.toString().toLowerCase(), filterSAmount2) &&
                 ko.utils.stringStartsWith(item.SAmount3.toString().toLowerCase(), filterSAmount3) &&
@@ -1296,181 +1275,6 @@
     });
 
 
-    self.currentPageKGru = ko.observable();
-    self.pageSizeKGru = ko.observable(10);
-    self.currentPageIndexKGru = ko.observable(0);
-
-    self.filterKGru0 = ko.observable("");
-    self.filterKGru1 = ko.observable("");
-    self.filterKGru2 = ko.observable("");
-
-    self.filterKGruList = ko.computed(function () {
-
-        self.currentPageIndexKGru(0);
-        var filter0 = self.filterKGru0().toUpperCase();
-        var filter1 = self.filterKGru1();
-        var filter2 = self.filterKGru2();
-
-        if (!filter0 && !filter1 && !filter2) {
-            return self.KGruList();
-        } else {
-            tempData = ko.utils.arrayFilter(self.KGruList(), function (item) {
-                result =
-                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
-                return result;
-            })
-            return tempData;
-        }
-    });
-
-
-    self.currentPageKGru = ko.computed(function () {
-        var pageSizeKGru = parseInt(self.pageSizeKGru(), 10),
-            startIndex = pageSizeKGru * self.currentPageIndexKGru(),
-            endIndex = startIndex + pageSizeKGru;
-        return self.filterKGruList().slice(startIndex, endIndex);
-    });
-
-    self.nextPageKGru = function () {
-        if (((self.currentPageIndexKGru() + 1) * self.pageSizeKGru()) < self.filterKGruList().length) {
-            self.currentPageIndexKGru(self.currentPageIndexKGru() + 1);
-        }
-    };
-
-    self.previousPageKGru = function () {
-        if (self.currentPageIndexKGru() > 0) {
-            self.currentPageIndexKGru(self.currentPageIndexKGru() - 1);
-        }
-    };
-
-    self.firstPageKGru = function () {
-        self.currentPageIndexKGru(0);
-    };
-
-    self.lastPageKGru = function () {
-        countKGru = parseInt(self.filterKGruList().length / self.pageSizeKGru(), 10);
-        if ((self.filterKGruList().length % self.pageSizeKGru()) == 0)
-            self.currentPageIndexKGru(countKGru - 1);
-        else
-            self.currentPageIndexKGru(countKGru);
-    };
-
-    self.sortTableKGru = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
-        self.KGruList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
-
-        self.iconTypeCode('');
-        self.iconTypeName('');
-        self.iconTypeSpec('');
-
-
-        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-    };
-
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
-    }
-
-
-
-    $('#refreshKGru').click(function () {
-        Swal.fire({
-            title: 'تایید به روز رسانی',
-            text: "لیست گروه کالا به روز رسانی شود ؟",
-            type: 'info',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                $("div.loadingZone").show();
-                getKGruList();
-                $("div.loadingZone").hide();
-            }
-        })
-    })
-
-
-    self.AddKGru = function (item) {
-
-        KGruCode = item.Code;
-        find = false;
-        list_KGruSelect.forEach(function (item, key) {
-            if (item == KGruCode) {
-                find = true;
-            }
-        });
-
-        if (find == false) {
-            $('#TableBodyListKGru').append(
-                '<tr data-bind="">'
-                + ' <td data-bind="text: Code">' + item.Code + '</td > '
-                + ' <td data-bind="text: Name">' + item.Name + '</td > '
-                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
-                + '</tr>'
-            );
-            list_KGruSelect[counterKGru] = item.Code;
-            counterKGru = counterKGru + 1;
-        }
-    };
-
-
-    self.AddAllKGru = function () {
-        list_KGruSelect = new Array();
-        list = self.KGruList();
-        $("#TableBodyListKGru").empty();
-        for (var i = 0; i < list.length; i++) {
-            $('#TableBodyListKGru').append(
-                '  <tr data-bind="">'
-                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
-                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
-                + '</tr>'
-            );
-            list_KGruSelect[i] = list[i].Code;
-            counterKGru = i + 1;
-        }
-    };
-
-
-    self.DelAllKGru = function () {
-        list_KGruSelect = new Array();
-        counterKGru = 0;
-        $("#TableBodyListKGru").empty();
-    };
-
-
-    $('#modal-KGru').on('hide.bs.modal', function () {
-        if (counterKGru > 0)
-            $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ')
-        else
-            $('#nameKGru').val('همه موارد');
-    });
-
-    $('#modal-KGru').on('shown.bs.modal', function () {
-        $('.fix').attr('class', 'form-line focused fix');
-    });
 
 
 
@@ -2317,7 +2121,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
-            '     <tr >' +
+            '     <tr data-bind=" style: { color: Status == \'باطل\'  ? \'red\' : \'#3f4853\' }"  >' +
             CreateTableTd('DocDate', 0, 0, data) +
             // CreateTableTd('InvName', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +
@@ -2795,7 +2599,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست وضعیت به روز رسانی شود ؟",
+            text: "لیست وضعیت سند به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2811,6 +2615,16 @@
             }
         })
     })
+
+    $('#TableBodyListStatus').append(
+        '<tr>' +
+        '    <td>موقت</td>' +
+        '</tr>' +
+        '<tr>' +
+        '    <td>تایید</td>' +
+        '</tr>' +
+        '<tr><td>تصویب</td> </tr>'
+    );
 
 
     self.AddStatus = function (item) {
@@ -2833,7 +2647,6 @@
             counterStatus = counterStatus + 1;
         }
     };
-
 
     self.AddAllStatus = function () {
         list_StatusSelect = new Array();
