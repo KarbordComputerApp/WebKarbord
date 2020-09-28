@@ -90,9 +90,11 @@
 
     //Get kala List
     function getKalaList() {
-        //var storedNames = JSON.parse(sessionStorage.getItem("kala"));
-        //self.KalaList(storedNames);
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var KalaObject = {
+            withimage: false,
+            updatedate: null
+        }
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
         });
     }

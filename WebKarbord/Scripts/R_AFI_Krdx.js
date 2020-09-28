@@ -221,7 +221,11 @@
 
     //Get kala List
     function getKalaList() {
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var KalaObject = {
+            withimage: false,
+            updatedate: null
+        }
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
         });
     }
@@ -2122,85 +2126,85 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
             '     <tr data-bind=" style: { color: Status == \'باطل\'  ? \'red\' : \'#3f4853\' }"  >' +
-            CreateTableTd('DocDate', 0, 0, data) +
-            // CreateTableTd('InvName', 0, 0, data) +
-            CreateTableTd('ModeName', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
-            CreateTableTd('ThvlCode', 0, 0, data) +
-            CreateTableTd('ThvlName', 0, 0, data) +
-            CreateTableTd('Status', 0, 0, data) +
-            CreateTableTd('DimX', 0, 0, data) +
-            CreateTableTd('DimY', 0, 0, data) +
-            CreateTableTd('DimZ', 0, 0, data) +
-            CreateTableTd('KalaFileNo', 0, 0, data) +
-            CreateTableTd('KalaState', 0, 0, data) +
-            CreateTableTd('KalaExf1', 0, 0, data) +
-            CreateTableTd('KalaExf2', 0, 0, data) +
-            CreateTableTd('KalaExf3', 0, 0, data) +
-            CreateTableTd('KalaExf4', 0, 0, data) +
-            CreateTableTd('KalaExf5', 0, 0, data) +
-            CreateTableTd('KalaExf6', 0, 0, data) +
-            CreateTableTd('KalaExf7', 0, 0, data) +
-            CreateTableTd('KalaExf8', 0, 0, data) +
-            CreateTableTd('KalaExf9', 0, 0, data) +
-            CreateTableTd('KalaExf10', 0, 0, data) +
-            CreateTableTd('KalaExf11', 0, 0, data) +
-            CreateTableTd('KalaExf12', 0, 0, data) +
-            CreateTableTd('KalaExf13', 0, 0, data) +
-            CreateTableTd('KalaExf14', 0, 0, data) +
-            CreateTableTd('KalaExf15', 0, 0, data) +
-            CreateTableTd('InDocNo', 0, 0, data) +
-            CreateTableTd('VAmount1', 'DeghatM1', 1, data) +
-            CreateTableTd('VUnitPrice1', 'DeghatR1', 2, data) +
-            CreateTableTd('VAmount2', 'DeghatM2', 1, data) +
-            CreateTableTd('VUnitPrice2', 'DeghatR2', 2, data) +
-            CreateTableTd('VAmount3', 'DeghatM3', 1, data) +
-            CreateTableTd('VUnitPrice3', 'DeghatR3', 2, data) +
-            CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('iAddMin1', 0, 0, data) +
-            CreateTableTd('iAddMin2', 0, 0, data) +
-            CreateTableTd('iAddMin3', 0, 0, data) +
-            CreateTableTd('OutDocNo', 0, 0, data) +
-            CreateTableTd('SAmount1', 'DeghatM1', 1, data) +
-            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, data) +
-            CreateTableTd('SAmount2', 'DeghatM2', 1, data) +
-            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, data) +
-            CreateTableTd('SAmount3', 'DeghatM3', 1, data) +
-            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, data) +
-            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('DocDate', 0, 0,0, data) +
+            // CreateTableTd('InvName', 0, 0,0, data) +
+            CreateTableTd('ModeName', 0, 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, 0, data) +
+            CreateTableTd('ThvlCode', 0, 0, 0, data) +
+            CreateTableTd('ThvlName', 0, 0, 0, data) +
+            CreateTableTd('Status', 0, 0, 0, data) +
+            CreateTableTd('DimX', 0, 0, 0, data) +
+            CreateTableTd('DimY', 0, 0, 0, data) +
+            CreateTableTd('DimZ', 0, 0, 0, data) +
+            CreateTableTd('KalaFileNo', 0, 0, 0, data) +
+            CreateTableTd('KalaState', 0, 0, 0, data) +
+            CreateTableTd('KalaExf1', 0, 0, 0, data) +
+            CreateTableTd('KalaExf2', 0, 0, 0, data) +
+            CreateTableTd('KalaExf3', 0, 0, 0, data) +
+            CreateTableTd('KalaExf4', 0, 0, 0, data) +
+            CreateTableTd('KalaExf5', 0, 0, 0, data) +
+            CreateTableTd('KalaExf6', 0, 0, 0, data) +
+            CreateTableTd('KalaExf7', 0, 0, 0, data) +
+            CreateTableTd('KalaExf8', 0, 0, 0, data) +
+            CreateTableTd('KalaExf9', 0, 0, 0, data) +
+            CreateTableTd('KalaExf10', 0, 0, 0, data) +
+            CreateTableTd('KalaExf11', 0, 0, 0, data) +
+            CreateTableTd('KalaExf12', 0, 0, 0, data) +
+            CreateTableTd('KalaExf13', 0, 0, 0, data) +
+            CreateTableTd('KalaExf14', 0, 0, 0, data) +
+            CreateTableTd('KalaExf15', 0, 0, 0, data) +
+            CreateTableTd('InDocNo', 0, 0, 'cornsilk', data) +
+            CreateTableTd('VAmount1', 'DeghatM1', 1, 'cornsilk' , data) +
+            CreateTableTd('VUnitPrice1', 'DeghatR1', 2, 'cornsilk', data) +
+            CreateTableTd('VAmount2', 'DeghatM2', 1, 'cornsilk', data) +
+            CreateTableTd('VUnitPrice2', 'DeghatR2', 2, 'cornsilk', data) +
+            CreateTableTd('VAmount3', 'DeghatM3', 1, 'cornsilk', data) +
+            CreateTableTd('VUnitPrice3', 'DeghatR3', 2, 'cornsilk', data) +
+            CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, 'cornsilk', data) +
+            CreateTableTd('iAddMin1', 0, 0, 0, data) +
+            CreateTableTd('iAddMin2', 0, 0, 0, data) +
+            CreateTableTd('iAddMin3', 0, 0, 0, data) +
+            CreateTableTd('OutDocNo', 0, 0, 'peachpuff', data) +
+            CreateTableTd('SAmount1', 'DeghatM1', 1, 'peachpuff', data) +
+            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, 'peachpuff', data) +
+            CreateTableTd('SAmount2', 'DeghatM2', 1, 'peachpuff', data) +
+            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, 'peachpuff', data) +
+            CreateTableTd('SAmount3', 'DeghatM3', 1, 'peachpuff', data) +
+            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, 'peachpuff', data) +
+            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, 'peachpuff', data) +
 
-            CreateTableTd('MAmount1', 'DeghatM1', 1, data) +
-            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, data) +
-            CreateTableTd('MAmount2', 'DeghatM2', 1, data) +
-            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, data) +
-            CreateTableTd('MAmount3', 'DeghatM3', 1, data) +
-            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, data) +
-            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MAmount1', 'DeghatM1', 1, '#ffb777d4', data) +
+            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, '#ffb777d4', data) +
+            CreateTableTd('MAmount2', 'DeghatM2', 1, '#ffb777d4', data) +
+            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, '#ffb777d4', data) +
+            CreateTableTd('MAmount3', 'DeghatM3', 1, '#ffb777d4', data) +
+            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, '#ffb777d4', data) +
+            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, '#ffb777d4', data) +
 
-            CreateTableTd('MkzCode', 0, 0, data) +
-            CreateTableTd('MkzName', 0, 0, data) +
-            CreateTableTd('OprCode', 0, 0, data) +
-            CreateTableTd('OprName', 0, 0, data) +
-            CreateTableTd('F01', 0, 0, data) +
-            CreateTableTd('F02', 0, 0, data) +
-            CreateTableTd('F03', 0, 0, data) +
-            CreateTableTd('F04', 0, 0, data) +
-            CreateTableTd('F05', 0, 0, data) +
-            CreateTableTd('F06', 0, 0, data) +
-            CreateTableTd('F07', 0, 0, data) +
-            CreateTableTd('F08', 0, 0, data) +
-            CreateTableTd('F09', 0, 0, data) +
-            CreateTableTd('F10', 0, 0, data) +
-            CreateTableTd('F11', 0, 0, data) +
-            CreateTableTd('F12', 0, 0, data) +
-            CreateTableTd('F13', 0, 0, data) +
-            CreateTableTd('F14', 0, 0, data) +
-            CreateTableTd('F15', 0, 0, data) +
-            CreateTableTd('F16', 0, 0, data) +
-            CreateTableTd('F17', 0, 0, data) +
-            CreateTableTd('F18', 0, 0, data) +
-            CreateTableTd('F19', 0, 0, data) +
-            CreateTableTd('F20', 0, 0, data) +
+            CreateTableTd('MkzCode', 0, 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, 0, data) +
+            CreateTableTd('OprCode', 0, 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, 0, data) +
+            CreateTableTd('F01', 0, 0, 0, data) +
+            CreateTableTd('F02', 0, 0, 0, data) +
+            CreateTableTd('F03', 0, 0, 0, data) +
+            CreateTableTd('F04', 0, 0, 0, data) +
+            CreateTableTd('F05', 0, 0, 0, data) +
+            CreateTableTd('F06', 0, 0, 0, data) +
+            CreateTableTd('F07', 0, 0, 0, data) +
+            CreateTableTd('F08', 0, 0, 0, data) +
+            CreateTableTd('F09', 0, 0, 0, data) +
+            CreateTableTd('F10', 0, 0, 0, data) +
+            CreateTableTd('F11', 0, 0, 0, data) +
+            CreateTableTd('F12', 0, 0, 0, data) +
+            CreateTableTd('F13', 0, 0, 0, data) +
+            CreateTableTd('F14', 0, 0, 0, data) +
+            CreateTableTd('F15', 0, 0, 0, data) +
+            CreateTableTd('F16', 0, 0, 0, data) +
+            CreateTableTd('F17', 0, 0, 0, data) +
+            CreateTableTd('F18', 0, 0, 0, data) +
+            CreateTableTd('F19', 0, 0, 0, data) +
+            CreateTableTd('F20', 0, 0, 0, data) +
             /* CreateTableTd('Kalaf01', 0, 0, data) +
            CreateTableTd('Kalaf02', 0, 0, data) +
            CreateTableTd('Kalaf03', 0, 0, data) +
@@ -2450,8 +2454,10 @@
         return text;
     }
 
-    function CreateTableTd(field, Deghat, no, data) {
+    function CreateTableTd(field, Deghat, no, color, data) {
         text = '<td ';
+
+        color = "\'" + color + "\'";
 
         TextField = FindTextField(field, data);
         if (TextField == 0)
@@ -2459,16 +2465,16 @@
 
         switch (no) {
             case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
+                text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color +' : null  }"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' , \'background-color\': ' + color + ' != \'0\' ? '+color+' : null  }"></td>'
                 break;
             case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' , \'background-color\': ' + color + ' != \'0\' ? ' + color +' : null }"" style="text-align: right;"></td>'
                 break;
             case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color +' : null  }" style="text-align: right;"></td>'
                 break;
         }
         return text;

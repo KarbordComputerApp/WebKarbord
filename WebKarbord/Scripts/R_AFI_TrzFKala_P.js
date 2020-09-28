@@ -241,7 +241,11 @@
 
     //Get kala List
     function getKalaList() {
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var KalaObject = {
+            withimage: false,
+            updatedate: null
+        }
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
         });
     }
@@ -267,7 +271,11 @@
 
     //Get Cust List
     function getCustList() {
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group + '/' + null, 'GET').done(function (data) {
+        var CustObject = {
+            forSale: null,
+            updatedate: null
+        }
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {
             self.CustList(data);
         });
     }

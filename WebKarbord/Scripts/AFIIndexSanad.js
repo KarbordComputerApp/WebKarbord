@@ -744,7 +744,7 @@
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        $('#titleMove').text(' انتقال سند حسابداری ' + item.DocNo + ' به ');
+        $('#titleMove').text(' پر کردن در سند حسابداری ' + item.DocNo + ' به ');
         $('#modal-Move').modal();
     }
 

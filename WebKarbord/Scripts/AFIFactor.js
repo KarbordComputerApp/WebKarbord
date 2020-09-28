@@ -249,19 +249,22 @@
 
     //Get Cust List
     function getCustList() {
-
-        //var storedArray = JSON.parse(sessionStorage.getItem("items"));
-        // self.CustList(storedArray);
-        // storedArray = self.CustList();
-        $("div.loadingZone").show();
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group + '/' + (sessionStorage.InOut == 1 ? true : false), 'GET').done(function (data) {
+        var CustObject = {
+            forSale: sessionStorage.InOut == 1 ? true : false,
+            updatedate: null
+        }
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {
             self.CustList(data);
         });
     }
 
     //Get kala List
     function getKalaList() {
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var KalaObject = {
+            withimage: false,
+            updatedate: null
+        }
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
         });
     }
