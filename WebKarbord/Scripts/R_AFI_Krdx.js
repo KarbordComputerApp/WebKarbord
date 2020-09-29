@@ -120,26 +120,26 @@
         'MkzName',
         'OprCode',
         'OprName',
-        'F01',
-        'F02',
-        'F03',
-        'F04',
-        'F05',
-        'F06',
-        'F07',
-        'F08',
-        'F09',
-        'F10',
-        'F11',
-        'F12',
-        'F13',
-        'F14',
-        'F15',
-        'F16',
-        'F17',
-        'F18',
-        'F19',
-        'F20',
+        'IDocF01',
+        'IDocF02',
+        'IDocF03',
+        'IDocF04',
+        'IDocF05',
+        'IDocF06',
+        'IDocF07',
+        'IDocF08',
+        'IDocF09',
+        'IDocF10',
+        'IDocF11',
+        'IDocF12',
+        'IDocF13',
+        'IDocF14',
+        'IDocF15',
+        'IDocF16',
+        'IDocF17',
+        'IDocF18',
+        'IDocF19',
+        'IDocF20',
         /*    'Kalaf01',
             'Kalaf02',
             'Kalaf03',
@@ -509,26 +509,26 @@
     self.filterMkzName = ko.observable("");
     self.filterOprCode = ko.observable("");
     self.filterOprName = ko.observable("");
-    self.filterF01 = ko.observable("");
-    self.filterF02 = ko.observable("");
-    self.filterF03 = ko.observable("");
-    self.filterF04 = ko.observable("");
-    self.filterF05 = ko.observable("");
-    self.filterF06 = ko.observable("");
-    self.filterF07 = ko.observable("");
-    self.filterF08 = ko.observable("");
-    self.filterF09 = ko.observable("");
-    self.filterF10 = ko.observable("");
-    self.filterF11 = ko.observable("");
-    self.filterF12 = ko.observable("");
-    self.filterF13 = ko.observable("");
-    self.filterF14 = ko.observable("");
-    self.filterF15 = ko.observable("");
-    self.filterF16 = ko.observable("");
-    self.filterF17 = ko.observable("");
-    self.filterF18 = ko.observable("");
-    self.filterF19 = ko.observable("");
-    self.filterF20 = ko.observable("");
+    self.filterIDocF01 = ko.observable("");
+    self.filterIDocF02 = ko.observable("");
+    self.filterIDocF03 = ko.observable("");
+    self.filterIDocF04 = ko.observable("");
+    self.filterIDocF05 = ko.observable("");
+    self.filterIDocF06 = ko.observable("");
+    self.filterIDocF07 = ko.observable("");
+    self.filterIDocF08 = ko.observable("");
+    self.filterIDocF09 = ko.observable("");
+    self.filterIDocF10 = ko.observable("");
+    self.filterIDocF11 = ko.observable("");
+    self.filterIDocF12 = ko.observable("");
+    self.filterIDocF13 = ko.observable("");
+    self.filterIDocF14 = ko.observable("");
+    self.filterIDocF15 = ko.observable("");
+    self.filterIDocF16 = ko.observable("");
+    self.filterIDocF17 = ko.observable("");
+    self.filterIDocF18 = ko.observable("");
+    self.filterIDocF19 = ko.observable("");
+    self.filterIDocF20 = ko.observable("");
     /*  self.filterKalaf01 = ko.observable("");
     self.filterKalaf02 = ko.observable("");
     self.filterKalaf03 = ko.observable("");
@@ -614,26 +614,26 @@
         var filterOprCode = self.filterOprCode();
         var filterOprName = self.filterOprName();
 
-        var filterF01 = self.filterF01();
-        var filterF02 = self.filterF02();
-        var filterF03 = self.filterF03();
-        var filterF04 = self.filterF04();
-        var filterF05 = self.filterF05();
-        var filterF06 = self.filterF06();
-        var filterF07 = self.filterF07();
-        var filterF08 = self.filterF08();
-        var filterF09 = self.filterF09();
-        var filterF10 = self.filterF10();
-        var filterF11 = self.filterF11();
-        var filterF12 = self.filterF12();
-        var filterF13 = self.filterF13();
-        var filterF14 = self.filterF14();
-        var filterF15 = self.filterF15();
-        var filterF16 = self.filterF16();
-        var filterF17 = self.filterF17();
-        var filterF18 = self.filterF18();
-        var filterF19 = self.filterF19();
-        var filterF20 = self.filterF20();
+        var filterIDocF01 = self.filterIDocF01();
+        var filterIDocF02 = self.filterIDocF02();
+        var filterIDocF03 = self.filterIDocF03();
+        var filterIDocF04 = self.filterIDocF04();
+        var filterIDocF05 = self.filterIDocF05();
+        var filterIDocF06 = self.filterIDocF06();
+        var filterIDocF07 = self.filterIDocF07();
+        var filterIDocF08 = self.filterIDocF08();
+        var filterIDocF09 = self.filterIDocF09();
+        var filterIDocF10 = self.filterIDocF10();
+        var filterIDocF11 = self.filterIDocF11();
+        var filterIDocF12 = self.filterIDocF12();
+        var filterIDocF13 = self.filterIDocF13();
+        var filterIDocF14 = self.filterIDocF14();
+        var filterIDocF15 = self.filterIDocF15();
+        var filterIDocF16 = self.filterIDocF16();
+        var filterIDocF17 = self.filterIDocF17();
+        var filterIDocF18 = self.filterIDocF18();
+        var filterIDocF19 = self.filterIDocF19();
+        var filterIDocF20 = self.filterIDocF20();
         /*   var filterKalaf01 = self.filterKalaf01();
          var filterKalaf02 = self.filterKalaf02();
          var filterKalaf03 = self.filterKalaf03();
@@ -716,26 +716,26 @@
                 (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
                 (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
                 (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
-                (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
-                (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
-                (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
-                (item.F05 == null ? '' : item.F05.toString().search(filterF05) >= 0) &&
-                (item.F06 == null ? '' : item.F06.toString().search(filterF06) >= 0) &&
-                (item.F07 == null ? '' : item.F07.toString().search(filterF07) >= 0) &&
-                (item.F08 == null ? '' : item.F08.toString().search(filterF08) >= 0) &&
-                (item.F09 == null ? '' : item.F09.toString().search(filterF09) >= 0) &&
-                (item.F10 == null ? '' : item.F10.toString().search(filterF10) >= 0) &&
-                (item.F11 == null ? '' : item.F11.toString().search(filterF11) >= 0) &&
-                (item.F12 == null ? '' : item.F12.toString().search(filterF12) >= 0) &&
-                (item.F13 == null ? '' : item.F13.toString().search(filterF13) >= 0) &&
-                (item.F14 == null ? '' : item.F14.toString().search(filterF14) >= 0) &&
-                (item.F15 == null ? '' : item.F15.toString().search(filterF15) >= 0) &&
-                (item.F16 == null ? '' : item.F16.toString().search(filterF16) >= 0) &&
-                (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
-                (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
-                (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
-                (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
+                (item.IDocF01 == null ? '' : item.IDocF01.toString().search(filterIDocF01) >= 0) &&
+                (item.IDocF02 == null ? '' : item.IDocF02.toString().search(filterIDocF02) >= 0) &&
+                (item.IDocF03 == null ? '' : item.IDocF03.toString().search(filterIDocF03) >= 0) &&
+                (item.IDocF04 == null ? '' : item.IDocF04.toString().search(filterIDocF04) >= 0) &&
+                (item.IDocF05 == null ? '' : item.IDocF05.toString().search(filterIDocF05) >= 0) &&
+                (item.IDocF06 == null ? '' : item.IDocF06.toString().search(filterIDocF06) >= 0) &&
+                (item.IDocF07 == null ? '' : item.IDocF07.toString().search(filterIDocF07) >= 0) &&
+                (item.IDocF08 == null ? '' : item.IDocF08.toString().search(filterIDocF08) >= 0) &&
+                (item.IDocF09 == null ? '' : item.IDocF09.toString().search(filterIDocF09) >= 0) &&
+                (item.IDocF10 == null ? '' : item.IDocF10.toString().search(filterIDocF10) >= 0) &&
+                (item.IDocF11 == null ? '' : item.IDocF11.toString().search(filterIDocF11) >= 0) &&
+                (item.IDocF12 == null ? '' : item.IDocF12.toString().search(filterIDocF12) >= 0) &&
+                (item.IDocF13 == null ? '' : item.IDocF13.toString().search(filterIDocF13) >= 0) &&
+                (item.IDocF14 == null ? '' : item.IDocF14.toString().search(filterIDocF14) >= 0) &&
+                (item.IDocF15 == null ? '' : item.IDocF15.toString().search(filterIDocF15) >= 0) &&
+                (item.IDocF16 == null ? '' : item.IDocF16.toString().search(filterIDocF16) >= 0) &&
+                (item.IDocF17 == null ? '' : item.IDocF17.toString().search(filterIDocF17) >= 0) &&
+                (item.IDocF18 == null ? '' : item.IDocF18.toString().search(filterIDocF18) >= 0) &&
+                (item.IDocF19 == null ? '' : item.IDocF19.toString().search(filterIDocF19) >= 0) &&
+                (item.IDocF20 == null ? '' : item.IDocF20.toString().search(filterIDocF20) >= 0)
             /*   (item.Kalaf01 == null ? '' : item.Kalaf01.toString().search(filterKalaf01) >= 0) &&
              (item.Kalaf02 == null ? '' : item.Kalaf02.toString().search(filterKalaf02) >= 0) &&
              (item.Kalaf03 == null ? '' : item.Kalaf03.toString().search(filterKalaf03) >= 0) &&
@@ -883,26 +883,26 @@
     self.iconTypeMkzName = ko.observable("");
     self.iconTypeOprCode = ko.observable("");
     self.iconTypeOprName = ko.observable("");
-    self.iconTypeF01 = ko.observable("");
-    self.iconTypeF02 = ko.observable("");
-    self.iconTypeF03 = ko.observable("");
-    self.iconTypeF04 = ko.observable("");
-    self.iconTypeF05 = ko.observable("");
-    self.iconTypeF06 = ko.observable("");
-    self.iconTypeF07 = ko.observable("");
-    self.iconTypeF08 = ko.observable("");
-    self.iconTypeF09 = ko.observable("");
-    self.iconTypeF10 = ko.observable("");
-    self.iconTypeF11 = ko.observable("");
-    self.iconTypeF12 = ko.observable("");
-    self.iconTypeF13 = ko.observable("");
-    self.iconTypeF14 = ko.observable("");
-    self.iconTypeF15 = ko.observable("");
-    self.iconTypeF16 = ko.observable("");
-    self.iconTypeF17 = ko.observable("");
-    self.iconTypeF18 = ko.observable("");
-    self.iconTypeF19 = ko.observable("");
-    self.iconTypeF20 = ko.observable("");
+    self.iconTypeIDocF01 = ko.observable("");
+    self.iconTypeIDocF02 = ko.observable("");
+    self.iconTypeIDocF03 = ko.observable("");
+    self.iconTypeIDocF04 = ko.observable("");
+    self.iconTypeIDocF05 = ko.observable("");
+    self.iconTypeIDocF06 = ko.observable("");
+    self.iconTypeIDocF07 = ko.observable("");
+    self.iconTypeIDocF08 = ko.observable("");
+    self.iconTypeIDocF09 = ko.observable("");
+    self.iconTypeIDocF10 = ko.observable("");
+    self.iconTypeIDocF11 = ko.observable("");
+    self.iconTypeIDocF12 = ko.observable("");
+    self.iconTypeIDocF13 = ko.observable("");
+    self.iconTypeIDocF14 = ko.observable("");
+    self.iconTypeIDocF15 = ko.observable("");
+    self.iconTypeIDocF16 = ko.observable("");
+    self.iconTypeIDocF17 = ko.observable("");
+    self.iconTypeIDocF18 = ko.observable("");
+    self.iconTypeIDocF19 = ko.observable("");
+    self.iconTypeIDocF20 = ko.observable("");
     /* self.iconTypeKalaf01 = ko.observable("");
    self.iconTypeKalaf02 = ko.observable("");
    self.iconTypeKalaf03 = ko.observable("");
@@ -1003,26 +1003,26 @@
         self.iconTypeMkzName('');
         self.iconTypeOprCode('');
         self.iconTypeOprName('');
-        self.iconTypeF01('');
-        self.iconTypeF02('');
-        self.iconTypeF03('');
-        self.iconTypeF04('');
-        self.iconTypeF05('');
-        self.iconTypeF06('');
-        self.iconTypeF07('');
-        self.iconTypeF08('');
-        self.iconTypeF09('');
-        self.iconTypeF10('');
-        self.iconTypeF11('');
-        self.iconTypeF12('');
-        self.iconTypeF13('');
-        self.iconTypeF14('');
-        self.iconTypeF15('');
-        self.iconTypeF16('');
-        self.iconTypeF17('');
-        self.iconTypeF18('');
-        self.iconTypeF19('');
-        self.iconTypeF20('');
+        self.iconTypeIDocF01('');
+        self.iconTypeIDocF02('');
+        self.iconTypeIDocF03('');
+        self.iconTypeIDocF04('');
+        self.iconTypeIDocF05('');
+        self.iconTypeIDocF06('');
+        self.iconTypeIDocF07('');
+        self.iconTypeIDocF08('');
+        self.iconTypeIDocF09('');
+        self.iconTypeIDocF10('');
+        self.iconTypeIDocF11('');
+        self.iconTypeIDocF12('');
+        self.iconTypeIDocF13('');
+        self.iconTypeIDocF14('');
+        self.iconTypeIDocF15('');
+        self.iconTypeIDocF16('');
+        self.iconTypeIDocF17('');
+        self.iconTypeIDocF18('');
+        self.iconTypeIDocF19('');
+        self.iconTypeIDocF20('');
         /*   self.iconTypeKalaf01('');
          self.iconTypeKalaf02('');
          self.iconTypeKalaf03('');
@@ -1106,26 +1106,26 @@
         if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
-        if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F04') self.iconTypeF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F05') self.iconTypeF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F06') self.iconTypeF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F07') self.iconTypeF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F08') self.iconTypeF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F09') self.iconTypeF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F10') self.iconTypeF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F11') self.iconTypeF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F12') self.iconTypeF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F13') self.iconTypeF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F14') self.iconTypeF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F15') self.iconTypeF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F16') self.iconTypeF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F17') self.iconTypeF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF01') self.iconTypeIDocF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF02') self.iconTypeIDocF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF03') self.iconTypeIDocF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF04') self.iconTypeIDocF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF05') self.iconTypeIDocF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF06') self.iconTypeIDocF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF07') self.iconTypeIDocF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF08') self.iconTypeIDocF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF09') self.iconTypeIDocF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF10') self.iconTypeIDocF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF11') self.iconTypeIDocF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF12') self.iconTypeIDocF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF13') self.iconTypeIDocF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF14') self.iconTypeIDocF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF15') self.iconTypeIDocF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF16') self.iconTypeIDocF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF17') self.iconTypeIDocF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF18') self.iconTypeIDocF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF19') self.iconTypeIDocF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'IDocF20') self.iconTypeIDocF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         /*  if (orderProp == 'Kalaf01') self.iconTypeKalaf01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Kalaf02') self.iconTypeKalaf02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Kalaf03') self.iconTypeKalaf03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2082,26 +2082,26 @@
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
-            CreateTableTh('F01', data) +
-            CreateTableTh('F02', data) +
-            CreateTableTh('F03', data) +
-            CreateTableTh('F04', data) +
-            CreateTableTh('F05', data) +
-            CreateTableTh('F06', data) +
-            CreateTableTh('F07', data) +
-            CreateTableTh('F08', data) +
-            CreateTableTh('F09', data) +
-            CreateTableTh('F10', data) +
-            CreateTableTh('F11', data) +
-            CreateTableTh('F12', data) +
-            CreateTableTh('F13', data) +
-            CreateTableTh('F14', data) +
-            CreateTableTh('F15', data) +
-            CreateTableTh('F16', data) +
-            CreateTableTh('F17', data) +
-            CreateTableTh('F18', data) +
-            CreateTableTh('F19', data) +
-            CreateTableTh('F20', data) +
+            CreateTableTh('IDocF01', data) +
+            CreateTableTh('IDocF02', data) +
+            CreateTableTh('IDocF03', data) +
+            CreateTableTh('IDocF04', data) +
+            CreateTableTh('IDocF05', data) +
+            CreateTableTh('IDocF06', data) +
+            CreateTableTh('IDocF07', data) +
+            CreateTableTh('IDocF08', data) +
+            CreateTableTh('IDocF09', data) +
+            CreateTableTh('IDocF10', data) +
+            CreateTableTh('IDocF11', data) +
+            CreateTableTh('IDocF12', data) +
+            CreateTableTh('IDocF13', data) +
+            CreateTableTh('IDocF14', data) +
+            CreateTableTh('IDocF15', data) +
+            CreateTableTh('IDocF16', data) +
+            CreateTableTh('IDocF17', data) +
+            CreateTableTh('IDocF18', data) +
+            CreateTableTh('IDocF19', data) +
+            CreateTableTh('IDocF20', data) +
             /*   CreateTableTh('Kalaf01', data) +
              CreateTableTh('Kalaf02', data) +
              CreateTableTh('Kalaf03', data) +
@@ -2125,7 +2125,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
-            '     <tr data-bind=" style: { color: Status == \'باطل\'  ? \'red\' : \'#3f4853\' }"  >' +
+            '     <tr data-bind=" style: {\'background-color\':  Status == \'باطل\'  ? \'#ff252540\' : null  } " >' +
             CreateTableTd('DocDate', 0, 0,0, data) +
             // CreateTableTd('InvName', 0, 0,0, data) +
             CreateTableTd('ModeName', 0, 0, 0, data) +
@@ -2164,47 +2164,47 @@
             CreateTableTd('iAddMin1', 0, 0, 0, data) +
             CreateTableTd('iAddMin2', 0, 0, 0, data) +
             CreateTableTd('iAddMin3', 0, 0, 0, data) +
-            CreateTableTd('OutDocNo', 0, 0, 'peachpuff', data) +
-            CreateTableTd('SAmount1', 'DeghatM1', 1, 'peachpuff', data) +
-            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, 'peachpuff', data) +
-            CreateTableTd('SAmount2', 'DeghatM2', 1, 'peachpuff', data) +
-            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, 'peachpuff', data) +
-            CreateTableTd('SAmount3', 'DeghatM3', 1, 'peachpuff', data) +
-            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, 'peachpuff', data) +
-            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, 'peachpuff', data) +
+            CreateTableTd('OutDocNo', 0, 0, 0, data) +
+            CreateTableTd('SAmount1', 'DeghatM1', 1, 0, data) +
+            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, 0, data) +
+            CreateTableTd('SAmount2', 'DeghatM2', 1, 0, data) +
+            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, 0, data) +
+            CreateTableTd('SAmount3', 'DeghatM3', 1, 0, data) +
+            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, 0, data) +
+            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, 0, data) +
 
-            CreateTableTd('MAmount1', 'DeghatM1', 1, '#ffb777d4', data) +
-            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, '#ffb777d4', data) +
-            CreateTableTd('MAmount2', 'DeghatM2', 1, '#ffb777d4', data) +
-            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, '#ffb777d4', data) +
-            CreateTableTd('MAmount3', 'DeghatM3', 1, '#ffb777d4', data) +
-            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, '#ffb777d4', data) +
-            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, '#ffb777d4', data) +
+            CreateTableTd('MAmount1', 'DeghatM1', 1, 'cornsilk', data) +
+            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, 'cornsilk', data) +
+            CreateTableTd('MAmount2', 'DeghatM2', 1, 'cornsilk', data) +
+            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, 'cornsilk', data) +
+            CreateTableTd('MAmount3', 'DeghatM3', 1, 'cornsilk', data) +
+            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, 'cornsilk', data) +
+            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, 'cornsilk', data) +
 
             CreateTableTd('MkzCode', 0, 0, 0, data) +
             CreateTableTd('MkzName', 0, 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, 0, data) +
             CreateTableTd('OprName', 0, 0, 0, data) +
-            CreateTableTd('F01', 0, 0, 0, data) +
-            CreateTableTd('F02', 0, 0, 0, data) +
-            CreateTableTd('F03', 0, 0, 0, data) +
-            CreateTableTd('F04', 0, 0, 0, data) +
-            CreateTableTd('F05', 0, 0, 0, data) +
-            CreateTableTd('F06', 0, 0, 0, data) +
-            CreateTableTd('F07', 0, 0, 0, data) +
-            CreateTableTd('F08', 0, 0, 0, data) +
-            CreateTableTd('F09', 0, 0, 0, data) +
-            CreateTableTd('F10', 0, 0, 0, data) +
-            CreateTableTd('F11', 0, 0, 0, data) +
-            CreateTableTd('F12', 0, 0, 0, data) +
-            CreateTableTd('F13', 0, 0, 0, data) +
-            CreateTableTd('F14', 0, 0, 0, data) +
-            CreateTableTd('F15', 0, 0, 0, data) +
-            CreateTableTd('F16', 0, 0, 0, data) +
-            CreateTableTd('F17', 0, 0, 0, data) +
-            CreateTableTd('F18', 0, 0, 0, data) +
-            CreateTableTd('F19', 0, 0, 0, data) +
-            CreateTableTd('F20', 0, 0, 0, data) +
+            CreateTableTd('IDocF01', 0, 0, 0, data) +
+            CreateTableTd('IDocF02', 0, 0, 0, data) +
+            CreateTableTd('IDocF03', 0, 0, 0, data) +
+            CreateTableTd('IDocF04', 0, 0, 0, data) +
+            CreateTableTd('IDocF05', 0, 0, 0, data) +
+            CreateTableTd('IDocF06', 0, 0, 0, data) +
+            CreateTableTd('IDocF07', 0, 0, 0, data) +
+            CreateTableTd('IDocF08', 0, 0, 0, data) +
+            CreateTableTd('IDocF09', 0, 0, 0, data) +
+            CreateTableTd('IDocF10', 0, 0, 0, data) +
+            CreateTableTd('IDocF11', 0, 0, 0, data) +
+            CreateTableTd('IDocF12', 0, 0, 0, data) +
+            CreateTableTd('IDocF13', 0, 0, 0, data) +
+            CreateTableTd('IDocF14', 0, 0, 0, data) +
+            CreateTableTd('IDocF15', 0, 0, 0, data) +
+            CreateTableTd('IDocF16', 0, 0, 0, data) +
+            CreateTableTd('IDocF17', 0, 0, 0, data) +
+            CreateTableTd('IDocF18', 0, 0, 0, data) +
+            CreateTableTd('IDocF19', 0, 0, 0, data) +
+            CreateTableTd('IDocF20', 0, 0, 0, data) +
             /* CreateTableTd('Kalaf01', 0, 0, data) +
            CreateTableTd('Kalaf02', 0, 0, data) +
            CreateTableTd('Kalaf03', 0, 0, data) +
@@ -2289,26 +2289,26 @@
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
             CreateTableTdSum('OprName', 1, data) +
-            CreateTableTdSum('F01', 1, data) +
-            CreateTableTdSum('F02', 1, data) +
-            CreateTableTdSum('F03', 1, data) +
-            CreateTableTdSum('F04', 1, data) +
-            CreateTableTdSum('F05', 1, data) +
-            CreateTableTdSum('F06', 1, data) +
-            CreateTableTdSum('F07', 1, data) +
-            CreateTableTdSum('F08', 1, data) +
-            CreateTableTdSum('F09', 1, data) +
-            CreateTableTdSum('F10', 1, data) +
-            CreateTableTdSum('F11', 1, data) +
-            CreateTableTdSum('F12', 1, data) +
-            CreateTableTdSum('F13', 1, data) +
-            CreateTableTdSum('F14', 1, data) +
-            CreateTableTdSum('F15', 1, data) +
-            CreateTableTdSum('F16', 1, data) +
-            CreateTableTdSum('F17', 1, data) +
-            CreateTableTdSum('F18', 1, data) +
-            CreateTableTdSum('F19', 1, data) +
-            CreateTableTdSum('F20', 1, data) +
+            CreateTableTdSum('IDocF01', 1, data) +
+            CreateTableTdSum('IDocF02', 1, data) +
+            CreateTableTdSum('IDocF03', 1, data) +
+            CreateTableTdSum('IDocF04', 1, data) +
+            CreateTableTdSum('IDocF05', 1, data) +
+            CreateTableTdSum('IDocF06', 1, data) +
+            CreateTableTdSum('IDocF07', 1, data) +
+            CreateTableTdSum('IDocF08', 1, data) +
+            CreateTableTdSum('IDocF09', 1, data) +
+            CreateTableTdSum('IDocF10', 1, data) +
+            CreateTableTdSum('IDocF11', 1, data) +
+            CreateTableTdSum('IDocF12', 1, data) +
+            CreateTableTdSum('IDocF13', 1, data) +
+            CreateTableTdSum('IDocF14', 1, data) +
+            CreateTableTdSum('IDocF15', 1, data) +
+            CreateTableTdSum('IDocF16', 1, data) +
+            CreateTableTdSum('IDocF17', 1, data) +
+            CreateTableTdSum('IDocF18', 1, data) +
+            CreateTableTdSum('IDocF19', 1, data) +
+            CreateTableTdSum('IDocF20', 1, data) +
             /* CreateTableTdSum('Kalaf01', 1, data) +
            CreateTableTdSum('Kalaf02', 1, data) +
            CreateTableTdSum('Kalaf03', 1, data) +
@@ -2390,26 +2390,26 @@
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
             CreateTableTdSearch('OprName', data) +
-            CreateTableTdSearch('F01', data) +
-            CreateTableTdSearch('F02', data) +
-            CreateTableTdSearch('F03', data) +
-            CreateTableTdSearch('F04', data) +
-            CreateTableTdSearch('F05', data) +
-            CreateTableTdSearch('F06', data) +
-            CreateTableTdSearch('F07', data) +
-            CreateTableTdSearch('F08', data) +
-            CreateTableTdSearch('F09', data) +
-            CreateTableTdSearch('F10', data) +
-            CreateTableTdSearch('F11', data) +
-            CreateTableTdSearch('F12', data) +
-            CreateTableTdSearch('F13', data) +
-            CreateTableTdSearch('F14', data) +
-            CreateTableTdSearch('F15', data) +
-            CreateTableTdSearch('F16', data) +
-            CreateTableTdSearch('F17', data) +
-            CreateTableTdSearch('F18', data) +
-            CreateTableTdSearch('F19', data) +
-            CreateTableTdSearch('F20', data) +
+            CreateTableTdSearch('IDocF01', data) +
+            CreateTableTdSearch('IDocF02', data) +
+            CreateTableTdSearch('IDocF03', data) +
+            CreateTableTdSearch('IDocF04', data) +
+            CreateTableTdSearch('IDocF05', data) +
+            CreateTableTdSearch('IDocF06', data) +
+            CreateTableTdSearch('IDocF07', data) +
+            CreateTableTdSearch('IDocF08', data) +
+            CreateTableTdSearch('IDocF09', data) +
+            CreateTableTdSearch('IDocF10', data) +
+            CreateTableTdSearch('IDocF11', data) +
+            CreateTableTdSearch('IDocF12', data) +
+            CreateTableTdSearch('IDocF13', data) +
+            CreateTableTdSearch('IDocF14', data) +
+            CreateTableTdSearch('IDocF15', data) +
+            CreateTableTdSearch('IDocF16', data) +
+            CreateTableTdSearch('IDocF17', data) +
+            CreateTableTdSearch('IDocF18', data) +
+            CreateTableTdSearch('IDocF19', data) +
+            CreateTableTdSearch('IDocF20', data) +
             /* CreateTableTdSearch('Kalaf01', data) +
            CreateTableTdSearch('Kalaf02', data) +
            CreateTableTdSearch('Kalaf03', data) +

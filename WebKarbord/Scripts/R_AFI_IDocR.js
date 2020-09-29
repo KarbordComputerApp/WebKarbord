@@ -12,6 +12,8 @@
     self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.StatusList = ko.observableArray([]); // ليست نوع سند ها
+    self.IModeList = ko.observableArray([]); // ليست نوع سند
 
 
 
@@ -19,15 +21,14 @@
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
-
+    var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس وارده صادره
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
-
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
-
     var IDocRUri = server + '/api/ReportInv/IDocR/'; // آدرس گزارش 
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
@@ -58,6 +59,16 @@
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+
+    var StatusCode = '';
+    var counterStatus = 3;
+    var list_StatusSelect = ["موقت", "تایید", "تصویب"];
+
+    var IModeCode = '';
+    var counterIMode = 0;
+    var list_IModeSelect = new Array();
+
+
 
     $("#textTotal").text('');
 
@@ -190,6 +201,15 @@
         });
     }
 
+    //Get Status List
+    function getStatusList() {
+        progName = getProgName('P');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+            self.StatusList(data);
+        });
+    }
+
+
     self.OptionsCaptionAnbar = ko.computed(function () {
         return 'همه انبار ها';
     });
@@ -223,7 +243,7 @@
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
-        noSanadAnbar = $("#noSanadAnbar").val();
+        //noSanadAnbar = $("#noSanadAnbar").val();
 
         var invcode = '';
         for (var i = 0; i <= counterInv - 1; i++) {
@@ -273,11 +293,28 @@
                 oprcode += list_OprSelect[i];
         }
 
+        var statuscode = '';
+        for (var i = 0; i <= counterStatus - 1; i++) {
+            if (i < counterStatus - 1)
+                statuscode += list_StatusSelect[i] + '*';
+            else
+                statuscode += list_StatusSelect[i];
+        }
+
+        var imodecode = '';
+        for (var i = 0; i <= counterIMode - 1; i++) {
+            if (i < counterIMode - 1)
+                imodecode += list_IModeSelect[i] + '*';
+            else
+                imodecode += list_IModeSelect[i];
+        }
+
 
         var IDocRObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
-            NoSanadAnbar: noSanadAnbar,
+            StatusCode: statuscode,
+            ModeCode: imodecode,
             InvCode: invcode,
             KGruCode: kGrucode,
             KalaCode: kalacode,
@@ -338,11 +375,12 @@
 
     getInvList();
     getKalaList();
-    getNoSanad();
+   // getNoSanad();
     getThvlList();
     getKGruList();
     getOprList();
     getMkzList();
+    getStatusList();
 
     $('#nameKala').val('همه موارد');
     $('#nameInv').val('همه موارد');
@@ -350,7 +388,8 @@
     $('#nameThvl').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
-
+    $('#nameStatus').val('3 مورد انتخاب شده');
+    $('#nameIMode').val('همه موارد');
 
     //------------------------------------------------------
     self.currentPageIDocR = ko.observable();
@@ -1787,7 +1826,7 @@
     });
 
 
-    function getNoSanad() {
+   /* function getNoSanad() {
         select = document.getElementById('noSanadAnbar');
         for (var i = 0; i <= 2; i++) {
             opt = document.createElement('option');
@@ -1807,63 +1846,378 @@
             }
             select.appendChild(opt);
         }
+    };*/
+
+    self.currentPageStatus = ko.observable();
+    self.pageSizeStatus = ko.observable(10);
+    self.currentPageIndexStatus = ko.observable(0);
+
+    self.filterStatus0 = ko.observable("");
+
+    self.filterStatusList = ko.computed(function () {
+
+        self.currentPageIndexStatus(0);
+        var filter0 = self.filterStatus0();
+
+        if (!filter0) {
+            return self.StatusList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.StatusList(), function (item) {
+                result =
+                    item.Status == null ? '' : item.Status.toString().search(filter0) >= 0
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageStatus = ko.computed(function () {
+        var pageSizeStatus = parseInt(self.pageSizeStatus(), 10),
+            startIndex = pageSizeStatus * self.currentPageIndexStatus(),
+            endIndex = startIndex + pageSizeStatus;
+        return self.filterStatusList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageStatus = function () {
+        if (((self.currentPageIndexStatus() + 1) * self.pageSizeStatus()) < self.filterStatusList().length) {
+            self.currentPageIndexStatus(self.currentPageIndexStatus() + 1);
+        }
+    };
+
+    self.previousPageStatus = function () {
+        if (self.currentPageIndexStatus() > 0) {
+            self.currentPageIndexStatus(self.currentPageIndexStatus() - 1);
+        }
+    };
+
+    self.firstPageStatus = function () {
+        self.currentPageIndexStatus(0);
+    };
+
+    self.lastPageStatus = function () {
+        countStatus = parseInt(self.filterStatusList().length / self.pageSizeStatus(), 10);
+        if ((self.filterStatusList().length % self.pageSizeStatus()) == 0)
+            self.currentPageIndexStatus(countStatus - 1);
+        else
+            self.currentPageIndexStatus(countStatus);
+    };
+
+    self.sortTableStatus = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.StatusList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeStatus('');
+
+
+        if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshStatus').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست وضعیت سند به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getStatusList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+    $('#TableBodyListStatus').append(
+        '<tr>' +
+        '    <td>موقت</td>' +
+        '</tr>' +
+        '<tr>' +
+        '    <td>تایید</td>' +
+        '</tr>' +
+        '<tr><td>تصویب</td> </tr>'
+    );
+
+
+    self.AddStatus = function (item) {
+
+        StatusCode = item.Code;
+        find = false;
+        list_StatusSelect.forEach(function (item, key) {
+            if (item == StatusCode) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListStatus').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Status">' + item.Status + '</td > '
+                + '</tr>'
+            );
+            list_StatusSelect[counterStatus] = item.Status;
+            counterStatus = counterStatus + 1;
+        }
+    };
+
+    self.AddAllStatus = function () {
+        list_StatusSelect = new Array();
+        list = self.StatusList();
+        $("#TableBodyListStatus").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListStatus').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Status">' + list[i].Status + '</td > '
+                + '</tr>'
+            );
+            list_StatusSelect[i] = list[i].Status;
+            counterStatus = i + 1;
+        }
     };
 
 
-    /* function getModeCode() {
-         select = document.getElementById('modeCode');
-         for (var i = 1; i <= 11; i++) {
-             opt = document.createElement('option');
-             if (i == 1) {
-                 opt.value = 101;
-                 opt.innerHTML = 'موجودي اول دوره';
-             }
-             if (i == 2) {
-                 opt.value = 102;
-                 opt.innerHTML = 'رسيد ورود';
-                 opt.selected = true;
-             }
-             if (i == 3) {
-                 opt.value = 103;
-                 opt.innerHTML = 'رسيد برگشت از فروش';
-             }
-             if (i == 4) {
-                 opt.value = 106;
-                 opt.innerHTML = 'رسيد انتقال به انبار';
-             }
-             if (i == 5) {
-                 opt.value = 108;
-                 opt.innerHTML = 'رسيد خريد';
-             }
-             if (i == 6) {
-                 opt.value = 110;
-                 opt.innerHTML = 'رسيد محصول';
-             }
-     
-             if (i == 7) {
-                 opt.value = 104;
-                 opt.innerHTML = 'حواله خروج';
-                 //opt.selected = true;
-             }
-             if (i == 8) {
-                 opt.value = 105;
-                 opt.innerHTML = 'حواله برگشت از خريد';
-             }
-             if (i == 9) {
-                 opt.value = 107;
-                 opt.innerHTML = 'حواله انتقال از انبار';
-             }
-             if (i == 10) {
-                 opt.value = 109;
-                 opt.innerHTML = 'حواله فروش';
-             }
-             if (i == 11) {
-                 opt.value = 111;
-                 opt.innerHTML = 'حواله مواد';
-             }
-             select.appendChild(opt);
-         }
-     } */
+    self.DelAllStatus = function () {
+        list_StatusSelect = new Array();
+        counterStatus = 0;
+        $("#TableBodyListStatus").empty();
+    };
+
+
+    $('#modal-Status').on('hide.bs.modal', function () {
+        if (counterStatus > 0)
+            $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ')
+        else
+            $('#nameStatus').val('همه موارد');
+    });
+
+    $('#modal-Status').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+    getIModeList();
+    //Get  IMode List
+    function getIModeList() {
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
+            self.IModeList(data);
+        });
+    }
+
+
+    self.currentPageIMode = ko.observable();
+    self.pageSizeIMode = ko.observable(10);
+    self.currentPageIndexIMode = ko.observable(0);
+
+    self.filterIMode0 = ko.observable("");
+    self.filterIMode1 = ko.observable("");
+
+    self.filterIModeList = ko.computed(function () {
+
+        self.currentPageIndexIMode(0);
+        var filter0 = self.filterIMode0().toUpperCase();
+        var filter1 = self.filterIMode1();
+
+        if (!filter0 && !filter1) {
+            return self.IModeList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.IModeList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageIMode = ko.computed(function () {
+        var pageSizeIMode = parseInt(self.pageSizeIMode(), 10),
+            startIndex = pageSizeIMode * self.currentPageIndexIMode(),
+            endIndex = startIndex + pageSizeIMode;
+        return self.filterIModeList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageIMode = function () {
+        if (((self.currentPageIndexIMode() + 1) * self.pageSizeIMode()) < self.filterIModeList().length) {
+            self.currentPageIndexIMode(self.currentPageIndexIMode() + 1);
+        }
+    };
+
+    self.previousPageIMode = function () {
+        if (self.currentPageIndexIMode() > 0) {
+            self.currentPageIndexIMode(self.currentPageIndexIMode() - 1);
+        }
+    };
+
+    self.firstPageIMode = function () {
+        self.currentPageIndexIMode(0);
+    };
+
+    self.lastPageIMode = function () {
+        countIMode = parseInt(self.filterIModeList().length / self.pageSizeIMode(), 10);
+        if ((self.filterIModeList().length % self.pageSizeIMode()) == 0)
+            self.currentPageIndexIMode(countIMode - 1);
+        else
+            self.currentPageIndexIMode(countIMode);
+    };
+
+    self.sortTableIMode = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.IModeList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshIMode').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست انواع سند به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getIModeList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.AddIMode = function (item) {
+
+        IModeCode = item.Code;
+        find = false;
+        list_IModeSelect.forEach(function (item, key) {
+            if (item == IModeCode) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListIMode').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + item.Code + '</td > '
+                + ' <td data-bind="text: Name">' + item.Name + '</td > '
+                + '</tr>'
+            );
+            list_IModeSelect[counterIMode] = item.Code;
+            counterIMode = counterIMode + 1;
+        }
+    };
+
+
+    self.AddAllIMode = function () {
+        list_IModeSelect = new Array();
+        list = self.IModeList();
+        $("#TableBodyListIMode").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListIMode').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + '</tr>'
+            );
+            list_IModeSelect[i] = list[i].Code;
+            counterIMode = i + 1;
+        }
+    };
+
+
+    self.DelAllIMode = function () {
+        list_IModeSelect = new Array();
+        counterIMode = 0;
+        $("#TableBodyListIMode").empty();
+    };
+
+
+    $('#modal-IMode').on('hide.bs.modal', function () {
+        if (counterIMode > 0)
+            $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ')
+        else
+            $('#nameIMode').val('همه موارد');
+    });
+
+    $('#modal-IMode').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
 
 
     $('.fix').attr('class', 'form-line date focused fix');
@@ -1917,7 +2271,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageIDocR}" style="cursor: default;">' +
-            '     <tr >' +
+            '   <tr data-bind=" style: {\'background-color\':  Status == \'باطل\'  ? \'#ff252540\' : null  } " > ' +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +

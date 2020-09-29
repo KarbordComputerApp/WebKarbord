@@ -785,6 +785,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == 'ADOC') {
         validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
         validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
+        validation == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
+
         validation = CheckAccess('CHG_ADOC');// edit Sanad Hesab
         validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
         validation = CheckAccess('DEL_ADOC'); // delete Sanad Hesab
@@ -818,6 +820,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
         validation = CheckAccess('NEW_SFORD');// new sefaresh forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_SFORD');// edit sefaresh forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SFORD'); // delete sefaresh forosh
@@ -845,6 +849,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
         validation = CheckAccess('NEW_SPDOC');// new pish Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_SPDOC');// edit pish Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SPDOC'); // delete pish Factor forosh
@@ -871,12 +877,14 @@ function SetValidation() {
 
     // OTHERUSER_SDOC
 
-    validation = CheckAccess('SDOC');
+    validation = CheckAccess('SDOC_');
     ShowMenu[4] = validation;  //  فاکتور قروش
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
         validation = CheckAccess('NEW_SDOC');// new Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_SDOC');// edit Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SDOC'); // delete Factor forosh
@@ -905,6 +913,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
         validation = CheckAccess('NEW_SRDOC');// new back Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_SRDOC');// edit back Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SRDOC'); // delete back Factor forosh
@@ -932,6 +942,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
         validation = CheckAccess('NEW_SHVL');// new 
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_SHVL');// edit
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SHVL'); // delete 
@@ -957,6 +969,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
         validation = CheckAccess('NEW_SEXT');// new 
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_SEXT');// edit 
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SEXT'); // delete 
@@ -982,6 +996,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
         validation = CheckAccess('NEW_PFORD');// new
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_PFORD');// edit
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_PFORD'); // delete
@@ -1008,6 +1024,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
         validation = CheckAccess('NEW_PPDOC');// new pish Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_PPDOC');// edit pish Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_PPDOC'); // delete pish Factor kharid
@@ -1030,12 +1048,14 @@ function SetValidation() {
         }
     }
 
-    validation = CheckAccess('PDOC');
+    validation = CheckAccess('PDOC_');
     ShowMenu[7] = validation;  //  فاکتور خرید
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
         validation = CheckAccess('NEW_PDOC');// new Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_PDOC');// edit Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_PDOC'); // delete Factor kharid
@@ -1063,6 +1083,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         validation = CheckAccess('NEW_PRDOC');// new back Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        validation == true ? $("#MoveFactor").show() : $("#MoveFactor").hide()
+
         validation = CheckAccess('CHG_PRDOC');// edit back Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
 
@@ -1092,6 +1114,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
         validation = CheckAccess('NEW_IIDOC');// new varedae anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
+        validation == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
+
         validation = CheckAccess('CHG_IIDOC');// edit varedae anbar
         validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
         validation = CheckAccess('DEL_IIDOC'); // delete varedae anbar
@@ -1119,6 +1143,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
         validation = CheckAccess('NEW_IODOC');// new sadere anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
+        validation == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
+        
         validation = CheckAccess('CHG_IODOC');// edit sadere anbar
         validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
         validation = CheckAccess('DEL_IODOC'); // delete sadere anbar

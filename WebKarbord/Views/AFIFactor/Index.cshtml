@@ -8,16 +8,16 @@
                 <h2><strong>لیست <b id="TitleListFactor"></b></strong></h2>
                 <div class="row header-dropdown m-r--5">
                     <a id="Print" style="margin-left: 10px;">
-                        <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png"width="20" height="20">
+                        <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
                     </a>
                     <a id="SettingColumn" class="">
-                        <img src="~/Content/img/sanad/list-add.png"width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
                     </a>
                     <a id="refreshFDocH" class="">
-                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png"width="20" height="20" style="margin-left: 10px;" />
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                     </a>
                     <a id="AddNewFactor" class="">
-                        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png"width="20" height="20" />
+                        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
                     </a>
 
                 </div>
@@ -230,10 +230,30 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <select id="modeCodeMove"></select>
+
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a class="active show" data-toggle="tab" href="#home" style="padding-left: 20px;padding-right: 20px;">پر کردن</a>
+                    </li>
+                    <li><a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;">انتقال</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <div id="modeListMove">
+
+                        </div>
+
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <select id="modeCodeMove1"></select>
+                    </div>
                 </div>
+
             </div>
+
+
+
 
             <br />
             <br />

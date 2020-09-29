@@ -214,19 +214,19 @@
 
     //Get FDocH 
     function getFDocH(select) {
-        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode + '/top' + select + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
-            //$("div.loadingZone").show();
+
+        var FDocHMinObject = {
+            ModeCode: sessionStorage.ModeCode,
+            select: select,
+            user: sessionStorage.userName,
+            AccessSanad: sessionStorage.AccessSanad,
+            updatedate: null
+        }
+
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.FDocHList(data);
-
-            //ajaxFunction(FDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (dataCount) {
-            //     $('#countAllRecord').text(dataCount);
-            // });
-
-            // if (self.FDocHList().length > 0) {
-            //     $('#countAllRecord').text(self.FDocHList().length);
-            // }
         });
     }
 
@@ -1016,7 +1016,7 @@
         serial = item.SerialNumber;
         docDate = item.DocDate;
         $('#modeCodeMove').val(defultMove);
-        $('#titleMove').text(' انتقال '+TitleListFactor + ' ' + item.DocNo + ' به ');
+        $('#titleMove').text(' انتقال ' + TitleListFactor + ' ' + item.DocNo + ' به ');
         $('#modal-Move').modal();
     }
 
@@ -1025,14 +1025,37 @@
     function getFModeList() {
         ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
             self.FModeList(data);
-            select = document.getElementById('modeCodeMove');
+
+            var textExc = '';
+
+            textExc = '<select id="modeCodeMove">';
+
+            for (var i = 0; i < data.length; i++) {
+                textExc += '<option value="' + data[i].Code + '"';
+                if (data[i].InOut == 1) {
+                    textExc += 'style="background-color: cornsilk" ';
+                }
+                textExc +=  '>' + data[i].Name +  '</option>';
+            }
+            
+            textExc += '</select>';
+
+            $("#modeListMove").empty();
+            $('#modeListMove').append(textExc);
+
+
+            /*select = document.getElementById('modeCodeMove');
             for (var i = 0; i < data.length; i++) {
                 opt = document.createElement('option');
                 opt.value = data[i].Code;
                 opt.innerHTML = data[i].Name;
                 //opt.selected = true;
                 select.appendChild(opt);
-            }
+            }*/
+
+
+
+
         });
     }
 
@@ -1199,7 +1222,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveFactor" data-bind="click: $root.MoveFactor, visible: $root.ShowAction(Eghdam)">' +
+            '   <a id="MoveFactor" data-bind="click: $root.MoveFactor">' +
             '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
@@ -1301,6 +1324,11 @@
     $('#Print').click(function () {
         setReport(self.filterFDocHList(), 'Free');
     });
+
+
+
+
+
 
 };
 
