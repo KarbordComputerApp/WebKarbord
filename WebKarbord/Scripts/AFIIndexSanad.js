@@ -51,7 +51,7 @@
         'F19',
         'F20'
     ];
-    
+
 
 
     //Get RprtCols List
@@ -512,6 +512,13 @@
             return false;
     }
 
+    self.ShowMove = function (Eghdam) {
+        if (sessionStorage.moveSanad == 'true')
+            return true;
+        else
+            return false;
+    }
+
 
     $("#searchADocH").on("keydown", function search(e) {
         var key = e.charCode || e.keyCode || 0;
@@ -619,7 +626,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad">' +
+            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad , visible: $root.ShowMove(Tanzim) ">' +
             '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
@@ -770,7 +777,7 @@
             item = response;
             item = item[0];
 
-            
+
 
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
@@ -810,6 +817,9 @@
         });
 
     });
+
+    //sessionStorage.moveSanad == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
+
 
 };
 

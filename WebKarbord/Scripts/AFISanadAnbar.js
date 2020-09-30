@@ -1653,6 +1653,9 @@
         }
     }
 
+    if (sessionStorage.CHG == 'false')
+        viewAction = false;
+
     if (viewAction) {
         $('#action_header').removeAttr('style');
         $('#action_body').removeAttr('style');

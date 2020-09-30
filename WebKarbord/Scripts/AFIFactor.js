@@ -2247,6 +2247,9 @@
             }
         }
 
+        if (sessionStorage.CHG == 'false')
+            viewAction = false;
+
         if (viewAction) {
             $('#action_headerfactor').removeAttr('style');
             $('#action_bodyfactor').removeAttr('style');

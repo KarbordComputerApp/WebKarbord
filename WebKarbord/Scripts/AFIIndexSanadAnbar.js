@@ -648,6 +648,12 @@
     }
 
 
+    self.ShowMove = function (Eghdam) {
+        if (sessionStorage.moveSanadAnbar == 'true')
+            return true;
+        else
+            return false;
+    }
 
     self.ShowAction = function (Eghdam) {
 
@@ -890,7 +896,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad">' +
+            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)">' +
             '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +

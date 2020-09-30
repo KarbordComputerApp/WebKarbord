@@ -10,6 +10,8 @@
     sessionStorage.searchADocH = "";
     self.bundNumberImport = 0;
 
+    var viewAction = false;
+
     var AccCode = "";
     var AccZCode = "";
 
@@ -2029,7 +2031,7 @@
                     (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
                     ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
                     (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0)// &&
-                    //(item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
+                //(item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
                 return result;
             })
             return tempData;
@@ -2877,7 +2879,7 @@
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
             CreateTableTh('BandSpec', data) +
-            '<th id="action_headerfactor">عملیات</th>' +
+            '<th id="action_headersanad">عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
@@ -2899,7 +2901,7 @@
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('BandSpec', 0, 0, data) +
-            '<td id="action_body">' +
+            '<td id="action_bodysanad">' +
             '<a data-bind="click: $root.UpdateBand">' +
             '    <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '</a>' +
@@ -3137,6 +3139,34 @@
             flagOtherFieldShow = false;
         }
     });
+
+
+    $('#action_headersanad').attr('style', 'display: none');
+    $('#action_bodysanad').attr('style', 'display: none');
+    $('#action_Adoc').attr('style', 'display: none');
+
+    $.fn.CheckAccess = function () {
+
+        if (sessionStorage.AccessViewSanad == 'true') {
+            viewAction = true;
+        }
+        else {
+            if (sessionStorage.Eghdam == sessionStorage.userName) {
+                viewAction = true;
+            }
+        }
+
+        if (sessionStorage.CHG == 'false')
+            viewAction = false;
+
+        if (viewAction) {
+            $('#action_headersanad').removeAttr('style');
+            $('#action_bodysanad').removeAttr('style');
+            $('#action_Adoc').removeAttr('style');
+        }
+    }
+
+    $(this).CheckAccess();
 
     createViewer();
     $('#Print').click(function () {
