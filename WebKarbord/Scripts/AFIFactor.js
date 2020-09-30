@@ -2126,8 +2126,7 @@
     $('#action_footerfactor').attr('style', 'display: none');
     $('#action_Fdoc').attr('style', 'display: none');
     $('#button_cust').attr('style', 'display: none');
-
-
+    $('#insertband').attr('style', 'display: none');
 
     $.fn.CheckAccess = function () {
 
@@ -2256,6 +2255,8 @@
             $('#action_footerfactor').removeAttr('style');
             $('#action_Fdoc').removeAttr('style');
             $('#button_cust').removeAttr('style');
+            $('#insertband').removeAttr('style');
+            
         }
     }
 

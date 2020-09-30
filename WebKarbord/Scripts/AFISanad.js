@@ -3144,6 +3144,7 @@
     $('#action_headersanad').attr('style', 'display: none');
     $('#action_bodysanad').attr('style', 'display: none');
     $('#action_Adoc').attr('style', 'display: none');
+    $('#insertband').attr('style', 'display: none');
 
     $.fn.CheckAccess = function () {
 
@@ -3163,6 +3164,7 @@
             $('#action_headersanad').removeAttr('style');
             $('#action_bodysanad').removeAttr('style');
             $('#action_Adoc').removeAttr('style');
+            $('#insertband').attr('style', 'display: none');
         }
     }
 
