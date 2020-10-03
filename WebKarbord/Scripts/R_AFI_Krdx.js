@@ -2017,502 +2017,6 @@
 
     $('.fix').attr('class', 'form-line date focused fix');
 
-    function CreateTableReport(data) {
-        $("#TableReport").empty();
-        $('#TableReport').append(
-            ' <table class="table table-hover">' +
-            '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableKrdx">' +
-            CreateTableTh('DocDate', data) +
-            //CreateTableTh('InvName', data) +
-            CreateTableTh('ModeName', data) +
-            CreateTableTh('Spec', data) +
-            CreateTableTh('ThvlCode', data) +
-            CreateTableTh('ThvlName', data) +
-            CreateTableTh('Status', data) +
-            CreateTableTh('DimX', data) +
-            CreateTableTh('DimY', data) +
-            CreateTableTh('DimZ', data) +
-            CreateTableTh('KalaFileNo', data) +
-            CreateTableTh('KalaState', data) +
-            CreateTableTh('KalaExf1', data) +
-            CreateTableTh('KalaExf2', data) +
-            CreateTableTh('KalaExf3', data) +
-            CreateTableTh('KalaExf4', data) +
-            CreateTableTh('KalaExf5', data) +
-            CreateTableTh('KalaExf6', data) +
-            CreateTableTh('KalaExf7', data) +
-            CreateTableTh('KalaExf8', data) +
-            CreateTableTh('KalaExf9', data) +
-            CreateTableTh('KalaExf10', data) +
-            CreateTableTh('KalaExf11', data) +
-            CreateTableTh('KalaExf12', data) +
-            CreateTableTh('KalaExf13', data) +
-            CreateTableTh('KalaExf14', data) +
-            CreateTableTh('KalaExf15', data) +
-            CreateTableTh('InDocNo', data) +
-            CreateTableTh('VAmount1', data) +
-            CreateTableTh('VUnitPrice1', data) +
-            CreateTableTh('VAmount2', data) +
-            CreateTableTh('VUnitPrice2', data) +
-            CreateTableTh('VAmount3', data) +
-            CreateTableTh('VUnitPrice3', data) +
-            CreateTableTh('VTotalPrice', data) +
-            CreateTableTh('iAddMin1', data) +
-            CreateTableTh('iAddMin2', data) +
-            CreateTableTh('iAddMin3', data) +
-            CreateTableTh('OutDocNo', data) +
-            CreateTableTh('SAmount1', data) +
-            CreateTableTh('SUnitPrice1', data) +
-            CreateTableTh('SAmount2', data) +
-            CreateTableTh('SUnitPrice2', data) +
-            CreateTableTh('SAmount3', data) +
-            CreateTableTh('SUnitPrice3', data) +
-            CreateTableTh('STotalPrice', data) +
-
-            CreateTableTh('MAmount1', data) +
-            CreateTableTh('MUnitPrice1', data) +
-            CreateTableTh('MAmount2', data) +
-            CreateTableTh('MUnitPrice2', data) +
-            CreateTableTh('MAmount3', data) +
-            CreateTableTh('MUnitPrice3', data) +
-            CreateTableTh('MTotalPrice', data) +
-
-            CreateTableTh('MkzCode', data) +
-            CreateTableTh('MkzName', data) +
-            CreateTableTh('OprCode', data) +
-            CreateTableTh('OprName', data) +
-            CreateTableTh('IDocF01', data) +
-            CreateTableTh('IDocF02', data) +
-            CreateTableTh('IDocF03', data) +
-            CreateTableTh('IDocF04', data) +
-            CreateTableTh('IDocF05', data) +
-            CreateTableTh('IDocF06', data) +
-            CreateTableTh('IDocF07', data) +
-            CreateTableTh('IDocF08', data) +
-            CreateTableTh('IDocF09', data) +
-            CreateTableTh('IDocF10', data) +
-            CreateTableTh('IDocF11', data) +
-            CreateTableTh('IDocF12', data) +
-            CreateTableTh('IDocF13', data) +
-            CreateTableTh('IDocF14', data) +
-            CreateTableTh('IDocF15', data) +
-            CreateTableTh('IDocF16', data) +
-            CreateTableTh('IDocF17', data) +
-            CreateTableTh('IDocF18', data) +
-            CreateTableTh('IDocF19', data) +
-            CreateTableTh('IDocF20', data) +
-            /*   CreateTableTh('Kalaf01', data) +
-             CreateTableTh('Kalaf02', data) +
-             CreateTableTh('Kalaf03', data) +
-             CreateTableTh('Kalaf04', data) +
-             CreateTableTh('Kalaf05', data) +
-             CreateTableTh('Kalaf06', data) +
-             CreateTableTh('Kalaf07', data) +
-             CreateTableTh('Kalaf08', data) +
-             CreateTableTh('Kalaf09', data) +
-             CreateTableTh('Kalaf10', data) +
-             CreateTableTh('Kalaf11', data) +
-             CreateTableTh('Kalaf12', data) +
-             CreateTableTh('Kalaf13', data) +
-             CreateTableTh('Kalaf14', data) +
-             CreateTableTh('Kalaf15', data) +
-             CreateTableTh('Kalaf16', data) +
-             CreateTableTh('Kalaf17', data) +
-             CreateTableTh('Kalaf18', data) +
-             CreateTableTh('Kalaf19', data) +
-             CreateTableTh('Kalaf20', data) +*/
-            '      </tr>' +
-            '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
-            '     <tr data-bind=" style: {\'background-color\':  Status == \'باطل\'  ? \'#ff252540\' : null  } " >' +
-            CreateTableTd('DocDate', 0, 0,0, data) +
-            // CreateTableTd('InvName', 0, 0,0, data) +
-            CreateTableTd('ModeName', 0, 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, 0, data) +
-            CreateTableTd('ThvlCode', 0, 0, 0, data) +
-            CreateTableTd('ThvlName', 0, 0, 0, data) +
-            CreateTableTd('Status', 0, 0, 0, data) +
-            CreateTableTd('DimX', 0, 0, 0, data) +
-            CreateTableTd('DimY', 0, 0, 0, data) +
-            CreateTableTd('DimZ', 0, 0, 0, data) +
-            CreateTableTd('KalaFileNo', 0, 0, 0, data) +
-            CreateTableTd('KalaState', 0, 0, 0, data) +
-            CreateTableTd('KalaExf1', 0, 0, 0, data) +
-            CreateTableTd('KalaExf2', 0, 0, 0, data) +
-            CreateTableTd('KalaExf3', 0, 0, 0, data) +
-            CreateTableTd('KalaExf4', 0, 0, 0, data) +
-            CreateTableTd('KalaExf5', 0, 0, 0, data) +
-            CreateTableTd('KalaExf6', 0, 0, 0, data) +
-            CreateTableTd('KalaExf7', 0, 0, 0, data) +
-            CreateTableTd('KalaExf8', 0, 0, 0, data) +
-            CreateTableTd('KalaExf9', 0, 0, 0, data) +
-            CreateTableTd('KalaExf10', 0, 0, 0, data) +
-            CreateTableTd('KalaExf11', 0, 0, 0, data) +
-            CreateTableTd('KalaExf12', 0, 0, 0, data) +
-            CreateTableTd('KalaExf13', 0, 0, 0, data) +
-            CreateTableTd('KalaExf14', 0, 0, 0, data) +
-            CreateTableTd('KalaExf15', 0, 0, 0, data) +
-            CreateTableTd('InDocNo', 0, 0, 'cornsilk', data) +
-            CreateTableTd('VAmount1', 'DeghatM1', 1, 'cornsilk' , data) +
-            CreateTableTd('VUnitPrice1', 'DeghatR1', 2, 'cornsilk', data) +
-            CreateTableTd('VAmount2', 'DeghatM2', 1, 'cornsilk', data) +
-            CreateTableTd('VUnitPrice2', 'DeghatR2', 2, 'cornsilk', data) +
-            CreateTableTd('VAmount3', 'DeghatM3', 1, 'cornsilk', data) +
-            CreateTableTd('VUnitPrice3', 'DeghatR3', 2, 'cornsilk', data) +
-            CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, 'cornsilk', data) +
-            CreateTableTd('iAddMin1', 0, 0, 0, data) +
-            CreateTableTd('iAddMin2', 0, 0, 0, data) +
-            CreateTableTd('iAddMin3', 0, 0, 0, data) +
-            CreateTableTd('OutDocNo', 0, 0, 0, data) +
-            CreateTableTd('SAmount1', 'DeghatM1', 1, 0, data) +
-            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, 0, data) +
-            CreateTableTd('SAmount2', 'DeghatM2', 1, 0, data) +
-            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, 0, data) +
-            CreateTableTd('SAmount3', 'DeghatM3', 1, 0, data) +
-            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, 0, data) +
-            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, 0, data) +
-
-            CreateTableTd('MAmount1', 'DeghatM1', 1, 'cornsilk', data) +
-            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, 'cornsilk', data) +
-            CreateTableTd('MAmount2', 'DeghatM2', 1, 'cornsilk', data) +
-            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, 'cornsilk', data) +
-            CreateTableTd('MAmount3', 'DeghatM3', 1, 'cornsilk', data) +
-            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, 'cornsilk', data) +
-            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, 'cornsilk', data) +
-
-            CreateTableTd('MkzCode', 0, 0, 0, data) +
-            CreateTableTd('MkzName', 0, 0, 0, data) +
-            CreateTableTd('OprCode', 0, 0, 0, data) +
-            CreateTableTd('OprName', 0, 0, 0, data) +
-            CreateTableTd('IDocF01', 0, 0, 0, data) +
-            CreateTableTd('IDocF02', 0, 0, 0, data) +
-            CreateTableTd('IDocF03', 0, 0, 0, data) +
-            CreateTableTd('IDocF04', 0, 0, 0, data) +
-            CreateTableTd('IDocF05', 0, 0, 0, data) +
-            CreateTableTd('IDocF06', 0, 0, 0, data) +
-            CreateTableTd('IDocF07', 0, 0, 0, data) +
-            CreateTableTd('IDocF08', 0, 0, 0, data) +
-            CreateTableTd('IDocF09', 0, 0, 0, data) +
-            CreateTableTd('IDocF10', 0, 0, 0, data) +
-            CreateTableTd('IDocF11', 0, 0, 0, data) +
-            CreateTableTd('IDocF12', 0, 0, 0, data) +
-            CreateTableTd('IDocF13', 0, 0, 0, data) +
-            CreateTableTd('IDocF14', 0, 0, 0, data) +
-            CreateTableTd('IDocF15', 0, 0, 0, data) +
-            CreateTableTd('IDocF16', 0, 0, 0, data) +
-            CreateTableTd('IDocF17', 0, 0, 0, data) +
-            CreateTableTd('IDocF18', 0, 0, 0, data) +
-            CreateTableTd('IDocF19', 0, 0, 0, data) +
-            CreateTableTd('IDocF20', 0, 0, 0, data) +
-            /* CreateTableTd('Kalaf01', 0, 0, data) +
-           CreateTableTd('Kalaf02', 0, 0, data) +
-           CreateTableTd('Kalaf03', 0, 0, data) +
-           CreateTableTd('Kalaf04', 0, 0, data) +
-           CreateTableTd('Kalaf05', 0, 0, data) +
-           CreateTableTd('Kalaf06', 0, 0, data) +
-           CreateTableTd('Kalaf07', 0, 0, data) +
-           CreateTableTd('Kalaf08', 0, 0, data) +
-           CreateTableTd('Kalaf09', 0, 0, data) +
-           CreateTableTd('Kalaf10', 0, 0, data) +
-           CreateTableTd('Kalaf11', 0, 0, data) +
-           CreateTableTd('Kalaf12', 0, 0, data) +
-           CreateTableTd('Kalaf13', 0, 0, data) +
-           CreateTableTd('Kalaf14', 0, 0, data) +
-           CreateTableTd('Kalaf15', 0, 0, data) +
-           CreateTableTd('Kalaf16', 0, 0, data) +
-           CreateTableTd('Kalaf17', 0, 0, data) +
-           CreateTableTd('Kalaf18', 0, 0, data) +
-           CreateTableTd('Kalaf19', 0, 0, data) +
-           CreateTableTd('Kalaf20', 0, 0, data) +*/
-
-            '        </tr>' +
-            '</tbody>' +
-            ' <tfoot>' +
-            ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('DocDate', 0, data) +
-            //CreateTableTdSum('InvName', 1, data) +
-            CreateTableTdSum('ModeName', 1, data) +
-            CreateTableTdSum('Spec', 1, data) +
-            CreateTableTdSum('ThvlCode', 1, data) +
-            CreateTableTdSum('ThvlName', 1, data) +
-            CreateTableTdSum('Status', 1, data) +
-            CreateTableTdSum('DimX', 1, data) +
-            CreateTableTdSum('DimY', 1, data) +
-            CreateTableTdSum('DimZ', 1, data) +
-            CreateTableTdSum('KalaFileNo', 1, data) +
-            CreateTableTdSum('KalaState', 1, data) +
-            CreateTableTdSum('KalaExf1', 1, data) +
-            CreateTableTdSum('KalaExf2', 1, data) +
-            CreateTableTdSum('KalaExf3', 1, data) +
-            CreateTableTdSum('KalaExf4', 1, data) +
-            CreateTableTdSum('KalaExf5', 1, data) +
-            CreateTableTdSum('KalaExf6', 1, data) +
-            CreateTableTdSum('KalaExf7', 1, data) +
-            CreateTableTdSum('KalaExf8', 1, data) +
-            CreateTableTdSum('KalaExf9', 1, data) +
-            CreateTableTdSum('KalaExf10', 1, data) +
-            CreateTableTdSum('KalaExf11', 1, data) +
-            CreateTableTdSum('KalaExf12', 1, data) +
-            CreateTableTdSum('KalaExf13', 1, data) +
-            CreateTableTdSum('KalaExf14', 1, data) +
-            CreateTableTdSum('KalaExf15', 1, data) +
-            CreateTableTdSum('InDocNo', 1, data) +
-            CreateTableTdSum('VAmount1', 2, data) +
-            CreateTableTdSum('VUnitPrice1', 2, data) +
-            CreateTableTdSum('VAmount2', 2, data) +
-            CreateTableTdSum('VUnitPrice2', 2, data) +
-            CreateTableTdSum('VAmount3', 2, data) +
-            CreateTableTdSum('VUnitPrice3', 2, data) +
-            CreateTableTdSum('VTotalPrice', 2, data) +
-            CreateTableTdSum('iAddMin1', 1, data) +
-            CreateTableTdSum('iAddMin2', 1, data) +
-            CreateTableTdSum('iAddMin3', 1, data) +
-            CreateTableTdSum('OutDocNo', 1, data) +
-            CreateTableTdSum('SAmount1', 2, data) +
-            CreateTableTdSum('SUnitPrice1', 2, data) +
-            CreateTableTdSum('SAmount2', 2, data) +
-            CreateTableTdSum('SUnitPrice2', 2, data) +
-            CreateTableTdSum('SAmount3', 2, data) +
-            CreateTableTdSum('SUnitPrice3', 2, data) +
-            CreateTableTdSum('STotalPrice', 2, data) +
-
-            CreateTableTdSum('MAmount1', 2, data) +
-            CreateTableTdSum('MUnitPrice1', 2, data) +
-            CreateTableTdSum('MAmount2', 2, data) +
-            CreateTableTdSum('MUnitPrice2', 2, data) +
-            CreateTableTdSum('MAmount3', 2, data) +
-            CreateTableTdSum('MUnitPrice3', 2, data) +
-            CreateTableTdSum('MTotalPrice', 2, data) +
-
-            CreateTableTdSum('MkzCode', 1, data) +
-            CreateTableTdSum('MkzName', 1, data) +
-            CreateTableTdSum('OprCode', 1, data) +
-            CreateTableTdSum('OprName', 1, data) +
-            CreateTableTdSum('IDocF01', 1, data) +
-            CreateTableTdSum('IDocF02', 1, data) +
-            CreateTableTdSum('IDocF03', 1, data) +
-            CreateTableTdSum('IDocF04', 1, data) +
-            CreateTableTdSum('IDocF05', 1, data) +
-            CreateTableTdSum('IDocF06', 1, data) +
-            CreateTableTdSum('IDocF07', 1, data) +
-            CreateTableTdSum('IDocF08', 1, data) +
-            CreateTableTdSum('IDocF09', 1, data) +
-            CreateTableTdSum('IDocF10', 1, data) +
-            CreateTableTdSum('IDocF11', 1, data) +
-            CreateTableTdSum('IDocF12', 1, data) +
-            CreateTableTdSum('IDocF13', 1, data) +
-            CreateTableTdSum('IDocF14', 1, data) +
-            CreateTableTdSum('IDocF15', 1, data) +
-            CreateTableTdSum('IDocF16', 1, data) +
-            CreateTableTdSum('IDocF17', 1, data) +
-            CreateTableTdSum('IDocF18', 1, data) +
-            CreateTableTdSum('IDocF19', 1, data) +
-            CreateTableTdSum('IDocF20', 1, data) +
-            /* CreateTableTdSum('Kalaf01', 1, data) +
-           CreateTableTdSum('Kalaf02', 1, data) +
-           CreateTableTdSum('Kalaf03', 1, data) +
-           CreateTableTdSum('Kalaf04', 1, data) +
-           CreateTableTdSum('Kalaf05', 1, data) +
-           CreateTableTdSum('Kalaf06', 1, data) +
-           CreateTableTdSum('Kalaf07', 1, data) +
-           CreateTableTdSum('Kalaf08', 1, data) +
-           CreateTableTdSum('Kalaf09', 1, data) +
-           CreateTableTdSum('Kalaf10', 1, data) +
-           CreateTableTdSum('Kalaf11', 1, data) +
-           CreateTableTdSum('Kalaf12', 1, data) +
-           CreateTableTdSum('Kalaf13', 1, data) +
-           CreateTableTdSum('Kalaf14', 1, data) +
-           CreateTableTdSum('Kalaf15', 1, data) +
-           CreateTableTdSum('Kalaf16', 1, data) +
-           CreateTableTdSum('Kalaf17', 1, data) +
-           CreateTableTdSum('Kalaf18', 1, data) +
-           CreateTableTdSum('Kalaf19', 1, data) +
-           CreateTableTdSum('Kalaf20', 1, data) +*/
-            ' </tr>' +
-            '  <tr style="background-color: #efb68399;">' +
-            CreateTableTdSearch('DocDate', data) +
-            //CreateTableTdSearch('InvName', data) +
-            CreateTableTdSearch('ModeName', data) +
-            CreateTableTdSearch('Spec', data) +
-            CreateTableTdSearch('ThvlCode', data) +
-            CreateTableTdSearch('ThvlName', data) +
-            CreateTableTdSearch('Status', data) +
-            CreateTableTdSearch('DimX', data) +
-            CreateTableTdSearch('DimY', data) +
-            CreateTableTdSearch('DimZ', data) +
-            CreateTableTdSearch('KalaFileNo', data) +
-            CreateTableTdSearch('KalaState', data) +
-            CreateTableTdSearch('KalaExf1', data) +
-            CreateTableTdSearch('KalaExf2', data) +
-            CreateTableTdSearch('KalaExf3', data) +
-            CreateTableTdSearch('KalaExf4', data) +
-            CreateTableTdSearch('KalaExf5', data) +
-            CreateTableTdSearch('KalaExf6', data) +
-            CreateTableTdSearch('KalaExf7', data) +
-            CreateTableTdSearch('KalaExf8', data) +
-            CreateTableTdSearch('KalaExf9', data) +
-            CreateTableTdSearch('KalaExf10', data) +
-            CreateTableTdSearch('KalaExf11', data) +
-            CreateTableTdSearch('KalaExf12', data) +
-            CreateTableTdSearch('KalaExf13', data) +
-            CreateTableTdSearch('KalaExf14', data) +
-            CreateTableTdSearch('KalaExf15', data) +
-            CreateTableTdSearch('InDocNo', data) +
-            CreateTableTdSearch('VAmount1', data) +
-            CreateTableTdSearch('VUnitPrice1', data) +
-            CreateTableTdSearch('VAmount2', data) +
-            CreateTableTdSearch('VUnitPrice2', data) +
-            CreateTableTdSearch('VAmount3', data) +
-            CreateTableTdSearch('VUnitPrice3', data) +
-            CreateTableTdSearch('VTotalPrice', data) +
-            CreateTableTdSearch('iAddMin1', data) +
-            CreateTableTdSearch('iAddMin2', data) +
-            CreateTableTdSearch('iAddMin3', data) +
-            CreateTableTdSearch('OutDocNo', data) +
-            CreateTableTdSearch('SAmount1', data) +
-            CreateTableTdSearch('SUnitPrice1', data) +
-            CreateTableTdSearch('SAmount2', data) +
-            CreateTableTdSearch('SUnitPrice2', data) +
-            CreateTableTdSearch('SAmount3', data) +
-            CreateTableTdSearch('SUnitPrice3', data) +
-            CreateTableTdSearch('STotalPrice', data) +
-
-            CreateTableTdSearch('MAmount1', data) +
-            CreateTableTdSearch('MUnitPrice1', data) +
-            CreateTableTdSearch('MAmount2', data) +
-            CreateTableTdSearch('MUnitPrice2', data) +
-            CreateTableTdSearch('MAmount3', data) +
-            CreateTableTdSearch('MUnitPrice3', data) +
-            CreateTableTdSearch('MTotalPrice', data) +
-
-            CreateTableTdSearch('MkzCode', data) +
-            CreateTableTdSearch('MkzName', data) +
-            CreateTableTdSearch('OprCode', data) +
-            CreateTableTdSearch('OprName', data) +
-            CreateTableTdSearch('IDocF01', data) +
-            CreateTableTdSearch('IDocF02', data) +
-            CreateTableTdSearch('IDocF03', data) +
-            CreateTableTdSearch('IDocF04', data) +
-            CreateTableTdSearch('IDocF05', data) +
-            CreateTableTdSearch('IDocF06', data) +
-            CreateTableTdSearch('IDocF07', data) +
-            CreateTableTdSearch('IDocF08', data) +
-            CreateTableTdSearch('IDocF09', data) +
-            CreateTableTdSearch('IDocF10', data) +
-            CreateTableTdSearch('IDocF11', data) +
-            CreateTableTdSearch('IDocF12', data) +
-            CreateTableTdSearch('IDocF13', data) +
-            CreateTableTdSearch('IDocF14', data) +
-            CreateTableTdSearch('IDocF15', data) +
-            CreateTableTdSearch('IDocF16', data) +
-            CreateTableTdSearch('IDocF17', data) +
-            CreateTableTdSearch('IDocF18', data) +
-            CreateTableTdSearch('IDocF19', data) +
-            CreateTableTdSearch('IDocF20', data) +
-            /* CreateTableTdSearch('Kalaf01', data) +
-           CreateTableTdSearch('Kalaf02', data) +
-           CreateTableTdSearch('Kalaf03', data) +
-           CreateTableTdSearch('Kalaf04', data) +
-           CreateTableTdSearch('Kalaf05', data) +
-           CreateTableTdSearch('Kalaf06', data) +
-           CreateTableTdSearch('Kalaf07', data) +
-           CreateTableTdSearch('Kalaf08', data) +
-           CreateTableTdSearch('Kalaf09', data) +
-           CreateTableTdSearch('Kalaf10', data) +
-           CreateTableTdSearch('Kalaf11', data) +
-           CreateTableTdSearch('Kalaf12', data) +
-           CreateTableTdSearch('Kalaf13', data) +
-           CreateTableTdSearch('Kalaf14', data) +
-           CreateTableTdSearch('Kalaf15', data) +
-           CreateTableTdSearch('Kalaf16', data) +
-           CreateTableTdSearch('Kalaf17', data) +
-           CreateTableTdSearch('Kalaf18', data) +
-           CreateTableTdSearch('Kalaf19', data) +
-           CreateTableTdSearch('Kalaf20', data) +  */
-            '      </tr>' +
-            '  </tfoot>' +
-            '</table >'
-        );
-    }
-
-    //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
-
-    function CreateTableTh(field, data) {
-
-        text = '<th ';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'data-column="' + field + '">' +
-            '<span data-column="' + field + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
-            '</th>';
-        return text;
-    }
-
-    function CreateTableTd(field, Deghat, no, color, data) {
-        text = '<td ';
-
-        color = "\'" + color + "\'";
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        switch (no) {
-            case 0:
-                text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color +' : null  }"></td>';
-                break;
-            case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' , \'background-color\': ' + color + ' != \'0\' ? '+color+' : null  }"></td>'
-                break;
-            case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' , \'background-color\': ' + color + ' != \'0\' ? ' + color +' : null }"" style="text-align: right;"></td>'
-                break;
-            case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color +' : null  }" style="text-align: right;"></td>'
-                break;
-        }
-        return text;
-    }
-
-    function CreateTableTdSum(field, no, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        switch (no) {
-            case 0:
-                text += 'id="textTotal"></td>';
-                break;
-            case 1:
-                text += '></td>'
-                break;
-            case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
-                break;
-        }
-        return text;
-    }
-
-    function CreateTableTdSearch(field, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
-        return text;
-    }
-
-
 
     self.currentPageStatus = ko.observable();
     self.pageSizeStatus = ko.observable(10);
@@ -2873,10 +2377,510 @@
     });
 
 
+
+
+    function CreateTableReport(data) {
+        $("#TableReport").empty();
+        $('#TableReport').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableKrdx">' +
+            CreateTableTh('DocDate', data) +
+            //CreateTableTh('InvName', data) +
+            CreateTableTh('ModeName', data) +
+            CreateTableTh('Spec', data) +
+            CreateTableTh('ThvlCode', data) +
+            CreateTableTh('ThvlName', data) +
+            CreateTableTh('Status', data) +
+            CreateTableTh('DimX', data) +
+            CreateTableTh('DimY', data) +
+            CreateTableTh('DimZ', data) +
+            CreateTableTh('KalaFileNo', data) +
+            CreateTableTh('KalaState', data) +
+            CreateTableTh('KalaExf1', data) +
+            CreateTableTh('KalaExf2', data) +
+            CreateTableTh('KalaExf3', data) +
+            CreateTableTh('KalaExf4', data) +
+            CreateTableTh('KalaExf5', data) +
+            CreateTableTh('KalaExf6', data) +
+            CreateTableTh('KalaExf7', data) +
+            CreateTableTh('KalaExf8', data) +
+            CreateTableTh('KalaExf9', data) +
+            CreateTableTh('KalaExf10', data) +
+            CreateTableTh('KalaExf11', data) +
+            CreateTableTh('KalaExf12', data) +
+            CreateTableTh('KalaExf13', data) +
+            CreateTableTh('KalaExf14', data) +
+            CreateTableTh('KalaExf15', data) +
+            CreateTableTh('InDocNo', data) +
+            CreateTableTh('VAmount1', data) +
+            CreateTableTh('VUnitPrice1', data) +
+            CreateTableTh('VAmount2', data) +
+            CreateTableTh('VUnitPrice2', data) +
+            CreateTableTh('VAmount3', data) +
+            CreateTableTh('VUnitPrice3', data) +
+            CreateTableTh('VTotalPrice', data) +
+            CreateTableTh('iAddMin1', data) +
+            CreateTableTh('iAddMin2', data) +
+            CreateTableTh('iAddMin3', data) +
+            CreateTableTh('OutDocNo', data) +
+            CreateTableTh('SAmount1', data) +
+            CreateTableTh('SUnitPrice1', data) +
+            CreateTableTh('SAmount2', data) +
+            CreateTableTh('SUnitPrice2', data) +
+            CreateTableTh('SAmount3', data) +
+            CreateTableTh('SUnitPrice3', data) +
+            CreateTableTh('STotalPrice', data) +
+
+            CreateTableTh('MAmount1', data) +
+            CreateTableTh('MUnitPrice1', data) +
+            CreateTableTh('MAmount2', data) +
+            CreateTableTh('MUnitPrice2', data) +
+            CreateTableTh('MAmount3', data) +
+            CreateTableTh('MUnitPrice3', data) +
+            CreateTableTh('MTotalPrice', data) +
+
+            CreateTableTh('MkzCode', data) +
+            CreateTableTh('MkzName', data) +
+            CreateTableTh('OprCode', data) +
+            CreateTableTh('OprName', data) +
+            CreateTableTh('IDocF01', data) +
+            CreateTableTh('IDocF02', data) +
+            CreateTableTh('IDocF03', data) +
+            CreateTableTh('IDocF04', data) +
+            CreateTableTh('IDocF05', data) +
+            CreateTableTh('IDocF06', data) +
+            CreateTableTh('IDocF07', data) +
+            CreateTableTh('IDocF08', data) +
+            CreateTableTh('IDocF09', data) +
+            CreateTableTh('IDocF10', data) +
+            CreateTableTh('IDocF11', data) +
+            CreateTableTh('IDocF12', data) +
+            CreateTableTh('IDocF13', data) +
+            CreateTableTh('IDocF14', data) +
+            CreateTableTh('IDocF15', data) +
+            CreateTableTh('IDocF16', data) +
+            CreateTableTh('IDocF17', data) +
+            CreateTableTh('IDocF18', data) +
+            CreateTableTh('IDocF19', data) +
+            CreateTableTh('IDocF20', data) +
+            /*   CreateTableTh('Kalaf01', data) +
+             CreateTableTh('Kalaf02', data) +
+             CreateTableTh('Kalaf03', data) +
+             CreateTableTh('Kalaf04', data) +
+             CreateTableTh('Kalaf05', data) +
+             CreateTableTh('Kalaf06', data) +
+             CreateTableTh('Kalaf07', data) +
+             CreateTableTh('Kalaf08', data) +
+             CreateTableTh('Kalaf09', data) +
+             CreateTableTh('Kalaf10', data) +
+             CreateTableTh('Kalaf11', data) +
+             CreateTableTh('Kalaf12', data) +
+             CreateTableTh('Kalaf13', data) +
+             CreateTableTh('Kalaf14', data) +
+             CreateTableTh('Kalaf15', data) +
+             CreateTableTh('Kalaf16', data) +
+             CreateTableTh('Kalaf17', data) +
+             CreateTableTh('Kalaf18', data) +
+             CreateTableTh('Kalaf19', data) +
+             CreateTableTh('Kalaf20', data) +*/
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
+            '     <tr data-bind=" style: {color:  Status == \'باطل\'  ? \'#ff252540\' : null  } " >' +
+            CreateTableTd('DocDate', 0, 0, 0, data) +
+            // CreateTableTd('InvName', 0, 0,0, data) +
+            CreateTableTd('ModeName', 0, 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, 0, data) +
+            CreateTableTd('ThvlCode', 0, 0, 0, data) +
+            CreateTableTd('ThvlName', 0, 0, 0, data) +
+            CreateTableTd('Status', 0, 0, 0, data) +
+            CreateTableTd('DimX', 0, 0, 0, data) +
+            CreateTableTd('DimY', 0, 0, 0, data) +
+            CreateTableTd('DimZ', 0, 0, 0, data) +
+            CreateTableTd('KalaFileNo', 0, 0, 0, data) +
+            CreateTableTd('KalaState', 0, 0, 0, data) +
+            CreateTableTd('KalaExf1', 0, 0, 0, data) +
+            CreateTableTd('KalaExf2', 0, 0, 0, data) +
+            CreateTableTd('KalaExf3', 0, 0, 0, data) +
+            CreateTableTd('KalaExf4', 0, 0, 0, data) +
+            CreateTableTd('KalaExf5', 0, 0, 0, data) +
+            CreateTableTd('KalaExf6', 0, 0, 0, data) +
+            CreateTableTd('KalaExf7', 0, 0, 0, data) +
+            CreateTableTd('KalaExf8', 0, 0, 0, data) +
+            CreateTableTd('KalaExf9', 0, 0, 0, data) +
+            CreateTableTd('KalaExf10', 0, 0, 0, data) +
+            CreateTableTd('KalaExf11', 0, 0, 0, data) +
+            CreateTableTd('KalaExf12', 0, 0, 0, data) +
+            CreateTableTd('KalaExf13', 0, 0, 0, data) +
+            CreateTableTd('KalaExf14', 0, 0, 0, data) +
+            CreateTableTd('KalaExf15', 0, 0, 0, data) +
+            CreateTableTd('InDocNo', 0, 0, 'cornsilk', data) +
+            CreateTableTd('VAmount1', 'DeghatM1', 1, 'cornsilk', data) +
+            CreateTableTd('VUnitPrice1', 'DeghatR1', 2, 'cornsilk', data) +
+            CreateTableTd('VAmount2', 'DeghatM2', 1, 'cornsilk', data) +
+            CreateTableTd('VUnitPrice2', 'DeghatR2', 2, 'cornsilk', data) +
+            CreateTableTd('VAmount3', 'DeghatM3', 1, 'cornsilk', data) +
+            CreateTableTd('VUnitPrice3', 'DeghatR3', 2, 'cornsilk', data) +
+            CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, 'cornsilk', data) +
+            CreateTableTd('iAddMin1', 0, 0, 0, data) +
+            CreateTableTd('iAddMin2', 0, 0, 0, data) +
+            CreateTableTd('iAddMin3', 0, 0, 0, data) +
+            CreateTableTd('OutDocNo', 0, 0, 0, data) +
+            CreateTableTd('SAmount1', 'DeghatM1', 1, 0, data) +
+            CreateTableTd('SUnitPrice1', 'DeghatR1', 2, 0, data) +
+            CreateTableTd('SAmount2', 'DeghatM2', 1, 0, data) +
+            CreateTableTd('SUnitPrice2', 'DeghatR2', 2, 0, data) +
+            CreateTableTd('SAmount3', 'DeghatM3', 1, 0, data) +
+            CreateTableTd('SUnitPrice3', 'DeghatR3', 2, 0, data) +
+            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, 0, data) +
+
+            CreateTableTd('MAmount1', 'DeghatM1', 1, 'cornsilk', data) +
+            CreateTableTd('MUnitPrice1', 'DeghatR1', 2, 'cornsilk', data) +
+            CreateTableTd('MAmount2', 'DeghatM2', 1, 'cornsilk', data) +
+            CreateTableTd('MUnitPrice2', 'DeghatR2', 2, 'cornsilk', data) +
+            CreateTableTd('MAmount3', 'DeghatM3', 1, 'cornsilk', data) +
+            CreateTableTd('MUnitPrice3', 'DeghatR3', 2, 'cornsilk', data) +
+            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, 'cornsilk', data) +
+
+            CreateTableTd('MkzCode', 0, 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, 0, data) +
+            CreateTableTd('OprCode', 0, 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, 0, data) +
+            CreateTableTd('IDocF01', 0, 0, 0, data) +
+            CreateTableTd('IDocF02', 0, 0, 0, data) +
+            CreateTableTd('IDocF03', 0, 0, 0, data) +
+            CreateTableTd('IDocF04', 0, 0, 0, data) +
+            CreateTableTd('IDocF05', 0, 0, 0, data) +
+            CreateTableTd('IDocF06', 0, 0, 0, data) +
+            CreateTableTd('IDocF07', 0, 0, 0, data) +
+            CreateTableTd('IDocF08', 0, 0, 0, data) +
+            CreateTableTd('IDocF09', 0, 0, 0, data) +
+            CreateTableTd('IDocF10', 0, 0, 0, data) +
+            CreateTableTd('IDocF11', 0, 0, 0, data) +
+            CreateTableTd('IDocF12', 0, 0, 0, data) +
+            CreateTableTd('IDocF13', 0, 0, 0, data) +
+            CreateTableTd('IDocF14', 0, 0, 0, data) +
+            CreateTableTd('IDocF15', 0, 0, 0, data) +
+            CreateTableTd('IDocF16', 0, 0, 0, data) +
+            CreateTableTd('IDocF17', 0, 0, 0, data) +
+            CreateTableTd('IDocF18', 0, 0, 0, data) +
+            CreateTableTd('IDocF19', 0, 0, 0, data) +
+            CreateTableTd('IDocF20', 0, 0, 0, data) +
+            /* CreateTableTd('Kalaf01', 0, 0, data) +
+           CreateTableTd('Kalaf02', 0, 0, data) +
+           CreateTableTd('Kalaf03', 0, 0, data) +
+           CreateTableTd('Kalaf04', 0, 0, data) +
+           CreateTableTd('Kalaf05', 0, 0, data) +
+           CreateTableTd('Kalaf06', 0, 0, data) +
+           CreateTableTd('Kalaf07', 0, 0, data) +
+           CreateTableTd('Kalaf08', 0, 0, data) +
+           CreateTableTd('Kalaf09', 0, 0, data) +
+           CreateTableTd('Kalaf10', 0, 0, data) +
+           CreateTableTd('Kalaf11', 0, 0, data) +
+           CreateTableTd('Kalaf12', 0, 0, data) +
+           CreateTableTd('Kalaf13', 0, 0, data) +
+           CreateTableTd('Kalaf14', 0, 0, data) +
+           CreateTableTd('Kalaf15', 0, 0, data) +
+           CreateTableTd('Kalaf16', 0, 0, data) +
+           CreateTableTd('Kalaf17', 0, 0, data) +
+           CreateTableTd('Kalaf18', 0, 0, data) +
+           CreateTableTd('Kalaf19', 0, 0, data) +
+           CreateTableTd('Kalaf20', 0, 0, data) +*/
+
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('DocDate', 0, data) +
+            //CreateTableTdSum('InvName', 1, data) +
+            CreateTableTdSum('ModeName', 1, data) +
+            CreateTableTdSum('Spec', 1, data) +
+            CreateTableTdSum('ThvlCode', 1, data) +
+            CreateTableTdSum('ThvlName', 1, data) +
+            CreateTableTdSum('Status', 1, data) +
+            CreateTableTdSum('DimX', 1, data) +
+            CreateTableTdSum('DimY', 1, data) +
+            CreateTableTdSum('DimZ', 1, data) +
+            CreateTableTdSum('KalaFileNo', 1, data) +
+            CreateTableTdSum('KalaState', 1, data) +
+            CreateTableTdSum('KalaExf1', 1, data) +
+            CreateTableTdSum('KalaExf2', 1, data) +
+            CreateTableTdSum('KalaExf3', 1, data) +
+            CreateTableTdSum('KalaExf4', 1, data) +
+            CreateTableTdSum('KalaExf5', 1, data) +
+            CreateTableTdSum('KalaExf6', 1, data) +
+            CreateTableTdSum('KalaExf7', 1, data) +
+            CreateTableTdSum('KalaExf8', 1, data) +
+            CreateTableTdSum('KalaExf9', 1, data) +
+            CreateTableTdSum('KalaExf10', 1, data) +
+            CreateTableTdSum('KalaExf11', 1, data) +
+            CreateTableTdSum('KalaExf12', 1, data) +
+            CreateTableTdSum('KalaExf13', 1, data) +
+            CreateTableTdSum('KalaExf14', 1, data) +
+            CreateTableTdSum('KalaExf15', 1, data) +
+            CreateTableTdSum('InDocNo', 1, data) +
+            CreateTableTdSum('VAmount1', 2, data) +
+            CreateTableTdSum('VUnitPrice1', 2, data) +
+            CreateTableTdSum('VAmount2', 2, data) +
+            CreateTableTdSum('VUnitPrice2', 2, data) +
+            CreateTableTdSum('VAmount3', 2, data) +
+            CreateTableTdSum('VUnitPrice3', 2, data) +
+            CreateTableTdSum('VTotalPrice', 2, data) +
+            CreateTableTdSum('iAddMin1', 1, data) +
+            CreateTableTdSum('iAddMin2', 1, data) +
+            CreateTableTdSum('iAddMin3', 1, data) +
+            CreateTableTdSum('OutDocNo', 1, data) +
+            CreateTableTdSum('SAmount1', 2, data) +
+            CreateTableTdSum('SUnitPrice1', 2, data) +
+            CreateTableTdSum('SAmount2', 2, data) +
+            CreateTableTdSum('SUnitPrice2', 2, data) +
+            CreateTableTdSum('SAmount3', 2, data) +
+            CreateTableTdSum('SUnitPrice3', 2, data) +
+            CreateTableTdSum('STotalPrice', 2, data) +
+
+            CreateTableTdSum('MAmount1', 2, data) +
+            CreateTableTdSum('MUnitPrice1', 2, data) +
+            CreateTableTdSum('MAmount2', 2, data) +
+            CreateTableTdSum('MUnitPrice2', 2, data) +
+            CreateTableTdSum('MAmount3', 2, data) +
+            CreateTableTdSum('MUnitPrice3', 2, data) +
+            CreateTableTdSum('MTotalPrice', 2, data) +
+
+            CreateTableTdSum('MkzCode', 1, data) +
+            CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('OprCode', 1, data) +
+            CreateTableTdSum('OprName', 1, data) +
+            CreateTableTdSum('IDocF01', 1, data) +
+            CreateTableTdSum('IDocF02', 1, data) +
+            CreateTableTdSum('IDocF03', 1, data) +
+            CreateTableTdSum('IDocF04', 1, data) +
+            CreateTableTdSum('IDocF05', 1, data) +
+            CreateTableTdSum('IDocF06', 1, data) +
+            CreateTableTdSum('IDocF07', 1, data) +
+            CreateTableTdSum('IDocF08', 1, data) +
+            CreateTableTdSum('IDocF09', 1, data) +
+            CreateTableTdSum('IDocF10', 1, data) +
+            CreateTableTdSum('IDocF11', 1, data) +
+            CreateTableTdSum('IDocF12', 1, data) +
+            CreateTableTdSum('IDocF13', 1, data) +
+            CreateTableTdSum('IDocF14', 1, data) +
+            CreateTableTdSum('IDocF15', 1, data) +
+            CreateTableTdSum('IDocF16', 1, data) +
+            CreateTableTdSum('IDocF17', 1, data) +
+            CreateTableTdSum('IDocF18', 1, data) +
+            CreateTableTdSum('IDocF19', 1, data) +
+            CreateTableTdSum('IDocF20', 1, data) +
+            /* CreateTableTdSum('Kalaf01', 1, data) +
+           CreateTableTdSum('Kalaf02', 1, data) +
+           CreateTableTdSum('Kalaf03', 1, data) +
+           CreateTableTdSum('Kalaf04', 1, data) +
+           CreateTableTdSum('Kalaf05', 1, data) +
+           CreateTableTdSum('Kalaf06', 1, data) +
+           CreateTableTdSum('Kalaf07', 1, data) +
+           CreateTableTdSum('Kalaf08', 1, data) +
+           CreateTableTdSum('Kalaf09', 1, data) +
+           CreateTableTdSum('Kalaf10', 1, data) +
+           CreateTableTdSum('Kalaf11', 1, data) +
+           CreateTableTdSum('Kalaf12', 1, data) +
+           CreateTableTdSum('Kalaf13', 1, data) +
+           CreateTableTdSum('Kalaf14', 1, data) +
+           CreateTableTdSum('Kalaf15', 1, data) +
+           CreateTableTdSum('Kalaf16', 1, data) +
+           CreateTableTdSum('Kalaf17', 1, data) +
+           CreateTableTdSum('Kalaf18', 1, data) +
+           CreateTableTdSum('Kalaf19', 1, data) +
+           CreateTableTdSum('Kalaf20', 1, data) +*/
+            ' </tr>' +
+            '  <tr style="background-color: #efb68399;">' +
+            CreateTableTdSearch('DocDate', data) +
+            //CreateTableTdSearch('InvName', data) +
+            CreateTableTdSearch('ModeName', data) +
+            CreateTableTdSearch('Spec', data) +
+            CreateTableTdSearch('ThvlCode', data) +
+            CreateTableTdSearch('ThvlName', data) +
+            CreateTableTdSearch('Status', data) +
+            CreateTableTdSearch('DimX', data) +
+            CreateTableTdSearch('DimY', data) +
+            CreateTableTdSearch('DimZ', data) +
+            CreateTableTdSearch('KalaFileNo', data) +
+            CreateTableTdSearch('KalaState', data) +
+            CreateTableTdSearch('KalaExf1', data) +
+            CreateTableTdSearch('KalaExf2', data) +
+            CreateTableTdSearch('KalaExf3', data) +
+            CreateTableTdSearch('KalaExf4', data) +
+            CreateTableTdSearch('KalaExf5', data) +
+            CreateTableTdSearch('KalaExf6', data) +
+            CreateTableTdSearch('KalaExf7', data) +
+            CreateTableTdSearch('KalaExf8', data) +
+            CreateTableTdSearch('KalaExf9', data) +
+            CreateTableTdSearch('KalaExf10', data) +
+            CreateTableTdSearch('KalaExf11', data) +
+            CreateTableTdSearch('KalaExf12', data) +
+            CreateTableTdSearch('KalaExf13', data) +
+            CreateTableTdSearch('KalaExf14', data) +
+            CreateTableTdSearch('KalaExf15', data) +
+            CreateTableTdSearch('InDocNo', data) +
+            CreateTableTdSearch('VAmount1', data) +
+            CreateTableTdSearch('VUnitPrice1', data) +
+            CreateTableTdSearch('VAmount2', data) +
+            CreateTableTdSearch('VUnitPrice2', data) +
+            CreateTableTdSearch('VAmount3', data) +
+            CreateTableTdSearch('VUnitPrice3', data) +
+            CreateTableTdSearch('VTotalPrice', data) +
+            CreateTableTdSearch('iAddMin1', data) +
+            CreateTableTdSearch('iAddMin2', data) +
+            CreateTableTdSearch('iAddMin3', data) +
+            CreateTableTdSearch('OutDocNo', data) +
+            CreateTableTdSearch('SAmount1', data) +
+            CreateTableTdSearch('SUnitPrice1', data) +
+            CreateTableTdSearch('SAmount2', data) +
+            CreateTableTdSearch('SUnitPrice2', data) +
+            CreateTableTdSearch('SAmount3', data) +
+            CreateTableTdSearch('SUnitPrice3', data) +
+            CreateTableTdSearch('STotalPrice', data) +
+
+            CreateTableTdSearch('MAmount1', data) +
+            CreateTableTdSearch('MUnitPrice1', data) +
+            CreateTableTdSearch('MAmount2', data) +
+            CreateTableTdSearch('MUnitPrice2', data) +
+            CreateTableTdSearch('MAmount3', data) +
+            CreateTableTdSearch('MUnitPrice3', data) +
+            CreateTableTdSearch('MTotalPrice', data) +
+
+            CreateTableTdSearch('MkzCode', data) +
+            CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('OprCode', data) +
+            CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('IDocF01', data) +
+            CreateTableTdSearch('IDocF02', data) +
+            CreateTableTdSearch('IDocF03', data) +
+            CreateTableTdSearch('IDocF04', data) +
+            CreateTableTdSearch('IDocF05', data) +
+            CreateTableTdSearch('IDocF06', data) +
+            CreateTableTdSearch('IDocF07', data) +
+            CreateTableTdSearch('IDocF08', data) +
+            CreateTableTdSearch('IDocF09', data) +
+            CreateTableTdSearch('IDocF10', data) +
+            CreateTableTdSearch('IDocF11', data) +
+            CreateTableTdSearch('IDocF12', data) +
+            CreateTableTdSearch('IDocF13', data) +
+            CreateTableTdSearch('IDocF14', data) +
+            CreateTableTdSearch('IDocF15', data) +
+            CreateTableTdSearch('IDocF16', data) +
+            CreateTableTdSearch('IDocF17', data) +
+            CreateTableTdSearch('IDocF18', data) +
+            CreateTableTdSearch('IDocF19', data) +
+            CreateTableTdSearch('IDocF20', data) +
+            /* CreateTableTdSearch('Kalaf01', data) +
+           CreateTableTdSearch('Kalaf02', data) +
+           CreateTableTdSearch('Kalaf03', data) +
+           CreateTableTdSearch('Kalaf04', data) +
+           CreateTableTdSearch('Kalaf05', data) +
+           CreateTableTdSearch('Kalaf06', data) +
+           CreateTableTdSearch('Kalaf07', data) +
+           CreateTableTdSearch('Kalaf08', data) +
+           CreateTableTdSearch('Kalaf09', data) +
+           CreateTableTdSearch('Kalaf10', data) +
+           CreateTableTdSearch('Kalaf11', data) +
+           CreateTableTdSearch('Kalaf12', data) +
+           CreateTableTdSearch('Kalaf13', data) +
+           CreateTableTdSearch('Kalaf14', data) +
+           CreateTableTdSearch('Kalaf15', data) +
+           CreateTableTdSearch('Kalaf16', data) +
+           CreateTableTdSearch('Kalaf17', data) +
+           CreateTableTdSearch('Kalaf18', data) +
+           CreateTableTdSearch('Kalaf19', data) +
+           CreateTableTdSearch('Kalaf20', data) +  */
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+    //DocDate,InvName,ModeName,Spec,ThvlCode,ThvlName,Status,DimX,DimY,DimZ,KalaFileNo,KalaState,KalaExf1,InDocNo,VAmount1,VUnitPrice1,VAmount2,VUnitPrice2,VAmount3,VUnitPrice3,VTotalPrice,iAddMin1,iAddMin2,iAddMin3,OutDocNo,SAmount1,SUnitPrice1,SAmount2,SUnitPrice2,SAmount3,SUnitPrice3,STotalPrice,MkzCode,MkzName,OprCode,OprName,F01,Kalaf01,
+
+    function CreateTableTh(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span data-column="' + field + '">' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTd(field, Deghat, no, color, data) {
+        text = '<td ';
+
+        color = "\'" + color + "\'";
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' , \'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' , \'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSum(field, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'id="textTotal"></td>';
+                break;
+            case 1:
+                text += '></td>'
+                break;
+            case 2:
+                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
+
+
+
     createViewer();
     $('#Print').click(function () {
         // setReport(self.filterTrzAccList(), 'Free');
     });
+
 
 };
 

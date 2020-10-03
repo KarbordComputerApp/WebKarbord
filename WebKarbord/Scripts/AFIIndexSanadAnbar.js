@@ -268,8 +268,8 @@
             !filterTanzim && !filterTaeed && !filterSerialNumber &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
-
-            $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
+            $("#CountRecord").text(self.IDocHList().length);
+           // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
             return self.IDocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
@@ -716,6 +716,8 @@
         docDate = item.DocDate;
         $('#modeCodeMove').val();
         $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
+        $('#titlePor').text(' پر کردن ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' در ');
+
         $('#modal-Move').modal();
     }
 
@@ -724,14 +726,41 @@
     function getIModeList() {
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0' , 'GET').done(function (data) {
             self.IModeList(data);
-            select = document.getElementById('modeCodeMove');
+
+
+            var textExc = '';
+
+            textExc = '<select id="modeCodePor">';
+
             for (var i = 0; i < data.length; i++) {
+                textExc += '<option value="' + data[i].Code + '"';
+                if (data[i].InOut == 1) {
+                    textExc += 'style="background-color: #f5e6ac" ';
+                }
+                textExc += '>' + data[i].Name + '</option>';
+            }
+
+            textExc += '</select>';
+
+            $("#modeListPor").empty();
+            $('#modeListPor').append(textExc);
+
+
+
+            dataMove = ko.utils.arrayFilter(self.IModeList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.InOut.toString().toLowerCase(), sessionStorage.InOut)
+                return result;
+            })
+
+            select = document.getElementById('modeCodeMove');
+            for (var i = 0; i < dataMove.length; i++) {
                 opt = document.createElement('option');
-                opt.value = data[i].Code;
-                opt.innerHTML = data[i].Name;
-                //opt.selected = true;
+                opt.value = dataMove[i].Code;
+                opt.innerHTML = dataMove[i].Name;
                 select.appendChild(opt);
             }
+
         });
     }
 

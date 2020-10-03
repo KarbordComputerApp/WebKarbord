@@ -359,7 +359,8 @@
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterSerialNumber &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
-            $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
+           // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
+            $("#CountRecord").text(self.FDocHList().length);
             return self.FDocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
@@ -398,6 +399,7 @@
             $("#CountRecord").text(tempData.length);
             return tempData;
         }
+
     });
 
 
@@ -1022,8 +1024,9 @@
     self.MoveFactor = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        $('#modeCodeMove').val(defultMove);
+        $('#modeCodePor').val(defultMove);
         $('#titleMove').text(' انتقال ' + TitleListFactor + ' ' + item.DocNo + ' به ');
+        $('#titlePor').text(' پر کردن ' + TitleListFactor + ' ' + item.DocNo + ' در ');
         $('#modal-Move').modal();
     }
 
@@ -1035,30 +1038,41 @@
 
             var textExc = '';
 
-            textExc = '<select id="modeCodeMove">';
+            textExc = '<select id="modeCodePor">';
 
             for (var i = 0; i < data.length; i++) {
                 textExc += '<option value="' + data[i].Code + '"';
                 if (data[i].InOut == 1) {
                     textExc += 'style="background-color: #f5e6ac" ';
                 }
-                textExc +=  '>' + data[i].Name +  '</option>';
+                textExc += '>' + data[i].Name + '</option>';
             }
-            
+
             textExc += '</select>';
 
-            $("#modeListMove").empty();
-            $('#modeListMove').append(textExc);
+            $("#modeListPor").empty();
+            $('#modeListPor').append(textExc);
 
 
-            /*select = document.getElementById('modeCodeMove');
-            for (var i = 0; i < data.length; i++) {
+
+
+
+
+            dataMove = ko.utils.arrayFilter(self.FModeList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.InOut.toString().toLowerCase(), sessionStorage.InOut) &&
+                    !ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), sessionStorage.ModeCode)
+                return result;
+            })
+
+            select = document.getElementById('modeCodeMove');
+            for (var i = 0; i < dataMove.length; i++) {
                 opt = document.createElement('option');
-                opt.value = data[i].Code;
-                opt.innerHTML = data[i].Name;
+                opt.value = dataMove[i].Code;
+                opt.innerHTML = dataMove[i].Name;
                 //opt.selected = true;
                 select.appendChild(opt);
-            }*/
+            }
 
 
 
@@ -1068,7 +1082,7 @@
 
 
     $('#Move').click(function () {
-        modeCodeMove = $('#modeCodeMove').val();
+        modeCodeMove = $('#modeCodePor').val();
         var MoveObject = {
             SerialNumber: serial,
             DocDate: docDate,

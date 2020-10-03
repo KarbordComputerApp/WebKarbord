@@ -839,6 +839,10 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewSefareshForosh = false;
         }
+
+        validation = CheckAccess('MOVE_SFORD'); 
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+
     }
 
 
@@ -876,6 +880,9 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewPishFactorForosh = false;
         }
+
+        validation = CheckAccess('MOVE_SPDOC');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
     // OTHERUSER_SDOC
@@ -884,33 +891,36 @@ function SetValidation() {
     ShowMenu[4] = validation;  //  فاکتور قروش
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
-        validation = CheckAccess('NEW_SDOC');// new Factor forosh
+        validation = CheckAccess('NEW_SFDOC');// new Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         sessionStorage.moveFactor = validation;
 
-        validation = CheckAccess('CHG_SDOC');// edit Factor forosh
+        validation = CheckAccess('CHG_SFDOC');// edit Factor forosh
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
 
 
-        validation = CheckAccess('DEL_SDOC'); // delete Factor forosh
+        validation = CheckAccess('DEL_SFDOC'); // delete Factor forosh
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
 
         //validation = CheckAccess('PRN_SDOC'); // Print Factor forosh
         //validation == true ? $("#").show() : $("#").hide()
 
-        validation = CheckAccess('OTHERUSER_VIEW_SDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_SFDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
         //sessionStorage.AccessSanad = true;
 
-        validation = CheckAccess('OTHERUSER_CHG_SDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_SFDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewFactorForosh = true;
         }
         else {
             sessionStorage.AccessViewFactorForosh = false;
         }
+
+        validation = CheckAccess('MOVE_SFDOC');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
     validation = CheckAccess('SRDOC');
@@ -941,6 +951,9 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewBackFactorForosh = false;
         }
+
+        validation = CheckAccess('MOVE_SRDOC');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
 
@@ -970,6 +983,9 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewHavaleForosh = false;
         }
+
+        validation = CheckAccess('MOVE_SHVL');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
 
@@ -999,6 +1015,9 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewBargeKhoroj = false;
         }
+
+        validation = CheckAccess('MOVE_SEXT');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
 
@@ -1028,6 +1047,9 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewSefareshKharid = false;
         }
+
+        validation = CheckAccess('MOVE_PFORD');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
 
@@ -1062,37 +1084,42 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewPishFactorKharid = false;
         }
+
+        validation = CheckAccess('MOVE_PPDOC');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
-    validation = CheckAccess('FPDOC');
-    validation = CheckAccess('FPDOC');
+    validation = CheckAccess('PFDOC');
     ShowMenu[7] = validation;  //  فاکتور خرید
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-        validation = CheckAccess('NEW_FPDOC');// new Factor kharid
+        validation = CheckAccess('NEW_PFDOC');// new Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         sessionStorage.moveFactor = validation;
 
-        validation = CheckAccess('CHG_PDOC');// edit Factor kharid
+        validation = CheckAccess('CHG_PFDOC');// edit Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
 
-        validation = CheckAccess('DEL_PDOC'); // delete Factor kharid
+        validation = CheckAccess('DEL_PFDOC'); // delete Factor kharid
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
         //validation = CheckAccess('PRN_PDOC'); // Print Factor kharid
         //validation == true ? $("#").show() : $("#").hide()
 
-        validation = CheckAccess('OTHERUSER_VIEW_PDOC');// AccessSanad
+        validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        validation = CheckAccess('OTHERUSER_CHG_PDOC');// AccessViewSanad
+        validation = CheckAccess('OTHERUSER_CHG_PFDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewFactorKharid = true;
         }
         else {
             sessionStorage.AccessViewFactorKharid = false;
         }
+
+        validation = CheckAccess('MOVE_PFDOC');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
 
@@ -1125,6 +1152,9 @@ function SetValidation() {
         else {
             sessionStorage.AccessViewBackFactorKharid = false;
         }
+
+        validation = CheckAccess('MOVE_PRDOC');
+        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
     }
 
 

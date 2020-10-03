@@ -226,7 +226,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="titleMove"></h5>
+
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -235,28 +235,35 @@
                     <li class="active">
                         <a class="active show" data-toggle="tab" href="#home" style="padding-left: 20px;padding-right: 20px;">پر کردن</a>
                     </li>
-                    <li><a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;">انتقال</a></li>
+                    <li id="TabMove">
+                        <a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;">انتقال</a>
+                    </li>
                 </ul>
 
                 <div class="tab-content">
+
                     <div id="home" class="tab-pane fade in active">
-                        <div id="modeListMove">
+                        <br />
+                        <p class="modal-title" id="titlePor"></p>
+                        <br />
+
+                        <div id="modeListPor">
 
                         </div>
-
                     </div>
+
                     <div id="menu1" class="tab-pane fade">
-                        <select id="modeCodeMove1"></select>
+                        <br />
+                        <p class="modal-title" id="titleMove"></p>
+                        <br />
+
+                        <select id="modeCodeMove"></select>
                     </div>
                 </div>
 
             </div>
 
 
-
-
-            <br />
-            <br />
             <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
                 <button type="button" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">

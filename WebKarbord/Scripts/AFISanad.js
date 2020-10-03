@@ -3164,7 +3164,7 @@
             $('#action_headersanad').removeAttr('style');
             $('#action_bodysanad').removeAttr('style');
             $('#action_Adoc').removeAttr('style');
-            $('#insertband').attr('style', 'display: none');
+            $('#insertband').removeAttr('style');
         }
     }
 
