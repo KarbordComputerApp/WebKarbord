@@ -2246,7 +2246,7 @@
             }
         }
 
-        if (sessionStorage.CHG == 'false')
+        if (sessionStorage.CHG == 'false' && flagupdateHeader == 1)
             viewAction = false;
 
         if (viewAction) {
