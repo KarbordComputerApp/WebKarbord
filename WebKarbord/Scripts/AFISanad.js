@@ -429,7 +429,7 @@
 
 
 
-    $('#NewSanad').click(function () {
+    $('#AddNewSanad').click(function () {
 
         Swal.fire({
             title: '',

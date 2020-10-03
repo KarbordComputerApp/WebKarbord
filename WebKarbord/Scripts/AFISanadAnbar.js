@@ -1628,6 +1628,8 @@
     $('#action_body').attr('style', 'display: none');
     $('#action_footer').attr('style', 'display: none');
     $('#action_Hdoc').attr('style', 'display: none');
+    $('#insertband').attr('style', 'display: none');
+
 
 
     var viewAction = false;
@@ -1661,6 +1663,7 @@
         $('#action_body').removeAttr('style');
         $('#action_footer').removeAttr('style');
         $('#action_Hdoc').removeAttr('style');
+        $('#insertband').removeAttr('style');
     }
 
 

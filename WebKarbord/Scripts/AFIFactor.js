@@ -1994,7 +1994,7 @@
     })
 
 
-    $('#NewFactor').click(function () {
+    $('#AddNewFactor').click(function () {
 
         Swal.fire({
             title: '',

@@ -880,7 +880,7 @@ function SetValidation() {
 
     // OTHERUSER_SDOC
 
-    validation = CheckAccess('SDOC_');
+    validation = CheckAccess('SFDOC');
     ShowMenu[4] = validation;  //  فاکتور قروش
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
@@ -1064,11 +1064,12 @@ function SetValidation() {
         }
     }
 
-    validation = CheckAccess('PDOC_');
+    validation = CheckAccess('FPDOC');
+    validation = CheckAccess('FPDOC');
     ShowMenu[7] = validation;  //  فاکتور خرید
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-        validation = CheckAccess('NEW_PDOC');// new Factor kharid
+        validation = CheckAccess('NEW_FPDOC');// new Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
         sessionStorage.moveFactor = validation;
 
