@@ -1319,7 +1319,7 @@ function SetValidation() {
             afiaccess[20] && ShowMenu[24] ? $("#TrzFCust_P").show() : $("#TrzFCust_P").hide();
 
 
-            if (ShowMenu[15] == false && ShowMenu[16] == false)
+            if (ShowMenu[15] == false && ShowMenu[16] == false && ShowMenu[21] == false && ShowMenu[22] == false && ShowMenu[23] == false && ShowMenu[24] == false)
                 $("#FReport_Menu").hide();
         }
         else {

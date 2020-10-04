@@ -781,6 +781,7 @@
             StartNo: 0,
             EndNo: 0,
             BranchCode: 0,
+            MoveMode: 0,
         };
         $('#modal-Move').modal('hide');
         showNotification('در حال انتقال لطفا منتظر بمانید', 1);

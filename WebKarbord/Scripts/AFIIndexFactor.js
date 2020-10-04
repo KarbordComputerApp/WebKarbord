@@ -1080,6 +1080,15 @@
         });
     }
 
+    var moveMode = 0;
+
+    $('#TabPor').click(function () {
+        moveMode = 0;
+    });
+
+    $('#TabMove').click(function () {
+        moveMode = 1;
+    });
 
     $('#Move').click(function () {
         modeCodeMove = $('#modeCodePor').val();
@@ -1095,6 +1104,7 @@
             StartNo: 0,
             EndNo: 0,
             BranchCode: 0,
+            MoveMode: moveMode,
         };
         $('#modal-Move').modal('hide');
         showNotification('در حال انتقال لطفا منتظر بمانید', 1);
