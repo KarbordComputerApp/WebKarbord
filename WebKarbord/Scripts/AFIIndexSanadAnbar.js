@@ -177,6 +177,8 @@
             //ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/Count', 'GET').done(function (dataCount) {
             //    $('#countAllRecord').text(dataCount);
             // });
+            self.currentPageIndexIDocH(0);
+
         });
     }
 
