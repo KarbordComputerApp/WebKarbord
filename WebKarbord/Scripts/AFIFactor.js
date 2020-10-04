@@ -206,7 +206,7 @@
         $('#TitleModalCust').text('لیست خریداران ');
         $('#TitleCodeTableModalCust').text('کد خریدار ');
         $('#TitleNameTableModalCust').text('نام خریدار ');
-        sessionStorage.sels = "false";
+        sessionStorage.sels = "true";
     } else {
         $('#LableCustCode').text('فروشنده ');
         $('#LableHesabCode').text('نام فروشنده');
@@ -216,7 +216,7 @@
         $('#TitleModalCust').text('لیست فروشندگان');
         $('#TitleCodeTableModalCust').text('کد فروشنده ');
         $('#TitleNameTableModalCust').text('نام فروشنده ');
-        sessionStorage.sels = "true";
+        sessionStorage.sels = "false";
     }
 
 
