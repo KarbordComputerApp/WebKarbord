@@ -10,6 +10,7 @@
     var defultMove;
     var docDate;
     var serial;
+    var invSelected = 0;
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها
@@ -111,12 +112,6 @@
 
 
 
-
-
-
-
-
-
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
@@ -135,8 +130,10 @@
     function getInvList() {
         ajaxFunction(InvUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.InvList(data);
-            //if (sessionStorage.invSelect != "0")              
-            $('#invSelect').val(sessionStorage.invSelect);
+            //localStorage.setItem('InvSelectSanadAnbar', '');
+           // last = localStorage.getItem('InvSelectSanadAnbar');
+            invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
+           
             if (self.InvList().length > 0) {
                 if (flagupdateHeader == 1) {
                     $("#inv").val(sessionStorage.InvCode);
@@ -147,6 +144,9 @@
                         $("#inv").val(sessionStorage.InvDefult);
                 }
             }
+
+            self.InvCode(invSelected);
+
         });
     }
     //var storedNames = JSON.parse(sessionStorage.getItem("inv"));
@@ -156,8 +156,8 @@
 
     //Get IDocH
     function getIDocH(select, invCode) {
-        //$('#invSelect').val(sessionStorage.invSelect);         
-        if (sessionStorage.invSelect == "" || sessionStorage.invSelect == "null" || sessionStorage.invSelect == null)
+   
+        if (invCode == "" || invCode == "null" || invCode == null)
             invCode = "";
 
         var IDocHMinObject = {
@@ -178,7 +178,8 @@
             //    $('#countAllRecord').text(dataCount);
             // });
             self.currentPageIndexIDocH(0);
-
+            localStorage.setItem('InvSelectSanadAnbar', invCode);
+            invSelected = invCode;
         });
     }
 
@@ -190,8 +191,9 @@
 
 
     getInvList();
-    $('#invSelect').val(sessionStorage.invSelect);
-    getIDocH(0, sessionStorage.invSelect);
+
+    getIDocH(0, invSelected);
+    $('#invSelect').val(invSelected);
 
     //------------------------------------------------------
     self.currentPageIDocH = ko.observable();
@@ -520,7 +522,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getIDocH($('#pageCountSelector').val(), sessionStorage.invSelect == "" ? 0 : sessionStorage.invSelect);
+                getIDocH($('#pageCountSelector').val(), invSelected);
 
                 //$('#pageCountSelector').val(0);
                 // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست اسناد به روز رسانی شد' });
@@ -544,7 +546,7 @@
             if (result.value) {
                 ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
                     currentPage = self.currentPageIndexIDocH();
-                    getIDocH(0, sessionStorage.invSelect == "" ? 0 : sessionStorage.invSelect);
+                    getIDocH(0, invSelected);
                     self.currentPageIndexIDocH(currentPage);
                     Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
                 });
@@ -643,8 +645,7 @@
 
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? '' : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
     }
@@ -735,11 +736,23 @@
             textExc = '<select id="modeCodePor">';
 
             for (var i = 0; i < data.length; i++) {
-                textExc += '<option value="' + data[i].Code + '"';
-                if (data[i].InOut == 1) {
-                    textExc += 'style="background-color: #f5e6ac" ';
+
+                if (
+                    (CheckAccess('NEW_IIDOC') && data[i].InOut == 1) ||
+                    (CheckAccess('NEW_IODOC') && data[i].InOut == 2) 
+                )
+                {
+
+                    textExc += '<option value="' + data[i].Code + '"';
+                    if (data[i].InOut == 1) {
+                        textExc += 'style="background-color: #f5e6ac" ';
+                    }
+                    textExc += '>' + data[i].Name + '</option>';
+
                 }
-                textExc += '>' + data[i].Name + '</option>';
+
+
+
             }
 
             textExc += '</select>';
@@ -768,7 +781,7 @@
 
 
     $('#Move').click(function () {
-        modeCodeMove = $('#modeCodeMove').val();
+        modeCodeMove = $('#modeCodePor').val();
         invSelectMove = $('#invSelectMove').val();
         var MoveObject = {
             SerialNumber: serial,

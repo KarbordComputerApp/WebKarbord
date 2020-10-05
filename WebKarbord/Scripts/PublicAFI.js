@@ -819,7 +819,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
         validation = CheckAccess('NEW_SFORD');// new sefaresh forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_SFORD');// edit sefaresh forosh
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
@@ -842,6 +843,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_SFORD'); 
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
 
     }
 
@@ -854,7 +856,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
         validation = CheckAccess('NEW_SPDOC');// new pish Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_SPDOC');// edit pish Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -883,6 +886,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_SPDOC');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
     // OTHERUSER_SDOC
@@ -893,7 +897,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
         validation = CheckAccess('NEW_SFDOC');// new Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_SFDOC');// edit Factor forosh
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
@@ -921,6 +926,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_SFDOC');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
     validation = CheckAccess('SRDOC');
@@ -929,7 +935,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
         validation = CheckAccess('NEW_SRDOC');// new back Factor forosh
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_SRDOC');// edit back Factor forosh
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -954,6 +961,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_SRDOC');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
 
@@ -963,7 +971,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
         validation = CheckAccess('NEW_SHVL');// new 
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_SHVL');// edit
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -986,6 +995,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_SHVL');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
 
@@ -995,7 +1005,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
         validation = CheckAccess('NEW_SEXT');// new 
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_SEXT');// edit 
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -1018,6 +1029,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_SEXT');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
 
@@ -1027,7 +1039,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
         validation = CheckAccess('NEW_PFORD');// new
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_PFORD');// edit
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -1050,6 +1063,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_PFORD');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
 
@@ -1060,7 +1074,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
         validation = CheckAccess('NEW_PPDOC');// new pish Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_PPDOC');// edit pish Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -1087,6 +1102,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_PPDOC');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
     validation = CheckAccess('PFDOC');
@@ -1095,7 +1111,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
         validation = CheckAccess('NEW_PFDOC');// new Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_PFDOC');// edit Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -1120,6 +1137,7 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_PFDOC');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
     }
 
 
@@ -1129,7 +1147,8 @@ function SetValidation() {
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         validation = CheckAccess('NEW_PRDOC');// new back Factor kharid
         validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        sessionStorage.moveFactor = validation;
+        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        sessionStorage.newFactor = validation;
 
         validation = CheckAccess('CHG_PRDOC');// edit back Factor kharid
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
@@ -1155,7 +1174,16 @@ function SetValidation() {
 
         validation = CheckAccess('MOVE_PRDOC');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+        sessionStorage.moveFactor = validation;
+
     }
+
+
+
+
+
+
+
 
 
 

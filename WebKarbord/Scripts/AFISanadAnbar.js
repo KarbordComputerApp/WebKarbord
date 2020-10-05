@@ -33,6 +33,8 @@
     var Price2;
     var Price3;
 
+    invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
+
     var invCode = sessionStorage.InvCode;
 
     var totalPrice;
@@ -78,7 +80,7 @@
     self.Spec = ko.observable();
     self.ThvlCode = ko.observable();
     self.PriceCode = ko.observable();
-    self.InvCode = ko.observable();
+    self.InvCode = ko.observable(invSelected);
     self.modeCode = ko.observable();
     self.StatusSanad = ko.observable();
 
@@ -323,6 +325,21 @@
     }
 
 
+    if (ace == "Web8") {
+        if (flagupdateHeader == 1) {
+            $('#inv').prop('disabled', true);
+            $('#modeCode').prop('disabled', true);
+        }
+        else {
+            $('#inv').prop('disabled', false);
+            $('#modeCode').prop('disabled', false);
+        }
+    }
+
+   // $('#FromUser').prop('disabled', false);
+   // $('#ToUser').prop('disabled', false);
+
+
     self.ClearIDocH = function ClearIDocH() {
         Serial = '';
         sessionStorage.flagupdateHeader = '0';
@@ -489,6 +506,11 @@
             DocNoOut = res[1];
             $('#docnoout').text(DocNoOut);
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخيره شد ' });
+
+            if (ace == "Web8") {
+                $('#inv').prop('disabled', true);
+                $('#modeCode').prop('disabled', true);
+            }
         });
         flagInsertIDoch = 1;
     };

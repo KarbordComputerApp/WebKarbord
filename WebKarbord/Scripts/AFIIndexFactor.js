@@ -786,7 +786,7 @@
     }
 
     self.ShowMove = function (Eghdam) {
-        if (sessionStorage.moveFactor == 'true')
+        if (sessionStorage.moveFactor == 'true' || sessionStorage.newFactor == 'true')
             return true;
         else
             return false;
@@ -1036,24 +1036,39 @@
         ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
             self.FModeList(data);
 
+
+
+
             var textExc = '';
 
             textExc = '<select id="modeCodePor">';
 
             for (var i = 0; i < data.length; i++) {
-                textExc += '<option value="' + data[i].Code + '"';
-                if (data[i].InOut == 1) {
-                    textExc += 'style="background-color: #f5e6ac" ';
+
+                if (
+                    (CheckAccess('NEW_SFORD') && data[i].Code == 'SORD') ||
+                    (CheckAccess('NEW_SPDOC') && data[i].Code == 'SPFCT') ||
+                    (CheckAccess('NEW_SFDOC') && data[i].Code == 'SFCT') ||
+                    (CheckAccess('NEW_SRDOC') && data[i].Code == 'SRFCT') ||
+                    (CheckAccess('NEW_SHVL') && data[i].Code == 'SHVL') ||
+                    (CheckAccess('NEW_SEXT') && data[i].Code == 'SEXT') ||
+                    (CheckAccess('NEW_PFORD') && data[i].Code == 'PORD') ||
+                    (CheckAccess('NEW_PPDOC') && data[i].Code == 'PPFCT') ||
+                    (CheckAccess('NEW_PFDOC') && data[i].Code == 'PFCT') ||
+                    (CheckAccess('NEW_PRDOC') && data[i].Code == 'PRFCT')
+                ) {
+                    textExc += '<option value="' + data[i].Code + '"';
+                    if (data[i].InOut == 1) {
+                        textExc += 'style="background-color: #f5e6ac" ';
+                    }
+                    textExc += '>' + data[i].Name + '</option>';
                 }
-                textExc += '>' + data[i].Name + '</option>';
             }
 
             textExc += '</select>';
 
             $("#modeListPor").empty();
             $('#modeListPor').append(textExc);
-
-
 
 
 
@@ -1067,15 +1082,29 @@
 
 
             select = document.getElementById('modeCodeMove');
+
+
             for (var i = 0; i < dataMove.length; i++) {
                 if (dataMove[i].Code != sessionStorage.ModeCode) {
 
-                    //validation = CheckAccess('NEW_' + dataMove[i].Code);
-                    opt = document.createElement('option');
-                    opt.value = dataMove[i].Code;
-                    opt.innerHTML = dataMove[i].Name;
-                    //opt.selected = true;
-                    select.appendChild(opt);
+                    if (
+                        (CheckAccess('NEW_SFORD') && dataMove[i].Code == 'SORD') ||
+                        (CheckAccess('NEW_SPDOC') && dataMove[i].Code == 'SPFCT') ||
+                        (CheckAccess('NEW_SFDOC') && dataMove[i].Code == 'SFCT') ||
+                        (CheckAccess('NEW_SRDOC') && dataMove[i].Code == 'SRFCT') ||
+                        (CheckAccess('NEW_SHVL') && dataMove[i].Code == 'SHVL') ||
+                        (CheckAccess('NEW_SEXT') && dataMove[i].Code == 'SEXT') ||
+                        (CheckAccess('NEW_PFORD') && dataMove[i].Code == 'PORD') ||
+                        (CheckAccess('NEW_PPDOC') && dataMove[i].Code == 'PPFCT') ||
+                        (CheckAccess('NEW_PFDOC') && dataMove[i].Code == 'PFCT') ||
+                        (CheckAccess('NEW_PRDOC') && dataMove[i].Code == 'PRFCT') 
+                    ) {
+                        opt = document.createElement('option');
+                        opt.value = dataMove[i].Code;
+                        opt.innerHTML = dataMove[i].Name;
+                        //opt.selected = true;
+                        select.appendChild(opt);
+                    }
                 }
             }
 
@@ -1086,6 +1115,17 @@
     }
 
     var moveMode = 0;
+
+    if (sessionStorage.newFactor == 'true')
+    {
+        $("#menu1").removeClass("active");
+        $("#home").addClass("active");
+    }
+    else
+    {
+        $("#home").removeClass("active");
+        $("#menu1").addClass("active");
+    }
 
     $('#TabPor').click(function () {
         moveMode = 0;
