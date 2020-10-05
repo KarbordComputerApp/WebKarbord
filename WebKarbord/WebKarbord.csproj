@@ -620,7 +620,6 @@
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
     <Content Include="Content\new\js\stimulsoft.designer.js" />
-    <Content Include="Content\new\js\stimulsoft.designer.runtime.js" />
     <Content Include="Content\new\js\stimulsoft.reports.js" />
     <Content Include="Content\new\js\stimulsoft.reports.maps.js" />
     <Content Include="Content\new\js\stimulsoft.viewer.js" />

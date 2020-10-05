@@ -1045,24 +1045,45 @@
 
             for (var i = 0; i < data.length; i++) {
 
-                if (
-                    (CheckAccess('NEW_SFORD') && data[i].Code == 'SORD') ||
-                    (CheckAccess('NEW_SPDOC') && data[i].Code == 'SPFCT') ||
-                    (CheckAccess('NEW_SFDOC') && data[i].Code == 'SFCT') ||
-                    (CheckAccess('NEW_SRDOC') && data[i].Code == 'SRFCT') ||
-                    (CheckAccess('NEW_SHVL') && data[i].Code == 'SHVL') ||
-                    (CheckAccess('NEW_SEXT') && data[i].Code == 'SEXT') ||
-                    (CheckAccess('NEW_PFORD') && data[i].Code == 'PORD') ||
-                    (CheckAccess('NEW_PPDOC') && data[i].Code == 'PPFCT') ||
-                    (CheckAccess('NEW_PFDOC') && data[i].Code == 'PFCT') ||
-                    (CheckAccess('NEW_PRDOC') && data[i].Code == 'PRFCT')
-                ) {
-                    textExc += '<option value="' + data[i].Code + '"';
-                    if (data[i].InOut == 1) {
-                        textExc += 'style="background-color: #f5e6ac" ';
+                if (ace == "Web8") {
+                    if (
+                        (CheckAccess('NEW_SFORD') && data[i].Code == 'SORD') ||
+                        (CheckAccess('NEW_SPDOC') && data[i].Code == 'SPFCT') ||
+                        (CheckAccess('NEW_SFDOC') && data[i].Code == 'SFCT') ||
+                        (CheckAccess('NEW_SRDOC') && data[i].Code == 'SRFCT') ||
+                        (CheckAccess('NEW_SHVL') && data[i].Code == 'SHVL') ||
+                        (CheckAccess('NEW_SEXT') && data[i].Code == 'SEXT') ||
+                        (CheckAccess('NEW_PFORD') && data[i].Code == 'PORD') ||
+                        (CheckAccess('NEW_PPDOC') && data[i].Code == 'PPFCT') ||
+                        (CheckAccess('NEW_PFDOC') && data[i].Code == 'PFCT') ||
+                        (CheckAccess('NEW_PRDOC') && data[i].Code == 'PRFCT')
+                    ) {
+                        textExc += '<option value="' + data[i].Code + '"';
+                        if (data[i].InOut == 1) {
+                            textExc += 'style="background-color: #f5e6ac" ';
+                        }
+                        textExc += '>' + data[i].Name + '</option>';
                     }
-                    textExc += '>' + data[i].Name + '</option>';
                 }
+                else {
+
+                    if (
+                        (CheckAccess('NEW_SPDOC') && data[i].Code == '51') ||
+                        (CheckAccess('NEW_SFDOC') && data[i].Code == '52') ||
+                        (CheckAccess('NEW_SRDOC') && data[i].Code == '53') ||
+                        (CheckAccess('NEW_PPDOC') && data[i].Code == '54') ||
+                        (CheckAccess('NEW_PFDOC') && data[i].Code == '55') ||
+                        (CheckAccess('NEW_PRDOC') && data[i].Code == '56')
+                    ) {
+                        textExc += '<option value="' + data[i].Code + '"';
+                        if (data[i].InOut == 1) {
+                            textExc += 'style="background-color: #f5e6ac" ';
+                        }
+                        textExc += '>' + data[i].Name + '</option>';
+                    }
+
+                }
+
             }
 
             textExc += '</select>';
@@ -1116,6 +1137,7 @@
 
     var moveMode = 0;
 
+
     if (sessionStorage.newFactor == 'true')
     {
         $("#menu1").removeClass("active");
@@ -1126,6 +1148,15 @@
         $("#home").removeClass("active");
         $("#menu1").addClass("active");
     }
+
+    if (ace == "Web1") {
+        $("#menu1").attr('hidden', '');
+        $("#TabMove").attr('hidden', '');
+    }
+
+
+
+
 
     $('#TabPor').click(function () {
         moveMode = 0;
