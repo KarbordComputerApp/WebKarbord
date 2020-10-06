@@ -15937,6 +15937,8 @@ nav.navbar {
 
 .slimScrollBar {
     z-index: 0 !important;
+    background: rgb(255, 255, 255) !important;
+    width: 10px !important;
 }
 
 .chat-upload {

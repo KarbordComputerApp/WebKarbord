@@ -337,6 +337,8 @@
                 if (a < (indexIDocH / self.pageSizeIDocH())) a += 1;
                 self.currentPageIndexIDocH(a - 1);
             }
+            if (value == null)
+                self.currentPageIndexIDocH(0);
             return value;
         }
     });
@@ -717,7 +719,9 @@
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        $('#modeCodeMove').val();
+        //$('#modeCodeMove').val();
+        $('#modeCodePor').val(item.ModeCode);
+
         $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
         $('#titlePor').text(' پر کردن ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' در ');
 
@@ -750,8 +754,6 @@
                     textExc += '>' + data[i].Name + '</option>';
 
                 }
-
-
 
             }
 

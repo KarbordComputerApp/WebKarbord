@@ -16,7 +16,6 @@
     self.IModeList = ko.observableArray([]); // ليست نوع سند
 
 
-
     self.IDocRList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 

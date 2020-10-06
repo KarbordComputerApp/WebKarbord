@@ -1024,7 +1024,9 @@
     self.MoveFactor = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        $('#modeCodePor').val(defultMove);
+        $('#modeCodeMove').val(defultMove);
+        $('#modeCodePor').val(sessionStorage.ModeCode);
+
         $('#titleMove').text(' انتقال ' + TitleListFactor + ' ' + item.DocNo + ' به ');
         $('#titlePor').text(' پر کردن ' + TitleListFactor + ' ' + item.DocNo + ' در ');
         $('#modal-Move').modal();
