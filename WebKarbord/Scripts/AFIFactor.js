@@ -2408,7 +2408,7 @@
     else
     {
         $('#thUnitPrice').removeAttr('hidden', '');
-        $('#thTotalPrice').removeAttr('hidden', '');
+        $('#thTotalPrice').removeAttr('hidden', ''); 
         $('#thDiscount').removeAttr('hidden', '');
         $('#tdUnitPrice').removeAttr('hidden', '');
         $('#tdTotalPrice').removeAttr('hidden', '');
