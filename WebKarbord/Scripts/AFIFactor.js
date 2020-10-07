@@ -2392,6 +2392,34 @@
     });
 
 
+    if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
+    {
+        
+        $('#thUnitPrice').attr('hidden', '');
+        $('#thTotalPrice').attr('hidden', '');
+        $('#thDiscount').attr('hidden', '');
+        $('#tdUnitPrice').attr('hidden', '');
+        $('#tdTotalPrice').attr('hidden', '');
+        $('#tdDiscount').attr('hidden', '');
+        $('#foottextUnitPrice').attr('hidden', '');
+        $('#foottexttotalprice').attr('hidden', '');
+        $('#foottextdiscount').attr('hidden', '');
+    }
+    else
+    {
+        $('#thUnitPrice').removeAttr('hidden', '');
+        $('#thTotalPrice').removeAttr('hidden', '');
+        $('#thDiscount').removeAttr('hidden', '');
+        $('#tdUnitPrice').removeAttr('hidden', '');
+        $('#tdTotalPrice').removeAttr('hidden', '');
+        $('#tdDiscount').removeAttr('hidden', '');
+        $('#foottextUnitPrice').removeAttr('hidden', '');
+        $('#foottexttotalprice').removeAttr('hidden', '');
+        $('#foottextdiscount').removeAttr('hidden', '');
+    }
+
+
+
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
     createViewer();
     $('#Print').click(function () {

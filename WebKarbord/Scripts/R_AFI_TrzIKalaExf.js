@@ -8,6 +8,7 @@
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.KalaList = ko.observableArray([]); // ليست کالا ها
+    self.TGruList = ko.observableArray([]); // ليست گروه وارده صادره 
     self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
     self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
@@ -21,6 +22,7 @@
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
+    var TGruUri = server + '/api/Web_Data/TGru/'; // آدرس گروه وارده صادره
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس وارده صادره
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
@@ -39,11 +41,39 @@
     
     var KalaCode = '';
     var counterKala = 0;
-    var list_KalaSelect = new Array()
+    var list_KalaSelect = new Array();
 
     var InvCode = '';
     var counterInv = 0;
-    var list_InvSelect = new Array()
+    var list_InvSelect = new Array();
+
+    var KGruCode = '';
+    var counterKGru = 0;
+    var list_KGruSelect = new Array();
+
+    var TGruCode = '';
+    var counterTGru = 0;
+    var list_TGruSelect = new Array();
+
+    var ThvlCode = '';
+    var counterThvl = 0;
+    var list_ThvlSelect = new Array();
+
+    var MkzCode = '';
+    var counterMkz = 0;
+    var list_MkzSelect = new Array();
+
+    var OprCode = '';
+    var counterOpr = 0;
+    var list_OprSelect = new Array();
+
+    var StatusCode = '';
+    var counterStatus = 3;
+    var list_StatusSelect = ["موقت", "تایید", "تصویب"];
+
+    var IModeCode = '';
+    var counterIMode = 0;
+    var list_IModeSelect = new Array();
 
     $("#textTotal").text('');
 
@@ -194,6 +224,14 @@
         });
     }
 
+
+    //Get TGru List
+    function getTGruList() {
+        ajaxFunction(TGruUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.TGruList(data);
+        });
+    }
+
     //Get Opr List
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
@@ -226,6 +264,14 @@
                 invcode += list_InvSelect[i];
         }
 
+        var kGrucode = '';
+        for (var i = 0; i <= counterKGru - 1; i++) {
+            if (i < counterKGru - 1)
+                kGrucode += list_KGruSelect[i] + '*';
+            else
+                kGrucode += list_KGruSelect[i];
+        }
+
         var kalacode = '';
         for (var i = 0; i <= counterKala - 1; i++) {
             if (i < counterKala - 1)
@@ -234,14 +280,69 @@
                 kalacode += list_KalaSelect[i];
         }
 
+        var thvlcode = '';
+        for (var i = 0; i <= counterThvl - 1; i++) {
+            if (i < counterThvl - 1)
+                thvlcode += list_ThvlSelect[i] + '*';
+            else
+                thvlcode += list_ThvlSelect[i];
+        }
+
+        var tGrucode = '';
+        for (var i = 0; i <= counterTGru - 1; i++) {
+            if (i < counterTGru - 1)
+                tGrucode += list_TGruSelect[i] + '*';
+            else
+                tGrucode += list_TGruSelect[i];
+        }
+
+        var mkzcode = '';
+        for (var i = 0; i <= counterMkz - 1; i++) {
+            if (i < counterMkz - 1)
+                mkzcode += list_MkzSelect[i] + '*';
+            else
+                mkzcode += list_MkzSelect[i];
+        }
+
+        var oprcode = '';
+        for (var i = 0; i <= counterOpr - 1; i++) {
+            if (i < counterOpr - 1)
+                oprcode += list_OprSelect[i] + '*';
+            else
+                oprcode += list_OprSelect[i];
+        }
+
+        var statuscode = '';
+        for (var i = 0; i <= counterStatus - 1; i++) {
+            if (i < counterStatus - 1)
+                statuscode += list_StatusSelect[i] + '*';
+            else
+                statuscode += list_StatusSelect[i];
+        }
+
+        var imodecode = '';
+        for (var i = 0; i <= counterIMode - 1; i++) {
+            if (i < counterIMode - 1)
+                imodecode += list_IModeSelect[i] + '*';
+            else
+                imodecode += list_IModeSelect[i];
+        }
+
 
         var TrzIExfObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
+            StatusCode: statuscode,
+            ModeCode: imodecode,
             InvCode: invcode,
-            KGruCode: '0',
-            KalaCode: kalacode
+            KGruCode: kGrucode,
+            KalaCode: kalacode,
+            ThvlCode: thvlcode,
+            TGruCode: tGrucode,
+            MkzCode: mkzcode,
+            OprCode: oprcode,
         };
+
         ajaxFunction(TrzIExfUri + ace + '/' + sal + '/' + group, 'POST', TrzIExfObject).done(function (response) {
             self.TrzIExfList(response);
             calcsum(self.TrzIExfList());
@@ -342,6 +443,7 @@
 
     getInvList();
     getKalaList();
+    getTGruList();
     getThvlList();
     getKGruList();
     getOprList();
@@ -350,6 +452,13 @@
 
     $('#nameKala').val('همه موارد');
     $('#nameInv').val('همه موارد');
+    $('#nameKGru').val('همه موارد');
+    $('#nameThvl').val('همه موارد');
+    $('#nameTGru').val('همه موارد');
+    $('#nameOpr').val('همه موارد');
+    $('#nameMkz').val('همه موارد');
+    $('#nameStatus').val('3 مورد انتخاب شده');
+    $('#nameIMode').val('همه موارد');
 
     //------------------------------------------------------
     self.currentPageTrzIExf = ko.observable();
@@ -570,6 +679,7 @@
     self.iconTypeKalaCode = ko.observable("");
     self.iconTypeKalaName = ko.observable("");
     self.iconTypeKalaFanniNo = ko.observable("");
+    self.iconTypeStatus = ko.observable("");
 
     self.iconTypeKalaFileNo = ko.observable("");
     self.iconTypeKalaState = ko.observable("");
@@ -1433,6 +1543,209 @@
     $('#modal-Thvl').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageTGru = ko.observable();
+    self.pageSizeTGru = ko.observable(10);
+    self.currentPageIndexTGru = ko.observable(0);
+
+    self.filterTGru0 = ko.observable("");
+    self.filterTGru1 = ko.observable("");
+    self.filterTGru2 = ko.observable("");
+
+    self.filterTGruList = ko.computed(function () {
+
+        self.currentPageIndexTGru(0);
+        var filter0 = self.filterTGru0().toUpperCase();
+        var filter1 = self.filterTGru1();
+        var filter2 = self.filterTGru2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.TGruList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.TGruList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageTGru = ko.computed(function () {
+        var pageSizeTGru = parseInt(self.pageSizeTGru(), 10),
+            startIndex = pageSizeTGru * self.currentPageIndexTGru(),
+            endIndex = startIndex + pageSizeTGru;
+        return self.filterTGruList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageTGru = function () {
+        if (((self.currentPageIndexTGru() + 1) * self.pageSizeTGru()) < self.filterTGruList().length) {
+            self.currentPageIndexTGru(self.currentPageIndexTGru() + 1);
+        }
+    };
+
+    self.previousPageTGru = function () {
+        if (self.currentPageIndexTGru() > 0) {
+            self.currentPageIndexTGru(self.currentPageIndexTGru() - 1);
+        }
+    };
+
+    self.firstPageTGru = function () {
+        self.currentPageIndexTGru(0);
+    };
+
+    self.lastPageTGru = function () {
+        countTGru = parseInt(self.filterTGruList().length / self.pageSizeTGru(), 10);
+        if ((self.filterTGruList().length % self.pageSizeTGru()) == 0)
+            self.currentPageIndexTGru(countTGru - 1);
+        else
+            self.currentPageIndexTGru(countTGru);
+    };
+
+    self.sortTableTGru = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.TGruList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshTGru').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست گروه های تحویل دهنده / گیرنده به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getTGruList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.AddTGru = function (item) {
+
+        TGruCode = item.Code;
+        find = false;
+        list_TGruSelect.forEach(function (item, key) {
+            if (item == TGruCode) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListTGru').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + item.Code + '</td > '
+                + ' <td data-bind="text: Name">' + item.Name + '</td > '
+                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
+                + '</tr>'
+            );
+            list_TGruSelect[counterTGru] = item.Code;
+            counterTGru = counterTGru + 1;
+        }
+    };
+
+
+    self.AddAllTGru = function () {
+        list_TGruSelect = new Array();
+        list = self.TGruList();
+        $("#TableBodyListTGru").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListTGru').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
+                + '</tr>'
+            );
+            list_TGruSelect[i] = list[i].Code;
+            counterTGru = i + 1;
+        }
+    };
+
+
+    self.DelAllTGru = function () {
+        list_TGruSelect = new Array();
+        counterTGru = 0;
+        $("#TableBodyListTGru").empty();
+    };
+
+
+    $('#modal-TGru').on('hide.bs.modal', function () {
+        if (counterTGru > 0)
+            $('#nameTGru').val(counterTGru + ' مورد انتخاب شده ')
+        else
+            $('#nameTGru').val('همه موارد');
+    });
+
+    $('#modal-TGru').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
 
 
     self.currentPageMkz = ko.observable();

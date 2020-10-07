@@ -496,12 +496,14 @@
         sessionStorage.F19 = item.F19;
         sessionStorage.F20 = item.F20;
 
+        sessionStorage.lastPageSelect = self.currentPageIndexADocH();
+
         window.location.href = sessionStorage.urlADocH;
     }
 
     self.ShowAction = function (Eghdam) {
         if (sessionStorage.DEL_ADOC == 'true') {
-            if (sessionStorage.AccessViewADoc == 'false') {
+            if (sessionStorage.AccessView == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
             else {
@@ -626,12 +628,12 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad , visible: $root.ShowMove(Tanzim) ">' +
+            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad , visible: $root.ShowMove(Eghdam) ">' +
             '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
             '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
-            '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Tanzim)">' +
+            '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +
             '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16"/></a>' +
             '</td >' +
             '</tr>' +
@@ -819,6 +821,7 @@
 
     });
 
+    self.currentPageIndexADocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
     //sessionStorage.moveSanad == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
 
 

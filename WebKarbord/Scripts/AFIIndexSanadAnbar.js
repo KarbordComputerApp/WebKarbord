@@ -20,7 +20,7 @@
     var IMoveSanadUri = server + '/api/IDocData/MoveSanad/'; // آدرس انتقال اسناد 
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
 
-  
+
 
     var columns = [
         'DocNo',
@@ -120,6 +120,8 @@
     self.InvList = ko.observableArray([]); // ليست انبار ها
 
     self.InvCode = ko.observable();
+    self.InvCodeMove = ko.observable();
+
     var IDocHUri = server + '/api/IDocData/IDocH/'; // آدرس لیست اسناد انبار 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
@@ -131,9 +133,9 @@
         ajaxFunction(InvUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.InvList(data);
             //localStorage.setItem('InvSelectSanadAnbar', '');
-           // last = localStorage.getItem('InvSelectSanadAnbar');
+            // last = localStorage.getItem('InvSelectSanadAnbar');
             invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
-           
+
             if (self.InvList().length > 0) {
                 if (flagupdateHeader == 1) {
                     $("#inv").val(sessionStorage.InvCode);
@@ -156,17 +158,17 @@
 
     //Get IDocH
     function getIDocH(select, invCode) {
-   
+
         if (invCode == "" || invCode == "null" || invCode == null)
             invCode = "";
 
         var IDocHMinObject = {
             InOut: sessionStorage.InOut,
             select: select,
-            invSelect: invCode ,
+            invSelect: invCode,
             user: sessionStorage.userName,
             accessSanad: sessionStorage.AccessSanad,
-            updatedate : null
+            updatedate: null
         }
 
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (data) {
@@ -273,7 +275,7 @@
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             $("#CountRecord").text(self.IDocHList().length);
-           // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
+            // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
             return self.IDocHList();
         } else {
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
@@ -288,7 +290,7 @@
                     (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
                     (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
                     (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber)&&
+                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                     (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
                     (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
@@ -594,6 +596,9 @@
         sessionStorage.F18 = item.F18;
         sessionStorage.F19 = item.F19;
         sessionStorage.F20 = item.F20;
+
+        sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
+
         window.location.href = sessionStorage.urlIDocH;
 
 
@@ -719,11 +724,17 @@
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        //$('#modeCodeMove').val();
         $('#modeCodePor').val(item.ModeCode);
 
         $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
         $('#titlePor').text(' پر کردن ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' در ');
+
+        if (invSelected == '') {
+            temp = localStorage.getItem('InvSelectSanadAnbarMove')
+            temp == null ? self.InvCodeMove('') : self.InvCodeMove(temp)
+        }
+        else
+            self.InvCodeMove(invSelected)
 
         $('#modal-Move').modal();
     }
@@ -731,7 +742,7 @@
     getIModeList();
     //Get  IMode List
     function getIModeList() {
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0' , 'GET').done(function (data) {
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
             self.IModeList(data);
 
 
@@ -743,9 +754,8 @@
 
                 if (
                     (CheckAccess('NEW_IIDOC') && data[i].InOut == 1) ||
-                    (CheckAccess('NEW_IODOC') && data[i].InOut == 2) 
-                )
-                {
+                    (CheckAccess('NEW_IODOC') && data[i].InOut == 2)
+                ) {
 
                     textExc += '<option value="' + data[i].Code + '"';
                     if (data[i].InOut == 1) {
@@ -785,6 +795,8 @@
     $('#Move').click(function () {
         modeCodeMove = $('#modeCodePor').val();
         invSelectMove = $('#invSelectMove').val();
+        localStorage.setItem('InvSelectSanadAnbarMove', invSelectMove);
+
         var MoveObject = {
             SerialNumber: serial,
             DocDate: docDate,
@@ -825,7 +837,7 @@
             sessionStorage.InOut = item.InOut;
 
 
-           // sessionStorage.ModeCodeValue = modeCodeMove;
+            // sessionStorage.ModeCodeValue = modeCodeMove;
 
             sessionStorage.F01 = item.F01;
             sessionStorage.F02 = item.F02;
@@ -1042,6 +1054,8 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
         return text;
     }
+
+    self.currentPageIndexIDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
     createViewer();
     $('#Print').click(function () {

@@ -368,7 +368,7 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                     ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
-                    //ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
+                    ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
                     (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                     (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
                     (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
@@ -576,6 +576,15 @@
         if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
+
+
+
+
+
+
+   
+
+
 
     self.currentPageFDocH1 = ko.observable();
     self.pageSizeFDocH1 = ko.observable(10);
@@ -1018,6 +1027,9 @@
         sessionStorage.Status = item.Status;
         sessionStorage.PaymentType = item.PaymentType;
         sessionStorage.Footer = item.Footer;
+
+        sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
+
         window.location.href = sessionStorage.urlFDocH;
     }
 
@@ -1120,7 +1132,7 @@
                         (CheckAccess('NEW_PFORD') && dataMove[i].Code == 'PORD') ||
                         (CheckAccess('NEW_PPDOC') && dataMove[i].Code == 'PPFCT') ||
                         (CheckAccess('NEW_PFDOC') && dataMove[i].Code == 'PFCT') ||
-                        (CheckAccess('NEW_PRDOC') && dataMove[i].Code == 'PRFCT') 
+                        (CheckAccess('NEW_PRDOC') && dataMove[i].Code == 'PRFCT')
                     ) {
                         opt = document.createElement('option');
                         opt.value = dataMove[i].Code;
@@ -1140,13 +1152,11 @@
     var moveMode = 0;
 
 
-    if (sessionStorage.newFactor == 'true')
-    {
+    if (sessionStorage.newFactor == 'true') {
         $("#menu1").removeClass("active");
         $("#home").addClass("active");
     }
-    else
-    {
+    else {
         $("#home").removeClass("active");
         $("#menu1").addClass("active");
     }
@@ -1263,14 +1273,21 @@
 
     function CreateTableReport(data) {
         $("#TableList").empty();
-        $('#TableList').append(
+        dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableFDocH">' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
-            CreateTableTh('CustName', data) +
-            CreateTableTh('FinalPrice', data) +
+            CreateTableTh('CustName', data);
+
+        if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
+            a = 1
+        else
+            dataTable +=
+                CreateTableTh('FinalPrice', data)
+
+        dataTable +=
             CreateTableTh('Status', data) +
             CreateTableTh('Eghdam', data) +
             CreateTableTh('Tanzim', data) +
@@ -1303,8 +1320,15 @@
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }" >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
-            CreateTableTd('CustName', 0, 0, data) +
-            CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('CustName', 0, 0, data)
+
+        if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
+            a = 1
+        else
+        dataTable +=
+            CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
+
+        dataTable +=
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
@@ -1348,8 +1372,15 @@
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
-            CreateTableTdSearch('CustName', data) +
-            CreateTableTdSearch('FinalPrice', data) +
+            CreateTableTdSearch('CustName', data)
+
+        if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
+            a = 1
+        else
+        dataTable +=
+            CreateTableTdSearch('FinalPrice', data)
+
+        dataTable +=
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('Eghdam', data) +
             CreateTableTdSearch('Tanzim', data) +
@@ -1378,7 +1409,7 @@
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
-        );
+        $('#TableList').append(dataTable);
     }
 
     function CreateTableTh(field, data) {
@@ -1434,9 +1465,7 @@
         setReport(self.filterFDocHList(), 'Free');
     });
 
-
-
-
+    self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
 
 };

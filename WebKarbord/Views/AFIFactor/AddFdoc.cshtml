@@ -123,13 +123,13 @@
                                     <th>
                                         مقدار 3
                                     </th>
-                                    <th>
+                                    <th id="thUnitPrice">
                                         قیمت واحد
                                     </th>
-                                    <th>
+                                    <th id="thTotalPrice">
                                         قیمت کل
                                     </th>
-                                    <th>
+                                    <th id="thDiscount">
                                         تخفیف بند
                                     </th>
                                     <th style="width: 160px">
@@ -149,9 +149,9 @@
                                     <td data-bind="text: Amount1 == 0 ? '' : NumberToNumberString(Amount1.toFixed(DeghatM1))"></td>
                                     <td data-bind="text: Amount2 == 0 ? '' : NumberToNumberString(Amount2.toFixed(DeghatM2)) "></td>
                                     <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(DeghatM3)) "></td>
-                                    <td data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
-                                    <td data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
-                                    <td data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount))"></td>
+                                    <td id="tdUnitPrice" data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
+                                    <td id="tdTotalPrice" data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
+                                    <td id="tdDiscount" data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount))"></td>
                                     <td data-bind="text: Comm"></td>
                                     <td id="action_bodyfactor">
                                         <a data-bind="click: $root.UpdateBand">
@@ -176,7 +176,7 @@
                                     <td id="foottextamount1"> </td>
                                     <td id="foottextamount2"> </td>
                                     <td id="foottextamount3"> </td>
-                                    <td></td>
+                                    <td id="foottextUnitPrice"></td>
                                     <td id="foottexttotalprice"></td>
                                     <td id="foottextdiscount"></td>
                                     <td></td>

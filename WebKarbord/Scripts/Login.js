@@ -12,6 +12,8 @@
     var LoginUri; // آدرس حساب
     var serverAccount = 'http://localhost:902/api/';
    //var serverAccount = 'http://185.208.174.64:902/api/';
+   // var serverAccount = 'http://localhost:49961/api/';
+
     sessionStorage.serverAccount = serverAccount;
 
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
@@ -61,8 +63,8 @@
     function getAccountData() {
         //window.localStorage.clear();
         ajaxFunctionAccount(AccountUri + userAccount + '/' + passAccount, 'GET').done(function (data) {
-            if (data === null) {
-                return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+            if (data === 0) {
+                return showNotification(' نام مجوز ورود یا کلمه عبور اشتباه است ', 0);
             }
             else {
                 serverAddress = data.AddressApi;
