@@ -273,7 +273,7 @@
     //Get Cust List
     function getCustList() {
         var CustObject = {
-            forSale: null,
+            forSale: false,
             updatedate: null
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {

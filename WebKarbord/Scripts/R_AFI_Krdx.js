@@ -279,6 +279,7 @@
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
+        naghl = $("#naghl").val();
 
         kalaCode = self.KalaCode();
 
@@ -346,6 +347,7 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
             StatusCode: statuscode,
+            Naghl: naghl,
         };
         ajaxFunction(KrdxUri + ace + '/' + sal + '/' + group, 'POST', KrdxObject).done(function (response) {
             self.KrdxList(response);
@@ -430,7 +432,7 @@
     getInvList();
     getKalaList();
     getByKalaExf();
-    getNaghlAzGhabl();
+    getNaghl();
     getThvlList();
     getOprList();
     getMkzList();
@@ -1955,28 +1957,6 @@
 
 
 
-    function getNaghlAzGhabl() {
-        select = document.getElementById('naghlAzGhabl');
-        for (var i = 0; i <= 2; i++) {
-            opt = document.createElement('option');
-            if (i == 0) {
-                opt.value = 0;
-                opt.innerHTML = 'همه موارد';
-                opt.selected = true;
-            }
-            if (i == 1) {
-                opt.value = 1;
-                opt.innerHTML = 'وارده به انبار';
-
-            }
-            if (i == 2) {
-                opt.value = 2;
-                opt.innerHTML = 'صادره از انبار';
-            }
-            select.appendChild(opt);
-        }
-    };
-
     function getByKalaExf() {
         select = document.getElementById('byKalaExf');
         for (var i = 0; i <= 1; i++) {
@@ -1995,18 +1975,18 @@
         }
     };
 
-    function getNaghlAzGhabl() {
-        select = document.getElementById('naghlAzGhabl');
+    function getNaghl() {
+        select = document.getElementById('naghl');
         for (var i = 0; i <= 1; i++) {
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'محاسبه شود';
+                opt.innerHTML = 'محاسبه نشود';
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 1;
-                opt.innerHTML = 'محاسبه نشود';
+                opt.innerHTML = 'محاسبه شود';
 
             }
             select.appendChild(opt);

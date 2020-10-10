@@ -2246,8 +2246,13 @@
             }
         }
 
-        if (sessionStorage.CHG == 'false' && flagupdateHeader == 1)
+
+        if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveFactor == "false" && flagupdateHeader == 1) {
             viewAction = false;
+        } else {
+            sessionStorage.BeforeMoveFactor = false;
+        }
+
 
         if (viewAction) {
             $('#action_headerfactor').removeAttr('style');

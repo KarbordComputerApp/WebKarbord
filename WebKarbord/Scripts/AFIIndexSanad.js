@@ -8,6 +8,7 @@
 
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
 
+    sessionStorage.BeforeMoveSanad = false;
 
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
@@ -503,7 +504,7 @@
 
     self.ShowAction = function (Eghdam) {
         if (sessionStorage.DEL_ADOC == 'true') {
-            if (sessionStorage.AccessView == 'false') {
+            if (sessionStorage.AccessSanad == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
             else {
@@ -815,6 +816,7 @@
             sessionStorage.F18 = item.F18;
             sessionStorage.F19 = item.F19;
             sessionStorage.F20 = item.F20;
+            sessionStorage.BeforeMoveSanad = true;
 
             window.location.href = sessionStorage.urlADocH;
         });

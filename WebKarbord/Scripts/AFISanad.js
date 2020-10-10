@@ -3157,8 +3157,11 @@
             }
         }
 
-        if (sessionStorage.CHG == 'false' && flagupdateHeader == 1)
+        if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
             viewAction = false;
+        } else {
+            sessionStorage.BeforeMoveSanad = false;
+        }
 
         if (viewAction) {
             $('#action_headersanad').removeAttr('style');

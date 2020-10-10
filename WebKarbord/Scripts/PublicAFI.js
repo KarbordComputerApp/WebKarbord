@@ -124,6 +124,7 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
+
 for (var i = 0; i <= 27; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
@@ -177,8 +178,8 @@ erjaccess = [false, false]
 
 if (CheckGroupErj(sessionStorage.group) == true) {
     for (var i = 0; i < 2; i++) {
-        erjAccessApi[i] == 'ErjDocK' ? erjaccess[1] = true : null;
-        erjAccessApi[i] == 'ErjDocErja' ? erjaccess[2] = true : null;
+        erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
+        erjAccessApi[i] == 'ErjDocErja' ? erjaccess[1] = true : null;
 
     }
 }
@@ -576,10 +577,10 @@ function getAccessList() {
 
 
                 if (sessionStorage.ace == 'Web1') {
-                    afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = null
+                    afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = ''
                 }
                 else {
-                    afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = null
+                    afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = ''
                 }
 
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
@@ -620,7 +621,7 @@ function getAccessList() {
 
                 if (CheckGroupErj(sessionStorage.group) == true) {
                     for (var i = 0; i < 2; i++) {
-                        erjAccessApi[i] == 'ErjDocK' ? erjaccess[1] = true : null;
+                        erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
                         erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
                     }
 
@@ -1277,8 +1278,8 @@ function SetValidation() {
             if (ShowMenu[1] || ShowMenu[2]) {
                 if (ShowMenu[3] || ShowMenu[4] || ShowMenu[5] || ShowMenu[6] || ShowMenu[7] || ShowMenu[8] || ShowMenu[26] || ShowMenu[27] || ShowMenu[28] || ShowMenu[29]) {
                     $("#FDOC_Menu").show();
-                    (ShowMenu[3] == true) && (afiaccess[0] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
-                    (ShowMenu[4] == true) && (afiaccess[1] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
+                    (ShowMenu[3] == true) && (afiaccess[1] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
+                    (ShowMenu[4] == true) && (afiaccess[0] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
                     (ShowMenu[5] == true) && (afiaccess[2] == true) ? $("#FDOC_SR").show() : $("#FDOC_SR").hide();
                     (ShowMenu[6] == true) && (afiaccess[3] == true) ? $("#FDOC_PP").show() : $("#FDOC_PP").hide();
                     (ShowMenu[7] == true) && (afiaccess[4] == true) ? $("#FDOC_P").show() : $("#FDOC_P").hide();
@@ -1337,7 +1338,7 @@ function SetValidation() {
             $("#IReport_Menu").hide();
         }
 
-        if (afiaccess[11] || afiaccess[12]) {
+        if (afiaccess[11] || afiaccess[12] || afiaccess[17] || afiaccess[18] || afiaccess[19] || afiaccess[20]) {
             $("#FReport_Menu").show();
             afiaccess[11] && ShowMenu[15] ? $("#FDocR_S").show() : $("#FDocR_S").hide();
             afiaccess[12] && ShowMenu[16] ? $("#FDocR_P").show() : $("#FDocR_P").hide();
@@ -1408,21 +1409,28 @@ function SetValidationErj() {
     }
 
     validation = CheckAccessReportErj('ErjDocK');
-    ShowMenuErj[1] = validation;  // گزارش فهرست پرونده
+    ShowMenuErj[0] = validation;  // گزارش فهرست پرونده
 
 
     validation = CheckAccessReportErj('ErjDocErja');
-    ShowMenuErj[2] = validation;  // گزارش فهرست ارجاعات
+    ShowMenuErj[1] = validation;  // گزارش فهرست ارجاعات
 
 
-    if (ShowMenuErj[1] || ShowMenuErj[2]) {
+    if (erjaccess[0] == true || erjaccess[1] == true) {
         $("#EReport_Menu").show();
-        ShowMenuErj[1] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
-        ShowMenuErj[2] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+        erjaccess[0] == true  && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+        erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+
+        if (ShowMenuErj[0] == false && ShowMenuErj[1] == false)
+            $("#EReport_Menu").hide();
     }
     else {
         $("#EReport_Menu").hide();
     }
+
+
+
+
 
 
 }

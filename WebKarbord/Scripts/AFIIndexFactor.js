@@ -5,6 +5,7 @@
     var group = sessionStorage.group;
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
+    sessionStorage.BeforeMoveFactor = false;
 
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
@@ -1262,6 +1263,7 @@
             sessionStorage.Status = item.Status;
             sessionStorage.PaymentType = item.PaymentType;
             sessionStorage.Footer = item.Footer;
+            sessionStorage.BeforeMoveFactor = true;
 
             window.location.href = sessionStorage.urlFDocH;
         });

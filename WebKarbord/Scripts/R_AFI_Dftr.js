@@ -217,6 +217,8 @@
         dispBands = $("#DispBands").val();
         jamRooz = $("#JamRooz").val();
 
+        naghl = $("#naghl").val();
+
         codeAcc = self.AccCode();
 
         if (codeAcc == null) {
@@ -271,6 +273,7 @@
             OprCode: oprcode,
             DispBands: $('#DispBands').val(),
             JamRooz: $('#JamRooz').val(),
+            Naghl: naghl,
         };
 
         ajaxFunction(DftrUri + ace + '/' + sal + '/' + group, 'POST', DftrObject).done(function (response) {
@@ -321,6 +324,7 @@
     getAccList();
     getOprList();
     getMkzList();
+    getNaghl();
     getAModeList();
     getStatusList();
     getDispBands();
@@ -1604,6 +1608,28 @@
     self.iconTypeF18 = ko.observable("");
     self.iconTypeF19 = ko.observable("");
     self.iconTypeF20 = ko.observable("");
+
+
+
+    function getNaghl() {
+        select = document.getElementById('naghl');
+        for (var i = 0; i <= 1; i++) {
+            opt = document.createElement('option');
+            if (i == 0) {
+                opt.value = 0;
+                opt.innerHTML = 'محاسبه نشود';
+                opt.selected = true;
+            }
+            if (i == 1) {
+                opt.value = 1;
+                opt.innerHTML = 'محاسبه شود';
+
+            }
+            select.appendChild(opt);
+        }
+    };
+
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();

@@ -5,6 +5,7 @@
     var group = sessionStorage.group;
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
+    sessionStorage.BeforeMoveSanadAnbar = false;
 
     var allSearchIDocH = true;
     var defultMove;
@@ -863,6 +864,7 @@
             sessionStorage.Status = item.Status;
             sessionStorage.PaymentType = item.PaymentType;
             sessionStorage.Footer = item.Footer;
+            sessionStorage.BeforeMoveSanadAnbar = true;
 
             window.location.href = sessionStorage.urlIDocH;
         });
