@@ -504,7 +504,7 @@
 
     self.ShowAction = function (Eghdam) {
         if (sessionStorage.DEL_ADOC == 'true') {
-            if (sessionStorage.AccessSanad == 'false') {
+            if (sessionStorage.AccessViewSanad == 'false') {
                 return Eghdam == sessionStorage.userName ? true : false
             }
             else {

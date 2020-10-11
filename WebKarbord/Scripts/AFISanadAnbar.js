@@ -464,13 +464,13 @@
             UserCode: sessionStorage.userName,
             BranchCode: 0,
             ModeCode: modeCode,
-            DocNoMode: 1,
+            DocNoMode: ace == 'Web1' ? 1 : 2,
             InsertMode: 0,
             DocNo: 0,
             StartNo: 0,
             EndNo: 0,
-            Tanzim: sessionStorage.userName,
-            TahieShode: 'null',
+            Tanzim: '',
+            TahieShode: sessionStorage.ace,
             VstrCode: 'null',
             VstrPer: 0,
             PakhshCode: '',
@@ -507,8 +507,9 @@
             $('#docnoout').text(DocNoOut);
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخيره شد ' });
 
+            $('#inv').prop('disabled', true);
+
             if (ace == "Web8") {
-                $('#inv').prop('disabled', true);
                 $('#modeCode').prop('disabled', true);
             }
         });
@@ -584,7 +585,7 @@
             PakhshCode: '',
             InvCode: inv,
             Status: status,
-            Taeed: status == "تایید" ? sessionStorage.userName : 'null',
+            Taeed: status == "تایید" ? sessionStorage.userName : '',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat),

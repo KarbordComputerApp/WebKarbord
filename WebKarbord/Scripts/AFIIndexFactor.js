@@ -1180,7 +1180,8 @@
     });
 
     $('#Move').click(function () {
-        modeCodeMove = $('#modeCodePor').val();
+        
+        modeCodeMove = moveMode == 1 ? $('#modeCodeMove').val() : $('#modeCodePor').val()
         var MoveObject = {
             SerialNumber: serial,
             DocDate: docDate,
