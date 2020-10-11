@@ -1685,7 +1685,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageDftr" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr  data-bind=" style: {\'background-color\':  DocNo == \'0\'  ? \'cornsilk\' : null  } ">' +
+            '     <tr  data-bind=" style: {\'background-color\':  DocNo == \'0\'  ? \'#efb68399\' : null  } ">' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
