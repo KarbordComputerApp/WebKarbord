@@ -1685,7 +1685,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageDftr" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr>' +
+            '     <tr  data-bind=" style: {\'background-color\':  DocNo == \'0\'  ? \'cornsilk\' : null  } ">' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
@@ -1858,7 +1858,7 @@
 
         switch (no) {
             case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
+                text += 'data-bind="text: ' + field +' " ></td>';
                 break;
             case 1:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
