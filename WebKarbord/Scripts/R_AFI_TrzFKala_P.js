@@ -49,6 +49,7 @@
     var counterStatus = 0;
     var list_StatusSelect = new Array();
 
+
     var KalaCode = '';
     var counterKala = 0;
     var list_KalaSelect = new Array();

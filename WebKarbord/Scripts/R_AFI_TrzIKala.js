@@ -70,8 +70,17 @@
     var list_OprSelect = new Array();
 
     var StatusCode = '';
-    var counterStatus = 3;
-    var list_StatusSelect = ["موقت", "تایید", "تصویب"];
+    var counterStatus;
+    var list_StatusSelect;
+
+    if (ace == Web8) {
+        counterStatus = 3;
+        list_StatusSelect = ["موقت", "تایید", "تصویب"];
+    }
+    else {
+        counterStatus = 2;
+        list_StatusSelect = ["موقت", "تایید"];
+    }
 
     var IModeCode = '';
     var counterIMode = 0;
@@ -440,7 +449,7 @@
     $('#nameTGru').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
-    $('#nameStatus').val('3 مورد انتخاب شده');
+    $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
     $('#nameIMode').val('همه موارد');
 
     //------------------------------------------------------
@@ -2098,15 +2107,17 @@
         })
     })
 
-    $('#TableBodyListStatus').append(
+    contentListStatus =
         '<tr>' +
         '    <td>موقت</td>' +
         '</tr>' +
         '<tr>' +
         '    <td>تایید</td>' +
-        '</tr>' +
-        '<tr><td>تصویب</td> </tr>'
-    );
+        '</tr>';
+
+    contentListStatus += ace == Web8 ? '<tr><td>تصویب</td></tr>' : ''
+
+    $('#TableBodyListStatus').append(contentListStatus);
 
 
     self.AddStatus = function (item) {

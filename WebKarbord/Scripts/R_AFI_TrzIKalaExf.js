@@ -457,7 +457,7 @@
     $('#nameTGru').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
-    $('#nameStatus').val('3 مورد انتخاب شده');
+    $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
     $('#nameIMode').val('همه موارد');
 
     //------------------------------------------------------
@@ -2233,15 +2233,17 @@
         })
     })
 
-    $('#TableBodyListStatus').append(
+    contentListStatus =
         '<tr>' +
         '    <td>موقت</td>' +
         '</tr>' +
         '<tr>' +
         '    <td>تایید</td>' +
-        '</tr>' +
-        '<tr><td>تصویب</td> </tr>'
-    );
+        '</tr>';
+
+    contentListStatus += ace == Web8 ? '<tr><td>تصویب</td></tr>' : ''
+
+    $('#TableBodyListStatus').append(contentListStatus);
 
 
     self.AddStatus = function (item) {

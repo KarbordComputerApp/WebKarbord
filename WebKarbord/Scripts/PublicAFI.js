@@ -11,6 +11,9 @@ const MODECODE_ADOC_EFT = 2;
 const MODECODE_ADOC_EKH = 3;
 const MODECODE_ADOC_SODZYN = 4;
 
+const Web1 = 'Web1';
+const Web8 = 'Web8';
+
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
 var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
