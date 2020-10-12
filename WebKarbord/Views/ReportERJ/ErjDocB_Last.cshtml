@@ -5,7 +5,7 @@
 }
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card"  style="margin-top:0px;">
+        <div class="card" style="margin-top:0px;">
             <!--border: 1px solid #eb8020;-->
 
             <div class="header">
@@ -564,110 +564,174 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div style="height:600px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 10px;">
-                                            <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                اقدام
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                <div class="form-line">
-                                                    <textarea rows="4" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 10px;">
-                                            <a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                عمومی
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                <div class="form-line">
-                                                    <textarea rows="4" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                        <div style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
-                                    <tr>
-                                        <td>
-                                            <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                مدیران
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                <div class="form-line">
-                                                    <textarea rows="4" id="specialComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                            <div class="cardErj">
+                                <div class="header" style="background-color: #ff983f;">
+                                    <h6>اطلاعت پرونده</h6>
+                                </div>
+                                <div class="body" style="padding:10px;">
+                                    <div>
+
+                                        <div class="row form-inline ">
+                                            <div class="col-sm-2">
+                                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                    <div class="form-group">
+                                                        <select id="ErjaMode"></select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 10px;">
-                                            <a id="btn-finalComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                نهایی
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                <div class="form-line">
-                                                    <textarea rows="4" id="finalComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                            <div class="col-sm-5">
+                                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                    <div class="form-group">
+                                                        <select id="DocBMode"></select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="BodyErjDocErja" style="height:600px;overflow:auto;border: 1px #ddd solid;">
 
-                            <!--  <table class="table">
-                            <tbody id="TableBodyErjDocErja" style="cursor: default;">
-
-                            </tbody>-->
-                            <!-- <tr style="border-top: 0px solid #fff !important;">
-                                <td>
-                                    <div class="cardErj">
-                                        <div class="header bg-light-blue">
-                                            <div class="row form-inline">
-                                                <h6>احسانی فر</h6>
-                                                <h6>-></h6>
-                                                <div class="col-sm-3">
-                                                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                                        <div class="form-group">
-                                                            <select style="background-color: rgba(255, 255, 255, 0)"></select>
+                                            <div class="col-sm-3 form-inline">
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <span class="input-group-btn">
+                                                                <a id="btnazDocDate">
+                                                                    <img src="/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                                                </a>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input id="azDocDate" data-bind="value:AzDocDate" class="form-control date" type="text" maxlength="10">
+                                                                <label class="form-label" for=""> از تاریخ پرونده</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-4"></div>
-                                                <div class="form-inline">
-                                                    <h6>(5:00)</h6>
-                                                    <h6>1398/01/01</h6>
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <span class="input-group-btn">
+                                                                <a id="btntaDocDate">
+                                                                    <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                                                </a>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input id="taDocDate" data-bind="value:TaDocDate" class="form-control date" type="text" maxlength="10">
+                                                                <label class="form-label" for="">تا تاریخ پرونده</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
-                                        <div class="body" style="padding:0px">
-                                            <textarea rows="10" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="text-align:justify" readonly> تست توضیحات </textarea>
+                                        <br />
+
+
+                                    </div>
+                                </div>
+
+                                <div class="cardErj">
+                                    <div class="header" style="background-color: #ff983f;">
+                                        <h6>توضیحات پرونده</h6>
+                                    </div>
+                                    <div class="body" style="padding:10px;">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                            اقدام
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="4" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                            عمومی
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="4" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                            مدیران
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="4" id="specialComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <a id="btn-finalComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
+                                                            نهایی
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="4" id="finalComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="header" style="background-color: #ff983f;">
+                                    <h6>نتیجه</h6>
+                                </div>
+                                <div class="body" style="padding:10px;">
+                                    
+                                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <div class="form-line">
+                                            <textarea rows="10" id="Comm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            </tbody>-->
-                            <!--  </table>-->
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div id="BodyErjDocErja" style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <button type="button" id="" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i>ارجاع</button>
                 </div>
             </div>
         </div>

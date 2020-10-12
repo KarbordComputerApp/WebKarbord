@@ -329,9 +329,9 @@
 
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
-                    '  <div style="padding: 5px;margin: 0px 10px 0px 10px ;background-color: #29ceff !important; color: navy;"> '
+                    '  <div style="padding: 8px;margin: 0px 10px 0px 10px;background-color: #c4c4c4 !important;color: #39414b;border-radius: 10px;"> '
                     + '   <div class=" form-inline" > <h6>' + listBand[j].FromUserName + '</h6>'
-                    + '                    <h6>--></h6>'
+                    + '                    <h6>-></h6>'
                     + '                    <h6>' + listBand[j].ToUserName + '</h6></div>'
                     + '</div > '
                 text += ' <div style="margin: 0px 15px 0px 10px"> ';
@@ -345,7 +345,7 @@
             if (listBand[0].RooneveshtUsers != '') {
 
                 text += '</br>'
-                    + '  <div style="padding: 5px;margin: 0px 10px 0px 10px ;background-color: #81f403 !important; color: navy;"> '
+                    + '  <div style="padding: 8px;margin: 0px 10px 0px 10px;background-color: #39414b !important;color: white;border-radius: 10px;"> '
                     + '   <div class=" form-inline" > <h6> رونوشت به :'
                     + listBand[0].RooneveshtUsers
                     + '</h6>'
@@ -355,11 +355,11 @@
 
             $('#BodyErjDocErja').append(
                 '<div style="border-top: 0px solid #fff !important;">'
-                + '    <div style="padding: 10px">'
+                + '    <div>'
                 + '        <div class="cardErj">'
-                + '            <div class="header bg-light-blue">'
+                + '            <div class="header" style="background-color: #ff983f;">'
                 + '                    <div class=" form-inline"> <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
-                + '                    <h6>--></h6>'
+                + '                    <h6>-></h6>'
                 + '                    <h6>' + listBand[0].ToUserName + '</h6></div>'
                 + '                    <div class="pull-left form-inline">'
                 + '                        <h6 style ="padding-left: 10px">(' + listBand[0].RjTimeSt + ')</h6>'
@@ -367,7 +367,7 @@
                 + '                    </div>'
                 + '                </div>'
 
-                + '            <div class="body" style="padding:5px; border: #03a9f4 solid 1px;">'
+                + '            <div class="body" style="padding:10px;">'
                 + text
                 + '            </div>'
                 + '        </div>'

@@ -2380,7 +2380,7 @@
         var ADocObject = {
             DocNoMode: 1,
             InsertMode: 0,
-            ModeCode: modeCode,
+            ModeCode: ace == Web1 ? 1 : modeCode,
             DocNo: 0,
             StartNo: 0,
             EndNo: 0,
