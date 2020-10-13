@@ -1401,7 +1401,7 @@ select {
 
     .cardErj .header {
         color: #555;
-        padding: 15px;
+        padding: 8px;
         position: relative;
     }
 
@@ -1568,6 +1568,7 @@ select {
 }
 
 p {
+    font-size:12px;
     margin-top: 2px;
     margin-bottom: 2px;
 }

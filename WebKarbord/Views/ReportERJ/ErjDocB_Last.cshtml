@@ -567,75 +567,140 @@
                         <div style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
                             <div class="cardErj">
-                                <div class="header" style="background-color: #ff983f;">
-                                    <h6>اطلاعت پرونده</h6>
+                                <div class="header" style="background-color: #e37d228f;">
+                                    <div class="row form-inline modal-header" style="padding:0px;">
+                                        <a id="ShowHideInformation">
+                                            <img id="imgInformation" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                        </a>
+                                        <h6>اطلاعت پرونده</h6>
+                                    </div>
                                 </div>
                                 <div class="body" style="padding:10px;">
                                     <div>
 
                                         <div class="row form-inline ">
-                                            <div class="col-sm-2">
-                                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                                    <div class="form-group">
-                                                        <select id="ErjaMode"></select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                                    <div class="form-group">
-                                                        <select id="DocBMode"></select>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-sm-3 form-inline">
-                                                <div class="col-sm-6">
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <span class="input-group-btn">
-                                                                <a id="btnazDocDate">
-                                                                    <img src="/Content/img/list/calendar.png" class="icon" height="20" width="20" />
-                                                                </a>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input id="azDocDate" data-bind="value:AzDocDate" class="form-control date" type="text" maxlength="10">
-                                                                <label class="form-label" for=""> از تاریخ پرونده</label>
-                                                            </div>
+                                            <div class="row col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="docno" class="form-control int" readonly />
+                                                            <label class="form-label" id="amounttext">شماره</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <span class="input-group-btn">
-                                                                <a id="btntaDocDate">
-                                                                    <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
-                                                                </a>
-                                                            </span>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="tarikh" class="form-control" readonly>
+                                                            <label class="form-label">تاریخ</label>
                                                         </div>
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input id="taDocDate" data-bind="value:TaDocDate" class="form-control date" type="text" maxlength="10">
-                                                                <label class="form-label" for="">تا تاریخ پرونده</label>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="docno" class="form-control" readonly/>
+                                                            <label class="form-label" id="amounttext">مهلت</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <div class="row col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="tarikh" class="form-control" readonly>
+                                                            <label class="form-label">نوع</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="docno" class="form-control" readonly />
+                                                            <label class="form-label" id="amounttext">اقدام</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="tarikh" class="form-control" readonly>
+                                                            <label class="form-label">تنظیم</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div id="panelInformation">
+                                                <div class="row col-md-12">
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <a id="btnkala" class="dropdown-toggle" data-toggle="modal" data-target="#modal-kala">
+                                                                    <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                                                </a>
+                                                            </div>
+
+                                                            <div class="form-group form-float">
+                                                                <div class="form-line focused fix">
+                                                                    <input id="nameKala" class="form-control" readonly />
+                                                                    <label class="form-label"> پرونده های مرتبط</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input type="text" id="docno" class="form-control" readonly/>
+                                                                <label class="form-label" id="amounttext">مشتری</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input type="text" id="tarikh" class="form-control" readonly>
+                                                                <label class="form-label">نوع کار</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="docno" class="form-control" readonly />
+                                                            <label class="form-label" id="amounttext">ملاحظات</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <br />
-
-
                                     </div>
+
+
+
                                 </div>
 
                                 <div class="cardErj">
-                                    <div class="header" style="background-color: #ff983f;">
-                                        <h6>توضیحات پرونده</h6>
+                                    <div class="header" style="background-color:  #e37d228f;">
+                                      
+                                        
+                                        <div class="row form-inline modal-header" style="padding:0px;">
+                                            <a id="ShowHideSpec">
+                                                <img id="imgSpec" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                            </a>
+                                            <h6>توضیحات پرونده</h6>
+                                        </div>
+
+                                        
                                     </div>
                                     <div class="body" style="padding:10px;">
                                         <table class="table">
@@ -649,7 +714,7 @@
                                                     <td>
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="4" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -663,7 +728,7 @@
                                                     <td>
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="4" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -678,7 +743,7 @@
                                                     <td>
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="4" id="specialComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="specialComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -692,7 +757,7 @@
                                                     <td>
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="4" id="finalComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="finalComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -703,25 +768,59 @@
                                 </div>
 
 
-                                <div class="header" style="background-color: #ff983f;">
+                                <div class="header" style="background-color:  #e37d228f;">
                                     <h6>نتیجه</h6>
                                 </div>
                                 <div class="body" style="padding:10px;">
-                                    
+
                                     <div class="form-group" style="margin-bottom: 0.5rem;">
                                         <div class="form-line">
-                                            <textarea rows="10" id="Comm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                            <textarea rows="8" id="Comm" class="form-control no-resize auto-growth string" placeholder="بدون متن"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div id="BodyErjDocErja" style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+
+
+
+                            <!--  <div style="border-top: 0px solid #fff !important;">
+                                  <div>
+                                      <div class="cardErj">
+                                          <div class="header" style="background-color: #e37d228f;">
+                                              <div class="form-inline">
+                                                  <div class="col-md-9 form-inline">
+                                                      <h6>1 ) سوپروایزر</h6>
+                                                      <img src="~/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" />
+                                                      <h6>حميد رضا حجازي</h6>
+                                                  </div>
+                                                  <div class="col-md-3 form-inline">
+                                                      <h6 style="padding-left: 10px">(1:0)</h6>
+                                                      <h6>1399/01/12</h6>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="body" style="padding:10px;">
+                                              <p>تست </p>
+                                              <p>مدیر سیستم به مهندس</p>
+                                              <br>
+                                              <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #5b6775 !important;color: white;border-radius: 10px;">
+                                                  <div class=" form-inline">
+                                                      <h6> رونوشت به :کاربر 1 امیری</h6>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>-->
+
+
+
+
+
 
 
 

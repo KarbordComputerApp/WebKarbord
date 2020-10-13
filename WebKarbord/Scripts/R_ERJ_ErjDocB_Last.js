@@ -329,10 +329,10 @@
 
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
-                    '  <div style="padding: 8px;margin: 0px 10px 0px 10px;background-color: #c4c4c4 !important;color: #39414b;border-radius: 10px;"> '
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #c4c4c4 !important;color: #39414b;border-radius: 10px;"> '
                     + '   <div class=" form-inline" > <h6>' + listBand[j].FromUserName + '</h6>'
-                    + '                    <h6>-></h6>'
-                    + '                    <h6>' + listBand[j].ToUserName + '</h6></div>'
+                    + '   <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
+                    + '   <h6>' + listBand[j].ToUserName + '</h6></div>'
                     + '</div > '
                 text += ' <div style="margin: 0px 15px 0px 10px"> ';
                 if (listBand[j].RjComm == '')
@@ -345,7 +345,7 @@
             if (listBand[0].RooneveshtUsers != '') {
 
                 text += '</br>'
-                    + '  <div style="padding: 8px;margin: 0px 10px 0px 10px;background-color: #39414b !important;color: white;border-radius: 10px;"> '
+                    + '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #5b6775 !important;color: white;border-radius: 10px;">'
                     + '   <div class=" form-inline" > <h6> رونوشت به :'
                     + listBand[0].RooneveshtUsers
                     + '</h6>'
@@ -357,16 +357,21 @@
                 '<div style="border-top: 0px solid #fff !important;">'
                 + '    <div>'
                 + '        <div class="cardErj">'
-                + '            <div class="header" style="background-color: #ff983f;">'
-                + '                    <div class=" form-inline"> <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
-                + '                    <h6>-></h6>'
-                + '                    <h6>' + listBand[0].ToUserName + '</h6></div>'
-                + '                    <div class="pull-left form-inline">'
-                + '                        <h6 style ="padding-left: 10px">(' + listBand[0].RjTimeSt + ')</h6>'
-                + '                        <h6>' + listBand[0].RjDate + '</h6>'
-                + '                    </div>'
-                + '                </div>'
+                + '            <div class="header" style="background-color: #e37d228f;">'
 
+
+                + '<div class="form-inline"> '
+                + '     <div class= "col-md-9 form-inline" > '
+                + '         <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
+                + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
+                + '         <h6>' + listBand[0].ToUserName + '</h6> '
+                + '     </div>'
+                + '     <div class="col-md-3 form-inline"> '
+                + '         <h6 style="padding-left: 10px">(1:0)</h6> '
+                + '         <h6>1399/01/12</h6> '
+                + '     </div> '
+                + '</div>'
+                + '</div>'
                 + '            <div class="body" style="padding:10px;">'
                 + text
                 + '            </div>'
@@ -949,6 +954,62 @@
         $('#FromUser').prop('disabled', false);
         $('#ToUser').prop('disabled', false);
     }
+
+
+    var showHideInformation = false;
+    var showHideSpec = false;
+
+    $('#modal-ErjDocErja').on('shown.bs.modal', function () {
+
+        showHideInformation = false;
+        showHideSpec = false;
+
+        $('#panelInformation').attr('hidden', '');
+        $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+
+
+
+        $('#eghdamComm').attr('rows', '1');
+        $('#docDesc').attr('rows', '1');
+        $('#specialComm').attr('rows', '1');
+        $('#finalComm').attr('rows', '1');
+        $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+
+    });
+
+    $('#ShowHideInformation').click(function () {
+        if (showHideInformation) {
+            showHideInformation = false;
+            $('#panelInformation').attr('hidden', '');
+            $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+        }
+        else {
+            showHideInformation = true;
+            $('#panelInformation').removeAttr('hidden', '');
+            $('#imgInformation').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+        }
+    })
+
+    $('#ShowHideSpec').click(function () {
+        if (showHideSpec) {
+            showHideSpec = false;
+            $('#eghdamComm').attr('rows', '1');
+            $('#docDesc').attr('rows', '1');
+            $('#specialComm').attr('rows', '1');
+            $('#finalComm').attr('rows', '1');
+            $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+        }
+        else {
+            showHideSpec = true;
+            $('#eghdamComm').attr('rows', '5');
+            $('#docDesc').attr('rows', '5');
+            $('#specialComm').attr('rows', '5');
+            $('#finalComm').attr('rows', '5');
+            $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+        }
+
+    })
+
 
 
 

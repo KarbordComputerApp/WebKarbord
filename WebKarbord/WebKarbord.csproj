@@ -250,6 +250,9 @@
     <Content Include="Content\img\new item\analytics-graph-bar.1.svg" />
     <Content Include="Content\img\new item\analytics-graph-bar.2.svg" />
     <Content Include="Content\img\new item\analytics-graph-bar.svg" />
+    <Content Include="Content\img\new item\arrow-back-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\arrowhead-down-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\arrowhead-up-svgrepo-com.svg" />
     <Content Include="Content\img\new item\baby-trolley.1.svg" />
     <Content Include="Content\img\new item\baby-trolley.2.svg" />
     <Content Include="Content\img\new item\baby-trolley.svg" />
@@ -277,6 +280,8 @@
     <Content Include="Content\img\new item\camera-flash.1.svg" />
     <Content Include="Content\img\new item\camera-flash.2.svg" />
     <Content Include="Content\img\new item\camera-flash.svg" />
+    <Content Include="Content\img\new item\chevron-down-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\chevron-up-svgrepo-com.svg" />
     <Content Include="Content\img\new item\coffee-cold.1.svg" />
     <Content Include="Content\img\new item\coffee-cold.2.svg" />
     <Content Include="Content\img\new item\coffee-cold.svg" />
@@ -395,6 +400,7 @@
     <Content Include="Content\img\new item\messages-people-person-bubble-oval.1.svg" />
     <Content Include="Content\img\new item\messages-people-person-bubble-oval.2.svg" />
     <Content Include="Content\img\new item\messages-people-person-bubble-oval.svg" />
+    <Content Include="Content\img\new item\minus-svgrepo-com.svg" />
     <Content Include="Content\img\new item\mobile-phone-2.1.svg" />
     <Content Include="Content\img\new item\mobile-phone-2.2.svg" />
     <Content Include="Content\img\new item\mobile-phone-2.svg" />
@@ -446,6 +452,7 @@
     <Content Include="Content\img\new item\plane-trip-international.1.svg" />
     <Content Include="Content\img\new item\plane-trip-international.2.svg" />
     <Content Include="Content\img\new item\plane-trip-international.svg" />
+    <Content Include="Content\img\new item\plus-svgrepo-com.svg" />
     <Content Include="Content\img\new item\presentation-board-graph.1.svg" />
     <Content Include="Content\img\new item\presentation-board-graph.2.svg" />
     <Content Include="Content\img\new item\presentation-board-graph.svg" />
@@ -467,6 +474,7 @@
     <Content Include="Content\img\new item\screen-1.1.svg" />
     <Content Include="Content\img\new item\screen-1.2.svg" />
     <Content Include="Content\img\new item\screen-1.svg" />
+    <Content Include="Content\img\new item\search-svgrepo-com.svg" />
     <Content Include="Content\img\new item\send-email-2.1.svg" />
     <Content Include="Content\img\new item\send-email-2.2.svg" />
     <Content Include="Content\img\new item\send-email-2.svg" />
@@ -497,6 +505,7 @@
     <Content Include="Content\img\new item\skunk.1.svg" />
     <Content Include="Content\img\new item\skunk.2.svg" />
     <Content Include="Content\img\new item\skunk.svg" />
+    <Content Include="Content\img\new item\square-svgrepo-com.svg" />
     <Content Include="Content\img\new item\stamps-famous.1.svg" />
     <Content Include="Content\img\new item\stamps-famous.2.svg" />
     <Content Include="Content\img\new item\stamps-famous.svg" />
