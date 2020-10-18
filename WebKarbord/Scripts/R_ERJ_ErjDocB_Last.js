@@ -315,8 +315,9 @@
         list = self.ErjDocErja();
         countBand = list[list.length - 1].BandNo;
         $("#BodyErjDocErja").empty();
-        for (var i = 1; i <= countBand; i++) {
+        //for (var i = 1; i <= countBand; i++) {
 
+        for (var i = countBand; i >= 0; i--) {
             self.FilterErjValue(i);
             listBand = self.FilterErj();
             text = ConvertComm(listBand[0].RjComm);
@@ -329,24 +330,26 @@
 
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
-                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #c4c4c4 !important;color: #39414b;border-radius: 10px;"> '
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e1 !important;color: #39414b;border-radius: 10px;"> '
                     + '   <div class=" form-inline" > <h6>' + listBand[j].FromUserName + '</h6>'
                     + '   <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
                     + '   <h6>' + listBand[j].ToUserName + '</h6></div>'
                     + '</div > '
-                text += ' <div style="margin: 0px 15px 0px 10px"> ';
                 if (listBand[j].RjComm == '')
-                    text += '!! هنوز رویت نشده !!';
+                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;"> هنوز رویت نشده';
                 else
+                {
+                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px"> ';
                     text += ConvertComm(listBand[j].RjComm);
+                }
                 text += ' </div> ';
             }
 
             if (listBand[0].RooneveshtUsers != '') {
 
                 text += '</br>'
-                    + '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #5b6775 !important;color: white;border-radius: 10px;">'
-                    + '   <div class=" form-inline" > <h6> رونوشت به :'
+                    + '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
+                    + '   <div class=" form-inline" > <h6> رونوشت به : '
                     + listBand[0].RooneveshtUsers
                     + '</h6>'
                     + '</div > '
@@ -357,9 +360,7 @@
                 '<div style="border-top: 0px solid #fff !important;">'
                 + '    <div>'
                 + '        <div class="cardErj">'
-                + '            <div class="header" style="background-color: #e37d228f;">'
-
-
+                + '            <div class="header" style="background-color: #f5d3b4;">'
                 + '<div class="form-inline"> '
                 + '     <div class= "col-md-9 form-inline" > '
                 + '         <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
@@ -919,6 +920,16 @@
     self.ViewErjDocErja = function (Band) {
         var a = 1;
         $("#eghdamComm").val(Band.EghdamComm);
+
+        $("#m_docno").val(Band.DocNo);
+        $("#m_RjDate").val(Band.RjDate);
+        $("#m_RjMhltDate").val(Band.RjMhltDate);
+        //$("#m_no").val(Band.);
+        $("#m_CustName").val(Band.CustName);
+        $("#m_KhdtName").val(Band.KhdtName);
+        $("#m_Spec").val(Band.Spec);
+
+        $("#eghdamComm").val(Band.EghdamComm);
         $("#docDesc").val(Band.DocDesc);
         $("#specialComm").val(Band.SpecialComm);
         $("#finalComm").val(Band.FinalComm);
@@ -964,11 +975,11 @@
         showHideInformation = false;
         showHideSpec = false;
 
+        $(".auto-growth").css("height", "24px");
+        
+
         $('#panelInformation').attr('hidden', '');
         $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
-
-
-
         $('#eghdamComm').attr('rows', '1');
         $('#docDesc').attr('rows', '1');
         $('#specialComm').attr('rows', '1');
@@ -1152,6 +1163,18 @@
     $('#Print').click(function () {
         setReport(self.filterDocB_LastList(), 'Free');
     });
+
+    /*    $(function () {
+            autosize(
+                $("textarea.auto-growth"))
+                $("input#input_text, textarea#textarea2").characterCounter()
+    
+                Dropzone.options.frmFileUpload = {
+                    paramName: "file", maxFilesize: 2
+                }
+            )
+    ); */
+
 };
 
 ko.applyBindings(new ViewModel());

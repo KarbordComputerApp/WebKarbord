@@ -59,8 +59,8 @@ function getNoUISliderValue(e, i) {
         $("#imgsel").append("<option value='" + i.id + "' data-icon='" + i.url + "'>" + i.name + "</option>"), $("#imgsel").formSelect()
     })
 } $(function () {
-    autosize(
-        $("textarea.auto-growth")),
+    autosize($("textarea.auto-growth")),
+
         $("input#input_text, textarea#textarea2").characterCounter(),
        // $(".colorpicker").colorpicker(),
        // initBasicSelect(),

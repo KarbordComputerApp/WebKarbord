@@ -567,7 +567,7 @@
                         <div style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
                             <div class="cardErj">
-                                <div class="header" style="background-color: #e37d228f;">
+                                <div class="header" style="background-color: #f5d3b4;">
                                     <div class="row form-inline modal-header" style="padding:0px;">
                                         <a id="ShowHideInformation">
                                             <img id="imgInformation" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
@@ -584,15 +584,16 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="docno" class="form-control int" readonly />
-                                                            <label class="form-label" id="amounttext">شماره</label>
+                                                            <input type="text" id="m_docno" class="form-control int" readonly />
+                                                            <label class="form-label">شماره</label>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-4">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="tarikh" class="form-control" readonly>
+                                                            <input type="text" id="m_RjDate" class="form-control" readonly />
                                                             <label class="form-label">تاریخ</label>
                                                         </div>
                                                     </div>
@@ -600,57 +601,21 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="docno" class="form-control" readonly/>
-                                                            <label class="form-label" id="amounttext">مهلت</label>
+                                                            <input type="text" id="m_RjMhltDate" class="form-control" readonly />
+                                                            <label class="form-label">مهلت</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="tarikh" class="form-control" readonly>
-                                                            <label class="form-label">نوع</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div id="panelInformation" class="row col-md-12">
 
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="docno" class="form-control" readonly />
-                                                            <label class="form-label" id="amounttext">اقدام</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="tarikh" class="form-control" readonly>
-                                                            <label class="form-label">تنظیم</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div id="panelInformation">
                                                 <div class="row col-md-12">
-                                                    <div class="col-sm-4">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <a id="btnkala" class="dropdown-toggle" data-toggle="modal" data-target="#modal-kala">
-                                                                    <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
-                                                                </a>
-                                                            </div>
-
-                                                            <div class="form-group form-float">
-                                                                <div class="form-line focused fix">
-                                                                    <input id="nameKala" class="form-control" readonly />
-                                                                    <label class="form-label"> پرونده های مرتبط</label>
-                                                                </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input type="text" id="m_no" class="form-control" readonly>
+                                                                <label class="form-label">نوع</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -658,29 +623,58 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group form-float">
                                                             <div class="form-line focused fix">
-                                                                <input type="text" id="docno" class="form-control" readonly/>
-                                                                <label class="form-label" id="amounttext">مشتری</label>
+                                                                <input type="text" id="m_eghdam" class="form-control" readonly />
+                                                                <label class="form-label" id="amounttext">اقدام</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group form-float">
                                                             <div class="form-line focused fix">
-                                                                <input type="text" id="tarikh" class="form-control" readonly>
-                                                                <label class="form-label">نوع کار</label>
+                                                                <input type="text" id="m_tanzim" class="form-control" readonly>
+                                                                <label class="form-label">تنظیم</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="row col-md-12">
+
+                                                <div class="row col-md-12" style="padding-bottom:20px">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="docno" class="form-control" readonly /> 
+                                                            <input type="text" id="m_CustName" class="form-control" readonly />
+                                                            <label class="form-label">مشتری</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-12" style="padding-bottom:20px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_KhdtName" class="form-control" readonly>
+                                                            <label class="form-label">نوع کار</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-12" style="padding-bottom:20px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_Spec" class="form-control" readonly />
                                                             <label class="form-label" id="amounttext">ملاحظات</label>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="row col-md-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_pm" class="form-control" readonly />
+                                                            <label class="form-label" id="amounttext">پرونده های مرتبط</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -690,9 +684,9 @@
                                 </div>
 
                                 <div class="cardErj">
-                                    <div class="header" style="background-color:  #e37d228f;">
-                                      
-                                        
+                                    <div class="header" style="background-color: #f5d3b4;">
+
+
                                         <div class="row form-inline modal-header" style="padding:0px;">
                                             <a id="ShowHideSpec">
                                                 <img id="imgSpec" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
@@ -700,64 +694,60 @@
                                             <h6>توضیحات پرونده</h6>
                                         </div>
 
-                                        
+
                                     </div>
                                     <div class="body" style="padding:10px;">
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 10px;">
-                                                        <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                            اقدام
-                                                        </a>
+                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                        <!-- <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">اقدام</a>-->
+                                                        <h6>اقدام</h6>
                                                     </td>
-                                                    <td>
+                                                    <td style="border-bottom: 1px solid #fff;">
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="border-bottom: 1px solid #ffffff;" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 10px;">
-                                                        <a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                            عمومی
-                                                        </a>
+                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                        <!--<a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">عمومی</a> -->
+                                                        <h6>عمومی</h6>
                                                     </td>
-                                                    <td>
+                                                    <td style="border-bottom: 1px solid #fff;">
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="border-bottom: 1px solid #ffffff; overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td>
-                                                        <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                            مدیران
-                                                        </a>
+                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                        <!-- <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">مدیران</a>-->
+                                                        <h6>مدیران</h6>
                                                     </td>
-                                                    <td>
+                                                    <td style="border-bottom: 1px solid #fff;">
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="specialComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="specialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 10px;">
-                                                        <a id="btn-finalComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">
-                                                            نهایی
-                                                        </a>
+                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                        <!-- <a id="btn-finalComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">نهایی</a>-->
+                                                        <h6>نهایی</h6>
                                                     </td>
-                                                    <td>
+                                                    <td style="border-bottom: 1px solid #fff;">
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="finalComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="finalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -768,8 +758,13 @@
                                 </div>
 
 
-                                <div class="header" style="background-color:  #e37d228f;">
-                                    <h6>نتیجه</h6>
+                                <div class="header" style="background-color: #f5d3b4;">
+                                    <div class="row form-inline modal-header" style="padding:0px;">
+                                        <a id="ShowHideResult">
+                                            <img id="imgSpec" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                        </a>
+                                        <h6>نتیجه</h6>
+                                    </div>
                                 </div>
                                 <div class="body" style="padding:10px;">
 
@@ -946,6 +941,8 @@
             });
         });
     </script>
+    <script src="~/Content/new/js/form.min.js"></script>
+    <script src="~/Content/new/js/advanced-form-elements.js"></script>
     <script src="~/Scripts/R_ERJ_ErjDocB_Last.js"></script>
 }
 

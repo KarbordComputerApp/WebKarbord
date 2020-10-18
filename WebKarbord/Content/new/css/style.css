@@ -12375,7 +12375,7 @@ table .checkbox [type="checkbox"] + label {
             -o-transition: 0.25s ease-in;
             -webkit-transition: 0.25s ease-in;
             transition: 0.25s ease-in;
-            border-bottom: 2px solid #1f91f3;
+
         }
 
         .input-group .form-line + .input-group-addon {
@@ -12540,7 +12540,6 @@ table .checkbox [type="checkbox"] + label {
             -o-transition: 0.25s ease-in;
             -webkit-transition: 0.25s ease-in;
             transition: 0.25s ease-in;
-            border-bottom: 2px solid #1f91f3;
         }
 
         .form-group .form-line .form-label {
@@ -18306,7 +18305,7 @@ header {
     }
 
         .dataTables_wrapper input[type="search"]:focus, .dataTables_wrapper input[type="search"]:active {
-            border-bottom: 2px solid #1f91f3;
+
         }
 
     .dataTables_wrapper .dt-buttons {
