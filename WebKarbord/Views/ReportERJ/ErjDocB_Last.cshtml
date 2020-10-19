@@ -593,7 +593,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="m_RjDate" class="form-control" readonly />
+                                                            <input type="text" id="m_DocDate" class="form-control" readonly />
                                                             <label class="form-label">تاریخ</label>
                                                         </div>
                                                     </div>
@@ -601,7 +601,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="m_RjMhltDate" class="form-control" readonly />
+                                                            <input type="text" id="m_MhltDate" class="form-control" readonly />
                                                             <label class="form-label">مهلت</label>
                                                         </div>
                                                     </div>
@@ -623,7 +623,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group form-float">
                                                             <div class="form-line focused fix">
-                                                                <input type="text" id="m_eghdam" class="form-control" readonly />
+                                                                <input type="text" id="m_Eghdam" class="form-control" readonly />
                                                                 <label class="form-label" id="amounttext">اقدام</label>
                                                             </div>
                                                         </div>
@@ -631,7 +631,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group form-float">
                                                             <div class="form-line focused fix">
-                                                                <input type="text" id="m_tanzim" class="form-control" readonly>
+                                                                <input type="text" id="m_Tanzim" class="form-control" readonly>
                                                                 <label class="form-label">تنظیم</label>
                                                             </div>
                                                         </div>
@@ -700,54 +700,54 @@
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                    <td style="width: 10px;">
                                                         <!-- <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">اقدام</a>-->
                                                         <h6>اقدام</h6>
                                                     </td>
-                                                    <td style="border-bottom: 1px solid #fff;">
+                                                    <td >
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="eghdamComm" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="border-bottom: 1px solid #ffffff;" readonly></textarea>
+                                                                <textarea rows="1" id="eghdamComm" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                    <td style="width: 10px;">
                                                         <!--<a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">عمومی</a> -->
                                                         <h6>عمومی</h6>
                                                     </td>
-                                                    <td style="border-bottom: 1px solid #fff;">
+                                                    <td >
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="docDesc" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="border-bottom: 1px solid #ffffff; overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
+                                                                <textarea rows="1" id="docDesc" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff; overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                    <td style="width: 10px;">
                                                         <!-- <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">مدیران</a>-->
                                                         <h6>مدیران</h6>
                                                     </td>
-                                                    <td style="border-bottom: 1px solid #fff;">
+                                                    <td >
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="specialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="specialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 10px;border-bottom: 1px solid #fff;">
+                                                    <td style="width: 10px;">
                                                         <!-- <a id="btn-finalComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">نهایی</a>-->
                                                         <h6>نهایی</h6>
                                                     </td>
-                                                    <td style="border-bottom: 1px solid #fff;">
+                                                    <td >
                                                         <div class="form-group" style="margin-bottom: 0.5rem;">
                                                             <div class="form-line">
-                                                                <textarea rows="1" id="finalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string" placeholder="بدون متن" readonly></textarea>
+                                                                <textarea rows="1" id="finalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string" readonly></textarea>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -761,7 +761,7 @@
                                 <div class="header" style="background-color: #f5d3b4;">
                                     <div class="row form-inline modal-header" style="padding:0px;">
                                         <a id="ShowHideResult">
-                                            <img id="imgSpec" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                            <img id="imgResult" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
                                         </a>
                                         <h6>نتیجه</h6>
                                     </div>
@@ -770,7 +770,7 @@
 
                                     <div class="form-group" style="margin-bottom: 0.5rem;">
                                         <div class="form-line">
-                                            <textarea rows="8" id="Comm" class="form-control no-resize auto-growth string" placeholder="بدون متن"></textarea>
+                                            <textarea rows="15" id="Result" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;" ></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -843,7 +843,7 @@
                 <h4 class="modal-title" style="padding-left: 200px;">توضیحات</h4>
             </div>
             <div class="modal-body">
-                <textarea id="comm" rows="20" class="form-control no-resize auto-growth string" placeholder="بدون متن" style="text-align:justify" readonly>
+                <textarea id="comm" rows="20" class="form-control no-resize auto-growth string" style="text-align:justify" readonly>
                 </textarea>
             </div>
         </div>

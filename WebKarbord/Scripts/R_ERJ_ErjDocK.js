@@ -121,7 +121,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(aceErj, salErj, group ,rprtId, "/ReportERJ/ErjDocK", columns, self.SettingColumnList());
+        SaveColumn(aceErj, salErj, group, rprtId, "/ReportERJ/ErjDocK", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -205,6 +205,7 @@
             CustCode: ErjCust,
             KhdtCode: Khdt,
             SrchSt: SrchSt,
+            SerialNumber: 0,
         };
         ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject).done(function (response) {
             self.DocKList(response);
@@ -907,6 +908,33 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
+
+
+    self.ViewDocDesc = function (Band) {
+        $('#titleComm').text('توضیحات عمومی');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(Band.DocDesc);
+    }
+
+    self.ViewEghdamComm = function (Band) {
+        $('#titleComm').text('توضیحات اقدام کننده');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(Band.EghdamComm);
+    }
+
+    self.ViewFinalComm = function (Band) {
+        $('#titleComm').text('توضیحات نهایی');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(Band.FinalComm);
+    }
+
+    self.ViewSpecialComm = function (Band) {
+        $('#titleComm').text('توضیحات مدیران');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(Band.SpecialComm);
+    }
+
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
@@ -954,8 +982,8 @@
             CreateTableTh('F20', data) +
             '      </tr>' +
             '   </thead >' +
-            '<tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">'+
-            '    <tr data-bind="click: $parent.selectDocK , css: { matched: $data === $root.firstMatch() },'+
+            '<tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">' +
+            '    <tr data-bind="click: $parent.selectDocK , css: { matched: $data === $root.firstMatch() },' +
             '       style: {color: Status == \'پايان يافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
@@ -969,10 +997,10 @@
             CreateTableTd('EndDate', 0, 0, data) +
             CreateTableTd('CustCode', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data) +
-            CreateTableTd('DocDesc', 0, 0, data) +
-            CreateTableTd('EghdamComm', 0, 0, data) +
-            CreateTableTd('FinalComm', 0, 0, data) +
-            CreateTableTd('SpecialComm', 0, 0, data) +
+            CreateTableTd('DocDesc', 0, 4, data) +
+            CreateTableTd('EghdamComm', 0, 4, data) +
+            CreateTableTd('FinalComm', 0, 4, data) +
+            CreateTableTd('SpecialComm', 0, 5, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('KhdtName', 0, 0, data) +
@@ -1125,6 +1153,13 @@
             case 3:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
                 break;
+            case 4:
+                text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
+                break;
+            case 5:
+                text += 'data-bind="click: $root.View' + field + ' " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
+                break;
+
         }
         return text;
     }

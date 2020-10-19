@@ -346,3 +346,19 @@ function DotToSlash(num) {
     // var a = num;//.replace('.', '/');
     return num.replace('.', '/');
 }
+
+function TextHighlight(id) {
+    $(id).css("font-size", "10px");
+    $(id).css("color", "#a7a3a3cc");
+    $(id).css("font-style", "italic");
+    $(id).css("text-align", "center");
+}
+
+function TextHighlightDel(id) {
+    $(id).css("font-size", "");
+    $(id).css("color", "");
+    $(id).css("font-style", "");
+    $(id).css("text-align", "");
+}
+
+

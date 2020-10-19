@@ -583,7 +583,7 @@
 
 
 
-   
+
 
 
 
@@ -1180,7 +1180,7 @@
     });
 
     $('#Move').click(function () {
-        
+
         modeCodeMove = moveMode == 1 ? $('#modeCodeMove').val() : $('#modeCodePor').val()
         var MoveObject = {
             SerialNumber: serial,
@@ -1204,8 +1204,39 @@
             item = item[0];
 
             sessionStorage.ModeCode = modeCodeMove;
-            a = sessionStorage.InOut;
-            //sessionStorage.sels = 
+
+            switch (modeCodeMove.toString()) {
+                case sessionStorage.MODECODE_FDOC_SO:
+                    sessionStorage.InOut = 2;
+                    break;
+                case sessionStorage.MODECODE_FDOC_SP:
+                    sessionStorage.InOut = 2;
+                    break;
+                case sessionStorage.MODECODE_FDOC_S:
+                    sessionStorage.InOut = 2;
+                    break;
+                case sessionStorage.MODECODE_FDOC_SR:
+                    sessionStorage.InOut = 2;
+                    break;
+                case sessionStorage.MODECODE_FDOC_SH:
+                    sessionStorage.InOut = 2;
+                    break;
+                case sessionStorage.MODECODE_FDOC_SE:
+                    sessionStorage.InOut = 2;
+                    break;
+                case sessionStorage.MODECODE_FDOC_PO:
+                    sessionStorage.InOut = 1;
+                    break;
+                case sessionStorage.MODECODE_FDOC_PP:
+                    sessionStorage.InOut = 1;
+                    break;
+                case sessionStorage.MODECODE_FDOC_P:
+                    sessionStorage.InOut = 1;
+                    break;
+                case sessionStorage.MODECODE_FDOC_PR:
+                    sessionStorage.InOut = 1;
+                    break;
+            }
 
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
@@ -1328,8 +1359,8 @@
         if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
             a = 1
         else
-        dataTable +=
-            CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
+            dataTable +=
+                CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
 
         dataTable +=
             CreateTableTd('Status', 0, 0, data) +
@@ -1380,8 +1411,8 @@
         if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
             a = 1
         else
-        dataTable +=
-            CreateTableTdSearch('FinalPrice', data)
+            dataTable +=
+                CreateTableTdSearch('FinalPrice', data)
 
         dataTable +=
             CreateTableTdSearch('Status', data) +

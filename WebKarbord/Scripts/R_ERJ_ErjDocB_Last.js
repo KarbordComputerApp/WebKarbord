@@ -15,6 +15,7 @@
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.DocB_LastList = ko.observableArray([]); // لیست گزارش  
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
+    self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
 
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
@@ -24,6 +25,7 @@
     var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
 
     self.AzDocDate = ko.observable('');
     self.TaDocDate = ko.observable('');
@@ -330,16 +332,15 @@
 
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
-                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e1 !important;color: #39414b;border-radius: 10px;"> '
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
                     + '   <div class=" form-inline" > <h6>' + listBand[j].FromUserName + '</h6>'
                     + '   <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
                     + '   <h6>' + listBand[j].ToUserName + '</h6></div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
-                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;"> هنوز رویت نشده';
-                else
-                {
-                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px"> ';
+                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;"> هنوز رویت نشده';
+                else {
+                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                     text += ConvertComm(listBand[j].RjComm);
                 }
                 text += ' </div> ';
@@ -917,22 +918,64 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
+
+
+
+
+
+
+
+
+
+    var specialComm = '';
+    //Get DocK
+    function getDocK(serialnumber) {
+
+        var DocKObject = {
+            userName: '',
+            userMode: '',
+            azTarikh: '',
+            taTarikh: '',
+            Status: '',
+            CustCode: '',
+            KhdtCode: '',
+            SrchSt: '',
+            SerialNumber: serialnumber,
+        };
+        ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject).done(function (response) {
+            self.DocKList(response);
+            item = response[0];
+
+            $("#m_docno").val(item.DocNo);
+
+            $("#m_DocDate").val(item.DocDate);
+            $("#m_MhltDate").val(item.MhltDate);
+            $("#m_Eghdam").val(item.Eghdam);
+            $("#m_Tanzim").val(item.Tanzim);
+
+            $("#m_CustName").val(item.CustName);
+            $("#m_KhdtName").val(item.KhdtName);
+            $("#m_Spec").val(item.Spec);
+
+            $("#eghdamComm").val(item.EghdamComm);
+            $("#docDesc").val(item.DocDesc);
+
+            specialComm = item.SpecialComm;
+            $("#specialComm").val('برای نمایش کلیک کنید');
+            TextHighlight("#specialComm");
+
+            $("#finalComm").val(item.FinalComm);
+        });
+    }
+
+    $('#specialComm').click(function () {
+        TextHighlightDel("#specialComm");
+        $("#specialComm").val(specialComm); 
+    })
+
+
     self.ViewErjDocErja = function (Band) {
-        var a = 1;
-        $("#eghdamComm").val(Band.EghdamComm);
-
-        $("#m_docno").val(Band.DocNo);
-        $("#m_RjDate").val(Band.RjDate);
-        $("#m_RjMhltDate").val(Band.RjMhltDate);
-        //$("#m_no").val(Band.);
-        $("#m_CustName").val(Band.CustName);
-        $("#m_KhdtName").val(Band.KhdtName);
-        $("#m_Spec").val(Band.Spec);
-
-        $("#eghdamComm").val(Band.EghdamComm);
-        $("#docDesc").val(Band.DocDesc);
-        $("#specialComm").val(Band.SpecialComm);
-        $("#finalComm").val(Band.FinalComm);
+        getDocK(Band.SerialNumber)
         getErjDocErja(Band.SerialNumber);
     }
 
@@ -967,25 +1010,27 @@
     }
 
 
+
+
+
+
     var showHideInformation = false;
     var showHideSpec = false;
+    var showHideResult = false;
 
     $('#modal-ErjDocErja').on('shown.bs.modal', function () {
 
         showHideInformation = false;
         showHideSpec = false;
-
+        showHideResult = false;
         $(".auto-growth").css("height", "24px");
-        
-
         $('#panelInformation').attr('hidden', '');
         $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
-        $('#eghdamComm').attr('rows', '1');
-        $('#docDesc').attr('rows', '1');
-        $('#specialComm').attr('rows', '1');
-        $('#finalComm').attr('rows', '1');
+//        $('#eghdamComm').attr('rows', '1');
+//        $('#docDesc').attr('rows', '1');
+//        $('#specialComm').attr('rows', '1');
+ //       $('#finalComm').attr('rows', '1');
         $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
-
     });
 
     $('#ShowHideInformation').click(function () {
@@ -1004,25 +1049,37 @@
     $('#ShowHideSpec').click(function () {
         if (showHideSpec) {
             showHideSpec = false;
-            $('#eghdamComm').attr('rows', '1');
-            $('#docDesc').attr('rows', '1');
-            $('#specialComm').attr('rows', '1');
-            $('#finalComm').attr('rows', '1');
+            $('#eghdamComm').css("height", "24px");
+            $('#docDesc').css("height", "24px");
+            $('#specialComm').css("height", "24px");
+            $('#finalComm').css("height", "24px");
             $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
         }
         else {
             showHideSpec = true;
-            $('#eghdamComm').attr('rows', '5');
-            $('#docDesc').attr('rows', '5');
-            $('#specialComm').attr('rows', '5');
-            $('#finalComm').attr('rows', '5');
+           // autosize.update($('textarea'));
+            autosize.update($('#eghdamComm'));
+            autosize.update($('#docDesc'));
+            autosize.update($('#specialComm'));
+            autosize.update($('#finalComm'));
             $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         }
 
     })
 
+    $('#ShowHideResult').click(function () {
+        if (showHideResult) {
+            showHideResult = false;
+            $('#Result').css("height", "24px");
+            $('#imgResult').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+        }
+        else {
+            showHideResult = true;
+            $('#imgResult').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+            autosize.update($('#Result'));
+        }
 
-
+    })
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
