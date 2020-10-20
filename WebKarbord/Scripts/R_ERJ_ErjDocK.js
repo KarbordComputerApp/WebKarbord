@@ -987,45 +987,45 @@
             '       style: {color: Status == \'پايان يافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
-            CreateTableTd('DocNo', 0, 0, data) +
-            CreateTableTd('DocDate', 0, 0, data) +
-            CreateTableTd('MahramanehName', 0, 0, data) +
-            CreateTableTd('Eghdam', 0, 0, data) +
-            CreateTableTd('Tanzim', 0, 0, data) +
-            CreateTableTd('AmalDate', 0, 0, data) +
-            CreateTableTd('MhltDate', 0, 0, data) +
-            CreateTableTd('EndDate', 0, 0, data) +
-            CreateTableTd('CustCode', 0, 0, data) +
-            CreateTableTd('CustName', 0, 0, data) +
-            CreateTableTd('DocDesc', 0, 4, data) +
-            CreateTableTd('EghdamComm', 0, 4, data) +
-            CreateTableTd('FinalComm', 0, 4, data) +
-            CreateTableTd('SpecialComm', 0, 5, data) +
-            CreateTableTd('Status', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
-            CreateTableTd('KhdtName', 0, 0, data) +
-            CreateTableTd('RjTime', 0, 0, data) +
-            CreateTableTd('SerialNumber', 0, 0, data) +
-            CreateTableTd('F01', 0, 0, data) +
-            CreateTableTd('F02', 0, 0, data) +
-            CreateTableTd('F03', 0, 0, data) +
-            CreateTableTd('F04', 0, 0, data) +
-            CreateTableTd('F05', 0, 0, data) +
-            CreateTableTd('F06', 0, 0, data) +
-            CreateTableTd('F07', 0, 0, data) +
-            CreateTableTd('F08', 0, 0, data) +
-            CreateTableTd('F09', 0, 0, data) +
-            CreateTableTd('F10', 0, 0, data) +
-            CreateTableTd('F11', 0, 0, data) +
-            CreateTableTd('F12', 0, 0, data) +
-            CreateTableTd('F13', 0, 0, data) +
-            CreateTableTd('F14', 0, 0, data) +
-            CreateTableTd('F15', 0, 0, data) +
-            CreateTableTd('F16', 0, 0, data) +
-            CreateTableTd('F17', 0, 0, data) +
-            CreateTableTd('F18', 0, 0, data) +
-            CreateTableTd('F19', 0, 0, data) +
-            CreateTableTd('F20', 0, 0, data) +
+            CreateTableTd('DocNo', 0, 0, 0, data) +
+            CreateTableTd('DocDate', 0, 0, 0, data) +
+            CreateTableTd('MahramanehName', 0, 0, 0, data) +
+            CreateTableTd('Eghdam', 0, 0, 0, data) +
+            CreateTableTd('Tanzim', 0, 0, 0, data) +
+            CreateTableTd('AmalDate', 0, 0, 0, data) +
+            CreateTableTd('MhltDate', 0, 0, 0, data) +
+            CreateTableTd('EndDate', 0, 0, 0, data) +
+            CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
+            CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
+            CreateTableTd('DocDesc', 0, 4, 0, data) +
+            CreateTableTd('EghdamComm', 0, 4, 0, data) +
+            CreateTableTd('FinalComm', 0, 4, 0, data) +
+            CreateTableTd('SpecialComm', 0, 5, '#f2f2f2', data) +
+            CreateTableTd('Status', 0, 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, 0, data) +
+            CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
+            CreateTableTd('RjTime', 0, 0, 0, data) +
+            CreateTableTd('SerialNumber', 0, 0, 0, data) +
+            CreateTableTd('F01', 0, 0, 0, data) +
+            CreateTableTd('F02', 0, 0, 0, data) +
+            CreateTableTd('F03', 0, 0, 0, data) +
+            CreateTableTd('F04', 0, 0, 0, data) +
+            CreateTableTd('F05', 0, 0, 0, data) +
+            CreateTableTd('F06', 0, 0, 0, data) +
+            CreateTableTd('F07', 0, 0, 0, data) +
+            CreateTableTd('F08', 0, 0, 0, data) +
+            CreateTableTd('F09', 0, 0, 0, data) +
+            CreateTableTd('F10', 0, 0, 0, data) +
+            CreateTableTd('F11', 0, 0, 0, data) +
+            CreateTableTd('F12', 0, 0, 0, data) +
+            CreateTableTd('F13', 0, 0, 0, data) +
+            CreateTableTd('F14', 0, 0, 0, data) +
+            CreateTableTd('F15', 0, 0, 0, data) +
+            CreateTableTd('F16', 0, 0, 0, data) +
+            CreateTableTd('F17', 0, 0, 0, data) +
+            CreateTableTd('F18', 0, 0, 0, data) +
+            CreateTableTd('F19', 0, 0, 0, data) +
+            CreateTableTd('F20', 0, 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -1133,16 +1133,18 @@
         return text;
     }
 
-    function CreateTableTd(field, Deghat, no, data) {
+    function CreateTableTd(field, Deghat, no, color, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
 
+        color = "\'" + color + "\'";
+
         switch (no) {
             case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
+                text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
                 break;
             case 1:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
@@ -1157,7 +1159,7 @@
                 text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
                 break;
             case 5:
-                text += 'data-bind="click: $root.View' + field + ' " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
+                text += 'data-bind="click: $root.View' + field + ', style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  } " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
                 break;
 
         }

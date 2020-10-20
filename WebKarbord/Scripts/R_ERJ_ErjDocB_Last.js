@@ -13,6 +13,10 @@
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
+
+    self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
+    self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
+
     self.DocB_LastList = ko.observableArray([]); // لیست گزارش  
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
@@ -20,6 +24,8 @@
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
     var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس ارجاع شونده / دهنده
+    var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
+    var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
     var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
@@ -33,6 +39,7 @@
     self.TaRjDate = ko.observable('');
     self.AzMhltDate = ko.observable('');
     self.TaMhltDate = ko.observable('');
+    self.ErjUsersCode = ko.observable();
 
     var allSearchErjCust = true;
 
@@ -40,6 +47,10 @@
     var counterErjCust = 0;
     var counterKhdt = 0;
     self.Status = ko.observable();
+
+    var ErjUsersRoneveshtCode = '';
+    var counterErjUsersRonevesht = 0;
+    var list_ErjUsersRoneveshtSelect = new Array();
 
     var list_ErjCustSelect = new Array()
     var list_KhdtSelect = new Array()
@@ -141,8 +152,22 @@
             self.ErjUsersList(data);
             $('#ToUser').val(sessionStorage.userName);
             $('#FromUser').val('');
+        });
+    }
 
-            //getDocB_Last();
+    //Get Mahramaneh List
+    function getMahramanehList() {
+        ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+            self.MahramanehList(data);
+        });
+    }
+
+    //Get ErjResult List
+    function getErjResultList(serialNumber) {
+        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.ErjResultList(data);
+            item = data[0];
+            $("#Result").val(item.RjResult);
         });
     }
 
@@ -158,6 +183,7 @@
     getErjCustList();
     getKhdtList();
     getErjUsersList();
+    getMahramanehList();
 
     function AddErjaMode() {
         select = document.getElementById('ErjaMode');
@@ -927,6 +953,319 @@
 
 
 
+
+    self.currentPageErjUsers = ko.observable();
+    self.pageSizeErjUsers = ko.observable(10);
+    self.currentPageIndexErjUsers = ko.observable(0);
+
+    self.iconTypeCode = ko.observable("");
+    self.iconTypeName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+
+    self.currentPageErjUsers = ko.observable();
+    self.filterErjUsers0 = ko.observable("");
+    self.filterErjUsers1 = ko.observable("");
+    self.filterErjUsers2 = ko.observable("");
+
+    self.filterErjUsersList = ko.computed(function () {
+
+        self.currentPageIndexErjUsers(0);
+        var filter0 = self.filterErjUsers0().toUpperCase();
+        var filter1 = self.filterErjUsers1();
+        var filter2 = self.filterErjUsers2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ErjUsersList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ErjUsersList(), function (item) {
+                result =
+                    (item.Code == null ? '' : item.Code.toString().search(filter0) >= 0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPageErjUsers = ko.computed(function () {
+        var pageSizeErjUsers = parseInt(self.pageSizeErjUsers(), 10),
+            startIndex = pageSizeErjUsers * self.currentPageIndexErjUsers(),
+            endIndex = startIndex + pageSizeErjUsers;
+        return self.filterErjUsersList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageErjUsers = function () {
+        if (((self.currentPageIndexErjUsers() + 1) * self.pageSizeErjUsers()) < self.filterErjUsersList().length) {
+            self.currentPageIndexErjUsers(self.currentPageIndexErjUsers() + 1);
+        }
+    };
+
+    self.previousPageErjUsers = function () {
+        if (self.currentPageIndexErjUsers() > 0) {
+            self.currentPageIndexErjUsers(self.currentPageIndexErjUsers() - 1);
+        }
+    };
+
+    self.firstPageErjUsers = function () {
+        self.currentPageIndexErjUsers(0);
+    };
+
+
+    self.lastPageErjUsers = function () {
+        countErjUsers = parseInt(self.filterErjUsersList().length / self.pageSizeErjUsers(), 10);
+        if ((self.filterErjUsersList().length % self.pageSizeErjUsers()) == 0)
+            self.currentPageIndexErjUsers(countErjUsers - 1);
+        else
+            self.currentPageIndexErjUsers(countErjUsers);
+    };
+
+    self.sortTableErjUsers = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.ErjUsersList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+    };
+
+    $('#refreshErjUsers').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست کاربران به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getErjUsersList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+    self.selectErjUsers = function (item) {
+        $('#nameErjBe').val('(' + item.Code + ') ' + item.Name);
+        self.ErjUsersCode(item.Code);
+    }
+
+
+    $('#modal-ErjUsers').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+    self.currentPageErjUsersRonevesht = ko.observable();
+    self.pageSizeErjUsersRonevesht = ko.observable(10);
+    self.currentPageIndexErjUsersRonevesht = ko.observable(0);
+
+    self.filterErjUsersRonevesht0 = ko.observable("");
+    self.filterErjUsersRonevesht1 = ko.observable("");
+    self.filterErjUsersRonevesht2 = ko.observable("");
+
+
+    self.filterErjUsersRoneveshtList = ko.computed(function () {
+
+        self.currentPageIndexErjUsersRonevesht(0);
+        var filter0 = self.filterErjUsersRonevesht0().toUpperCase();
+        var filter1 = self.filterErjUsersRonevesht1();
+        var filter2 = self.filterErjUsersRonevesht2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ErjUsersList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ErjUsersList(), function (item) {
+                result =
+                    (item.Code == null ? '' : item.Code.toString().search(filter0) >= 0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageErjUsersRonevesht = ko.computed(function () {
+        var pageSizeErjUsersRonevesht = parseInt(self.pageSizeErjUsersRonevesht(), 10),
+            startIndex = pageSizeErjUsersRonevesht * self.currentPageIndexErjUsersRonevesht(),
+            endIndex = startIndex + pageSizeErjUsersRonevesht;
+        return self.filterErjUsersRoneveshtList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageErjUsersRonevesht = function () {
+        if (((self.currentPageIndexErjUsersRonevesht() + 1) * self.pageSizeErjUsersRonevesht()) < self.filterErjUsersRoneveshtList().length) {
+            self.currentPageIndexErjUsersRonevesht(self.currentPageIndexErjUsersRonevesht() + 1);
+        }
+    };
+
+    self.previousPageErjUsersRonevesht = function () {
+        if (self.currentPageIndexErjUsersRonevesht() > 0) {
+            self.currentPageIndexErjUsersRonevesht(self.currentPageIndexErjUsersRonevesht() - 1);
+        }
+    };
+
+    self.firstPageErjUsersRonevesht = function () {
+        self.currentPageIndexErjUsersRonevesht(0);
+    };
+
+    self.lastPageErjUsersRonevesht = function () {
+        countErjUsersRonevesht = parseInt(self.filterErjUsersRoneveshtList().length / self.pageSizeErjUsersRonevesht(), 10);
+        if ((self.filterErjUsersRoneveshtList().length % self.pageSizeErjUsersRonevesht()) == 0)
+            self.currentPageIndexErjUsersRonevesht(countErjUsersRonevesht - 1);
+        else
+            self.currentPageIndexErjUsersRonevesht(countErjUsersRonevesht);
+    };
+
+    self.sortTableErjUsersRonevesht = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.ErjUsersList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+    $('#refreshErjUsersRonevesht').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست کاربران به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getErjUsersRoneveshtList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.AddErjUsersRonevesht = function (item) {
+
+        ErjUsersRoneveshtCode = item.Code;
+        find = false;
+        list_ErjUsersRoneveshtSelect.forEach(function (item, key) {
+            if (item == ErjUsersRoneveshtCode) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListErjUsersRonevesht').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + item.Code + '</td > '
+                + ' <td data-bind="text: Name">' + item.Name + '</td > '
+                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
+                + '</tr>'
+            );
+            list_ErjUsersRoneveshtSelect[counterErjUsersRonevesht] = item.Code;
+            counterErjUsersRonevesht = counterErjUsersRonevesht + 1;
+        }
+    };
+
+
+    self.AddAllErjUsersRonevesht = function () {
+        list_ErjUsersRoneveshtSelect = new Array();
+        list = self.ErjUsersList();
+        $("#TableBodyListErjUsersRonevesht").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListErjUsersRonevesht').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
+                + '</tr>'
+            );
+            list_ErjUsersRoneveshtSelect[i] = list[i].Code;
+            counterErjUsersRonevesht = i + 1;
+        }
+    };
+
+
+    self.DelAllErjUsersRonevesht = function () {
+        list_ErjUsersRoneveshtSelect = new Array();
+        counterErjUsersRonevesht = 0;
+        $("#TableBodyListErjUsersRonevesht").empty();
+    };
+
+
+    $('#modal-ErjUsersRonevesht').on('hide.bs.modal', function () {
+        if (counterErjUsersRonevesht > 0)
+            $('#nameRoneveshtBe').val(counterErjUsersRonevesht + ' مورد انتخاب شده ')
+        else
+            $('#nameRoneveshtBe').val('هیچکس');
+    });
+
+    $('#modal-ErjUsersRonevesht').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
     var specialComm = '';
     //Get DocK
     function getDocK(serialnumber) {
@@ -945,12 +1284,12 @@
         ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject).done(function (response) {
             self.DocKList(response);
             item = response[0];
-
             $("#m_docno").val(item.DocNo);
 
             $("#m_DocDate").val(item.DocDate);
             $("#m_MhltDate").val(item.MhltDate);
             $("#m_Eghdam").val(item.Eghdam);
+            $("#m_Mahramaneh").val(item.Mahramaneh);
             $("#m_Tanzim").val(item.Tanzim);
 
             $("#m_CustName").val(item.CustName);
@@ -965,12 +1304,16 @@
             TextHighlight("#specialComm");
 
             $("#finalComm").val(item.FinalComm);
+
+            getErjResultList(serialnumber);
+
+
         });
     }
 
     $('#specialComm').click(function () {
         TextHighlightDel("#specialComm");
-        $("#specialComm").val(specialComm); 
+        $("#specialComm").val(specialComm);
     })
 
 
@@ -1015,36 +1358,45 @@
 
 
     var showHideInformation = false;
+
     var showHideSpec = false;
+    var showHideEghdamComm = false;
+    var showHideDocDesc = false;
+    var showHideSpecialComm = false;
+    var showHideFinalComm = false;
+
     var showHideResult = false;
 
     $('#modal-ErjDocErja').on('shown.bs.modal', function () {
-
         showHideInformation = false;
         showHideSpec = false;
+        showHideEghdamComm = false;
+        showHideDocDesc = false;
+        showHideSpecialComm = false;
+        showHideFinalComm = false;
+
         showHideResult = false;
         $(".auto-growth").css("height", "24px");
         $('#panelInformation').attr('hidden', '');
-        $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
-//        $('#eghdamComm').attr('rows', '1');
-//        $('#docDesc').attr('rows', '1');
-//        $('#specialComm').attr('rows', '1');
- //       $('#finalComm').attr('rows', '1');
-        $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+        $('#imgInformation').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+        $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+        $('#imgResult').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
     });
 
     $('#ShowHideInformation').click(function () {
         if (showHideInformation) {
             showHideInformation = false;
             $('#panelInformation').attr('hidden', '');
-            $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+            $('#imgInformation').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         }
         else {
             showHideInformation = true;
             $('#panelInformation').removeAttr('hidden', '');
-            $('#imgInformation').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+            $('#imgInformation').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
         }
     })
+
+
 
     $('#ShowHideSpec').click(function () {
         if (showHideSpec) {
@@ -1053,33 +1405,92 @@
             $('#docDesc').css("height", "24px");
             $('#specialComm').css("height", "24px");
             $('#finalComm').css("height", "24px");
-            $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+            $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         }
         else {
             showHideSpec = true;
-           // autosize.update($('textarea'));
+            // autosize.update($('textarea'));
             autosize.update($('#eghdamComm'));
             autosize.update($('#docDesc'));
             autosize.update($('#specialComm'));
             autosize.update($('#finalComm'));
-            $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+            $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
         }
 
     })
+
+    $('#ShowHideEghdamComm').click(function () {
+        if (showHideEghdamComm) {
+            showHideEghdamComm = false;
+            $('#eghdamComm').css("height", "24px");
+        }
+        else {
+            showHideEghdamComm = true;
+            autosize.update($('#eghdamComm'));
+        }
+    })
+
+    $('#ShowHideDocDesc').click(function () {
+        if (showHideDocDesc) {
+            showHideDocDesc = false;
+            $('#docDesc').css("height", "24px");
+        }
+        else {
+            showHideDocDesc = true;
+            autosize.update($('#docDesc'));
+        }
+    })
+
+    $('#ShowHideSpecialComm').click(function () {
+        if (showHideSpecialComm) {
+            showHideSpecialComm = false;
+            $('#specialComm').css("height", "24px");
+        }
+        else {
+            showHideSpecialComm = true;
+            autosize.update($('#specialComm'));
+        }
+    })
+
+    $('#ShowHideFinalComm').click(function () {
+        if (showHideFinalComm) {
+            showHideFinalComm = false;
+            $('#finalComm').css("height", "24px");
+        }
+        else {
+            showHideFinalComm = true;
+            autosize.update($('#finalComm'));
+        }
+    })
+
+
+
 
     $('#ShowHideResult').click(function () {
         if (showHideResult) {
             showHideResult = false;
             $('#Result').css("height", "24px");
-            $('#imgResult').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+            $('#imgResult').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         }
         else {
             showHideResult = true;
-            $('#imgResult').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+            $('#imgResult').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
             autosize.update($('#Result'));
         }
 
     })
+
+
+
+
+
+    $('#modal-Erja').on('shown.bs.modal', function () {
+        $('#e_Result').css("height", "400px");
+        $('#e_Result').val($('#Result').val());
+        $('#nameErjBe').val('انتخاب نشده');
+        $('#nameRoneveshtBe').val('هیچکس');
+    });
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
