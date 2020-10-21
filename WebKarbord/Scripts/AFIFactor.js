@@ -455,6 +455,9 @@
     function getFDocHLastDate() {
         ajaxFunction(FDocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (data) {
             self.DocDate(data);
+            $('#btntarikh').click(function () {
+                $('#tarikh').change();
+            });
         });
     }
 
@@ -1659,6 +1662,8 @@
             // $(this).AmountCalc();
         }
         $('.fix').attr('class', 'form-line focused fix');
+        $('#comm').css("height", "41px");
+        autosize.update($('#comm'));
         $('#btnkala').focus();
     });
 
@@ -2430,6 +2435,40 @@
     $('#Print').click(function () {
         setReport(self.FDocBList(), 'Free');
     });
+
+    $(window).keydown(function (event) {
+        if (event.ctrlKey == false && event.keyCode == 113) {
+            flagFinalSave = true;
+            self.UpdateFDocH();
+            event.preventDefault();
+        }
+
+    });
+
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
+    var date = new Date();
+    date.addDays(5);
+
+    $("#tarikh").keyup(function (e) {
+
+        a = e.keyCode;
+        var date = new Date();
+
+        addMonthToDateTime($('#tarikh').val(), 1);
+        //down : 40
+        //up : 38
+
+
+
+        
+
+    })
+
 };
 
 ko.applyBindings(new ViewModel());

@@ -38,6 +38,13 @@
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
+    $('#btnaztarikh').click(function () {
+        $('#aztarikh').change();
+    });
+
+    $('#btntatarikh').click(function () {
+        $('#tatarikh').change();
+    });
 
     self.AzShomarh = ko.observable();
     self.TaShomarh = ko.observable();

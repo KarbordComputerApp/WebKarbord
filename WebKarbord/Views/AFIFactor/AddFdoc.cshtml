@@ -549,7 +549,7 @@
                         <div class="col-sm-12">
                             <div class="form-group form-float">
                                 <div class="form-line focused">
-                                    <textarea rows="1" id="comm" class="form-control no-resize auto-growth" placeholder="شرح"></textarea>
+                                    <textarea rows="2" id="comm" class="form-control no-resize auto-growth string " placeholder="شرح"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -766,7 +766,14 @@
         sessionStorage.urlAddIDocH = '@Url.Action("AddIdoc", "AFISanadAnbar")';
         $('#btntarikh').MdPersianDateTimePicker({
         targetTextSelector: '#tarikh',
-        dateFormat: 'yyyy-MM-dd'
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
         });
 
         //'use strict';

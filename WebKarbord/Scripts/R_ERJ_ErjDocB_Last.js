@@ -1485,7 +1485,7 @@
 
 
     $('#modal-Erja').on('shown.bs.modal', function () {
-        $('#e_Result').css("height", "400px");
+        $('#e_Result').css("height", "409px");
         $('#e_Result').val($('#Result').val());
         $('#nameErjBe').val('انتخاب نشده');
         $('#nameRoneveshtBe').val('هیچکس');

@@ -312,6 +312,9 @@
     function getIDocHLastDate() {
         ajaxFunction(IDocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.DocDate(data);
+            $('#btntarikh').click(function () {
+                $('#tarikh').change();
+            });
         });
     }
 

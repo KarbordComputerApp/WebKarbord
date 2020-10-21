@@ -20,6 +20,14 @@
 
     self.AzDate = ko.observable();
     self.TaDate = ko.observable(ShamsiDate());
+
+    $('#btnaztarikh').click(function () {
+        $('#aztarikh').change();
+    });
+
+    $('#btntatarikh').click(function () {
+        $('#tatarikh').change();
+    });
     self.ThvlCode = ko.observable();
     self.InvCode = ko.observable();
 

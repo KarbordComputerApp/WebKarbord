@@ -28,9 +28,15 @@
     shamsiDate = ShamsiDate();
     //self.AzDate = ko.observable(sal + '/01/01');
     self.AzDate = ko.observable(shamsiDate.substring(0, 4) - 1 + '/01/01');
-
     self.TaDate = ko.observable(shamsiDate);
 
+    $('#btnaztarikh').click(function () {
+        $('#aztarikh').change();
+    });
+
+    $('#btntatarikh').click(function () {
+        $('#tatarikh').change();
+    });
 
 
     var allSearchErjCust = true;

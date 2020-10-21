@@ -36,6 +36,14 @@
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
+    $('#btnaztarikh').click(function () {
+        $('#aztarikh').change();
+    });
+
+    $('#btntatarikh').click(function () {
+        $('#tatarikh').change();
+    });
+
     self.InvCode = ko.observable();
     var allSearchKala = true;
     

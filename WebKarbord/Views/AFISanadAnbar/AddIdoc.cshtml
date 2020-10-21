@@ -676,7 +676,14 @@
         sessionStorage.urlAddIDocH = '@Url.Action("AddIdoc", "AFISanadAnbar")';
         $('#btntarikh').MdPersianDateTimePicker({
         targetTextSelector: '#tarikh',
-        dateFormat: 'yyyy-MM-dd'
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
         });
 
         //'use strict';
