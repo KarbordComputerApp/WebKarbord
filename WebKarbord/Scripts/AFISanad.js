@@ -392,6 +392,10 @@
         self.SerialNumber(Serial);
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
+
+        $('#btntarikh').click(function () {
+            $('#tarikh').change();
+        });
         self.Spec(sessionStorage.Spec);
         $("#docnoout").text(sessionStorage.DocNo);
         self.AModeCode(sessionStorage.ModeCodeSanad);

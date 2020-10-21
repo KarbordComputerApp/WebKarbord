@@ -2322,6 +2322,9 @@
         self.SerialNumber(Serial);
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
+        $('#btntarikh').click(function () {
+            $('#tarikh').change();
+        });
         self.Spec(sessionStorage.Spec);
         codeCust = sessionStorage.CustCode;
         self.CustCode(sessionStorage.CustCode);
