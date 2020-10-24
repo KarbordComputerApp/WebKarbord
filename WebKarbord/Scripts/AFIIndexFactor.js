@@ -126,6 +126,7 @@
         'DocDate',
         'CustName',
         'FinalPrice',
+        'Spec',
         'Status',
         'Eghdam',
         'Tanzim',
@@ -296,6 +297,7 @@
     self.filterDocDate = ko.observable("");
     self.filterCustName = ko.observable("");
     self.filterFinalPrice = ko.observable("");
+    self.filterSpec = ko.observable("");
     self.filterStatus = ko.observable("");
     self.filterEghdam = ko.observable("");
     self.filterTanzim = ko.observable("");
@@ -330,6 +332,7 @@
         var filterDocDate = self.filterDocDate();
         var filterCustName = self.filterCustName();
         var filterFinalPrice = self.filterFinalPrice();
+        var filterSpec = self.filterSpec();
         var filterStatus = self.filterStatus();
         var filterEghdam = self.filterEghdam().toUpperCase();
         var filterTanzim = self.filterTanzim().toUpperCase();
@@ -358,7 +361,7 @@
 
 
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterSerialNumber &&
-            !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
+            !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
             $("#CountRecord").text(self.FDocHList().length);
@@ -370,11 +373,12 @@
                     ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
                     ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
-                    (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                     (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
                     (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
                     (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                     (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
                     (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
@@ -467,13 +471,12 @@
     self.iconTypeDocDate = ko.observable("");
     self.iconTypeCustName = ko.observable("");
     self.iconTypeFinalPrice = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
     self.iconTypeEghdam = ko.observable("");
     self.iconTypeTanzim = ko.observable("");
     self.iconTypeTaeed = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
-    self.iconTypeSpec = ko.observable("");
-
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
     self.iconTypeF03 = ko.observable("");
@@ -521,6 +524,7 @@
         self.iconTypeDocDate('');
         self.iconTypeCustName('');
         self.iconTypeFinalPrice('');
+        self.iconTypeSpec('');
         self.iconTypeStatus('');
         self.iconTypeEghdam('');
         self.iconTypeTanzim('');
@@ -551,6 +555,7 @@
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FinalPrice') self.iconTypeFinalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Eghdam') self.iconTypeEghdam((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Tanzim') self.iconTypeTanzim((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1321,7 +1326,9 @@
             dataTable +=
                 CreateTableTh('FinalPrice', data)
 
+
         dataTable +=
+            CreateTableTh('Spec', data) +
             CreateTableTh('Status', data) +
             CreateTableTh('Eghdam', data) +
             CreateTableTh('Tanzim', data) +
@@ -1363,6 +1370,7 @@
                 CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
 
         dataTable +=
+            CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
@@ -1415,6 +1423,7 @@
                 CreateTableTdSearch('FinalPrice', data)
 
         dataTable +=
+            CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('Eghdam', data) +
             CreateTableTdSearch('Tanzim', data) +

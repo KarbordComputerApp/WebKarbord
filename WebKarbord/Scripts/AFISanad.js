@@ -2276,6 +2276,10 @@
             flagEditBand = true;
         }
         $('.fix').attr('class', 'form-line focused fix');
+        $('#comm').css("height", "201px");
+        $('#bandSpec').css("height", "25px");
+        autosize.update($('#comm'));
+        autosize.update($('#bandSpec'));
         $('#btnAcc').focus();
     });
 

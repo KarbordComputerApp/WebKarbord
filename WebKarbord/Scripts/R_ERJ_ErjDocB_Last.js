@@ -9,6 +9,9 @@
     var group = sessionStorage.group;
     var server = localStorage.getItem("ApiAddress");
 
+    var serialNumber = 0;
+    var bandNo = 0;
+
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
@@ -32,6 +35,8 @@
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
+    var DocBIUri = server + '/api/Web_Data/ErjDocB_I/'; // آدرس ذخیره ارجاع
+
 
     self.AzDocDate = ko.observable('');
     self.TaDocDate = ko.observable('');
@@ -39,6 +44,7 @@
     self.TaRjDate = ko.observable('');
     self.AzMhltDate = ko.observable('');
     self.TaMhltDate = ko.observable('');
+    self.e_MhltErja = ko.observable('');
     self.ErjUsersCode = ko.observable();
 
     var allSearchErjCust = true;
@@ -56,7 +62,6 @@
     var list_KhdtSelect = new Array()
 
     $("#textTotal").text('');
-
 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -345,7 +350,7 @@
         $("#BodyErjDocErja").empty();
         //for (var i = 1; i <= countBand; i++) {
 
-        for (var i = countBand; i >= 0; i--) {
+        for (var i = countBand; i >= 1; i--) {
             self.FilterErjValue(i);
             listBand = self.FilterErj();
             text = ConvertComm(listBand[0].RjComm);
@@ -414,6 +419,7 @@
 
 
     $("#CreateReport").click(function () {
+        //$('#ToUser').val(sessionStorage.userName);
         getDocB_Last();
     });
 
@@ -941,6 +947,7 @@
 
     })
 
+
     $('.fix').attr('class', 'form-line date focused fix');
 
 
@@ -1259,13 +1266,6 @@
 
 
 
-
-
-
-
-
-
-
     var specialComm = '';
     //Get DocK
     function getDocK(serialnumber) {
@@ -1318,8 +1318,9 @@
 
 
     self.ViewErjDocErja = function (Band) {
-        getDocK(Band.SerialNumber)
-        getErjDocErja(Band.SerialNumber);
+        serialNumber = Band.SerialNumber;
+        getDocK(serialNumber)
+        getErjDocErja(serialNumber);
     }
 
 
@@ -1489,7 +1490,85 @@
         $('#e_Result').val($('#Result').val());
         $('#nameErjBe').val('انتخاب نشده');
         $('#nameRoneveshtBe').val('هیچکس');
+        $('#RjMhltDate').val('');
+        $('#RjTime_M').val('');
+        $('#RjTime_H').val('');
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#saveErja').click(function () {
+        ErjDocB_I();
+    })
+
+
+    //Add new FDocH
+    function ErjDocB_I() {
+        rjDate = ShamsiDate();
+        rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
+        rjTime_H = $("#RjTime_H").val();
+        rjTime_M = $("#RjTime_M").val();
+        natijeh = $("#e_Result").val();
+
+        fromUserCode = $("#FromUser").val();
+        if (fromUserCode == "") fromUserCode = sessionStorage.userName;
+
+        if (self.ErjUsersCode() == null) {
+            return showNotification('ارجاع شونده را انتخاب کنید', 0);
+        }
+
+        toUserCode = self.ErjUsersCode();
+
+        if (rjTime_H != '' || rjTime_M != '') {
+            rjTime_H = rjTime_H == "" ? 0 : rjTime_H;
+            rjTime_M = rjTime_M == "" ? 0 : rjTime_M;
+
+            rjTime = rjTime_H + rjTime_M;
+        }
+        else {
+            return showNotification('زمان صرف شده را وارد کنید', 0);
+        }
+
+        var ErjDocB_IObject = {
+            SerialNumber: serialNumber,
+            Natijeh: natijeh,
+            FromUserCode: fromUserCode,
+            ToUserCode: toUserCode,
+            RjDate: rjDate,
+            RjEndDate: rjDate,
+            RjTime: rjTime,
+            RjMhltDate: rjMhltDate
+        };
+
+        ajaxFunction(DocBIUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocB_IObject).done(function (response) {
+            bandNo = response;
+            $('#modal-Erja').modal('hide');
+            $('#modal-ErjDocErja').modal('hide');
+            getDocB_Last();
+
+        });
+        flagInsertFdoch = 1;
+    };
+
+
+
+
+
+
+
+
+
+
 
 
     function CreateTableReport(data) {

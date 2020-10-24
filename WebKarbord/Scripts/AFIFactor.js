@@ -16,6 +16,7 @@
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
+    $("#salTest").text('سال مالی' + sessionStorage.sal);
 
     //var server = $("#server").text();
     sessionStorage.searchFDocH = "";
@@ -2266,7 +2267,7 @@
             $('#action_Fdoc').removeAttr('style');
             $('#button_cust').removeAttr('style');
             $('#insertband').removeAttr('style');
-            
+
         }
     }
 
@@ -2405,9 +2406,8 @@
     });
 
 
-    if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
-    {
-        
+    if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT") {
+
         $('#thUnitPrice').attr('hidden', '');
         $('#thTotalPrice').attr('hidden', '');
         $('#thDiscount').attr('hidden', '');
@@ -2418,10 +2418,9 @@
         $('#foottexttotalprice').attr('hidden', '');
         $('#foottextdiscount').attr('hidden', '');
     }
-    else
-    {
+    else {
         $('#thUnitPrice').removeAttr('hidden', '');
-        $('#thTotalPrice').removeAttr('hidden', ''); 
+        $('#thTotalPrice').removeAttr('hidden', '');
         $('#thDiscount').removeAttr('hidden', '');
         $('#tdUnitPrice').removeAttr('hidden', '');
         $('#tdTotalPrice').removeAttr('hidden', '');
@@ -2439,6 +2438,8 @@
         setReport(self.FDocBList(), 'Free');
     });
 
+
+    /*
     $(window).keydown(function (event) {
         if (event.ctrlKey == false && event.keyCode == 113) {
             flagFinalSave = true;
@@ -2454,6 +2455,7 @@
         return date;
     }
 
+
     var date = new Date();
     date.addDays(5);
 
@@ -2465,12 +2467,8 @@
         addMonthToDateTime($('#tarikh').val(), 1);
         //down : 40
         //up : 38
-
-
-
-        
-
     })
+    */
 
 };
 

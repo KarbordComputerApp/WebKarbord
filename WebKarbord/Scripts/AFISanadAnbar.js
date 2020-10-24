@@ -1329,6 +1329,8 @@
             //$(this).AmountCalc();
         }
         $('.fix').attr('class', 'form-line focused fix');
+        $('#comm').css("height", "41px");
+        autosize.update($('#comm'));
         $('#btnkala').focus();
 
     });
