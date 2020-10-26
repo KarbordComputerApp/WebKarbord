@@ -208,6 +208,7 @@
                                    options: ErjUsersList,
                                    optionsText: function(item) {return item.Name},
                                    optionsValue: 'Code',
+                                   value: ToUserCode,
                                    optionsCaption: ''"></select>
                                 </div>
                             </div>
@@ -832,34 +833,35 @@
             </div>
             <div>
                 <div class="row  form-inline ">
-                    <div class="col-md-10 row">
-                        <p class="col-md-2">وضعیت ارجاع</p>
-                        <div class="col-md-3">
-                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <div class="form-group">
-                                    <select id="m_StatusErja" style="font-size:11px"></select>
+                    <div class="col-md-9 row">
+                        <div id="panelFooterParvandeh" class="col-md-12 row">
+                            <p class="col-md-2">وضعیت ارجاع</p>
+                            <div class="col-md-3">
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <div class="form-group">
+                                        <select id="m_StatusErja" style="font-size:11px"></select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <p class="col-md-2">وضعیت پرونده</p>
-                        <div class="col-md-3">
-                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <div class="form-group">
-                                    <select id="m_StatusParvandeh" data-bind="
+                            <p class="col-md-2">وضعیت پرونده</p>
+                            <div class="col-md-3">
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <div class="form-group">
+                                        <select id="m_StatusParvandeh" data-bind="
                                    options: ErjStatusList,
                                    optionsText: function(item) {return item.Status},
                                    optionsValue: 'Status'"></select>
+                                    </div>
                                 </div>
                             </div>
 
-
                         </div>
-
                     </div>
 
-                    <div class="col-md-2">
-                        <button type="button" id="erja" class="btn btn-primary  pull-left" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Erja"><i class="fa fa-sign-in fa-lg fa-fw"></i>ارجاع</button>
+                    <div class="col-md-3">
+                        <button type="button" id="erja" class="btn btn-primary  pull-left dropdown-toggle" data-toggle="modal" data-target="#modal-Erja"><i class="fa fa-sign-in fa-lg fa-fw"></i>ارجاع</button>
+                        <button type="button" id="saveParvandeh" class="btn btn-primary  pull-left" style=" margin-left: 8px;"><i class="fa fa-sign-in fa-lg fa-fw"></i>ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -890,7 +892,7 @@
 
 
 <div class="modal fade" id="modal-Erja" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog modal-entesab" style="width:900px">
+    <div class="modal-dialog modal-entesab" style="width:980px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -984,8 +986,8 @@
                             </div>
                         </div>
 
-                       <!-- <p>زمان صرف شده</p> -->
-                        <div class="col-sm-1" >
+                        <!-- <p>زمان صرف شده</p> -->
+                        <div class="col-sm-1">
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <input id="RjTime_M" class="form-control int" />
@@ -1034,13 +1036,13 @@
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableErjUsers">
                                 <th data-column="Code">
-                                    کد 
+                                    کد
                                     <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Name">
-                                    نام 
+                                    نام
                                     <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
@@ -1137,13 +1139,13 @@
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableErjUsersRonevesht">
                                         <th data-column="Code">
-                                            کد 
+                                            کد
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
                                         <th data-column="Name">
-                                            نام 
+                                            نام
                                             <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
@@ -1160,7 +1162,7 @@
                                     <tr data-bind=" event: { dblclick: $parent.AddErjUsersRonevesht }">
                                         <td data-bind="text: Code"></td>
                                         <td data-bind="text: Name"></td>
-                                          <td data-bind="text: Spec"></td>
+                                        <td data-bind="text: Spec"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -1390,7 +1392,7 @@
             ToDate: false, // default is false,
             FromDate: false, // default is false,
         });
-        
+
         $('#btnRjMhltDate').MdPersianDateTimePicker({
             targetTextSelector: '#RjMhltDate',
             dateFormat: 'yyyy-MM-dd',

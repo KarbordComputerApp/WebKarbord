@@ -11,6 +11,7 @@
 
     var serialNumber = 0;
     var bandNo = 0;
+    var docBMode = 0;
 
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
@@ -35,7 +36,8 @@
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
-    var DocBIUri = server + '/api/Web_Data/ErjDocB_I/'; // آدرس ذخیره ارجاع
+    var ErjSaveDocB_SUri = server + '/api/Web_Data/ErjSaveDocB_S/'; // آدرس ذخیره ارجاع
+    var ErjSaveDocC_SUri = server + '/api/Web_Data/ErjSaveDocC_S/'; // آدرس ذخیره رونوشت
 
 
     self.AzDocDate = ko.observable('');
@@ -46,6 +48,7 @@
     self.TaMhltDate = ko.observable('');
     self.e_MhltErja = ko.observable('');
     self.ErjUsersCode = ko.observable();
+    self.ToUserCode = ko.observable();
 
     var allSearchErjCust = true;
 
@@ -172,6 +175,7 @@
         ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.ErjResultList(data);
             item = data[0];
+            bandNo = item.BandNo;
             $("#Result").val(item.RjResult);
         });
     }
@@ -400,8 +404,8 @@
                 + '         <h6>' + listBand[0].ToUserName + '</h6> '
                 + '     </div>'
                 + '     <div class="col-md-3 form-inline"> '
-                + '         <h6 style="padding-left: 10px">(1:0)</h6> '
-                + '         <h6>1399/01/12</h6> '
+                + '         <h6 style="padding-left: 10px">' + listBand[0].RjTimeSt + '</h6> '
+                + '         <h6>' + listBand[0].RjDate + '</h6> '
                 + '     </div> '
                 + '</div>'
                 + '</div>'
@@ -1265,6 +1269,9 @@
     });
 
 
+    self.ToUserCode(sessionStorage.userName);
+
+
 
     var specialComm = '';
     //Get DocK
@@ -1321,6 +1328,16 @@
         serialNumber = Band.SerialNumber;
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
+        docBMode = Band.DocBMode;
+        if (docBMode == 1) { // رونوشت
+
+            $('#panelFooterParvandeh').attr('hidden', '');
+            $('#erja').attr('hidden', '');
+        }
+        else {
+            $('#panelFooterParvandeh').removeAttr('hidden', '');
+            $('#erja').removeAttr('hidden', '');
+        }
     }
 
 
@@ -1382,6 +1399,7 @@
         $('#imgInformation').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         $('#imgResult').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+
     });
 
     $('#ShowHideInformation').click(function () {
@@ -1508,50 +1526,112 @@
 
 
     $('#saveErja').click(function () {
-        ErjDocB_I();
+        ErjSaveDocB_S(bandNo);
+        ErjSaveDocB_S(0);
+
+        if (counterErjUsersRonevesht > 0) {
+            ErjSaveDocC_S(0);
+        }
+
     })
 
 
-    //Add new FDocH
-    function ErjDocB_I() {
+
+    $('#saveParvandeh').click(function () {
+        if (docBMode == 1) { // رونوشت
+            ErjSaveDocC_S(bandNo);
+        }
+        else {
+            ErjSaveDocB_S(bandNo);
+        }
+    })
+
+
+
+    //Add DocB  ذخیره ارجاعات
+    function ErjSaveDocB_S(bandNoImput) {
         rjDate = ShamsiDate();
         rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
-        natijeh = $("#e_Result").val();
 
-        fromUserCode = $("#FromUser").val();
+        fromUserCode = $("#ToUser").val();
+        if (fromUserCode == '')
+            fromUserCode = sessionStorage.userName;
+
         if (fromUserCode == "") fromUserCode = sessionStorage.userName;
 
-        if (self.ErjUsersCode() == null) {
+        if (self.ErjUsersCode() == null && bandNoImput == 0) {
             return showNotification('ارجاع شونده را انتخاب کنید', 0);
         }
 
         toUserCode = self.ErjUsersCode();
 
-        if (rjTime_H != '' || rjTime_M != '') {
-            rjTime_H = rjTime_H == "" ? 0 : rjTime_H;
-            rjTime_M = rjTime_M == "" ? 0 : rjTime_M;
+        if (bandNoImput == 0) {
+            if (rjTime_H != '' || rjTime_M != '') {
 
-            rjTime = rjTime_H + rjTime_M;
+                if (rjTime_M != '') {
+                    rjTime_M = parseInt(rjTime_M);
+                    rjTime_M = rjTime_M / 60;
+                }
+                else {
+                    rjTime_M = parseInt('0');
+                }
+
+                if (rjTime_H != '') {
+                    rjTime_H = parseInt(rjTime_H);
+                }
+                else {
+                    rjTime_H = parseInt("0");
+                }
+
+
+                rjTime = rjTime_H + rjTime_M;
+            }
+            else {
+                return showNotification('زمان صرف شده را وارد کنید', 0);
+            }
         }
-        else {
-            return showNotification('زمان صرف شده را وارد کنید', 0);
+
+        var ErjSaveDocB_SObject;
+        if (bandNoImput == 0) { // erja
+            natijeh = $("#e_Result").val();
+
+            if (natijeh == '') {
+                return showNotification('متن ارجاع را وارد کنید', 0);
+            }
+            ErjSaveDocB_SObject = {
+                SerialNumber: serialNumber,
+                Natijeh: natijeh,
+                FromUserCode: fromUserCode,
+                ToUserCode: toUserCode,
+                RjDate: rjDate,
+                RjTime: rjTime,
+                RjMhltDate: rjMhltDate,
+                BandNo: bandNoImput,
+            };
+        }
+        else // save
+        {
+            natijeh = $("#Result").val();
+            if (natijeh == '') {
+                return showNotification('متن ارجاع را وارد کنید', 0);
+            }
+            ErjSaveDocB_SObject = {
+                SerialNumber: serialNumber,
+                Natijeh: natijeh,
+                FromUserCode: '',
+                ToUserCode: '',
+                RjDate: rjDate,
+                RjTime: 0,
+                RjMhltDate: '',
+                BandNo: bandNoImput,
+            };
         }
 
-        var ErjDocB_IObject = {
-            SerialNumber: serialNumber,
-            Natijeh: natijeh,
-            FromUserCode: fromUserCode,
-            ToUserCode: toUserCode,
-            RjDate: rjDate,
-            RjEndDate: rjDate,
-            RjTime: rjTime,
-            RjMhltDate: rjMhltDate
-        };
 
-        ajaxFunction(DocBIUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocB_IObject).done(function (response) {
-            bandNo = response;
+        ajaxFunction(ErjSaveDocB_SUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDocB_SObject).done(function (response) {
+            //bandNo = response;
             $('#modal-Erja').modal('hide');
             $('#modal-ErjDocErja').modal('hide');
             getDocB_Last();
@@ -1559,6 +1639,67 @@
         });
         flagInsertFdoch = 1;
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Add DocC  ذخیره رونوشت
+    function ErjSaveDocC_S(bandNoImput) {
+        rjDate = ShamsiDate();
+        toUserCode = 1; // انتخاب شده ها برای رونوشت
+
+
+        var obj = [];
+        if (bandNoImput == 0) { // رونوشت به
+
+            for (i = 1; i <= list_ErjUsersRoneveshtSelect.length; i++) {
+                tmp = {
+                    'SerialNumber': serialNumber,
+                    'BandNo': 0,
+                    'Natijeh': '',
+                    'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
+                    'RjDate': rjDate
+                };
+                obj.push(tmp);
+            }
+        }
+        else // ذخیره پرونده های رونوشت
+        {
+            natijeh = $("#Result").val();
+            if (natijeh == '') {
+                return showNotification('متن نتیجه را وارد کنید', 0);
+            }
+
+            tmp = {
+                'SerialNumber': serialNumber,
+                'BandNo': bandNoImput,
+                'Natijeh': natijeh,
+                'ToUserCode': '',
+                'RjDate': rjDate
+            };
+            obj.push(tmp);
+        }
+
+        ajaxFunction(ErjSaveDocC_SUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
+            $('#modal-Erja').modal('hide');
+            $('#modal-ErjDocErja').modal('hide');
+            getDocB_Last();
+        });
+        flagInsertFdoch = 1;
+    };
+
+
 
 
 
