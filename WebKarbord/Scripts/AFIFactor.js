@@ -188,15 +188,6 @@
             break;
     }
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-        $('#unitAddmin').hide();
-        $('#unitSumPrice').hide();
-    }
-    else {
-        $('#unitAddmin').show();
-        $('#unitSumPrice').show();
-    }
-
     if (sessionStorage.InOut == 2) {
 
         $('#LableCustCode').text('خریدار ');
@@ -1628,17 +1619,6 @@
 
     $('#modal-Band').on('show.bs.modal', function () {
 
-        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-            $('#unitPriceShow').hide();
-            $('#totalPriceShow').hide();
-            $('#unitdiscount').hide();
-        }
-        else {
-            $('#unitPriceShow').show();
-            $('#totalPriceShow').show();
-            $('#unitdiscount').show();
-        }
-
         if (self.flagupdateband == false) {
             self.ClearFDocB();
         } else {
@@ -2134,9 +2114,14 @@
     $('#button_cust').attr('style', 'display: none');
     $('#insertband').attr('style', 'display: none');
 
+    var showPrice = false;
+
     $.fn.CheckAccess = function () {
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
+
             if (sessionStorage.AccessViewSefareshForosh == 'true') {
                 viewAction = true;
             }
@@ -2147,6 +2132,9 @@
             }
         }
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
+
             if (sessionStorage.AccessViewPishFactorForosh == 'true') {
                 viewAction = true;
             }
@@ -2157,6 +2145,9 @@
             }
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
+
             if (sessionStorage.AccessViewFactorForosh == 'true') {
                 viewAction = true;
             }
@@ -2167,6 +2158,9 @@
             }
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+
             if (sessionStorage.AccessViewBackFactorForosh == 'true') {
                 viewAction = true;
             }
@@ -2202,6 +2196,9 @@
             }
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
+
             if (sessionStorage.AccessViewSefareshKharid == 'true') {
                 viewAction = true;
             }
@@ -2222,6 +2219,9 @@
 
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
             }
@@ -2232,6 +2232,9 @@
             }
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
+
             if (sessionStorage.AccessViewFactorKharid == 'true') {
                 viewAction = true;
             }
@@ -2242,6 +2245,9 @@
             }
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+
+            showPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
+
             if (sessionStorage.AccessViewBackFactorKharid == 'true') {
                 viewAction = true;
             }
@@ -2259,7 +2265,6 @@
             sessionStorage.BeforeMoveFactor = false;
         }
 
-
         if (viewAction) {
             $('#action_headerfactor').removeAttr('style');
             $('#action_bodyfactor').removeAttr('style');
@@ -2267,7 +2272,6 @@
             $('#action_Fdoc').removeAttr('style');
             $('#button_cust').removeAttr('style');
             $('#insertband').removeAttr('style');
-
         }
     }
 
@@ -2406,19 +2410,13 @@
     });
 
 
-    if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT") {
-
-        $('#thUnitPrice').attr('hidden', '');
-        $('#thTotalPrice').attr('hidden', '');
-        $('#thDiscount').attr('hidden', '');
-        $('#tdUnitPrice').attr('hidden', '');
-        $('#tdTotalPrice').attr('hidden', '');
-        $('#tdDiscount').attr('hidden', '');
-        $('#foottextUnitPrice').attr('hidden', '');
-        $('#foottexttotalprice').attr('hidden', '');
-        $('#foottextdiscount').attr('hidden', '');
-    }
-    else {
+    if (showPrice) {
+        $('#unitPriceShow').show();
+        $('#totalPriceShow').show();
+        $('#unitdiscount').show();
+        $('#unitAddmin').show();
+        $('#unitSumPrice').show();
+        $('#ViewGGhimat').show();
         $('#thUnitPrice').removeAttr('hidden', '');
         $('#thTotalPrice').removeAttr('hidden', '');
         $('#thDiscount').removeAttr('hidden', '');
@@ -2428,6 +2426,23 @@
         $('#foottextUnitPrice').removeAttr('hidden', '');
         $('#foottexttotalprice').removeAttr('hidden', '');
         $('#foottextdiscount').removeAttr('hidden', '');
+    }
+    else {
+        $('#unitPriceShow').hide();
+        $('#totalPriceShow').hide();
+        $('#unitdiscount').hide();
+        $('#unitAddmin').hide();
+        $('#unitSumPrice').hide();
+        $('#ViewGGhimat').hide();
+        $('#thUnitPrice').attr('hidden', '');
+        $('#thTotalPrice').attr('hidden', '');
+        $('#thDiscount').attr('hidden', '');
+        $('#tdUnitPrice').attr('hidden', '');
+        $('#tdTotalPrice').attr('hidden', '');
+        $('#tdDiscount').attr('hidden', '');
+        $('#foottextUnitPrice').attr('hidden', '');
+        $('#foottexttotalprice').attr('hidden', '');
+        $('#foottextdiscount').attr('hidden', '');
     }
 
 

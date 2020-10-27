@@ -115,9 +115,34 @@
         $('#TitleModalThvl').text('لیست تحویل دهند گان ');
         $('#TitleCodeTableModalThvl').text('کد تحویل دهنده ');
         $('#TitleNameTableModalThvl').text('نام تحویل دهنده ');
-        $('#ViewGGhimat').show();
         $('#ViewSpec').attr('class', 'col-sm-3');
         ModeCodeExtraFields = 'IDOCI';
+
+        //sessionStorage.Access_SHOWPRICE_IIDOC = false;
+        if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true') {
+            $('#ViewGGhimat').show();
+            $('#unitPriceShow').show();
+            $('#totalPriceShow').show();
+            $('#unitpriceshowgridtitle').show();
+            $('#totalpriceshowgridtitle').show();
+            $('#unitpriceshowgridbody').show();
+            $('#totalpriceshowgridbody').show();
+            $('#foottextunitprice').show();
+            $('#foottexttotalprice').show();
+        }
+        else {
+            $('#ViewGGhimat').hide();
+            $('#unitPriceShow').hide();
+            $('#totalPriceShow').hide();
+            $('#unitpriceshowgridtitle').hide();
+            $('#totalpriceshowgridtitle').hide();
+            $('#unitpriceshowgridbody').hide();
+            $('#totalpriceshowgridbody').hide();
+            $('#foottextunitprice').hide();
+            $('#foottexttotalprice').hide();
+        }
+
+
 
     } else {
         $('#TitleHeaderAnbar').text('سند صادره از انبار');
@@ -126,10 +151,23 @@
         $('#TitleModalThvl').text('لیست تحویل گیرند گان');
         $('#TitleCodeTableModalThvl').text('کد تحویل گیرنده ');
         $('#TitleNameTableModalThvl').text('نام تحویل گیرنده ');
-        $('#ViewGGhimat').hide();
         $('#ViewSpec').attr('class', 'col-sm-5');
         ModeCodeExtraFields = 'IDOCO';
+
+        $('#ViewGGhimat').hide();
+        $('#unitPriceShow').hide();
+        $('#totalPriceShow').hide();
+        $('#unitpriceshowgridtitle').hide();
+        $('#totalpriceshowgridtitle').hide();
+        $('#unitpriceshowgridbody').hide();
+        $('#totalpriceshowgridbody').hide();
+        $('#foottextunitprice').hide();
+        $('#foottexttotalprice').hide();
     }
+
+
+
+
 
 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
@@ -1311,15 +1349,6 @@
 
     $('#modal-Band').on('show.bs.modal', function () {
 
-        if (sessionStorage.InOut == 1) {
-            $('#unitPriceShow').show();
-            $('#totalPriceShow').show();
-        }
-        else {
-            $('#unitPriceShow').hide();
-            $('#totalPriceShow').hide();
-        }
-
         if (self.flagupdateband == false) {
             self.ClearIDocB();
         } else {
@@ -1772,6 +1801,34 @@
             flagOtherFieldShow = false;
         }
     });
+
+
+
+    if ((sessionStorage.InOut == 1 && sessionStorage.SHOWPRICE_IIDOC == "false") ||
+        (sessionStorage.InOut == 2 && sessionStorage.SHOWPRICE_IODOC == "false")) {
+
+        $('#thUnitPrice').attr('hidden', '');
+        $('#thTotalPrice').attr('hidden', '');
+        $('#thDiscount').attr('hidden', '');
+        $('#tdUnitPrice').attr('hidden', '');
+        $('#tdTotalPrice').attr('hidden', '');
+        $('#tdDiscount').attr('hidden', '');
+        $('#foottextUnitPrice').attr('hidden', '');
+        $('#foottexttotalprice').attr('hidden', '');
+        $('#foottextdiscount').attr('hidden', '');
+    }
+    else {
+        $('#thUnitPrice').removeAttr('hidden', '');
+        $('#thTotalPrice').removeAttr('hidden', '');
+        $('#thDiscount').removeAttr('hidden', '');
+        $('#tdUnitPrice').removeAttr('hidden', '');
+        $('#tdTotalPrice').removeAttr('hidden', '');
+        $('#tdDiscount').removeAttr('hidden', '');
+        $('#foottextUnitPrice').removeAttr('hidden', '');
+        $('#foottexttotalprice').removeAttr('hidden', '');
+        $('#foottextdiscount').removeAttr('hidden', '');
+    }
+
 
     createViewer();
     $('#Print').click(function () {

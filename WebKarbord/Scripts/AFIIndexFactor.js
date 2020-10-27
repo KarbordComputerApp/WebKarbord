@@ -155,6 +155,42 @@
     ];
 
 
+    var showFinalPrice = false;
+
+    $.fn.CheckAccess = function () {
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
+        }
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
+        }
+    }
+    $(this).CheckAccess();
+
+
+
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
@@ -373,12 +409,12 @@
                     ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
                     ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
-                (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
-                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                    (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                     (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
                     (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
                     (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+                    ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                     (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
                     (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
@@ -1310,6 +1346,32 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function CreateTableReport(data) {
         $("#TableList").empty();
         dataTable =
@@ -1320,12 +1382,9 @@
             CreateTableTh('DocDate', data) +
             CreateTableTh('CustName', data);
 
-        if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
-            a = 1
-        else
-            dataTable +=
-                CreateTableTh('FinalPrice', data)
 
+        if (showFinalPrice)
+            dataTable += CreateTableTh('FinalPrice', data);
 
         dataTable +=
             CreateTableTh('Spec', data) +
@@ -1363,11 +1422,8 @@
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data)
 
-        if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
-            a = 1
-        else
-            dataTable +=
-                CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
+        if (showFinalPrice)
+            dataTable += CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
 
         dataTable +=
             CreateTableTd('Spec', 0, 0, data) +
@@ -1416,11 +1472,8 @@
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('CustName', data)
 
-        if (sessionStorage.ModeCode == "SHVL" || sessionStorage.ModeCode == "SEXT")
-            a = 1
-        else
-            dataTable +=
-                CreateTableTdSearch('FinalPrice', data)
+        if (showFinalPrice)
+            dataTable += CreateTableTdSearch('FinalPrice', data)
 
         dataTable +=
             CreateTableTdSearch('Spec', data) +
@@ -1503,10 +1556,10 @@
         return text;
     }
 
-   /* createViewer();
-    $('#Print').click(function () {
-        setReport(self.filterFDocHList(), 'Free');
-    });*/
+    /* createViewer();
+     $('#Print').click(function () {
+         setReport(self.filterFDocHList(), 'Free');
+     });*/
 
     self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
