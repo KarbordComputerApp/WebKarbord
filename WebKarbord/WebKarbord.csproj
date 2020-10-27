@@ -336,6 +336,7 @@
     <Content Include="Content\img\new item\email-action-receive.1.svg" />
     <Content Include="Content\img\new item\email-action-receive.2.svg" />
     <Content Include="Content\img\new item\email-action-receive.svg" />
+    <Content Include="Content\img\new item\exit.svg" />
     <Content Include="Content\img\new item\filter-picture.1.svg" />
     <Content Include="Content\img\new item\filter-picture.2.svg" />
     <Content Include="Content\img\new item\filter-picture.svg" />

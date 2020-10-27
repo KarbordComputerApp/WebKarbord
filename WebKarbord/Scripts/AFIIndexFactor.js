@@ -1503,10 +1503,10 @@
         return text;
     }
 
-    createViewer();
+   /* createViewer();
     $('#Print').click(function () {
         setReport(self.filterFDocHList(), 'Free');
-    });
+    });*/
 
     self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 

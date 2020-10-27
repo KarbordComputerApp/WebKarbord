@@ -171,8 +171,8 @@
     }
 
     //Get ErjResult List
-    function getErjResultList(serialNumber) {
-        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+    function getErjResultList(serialNumber, bMode, toUser) {
+        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber + '/' + bMode + '/' + toUser, 'GET').done(function (data) {
             self.ErjResultList(data);
             item = data[0];
             bandNo = item.BandNo;
@@ -352,9 +352,9 @@
         list = self.ErjDocErja();
         countBand = list[list.length - 1].BandNo;
         $("#BodyErjDocErja").empty();
-        //for (var i = 1; i <= countBand; i++) {
+        for (var i = 1; i <= countBand; i++) {
 
-        for (var i = countBand; i >= 1; i--) {
+        //for (var i = countBand; i >= 1; i--) {
             self.FilterErjValue(i);
             listBand = self.FilterErj();
             text = ConvertComm(listBand[0].RjComm);
@@ -368,9 +368,8 @@
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    + '   <div class=" form-inline" > <h6>' + listBand[j].FromUserName + '</h6>'
-                    + '   <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
-                    + '   <h6>' + listBand[j].ToUserName + '</h6></div>'
+                    + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه رونوشت از</h6> <h6>' + listBand[j].FromUserName + '</h6>'
+                    + '   </div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
                     text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;"> هنوز رویت نشده';
@@ -1312,7 +1311,7 @@
 
             $("#finalComm").val(item.FinalComm);
 
-            getErjResultList(serialnumber);
+            getErjResultList(serialnumber, docBMode, self.ToUserCode());
 
 
         });
@@ -1325,10 +1324,10 @@
 
 
     self.ViewErjDocErja = function (Band) {
+        docBMode = Band.DocBMode;
         serialNumber = Band.SerialNumber;
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
-        docBMode = Band.DocBMode;
         if (docBMode == 1) { // رونوشت
 
             $('#panelFooterParvandeh').attr('hidden', '');
@@ -1530,7 +1529,7 @@
         ErjSaveDocB_S(0);
 
         if (counterErjUsersRonevesht > 0) {
-            ErjSaveDocC_S(0);
+            ErjSaveDocC_S(bandNo, false);
         }
 
     })
@@ -1539,7 +1538,7 @@
 
     $('#saveParvandeh').click(function () {
         if (docBMode == 1) { // رونوشت
-            ErjSaveDocC_S(bandNo);
+            ErjSaveDocC_S(bandNo, true);
         }
         else {
             ErjSaveDocB_S(bandNo);
@@ -1655,18 +1654,20 @@
 
 
     //Add DocC  ذخیره رونوشت
-    function ErjSaveDocC_S(bandNoImput) {
+    function ErjSaveDocC_S(bandNoImput, isSave) {
         rjDate = ShamsiDate();
-        toUserCode = 1; // انتخاب شده ها برای رونوشت
+        // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
+        fromUserCode = $("#ToUser").val();
 
         var obj = [];
-        if (bandNoImput == 0) { // رونوشت به
+
+        if (isSave == false) { // رونوشت به
 
             for (i = 1; i <= list_ErjUsersRoneveshtSelect.length; i++) {
                 tmp = {
                     'SerialNumber': serialNumber,
-                    'BandNo': 0,
+                    'BandNo': bandNoImput,
                     'Natijeh': '',
                     'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
                     'RjDate': rjDate
@@ -1685,7 +1686,7 @@
                 'SerialNumber': serialNumber,
                 'BandNo': bandNoImput,
                 'Natijeh': natijeh,
-                'ToUserCode': '',
+                'ToUserCode': fromUserCode,
                 'RjDate': rjDate
             };
             obj.push(tmp);

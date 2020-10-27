@@ -1059,10 +1059,11 @@
 
     self.currentPageIndexIDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
-    createViewer();
+
+    /*createViewer();
     $('#Print').click(function () {
         setReport(self.filterIDocHList(), 'Free');
-    });
+    });*/
 
 };
 

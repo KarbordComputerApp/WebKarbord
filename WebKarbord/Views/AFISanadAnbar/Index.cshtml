@@ -11,9 +11,9 @@
             <div class="header">
                 <h2><strong>لیست <b id="TitleListAnbar"></b></strong></h2>
                 <div class="row header-dropdown m-r--5">
-                    <a id="Print" style="margin-left: 10px;">
+                    <!--<a id="Print" style="margin-left: 10px;">
                         <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-                    </a>
+                    </a>-->
                     <a id="SettingColumn" class="">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
                     </a>
@@ -34,11 +34,11 @@
                             <label>انبار</label>
                             <div class="col-md-10" style="text-align: center;">
                                 <select id="invSelect" data-bind="options: InvList,
-                                       optionsText: function(item) {return item.Name},
-                                       optionsValue: 'Code',
-                                       value: InvCode,
-                                       optionsCaption: OptionsCaptionAnbar(),
-                                       event:{ change: $root.PageCountView}"></select>
+                               optionsText: function(item) {return item.Name},
+                               optionsValue: 'Code',
+                               value: InvCode,
+                               optionsCaption: OptionsCaptionAnbar(),
+                               event:{ change: $root.PageCountView}"></select>
                             </div>
                         </div>
                     </div>

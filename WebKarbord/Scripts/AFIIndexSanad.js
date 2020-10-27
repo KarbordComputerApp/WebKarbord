@@ -745,10 +745,10 @@
         return text;
     }
 
-    createViewer();
+   /* createViewer();
     $('#Print').click(function () {
         setReport(self.filterADocHList(), 'Free');
-    });
+    }); */
 
 
     self.MoveSanad = function (item) {

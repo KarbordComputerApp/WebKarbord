@@ -10,9 +10,9 @@
             <div class="header">
                 <h2><strong>لیست اسناد حسابداری</strong></h2>
                 <div class="row header-dropdown m-r--5">
-                    <a id="Print" style="margin-left: 10px;">
-                        <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-                    </a>
+                    <!-- <a id="Print" style="margin-left: 10px;">
+                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
+                        </a>-->
                     <a id="SettingColumn" class="">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
                     </a>
@@ -179,7 +179,7 @@
 
 @section scripts{
     <script type="text/javascript">
-		sessionStorage.urlADocH='@Url.Action("AddAdoc", "AFISanad")';
+            sessionStorage.urlADocH='@Url.Action("AddAdoc", "AFISanad")';
     </script>
     <script type="text/javascript"></script>
     <script src="~/Scripts/AFIIndexSanad.js"></script>

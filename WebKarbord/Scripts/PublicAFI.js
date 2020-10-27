@@ -1209,6 +1209,10 @@ function SetValidation() {
         //validation = CheckAccess('PRN_IIDOC'); // Print varedae anbar
         //validation == true ? $("#").show() : $("#").hide()
 
+        
+        validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
+        validation == true ? sessionStorage.Access_SHOWPRICE_IIDOC = true : sessionStorage.Access_SHOWPRICE_IIDOC = false
+
 
         validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -2096,7 +2100,7 @@ function createViewer() {
     };
     viewer.renderHtml("viewerContent");
 
-    var userButton = viewer.jsObject.SmallButton("userButton", "خروج", "emptyImage");
+    var userButton = viewer.jsObject.SmallButton("userButton", "خروج");
 
     userButton.action = function () {
         $("#modal-Report").modal('hide');
