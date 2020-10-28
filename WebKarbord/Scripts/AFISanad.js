@@ -197,6 +197,7 @@
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
+    self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس حساب ها
@@ -217,7 +218,7 @@
     var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت چک
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت سند 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
-
+    var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
 
 
     //Get ExtraFields List
@@ -360,6 +361,15 @@
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.ADocBList(data);
             calcsum(data);
+        });
+    }
+
+
+
+    //Get ADocP List
+    function getADocP(serialNumber) {
+        ajaxFunction(ADocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.ADocPList(data);
         });
     }
 
@@ -3186,7 +3196,10 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.ADocBList(), 'Free');
+        if (Serial == '')
+            return showNotification('ابتدا سند را ذخیره کنید', 0);
+        getADocP(Serial);
+        setReport(self.ADocPList(), 'Free');
     });
 };
 

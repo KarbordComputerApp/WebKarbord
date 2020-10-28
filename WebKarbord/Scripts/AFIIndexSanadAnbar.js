@@ -131,7 +131,7 @@
 
     //Get Inv List
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/3/' + sessionStorage.userName , 'GET').done(function (data) {
             self.InvList(data);
             //localStorage.setItem('InvSelectSanadAnbar', '');
             // last = localStorage.getItem('InvSelectSanadAnbar');
@@ -721,6 +721,13 @@
 
 
 
+    function AddAnbar(invName) {
+        inc = invName.includes("انبار");
+        if (inc == false) {
+            invName =  'انبار ' + invName
+        }
+        return invName
+    }
 
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
@@ -728,7 +735,7 @@
         $('#modeCodePor').val(item.ModeCode);
 
         $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
-        $('#titlePor').text(' پر کردن ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' در ');
+        $('#titlePor').text(' پر کردن ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' در ');
 
         if (invSelected == '') {
             temp = localStorage.getItem('InvSelectSanadAnbarMove')
@@ -820,6 +827,7 @@
             item = response;
             item = item[0];
 
+            sessionStorage.searchIDocH = item.SerialNumber;
 
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;

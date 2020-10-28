@@ -19,7 +19,7 @@
     $("#salTest").text('سال مالی' + sessionStorage.sal);
 
     //var server = $("#server").text();
-    sessionStorage.searchFDocH = "";
+    //sessionStorage.searchFDocH = "";
     var server = localStorage.getItem("ApiAddress");
 
     $('#textnumberfactor').hide();
@@ -85,6 +85,9 @@
     var flagdiscount = -1;
     var flagInsertFdoch = 0;
 
+    var accessTaeed = false;
+    var accessTasvib = false;
+
     var firstUpdateShow;
     self.flagupdateband = false;
 
@@ -122,6 +125,7 @@
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.PaymentList = ko.observableArray([]); // ليست نحوه پرداخت 
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
+    self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
@@ -230,6 +234,7 @@
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
+    var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
 
 
     //Get ExtraFields List
@@ -310,6 +315,28 @@
         });
     }
 
+
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+        selectStatus = $("#status").val();
+        if (accessTaeed == false && selectStatus == 'تایید') {
+            $("#status").val(lastStatus);
+            return showNotification('نیاز به دسترسی تایید', 0);
+        }
+
+        if (accessTasvib == false && selectStatus == 'تصویب') {
+            $("#status").val(lastStatus);
+            return showNotification('نیاز به دسترسی تصویب', 0);
+        }
+
+        
+    });
+
+
     //Get KalaPriceB List
     function getKalaPriceBList(codeKalaPrice, codeKala) {
         ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + codeKalaPrice + '/' + codeKala, 'GET').done(function (data) {
@@ -330,6 +357,14 @@
         });
     }
 
+
+
+    //Get FDocP List
+    function getFDocP(serialNumber) {
+        ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.FDocPList(data);
+        });
+    }
 
     //Get AddMin List
     function getAddMinList(forSale, serialNumber, custCode, typeJob,
@@ -390,7 +425,7 @@
 
     //Get Inv List
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/2/' + sessionStorage.userName , 'GET').done(function (data) {
             $("div.loadingZone").hide();
             self.InvList(data);
             if (self.InvList().length > 0) {
@@ -739,6 +774,7 @@
             var res = response.split("-");
             Serial = res[0];
             DocNoOut = res[1];
+            sessionStorage.searchFDocH = DocNoOut;
             $('#textnumberfactor').show();
             $('#docnoout').text(DocNoOut);
             // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخيره شد ' });
@@ -2121,6 +2157,8 @@
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_SFORD == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SFORD == 'true'
 
             if (sessionStorage.AccessViewSefareshForosh == 'true') {
                 viewAction = true;
@@ -2134,6 +2172,8 @@
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_SPDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SPDOC == 'true'
 
             if (sessionStorage.AccessViewPishFactorForosh == 'true') {
                 viewAction = true;
@@ -2147,6 +2187,8 @@
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_SFDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SFDOC == 'true'
 
             if (sessionStorage.AccessViewFactorForosh == 'true') {
                 viewAction = true;
@@ -2160,6 +2202,8 @@
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
 
             if (sessionStorage.AccessViewBackFactorForosh == 'true') {
                 viewAction = true;
@@ -2172,10 +2216,11 @@
         }
 
 
-
-
-
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+
+            accessTaeed = sessionStorage.Access_TAEED_SHVL == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SHVL == 'true'
+
             if (sessionStorage.AccessViewHavaleForosh == 'true') {
                 viewAction = true;
             }
@@ -2186,6 +2231,10 @@
             }
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+
+            accessTaeed = sessionStorage.Access_TAEED_SEXT == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SEXT == 'true'
+
             if (sessionStorage.AccessViewBargeKhoroj == 'true') {
                 viewAction = true;
             }
@@ -2198,6 +2247,8 @@
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_PFORD == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PFORD == 'true'
 
             if (sessionStorage.AccessViewSefareshKharid == 'true') {
                 viewAction = true;
@@ -2212,15 +2263,11 @@
 
 
 
-
-
-
-
-
-
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
 
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
@@ -2234,6 +2281,8 @@
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_PFDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PFDOC == 'true'
 
             if (sessionStorage.AccessViewFactorKharid == 'true') {
                 viewAction = true;
@@ -2247,6 +2296,8 @@
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_PRDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PRDOC == 'true'
 
             if (sessionStorage.AccessViewBackFactorKharid == 'true') {
                 viewAction = true;
@@ -2450,7 +2501,10 @@
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
     createViewer();
     $('#Print').click(function () {
-        setReport(self.FDocBList(), 'Free');
+        if (Serial == '')
+            return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
+        getFDocP(Serial);
+        setReport(self.FDocPList(), 'Free');
     });
 
 

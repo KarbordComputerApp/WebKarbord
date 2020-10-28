@@ -12,7 +12,7 @@
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
 
-    sessionStorage.searchIDocH = "";
+    //sessionStorage.searchIDocH = "";
     var server = localStorage.getItem("ApiAddress");
 
     var codeThvl = '';
@@ -105,6 +105,7 @@
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IModeList = ko.observableArray([]); // نوع سند 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
+    self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
 
 
@@ -141,7 +142,6 @@
             $('#foottextunitprice').hide();
             $('#foottexttotalprice').hide();
         }
-
 
 
     } else {
@@ -185,6 +185,7 @@
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع سند
     var UpdatePriceUri = server + '/api/IDocData/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
+    var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
 
 
 
@@ -238,11 +239,43 @@
         ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
             //if (self.StatusList().length > 0) {
-               // if (flagupdateHeader == 1)
+            // if (flagupdateHeader == 1)
             //        $("#status").val(sessionStorage.Status);
             //}
         });
     }
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+        selectStatus = $("#status").val();
+        if (sessionStorage.InOut == 1) {
+            if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی تایید', 0);
+            }
+
+            if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی تصویب', 0);
+            }
+
+        }
+
+        if (sessionStorage.InOut == 2) {
+            if (sessionStorage.Access_TAEED_IODOC == 'false' && selectStatus == 'تایید') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی تایید', 0);
+            }
+
+            if (sessionStorage.Access_TASVIB_IODOC == 'false' && selectStatus == 'تصویب') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی تصویب', 0);
+            }
+        }
+    });
 
     //Get KalaPriceB List
     function getKalaPriceBList(codeKalaPrice, codeKala) {
@@ -266,14 +299,14 @@
 
     //Get Inv List
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/3/' +sessionStorage.userName  , 'GET').done(function (data) {
             self.InvList(data);
             //var storedNames = JSON.parse(localStorage.getItem("inv"));
             //self.InvList(storedNames);
             if (self.InvList().length > 0) {
                 if (flagupdateHeader == 1) {
-                   // $("#inv").val(sessionStorage.InvCode);
-                   // self.InvCode(sessionStorage.InvCode);
+                    // $("#inv").val(sessionStorage.InvCode);
+                    // self.InvCode(sessionStorage.InvCode);
                 }
                 else {
 
@@ -308,10 +341,17 @@
     function getIModeList() {
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.IModeList(data);
-           // if (flagupdateHeader == 1)
-              //  $("#modeCode").val(sessionStorage.ModeCodeValue);
+            // if (flagupdateHeader == 1)
+            //  $("#modeCode").val(sessionStorage.ModeCodeValue);
             // else
             //   $("#modeCode").val();
+        });
+    }
+
+    //Get IDocP List
+    function getIDocP(serialNumber) {
+        ajaxFunction(IDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.IDocPList(data);
         });
     }
 
@@ -377,8 +417,8 @@
         }
     }
 
-   // $('#FromUser').prop('disabled', false);
-   // $('#ToUser').prop('disabled', false);
+    // $('#FromUser').prop('disabled', false);
+    // $('#ToUser').prop('disabled', false);
 
 
     self.ClearIDocH = function ClearIDocH() {
@@ -546,6 +586,7 @@
             Serial = res[0];
             DocNoOut = res[1];
             $('#docnoout').text(DocNoOut);
+            sessionStorage.searchIDocH = Serial;
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخيره شد ' });
 
             $('#inv').prop('disabled', true);
@@ -890,7 +931,7 @@
         self.PriceCode(sessionStorage.PriceCode);
         self.InvCode(sessionStorage.InvCode);
         $("#inv").val(sessionStorage.InvCode);
-        if (sessionStorage.ThvlCode != '') 
+        if (sessionStorage.ThvlCode != '')
             $('#nameThvl').val('(' + sessionStorage.ThvlCode + ') ' + sessionStorage.thvlname);
         else
             $('#nameThvl').val('');
@@ -1832,7 +1873,10 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.IDocBList(), 'Free');
+        if (Serial == '')
+            return showNotification('ابتدا سند را ذخیره کنید', 0);
+        getIDocP(Serial);
+        setReport(self.IDocPList(), 'Free');
     });
 
 

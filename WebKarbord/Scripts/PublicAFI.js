@@ -840,6 +840,12 @@ function SetValidation() {
         validation = CheckAccess('SHOWPRICE_SFORD');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_SFORD = true : sessionStorage.Access_SHOWPRICE_SFORD = false
 
+        validation = CheckAccess('TAEED_SFORD');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SFORD = true : sessionStorage.Access_TAEED_SFORD = false
+
+        validation = CheckAccess('TASVIB_SFORD');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SFORD = true : sessionStorage.Access_TASVIB_SFORD = false
+
         validation = CheckAccess('OTHERUSER_CHG_SFORD');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewSefareshForosh = true;
@@ -886,6 +892,12 @@ function SetValidation() {
         validation = CheckAccess('SHOWPRICE_SPDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_SPDOC = true : sessionStorage.Access_SHOWPRICE_SPDOC = false
 
+        validation = CheckAccess('TAEED_SPDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SPDOC = true : sessionStorage.Access_TAEED_SPDOC = false
+
+        validation = CheckAccess('TASVIB_SPDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SPDOC = true : sessionStorage.Access_TASVIB_SPDOC = false
+
 
         validation = CheckAccess('OTHERUSER_CHG_SPDOC');// AccessViewSanad
         if (validation == true) {
@@ -930,6 +942,13 @@ function SetValidation() {
         validation = CheckAccess('SHOWPRICE_SFDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_SFDOC = true : sessionStorage.Access_SHOWPRICE_SFDOC = false
 
+        validation = CheckAccess('TAEED_SFDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SFDOC = true : sessionStorage.Access_TAEED_SFDOC = false
+
+        validation = CheckAccess('TASVIB_SFDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SFDOC = true : sessionStorage.Access_TASVIB_SFDOC = false
+
+
         validation = CheckAccess('OTHERUSER_CHG_SFDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewFactorForosh = true;
@@ -967,6 +986,13 @@ function SetValidation() {
         validation = CheckAccess('SHOWPRICE_SRDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_SRDOC = true : sessionStorage.Access_SHOWPRICE_SRDOC = false
 
+        validation = CheckAccess('TAEED_SRDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SRDOC = true : sessionStorage.Access_TAEED_SRDOC = false
+
+
+        validation = CheckAccess('TASVIB_SRDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SRDOC = true : sessionStorage.Access_TASVIB_SRDOC = false
+
         validation = CheckAccess('OTHERUSER_CHG_SRDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewBackFactorForosh = true;
@@ -1001,6 +1027,13 @@ function SetValidation() {
         validation = CheckAccess('OTHERUSER_VIEW_SHVL');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
+        validation = CheckAccess('TAEED_SHVL');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SHVL = true : sessionStorage.Access_TAEED_SHVL = false
+
+        validation = CheckAccess('TASVIB_SHVL');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SHVL = true : sessionStorage.Access_TASVIB_SHVL = false
+
+
         validation = CheckAccess('OTHERUSER_CHG_SHVL');
         if (validation == true) {
             sessionStorage.AccessViewHavaleForosh = true;
@@ -1034,6 +1067,12 @@ function SetValidation() {
 
         validation = CheckAccess('OTHERUSER_VIEW_SEXT');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
+        validation = CheckAccess('TAEED_SEXT');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SEXT = true : sessionStorage.Access_TAEED_SEXT = false
+
+        validation = CheckAccess('TASVIB_SEXT');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SEXT = true : sessionStorage.Access_TASVIB_SEXT = false
 
 
         validation = CheckAccess('OTHERUSER_CHG_SEXT');
@@ -1072,6 +1111,12 @@ function SetValidation() {
 
         validation = CheckAccess('SHOWPRICE_PFORD');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_PFORD = true : sessionStorage.Access_SHOWPRICE_PFORD = false
+
+        validation = CheckAccess('TAEED_PFORD');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_PFORD = true : sessionStorage.Access_TAEED_PFORD = false
+
+        validation = CheckAccess('TASVIB_PFORD');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_PFORD = true : sessionStorage.Access_TASVIB_PFORD = false
 
 
         validation = CheckAccess('OTHERUSER_CHG_PFORD');
@@ -1116,6 +1161,12 @@ function SetValidation() {
         validation = CheckAccess('SHOWPRICE_SRDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_SRDOC = true : sessionStorage.Access_SHOWPRICE_SRDOC = false
 
+        validation = CheckAccess('TAEED_SRDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_SRDOC = true : sessionStorage.Access_TAEED_SRDOC = false
+
+        validation = CheckAccess('TASVIB_SRDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_SRDOC = true : sessionStorage.Access_TASVIB_SRDOC = false
+
         validation = CheckAccess('OTHERUSER_CHG_PPDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewPishFactorKharid = true;
@@ -1153,6 +1204,12 @@ function SetValidation() {
 
         validation = CheckAccess('SHOWPRICE_PFDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_PFDOC = true : sessionStorage.Access_SHOWPRICE_PFDOC = false
+
+        validation = CheckAccess('TAEED_PFDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_PFDOC = true : sessionStorage.Access_TAEED_PFDOC = false
+
+        validation = CheckAccess('TASVIB_PFDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_PFDOC = true : sessionStorage.Access_TASVIB_PFDOC = false
 
         validation = CheckAccess('OTHERUSER_CHG_PFDOC');// AccessViewSanad
         if (validation == true) {
@@ -1194,6 +1251,12 @@ function SetValidation() {
         validation = CheckAccess('SHOWPRICE_PRDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_PRDOC = true : sessionStorage.Access_SHOWPRICE_PRDOC = false
 
+        validation = CheckAccess('TAEED_PRDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_PRDOC = true : sessionStorage.Access_TAEED_PRDOC = false
+
+        validation = CheckAccess('TASVIB_PRDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_PRDOC = true : sessionStorage.Access_TASVIB_PRDOC = false
+
         validation = CheckAccess('OTHERUSER_CHG_PRDOC');// AccessViewSanad
         if (validation == true) {
             sessionStorage.AccessViewBackFactorKharid = true;
@@ -1229,12 +1292,19 @@ function SetValidation() {
         validation = CheckAccess('DEL_IIDOC'); // delete varedae anbar
         validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
         validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
+
         //validation = CheckAccess('PRN_IIDOC'); // Print varedae anbar
         //validation == true ? $("#").show() : $("#").hide()
 
         
         validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_IIDOC = true : sessionStorage.Access_SHOWPRICE_IIDOC = false
+
+        validation = CheckAccess('TAEED_IIDOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_IIDOC = true : sessionStorage.Access_TAEED_IIDOC = false
+
+        validation = CheckAccess('TASVIB_IIDOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_IIDOC = true : sessionStorage.Access_TASVIB_IIDOC = false
 
 
         validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
@@ -1270,6 +1340,12 @@ function SetValidation() {
 
         validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false
+
+        validation = CheckAccess('TAEED_IODOC');// AccessTaeed
+        validation == true ? sessionStorage.Access_TAEED_IODOC = true : sessionStorage.Access_TAEED_IODOC = false
+
+        validation = CheckAccess('TASVIB_IODOC');// AccessTasvib
+        validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
 
         validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false

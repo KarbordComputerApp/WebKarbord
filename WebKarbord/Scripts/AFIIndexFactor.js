@@ -1279,6 +1279,8 @@
                     break;
             }
 
+            sessionStorage.searchFDocH = item.DocNo;
+
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
             sessionStorage.DocNo = item.DocNo;
