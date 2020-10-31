@@ -65,6 +65,9 @@
 
     var flagEditBand = false;
 
+    var accessTaeed = false;
+    var accessTasvib = false;
+
     var flag = -1;
     var flagInsertIDoch = 0;
     self.flagupdateband = false;
@@ -108,6 +111,7 @@
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
 
+    sessionStorage.Access_SHOWPRICE_IIDOC = false;
 
     if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
@@ -141,6 +145,7 @@
             $('#totalpriceshowgridbody').hide();
             $('#foottextunitprice').hide();
             $('#foottexttotalprice').hide();
+            $('#ViewSpec').attr('class', 'col-sm-5');
         }
 
 
@@ -252,14 +257,16 @@
     $("#status").change(function () {
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
+            //accessTaeed
+           // accessTasvib
             if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
-                return showNotification('نیاز به دسترسی تایید', 0);
+                return showNotification('دسترسی تایید ندارید', 0);
             }
 
             if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
-                return showNotification('نیاز به دسترسی تصویب', 0);
+                return showNotification('دسترسی تصویب ندارید', 0);
             }
 
         }
@@ -1737,7 +1744,13 @@
 
     var viewAction = false;
 
+
+
     if (sessionStorage.InOut == 1) {
+
+        accessTaeed = sessionStorage.Access_TAEED_IIDOC == 'true'
+        accessTasvib = sessionStorage.Access_TASVIB_IIDOC == 'true'
+
         if (sessionStorage.AccessViewSanadAnbarVarede == 'true') {
             viewAction = true;
         }
@@ -1748,6 +1761,10 @@
         }
     }
     else {
+
+        accessTaeed = sessionStorage.Access_TAEED_IODOC == 'true'
+        accessTasvib = sessionStorage.Access_TASVIB_IODOC == 'true'
+
         if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
             viewAction = true;
         }
@@ -1756,6 +1773,7 @@
                 viewAction = true;
             }
         }
+
     }
 
     if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveSanadAnbar == "false" && flagupdateHeader == 1) {
@@ -1763,6 +1781,13 @@
     } else {
         sessionStorage.BeforeMoveSanadAnbar = false;
     }
+
+    if (accessTaeed == false && sessionStorage.Status == 'تایید')
+        viewAction = false;
+
+    if (accessTasvib == false && sessionStorage.Status == 'تصویب')
+        viewAction = false;
+
 
     if (viewAction) {
         $('#action_header').removeAttr('style');
@@ -1843,10 +1868,9 @@
         }
     });
 
+   // sessionStorage.SHOWPRICE_IIDOC = false
 
-
-    if ((sessionStorage.InOut == 1 && sessionStorage.SHOWPRICE_IIDOC == "false") ||
-        (sessionStorage.InOut == 2 && sessionStorage.SHOWPRICE_IODOC == "false")) {
+  /*  if (sessionStorage.InOut == 1 && sessionStorage.SHOWPRICE_IIDOC == "false") {
 
         $('#thUnitPrice').attr('hidden', '');
         $('#thTotalPrice').attr('hidden', '');
@@ -1868,7 +1892,7 @@
         $('#foottextUnitPrice').removeAttr('hidden', '');
         $('#foottexttotalprice').removeAttr('hidden', '');
         $('#foottextdiscount').removeAttr('hidden', '');
-    }
+    }*/
 
 
     createViewer();

@@ -48,6 +48,9 @@
     var flagSearchJari = 0;
     var flagSearchCheck = 0;
 
+    var accessTaeed = false;
+    var accessDaem = false;
+
     function ClearSearch() {
         flagSearchAcc = 0;
         flagSearchZAcc = 0;
@@ -372,6 +375,26 @@
             self.ADocPList(data);
         });
     }
+
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+        selectStatus = $("#status").val();
+        if (accessTaeed == false && selectStatus == 'تایید') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی تایید ندارید', 0);
+        }
+
+        if (accessDaem == false && selectStatus == 'دائم') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی دائم ندارید', 0);
+        }
+
+
+    });
 
     getColsSanadList();
     getColsCheckList();
@@ -3169,6 +3192,10 @@
 
     $.fn.CheckAccess = function () {
 
+
+        accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
+        accessDaem = sessionStorage.Access_DAEM_ADOC == 'true'
+
         if (sessionStorage.AccessViewSanad == 'true') {
             viewAction = true;
         }
@@ -3183,6 +3210,13 @@
         } else {
             sessionStorage.BeforeMoveSanad = false;
         }
+
+
+        if (accessTaeed == false && sessionStorage.Status == 'تایید')
+            viewAction = false;
+
+        if (accessDaem == false && sessionStorage.Status == 'دائم')
+            viewAction = false;
 
         if (viewAction) {
             $('#action_headersanad').removeAttr('style');

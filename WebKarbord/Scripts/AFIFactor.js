@@ -325,12 +325,12 @@
         selectStatus = $("#status").val();
         if (accessTaeed == false && selectStatus == 'تایید') {
             $("#status").val(lastStatus);
-            return showNotification('نیاز به دسترسی تایید', 0);
+            return showNotification('دسترسی تایید ندارید', 0);
         }
 
         if (accessTasvib == false && selectStatus == 'تصویب') {
             $("#status").val(lastStatus);
-            return showNotification('نیاز به دسترسی تصویب', 0);
+            return showNotification('دسترسی تصویب ندارید', 0);
         }
 
         
@@ -2152,6 +2152,7 @@
 
     var showPrice = false;
 
+
     $.fn.CheckAccess = function () {
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
@@ -2265,9 +2266,9 @@
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
+            showPrice = sessionStorage.Access_SHOWPRICE_PPDOC  == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_PPDOC  == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PPDOC  == 'true'
 
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
@@ -2315,6 +2316,12 @@
         } else {
             sessionStorage.BeforeMoveFactor = false;
         }
+
+        if (accessTaeed == false && sessionStorage.Status == 'تایید')
+            viewAction = false;
+
+        if (accessTasvib == false && sessionStorage.Status == 'تصویب')
+            viewAction = false;
 
         if (viewAction) {
             $('#action_headerfactor').removeAttr('style');
