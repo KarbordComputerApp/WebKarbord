@@ -1888,7 +1888,7 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterADocRList(), 'ADocR', FromDate, ToDate);
+        setReport(self.filterADocRList(), 'Report_ADocR', FromDate, ToDate);
     });
 
 };

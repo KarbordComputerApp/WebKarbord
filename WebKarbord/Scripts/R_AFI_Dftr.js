@@ -1920,7 +1920,7 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterDftrList(), 'Dftr', FromDate, ToDate);
+        setReport(self.filterDftrList(), 'Report_Dftr', FromDate, ToDate);
     });
 };
 

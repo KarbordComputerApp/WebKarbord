@@ -10,6 +10,8 @@
     sessionStorage.searchADocH = "";
     self.bundNumberImport = 0;
 
+    self.StatusSanad = ko.observable();
+
     var viewAction = false;
 
     var AccCode = "";
@@ -237,10 +239,6 @@
         progName = getProgName('A');
         ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
-            if (self.StatusList().length > 0) {
-                if (flagupdateHeader == 1)
-                    $("#status").val(sessionStorage.Status);
-            }
         });
     }
 
@@ -382,18 +380,18 @@
     });
 
     $("#status").change(function () {
-        selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == 'تایید') {
-            $("#status").val(lastStatus);
-            return showNotification('دسترسی تایید ندارید', 0);
-        }
 
-        if (accessDaem == false && selectStatus == 'دائم') {
-            $("#status").val(lastStatus);
-            return showNotification('دسترسی دائم ندارید', 0);
-        }
-
-
+        /*  selectStatus = $("#status").val();
+          if (accessTaeed == false && selectStatus == 'تایید') {
+              $("#status").val(lastStatus);
+              return showNotification('دسترسی تایید ندارید', 0);
+          }
+  
+          if (accessDaem == false && selectStatus == 'دائم') {
+              $("#status").val(lastStatus);
+              return showNotification('دسترسی دائم ندارید', 0);
+          }
+          */
     });
 
     getColsSanadList();
@@ -432,8 +430,12 @@
         self.Spec(sessionStorage.Spec);
         $("#docnoout").text(sessionStorage.DocNo);
         self.AModeCode(sessionStorage.ModeCodeSanad);
+
         $("#modeCode").val(sessionStorage.ModeCodeSanad);
         getADocB(Serial);
+
+        self.StatusSanad(sessionStorage.Status);
+        $("#status").val(sessionStorage.Status);
         flagOtherFieldShow = true;
     }
     else {
@@ -517,7 +519,10 @@
                 $('#TafavotSanad').val('');
                 $('#docnoout').text('جدید');
                 sessionStorage.searchADocH = "";
+                self.StatusSanad('موقت');
                 $("#status").val('موقت');
+                sessionStorage.Status = 'موقت';
+
                 sessionStorage.Eghdam = sessionStorage.userName;
                 self.bundNumberImport = 0;
                 $(this).CheckAccess();
@@ -3233,6 +3238,9 @@
         if (Serial == '')
             return showNotification('ابتدا سند را ذخیره کنید', 0);
         getADocP(Serial);
+
+        if (self.ADocPList().length == 0)
+            return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
         setReport(self.ADocPList(), 'Free');
     });
 };

@@ -424,6 +424,15 @@
         }
     }
 
+    if (ace == "Web1") {
+        if (flagupdateHeader == 1) {
+            $('#inv').prop('disabled', true);
+        }
+        else {
+            $('#inv').prop('disabled', false);
+        }
+    }
+
     // $('#FromUser').prop('disabled', false);
     // $('#ToUser').prop('disabled', false);
 
@@ -939,7 +948,7 @@
         self.InvCode(sessionStorage.InvCode);
         $("#inv").val(sessionStorage.InvCode);
         if (sessionStorage.ThvlCode != '')
-            $('#nameThvl').val('(' + sessionStorage.ThvlCode + ') ' + sessionStorage.thvlname);
+            $('#nameThvl').val('(' + sessionStorage.ThvlCode + ') ' + sessionStorage.ThvlName);
         else
             $('#nameThvl').val('');
 
@@ -1726,6 +1735,7 @@
         }).then((result) => {
             if (result.value) {
                 sessionStorage.flagupdateHeader = 0;
+                sessionStorage.Status = 'موقت';
                 window.location.href = sessionStorage.urlAddIDocH;
             }
         })
@@ -1900,7 +1910,10 @@
         if (Serial == '')
             return showNotification('ابتدا سند را ذخیره کنید', 0);
         getIDocP(Serial);
-        setReport(self.IDocPList(), 'Free');
+        if (self.IDocPList().length == 0)
+            return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
+
+        setReport(self.IDocPList(), 'Sanad_IDoc');
     });
 
 

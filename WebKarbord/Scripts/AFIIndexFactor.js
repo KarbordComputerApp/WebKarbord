@@ -736,6 +736,7 @@
     $('#AddNewFactor').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
+        sessionStorage.Status = 'موقت';
         //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         //    $('#modal-SelectFactor').modal('show');
         //    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)

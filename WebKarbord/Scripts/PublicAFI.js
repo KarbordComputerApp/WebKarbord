@@ -860,7 +860,7 @@ function SetValidation() {
             sessionStorage.AccessViewSefareshForosh = false;
         }
 
-        validation = CheckAccess('MOVE_SFORD'); 
+        validation = CheckAccess('MOVE_SFORD');
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
 
@@ -1302,7 +1302,7 @@ function SetValidation() {
         //validation = CheckAccess('PRN_IIDOC'); // Print varedae anbar
         //validation == true ? $("#").show() : $("#").hide()
 
-        
+
         validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_IIDOC = true : sessionStorage.Access_SHOWPRICE_IIDOC = false
 
@@ -1533,7 +1533,7 @@ function SetValidationErj() {
 
     if (erjaccess[0] == true || erjaccess[1] == true) {
         $("#EReport_Menu").show();
-        erjaccess[0] == true  && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+        erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
         erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
 
         if (ShowMenuErj[0] == false && ShowMenuErj[1] == false)
@@ -2057,6 +2057,7 @@ function SetColumn(code, indexId, data) {
 }
 
 function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
+
     var obj = [];
     for (i = 1; i <= columns.length; i++) {
         item = data[i];
@@ -2241,7 +2242,7 @@ function setReport(reportObject, mrtFileName, FromDate, ToDate) {
         return showNotification('ابتدا گزارش گیری کنید', 0);
     }
 
-    addressMrt = '/Content/Report/Report_' + mrtFileName + '.mrt';
+    addressMrt = '/Content/Report/' + mrtFileName + '.mrt';
 
     if (mrtFileName != "Free") {
         report.loadFile(addressMrt);

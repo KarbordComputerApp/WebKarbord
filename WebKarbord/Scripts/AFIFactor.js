@@ -13,6 +13,8 @@
     var flagOtherFieldShow;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
+    sessionStorage.Access_TAEED_PPDOC = false;
+
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
@@ -23,8 +25,6 @@
     var server = localStorage.getItem("ApiAddress");
 
     $('#textnumberfactor').hide();
-
-
 
 
     var codeCust = '';
@@ -306,12 +306,6 @@
         progName = getProgName('S');
         ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
-            if (self.StatusList().length > 0) {
-                //if (flagupdateHeader == 1) {
-                //  $("#status").text(sessionStorage.Status);
-                //  self.StatusFactor(sessionStorage.Status);
-                //}
-            }
         });
     }
 
@@ -2060,6 +2054,7 @@
                 $('#docnoout').text('جدید');
                 sessionStorage.searchFDocH = "";
                 $("#status").val('موقت');
+                sessionStorage.Status = 'موقت';
                 $("#paymenttype").val(0);
                 sessionStorage.Eghdam = sessionStorage.userName;
                 zarib1 = 0;
@@ -2112,6 +2107,8 @@
                 if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                 //$("#inv").val(sessionStorage.InvDefult);
                 $("#gGhimat").val(sessionStorage.GPriceDefult);
+
+
                 //sessionStorage.sels == "true" ? sessionStorage.GPriceDefultS : sessionStorage.GPriceDefultP
                 $(this).CheckAccess();
             }
@@ -2151,6 +2148,7 @@
     $('#insertband').attr('style', 'display: none');
 
     var showPrice = false;
+
 
 
     $.fn.CheckAccess = function () {
@@ -2279,6 +2277,8 @@
                 }
             }
         }
+
+
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
@@ -2322,6 +2322,7 @@
 
         if (accessTasvib == false && sessionStorage.Status == 'تصویب')
             viewAction = false;
+
 
         if (viewAction) {
             $('#action_headerfactor').removeAttr('style');
@@ -2511,6 +2512,8 @@
         if (Serial == '')
             return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
         getFDocP(Serial);
+        if (self.FDocPList().length == 0)
+            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
         setReport(self.FDocPList(), 'Free');
     });
 

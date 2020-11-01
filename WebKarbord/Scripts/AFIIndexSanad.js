@@ -434,6 +434,7 @@
     $('#AddNewSanad').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
+        sessionStorage.Status = 'موقت';
         window.location.href = sessionStorage.urlADocH;
     });
 

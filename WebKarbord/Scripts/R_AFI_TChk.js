@@ -949,7 +949,7 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterTChkList(), 'TChk', FromDate, ToDate);
+        setReport(self.filterTChkList(), 'Report_TChk', FromDate, ToDate);
     });
 
 };

@@ -22,12 +22,11 @@
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
 
 
-
     var columns = [
         'DocNo',
         'DocDate',
         'InvName',
-        'thvlname',
+        'ThvlName',
         'ModeName',
         'Spec',
         'Status',
@@ -207,7 +206,7 @@
     self.filterDocNo = ko.observable("");
     self.filterDocDate = ko.observable("");
     self.filterInvName = ko.observable("");
-    self.filterthvlname = ko.observable("");
+    self.filterThvlName = ko.observable("");
     self.filterModeName = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterStatus = ko.observable("");
@@ -242,7 +241,7 @@
         var filterDocNo = self.filterDocNo();
         var filterDocDate = self.filterDocDate();
         var filterInvName = self.filterInvName();
-        var filterthvlname = self.filterthvlname();
+        var filterThvlName = self.filterThvlName();
         var filterModeName = self.filterModeName();
         var filterSpec = self.filterSpec();
         var filterStatus = self.filterStatus();
@@ -271,7 +270,7 @@
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
 
-        if (!filterDocNo && !filterDocDate && !filterInvName && !filterthvlname && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
+        if (!filterDocNo && !filterDocDate && !filterInvName && !filterThvlName && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
             !filterTanzim && !filterTaeed && !filterSerialNumber &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
@@ -284,7 +283,7 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                     ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
                     (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
-                    (item.thvlname == null ? '' : item.thvlname.toString().search(filterthvlname) >= 0) &&
+                    (item.ThvlName == null ? '' : item.ThvlName.toString().search(filterThvlName) >= 0) &&
                     (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                     (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
@@ -389,7 +388,7 @@
     self.iconTypeDocNo = ko.observable("");
     self.iconTypeDocDate = ko.observable("");
     self.iconTypeInvName = ko.observable("");
-    self.iconTypethvlname = ko.observable("");
+    self.iconTypeThvlName = ko.observable("");
     self.iconTypeModeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
@@ -436,7 +435,7 @@
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
         self.iconTypeInvName('');
-        self.iconTypethvlname('');
+        self.iconTypeThvlName('');
         self.iconTypeModeName('');
         self.iconTypeSpec('');
         self.iconTypeStatus('');
@@ -468,7 +467,7 @@
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'thvlname') self.iconTypethvlname((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlName') self.iconTypeThvlName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ModeName') self.iconTypeModeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -501,6 +500,7 @@
     $('#AddNewSanadAnbar').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
+        sessionStorage.Status = 'موقت';
         invCode = $('#invSelect').val();
         //if (invCode == '' || invCode == null) 
         //{
@@ -568,7 +568,7 @@
         sessionStorage.DocDate = item.DocDate;
         sessionStorage.ThvlCode = item.ThvlCode;
 
-        sessionStorage.thvlname = item.thvlname == null ? '' : item.thvlname;
+        sessionStorage.ThvlName = item.ThvlName == null ? '' : item.ThvlName;
         sessionStorage.InvCode = item.InvCode;
         sessionStorage.Spec = item.Spec;
         sessionStorage.PriceCode = item.KalaPriceCode;
@@ -618,11 +618,11 @@
 
     if (sessionStorage.InOut == 1) {
         sessionStorage.sels = true;
-        $('#Titlethvlname').text('نام تحویل دهنده');
+        $('#TitleThvlName').text('نام تحویل دهنده');
         $('#TitleListAnbar').text('اسناد وارده به انبار');
     } else {
         sessionStorage.sels = false;
-        $('#Titlethvlname').text('نام تحویل گیرنده');
+        $('#TitleThvlName').text('نام تحویل گیرنده');
         $('#TitleListAnbar').text('اسناد صادره از انبار');
     }
 
@@ -633,9 +633,9 @@
 
     $('#modal-Factor').on('shown.bs.modal', function () {
         if (sessionStorage.sels == "true")
-            $('#Titlethvlname1').text('نام خریدار');
+            $('#TitleThvlName1').text('نام خریدار');
         else
-            $('#Titlethvlname1').text('نام فروشنده');
+            $('#TitleThvlName1').text('نام فروشنده');
         $('#searchIDocH1').val('');
         self.filterIDocH1('');
         self.filterIDocH1List();
@@ -834,7 +834,7 @@
             sessionStorage.DocNo = item.DocNo;
             sessionStorage.DocDate = item.DocDate;
             sessionStorage.ThvlCode = item.ThvlCode;
-            sessionStorage.thvlname = item.ThvlName == null ? '' : item.ThvlName;
+            sessionStorage.ThvlName = item.ThvlName == null ? '' : item.ThvlName;
             sessionStorage.InvCode = item.InvCode;
             sessionStorage.Spec = item.Spec;
             sessionStorage.PriceCode = item.KalaPriceCode;
@@ -900,7 +900,7 @@
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('InvName', data) +
-            CreateTableTh('thvlname', data) +
+            CreateTableTh('ThvlName', data) +
             CreateTableTh('ModeName', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('Status', data) +
@@ -936,7 +936,7 @@
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('InvName', 0, 0, data) +
-            CreateTableTd('thvlname', 0, 0, data) +
+            CreateTableTd('ThvlName', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Status', 0, 0, data) +
@@ -983,7 +983,7 @@
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('InvName', data) +
-            CreateTableTdSearch('thvlname', data) +
+            CreateTableTdSearch('ThvlName', data) +
             CreateTableTdSearch('ModeName', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('Status', data) +
