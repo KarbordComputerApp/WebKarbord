@@ -156,7 +156,7 @@
 
     //Get ErjUsers List
     function getErjUsersList() {
-        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
             self.ErjUsersList(data);
             $('#ToUser').val(sessionStorage.userName);
             $('#FromUser').val('');
@@ -351,8 +351,32 @@
 
     function SetDataErjDocErja() {
         list = self.ErjDocErja();
+
+        listLastBand = self.ErjResultList();
         countBand = list[list.length - 1].BandNo;
+        textLastBand = '';
+        for (var j = 0; j < listLastBand.length; j++) {
+            textLastBand +=
+                '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+            if (listLastBand[j].ToUserCode == '')
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط</h6> <h6>' + sessionStorage.userNameFa + '</h6> </div></div > '
+            else
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به</h6> <h6>' + listLastBand[j].ToUserCode + '</h6> </div></div > '
+
+            if (listLastBand[j].RjResult == '')
+                textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
+            else {
+                textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
+                textLastBand += ConvertComm(listLastBand[j].RjResult);
+            }
+            textLastBand += ' </div> ';
+
+        }
+
+
         $("#BodyErjDocErja").empty();
+
+
         for (var i = 1; i <= countBand; i++) {
 
             //for (var i = countBand; i >= 1; i--) {
@@ -373,7 +397,7 @@
                     + '   </div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
-                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;"> هنوز رویت نشده';
+                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
                 else {
                     text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                     text += ConvertComm(listBand[j].RjComm);
@@ -381,7 +405,9 @@
                 text += ' </div> ';
             }
 
-            if (listBand[0].RooneveshtUsers != '') {
+
+
+            if (listBand[0].RooneveshtUsers != '' && i < countBand) {
 
                 text += '</br>'
                     + '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
@@ -392,7 +418,8 @@
                 text += ' </div> ';
             }
 
-            $('#BodyErjDocErja').append(
+
+            textBody =
                 '<div style="border-top: 0px solid #fff !important;">'
                 + '    <div>'
                 + '        <div class="cardErj">'
@@ -409,15 +436,19 @@
                 + '     </div> '
                 + '</div>'
                 + '</div>'
-                + '            <div class="body" style="padding:10px;">'
-                + text
-                + '            </div>'
+                + '<div class="body" style="padding:10px;">'
+
+            textBody += text
+            if (i == countBand)
+                textBody += textLastBand
+
+            textBody += '</div>'
                 + '        </div>'
                 + '    </div>'
                 + '</div>'
-            );
 
 
+            $('#BodyErjDocErja').append(textBody);
         }
     }
 
@@ -1312,8 +1343,8 @@
 
             $("#finalComm").val(item.FinalComm);
 
-            getErjResultList(serialnumber, docBMode, self.ToUserCode());
-            getErjResultList(serialnumber,null,null)
+            //getErjResultList(serialnumber, docBMode, self.ToUserCode());
+            getErjResultList(serialnumber, null, null)
 
         });
     }
