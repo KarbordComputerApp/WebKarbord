@@ -111,8 +111,6 @@
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
 
-    sessionStorage.Access_SHOWPRICE_IIDOC = false;
-
     if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
         $('#LableThvlCode').text('نام تحویل دهنده ');
