@@ -70,6 +70,8 @@
     ClearSearch();
 
 
+    sessionStorage.Access_TAEED_ADOC = false
+
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
     var rprtId = 'ADocB';
@@ -381,7 +383,7 @@
 
     $("#status").change(function () {
 
-        /*  selectStatus = $("#status").val();
+          selectStatus = $("#status").val();
           if (accessTaeed == false && selectStatus == 'تایید') {
               $("#status").val(lastStatus);
               return showNotification('دسترسی تایید ندارید', 0);
@@ -391,7 +393,7 @@
               $("#status").val(lastStatus);
               return showNotification('دسترسی دائم ندارید', 0);
           }
-          */
+          
     });
 
     getColsSanadList();
@@ -3162,6 +3164,8 @@
         return text;
     }
 
+
+  
 
     $('#modal-OtherField').on('shown.bs.modal', function () {
         if (flagOtherFieldShow == true) {
