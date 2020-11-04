@@ -564,7 +564,7 @@
             DocNo: 0,
             StartNo: 0,
             EndNo: 0,
-            Tanzim: '',
+            Tanzim: '*' + sessionStorage.userName + '*' ,
             TahieShode: sessionStorage.ace,
             VstrCode: 'null',
             VstrPer: 0,

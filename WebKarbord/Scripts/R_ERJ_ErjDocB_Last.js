@@ -356,20 +356,31 @@
         countBand = list[list.length - 1].BandNo;
         textLastBand = '';
         for (var j = 0; j < listLastBand.length; j++) {
-            textLastBand +=
-                '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-            if (listLastBand[j].DocBMode == 0)
+            if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
+                textLastBand +=
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
                 textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
-            else
-                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
+            }
+            else if (listLastBand[j].DocBMode == 1) {
+                textLastBand +=
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
-            if (listLastBand[j].RjResult == '')
-                textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">';
+            }
+               
+
+            if (listLastBand[j].RjResult == '') {
+                if (listLastBand[j].DocBMode > 0) {
+                    textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
+                    textLastBand += ' </div> ';
+                }
+            }
             else {
                 textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                 textLastBand += ConvertComm(listLastBand[j].RjResult);
+                textLastBand += ' </div> ';
             }
-            textLastBand += ' </div> ';
+
 
         }
 
@@ -397,7 +408,7 @@
                     + '   </div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
-                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">';
+                    text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
                 else {
                     text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                     text += ConvertComm(listBand[j].RjComm);

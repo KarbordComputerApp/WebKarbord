@@ -15,7 +15,7 @@
     var serverAccount = 'http://localhost:902/api/';       
 
    // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
-   // var serverAccount = 'http://192.168.6.204:902/api/'; //Office 109
+   // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
    //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
 
     sessionStorage.serverAccount = serverAccount;

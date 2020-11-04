@@ -2439,7 +2439,7 @@
             DocDate: tarikh,
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Tanzim: '',
+            Tanzim: '*' + sessionStorage.userName + '*' ,
             Taeed: status == "تایید" ? sessionStorage.userName : '',
             Tasvib: '',
             TahieShode: sessionStorage.ace,
