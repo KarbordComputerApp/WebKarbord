@@ -20,12 +20,14 @@
         $('#DropAce').text('');
         if (afi1List == "null" || afi1List == '') {
             sessionStorage.ace = 'Web8';
-            $('#DropAce').text('نرم افزار سیستم جامع');
+            sessionStorage.aceName = 'نرم افزار سیستم جامع';
+            $('#DropAce').text(sessionStorage.aceName);
 
         }
         else {
             sessionStorage.ace = 'Web1';
-            $('#DropAce').text('نرم افزار مالی بازرگانی')
+            sessionStorage.aceName = 'نرم افزار مالی بازرگانی';
+            $('#DropAce').text(sessionStorage.aceName)
         }
     }
 

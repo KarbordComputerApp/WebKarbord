@@ -34,6 +34,10 @@ AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 $('#userNameFa').text(sessionStorage.userNameFa);
 $('#userNameHome').text(sessionStorage.userNameFa + ' ');
 
+$('#coName_TitleMenu').val(sessionStorage.CoName);
+$('#ace_TitleMenu').val(sessionStorage.aceName);
+$('#group_TitleMenu').val(sessionStorage.group == "0" ? 'انتخاب نشده' : sessionStorage.group);
+$('#sal_TitleMenu').val(sessionStorage.sal == "0" ? 'انتخاب نشده' : sessionStorage.sal);
 
 
 if (sessionStorage.ace == 'Web1') {
@@ -422,6 +426,7 @@ function getParamList() {
         ParamList(data);
         $('#information').hide();
         if (self.ParamList().length > 0) {
+            sessionStorage.CoName = SearchArry("CoName", "Value", self.ParamList());
             sessionStorage.BeginDate = SearchArry("SalMali", "BeginDate", self.ParamList());
             sessionStorage.EndDate = SearchArry("SalMali", "EndDate", self.ParamList());
             sessionStorage.Deghat = SearchArry("Deghat", "Deghat", self.ParamList());

@@ -13,7 +13,6 @@
     var flagOtherFieldShow;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
-    sessionStorage.Access_TAEED_PPDOC = false;
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
@@ -25,6 +24,7 @@
     var server = localStorage.getItem("ApiAddress");
 
     $('#textnumberfactor').hide();
+    $('#finalSave_Title').attr('hidden', '');
 
 
     var codeCust = '';
@@ -895,6 +895,7 @@
             //            DocNoOut = res[1];
             //            $('#docnoout').val(DocNoOut);
             sessionStorage.searchFDocH = $("#docnoout").text();
+            $('#finalSave_Title').attr('hidden', '');
             //flagInsertFdoch = 0;
             //FinalSave
 
@@ -2547,6 +2548,38 @@
         //down : 40
         //up : 38
     })
+    */
+
+
+    $('#tarikh').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#Spec').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#footer').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+
+    $('#modal-OtherField').on('hide.bs.modal', function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+   /*
+    $('#inv').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#status').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#modeCode').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
     */
 
 };

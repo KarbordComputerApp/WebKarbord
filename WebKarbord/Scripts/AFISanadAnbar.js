@@ -35,6 +35,8 @@
 
     invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
 
+    $('#finalSave_Title').attr('hidden', '');
+
     var invCode = sessionStorage.InvCode;
 
     var totalPrice;
@@ -718,6 +720,8 @@
             //flagInsertIDoch = 0;
             //FinalSave
 
+            $('#finalSave_Title').attr('hidden', '');
+
             if (flagKalaPrice == true) {
                 ajaxFunction(UpdatePriceUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST').done(function (response) {
                     self.IDocBList(response);
@@ -1162,6 +1166,7 @@
     //row select ---------------------------------
     self.selectThvl = function (item) {
 
+
         codeThvl = item.Code;
         $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
         //sessionStorage.GPriceDefult == "null" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefult);
@@ -1180,8 +1185,9 @@
         //if (Serial != '') {
         //    self.UpdateIDocH();
         //}
-        $('#nameThvl').focus();
+        $('#finalSave_Title').removeAttr('hidden', '');
 
+        $('#nameThvl').focus();
     };
 
     self.getById = function (id) {
@@ -1913,6 +1919,40 @@
 
         setReport(self.IDocPList(), 'Sanad_IDoc');
     });
+
+
+    $('#tarikh').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#Spec').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#footer').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+
+
+    $('#modal-OtherField').on('hide.bs.modal', function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+
+   /*
+    $('#inv').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });   
+    
+    $('#status').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#modeCode').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+    */
 
 
 

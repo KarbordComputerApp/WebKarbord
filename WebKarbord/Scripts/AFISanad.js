@@ -70,7 +70,7 @@
     ClearSearch();
 
 
-    sessionStorage.Access_TAEED_ADOC = false
+    $('#finalSave_Title').attr('hidden', '');
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -383,17 +383,17 @@
 
     $("#status").change(function () {
 
-          selectStatus = $("#status").val();
-          if (accessTaeed == false && selectStatus == 'تایید') {
-              $("#status").val(lastStatus);
-              return showNotification('دسترسی تایید ندارید', 0);
-          }
-  
-          if (accessDaem == false && selectStatus == 'دائم') {
-              $("#status").val(lastStatus);
-              return showNotification('دسترسی دائم ندارید', 0);
-          }
-          
+        selectStatus = $("#status").val();
+        if (accessTaeed == false && selectStatus == 'تایید') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی تایید ندارید', 0);
+        }
+
+        if (accessDaem == false && selectStatus == 'دائم') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی دائم ندارید', 0);
+        }
+
     });
 
     getColsSanadList();
@@ -2439,7 +2439,7 @@
             DocDate: tarikh,
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Tanzim: '*' + sessionStorage.userName + '*' ,
+            Tanzim: '*' + sessionStorage.userName + '*',
             Taeed: status == "تایید" ? sessionStorage.userName : '',
             Tasvib: '',
             TahieShode: sessionStorage.ace,
@@ -2557,6 +2557,8 @@
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
             sessionStorage.searchADocH = Serial;
             getADocH(Serial);
+
+            $('#finalSave_Title').attr('hidden', '');
 
             if (flagupdateHeader == 1) {
                 sessionStorage.flagupdateHeader = 0;
@@ -3165,7 +3167,7 @@
     }
 
 
-  
+
 
     $('#modal-OtherField').on('shown.bs.modal', function () {
         if (flagOtherFieldShow == true) {
@@ -3247,6 +3249,31 @@
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
         setReport(self.ADocPList(), 'Free');
     });
+
+
+    $('#tarikh').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#Spec').keypress(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+
+    $('#modal-OtherField').on('hide.bs.modal', function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+   /*
+    $('#status').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+    $('#modeCode').click(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+    */
+    
 };
 
 ko.applyBindings(new ViewModel());
