@@ -58,7 +58,9 @@
             {
                 TitleListFactor = 'برگشت از فروش';
                 $('#TitleListFactor').text('برگشتی های فروش');
-                //defultMove = sessionStorage.Move_SRFCT;
+                defultMove = '';//sessionStorage.Move_SRFCT;
+                $("#menu1").attr('hidden', '');
+                $("#TabMove").attr('hidden', '');
                 inOut = 2;
                 break;
             }
@@ -112,7 +114,9 @@
             {
                 TitleListFactor = 'برگشت از خرید';
                 $('#TitleListFactor').text('برگشتی های خرید');
-                //defultMove = sessionStorage.Move_PRFCT;
+                $("#menu1").attr('hidden', '');
+                $("#TabMove").attr('hidden', '');
+                defultMove = '';//sessionStorage.Move_PRFCT;
                 inOut = 1;
             }
     }
@@ -1176,7 +1180,9 @@
                         (CheckAccess('NEW_PFDOC') && dataMove[i].Code == 'PFCT') ||
                         (CheckAccess('NEW_PRDOC') && dataMove[i].Code == 'PRFCT')
                     ) {
-                        if ((sessionStorage.InOut == 2 && dataMove[i].Code != 'SRFCT') || (sessionStorage.InOut == 1 && dataMove[i].Code != 'PRFCT')) {
+                        if ((sessionStorage.InOut == 2 && (dataMove[i].Code != 'SRFCT' || sessionStorage.ModeCode == 'SFCT')) ||
+                            (sessionStorage.InOut == 1 && (dataMove[i].Code != 'PRFCT' || sessionStorage.ModeCode == 'PFCT'))
+                        ) {
                             opt = document.createElement('option');
                             opt.value = dataMove[i].Code;
                             opt.innerHTML = dataMove[i].Name;
@@ -1208,7 +1214,7 @@
     if (ace == "Web1") {
         $("#menu1").attr('hidden', '');
         $("#TabMove").attr('hidden', '');
-    }
+    } 
 
 
 
@@ -1421,7 +1427,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">' +
-        '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null}  " >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null}  " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data)

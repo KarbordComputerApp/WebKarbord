@@ -814,6 +814,7 @@
     <Content Include="Content\Report\Report_TrzAcc.mrt" />
     <Content Include="Content\Report\Report_ADocR.mrt" />
     <Content Include="Content\Report\Sanad_IDoc.mrt" />
+    <Content Include="Content\Report\Sanad_ODoc.mrt" />
     <None Include="packages.config" />
     <Content Include="Views\AFIFactor\AddFdoc.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />

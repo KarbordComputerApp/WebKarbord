@@ -1924,7 +1924,10 @@
         if (self.IDocPList().length == 0)
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
 
-        setReport(self.IDocPList(), 'Sanad_IDoc');
+        if (sessionStorage.InOut == 1)
+            setReport(self.IDocPList(), 'Sanad_IDoc');
+        else
+            setReport(self.IDocPList(), 'Sanad_ODoc');
     });
 
 
