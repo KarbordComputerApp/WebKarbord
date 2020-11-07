@@ -282,6 +282,13 @@
                 return showNotification('نیاز به دسترسی تصویب', 0);
             }
         }
+
+       
+         if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+            $("#status").val(lastStatus);
+            return showNotification('فقط اسناد تایید شده امکان تصویب دارند', 0);
+        } 
+
     });
 
     //Get KalaPriceB List

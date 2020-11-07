@@ -58,7 +58,7 @@
             {
                 TitleListFactor = 'برگشت از فروش';
                 $('#TitleListFactor').text('برگشتی های فروش');
-                defultMove = sessionStorage.Move_SRFCT;
+                //defultMove = sessionStorage.Move_SRFCT;
                 inOut = 2;
                 break;
             }
@@ -112,7 +112,7 @@
             {
                 TitleListFactor = 'برگشت از خرید';
                 $('#TitleListFactor').text('برگشتی های خرید');
-                defultMove = sessionStorage.Move_PRFCT;
+                //defultMove = sessionStorage.Move_PRFCT;
                 inOut = 1;
             }
     }
@@ -1164,7 +1164,6 @@
 
             for (var i = 0; i < dataMove.length; i++) {
                 if (dataMove[i].Code != sessionStorage.ModeCode) {
-
                     if (
                         (CheckAccess('NEW_SFORD') && dataMove[i].Code == 'SORD') ||
                         (CheckAccess('NEW_SPDOC') && dataMove[i].Code == 'SPFCT') ||
@@ -1177,11 +1176,13 @@
                         (CheckAccess('NEW_PFDOC') && dataMove[i].Code == 'PFCT') ||
                         (CheckAccess('NEW_PRDOC') && dataMove[i].Code == 'PRFCT')
                     ) {
-                        opt = document.createElement('option');
-                        opt.value = dataMove[i].Code;
-                        opt.innerHTML = dataMove[i].Name;
-                        //opt.selected = true;
-                        select.appendChild(opt);
+                        if ((sessionStorage.InOut == 2 && dataMove[i].Code != 'SRFCT') || (sessionStorage.InOut == 1 && dataMove[i].Code != 'PRFCT')) {
+                            opt = document.createElement('option');
+                            opt.value = dataMove[i].Code;
+                            opt.innerHTML = dataMove[i].Name;
+                            //opt.selected = true;
+                            select.appendChild(opt);
+                        }
                     }
                 }
             }
@@ -1420,7 +1421,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">' +
-        '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { \'background-color\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#ffc3c3\' : null}  " >' +
+        '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null}  " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data)

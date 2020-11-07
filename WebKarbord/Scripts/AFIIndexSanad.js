@@ -599,7 +599,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color: Balance == 1 || ModeName == \'\' ? \'red\' : \'#3f4853\' , \'background-color\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#ffc3c3\' : null} " >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null} " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +

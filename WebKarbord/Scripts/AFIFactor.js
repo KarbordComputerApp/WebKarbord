@@ -327,7 +327,10 @@
             return showNotification('دسترسی تصویب ندارید', 0);
         }
 
-        
+        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+            $("#status").val(lastStatus);
+            return showNotification('فقط فاکتور های تایید شده امکان تصویب دارند', 0);
+        }
     });
 
 
