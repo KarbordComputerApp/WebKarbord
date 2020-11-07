@@ -865,6 +865,7 @@
             InvCode: inv,
             Status: status,
             Taeed: status == "تایید" ? sessionStorage.userName : '',
+            Tasvib: status == "تصویب" ? sessionStorage.userName : '',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat),
