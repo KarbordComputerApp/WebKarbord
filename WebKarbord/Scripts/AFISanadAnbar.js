@@ -512,6 +512,8 @@
 
     //Add new IDocH 
     function AddIDocH(newIDocH) {
+
+        sessionStorage.TaeedI = '';
         var tarikh = $("#tarikh").val().toEnglishDigit();
         inv = $('#inv').val();
         modeCode = $("#modeCode").val();
@@ -690,7 +692,7 @@
             PakhshCode: '',
             InvCode: inv,
             Status: status,
-            Taeed: status == "تایید" ? sessionStorage.userName : '',
+            Taeed: sessionStorage.TaeedI == '' ? status == "تایید" ? sessionStorage.userName : '' : sessionStorage.TaeedI,
             Tasvib: status == "تصویب" ? sessionStorage.userName : '',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),

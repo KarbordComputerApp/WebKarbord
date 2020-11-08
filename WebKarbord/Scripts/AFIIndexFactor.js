@@ -1026,6 +1026,7 @@
         sessionStorage.PriceCode = item.KalaPriceCode;
         sessionStorage.InvCode = item.InvCode;
         sessionStorage.Eghdam = item.Eghdam;
+        sessionStorage.TaeedF = item.Taeed;
 
         sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
         sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;

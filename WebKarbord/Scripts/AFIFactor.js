@@ -665,6 +665,7 @@
 
     //Add new FDocH 
     function AddFDocH(newFDocH) {
+        sessionStorage.TaeedF = '';
         var tarikh = $("#tarikh").val().toEnglishDigit();
         inv = $("#inv").val();
 
@@ -864,7 +865,8 @@
             AddMinPrice10: $("#AddMinMablagh10").val() == null ? 0 : ($("#iconAddMin10").text() == '+' ? SlashToDot($("#AddMinMablagh10").val()) : SlashToDot($("#AddMinMablagh10").val()) * (-1)), //SlashToDot($("#AddMinMablagh10").val()),//($("#iconAddMin10").text() == '+' ? SlashToDot($("#AddMinMablagh10").val()) : SlashToDot($("#AddMinMablagh10").val()) * (-1)),
             InvCode: inv,
             Status: status,
-            Taeed: status == "تایید" ? sessionStorage.userName : '',
+            //Taeed: status == "تایید" ? sessionStorage.userName : '',
+            Taeed: sessionStorage.TaeedF == '' ? status == "تایید" ? sessionStorage.userName : '' : sessionStorage.TaeedF,
             Tasvib: status == "تصویب" ? sessionStorage.userName : '',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),

@@ -577,6 +577,7 @@
         sessionStorage.PaymentType = item.PaymentType;
         sessionStorage.Footer = item.Footer;
         sessionStorage.Eghdam = item.Eghdam;
+        sessionStorage.TaeedI = item.Taeed;
         sessionStorage.F01 = item.F01;
         sessionStorage.F02 = item.F02;
         sessionStorage.F03 = item.F03;
