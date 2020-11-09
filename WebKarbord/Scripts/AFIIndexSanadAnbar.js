@@ -62,7 +62,7 @@
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             if (FlagSetting) {
-                CreateTableReport(data)
+               CreateTableReport(data)
             }
             else {
                 CreateTableColumn(columns);
@@ -130,7 +130,7 @@
 
     //Get Inv List
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/3/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/3/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
             //localStorage.setItem('InvSelectSanadAnbar', '');
             // last = localStorage.getItem('InvSelectSanadAnbar');
@@ -725,7 +725,7 @@
     function AddAnbar(invName) {
         inc = invName.includes("انبار");
         if (inc == false) {
-            invName =  'انبار ' + invName
+            invName = 'انبار ' + invName
         }
         return invName
     }
@@ -966,15 +966,30 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)">' +
-            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
-            '   </a>' +
+
+
+
+            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            '</a>' +
+            '<ul class="dropdown-menu">' +
+            '    <li>' +
+            '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)">' +
+            '            انتقال' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '        </a>' +
+            '    </li>' +
+            '    <li> <a href="javascript:void(0);">تغییر وضعیت</a></li>' +
+            '    <li> <a href="javascript:void(0);">چاپ</a></li>' +
+            '</ul>' +
+
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
+
             '</td >' +
 
             '</tr>' +
