@@ -748,7 +748,8 @@
 
    /* createViewer();
     $('#Print').click(function () {
-        setReport(self.filterADocHList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterADocHList(), 'Free', variable);
     }); */
 
 

@@ -1902,7 +1902,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterDocB_LastList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterDocB_LastList(), 'Free', variable);
     });
 
     /*    $(function () {

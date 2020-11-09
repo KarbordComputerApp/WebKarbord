@@ -258,7 +258,7 @@
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
             //accessTaeed
-           // accessTasvib
+            // accessTasvib
             if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تایید ندارید', 0);
@@ -283,11 +283,11 @@
             }
         }
 
-       
-         if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+
+        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
             $("#status").val(lastStatus);
             return showNotification('فقط اسناد تایید شده امکان تصویب دارند', 0);
-        } 
+        }
 
     });
 
@@ -313,7 +313,7 @@
 
     //Get Inv List
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/3/' +sessionStorage.userName  , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/3/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
             //var storedNames = JSON.parse(localStorage.getItem("inv"));
             //self.InvList(storedNames);
@@ -575,7 +575,7 @@
             DocNo: 0,
             StartNo: 0,
             EndNo: 0,
-            Tanzim: '*' + sessionStorage.userName + '*' ,
+            Tanzim: '*' + sessionStorage.userName + '*',
             TahieShode: sessionStorage.ace,
             VstrCode: 'null',
             VstrPer: 0,
@@ -1892,31 +1892,31 @@
         }
     });
 
-   // sessionStorage.SHOWPRICE_IIDOC = false
+    // sessionStorage.SHOWPRICE_IIDOC = false
 
-  /*  if (sessionStorage.InOut == 1 && sessionStorage.SHOWPRICE_IIDOC == "false") {
-
-        $('#thUnitPrice').attr('hidden', '');
-        $('#thTotalPrice').attr('hidden', '');
-        $('#thDiscount').attr('hidden', '');
-        $('#tdUnitPrice').attr('hidden', '');
-        $('#tdTotalPrice').attr('hidden', '');
-        $('#tdDiscount').attr('hidden', '');
-        $('#foottextUnitPrice').attr('hidden', '');
-        $('#foottexttotalprice').attr('hidden', '');
-        $('#foottextdiscount').attr('hidden', '');
-    }
-    else {
-        $('#thUnitPrice').removeAttr('hidden', '');
-        $('#thTotalPrice').removeAttr('hidden', '');
-        $('#thDiscount').removeAttr('hidden', '');
-        $('#tdUnitPrice').removeAttr('hidden', '');
-        $('#tdTotalPrice').removeAttr('hidden', '');
-        $('#tdDiscount').removeAttr('hidden', '');
-        $('#foottextUnitPrice').removeAttr('hidden', '');
-        $('#foottexttotalprice').removeAttr('hidden', '');
-        $('#foottextdiscount').removeAttr('hidden', '');
-    }*/
+    /*  if (sessionStorage.InOut == 1 && sessionStorage.SHOWPRICE_IIDOC == "false") {
+  
+          $('#thUnitPrice').attr('hidden', '');
+          $('#thTotalPrice').attr('hidden', '');
+          $('#thDiscount').attr('hidden', '');
+          $('#tdUnitPrice').attr('hidden', '');
+          $('#tdTotalPrice').attr('hidden', '');
+          $('#tdDiscount').attr('hidden', '');
+          $('#foottextUnitPrice').attr('hidden', '');
+          $('#foottexttotalprice').attr('hidden', '');
+          $('#foottextdiscount').attr('hidden', '');
+      }
+      else {
+          $('#thUnitPrice').removeAttr('hidden', '');
+          $('#thTotalPrice').removeAttr('hidden', '');
+          $('#thDiscount').removeAttr('hidden', '');
+          $('#tdUnitPrice').removeAttr('hidden', '');
+          $('#tdTotalPrice').removeAttr('hidden', '');
+          $('#tdDiscount').removeAttr('hidden', '');
+          $('#foottextUnitPrice').removeAttr('hidden', '');
+          $('#foottexttotalprice').removeAttr('hidden', '');
+          $('#foottextdiscount').removeAttr('hidden', '');
+      }*/
 
 
     createViewer();
@@ -1927,10 +1927,15 @@
         if (self.IDocPList().length == 0)
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
 
+        variable = '"ReportDate":"' + DateNow + '",';
+        //variable += '"Amount1":"' + 1000 + '",';
+
+
+
         if (sessionStorage.InOut == 1)
-            setReport(self.IDocPList(), 'Sanad_IDoc');
+            setReport(self.IDocPList(), 'Sanad_IDoc', variable);
         else
-            setReport(self.IDocPList(), 'Sanad_ODoc');
+            setReport(self.IDocPList(), 'Sanad_ODoc', variable);
     });
 
 
@@ -1953,19 +1958,19 @@
     });
 
 
-   /*
-    $('#inv').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });   
-    
-    $('#status').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
-
-    $('#modeCode').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
-    */
+    /*
+     $('#inv').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });   
+     
+     $('#status').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+ 
+     $('#modeCode').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+     */
 
 
 

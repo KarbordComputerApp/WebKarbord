@@ -2210,7 +2210,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterFDocR_SList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterFDocR_SList(), 'Free', variable);
     });
 
 };

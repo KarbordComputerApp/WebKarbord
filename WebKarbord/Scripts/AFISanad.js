@@ -3255,7 +3255,9 @@
 
         if (self.ADocPList().length == 0)
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
-        setReport(self.ADocPList(), 'Free');
+
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.ADocPList(), 'Free', variable);
     });
 
 

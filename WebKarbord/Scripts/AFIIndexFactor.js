@@ -1569,7 +1569,8 @@
 
     /* createViewer();
      $('#Print').click(function () {
-         setReport(self.filterFDocHList(), 'Free');
+         variable = '"ReportDate":"' + DateNow + '",';
+         setReport(self.filterFDocHList(), 'Free', variable);
      });*/
 
     self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));

@@ -302,7 +302,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterThvl(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterThvl(), 'Free', variable);
     });
 };
 

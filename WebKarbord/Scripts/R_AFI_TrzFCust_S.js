@@ -2525,7 +2525,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterTrzFCust_SList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterTrzFCust_SList(), 'Free', variable);
     });
 
 };

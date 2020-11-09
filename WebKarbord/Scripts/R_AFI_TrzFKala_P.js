@@ -2619,7 +2619,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterTrzFKala_PList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterTrzFKala_PList(), 'Free', variable);
     });
 };
 

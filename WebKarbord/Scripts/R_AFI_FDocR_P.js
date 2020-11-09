@@ -2213,7 +2213,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterFDocR_PList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterFDocR_PList(), 'Free', variable);
     });
 };
 

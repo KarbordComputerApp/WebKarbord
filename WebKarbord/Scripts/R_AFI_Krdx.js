@@ -2877,7 +2877,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        // setReport(self.filterTrzAccList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        // setReport(self.filterTrzAccList(), 'Free', variable);
     });
 
 

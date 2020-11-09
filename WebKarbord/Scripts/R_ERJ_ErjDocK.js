@@ -1207,7 +1207,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterDocKList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterDocKList(), 'Free', variable);
     });
 
 };

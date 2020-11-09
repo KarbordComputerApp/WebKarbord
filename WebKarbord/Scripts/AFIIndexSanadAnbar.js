@@ -1071,7 +1071,8 @@
 
     /*createViewer();
     $('#Print').click(function () {
-        setReport(self.filterIDocHList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterIDocHList(), 'Free', variable);
     });*/
 
 };

@@ -1888,7 +1888,12 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterADocRList(), 'Report_ADocR', FromDate, ToDate);
+
+        variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+
+        setReport(self.filterADocRList(), 'Report_ADocR', variable);
     });
 
 };

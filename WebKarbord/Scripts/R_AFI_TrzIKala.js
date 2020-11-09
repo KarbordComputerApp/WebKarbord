@@ -2563,7 +2563,8 @@
 
     createViewer();
     $('#Print').click(function () {
-        setReport(self.filterTrzIList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterTrzIList(), 'Free', variable);
     });
 
 };

@@ -949,7 +949,12 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterTChkList(), 'Report_TChk', FromDate, ToDate);
+
+        variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+
+        setReport(self.filterTChkList(), 'Report_TChk', variable);
     });
 
 };

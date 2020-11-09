@@ -1359,7 +1359,12 @@
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
-        setReport(self.filterTrzAccList(), 'Report_TrzAcc', FromDate, ToDate);
+
+        variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+
+        setReport(self.filterTrzAccList(), 'Report_TrzAcc', variable);
     });
 };
 

@@ -2521,7 +2521,8 @@
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
             return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
-        setReport(self.FDocPList(), 'Free');
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.FDocPList(), 'Free', variable);
     });
 
 
