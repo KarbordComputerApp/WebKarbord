@@ -1928,14 +1928,19 @@
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
 
         variable = '"ReportDate":"' + DateNow + '",';
-        //variable += '"Amount1":"' + 1000 + '",';
 
 
+        if (sessionStorage.InOut == 1) {
+            if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
+                setReport(self.IDocPList(), 'Sanad_IDoc', variable);
+            else
+                setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
+        }
+        else {
+            setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
+        }
+        
 
-        if (sessionStorage.InOut == 1)
-            setReport(self.IDocPList(), 'Sanad_IDoc', variable);
-        else
-            setReport(self.IDocPList(), 'Sanad_ODoc', variable);
     });
 
 
