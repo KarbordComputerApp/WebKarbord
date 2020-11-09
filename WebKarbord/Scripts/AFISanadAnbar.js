@@ -1937,7 +1937,7 @@
                 setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
         }
         else {
-            setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
+            setReport(self.IDocPList(), 'Sanad_ODoc_NoPrice', variable);
         }
         
 
