@@ -1487,6 +1487,7 @@
 
 
 
+
     function CreateTableReport(data) {
         $("#TableList").empty();
         dataTable =
@@ -1496,7 +1497,6 @@
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('CustName', data);
-
 
         if (showFinalPrice)
             dataTable += CreateTableTh('FinalPrice', data);

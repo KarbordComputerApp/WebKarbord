@@ -1352,8 +1352,8 @@ function SetValidation() {
         //validation = CheckAccess('PRN_IODOC'); // print sadere anbar
         // validation == true ? $("#").show() : $("#").hide()
 
-        //validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
-        //validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false
+        validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
+        validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false
 
         validation = CheckAccess('TAEED_IODOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_IODOC = true : sessionStorage.Access_TAEED_IODOC = false
