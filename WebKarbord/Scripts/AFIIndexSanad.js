@@ -6,19 +6,30 @@
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
 
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
+    self.StatusList = ko.observableArray([]); // وضعیت  
+
+
+    self.StatusSanad = ko.observable();
 
     sessionStorage.BeforeMoveSanad = false;
 
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
     var AMoveSanadUri = server + '/api/ADocData/MoveSanad/'; // آدرس انتقال اسناد ها 
+    var AChangeStatusUri = server + '/api/ADocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
     var allSearchADocH = true;
     var docDate;
     var serial;
 
-    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    var accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
+    var accessDaem = sessionStorage.Access_DAEM_ADOC == 'true'
+
+
 
     var rprtId = 'ADocH';
     var columns = [
@@ -122,6 +133,73 @@
     }
 
 
+
+
+
+
+
+
+
+
+
+    //Get Status List
+    function getStatusList() {
+        progName = getProgName('A');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+            self.StatusList(data);
+        });
+    }
+
+
+
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+
+        selectStatus = $("#status").val();
+        if (accessTaeed == false && selectStatus == 'تایید') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی تایید ندارید', 0);
+        }
+
+        if (accessDaem == false && selectStatus == 'دائم') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی دائم ندارید', 0);
+        }
+
+    });
+    self.ChangeStatusSanad = function (item) {
+        serial = item.SerialNumber;
+        sessionStorage.Status = item.Status;
+        self.StatusSanad(item.Status);
+        $('#titleChangeStatus').text(' تغییر وضعیت سند ' + item.DocNo + ' به ');
+        $('#modal-ChangeStatusSanad').modal();
+    }
+
+
+    $('#ChangeStatus').click(function () {
+        var StatusChangeObject = {
+            DMode: 0,
+            UserCode: sessionStorage.userName,
+            SerialNumber: serial,
+            Status: self.StatusSanad(),
+        };
+        $('#modal-ChangeStatusSanad').modal('hide');
+        showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
+
+        ajaxFunction(AChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+            item = response;
+            getADocH($('#pageCountSelector').val());
+        });
+
+    });
+
+
+
+    getStatusList();
     getADocH($('#pageCountSelector').val());
 
 
@@ -599,7 +677,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null} " >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null} " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
@@ -630,9 +708,36 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveSanad" data-bind="click: $root.MoveSanad , visible: $root.ShowMove(Eghdam) ">' +
-            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
-            '   </a>' +
+            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            '</a>' +
+            '<ul class="dropdown-menu">' +
+            '    <li>' +
+            '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '            پرکردن' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li>' +
+            '        <a id="ChangeStatusSanad" data-bind="click: $root.ChangeStatusSanad" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '            تغییر وضعیت' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li>' +
+            '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
+            '            چاپ ' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li> <a href="javascript:void(0);" style="font-size: 11px;text-align: right;">' +
+            '        ' +
+            '    </a> </li> ' +
+            '</ul>' +
+
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
             '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
             '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +

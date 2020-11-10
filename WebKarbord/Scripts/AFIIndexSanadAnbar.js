@@ -15,11 +15,25 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها
+    self.StatusList = ko.observableArray([]); // وضعیت  
+    self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
+    self.InvList = ko.observableArray([]); // ليست انبار ها
 
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
 
     var IMoveSanadUri = server + '/api/IDocData/MoveSanad/'; // آدرس انتقال اسناد 
+    var IChangeStatusUri = server + '/api/IDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
+    var IDocHUri = server + '/api/IDocData/IDocH/'; // آدرس لیست اسناد انبار 
+    var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
+    var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
+    var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
+
+
+    self.InvCode = ko.observable();
+    self.InvCodeMove = ko.observable();
+    self.StatusSanad = ko.observable();
 
 
     var columns = [
@@ -85,6 +99,59 @@
         });
     }
 
+    //Get Status List
+    function getStatusList() {
+        progName = getProgName('P');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+            self.StatusList(data);
+        });
+    }
+
+
+
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+        selectStatus = $("#status").val();
+        if (sessionStorage.InOut == 1) {
+            //accessTaeed
+            // accessTasvib
+            if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
+                $("#status").val(lastStatus);
+                return showNotification('دسترسی تایید ندارید', 0);
+            }
+
+            if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
+                $("#status").val(lastStatus);
+                return showNotification('دسترسی تصویب ندارید', 0);
+            }
+
+        }
+
+        if (sessionStorage.InOut == 2) {
+            if (sessionStorage.Access_TAEED_IODOC == 'false' && selectStatus == 'تایید') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی تایید', 0);
+            }
+
+            if (sessionStorage.Access_TASVIB_IODOC == 'false' && selectStatus == 'تصویب') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی تصویب', 0);
+            }
+        }
+
+
+        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+            $("#status").val(lastStatus);
+            return showNotification('فقط اسناد تایید شده امکان تصویب دارند', 0);
+        }
+
+    });
+
+
     $('#SaveColumns').click(function () {
         SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanadAnbar/index", columns, self.SettingColumnList());
     });
@@ -116,17 +183,7 @@
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
 
-    self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
-    self.InvList = ko.observableArray([]); // ليست انبار ها
 
-    self.InvCode = ko.observable();
-    self.InvCodeMove = ko.observable();
-
-    var IDocHUri = server + '/api/IDocData/IDocH/'; // آدرس لیست اسناد انبار 
-    var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
-    var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
-
-    var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
 
     //Get Inv List
     function getInvList() {
@@ -193,6 +250,7 @@
 
 
     getInvList();
+    getStatusList();
 
     getIDocH(0, invSelected);
     $('#invSelect').val(invSelected);
@@ -748,6 +806,8 @@
         $('#modal-Move').modal();
     }
 
+
+
     getIModeList();
     //Get  IMode List
     function getIModeList() {
@@ -883,9 +943,31 @@
 
 
 
+    self.ChangeStatusSanad = function (item) {
+        serial = item.SerialNumber;
+        sessionStorage.Status = item.Status;
+        self.StatusSanad(item.Status);
+        $('#titleChangeStatus').text(' تغییر وضعیت سند ' + item.DocNo + ' به ');
+        $('#modal-ChangeStatusSanad').modal();
+    }
 
 
+    $('#ChangeStatus').click(function () {
+        var StatusChangeObject = {
+            DMode : 0,
+            UserCode: sessionStorage.userName,
+            SerialNumber: serial,
+            Status: self.StatusSanad(),
+        };
+        $('#modal-ChangeStatusSanad').modal('hide');
+        showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
 
+        ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+            item = response;
+            getIDocH(0, invSelected);
+        });
+
+    });
 
 
 
@@ -933,7 +1015,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null}" >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null}" >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('InvName', 0, 0, data) +
@@ -974,13 +1056,29 @@
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)">' +
-            '            انتقال' +
+            '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '            انتقال' +
             '        </a>' +
             '    </li>' +
-            '    <li> <a href="javascript:void(0);">تغییر وضعیت</a></li>' +
-            '    <li> <a href="javascript:void(0);">چاپ</a></li>' +
+
+            '    <li>' +
+            '        <a id="ChangeStatusSanad" data-bind="click: $root.ChangeStatusSanad" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '            تغییر وضعیت' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li>' +
+            '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
+            '            چاپ ' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li> <a href="javascript:void(0);" style="font-size: 11px;text-align: right;">'+
+            '        '+
+            '    </a> </li> ' +
             '</ul>' +
 
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
@@ -989,9 +1087,7 @@
             '   <a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
-
             '</td >' +
-
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +

@@ -813,10 +813,10 @@
     <Content Include="Content\Report\Sanad_IDoc.mrt" />
     <Content Include="Content\Report\Sanad_ODoc.mrt" />
     <Content Include="Content\Report\Report_TrzAcc.mrt" />
-    <Content Include="Content\Report\Report_ADocR.mrt" />
     <Content Include="Content\Report\Report_TChk.mrt" />
     <Content Include="Content\Report\Sanad_ODoc_NoPrice.mrt" />
     <Content Include="Content\Report\Sanad_IDoc_NoPrice.mrt" />
+    <Content Include="Content\Report\Report_ADocR.mrt" />
     <None Include="packages.config" />
     <Content Include="Views\AFIFactor\AddFdoc.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />

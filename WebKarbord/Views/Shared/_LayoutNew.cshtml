@@ -274,7 +274,10 @@
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
                         <div class="profile-usertitle-job " id="TextNoUser"></div>-->
-                        <div class="profile-usertitle-job ">ورژن تست  262</div>
+                        <div class="profile-usertitle-job ">
+                            <span id="titleVer">@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)</span>
+                            <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
+                        </div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1007</div> -->
                     </div>
                 </li>
@@ -639,7 +642,7 @@
     <script src="~/Content/js/sweet2.js"></script>
     <script src="~/Content/js/jalaali.js"></script>
     <script src="~/Scripts/app.js"></script>
-    <script src="~/Scripts/PublicAFI.js?dt=@(DateTime.Now.Ticks)"></script>
+    <script src="~/Scripts/PublicAFI.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
     <script src="~/Content/new/js/jquery.md5.js"></script>
 

@@ -185,7 +185,7 @@
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var IDocHUri = server + '/api/IDocData/IDocH/'; // آدرس هدر سند 
     var IDocBUri = server + '/api/IDocData/IDocB/'; // آدرس لیست بند های سند 
-    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت  
     var IDocHLastDateUri = server + '/api/IDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع سند
     var UpdatePriceUri = server + '/api/IDocData/UpdatePriceAnbar/'; // آدرس اعمال گروه قیمت

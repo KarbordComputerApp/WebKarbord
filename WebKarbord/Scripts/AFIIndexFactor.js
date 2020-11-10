@@ -15,12 +15,17 @@
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.FDocHList1 = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش
     self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
+    self.StatusList = ko.observableArray([]); // وضعیت  
+
+    self.StatusFactor = ko.observable();
 
     var FDocHUri = server + '/api/FDocData/FDocH/'; // آدرس کسورات و افزایشات 
     var FDocHCountUri = server + '/api/FDocData/FDocH/'; // تعداد رکورد های فاکتور 
     var FDocHHiUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
     var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
     var FMoveFactorUri = server + '/api/FDocData/MoveFactor/'; // آدرس انتقال فاکتور ها 
+    var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
     var allSearchFDocH = true;
     var inOut;
@@ -28,6 +33,10 @@
     var defultMove;
     var TitleListFactor;
     var docDate;
+
+    var showFinalPrice = false;
+    var accessTaeed = false;
+    var accessTasvib = false;
 
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
@@ -159,35 +168,54 @@
     ];
 
 
-    var showFinalPrice = false;
 
     $.fn.CheckAccess = function () {
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+            accessTaeed = sessionStorage.Access_TAEED_SFORD == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SFORD == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
         }
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+            accessTaeed = sessionStorage.Access_TAEED_SPDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SPDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+            accessTaeed = sessionStorage.Access_TAEED_SFDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SFDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+            accessTaeed = sessionStorage.Access_TAEED_SHVL == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SHVL == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+            accessTaeed = sessionStorage.Access_TAEED_SEXT == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SEXT == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+            accessTaeed = sessionStorage.Access_TAEED_PFORD == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PFORD == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+            accessTaeed = sessionStorage.Access_TAEED_PFDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PFDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+            accessTaeed = sessionStorage.Access_TAEED_PRDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PRDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
         }
     }
@@ -247,6 +275,82 @@
     });
 
     getRprtColsList(true, sessionStorage.userName);
+
+
+
+
+
+
+
+
+
+
+
+
+    //Get Status List
+    function getStatusList() {
+        progName = getProgName('S');
+        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+            self.StatusList(data);
+        });
+    }
+    getStatusList();
+
+
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+        selectStatus = $("#status").val();
+        if (accessTaeed == false && selectStatus == 'تایید') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی تایید ندارید', 0);
+        }
+
+        if (accessTasvib == false && selectStatus == 'تصویب') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی تصویب ندارید', 0);
+        }
+
+        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+            $("#status").val(lastStatus);
+            return showNotification('فقط فاکتور های تایید شده امکان تصویب دارند', 0);
+        }
+
+    });
+
+
+    self.ChangeStatusFactor = function (item) {
+        serial = item.SerialNumber;
+        sessionStorage.Status = item.Status;
+        self.StatusFactor(item.Status);
+        $('#titleChangeStatus').text(' تغییر وضعیت فاکتور ' + item.DocNo + ' به ');
+        $('#modal-ChangeStatusFactor').modal();
+    }
+
+
+    $('#ChangeStatus').click(function () {
+        var StatusChangeObject = {
+            DMode: 0,
+            UserCode: sessionStorage.userName,
+            SerialNumber: serial,
+            Status: self.StatusFactor(),
+        };
+        $('#modal-ChangeStatusFactor').modal('hide');
+        showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
+
+        ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+            item = response;
+            getFDocH($('#pageCountSelector').val());
+        });
+
+    });
+
+
+
+
 
 
 
@@ -1215,7 +1319,7 @@
     if (ace == "Web1") {
         $("#menu1").attr('hidden', '');
         $("#TabMove").attr('hidden', '');
-    } 
+    }
 
 
 
@@ -1428,7 +1532,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#7a0bee\' : Status == \'باطل\' ? \'red\' : null}  " >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null}  " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data)
@@ -1464,9 +1568,37 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-            '   <a id="MoveFactor" data-bind="click: $root.MoveFactor  , visible: $root.ShowMove(Eghdam)" >' +
-            '       <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px" />' +
-            '   </a>' +
+
+            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            '</a>' +
+            '<ul class="dropdown-menu">' +
+            '    <li>' +
+            '        <a id="MoveFactor" data-bind="click: $root.MoveFactor  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '            انتقال' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li>' +
+            '        <a id="ChangeStatusFactor" data-bind="click: $root.ChangeStatusFactor" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            '            تغییر وضعیت' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li>' +
+            '        <a id="PrintFactor" data-bind="click: $root.PrintFactor" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
+            '            چاپ ' +
+            '        </a>' +
+            '    </li>' +
+
+            '    <li> <a href="javascript:void(0);" style="font-size: 11px;text-align: right;">' +
+            '        ' +
+            '    </a> </li> ' +
+            '</ul>' +
+
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +

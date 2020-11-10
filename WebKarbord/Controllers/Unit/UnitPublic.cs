@@ -14,6 +14,13 @@ namespace WebKarbord.Controllers.Unit
 {
     public class UnitPublic
     {
+        public static string titleVer = "ورژن تست : ";
+        public static string titleVerNumber = "265";
+
+        //public static string titleVer = "ورژن : ";
+        //public static string titleVerNumber = "1007";
+
+
         //Server.MapPath("ini/SqlServerConfig.Ini");
         public static string Appddress; //ادرس نرم افزار
         public static IniFile MyIniServer;

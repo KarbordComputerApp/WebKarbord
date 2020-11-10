@@ -694,13 +694,16 @@ function SetValidation() {
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
     //sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
     if (access[0].TrsName == 'ADMIN') {
+        sessionStorage.UserAdmin = true;
         if (sessionStorage.userName == 'ACE')
             $('#TextNoUser').text('مدیر سیستم');
         else
             $('#TextNoUser').text('مدیر');
     }
-    else
+    else {
+        sessionStorage.UserAdmin = false;
         $('#TextNoUser').text('کاربر');
+    }
 
     $('#persionUserName').text(sessionStorage.userName);
 
@@ -2193,7 +2196,9 @@ function createViewer() {
     options.appearance.fullScreenMode = true;
     options.appearance.scrollbarsMode = true;
     options.toolbar.showSaveButton = true;
-    options.toolbar.showDesignButton = true;
+
+    
+    options.toolbar.showDesignButton = sessionStorage.UserAdmin == 'true';
 
     options.toolbar.showFullScreenButton = false;
 
