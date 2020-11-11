@@ -2382,15 +2382,15 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
+    var showPrice = false;
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
-        showVPrice = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
-        showSPrice = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
-        showPrice = showVPrice == true && showSPrice == true;
+        showPrice = sessionStorage.FDoc_REP_PRICE == 'true';
+        //showPrice = false;
 
-        dataTable =
+        $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzI">' +
@@ -2401,37 +2401,20 @@
             CreateTableTh('KalaFanniNo', data) +
             CreateTableTh('AAmount1', data) +
             CreateTableTh('AAmount2', data) +
-            CreateTableTh('AAmount3', data);
-
-        if (showPrice)
-            dataTable += CreateTableTh('ATotalPrice', data);
-
-        dataTable +=
+            CreateTableTh('AAmount3', data) +
+            CreateTableTh('ATotalPrice', data) +
             CreateTableTh('VAmount1', data) +
             CreateTableTh('VAmount2', data) +
-            CreateTableTh('VAmount3', data);
-
-        if (showVPrice)
-            dataTable += CreateTableTh('VTotalPrice', data);
-
-        dataTable +=
+            CreateTableTh('VAmount3', data) +
+            CreateTableTh('VTotalPrice', data) +
             CreateTableTh('SAmount1', data) +
             CreateTableTh('SAmount2', data) +
-            CreateTableTh('SAmount3', data)
-
-        if (showSPrice)
-            dataTable += CreateTableTh('STotalPrice', data)
-
-
-        dataTable +=
+            CreateTableTh('SAmount3', data) +
+            CreateTableTh('STotalPrice', data) +
             CreateTableTh('MAmount1', data) +
             CreateTableTh('MAmount2', data) +
-            CreateTableTh('MAmount3', data)
-
-        if (showSPrice)
-            dataTable += CreateTableTh('MTotalPrice', data)
-
-        dataTable +=
+            CreateTableTh('MAmount3', data) +
+            CreateTableTh('MTotalPrice', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageTrzI}" style="cursor: default;">' +
@@ -2443,36 +2426,20 @@
             CreateTableTd('KalaFanniNo', 0, 0, data) +
             CreateTableTd('AAmount1', 'KalaDeghat1', 1, data) +
             CreateTableTd('AAmount2', 'KalaDeghat2', 1, data) +
-            CreateTableTd('AAmount3', 'KalaDeghat3', 1, data)
-
-        if (showPrice)
-            dataTable += CreateTableTd('ATotalPrice', sessionStorage.Deghat, 2, data);
-
-        dataTable +=
+            CreateTableTd('AAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('ATotalPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('VAmount1', 'KalaDeghat1', 1, data) +
             CreateTableTd('VAmount2', 'KalaDeghat2', 1, data) +
-            CreateTableTd('VAmount3', 'KalaDeghat3', 1, data)
-
-        if (showVPrice)
-            dataTable += CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, data)
-
-        dataTable +=
+            CreateTableTd('VAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('VTotalPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('SAmount1', 'KalaDeghat1', 1, data) +
             CreateTableTd('SAmount2', 'KalaDeghat2', 1, data) +
-            CreateTableTd('SAmount3', 'KalaDeghat3', 1, data)
-
-        if (showSPrice)
-            dataTable += CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, data)
-
-        dataTable +=
+            CreateTableTd('SAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('STotalPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MAmount1', 'KalaDeghat1', 1, data) +
             CreateTableTd('MAmount2', 'KalaDeghat2', 1, data) +
-            CreateTableTd('MAmount3', 'KalaDeghat3', 1, data)
-
-        if (showSPrice)
-            dataTable += CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data)
-
-        dataTable +=
+            CreateTableTd('MAmount3', 'KalaDeghat3', 1, data) +
+            CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -2484,36 +2451,20 @@
             CreateTableTdSum('KalaFanniNo', 1, data) +
             CreateTableTdSum('AAmount1', 2, data) +
             CreateTableTdSum('AAmount2', 2, data) +
-            CreateTableTdSum('AAmount3', 2, data);
-
-        if (showPrice)
-            dataTable += CreateTableTdSum('ATotalPrice', 2, data);
-
-        dataTable +=
+            CreateTableTdSum('AAmount3', 2, data) +
+            CreateTableTdSum('ATotalPrice', 2, data) +
             CreateTableTdSum('VAmount1', 2, data) +
             CreateTableTdSum('VAmount2', 2, data) +
-            CreateTableTdSum('VAmount3', 2, data)
-
-        if (showVPrice)
-            dataTable += CreateTableTdSum('VTotalPrice', 2, data)
-
-        dataTable +=
+            CreateTableTdSum('VAmount3', 2, data) +
+            CreateTableTdSum('VTotalPrice', 2, data) +
             CreateTableTdSum('SAmount1', 2, data) +
             CreateTableTdSum('SAmount2', 2, data) +
-            CreateTableTdSum('SAmount3', 2, data)
-
-        if (showSPrice)
-            dataTable += CreateTableTdSum('STotalPrice', 2, data)
-
-        dataTable +=
+            CreateTableTdSum('SAmount3', 2, data) +
+            CreateTableTdSum('STotalPrice', 2, data) +
             CreateTableTdSum('MAmount1', 2, data) +
             CreateTableTdSum('MAmount2', 2, data) +
-            CreateTableTdSum('MAmount3', 2, data)
-
-        if (showSPrice)
-            dataTable += CreateTableTdSum('MTotalPrice', 2, data)
-
-        dataTable +=
+            CreateTableTdSum('MAmount3', 2, data) +
+            CreateTableTdSum('MTotalPrice', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('KalaCode', data) +
@@ -2523,111 +2474,111 @@
             CreateTableTdSearch('KalaFanniNo', data) +
             CreateTableTdSearch('AAmount1', data) +
             CreateTableTdSearch('AAmount2', data) +
-            CreateTableTdSearch('AAmount3', data)
-        if (showPrice)
-            dataTable += CreateTableTdSearch('ATotalPrice', data);
-
-        dataTable +=
+            CreateTableTdSearch('AAmount3', data) +
+            CreateTableTdSearch('ATotalPrice', data) +
             CreateTableTdSearch('VAmount1', data) +
             CreateTableTdSearch('VAmount2', data) +
-            CreateTableTdSearch('VAmount3', data)
-
-        if (showVPrice)
-            dataTable += CreateTableTdSearch('VTotalPrice', data)
-
-        dataTable +=
+            CreateTableTdSearch('VAmount3', data) +
+            CreateTableTdSearch('VTotalPrice', data) +
             CreateTableTdSearch('SAmount1', data) +
             CreateTableTdSearch('SAmount2', data) +
-            CreateTableTdSearch('SAmount3', data)
-
-        if (showSPrice)
-            dataTable += CreateTableTdSearch('STotalPrice', data)
-
-        dataTable +=
+            CreateTableTdSearch('SAmount3', data) +
+            CreateTableTdSearch('STotalPrice', data) +
             CreateTableTdSearch('MAmount1', data) +
             CreateTableTdSearch('MAmount2', data) +
-            CreateTableTdSearch('MAmount3', data)
-
-        if (showSPrice)
-            dataTable += CreateTableTdSearch('MTotalPrice', data)
-
-        dataTable +=
+            CreateTableTdSearch('MAmount3', data) +
+            CreateTableTdSearch('MTotalPrice', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
-        $('#TableReport').append(dataTable);
+        );
     }
 
     function CreateTableTh(field, data) {
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<th ';
 
-        text = '<th ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'data-column="' + field + '">' +
-            '<span data-column="' + field + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
-            '</th>';
-        return text;
+            text += 'data-column="' + field + '">' +
+                '<span data-column="' + field + '">' + TextField + '</span>' +
+                '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+                '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+                '</th>';
+            return text;
+        }
     }
 
     function CreateTableTd(field, Deghat, no, data) {
-        text = '<td ';
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<td ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        switch (no) {
-            case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
-                break;
-            case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
-                break;
-            case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
-                break;
-            case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
-                break;
+            switch (no) {
+                case 0:
+                    text += 'data-bind="text: ' + field + '"></td>';
+                    break;
+                case 1:
+                    text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                    break;
+                case 2:
+                    text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                    break;
+                case 3:
+                    text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                    break;
+            }
+            return text;
         }
-        return text;
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<td ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        switch (no) {
-            case 0:
-                text += 'id="textTotal"></td>';
-                break;
-            case 1:
-                text += '></td>'
-                break;
-            case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
-                break;
+            switch (no) {
+                case 0:
+                    text += 'id="textTotal"></td>';
+                    break;
+                case 1:
+                    text += '></td>'
+                    break;
+                case 2:
+                    text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                    break;
+            }
+            return text;
         }
-        return text;
     }
 
     function CreateTableTdSearch(field, data) {
-        text = '<td ';
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<td ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
-        return text;
+            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+            return text;
+        }
     }
 
     createViewer();

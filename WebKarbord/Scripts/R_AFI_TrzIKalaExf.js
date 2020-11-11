@@ -2503,8 +2503,16 @@
 
     $('.fix').attr('class', 'form-line date focused fix');
 
+
+
+    var showPrice = false;
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
+
+        showPrice = sessionStorage.FDoc_REP_PRICE == 'true';
+        //showPrice = false;
+
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
@@ -2678,75 +2686,90 @@
     }
 
     function CreateTableTh(field, data) {
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<th ';
 
-        text = '<th ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'data-column="' + field + '">' +
-            '<span data-column="' + field + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
-            '</th>';
-        return text;
+            text += 'data-column="' + field + '">' +
+                '<span data-column="' + field + '">' + TextField + '</span>' +
+                '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+                '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+                '</th>';
+            return text;
+        }
     }
 
     function CreateTableTd(field, Deghat, no, data) {
-        text = '<td ';
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<td ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        switch (no) {
-            case 0:
-                text += 'data-bind="text: ' + field + '"></td>';
-                break;
-            case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
-                break;
-            case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
-                break;
-            case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
-                break;
+            switch (no) {
+                case 0:
+                    text += 'data-bind="text: ' + field + '"></td>';
+                    break;
+                case 1:
+                    text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                    break;
+                case 2:
+                    text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                    break;
+                case 3:
+                    text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                    break;
+            }
+            return text;
         }
-        return text;
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<td ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        switch (no) {
-            case 0:
-                text += 'id="textTotal"></td>';
-                break;
-            case 1:
-                text += '></td>'
-                break;
-            case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
-                break;
+            switch (no) {
+                case 0:
+                    text += 'id="textTotal"></td>';
+                    break;
+                case 1:
+                    text += '></td>'
+                    break;
+                case 2:
+                    text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                    break;
+            }
+            return text;
         }
-        return text;
     }
 
     function CreateTableTdSearch(field, data) {
-        text = '<td ';
+        if (field.includes('Price') == true && showPrice == false)
+            return ''
+        else {
+            text = '<td ';
 
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
+            TextField = FindTextField(field, data);
+            if (TextField == 0)
+                text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
-        return text;
+            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+            return text;
+        }
     }
 
 

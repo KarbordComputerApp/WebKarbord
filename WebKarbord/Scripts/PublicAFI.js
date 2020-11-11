@@ -778,6 +778,11 @@ function SetValidation() {
     ShowMenu[30] = validation;  // گزارش کاردکس
 
 
+    sessionStorage.FDoc_REP_PRICE = CheckAccessReport('FDoc_REP_PRICE'); // خرید و فروش دسترسی مبلغ در گزارشات
+    sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');// دسترسی مبلغ در گزارشات انبار
+    
+
+
 
     /*  if (accessReport[i].Code == 'TrzIKala') {
           return accessReport[i].Trs;
