@@ -794,7 +794,7 @@
         $('#modeCodePor').val(item.ModeCode);
 
         $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
-        $('#titlePor').text(' پر کردن ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' در ');
+        $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' در ');
 
         if (invSelected == '') {
             temp = localStorage.getItem('InvSelectSanadAnbarMove')
@@ -1058,7 +1058,7 @@
             '    <li>' +
             '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            انتقال' +
+            '            کپی' +
             '        </a>' +
             '    </li>' +
 

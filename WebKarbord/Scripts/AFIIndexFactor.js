@@ -326,7 +326,7 @@
         serial = item.SerialNumber;
         sessionStorage.Status = item.Status;
         self.StatusFactor(item.Status);
-        $('#titleChangeStatus').text(' تغییر وضعیت فاکتور ' + item.DocNo + ' به ');
+        $('#titleChangeStatus').text(' تغییر وضعیت ' + TitleListFactor + ' ' + item.DocNo + ' به ');
         $('#modal-ChangeStatusFactor').modal();
     }
 
@@ -1192,7 +1192,7 @@
         $('#modeCodePor').val(sessionStorage.ModeCode);
 
         $('#titleMove').text(' انتقال ' + TitleListFactor + ' ' + item.DocNo + ' به ');
-        $('#titlePor').text(' پر کردن ' + TitleListFactor + ' ' + item.DocNo + ' در ');
+        $('#titlePor').text(' کپی ' + TitleListFactor + ' ' + item.DocNo + ' در ');
         $('#modal-Move').modal();
     }
 
@@ -1576,7 +1576,7 @@
             '    <li>' +
             '        <a id="MoveFactor" data-bind="click: $root.MoveFactor  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            انتقال' +
+            '            کپی' +
             '        </a>' +
             '    </li>' +
 

@@ -715,7 +715,7 @@
             '    <li>' +
             '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            پرکردن' +
+            '            کپی' +
             '        </a>' +
             '    </li>' +
 
@@ -861,7 +861,7 @@
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        $('#titleMove').text(' پر کردن سند حسابداری ' + item.DocNo + ' در ');
+        $('#titleMove').text(' کپی سند حسابداری ' + item.DocNo + ' در ');
         $('#modal-Move').modal();
     }
 
