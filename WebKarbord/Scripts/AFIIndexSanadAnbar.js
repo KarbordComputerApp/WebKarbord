@@ -793,7 +793,7 @@
         docDate = item.DocDate;
         $('#modeCodePor').val(item.ModeCode);
 
-        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + item.InvName + ' به ');
+        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
         $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' در ');
 
         if (invSelected == '') {
@@ -947,7 +947,8 @@
         serial = item.SerialNumber;
         sessionStorage.Status = item.Status;
         self.StatusSanad(item.Status);
-        $('#titleChangeStatus').text(' تغییر وضعیت سند ' + item.DocNo + ' به ');
+        $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
+
         $('#modal-ChangeStatusSanad').modal();
     }
 
