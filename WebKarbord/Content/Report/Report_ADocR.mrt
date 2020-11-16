@@ -1,1 +1,1288 @@
-{"ReportVersion":"2017.1.11","ReportGuid":"af5e3505d9643000c59070e2d9e0b057","ReportName":"Report","ReportAlias":"Report","ReportFile":"201605012016242.mrt","ReportCreated":"/Date(1601314030000+0330)/","ReportChanged":"/Date(1601314030000+0330)/","EngineVersion":"EngineV2","CalculationMode":"Interpretation","Dictionary":{"DataSources":{"0":{"Ident":"StiDataTableSource","Name":"Data","Alias":"Data","Columns":{"0":{"Name":"BandNo","Index":-1,"NameInSource":"BandNo","Alias":"BandNo","Type":"System.Decimal"},"1":{"Name":"AccCode","Index":-1,"NameInSource":"AccCode","Alias":"AccCode","Type":"System.String"},"2":{"Name":"MkzCode","Index":-1,"NameInSource":"MkzCode","Alias":"MkzCode","Type":"System.String"},"3":{"Name":"OprCode","Index":-1,"NameInSource":"OprCode","Alias":"OprCode","Type":"System.String"},"4":{"Name":"Comm","Index":-1,"NameInSource":"Comm","Alias":"Comm","Type":"System.String"},"5":{"Name":"Bede","Index":-1,"NameInSource":"Bede","Alias":"Bede","Type":"System.Decimal"},"6":{"Name":"Best","Index":-1,"NameInSource":"Best","Alias":"Best","Type":"System.Decimal"},"7":{"Name":"Amount","Index":-1,"NameInSource":"Amount","Alias":"Amount","Type":"System.Decimal"},"8":{"Name":"ArzCode","Index":-1,"NameInSource":"ArzCode","Alias":"ArzCode","Type":"System.String"},"9":{"Name":"ArzValue","Index":-1,"NameInSource":"ArzValue","Alias":"ArzValue","Type":"System.Decimal"},"10":{"Name":"ArzRate","Index":-1,"NameInSource":"ArzRate","Alias":"ArzRate","Type":"System.Decimal"},"11":{"Name":"SerialNumber","Index":-1,"NameInSource":"SerialNumber","Alias":"SerialNumber","Type":"System.Decimal"},"12":{"Name":"DocNo","Index":-1,"NameInSource":"DocNo","Alias":"DocNo","Type":"System.Decimal"},"13":{"Name":"DocDate","Index":-1,"NameInSource":"DocDate","Alias":"DocDate","Type":"System.String"},"14":{"Name":"Spec","Index":-1,"NameInSource":"Spec","Alias":"Spec","Type":"System.String"},"15":{"Name":"Status","Index":-1,"NameInSource":"Status","Alias":"Status","Type":"System.String"},"16":{"Name":"Tanzim","Index":-1,"NameInSource":"Tanzim","Alias":"Tanzim","Type":"System.String"},"17":{"Name":"Taeed","Index":-1,"NameInSource":"Taeed","Alias":"Taeed","Type":"System.String"},"18":{"Name":"Eghdam","Index":-1,"NameInSource":"Eghdam","Alias":"Eghdam","Type":"System.String"},"19":{"Name":"Tasvib","Index":-1,"NameInSource":"Tasvib","Alias":"Tasvib","Type":"System.String"},"20":{"Name":"ModeCode","Index":-1,"NameInSource":"ModeCode","Alias":"ModeCode","Type":"System.String"},"21":{"Name":"F01","Index":-1,"NameInSource":"F01","Alias":"F01","Type":"System.String"},"22":{"Name":"F02","Index":-1,"NameInSource":"F02","Alias":"F02","Type":"System.String"},"23":{"Name":"F03","Index":-1,"NameInSource":"F03","Alias":"F03","Type":"System.String"},"24":{"Name":"F04","Index":-1,"NameInSource":"F04","Alias":"F04","Type":"System.String"},"25":{"Name":"F05","Index":-1,"NameInSource":"F05","Alias":"F05","Type":"System.String"},"26":{"Name":"F06","Index":-1,"NameInSource":"F06","Alias":"F06","Type":"System.String"},"27":{"Name":"F07","Index":-1,"NameInSource":"F07","Alias":"F07","Type":"System.String"},"28":{"Name":"F08","Index":-1,"NameInSource":"F08","Alias":"F08","Type":"System.String"},"29":{"Name":"F09","Index":-1,"NameInSource":"F09","Alias":"F09","Type":"System.String"},"30":{"Name":"F10","Index":-1,"NameInSource":"F10","Alias":"F10","Type":"System.String"},"31":{"Name":"F11","Index":-1,"NameInSource":"F11","Alias":"F11","Type":"System.String"},"32":{"Name":"F12","Index":-1,"NameInSource":"F12","Alias":"F12","Type":"System.String"},"33":{"Name":"F13","Index":-1,"NameInSource":"F13","Alias":"F13","Type":"System.String"},"34":{"Name":"F14","Index":-1,"NameInSource":"F14","Alias":"F14","Type":"System.String"},"35":{"Name":"F15","Index":-1,"NameInSource":"F15","Alias":"F15","Type":"System.String"},"36":{"Name":"F16","Index":-1,"NameInSource":"F16","Alias":"F16","Type":"System.String"},"37":{"Name":"F17","Index":-1,"NameInSource":"F17","Alias":"F17","Type":"System.String"},"38":{"Name":"F18","Index":-1,"NameInSource":"F18","Alias":"F18","Type":"System.String"},"39":{"Name":"F19","Index":-1,"NameInSource":"F19","Alias":"F19","Type":"System.String"},"40":{"Name":"F20","Index":-1,"NameInSource":"F20","Alias":"F20","Type":"System.String"},"41":{"Name":"AccName","Index":-1,"NameInSource":"AccName","Alias":"AccName","Type":"System.String"},"42":{"Name":"AccCode1","Index":-1,"NameInSource":"AccCode1","Alias":"AccCode1","Type":"System.Decimal"},"43":{"Name":"AccCode2","Index":-1,"NameInSource":"AccCode2","Alias":"AccCode2","Type":"System.Decimal"},"44":{"Name":"AccCode3","Index":-1,"NameInSource":"AccCode3","Alias":"AccCode3","Type":"System.Decimal"},"45":{"Name":"AccCode4","Index":-1,"NameInSource":"AccCode4","Alias":"AccCode4","Type":"System.Decimal"},"46":{"Name":"AccCode5","Index":-1,"NameInSource":"AccCode5","Alias":"AccCode5","Type":"System.Decimal"},"47":{"Name":"MkzCode1","Index":-1,"NameInSource":"MkzCode1","Alias":"MkzCode1","Type":"System.Decimal"},"48":{"Name":"MkzCode2","Index":-1,"NameInSource":"MkzCode2","Alias":"MkzCode2","Type":"System.Decimal"},"49":{"Name":"MkzCode3","Index":-1,"NameInSource":"MkzCode3","Alias":"MkzCode3","Type":"System.Decimal"},"50":{"Name":"MkzCode4","Index":-1,"NameInSource":"MkzCode4","Alias":"MkzCode4","Type":"System.Decimal"},"51":{"Name":"MkzCode5","Index":-1,"NameInSource":"MkzCode5","Alias":"MkzCode5","Type":"System.Decimal"},"52":{"Name":"ArzName","Index":-1,"NameInSource":"ArzName","Alias":"ArzName","Type":"System.String"},"53":{"Name":"TrafName","Index":-1,"NameInSource":"TrafName","Alias":"TrafName","Type":"System.String"},"54":{"Name":"MkzName","Index":-1,"NameInSource":"MkzName","Alias":"MkzName","Type":"System.String"},"55":{"Name":"OprName","Index":-1,"NameInSource":"OprName","Alias":"OprName","Type":"System.String"},"56":{"Name":"CheckNo","Index":-1,"NameInSource":"CheckNo","Alias":"CheckNo","Type":"System.String"},"57":{"Name":"CheckDate","Index":-1,"NameInSource":"CheckDate","Alias":"CheckDate","Type":"System.String"},"58":{"Name":"Bank","Index":-1,"NameInSource":"Bank","Alias":"Bank","Type":"System.String"},"59":{"Name":"Shobe","Index":-1,"NameInSource":"Shobe","Alias":"Shobe","Type":"System.String"},"60":{"Name":"Jari","Index":-1,"NameInSource":"Jari","Alias":"Jari","Type":"System.String"},"61":{"Name":"TrafCode","Index":-1,"NameInSource":"TrafCode","Alias":"TrafCode","Type":"System.String"},"62":{"Name":"ModeName","Index":-1,"NameInSource":"ModeName","Alias":"ModeName","Type":"System.String"},"63":{"Name":"ArzBede","Index":-1,"NameInSource":"ArzBede","Alias":"ArzBede","Type":"System.String"},"64":{"Name":"ArzBest","Index":-1,"NameInSource":"ArzBest","Alias":"ArzBest","Type":"System.String"}},"NameInSource":"Database.Data"},"1":{"Ident":"StiDataTableSource","Name":"variables","Alias":"variables","Columns":{"0":{"Name":"ReportDate","Index":-1,"NameInSource":"ReportDate","Alias":"ReportDate","Type":"System.String"},"1":{"Name":"FromDate","Index":-1,"NameInSource":"FromDate","Alias":"FromDate","Type":"System.String"},"2":{"Name":"ToDate","Index":-1,"NameInSource":"ToDate","Alias":"ToDate","Type":"System.String"}},"NameInSource":"variables.variables"}}},"Pages":{"0":{"Ident":"StiPage","Name":"Page1","Guid":"32c366ccccf7c44601a68c1657795b3a","Interaction":{"Ident":"StiInteraction"},"Border":";;2;;;;;solid:Black","Brush":"solid:Transparent","Components":{"0":{"Ident":"StiReportTitleBand","Name":"ReportTitle","ClientRectangle":"0,0.4,28.7,0.99","ComponentPlacement":"rt.Page1","Interaction":{"Ident":"StiInteraction"},"Border":";;;;;;;solid:Black","Brush":"solid:Transparent","Components":{"0":{"Ident":"StiText","Name":"ReportTitleText","MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"0.56,0.08,27.69,0.86","ComponentPlacement":"rt.ReportTitle","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"دفتر روزنامه"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;20;Bold;","Border":";;;;;;;solid:Black","Brush":"solid:Transparent","TextBrush":"solid:Black"}}},"1":{"Ident":"StiHeaderBand","Name":"HeaderBand1","Guid":"e89466e20fc5b276eac40d4ba9b05f64","ClientRectangle":"0,2.19,28.7,0.58","ComponentPlacement":"h.ap.Page1","Interaction":{"Ident":"StiInteraction"},"Border":";;;;;;;solid:Black","Brush":"solid:Transparent","Components":{"0":{"Ident":"StiText","Name":"Text16","Guid":"842679ee7bf5e3482da3713f2be9977b","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"27.33,0.02,1.37,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"از تاریخ :"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"1":{"Ident":"StiText","Name":"Text9","Guid":"ab7b72a958f5bccbae4bdb62d43f2487","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"24.46,0.02,0.43,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"تا"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"2":{"Ident":"StiText","Name":"Text10","Guid":"952a7102115ec7254db3a0c438c893ea","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"19.89,0.02,1.37,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"از سند :"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"3":{"Ident":"StiText","Name":"Text11","Guid":"98ecca095bd0e2d5f2828ff2872e56c9","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"17.78,0.02,0.43,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"تا"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"4":{"Ident":"StiText","Name":"Text12","Guid":"bb9fa045490a007e1c5a5c04038f7077","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"6.3,0.02,2.06,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"تاریخ گزارش :"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true},"Type":"SystemVariables"},"5":{"Ident":"StiText","Name":"Text13","Guid":"2acdfa335daf78df76fb302fb0630ad5","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"1.19,-0.01,1.14,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{PageNumber}"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true},"Type":"SystemVariables"},"6":{"Ident":"StiText","Name":"Text14","Guid":"fa3b770ad489d784cbc340f8a8975b19","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"2.44,-0.01,1.14,0.58","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"صفحه :"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true},"Type":"SystemVariables"},"7":{"Ident":"StiText","Name":"Text18","MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"25.2,0.01,2,0.6","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{variables.FromDate}"},"VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:Black","Brush":"solid:Transparent","TextBrush":"solid:Black"},"8":{"Ident":"StiText","Name":"Text19","MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"21.8,0.01,2.4,0.6","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{variables.ToDate}"},"VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:Black","Brush":"solid:Transparent","TextBrush":"solid:Black"},"9":{"Ident":"StiText","Name":"Text20","MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"3.8,0.01,2.4,0.6","ComponentPlacement":"h.ap.HeaderBand1","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{variables.ReportDate}"},"VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:Black","Brush":"solid:Transparent","TextBrush":"solid:Black"}}},"2":{"Ident":"StiHeaderBand","Name":"Header","Guid":"5584bd01ad4f77a0a01454986b3c601a","ClientRectangle":"0,3.57,28.7,0.58","ComponentPlacement":"h.ap.Page1","Interaction":{"Ident":"StiInteraction"},"Border":";;;;;;;solid:Black","Brush":"solid:Transparent","Components":{"0":{"Ident":"StiText","Name":"HeaderText8","Guid":"0adacc7308c4c3cefe35be50f72a9e19","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"27.41,-0.01,1.3,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"ردیف"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"1":{"Ident":"StiText","Name":"Text1","Guid":"01a307d343d8ed14b87fecbaba0b667f","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"26.11,-0.01,1.3,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"سند"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"2":{"Ident":"StiText","Name":"Text2","Guid":"61f84c1b85e840e870b34ee3ff3df818","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"23.55,-0.01,2.57,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"تاریخ"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"3":{"Ident":"StiText","Name":"Text3","Guid":"c3916c714caf912f923d5417e2cd4fcb","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"20.29,-0.01,3.25,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"کدحساب"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"4":{"Ident":"StiText","Name":"Text4","Guid":"f8e13ceeeb5ad3225e792bd1ebac6d9f","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"14.71,-0.01,5.59,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"نام حساب"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"5":{"Ident":"StiText","Name":"Text5","Guid":"4d0c9f145e44a721be2393c68899e2fb","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"6.81,-0.01,7.9,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"شرح"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"6":{"Ident":"StiText","Name":"Text6","Guid":"9455843c720735e915bd79eb9cb95f52","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"3.4,-0.01,3.4,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"بدهکار"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}},"7":{"Ident":"StiText","Name":"Text7","Guid":"034b64c63a59cb87896ff762bbf9ebc1","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"0,-0.01,3.4,0.58","ComponentPlacement":"h.ap.Header","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"بستانکار"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:231,230,230","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true}}}},"3":{"Ident":"StiDataBand","Name":"Data","ClientRectangle":"0,4.95,28.7,0.6","ComponentPlacement":"d.Page1","Interaction":{"Ident":"StiBandInteraction"},"Border":";;;;;;;solid:Black","Brush":"solid:Transparent","Components":{"0":{"Ident":"StiText","Name":"DataText2","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"3.4,0,3.4,0.6","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.Bede}"},"HorAlignment":"Right","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"TextQuality":"Wysiwyg","TextFormat":{"Ident":"StiNumberFormatService","DecimalDigits":0,"GroupSeparator":",","State":"DecimalDigits, GroupSize"}},"1":{"Ident":"StiText","Name":"DataText3","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"6.81,0,7.9,0.61","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.Spec}"},"HorAlignment":"Right","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"Type":"DataColumn","TextQuality":"Wysiwyg"},"2":{"Ident":"StiText","Name":"DataText4","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"14.71,0,5.59,0.61","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.AccName}"},"HorAlignment":"Right","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"TextQuality":"Wysiwyg"},"3":{"Ident":"StiText","Name":"DataText5","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"20.29,0,3.25,0.61","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.AccCode}"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"TextQuality":"Wysiwyg"},"4":{"Ident":"StiText","Name":"DataText6","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"23.55,0,2.57,0.61","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.DocDate}"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"TextQuality":"Wysiwyg"},"5":{"Ident":"StiText","Name":"DataText7","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"26.11,0,1.3,0.61","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.DocNo}"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"TextQuality":"Wysiwyg"},"6":{"Ident":"StiText","Name":"DataText8","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"27.41,0,1.3,0.61","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Line}"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"Type":"SystemVariables","TextQuality":"Wysiwyg"},"7":{"Ident":"StiText","Name":"Text17","Guid":"505249dfdd66ce9049d75541e0855bf8","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"0,0,3.4,0.6","ComponentPlacement":"d.Data","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Data.Best}"},"HorAlignment":"Right","VertAlignment":"Center","Font":"Karbord_YEKAN;;;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"Type":"DataColumn","TextQuality":"Wysiwyg","TextFormat":{"Ident":"StiNumberFormatService","DecimalDigits":0,"GroupSeparator":",","State":"DecimalDigits, GroupSize"}}},"DataSourceName":"Data","RenderingEvent":{"Script":"{SumBest+=Double.Parse(Data.Best)}"}},"4":{"Ident":"StiFooterBand","Name":"Footer","ClientRectangle":"0,6.35,28.7,0.6","ComponentPlacement":"f.Page1","Interaction":{"Ident":"StiInteraction"},"Border":";;;;;;;solid:Black","Brush":"solid:Transparent","Components":{"0":{"Ident":"StiText","Name":"FooterText2","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"3.4,0,3.4,0.6","ComponentPlacement":"f.Footer","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Sum(Data,Data.Bede)}"},"HorAlignment":"Right","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"Type":"Totals","TextFormat":{"Ident":"StiNumberFormatService","DecimalDigits":0,"GroupSeparator":",","State":"DecimalDigits, GroupSize"}},"1":{"Ident":"StiText","Name":"Text15","Guid":"faff4bd942c2ea92604063ae4f966fd2","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"7.04,0.03,1.14,0.58","ComponentPlacement":"f.Footer","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"جمع :"},"HorAlignment":"Center","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":";;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"RightToLeft":true,"WordWrap":true},"Type":"SystemVariables"},"2":{"Ident":"StiText","Name":"Text8","Guid":"41c22975db11059de8fea66634af3dad","CanGrow":true,"GrowToHeight":true,"MinSize":"0,0","MaxSize":"0,0","ClientRectangle":"0,0,3.4,0.6","ComponentPlacement":"f.Footer","Interaction":{"Ident":"StiInteraction"},"Text":{"Value":"{Sum(Data,Data.Best)}"},"HorAlignment":"Right","VertAlignment":"Center","Font":"Karbord_YEKAN;10;Bold;","Border":"All;;;;;;;solid:0,0,0","Brush":"solid:Transparent","TextBrush":"solid:Black","TextOptions":{"WordWrap":true},"Type":"Totals","TextFormat":{"Ident":"StiNumberFormatService","DecimalDigits":0,"GroupSeparator":",","State":"DecimalDigits, GroupSize"}}},"PrintIfEmpty":true}},"RightToLeft":true,"Orientation":"Landscape","PageWidth":29.7,"PageHeight":21,"Watermark":{"TextBrush":"solid:50,0,0,0"},"Margins":{"Left":0.5,"Right":0.5,"Top":0.5,"Bottom":1}}}}
+{
+  "ReportVersion": "2017.1.11",
+  "ReportGuid": "3138d52ed5d4dd5b5825ba6aaf16a23a",
+  "ReportName": "Report",
+  "ReportAlias": "Report",
+  "ReportFile": "251605426569496.mrt",
+  "ReportCreated": "/Date(1601339230000+0330)/",
+  "ReportChanged": "/Date(1601339230000+0330)/",
+  "EngineVersion": "EngineV2",
+  "CalculationMode": "Interpretation",
+  "Dictionary": {
+
+    "DataSources": {
+      "0": {
+        "Ident": "StiDataTableSource",
+        "Name": "Data",
+        "Alias": "Data",
+        "Columns": {
+          "0": {
+            "Name": "BandNo",
+            "Index": -1,
+            "NameInSource": "BandNo",
+            "Alias": "BandNo",
+            "Type": "System.Decimal"
+          },
+          "1": {
+            "Name": "AccCode",
+            "Index": -1,
+            "NameInSource": "AccCode",
+            "Alias": "AccCode",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "MkzCode",
+            "Index": -1,
+            "NameInSource": "MkzCode",
+            "Alias": "MkzCode",
+            "Type": "System.String"
+          },
+          "3": {
+            "Name": "OprCode",
+            "Index": -1,
+            "NameInSource": "OprCode",
+            "Alias": "OprCode",
+            "Type": "System.String"
+          },
+          "4": {
+            "Name": "Comm",
+            "Index": -1,
+            "NameInSource": "Comm",
+            "Alias": "Comm",
+            "Type": "System.String"
+          },
+          "5": {
+            "Name": "Bede",
+            "Index": -1,
+            "NameInSource": "Bede",
+            "Alias": "Bede",
+            "Type": "System.Decimal"
+          },
+          "6": {
+            "Name": "Best",
+            "Index": -1,
+            "NameInSource": "Best",
+            "Alias": "Best",
+            "Type": "System.Decimal"
+          },
+          "7": {
+            "Name": "Amount",
+            "Index": -1,
+            "NameInSource": "Amount",
+            "Alias": "Amount",
+            "Type": "System.Decimal"
+          },
+          "8": {
+            "Name": "ArzCode",
+            "Index": -1,
+            "NameInSource": "ArzCode",
+            "Alias": "ArzCode",
+            "Type": "System.String"
+          },
+          "9": {
+            "Name": "ArzValue",
+            "Index": -1,
+            "NameInSource": "ArzValue",
+            "Alias": "ArzValue",
+            "Type": "System.Decimal"
+          },
+          "10": {
+            "Name": "ArzRate",
+            "Index": -1,
+            "NameInSource": "ArzRate",
+            "Alias": "ArzRate",
+            "Type": "System.Decimal"
+          },
+          "11": {
+            "Name": "SerialNumber",
+            "Index": -1,
+            "NameInSource": "SerialNumber",
+            "Alias": "SerialNumber",
+            "Type": "System.Decimal"
+          },
+          "12": {
+            "Name": "DocNo",
+            "Index": -1,
+            "NameInSource": "DocNo",
+            "Alias": "DocNo",
+            "Type": "System.Decimal"
+          },
+          "13": {
+            "Name": "DocDate",
+            "Index": -1,
+            "NameInSource": "DocDate",
+            "Alias": "DocDate",
+            "Type": "System.String"
+          },
+          "14": {
+            "Name": "Spec",
+            "Index": -1,
+            "NameInSource": "Spec",
+            "Alias": "Spec",
+            "Type": "System.String"
+          },
+          "15": {
+            "Name": "Status",
+            "Index": -1,
+            "NameInSource": "Status",
+            "Alias": "Status",
+            "Type": "System.String"
+          },
+          "16": {
+            "Name": "Tanzim",
+            "Index": -1,
+            "NameInSource": "Tanzim",
+            "Alias": "Tanzim",
+            "Type": "System.String"
+          },
+          "17": {
+            "Name": "Taeed",
+            "Index": -1,
+            "NameInSource": "Taeed",
+            "Alias": "Taeed",
+            "Type": "System.String"
+          },
+          "18": {
+            "Name": "Eghdam",
+            "Index": -1,
+            "NameInSource": "Eghdam",
+            "Alias": "Eghdam",
+            "Type": "System.String"
+          },
+          "19": {
+            "Name": "Tasvib",
+            "Index": -1,
+            "NameInSource": "Tasvib",
+            "Alias": "Tasvib",
+            "Type": "System.String"
+          },
+          "20": {
+            "Name": "ModeCode",
+            "Index": -1,
+            "NameInSource": "ModeCode",
+            "Alias": "ModeCode",
+            "Type": "System.String"
+          },
+          "21": {
+            "Name": "F01",
+            "Index": -1,
+            "NameInSource": "F01",
+            "Alias": "F01",
+            "Type": "System.String"
+          },
+          "22": {
+            "Name": "F02",
+            "Index": -1,
+            "NameInSource": "F02",
+            "Alias": "F02",
+            "Type": "System.String"
+          },
+          "23": {
+            "Name": "F03",
+            "Index": -1,
+            "NameInSource": "F03",
+            "Alias": "F03",
+            "Type": "System.String"
+          },
+          "24": {
+            "Name": "F04",
+            "Index": -1,
+            "NameInSource": "F04",
+            "Alias": "F04",
+            "Type": "System.String"
+          },
+          "25": {
+            "Name": "F05",
+            "Index": -1,
+            "NameInSource": "F05",
+            "Alias": "F05",
+            "Type": "System.String"
+          },
+          "26": {
+            "Name": "F06",
+            "Index": -1,
+            "NameInSource": "F06",
+            "Alias": "F06",
+            "Type": "System.String"
+          },
+          "27": {
+            "Name": "F07",
+            "Index": -1,
+            "NameInSource": "F07",
+            "Alias": "F07",
+            "Type": "System.String"
+          },
+          "28": {
+            "Name": "F08",
+            "Index": -1,
+            "NameInSource": "F08",
+            "Alias": "F08",
+            "Type": "System.String"
+          },
+          "29": {
+            "Name": "F09",
+            "Index": -1,
+            "NameInSource": "F09",
+            "Alias": "F09",
+            "Type": "System.String"
+          },
+          "30": {
+            "Name": "F10",
+            "Index": -1,
+            "NameInSource": "F10",
+            "Alias": "F10",
+            "Type": "System.String"
+          },
+          "31": {
+            "Name": "F11",
+            "Index": -1,
+            "NameInSource": "F11",
+            "Alias": "F11",
+            "Type": "System.String"
+          },
+          "32": {
+            "Name": "F12",
+            "Index": -1,
+            "NameInSource": "F12",
+            "Alias": "F12",
+            "Type": "System.String"
+          },
+          "33": {
+            "Name": "F13",
+            "Index": -1,
+            "NameInSource": "F13",
+            "Alias": "F13",
+            "Type": "System.String"
+          },
+          "34": {
+            "Name": "F14",
+            "Index": -1,
+            "NameInSource": "F14",
+            "Alias": "F14",
+            "Type": "System.String"
+          },
+          "35": {
+            "Name": "F15",
+            "Index": -1,
+            "NameInSource": "F15",
+            "Alias": "F15",
+            "Type": "System.String"
+          },
+          "36": {
+            "Name": "F16",
+            "Index": -1,
+            "NameInSource": "F16",
+            "Alias": "F16",
+            "Type": "System.String"
+          },
+          "37": {
+            "Name": "F17",
+            "Index": -1,
+            "NameInSource": "F17",
+            "Alias": "F17",
+            "Type": "System.String"
+          },
+          "38": {
+            "Name": "F18",
+            "Index": -1,
+            "NameInSource": "F18",
+            "Alias": "F18",
+            "Type": "System.String"
+          },
+          "39": {
+            "Name": "F19",
+            "Index": -1,
+            "NameInSource": "F19",
+            "Alias": "F19",
+            "Type": "System.String"
+          },
+          "40": {
+            "Name": "F20",
+            "Index": -1,
+            "NameInSource": "F20",
+            "Alias": "F20",
+            "Type": "System.String"
+          },
+          "41": {
+            "Name": "AccName",
+            "Index": -1,
+            "NameInSource": "AccName",
+            "Alias": "AccName",
+            "Type": "System.String"
+          },
+          "42": {
+            "Name": "AccCode1",
+            "Index": -1,
+            "NameInSource": "AccCode1",
+            "Alias": "AccCode1",
+            "Type": "System.Decimal"
+          },
+          "43": {
+            "Name": "AccCode2",
+            "Index": -1,
+            "NameInSource": "AccCode2",
+            "Alias": "AccCode2",
+            "Type": "System.Decimal"
+          },
+          "44": {
+            "Name": "AccCode3",
+            "Index": -1,
+            "NameInSource": "AccCode3",
+            "Alias": "AccCode3",
+            "Type": "System.Decimal"
+          },
+          "45": {
+            "Name": "AccCode4",
+            "Index": -1,
+            "NameInSource": "AccCode4",
+            "Alias": "AccCode4",
+            "Type": "System.Decimal"
+          },
+          "46": {
+            "Name": "AccCode5",
+            "Index": -1,
+            "NameInSource": "AccCode5",
+            "Alias": "AccCode5",
+            "Type": "System.Decimal"
+          },
+          "47": {
+            "Name": "MkzCode1",
+            "Index": -1,
+            "NameInSource": "MkzCode1",
+            "Alias": "MkzCode1",
+            "Type": "System.Decimal"
+          },
+          "48": {
+            "Name": "MkzCode2",
+            "Index": -1,
+            "NameInSource": "MkzCode2",
+            "Alias": "MkzCode2",
+            "Type": "System.Decimal"
+          },
+          "49": {
+            "Name": "MkzCode3",
+            "Index": -1,
+            "NameInSource": "MkzCode3",
+            "Alias": "MkzCode3",
+            "Type": "System.Decimal"
+          },
+          "50": {
+            "Name": "MkzCode4",
+            "Index": -1,
+            "NameInSource": "MkzCode4",
+            "Alias": "MkzCode4",
+            "Type": "System.Decimal"
+          },
+          "51": {
+            "Name": "MkzCode5",
+            "Index": -1,
+            "NameInSource": "MkzCode5",
+            "Alias": "MkzCode5",
+            "Type": "System.Decimal"
+          },
+          "52": {
+            "Name": "ArzName",
+            "Index": -1,
+            "NameInSource": "ArzName",
+            "Alias": "ArzName",
+            "Type": "System.String"
+          },
+          "53": {
+            "Name": "TrafName",
+            "Index": -1,
+            "NameInSource": "TrafName",
+            "Alias": "TrafName",
+            "Type": "System.String"
+          },
+          "54": {
+            "Name": "MkzName",
+            "Index": -1,
+            "NameInSource": "MkzName",
+            "Alias": "MkzName",
+            "Type": "System.String"
+          },
+          "55": {
+            "Name": "OprName",
+            "Index": -1,
+            "NameInSource": "OprName",
+            "Alias": "OprName",
+            "Type": "System.String"
+          },
+          "56": {
+            "Name": "CheckNo",
+            "Index": -1,
+            "NameInSource": "CheckNo",
+            "Alias": "CheckNo",
+            "Type": "System.String"
+          },
+          "57": {
+            "Name": "CheckDate",
+            "Index": -1,
+            "NameInSource": "CheckDate",
+            "Alias": "CheckDate",
+            "Type": "System.String"
+          },
+          "58": {
+            "Name": "Bank",
+            "Index": -1,
+            "NameInSource": "Bank",
+            "Alias": "Bank",
+            "Type": "System.String"
+          },
+          "59": {
+            "Name": "Shobe",
+            "Index": -1,
+            "NameInSource": "Shobe",
+            "Alias": "Shobe",
+            "Type": "System.String"
+          },
+          "60": {
+            "Name": "Jari",
+            "Index": -1,
+            "NameInSource": "Jari",
+            "Alias": "Jari",
+            "Type": "System.String"
+          },
+          "61": {
+            "Name": "TrafCode",
+            "Index": -1,
+            "NameInSource": "TrafCode",
+            "Alias": "TrafCode",
+            "Type": "System.String"
+          },
+          "62": {
+            "Name": "ModeName",
+            "Index": -1,
+            "NameInSource": "ModeName",
+            "Alias": "ModeName",
+            "Type": "System.String"
+          },
+          "63": {
+            "Name": "ArzBede",
+            "Index": -1,
+            "NameInSource": "ArzBede",
+            "Alias": "ArzBede",
+            "Type": "System.String"
+          },
+          "64": {
+            "Name": "ArzBest",
+            "Index": -1,
+            "NameInSource": "ArzBest",
+            "Alias": "ArzBest",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "Database.Data"
+      },
+      "1": {
+        "Ident": "StiDataTableSource",
+        "Name": "variables",
+        "Alias": "variables",
+        "Columns": {
+          "0": {
+            "Name": "ReportDate",
+            "Index": -1,
+            "NameInSource": "ReportDate",
+            "Alias": "ReportDate",
+            "Type": "System.String"
+          },
+          "1": {
+            "Name": "FromDate",
+            "Index": -1,
+            "NameInSource": "FromDate",
+            "Alias": "FromDate",
+            "Type": "System.String"
+          },
+          "2": {
+            "Name": "ToDate",
+            "Index": -1,
+            "NameInSource": "ToDate",
+            "Alias": "ToDate",
+            "Type": "System.String"
+          }
+        },
+        "NameInSource": "variables.variables"
+      }
+    }
+  },
+  "Pages": {
+    "0": {
+      "Ident": "StiPage",
+      "Name": "Page1",
+      "Guid": "32c366ccccf7c44601a68c1657795b3a",
+      "Interaction": { "Ident": "StiInteraction" },
+      "Border": ";;2;;;;;solid:Black",
+      "Brush": "solid:Transparent",
+      "Components": {
+        "0": {
+          "Ident": "StiHeaderBand",
+          "Name": "HeaderBand1",
+          "Guid": "e89466e20fc5b276eac40d4ba9b05f64",
+          "ClientRectangle": "0,0.4,28.7,1.8",
+          "ComponentPlacement": "h.ap.Page1",
+          "Interaction": { "Ident": "StiInteraction" },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "Text16",
+              "Guid": "842679ee7bf5e3482da3713f2be9977b",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "27.33,1.22,1.37,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "از تاریخ :" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text9",
+              "Guid": "ab7b72a958f5bccbae4bdb62d43f2487",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "24.46,1.22,0.43,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "تا" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text10",
+              "Guid": "952a7102115ec7254db3a0c438c893ea",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "19.89,1.22,1.37,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "از سند :" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text11",
+              "Guid": "98ecca095bd0e2d5f2828ff2872e56c9",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "17.78,1.22,0.43,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "تا" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text12",
+              "Guid": "bb9fa045490a007e1c5a5c04038f7077",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "5.6,1.2,2.06,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "تاریخ گزارش :" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              },
+              "Type": "SystemVariables"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text13",
+              "Guid": "2acdfa335daf78df76fb302fb0630ad5",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "0.2,1.2,1.14,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{PageNumber}" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              },
+              "Type": "SystemVariables"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text14",
+              "Guid": "fa3b770ad489d784cbc340f8a8975b19",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "1.4,1.2,1.14,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "صفحه :" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              },
+              "Type": "SystemVariables"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text18",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "25.2,1.21,2,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{variables.FromDate}" },
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black"
+            },
+            "8": {
+              "Ident": "StiText",
+              "Name": "Text19",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "21.8,1.21,2.4,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{variables.ToDate}" },
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black"
+            },
+            "9": {
+              "Ident": "StiText",
+              "Name": "Text20",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "3.2,1.2,2.4,0.5",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{variables.ReportDate}" },
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black"
+            },
+            "10": {
+              "Ident": "StiText",
+              "Name": "ReportTitleText",
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "0.16,0.09,28.49,1.06",
+              "ComponentPlacement": "h.ap.HeaderBand1",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "دفتر روزنامه" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;20;Bold;",
+              "Border": ";;;;;;;solid:Black",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black"
+            }
+          }
+        },
+        "1": {
+          "Ident": "StiHeaderBand",
+          "Name": "Header",
+          "Guid": "5584bd01ad4f77a0a01454986b3c601a",
+          "ClientRectangle": "0,3,28.7,0.58",
+          "ComponentPlacement": "h.ap.Page1",
+          "Interaction": { "Ident": "StiInteraction" },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "HeaderText8",
+              "Guid": "0adacc7308c4c3cefe35be50f72a9e19",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "27.41,0,1.29,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "ردیف" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text1",
+              "Guid": "01a307d343d8ed14b87fecbaba0b667f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "26.11,0,1.3,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "سند" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text2",
+              "Guid": "61f84c1b85e840e870b34ee3ff3df818",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "23.55,0,2.57,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "تاریخ" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "Text3",
+              "Guid": "c3916c714caf912f923d5417e2cd4fcb",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "20.29,0,3.25,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "کدحساب" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "Text4",
+              "Guid": "f8e13ceeeb5ad3225e792bd1ebac6d9f",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "14.71,0,5.59,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "نام حساب" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "Text5",
+              "Guid": "4d0c9f145e44a721be2393c68899e2fb",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "6.81,0,7.9,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "شرح" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "Text6",
+              "Guid": "9455843c720735e915bd79eb9cb95f52",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "3.4,0,3.4,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "بدهکار" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text7",
+              "Guid": "034b64c63a59cb87896ff762bbf9ebc1",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "0,0,3.4,0.58",
+              "ComponentPlacement": "h.ap.Header",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "بستانکار" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;Bold;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:231,230,230",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              }
+            }
+          }
+        },
+        "2": {
+          "Ident": "StiDataBand",
+          "Name": "Data",
+          "ClientRectangle": "0,4.38,28.7,0.6",
+          "ComponentPlacement": "d.Page1",
+          "Interaction": { "Ident": "StiBandInteraction" },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "DataText2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "3.4,0,3.4,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Data.Bede}" },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "TextQuality": "Wysiwyg",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits, GroupSize"
+              }
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "DataText3",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "6.81,0,7.9,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Data.Spec}" },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "Type": "DataColumn",
+              "TextQuality": "Wysiwyg",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              }
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "DataText4",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "14.71,0,5.59,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Data.AccName}" },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "TextQuality": "Wysiwyg",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              }
+            },
+            "3": {
+              "Ident": "StiText",
+              "Name": "DataText5",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "20.29,0,3.25,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Data.AccCode}" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "TextQuality": "Wysiwyg"
+            },
+            "4": {
+              "Ident": "StiText",
+              "Name": "DataText6",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "23.55,0,2.57,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Data.DocDate}" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "TextQuality": "Wysiwyg"
+            },
+            "5": {
+              "Ident": "StiText",
+              "Name": "DataText7",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "26.11,0,1.3,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Data.DocNo}" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "TextQuality": "Wysiwyg"
+            },
+            "6": {
+              "Ident": "StiText",
+              "Name": "DataText8",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "27.41,0,1.29,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Line}" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "Type": "SystemVariables",
+              "TextQuality": "Wysiwyg"
+            },
+            "7": {
+              "Ident": "StiText",
+              "Name": "Text17",
+              "Guid": "505249dfdd66ce9049d75541e0855bf8",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "0,0,3.4,0.6",
+              "ComponentPlacement": "d.Data",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{(Data.Best == 0) ? 0 : Data.Best}" },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "Type": "Expression",
+              "TextQuality": "Wysiwyg",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits, GroupSize"
+              }
+            }
+          },
+          "DataSourceName": "Data",
+          "RenderingEvent": { "Script": "{SumBest+=Double.Parse(Data.Best)}" }
+        },
+        "3": {
+          "Ident": "StiFooterBand",
+          "Name": "FooterBand1",
+          "ClientRectangle": "0,5.78,28.7,0.8",
+          "ComponentPlacement": "f.ap.Page1",
+          "Interaction": { "Ident": "StiInteraction" },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "PrintIfEmpty": true,
+          "PrintOnAllPages": true
+        },
+        "4": {
+          "Ident": "StiFooterBand",
+          "Name": "Footer",
+          "ClientRectangle": "0,7.38,28.7,0.6",
+          "ComponentPlacement": "f.Page1",
+          "Interaction": { "Ident": "StiInteraction" },
+          "Border": ";;;;;;;solid:Black",
+          "Brush": "solid:Transparent",
+          "Components": {
+            "0": {
+              "Ident": "StiText",
+              "Name": "FooterText2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "3.4,0,3.4,0.6",
+              "ComponentPlacement": "f.Footer",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Sum(Data,Data.Bede)}" },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "Type": "Totals",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits, GroupSize"
+              }
+            },
+            "1": {
+              "Ident": "StiText",
+              "Name": "Text15",
+              "Guid": "faff4bd942c2ea92604063ae4f966fd2",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "7.04,0,1.14,0.6",
+              "ComponentPlacement": "f.Footer",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "جمع :" },
+              "HorAlignment": "Center",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": ";;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": {
+                "RightToLeft": true,
+                "WordWrap": true
+              },
+              "Type": "SystemVariables"
+            },
+            "2": {
+              "Ident": "StiText",
+              "Name": "Text8",
+              "Guid": "41c22975db11059de8fea66634af3dad",
+              "CanGrow": true,
+              "GrowToHeight": true,
+              "MinSize": "0,0",
+              "MaxSize": "0,0",
+              "ClientRectangle": "0,0,3.4,0.6",
+              "ComponentPlacement": "f.Footer",
+              "Interaction": { "Ident": "StiInteraction" },
+              "Text": { "Value": "{Sum(Data,Data.Best)}" },
+              "HorAlignment": "Right",
+              "VertAlignment": "Center",
+              "Font": "Karbord_YEKAN;;;",
+              "Border": "All;;;;;;;solid:0,0,0",
+              "Brush": "solid:Transparent",
+              "TextBrush": "solid:Black",
+              "TextOptions": { "WordWrap": true },
+              "Type": "Totals",
+              "Margins": {
+                "Left": 0,
+                "Right": 2,
+                "Top": 0,
+                "Bottom": 0
+              },
+              "TextFormat": {
+                "Ident": "StiNumberFormatService",
+                "DecimalDigits": 0,
+                "GroupSeparator": ",",
+                "State": "DecimalDigits, GroupSize"
+              }
+            }
+          },
+          "PrintIfEmpty": true
+        }
+      },
+      "RightToLeft": true,
+      "Orientation": "Landscape",
+      "PageWidth": 29.7,
+      "PageHeight": 21,
+      "Watermark": { "TextBrush": "solid:50,0,0,0" },
+      "Margins": {
+        "Left": 0.5,
+        "Right": 0.5,
+        "Top": 0.5,
+        "Bottom": 1
+      }
+    }
+  }}

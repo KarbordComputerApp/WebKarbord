@@ -1978,6 +1978,20 @@
      */
 
 
+    $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderAnbar').text());
+
+    $('#FinalSave').click(function () {
+
+    });
+
+    $('#FinalSave-Modal').click(function () {
+        $('#FinalSave-Modal').modal('hide');
+        self.UpdateIDocH();
+    });
+
+    $('#modal-FinalSave').on('shown.bs.modal', function () {
+    });
+
 
 };
 

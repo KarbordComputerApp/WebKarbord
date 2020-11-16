@@ -2917,6 +2917,21 @@
 
 
 
+
+
+    $('#FinalSave').click(function () {
+        $('#titleFinalSave').text('ذخیره سند حسابداری');
+    });
+
+    $('#FinalSave-Modal').click(function () {
+        $('#FinalSave-Modal').modal('hide');
+        self.UpdateADocH();
+    });
+
+    $('#modal-FinalSave').on('shown.bs.modal', function () {
+    });
+
+
     function CreateTableSanad(data) {
         $("#TableSanad").empty();
         $('#TableSanad').append(
@@ -3003,10 +3018,13 @@
     function CreateTableTh(field, data) {
         text = '<th ';
         TextField = FindTextField(field, data);
+
+        sortField = field == 'DocNo' ? 'SortDocNo' : field
+
         if (TextField == 0)
             text += 'Hidden >';
         text +=
-            '<span data-column="' + field + '">' + TextField + '</span>' +
+            '<span data-column="' + sortField + '">' + TextField + '</span>' +
             '</th>';
         return text;
     }
@@ -3023,13 +3041,13 @@
                 text += 'data-bind="text: ' + field + '"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
                 break;
             case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
                 break;
             case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
                 break;
         }
         return text;
@@ -3151,13 +3169,13 @@
                 // text += 'data-bind="text: ' + field + '"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
                 break;
             case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
                 break;
             case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
                 break;
         }
         return text;

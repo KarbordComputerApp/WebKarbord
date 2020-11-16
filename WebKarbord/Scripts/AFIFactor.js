@@ -2589,6 +2589,20 @@
     });
     */
 
+    $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderFactor').text());
+    $('#FinalSave').click(function () {
+       
+    });
+
+    $('#FinalSave-Modal').click(function () {
+        $('#FinalSave-Modal').modal('hide');
+        self.UpdateFDocH();
+    });
+
+    $('#modal-FinalSave').on('shown.bs.modal', function () {
+    });
+
+
 };
 
 ko.applyBindings(new ViewModel());

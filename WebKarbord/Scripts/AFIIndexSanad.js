@@ -785,10 +785,13 @@
     function CreateTableTh(field, data) {
         text = '<th ';
         TextField = FindTextField(field, data);
+
+        sortField = field == 'DocNo' ? 'SortDocNo' : field
+
         if (TextField == 0)
             text += 'Hidden ';
         text += 'data-column="' + field + '">' +
-            '<span data-column="' + field + '" >' + TextField + '</span>' +
+            '<span data-column="' + sortField + '" >' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" data-column="' + field + '" ></i> </span> ' +
             '</th>';
@@ -810,10 +813,10 @@
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
                 break;
             case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"" style="text-align: right;"></td>'
                 break;
             case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ').toFixed(parseInt(' + Deghat + '))) : \'0\'" style="text-align: right;"></td>'
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
                 break;
         }
         return text;

@@ -7,7 +7,7 @@
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card" style="margin-top: 0px;">
-            <div class="header"  style="padding: 5px;">
+            <div class="header" style="padding: 5px;">
 
                 <div class="form-inline">
                     <strong id="TitleHeaderFactor" style="margin-left: 5px; margin-right: 5px;"></strong>
@@ -35,8 +35,8 @@
                             <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
                         </a>
                         <!-- <a id="SettingColumn" class="">
-             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
-         </a>-->
+                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        </a>-->
                         <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
                             <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
                         </a>
@@ -81,7 +81,7 @@
 
 
                         <div class="input-group col-sm-4" id="ViewSpec">
-                            <div class="form-group form-float"  style="margin-bottom: 5px;">
+                            <div class="form-group form-float" style="margin-bottom: 5px;">
                                 <div class="form-line">
                                     <input id="Spec" class="form-control string" data-bind="value:Spec" />
                                     <label class="form-label active">ملاحظات</label>
@@ -276,7 +276,7 @@
 
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="card" style="margin-top: 0px;">
-                    <div class="header"  style="padding: 5px;">
+                    <div class="header" style="padding: 5px;">
                     </div>
                     <div class="body">
                         <div id="unitSumPrice">
@@ -304,7 +304,7 @@
 
                         <div>
                             <div id="action_Fdoc">
-                                <button type="button" id="FinalSave" data-bind="click:UpdateFDocH" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                                <button type="button" id="FinalSave"  class="btn btn-primary btn-block" style="background-color: #eb8121 !important;" data-toggle="modal" data-target="#modal-FinalSave">
                                     ثبت نهایی
                                 </button>
                             </div>
@@ -325,7 +325,7 @@
                 </button>
                 <h4 class="modal-title" id="TitleModalCust"></h4>
                 <a id="refreshcust">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png"width="20" height="20" style="margin-left: 10px;" />
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -612,7 +612,7 @@
                 </button>
                 <h4 class="modal-title">لیست کالا ها</h4>
                 <a id="refreshkala">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png"width="20" height="20" style="margin-left: 10px;" />
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -759,6 +759,55 @@
         </div>
     </div>
 
+</div>
+
+
+<div class="modal fade" id="modal-FinalSave" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="titleFinalSave">ذخیره فاکتور</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+
+                </div>
+            </div>
+
+            <div>
+                <div class="row  form-inline ">
+                    <div class="col-md-3 row">
+                        <div class="row" style="margin-right: 0px;margin-left: 0px;">
+                            <img src="~/Content/img/new item/warning.svg" width="16" style="margin-left:5px;" /> <p><span>هشدار :</span> <span>1</span> <span>مورد</span> </p>
+                            <img src="~/Content/img/new item/error.svg" width="16" style="margin-left:5px;margin-right:30px" /><p><span>خطا :</span> <span>0</span> <span>مورد</span> </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 ">
+                        <div>
+                            <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
+                            <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                            بازگشت
+                        </button>
+                        <button type="button" id="FinalSave-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                            ذخیره
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>
 
 

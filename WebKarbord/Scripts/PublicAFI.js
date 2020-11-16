@@ -780,7 +780,7 @@ function SetValidation() {
 
     sessionStorage.FDoc_REP_PRICE = CheckAccessReport('FDoc_REP_PRICE'); // خرید و فروش دسترسی مبلغ در گزارشات
     sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');// دسترسی مبلغ در گزارشات انبار
-    
+
 
 
 
@@ -2202,7 +2202,7 @@ function createViewer() {
     options.appearance.scrollbarsMode = true;
     options.toolbar.showSaveButton = true;
 
-    
+
     options.toolbar.showDesignButton = sessionStorage.UserAdmin == 'true';
 
     options.toolbar.showFullScreenButton = false;
@@ -2253,7 +2253,10 @@ function createDesigner() {
     }
 }
 
-function setReport(reportObject, mrtFileName, variablesObject) {
+
+
+
+function setReport_m(reportObject, mrtFileName, variablesObject) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
         return showNotification('ابتدا گزارش گیری کنید', 0);
@@ -2263,7 +2266,7 @@ function setReport(reportObject, mrtFileName, variablesObject) {
     var secondsStart = dStart.getTime();
     dateDifference = DateNow + secondsStart; // عدد یونیک
 
-    addressMrt = '/Content/Report/' + mrtFileName + '.mrt?dt=' + dateDifference ;
+    addressMrt = '/Content/Report/' + mrtFileName + '.mrt?dt=' + dateDifference;
 
     if (mrtFileName != "Free") {
         report.loadFile(addressMrt);
@@ -2271,6 +2274,7 @@ function setReport(reportObject, mrtFileName, variablesObject) {
     report.dictionary.databases.clear();
     dataSet = new Stimulsoft.System.Data.DataSet("Database");
     DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
+
     dataSet.readJson(DataReport);
     report.regData(dataSet.dataSetName, "", dataSet);
 
@@ -2280,7 +2284,7 @@ function setReport(reportObject, mrtFileName, variablesObject) {
     variablesDataSet.readJson(variablesReport);
     report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
 
-    
+
 
     /*var variablesReportDate = null;
     variablesReportDate = new Stimulsoft.Report.Dictionary.StiVariable();
@@ -2322,28 +2326,94 @@ function setReport(reportObject, mrtFileName, variablesObject) {
 
 
 
-/*
-    var newVariable = new Stimulsoft.Report.Dictionary.StiVariable();
-    newVariable.name = "Variable";
-    newVariable.alias = "Variable";
-    newVariable.type = Stimulsoft.System.StimulsoftStringList;
-    newVariable.requestFromUser = true;
-
-    var di = new Stimulsoft.Report.Dictionary.StiDialogInfo();
-    di.allowUserValues = false;
-    di.keys = ["1", "2", "3", "4"];
-    di.values = ["1", "2", "3", "4"];
-
-    newVariable.dialogInfo = di;
-
-    report.dictionary.variables.add(newVariable);
-    //report.dictionary.variables.getByName("var1").valueObject = "your value";
-    */
+    /*
+        var newVariable = new Stimulsoft.Report.Dictionary.StiVariable();
+        newVariable.name = "Variable";
+        newVariable.alias = "Variable";
+        newVariable.type = Stimulsoft.System.StimulsoftStringList;
+        newVariable.requestFromUser = true;
+    
+        var di = new Stimulsoft.Report.Dictionary.StiDialogInfo();
+        di.allowUserValues = false;
+        di.keys = ["1", "2", "3", "4"];
+        di.values = ["1", "2", "3", "4"];
+    
+        newVariable.dialogInfo = di;
+    
+        report.dictionary.variables.add(newVariable);
+        //report.dictionary.variables.getByName("var1").valueObject = "your value";
+        */
 
     report.dictionary.synchronize();
 
     viewer.report = report;
     report.render();
+
+    $('#modal-Report').modal('show');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function setReport(reportObject, mrtFileName, variablesObject) {
+    DataReport = reportObject;
+    if (DataReport.length == 0 || DataReport == null || DataReport == "") {
+        return showNotification('ابتدا گزارش گیری کنید', 0);
+    }
+
+    var dStart = new Date();
+    var secondsStart = dStart.getTime();
+    dateDifference = DateNow + secondsStart; // عدد یونیک
+
+    addressMrt = '/Content/Report/' + mrtFileName + '.mrt?dt=' + dateDifference;
+
+    if (mrtFileName != "Free") {
+        report.loadFile(addressMrt);
+    }
+    report.dictionary.databases.clear();
+    dataSet = new Stimulsoft.System.Data.DataSet("Database");
+    DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
+
+    dataSet.readJson(DataReport);
+    report.regData(dataSet.dataSetName, "", dataSet);
+
+    variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
+    //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
+    variablesReport = '{"variables":[{' + variablesObject + '}]}';
+    variablesDataSet.readJson(variablesReport);
+    report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
+
+    report.dictionary.synchronize();
+
+    viewer.report = report;
+    //report.render();
 
     $('#modal-Report').modal('show');
 }

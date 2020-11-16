@@ -1838,11 +1838,12 @@
         text = '<th ';
 
         TextField = FindTextField(field, data);
+        sortField = field == 'DocNo' ? 'SortDocNo' : field
         if (TextField == 0)
             text += 'Hidden ';
 
         text += 'data-column="' + field + '">' +
-            '<span data-column="' + field + '">' + TextField + '</span>' +
+            '<span data-column="' + sortField + '">' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
             '</th>';
