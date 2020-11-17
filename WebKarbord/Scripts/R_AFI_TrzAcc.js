@@ -428,7 +428,7 @@
         self.iconTypeMonBest('');
         self.iconTypeMonTotal('');
 
-        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1227,7 +1227,7 @@
         text = '<th ';
 
         TextField = FindTextField(field, data);
-        sortField = field == 'DocNo' ? 'SortDocNo' : field
+        sortField = field == 'AccCode' ? 'SortAccCode' : field
         if (TextField == 0)
             text += 'Hidden ';
 

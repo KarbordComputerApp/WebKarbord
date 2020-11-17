@@ -1639,7 +1639,7 @@
 </div>
 
 <div class="modal fade" id="modal-FinalSave" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 1000px;">
+    <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1649,48 +1649,60 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                <div id="BodyTestDocB" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
-                </div>
-            </div>
-
-            <div>
-                <div class="row  form-inline ">
-                    <div class="col-md-3 row">
-                        <div class="row" style="margin-right: 0px;margin-left: 0px;">
-                            <img src="~/Content/img/new item/warning.svg" width="16" style="margin-left:5px;" /> <p><span>هشدار :</span> <span>1</span> <span>مورد</span> </p>
-                            <img src="~/Content/img/new item/error.svg" width="16" style="margin-left:5px;margin-right:30px" /><p><span>خطا :</span> <span>0</span> <span>مورد</span> </p>
+                    <div class="body" style="padding:7px;">
+                        <div class="form-inline">
+                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
+                            <p style="margin-left: 3px;">هشدار :</p>
+                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
                         </div>
                     </div>
 
-                    <div class="col-md-6 ">
-                        <div>
-                            <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
-                            <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
+                </div>
+                <br />
+                <div>
+                    <div class="row  form-inline ">
+                        <div class="col-md-6 row">
+                            <div style="margin-right: 0px;margin-left: 0px;">
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
+                                </div>
+                                
+                                <div id="ShowCountError" class="row">
+                                    <img src="~/Content/img/Error.jpg" width="22"  height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6 ">
+                            <div>
+                                <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
+                                <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
+                            </div>
+                        </div>-->
+
+                        <div class="col-md-6">
+                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                                بازگشت
+                            </button>
+                            <button type="button" id="FinalSave-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                                ذخیره
+                            </button>
                         </div>
                     </div>
-
-                    <div class="col-md-3">
-                        <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
-                            بازگشت
-                        </button>
-                        <button type="button" id="FinalSave-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
-                            ذخیره
-                        </button>
-                    </div>
                 </div>
+
+
             </div>
-
-
         </div>
     </div>
-</div>
 
 
 
 
-@section scripts{
-    <script type="text/javascript">
+    @section scripts{
+        <script type="text/javascript">
         sessionStorage.urlADocH = '@Url.Action("Index", "AFISanad")';
 
         $('#btntarikh').MdPersianDateTimePicker({
@@ -1742,8 +1754,8 @@
             });
         });
 
-    </script>
-    <script src="~/Content/new/js/form.min.js"></script>
-    <script src="~/Content/new/js/advanced-form-elements.js"></script>
-    <script src="~/Scripts/AFISanad.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
-}
+        </script>
+        <script src="~/Content/new/js/form.min.js"></script>
+        <script src="~/Content/new/js/advanced-form-elements.js"></script>
+        <script src="~/Scripts/AFISanad.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
+    }

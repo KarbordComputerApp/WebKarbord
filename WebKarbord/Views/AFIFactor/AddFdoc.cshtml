@@ -148,9 +148,9 @@
                                     <td data-bind="text: KalaCode"></td>
                                     <td data-bind="text: KalaName"></td>
                                     <td data-bind="text: MainUnitName"></td>
-                                    <td data-bind="text: Amount1 == 0 ? '' : NumberToNumberString(Amount1.toFixed(DeghatM1))"></td>
-                                    <td data-bind="text: Amount2 == 0 ? '' : NumberToNumberString(Amount2.toFixed(DeghatM2)) "></td>
-                                    <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(DeghatM3)) "></td>
+                                    <td data-bind="text: Amount1 == 0 ? '' : NumberToNumberString(Amount1.toFixed(KalaDeghatM1))"></td>
+                                    <td data-bind="text: Amount2 == 0 ? '' : NumberToNumberString(Amount2.toFixed(KalaDeghatM2)) "></td>
+                                    <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(KalaDeghatM3)) "></td>
                                     <td id="tdUnitPrice" data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
                                     <td id="tdTotalPrice" data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
                                     <td id="tdDiscount" data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount))"></td>

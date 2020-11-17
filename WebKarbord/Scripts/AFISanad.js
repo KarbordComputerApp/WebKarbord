@@ -205,6 +205,8 @@
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
     self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
+    self.TestADocBList = ko.observableArray([]); // لیست تست 
+
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس حساب ها
@@ -226,6 +228,9 @@
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت سند 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
     var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
+
+    var TestADocBUri = server + '/api/ADocData/TestADocB/'; // آدرس تست سند 
+
 
 
     //Get ExtraFields List
@@ -2921,7 +2926,73 @@
 
     $('#FinalSave').click(function () {
         $('#titleFinalSave').text('ذخیره سند حسابداری');
+
+        var TestADocBObject = {
+            SerialNumber: Serial,
+            svTestOpr: 0,
+            svTestMkz: 0
+        };
+
+        ajaxFunction(TestADocBUri + ace + '/' + sal + '/' + group, 'POST', TestADocBObject).done(function (data) {
+            if (data.length > 0) {
+                var obj = JSON.parse(data);
+                self.TestADocBList(obj);
+                SetDataTestDocB()
+            }
+        });
     });
+
+    function SetDataTestDocB() {
+        $("#BodyTestDocB").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestADocBList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].SvTest == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            textBody +=
+                '        <p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>' +
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestDocB').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#FinalSave-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#FinalSave-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
+
+
+    }
+
 
     $('#FinalSave-Modal').click(function () {
         $('#FinalSave-Modal').modal('hide');
@@ -3292,16 +3363,16 @@
         $('#finalSave_Title').removeAttr('hidden', '');
     });
 
-   /*
-    $('#status').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
+    /*
+     $('#status').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+ 
+     $('#modeCode').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+     */
 
-    $('#modeCode').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
-    */
-    
 };
 
 ko.applyBindings(new ViewModel());

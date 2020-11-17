@@ -173,6 +173,9 @@
     <Content Include="Content\css\rtl.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\Warning.jpg" />
+    <Content Include="Content\img\Error.jpg" />
+    <Content Include="Content\img\Accept.jpg" />
     <Content Include="Content\img\ajax-loader.gif" />
     <Content Include="Content\img\Home\Desktop.jpg" />
     <Content Include="Content\img\Login\BackLogin.jpg" />
