@@ -2803,8 +2803,8 @@
             OprCode: OprCode,
             MkzCode: MkzCode,
             ArzCode: ArzCode,
-            ArzRate: $("#ArzRate").val(),
-            ArzValue: $("#ArzValue").val(),
+            ArzRate: SlashToDot($("#ArzRate").val()),
+            arzValue: SlashToDot($("#ArzValue").val()),
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -2879,8 +2879,8 @@
             OprCode: OprCode,
             MkzCode: MkzCode,
             ArzCode: ArzCode,
-            ArzRate: $("#ArzRate").val(),
-            ArzValue: $("#ArzValue").val(),
+            ArzRate: SlashToDot($("#ArzRate").val()),
+            arzValue: SlashToDot($("#ArzValue").val()),
         };
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group, 'PUT', ADocBObject).done(function (response) {
             self.ADocBList(response);

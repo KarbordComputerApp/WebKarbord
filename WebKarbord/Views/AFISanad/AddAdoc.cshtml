@@ -1668,9 +1668,9 @@
                                 <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
                                     <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
                                 </div>
-                                
+
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22"  height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
                                 </div>
                             </div>
                         </div>
@@ -1697,12 +1697,13 @@
             </div>
         </div>
     </div>
+</div>
 
 
 
 
-    @section scripts{
-        <script type="text/javascript">
+@section scripts{
+    <script type="text/javascript">
         sessionStorage.urlADocH = '@Url.Action("Index", "AFISanad")';
 
         $('#btntarikh').MdPersianDateTimePicker({
@@ -1754,8 +1755,8 @@
             });
         });
 
-        </script>
-        <script src="~/Content/new/js/form.min.js"></script>
-        <script src="~/Content/new/js/advanced-form-elements.js"></script>
-        <script src="~/Scripts/AFISanad.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
-    }
+    </script>
+    <script src="~/Content/new/js/form.min.js"></script>
+    <script src="~/Content/new/js/advanced-form-elements.js"></script>
+    <script src="~/Scripts/AFISanad.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
+}

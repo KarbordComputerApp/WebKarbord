@@ -127,6 +127,8 @@
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
+    self.TestFDocBList = ko.observableArray([]); // لیست تست 
+
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
     switch (sessionStorage.ModeCode.toString()) {
@@ -235,6 +237,8 @@
 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
     var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
+
+    var TestFDocBUri = server + '/api/FDocData/TestFDocB/'; // آدرس تست فاکتور 
 
 
     //Get ExtraFields List
@@ -1978,12 +1982,9 @@
         }
     }
 
-    $('#FinalSave').click(function () {
-        flagFinalSave = true;
-    })
 
 
-    $("#gGhimat").change(function () {
+     $("#gGhimat").change(function () {
         a = $("#sumfactor").val();
         if ($("#sumfactor").val() != '' && viewAction == true && firstUpdateShow == 0) {
 
@@ -2590,9 +2591,80 @@
     */
 
     $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderFactor').text());
+
     $('#FinalSave').click(function () {
-       
+        flagFinalSave = true;
+
+        var TestFDocBObject = {
+            SerialNumber: Serial,
+            ModeCode: sessionStorage.ModeCode,
+        };
+
+        ajaxFunction(TestFDocBUri + ace + '/' + sal + '/' + group, 'POST', TestFDocBObject).done(function (data) {
+            if (data.length > 0) {
+                var obj = JSON.parse(data);
+                self.TestFDocBList(obj);
+                SetDataTestDocB()
+            }
+        });
     });
+
+    function SetDataTestDocB() {
+        $("#BodyTestDocB").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestFDocBList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].SvTest == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
+            else if (list[i].SvTestName == 'ارز')
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestDocB').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#FinalSave-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#FinalSave-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
+
+
+    }
+
 
     $('#FinalSave-Modal').click(function () {
         $('#FinalSave-Modal').modal('hide');
