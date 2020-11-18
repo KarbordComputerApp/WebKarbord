@@ -2928,9 +2928,7 @@
         $('#titleFinalSave').text('ذخیره سند حسابداری');
 
         var TestADocBObject = {
-            SerialNumber: Serial,
-            svTestOpr: 0,
-            svTestMkz: 0
+            SerialNumber: Serial
         };
 
         ajaxFunction(TestADocBUri + ace + '/' + sal + '/' + group, 'POST', TestADocBObject).done(function (data) {
@@ -2963,8 +2961,12 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
+            if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+            else if (list[i].SvTestName == 'ارز')
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
+           
             textBody +=
-                '        <p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>' +
                 '    </div>' +
                 '</div>';
         }
