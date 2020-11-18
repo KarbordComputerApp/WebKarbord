@@ -390,9 +390,9 @@
             // totalUnitPrice += FDocR_SData.UnitPrice;
             totalTotalPrice += FDocR_SData.TotalPrice;
 
-            KalaDeghat1 = FDocR_SData.DeghatM1 % 10;
-            KalaDeghat2 = FDocR_SData.DeghatM2 % 10;
-            KalaDeghat3 = FDocR_SData.DeghatM3 % 10;
+            KalaDeghat1 = FDocR_SData.KalaDeghatM1;
+            KalaDeghat2 = FDocR_SData.KalaDeghatM2;
+            KalaDeghat3 = FDocR_SData.KalaDeghatM3;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
@@ -2147,10 +2147,10 @@
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'data-column="' + field + '">' +
+        text += 'data-column="' + sortField + '">' +
             '<span data-column="' + sortField + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }"  data-column="' + sortField + '"></i> </span> ' +
             '</th>';
         return text;
     }

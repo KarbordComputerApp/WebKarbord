@@ -1121,7 +1121,7 @@
             '</table >'
         );
     }
-
+    ن
 
     function CreateTableTh(field, data) {
 
@@ -1132,10 +1132,10 @@
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'data-column="' + field + '">' +
+        text += 'data-column="' + sortField + '">' +
             '<span data-column="' + sortField + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }"  data-column="' + sortField + '" ></i> </span> ' +
             '</th>';
         return text;
     }

@@ -405,9 +405,9 @@
             totalSTotalPrice += TrzIData.STotalPrice;
             totalMTotalPrice += TrzIData.MTotalPrice;
 
-            KalaDeghat1 = TrzIData.KalaDeghat1 % 10;
-            KalaDeghat2 = TrzIData.KalaDeghat2 % 10;
-            KalaDeghat3 = TrzIData.KalaDeghat3 % 10;
+            KalaDeghat1 = TrzIData.KalaDeghatM1;
+            KalaDeghat2 = TrzIData.KalaDeghatM2;
+            KalaDeghat3 = TrzIData.KalaDeghatM3;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
             KalaDeghat2 > maxKalaDeghat2 ? maxKalaDeghat2 = KalaDeghat2 : maxKalaDeghat2 = maxKalaDeghat2;
@@ -2505,10 +2505,10 @@
             if (TextField == 0)
                 text += 'Hidden ';
 
-            text += 'data-column="' + field + '">' +
+            text += 'data-column="' + sortField + '">' +
                 '<span data-column="' + sortField + '">' + TextField + '</span>' +
-                '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
-                '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+                '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
+                '    <i data-bind="attr: { class: iconType' + field + ' }"   data-column="' + sortField + '"></i> </span> ' +
                 '</th>';
             return text;
         }
