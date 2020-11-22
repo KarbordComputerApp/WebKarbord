@@ -2597,7 +2597,7 @@
 
         var TestFDocBObject = {
             SerialNumber: Serial,
-            ModeCode: sessionStorage.ModeCode,
+            ModeCode: ModeCodeExtraFields,
         };
 
         ajaxFunction(TestFDocBUri + ace + '/' + sal + '/' + group, 'POST', TestFDocBObject).done(function (data) {

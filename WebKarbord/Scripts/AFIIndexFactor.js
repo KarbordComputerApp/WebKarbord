@@ -144,6 +144,7 @@
         'Eghdam',
         'Tanzim',
         'Taeed',
+        'Tasvib',
         'SerialNumber',
         'F01',
         'F02',
@@ -446,6 +447,7 @@
     self.filterEghdam = ko.observable("");
     self.filterTanzim = ko.observable("");
     self.filterTaeed = ko.observable("");
+    self.filterTasvib = ko.observable("");
     self.filterSerialNumber = ko.observable("");
     self.filterF01 = ko.observable("");
     self.filterF02 = ko.observable("");
@@ -481,6 +483,7 @@
         var filterEghdam = self.filterEghdam().toUpperCase();
         var filterTanzim = self.filterTanzim().toUpperCase();
         var filterTaeed = self.filterTaeed().toUpperCase();
+        var filterTasvib = self.filterTasvib().toUpperCase();
         var filterSerialNumber = self.filterSerialNumber();
         var filterF01 = self.filterF01();
         var filterF02 = self.filterF02();
@@ -504,7 +507,7 @@
         var filterF20 = self.filterF20();
 
 
-        if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterSerialNumber &&
+        if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
@@ -522,6 +525,7 @@
                     (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
                     (item.Tanzim == null ? '' : item.Tanzim.toString().search(filterTanzim) >= 0) &&
                     (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
                     ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                     (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
@@ -620,6 +624,7 @@
     self.iconTypeEghdam = ko.observable("");
     self.iconTypeTanzim = ko.observable("");
     self.iconTypeTaeed = ko.observable("");
+    self.iconTypeTasvib = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
@@ -673,6 +678,7 @@
         self.iconTypeEghdam('');
         self.iconTypeTanzim('');
         self.iconTypeTaeed('');
+        self.iconTypeTasvib('');
         self.iconTypeSerialNumber('');
         self.iconTypeF01('');
         self.iconTypeF02('');
@@ -704,6 +710,7 @@
         if (orderProp == 'Eghdam') self.iconTypeEghdam((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Tanzim') self.iconTypeTanzim((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Taeed') self.iconTypeTaeed((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Tasvib') self.iconTypeTasvib((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1507,6 +1514,7 @@
             CreateTableTh('Eghdam', data) +
             CreateTableTh('Tanzim', data) +
             CreateTableTh('Taeed', data) +
+        CreateTableTh('Tasvib', data) +
             CreateTableTh('SerialNumber', data) +
             CreateTableTh('F01', data) +
             CreateTableTh('F02', data) +
@@ -1546,6 +1554,7 @@
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
             CreateTableTd('Taeed', 0, 0, data) +
+        CreateTableTd('Tasvib', 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, data) +
             CreateTableTd('F01', 0, 0, data) +
             CreateTableTd('F02', 0, 0, data) +
@@ -1624,6 +1633,7 @@
             CreateTableTdSearch('Eghdam', data) +
             CreateTableTdSearch('Tanzim', data) +
             CreateTableTdSearch('Taeed', data) +
+        CreateTableTdSearch('Tasvib', data) +
             CreateTableTdSearch('SerialNumber', data) +
             CreateTableTdSearch('F01', data) +
             CreateTableTdSearch('F02', data) +

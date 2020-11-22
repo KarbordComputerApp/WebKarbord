@@ -76,6 +76,7 @@
 
     var rprtId = 'ADocB';
     var columns = [
+        'BandNo',
         'AccFullCode',
         'AccFullName',
         'Comm',
@@ -92,7 +93,11 @@
         'MkzName',
         'OprCode',
         'OprName',
-        'BandSpec'
+        'BandSpec',
+        'ArzCode',
+        'ArzValue',
+        'ArzRate',
+        'ArzName'
     ];
 
 
@@ -462,15 +467,19 @@
     function calcsum(list) {
         totalBede = 0;
         totalBest = 0;
+        totalArzValue = 0;
+       
         for (var i = 0; i < list.length; ++i) {
             ADocBData = list[i];
             totalBede += ADocBData.Bede;
             totalBest += ADocBData.Best;
+            totalArzValue += ADocBData.ArzValue;
         }
 
         $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
+        $("#totalArzValue").text(NumberToNumberString(totalArzValue));
         tafavotSanad = totalBede - totalBest;
 
 
@@ -681,6 +690,7 @@
         TrafCode = '';
         TrafZCode = '';
         PDModeAcc = 0;
+        ArzRate = 0;
 
         zGruAcc = "";
         $('#nameZAcc').val('');
@@ -2527,10 +2537,6 @@
         }
 
 
-        if ($('#TafavotSanad').val() != '0') {
-            return showNotification('سند بالانس نیست', 0);
-        }
-
         var ADocObject = {
             SerialNumber: Serial,
             ModeCode: modeCode,
@@ -2963,10 +2969,14 @@
 
             if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
-            else if (list[i].SvTestName == 'ارز')
+            else if (list[i].SvTestName == "ارز")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+            else if (list[i].SvTestName == "ماهيت")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  ' + list[i].AccCode + ' مغایر با ماهیت آن می شود ' + ' </p>';
+            else if (list[i].SvTestName == "بالانس")
+                textBody += '<p> سند بالانس نیست - بدهکار : ' + totalBede + ' - بستانکار : ' + totalBest + ' </p>';
 
-           
+
             textBody +=
                 '    </div>' +
                 '</div>';
@@ -3012,6 +3022,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr>' +
+            CreateTableTh('BandNo', data) +
             CreateTableTh('AccFullCode', data) +
             CreateTableTh('AccFullName', data) +
             CreateTableTh('Comm', data) +
@@ -3029,11 +3040,21 @@
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
             CreateTableTh('BandSpec', data) +
+
+            CreateTableTh('ArzCode', data) +
+            CreateTableTh('ArzName', data) +
+            CreateTableTh('ArzRate', data) +
+            CreateTableTh('ArzValue', data) +
+
+
+
+
             '<th id="action_headersanad">عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="click: $parent.selectSanad">' +
+            CreateTableTd('BandNo', 0, 0, data) +
             CreateTableTd('AccFullCode', 0, 0, data) +
             CreateTableTd('AccFullName', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
@@ -3051,6 +3072,13 @@
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('BandSpec', 0, 0, data) +
+
+            CreateTableTd('ArzCode', 0, 0, data) +
+            CreateTableTd('ArzName', 0, 0, data) +
+            CreateTableTd('ArzRate', sessionStorage.Deghat , 2, data) +
+            CreateTableTd('ArzValue', sessionStorage.Deghat , 2, data) +
+
+
             '<td id="action_bodysanad">' +
             '<a data-bind="click: $root.UpdateBand">' +
             '    <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
@@ -3066,6 +3094,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            CreateTableTdSum('BandNo', 0, data) +
             CreateTableTdSum('AccFullCode', 0, data) +
             CreateTableTdSum('AccFullName', 1, data) +
             CreateTableTdSum('Comm', 1, data) +
@@ -3083,6 +3112,10 @@
             CreateTableTdSum('OprCode', 1, data) +
             CreateTableTdSum('OprName', 1, data) +
             CreateTableTdSum('BandSpec', 1, data) +
+            CreateTableTdSum('ArzCode', 1, data) +
+            CreateTableTdSum('ArzName', 1, data) +
+            CreateTableTdSum('ArzRate', 1, data) +
+            CreateTableTdSum('ArzValue', 2, data) +
             ' </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -3357,6 +3390,11 @@
         $('#finalSave_Title').removeAttr('hidden', '');
     });
 
+    $('#tarikh').change(function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
+
+
     $('#Spec').keypress(function () {
         $('#finalSave_Title').removeAttr('hidden', '');
     });
@@ -3375,6 +3413,29 @@
          $('#finalSave_Title').removeAttr('hidden', '');
      });
      */
+
+
+    $("#nameOpr").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameOpr").val('');
+            OprCode = '';
+        }
+    });
+
+    $("#nameMkz").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameMkz").val('');
+            MkzCode = '';
+        }
+    });
+
+    $("#nameAcc").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameAcc").val('');
+            AccCode = '';
+        }
+    });
+
 
 };
 

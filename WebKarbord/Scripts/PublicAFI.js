@@ -283,7 +283,8 @@ function ajaxFunction(uri, method, data) {
         timeout: 30000,
         headers: {
             'userName': userNameAccount,
-            'password': passAccount
+            'password': passAccount,
+            'userKarbord': sessionStorage.userName,
         },
         //async: true,
         //crossDomain: true,
