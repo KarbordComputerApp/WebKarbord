@@ -2633,7 +2633,7 @@
             if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
             else if (list[i].SvTestName == 'ارز')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
 
 
             textBody +=

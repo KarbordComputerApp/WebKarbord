@@ -690,6 +690,7 @@
             EndNo: 0,
             Tanzim: sessionStorage.userName,
             TahieShode: sessionStorage.ace,
+            InOut: sessionStorage.InOut,
             VstrCode: 'null',
             VstrPer: 0,
             PakhshCode: '',
@@ -697,6 +698,7 @@
             Status: status,
             Taeed: sessionStorage.TaeedI == '' ? status == "تایید" ? sessionStorage.userName : '' : sessionStorage.TaeedI,
             Tasvib: status == "تصویب" ? sessionStorage.userName : '',
+            InOut: sessionStorage.InOut,
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat),
@@ -2024,7 +2026,7 @@
             if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
             else if (list[i].SvTestName == 'ارز')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
 
 
             textBody +=
