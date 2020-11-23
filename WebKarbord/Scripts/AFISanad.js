@@ -2974,7 +2974,7 @@
             else if (list[i].SvTestName == "ماهيت")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  ' + list[i].AccCode + ' مغایر با ماهیت آن می شود ' + ' </p>';
             else if (list[i].SvTestName == "بالانس")
-                textBody += '<p> سند بالانس نیست - بدهکار : ' + totalBede + ' - بستانکار : ' + totalBest + ' </p>';
+                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' +  ' بستانکار : ' + totalBest + ' </p>';
 
 
             textBody +=
