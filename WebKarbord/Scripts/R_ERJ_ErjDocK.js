@@ -1121,7 +1121,6 @@
             '</table >'
         );
     }
-    ن
 
     function CreateTableTh(field, data) {
 

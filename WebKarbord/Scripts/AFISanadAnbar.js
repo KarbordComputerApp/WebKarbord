@@ -111,7 +111,7 @@
     self.IModeList = ko.observableArray([]); // نوع سند 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
-    self.TestIDocBList = ko.observableArray([]); // لیست تست 
+    self.TestIDocList = ko.observableArray([]); // لیست تست 
 
 
     if (sessionStorage.InOut == 1) {
@@ -193,7 +193,7 @@
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
     var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
 
-    var TestIDocBUri = server + '/api/IDocData/TestIDocB/'; // آدرس تست سند 
+    var TestIDocUri = server + '/api/IDocData/TestIDoc/'; // آدرس تست سند 
 
 
 
@@ -1988,15 +1988,14 @@
     $('#FinalSave').click(function () {
         flagFinalSave = true;
 
-        var TestIDocBObject = {
-            SerialNumber: Serial,
-            InOut: sessionStorage.InOut,
+        var TestIDocObject = {
+            SerialNumber: Serial
         };
 
-        ajaxFunction(TestIDocBUri + ace + '/' + sal + '/' + group, 'POST', TestIDocBObject).done(function (data) {
+        ajaxFunction(TestIDocUri + ace + '/' + sal + '/' + group, 'POST', TestIDocObject).done(function (data) {
             if (data.length > 0) {
                 var obj = JSON.parse(data);
-                self.TestIDocBList(obj);
+                self.TestIDocList(obj);
                 SetDataTestDocB()
             }
         });
@@ -2007,7 +2006,7 @@
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestIDocBList();
+        list = self.TestIDocList();
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +

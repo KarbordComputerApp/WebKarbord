@@ -127,7 +127,7 @@
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
-    self.TestFDocBList = ko.observableArray([]); // لیست تست 
+    self.TestFDocList = ko.observableArray([]); // لیست تست 
 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
@@ -238,7 +238,7 @@
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
     var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
 
-    var TestFDocBUri = server + '/api/FDocData/TestFDocB/'; // آدرس تست فاکتور 
+    var TestFDocUri = server + '/api/FDocData/TestFDoc/'; // آدرس تست فاکتور 
 
 
     //Get ExtraFields List
@@ -2595,15 +2595,14 @@
     $('#FinalSave').click(function () {
         flagFinalSave = true;
 
-        var TestFDocBObject = {
-            SerialNumber: Serial,
-            ModeCode: ModeCodeExtraFields,
+        var TestFDocObject = {
+            SerialNumber: Serial
         };
 
-        ajaxFunction(TestFDocBUri + ace + '/' + sal + '/' + group, 'POST', TestFDocBObject).done(function (data) {
+        ajaxFunction(TestFDocUri + ace + '/' + sal + '/' + group, 'POST', TestFDocObject).done(function (data) {
             if (data.length > 0) {
                 var obj = JSON.parse(data);
-                self.TestFDocBList(obj);
+                self.TestFDocList(obj);
                 SetDataTestDocB()
             }
         });
@@ -2614,7 +2613,7 @@
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestFDocBList();
+        list = self.TestFDocList();
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +

@@ -210,7 +210,7 @@
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
     self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
-    self.TestADocBList = ko.observableArray([]); // لیست تست 
+    self.TestADocList = ko.observableArray([]); // لیست تست 
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
@@ -234,7 +234,7 @@
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
     var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
 
-    var TestADocBUri = server + '/api/ADocData/TestADocB/'; // آدرس تست سند 
+    var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
 
 
 
@@ -2933,14 +2933,14 @@
     $('#FinalSave').click(function () {
         $('#titleFinalSave').text('ذخیره سند حسابداری');
 
-        var TestADocBObject = {
+        var TestADocObject = {
             SerialNumber: Serial
         };
 
-        ajaxFunction(TestADocBUri + ace + '/' + sal + '/' + group, 'POST', TestADocBObject).done(function (data) {
+        ajaxFunction(TestADocUri + ace + '/' + sal + '/' + group, 'POST', TestADocObject).done(function (data) {
             if (data.length > 0) {
                 var obj = JSON.parse(data);
-                self.TestADocBList(obj);
+                self.TestADocList(obj);
                 SetDataTestDocB()
             }
         });
@@ -2951,7 +2951,7 @@
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestADocBList();
+        list = self.TestADocList();
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +
@@ -2972,10 +2972,11 @@
             else if (list[i].SvTestName == "ارز")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
             else if (list[i].SvTestName == "ماهيت")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  ' + list[i].AccCode + ' مغایر با ماهیت آن می شود ' + ' </p>';
+              //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>'; 
+
             else if (list[i].SvTestName == "بالانس")
                 textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' +  ' بستانکار : ' + totalBest + ' </p>';
-
 
             textBody +=
                 '    </div>' +

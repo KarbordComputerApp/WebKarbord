@@ -94,7 +94,5 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
-
-
     }
 }
