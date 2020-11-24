@@ -133,7 +133,7 @@
                     <div class="body" style="padding-left: 15px;padding-right: 15px; padding-bottom: 35px;">
                         <div>
                             <!--<button type="button" id="FinalSave" data-bind="click:UpdateADocH" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"> -->
-                            <button type="button" id="FinalSave" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;" data-toggle="modal" data-target="#modal-FinalSave">
+                            <button type="button" id="FinalSave" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
                                 ثبت نهایی
                             </button>
                         </div>
@@ -954,9 +954,9 @@
                     <table class="table table-hover table-striped">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableMkz">
-                                <th data-column="Code" style="width: 200px;">
+                                <th data-column="SortCode" style="width: 200px;">
                                     کد
-                                    <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                    <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>

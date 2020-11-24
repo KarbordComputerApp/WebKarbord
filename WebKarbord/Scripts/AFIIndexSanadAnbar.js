@@ -618,7 +618,8 @@
                     currentPage = self.currentPageIndexIDocH();
                     getIDocH(0, invSelected);
                     self.currentPageIndexIDocH(currentPage);
-                    Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
+                    showNotification( 'سند حذف شد ', 1);
+                   // Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
                 });
             }
         })

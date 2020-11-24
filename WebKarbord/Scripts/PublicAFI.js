@@ -357,20 +357,24 @@ function SetSelectProgram() {
     var sal = $("#DropSal").val();
 
     if (server == '' || server == null) {
-        Swal.fire({ type: 'info', title: 'خطا در ورود به نرم افزار', text: 'دوباره لاگین کنید' });
+        showNotification('دوباره لاگین کنید', 0);
+        //Swal.fire({ type: 'info', title: 'خطا در ورود به نرم افزار', text: 'دوباره لاگین کنید' });
         return false;
     }
 
     if (ace == '0' || ace == null) {
-        Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'نرم افزار را انتخاب کنید' });
+        showNotification('نرم افزار را انتخاب کنید', 0);
+        //Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'نرم افزار را انتخاب کنید' });
         return false;
     }
     if (group == '0' || group == null) {
-        Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'گروه را انتخاب کنید' });
+        showNotification('گروه را انتخاب کنید', 0);
+        //Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'گروه را انتخاب کنید' });
         return false;
     }
     if (sal == '0' || sal == null) {
-        Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'سال را انتخاب کنید' });
+        showNotification('سال را انتخاب کنید', 0);
+        //Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'سال را انتخاب کنید' });
         return false;
     }
     try {
@@ -393,7 +397,8 @@ function SetSelectProgram() {
         return true;
     } catch (e) {
         $('#SaveParam').removeAttr('disabled');
-        Swal.fire({ type: 'danger', title: 'خطای ورود', text: e });
+        showNotification(' خطای ورود ' + e , 0);
+        //Swal.fire({ type: 'danger', title: 'خطای ورود', text: e });
         return false;
     }
 }
@@ -560,7 +565,8 @@ function getAccessList() {
     ajaxFunctionAccount(AccountUri + localStorage.getItem("userNameAccount") + '/' +
         localStorage.getItem("passAccount"), 'GET').done(function (data) {
             if (data === null) {
-                return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+                return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
+               // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
             }
             else {
                 serverAddress = data.AddressApi;

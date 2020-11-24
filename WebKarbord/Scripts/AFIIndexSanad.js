@@ -534,7 +534,8 @@
                     currentPage = self.currentPageIndexADocH();
                     getADocH($('#pageCountSelector').val());
                     self.currentPageIndexADocH(currentPage);
-                    Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
+                    showNotification('سند حذف شد ', 1);
+                    //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
                 });
             }
         })

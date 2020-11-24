@@ -468,7 +468,7 @@
         totalBede = 0;
         totalBest = 0;
         totalArzValue = 0;
-       
+
         for (var i = 0; i < list.length; ++i) {
             ADocBData = list[i];
             totalBede += ADocBData.Bede;
@@ -654,7 +654,7 @@
         self.iconTypeSpec('');
 
 
-        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
@@ -1461,7 +1461,7 @@
         self.iconTypeSpec('');
 
 
-        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
@@ -2585,7 +2585,8 @@
                 window.location.href = sessionStorage.urlADocH;
             }
             else {
-                Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
+                showNotification('سند ذخیره شد ', 1);
+                //Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
             }
         });
     };
@@ -2861,13 +2862,20 @@
             return showNotification('حساب را انتخاب کنید', 0);
         }
 
+        bede = SlashToDot($("#bede").val()) == "" ? "0" : SlashToDot($("#bede").val()) ;
+        best = SlashToDot($("#best").val()) == "" ? "0" : SlashToDot($("#best").val()) ;
+
+        if (best == "0" && bede == "0" ) {
+            return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
+        }
+
         var ADocBObject = {
             SerialNumber: Serial,
             BandNo: bandnumberedit,
             AccCode: AccCode,
             AccZCode: AccZCode,
-            Bede: SlashToDot($("#bede").val()),
-            Best: SlashToDot($("#best").val()),
+            Bede: bede,
+            Best: best,
             Comm: $("#comm").val(),
             BandSpec: $("#bandSpec").val(),
             CheckNo: $("#CheckNo").val(),
@@ -2920,7 +2928,8 @@
                     self.ADocBList(response);
                     calcsum(response);
                     flagFinalSave = false;
-                    Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
+                    showNotification(' بند شماره ' + SanadBand.BandNo + ' حذف شد ' , 1);
+                    //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
                 });
             }
         })
@@ -2938,10 +2947,13 @@
         };
 
         ajaxFunction(TestADocUri + ace + '/' + sal + '/' + group, 'POST', TestADocObject).done(function (data) {
-            if (data.length > 0) {
-                var obj = JSON.parse(data);
-                self.TestADocList(obj);
+            var obj = JSON.parse(data);
+            self.TestADocList(obj);
+            if (data.length > 2) {
+                $('#modal-FinalSave').modal('show');
                 SetDataTestDocB()
+            } else {
+                self.UpdateADocH();
             }
         });
     });
@@ -2972,11 +2984,11 @@
             else if (list[i].SvTestName == "ارز")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
             else if (list[i].SvTestName == "ماهيت")
-              //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>'; 
+                //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
 
             else if (list[i].SvTestName == "بالانس")
-                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' +  ' بستانکار : ' + totalBest + ' </p>';
+                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
 
             textBody +=
                 '    </div>' +
@@ -3009,7 +3021,7 @@
 
 
     $('#FinalSave-Modal').click(function () {
-        $('#FinalSave-Modal').modal('hide');
+        $('#modal-FinalSave').modal('hide');
         self.UpdateADocH();
     });
 
@@ -3076,8 +3088,8 @@
 
             CreateTableTd('ArzCode', 0, 0, data) +
             CreateTableTd('ArzName', 0, 0, data) +
-            CreateTableTd('ArzRate', sessionStorage.Deghat , 2, data) +
-            CreateTableTd('ArzValue', sessionStorage.Deghat , 2, data) +
+            CreateTableTd('ArzRate', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('ArzValue', sessionStorage.Deghat, 2, data) +
 
 
             '<td id="action_bodysanad">' +

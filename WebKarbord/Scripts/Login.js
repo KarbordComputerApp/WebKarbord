@@ -37,14 +37,16 @@
         pass === '' ? pass = 'null' : pass = pass;
         ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET').done(function (data) {
             if (data == null || data == 0)
-                return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+                //return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+            return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
 
             var res = data.split("-");
             userValid = res[0];
 
 
             if (userValid === 0) {
-                return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+                return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
+               // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
                 sessionStorage.userName = '';
                 sessionStorage.pass = '';
 
@@ -69,6 +71,7 @@
         //window.localStorage.clear();
         ajaxFunctionAccount(AccountUri + userAccount + '/' + passAccount, 'GET').done(function (data) {
             if (data === 0) {
+
                 return showNotification(' نام مجوز ورود یا کلمه عبور اشتباه است ', 0);
             }
             else {
@@ -108,12 +111,14 @@
     self.LoginUser = function LoginUser() {
         server = localStorage.getItem("ApiAddress");
         if (server === null || server === "") {
-            return Swal.fire({ type: 'info', title: 'خطا در ورود', text: 'مشخصات سرویس را وارد کنید' });
+            return showNotification('مشخصات سرویس را وارد کنید', 0);
+            //return Swal.fire({ type: 'info', title: 'خطا در ورود', text: 'مشخصات سرویس را وارد کنید' });
         }
         user = $("#user").val();
         pass = $("#pass").val();
         if (user === "" || user === null) {
-            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
+            return showNotification(' نام کاربری را وارد کنید ', 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
         }
         //if (pass == "" || pass == null) {
         //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
@@ -134,10 +139,12 @@
         passAccount = $("#passAccount").val();
 
         if (userAccount === "" || userAccount === null) {
-            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
+            return showNotification(' نام کاربری را وارد کنید ', 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
         }
         if (passAccount === "" || passAccount === null) {
-            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
+            return showNotification(' کلمه عبور را وارد کنید ', 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
         }
 
         //asciiuserAccount = '';

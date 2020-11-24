@@ -763,7 +763,8 @@
 
             }
             else {
-                Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
+                showNotification('سند ذخیره شد',1);
+               // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
             }
 
         });
@@ -874,7 +875,8 @@
         //KalaCode = $("#codeKala").val();
         //        bandnumber = bandnumber + 1;
         if (Serial == '') {
-            return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه سند ثبت نشده است ' });
+            return showNotification(' بند شمارهاطلاعات اوليه سند ثبت نشده است ', 0);
+            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه سند ثبت نشده است ' });
         }
         var cKala = $('#codeKala').val();
         var nKala = $('#nameKala').val();
@@ -886,7 +888,8 @@
         comm = $("#comm").val();
 
         if (cKala == '' || nKala == '' || uKala == '') {
-            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
+            return showNotification('کالا را وارد کنيد', 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
         }
 
         if (amount == '') {
@@ -1395,7 +1398,7 @@
                     getIDocH(Serial);
                     flagFinalSave = false;
                     //self.UpdateIDocH();
-                    Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + factorBand.BandNo + ' حذف شد ' });
+                    showNotification(' بند شماره ' + factorBand.BandNo + ' حذف شد ', 1);
                 });
             }
         })
@@ -1944,7 +1947,7 @@
         else {
             setReport(self.IDocPList(), 'Sanad_ODoc_NoPrice', variable);
         }
-        
+
 
     });
 
@@ -1993,10 +1996,13 @@
         };
 
         ajaxFunction(TestIDocUri + ace + '/' + sal + '/' + group, 'POST', TestIDocObject).done(function (data) {
-            if (data.length > 0) {
-                var obj = JSON.parse(data);
-                self.TestIDocList(obj);
+            var obj = JSON.parse(data);
+            self.TestIDocList(obj);
+            if (data.length > 2) {
+                $('#modal-FinalSave').modal('show');
                 SetDataTestDocB()
+            } else {
+                self.UpdateIDocH();
             }
         });
     });
@@ -2059,7 +2065,7 @@
 
 
     $('#FinalSave-Modal').click(function () {
-        $('#FinalSave-Modal').modal('hide');
+        $('#modal-FinalSave').modal('hide');
         self.UpdateIDocH();
     });
 

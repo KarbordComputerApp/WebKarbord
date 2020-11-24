@@ -426,7 +426,7 @@
 
     //Get Inv List
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/2/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/2/' + sessionStorage.userName, 'GET').done(function (data) {
             $("div.loadingZone").hide();
             self.InvList(data);
             if (self.InvList().length > 0) {
@@ -959,7 +959,8 @@
 
             }
             else {
-                Swal.fire({ type: 'success', title: 'ثبت موفق', text: $('#TitleHeaderFactor').text() + ' ذخيره شد ' });
+                showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);
+                //Swal.fire({ type: 'success', title: 'ثبت موفق', text: $('#TitleHeaderFactor').text() + ' ذخيره شد ' });
             }
 
         });
@@ -1984,7 +1985,7 @@
 
 
 
-     $("#gGhimat").change(function () {
+    $("#gGhimat").change(function () {
         a = $("#sumfactor").val();
         if ($("#sumfactor").val() != '' && viewAction == true && firstUpdateShow == 0) {
 
@@ -2272,9 +2273,9 @@
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_PPDOC  == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_PPDOC  == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PPDOC  == 'true'
+            showPrice = sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_PPDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PPDOC == 'true'
 
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
@@ -2576,19 +2577,19 @@
         $('#finalSave_Title').removeAttr('hidden', '');
     });
 
-   /*
-    $('#inv').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
-
-    $('#status').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
-
-    $('#modeCode').click(function () {
-        $('#finalSave_Title').removeAttr('hidden', '');
-    });
-    */
+    /*
+     $('#inv').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+ 
+     $('#status').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+ 
+     $('#modeCode').click(function () {
+         $('#finalSave_Title').removeAttr('hidden', '');
+     });
+     */
 
     $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderFactor').text());
 
@@ -2600,11 +2601,21 @@
         };
 
         ajaxFunction(TestFDocUri + ace + '/' + sal + '/' + group, 'POST', TestFDocObject).done(function (data) {
-            if (data.length > 0) {
-                var obj = JSON.parse(data);
-                self.TestFDocList(obj);
-                SetDataTestDocB()
+
+            var obj = JSON.parse(data);
+            self.TestFDocList(obj);
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+                self.UpdateFDocH();
             }
+            else {
+                if (data.length > 2) {
+                    $('#modal-FinalSave').modal('show');
+                    SetDataTestDocB()
+                } else {
+                    self.UpdateFDocH();
+                }
+            }
+
         });
     });
 
@@ -2666,7 +2677,7 @@
 
 
     $('#FinalSave-Modal').click(function () {
-        $('#FinalSave-Modal').modal('hide');
+        $('#modal-FinalSave').modal('hide');
         self.UpdateFDocH();
     });
 
