@@ -13,6 +13,7 @@
     var flagOtherFieldShow;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
+    var flaglog = "Y";
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
@@ -819,6 +820,7 @@
             F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: flaglog,
         };
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             //$('#DatileFactor').show();
@@ -830,6 +832,7 @@
             $('#textnumberfactor').show();
             $('#docnoout').text(DocNoOut);
             // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخيره شد ' });
+            flaglog = 'N';
         });
         flagInsertFdoch = 1;
     };
@@ -945,6 +948,7 @@
             F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: flaglog,
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
@@ -956,6 +960,7 @@
             //            $('#docnoout').val(DocNoOut);
             sessionStorage.searchFDocH = $("#docnoout").text();
             $('#finalSave_Title').attr('hidden', '');
+            flaglog = 'N';
             //flagInsertFdoch = 0;
             //FinalSave
 

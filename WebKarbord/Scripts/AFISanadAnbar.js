@@ -6,12 +6,14 @@
     var forSels = true;
     var flagupdateHeader;
     var flagOtherFieldShow;
+    
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
 
+    var flaglog = "Y";
     //sessionStorage.searchIDocH = "";
     var server = localStorage.getItem("ApiAddress");
 
@@ -616,6 +618,7 @@
             F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: flaglog,
         };
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'POST', IDocHObject).done(function (response) {
             //$('#DatileFactor').show();
@@ -632,6 +635,7 @@
             if (ace == "Web8") {
                 $('#modeCode').prop('disabled', true);
             }
+            flaglog = 'N';
         });
         flagInsertIDoch = 1;
     };
@@ -731,6 +735,7 @@
             F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: flaglog,
         };
 
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'PUT', IDocHObject).done(function (response) {
@@ -743,6 +748,7 @@
             sessionStorage.searchIDocH = Serial;
             //flagInsertIDoch = 0;
             //FinalSave
+            flaglog = 'N';
 
             $('#finalSave_Title').attr('hidden', '');
 
@@ -757,7 +763,6 @@
             } else {
                 getIDocH(Serial);
             }
-
 
 
             if (flagupdateHeader == 1 && flagFinalSave == true) {

@@ -10,6 +10,8 @@
     sessionStorage.searchADocH = "";
     self.bundNumberImport = 0;
 
+    var flaglog = "Y";
+
     self.StatusSanad = ko.observable();
 
     var viewAction = false;
@@ -2489,7 +2491,8 @@
             F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
             F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: flaglog,
         };
 
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
@@ -2498,6 +2501,7 @@
             DocNoOut = res[1];
             $('#docnoout').text(DocNoOut);
             flagInsertADocH = 1;
+            flaglog = 'N';
         });
         flagInsertADoc = 1;
     };
@@ -2570,7 +2574,8 @@
             F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
             F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: flaglog,
         };
 
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
@@ -2579,6 +2584,7 @@
 
             $('#finalSave_Title').attr('hidden', '');
 
+            flaglog = 'N';
             if (flagupdateHeader == 1) {
                 sessionStorage.flagupdateHeader = 0;
                 flagupdateHeader = 0;
