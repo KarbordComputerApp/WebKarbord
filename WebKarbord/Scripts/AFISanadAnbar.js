@@ -558,9 +558,19 @@
 
 
         if (codeThvl == '') {
-            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
+            if (sessionStorage.InOut == 1) {
+                if (sessionStorage.IDOCI_TestThvl == "1")
+                    showNotification('تحویل دهنده انتخاب نشده است', 2);
+                else if (sessionStorage.IDOCI_TestThvl == "2")
+                    return showNotification('تحویل دهنده انتخاب نشده است', 0);
+            }
+            else {
+                if (sessionStorage.IDOCO_TestThvl == "1")
+                    showNotification('تحویل گیرنده انتخاب نشده است', 2);
+                else if (sessionStorage.IDOCO_TestThvl == "2")
+                    return showNotification('تحویل گیرنده انتخاب نشده است', 0);
+            }
         }
-
 
         kalapricecode = $("#gGhimat").val();
         if (kalapricecode == null) kalapricecode = "";
@@ -660,10 +670,9 @@
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
         }
 
-
-        if (codeThvl == '') {
-            showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
-        }
+        //if (codeThvl == '') {
+        //    showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
+        //}
 
         if ($('#docnoout').text() == '0') {
             return showNotification('ابتدا بند ها وارد کنید', 0);
@@ -763,8 +772,8 @@
 
             }
             else {
-                showNotification('سند ذخیره شد',1);
-               // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
+                showNotification('سند ذخیره شد', 1);
+                // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
             }
 
         });
@@ -2028,10 +2037,17 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
-            if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
-            else if (list[i].SvTestName == 'ارز')
+            if (list[i].SvTestName == "Opr")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+
+            else if (list[i].SvTestName == "Mkz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+
+            else if (list[i].SvTestName == 'Arz')
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
+
+            else if (list[i].SvTestName == 'Thvl')
+                textBody += '<p>' + $('#LableThvlCode').text() + ' انتخاب نشده است ' + ' </p>';
 
 
             textBody +=

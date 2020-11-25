@@ -441,6 +441,24 @@ function getParamList() {
             sessionStorage.GPriceDefultP = SearchArry("KalaPriceP", "Default", self.ParamList());
             sessionStorage.GPriceDefultI = SearchArry("KalaPriceI", "Default", self.ParamList());
 
+
+            sessionStorage.ADOC_TestZeroBand = SearchArry("ADOC_TestZeroBand", "ADOC_TestZeroBand", self.ParamList());
+
+            sessionStorage.FDOCSO_TestCust = SearchArry("FDOCSO_TestCust", "FDOCSO_TestCust", self.ParamList());
+            sessionStorage.FDOCSP_TestCust = SearchArry("FDOCSP_TestCust", "FDOCSP_TestCust", self.ParamList());
+            sessionStorage.FDOCS_TestCust = SearchArry("FDOCS_TestCust", "FDOCS_TestCust", self.ParamList());
+            sessionStorage.FDOCSR_TestCust = SearchArry("FDOCSR_TestCust", "FDOCSR_TestCust", self.ParamList());
+
+            sessionStorage.FDOCPO_TestCust = SearchArry("FDOCPO_TestCust", "FDOCPO_TestCust", self.ParamList());
+            sessionStorage.FDOCPP_TestCust = SearchArry("FDOCPP_TestCust", "FDOCPP_TestCust", self.ParamList());
+            sessionStorage.FDOCP_TestCust = SearchArry("FDOCP_TestCust", "FDOCP_TestCust", self.ParamList());
+            sessionStorage.FDOCPR_TestCust = SearchArry("FDOCPR_TestCust", "FDOCPR_TestCust", self.ParamList());
+
+            sessionStorage.IDOCI_TestThvl = SearchArry("IDOCI_TestThvl", "IDOCI_TestThvl", self.ParamList());
+            sessionStorage.IDOCO_TestThvl = SearchArry("IDOCO_TestThvl", "IDOCO_TestThvl", self.ParamList());
+
+
+
             if (sessionStorage.ace == 'Web8') {
                 sessionStorage.Move_SCONT = SearchArry("MoveTo", "SCONT", self.ParamList());
                 sessionStorage.Move_SORD = SearchArry("MoveTo", "SORD", self.ParamList());
@@ -466,7 +484,7 @@ function getParamList() {
 
 
             sessionStorage.invSelect = "";
-            $('#param1').text(sessionStorage.ace == "null" ? "انتخاب نشده است" : sessionStorage.ace);
+           /* $('#param1').text(sessionStorage.ace == "null" ? "انتخاب نشده است" : sessionStorage.ace);
             $('#param2').text(sessionStorage.group == "null" ? "انتخاب نشده است" : sessionStorage.group);
             $('#param3').text(sessionStorage.sal == "null" ? "انتخاب نشده است" : sessionStorage.sal);
             $('#param4').text(sessionStorage.BeginDate == "null" ? "انتخاب نشده است" : sessionStorage.BeginDate);
@@ -479,7 +497,7 @@ function getParamList() {
 
             //sessionStorage.GPriceDefultS == 0 ? sessionStorage.GPriceDefultS = 'گروه قیمت را انتخاب کنید' : sessionStorage.GPriceDefultS
             //sessionStorage.GPriceDefultP == 0 ? sessionStorage.GPriceDefultP = 'گروه قیمت را انتخاب کنید' : sessionStorage.GPriceDefultP
-            //sessionStorage.GPriceDefultI == 0 ? sessionStorage.GPriceDefultI = 'گروه قیمت را انتخاب کنید' : sessionStorage.GPriceDefultI
+            //sessionStorage.GPriceDefultI == 0 ? sessionStorage.GPriceDefultI = 'گروه قیمت را انتخاب کنید' : sessionStorage.GPriceDefultI*/
         }
     });
 }

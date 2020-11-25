@@ -698,11 +698,61 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
         }
 
-        if (codeCust == '') {
-            return showNotification(sessionStorage.InOut == 2 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
-        }
 
+
+
+
+        switch (sessionStorage.ModeCode.toString()) {
+            case sessionStorage.MODECODE_FDOC_SO:
+                if (sessionStorage.FDOCSO_TestCust == "1")
+                    showNotification('خریدار انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCSO_TestCust == "2")
+                    return showNotification('خریدار انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_SP:
+                if (sessionStorage.FDOCSP_TestCust == "1")
+                    showNotification('خریدار انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCSP_TestCust == "2")
+                    return showNotification('خریدار انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_S:
+                if (sessionStorage.FDOCS_TestCust == "1")
+                    showNotification('خریدار انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCS_TestCust == "2")
+                    return showNotification('خریدار انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_SR:
+                if (sessionStorage.FDOCSR_TestCust == "1")
+                    showNotification('خریدار انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCSR_TestCust == "2")
+                    return showNotification('خریدار انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_PO:
+                if (sessionStorage.FDOCPO_TestCust == "1")
+                    showNotification('فروشنده انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCPO_TestCust == "2")
+                    return showNotification('فروشنده انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_PP:
+                if (sessionStorage.FDOCPP_TestCust == "1")
+                    showNotification('فروشنده انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCPP_TestCust == "2")
+                    return showNotification('فروشنده انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_P:
+                if (sessionStorage.FDOCP_TestCust == "1")
+                    showNotification('فروشنده انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCP_TestCust == "2")
+                    return showNotification('فروشنده انتخاب نشده است', 0);
+                break;
+            case sessionStorage.MODECODE_FDOC_PR:
+                if (sessionStorage.FDOCPR_TestCust == "1")
+                    showNotification('فروشنده انتخاب نشده است', 2);
+                else if (sessionStorage.FDOCPR_TestCust == "2")
+                    return showNotification('فروشنده انتخاب نشده است', 0);
+                break;
+        }
+    
 
         kalapricecode = $("#gGhimat").val();
         if (kalapricecode == null) kalapricecode = "";
@@ -2640,11 +2690,18 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
-            if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
-            else if (list[i].SvTestName == 'ارز')
+
+            if (list[i].SvTestName == "Opr")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+
+            else if (list[i].SvTestName == "Mkz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+
+            else if (list[i].SvTestName == 'Arz')
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
 
+            else if (list[i].SvTestName == 'Cust')
+                textBody += '<p>' + $('#LableHesabCode').text() + ' انتخاب نشده است ' + ' </p>';
 
             textBody +=
                 '    </div>' +

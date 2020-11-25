@@ -2783,6 +2783,18 @@
             return showNotification('حساب را انتخاب کنید', 0);
         }
 
+        bede = SlashToDot($("#bede").val()) == "" ? "0" : SlashToDot($("#bede").val());
+        best = SlashToDot($("#best").val()) == "" ? "0" : SlashToDot($("#best").val());
+
+        if (best == "0" && bede == "0") {
+            if (best == "0" && bede == "0") {
+                if (sessionStorage.ADOC_TestZeroBand == "1")
+                    showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 2);
+                else if (sessionStorage.ADOC_TestZeroBand == "2")
+                    return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
+            }
+        }
+
         $('#Save').attr('disabled', '');
 
 
@@ -2791,8 +2803,8 @@
             BandNo: bandnumber,
             AccCode: AccCode,
             AccZCode: AccZCode,
-            Bede: SlashToDot($("#bede").val()),
-            Best: SlashToDot($("#best").val()),
+            Bede: bede,
+            Best: best,
             Comm: $("#comm").val(),
             BandSpec: $("#bandSpec").val(),
             CheckNo: $("#CheckNo").val(),
@@ -2862,11 +2874,16 @@
             return showNotification('حساب را انتخاب کنید', 0);
         }
 
-        bede = SlashToDot($("#bede").val()) == "" ? "0" : SlashToDot($("#bede").val()) ;
-        best = SlashToDot($("#best").val()) == "" ? "0" : SlashToDot($("#best").val()) ;
+        bede = SlashToDot($("#bede").val()) == "" ? "0" : SlashToDot($("#bede").val());
+        best = SlashToDot($("#best").val()) == "" ? "0" : SlashToDot($("#best").val());
 
-        if (best == "0" && bede == "0" ) {
-            return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
+
+
+        if (best == "0" && bede == "0") {
+            if (sessionStorage.ADOC_TestZeroBand == "1")
+                showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 2);
+            else if (sessionStorage.ADOC_TestZeroBand == "2")
+                return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
         }
 
         var ADocBObject = {
@@ -2928,7 +2945,7 @@
                     self.ADocBList(response);
                     calcsum(response);
                     flagFinalSave = false;
-                    showNotification(' بند شماره ' + SanadBand.BandNo + ' حذف شد ' , 1);
+                    showNotification(' بند شماره ' + SanadBand.BandNo + ' حذف شد ', 1);
                     //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
                 });
             }
@@ -2979,16 +2996,21 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
-            if (list[i].SvTestName == "پروژه" || list[i].SvTestName == "مرکز هزينه")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' ' + list[i].SvTestName + ' مشخص نشده است ' + ' </p>';
-            else if (list[i].SvTestName == "ارز")
+            if (list[i].SvTestName == "Opr")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+            else if (list[i].SvTestName == "Mkz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+            else if (list[i].SvTestName == "Arz")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
-            else if (list[i].SvTestName == "ماهيت")
+            else if (list[i].SvTestName == "Mahiat")
                 //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
 
-            else if (list[i].SvTestName == "بالانس")
+            else if (list[i].SvTestName == "Balance")
                 textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
+
+            else if (list[i].SvTestName == "ZeroBand")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
 
             textBody +=
                 '    </div>' +
