@@ -166,7 +166,7 @@
 
 
 
-    
+
 
 
 
@@ -280,7 +280,7 @@
 
         ajaxFunction(ADocRUri + ace + '/' + sal + '/' + group, 'POST', ADocRObject).done(function (response) {
             self.ADocRList(response);
-           // calcsum(self.ADocRList());
+            // calcsum(self.ADocRList());
         });
     }
 
@@ -1239,7 +1239,7 @@
                 opt.value = 1;
                 opt.innerHTML = 'حساب های کل';
             }
-            
+
             select.appendChild(opt);
         }
     };
@@ -1248,7 +1248,7 @@
         select = document.getElementById('JamRooz');
         for (var i = 0; i <= 1; i++) {
             opt = document.createElement('option');
-             if (i == 0) {
+            if (i == 0) {
                 opt.value = 0;
                 opt.innerHTML = 'بدون جمع روزانه';
                 opt.selected = true;
@@ -1534,7 +1534,7 @@
 
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1547,7 +1547,7 @@
         if (orderProp == 'TrafCode') self.iconTypeTrafCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TrafName') self.iconTypeTrafName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ModeName') self.iconTypeModeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortMkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1819,12 +1819,17 @@
 
         TextField = FindTextField(field, data);
 
-        sortField = field == 'DocNo' ? 'SortDocNo' : field
+        sortField =
+            field == 'MkzCode' ? 'SortMkzCode' :
+                field == 'AccCode' ? 'SortAccCode' :
+                    field
+
 
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'data-column="' + field + '">' +
+
+        text += 'data-column="' + sortField + '">' +
             '<span data-column="' + sortField + '">' + TextField + '</span>' +
             '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
             '    <i data-bind="attr: { class: iconType' + field + ' }" data-column="' + sortField + '" ></i> </span> ' +

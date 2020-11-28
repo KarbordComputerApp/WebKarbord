@@ -701,59 +701,59 @@
 
 
 
-
-
-        switch (sessionStorage.ModeCode.toString()) {
-            case sessionStorage.MODECODE_FDOC_SO:
-                if (sessionStorage.FDOCSO_TestCust == "1")
-                    showNotification('خریدار انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCSO_TestCust == "2")
-                    return showNotification('خریدار انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_SP:
-                if (sessionStorage.FDOCSP_TestCust == "1")
-                    showNotification('خریدار انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCSP_TestCust == "2")
-                    return showNotification('خریدار انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_S:
-                if (sessionStorage.FDOCS_TestCust == "1")
-                    showNotification('خریدار انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCS_TestCust == "2")
-                    return showNotification('خریدار انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_SR:
-                if (sessionStorage.FDOCSR_TestCust == "1")
-                    showNotification('خریدار انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCSR_TestCust == "2")
-                    return showNotification('خریدار انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_PO:
-                if (sessionStorage.FDOCPO_TestCust == "1")
-                    showNotification('فروشنده انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCPO_TestCust == "2")
-                    return showNotification('فروشنده انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_PP:
-                if (sessionStorage.FDOCPP_TestCust == "1")
-                    showNotification('فروشنده انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCPP_TestCust == "2")
-                    return showNotification('فروشنده انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_P:
-                if (sessionStorage.FDOCP_TestCust == "1")
-                    showNotification('فروشنده انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCP_TestCust == "2")
-                    return showNotification('فروشنده انتخاب نشده است', 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_PR:
-                if (sessionStorage.FDOCPR_TestCust == "1")
-                    showNotification('فروشنده انتخاب نشده است', 2);
-                else if (sessionStorage.FDOCPR_TestCust == "2")
-                    return showNotification('فروشنده انتخاب نشده است', 0);
-                break;
+        if (codeCust == '') {
+            switch (sessionStorage.ModeCode.toString()) {
+                case sessionStorage.MODECODE_FDOC_SO:
+                    if (sessionStorage.FDOCSO_TestCust == "1")
+                        showNotification('خریدار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSO_TestCust == "2")
+                        return showNotification('خریدار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SP:
+                    if (sessionStorage.FDOCSP_TestCust == "1")
+                        showNotification('خریدار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSP_TestCust == "2")
+                        return showNotification('خریدار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_S:
+                    if (sessionStorage.FDOCS_TestCust == "1")
+                        showNotification('خریدار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCS_TestCust == "2")
+                        return showNotification('خریدار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SR:
+                    if (sessionStorage.FDOCSR_TestCust == "1")
+                        showNotification('خریدار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSR_TestCust == "2")
+                        return showNotification('خریدار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PO:
+                    if (sessionStorage.FDOCPO_TestCust == "1")
+                        showNotification('فروشنده انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCPO_TestCust == "2")
+                        return showNotification('فروشنده انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PP:
+                    if (sessionStorage.FDOCPP_TestCust == "1")
+                        showNotification('فروشنده انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCPP_TestCust == "2")
+                        return showNotification('فروشنده انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_P:
+                    if (sessionStorage.FDOCP_TestCust == "1")
+                        showNotification('فروشنده انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCP_TestCust == "2")
+                        return showNotification('فروشنده انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PR:
+                    if (sessionStorage.FDOCPR_TestCust == "1")
+                        showNotification('فروشنده انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCPR_TestCust == "2")
+                        return showNotification('فروشنده انتخاب نشده است', 0);
+                    break;
+            }
         }
-    
+
 
         kalapricecode = $("#gGhimat").val();
         if (kalapricecode == null) kalapricecode = "";
@@ -1158,7 +1158,7 @@
             //getFDocH(Serial);
             //}
             $('#modal-Band').modal('hide');
-            
+
             self.ClearFDocB();
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
         });

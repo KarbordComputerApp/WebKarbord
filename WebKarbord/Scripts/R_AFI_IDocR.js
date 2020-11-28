@@ -2433,7 +2433,7 @@
 
             TextField = FindTextField(field, data);
 
-            sortField = field == 'DocNo' ? 'SortDocNo' : field
+            sortField = field == 'DocNo' ? 'DocNo' : field
 
             if (TextField == 0)
                 text += 'Hidden ';

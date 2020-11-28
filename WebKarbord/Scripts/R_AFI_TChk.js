@@ -886,6 +886,12 @@
         text = '<td ';
 
         TextField = FindTextField(field, data);
+
+        sortField =
+            field == 'MkzCode' ? 'SortMkzCode' :
+                field == 'AccCode' ? 'SortAccCode' :
+                    field
+
         if (TextField == 0)
             text += 'Hidden ';
 

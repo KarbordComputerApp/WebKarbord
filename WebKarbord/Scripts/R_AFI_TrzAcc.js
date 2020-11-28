@@ -1227,7 +1227,12 @@
         text = '<th ';
 
         TextField = FindTextField(field, data);
-        sortField = field == 'AccCode' ? 'SortAccCode' : field
+
+        sortField = field == 'DocNo' ? 'SortDocNo' :
+            field == 'MkzCode' ? 'SortMkzCode' :
+                field == 'AccCode' ? 'SortAccCode' :
+                    field
+
         if (TextField == 0)
             text += 'Hidden ';
 
