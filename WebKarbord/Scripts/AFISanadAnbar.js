@@ -597,6 +597,7 @@
             PakhshCode: '',
             InvCode: inv,
             Eghdam: sessionStorage.userName,
+            InOut: sessionStorage.InOut,
             EghdamDate: 'null',
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
@@ -703,7 +704,6 @@
             EndNo: 0,
             Tanzim: sessionStorage.userName,
             TahieShode: sessionStorage.ace,
-            InOut: sessionStorage.InOut,
             VstrCode: 'null',
             VstrPer: 0,
             PakhshCode: '',
@@ -864,7 +864,9 @@
             TotalPrice: totalPrice + '',//self.TotalPrice(),
             MainUnit: uKala,//self.MainUnit(),
             Comm: comm,
-            Up_Flag: flag
+            Up_Flag: flag,
+            InOut: sessionStorage.InOut,
+            flagLog: flaglog,
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -877,6 +879,7 @@
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             self.ClearIDocB();
+            flaglog = 'N';
             $('#Save').removeAttr('disabled');
             showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
         });
@@ -926,7 +929,9 @@
             TotalPrice: totalPrice,//self.TotalPrice(),
             MainUnit: uKala,//self.MainUnit(),
             Comm: comm,
-            Up_Flag: flag
+            Up_Flag: flag,
+            InOut: sessionStorage.InOut,
+            flagLog: flaglog,
         };
 
         ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', IDocBObject).done(function (response) {
@@ -940,6 +945,7 @@
             //}
             $('#modal-Band').modal('hide');
             self.ClearIDocB();
+            flaglog = 'N';
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
         });
     };
@@ -1407,10 +1413,11 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + factorBand.BandNo, 'DELETE').done(function (response) {
+                ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + factorBand.BandNo + '/' + sessionStorage.InOut + '/' + flaglog, 'DELETE').done(function (response) {
                     self.IDocBList(response);
                     getIDocH(Serial);
                     flagFinalSave = false;
+                    flaglog = 'N';
                     //self.UpdateIDocH();
                     showNotification(' بند شماره ' + factorBand.BandNo + ' حذف شد ', 1);
                 });

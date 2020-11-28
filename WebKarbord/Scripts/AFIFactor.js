@@ -1072,7 +1072,10 @@
             Discount: discountprice,//self.Discount(),
             MainUnit: uKala,//self.MainUnit(),
             Comm: comm,
-            Up_Flag: flag
+            Up_Flag: flag,
+            ModeCode: sessionStorage.ModeCode,
+            flagLog: flaglog,
+
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -1083,6 +1086,7 @@
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             CalcDiscontCol(self.CustCode());
+            flaglog = 'N';
             self.UpdateFDocH();
             self.ClearFDocB();
             showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
@@ -1136,7 +1140,9 @@
             Discount: discountprice,//self.Discount(),
             MainUnit: uKala,//self.MainUnit(),
             Comm: comm,
-            Up_Flag: flag
+            Up_Flag: flag,
+            ModeCode: sessionStorage.ModeCode,
+            flagLog: flaglog,
         };
 
         ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', FDocBObject).done(function (response) {
@@ -1147,10 +1153,12 @@
             flagFinalSave = false;
             //if (flagupdateHeader == 1) {
             CalcDiscontCol(self.CustCode());
+            flaglog = 'N';
             self.UpdateFDocH();
             //getFDocH(Serial);
             //}
             $('#modal-Band').modal('hide');
+            
             self.ClearFDocB();
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
         });
@@ -1674,8 +1682,9 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + factorBand.BandNo, 'DELETE').done(function (response) {
+                ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + factorBand.BandNo + '/' + sessionStorage.ModeCode + '/' + flaglog, 'DELETE').done(function (response) {
                     self.FDocBList(response);
+                    flaglog = 'N';
                     getFDocH(Serial);
                     CalcDiscontCol(self.CustCode());
                     flagFinalSave = false;

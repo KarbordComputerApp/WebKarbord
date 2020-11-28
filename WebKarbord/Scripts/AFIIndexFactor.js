@@ -338,6 +338,7 @@
             UserCode: sessionStorage.userName,
             SerialNumber: serial,
             Status: self.StatusFactor(),
+            ModeCode: sessionStorage.ModeCode,
         };
         $('#modal-ChangeStatusFactor').modal('hide');
         showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);

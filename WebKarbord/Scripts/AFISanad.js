@@ -2830,6 +2830,7 @@
             ArzCode: ArzCode,
             ArzRate: SlashToDot($("#ArzRate").val()),
             arzValue: SlashToDot($("#ArzValue").val()),
+            flagLog: flaglog,
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -2843,6 +2844,7 @@
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             self.ClearADocB();
+            flaglog = 'N';
             $('#Save').removeAttr('disabled');
             showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
         });
@@ -2918,6 +2920,7 @@
             ArzCode: ArzCode,
             ArzRate: SlashToDot($("#ArzRate").val()),
             arzValue: SlashToDot($("#ArzValue").val()),
+            flagLog: flaglog,
         };
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group, 'PUT', ADocBObject).done(function (response) {
             self.ADocBList(response);
@@ -2928,6 +2931,7 @@
             //ClearSearch();
             $('#modal-Band').modal('hide');
             self.ClearADocB();
+            flaglog = 'N';
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
         });
     };
@@ -2947,10 +2951,11 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + SanadBand.BandNo, 'DELETE').done(function (response) {
+                ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + SanadBand.BandNo + '/' + flaglog, 'DELETE').done(function (response) {
                     self.ADocBList(response);
                     calcsum(response);
                     flagFinalSave = false;
+                    flaglog = 'N';
                     showNotification(' بند شماره ' + SanadBand.BandNo + ' حذف شد ', 1);
                     //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
                 });

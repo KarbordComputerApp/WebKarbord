@@ -967,6 +967,7 @@
             UserCode: sessionStorage.userName,
             SerialNumber: serial,
             Status: self.StatusSanad(),
+            InOut : sessionStorage.InOut
         };
         $('#modal-ChangeStatusSanad').modal('hide');
         showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
