@@ -1054,11 +1054,14 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'مقدار را وارد کنيد' });
         }
 
-        if (unitprice == '' && totalPrice == '') {
+        if (unitprice == '') {
             unitprice = 0;
-            totalPrice = 0;
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'قيمت را وارد کنيد' });
         }
+
+        if ( totalPrice == '') {
+            totalPrice = 0;
+        }
+
 
         Amount1 = SlashToDot($('#amount1').text());
         Amount2 = SlashToDot($('#amount2').text());
@@ -1123,7 +1126,7 @@
 
         textZeroPrice = 'مبلغ صفر است'
 
-        if (unitprice == 0) {
+        if (totalPrice == 0) {
             switch (sessionStorage.ModeCode.toString()) {
                 case sessionStorage.MODECODE_FDOC_SO:
                     if (sessionStorage.FDOCSO_TestZeroPrice == "1")
@@ -1240,8 +1243,11 @@
             amount = 0;
         }
 
-        if (unitprice == '' && totalPrice == '') {
+        if (unitprice == '') {
             unitprice = 0;
+        }
+
+        if (totalPrice == '') {
             totalPrice = 0;
         }
 
@@ -1308,7 +1314,7 @@
 
         textZeroPrice = 'مبلغ صفر است'
 
-        if (unitprice == 0) {
+        if (totalPrice == 0) {
             switch (sessionStorage.ModeCode.toString()) {
                 case sessionStorage.MODECODE_FDOC_SO:
                     if (sessionStorage.FDOCSO_TestZeroPrice == "1")
