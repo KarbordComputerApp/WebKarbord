@@ -747,7 +747,7 @@
 
         if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bank') self.iconTypeBank((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Shobe') self.iconTypeShobe((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -869,7 +869,10 @@
 
         TextField = FindTextField(field, data);
 
-        sortField = field == 'DocNo' ? 'SortDocNo' : field
+        sortField =
+            field == 'MkzCode' ? 'SortMkzCode' :
+                field == 'AccCode' ? 'SortAccCode' :
+                    field
 
         if (TextField == 0)
             text += 'Hidden ';
@@ -887,10 +890,6 @@
 
         TextField = FindTextField(field, data);
 
-        sortField =
-            field == 'MkzCode' ? 'SortMkzCode' :
-                field == 'AccCode' ? 'SortAccCode' :
-                    field
 
         if (TextField == 0)
             text += 'Hidden ';

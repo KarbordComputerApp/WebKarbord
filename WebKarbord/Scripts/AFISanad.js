@@ -2996,7 +2996,7 @@
             textBody +=
                 '<div class="body" style="padding:7px;">' +
                 '    <div class="form-inline">';
-            if (list[i].SvTest == 1) {
+            if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
                     ' <p style="margin-left: 3px;">هشدار :</p>'
@@ -3007,20 +3007,20 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
-            if (list[i].SvTestName == "Opr")
+            if (list[i].TestName == "Opr")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
-            else if (list[i].SvTestName == "Mkz")
+            else if (list[i].TestName == "Mkz")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
-            else if (list[i].SvTestName == "Arz")
+            else if (list[i].TestName == "Arz")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
-            else if (list[i].SvTestName == "Mahiat")
+            else if (list[i].TestName == "Mahiat")
                 //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
 
-            else if (list[i].SvTestName == "Balance")
+            else if (list[i].TestName == "Balance")
                 textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
 
-            else if (list[i].SvTestName == "ZeroBand")
+            else if (list[i].TestName == "ZeroBand")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
 
             textBody +=

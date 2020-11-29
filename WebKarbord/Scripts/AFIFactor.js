@@ -1060,6 +1060,123 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'قيمت را وارد کنيد' });
         }
 
+        Amount1 = SlashToDot($('#amount1').text());
+        Amount2 = SlashToDot($('#amount2').text());
+        Amount3 = SlashToDot($('#amount3').text());
+
+        textZeroAmount = 'مقدار صفر است'
+
+        if (Amount3 == 0)
+            if (Amount2 == 0)
+                if (Amount1 == 0) {
+                    switch (sessionStorage.ModeCode.toString()) {
+                        case sessionStorage.MODECODE_FDOC_SO:
+                            if (sessionStorage.FDOCSO_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSO_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_SP:
+                            if (sessionStorage.FDOCSP_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSP_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_S:
+                            if (sessionStorage.FDOCS_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCS_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_SR:
+                            if (sessionStorage.FDOCSR_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSR_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_PO:
+                            if (sessionStorage.FDOCPO_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCPO_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_PP:
+                            if (sessionStorage.FDOCPP_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCPP_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_P:
+                            if (sessionStorage.FDOCP_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCP_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_PR:
+                            if (sessionStorage.FDOCPR_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCPR_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                    }
+                }
+
+        textZeroPrice = 'مبلغ صفر است'
+
+        if (unitprice == 0) {
+            switch (sessionStorage.ModeCode.toString()) {
+                case sessionStorage.MODECODE_FDOC_SO:
+                    if (sessionStorage.FDOCSO_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSO_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SP:
+                    if (sessionStorage.FDOCSP_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSP_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_S:
+                    if (sessionStorage.FDOCS_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCS_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SR:
+                    if (sessionStorage.FDOCSR_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSR_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PO:
+                    if (sessionStorage.FDOCPO_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCPO_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PP:
+                    if (sessionStorage.FDOCPP_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCPP_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_P:
+                    if (sessionStorage.FDOCP_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCP_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PR:
+                    if (sessionStorage.FDOCPR_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCPR_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+            }
+        }
+
+
         var FDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumber,
@@ -1126,6 +1243,122 @@
         if (unitprice == '' && totalPrice == '') {
             unitprice = 0;
             totalPrice = 0;
+        }
+
+        Amount1 = SlashToDot($('#amount1').text());
+        Amount2 = SlashToDot($('#amount2').text());
+        Amount3 = SlashToDot($('#amount3').text());
+
+        textZeroAmount = 'مقدار صفر است'
+
+        if (Amount3 == 0)
+            if (Amount2 == 0)
+                if (Amount1 == 0) {
+                    switch (sessionStorage.ModeCode.toString()) {
+                        case sessionStorage.MODECODE_FDOC_SO:
+                            if (sessionStorage.FDOCSO_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSO_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_SP:
+                            if (sessionStorage.FDOCSP_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSP_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_S:
+                            if (sessionStorage.FDOCS_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCS_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_SR:
+                            if (sessionStorage.FDOCSR_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSR_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_PO:
+                            if (sessionStorage.FDOCPO_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCPO_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_PP:
+                            if (sessionStorage.FDOCPP_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCPP_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_P:
+                            if (sessionStorage.FDOCP_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCP_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_PR:
+                            if (sessionStorage.FDOCPR_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCPR_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                    }
+                }
+
+        textZeroPrice = 'مبلغ صفر است'
+
+        if (unitprice == 0) {
+            switch (sessionStorage.ModeCode.toString()) {
+                case sessionStorage.MODECODE_FDOC_SO:
+                    if (sessionStorage.FDOCSO_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSO_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SP:
+                    if (sessionStorage.FDOCSP_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSP_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_S:
+                    if (sessionStorage.FDOCS_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCS_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SR:
+                    if (sessionStorage.FDOCSR_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSR_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PO:
+                    if (sessionStorage.FDOCPO_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCPO_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PP:
+                    if (sessionStorage.FDOCPP_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCPP_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_P:
+                    if (sessionStorage.FDOCP_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCP_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PR:
+                    if (sessionStorage.FDOCPR_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCPR_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+            }
         }
 
         var FDocBObject = {
@@ -2693,7 +2926,7 @@
             textBody +=
                 '<div class="body" style="padding:7px;">' +
                 '    <div class="form-inline">';
-            if (list[i].SvTest == 1) {
+            if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
                     ' <p style="margin-left: 3px;">هشدار :</p>'
@@ -2705,16 +2938,25 @@
             }
 
 
-            if (list[i].SvTestName == "Opr")
+            if (list[i].TestName == "Opr")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
 
-            else if (list[i].SvTestName == "Mkz")
+            else if (list[i].TestName == "Mkz")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
 
-            else if (list[i].SvTestName == 'Arz')
+            else if (list[i].TestName == 'Arz')
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
 
-            else if (list[i].SvTestName == 'Cust')
+
+            else if (list[i].TestName == 'ZeroAmount')
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مقدار صفر است ' + ' </p>';
+
+
+            else if (list[i].TestName == 'ZeroPrice')
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ صفر است ' + ' </p>';
+
+
+            else if (list[i].TestName == 'Cust')
                 textBody += '<p>' + $('#LableHesabCode').text() + ' انتخاب نشده است ' + ' </p>';
 
             textBody +=

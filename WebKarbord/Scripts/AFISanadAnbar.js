@@ -6,7 +6,7 @@
     var forSels = true;
     var flagupdateHeader;
     var flagOtherFieldShow;
-    
+
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
@@ -822,7 +822,27 @@
         }
 
 
+        Amount1 = SlashToDot($('#amount1').text());
+        Amount2 = SlashToDot($('#amount2').text());
+        Amount3 = SlashToDot($('#amount3').text());
 
+        textZeroAmount = 'مقدار صفر است'
+        if (Amount3 == 0)
+            if (Amount2 == 0)
+                if (Amount1 == 0) {
+                    if (sessionStorage.InOut == 1) {
+                        if (sessionStorage.IDOCI_TestZeroAmount == "1")
+                            showNotification(textZeroAmount, 2);
+                        else if (sessionStorage.IDOCI_TestZeroAmount == "2")
+                            return showNotification(textZeroAmount, 0);
+                    }
+                    else {
+                        if (sessionStorage.IDOCO_TestZeroAmount == "1")
+                            showNotification(textZeroAmount, 2);
+                        else if (sessionStorage.IDOCO_TestZeroAmount == "2")
+                            return showNotification(textZeroAmount, 0);
+                    }
+                }
 
 
         //        var cKala = $('#codeKala').val();
@@ -835,6 +855,8 @@
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
         comm = $("#comm").val();
+
+
 
         if (KalaCode == '' || nKala == '' || uKala == '') {
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
@@ -908,6 +930,28 @@
             return showNotification('کالا را وارد کنيد', 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
         }
+
+        Amount1 = SlashToDot($('#amount1').text());
+        Amount2 = SlashToDot($('#amount2').text());
+        Amount3 = SlashToDot($('#amount3').text());
+
+        textZeroAmount = 'مقدار صفر است'
+        if (Amount3 == 0)
+            if (Amount2 == 0)
+                if (Amount1 == 0) {
+                    if (sessionStorage.InOut == 1) {
+                        if (sessionStorage.IDOCI_TestZeroAmount == "1")
+                            showNotification(textZeroAmount, 2);
+                        else if (sessionStorage.IDOCI_TestZeroAmount == "2")
+                            return showNotification(textZeroAmount, 0);
+                    }
+                    else {
+                        if (sessionStorage.IDOCO_TestZeroAmount == "1")
+                            showNotification(textZeroAmount, 2);
+                        else if (sessionStorage.IDOCO_TestZeroAmount == "2")
+                            return showNotification(textZeroAmount, 0);
+                    }
+                }
 
         if (amount == '') {
             amount = 0;
@@ -2038,7 +2082,7 @@
             textBody +=
                 '<div class="body" style="padding:7px;">' +
                 '    <div class="form-inline">';
-            if (list[i].SvTest == 1) {
+            if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
                     ' <p style="margin-left: 3px;">هشدار :</p>'
@@ -2049,16 +2093,19 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
-            if (list[i].SvTestName == "Opr")
+            if (list[i].TestName == "Opr")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
 
-            else if (list[i].SvTestName == "Mkz")
+            else if (list[i].TestName == "Mkz")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
 
-            else if (list[i].SvTestName == 'Arz')
+            else if (list[i].TestName == 'Arz')
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
 
-            else if (list[i].SvTestName == 'Thvl')
+            else if (list[i].TestName == 'ZeroAmount')
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مقدار صفر است ' + ' </p>';
+
+            else if (list[i].TestName == 'Thvl')
                 textBody += '<p>' + $('#LableThvlCode').text() + ' انتخاب نشده است ' + ' </p>';
 
 
