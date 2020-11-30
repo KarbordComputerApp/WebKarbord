@@ -1379,7 +1379,7 @@
             EndNo: 0,
             BranchCode: 0,
             MoveMode: moveMode,
-            Per: SlashToDot(darsadMove),
+            Per: darsadMove,
         };
 
 
