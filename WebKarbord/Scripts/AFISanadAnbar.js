@@ -1823,6 +1823,7 @@
             if (result.value) {
                 sessionStorage.flagupdateHeader = 0;
                 sessionStorage.Status = 'موقت';
+                flaglog = "Y";
                 window.location.href = sessionStorage.urlAddIDocH;
             }
         })

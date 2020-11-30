@@ -551,6 +551,7 @@
 
                 sessionStorage.Eghdam = sessionStorage.userName;
                 self.bundNumberImport = 0;
+                flaglog = "Y";
                 $(this).CheckAccess();
             }
         })
@@ -2794,12 +2795,33 @@
 
         if (best == "0" && bede == "0") {
             if (best == "0" && bede == "0") {
-                if (sessionStorage.ADOC_TestZeroBand == "1")
+                if (sessionStorage.ADOC_TestZeroPrice == "1")
                     showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 2);
-                else if (sessionStorage.ADOC_TestZeroBand == "2")
+                else if (sessionStorage.ADOC_TestZeroPrice == "2")
                     return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
             }
         }
+
+        
+        if (PDModeAcc > 0) {
+
+            if ($("#CheckNo").val() == "") {
+                if (sessionStorage.ADOC_TestCheck == "1")
+                    showNotification('اطلاعات چک انتخاب نشده است', 2);
+                else if (sessionStorage.ADOC_TestCheck == "2")
+                    return showNotification('اطلاعات چک انتخاب نشده است', 0)
+            }
+
+            if (TrafCode == "") {
+                if (sessionStorage.ADOC_TestTraf == "1")
+                    showNotification('طرف حساب انتخاب نشده است', 2);
+                else if (sessionStorage.ADOC_TestTraf == "2")
+                    return showNotification('طرف حساب انتخاب نشده است', 0)
+            }
+
+
+        }
+
 
         $('#Save').attr('disabled', '');
 
@@ -2888,9 +2910,9 @@
 
 
         if (best == "0" && bede == "0") {
-            if (sessionStorage.ADOC_TestZeroBand == "1")
+            if (sessionStorage.ADOC_TestZeroPrice == "1")
                 showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 2);
-            else if (sessionStorage.ADOC_TestZeroBand == "2")
+            else if (sessionStorage.ADOC_TestZeroPrice == "2")
                 return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
         }
 
@@ -3022,6 +3044,14 @@
 
             else if (list[i].TestName == "ZeroBand")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
+
+
+            else if (list[i].TestName == "Traf")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
+
+            else if (list[i].TestName == "Check")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
+
 
             textBody +=
                 '    </div>' +

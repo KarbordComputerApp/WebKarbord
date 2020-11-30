@@ -755,6 +755,60 @@
         }
 
 
+        if (inv == '') {
+            switch (sessionStorage.ModeCode.toString()) {
+                case sessionStorage.MODECODE_FDOC_SO:
+                    if (sessionStorage.FDOCSO_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSO_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SP:
+                    if (sessionStorage.FDOCSP_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSP_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_S:
+                    if (sessionStorage.FDOCS_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCS_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SR:
+                    if (sessionStorage.FDOCSR_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSR_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PO:
+                    if (sessionStorage.FDOCPO_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCPO_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PP:
+                    if (sessionStorage.FDOCPP_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCPP_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_P:
+                    if (sessionStorage.FDOCP_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCP_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_PR:
+                    if (sessionStorage.FDOCPR_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCPR_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+            }
+        }
+
+
         kalapricecode = $("#gGhimat").val();
         if (kalapricecode == null) kalapricecode = "";
 
@@ -2416,11 +2470,10 @@
                 self.Discount();
                 self.MainUnit();
                 self.Comm();
+                flaglog = "Y";
                 if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                 //$("#inv").val(sessionStorage.InvDefult);
                 $("#gGhimat").val(sessionStorage.GPriceDefult);
-
-
                 //sessionStorage.sels == "true" ? sessionStorage.GPriceDefultS : sessionStorage.GPriceDefultP
                 $(this).CheckAccess();
             }
@@ -2964,6 +3017,9 @@
 
             else if (list[i].TestName == 'Cust')
                 textBody += '<p>' + $('#LableHesabCode').text() + ' انتخاب نشده است ' + ' </p>';
+
+            else if (list[i].TestName == 'Inv')
+                textBody += '<p>' + ' انبار انتخاب نشده است ' + ' </p>';
 
             textBody +=
                 '    </div>' +
