@@ -1112,7 +1112,7 @@
             unitprice = 0;
         }
 
-        if ( totalPrice == '') {
+        if (totalPrice == '') {
             totalPrice = 0;
         }
 
@@ -2871,6 +2871,11 @@
 
 
 
+
+
+
+
+
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
     createViewer();
     $('#Print').click(function () {
@@ -2880,6 +2885,77 @@
         if (self.FDocPList().length == 0)
             return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
         variable = '"ReportDate":"' + DateNow + '",';
+
+
+        switch (sessionStorage.ModeCode.toString()) {
+            case sessionStorage.MODECODE_FDOC_SO:
+                if (sessionStorage.Access_SHOWPRICE_SFORD == 'true')
+                    setReport(self.FDocPList(), 'Factor_SFORD', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_SFORD_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SP:
+                if (sessionStorage.Access_SHOWPRICE_SPDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_SPDOC', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_SPDOC_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_S:
+                if (sessionStorage.Access_SHOWPRICE_SFDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_SFDOC', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_SFDOC_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SR:
+                if (sessionStorage.Access_SHOWPRICE_SRDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_SRDOC', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_SRDOC_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SH:
+                setReport(self.FDocPList(), 'Factor_SHVL_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SE:
+                setReport(self.FDocPList(), 'Factor_SEXT_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_PO:
+                if (sessionStorage.Access_SHOWPRICE_PFORD == 'true')
+                    setReport(self.FDocPList(), 'Factor_PFORD', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_PFORD_NoPrice', variable);
+                break;
+            case sessionStorage.Access_SHOWPRICE_PPDOC:
+                if (sessionStorage.Access_SHOWPRICE_ == 'true')
+                    setReport(self.FDocPList(), 'Factor_PPDOC', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_PPDOC_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_P:
+                if (sessionStorage.Access_SHOWPRICE_PFDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_PFDOC', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_PFDOC_NoPrice', variable);
+                break;
+
+            case sessionStorage.MODECODE_FDOC_PR:
+                if (sessionStorage.Access_SHOWPRICE_PRDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_PRDOC', variable);
+                else
+                    setReport(self.FDocPList(), 'Factor_PRDOC_NoPrice', variable);
+                break;
+        }
+
+
+        if (sessionStorage.ModeCode == 1) {
+            if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
+                setReport(self.IDocPList(), 'Sanad_IDoc', variable);
+            else
+                setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
+        }
+        else {
+            setReport(self.IDocPList(), 'Sanad_ODoc_NoPrice', variable);
+        }
+
         setReport(self.FDocPList(), 'Free', variable);
     });
 
@@ -2891,24 +2967,24 @@
             self.UpdateFDocH();
             event.preventDefault();
         }
-
+    
     });
-
+    
     Date.prototype.addDays = function (days) {
         var date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
     }
-
-
+    
+    
     var date = new Date();
     date.addDays(5);
-
+    
     $("#tarikh").keyup(function (e) {
-
+    
         a = e.keyCode;
         var date = new Date();
-
+    
         addMonthToDateTime($('#tarikh').val(), 1);
         //down : 40
         //up : 38
@@ -2937,11 +3013,11 @@
      $('#inv').click(function () {
          $('#finalSave_Title').removeAttr('hidden', '');
      });
- 
+     
      $('#status').click(function () {
          $('#finalSave_Title').removeAttr('hidden', '');
      });
- 
+     
      $('#modeCode').click(function () {
          $('#finalSave_Title').removeAttr('hidden', '');
      });
