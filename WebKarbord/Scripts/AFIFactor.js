@@ -1468,14 +1468,13 @@
     getExtraFieldsList();
     getCustList();
     getKalaList();
-
+    getInvList();
     flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
     if (flagupdateHeader != 1)
         getAddMinList(sessionStorage.sels, -1, 0, 0,
             '', '', '', '', '', '', '', '', '', ''
             , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         );
-    getInvList();
     getPaymentList();
     getStatusList();
 
@@ -2341,6 +2340,14 @@
     }
 
 
+    $("#inv").change(function () {
+        if (firstUpdateShow == 0 && Serial > 0)
+            self.UpdateFDocH();
+        if (firstUpdateShow == 1)
+            firstUpdateShow = 0;
+    })
+
+
 
     $("#gGhimat").change(function () {
         a = $("#sumfactor").val();
@@ -2371,9 +2378,13 @@
                 }
             })
         }
-        if (firstUpdateShow == 1)
-            firstUpdateShow = 0;
+        
     })
+
+
+
+
+
 
 
     $('#AddNewFactor').click(function () {
@@ -2749,6 +2760,7 @@
         flagInsertFdoch = 1;
         Serial = sessionStorage.SerialNumber;
         self.SerialNumber(Serial);
+        self.InvCode(sessionStorage.InvCode);
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
         $('#btntarikh').click(function () {
@@ -2759,7 +2771,7 @@
         self.CustCode(sessionStorage.CustCode);
         self.PriceCode(sessionStorage.PriceCode);
         kalapricecode = sessionStorage.PriceCode;
-        self.InvCode(sessionStorage.InvCode);
+        
         $("#docnoout").text(sessionStorage.DocNo);
         $('#textnumberfactor').show();
         //$('#ghabelpardakht').text('');

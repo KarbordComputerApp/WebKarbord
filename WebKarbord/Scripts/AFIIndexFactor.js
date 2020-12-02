@@ -885,7 +885,7 @@
                     //self.IDocHList(response);
                     getFDocH($('#pageCountSelector').val());
                     self.currentPageIndexFDocH(currentPage);
-                    showNotification(' فاکتور حذف شد ', 1);
+                    showNotification(TitleListFactor + ' حذف شد ', 1);
                     //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' فاکتور حذف شد ' });
                 });
             }
