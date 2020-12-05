@@ -2341,6 +2341,8 @@
 
 
     $("#inv").change(function () {
+        flagFinalSave = false;
+
         if (firstUpdateShow == 0 && Serial > 0)
             self.UpdateFDocH();
         if (firstUpdateShow == 1)
@@ -2378,7 +2380,7 @@
                 }
             })
         }
-        
+
     })
 
 
@@ -2771,7 +2773,7 @@
         self.CustCode(sessionStorage.CustCode);
         self.PriceCode(sessionStorage.PriceCode);
         kalapricecode = sessionStorage.PriceCode;
-        
+
         $("#docnoout").text(sessionStorage.DocNo);
         $('#textnumberfactor').show();
         //$('#ghabelpardakht').text('');
