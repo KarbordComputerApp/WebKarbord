@@ -1267,7 +1267,12 @@
         //if (Serial != '') {
         //    self.UpdateIDocH();
         //}
-        $('#finalSave_Title').removeAttr('hidden', '');
+        
+        if (Serial != '') {
+            flagFinalSave = false;
+            self.UpdateIDocH();
+        }
+        //$('#finalSave_Title').removeAttr('hidden', '');
 
         $('#nameThvl').focus();
     };
