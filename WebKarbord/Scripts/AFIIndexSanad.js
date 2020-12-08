@@ -892,8 +892,6 @@
             item = response;
             item = item[0];
 
-
-
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
             sessionStorage.DocNo = item.DocNo;
