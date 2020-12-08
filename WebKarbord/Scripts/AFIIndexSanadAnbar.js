@@ -983,13 +983,13 @@
 
 
 
-
     function CreateTableReport(data) {
         $("#TableList").empty();
         $('#TableList').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableIDocH">' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('InvName', data) +
@@ -1027,6 +1027,8 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null}" >' +
+            '<td data-bind="text:  $index() + 1"></td>' +
+           // '<td data-bind="text: $data.DocNo"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('InvName', 0, 0, data) +
@@ -1060,8 +1062,6 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             '<td>' +
-
-
 
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
@@ -1104,6 +1104,7 @@
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('InvName', data) +
@@ -1201,6 +1202,49 @@
         variable = '"ReportDate":"' + DateNow + '",';
         setReport(self.filterIDocHList(), 'Free', variable);
     });*/
+
+
+    var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
+    self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
+    //Get IDocP List
+    function getIDocP(serialNumber) {
+        ajaxFunction(IDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.IDocPList(data);
+        });
+    }
+
+    createViewer();
+
+    self.PrintSanad = function (item) {
+        serial = item.SerialNumber;
+        docDate = item.DocDate;
+
+        getIDocP(serial);
+        if (self.IDocPList().length == 0)
+            return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
+
+        textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice; 
+
+        variable = '"ReportDate":"' + DateNow + '",' +
+                   '"TextFinalPrice":"' + textFinalPrice + '",';
+
+
+        if (sessionStorage.InOut == 1) {
+            if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
+                setReport(self.IDocPList(), 'Sanad_IDoc', variable);
+            else
+                setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
+        }
+        else {
+            setReport(self.IDocPList(), 'Sanad_ODoc_NoPrice', variable);
+        }
+    }
+
+    $('#PrintSanad').click(function () {
+        
+
+
+    });
 
 };
 

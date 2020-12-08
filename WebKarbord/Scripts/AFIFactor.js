@@ -2886,10 +2886,6 @@
 
 
 
-
-
-
-
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
     createViewer();
     $('#Print').click(function () {
@@ -2898,7 +2894,11 @@
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
             return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
-        variable = '"ReportDate":"' + DateNow + '",';
+
+        textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice; 
+
+        variable = '"ReportDate":"' + DateNow + '",' +
+                   '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
         switch (sessionStorage.ModeCode.toString()) {

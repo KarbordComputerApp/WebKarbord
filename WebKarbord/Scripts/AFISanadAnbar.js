@@ -2003,10 +2003,13 @@
         if (Serial == '')
             return showNotification('ابتدا سند را ذخیره کنید', 0);
         getIDocP(Serial);
+
         if (self.IDocPList().length == 0)
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
+        textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice; 
 
-        variable = '"ReportDate":"' + DateNow + '",';
+        variable = '"ReportDate":"' + DateNow + '",' +
+                   '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
         if (sessionStorage.InOut == 1) {

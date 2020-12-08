@@ -14,11 +14,11 @@ namespace WebKarbord.Controllers.Unit
 {
     public class UnitPublic
     {
-       // public static string titleVer = "ورژن تست : ";
-       // public static string titleVerNumber = "288";
+       public static string titleVer = "ورژن تست : ";
+       public static string titleVerNumber = "289";
 
-       public static string titleVer = "ورژن : ";
-       public static string titleVerNumber = "1009";
+      // public static string titleVer = "ورژن : ";
+      // public static string titleVerNumber = "1009";
 
 
         //Server.MapPath("ini/SqlServerConfig.Ini");

@@ -634,6 +634,7 @@
     <Content Include="Content\new\js\chart.min.js" />
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
+    <Content Include="Content\new\js\num2persian-min.js" />
     <Content Include="Content\new\js\stimulsoft.designer.js" />
     <Content Include="Content\new\js\stimulsoft.reports.js" />
     <Content Include="Content\new\js\stimulsoft.reports.maps.js" />
