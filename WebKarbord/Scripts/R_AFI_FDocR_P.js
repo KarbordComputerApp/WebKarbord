@@ -83,7 +83,7 @@
         'MkzName',
         'OprName',
         'KalaName',
-        'KalaFileNo',  
+        'KalaFileNo',
         'KalaState',
         'KalaExf1',
         'KalaExf2',
@@ -120,7 +120,27 @@
         'BandSpec',
         'Comm',
         'SerialNumber',
-        'BandNo'
+        'BandNo',
+        'F01',
+        'F02',
+        'F03',
+        'F04',
+        'F05',
+        'F06',
+        'F07',
+        'F08',
+        'F09',
+        'F10',
+        'F11',
+        'F12',
+        'F13',
+        'F14',
+        'F15',
+        'F16',
+        'F17',
+        'F18',
+        'F19',
+        'F20'
     ];
 
 
@@ -220,7 +240,7 @@
 
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
         });
     }
@@ -392,7 +412,7 @@
             totalTotalPrice += FDocR_PData.TotalPrice;
 
             KalaDeghat1 = FDocR_PData.KalaDeghatM1;
-            KalaDeghat2 = FDocR_PData.KalaDeghatM2 ;
+            KalaDeghat2 = FDocR_PData.KalaDeghatM2;
             KalaDeghat3 = FDocR_PData.KalaDeghatM3;
 
             KalaDeghat1 > maxKalaDeghat1 ? maxKalaDeghat1 = KalaDeghat1 : maxKalaDeghat1 = maxKalaDeghat1;
@@ -494,6 +514,26 @@
     self.filterComm = ko.observable("");
     self.filterSerialNumber = ko.observable("");
     self.filterBandNo = ko.observable("");
+    self.filterF01 = ko.observable("");
+    self.filterF02 = ko.observable("");
+    self.filterF03 = ko.observable("");
+    self.filterF04 = ko.observable("");
+    self.filterF05 = ko.observable("");
+    self.filterF06 = ko.observable("");
+    self.filterF07 = ko.observable("");
+    self.filterF08 = ko.observable("");
+    self.filterF09 = ko.observable("");
+    self.filterF10 = ko.observable("");
+    self.filterF11 = ko.observable("");
+    self.filterF12 = ko.observable("");
+    self.filterF13 = ko.observable("");
+    self.filterF14 = ko.observable("");
+    self.filterF15 = ko.observable("");
+    self.filterF16 = ko.observable("");
+    self.filterF17 = ko.observable("");
+    self.filterF18 = ko.observable("");
+    self.filterF19 = ko.observable("");
+    self.filterF20 = ko.observable("");
 
 
     self.filterFDocR_PList = ko.computed(function () {
@@ -546,6 +586,26 @@
         var filterComm = self.filterComm();
         var filterSerialNumber = self.filterSerialNumber();
         var filterBandNo = self.filterBandNo();
+        var filterF01 = self.filterF01();
+        var filterF02 = self.filterF02();
+        var filterF03 = self.filterF03();
+        var filterF04 = self.filterF04();
+        var filterF05 = self.filterF05();
+        var filterF06 = self.filterF06();
+        var filterF07 = self.filterF07();
+        var filterF08 = self.filterF08();
+        var filterF09 = self.filterF09();
+        var filterF10 = self.filterF10();
+        var filterF11 = self.filterF11();
+        var filterF12 = self.filterF12();
+        var filterF13 = self.filterF13();
+        var filterF14 = self.filterF14();
+        var filterF15 = self.filterF15();
+        var filterF16 = self.filterF16();
+        var filterF17 = self.filterF17();
+        var filterF18 = self.filterF18();
+        var filterF19 = self.filterF19();
+        var filterF20 = self.filterF20();
 
         tempData = ko.utils.arrayFilter(self.FDocR_PList(), function (item) {
             result =
@@ -596,7 +656,27 @@
                 (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
                 (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
-                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo)
+                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo) &&
+                (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
+                (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
+                (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
+                (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
+                (item.F05 == null ? '' : item.F05.toString().search(filterF05) >= 0) &&
+                (item.F06 == null ? '' : item.F06.toString().search(filterF06) >= 0) &&
+                (item.F07 == null ? '' : item.F07.toString().search(filterF07) >= 0) &&
+                (item.F08 == null ? '' : item.F08.toString().search(filterF08) >= 0) &&
+                (item.F09 == null ? '' : item.F09.toString().search(filterF09) >= 0) &&
+                (item.F10 == null ? '' : item.F10.toString().search(filterF10) >= 0) &&
+                (item.F11 == null ? '' : item.F11.toString().search(filterF11) >= 0) &&
+                (item.F12 == null ? '' : item.F12.toString().search(filterF12) >= 0) &&
+                (item.F13 == null ? '' : item.F13.toString().search(filterF13) >= 0) &&
+                (item.F14 == null ? '' : item.F14.toString().search(filterF14) >= 0) &&
+                (item.F15 == null ? '' : item.F15.toString().search(filterF15) >= 0) &&
+                (item.F16 == null ? '' : item.F16.toString().search(filterF16) >= 0) &&
+                (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
+                (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
+                (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
+                (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
             return result;
         })
         // calcsum(tempData);
@@ -727,6 +807,26 @@
         self.iconTypeComm('');
         self.iconTypeSerialNumber('');
         self.iconTypeBandNo('');
+        self.iconTypeF01('');
+        self.iconTypeF02('');
+        self.iconTypeF03('');
+        self.iconTypeF04('');
+        self.iconTypeF05('');
+        self.iconTypeF06('');
+        self.iconTypeF07('');
+        self.iconTypeF08('');
+        self.iconTypeF09('');
+        self.iconTypeF10('');
+        self.iconTypeF11('');
+        self.iconTypeF12('');
+        self.iconTypeF13('');
+        self.iconTypeF14('');
+        self.iconTypeF15('');
+        self.iconTypeF16('');
+        self.iconTypeF17('');
+        self.iconTypeF18('');
+        self.iconTypeF19('');
+        self.iconTypeF20('');
 
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -777,6 +877,26 @@
         if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F04') self.iconTypeF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F05') self.iconTypeF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F06') self.iconTypeF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F07') self.iconTypeF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F08') self.iconTypeF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F09') self.iconTypeF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F10') self.iconTypeF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F11') self.iconTypeF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F12') self.iconTypeF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F13') self.iconTypeF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F14') self.iconTypeF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F15') self.iconTypeF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F16') self.iconTypeF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F17') self.iconTypeF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
     }
 
@@ -837,6 +957,27 @@
     self.iconTypeComm = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
     self.iconTypeBandNo = ko.observable("");
+
+    self.iconTypeF01 = ko.observable("");
+    self.iconTypeF02 = ko.observable("");
+    self.iconTypeF03 = ko.observable("");
+    self.iconTypeF04 = ko.observable("");
+    self.iconTypeF05 = ko.observable("");
+    self.iconTypeF06 = ko.observable("");
+    self.iconTypeF07 = ko.observable("");
+    self.iconTypeF08 = ko.observable("");
+    self.iconTypeF09 = ko.observable("");
+    self.iconTypeF10 = ko.observable("");
+    self.iconTypeF11 = ko.observable("");
+    self.iconTypeF12 = ko.observable("");
+    self.iconTypeF13 = ko.observable("");
+    self.iconTypeF14 = ko.observable("");
+    self.iconTypeF15 = ko.observable("");
+    self.iconTypeF16 = ko.observable("");
+    self.iconTypeF17 = ko.observable("");
+    self.iconTypeF18 = ko.observable("");
+    self.iconTypeF19 = ko.observable("");
+    self.iconTypeF20 = ko.observable("");
 
 
 
@@ -1979,6 +2120,26 @@
             CreateTableTh('Comm', data) +
             CreateTableTh('SerialNumber', data) +
             CreateTableTh('BandNo', data) +
+            CreateTableTh('F01', data) +
+            CreateTableTh('F02', data) +
+            CreateTableTh('F03', data) +
+            CreateTableTh('F04', data) +
+            CreateTableTh('F05', data) +
+            CreateTableTh('F06', data) +
+            CreateTableTh('F07', data) +
+            CreateTableTh('F08', data) +
+            CreateTableTh('F09', data) +
+            CreateTableTh('F10', data) +
+            CreateTableTh('F11', data) +
+            CreateTableTh('F12', data) +
+            CreateTableTh('F13', data) +
+            CreateTableTh('F14', data) +
+            CreateTableTh('F15', data) +
+            CreateTableTh('F16', data) +
+            CreateTableTh('F17', data) +
+            CreateTableTh('F18', data) +
+            CreateTableTh('F19', data) +
+            CreateTableTh('F20', data) +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageFDocR_P}" style="cursor: default;">' +
@@ -2031,6 +2192,26 @@
             CreateTableTd('Comm', 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, data) +
             CreateTableTd('BandNo', 0, 0, data) +
+            CreateTableTd('F01', 0, 0, data) +
+            CreateTableTd('F02', 0, 0, data) +
+            CreateTableTd('F03', 0, 0, data) +
+            CreateTableTd('F04', 0, 0, data) +
+            CreateTableTd('F05', 0, 0, data) +
+            CreateTableTd('F06', 0, 0, data) +
+            CreateTableTd('F07', 0, 0, data) +
+            CreateTableTd('F08', 0, 0, data) +
+            CreateTableTd('F09', 0, 0, data) +
+            CreateTableTd('F10', 0, 0, data) +
+            CreateTableTd('F11', 0, 0, data) +
+            CreateTableTd('F12', 0, 0, data) +
+            CreateTableTd('F13', 0, 0, data) +
+            CreateTableTd('F14', 0, 0, data) +
+            CreateTableTd('F15', 0, 0, data) +
+            CreateTableTd('F16', 0, 0, data) +
+            CreateTableTd('F17', 0, 0, data) +
+            CreateTableTd('F18', 0, 0, data) +
+            CreateTableTd('F19', 0, 0, data) +
+            CreateTableTd('F20', 0, 0, data) +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -2083,6 +2264,26 @@
             CreateTableTdSum('Comm', 1, data) +
             CreateTableTdSum('SerialNumber', 1, data) +
             CreateTableTdSum('BandNo', 1, data) +
+            CreateTableTdSum('F01', 1, data) +
+            CreateTableTdSum('F02', 1, data) +
+            CreateTableTdSum('F03', 1, data) +
+            CreateTableTdSum('F04', 1, data) +
+            CreateTableTdSum('F05', 1, data) +
+            CreateTableTdSum('F06', 1, data) +
+            CreateTableTdSum('F07', 1, data) +
+            CreateTableTdSum('F08', 1, data) +
+            CreateTableTdSum('F09', 1, data) +
+            CreateTableTdSum('F10', 1, data) +
+            CreateTableTdSum('F11', 1, data) +
+            CreateTableTdSum('F12', 1, data) +
+            CreateTableTdSum('F13', 1, data) +
+            CreateTableTdSum('F14', 1, data) +
+            CreateTableTdSum('F15', 1, data) +
+            CreateTableTdSum('F16', 1, data) +
+            CreateTableTdSum('F17', 1, data) +
+            CreateTableTdSum('F18', 1, data) +
+            CreateTableTdSum('F19', 1, data) +
+            CreateTableTdSum('F20', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             CreateTableTdSearch('DocNo', data) +
@@ -2133,6 +2334,26 @@
             CreateTableTdSearch('Comm', data) +
             CreateTableTdSearch('SerialNumber', data) +
             CreateTableTdSearch('BandNo', data) +
+            CreateTableTdSearch('F01', data) +
+            CreateTableTdSearch('F02', data) +
+            CreateTableTdSearch('F03', data) +
+            CreateTableTdSearch('F04', data) +
+            CreateTableTdSearch('F05', data) +
+            CreateTableTdSearch('F06', data) +
+            CreateTableTdSearch('F07', data) +
+            CreateTableTdSearch('F08', data) +
+            CreateTableTdSearch('F09', data) +
+            CreateTableTdSearch('F10', data) +
+            CreateTableTdSearch('F11', data) +
+            CreateTableTdSearch('F12', data) +
+            CreateTableTdSearch('F13', data) +
+            CreateTableTdSearch('F14', data) +
+            CreateTableTdSearch('F15', data) +
+            CreateTableTdSearch('F16', data) +
+            CreateTableTdSearch('F17', data) +
+            CreateTableTdSearch('F18', data) +
+            CreateTableTdSearch('F19', data) +
+            CreateTableTdSearch('F20', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

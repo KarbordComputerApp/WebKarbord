@@ -471,6 +471,8 @@
 
     self.sortTableDocK = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.DocKList.sort(function (left, right) {
             leftVal = left[orderProp];

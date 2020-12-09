@@ -1092,15 +1092,15 @@
 
     $('#modal-Traf').on('shown.bs.modal', function () {
         if (flagSearchTraf == 0 && self.flagupdateband == false) {
-            self.filterTraf0 = ko.observable("");
-            self.filterTraf1 = ko.observable("");
-            self.filterTraf2 = ko.observable("");
+            self.filterTraf0("");
+            self.filterTraf1("");
+            self.filterTraf2("");
             self.currentPageIndexTraf(0);
             flagSearchTraf = 1;
         } else if (flagSearchTraf == 0 && self.flagupdateband == true) {
             self.filterTraf0(TrafCode);
-            self.filterTraf1 = ko.observable("");
-            self.filterTraf2 = ko.observable("");
+            self.filterTraf1("");
+            self.filterTraf2("");
         }
 
         $('.fix').attr('class', 'form-line focused fix');
@@ -1229,22 +1229,22 @@
 
     $('#modal-TrafZ').on('shown.bs.modal', function () {
         if (flagSearchTrafZ == 0 && self.flagupdateband == false) {
-            self.filterTrafZ0 = ko.observable("");
-            self.filterTrafZ1 = ko.observable("");
-            self.filterTrafZ2 = ko.observable("");
+            self.filterTrafZ0("");
+            self.filterTrafZ1("");
+            self.filterTrafZ2("");
             self.currentPageIndexTrafZ(0);
             flagSearchTrafZ = 1;
         } else if (flagSearchTrafZ == 0 && self.flagupdateband == true) {
             self.filterTrafZ0(TrafZCode);
-            self.filterTrafZ1 = ko.observable("");
-            self.filterTrafZ2 = ko.observable("");
+            self.filterTrafZ1("");
+            self.filterTrafZ2("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
 
 
-    self.currentPageOpr = ko.observable();
+  /*  self.currentPageOpr = ko.observable();
     self.pageSizeOpr = ko.observable(10);
     self.currentPageIndexOpr = ko.observable(0);
 
@@ -1376,6 +1376,138 @@
         $('.fix').attr('class', 'form-line focused fix');
     });
 
+*/
+
+    self.currentPageOpr = ko.observable();
+    self.pageSizeOpr = ko.observable(10);
+    self.currentPageIndexOpr = ko.observable(0);
+
+    self.filterOpr0 = ko.observable("");
+    self.filterOpr1 = ko.observable("");
+    self.filterOpr2 = ko.observable("");
+
+    self.filterOprList = ko.computed(function () {
+
+        self.currentPageIndexOpr(0);
+        var filter0 = self.filterOpr0().toUpperCase();
+        var filter1 = self.filterOpr1();
+        var filter2 = self.filterOpr2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.OprList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+    self.currentPageOpr = ko.computed(function () {
+        var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
+            startIndex = pageSizeOpr * self.currentPageIndexOpr(),
+            endIndex = startIndex + pageSizeOpr;
+        return self.filterOprList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageOpr = function () {
+        if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
+        }
+    };
+
+    self.previousPageOpr = function () {
+        if (self.currentPageIndexOpr() > 0) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
+        }
+    };
+
+    self.firstPageOpr = function () {
+        self.currentPageIndexOpr(0);
+    };
+
+    self.lastPageOpr = function () {
+        countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
+        if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
+            self.currentPageIndexOpr(countOpr - 1);
+        else
+            self.currentPageIndexOpr(countOpr);
+    };
+    self.sortTableOpr = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.OprList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshOpr').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست پروژه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getOprList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectOpr = function (item) {
+        $('#nameOpr').val('(' + item.Code + ') ' + item.Name);
+        OprCode = item.Code;
+    }
+
+
+    $('#modal-Opr').on('shown.bs.modal', function () {
+        if (flagSearchOpr == 0 && self.flagupdateband == false) {
+            self.filterOpr0("");
+            self.filterOpr1("");
+            self.filterOpr2("");
+            self.currentPageIndexOpr(0);
+            flagSearchOpr = 1;
+        }
+        else if (flagSearchOpr == 0 && self.flagupdateband == true) {
+            self.filterOpr0(OprCode);
+            self.filterOpr1("");
+            self.filterOpr2("");
+        }
+        $('.fix').attr('class', 'form-line focused fix');
+    });
 
 
 
@@ -1499,15 +1631,15 @@
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
         if (flagSearchMkz == 0 && self.flagupdateband == false) {
-            self.filterMkz0 = ko.observable("");
-            self.filterMkz1 = ko.observable("");
-            self.filterMkz2 = ko.observable("");
+            self.filterMkz0("");
+            self.filterMkz1("");
+            self.filterMkz2("");
             self.currentPageIndexMkz(0);
             flagSearchMkz = 1;
         } else if (flagSearchMkz == 0 && self.flagupdateband == true) {
             self.filterMkz0(MkzCode);
-            self.filterMkz1 = ko.observable("");
-            self.filterMkz2 = ko.observable("");
+            self.filterMkz1("");
+            self.filterMkz2("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1650,15 +1782,15 @@
 
     $('#modal-Arz').on('shown.bs.modal', function () {
         if (flagSearchArz == 0 && self.flagupdateband == false) {
-            self.filterArz0 = ko.observable("");
-            self.filterArz1 = ko.observable("");
-            self.filterArz2 = ko.observable("");
+            self.filterArz0("");
+            self.filterArz1("");
+            self.filterArz2("");
             self.currentPageIndexArz(0);
             flagSearchArz = 1;
         } else if (flagSearchArz == 0 && self.flagupdateband == true) {
             self.filterArz0(ArzCode);
-            self.filterArz1 = ko.observable("");
-            self.filterArz2 = ko.observable("");
+            self.filterArz1("");
+            self.filterArz2("");
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
