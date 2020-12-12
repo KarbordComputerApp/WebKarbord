@@ -153,7 +153,7 @@
                                     <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(KalaDeghatM3)) "></td>
                                     <td id="tdUnitPrice" data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
                                     <td id="tdTotalPrice" data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
-                                    <td id="tdDiscount" data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount))"></td>
+                                    <td id="tdDiscount" data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount).toFixed(parseInt(sessionStorage.Deghat)))"></td>
                                     <td data-bind="text: Comm"></td>
                                     <td id="action_bodyfactor">
                                         <a data-bind="click: $root.UpdateBand">
@@ -228,10 +228,8 @@
                                                 <tbody data-bind="foreach: AddMinList">
                                                     <tr>
                                                         <td style="padding: 0px 10px;"><input data-bind="value: Name ,enable: !Auto ,  attr: {'id': 'AddMinSharh' + Code}" type="text" class="form-control" style="cursor: default; height: 2.4rem;" /> </td>
-                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(Math.abs(parseFloat(AddMinPrice).toFixed(parseInt(sessionStorage.Deghat)))) ,  enable: !Auto , event:{ change: $root.ChangeAddMinMablagh , focus: $root.FocusAddMinMablagh ,keydown : $root.mablaghAddminKeyDown  } , attr: {'id': 'AddMinMablagh' + Code }" type="text" class="form-control float" placeholder="مبلغ را وارد کنید" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /></td>
-                                                        <!--, keypress : $root.mablaghAddminKeyDown-->
+                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(parseFloat(Math.abs(AddMinPrice)).toFixed(parseInt(sessionStorage.Deghat))) ,  enable: !Auto , event:{ change: $root.ChangeAddMinMablagh , focus: $root.FocusAddMinMablagh ,keydown : $root.mablaghAddminKeyDown  } , attr: {'id': 'AddMinMablagh' + Code }" type="text" class="form-control float" placeholder="مبلغ را وارد کنید" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /></td>
                                                         <td style="padding: 0px 10px;" data-bind="text: Mode == 1 ? '-' : '+' ,attr: {'id': 'iconAddMin' + Code}"></td>
-                                                        <!-- <td><input data-bind="value: MablaghMoaser.toFixed(parseInt(sessionStorage.Deghat)),attr: {'id': 'AddMinMablaghMoaser' + Code}" type="text" class="form-control float" placeholder="مبلغ را وارد کنید" readonly /> </td> -->
                                                         <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(NumberToNumberString(parseFloat(MablaghMoaser).toFixed(parseInt(sessionStorage.Deghat)))) , enable: false , attr: {'id': 'AddMinMablaghMoaser' + Code}" type="text" class="form-control float" placeholder="مبلغ را وارد کنید" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /> </td>
                                                     </tr>
                                                 </tbody>
@@ -830,7 +828,6 @@
 @section scripts{
     <script type="text/javascript">
         sessionStorage.urlFDocH = '@Url.Action("Index", "AFIFactor")';
-        sessionStorage.urlAddIDocH = '@Url.Action("AddIdoc", "AFISanadAnbar")';
         $('#btntarikh').MdPersianDateTimePicker({
         targetTextSelector: '#tarikh',
             dateFormat: 'yyyy-MM-dd',

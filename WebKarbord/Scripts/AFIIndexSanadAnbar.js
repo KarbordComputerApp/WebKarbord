@@ -576,7 +576,8 @@
         //else
         //{
         sessionStorage.InvCode = invCode;
-        window.location.href = sessionStorage.urlIDocH;
+        window.location.href = sessionStorage.urlAddIDocH;
+
         //}
     });
 
@@ -669,7 +670,7 @@
 
         sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
-        window.location.href = sessionStorage.urlIDocH;
+        window.location.href = sessionStorage.urlAddIDocH;
 
 
     }
@@ -945,7 +946,7 @@
             sessionStorage.Footer = item.Footer;
             sessionStorage.BeforeMoveSanadAnbar = true;
 
-            window.location.href = sessionStorage.urlIDocH;
+            window.location.href = sessionStorage.urlAddIDocH;
         });
 
     });

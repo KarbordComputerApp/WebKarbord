@@ -591,6 +591,15 @@ function FindTextField(field, data) {
     return 0;
 }
 
+function FindTypeField(field, data) {
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].Code == field && data[i].Visible == 1) {
+            return data[i].Type;
+        }
+    }
+    return 0;
+}
+
 /*
 function GetNameField(Code, InOut) {
     for (var i = 0; i < FldNames.length; i++) {

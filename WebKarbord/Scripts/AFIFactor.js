@@ -2323,6 +2323,8 @@
         }
         else {
             var key = e.charCode || e.keyCode || 0;
+            //if (key == 110 || key == 190 || key == 111 || key == 191)
+            //    key = 47;
             // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
             // home, end, period, and numpad decimal
             return (
@@ -2330,8 +2332,7 @@
                 key == 9 ||
                 key == 13 ||
                 key == 46 ||
-                key == 110 ||
-                key == 190 ||
+                key == 111 || key == 191 ||
                 (key >= 35 && key <= 40) ||
                 (key >= 48 && key <= 57) ||
                 (key >= 96 && key <= 105)
@@ -2938,8 +2939,8 @@
                 else
                     setReport(self.FDocPList(), 'Factor_PFORD_NoPrice', variable);
                 break;
-            case sessionStorage.Access_SHOWPRICE_PPDOC:
-                if (sessionStorage.Access_SHOWPRICE_ == 'true')
+            case sessionStorage.MODECODE_FDOC_PP:
+                if (sessionStorage.Access_SHOWPRICE_PPDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PPDOC', variable);
                 else
                     setReport(self.FDocPList(), 'Factor_PPDOC_NoPrice', variable);
@@ -2959,16 +2960,6 @@
                 break;
         }
 
-
-        if (sessionStorage.ModeCode == 1) {
-            if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
-                setReport(self.IDocPList(), 'Sanad_IDoc', variable);
-            else
-                setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
-        }
-        else {
-            setReport(self.IDocPList(), 'Sanad_ODoc_NoPrice', variable);
-        }
 
         setReport(self.FDocPList(), 'Free', variable);
     });

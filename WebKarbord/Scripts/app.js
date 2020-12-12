@@ -339,7 +339,9 @@ String.prototype.toEnglishDigit = function () {
 
 function SlashToDot(num) {
     var a = num.replace(/,/g, '');
-    return a.replace('/', '.');
+
+    a = a.replace('/', '.');
+    return a;
 }
 
 function DotToSlash(num) {
@@ -360,5 +362,7 @@ function TextHighlightDel(id) {
     $(id).css("font-style", "");
     $(id).css("text-align", "");
 }
+
+
 
 

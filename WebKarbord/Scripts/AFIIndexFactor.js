@@ -862,7 +862,7 @@
         //        $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
         //}
         //else {
-        window.location.href = sessionStorage.urlFDocH;
+        window.location.href = sessionStorage.urlAddFDocH;
         //}
     });
 
@@ -1192,7 +1192,7 @@
 
         sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
 
-        window.location.href = sessionStorage.urlFDocH;
+        window.location.href = sessionStorage.urlAddFDocH;
     }
 
     self.MoveFactor = function (item) {
@@ -1488,7 +1488,7 @@
             sessionStorage.Footer = item.Footer;
             sessionStorage.BeforeMoveFactor = true;
 
-            window.location.href = sessionStorage.urlFDocH;
+            window.location.href = sessionStorage.urlAddFDocH;
         });
     });
 

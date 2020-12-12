@@ -3119,9 +3119,12 @@
 
 
 
-
-
     $('#FinalSave').click(function () {
+
+        if (Serial == "" || self.ADocBList().length == 0)
+            return showNotification('سند دارای بند قابل ذخیره نیست', 0);
+
+
         $('#titleFinalSave').text('ذخیره سند حسابداری');
 
         var TestADocObject = {

@@ -519,6 +519,26 @@
         var filterMAmount3 = self.filterMAmount3();
         var filterMTotalPrice = self.filterMTotalPrice();
 
+        filterAAmount1 = filterAAmount1.replace("/", ".");
+        filterAAmount2 = filterAAmount2.replace("/", ".");
+        filterAAmount3 = filterAAmount3.replace("/", ".");
+        filterATotalPrice = filterATotalPrice.replace("/", ".");
+
+        filterVAmount1 = filterVAmount1.replace("/", ".");
+        filterVAmount2 = filterVAmount2.replace("/", ".");
+        filterVAmount3 = filterVAmount3.replace("/", ".");
+        filterVTotalPrice = filterVTotalPrice.replace("/", ".");
+
+        filterSAmount1 = filterSAmount1.replace("/", ".");
+        filterSAmount2 = filterSAmount2.replace("/", ".");
+        filterSAmount3 = filterSAmount3.replace("/", ".");
+        filterSTotalPrice = filterSTotalPrice.replace("/", ".");
+
+        filterMAmount1 = filterMAmount1.replace("/", ".");
+        filterMAmount2 = filterMAmount2.replace("/", ".");
+        filterMAmount3 = filterMAmount3.replace("/", ".");
+        filterMTotalPrice = filterMTotalPrice.replace("/", ".");
+
         tempData = ko.utils.arrayFilter(self.TrzIList(), function (item) {
             result =
                 ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filterKalaCode) &&
@@ -2567,6 +2587,133 @@
         }
     }
 
+
+    self.SearchKeyDown = function (viewModel, e) {
+        var clas = $(e.target.classList)[0]
+
+        var key = e.charCode || e.keyCode || 0;
+        if (clas == 'type_1' || clas == 'type_2') // FARSI='1' LATIN='2'
+        {
+            return (true)
+            if (e.shiftKey) {
+                return
+            }
+
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 47 ||
+                key == 111 || key == 191 ||
+                key == 190 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+          
+        else if (clas == 'type_3') { // SHAMSIDATE
+            if (e.shiftKey) {
+                return
+            }
+            return (
+                key == 111 ||
+                key == 191 ||
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 190 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+        else if (clas == 'type_4') { // INT
+            if (e.shiftKey) {
+                return
+            }
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 190 ||
+                key == 109 || //-
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+        else if (clas == 'type_5') { // FLOAT
+            if (e.shiftKey) {
+                return
+            }
+
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 47 ||
+                key == 109 || //-
+                key == 111 || key == 191 ||
+                key == 190 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+        else if (clas == 'type_6') { // CODE
+            if (e.shiftKey) {
+                return
+            }
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 190 ||
+                key == 109 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+
+        else if (clas == 'type_7') { // DOCNO
+            if (e.shiftKey) {
+                return
+            }
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 190 ||
+                key == 109 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+
+        else if (clas == 'type_8') { // Time
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 190 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+
+    }
+
     function CreateTableTdSearch(field, data) {
         if (field.includes('Price') == true && showPrice == false)
             return ''
@@ -2574,10 +2721,12 @@
             text = '<td ';
 
             TextField = FindTextField(field, data);
+            type = FindTypeField(field, data);
             if (TextField == 0)
                 text += 'Hidden ';
 
-            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+            text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
             return text;
         }
     }
