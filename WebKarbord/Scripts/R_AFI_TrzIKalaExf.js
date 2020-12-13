@@ -2322,13 +2322,6 @@
 
 
 
-
-
-
-
-
-
-
     getIModeList();
 
     //Get IMode List

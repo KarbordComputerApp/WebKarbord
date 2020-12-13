@@ -202,7 +202,7 @@
     //Get Thvl List
     function getThvlList() {
         var ThvlObject = {
-            Mode: 0,
+            Mode: 3,
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {

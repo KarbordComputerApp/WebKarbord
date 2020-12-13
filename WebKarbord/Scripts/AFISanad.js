@@ -261,7 +261,7 @@
     //Get Acc List
     function getAccList() {
         var AccObject = {
-            Mode: 0,
+            Mode: 1,
             UserCode: sessionStorage.userName,
         }
 
