@@ -825,7 +825,7 @@
 
 
         var IModeObject = {
-            Mode: 0,
+            Mode: 3,
             InOut: 0,
             UserCode: sessionStorage.userName,
         }

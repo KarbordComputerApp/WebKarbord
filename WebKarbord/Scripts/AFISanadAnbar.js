@@ -367,7 +367,7 @@
     function getIModeList() {
 
         var IModeObject = {
-            Mode: 0,
+            Mode: 3,
             InOut: sessionStorage.InOut,
             UserCode: sessionStorage.userName,
         }
