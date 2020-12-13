@@ -212,7 +212,11 @@
 
     //Get  KGru List
     function getKGruList() {
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var KGruObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject).done(function (data) {
             self.KGruList(data);
         });
     }
@@ -233,9 +237,11 @@
 
     //Get Thvl List
     function getThvlList() {
-        //var storedNames = JSON.parse(sessionStorage.getItem("Thvl"));
-        //self.ThvlList(storedNames);
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var ThvlObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
             self.ThvlList(data);
         });
     }
@@ -2052,9 +2058,18 @@
 
 
     getIModeList();
-    //Get  IMode List
+
+
+    //Get IMode List
     function getIModeList() {
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
+
+        var IModeObject = {
+            Mode: 0,
+            InOut: 0,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
             self.IModeList(data);
         });
     }

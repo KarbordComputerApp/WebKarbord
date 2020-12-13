@@ -126,13 +126,16 @@
 
 
 
-    //Get Acc List
     function getAccList() {
-        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var AccObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject).done(function (data) {
             self.AccList(data);
         });
     }
-
 
     //Get CheckStatus List
     function getCheckStatusList(PDMode) {

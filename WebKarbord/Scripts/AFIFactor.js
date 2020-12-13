@@ -253,7 +253,9 @@
     function getCustList() {
         var CustObject = {
             forSale: sessionStorage.InOut == 1 ? true : false,
-            updatedate: null
+            updatedate: null,
+            Mode: 0,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {
             self.CustList(data);

@@ -276,7 +276,11 @@
 
     //Get  KGru List
     function getKGruList() {
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var KGruObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject).done(function (data) {
             self.KGruList(data);
         });
     }
@@ -290,16 +294,22 @@
     function getCustList() {
         var CustObject = {
             forSale: null,
-            updatedate: null
+            updatedate: null,
+            Mode: 0,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {
             self.CustList(data);
         });
     }
 
-    //Get CGru List
     function getCGruList() {
-        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group + '/1', 'GET').done(function (data) {
+        var CGruObject = {
+            Mode: 0,
+            ModeGru: 1,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group, 'POST', CGruObject).done(function (data) {
             self.CGruList(data);
         });
     }

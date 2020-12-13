@@ -201,7 +201,11 @@
 
     //Get Thvl List
     function getThvlList() {
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var ThvlObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
             self.ThvlList(data);
         });
     }
@@ -356,14 +360,20 @@
         });
     }
 
+
+
+
     //Get IMode List
     function getIModeList() {
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
+
+        var IModeObject = {
+            Mode: 0,
+            InOut: sessionStorage.InOut,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject ).done(function (data) {
             self.IModeList(data);
-            // if (flagupdateHeader == 1)
-            //  $("#modeCode").val(sessionStorage.ModeCodeValue);
-            // else
-            //   $("#modeCode").val();
         });
     }
 

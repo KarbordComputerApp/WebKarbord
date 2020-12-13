@@ -89,9 +89,11 @@
 
     //Get Thvl List
     function getThvlList() {
-        //var storedNames = JSON.parse(sessionStorage.getItem("Thvl"));
-        //self.ThvlList(storedNames);
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        var ThvlObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
             self.ThvlList(data);
         });
     }

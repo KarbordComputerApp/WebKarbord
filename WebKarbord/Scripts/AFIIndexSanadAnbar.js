@@ -822,9 +822,16 @@
     getIModeList();
     //Get  IMode List
     function getIModeList() {
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group + '/0', 'GET').done(function (data) {
-            self.IModeList(data);
 
+
+        var IModeObject = {
+            Mode: 0,
+            InOut: 0,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
+            self.IModeList(data);
 
             var textExc = '';
 
