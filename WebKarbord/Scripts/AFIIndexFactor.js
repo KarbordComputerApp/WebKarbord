@@ -1350,7 +1350,7 @@
             if (darsadMove == '' || darsadMove == '0')
                 return showNotification('درصد را وارد کنید', 0);
 
-            if (parseFloat(darsadMove)  > 100)
+            if (parseFloat(darsadMove) > 100)
                 return showNotification('بیشتر از 100 درصد', 0);
 
             ajaxFunction(FTestMoveFactorUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + modeCodeMove, 'POST').done(function (response) {
@@ -1740,11 +1740,76 @@
         return text;
     }
 
-    /* createViewer();
-     $('#Print').click(function () {
-         variable = '"ReportDate":"' + DateNow + '",';
-         setReport(self.filterFDocHList(), 'Free', variable);
-     });*/
+
+
+    var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
+    self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
+    //Get FDocP List
+    function getFDocP(serialNumber) {
+        ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.FDocPList(data);
+        });
+    }
+
+    createViewer();
+
+    self.PrintFactor = function (item) {
+        serial = item.SerialNumber;
+        docDate = item.DocDate;
+
+        getFDocP(serial);
+        if (self.FDocPList().length == 0)
+            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
+
+        textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
+
+        variable = '"ReportDate":"' + DateNow + '",' +
+            '"TextFinalPrice":"' + textFinalPrice + '",';
+
+        switch (sessionStorage.ModeCode.toString()) {
+            case sessionStorage.MODECODE_FDOC_SO:
+                if (sessionStorage.Access_SHOWPRICE_SFORD == 'true')
+                    setReport(self.FDocPList(), 'Factor_SFORD', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SP:
+                if (sessionStorage.Access_SHOWPRICE_SPDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_SPDOC', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_S:
+                if (sessionStorage.Access_SHOWPRICE_SFDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_SFDOC', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SR:
+                if (sessionStorage.Access_SHOWPRICE_SRDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_SRDOC', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SH:
+                setReport(self.FDocPList(), 'Factor_SHVL_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_SE:
+                setReport(self.FDocPList(), 'Factor_SEXT_NoPrice', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_PO:
+                if (sessionStorage.Access_SHOWPRICE_PFORD == 'true')
+                    setReport(self.FDocPList(), 'Factor_PFORD', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_PP:
+                if (sessionStorage.Access_SHOWPRICE_PPDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_PPDOC', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_P:
+                if (sessionStorage.Access_SHOWPRICE_PFDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_PFDOC', variable);
+                break;
+            case sessionStorage.MODECODE_FDOC_PR:
+                if (sessionStorage.Access_SHOWPRICE_PRDOC == 'true')
+                    setReport(self.FDocPList(), 'Factor_PRDOC', variable);
+                break;
+        }
+
+        setReport(self.FDocPList(), 'Free', variable);
+    };
+
 
     self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 

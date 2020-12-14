@@ -2898,36 +2898,28 @@
         if (self.FDocPList().length == 0)
             return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
 
-        textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice; 
+        textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice;
 
         variable = '"ReportDate":"' + DateNow + '",' +
-                   '"TextFinalPrice":"' + textFinalPrice + '",';
+            '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
         switch (sessionStorage.ModeCode.toString()) {
             case sessionStorage.MODECODE_FDOC_SO:
                 if (sessionStorage.Access_SHOWPRICE_SFORD == 'true')
                     setReport(self.FDocPList(), 'Factor_SFORD', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_SFORD_NoPrice', variable);
                 break;
             case sessionStorage.MODECODE_FDOC_SP:
                 if (sessionStorage.Access_SHOWPRICE_SPDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_SPDOC', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_SPDOC_NoPrice', variable);
                 break;
             case sessionStorage.MODECODE_FDOC_S:
                 if (sessionStorage.Access_SHOWPRICE_SFDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_SFDOC', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_SFDOC_NoPrice', variable);
                 break;
             case sessionStorage.MODECODE_FDOC_SR:
                 if (sessionStorage.Access_SHOWPRICE_SRDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_SRDOC', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_SRDOC_NoPrice', variable);
                 break;
             case sessionStorage.MODECODE_FDOC_SH:
                 setReport(self.FDocPList(), 'Factor_SHVL_NoPrice', variable);
@@ -2938,30 +2930,20 @@
             case sessionStorage.MODECODE_FDOC_PO:
                 if (sessionStorage.Access_SHOWPRICE_PFORD == 'true')
                     setReport(self.FDocPList(), 'Factor_PFORD', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_PFORD_NoPrice', variable);
                 break;
             case sessionStorage.MODECODE_FDOC_PP:
                 if (sessionStorage.Access_SHOWPRICE_PPDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PPDOC', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_PPDOC_NoPrice', variable);
                 break;
             case sessionStorage.MODECODE_FDOC_P:
                 if (sessionStorage.Access_SHOWPRICE_PFDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PFDOC', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_PFDOC_NoPrice', variable);
                 break;
-
             case sessionStorage.MODECODE_FDOC_PR:
                 if (sessionStorage.Access_SHOWPRICE_PRDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PRDOC', variable);
-                else
-                    setReport(self.FDocPList(), 'Factor_PRDOC_NoPrice', variable);
                 break;
         }
-
 
         setReport(self.FDocPList(), 'Free', variable);
     });
