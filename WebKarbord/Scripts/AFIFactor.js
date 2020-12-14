@@ -418,7 +418,7 @@
                 self.AddMinList(obj);
                 var dataAddminTemp = self.AddMinList()[0];
                 discountCol = dataAddminTemp.SumDiscount;
-                tempsumfactor = FDocHTotalPrice + FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
+                tempsumfactor = FDocHTotalPrice - FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
                 $("#discountCol").val(NumberToNumberString(discountCol.toFixed(parseInt(sessionStorage.Deghat))));
                 $('#ghabelpardakht').val(NumberToNumberString(parseFloat(parseFloat(tempsumfactor) + discountCol).toFixed(parseInt(sessionStorage.Deghat))))
             }
@@ -471,7 +471,7 @@
                 FDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(FDocHAmount3.valueOf()));
                 FDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(FDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
                 FDocHDiscount == 0 ? $('#foottextdiscount').text('') : $('#foottextdiscount').text(NumberToNumberString(Math.abs(FDocHDiscount)));
-                $('#sumfactor').val(NumberToNumberString(parseFloat(FDocHTotalPrice + FDocHDiscount).toFixed(parseInt(sessionStorage.Deghat))));
+                $('#sumfactor').val(NumberToNumberString(parseFloat(FDocHTotalPrice - FDocHDiscount).toFixed(parseInt(sessionStorage.Deghat))));
                 $('#ghabelpardakht').val(NumberToNumberString(parseFloat(FDocHFinalPrice).toFixed(parseInt(sessionStorage.Deghat))))
             }
         });
@@ -510,7 +510,7 @@
             $("#AddMinSharh6").val(),
             $("#AddMinSharh7").val(),
             $("#AddMinSharh8").val(),
-            $("#AddMinSharh8").val(),
+            $("#AddMinSharh9").val(),
             $("#AddMinSharh10").val(),
             mp[1], mp[2], mp[3], mp[4],
             mp[5], mp[6], mp[7], mp[8],
@@ -2415,7 +2415,7 @@
                     $("#AddMinSharh6").val(),
                     $("#AddMinSharh7").val(),
                     $("#AddMinSharh8").val(),
-                    $("#AddMinSharh8").val(),
+                    $("#AddMinSharh9").val(),
                     $("#AddMinSharh10").val(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 codeCust = '';
                 sessionStorage.flagupdateHeader = 0;
