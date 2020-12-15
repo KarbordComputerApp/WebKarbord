@@ -1098,6 +1098,11 @@
         var amount = SlashToDot($("#amount").val());
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
+
+        if (flag == 0) {
+            unitprice = totalPrice / amount;
+        }
+
         discountprice = SlashToDot($("#discountprice").val());
         comm = $("#comm").val();
 
@@ -1287,6 +1292,11 @@
         var amount = SlashToDot($("#amount").val());
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
+
+        if (flag == 0) {
+            unitprice = totalPrice / amount;
+        }
+
         discountprice = SlashToDot($("#discountprice").val());
         comm = $("#comm").val();
 
@@ -1910,22 +1920,22 @@
             getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
 
             if (item.MainUnit == 1) {
-                amo = item.Amount1;
-                Price1 = item.UnitPrice;
+                amo = item.Amount1.toFixed(item.KalaDeghatM1);
+                Price1 = item.UnitPrice.toFixed(item.KalaDeghatR1);
                 $("#iconzarib1").css("backgroundColor", "#c0bfbf");
                 $("#iconzarib2").css("backgroundColor", "white");
                 $("#iconzarib3").css("backgroundColor", "white");
             }
             else if (item.MainUnit == 2) {
-                amo = item.Amount2;
-                Price2 = item.UnitPrice;
+                amo = item.Amount2.toFixed(item.KalaDeghatM2);
+                Price2 = item.UnitPrice.toFixed(item.KalaDeghatR2);
                 $("#iconzarib1").css("backgroundColor", "white");
                 $("#iconzarib2").css("backgroundColor", "#c0bfbf");
                 $("#iconzarib3").css("backgroundColor", "white");
             }
             else if (item.MainUnit == 3) {
-                amo = item.Amount3;
-                Price3 = item.UnitPrice;
+                amo = item.Amount3.toFixed(item.KalaDeghatM3);;
+                Price3 = item.UnitPrice.toFixed(item.KalaDeghatR3);
                 $("#iconzarib1").css("backgroundColor", "white");
                 $("#iconzarib2").css("backgroundColor", "white");
                 $("#iconzarib3").css("backgroundColor", "#c0bfbf");
@@ -1933,8 +1943,8 @@
 
             amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 
-            item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice)) : $('#unitPrice').val('');
-            item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice)) : $('#totalPrice').val('');
+            item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice.toFixed(item.DeghatR))) : $('#unitPrice').val('');
+            item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.Deghat)))) : $('#totalPrice').val('');
             item.Discount != 0 ? $('#discountprice').val(NumberToNumberString(Math.abs(item.Discount))) : $('#discountprice').val('');
             ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 && item.TotalPrice > 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
             $('#comm').val(item.Comm);
