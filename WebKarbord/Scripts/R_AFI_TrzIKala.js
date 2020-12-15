@@ -228,7 +228,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(TGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject).done(function (data) {
+        ajaxFunction(TGruUri + ace + '/' + sal + '/' + group, 'POST', TGruObject).done(function (data) {
             self.TGruList(data);
         });
     }

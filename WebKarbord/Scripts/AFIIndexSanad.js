@@ -965,32 +965,6 @@
 
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }"  type="text" class="type_' + type + ' ';
 
-        /*  switch () {
-              case 1:
-                  text += 'float';
-                  break;
-              case 2:
-                  text += 'float';
-                  break;
-              case 3:
-                  text += 'float';
-                  break;
-              case 4:
-                  text += 'float';
-                  break;
-              case 5:
-                  text += 'float';
-                  break;
-              case 6:
-                  text += 'float';
-                  break;
-              case 7:
-                  text += 'float';
-                  break;
-          }*/
-
-
-
         text += ' form-control" style="height: 2.4rem; " /> </td>';
         return text;
     }

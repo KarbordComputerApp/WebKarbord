@@ -1578,14 +1578,20 @@ p {
 
 
 
-.tableFixHead {
+.tableFix {
     overflow-y: auto;
     height: 100px;
 }
 
-    .tableFixHead thead th {
+    .tableFix thead th {
         position: sticky;
         top: -1px;
+    }
+
+    .tableFix tfoot tr {
+       /* top: 450px;
+        position: absolute;
+       background-color: #efb683;*/
     }
 
 
