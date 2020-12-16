@@ -2914,22 +2914,32 @@
             '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
+
+        textAccess = 'دسترسی ندارید';
         switch (sessionStorage.ModeCode.toString()) {
             case sessionStorage.MODECODE_FDOC_SO:
                 if (sessionStorage.Access_SHOWPRICE_SFORD == 'true')
-                    setReport(self.FDocPList(), 'Factor_SFORD', variable);
+                    setReport(self.FDocPList(), 'Factor_SFORD', variable)
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_SP:
                 if (sessionStorage.Access_SHOWPRICE_SPDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_SPDOC', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_S:
                 if (sessionStorage.Access_SHOWPRICE_SFDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_SFDOC', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_SR:
                 if (sessionStorage.Access_SHOWPRICE_SRDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_SRDOC', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_SH:
                 setReport(self.FDocPList(), 'Factor_SHVL_NoPrice', variable);
@@ -2940,18 +2950,26 @@
             case sessionStorage.MODECODE_FDOC_PO:
                 if (sessionStorage.Access_SHOWPRICE_PFORD == 'true')
                     setReport(self.FDocPList(), 'Factor_PFORD', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_PP:
                 if (sessionStorage.Access_SHOWPRICE_PPDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PPDOC', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_P:
                 if (sessionStorage.Access_SHOWPRICE_PFDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PFDOC', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
             case sessionStorage.MODECODE_FDOC_PR:
                 if (sessionStorage.Access_SHOWPRICE_PRDOC == 'true')
                     setReport(self.FDocPList(), 'Factor_PRDOC', variable);
+                else
+                    return showNotification(textAccess, 0);
                 break;
         }
 

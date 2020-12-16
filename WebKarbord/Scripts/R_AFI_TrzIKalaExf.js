@@ -2880,24 +2880,8 @@
             );
         }
 
-        else if (clas == 'type_8') { // Time
-            return (
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-
     }
 
-
-            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
-            text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
 
     function CreateTableTdSearch(field, data) {
         if (field.includes('Price') == true && showPrice == false)
