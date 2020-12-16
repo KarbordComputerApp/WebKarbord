@@ -574,6 +574,26 @@
         var filterMAmount3 = self.filterMAmount3();
         var filterMTotalPrice = self.filterMTotalPrice();
 
+        filterAAmount1 = filterAAmount1.replace("/", ".");
+        filterAAmount2 = filterAAmount2.replace("/", ".");
+        filterAAmount3 = filterAAmount3.replace("/", ".");
+        filterATotalPrice = filterATotalPrice.replace("/", ".");
+
+        filterVAmount1 = filterVAmount1.replace("/", ".");
+        filterVAmount2 = filterVAmount2.replace("/", ".");
+        filterVAmount3 = filterVAmount3.replace("/", ".");
+        filterVTotalPrice = filterVTotalPrice.replace("/", ".");
+
+        filterSAmount1 = filterSAmount1.replace("/", ".");
+        filterSAmount2 = filterSAmount2.replace("/", ".");
+        filterSAmount3 = filterSAmount3.replace("/", ".");
+        filterSTotalPrice = filterSTotalPrice.replace("/", ".");
+
+        filterMAmount1 = filterMAmount1.replace("/", ".");
+        filterMAmount2 = filterMAmount2.replace("/", ".");
+        filterMAmount3 = filterMAmount3.replace("/", ".");
+        filterMTotalPrice = filterMTotalPrice.replace("/", ".");
+
         /*   InvCode, InvName, KalaCode, KalaName, KalaFanniNo, KalaFileNo, KalaState, KalaExf1, KalaExf2, KalaExf3,
                KalaExf4, KalaExf5, KalaExf6, KalaExf7, KalaExf8, KalaExf9, KalaExf10, KalaExf11, KalaExf12, KalaExf13,
                KalaExf14, KalaExf15, AAmount1, AAmount2, AAmount3, ATotalPrice, VAmount1, VAmount2, VAmount3,
