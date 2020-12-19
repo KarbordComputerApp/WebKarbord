@@ -200,7 +200,9 @@
 
     self.sortTableThvl = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.ThvlList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -280,7 +282,9 @@
 
     self.sortTableKala = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];

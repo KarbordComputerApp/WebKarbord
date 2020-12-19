@@ -39,6 +39,8 @@
     var accessTaeed = false;
     var accessTasvib = false;
 
+    sessionStorage.flagCopy = 'N';
+
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             {
@@ -652,6 +654,7 @@
 
     self.sortTableFDocH = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+
         if (orderProp == null)
             return null
         //if (orderProp == "") {
@@ -814,6 +817,8 @@
 
     self.sortTableFDocH1 = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn1(orderProp);
         self.FDocHList1.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1343,7 +1348,10 @@
 
         modeCodeMove = moveMode == 1 ? $('#modeCodeMove').val() : $('#modeCodePor').val()
 
-        if (moveMode == 1) {
+        if (moveMode == 0) {
+            sessionStorage.flagCopy = 'Y'
+        }
+        else if (moveMode == 1) {
 
             darsadMove = SlashToDot($('#darsadMove').val());
 

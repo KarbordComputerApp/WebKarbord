@@ -16,6 +16,8 @@ const Web8 = 'Web8';
 
 const titlePrice = ' ریال ';
 
+
+
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
 var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
@@ -40,6 +42,7 @@ $('#coName_TitleMenu').val(sessionStorage.CoName);
 $('#ace_TitleMenu').val(sessionStorage.aceName);
 $('#group_TitleMenu').val(sessionStorage.group == "0" ? 'انتخاب نشده' : sessionStorage.group);
 $('#sal_TitleMenu').val(sessionStorage.sal == "0" ? 'انتخاب نشده' : sessionStorage.sal);
+
 
 
 if (sessionStorage.ace == 'Web1') {
@@ -2424,35 +2427,6 @@ function setReport_m(reportObject, mrtFileName, variablesObject) {
 
     $('#modal-Report').modal('show');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function setReport(reportObject, mrtFileName, variablesObject) {

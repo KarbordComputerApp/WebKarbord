@@ -195,7 +195,7 @@
             totalvalue += TChkData.Value;
         }
 
-        $("#textTotal").text('جمع');
+        //$("#textTotal").text('جمع');
         $("#totalValue").text(NumberToNumberString(totalvalue));
     }
 
@@ -268,6 +268,8 @@
 
     self.sortTableCheckStatus = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.CheckStatusList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -446,6 +448,8 @@
 
     self.sortTableAcc = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.AccList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -719,6 +723,8 @@
 
     self.sortTableTChk = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.TChkList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -784,12 +790,20 @@
     self.iconTypeCheckVosoolDate = ko.observable("");
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeTChk();
+        page = self.currentPageIndexTChk();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTChk">' +
+            '<th>ردیف</th>' +
             CreateTableTh('CheckNo', data) +
             CreateTableTh('CheckDate', data) +
             CreateTableTh('AccCode', data) +
@@ -808,6 +822,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTChk" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('CheckNo', 0, 0, data) +
             CreateTableTd('CheckDate', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
@@ -826,6 +841,8 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            
+            '<td>جمع</td>' +
             CreateTableTdSum('CheckNo', 0, data) +
             CreateTableTdSum('CheckDate', 1, data) +
             CreateTableTdSum('AccCode', 1, data) +
@@ -842,6 +859,7 @@
             CreateTableTdSum('CheckVosoolDate', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('CheckNo', data) +
             CreateTableTdSearch('CheckDate', data) +
             CreateTableTdSearch('AccCode', data) +

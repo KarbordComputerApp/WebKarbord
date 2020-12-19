@@ -422,7 +422,7 @@
             KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
         }
 
-        $("#textTotal").text('جمع');
+       // $("#textTotal").text('جمع');
         $("#totalVAmount1").text(NumberToNumberString(totalVAmount1.toFixed(maxKalaDeghat1)));
         $("#totalVAmount2").text(NumberToNumberString(totalVAmount2.toFixed(maxKalaDeghat2)));
         $("#totalVAmount3").text(NumberToNumberString(totalVAmount3.toFixed(maxKalaDeghat3)));
@@ -948,6 +948,8 @@
 
     self.sortTableKrdx = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KrdxList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1245,6 +1247,8 @@
 
     self.sortTableInv = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.InvList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1385,6 +1389,8 @@
 
     self.sortTableKala = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1506,6 +1512,8 @@
 
     self.sortTableThvl = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.ThvlList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1683,6 +1691,8 @@
 
     self.sortTableMkz = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1861,6 +1871,8 @@
 
     self.sortTableOpr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2274,6 +2286,8 @@
 
     self.sortTableIMode = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.IModeList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2387,6 +2401,13 @@
 
     var showPrice = false;
 
+    self.radif = function (index) {
+        countShow = self.pageSizeKrdx();
+        page = self.currentPageIndexKrdx();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
@@ -2396,6 +2417,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableKrdx">' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocDate', data) +
             //CreateTableTh('InvName', data) +
             CreateTableTh('ModeName', data) +
@@ -2499,6 +2521,7 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
             '     <tr data-bind=" style: {color:  Status == \'باطل\'  ? \'#ff252540\' : null ,  \'background-color\':  DocNo == \'0\'  ? \'#efb68399\' : null } " >' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('DocDate', 0, 0, 0, data) +
             // CreateTableTd('InvName', 0, 0,0, data) +
             CreateTableTd('ModeName', 0, 0, 0, data) +
@@ -2603,6 +2626,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td>جمع</td>' +
             CreateTableTdSum('DocDate', 0, data) +
             //CreateTableTdSum('InvName', 1, data) +
             CreateTableTdSum('ModeName', 1, data) +
@@ -2704,6 +2728,7 @@
            CreateTableTdSum('Kalaf20', 1, data) +*/
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('DocDate', data) +
             //CreateTableTdSearch('InvName', data) +
             CreateTableTdSearch('ModeName', data) +

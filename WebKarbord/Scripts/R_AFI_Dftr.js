@@ -301,7 +301,7 @@
             //totalMonTotal += DftrData.MonTotal;
         }
 
-        $("#textTotal").text('جمع');
+       // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
 
@@ -1634,12 +1634,20 @@
 
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeDftr();
+        page = self.currentPageIndexDftr();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDftr">' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('AccCode', data) +
@@ -1689,6 +1697,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageDftr" data-dismiss="modal" style="cursor: default;">' +
             '     <tr  data-bind=" style: {\'background-color\':  DocNo == \'0\'  ? \'#efb68399\' : null  } ">' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
@@ -1738,6 +1747,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td>جمع</td>' +
             CreateTableTdSum('DocNo', 0, data) +
             CreateTableTdSum('DocDate', 1, data) +
             CreateTableTdSum('AccCode', 1, data) +
@@ -1785,6 +1795,7 @@
             CreateTableTdSum('F20', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('AccCode', data) +

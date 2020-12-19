@@ -1,14 +1,6 @@
-﻿ul.fliker-image-2 li {
-    float: left;
-    width: calc(50% - 3px);
-    margin-right: 1px;
-    margin-bottom: 1px;
-    padding-bottom: 0px
-}
+﻿
 
-.fliker-image-2 img {
-    width: 100%
-}
+
 
 ul li a img {
     margin: 5px

@@ -431,7 +431,7 @@
             }
         }
 
-        $("#textTotal").text('جمع');
+        //$("#textTotal").text('جمع');
         $("#totalAAmount1").text(NumberToNumberString(totalAAmount1.toFixed(maxKalaDeghat1)));
         $("#totalAAmount2").text(NumberToNumberString(totalAAmount2.toFixed(maxKalaDeghat2)));
         $("#totalAAmount3").text(NumberToNumberString(totalAAmount3.toFixed(maxKalaDeghat3)));
@@ -756,7 +756,9 @@
 
     self.sortTableTrzIExf = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.TrzIExfList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -925,7 +927,9 @@
 
     self.sortTableInv = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.InvList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1105,7 +1109,9 @@
 
     self.sortTableKGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.KGruList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1287,7 +1293,9 @@
 
     self.sortTableKala = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1468,7 +1476,9 @@
 
     self.sortTableThvl = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.ThvlList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1661,7 +1671,9 @@
 
     self.sortTableTGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.TGruList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1848,7 +1860,9 @@
 
     self.sortTableMkz = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -2026,7 +2040,9 @@
 
     self.sortTableOpr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -2419,7 +2435,9 @@
 
     self.sortTableIMode = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.IModeList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -2537,6 +2555,13 @@
 
     var showPrice = false;
 
+    self.radif = function (index) {
+        countShow = self.pageSizeTrzIExf();
+        page = self.currentPageIndexTrzIExf();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
@@ -2547,6 +2572,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzIExf">' +
+            '<th>ردیف</th>' +
             CreateTableTh('KalaCode', data) +
             CreateTableTh('KalaName', data) +
             CreateTableTh('InvCode', data) +
@@ -2589,6 +2615,7 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageTrzIExf}" style="cursor: default;">' +
             '     <tr data-bind="style: { \'background-color\': Tag == 1 ? \'#f5efeb\' : \'#ffffff\' }" >' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('KalaCode', 0, 0, data) +
             CreateTableTd('KalaName', 0, 0, data) +
             CreateTableTd('InvCode', 0, 0, data) +
@@ -2631,6 +2658,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td>جمع</td>' +
             CreateTableTdSum('KalaCode', 0, data) +
             CreateTableTdSum('KalaName', 1, data) +
             CreateTableTdSum('InvCode', 1, data) +
@@ -2671,6 +2699,7 @@
             CreateTableTdSum('MTotalPrice', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('KalaCode', data) +
             CreateTableTdSearch('KalaName', data) +
             CreateTableTdSearch('InvCode', data) +

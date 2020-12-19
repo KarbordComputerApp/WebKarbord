@@ -14,6 +14,10 @@
     $("#salTest").text('سال مالی' + sessionStorage.sal);
 
     var flaglog = "Y";
+
+    if (sessionStorage.flagCopy == 'Y')
+        flaglog = "N";
+
     //sessionStorage.searchIDocH = "";
     var server = localStorage.getItem("ApiAddress");
 
@@ -372,7 +376,7 @@
             UserCode: sessionStorage.userName,
         }
 
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject ).done(function (data) {
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
             self.IModeList(data);
         });
     }
@@ -1153,6 +1157,8 @@
 
     self.sortTableThvl = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.ThvlList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1240,6 +1246,8 @@
 
     self.sortTableKala = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1286,7 +1294,7 @@
         //if (Serial != '') {
         //    self.UpdateIDocH();
         //}
-        
+
         if (Serial != '') {
             flagFinalSave = false;
             self.UpdateIDocH();
@@ -2025,10 +2033,10 @@
 
         if (self.IDocPList().length == 0)
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
-        textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice; 
+        textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice;
 
         variable = '"ReportDate":"' + DateNow + '",' +
-                   '"TextFinalPrice":"' + textFinalPrice + '",';
+            '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
         if (sessionStorage.InOut == 1) {

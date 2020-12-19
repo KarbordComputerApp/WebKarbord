@@ -883,7 +883,7 @@
         modeCodeMove = $('#modeCodePor').val();
         invSelectMove = $('#invSelectMove').val();
         localStorage.setItem('InvSelectSanadAnbarMove', invSelectMove);
-
+        sessionStorage.flagCopy = 'Y'
         var MoveObject = {
             SerialNumber: serial,
             DocDate: docDate,
@@ -991,15 +991,12 @@
 
 
 
-
-
     function CreateTableReport(data) {
         $("#TableList").empty();
         $('#TableList').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableIDocH">' +
-            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('InvName', data) +
@@ -1037,7 +1034,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null}" >' +
-            '<td data-bind="text:  $index() + 1"></td>' +
+            //'<td data-bind="text:  $index() + 1"></td>' +
            // '<td data-bind="text: $data.DocNo"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
@@ -1114,7 +1111,6 @@
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +
-            '<td></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('InvName', data) +
@@ -1373,6 +1369,10 @@
 
 
     });
+
+
+
+
 
 };
 

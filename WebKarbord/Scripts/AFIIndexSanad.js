@@ -985,6 +985,7 @@
 
     $('#Move').click(function () {
         modeCodeMove = $('#modeCodeMove').val();
+        sessionStorage.flagCopy = 'Y'
         var MoveObject = {
             SerialNumber: serial,
             DocDate: docDate,

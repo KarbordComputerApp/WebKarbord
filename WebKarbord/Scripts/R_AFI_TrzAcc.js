@@ -264,7 +264,7 @@
             }
         }
 
-        $("#textTotal").text('جمع');
+       // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
         $("#totalMonBede").text(NumberToNumberString(totalMonBede));
@@ -327,6 +327,7 @@
         var filterMonBede = self.filterMonBede();
         var filterMonBest = self.filterMonBest();
         var filterMonTotal = self.filterMonTotal();
+
         // , AccName, Bede, Best, MonBede, MonBest, MonTotal
         // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
 
@@ -453,6 +454,7 @@
     self.filterAcc0 = ko.observable("");
     self.filterAcc1 = ko.observable("");
     self.filterAcc2 = ko.observable("");
+    self.filterAcc3 = ko.observable("");
 
     self.filterAccList = ko.computed(function () {
 
@@ -460,15 +462,17 @@
         var filter0 = self.filterAcc0().toUpperCase();
         var filter1 = self.filterAcc1();
         var filter2 = self.filterAcc2();
+        var filter3 = self.filterAcc3();
 
-        if (!filter0 && !filter1 && !filter2) {
+        if (!filter0 && !filter1 && !filter2 && !filter3) {
             return self.AccList();
         } else {
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
                 return result;
             })
             return tempData;
@@ -509,6 +513,8 @@
 
     self.sortTableAcc = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.AccList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -587,7 +593,7 @@
 
     self.AddAllAcc = function () {
         list_AccSelect = new Array();
-        list = self.AccList();
+        list = self.filterAccList();
         $("#TableBodyListAcc").empty();
         for (var i = 0; i < list.length; i++) {
             $('#TableBodyListAcc').append(
@@ -617,6 +623,11 @@
     });
 
     $('#modal-Acc').on('shown.bs.modal', function () {
+
+        level = $("#Level").val();
+        level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
+        
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -686,6 +697,8 @@
 
     self.sortTableMkz = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -864,6 +877,8 @@
 
     self.sortTableOpr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1048,6 +1063,8 @@
 
     self.sortTableAMode = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.AModeList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1163,6 +1180,13 @@
 
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeTrzAcc();
+        page = self.currentPageIndexTrzAcc();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
@@ -1173,6 +1197,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzAcc">' +
+            '<th>ردیف</th>' +
             CreateTableTh('AccCode', data) +
             CreateTableTh('AccName', data) +
             CreateTableTh('Bede', data) +
@@ -1191,6 +1216,7 @@
                 '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
 
         createTable +=
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
@@ -1202,7 +1228,8 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('AccCode', 0, data) +
+        '<td>جمع</td>' +
+        CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
@@ -1211,6 +1238,7 @@
             CreateTableTdSum('MonTotal', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+           '<td></td>' +
             CreateTableTdSearch('AccCode', data) +
             CreateTableTdSearch('AccName', data) +
             CreateTableTdSearch('Bede', data) +

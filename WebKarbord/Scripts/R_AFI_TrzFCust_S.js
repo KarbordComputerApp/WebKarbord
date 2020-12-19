@@ -469,7 +469,7 @@
 
        }
 
-        $("#textTotal").text('جمع');
+        //$("#textTotal").text('جمع');
         $("#totalAmount1").text(NumberToNumberString(totalAmount1));
         $("#totalAmount2").text(NumberToNumberString(totalAmount2));
         $("#totalAmount3").text(NumberToNumberString(totalAmount3));
@@ -752,6 +752,8 @@
 
     self.sortTableTrzFCust_S = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.TrzFCust_SList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -920,6 +922,8 @@
 
     self.sortTableStatus = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.StatusList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1266,6 +1270,8 @@
 
     self.sortTableKGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KGruList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1447,7 +1453,10 @@
     };
 
     self.sortTableKala = function (viewModel, e) {
+
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1630,6 +1639,8 @@
 
     self.sortTableCGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.CGruList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1808,6 +1819,8 @@
 
     self.sortTableCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.CustList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1985,6 +1998,8 @@
 
     self.sortTableOpr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2163,6 +2178,8 @@
 
     self.sortTableMkz = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2284,12 +2301,20 @@
 
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeTrzFCust_S();
+        page = self.currentPageIndexTrzFCust_S();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzFCust_S">' +
+            '<th>ردیف</th>' +
             CreateTableTh('CustCode', data) +
             CreateTableTh('CustName', data) +
             CreateTableTh('CustF01', data) +
@@ -2333,6 +2358,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTrzFCust_S" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('CustCode', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data) +
             CreateTableTd('CustF01', 0, 0, data) +
@@ -2376,6 +2402,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td>جمع</td>' +
             CreateTableTdSum('CustCode', 0, data) +
             CreateTableTdSum('CustName', 1, data) +
             CreateTableTdSum('CustF01', 1, data) +
@@ -2417,6 +2444,7 @@
             CreateTableTdSum('FinalPrice', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('CustCode', data) +
             CreateTableTdSearch('CustName', data) +
             CreateTableTdSearch('CustF01', data) +

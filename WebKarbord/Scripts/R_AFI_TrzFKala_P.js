@@ -494,7 +494,7 @@
             KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
         }
 
-        $("#textTotal").text('جمع');
+        //$("#textTotal").text('جمع');
         $("#totalAmount1").text(NumberToNumberString(totalAmount1.toFixed(maxKalaDeghat1)));
         $("#totalAmount2").text(NumberToNumberString(totalAmount2.toFixed(maxKalaDeghat2)));
         $("#totalAmount3").text(NumberToNumberString(totalAmount3.toFixed(maxKalaDeghat3)));
@@ -802,6 +802,9 @@
 
     self.sortTableTrzFKala_P = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.TrzFKala_PList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -982,6 +985,8 @@
 
     self.sortTableStatus = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.StatusList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1148,6 +1153,8 @@
 
     self.sortTableInv = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.InvList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1328,6 +1335,8 @@
 
     self.sortTableKGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KGruList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1510,6 +1519,8 @@
 
     self.sortTableKala = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1692,6 +1703,8 @@
 
     self.sortTableCGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.CGruList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1877,6 +1890,8 @@
 
     self.sortTableCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.CustList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2054,6 +2069,8 @@
 
     self.sortTableOpr = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2232,6 +2249,8 @@
 
     self.sortTableMkz = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2353,12 +2372,19 @@
 
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeTrzFKala_P();
+        page = self.currentPageIndexTrzFKala_P();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzFKala_P">' +
+            '<th>ردیف</th>' +
             CreateTableTh('KalaCode', data) +
             CreateTableTh('KalaName', data) +
             CreateTableTh('KalaF01', data) +
@@ -2408,6 +2434,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTrzFKala_P" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('KalaCode', 0, 0, data) +
             CreateTableTd('KalaName', 0, 0, data) +
             CreateTableTd('KalaF01', 0, 0, data) +
@@ -2457,6 +2484,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td>جمع</td>' +
             CreateTableTdSum('KalaCode', 0, data) +
             CreateTableTdSum('KalaName', 1, data) +
             CreateTableTdSum('KalaF01', 1, data) +
@@ -2504,6 +2532,7 @@
             CreateTableTdSum('FinalPrice', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('KalaCode', data) +
             CreateTableTdSearch('KalaName', data) +
             CreateTableTdSearch('KalaF01', data) +

@@ -639,7 +639,9 @@
 
     self.sortTableErjCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.ErjCustList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -805,7 +807,9 @@
 
     self.sortTableKhdt = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.KhdtList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -943,12 +947,20 @@
     }
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeDocK();
+        page = self.currentPageIndexDocK();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocK">' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('MahramanehName', data) +
@@ -995,6 +1007,7 @@
             '       style: {color: Status == \'پايان يافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('DocNo', 0, 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, 0, data) +
             CreateTableTd('MahramanehName', 0, 0, 0, data) +
@@ -1038,6 +1051,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td></td>' +
             CreateTableTdSum('DocNo', 0, data) +
             CreateTableTdSum('DocDate', 1, data) +
             CreateTableTdSum('MahramanehName', 1, data) +
@@ -1079,6 +1093,7 @@
             CreateTableTdSum('F20', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('MahramanehName', data) +

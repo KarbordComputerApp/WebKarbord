@@ -12,6 +12,9 @@
 
     var flaglog = "Y";
 
+    if (sessionStorage.flagCopy == 'Y')
+        flaglog = "N";
+
     self.StatusSanad = ko.observable();
 
     var viewAction = false;

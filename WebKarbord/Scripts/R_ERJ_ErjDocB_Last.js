@@ -710,7 +710,9 @@
 
     self.sortTableErjCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.ErjCustList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -875,7 +877,9 @@
 
     self.sortTableKhdt = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.KhdtList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1079,7 +1083,9 @@
 
     self.sortTableErjUsers = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.ErjUsersList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1200,7 +1206,9 @@
 
     self.sortTableErjUsersRonevesht = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
-        self.currentColumn(orderProp);
+        if (orderProp == null)
+            return null
+       self.currentColumn(orderProp);
         self.ErjUsersList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1767,12 +1775,20 @@
 
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeDocB_Last();
+        page = self.currentPageIndexDocB_Last();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
         $('#TableReport').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
+            '<th>ردیف</th>' +
             CreateTableTh('RjStatus', data) +
             CreateTableTh('RjDate', data) +
             CreateTableTh('RjMhltDate', data) +
@@ -1788,6 +1804,7 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +
@@ -1807,6 +1824,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
+            '<td></td>' +
             CreateTableTdSum('RjStatus', 0, data) +
             CreateTableTdSum('RjDate', 1, data) +
             CreateTableTdSum('RjMhltDate', 1, data) +
@@ -1819,6 +1837,7 @@
             CreateTableTdSum('MhltDate', 1, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
             CreateTableTdSearch('RjStatus', data) +
             CreateTableTdSearch('RjDate', data) +
             CreateTableTdSearch('RjMhltDate', data) +

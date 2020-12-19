@@ -15,6 +15,9 @@
 
     var flaglog = "Y";
 
+    if (sessionStorage.flagCopy == 'Y')
+        flaglog = "N";
+
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
@@ -1593,6 +1596,8 @@
 
     self.sortTableCust = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.CustList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1691,6 +1696,8 @@
 
     self.sortTableKala = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
