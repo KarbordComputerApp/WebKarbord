@@ -12,8 +12,8 @@
     var LoginUri; // آدرس حساب
 
     //Debug
-    var serverAccount = 'http://localhost:902/api/';       
-   // var serverAccount = 'http://localhost:49961/api/';       
+   // var serverAccount = 'http://localhost:902/api/';       
+    var serverAccount = 'http://localhost:49961/api/';       
 
    // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
    // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
@@ -36,6 +36,16 @@
     function getLoginData() {
         pass === '' ? pass = 'null' : pass = pass;
         ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET').done(function (data) {
+
+
+            if (data == "Expire Account") {
+                return showNotification('زمان استفاده شما از وب به پایان رسیده است', 0);
+            }
+
+            if (data == "Disable Account") {
+                return showNotification('حساب شما مسدود شده است', 0);
+            }
+
             if (data == null || data == 0)
                 //return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
             return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
