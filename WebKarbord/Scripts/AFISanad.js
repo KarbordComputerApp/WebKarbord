@@ -168,7 +168,7 @@
     self.AModeCode = ko.observable();
     self.SerialNumber = ko.observable();
     self.DocNoOut = ko.observable();
-    self.DocDate = ko.observable();
+    self.DocDate = ko.observable(DateNow);
     self.Spec = ko.observable();
 
     self.BandNo = ko.observable();
@@ -471,7 +471,10 @@
     }
     else {
         flagInsertADocH = 0;
-        getADocHLastDate();
+
+        if (parseInt(sessionStorage.sal) < SalNow) {
+            getADocHLastDate();
+        }
     }
 
 

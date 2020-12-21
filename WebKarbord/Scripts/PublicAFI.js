@@ -1743,12 +1743,14 @@ $("#IDOC_O").click(function () {
 //MODECODE_IDOC_OS: 109 'حواله فروش';
 //MODECODE_IDOC_OMAVAD: 111 'حواله مواد';
 var DateNow;
+var SalNow;
 function ShamsiDate() {
     d = new Date();
     date = toJalaali(d.getFullYear(), d.getMonth() + 1, d.getDate(), 'Short');
     date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
     date.jd <= 9 ? day = '0' + date.jd : day = date.jd;
     temp = date.jy + '/' + mah + '/' + day;
+    SalNow = date.jy;
     DateNow = temp;
     return temp;
 }

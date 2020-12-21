@@ -87,7 +87,7 @@
     var Serial = '';
     self.DocNoOut = ko.observable();
 
-    self.DocDate = ko.observable();
+    self.DocDate = ko.observable(DateNow);
     self.Spec = ko.observable();
     self.ThvlCode = ko.observable();
     self.PriceCode = ko.observable();
@@ -1022,7 +1022,9 @@
     //$('#DatileFactor').hide();
 
     if (flagupdateHeader != 1) {
-        getIDocHLastDate();
+        if (parseInt(sessionStorage.sal) < SalNow) {
+            getIDocHLastDate();
+        }
     }
 
     getIModeList();

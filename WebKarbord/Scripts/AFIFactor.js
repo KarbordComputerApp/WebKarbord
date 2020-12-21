@@ -99,7 +99,7 @@
     var Serial = '';
     self.DocNoOut = ko.observable();
 
-    self.DocDate = ko.observable();//(ShamsiDate()); 
+    self.DocDate = ko.observable(DateNow);//(ShamsiDate()); 
     self.Spec = ko.observable();
     self.CustCode = ko.observable();
     self.PriceCode = ko.observable();
@@ -1475,9 +1475,9 @@
     self.SerialNumber('0');
 
     //$('#DatileFactor').hide();
-
     if (flagupdateHeader != 1) {
-        getFDocHLastDate();
+        if (parseInt(sessionStorage.sal) < SalNow )
+            getFDocHLastDate();
     }
 
     getExtraFieldsList();
