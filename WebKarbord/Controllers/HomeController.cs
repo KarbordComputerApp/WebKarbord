@@ -10,6 +10,8 @@ using System.Reflection;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net.NetworkInformation;
+using System.Net;
 
 namespace WebKarbord.Controllers
 {
@@ -20,10 +22,6 @@ namespace WebKarbord.Controllers
 
         public ActionResult Index()
         {
-            //if (!UnitDatabase.TestSqlServer(false))
-            //{
-           //     return JavaScript(UnitSweet2.ShowMessage(1, "خطا در اتصال", ""));
-            //}
             return View();
         }
 
@@ -38,9 +36,30 @@ namespace WebKarbord.Controllers
 
         public ActionResult Login()
         {
+            string macAddresses = "";
+            string IP4Address = String.Empty;
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (nic.OperationalStatus == OperationalStatus.Up)
+                    {
+                        macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                    }
+                }
+
+            foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                if (IPA.AddressFamily.ToString() == "InterNetwork")
+                {
+                    IP4Address = IPA.ToString();
+                    break;
+                }
+            }
+
+            UnitPublic.MAC = macAddresses;
+            UnitPublic.IP4 = IP4Address;
             return View();
         }
-
 
 
         [HttpPost]
@@ -79,7 +98,7 @@ namespace WebKarbord.Controllers
                         else
                         {
                             return JavaScript(
-                                " localStorage.setItem('ApiAddress'," + "''" + ");" + 
+                                " localStorage.setItem('ApiAddress'," + "''" + ");" +
                                 UnitSweet2.ShowMessage(1, "خطا", "اطلاعات کاربر یافت نشد"));
                         }
                     }
@@ -104,47 +123,47 @@ namespace WebKarbord.Controllers
             }
         }
 
-/*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-       public ActionResult LoginUser(string userName, string password)
-        {
-            if (string.IsNullOrEmpty(userName)) return JavaScript(UnitSweet2.ShowMessage(3, "خطا در ورود اطلاعات", "نام کاربری را وارد کنید"));
-            if (string.IsNullOrEmpty(password)) return JavaScript(UnitSweet2.ShowMessage(3, "خطا در ورود اطلاعات", "کلمه عبور را وارد کنید"));
-            if (UnitDatabase.CreateConection("", "", ""))
-            {
-                try
+        /*
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+               public ActionResult LoginUser(string userName, string password)
                 {
-                    var list = UnitDatabase.db.AccessSet.First(c => c.Email == userName && c.Pass == password);
-                    if (list.Id > 0)
+                    if (string.IsNullOrEmpty(userName)) return JavaScript(UnitSweet2.ShowMessage(3, "خطا در ورود اطلاعات", "نام کاربری را وارد کنید"));
+                    if (string.IsNullOrEmpty(password)) return JavaScript(UnitSweet2.ShowMessage(3, "خطا در ورود اطلاعات", "کلمه عبور را وارد کنید"));
+                    if (UnitDatabase.CreateConection("", "", ""))
                     {
-                        if (UnitPublic.UserInformation(list.ACC_Group, list.INV_Group, list.FCT_Group, list.AFI_Group))
+                        try
                         {
-                            UnitPublic.apiAddress = list.ConnectionString;
-                            return JavaScript("document.location.replace('" + Url.Action("index", "Home") + "');");
+                            var list = UnitDatabase.db.AccessSet.First(c => c.Email == userName && c.Pass == password);
+                            if (list.Id > 0)
+                            {
+                                if (UnitPublic.UserInformation(list.ACC_Group, list.INV_Group, list.FCT_Group, list.AFI_Group))
+                                {
+                                    UnitPublic.apiAddress = list.ConnectionString;
+                                    return JavaScript("document.location.replace('" + Url.Action("index", "Home") + "');");
+                                }
+                                else
+                                {
+                                    return JavaScript(UnitSweet2.ShowMessage(1, "خطا", "اطلاعات کاربر یافت نشد"));
+                                }
+                            }
+                            else
+                            {
+                                return JavaScript(UnitSweet2.ShowMessage(3, "خطا", "نام کاربری یا کلمه عبور اشتباه است"));
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            return JavaScript(UnitSweet2.ShowMessage(1, "خطا", "اطلاعات کاربر یافت نشد"));
+                            return JavaScript(UnitSweet2.ShowMessage(1, "خطا", "نام کاربری یا کلمه عبور اشتباه است"));
                         }
+
                     }
                     else
                     {
-                        return JavaScript(UnitSweet2.ShowMessage(3, "خطا", "نام کاربری یا کلمه عبور اشتباه است"));
+                        return JavaScript(UnitSweet2.ShowMessage(1, "خطا", "ارتباط برقرار نشد"));
                     }
                 }
-                catch (Exception)
-                {
-                    return JavaScript(UnitSweet2.ShowMessage(1, "خطا", "نام کاربری یا کلمه عبور اشتباه است"));
-                }
-
-            }
-            else
-            {
-                return JavaScript(UnitSweet2.ShowMessage(1, "خطا", "ارتباط برقرار نشد"));
-            }
-        }
-*/
+        */
 
         //نمایش اطلاعات اتصال به دیتابیس
         public ActionResult AddSqlServer()
@@ -195,6 +214,7 @@ namespace WebKarbord.Controllers
 
         public JsonResult GetGroup(string ace)
         {
+            var remoteIpAddress = Request.UserHostAddress;
             if (!string.IsNullOrEmpty(ace))
             {
                 switch (ace)

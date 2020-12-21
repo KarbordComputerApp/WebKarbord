@@ -304,6 +304,22 @@ function ajaxFunction(uri, method, data) {
     });
 }
 
+function ajaxFunctionOther(uri, method, data) {
+
+    return $.ajax({
+        type: method,
+        url: uri,
+        dataType: 'json',
+        async: false,
+        cache: false,
+        timeout: 30000,
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
+    });
+}
+
 
 function download(content, fileName, contentType) {
     var a = document.createElement("a");

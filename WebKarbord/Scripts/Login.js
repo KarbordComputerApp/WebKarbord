@@ -12,12 +12,12 @@
     var LoginUri; // آدرس حساب
 
     //Debug
-   // var serverAccount = 'http://localhost:902/api/';       
-    var serverAccount = 'http://localhost:49961/api/';       
+    var serverAccount = 'http://localhost:902/api/';
+    //var serverAccount = 'http://localhost:49961/api/';       
 
-   // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
-   // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
-   //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
+    // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
+    // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
+    //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
 
     sessionStorage.serverAccount = serverAccount;
 
@@ -48,7 +48,7 @@
 
             if (data == null || data == 0)
                 //return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
-            return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
+                return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
 
             var res = data.split("-");
             userValid = res[0];
@@ -56,7 +56,7 @@
 
             if (userValid === 0) {
                 return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
-               // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+                // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
                 sessionStorage.userName = '';
                 sessionStorage.pass = '';
 
@@ -182,6 +182,22 @@
     if (tempUser != '') {
         // self.LoginUser();
     }
+
+    function getIP(data) {
+        ajaxFunctionAccount('http://ip-api.com/json/', 'GET').done(function (data) {
+            a = sessionStorage.MacAddress;
+            b = sessionStorage.IP4Address;
+            sessionStorage.IPW = data.query;
+            sessionStorage.CountryLogin = data.country
+            sessionStorage.CityLogin = data.city
+        });
+    }
+
+    //showMacAddress();
+    getIP();
+    ///a = GetLocalIPAddr();
+    //a = a;
+
 
 
 };

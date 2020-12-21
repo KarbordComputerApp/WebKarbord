@@ -1136,6 +1136,7 @@
 
     self.UpdateHeader = function (item) {
         sessionStorage.flagupdateHeader = 1;
+
         sessionStorage.SerialNumber = item.SerialNumber;
         sessionStorage.DocNo = item.DocNo;
         sessionStorage.DocDate = item.DocDate;

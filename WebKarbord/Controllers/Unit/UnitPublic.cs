@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -14,11 +15,17 @@ namespace WebKarbord.Controllers.Unit
 {
     public class UnitPublic
     {
-       public static string titleVer = "ورژن تست : ";
-       public static string titleVerNumber = "301";
 
-       //public static string titleVer = "ورژن : ";
-       //public static string titleVerNumber = "1010";
+
+
+       public static string titleVer = "ورژن تست : ";
+       public static string titleVerNumber = "302";
+       public static string MAC;
+       public static string IP4;
+        //public static string titleVer = "ورژن : ";
+        //public static string titleVerNumber = "1010";
+
+
 
 
         //Server.MapPath("ini/SqlServerConfig.Ini");
