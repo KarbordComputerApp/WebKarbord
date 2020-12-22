@@ -33,11 +33,10 @@
 
     @RenderBody()
     <script type="text/javascript">
+        sessionStorage.ver = @(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber);
         sessionStorage.urlIndex = '@Url.Action("Index", "Home")';
         sessionStorage.urlLogin = '@Url.Action("login", "Home")';
         sessionStorage.urlSetting = '@Url.Action("Setting", "Home")';
-        sessionStorage.MacAddress = '@(WebKarbord.Controllers.Unit.UnitPublic.MAC)';
-        sessionStorage.IP4Address = '@(WebKarbord.Controllers.Unit.UnitPublic.IP4)';
     </script>
     <script src="~/Content/new/js/app.min.js"></script>
     <script src="~/Content/new/js/admin.js"></script>

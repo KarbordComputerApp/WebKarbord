@@ -36,7 +36,7 @@ namespace WebKarbord.Controllers
 
         public ActionResult Login()
         {
-            string macAddresses = "";
+        /* string macAddresses = "";
             string IP4Address = String.Empty;
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
                 {
@@ -57,7 +57,7 @@ namespace WebKarbord.Controllers
             }
 
             UnitPublic.MAC = macAddresses;
-            UnitPublic.IP4 = IP4Address;
+            UnitPublic.IP4 = IP4Address;*/
             return View();
         }
 

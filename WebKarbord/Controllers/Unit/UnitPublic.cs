@@ -20,8 +20,8 @@ namespace WebKarbord.Controllers.Unit
 
        public static string titleVer = "ورژن تست : ";
        public static string titleVerNumber = "303";
-       public static string MAC;
-       public static string IP4;
+       //public static string MAC;
+       //public static string IP4;
         //public static string titleVer = "ورژن : ";
         //public static string titleVerNumber = "1010";
 

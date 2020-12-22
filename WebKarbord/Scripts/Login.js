@@ -10,6 +10,7 @@
     var check = 0;
 
     var LoginUri; // آدرس حساب
+    var LoginTestUri;
 
     //Debug
     var serverAccount = 'http://localhost:902/api/';
@@ -34,16 +35,15 @@
     });
 
     function getLoginData() {
+
         pass === '' ? pass = 'null' : pass = pass;
         ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET').done(function (data) {
-
-
-            if (data == "Expire Account") {
-                return showNotification('زمان استفاده شما از وب به پایان رسیده است', 0);
-            }
-
             if (data == "Disable Account") {
                 return showNotification('حساب شما مسدود شده است', 0);
+            }
+
+            if (data == "Expire Account") {
+                return showNotification('زمان استفاده شما از نرم افزار به پایان رسیده است', 0);
             }
 
             if (data == null || data == 0)
@@ -65,14 +65,52 @@
                 sessionStorage.userNameFa = '';
             }
             else {
-                res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
-                sessionStorage.userName = user.toUpperCase();
-                sessionStorage.pass = pass;
-                localStorage.setItem("userName", user.toUpperCase());
-                localStorage.setItem('password', pass);
+
+                var progCaption;
+                if (localStorage.getItem('afi1List') == 'null')
+                {
+                    sessionStorage.ace = 'Web8';
+                    progCaption = ' سیستم جامع';
+                } else {
+                    sessionStorage.ace = 'Web1';
+                    progCaption = ' مالی بازرگانی';
+                }
+
+                var LoginTestObject = {
+                    MachineId: MachineId,
+                    IPWan: sessionStorage.IPW,
+                    Country: sessionStorage.CountryLogin,
+                    City: sessionStorage.CityLogin,
+                    UserCode: user.toUpperCase(),
+                    ProgName: sessionStorage.ace,
+                    ProgVer: sessionStorage.ver,
+                    ProgCaption: progCaption,
+                    FlagTest: 0
+                }
+                ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+                    if (datalogin.ID == -1) {
+                        res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
+                        sessionStorage.userName = user.toUpperCase();
+                        sessionStorage.pass = pass;
+                        localStorage.setItem("userName", user.toUpperCase());
+                        localStorage.setItem('password', pass);
+                        window.location.href = sessionStorage.urlSetting;
+                    }
+                    else {
+                        $('#title_dataUser').text('کاربر ' + user.toUpperCase() + ' قبلا وارد سیستم شده است');
+                        $('#param_ipw').text(datalogin.CompName);
+                        $('#param_date').text(datalogin.LoginDate);
+                        $('#param_time').text(datalogin.LoginTime);
+                        $('#param_prog').text(datalogin.ProgCaption);
+                        $('#param_ver').text(datalogin.ProgVer);
+                        $('#param_country').text('');
+                        $('#param_city').text('');
+                        $('#modal-dataUser').modal('show');
+                    }
+                });
 
 
-                window.location.href = sessionStorage.urlSetting;
+
             }
         });
     }
@@ -134,7 +172,8 @@
         //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
         //}
         LoginUri = server + '/api/Web_Data/Login/';
-        sessionStorage.ace = 0;
+        LoginTestUri = server + '/api/Web_Data/LoginTest';
+        //sessionStorage.ace = 0;
         sessionStorage.group = 0;
         sessionStorage.sal = 0;
         localStorage.setItem('Access', null);
@@ -185,8 +224,8 @@
 
     function getIP(data) {
         ajaxFunctionAccount('http://ip-api.com/json/', 'GET').done(function (data) {
-            a = sessionStorage.MacAddress;
-            b = sessionStorage.IP4Address;
+            //a = sessionStorage.MacAddress;
+            //b = sessionStorage.IP4Address;
             sessionStorage.IPW = data.query;
             sessionStorage.CountryLogin = data.country
             sessionStorage.CityLogin = data.city

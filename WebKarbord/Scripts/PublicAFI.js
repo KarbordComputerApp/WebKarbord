@@ -28,7 +28,13 @@ var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخی
 
 var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
 var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
-
+//localStorage.setItem("MachineId", '');
+var MachineId = localStorage.getItem("MachineIdKarbord");
+if (MachineId == null || MachineId == '' ) {
+    var d = new Date();
+    id = 'Karbord :' + d.getDate() + d.getTime();
+    localStorage.setItem("MachineIdKarbord", id);
+}
 
 ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال

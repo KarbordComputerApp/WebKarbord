@@ -7,16 +7,18 @@
 <div class="row">
     <div class="col-lg-6 PanelLeftLogin d-none d-lg-block">
         <div class="row" style="text-align:center;">
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            </div>
 
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                    <img src="~/Content/img/Login/LogoLogin.png" style="padding: 35% 20% 0% 20%; max-width:100%" />
-                    <div  style="padding: 35% 20% 0% 20%;"  >
-                        <p style="color: #fefefe;">کلیه حقوق این نرم افزار متعلق به شرکت مهندسی کاربرد
-                        کامپیوتر بوده و هر گونه نسخه برداری پیگرد قانونی دارد</p>
-                    </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <img src="~/Content/img/Login/LogoLogin.png" style="padding: 35% 20% 0% 20%; max-width:100%" />
+                <div style="padding: 35% 20% 0% 20%;">
+                    <p style="color: #fefefe;">
+                        کلیه حقوق این نرم افزار متعلق به شرکت مهندسی کاربرد
+                        کامپیوتر بوده و هر گونه نسخه برداری پیگرد قانونی دارد
+                    </p>
                 </div>
+            </div>
         </div>
     </div>
 
@@ -119,6 +121,71 @@
     </div>
 
 </div>
+
+
+
+
+<div class="modalTwo modal modal-info fade" id="modal-dataUser">
+    <div class="modal-dialog" style="width: 400px; direction: rtl;">
+        <div class="modal-content" style="background-color: #ededef;">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <h5 id="title_dataUser" style="text-align: center; "></h5>
+                </div>
+                <br />
+                <br />
+
+                <div class="table-responsive">
+                    <table class="table" style="text-align: start;">
+                        <tbody>
+                            <tr>
+                                <th style="width:50%">ای پی</th>
+                                <td id="param_ipw"></td>
+                            </tr>
+                            <tr>
+                                <th>تاریخ ورود</th>
+                                <td id="param_date"></td>
+                            </tr>
+                            <tr>
+                                <th>ساعت ورود</th>
+                                <td id="param_time"></td>
+                            </tr>
+                            <tr>
+                                <th>نام برنامه</th>
+                                <td id="param_prog"></td>
+                            </tr>
+                            <tr>
+                                <th>نسخه برنامه</th>
+                                <td id="param_ver"></td>
+                            </tr>
+                            <tr>
+                                <th>کشور</th>
+                                <td id="param_country"></td>
+                            </tr>
+                            <tr>
+                                <th>شهر</th>
+                                <td id="param_city"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-group btn-container" style="padding: 20px;">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important; margin-left:0px;">بازگشت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 <!--<section class="material-half-bg">
     <div class="cover"></div>
