@@ -26,9 +26,12 @@ var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آد�
 var CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکورد ها 
 var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
 
+var LogOutUri = server + '/api/Web_Data/LogOut'; // خروج کاربر
+
 var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
 var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
-//localStorage.setItem("MachineId", '');
+
+
 var MachineId = localStorage.getItem("MachineIdKarbord");
 if (MachineId == null || MachineId == '' ) {
     var d = new Date();
@@ -2194,12 +2197,20 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
 }
 
 $('#LogOut').click(function () {
-    sessionStorage.userName = '';
-    sessionStorage.pass = '';
 
-    localStorage.setItem("userName", '');
-    localStorage.setItem('password', '');
-    window.location.href = sessionStorage.urlLogin;
+    var LogOutObject = {
+        MachineId: MachineId,
+        UserCode: sessionStorage.userName,
+        ProgName: sessionStorage.ace
+    }
+    ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+        sessionStorage.userName = '';
+        sessionStorage.pass = '';
+        localStorage.setItem("userName", '');
+        localStorage.setItem('password', '');
+        window.location.href = sessionStorage.urlLogin;
+    });
+
 });
 
 //report

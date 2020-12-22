@@ -20,6 +20,13 @@
     // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
     //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
 
+    var MachineId = localStorage.getItem("MachineIdKarbord");
+    if (MachineId == null || MachineId == '') {
+        var d = new Date();
+        id = 'Karbord :' + d.getDate() + d.getTime();
+        localStorage.setItem("MachineIdKarbord", id);
+    }
+
     sessionStorage.serverAccount = serverAccount;
 
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
