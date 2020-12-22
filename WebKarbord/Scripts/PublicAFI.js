@@ -35,7 +35,7 @@ var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس م
 var MachineId = localStorage.getItem("MachineIdKarbord");
 if (MachineId == null || MachineId == '' ) {
     var d = new Date();
-    id = 'Karbord :' + d.getDate() + d.getTime();
+    id = d.getDate() + d.getTime();
     localStorage.setItem("MachineIdKarbord", id);
 }
 

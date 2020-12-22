@@ -23,7 +23,7 @@
     var MachineId = localStorage.getItem("MachineIdKarbord");
     if (MachineId == null || MachineId == '') {
         var d = new Date();
-        id = 'Karbord :' + d.getDate() + d.getTime();
+        id = d.getDate() + d.getTime();
         localStorage.setItem("MachineIdKarbord", id);
     }
 
@@ -77,10 +77,10 @@
                 if (localStorage.getItem('afi1List') == 'null')
                 {
                     sessionStorage.ace = 'Web8';
-                    progCaption = ' سیستم جامع';
+                    progCaption = ' وب : سیستم جامع';
                 } else {
                     sessionStorage.ace = 'Web1';
-                    progCaption = ' مالی بازرگانی';
+                    progCaption = ' وب : مالی بازرگانی';
                 }
 
                 var LoginTestObject = {
