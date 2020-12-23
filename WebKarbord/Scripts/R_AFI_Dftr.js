@@ -40,6 +40,7 @@
         $('#tatarikh').change();
     });
 
+    TestUser();
 
     var MkzCode = '';
     var counterMkz = 0;

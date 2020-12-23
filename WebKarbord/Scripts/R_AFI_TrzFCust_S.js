@@ -46,6 +46,8 @@
         $('#tatarikh').change();
     });
 
+    TestUser();
+
     self.AzShomarh = ko.observable();
     self.TaShomarh = ko.observable();
 

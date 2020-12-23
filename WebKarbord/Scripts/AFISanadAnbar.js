@@ -13,6 +13,8 @@
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
 
+    TestUser();
+
     var flaglog = "Y";
 
     if (sessionStorage.flagCopy == 'Y')

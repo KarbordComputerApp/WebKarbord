@@ -19,6 +19,8 @@
 
     self.StatusFactor = ko.observable();
 
+    TestUser();
+
     var FDocHUri = server + '/api/FDocData/FDocH/'; // آدرس کسورات و افزایشات 
     var FDocHCountUri = server + '/api/FDocData/FDocH/'; // تعداد رکورد های فاکتور 
     var FDocHHiUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 

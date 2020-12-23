@@ -27,13 +27,15 @@ var CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکور
 var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
 
 var LogOutUri = server + '/api/Web_Data/LogOut'; // خروج کاربر
+var LoginTestUri = server + '/api/Web_Data/LoginTest'; // تست ورود کاربر
+
 
 var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
 var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
 
 
 var MachineId = localStorage.getItem("MachineIdKarbord");
-if (MachineId == null || MachineId == '' ) {
+if (MachineId == null || MachineId == '') {
     var d = new Date();
     id = d.getDate() + d.getTime();
     localStorage.setItem("MachineIdKarbord", id);
@@ -780,6 +782,30 @@ function getAccessList() {
 
 SetValidation();
 SetValidationErj();
+
+function TestUser() {
+
+    var LoginTestObject = {
+        MachineId: MachineId,
+        IPWan: '',
+        Country: '',
+        City: '',
+        UserCode: sessionStorage.userName,
+        ProgName: sessionStorage.ace,
+        ProgVer: '',
+        ProgCaption: '',
+        FlagTest: 1
+    }
+
+    ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+        if (datalogin.ID >= 0) {
+            //showNotification('لطفا دوباره وارد شوید', 0);
+            //sleep(10000);
+            window.location.href = sessionStorage.urlLogin;
+        }
+    });
+
+};
 
 function SetValidation() {
     var ShowMenu = [false, false, false, false, false, false, false, false,
@@ -2196,8 +2222,8 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
     window.location.href = route;
 }
 
-$('#LogOut').click(function () {
 
+function LogOut() {
     var LogOutObject = {
         MachineId: MachineId,
         UserCode: sessionStorage.userName,
@@ -2210,8 +2236,16 @@ $('#LogOut').click(function () {
         localStorage.setItem('password', '');
         window.location.href = sessionStorage.urlLogin;
     });
+}
 
+$('#LogOut').click(function () {
+    LogOut();
 });
+
+$('#LogOutSetting').click(function () {
+    LogOut();
+});
+
 
 //report
 
@@ -2497,5 +2531,17 @@ function setReport(reportObject, mrtFileName, variablesObject) {
     viewer.report = report;
     //report.render();
 
+
     $('#modal-Report').modal('show');
+ 
 }
+
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+            break;
+        }
+    }
+}
+

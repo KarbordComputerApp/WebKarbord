@@ -23,7 +23,7 @@
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش
     //var DocKCountUri = server + '/api/Web_Data/ErjDocKCount/'; // تعداد رکورد های گزارش
 
-
+    TestUser();
 
     shamsiDate = ShamsiDate();
     //self.AzDate = ko.observable(sal + '/01/01');

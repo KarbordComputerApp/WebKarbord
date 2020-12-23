@@ -25,6 +25,7 @@
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
 
+    TestUser();
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
     var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس ارجاع شونده / دهنده

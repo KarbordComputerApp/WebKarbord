@@ -40,6 +40,8 @@
         $('#tatarikh').change();
     });
 
+    TestUser();
+
     self.InvCode = ko.observable();
     var allSearchKala = true;
 

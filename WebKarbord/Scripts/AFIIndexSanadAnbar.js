@@ -21,6 +21,7 @@
 
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
 
+    TestUser();
     var IMoveSanadUri = server + '/api/IDocData/MoveSanad/'; // آدرس انتقال اسناد 
     var IChangeStatusUri = server + '/api/IDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 

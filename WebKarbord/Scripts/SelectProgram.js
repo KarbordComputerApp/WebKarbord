@@ -31,6 +31,8 @@
         }
     }
 
+    TestUser();
+
     function SetGroupData() {
         var programSelect = sessionStorage.ace;
         $("#DropGroup").empty();

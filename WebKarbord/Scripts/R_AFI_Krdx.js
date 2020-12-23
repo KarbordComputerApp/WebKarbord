@@ -28,6 +28,8 @@
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
 
+    TestUser();
+
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
     $('#btnaztarikh').click(function () {

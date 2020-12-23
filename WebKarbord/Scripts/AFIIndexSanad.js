@@ -15,6 +15,8 @@
 
     sessionStorage.BeforeMoveSanad = false;
 
+    TestUser();
+
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس لیست سند ها 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس هدر های سند 
     var AMoveSanadUri = server + '/api/ADocData/MoveSanad/'; // آدرس انتقال اسناد ها 

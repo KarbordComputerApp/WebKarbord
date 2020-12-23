@@ -89,6 +89,8 @@
         list_StatusSelect = ["موقت", "تایید"];
     }
 
+    TestUser();
+
     var IModeCode = '';
     var counterIMode = 0;
     var list_IModeSelect = new Array();

@@ -31,6 +31,7 @@
     self.AzShomarh = ko.observable();
     self.TaShomarh = ko.observable();
 
+    TestUser();
 
     $('#btnaztarikh').click(function () {
         $('#aztarikh').change();

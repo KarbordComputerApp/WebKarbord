@@ -25,6 +25,7 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
+    TestUser();
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);

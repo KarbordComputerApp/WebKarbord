@@ -49,6 +49,7 @@
     self.AzShomarh = ko.observable();
     self.TaShomarh = ko.observable();
 
+    TestUser();
 
     var allSearchKala = true;
 

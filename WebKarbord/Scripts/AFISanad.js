@@ -17,6 +17,7 @@
 
     self.StatusSanad = ko.observable();
 
+    TestUser();
     var viewAction = false;
 
     var AccCode = "";

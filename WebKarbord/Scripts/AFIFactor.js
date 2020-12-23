@@ -30,6 +30,8 @@
     $('#textnumberfactor').hide();
     $('#finalSave_Title').attr('hidden', '');
 
+    TestUser();
+
 
     var codeCust = '';
 

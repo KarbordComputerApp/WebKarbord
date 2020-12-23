@@ -68,6 +68,7 @@
 
     $("#textTotal").text('');
 
+    TestUser();
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 

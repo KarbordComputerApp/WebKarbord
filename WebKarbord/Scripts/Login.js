@@ -20,6 +20,7 @@
     // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
     //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
 
+    
     var MachineId = localStorage.getItem("MachineIdKarbord");
     if (MachineId == null || MachineId == '') {
         var d = new Date();
@@ -95,6 +96,7 @@
                     FlagTest: 0
                 }
                 ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+                    res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
                     if (datalogin.ID == -1) {
                         res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
                         sessionStorage.userName = user.toUpperCase();
@@ -104,8 +106,10 @@
                         window.location.href = sessionStorage.urlSetting;
                     }
                     else {
-                        $('#title_dataUser').text('کاربر ' + user.toUpperCase() + ' قبلا وارد سیستم شده است');
-                        $('#param_ipw').text(datalogin.CompName);
+                        
+                        var ipW = datalogin.CompName.split("-");
+                        $('#title_dataUser').text('کاربر ' + sessionStorage.userNameFa + ' قبلا وارد سیستم شده است');
+                        $('#param_ipw').text(ipW[1]);
                         $('#param_date').text(datalogin.LoginDate);
                         $('#param_time').text(datalogin.LoginTime);
                         $('#param_prog').text(datalogin.ProgCaption);
