@@ -220,7 +220,10 @@
 
 
     $("#CreateReport").click(function () {
-        getDocK();
+       
+        $('#loadingsite').css('display', 'block');
+ getDocK();
+        $('#loadingsite').css('display', 'none');
     });
 
     getErjStatusList();
@@ -1210,14 +1213,20 @@
         return text;
     }
 
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
     }
 

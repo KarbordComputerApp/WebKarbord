@@ -423,7 +423,7 @@
                 self.AddMinList(obj);
                 var dataAddminTemp = self.AddMinList()[0];
                 discountCol = dataAddminTemp.SumDiscount;
-                tempsumfactor = FDocHTotalPrice - FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
+                tempsumfactor = FDocHTotalPrice + FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
                 $("#discountCol").val(NumberToNumberString(discountCol.toFixed(parseInt(sessionStorage.Deghat))));
                 $('#ghabelpardakht').val(NumberToNumberString(parseFloat(parseFloat(tempsumfactor) + discountCol).toFixed(parseInt(sessionStorage.Deghat))))
             }
@@ -476,7 +476,7 @@
                 FDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(FDocHAmount3.valueOf()));
                 FDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(FDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
                 FDocHDiscount == 0 ? $('#foottextdiscount').text('') : $('#foottextdiscount').text(NumberToNumberString(Math.abs(FDocHDiscount)));
-                $('#sumfactor').val(NumberToNumberString(parseFloat(FDocHTotalPrice - FDocHDiscount).toFixed(parseInt(sessionStorage.Deghat))));
+                $('#sumfactor').val(NumberToNumberString(parseFloat(FDocHTotalPrice + FDocHDiscount).toFixed(parseInt(sessionStorage.Deghat))));
                 $('#ghabelpardakht').val(NumberToNumberString(parseFloat(FDocHFinalPrice).toFixed(parseInt(sessionStorage.Deghat))))
             }
         });

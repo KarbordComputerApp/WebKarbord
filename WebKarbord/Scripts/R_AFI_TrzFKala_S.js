@@ -33,7 +33,7 @@
 
     var TrzFKala_SUri = server + '/api/ReportFct/TrzFKala/'; // آدرس گزارش 
 
-    self.sortType = "ascending";
+   self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
@@ -270,7 +270,7 @@
 
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
         });
     }
@@ -504,7 +504,7 @@
             KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
         }
 
-       // $("#textTotal").text('جمع');
+        // $("#textTotal").text('جمع');
         $("#totalAmount1").text(NumberToNumberString(totalAmount1.toFixed(maxKalaDeghat1)));
         $("#totalAmount2").text(NumberToNumberString(totalAmount2.toFixed(maxKalaDeghat2)));
         $("#totalAmount3").text(NumberToNumberString(totalAmount3.toFixed(maxKalaDeghat3)));
@@ -528,7 +528,11 @@
 
 
     $("#CreateReport").click(function () {
+
+       
+        $('#loadingsite').css('display', 'block');
         getTrzFKala_S();
+        $('#loadingsite').css('display', 'none');
     });
 
     getFModeList();
@@ -649,6 +653,27 @@
         var filterOnlyDiscountPrice = self.filterOnlyDiscountPrice();
         var filterFinalPrice = self.filterFinalPrice();
         var filterTotalPrice = self.filterTotalPrice();
+
+        filterAmount1 = filterAmount1.replace("/", ".");
+        filterAmount2 = filterAmount2.replace("/", ".");
+        filterAmount3 = filterAmount3.replace("/", ".");
+        filterAddMinPrice1 = filterAddMinPrice1.replace("/", ".");
+        filterAddMinPrice2 = filterAddMinPrice2.replace("/", ".");
+        filterAddMinPrice3 = filterAddMinPrice3.replace("/", ".");
+        filterAddMinPrice4 = filterAddMinPrice4.replace("/", ".");
+        filterAddMinPrice5 = filterAddMinPrice5.replace("/", ".");
+        filterAddMinPrice6 = filterAddMinPrice6.replace("/", ".");
+        filterAddMinPrice7 = filterAddMinPrice7.replace("/", ".");
+        filterAddMinPrice8 = filterAddMinPrice8.replace("/", ".");
+        filterAddMinPrice9 = filterAddMinPrice9.replace("/", ".");
+        filterAddMinPrice10 = filterAddMinPrice10.replace("/", ".");
+        filterUnitPrice1 = filterUnitPrice1.replace("/", ".");
+        filterUnitPrice2 = filterUnitPrice2.replace("/", ".");
+        filterUnitPrice3 = filterUnitPrice3.replace("/", ".");
+        filterDiscount = filterDiscount.replace("/", ".");
+        filterOnlyDiscountPrice = filterOnlyDiscountPrice.replace("/", ".");
+        filterFinalPrice = filterFinalPrice.replace("/", ".");
+        filterTotalPrice = filterTotalPrice.replace("/", ".");
 
         tempData = ko.utils.arrayFilter(self.TrzFKala_SList(), function (item) {
             result =
@@ -2656,14 +2681,20 @@
         return text;
     }
 
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
     }
 

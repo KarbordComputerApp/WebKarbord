@@ -302,7 +302,7 @@
             //totalMonTotal += DftrData.MonTotal;
         }
 
-       // $("#textTotal").text('جمع');
+        // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalBest").text(NumberToNumberString(totalBest.toFixed(parseInt(sessionStorage.Deghat))));
 
@@ -321,6 +321,9 @@
     }
 
     $("#CreateReport").click(function () {
+        $('#loadingsite').css('display', 'block');
+        getDftr();
+        $('#loadingsite').css('display', 'none');
         getDftr();
     });
 
@@ -1340,6 +1343,14 @@
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
 
+
+        filterBede = filterBede.replace("/", ".");
+        filterBest = filterBest.replace("/", ".");
+
+        filterMonBede = filterMonBede.replace("/", ".");
+        filterMonBest = filterMonBest.replace("/", ".");
+        filterMonTotal = filterMonTotal.replace("/", ".");
+
         tempData = ko.utils.arrayFilter(self.DftrList(), function (item) {
             result =
                 ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
@@ -1855,8 +1866,8 @@
         TextField = FindTextField(field, data);
 
         sortField = field == 'MkzCode' ? 'SortMkzCode' :
-                field == 'AccCode' ? 'SortAccCode' :
-                    field
+            field == 'AccCode' ? 'SortAccCode' :
+                field
 
         if (TextField == 0)
             text += 'Hidden ';
@@ -1914,15 +1925,20 @@
         return text;
     }
 
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
-        return text;
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>'; return text;
     }
 
     function CallPrint(strid) {

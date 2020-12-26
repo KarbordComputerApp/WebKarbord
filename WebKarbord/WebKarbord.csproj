@@ -173,6 +173,8 @@
     <Content Include="Content\css\rtl.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\Loading.png" />
+    <Content Include="Content\img\loading.svg" />
     <Content Include="Content\img\Warning.jpg" />
     <Content Include="Content\img\Error.jpg" />
     <Content Include="Content\img\Accept.jpg" />
@@ -634,6 +636,7 @@
     <Content Include="Content\new\js\chart.min.js" />
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
+    <Content Include="Content\new\js\farsiInput.js" />
     <Content Include="Content\new\js\num2persian-min.js" />
     <Content Include="Content\new\js\stimulsoft.designer.js" />
     <Content Include="Content\new\js\stimulsoft.reports.js" />

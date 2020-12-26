@@ -86,9 +86,9 @@ $("input.intandline").keydown(function (e) {
                 // DELETE
                 (e.keyCode == 46) ||
                 // NUMBER KEYS
-                ((e.keyCode >= 48) && (e.keyCode <= 57) || (e.keyCode == 189) ) ||
+                ((e.keyCode >= 48) && (e.keyCode <= 57) || (e.keyCode == 189)) ||
                 // NUMLOCK KEYS
-                ( (e.keyCode >= 96) && (e.keyCode <= 105) || (e.keyCode == 109) ))) {
+                ((e.keyCode >= 96) && (e.keyCode <= 105) || (e.keyCode == 109)))) {
                 e.preventDefault();
             }
         }
@@ -361,6 +361,166 @@ function TextHighlightDel(id) {
     $(id).css("color", "");
     $(id).css("font-style", "");
     $(id).css("text-align", "");
+}
+
+
+
+function just_persian(str, key) {
+    var p = /^[\u0600-\u06FF\s]+$/;
+
+    if (
+        key == 8 ||
+        key == 9 ||
+        key == 13 ||
+        key == 46 ||
+        key == 47 ||
+        key == 111 ||
+        key == 187 ||
+        key == 189 ||
+        key == 191 ||
+        key == 190 ||
+        (key >= 35 && key <= 40) ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105)
+    )
+        return true;
+    if (!p.test(str)) {
+        return false
+    }
+    return true;
+}
+
+//$(".type_1").farsiInput();
+
+function KeyPressSearch(e) {
+    var clas = $(e.target.classList)[0]
+
+    var key = e.charCode || e.keyCode || 0;
+    if (clas == 'type_1') // FARSI='1' 
+    {
+        return (true)
+    }
+
+    else if (clas == 'type_2') // LATIN='2'
+    {
+        return (true)
+        /* return (true)
+        if (e.shiftKey) {
+            return
+        }
+
+        return (
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 47 ||
+            key == 111 || key == 191 ||
+            key == 190 ||
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );*/
+    }
+
+    else if (clas == 'type_3') { // SHAMSIDATE
+        if (e.shiftKey) {
+            return
+        }
+        return (
+            key == 111 ||
+            key == 191 ||
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 190 ||
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );
+    }
+    else if (clas == 'type_4') { // INT
+        if (e.shiftKey) {
+            return
+        }
+        return (
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 190 ||
+            key == 109 || //-
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );
+    }
+    else if (clas == 'type_5') { // FLOAT
+        if (e.shiftKey) {
+            return
+        }
+
+        return (
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 47 ||
+            key == 109 || //-
+            key == 111 || key == 191 ||
+            key == 190 ||
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );
+    }
+    else if (clas == 'type_6') { // CODE
+        if (e.shiftKey) {
+            return
+        }
+        return (
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 190 ||
+            key == 109 ||
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );
+    }
+
+    else if (clas == 'type_7') { // DOCNO
+        if (e.shiftKey) {
+            return
+        }
+        return (
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 190 ||
+            key == 109 ||
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );
+    }
+
+    else if (clas == 'type_8') { // Time
+        return (
+            key == 8 ||
+            key == 9 ||
+            key == 13 ||
+            key == 46 ||
+            key == 190 ||
+            (key >= 35 && key <= 40) ||
+            (key >= 48 && key <= 57) ||
+            (key >= 96 && key <= 105)
+        );
+    }
 }
 
 

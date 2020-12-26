@@ -201,7 +201,10 @@
     }
 
     $("#CreateReport").click(function () {
-        getTChk();
+        $('#loadingsite').css('display', 'block');
+      getTChk();
+        $('#loadingsite').css('display', 'none');
+       
     });
 
 
@@ -637,6 +640,8 @@
         var filterCheckComm = self.filterCheckComm();
         var filterCheckVosoolDate = self.filterCheckVosoolDate();
 
+        filterValue = filterValue.replace("/", ".");
+
         tempData = ko.utils.arrayFilter(self.TChkList(), function (item) {
             result =
                 ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
@@ -964,14 +969,20 @@
         return text;
     }
 
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
     }
 

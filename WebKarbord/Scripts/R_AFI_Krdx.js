@@ -424,7 +424,7 @@
             KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
         }
 
-       // $("#textTotal").text('جمع');
+        // $("#textTotal").text('جمع');
         $("#totalVAmount1").text(NumberToNumberString(totalVAmount1.toFixed(maxKalaDeghat1)));
         $("#totalVAmount2").text(NumberToNumberString(totalVAmount2.toFixed(maxKalaDeghat2)));
         $("#totalVAmount3").text(NumberToNumberString(totalVAmount3.toFixed(maxKalaDeghat3)));
@@ -447,7 +447,10 @@
     }
 
     $("#CreateReport").click(function () {
-        getKrdx();
+        $('#loadingsite').css('display', 'block');
+  getKrdx();
+        $('#loadingsite').css('display', 'none');
+      
     });
 
     getInvList();
@@ -678,6 +681,32 @@
          var filterKalaf19 = self.filterKalaf19();
          var filterKalaf20 = self.filterKalaf20();*/
 
+        filterVAmount1 = filterVAmount1.replace("/", ".");
+        filterVAmount2 = filterVAmount2.replace("/", ".");
+        filterVAmount3 = filterVAmount3.replace("/", ".");
+        filterVUnitPrice1 = filterVUnitPrice1.replace("/", ".");
+        filterVUnitPrice2 = filterVUnitPrice2.replace("/", ".");
+        filterVUnitPrice3 = filterVUnitPrice3.replace("/", ".");
+        filterVTotalPrice = filterVTotalPrice.replace("/", ".");
+        filteriAddMin1 = filteriAddMin1.replace("/", ".");
+        filteriAddMin2 = filteriAddMin2.replace("/", ".");
+        filteriAddMin3 = filteriAddMin3.replace("/", ".");
+        filterOutDocNo = filterOutDocNo.replace("/", ".");
+        filterSAmount1 = filterSAmount1.replace("/", ".");
+        filterSAmount2 = filterSAmount2.replace("/", ".");
+        filterSAmount3 = filterSAmount3.replace("/", ".");
+        filterSUnitPrice1 = filterSUnitPrice1.replace("/", ".");
+        filterSUnitPrice2 = filterSUnitPrice2.replace("/", ".");
+        filterSUnitPrice3 = filterSUnitPrice3.replace("/", ".");
+        filterSTotalPrice = filterSTotalPrice.replace("/", ".");
+
+        filterMAmount1 = filterMAmount1.replace("/", ".");
+        filterMAmount2 = filterMAmount2.replace("/", ".");
+        filterMAmount3 = filterMAmount3.replace("/", ".");
+        filterMUnitPrice1 = filterMUnitPrice1.replace("/", ".");
+        filterMUnitPrice2 = filterMUnitPrice2.replace("/", ".");
+        filterMUnitPrice3 = filterMUnitPrice3.replace("/", ".");
+        filterMTotalPrice = filterMTotalPrice.replace("/", ".");
 
 
         tempData = ko.utils.arrayFilter(self.KrdxList(), function (item) {
@@ -2918,6 +2947,10 @@
         }
     }
 
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         if (field.includes('Price') == true && showPrice == false)
             return ''
@@ -2925,10 +2958,12 @@
             text = '<td ';
 
             TextField = FindTextField(field, data);
+            type = FindTypeField(field, data);
             if (TextField == 0)
                 text += 'Hidden ';
 
-            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+            text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+            text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
             return text;
         }
     }

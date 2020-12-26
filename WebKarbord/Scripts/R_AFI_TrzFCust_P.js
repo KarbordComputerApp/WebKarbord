@@ -262,7 +262,7 @@
 
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
         });
     }
@@ -300,7 +300,7 @@
     function getCGruList() {
         var CGruObject = {
             Mode: 0,
-            ModeGru : 2,
+            ModeGru: 2,
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(CGruUri + ace + '/' + sal + '/' + group, 'POST', CGruObject).done(function (data) {
@@ -494,7 +494,10 @@
 
 
     $("#CreateReport").click(function () {
-        getTrzFCust_P();
+        $('#loadingsite').css('display', 'block');
+getTrzFCust_P();
+        $('#loadingsite').css('display', 'none');
+        
     });
 
 
@@ -563,6 +566,8 @@
     self.filterFinalPrice = ko.observable("");
     self.filterTotalPrice = ko.observable("");
 
+
+
     self.filterTrzFCust_PList = ko.computed(function () {
         self.currentPageIndexTrzFCust_P(0);
         var filterCustCode = self.filterCustCode();
@@ -604,6 +609,25 @@
         var filterOnlyDiscountPrice = self.filterOnlyDiscountPrice();
         var filterFinalPrice = self.filterFinalPrice();
         var filterTotalPrice = self.filterTotalPrice();
+
+
+        filterAmount1 = filterAmount1.replace("/", ".");
+        filterAmount2 = filterAmount2.replace("/", ".");
+        filterAmount3 = filterAmount3.replace("/", ".");
+        filterAddMinPrice1 = filterAddMinPrice1.replace("/", ".");
+        filterAddMinPrice2 = filterAddMinPrice2.replace("/", ".");
+        filterAddMinPrice3 = filterAddMinPrice3.replace("/", ".");
+        filterAddMinPrice4 = filterAddMinPrice4.replace("/", ".");
+        filterAddMinPrice5 = filterAddMinPrice5.replace("/", ".");
+        filterAddMinPrice6 = filterAddMinPrice6.replace("/", ".");
+        filterAddMinPrice7 = filterAddMinPrice7.replace("/", ".");
+        filterAddMinPrice8 = filterAddMinPrice8.replace("/", ".");
+        filterAddMinPrice9 = filterAddMinPrice9.replace("/", ".");
+        filterAddMinPrice10 = filterAddMinPrice10.replace("/", ".");
+        filterDiscount = filterDiscount.replace("/", ".");
+        filterOnlyDiscountPrice = filterOnlyDiscountPrice.replace("/", ".");
+        filterFinalPrice = filterFinalPrice.replace("/", ".");
+        filterTotalPrice = filterTotalPrice.replace("/", ".");
 
         tempData = ko.utils.arrayFilter(self.TrzFCust_PList(), function (item) {
             result =
@@ -848,7 +872,7 @@
         if (orderProp == 'AddMinPrice8') self.iconTypeAddMinPrice8((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AddMinPrice9') self.iconTypeAddMinPrice9((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AddMinPrice10') self.iconTypeAddMinPrice10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-       if (orderProp == 'Discount') self.iconTypeDiscount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Discount') self.iconTypeDiscount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OnlyDiscountPrice') self.iconTypeOnlyDiscountPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FinalPrice') self.iconTypeFinalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2557,14 +2581,20 @@
         return text;
     }
 
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
     }
 

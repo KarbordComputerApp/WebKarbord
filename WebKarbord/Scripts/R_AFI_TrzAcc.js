@@ -265,7 +265,7 @@
             }
         }
 
-       // $("#textTotal").text('جمع');
+        // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
         $("#totalMonBede").text(NumberToNumberString(totalMonBede));
@@ -274,7 +274,10 @@
     }
 
     $("#CreateReport").click(function () {
-        getTrzAcc();
+        $('#loadingsite').css('display', 'block');
+ getTrzAcc();
+        $('#loadingsite').css('display', 'none');
+       
     });
 
 
@@ -328,6 +331,13 @@
         var filterMonBede = self.filterMonBede();
         var filterMonBest = self.filterMonBest();
         var filterMonTotal = self.filterMonTotal();
+
+        filterBede = filterBede.replace("/", ".");
+        filterBest = filterBest.replace("/", ".");
+        filterMonBede = filterMonBede.replace("/", ".");
+        filterMonBest = filterMonBest.replace("/", ".");
+        filterMonTotal = filterMonTotal.replace("/", ".");
+
 
         // , AccName, Bede, Best, MonBede, MonBest, MonTotal
         // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
@@ -627,7 +637,7 @@
 
         level = $("#Level").val();
         level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
-        
+
 
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -1229,8 +1239,8 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-        '<td>جمع</td>' +
-        CreateTableTdSum('AccCode', 0, data) +
+            '<td>جمع</td>' +
+            CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
@@ -1239,7 +1249,7 @@
             CreateTableTdSum('MonTotal', 2, data) +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
-           '<td></td>' +
+            '<td></td>' +
             CreateTableTdSearch('AccCode', data) +
             CreateTableTdSearch('AccName', data) +
             CreateTableTdSearch('Bede', data) +
@@ -1322,15 +1332,26 @@
         return text;
     }
 
+
+
+
+    self.SearchKeyDown = function (viewModel, e) {
+        return KeyPressSearch(e);
+    }
+
     function CreateTableTdSearch(field, data) {
         text = '<td ';
 
         TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
+
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
+
     }
 
 

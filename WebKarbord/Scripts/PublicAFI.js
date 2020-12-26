@@ -285,6 +285,12 @@ function ajaxFunctionAccount(uri, method, data) {
     });
 }
 
+
+
+function showLoad() {
+
+}
+
 function ajaxFunction(uri, method, data) {
 
     var userNameAccount = localStorage.getItem("userNameAccount");
@@ -297,6 +303,7 @@ function ajaxFunction(uri, method, data) {
         async: false,
         cache: false,
         timeout: 30000,
+        onLoading: showLoad(),
         headers: {
             'userName': userNameAccount,
             'password': passAccount,

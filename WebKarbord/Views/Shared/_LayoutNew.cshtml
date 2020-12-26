@@ -23,14 +23,23 @@
 
     <!-- onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""-->
 
-
-    <div class="page-loader-wrapper">
+    <div id="loadingsite" class="page-loader-wrapper" >
         <div class="loader">
-            
-            <p>لطفا منتظر بمانید...</p>
+            <div class="m-t-30">
+                <img class="loading-img-spin" src="~/Content/img/Loading.png" width="20" height="20" alt="admin">
+            </div>
+            <p>لطفا منتظر کنید...</p>
         </div>
-    </div> 
-      
+    </div>
+
+
+    <!-- <div class="page-loader-wrapper">
+         <div class="loader">
+             <i class="fa fa-spinner fa-spin" style="font-size:60px; position:absolute"></i>
+             <p>لطفا منتظر بمانید...</p>
+         </div>
+     </div>-->
+
 
 
     <div class="overlay"></div>
@@ -636,7 +645,7 @@
     <script src="~/Scripts/PublicAFI.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
     <script src="~/Content/new/js/jquery.md5.js"></script>
-
+    <script src="~/Content/new/js/farsiInput.js"></script>
 
 
     <!-- <script src="~/Scripts/SelectProgram.js"></script>-->

@@ -482,9 +482,20 @@
     self.iconTypeF20 = ko.observable("");
 
     self.sortTableIDocH = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            self.sortType = sessionStorage.sortTypeIdocH;
+            orderProp = sessionStorage.sortIdocH;
+        }
+
         if (orderProp == null)
             return null
+        sessionStorage.sortIdocH = orderProp;
+        sessionStorage.sortTypeIdocH = self.sortType;
+
+
         self.currentColumn(orderProp);
         self.IDocHList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1194,115 +1205,8 @@
 
 
     self.SearchKeyDown = function (viewModel, e) {
-
-        //if (key == 110 || key == 190 || key == 111 || key == 191) {
-        //     key = 47;
-        // }
-        var clas = $(e.target.classList)[0]
-
-        var key = e.charCode || e.keyCode || 0;
-        if (clas == 'type_1' || clas == 'type_2') // FARSI='1' LATIN='2'
-            return (true)
-        else if (clas == 'type_3') { // SHAMSIDATE
-            if (e.shiftKey) {
-                return
-            }
-            return (
-                key == 111 ||
-                key == 191 ||
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-        else if (clas == 'type_4') { // INT
-            if (e.shiftKey) {
-                return
-            }
-            return (
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-        else if (clas == 'type_5') { // FLOAT
-            if (e.shiftKey) {
-                return
-            }
-
-            return (
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 47 ||
-                key == 109 || //-
-                key == 111 || key == 191 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-        else if (clas == 'type_6') { // CODE
-            if (e.shiftKey) {
-                return
-            }
-            return (
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 190 ||
-                key == 109 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-
-        else if (clas == 'type_7') { // DOCNO
-            if (e.shiftKey) {
-                return
-            }
-            return (
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 190 ||
-                key == 109 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-
-        else if (clas == 'type_8') { // Time
-            return (
-                key == 8 ||
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105)
-            );
-        }
-
+        return KeyPressSearch(e);
     }
-
 
 
     function CreateTableTdSearch(field, data) {
@@ -1372,7 +1276,7 @@
     });
 
 
-
+    self.sortTableIDocH();
 
 
 };
