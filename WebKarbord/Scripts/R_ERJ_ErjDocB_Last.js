@@ -468,7 +468,8 @@
     $("#CreateReport").click(function () {
         //$('#ToUser').val(sessionStorage.userName);
         $('#loadingsite').css('display', 'block');
- getDocB_Last();
+        getDocB_Last();
+        self.sortTableDocB_Last();
         $('#loadingsite').css('display', 'none');
        
     });
@@ -603,9 +604,18 @@
     self.iconTypeMhltDate = ko.observable("");
 
     self.sortTableDocB_Last = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
+        }
+
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
         self.currentColumn(orderProp);
         self.DocB_LastList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1947,6 +1957,8 @@
                 }
             )
     ); */
+
+  
 
 };
 

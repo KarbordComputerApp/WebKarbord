@@ -477,8 +477,42 @@
     self.filterF20 = ko.observable("");
 
 
-    self.filterFDocHList = ko.computed(function () {
+    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    if (listFilter != null) {
+        self.filterDocNo(listFilter[0]);
+        self.filterDocDate(listFilter[1]);
+        self.filterCustName(listFilter[2]);
+        self.filterFinalPrice(listFilter[3]);
+        self.filterSpec(listFilter[4]);
+        self.filterStatus(listFilter[5]);
+        self.filterEghdam(listFilter[6]);
+        self.filterTanzim(listFilter[7]);
+        self.filterTaeed(listFilter[8]);
+        self.filterTasvib(listFilter[9]);
+        self.filterSerialNumber(listFilter[10]);
+        self.filterF01(listFilter[11]);
+        self.filterF02(listFilter[12]);
+        self.filterF03(listFilter[13]);
+        self.filterF04(listFilter[14]);
+        self.filterF05(listFilter[15]);
+        self.filterF06(listFilter[16]);
+        self.filterF07(listFilter[17]);
+        self.filterF08(listFilter[18]);
+        self.filterF09(listFilter[19]);
+        self.filterF10(listFilter[20]);
+        self.filterF11(listFilter[21]);
+        self.filterF12(listFilter[22]);
+        self.filterF13(listFilter[23]);
+        self.filterF14(listFilter[24]);
+        self.filterF15(listFilter[25]);
+        self.filterF16(listFilter[26]);
+        self.filterF17(listFilter[27]);
+        self.filterF18(listFilter[28]);
+        self.filterF19(listFilter[29]);
+        self.filterF20(listFilter[30]);
+    }
 
+    self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
         var filterDocNo = self.filterDocNo();
         var filterDocDate = self.filterDocDate();
@@ -519,8 +553,43 @@
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
             $("#CountRecord").text(self.FDocHList().length);
+            sessionStorage.setItem('listFilter', null);
             return self.FDocHList();
         } else {
+            listFilter = [
+                filterDocNo,
+                filterDocDate,
+                filterCustName,
+                filterFinalPrice,
+                filterSpec,
+                filterStatus,
+                filterEghdam,
+                filterTanzim,
+                filterTaeed,
+                filterTasvib,
+                filterSerialNumber,
+                filterF01,
+                filterF02,
+                filterF03,
+                filterF04,
+                filterF05,
+                filterF06,
+                filterF07,
+                filterF08,
+                filterF09,
+                filterF10,
+                filterF11,
+                filterF12,
+                filterF13,
+                filterF14,
+                filterF15,
+                filterF16,
+                filterF17,
+                filterF18,
+                filterF19,
+                filterF20
+            ];
+            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
@@ -657,18 +726,19 @@
 
     self.sortTableFDocH = function (viewModel, e) {
 
+
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
-            self.sortType = sessionStorage.sortTypeFdocH;
-            orderProp = sessionStorage.sortFdocH;
+            orderProp = localStorage.getItem("sortFdocH_" + sessionStorage.ModeCode);
+            self.sortType = localStorage.getItem("sortTypeFdocH_" + sessionStorage.ModeCode);
         }
 
         if (orderProp == null)
             return null
-        sessionStorage.sortFdocH = orderProp;
-        sessionStorage.sortTypeFdocH = self.sortType;
 
+        localStorage.setItem("sortFdocH_" + sessionStorage.ModeCode, orderProp);
+        localStorage.setItem("sortTypeFdocH_" + sessionStorage.ModeCode, self.sortType);
 
         self.search("");
         self.currentColumn(orderProp);
@@ -1752,7 +1822,7 @@
     self.SearchKeyDown = function (viewModel, e) {
         return KeyPressSearch(e);
     }
-    
+
     function CreateTableTdSearch(field, data) {
 
         text = '<td ';
@@ -1762,7 +1832,7 @@
         if (TextField == 0)
             text += 'Hidden ';
 
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }"  type="text" class="type_' + type ;
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }"  type="text" class="type_' + type;
         text += ' form-control" style="height: 2.4rem; direction: ltr;text-align: right; " /> </td>';
 
         return text;

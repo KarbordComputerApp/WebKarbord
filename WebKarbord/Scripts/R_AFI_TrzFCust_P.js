@@ -495,7 +495,8 @@
 
     $("#CreateReport").click(function () {
         $('#loadingsite').css('display', 'block');
-getTrzFCust_P();
+        getTrzFCust_P();
+        self.sortTableTrzFCust_P();
         $('#loadingsite').css('display', 'none');
         
     });
@@ -779,9 +780,19 @@ getTrzFCust_P();
     self.iconTypeTotalPrice = ko.observable("");
 
     self.sortTableTrzFCust_P = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
+        }
+
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
+
         self.currentColumn(orderProp);
         self.TrzFCust_PList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2603,6 +2614,8 @@ getTrzFCust_P();
         variable = '"ReportDate":"' + DateNow + '",';
         setReport(self.filterTrzFCust_PList(), 'Free', variable);
     });
+
+  
 };
 
 ko.applyBindings(new ViewModel());

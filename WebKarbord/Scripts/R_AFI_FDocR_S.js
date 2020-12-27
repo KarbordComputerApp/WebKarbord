@@ -448,7 +448,8 @@
 
     $("#CreateReport").click(function () {
         $('#loadingsite').css('display', 'block');
- getFDocR_S();
+        getFDocR_S();
+        self.sortTableFDocR_S();
         $('#loadingsite').css('display', 'none');
        
     });
@@ -770,9 +771,20 @@
     };
 
     self.sortTableFDocR_S = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
+        }
+
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
+
         self.currentColumn(orderProp);
         self.FDocR_SList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2497,6 +2509,8 @@
         variable = '"ReportDate":"' + DateNow + '",';
         setReport(self.filterFDocR_SList(), 'Free', variable);
     });
+
+    
 
 };
 

@@ -26,6 +26,7 @@
     var allSearchADocH = true;
     var docDate;
     var serial;
+    
 
 
     var accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
@@ -240,6 +241,39 @@
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
 
+    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    if (listFilter != null) {
+        self.filterDocNo(listFilter[0]);
+        self.filterDocDate(listFilter[1]);
+        self.filterSpec(listFilter[2]);
+        self.filterEghdam(listFilter[3]);
+        self.filterTanzim(listFilter[4]);
+        self.filterTaeed(listFilter[5]);
+        self.filterModeName(listFilter[6]);
+        self.filterStatus(listFilter[7]);
+        self.filterSerialNumber(listFilter[8]);
+        self.filterF01(listFilter[9]);
+        self.filterF02(listFilter[10]);
+        self.filterF03(listFilter[11]);
+        self.filterF04(listFilter[12]);
+        self.filterF05(listFilter[13]);
+        self.filterF06(listFilter[14]);
+        self.filterF07(listFilter[15]);
+        self.filterF08(listFilter[16]);
+        self.filterF09(listFilter[17]);
+        self.filterF10(listFilter[18]);
+        self.filterF11(listFilter[19]);
+        self.filterF12(listFilter[20]);
+        self.filterF13(listFilter[21]);
+        self.filterF14(listFilter[22]);
+        self.filterF15(listFilter[23]);
+        self.filterF16(listFilter[24]);
+        self.filterF17(listFilter[25]);
+        self.filterF18(listFilter[26]);
+        self.filterF19(listFilter[27]);
+        self.filterF20(listFilter[28]);
+    }
+
     self.filterADocHList = ko.computed(function () {
         self.currentPageIndexADocH(0);
         var filterDocNo = self.filterDocNo();
@@ -279,8 +313,42 @@
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             $("#CountRecord").text(self.ADocHList().length);
             // $('#CountRecord').text(CountTable('ADocH', null, null));
+            sessionStorage.setItem('listFilter', null);
             return self.ADocHList();
         } else {
+            listFilter = [
+                filterDocNo,
+                filterDocDate,
+                filterSpec,
+                filterEghdam,
+                filterTanzim,
+                filterTaeed,
+                filterModeName,
+                filterStatus,
+                filterSerialNumber,
+                filterF01,
+                filterF02,
+                filterF03,
+                filterF04,
+                filterF05,
+                filterF06,
+                filterF07,
+                filterF08,
+                filterF09,
+                filterF10,
+                filterF11,
+                filterF12,
+                filterF13,
+                filterF14,
+                filterF15,
+                filterF16,
+                filterF17,
+                filterF18,
+                filterF19,
+                filterF20
+            ];
+            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            //list = JSON.parse(sessionStorage.getItem('listFilter'));
             tempData = ko.utils.arrayFilter(self.ADocHList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
@@ -379,6 +447,7 @@
     };
 
 
+
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconTypeDocNo = ko.observable("");
@@ -418,14 +487,15 @@
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
-            self.sortType = sessionStorage.sortTypeAdocH;
-            orderProp = sessionStorage.sortAdocH;
+            orderProp = localStorage.getItem("sortAdocH");
+            self.sortType = localStorage.getItem("sortTypeAdocH");
         }
 
         if (orderProp == null)
             return null
-        sessionStorage.sortAdocH = orderProp;
-        sessionStorage.sortTypeAdocH = self.sortType;
+
+        localStorage.setItem("sortAdocH", orderProp);
+        localStorage.setItem("sortTypeAdocH", self.sortType);
 
         self.search("");
         self.currentColumn(orderProp);
@@ -956,6 +1026,7 @@
     self.currentPageIndexADocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
     //sessionStorage.moveSanad == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
     self.sortTableADocH();
+
 };
 
 ko.applyBindings(new ViewModel());

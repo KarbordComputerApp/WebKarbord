@@ -459,6 +459,7 @@
 
         $('#loadingsite').css('display', 'block');
         getTrzIExf();
+        self.sortTableTrzIExf();
         $('#loadingsite').css('display', 'none');
     });
 
@@ -760,9 +761,19 @@
 
 
     self.sortTableTrzIExf = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
+        }
+
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
+
        self.currentColumn(orderProp);
         self.TrzIExfList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2856,6 +2867,7 @@
         setReport(self.filterTrzIExfList(), 'Free', variable);
     });
 
+  
 };
 
 ko.applyBindings(new ViewModel());

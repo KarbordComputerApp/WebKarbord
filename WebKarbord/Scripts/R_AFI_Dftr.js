@@ -323,8 +323,8 @@
     $("#CreateReport").click(function () {
         $('#loadingsite').css('display', 'block');
         getDftr();
+        self.sortTableDftr();
         $('#loadingsite').css('display', 'none');
-        getDftr();
     });
 
 
@@ -357,6 +357,7 @@
     self.filterAcc0 = ko.observable("");
     self.filterAcc1 = ko.observable("");
     self.filterAcc2 = ko.observable("");
+    self.filterAcc3 = ko.observable("");
 
     self.filterAccList = ko.computed(function () {
 
@@ -364,15 +365,17 @@
         var filter0 = self.filterAcc0().toUpperCase();
         var filter1 = self.filterAcc1();
         var filter2 = self.filterAcc2();
+        var filter3 = self.filterAcc3();
 
-        if (!filter0 && !filter1 && !filter2) {
+        if (!filter0 && !filter1 && !filter2 && !filter3) {
             return self.AccList();
         } else {
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
                 return result;
             })
             return tempData;
@@ -476,6 +479,10 @@
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
+
+        dispBands = $("#DispBands").val();
+        dispBands == 1 ? self.filterAcc3("1") : self.filterAcc3("")
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1464,10 +1471,20 @@
     };
 
     self.sortTableDftr = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
-        if (orderProp == null) {
-            return null
+
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
         }
+
+        if (orderProp == null)
+            return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
+
         self.currentColumn(orderProp);
         self.DftrList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -1963,6 +1980,8 @@
 
         setReport(self.filterDftrList(), 'Report_Dftr', variable);
     });
+
+   
 };
 
 ko.applyBindings(new ViewModel());

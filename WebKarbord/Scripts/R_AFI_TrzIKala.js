@@ -450,9 +450,9 @@
     }
 
     $("#CreateReport").click(function () {
-     
         $('#loadingsite').css('display', 'block');
-   getTrzI();
+        getTrzI();
+        self.sortTableTrzI();
         $('#loadingsite').css('display', 'none');
     });
 
@@ -674,10 +674,19 @@
 
 
     self.sortTableTrzI = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
+        }
 
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
+
         self.currentColumn(orderProp);
         self.TrzIList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2669,6 +2678,7 @@
         setReport(self.filterTrzIList(), 'Free', variable);
     });
 
+ 
 };
 
 ko.applyBindings(new ViewModel());

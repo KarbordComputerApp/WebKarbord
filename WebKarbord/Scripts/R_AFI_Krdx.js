@@ -448,7 +448,8 @@
 
     $("#CreateReport").click(function () {
         $('#loadingsite').css('display', 'block');
-  getKrdx();
+        getKrdx();
+        self.sortTableKrdx();
         $('#loadingsite').css('display', 'none');
       
     });
@@ -978,9 +979,19 @@
 
 
     self.sortTableKrdx = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sort" + rprtId);
+            self.sortType = localStorage.getItem("sortType" + rprtId);
+        }
+
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sort" + rprtId, orderProp);
+        localStorage.setItem("sortType" + rprtId, self.sortType);
+
         self.currentColumn(orderProp);
         self.KrdxList.sort(function (left, right) {
             leftVal = left[orderProp];
@@ -2976,7 +2987,7 @@
         // setReport(self.filterTrzAccList(), 'Free', variable);
     });
 
-
+   
 };
 
 ko.applyBindings(new ViewModel());

@@ -296,6 +296,43 @@
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
 
+    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    if (listFilter != null) {
+        self.filterDocNo(listFilter[0]);
+        self.filterDocDate(listFilter[1]);
+        self.filterInvName(listFilter[2]);
+        self.filterThvlName(listFilter[3]);
+        self.filterModeName(listFilter[4]);
+        self.filterSpec(listFilter[5]);
+        self.filterStatus(listFilter[6]);
+        self.filterEghdam(listFilter[7]);
+        self.filterTanzim(listFilter[8]);
+        self.filterTaeed(listFilter[9]);
+        self.filterTasvib(listFilter[10]);
+        self.filterSerialNumber(listFilter[11]);
+        self.filterF01(listFilter[12]);
+        self.filterF02(listFilter[13]);
+        self.filterF03(listFilter[14]);
+        self.filterF04(listFilter[15]);
+        self.filterF05(listFilter[16]);
+        self.filterF06(listFilter[17]);
+        self.filterF07(listFilter[18]);
+        self.filterF08(listFilter[19]);
+        self.filterF09(listFilter[20]);
+        self.filterF10(listFilter[21]);
+        self.filterF11(listFilter[22]);
+        self.filterF12(listFilter[23]);
+        self.filterF13(listFilter[24]);
+        self.filterF14(listFilter[25]);
+        self.filterF15(listFilter[26]);
+        self.filterF16(listFilter[27]);
+        self.filterF17(listFilter[28]);
+        self.filterF18(listFilter[29]);
+        self.filterF19(listFilter[30]);
+        self.filterF20(listFilter[31]);
+    }
+
+
 
     self.filterIDocHList = ko.computed(function () {
         self.currentPageIndexIDocH(0);
@@ -338,8 +375,44 @@
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             $("#CountRecord").text(self.IDocHList().length);
             // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
+            sessionStorage.setItem('listFilter', null);
             return self.IDocHList();
         } else {
+            listFilter = [
+                filterDocNo,
+                filterDocDate,
+                filterInvName,
+                filterThvlName,
+                filterModeName,
+                filterSpec,
+                filterStatus,
+                filterEghdam,
+                filterTanzim,
+                filterTaeed,
+                filterTasvib,
+                filterSerialNumber,
+                filterF01,
+                filterF02,
+                filterF03,
+                filterF04,
+                filterF05,
+                filterF06,
+                filterF07,
+                filterF08,
+                filterF09,
+                filterF10,
+                filterF11,
+                filterF12,
+                filterF13,
+                filterF14,
+                filterF15,
+                filterF16,
+                filterF17,
+                filterF18,
+                filterF19,
+                filterF20
+            ];
+            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
@@ -483,18 +556,19 @@
 
     self.sortTableIDocH = function (viewModel, e) {
 
+
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
-            self.sortType = sessionStorage.sortTypeIdocH;
-            orderProp = sessionStorage.sortIdocH;
+            orderProp = localStorage.getItem("sortIdocH_" + sessionStorage.InOut);
+            self.sortType = localStorage.getItem("sortTypeIdocH_" + sessionStorage.InOut);
         }
 
         if (orderProp == null)
             return null
-        sessionStorage.sortIdocH = orderProp;
-        sessionStorage.sortTypeIdocH = self.sortType;
 
+        localStorage.setItem("sortIdocH_" + sessionStorage.InOut, orderProp);
+        localStorage.setItem("sortTypeIdocH_" + sessionStorage.InOut, self.sortType);
 
         self.currentColumn(orderProp);
         self.IDocHList.sort(function (left, right) {
@@ -633,8 +707,8 @@
                     currentPage = self.currentPageIndexIDocH();
                     getIDocH(0, invSelected);
                     self.currentPageIndexIDocH(currentPage);
-                    showNotification( 'سند حذف شد ', 1);
-                   // Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
+                    showNotification('سند حذف شد ', 1);
+                    // Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
                 });
             }
         })
@@ -989,7 +1063,7 @@
             UserCode: sessionStorage.userName,
             SerialNumber: serial,
             Status: self.StatusSanad(),
-            InOut : sessionStorage.InOut
+            InOut: sessionStorage.InOut
         };
         $('#modal-ChangeStatusSanad').modal('hide');
         showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
@@ -1047,7 +1121,7 @@
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null}" >' +
             //'<td data-bind="text:  $index() + 1"></td>' +
-           // '<td data-bind="text: $data.DocNo"></td>' +
+            // '<td data-bind="text: $data.DocNo"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('InvName', 0, 0, data) +
@@ -1252,10 +1326,10 @@
         if (self.IDocPList().length == 0)
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
 
-        textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice; 
+        textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
 
         variable = '"ReportDate":"' + DateNow + '",' +
-                   '"TextFinalPrice":"' + textFinalPrice + '",';
+            '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
         if (sessionStorage.InOut == 1) {
@@ -1270,7 +1344,7 @@
     }
 
     $('#PrintSanad').click(function () {
-        
+
 
 
     });
