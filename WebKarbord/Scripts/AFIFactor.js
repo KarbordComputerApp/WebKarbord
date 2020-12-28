@@ -1501,8 +1501,11 @@
     self.currentPageHesab = ko.observable();
     self.currentPageKala = ko.observable();
 
-    self.pageSizeCust = ko.observable(10);
-    self.pageSizeKala = ko.observable(10);
+    pageSizeCust = localStorage.getItem('pageSizeCust') == null ? 10 : localStorage.getItem('pageSizeCust');
+    pageSizeKala = localStorage.getItem('pageSizeKala') == null ? 10 : localStorage.getItem('pageSizeKala');
+
+    self.pageSizeCust = ko.observable(pageSizeCust);
+    self.pageSizeKala = ko.observable(pageSizeKala);
     self.currentPageIndexCust = ko.observable(0);
     self.currentPageIndexKala = ko.observable(0);
     self.sortType = "ascending";
@@ -1565,7 +1568,8 @@
         var pageSizeCust = parseInt(self.pageSizeCust(), 10),
             startIndex = pageSizeCust * self.currentPageIndexCust(),
             endIndex = startIndex + pageSizeCust;
-        return self.filterCustList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeCust', pageSizeCust);
+  return self.filterCustList().slice(startIndex, endIndex);
     });
 
 
@@ -1659,7 +1663,8 @@
         var pageSizeKala = parseInt(self.pageSizeKala(), 10),
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
-        return self.filterKalaList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeCust', pageSizeCust);
+  return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {

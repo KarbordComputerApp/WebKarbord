@@ -351,7 +351,8 @@
 
 
     self.currentPageAcc = ko.observable();
-    self.pageSizeAcc = ko.observable(10);
+    pageSizeAcc = localStorage.getItem('pageSizeAcc') == null ? 10 : localStorage.getItem('pageSizeAcc');
+    self.pageSizeAcc = ko.observable(pageSizeAcc);
     self.currentPageIndexAcc = ko.observable(0);
 
     self.filterAcc0 = ko.observable("");
@@ -387,7 +388,8 @@
         var pageSizeAcc = parseInt(self.pageSizeAcc(), 10),
             startIndex = pageSizeAcc * self.currentPageIndexAcc(),
             endIndex = startIndex + pageSizeAcc;
-        return self.filterAccList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeAcc', pageSizeAcc);
+  return self.filterAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageAcc = function () {
@@ -490,7 +492,8 @@
 
 
     self.currentPageMkz = ko.observable();
-    self.pageSizeMkz = ko.observable(10);
+    pageSizeMkz = localStorage.getItem('pageSizeMkz') == null ? 10 : localStorage.getItem('pageSizeMkz');
+    self.pageSizeMkz = ko.observable(pageSizeMkz);
     self.currentPageIndexMkz = ko.observable(0);
 
     self.filterMkz0 = ko.observable("");
@@ -523,7 +526,8 @@
         var pageSizeMkz = parseInt(self.pageSizeMkz(), 10),
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
-        return self.filterMkzList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeMkz', pageSizeMkz);
+  return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -671,7 +675,8 @@
 
 
     self.currentPageOpr = ko.observable();
-    self.pageSizeOpr = ko.observable(10);
+    pageSizeOpr = localStorage.getItem('pageSizeOpr') == null ? 10 : localStorage.getItem('pageSizeOpr');
+    self.pageSizeOpr = ko.observable(pageSizeOpr);
     self.currentPageIndexOpr = ko.observable(0);
 
     self.filterOpr0 = ko.observable("");
@@ -704,7 +709,8 @@
         var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
-        return self.filterOprList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeOpr', pageSizeOpr);
+   return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -852,7 +858,8 @@
 
 
     self.currentPageAMode = ko.observable();
-    self.pageSizeAMode = ko.observable(10);
+    pageSizeAMode = localStorage.getItem('pageSizeAMode') == null ? 10 : localStorage.getItem('pageSizeAMode');
+    self.pageSizeAMode = ko.observable(pageSizeAMode);
     self.currentPageIndexAMode = ko.observable(0);
 
     self.filterAMode0 = ko.observable("");
@@ -885,7 +892,8 @@
         var pageSizeAMode = parseInt(self.pageSizeAMode(), 10),
             startIndex = pageSizeAMode * self.currentPageIndexAMode(),
             endIndex = startIndex + pageSizeAMode;
-        return self.filterAModeList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeAMode', pageSizeAMode);
+    return self.filterAModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageAMode = function () {
@@ -1044,7 +1052,8 @@
 
 
     self.currentPageStatus = ko.observable();
-    self.pageSizeStatus = ko.observable(10);
+    pageSizeStatus = localStorage.getItem('pageSizeStatus') == null ? 10 : localStorage.getItem('pageSizeStatus');
+    self.pageSizeStatus = ko.observable(pageSizeStatus);
     self.currentPageIndexStatus = ko.observable(0);
 
     self.filterStatus0 = ko.observable("");
@@ -1071,7 +1080,8 @@
         var pageSizeStatus = parseInt(self.pageSizeStatus(), 10),
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
-        return self.filterStatusList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeStatus', pageSizeStatus);
+     return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -1250,7 +1260,8 @@
 
     //------------------------------------------------------
     self.currentPageDftr = ko.observable();
-    self.pageSizeDftr = ko.observable(10);
+    pageSizeDftr = localStorage.getItem('pageSizeDftr') == null ? 10 : localStorage.getItem('pageSizeDftr');
+    self.pageSizeDftr = ko.observable(pageSizeDftr);
     self.currentPageIndexDftr = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -1443,7 +1454,8 @@
         var pageSizeDftr = parseInt(self.pageSizeDftr(), 10),
             startIndex = pageSizeDftr * self.currentPageIndexDftr(),
             endIndex = startIndex + pageSizeDftr;
-        return self.filterDftrList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeDftr', pageSizeDftr);
+   return self.filterDftrList().slice(startIndex, endIndex);
     });
 
     self.nextPageDftr = function () {

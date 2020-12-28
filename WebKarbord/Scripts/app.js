@@ -368,7 +368,7 @@ function TextHighlightDel(id) {
 function just_persian(str, key) {
     var p = /^[\u0600-\u06FF\s]+$/;
 
-    if (
+  if (
         key == 8 ||
         key == 9 ||
         key == 13 ||
@@ -390,20 +390,47 @@ function just_persian(str, key) {
     return true;
 }
 
+function just_English(str, key) {
+    var p = /^[\u0600-\u06FF\s]+$/;
+
+    if (
+        key == 8 ||
+        key == 9 ||
+        key == 13 ||
+        key == 46 ||
+        key == 47 ||
+        key == 111 ||
+        key == 187 ||
+        key == 189 ||
+        key == 191 ||
+        key == 190 ||
+        (key >= 35 && key <= 40) ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105)
+    )
+        return true;
+    if (p.test(str)) {
+        return false
+    }
+    return true;
+}
+
 //$(".type_1").farsiInput();
+
 
 function KeyPressSearch(e) {
     var clas = $(e.target.classList)[0]
 
     var key = e.charCode || e.keyCode || 0;
+
     if (clas == 'type_1') // FARSI='1' 
     {
-        return (true)
+        return just_persian(e.key,key)
     }
 
     else if (clas == 'type_2') // LATIN='2'
     {
-        return (true)
+        return just_English(e.key, key)
         /* return (true)
         if (e.shiftKey) {
             return

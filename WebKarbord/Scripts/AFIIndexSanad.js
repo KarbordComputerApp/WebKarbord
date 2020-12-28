@@ -208,7 +208,10 @@
 
     //------------------------------------------------------
     self.currentPageADocH = ko.observable();
-    self.pageSizeADocH = ko.observable(10);
+
+    pageSizeADocH = localStorage.getItem('pageSizeADocH') == null ? 10 : localStorage.getItem('pageSizeADocH');
+    self.pageSizeADocH = ko.observable(pageSizeADocH);
+
     self.currentPageIndexADocH = ko.observable(0);
 
     self.filterDocNo = ko.observable("");
@@ -419,7 +422,8 @@
         var pageSizeADocH = parseInt(self.pageSizeADocH(), 10),
             startIndex = pageSizeADocH * self.currentPageIndexADocH(),
             endIndex = startIndex + pageSizeADocH;
-        return self.filterADocHList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeADocH', pageSizeADocH);
+  return self.filterADocHList().slice(startIndex, endIndex);
     });
 
     self.nextPageADocH = function () {

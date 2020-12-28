@@ -128,8 +128,11 @@
     self.currentPageThvl = ko.observable();
     self.currentPageKala = ko.observable();
 
-    self.pageSizeThvl = ko.observable(10);
-    self.pageSizeKala = ko.observable(10);
+    pageSizeThvl = localStorage.getItem('pageSizeThvl') == null ? 10 : localStorage.getItem('pageSizeThvl');
+    self.pageSizeThvl = ko.observable(pageSizeThvl);
+
+    pageSizeKala = localStorage.getItem('pageSizeKala') == null ? 10 : localStorage.getItem('pageSizeKala');
+    self.pageSizeKala = ko.observable(pageSizeKala);
     self.currentPageIndexThvl = ko.observable(0);
     self.currentPageIndexKala = ko.observable(0);
     self.sortType = "ascending";

@@ -478,7 +478,8 @@
     $('#nameKhdt').val('همه موارد');
 
     self.currentPageDocB_Last = ko.observable();
-    self.pageSizeDocB_Last = ko.observable(10);
+    pageSizeDocB_Last = localStorage.getItem('pageSizeDocB_Last') == null ? 10 : localStorage.getItem('pageSizeDocB_Last');
+    self.pageSizeDocB_Last = ko.observable(pageSizeDocB_Last);
     self.currentPageIndexDocB_Last = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -558,7 +559,8 @@
         var pageSizeDocB_Last = parseInt(self.pageSizeDocB_Last(), 10),
             startIndex = pageSizeDocB_Last * self.currentPageIndexDocB_Last(),
             endIndex = startIndex + pageSizeDocB_Last;
-        return self.filterDocB_LastList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeDocB_Last', pageSizeDocB_Last);
+  return self.filterDocB_LastList().slice(startIndex, endIndex);
     });
 
     self.nextPageDocB_Last = function () {
@@ -658,7 +660,8 @@
 
 
     self.currentPageErjCust = ko.observable();
-    self.pageSizeErjCust = ko.observable(10);
+    pageSizeErjCust = localStorage.getItem('pageSizeErjCust') == null ? 10 : localStorage.getItem('pageSizeErjCust');
+    self.pageSizeErjCust = ko.observable(pageSizeErjCust);
     self.currentPageIndexErjCust = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -695,7 +698,8 @@
         var pageSizeErjCust = parseInt(self.pageSizeErjCust(), 10),
             startIndex = pageSizeErjCust * self.currentPageIndexErjCust(),
             endIndex = startIndex + pageSizeErjCust;
-        return self.filterErjCustList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeErjCust', pageSizeErjCust);
+  return self.filterErjCustList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjCust = function () {
@@ -828,7 +832,8 @@
     })
 
     self.currentPageKhdt = ko.observable();
-    self.pageSizeKhdt = ko.observable(10);
+    pageSizeKhdt = localStorage.getItem('pageSizeKhdt') == null ? 10 : localStorage.getItem('pageSizeKhdt');
+    self.pageSizeKhdt = ko.observable(pageSizeKhdt);
     self.currentPageIndexKhdt = ko.observable(0);
 
     self.filterKhdt0 = ko.observable("");
@@ -862,7 +867,8 @@
         var pageSizeKhdt = parseInt(self.pageSizeKhdt(), 10),
             startIndex = pageSizeKhdt * self.currentPageIndexKhdt(),
             endIndex = startIndex + pageSizeKhdt;
-        return self.filterKhdtList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeKhdt', pageSizeKhdt);
+  return self.filterKhdtList().slice(startIndex, endIndex);
     });
 
     self.nextPageKhdt = function () {
@@ -1028,7 +1034,8 @@
 
 
     self.currentPageErjUsers = ko.observable();
-    self.pageSizeErjUsers = ko.observable(10);
+    pageSizeErjUsers = localStorage.getItem('pageSizeErjUsers') == null ? 10 : localStorage.getItem('pageSizeErjUsers');
+    self.pageSizeErjUsers = ko.observable(pageSizeErjUsers);
     self.currentPageIndexErjUsers = ko.observable(0);
 
     self.iconTypeCode = ko.observable("");
@@ -1067,7 +1074,8 @@
         var pageSizeErjUsers = parseInt(self.pageSizeErjUsers(), 10),
             startIndex = pageSizeErjUsers * self.currentPageIndexErjUsers(),
             endIndex = startIndex + pageSizeErjUsers;
-        return self.filterErjUsersList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeErjUsers', pageSizeErjUsers);
+  return self.filterErjUsersList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjUsers = function () {
@@ -1157,7 +1165,8 @@
 
 
     self.currentPageErjUsersRonevesht = ko.observable();
-    self.pageSizeErjUsersRonevesht = ko.observable(10);
+    pageSizeErjUsersRonevesht = localStorage.getItem('pageSizeErjUsersRonevesht') == null ? 10 : localStorage.getItem('pageSizeErjUsersRonevesht');
+    self.pageSizeErjUsersRonevesht = ko.observable(pageSizeErjUsersRonevesht);
     self.currentPageIndexErjUsersRonevesht = ko.observable(0);
 
     self.filterErjUsersRonevesht0 = ko.observable("");
@@ -1191,7 +1200,8 @@
         var pageSizeErjUsersRonevesht = parseInt(self.pageSizeErjUsersRonevesht(), 10),
             startIndex = pageSizeErjUsersRonevesht * self.currentPageIndexErjUsersRonevesht(),
             endIndex = startIndex + pageSizeErjUsersRonevesht;
-        return self.filterErjUsersRoneveshtList().slice(startIndex, endIndex);
+        localStorage.setItem('pageSizeErjUsersRonevesht', pageSizeErjUsersRonevesht);
+  return self.filterErjUsersRoneveshtList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjUsersRonevesht = function () {
