@@ -425,29 +425,15 @@ function KeyPressSearch(e) {
 
     if (clas == 'type_1') // FARSI='1' 
     {
-        return just_persian(e.key,key)
+        return true;
+       // return just_persian(e.key, key)
     }
 
     else if (clas == 'type_2') // LATIN='2'
     {
-        return just_English(e.key, key)
-        /* return (true)
-        if (e.shiftKey) {
-            return
-        }
-
-        return (
-            key == 8 ||
-            key == 9 ||
-            key == 13 ||
-            key == 46 ||
-            key == 47 ||
-            key == 111 || key == 191 ||
-            key == 190 ||
-            (key >= 35 && key <= 40) ||
-            (key >= 48 && key <= 57) ||
-            (key >= 96 && key <= 105)
-        );*/
+        return true;
+        //return just_English(e.key, key)
+        
     }
 
     else if (clas == 'type_3') { // SHAMSIDATE
