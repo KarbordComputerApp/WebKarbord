@@ -259,6 +259,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -934,6 +935,7 @@
         }).then((result) => {
             if (result.value) {
                 getFDocH($('#pageCountSelector').val());
+                self.sortTableFDocH();
                 //$('#pageCountSelector').val(0);
                 //Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست فاکتور ها به روز رسانی شد' });
             }

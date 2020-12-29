@@ -156,6 +156,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanadAnbar/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -685,7 +686,7 @@
         }).then((result) => {
             if (result.value) {
                 getIDocH($('#pageCountSelector').val(), invSelected);
-
+                self.sortTableIDocH();
                 //$('#pageCountSelector').val(0);
                 // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست اسناد به روز رسانی شد' });
             }

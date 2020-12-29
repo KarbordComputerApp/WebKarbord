@@ -2375,7 +2375,7 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageIDocR}" style="cursor: default;">' +
             '   <tr data-bind=" style: {\'background-color\':  Status == \'باطل\'  ? \'#ff252540\' : null  } " > ' +
-            '<td data-bind="text: $root.radif($index())"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +

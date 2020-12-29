@@ -2579,7 +2579,7 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
             '     <tr data-bind=" style: {color:  Status == \'باطل\'  ? \'#ff252540\' : null ,  \'background-color\':  DocNo == \'0\'  ? \'#efb68399\' : null } " >' +
-            '<td data-bind="text: $root.radif($index())"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocDate', 0, 0, 0, data) +
             // CreateTableTd('InvName', 0, 0,0, data) +
             CreateTableTd('ModeName', 0, 0, 0, data) +

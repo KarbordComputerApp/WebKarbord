@@ -2495,7 +2495,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTrzFKala_S" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
-            '<td data-bind="text: $root.radif($index())"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('KalaCode', 0, 0, data) +
             CreateTableTd('KalaName', 0, 0, data) +
             CreateTableTd('KalaF01', 0, 0, data) +

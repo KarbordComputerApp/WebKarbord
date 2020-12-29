@@ -2416,7 +2416,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTrzFCust_P" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
-            '<td data-bind="text: $root.radif($index())"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('CustCode', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data) +
             CreateTableTd('CustF01', 0, 0, data) +

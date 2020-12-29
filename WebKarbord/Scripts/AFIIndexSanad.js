@@ -99,6 +99,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -593,6 +594,7 @@
         }).then((result) => {
             if (result.value) {
                 getADocH($('#pageCountSelector').val());
+                self.sortTableADocH();
             }
         })
     })

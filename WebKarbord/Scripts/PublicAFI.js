@@ -18,6 +18,8 @@ const titlePrice = ' ریال ';
 
 var listFilter;
 
+var colorRadif = '#d9d9d9';
+
 
 
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر

@@ -2217,7 +2217,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocR_S" data-dismiss="modal" style="cursor: default;">' +
             '     <tr>' +
-            '<td data-bind="text: $root.radif($index())"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +

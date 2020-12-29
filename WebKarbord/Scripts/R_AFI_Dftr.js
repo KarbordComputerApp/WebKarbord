@@ -1738,7 +1738,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageDftr" data-dismiss="modal" style="cursor: default;">' +
             '     <tr  data-bind=" style: {\'background-color\':  DocNo == \'0\'  ? \'#efb68399\' : null  } ">' +
-            '<td data-bind="text: $root.radif($index())"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
