@@ -909,6 +909,9 @@
         //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
         //}
 
+        if (Serial == "" || self.FDocBList().length == 0)
+            return showNotification('فاکتور دارای بند قابل ذخیره نیست', 0);
+
 
         if (self.DocNoOut == '') {
             return showNotification(' شماره فاکتور را وارد کنيد', 0);

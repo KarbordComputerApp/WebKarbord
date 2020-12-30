@@ -661,9 +661,8 @@
 
     self.UpdateIDocH = function UpdateIDocH(newIDocH) {
 
-        if (Serial == '') {
-            return showNotification(' شماره سند را وارد کنيد', 0);
-        }
+        if (Serial == "" || self.IDocBList().length == 0)
+            return showNotification('سند دارای بند قابل ذخیره نیست', 0);
 
         var tarikh = $("#tarikh").val().toEnglishDigit();
         inv = $("#inv").val();
