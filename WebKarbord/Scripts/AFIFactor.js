@@ -909,6 +909,7 @@
         //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
         //}
 
+
         if (self.DocNoOut == '') {
             return showNotification(' شماره فاکتور را وارد کنيد', 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره فاکتور را وارد کنيد ' });

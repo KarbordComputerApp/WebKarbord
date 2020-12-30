@@ -660,6 +660,11 @@
 
 
     self.UpdateIDocH = function UpdateIDocH(newIDocH) {
+
+        if (Serial == '') {
+            return showNotification(' شماره سند را وارد کنيد', 0);
+        }
+
         var tarikh = $("#tarikh").val().toEnglishDigit();
         inv = $("#inv").val();
         modeCode = $("#modeCode").val();
