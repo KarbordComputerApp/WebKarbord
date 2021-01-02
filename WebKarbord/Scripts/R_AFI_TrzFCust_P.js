@@ -286,7 +286,7 @@
     //Get Cust List
     function getCustList() {
         var CustObject = {
-            forSale: false,
+            forSale: null,
             updatedate: null,
             Mode: 0,
             UserCode: sessionStorage.userName,
