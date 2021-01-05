@@ -1391,6 +1391,7 @@
             TextHighlight("#specialComm");
 
             $("#finalComm").val(item.FinalComm);
+            finalCommTrs = item.FinalCommTrs;
 
             //getErjResultList(serialnumber, docBMode, self.ToUserCode());
             getErjResultList(serialnumber, null, null)
@@ -1411,7 +1412,6 @@
     self.ViewErjDocErja = function (Band) {
         docBMode = Band.DocBMode;
         serialNumber = Band.SerialNumber;
-        finalCommTrs = Band.FinalCommTrs;
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
         if (docBMode == 1) { // رونوشت
