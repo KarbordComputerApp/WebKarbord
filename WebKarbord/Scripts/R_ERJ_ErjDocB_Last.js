@@ -13,6 +13,8 @@
     var bandNo = 0;
     var docBMode = 0;
 
+    var finalCommTrs;
+
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
@@ -1397,14 +1399,19 @@
     }
 
     $('#specialComm').click(function () {
-        TextHighlightDel("#specialComm");
-        $("#specialComm").val(specialComm);
+        if (finalCommTrs == 1) {
+            TextHighlightDel("#specialComm");
+            $("#specialComm").val(specialComm);
+        }
+        else 
+            showNotification('دسترسی ندارید', 0);
     })
 
 
     self.ViewErjDocErja = function (Band) {
         docBMode = Band.DocBMode;
         serialNumber = Band.SerialNumber;
+        finalCommTrs = Band.FinalCommTrs;
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
         if (docBMode == 1) { // رونوشت

@@ -965,9 +965,14 @@
     }
 
     self.ViewSpecialComm = function (Band) {
-        $('#titleComm').text('توضیحات مدیران');
-        $('#modal-Comm').modal('show');
-        $('#comm').val(Band.SpecialComm);
+        if (Band.FinalCommTrs == 1) {
+            $('#titleComm').text('توضیحات مدیران');
+            $('#modal-Comm').modal('show');
+            $('#comm').val(Band.SpecialComm);
+        }
+        else {
+            showNotification('دسترسی ندارید', 0);
+        }
     }
 
 
