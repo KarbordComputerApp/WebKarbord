@@ -205,11 +205,11 @@
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                 <div class="form-group">
                                     <select id="ToUser" data-bind="
-                                   options: ErjUsersList,
+                                   options: ErjRepUsersList,
                                    optionsText: function(item) {return item.Name},
                                    optionsValue: 'Code',
-                                   value: ToUserCode,
-                                   optionsCaption: ''"></select>
+                                   value: ToUserCode
+                                   "></select>
                                 </div>
                             </div>
                         </div>
@@ -221,8 +221,7 @@
                                     <select id="FromUser" data-bind="
                                    options: ErjUsersList,
                                    optionsText: function(item) {return item.Name},
-                                   optionsValue: 'Code',
-                                   optionsCaption: ''"></select>
+                                   optionsValue: 'Code'"></select>
                                 </div>
                             </div>
                         </div>

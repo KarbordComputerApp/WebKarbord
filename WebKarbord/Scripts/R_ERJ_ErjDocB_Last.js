@@ -19,6 +19,7 @@
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
+    self.ErjRepUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
 
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
     self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
@@ -30,7 +31,8 @@
     TestUser();
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
-    var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس ارجاع شونده / دهنده
+    var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس ارجاع  دهنده
+    var ErjRepUsersUri = server + '/api/Web_Data/Web_ErjRepUsers/'; // آدرس ارجاع شونده 
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
@@ -166,6 +168,15 @@
         });
     }
 
+    //Get ErjRepUsers List
+    function getErjRepUsersList() {
+        ajaxFunction(ErjRepUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.ErjRepUsersList(data);
+            $('#ToUser').val(sessionStorage.userName);
+            $('#FromUser').val('');
+        });
+    }
+
     //Get Mahramaneh List
     function getMahramanehList() {
         ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
@@ -196,6 +207,7 @@
     getErjCustList();
     getKhdtList();
     getErjUsersList();
+    getErjRepUsersList();
     getMahramanehList();
 
     function AddErjaMode() {
@@ -1446,7 +1458,7 @@
         $("#comm").val(text);
     })
 
-    if (sessionStorage.userModeErj == 'USER') {
+  /*  if (sessionStorage.userModeErj == 'USER') {
         $('#FromUser').prop('disabled', true);
         $('#ToUser').prop('disabled', true);
     }
@@ -1454,6 +1466,7 @@
         $('#FromUser').prop('disabled', false);
         $('#ToUser').prop('disabled', false);
     }
+    */
 
 
 
