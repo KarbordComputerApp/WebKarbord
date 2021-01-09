@@ -151,6 +151,10 @@
         'Taeed',
         'Tasvib',
         'SerialNumber',
+        'MkzCode',
+        'MkzName',
+        'OprCode',
+        'OprName',
         'F01',
         'F02',
         'F03',
@@ -458,6 +462,10 @@
     self.filterTaeed = ko.observable("");
     self.filterTasvib = ko.observable("");
     self.filterSerialNumber = ko.observable("");
+    self.filterMkzCode = ko.observable("");
+    self.filterMkzName = ko.observable("");
+    self.filterOprCode = ko.observable("");
+    self.filterOprName = ko.observable("");
     self.filterF01 = ko.observable("");
     self.filterF02 = ko.observable("");
     self.filterF03 = ko.observable("");
@@ -493,6 +501,10 @@
         self.filterTaeed(listFilter[8]);
         self.filterTasvib(listFilter[9]);
         self.filterSerialNumber(listFilter[10]);
+        self.filterMkzCode(listFilter[10]);
+        self.filterMkzName(listFilter[10]);
+        self.filterOprCode(listFilter[10]);
+        self.filterOprName(listFilter[10]);
         self.filterF01(listFilter[11]);
         self.filterF02(listFilter[12]);
         self.filterF03(listFilter[13]);
@@ -514,7 +526,6 @@
         self.filterF19(listFilter[29]);
         self.filterF20(listFilter[30]);
     }
-
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
         var filterDocNo = self.filterDocNo();
@@ -528,6 +539,10 @@
         var filterTaeed = self.filterTaeed().toUpperCase();
         var filterTasvib = self.filterTasvib().toUpperCase();
         var filterSerialNumber = self.filterSerialNumber();
+        var filterMkzCode = self.filterMkzCode();
+        var filterMkzName = self.filterMkzName();
+        var filterOprCode = self.filterOprCode();
+        var filterOprName = self.filterOprName();
         var filterF01 = self.filterF01();
         var filterF02 = self.filterF02();
         var filterF03 = self.filterF03();
@@ -551,7 +566,9 @@
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
 
+
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
+            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
@@ -559,6 +576,7 @@
             sessionStorage.setItem('listFilter', null);
             return self.FDocHList();
         } else {
+
             listFilter = [
                 filterDocNo,
                 filterDocDate,
@@ -571,6 +589,10 @@
                 filterTaeed,
                 filterTasvib,
                 filterSerialNumber,
+                filterMkzCode,
+                filterMkzName,
+                filterOprCode,
+                filterOprName,
                 filterF01,
                 filterF02,
                 filterF03,
@@ -606,6 +628,10 @@
                     (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
                     (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
                     ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+                    (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
+                    (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                    (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
+                    (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
                     (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
                     (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
@@ -667,7 +693,7 @@
             startIndex = pageSizeFDocH * self.currentPageIndexFDocH(),
             endIndex = startIndex + pageSizeFDocH;
         localStorage.setItem('pageSizeFDocH', pageSizeFDocH);
-  return self.filterFDocHList().slice(startIndex, endIndex);
+        return self.filterFDocHList().slice(startIndex, endIndex);
     });
 
     self.nextPageFDocH = function () {
@@ -706,6 +732,12 @@
     self.iconTypeTaeed = ko.observable("");
     self.iconTypeTasvib = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
+
+    self.iconTypeMkzCode = ko.observable("");
+    self.iconTypeMkzName = ko.observable("");
+    self.iconTypeOprCode = ko.observable("");
+    self.iconTypeOprName = ko.observable("");
+
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
     self.iconTypeF03 = ko.observable("");
@@ -769,6 +801,11 @@
         self.iconTypeTaeed('');
         self.iconTypeTasvib('');
         self.iconTypeSerialNumber('');
+
+        self.iconTypeMkzCode('');
+        self.iconTypeMkzName('');
+        self.iconTypeOprCode('');
+        self.iconTypeOprName('');
         self.iconTypeF01('');
         self.iconTypeF02('');
         self.iconTypeF03('');
@@ -801,6 +838,10 @@
         if (orderProp == 'Taeed') self.iconTypeTaeed((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Tasvib') self.iconTypeTasvib((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -868,7 +909,7 @@
             startIndex = pageSizeFDocH1 * self.currentPageIndexFDocH1(),
             endIndex = startIndex + pageSizeFDocH1;
         localStorage.setItem('pageSizeFDocH1', pageSizeFDocH1);
-  return self.filterFDocHList1().slice(startIndex, endIndex);
+        return self.filterFDocHList1().slice(startIndex, endIndex);
     });
 
     self.nextPageFDocH1 = function () {
@@ -1639,6 +1680,10 @@
             CreateTableTh('Taeed', data) +
             CreateTableTh('Tasvib', data) +
             CreateTableTh('SerialNumber', data) +
+            CreateTableTh('MkzCode', data) +
+            CreateTableTh('MkzName', data) +
+            CreateTableTh('OprCode', data) +
+            CreateTableTh('OprName', data) +
             CreateTableTh('F01', data) +
             CreateTableTh('F02', data) +
             CreateTableTh('F03', data) +
@@ -1679,6 +1724,12 @@
             CreateTableTd('Taeed', 0, 0, data) +
             CreateTableTd('Tasvib', 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, data) +
+
+            CreateTableTd('MkzCode', 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, data) +
+            CreateTableTd('OprCode', 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, data) +
+
             CreateTableTd('F01', 0, 0, data) +
             CreateTableTd('F02', 0, 0, data) +
             CreateTableTd('F03', 0, 0, data) +
@@ -1758,6 +1809,10 @@
             CreateTableTdSearch('Taeed', data) +
             CreateTableTdSearch('Tasvib', data) +
             CreateTableTdSearch('SerialNumber', data) +
+            CreateTableTdSearch('MkzCode', data) +
+            CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('OprCode', data) +
+            CreateTableTdSearch('OprName', data) +
             CreateTableTdSearch('F01', data) +
             CreateTableTdSearch('F02', data) +
             CreateTableTdSearch('F03', data) +

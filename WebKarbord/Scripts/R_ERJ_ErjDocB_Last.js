@@ -19,7 +19,8 @@
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
-    self.ErjRepUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
+    self.RepToUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
+    self.RepFromUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
 
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
     self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
@@ -31,8 +32,13 @@
     TestUser();
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
-    var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس ارجاع  دهنده
-    var ErjRepUsersUri = server + '/api/Web_Data/Web_ErjRepUsers/'; // آدرس ارجاع شونده 
+
+    var ErjUsersUri = server + '/api/Web_Data/Web_ErjUsers/'; // آدرس کاربران زمان ارجاع
+
+    var RepToUsersUri = server + '/api/Web_Data/Web_RepToUsers/'; // آدرس ارجاع شونده 
+    var RepFromUsersUri = server + '/api/Web_Data/Web_RepFromUsers/'; // آدرس ارجاع دهنده 
+    
+
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
@@ -163,17 +169,26 @@
     function getErjUsersList() {
         ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
             self.ErjUsersList(data);
-            $('#ToUser').val(sessionStorage.userName);
-            $('#FromUser').val('');
+            //$('#ToUser').val(sessionStorage.userName);
+            //$('#FromUser').val(' ');
         });
     }
 
-    //Get ErjRepUsers List
-    function getErjRepUsersList() {
-        ajaxFunction(ErjRepUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-            self.ErjRepUsersList(data);
+    //Get RepToUsers List
+    function getRepToUsersList() {
+        ajaxFunction(RepToUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.RepToUsersList(data);
             $('#ToUser').val(sessionStorage.userName);
-            $('#FromUser').val('');
+            $('#FromUser').val(' ');
+        });
+    }
+
+     //Get RepFromUsers List
+    function getRepFromUsersList() {
+        ajaxFunction(RepFromUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.RepFromUsersList(data);
+            $('#FromUser').val(sessionStorage.userName);
+            $('#ToUser').val(' ');
         });
     }
 
@@ -207,7 +222,8 @@
     getErjCustList();
     getKhdtList();
     getErjUsersList();
-    getErjRepUsersList();
+    getRepToUsersList();
+    getRepFromUsersList();
     getMahramanehList();
 
     function AddErjaMode() {
@@ -1024,10 +1040,10 @@
         var erjaMode = $('#ErjaMode').val();
         if (erjaMode == 1) {
             $('#ToUser').val(sessionStorage.userName);
-            $('#FromUser').val('');
+            $('#FromUser').val(' ');
         }
         else {
-            $('#ToUser').val('');
+            $('#ToUser').val(' ');
             $('#FromUser').val(sessionStorage.userName);
         }
 
