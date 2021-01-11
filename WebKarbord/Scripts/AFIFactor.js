@@ -1667,7 +1667,7 @@
         var pageSizeKala = parseInt(self.pageSizeKala(), 10),
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
-        localStorage.setItem('pageSizeCust', pageSizeCust);
+        localStorage.setItem('pageSizeKala', pageSizeKala);
   return self.filterKalaList().slice(startIndex, endIndex);
     });
 

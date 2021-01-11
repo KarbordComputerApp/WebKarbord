@@ -10,6 +10,7 @@
     var server = localStorage.getItem("ApiAddress");
 
     var serialNumber = 0;
+    var serialNumberAttach = 0;
     var bandNo = 0;
     var docBMode = 0;
 
@@ -29,6 +30,8 @@
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
 
+    self.DocAttachList = ko.observableArray([]); // ليست پیوست
+
     TestUser();
 
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
@@ -37,7 +40,7 @@
 
     var RepToUsersUri = server + '/api/Web_Data/Web_RepToUsers/'; // آدرس ارجاع شونده 
     var RepFromUsersUri = server + '/api/Web_Data/Web_RepFromUsers/'; // آدرس ارجاع دهنده 
-    
+
 
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
@@ -49,6 +52,9 @@
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
     var ErjSaveDocB_SUri = server + '/api/Web_Data/ErjSaveDocB_S/'; // آدرس ذخیره ارجاع
     var ErjSaveDocC_SUri = server + '/api/Web_Data/ErjSaveDocC_S/'; // آدرس ذخیره رونوشت
+
+    var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
+    var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
 
 
     self.AzDocDate = ko.observable('');
@@ -149,8 +155,6 @@
 
 
 
-
-
     //Get ErjCust List
     function getErjCustList() {
         ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
@@ -183,7 +187,7 @@
         });
     }
 
-     //Get RepFromUsers List
+    //Get RepFromUsers List
     function getRepFromUsersList() {
         ajaxFunction(RepFromUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
             self.RepFromUsersList(data);
@@ -216,6 +220,18 @@
             self.ErjStatusList(data);
         });
     }
+
+    //Get DocAttach List
+    function getDocAttachList(serial) {
+        var DocAttachObject = {
+            SerialNumber: serial,
+            isData: false
+        }
+        ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {
+            self.DocAttachList(data);
+        });
+    }
+
 
 
     getErjStatusList();
@@ -398,7 +414,7 @@
                 textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
             }
-               
+
 
             if (listLastBand[j].RjResult == '') {
                 if (listLastBand[j].DocBMode > 0) {
@@ -501,7 +517,7 @@
         getDocB_Last();
         self.sortTableDocB_Last();
         $('#loadingsite').css('display', 'none');
-       
+
     });
 
     $('#nameErjCust').val('همه موارد');
@@ -590,7 +606,7 @@
             startIndex = pageSizeDocB_Last * self.currentPageIndexDocB_Last(),
             endIndex = startIndex + pageSizeDocB_Last;
         localStorage.setItem('pageSizeDocB_Last', pageSizeDocB_Last);
-  return self.filterDocB_LastList().slice(startIndex, endIndex);
+        return self.filterDocB_LastList().slice(startIndex, endIndex);
     });
 
     self.nextPageDocB_Last = function () {
@@ -729,7 +745,7 @@
             startIndex = pageSizeErjCust * self.currentPageIndexErjCust(),
             endIndex = startIndex + pageSizeErjCust;
         localStorage.setItem('pageSizeErjCust', pageSizeErjCust);
-  return self.filterErjCustList().slice(startIndex, endIndex);
+        return self.filterErjCustList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjCust = function () {
@@ -760,7 +776,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.ErjCustList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -861,6 +877,142 @@
         })
     })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    pageSizeDocAttach = localStorage.getItem('pageSizeDocAttach') == null ? 10 : localStorage.getItem('pageSizeDocAttach');
+    self.pageSizeDocAttach = ko.observable(pageSizeDocAttach);
+    self.currentPageIndexKhdt = ko.observable(0);
+
+    self.currentPageIndexDocAttach = ko.observable(0);
+    self.filterDocAttach0 = ko.observable("");
+    self.filterDocAttach1 = ko.observable("");
+
+    self.filterDocAttachList = ko.computed(function () {
+
+        self.currentPageIndexDocAttach(0);
+        var filter0 = self.filterDocAttach0();
+        var filter1 = self.filterDocAttach1();
+
+        if (!filter0 && !filter1) {
+            return self.DocAttachList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.DocAttachList(), function (item) {
+                result =
+                    (item.FName == null ? '' : item.FName.toString().search(filter0) >= 0) &&
+                    (item.Comm == null ? '' : item.Comm.toString().search(filter1) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPageDocAttach = ko.computed(function () {
+        var pageSizeDocAttach = parseInt(self.pageSizeDocAttach(), 10),
+            startIndex = pageSizeDocAttach * self.currentPageIndexDocAttach(),
+            endIndex = startIndex + pageSizeDocAttach;
+        localStorage.setItem('pageSizeDocAttach', pageSizeDocAttach);
+        return self.filterDocAttachList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageDocAttach = function () {
+        if (((self.currentPageIndexDocAttach() + 1) * self.pageSizeDocAttach()) < self.filterDocAttachList().length) {
+            self.currentPageIndexDocAttach(self.currentPageIndexDocAttach() + 1);
+        }
+    };
+
+    self.previousPageDocAttach = function () {
+        if (self.currentPageIndexDocAttach() > 0) {
+            self.currentPageIndexDocAttach(self.currentPageIndexDocAttach() - 1);
+        }
+    };
+
+    self.firstPageDocAttach = function () {
+        self.currentPageIndexDocAttach(0);
+    };
+
+
+    self.lastPageDocAttach = function () {
+        countDocAttach = parseInt(self.filterDocAttachList().length / self.pageSizeDocAttach(), 10);
+        if ((self.filterDocAttachList().length % self.pageSizeDocAttach()) == 0)
+            self.currentPageIndexDocAttach(countDocAttach - 1);
+        else
+            self.currentPageIndexDocAttach(countDocAttach);
+    };
+
+
+    self.iconTypeFName = ko.observable("");
+    self.iconTypeComm = ko.observable("");
+
+
+    self.sortTableDocAttach = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.DocAttachList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        if (orderProp == 'FName') self.iconTypeFName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Comm') self.iconTypeNameComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+
+
+    $('#refreshDocAttach').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "پیوست ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getDocAttachList(serialNumberAttach);
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.ViewDocAttach = function (Band) {
+        serialNumberAttach = Band.SerialNumber;
+        getDocAttachList(Band.SerialNumber);
+    }
+
+
+
+
     self.currentPageKhdt = ko.observable();
     pageSizeKhdt = localStorage.getItem('pageSizeKhdt') == null ? 10 : localStorage.getItem('pageSizeKhdt');
     self.pageSizeKhdt = ko.observable(pageSizeKhdt);
@@ -898,7 +1050,7 @@
             startIndex = pageSizeKhdt * self.currentPageIndexKhdt(),
             endIndex = startIndex + pageSizeKhdt;
         localStorage.setItem('pageSizeKhdt', pageSizeKhdt);
-  return self.filterKhdtList().slice(startIndex, endIndex);
+        return self.filterKhdtList().slice(startIndex, endIndex);
     });
 
     self.nextPageKhdt = function () {
@@ -929,7 +1081,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.KhdtList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1105,7 +1257,7 @@
             startIndex = pageSizeErjUsers * self.currentPageIndexErjUsers(),
             endIndex = startIndex + pageSizeErjUsers;
         localStorage.setItem('pageSizeErjUsers', pageSizeErjUsers);
-  return self.filterErjUsersList().slice(startIndex, endIndex);
+        return self.filterErjUsersList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjUsers = function () {
@@ -1137,7 +1289,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.ErjUsersList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1231,7 +1383,7 @@
             startIndex = pageSizeErjUsersRonevesht * self.currentPageIndexErjUsersRonevesht(),
             endIndex = startIndex + pageSizeErjUsersRonevesht;
         localStorage.setItem('pageSizeErjUsersRonevesht', pageSizeErjUsersRonevesht);
-  return self.filterErjUsersRoneveshtList().slice(startIndex, endIndex);
+        return self.filterErjUsersRoneveshtList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjUsersRonevesht = function () {
@@ -1262,7 +1414,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.ErjUsersList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1432,7 +1584,7 @@
             TextHighlightDel("#specialComm");
             $("#specialComm").val(specialComm);
         }
-        else 
+        else
             showNotification('دسترسی ندارید', 0);
     })
 
@@ -1474,15 +1626,15 @@
         $("#comm").val(text);
     })
 
-  /*  if (sessionStorage.userModeErj == 'USER') {
-        $('#FromUser').prop('disabled', true);
-        $('#ToUser').prop('disabled', true);
-    }
-    else {
-        $('#FromUser').prop('disabled', false);
-        $('#ToUser').prop('disabled', false);
-    }
-    */
+    /*  if (sessionStorage.userModeErj == 'USER') {
+          $('#FromUser').prop('disabled', true);
+          $('#ToUser').prop('disabled', true);
+      }
+      else {
+          $('#FromUser').prop('disabled', false);
+          $('#ToUser').prop('disabled', false);
+      }
+      */
 
 
 
@@ -1879,6 +2031,9 @@
             '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
             '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />' +
             '    </a >' +
+            '    <a data-bind="click: $root.ViewDocAttach" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
+            '        <img src="/Content/img/list/attach_file.png" width="20" height="20" style="margin-left:10px" />' +
+            '    </a >' +
             '</td >' +
             '</tr>' +
             '</tbody>' +
@@ -1919,7 +2074,8 @@
         text = '<th ';
 
         TextField = FindTextField(field, data);
-        sortField = field == 'DocNo' ? 'SortDocNo' : field
+        //sortField = field == 'DocNo' ? 'SortDocNo' : field
+        sortField = field;
         if (TextField == 0)
             text += 'Hidden ';
 
@@ -1984,7 +2140,7 @@
             text += 'Hidden ';
 
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
-        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';        return text;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>'; return text;
     }
 
     createViewer();
@@ -2004,7 +2160,7 @@
             )
     ); */
 
-  
+
 
 };
 

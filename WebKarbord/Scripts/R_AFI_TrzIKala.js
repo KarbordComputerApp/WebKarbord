@@ -723,8 +723,8 @@
         self.iconTypeMAmount3('');
         self.iconTypeMTotalPrice('');
 
-        if (orderProp == 'InvCode') self.iconTypeInvCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortInvCode') self.iconTypeInvCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortInvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortKalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortKalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaFanniNo') self.iconTypeKalaFanniNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2605,7 +2605,16 @@
 
             TextField = FindTextField(field, data);
 
-            sortField = field == 'KalaCode' ? 'SortKalaCode' : field == 'KalaName' ? 'SortKalaName' : field
+            if (field == 'KalaCode')
+                sortField = 'SortKalaCode';
+            else if (field == 'KalaName')
+                sortField = 'SortKalaName';
+            else if (field == 'InvCode')
+                sortField = 'SortInvCode';
+            else if (field == 'InvName')
+                sortField = 'SortInvName';
+            else
+                sortField = field;
 
             if (TextField == 0)
                 text += 'Hidden ';

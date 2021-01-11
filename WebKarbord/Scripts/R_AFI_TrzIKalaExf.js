@@ -48,7 +48,7 @@
 
     self.InvCode = ko.observable();
     var allSearchKala = true;
-    
+
     var KalaCode = '';
     var counterKala = 0;
     var list_KalaSelect = new Array();
@@ -199,7 +199,7 @@
 
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
         });
     }
@@ -692,7 +692,7 @@
             startIndex = pageSizeTrzIExf * self.currentPageIndexTrzIExf(),
             endIndex = startIndex + pageSizeTrzIExf;
         localStorage.setItem('pageSizeTrzIExf', pageSizeTrzIExf);
-   return self.filterTrzIExfList().slice(startIndex, endIndex);
+        return self.filterTrzIExfList().slice(startIndex, endIndex);
     });
 
     self.nextPageTrzIExf = function () {
@@ -776,7 +776,7 @@
         localStorage.setItem("sort" + rprtId, orderProp);
         localStorage.setItem("sortType" + rprtId, self.sortType);
 
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.TrzIExfList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -829,8 +829,8 @@
         self.iconTypeMAmount3('');
         self.iconTypeMTotalPrice('');
 
-        if (orderProp == 'InvCode') self.iconTypeInvCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'InvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortInvCode') self.iconTypeInvCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortInvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortKalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortKalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaFanniNo') self.iconTypeKalaFanniNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -918,7 +918,7 @@
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-  return self.filterInvList().slice(startIndex, endIndex);
+        return self.filterInvList().slice(startIndex, endIndex);
     });
 
     self.nextPageInv = function () {
@@ -949,7 +949,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.InvList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1102,7 +1102,7 @@
             startIndex = pageSizeKGru * self.currentPageIndexKGru(),
             endIndex = startIndex + pageSizeKGru;
         localStorage.setItem('pageSizeKGru', pageSizeKGru);
-  return self.filterKGruList().slice(startIndex, endIndex);
+        return self.filterKGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageKGru = function () {
@@ -1133,7 +1133,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.KGruList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1288,7 +1288,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-  return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -1319,7 +1319,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1473,7 +1473,7 @@
             startIndex = pageSizeThvl * self.currentPageIndexThvl(),
             endIndex = startIndex + pageSizeThvl;
         localStorage.setItem('pageSizeThvl', pageSizeThvl);
-  return self.filterThvlList().slice(startIndex, endIndex);
+        return self.filterThvlList().slice(startIndex, endIndex);
     });
 
     self.nextPageThvl = function () {
@@ -1504,7 +1504,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.ThvlList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1670,7 +1670,7 @@
             startIndex = pageSizeTGru * self.currentPageIndexTGru(),
             endIndex = startIndex + pageSizeTGru;
         localStorage.setItem('pageSizeTGru', pageSizeTGru);
-  return self.filterTGruList().slice(startIndex, endIndex);
+        return self.filterTGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageTGru = function () {
@@ -1701,7 +1701,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.TGruList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -1861,7 +1861,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-   return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -1892,7 +1892,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -2043,7 +2043,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-   return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -2074,7 +2074,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -2240,7 +2240,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-   return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -2442,7 +2442,7 @@
             startIndex = pageSizeIMode * self.currentPageIndexIMode(),
             endIndex = startIndex + pageSizeIMode;
         localStorage.setItem('pageSizeIMode', pageSizeIMode);
-   return self.filterIModeList().slice(startIndex, endIndex);
+        return self.filterIModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageIMode = function () {
@@ -2473,7 +2473,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.IModeList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
@@ -2787,7 +2787,17 @@
             text = '<th ';
 
             TextField = FindTextField(field, data);
-            sortField = field == 'KalaCode' ? 'SortKalaCode' : field == 'KalaName' ? 'SortKalaName' : field
+
+            if (field == 'KalaCode')
+                sortField = 'SortKalaCode';
+            else if (field == 'KalaName')
+                sortField = 'SortKalaName';
+            else if (field == 'InvCode')
+                sortField = 'SortInvCode';
+            else if (field == 'InvName')
+                sortField = 'SortInvName';
+            else
+                sortField = field;
 
 
             if (TextField == 0)
@@ -2889,7 +2899,7 @@
         setReport(self.filterTrzIExfList(), 'Free', variable);
     });
 
-  
+
 };
 
 ko.applyBindings(new ViewModel());
