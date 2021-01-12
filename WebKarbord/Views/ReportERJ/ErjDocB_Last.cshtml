@@ -878,7 +878,7 @@
                 </button>
                 <h4 class="modal-title">پیوست</h4>
                 <a id="refreshDocAttach">
-                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -890,30 +890,32 @@
                     <table class="table table-hover table-striped tableFix">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableDocAttach">
-                                <th data-column="FName">
-                                    نام
-                                    <span data-bind="attr: { class: currentColumn() == 'FName' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeFName }"></i>
-                                    </span>
-                                </th>
+                                <th style="max-width: 30px;">ردیف</th>
                                 <th data-column="Comm">
                                     شرح
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>
                                 </th>
+                                <th>عملیات</th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageDocAttach" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectDocAttach">
-                                <td data-bind="text: FName"></td>
+                        <tbody data-bind="foreach: currentPageDocAttach" style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: $index()+1" style="background-color: #d9d9d9;"></td>
                                 <td data-bind="text: Comm"></td>
+                                <td>
+                                    <a data-bind="click: $root.selectDocAttach">
+                                        <img src="/Content/img/list/download.png" width="20" height="20" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
-                            <tr style="background-color: #efb68399;">
+                            <tr style="background-color: #efb68399">
+                                <td style="padding: 0px 3px;">جستجو</td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocAttach0, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocAttach1, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>

@@ -224,8 +224,7 @@
     //Get DocAttach List
     function getDocAttachList(serial) {
         var DocAttachObject = {
-            SerialNumber: serial,
-            isData: false
+            SerialNumber: serial
         }
         ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {
             self.DocAttachList(data);
@@ -897,21 +896,18 @@
 
     self.currentPageIndexDocAttach = ko.observable(0);
     self.filterDocAttach0 = ko.observable("");
-    self.filterDocAttach1 = ko.observable("");
 
     self.filterDocAttachList = ko.computed(function () {
 
         self.currentPageIndexDocAttach(0);
         var filter0 = self.filterDocAttach0();
-        var filter1 = self.filterDocAttach1();
 
-        if (!filter0 && !filter1) {
+        if (!filter0) {
             return self.DocAttachList();
         } else {
             tempData = ko.utils.arrayFilter(self.DocAttachList(), function (item) {
                 result =
-                    (item.FName == null ? '' : item.FName.toString().search(filter0) >= 0) &&
-                    (item.Comm == null ? '' : item.Comm.toString().search(filter1) >= 0)
+                    (item.Comm == null ? '' : item.Comm.toString().search(filter0) >= 0)
                 return result;
             })
             return tempData;
@@ -954,9 +950,7 @@
     };
 
 
-    self.iconTypeFName = ko.observable("");
     self.iconTypeComm = ko.observable("");
-
 
     self.sortTableDocAttach = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
@@ -977,7 +971,6 @@
 
         self.iconTypeCode('');
         self.iconTypeName('');
-        if (orderProp == 'FName') self.iconTypeFName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Comm') self.iconTypeNameComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
@@ -1010,7 +1003,26 @@
         getDocAttachList(Band.SerialNumber);
     }
 
+    self.selectDocAttach = function (item) {
 
+        var DownloadAttachObject = {
+            SerialNumber: item.SerialNumber,
+        }
+
+        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
+            //var byteArray = new Uint8Array(data);
+            var json = JSON.stringify(data);
+            var a = window.document.createElement('a');
+            var blob = new Blob([json], { type: "octet/stream" });
+
+            a.href = window.URL.createObjectURL(blob);
+
+            a.download = item.FName;
+            document.body.appendChild(a)
+            a.click();
+            document.body.removeChild(a)
+        });
+    }
 
 
     self.currentPageKhdt = ko.observable();
