@@ -1003,24 +1003,105 @@
         getDocAttachList(Band.SerialNumber);
     }
 
+
+
+
+
+
+    function blobToFile(theBlob, fileName) {
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        theBlob.lastModifiedDate = new Date();
+        theBlob.name = fileName;
+        return theBlob;
+    }
+
+
+
+    function base64ToArrayBuffer(base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    }
+
+    function saveByteArray(reportName, byte) {
+        var blob = new Blob([byte], { type: 'text/xml' });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    };
+
+
+
+
+
+    const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    }
+
+    
     self.selectDocAttach = function (item) {
 
         var DownloadAttachObject = {
             SerialNumber: item.SerialNumber,
+            BandNo: item.BandNo
         }
 
         ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
+
+
+            const contentType = 'image/png';
+            const b64Data = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+
+            const blob = b64toBlob(b64Data, contentType);
+            const blobUrl = URL.createObjectURL(blob);
+
+            const img = document.createElement('img');
+            img.src = blobUrl;
+            img.id = "asd";
+            document.body.appendChild(img);
+
+
+
+
+           // var sampleArr = base64ToArrayBuffer(data);
+           // saveByteArray("Sample Report", sampleArr);
+
+
             //var byteArray = new Uint8Array(data);
-            var json = JSON.stringify(data);
+           /* var json = JSON.stringify(data);
             var a = window.document.createElement('a');
             var blob = new Blob([json], { type: "octet/stream" });
+            var file = new File([blob], "name");
 
             a.href = window.URL.createObjectURL(blob);
 
             a.download = item.FName;
             document.body.appendChild(a)
             a.click();
-            document.body.removeChild(a)
+            document.body.removeChild(a)*/
         });
     }
 
@@ -2050,7 +2131,7 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-            ' <tr style="background-color:#e37d228f;">' +
+            /*' <tr style="background-color:#e37d228f;">' +
             '<td></td>' +
             CreateTableTdSum('RjStatus', 0, data) +
             CreateTableTdSum('RjDate', 1, data) +
@@ -2062,9 +2143,9 @@
             CreateTableTdSum('Status', 1, data) +
             CreateTableTdSum('DocNo', 1, data) +
             CreateTableTdSum('MhltDate', 1, data) +
-            ' </tr>' +
+            ' </tr>' +*/
             '  <tr style="background-color: #efb68399;">' +
-            '<td></td>' +
+            '<td>جستجو</td>' +
             CreateTableTdSearch('RjStatus', data) +
             CreateTableTdSearch('RjDate', data) +
             CreateTableTdSearch('RjMhltDate', data) +

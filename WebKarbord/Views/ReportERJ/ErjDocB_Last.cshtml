@@ -890,30 +890,30 @@
                     <table class="table table-hover table-striped tableFix">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableDocAttach">
-                                <th style="max-width: 30px;">ردیف</th>
-                                <th data-column="Comm">
+                                <th style="width: 10px;">ردیف</th>
+                                <th data-column="Comm" style="text-align: center;">
                                     شرح
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>
                                 </th>
-                                <th>عملیات</th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: currentPageDocAttach" style="cursor: default;">
                             <tr>
-                                <td data-bind="text: $index()+1" style="background-color: #d9d9d9;"></td>
+                                <td data-bind="text: BandNo" style="background-color: #d9d9d9;"></td>
                                 <td data-bind="text: Comm"></td>
                                 <td>
                                     <a data-bind="click: $root.selectDocAttach">
-                                        <img src="/Content/img/list/download.png" width="20" height="20" style="margin-left:10px" />
+                                        <img src="/Content/img/list/download.png" width="20" height="20" />
                                     </a>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399">
-                                <td style="padding: 0px 3px;">جستجو</td>
+                                <td>جستجو</td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterDocAttach0, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
                                 <td></td>
                             </tr>
