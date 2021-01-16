@@ -2124,7 +2124,7 @@
             '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
             '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />' +
             '    </a >' +
-            '    <a data-bind="click: $root.ViewDocAttach" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
+            '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
             '        <img src="/Content/img/list/attach_file.png" width="20" height="20" style="margin-left:10px" />' +
             '    </a >' +
             '</td >' +
