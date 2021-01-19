@@ -1008,38 +1008,9 @@
 
 
 
-    function blobToFile(theBlob, fileName) {
-        //A Blob() is almost a File() - it's just missing the two properties below which we will add
-        theBlob.lastModifiedDate = new Date();
-        theBlob.name = fileName;
-        return theBlob;
-    }
 
 
-
-    function base64ToArrayBuffer(base64) {
-        var binaryString = window.atob(base64);
-        var binaryLen = binaryString.length;
-        var bytes = new Uint8Array(binaryLen);
-        for (var i = 0; i < binaryLen; i++) {
-            var ascii = binaryString.charCodeAt(i);
-            bytes[i] = ascii;
-        }
-        return bytes;
-    }
-
-    function saveByteArray(reportName, byte) {
-        var blob = new Blob([byte], { type: 'text/xml' });
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        var fileName = reportName;
-        link.download = fileName;
-        link.click();
-    };
-
-
-
-
+/*
 
     const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
         const byteCharacters = atob(b64Data);
@@ -1061,27 +1032,57 @@
         return blob;
     }
 
-    
+    function blobToFile(theBlob, fileName) {
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        theBlob.lastModifiedDate = new Date();
+        theBlob.name = fileName;
+        return theBlob;
+    }
+    */
+
+
+    function base64ToArrayBuffer(base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    }
+
+    function saveByteArray(reportName, byte) {
+        var blob = new Blob([byte], { type: 'octet/stream' });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    };
+
     self.selectDocAttach = function (item) {
 
+        var fileName = item.FName.split(".");
         var DownloadAttachObject = {
             SerialNumber: item.SerialNumber,
             BandNo: item.BandNo
         }
 
         ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
+            var sampleArr = base64ToArrayBuffer(data);
+            saveByteArray(fileName[0] + ".zip", sampleArr);
 
+            //const contentType = 'image/png';
+            //const b64Data = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
 
-            const contentType = 'image/png';
-            const b64Data = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+            //const blob = b64toBlob(b64Data, contentType);
+            //const blobUrl = URL.createObjectURL(blob);
 
-            const blob = b64toBlob(b64Data, contentType);
-            const blobUrl = URL.createObjectURL(blob);
-
-            const img = document.createElement('img');
-            img.src = blobUrl;
-            img.id = "asd";
-            document.body.appendChild(img);
+            //const img = document.createElement('img');
+            //img.src = blobUrl;
+            //img.id = "asd";
+           // document.body.appendChild(img);
 
 
 
@@ -1091,7 +1092,7 @@
 
 
             //var byteArray = new Uint8Array(data);
-           /* var json = JSON.stringify(data);
+         /*  var json = JSON.stringify(data);
             var a = window.document.createElement('a');
             var blob = new Blob([json], { type: "octet/stream" });
             var file = new File([blob], "name");
