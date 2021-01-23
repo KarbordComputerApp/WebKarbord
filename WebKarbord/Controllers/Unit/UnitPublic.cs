@@ -18,12 +18,14 @@ namespace WebKarbord.Controllers.Unit
 
 
 
-      public static string titleVer = "ورژن تست : ";
-       public static string titleVerNumber = "322";
-       //public static string MAC;
-       //public static string IP4;
-       // public static string titleVer = "ورژن : ";
-      //  public static string titleVerNumber = "1010";
+        //public static string titleVer = "ورژن تست : ";
+        // public static string titleVerNumber = "322";
+
+         public static string titleVer = "ورژن : ";
+          public static string titleVerNumber = "1011";
+
+        //public static string MAC;
+        //public static string IP4;
 
 
 
