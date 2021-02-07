@@ -232,7 +232,8 @@
             invSelect: invCode,
             user: sessionStorage.userName,
             accessSanad: sessionStorage.AccessSanad,
-            updatedate: null
+            updatedate: null,
+            ModeCode : null
         }
 
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (data) {

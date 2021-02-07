@@ -337,6 +337,7 @@
         var IDocRObject = {
             azTarikh: tarikh1,
             taTarikh: tarikh2,
+            DocNo:0,
             StatusCode: statuscode,
             ModeCode: imodecode,
             InvCode: invcode,
