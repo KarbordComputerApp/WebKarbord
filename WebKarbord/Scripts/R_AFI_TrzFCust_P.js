@@ -2630,7 +2630,7 @@
     createViewer();
     $('#Print').click(function () {
         variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterTrzFCust_PList(), 'Free', variable);
+        setReport(self.filterTrzFCust_PList(), 'Report_TrzFCust_P', variable);
     });
 
   

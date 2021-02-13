@@ -2706,7 +2706,7 @@
     createViewer();
     $('#Print').click(function () {
         variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterTrzIList(), 'Free', variable);
+        setReport(self.filterTrzIList(), 'Report_TrzIKala', variable);
     });
 
  

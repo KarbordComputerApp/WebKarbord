@@ -3499,7 +3499,7 @@
             return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
 
         variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.ADocPList(), 'Free', variable);
+        setReport(self.ADocPList(), 'ADoc', variable);
     });
 
 

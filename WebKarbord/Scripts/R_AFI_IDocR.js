@@ -2607,7 +2607,7 @@
     createViewer();
     $('#Print').click(function () {
         variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterIDocRList(), 'Free', variable);
+        setReport(self.filterIDocRList(), 'Report_IDocR', variable);
     });
 
    

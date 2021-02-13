@@ -951,11 +951,11 @@
         return text;
     }
 
-    /* createViewer();
+     createViewer();
      $('#Print').click(function () {
          variable = '"ReportDate":"' + DateNow + '",';
-         setReport(self.filterADocHList(), 'Free', variable);
-     }); */
+         setReport(self.filterADocHList(), 'ADoc', variable);
+     });
 
 
     self.MoveSanad = function (item) {

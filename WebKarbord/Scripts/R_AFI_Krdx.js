@@ -3000,7 +3000,7 @@
     createViewer();
     $('#Print').click(function () {
         variable = '"ReportDate":"' + DateNow + '",';
-        // setReport(self.filterTrzAccList(), 'Free', variable);
+        setReport(self.filterKrdxList(), 'Report_Krdx', variable);
     });
 
    

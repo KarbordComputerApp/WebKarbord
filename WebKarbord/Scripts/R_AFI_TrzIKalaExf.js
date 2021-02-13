@@ -2896,7 +2896,7 @@
     createViewer();
     $('#Print').click(function () {
         variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterTrzIExfList(), 'Free', variable);
+        setReport(self.filterTrzIExfList(), 'Report_TrzIKalaExf', variable);
     });
 
 
