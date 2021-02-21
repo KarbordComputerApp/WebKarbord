@@ -23,7 +23,7 @@
 
     <!-- onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""-->
 
-    <div id="loadingsite" class="page-loader-wrapper" >
+    <div id="loadingsite" class="page-loader-wrapper">
         <div class="loader">
             <div class="m-t-30">
                 <img class="loading-img-spin" src="~/Content/loading1.png" width="20" height="20" alt="admin">
@@ -32,7 +32,22 @@
         </div>
     </div>
 
-
+    <!-- <div class="modal fade" id="modal-Wait" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" dir="ltr">
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                 </div>
+                 <div class="modal-body">
+                     <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                     </div>
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="row">
+                 </div>
+             </div>
+         </div>
+     </div> -->
     <!-- <div class="page-loader-wrapper">
          <div class="loader">
              <i class="fa fa-spinner fa-spin" style="font-size:60px; position:absolute"></i>
@@ -159,70 +174,68 @@
                     </li>
 
                     <!--                    <li class="dropdown pull-left">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                <img src="~/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16" />
-                            </a>
-                            <ul class="dropdown-menu pullDown" style="padding: 20px;border-radius: 25px;">
-                                <li class="header" style="margin: 10px;padding-bottom: 15px;">
-                                    <h3>تنظیمات نرم افزار</h3>
-                                </li>
-                                <li class="body" style="margin-top: 10px;">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <img src="~/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16" />
+                        </a>
+                        <ul class="dropdown-menu pullDown" style="padding: 20px;border-radius: 25px;">
+                            <li class="header" style="margin: 10px;padding-bottom: 15px;">
+                                <h3>تنظیمات نرم افزار</h3>
+                            </li>
+                            <li class="body" style="margin-top: 10px;">
 
-                                    <ul class="" style="height:300px !important">
+                                <ul class="" style="height:300px !important">
 
-                                        <li style="width: 100%;">
-                                            <div class="form-group form-float" style=" border: 1px solid white;
-                                                                    border-radius: 30px;
-                                                                    padding: 20px;
-                                                                    background-color: white;
-                                                                    box-shadow: 5px 5px 20px 1px #4048524f;">
-                                                <div class="form-line">
-                                                    <select id="DropAce" class="form-control" style="text-indent: 30px;direction: rtl;">
-                                                        <option value="0">نرم افزار را انتخاب کنید</option>
-                                                    </select>
-                                                    <img class="form-label" src="~/Content/img/Setting/streamline-icon-cd-partition@48x48.png" width="16" height="16" style="top: 0px;" />
-                                                </div>
+                                    <li style="width: 100%;">
+                                        <div class="form-group form-float" style=" border: 1px solid white;
+                                                                border-radius: 30px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                                            <div class="form-line">
+                                                <select id="DropAce" class="form-control" style="text-indent: 30px;direction: rtl;">
+                                                    <option value="0">نرم افزار را انتخاب کنید</option>
+                                                </select>
+                                                <img class="form-label" src="~/Content/img/Setting/streamline-icon-cd-partition@48x48.png" width="16" height="16" style="top: 0px;" />
                                             </div>
-                                        </li>
+                                        </div>
+                                    </li>
 
-                                        <li style="width: 100%;">
-                                            <div class="form-group form-float" style=" border: 1px solid white;
-                                                                    border-radius: 30px;
-                                                                    padding: 20px;
-                                                                    background-color: white;
-                                                                    box-shadow: 5px 5px 20px 1px #4048524f;">
-                                                <div class="form-line">
-                                                    <select id="DropGroup" class="form-control" style="text-indent: 30px;direction: rtl;">
-                                                        <option value="0">گروه را انتخاب کنید</option>
-                                                    </select>
-                                                    <img class="form-label" src="~/Content/img/Setting/streamline-icon-checklist@48x48.png" width="16" height="16" style="top: 0px;" />
-                                                </div>
+                                    <li style="width: 100%;">
+                                        <div class="form-group form-float" style=" border: 1px solid white;
+                                                                border-radius: 30px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                                            <div class="form-line">
+                                                <select id="DropGroup" class="form-control" style="text-indent: 30px;direction: rtl;">
+                                                    <option value="0">گروه را انتخاب کنید</option>
+                                                </select>
+                                                <img class="form-label" src="~/Content/img/Setting/streamline-icon-checklist@48x48.png" width="16" height="16" style="top: 0px;" />
                                             </div>
-                                        </li>
+                                        </div>
+                                    </li>
 
-                                        <li style="width: 100%;">
-                                            <div class="form-group form-float" style=" border: 1px solid white;
-                                                                    border-radius: 30px;
-                                                                    padding: 20px;
-                                                                    background-color: white;
-                                                                    box-shadow: 5px 5px 20px 1px #4048524f;">
-                                                <div class="form-line">
-                                                    <select id="DropSal" class="form-control" style="text-indent: 30px;direction: rtl;">
-                                                        <option value="0">سال را انتخاب کنید</option>
-                                                    </select>
-                                                    <img class="form-label" src="~/Content/img/Setting/streamline-icon-calendar-3@48x48.png" width="16" height="16" style="top: 0px;" />
-                                                </div>
+                                    <li style="width: 100%;">
+                                        <div class="form-group form-float" style=" border: 1px solid white;
+                                                                border-radius: 30px;
+                                                                padding: 20px;
+                                                                background-color: white;
+                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
+                                            <div class="form-line">
+                                                <select id="DropSal" class="form-control" style="text-indent: 30px;direction: rtl;">
+                                                    <option value="0">سال را انتخاب کنید</option>
+                                                </select>
+                                                <img class="form-label" src="~/Content/img/Setting/streamline-icon-calendar-3@48x48.png" width="16" height="16" style="top: 0px;" />
                                             </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <button type="button" id="SaveParam" class="btn btn-primary btn-block" style="background-color: #eb8121 !important; margin-left:0px;">ثبت</button>
-                                </li>
-                            </ul>
-                        </li>-->
-
-
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <button type="button" id="SaveParam" class="btn btn-primary btn-block" style="background-color: #eb8121 !important; margin-left:0px;">ثبت</button>
+                            </li>
+                        </ul>
+                    </li>-->
 
                     <li class="pull-left">
                         <a href="/Home/Index" class="dropdown-toggle" data-close="true">
@@ -291,6 +304,7 @@
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
                         </div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1007</div> -->
+
                     </div>
                 </li>
                 <!--<li id="Select_ACE">
@@ -633,6 +647,7 @@
         <div id="designerContent"></div>
         <div id="viewerContent"></div>
     </div>
+
 
     <script src="~/Content/new/js/app.min.js"></script>
     <script src="~/Content/new/js/admin.js"></script>

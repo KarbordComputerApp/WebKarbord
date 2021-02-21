@@ -1614,3 +1614,28 @@ input[type="checkbox"] {
 #StiViewerReportPanel {
     position: initial !important;
 }
+
+
+.page-proccess-wrapper {
+    z-index: 99999999;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    width: 15%;
+    height: 20%;
+    background: #edeef3;
+    overflow: hidden;
+    text-align: center;
+}
+
+    .page-proccess-wrapper p {
+        font-size: 13px;
+        margin-top: 10px;
+        font-weight: bold;
+        color: #444;
+    }
+
+    .page-proccess-wrapper .loader {
+        position: relative;
+        top: calc(50% - 30px);
+    }

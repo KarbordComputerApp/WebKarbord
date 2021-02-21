@@ -150,6 +150,8 @@
 
     //Get TChk
     function getTChk() {
+        
+
         tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
@@ -184,7 +186,7 @@
             PDMode: pDMode,
             CheckStatus: checkStatus,
         };
-        ajaxFunction(TChkUri + ace + '/' + sal + '/' + group, 'POST', TChkObject).done(function (response) {
+        ajaxFunction(TChkUri + ace + '/' + sal + '/' + group, 'POST', TChkObject,true).done(function (response) {
             self.TChkList(response);
         });
     }
@@ -201,11 +203,8 @@
     }
 
     $("#CreateReport").click(function () {
-        $('#loadingsite').css('display', 'block');
         getTChk();
         self.sortTableTChk();
-        $('#loadingsite').css('display', 'none');
-       
     });
 
 

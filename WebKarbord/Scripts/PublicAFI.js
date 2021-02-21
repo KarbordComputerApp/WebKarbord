@@ -274,14 +274,26 @@ else
 //    });
 //}
 
-function ajaxFunctionAccount(uri, method, data) {
+function ajaxFunctionAccount(uri, method, sync, data) {
     return $.ajax({
         type: method,
         url: uri,
         dataType: 'json',
-        async: false,
+        async: sync == null ? false : sync,
+        beforeSend: function () {
+            if (sync == true) {
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
         cache: false,
         timeout: 30000,
+        complete: function () {
+            if (sync == true) {
+                $('#loadingsite').css('display', 'none');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
+        },
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -295,23 +307,38 @@ function showLoad() {
 
 }
 
-function ajaxFunction(uri, method, data) {
+function ajaxFunction(uri, method, data, sync) {
 
+    //$('#loading-image').show();
     var userNameAccount = localStorage.getItem("userNameAccount");
     var passAccount = localStorage.getItem("passAccount");
 
     return $.ajax({
         type: method,
+        async: sync == null ? false : sync,
+        beforeSend: function () {
+            if (sync == true) {
+                
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
         url: uri,//+ '/' + userNameAccount + '/' + passAccount,
         dataType: 'json',
-        async: false,
+
         cache: false,
-        timeout: 30000,
+        timeout: 300000,
         onLoading: showLoad(),
         headers: {
             'userName': userNameAccount,
             'password': passAccount,
             'userKarbord': sessionStorage.userName,
+        },
+        complete: function () {
+            if (sync == true) {
+                $('#loadingsite').css('display', 'none');
+               $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
         },
         //async: true,
         //crossDomain: true,
@@ -431,6 +458,7 @@ function SetSelectProgram() {
 
         //sessionStorage.url = server + '/api/'; 
         $('#SaveParam').attr('disabled', 'disabled');
+
         getParamList();
         getAccessList();
         $('#SaveParam').removeAttr('disabled');
@@ -470,8 +498,9 @@ function getProgName(value) {
 }
 
 //Get Param List
-function getParamList() {
-    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET').done(function (data) {
+async function getParamList() {
+
+    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET',null,true).done(function (data) {
         ParamList(data);
         $('#information').hide();
         if (self.ParamList().length > 0) {
@@ -666,7 +695,7 @@ function getAccessList() {
 
     AccountUri = sessionStorage.serverAccount + 'Account/'; // آدرس حساب
     ajaxFunctionAccount(AccountUri + localStorage.getItem("userNameAccount") + '/' +
-        localStorage.getItem("passAccount"), 'GET').done(function (data) {
+        localStorage.getItem("passAccount"), 'GET', true).done(function (data) {
             if (data === null) {
                 return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
                 // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
@@ -743,13 +772,13 @@ function getAccessList() {
                         erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
                     }
 
-                    ajaxFunction(AccessUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                    ajaxFunction(AccessUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET',true).done(function (data) {
                         self.AccessList(data);
                         if (self.AccessList().length > 0) {
                             localStorage.setItem('AccessErj', JSON.stringify(data));
                             accssErj = JSON.parse(localStorage.getItem("AccessErj"));
 
-                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                                 self.AccessListReport(data);
                                 if (self.AccessListReport().length > 0) {
                                     localStorage.setItem('AccessReportErj', JSON.stringify(data));
@@ -763,7 +792,7 @@ function getAccessList() {
 
                 }
 
-                ajaxFunction(AccessUri + sessionStorage.ace + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                ajaxFunction(AccessUri + sessionStorage.ace + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                     self.AccessList(data);
                     if (self.AccessList().length > 0) {
                         localStorage.setItem('Access', JSON.stringify(data));
@@ -774,7 +803,7 @@ function getAccessList() {
                         //}
 
 
-                        ajaxFunction(AccessReportUri + sessionStorage.ace + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                        ajaxFunction(AccessReportUri + sessionStorage.ace + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                             self.AccessListReport(data);
                             if (self.AccessListReport().length > 0) {
                                 localStorage.setItem('AccessReport', JSON.stringify(data));
@@ -2221,7 +2250,6 @@ function SetColumn(code, indexId, data) {
 }
 
 function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
-
     var obj = [];
     for (i = 1; i <= columns.length; i++) {
         item = data[i];
@@ -2553,7 +2581,7 @@ function setReport(reportObject, mrtFileName, variablesObject) {
 
 
     $('#modal-Report').modal('show');
- 
+
 }
 
 function sleep(milliseconds) {

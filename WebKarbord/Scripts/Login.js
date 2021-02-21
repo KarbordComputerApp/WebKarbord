@@ -46,7 +46,7 @@
     function getLoginData() {
 
         pass === '' ? pass = 'null' : pass = pass;
-        ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET').done(function (data) {
+        ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET',true,true).done(function (data) {
             if (data == "Disable Account") {
                 return showNotification('حساب شما مسدود شده است', 0);
             }
