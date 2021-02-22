@@ -1626,6 +1626,8 @@ input[type="checkbox"] {
     background: #edeef3;
     overflow: hidden;
     text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 5px #4048524f;
 }
 
     .page-proccess-wrapper p {
