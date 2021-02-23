@@ -298,7 +298,7 @@
                     </div>
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
-                        <div class="profile-usertitle-job " id="TextNoUser"></div>-->
+            <div class="profile-usertitle-job " id="TextNoUser"></div>-->
                         <div class="profile-usertitle-job ">
                             <span id="titleVer">@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)</span>
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
@@ -308,8 +308,8 @@
                     </div>
                 </li>
                 <!--<li id="Select_ACE">
-                    @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
-                </li>-->
+        @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
+    </li>-->
                 <li id="ADOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
@@ -360,15 +360,28 @@
                 </li>
 
                 <!-- <li id="Setting_Menu">
+        <a href="javascript:void(0);" class="menu-toggle">
+            <i class="fa fa-tachometer"></i>
+            <span>تنظیمات</span>
+        </a>
+        <ul class="ml-menu">
+            <li>@Html.ActionLink("ورود", "Login", "Home")</li>
+            <li>@Html.ActionLink("تنظیمات دیتابیس سرور", "AddSqlServer", "Home")</li>
+        </ul>
+    </li>-->
+
+                <li id="EDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="fa fa-tachometer"></i>
-                        <span>تنظیمات</span>
+                       <!-- <i>
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                        </i>-->
+                        <span>اسناد اتوماسیون</span>
                     </a>
                     <ul class="ml-menu">
-                        <li>@Html.ActionLink("ورود", "Login", "Home")</li>
-                        <li>@Html.ActionLink("تنظیمات دیتابیس سرور", "AddSqlServer", "Home")</li>
+                        <li id="EDOC">@Html.ActionLink("پرونده", "Index", "ERJ")</li>
                     </ul>
-                </li>-->
+                </li>
+
 
                 <li id="AReport_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">

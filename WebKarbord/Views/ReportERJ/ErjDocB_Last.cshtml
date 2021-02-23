@@ -238,6 +238,7 @@
                         <div class="col-sm-2" id="ViewSrchSt">
                             <div class="pull-left">
                                 <button type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i>گزارش گیری</button>
+                                <button type="button" data-bind="click: $root.AddParvandeh" class="btn btn-primary dropdown-toggle" data-toggle="modal" data-target="#modal-AddParvandeh"><i class="fa fa-sign-in fa-lg fa-fw"></i>پرونده</button>
                             </div>
                         </div>
 
@@ -1403,6 +1404,250 @@
                         <button type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
                             تایید
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-AddParvandeh" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">پرونده</h4>
+                <a id="refreshErjCust">
+
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+
+                            <div class="cardErj">
+                                <div class="header" style="background-color: #f5d3b4;">
+                                    <div class="row form-inline modal-header" style="padding:0px;">
+                                        <a id="ShowHideInformation">
+                                            <img id="imgInformation" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                        </a>
+                                        <h6>اطلاعت پرونده</h6>
+                                    </div>
+                                </div>
+                                <div class="body" style="padding:10px;">
+                                    <div>
+
+                                        <div class="row form-inline ">
+
+                                            <div class="row col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_docno" class="form-control int" />
+                                                            <label class="form-label">شماره</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_DocDate" class="form-control" />
+                                                            <label class="form-label">تاریخ</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_MhltDate" class="form-control" />
+                                                            <label class="form-label">مهلت</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="panelInformation" class="row col-md-12">
+
+                                                <div class="row col-md-12">
+
+
+
+                                                    <p class="col-md-1">نوع</p>
+                                                    <div class="col-md-5">
+                                                        <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                            <div class="form-group">
+                                                                <select id="m_Mahramaneh" data-bind="
+                                                               options: MahramanehList,
+                                                               optionsText: function(item) {return item.Name},
+                                                               optionsValue: 'Code'" style="font-size:11px"></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input type="text" id="m_Eghdam" class="form-control" />
+                                                                <label class="form-label" id="amounttext">اقدام</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input type="text" id="m_Tanzim" class="form-control">
+                                                                <label class="form-label">تنظیم</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row col-md-12" style="padding-bottom:20px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_CustName" class="form-control" />
+                                                            <label class="form-label">مشتری</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-12" style="padding-bottom:20px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_KhdtName" class="form-control" />
+                                                            <label class="form-label">نوع کار</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-12" style="padding-bottom:20px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_Spec" class="form-control" />
+                                                            <label class="form-label" id="amounttext">ملاحظات</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-12">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_RelatedDocs" class="form-control" />
+                                                            <label class="form-label">پرونده های مرتبط</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="cardErj">
+                                    <div class="header" style="background-color: #f5d3b4;">
+
+
+                                        <div class="row form-inline modal-header" style="padding:0px;">
+                                            <a id="ShowHideSpec">
+                                                <img id="imgSpec" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                            </a>
+                                            <h6>توضیحات پرونده</h6>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="body" style="padding:10px;">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <!-- <a id="btn-eghdamComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">اقدام</a>-->
+                                                        <h6 id="ShowHideEghdamComm" style="cursor: pointer;">اقدام</h6>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="1" id="eghdamComm" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <!--<a id="btn-DocDesc" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">عمومی</a> -->
+                                                        <h6 id="ShowHideDocDesc" style="cursor: pointer;">عمومی</h6>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="1" id="docDesc" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <!-- <a id="btn-specialComm" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Comm">مدیران</a>-->
+                                                        <h6 id="ShowHideSpecialComm" style="cursor: pointer;">مدیران</h6>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="1" id="specialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 10px;">
+                                                        <h6 id="ShowHideFinalComm" style="cursor: pointer;">نهایی</h6>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                            <div class="form-line">
+                                                                <textarea rows="1" id="finalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="BodyErjDocErja" style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row  form-inline ">
+                    <div class="col-md-6 row">
+                        
+                    </div>
+
+                    <div class="col-md-6">
+                        <button type="button" id="erja" class="btn btn-primary  pull-left dropdown-toggle" data-toggle="modal" data-target="#modal-Erja"><i class="fa fa-sign-in fa-lg fa-fw"></i>ارجاع</button>
+                        <button type="button" id="saveParvandeh" class="btn btn-primary  pull-left" style=" margin-left: 8px;"><i class="fa fa-sign-in fa-lg fa-fw"></i>ذخیره</button>
+                        <button type="button" id="payvast" class="btn btn-primary  pull-left" style=" margin-left: 8px;"><i class="fa fa-sign-in fa-lg fa-fw"></i>پیوست</button>
                     </div>
                 </div>
             </div>

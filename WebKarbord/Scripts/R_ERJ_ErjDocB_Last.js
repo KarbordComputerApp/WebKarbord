@@ -276,16 +276,16 @@
             }
             if (i == 4) {
                 opt.value = i;
-                opt.innerHTML = 'اخرين ارجاع و رونوشتها';
+                opt.innerHTML = 'آخرين ارجاعات و رونوشتها';
                 opt.selected = true;
             }
             if (i == 5) {
                 opt.value = i;
-                opt.innerHTML = 'اخرين ارجاعات اصلی';
+                opt.innerHTML = 'آخرين ارجاعات اصلی';
             }
             if (i == 6) {
                 opt.value = i;
-                opt.innerHTML = 'اخرين رونوشتها';
+                opt.innerHTML = 'آخرين رونوشتها';
             }
             select.appendChild(opt);
         }
@@ -518,6 +518,9 @@
         $('#loadingsite').css('display', 'none');
 
     });
+
+
+
 
     $('#nameErjCust').val('همه موارد');
     $('#nameKhdt').val('همه موارد');
@@ -1689,7 +1692,6 @@
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
         if (docBMode == 1) { // رونوشت
-
             $('#panelFooterParvandeh').attr('hidden', '');
             $('#erja').attr('hidden', '');
         }
@@ -2254,6 +2256,10 @@
             )
     ); */
 
+
+    $("#AddParvandeh").click(function () {
+        
+    });
 
 
 };

@@ -2008,6 +2008,10 @@ $('#EReport_Menu').click(function () {
     sessionStorage.SelectMenu = 6;
 });
 
+$('#EDOC_Menu').click(function () {
+    sessionStorage.SelectMenu = 7;
+});
+
 $('#ADOC_Menu').removeAttr('class');
 $('#FDOC_Menu').removeAttr('class');
 $('#IDOC_Menu').removeAttr('class');
@@ -2015,9 +2019,10 @@ $('#AReport_Menu').removeAttr('class');
 $('#IReport_Menu').removeAttr('class');
 $('#FReport_Menu').removeAttr('class');
 $('#EReport_Menu').removeAttr('class');
+$('#EDOC_Menu').removeAttr('class');
 
 if (sessionStorage.SelectMenu == 0) {
-    $('#ADOC_Menu').attr('class', 'active');
+    $('#EDOC_Menu').attr('class', 'active');
 }
 
 if (sessionStorage.SelectMenu == 1) {
@@ -2044,6 +2049,9 @@ else if (sessionStorage.SelectMenu == 6) {
     $('#EReport_Menu').attr('class', 'active');
 }
 
+else if (sessionStorage.SelectMenu == 7) {
+    $('#EDOC_Menu').attr('class', 'active');
+}
 
 $.fn.inputFilter = function (inputFilter) {
     return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
