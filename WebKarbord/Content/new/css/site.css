@@ -1641,3 +1641,13 @@ input[type="checkbox"] {
         position: relative;
         top: calc(50% - 30px);
     }
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.blink {
+    animation: blinker 1s step-start infinite;
+}

@@ -53,6 +53,8 @@
     var ErjSaveDocB_SUri = server + '/api/Web_Data/ErjSaveDocB_S/'; // آدرس ذخیره ارجاع
     var ErjSaveDocC_SUri = server + '/api/Web_Data/ErjSaveDocC_S/'; // آدرس ذخیره رونوشت
 
+    var ErjSaveDocB_RjRead_Uri = server + '/api/Web_Data/ErjSaveDocB_RjRead/'; // آدرس ذخیره دیدن ارجاع
+
     var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
     var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
 
@@ -1013,35 +1015,35 @@
 
 
 
-/*
-
-    const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
+    /*
+    
+        const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
+            const byteCharacters = atob(b64Data);
+            const byteArrays = [];
+    
+            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                const slice = byteCharacters.slice(offset, offset + sliceSize);
+    
+                const byteNumbers = new Array(slice.length);
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+    
+                const byteArray = new Uint8Array(byteNumbers);
+                byteArrays.push(byteArray);
             }
-
-            const byteArray = new Uint8Array(byteNumbers);
-            byteArrays.push(byteArray);
+    
+            const blob = new Blob(byteArrays, { type: contentType });
+            return blob;
         }
-
-        const blob = new Blob(byteArrays, { type: contentType });
-        return blob;
-    }
-
-    function blobToFile(theBlob, fileName) {
-        //A Blob() is almost a File() - it's just missing the two properties below which we will add
-        theBlob.lastModifiedDate = new Date();
-        theBlob.name = fileName;
-        return theBlob;
-    }
-    */
+    
+        function blobToFile(theBlob, fileName) {
+            //A Blob() is almost a File() - it's just missing the two properties below which we will add
+            theBlob.lastModifiedDate = new Date();
+            theBlob.name = fileName;
+            return theBlob;
+        }
+        */
 
 
     function base64ToArrayBuffer(base64) {
@@ -1085,27 +1087,27 @@
             //const img = document.createElement('img');
             //img.src = blobUrl;
             //img.id = "asd";
-           // document.body.appendChild(img);
+            // document.body.appendChild(img);
 
 
 
 
-           // var sampleArr = base64ToArrayBuffer(data);
-           // saveByteArray("Sample Report", sampleArr);
+            // var sampleArr = base64ToArrayBuffer(data);
+            // saveByteArray("Sample Report", sampleArr);
 
 
             //var byteArray = new Uint8Array(data);
-         /*  var json = JSON.stringify(data);
-            var a = window.document.createElement('a');
-            var blob = new Blob([json], { type: "octet/stream" });
-            var file = new File([blob], "name");
-
-            a.href = window.URL.createObjectURL(blob);
-
-            a.download = item.FName;
-            document.body.appendChild(a)
-            a.click();
-            document.body.removeChild(a)*/
+            /*  var json = JSON.stringify(data);
+               var a = window.document.createElement('a');
+               var blob = new Blob([json], { type: "octet/stream" });
+               var file = new File([blob], "name");
+   
+               a.href = window.URL.createObjectURL(blob);
+   
+               a.download = item.FName;
+               document.body.appendChild(a)
+               a.click();
+               document.body.removeChild(a)*/
         });
     }
 
@@ -1699,6 +1701,17 @@
             $('#panelFooterParvandeh').removeAttr('hidden', '');
             $('#erja').removeAttr('hidden', '');
         }
+
+        if (Band.RjReadSt == 'T') {
+            ErjSaveDocB_RjRead_Object = {
+                SerialNumber: Band.SerialNumber,
+                BandNo: Band.BandNo,
+                RjReadSt: 'F'
+            };
+
+            ajaxFunction(ErjSaveDocB_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDocB_RjRead_Object).done(function (response) { });
+        }
+
     }
 
 
@@ -2112,7 +2125,7 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
-            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+            '<td data-bind="text: $root.radif($index()),  style: { color: RjReadSt == \'T\'  ? \'#e48f43\' : \'\'} " style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +
@@ -2258,7 +2271,7 @@
 
 
     $("#AddParvandeh").click(function () {
-        
+
     });
 
 
