@@ -9,10 +9,12 @@
     var group = sessionStorage.group;
     var server = localStorage.getItem("ApiAddress");
 
-    self.ParvandehList = ko.observableArray([]); // لیست گزارش  
+    self.ErjDocHList = ko.observableArray([]); // لیست گزارش  
+    self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
-    var ParvandehUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش
+    var ErjDocHUri = server + '/api/Web_Data/ErjDocH/'; // آدرس گزارش
+    var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
 
     TestUser();
 
@@ -22,7 +24,7 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'ErjDocK';
+    var rprtId = 'ErjDocH';
     var columns = [
         'DocNo',
         'DocDate',
@@ -34,14 +36,9 @@
         'EndDate',
         'CustCode',
         'CustName',
-        'DocDesc',
-        'EghdamComm',
-        'FinalComm',
-        'SpecialComm',
         'Status',
         'Spec',
         'KhdtName',
-        'RjTime',
         'SerialNumber',
         'F01',
         'F02',
@@ -119,9 +116,16 @@
 
 
 
+    //Get Mahramaneh List
+    function getMahramanehList() {
+        ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+            self.MahramanehList(data);
+        });
+    }
+    getMahramanehList();
 
-    //Get Parvandeh
-    function getParvandeh() {
+    //Get ErjDocH
+    function getErjDocH(select) {
        tarikh1 = '';
        tarikh2 = '';
        Status = '';
@@ -129,27 +133,22 @@
        ErjCust = '';
        Khdt = '';
 
-        var ParvandehObject = {
-            userName: sessionStorage.userName,
-            userMode: sessionStorage.userModeErj,
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
-            Status: Status,
-            CustCode: ErjCust,
-            KhdtCode: Khdt,
-            SrchSt: SrchSt,
-            SerialNumber: 0,
+        var ErjDocHObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+            select: select,
+            AccessSanad: true,
         };
-        ajaxFunction(ParvandehUri + aceErj + '/' + salErj + '/' + group, 'POST', ParvandehObject).done(function (response) {
-            self.ParvandehList(response);
+        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject).done(function (response) {
+            self.ErjDocHList(response);
         });
     }
 
 
-    getParvandeh();
+    getErjDocH($('#pageCountSelector').val());
 
 
-    $('#refreshParvandeh').click(function () {
+    $('#refreshErjDocH').click(function () {
 
         Swal.fire({
             title: 'تایید به روز رسانی',
@@ -163,11 +162,17 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getParvandeh();
-                self.sortTableParvandeh();
+                getErjDocH($('#pageCountSelector').val());
+                self.sortTableErjDocH();
             }
         })
     })
+
+
+    self.PageCountView = function () {
+        select = $('#pageCountSelector').val();
+        getErjDocH(select);
+    }
 
 
 
@@ -176,10 +181,10 @@
 
     var flagupdate = 0;
 
-    self.currentPageParvandeh = ko.observable();
-    pageSizeParvandeh = localStorage.getItem('pageSizeParvandeh') == null ? 10 : localStorage.getItem('pageSizeParvandeh');
-    self.pageSizeParvandeh = ko.observable(pageSizeParvandeh);
-    self.currentPageIndexParvandeh = ko.observable(0);
+    self.currentPageErjDocH = ko.observable();
+    pageSizeErjDocH = localStorage.getItem('pageSizeErjDocH') == null ? 10 : localStorage.getItem('pageSizeErjDocH');
+    self.pageSizeErjDocH = ko.observable(pageSizeErjDocH);
+    self.currentPageIndexErjDocH = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
@@ -194,14 +199,9 @@
     self.filterEndDate = ko.observable("");
     self.filterCustCode = ko.observable("");
     self.filterCustName = ko.observable("");
-    self.filterDocDesc = ko.observable("");
-    self.filterEghdamComm = ko.observable("");
-    self.filterFinalComm = ko.observable("");
-    self.filterSpecialComm = ko.observable("");
     self.filterStatus = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterKhdtName = ko.observable("");
-    self.filterRjTime = ko.observable("");
     self.filterSerialNumber = ko.observable("");
     self.filterF01 = ko.observable("");
     self.filterF02 = ko.observable("");
@@ -224,9 +224,9 @@
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
 
-    self.filterParvandehList = ko.computed(function () {
+    self.filterErjDocHList = ko.computed(function () {
 
-        self.currentPageIndexParvandeh(0);
+        self.currentPageIndexErjDocH(0);
         var filterDocNo = self.filterDocNo().toUpperCase();
         var filterDocDate = self.filterDocDate().toUpperCase();
         var filterMahramanehName = self.filterMahramanehName().toUpperCase();
@@ -237,14 +237,9 @@
         var filterEndDate = self.filterEndDate().toUpperCase();
         var filterCustCode = self.filterCustCode().toUpperCase();
         var filterCustName = self.filterCustName().toUpperCase();
-        var filterDocDesc = self.filterDocDesc().toUpperCase();
-        var filterEghdamComm = self.filterEghdamComm().toUpperCase();
-        var filterFinalComm = self.filterFinalComm().toUpperCase();
-        var filterSpecialComm = self.filterSpecialComm().toUpperCase();
         var filterStatus = self.filterStatus().toUpperCase();
         var filterSpec = self.filterSpec().toUpperCase();
         var filterKhdtName = self.filterKhdtName().toUpperCase();
-        var filterRjTime = self.filterRjTime().toUpperCase();
         var filterSerialNumber = self.filterSerialNumber().toUpperCase();
         var filterF01 = self.filterF01();
         var filterF02 = self.filterF02();
@@ -267,7 +262,7 @@
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
 
-        tempData = ko.utils.arrayFilter(self.ParvandehList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.ErjDocHList(), function (item) {
             result =
                 (item.DocNo == null ? '' : item.DocNo.toString().search(filterDocNo) >= 0) &&
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
@@ -279,14 +274,9 @@
                 (item.EndDate == null ? '' : item.EndDate.toString().search(filterEndDate) >= 0) &&
                 (item.CustCode == null ? '' : item.CustCode.toString().search(filterCustCode) >= 0) &&
                 (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
-                (item.DocDesc == null ? '' : item.DocDesc.toString().search(filterDocDesc) >= 0) &&
-                (item.EghdamComm == null ? '' : item.EghdamComm.toString().search(filterEghdamComm) >= 0) &&
-                (item.FinalComm == null ? '' : item.FinalComm.toString().search(filterFinalComm) >= 0) &&
-                (item.SpecialComm == null ? '' : item.SpecialComm.toString().search(filterSpecialComm) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 (item.KhdtName == null ? '' : item.KhdtName.toString().search(filterKhdtName) >= 0) &&
-                ko.utils.stringStartsWith(item.RjTime.toString().toLowerCase(), filterRjTime) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                 (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                 (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
@@ -316,25 +306,25 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchParvandeh);
+    self.search(sessionStorage.searchErjDocH);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexParvandeh = 0;
-        sessionStorage.searchParvandeh= "";
+        var indexErjDocH = 0;
+        sessionStorage.searchErjDocH= "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexParvandeh(0);
+            self.currentPageIndexErjDocH(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.ParvandehList(), function (item) {
-                indexParvandeh += 1;
+            value = ko.utils.arrayFirst(self.ErjDocHList(), function (item) {
+                indexErjDocH += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexParvandeh < self.pageSizeParvandeh())
-                self.currentPageIndexParvandeh(0);
+            if (indexErjDocH < self.pageSizeErjDocH())
+                self.currentPageIndexErjDocH(0);
             else {
-                var a = Math.round((indexParvandeh / self.pageSizeParvandeh()), 0);
-                if (a < (indexParvandeh / self.pageSizeParvandeh())) a += 1;
-                self.currentPageIndexParvandeh(a - 1);
+                var a = Math.round((indexErjDocH / self.pageSizeErjDocH()), 0);
+                if (a < (indexErjDocH / self.pageSizeErjDocH())) a += 1;
+                self.currentPageIndexErjDocH(a - 1);
             }
             return value;
         }
@@ -342,38 +332,38 @@
 
 
 
-    self.currentPageParvandeh = ko.computed(function () {
-        var pageSizeParvandeh = parseInt(self.pageSizeParvandeh(), 10),
-            startIndex = pageSizeParvandeh * self.currentPageIndexParvandeh(),
-            endIndex = startIndex + pageSizeParvandeh;
-        localStorage.setItem('pageSizeParvandeh', pageSizeParvandeh);
-        var a = self.filterParvandehList().slice(startIndex, endIndex);
-        return self.filterParvandehList().slice(startIndex, endIndex);
+    self.currentPageErjDocH = ko.computed(function () {
+        var pageSizeErjDocH = parseInt(self.pageSizeErjDocH(), 10),
+            startIndex = pageSizeErjDocH * self.currentPageIndexErjDocH(),
+            endIndex = startIndex + pageSizeErjDocH;
+        localStorage.setItem('pageSizeErjDocH', pageSizeErjDocH);
+        var a = self.filterErjDocHList().slice(startIndex, endIndex);
+        return self.filterErjDocHList().slice(startIndex, endIndex);
     });
 
 
-    self.nextPageParvandeh = function () {
-        if (((self.currentPageIndexParvandeh() + 1) * self.pageSizeParvandeh()) < self.filterParvandehList().length) {
-            self.currentPageIndexParvandeh(self.currentPageIndexParvandeh() + 1);
+    self.nextPageErjDocH = function () {
+        if (((self.currentPageIndexErjDocH() + 1) * self.pageSizeErjDocH()) < self.filterErjDocHList().length) {
+            self.currentPageIndexErjDocH(self.currentPageIndexErjDocH() + 1);
         }
     };
 
-    self.previousPageParvandeh = function () {
-        if (self.currentPageIndexParvandeh() > 0) {
-            self.currentPageIndexParvandeh(self.currentPageIndexParvandeh() - 1);
+    self.previousPageErjDocH = function () {
+        if (self.currentPageIndexErjDocH() > 0) {
+            self.currentPageIndexErjDocH(self.currentPageIndexErjDocH() - 1);
         }
     };
 
-    self.firstPageParvandeh = function () {
-        self.currentPageIndexParvandeh(0);
+    self.firstPageErjDocH = function () {
+        self.currentPageIndexErjDocH(0);
     };
 
-    self.lastPageParvandeh = function () {
-        tempCountParvandeh = parseInt(self.filterParvandehList().length / self.pageSizeParvandeh(), 10);
-        if ((self.filterParvandehList().length % self.pageSizeParvandeh()) == 0)
-            self.currentPageIndexParvandeh(tempCountParvandeh - 1);
+    self.lastPageErjDocH = function () {
+        tempCountErjDocH = parseInt(self.filterErjDocHList().length / self.pageSizeErjDocH(), 10);
+        if ((self.filterErjDocHList().length % self.pageSizeErjDocH()) == 0)
+            self.currentPageIndexErjDocH(tempCountErjDocH - 1);
         else
-            self.currentPageIndexParvandeh(tempCountParvandeh);
+            self.currentPageIndexErjDocH(tempCountErjDocH);
     };
 
 
@@ -389,14 +379,9 @@
     self.iconTypeEndDate = ko.observable("");
     self.iconTypeCustCode = ko.observable("");
     self.iconTypeCustName = ko.observable("");
-    self.iconTypeDocDesc = ko.observable("");
-    self.iconTypeEghdamComm = ko.observable("");
-    self.iconTypeFinalComm = ko.observable("");
-    self.iconTypeSpecialComm = ko.observable("");
     self.iconTypeStatus = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeKhdtName = ko.observable("");
-    self.iconTypeRjTime = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
@@ -419,7 +404,7 @@
     self.iconTypeF19 = ko.observable("");
     self.iconTypeF20 = ko.observable("");
 
-    self.sortTableParvandeh = function (viewModel, e) {
+    self.sortTableErjDocH = function (viewModel, e) {
 
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
@@ -438,7 +423,7 @@
 
 
         self.currentColumn(orderProp);
-        self.ParvandehList.sort(function (left, right) {
+        self.ErjDocHList.sort(function (left, right) {
             leftVal = left[orderProp];
             rightVal = right[orderProp];
             if (self.sortType == "ascending") {
@@ -462,14 +447,9 @@
         self.iconTypeEndDate('');
         self.iconTypeCustCode('');
         self.iconTypeCustName('');
-        self.iconTypeDocDesc('');
-        self.iconTypeEghdamComm('');
-        self.iconTypeFinalComm('');
-        self.iconTypeSpecialComm('');
         self.iconTypeStatus('');
         self.iconTypeSpec('');
         self.iconTypeKhdtName('');
-        self.iconTypeRjTime('');
         self.iconTypeSerialNumber('');
         self.iconTypeF01('');
         self.iconTypeF02('');
@@ -504,14 +484,9 @@
         if (orderProp == 'EndDate') self.iconTypeEndDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustCode') self.iconTypeCustCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'DocDesc') self.iconTypeDocDesc((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'EghdamComm') self.iconTypeEghdamComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'FinalComm') self.iconTypeFinalComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SpecialComm') self.iconTypeSpecialComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KhdtName') self.iconTypeKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'RjTime') self.iconTypeRjTime((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -537,7 +512,7 @@
 
 
 
-    self.AddNewParvandeh = function (Band) {
+    self.AddNewErjDocH = function (Band) {
         sessionStorage.flagupdate = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
 
@@ -546,18 +521,18 @@
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
         if (docBMode == 1) { // رونوشت
-            $('#panelFooterParvandeh').attr('hidden', '');
+            $('#panelFooterErjDocH').attr('hidden', '');
             $('#erja').attr('hidden', '');
         }
         else {
-            $('#panelFooterParvandeh').removeAttr('hidden', '');
+            $('#panelFooterErjDocH').removeAttr('hidden', '');
             $('#erja').removeAttr('hidden', '');
         }
     }
 
 
 
-    self.DeleteParvandeh = function (parvandehBand) {
+    self.DeleteErjDocH = function (ErjDocHBand) {
         Swal.fire({
             title: 'تایید حذف',
             text: "آیا پرونده انتخابی حذف شود ؟",
@@ -575,7 +550,7 @@
         })
     };
 
-    self.UpdateParvandeh = function (item) {
+    self.UpdateErjDocH = function (item) {
         sessionStorage.flagupdate = 1;
 
         sessionStorage.SerialNumber = item.SerialNumber;
@@ -645,8 +620,8 @@
 
 
 
-    $("#searchParvandeh").on("keydown", function search(e) {
-        if (allSearchParvandeh == false) {
+    $("#searchErjDocH").on("keydown", function search(e) {
+        if (allSearchErjDocH == false) {
             if (e.shiftKey) {
                 e.preventDefault();
             }
@@ -674,8 +649,8 @@
         
 
     self.radif = function (index) {
-        countShow = self.pageSizeParvandeh();
-        page = self.currentPageIndexParvandeh();
+        countShow = self.pageSizeErjDocH();
+        page = self.currentPageIndexErjDocH();
         calc = (countShow * page) + 1;
         return index + calc;
     }
@@ -686,7 +661,7 @@
         $('#TableList').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableParvandeh">' +
+            '       <tr data-bind="click: sortTableErjDocH">' +
             '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
@@ -698,14 +673,9 @@
             CreateTableTh('EndDate', data) +
             CreateTableTh('CustCode', data) +
             CreateTableTh('CustName', data) +
-            CreateTableTh('DocDesc', data) +
-            CreateTableTh('EghdamComm', data) +
-            CreateTableTh('FinalComm', data) +
-            CreateTableTh('SpecialComm', data) +
             CreateTableTh('Status', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('KhdtName', data) +
-            CreateTableTh('RjTime', data) +
             CreateTableTh('SerialNumber', data) +
             CreateTableTh('F01', data) +
             CreateTableTh('F02', data) +
@@ -730,8 +700,8 @@
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
-            '<tbody data-bind="foreach: currentPageParvandeh" data-dismiss="modal" style="cursor: default;">' +
-            '    <tr data-bind="click: $parent.selectParvandeh , css: { matched: $data === $root.firstMatch() },' +
+            '<tbody data-bind="foreach: currentPageErjDocH" data-dismiss="modal" style="cursor: default;">' +
+            '    <tr data-bind="click: $parent.selectErjDocH , css: { matched: $data === $root.firstMatch() },' +
             '       style: {color: Status == \'پايان يافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
@@ -746,14 +716,9 @@
             CreateTableTd('EndDate', 0, 0, 0, data) +
             CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
             CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('DocDesc', 0, 4, 0, data) +
-            CreateTableTd('EghdamComm', 0, 4, 0, data) +
-            CreateTableTd('FinalComm', 0, 4, 0, data) +
-            CreateTableTd('SpecialComm', 0, 5, '#f2f2f2', data) +
             CreateTableTd('Status', 0, 0, 0, data) +
             CreateTableTd('Spec', 0, 0, 0, data) +
             CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('RjTime', 0, 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, 0, data) +
             CreateTableTd('F01', 0, 0, 0, data) +
             CreateTableTd('F02', 0, 0, 0, data) +
@@ -776,10 +741,10 @@
             CreateTableTd('F19', 0, 0, 0, data) +
             CreateTableTd('F20', 0, 0, 0, data) +
             '<td>' +
-            '   <a id="UpdateParvandeh" data-bind="click: $root.UpdateParvandeh">' +
+            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteParvandeh" data-bind="click: $root.DeleteParvandeh, visible: $root.ShowAction(Eghdam)">' +
+            '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(Eghdam)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +
@@ -799,14 +764,9 @@
             CreateTableTdSearch('EndDate', data) +
             CreateTableTdSearch('CustCode', data) +
             CreateTableTdSearch('CustName', data) +
-            CreateTableTdSearch('DocDesc', data) +
-            CreateTableTdSearch('EghdamComm', data) +
-            CreateTableTdSearch('FinalComm', data) +
-            CreateTableTdSearch('SpecialComm', data) +
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('KhdtName', data) +
-            CreateTableTdSearch('RjTime', data) +
             CreateTableTdSearch('SerialNumber', data) +
             CreateTableTdSearch('F01', data) +
             CreateTableTdSearch('F02', data) +
@@ -925,9 +885,9 @@
     }
 
 
-    self.currentPageIndexParvandeh(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
+    self.currentPageIndexErjDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
-    self.sortTableParvandeh();
+    self.sortTableErjDocH();
 };
 
 ko.applyBindings(new ViewModel());
