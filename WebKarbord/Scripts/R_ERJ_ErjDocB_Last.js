@@ -50,10 +50,10 @@
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
-    var ErjSaveDocB_SUri = server + '/api/Web_Data/ErjSaveDocB_S/'; // آدرس ذخیره ارجاع
-    var ErjSaveDocC_SUri = server + '/api/Web_Data/ErjSaveDocC_S/'; // آدرس ذخیره رونوشت
+    var ErjSaveDoc_BSaveUri = server + '/api/Web_Data/ErjSaveDoc_BSave/'; // آدرس ذخیره ارجاع
+    var ErjSaveDoc_CSaveUri = server + '/api/Web_Data/ErjSaveDoc_CSave/'; // آدرس ذخیره رونوشت
 
-    var ErjSaveDocB_RjRead_Uri = server + '/api/Web_Data/ErjSaveDocB_RjRead/'; // آدرس ذخیره دیدن ارجاع
+    var ErjSaveDoc_RjRead_Uri = server + '/api/Web_Data/ErjSaveDoc_RjRead/'; // آدرس ذخیره دیدن ارجاع
 
     var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
     var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
@@ -82,6 +82,7 @@
 
     var list_ErjCustSelect = new Array()
     var list_KhdtSelect = new Array()
+    var ErjaMode;
 
     $("#textTotal").text('');
 
@@ -362,7 +363,7 @@
             khdtCode: Khdt,
             srchSt: SrchSt,
         };
-        ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject).done(function (response) {
+        ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, true).done(function (response) {
             self.DocB_LastList(response);
         });
     }
@@ -1702,14 +1703,15 @@
             $('#erja').removeAttr('hidden', '');
         }
 
-        if (Band.RjReadSt == 'T') {
-            ErjSaveDocB_RjRead_Object = {
+        if (Band.RjReadSt == 'T' && ErjaMode == "1") {
+            ErjSaveDoc_RjRead_Object = {
+                DocBMode: Band.DocBMode, 
                 SerialNumber: Band.SerialNumber,
                 BandNo: Band.BandNo,
                 RjReadSt: 'F'
             };
 
-            ajaxFunction(ErjSaveDocB_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDocB_RjRead_Object).done(function (response) { });
+            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) { });
         }
 
     }
@@ -1880,7 +1882,7 @@
 
     $('#modal-Erja').on('shown.bs.modal', function () {
         flagSave = null;
-        ErjSaveDocB_S(bandNo);
+        ErjSaveDoc_BSave(bandNo);
         $('#e_Result').css("height", "409px");
         $('#e_Result').val($('#Result').val());
         $('#nameErjBe').val('انتخاب نشده');
@@ -1893,11 +1895,11 @@
 
     $('#saveErja').click(function () {
         flagSave = false;
-        //ErjSaveDocB_S(bandNo);
-        ErjSaveDocB_S(0);
+        //ErjSaveDoc_BSave(bandNo);
+        ErjSaveDoc_BSave(0);
 
         if (counterErjUsersRonevesht > 0) {
-            ErjSaveDocC_S(bandNo, false);
+            ErjSaveDoc_CSave(bandNo, false);
         }
 
     })
@@ -1907,17 +1909,17 @@
     $('#saveParvandeh').click(function () {
         flagSave = true;
         if (docBMode == 1) { // رونوشت
-            ErjSaveDocC_S(bandNo, true);
+            ErjSaveDoc_CSave(bandNo, true);
         }
         else {
-            ErjSaveDocB_S(bandNo);
+            ErjSaveDoc_BSave(bandNo);
         }
     })
 
 
 
     //Add DocB  ذخیره ارجاعات
-    function ErjSaveDocB_S(bandNoImput) {
+    function ErjSaveDoc_BSave(bandNoImput) {
         rjDate = ShamsiDate();
         rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
         rjTime_H = $("#RjTime_H").val();
@@ -1961,7 +1963,7 @@
             }
         }
 
-        var ErjSaveDocB_SObject;
+        var ErjSaveDoc_BSaveObject;
         if (bandNoImput == 0) { // erja
             natijeh = $("#e_Result").val();
 
@@ -1970,7 +1972,7 @@
             }
 
 
-            ErjSaveDocB_SObject = {
+            ErjSaveDoc_BSaveObject = {
                 SerialNumber: serialNumber,
                 Natijeh: natijeh,
                 FromUserCode: fromUserCode,
@@ -1987,7 +1989,7 @@
             //if (natijeh == '') {
             //    return showNotification('متن ارجاع را وارد کنید', 0);
             //}
-            ErjSaveDocB_SObject = {
+            ErjSaveDoc_BSaveObject = {
                 SerialNumber: serialNumber,
                 Natijeh: natijeh,
                 FromUserCode: '',
@@ -2000,7 +2002,7 @@
         }
 
 
-        ajaxFunction(ErjSaveDocB_SUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDocB_SObject).done(function (response) {
+        ajaxFunction(ErjSaveDoc_BSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_BSaveObject).done(function (response) {
             //bandNo = response;
 
             if (flagSave == true) {
@@ -2037,7 +2039,7 @@
 
 
     //Add DocC  ذخیره رونوشت
-    function ErjSaveDocC_S(bandNoImput, isSave) {
+    function ErjSaveDoc_CSave(bandNoImput, isSave) {
         rjDate = ShamsiDate();
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
@@ -2075,7 +2077,7 @@
             obj.push(tmp);
         }
 
-        ajaxFunction(ErjSaveDocC_SUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
+        ajaxFunction(ErjSaveDoc_CSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
             $('#modal-Erja').modal('hide');
             $('#modal-ErjDocErja').modal('hide');
             getDocB_Last();
@@ -2125,7 +2127,7 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
-            '<td data-bind="text: $root.radif($index()),  style: { color: RjReadSt == \'T\'  ? \'#e48f43\' : \'\'} " style="background-color: ' + colorRadif + ';"></td>' +
+            '<td data-bind="text: $root.radif($index()),  style: { \'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } " style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +
