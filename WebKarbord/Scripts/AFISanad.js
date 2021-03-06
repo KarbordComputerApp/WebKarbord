@@ -692,10 +692,8 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getAccList();
-                $("div.loadingZone").hide();
-            }
+                }
         })
     })
 
@@ -933,9 +931,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getZAccList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -1079,9 +1075,9 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
+
                 getAccList();
-                $("div.loadingZone").hide();
+
             }
         })
     })
@@ -1236,9 +1232,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
-                getZAccList();
-                $("div.loadingZone").hide();
+               getZAccList();
             }
         })
     })
@@ -1370,9 +1364,8 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getOprList();
-                $("div.loadingZone").hide();
+
             }
         })
     })
@@ -1508,9 +1501,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getMkzList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -1659,9 +1650,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getArzList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -1791,9 +1780,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getBankList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -1919,9 +1906,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getShobeList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -2054,9 +2039,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getJariList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -2258,9 +2241,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getCheckList(PDModeAcc);
-                $("div.loadingZone").hide();
             }
         })
     })

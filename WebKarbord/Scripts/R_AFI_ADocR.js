@@ -449,9 +449,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getAccList();
-                $("div.loadingZone").hide();
             }
         })
     })

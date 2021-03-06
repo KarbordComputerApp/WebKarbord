@@ -2127,7 +2127,11 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
-            '<td data-bind="text: $root.radif($index()),  style: { \'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } " style="background-color: ' + colorRadif + ';"></td>' +
+            '<td style="background-color: ' + colorRadif + ';">' +
+            '<span data-bind="text: $root.radif($index()) "> </span> ' +
+            '<i data-bind="style: {\'display\': RjReadSt == \'F\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px">notifications_none</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+            '</td>' +
+            //style: {\'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } 
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +

@@ -2124,10 +2124,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getKalaList();
-                $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
             }
         })
     })

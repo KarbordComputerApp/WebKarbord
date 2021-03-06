@@ -10,18 +10,13 @@
             <div class="header">
                 <h2><strong>لیست پرونده ها</strong></h2>
                 <div class="row header-dropdown m-r--5">
-                    <!-- <a id="Print" style="margin-left: 10px;">
-                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-                        </a>-->
                     <a id="SettingColumn" class="">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
                     </a>
                     <a id="refreshErjDocH" class="">
                         <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                     </a>
-
-                    <a data-bind="click: $root.AddNewErjDocH" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocH"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
-
+                    <a data-bind="click: $root.AddNewDocH" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocH"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
                 </div>
             </div>
             <div class="body">
@@ -154,7 +149,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">ایجاد پرونده</h4>
-                <a id="refreshErjCust">
+                <a id="">
 
                 </a>
             </div>
@@ -179,7 +174,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="p_docno" class="form-control int" />
+                                                            <input type="text" id="p_docno" class="form-control int" readonly />
                                                             <label class="form-label">شماره</label>
                                                         </div>
                                                     </div>
@@ -232,14 +227,14 @@
                                                         <div class="input-group">
                                                             <div class="input-group-addon">
                                                                 <span class="input-group-btn">
-                                                                    <a id="btnp_DocDate">
+                                                                    <a id="btnp_AmalDate">
                                                                         <img src="/Content/img/list/calendar.png" class="icon" height="20" width="20" />
                                                                     </a>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-float">
                                                                 <div class="form-line focused fix">
-                                                                    <input id="p_DocDate" data-bind="value:p_DocDate" class="form-control date" type="text" maxlength="10">
+                                                                    <input id="p_AmalDate" data-bind="value:p_AmalDate" class="form-control date" type="text" maxlength="10">
                                                                     <label class="form-label" for=""> تاریخ عمل</label>
                                                                 </div>
                                                             </div>
@@ -252,193 +247,203 @@
                                                         <div class="input-group">
                                                             <div class="input-group-addon">
                                                                 <span class="input-group-btn">
-                                                                    <a id="btnp_MhltDate">
+                                                                    <a id="btnp_EndDate">
                                                                         <img src="/Content/img/list/calendar.png" class="icon" height="20" width="20" />
                                                                     </a>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-float">
                                                                 <div class="form-line focused fix">
-                                                                    <input id="p_MhltDate" data-bind="value:p_MhltDate" class="form-control date" type="text" maxlength="10">
+                                                                    <input id="p_EndDate" data-bind="value:p_EndDate" class="form-control date" type="text" maxlength="10">
                                                                     <label class="form-label" for="">تاریخ اتمام</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-
-
-                                                </div>
-
-
-                                                <div class="row col-md-12">
-                                                    <p class="col-md-1">نوع</p>
-                                                    <div class="col-md-5">
-                                                        <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                                            <div class="form-group">
-                                                                <select id="p_Mahramaneh" data-bind="
+                                            <div class="row col-md-12">
+                                                <p class="col-md-1">نوع</p>
+                                                <div class="col-md-5">
+                                                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                        <div class="form-group">
+                                                            <select id="p_Mahramaneh" data-bind="
                                                                options: MahramanehList,
                                                                optionsText: function(item) {return item.Name},
                                                                optionsValue: 'Code'" style="font-size:11px"></select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-3">
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input type="text" id="p_Eghdam" class="form-control" />
-                                                                <label class="form-label" id="amounttext">اقدام</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input type="text" id="p_Tanzim" class="form-control">
-                                                                <label class="form-label">تنظیم</label>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
 
-                                                <div class="col-sm-12">
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <a id="btnErjCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjCust">
-                                                                <img src="~/Content/img/list/man.png" class="icon" height="20" width="20" />
-                                                            </a>
+                                                <p class="col-md-2">وضعیت</p>
+                                                <div class="col-sm-4">
+                                                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                        <div class="form-group">
+                                                            <select id="p_Status" data-bind="options: ErjStatusList,
+                                                           optionsText: function(item) {return item.Status},
+                                                           optionsValue: 'Status'" style="font-size:11px"></select>
                                                         </div>
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input id="nameErjCust" class="form-control" readonly />
-                                                                <label class="form-label"> مشتری</label>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-12">
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <a id="btnKhdt" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Khdt">
-                                                                <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input id="nameKhdt" class="form-control" readonly />
-                                                                <label class="form-label"> نوع کار</label>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
+                                            </div>
 
 
-                                                <div class="row col-md-12" style="padding-bottom:20px">
+                                            <div class="row col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group form-float">
                                                         <div class="form-line focused fix">
-                                                            <input type="text" id="p_Spec" class="form-control" />
-                                                            <label class="form-label" id="amounttext">ملاحظات</label>
+                                                            <input type="text" data-bind="value:p_EghdamName" id="p_EghdamName" class="form-control" />
+                                                            <label class="form-label" id="amounttext">اقدام</label>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-12">
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <a id="btnRelatedDocs" class="dropdown-toggle" data-toggle="modal" data-target="#modal-RelatedDocs">
-                                                                <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
-                                                            </a>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" data-bind="value:p_TanzimName" id="p_TanzimName" class="form-control">
+                                                            <label class="form-label">تنظیم</label>
                                                         </div>
-                                                        <div class="form-group form-float">
-                                                            <div class="form-line focused fix">
-                                                                <input id="nameRelatedDocs" class="form-control" readonly />
-                                                                <label class="form-label">پرونده های مرتبط</label>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <a id="btnErjCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjCust">
+                                                            <img src="~/Content/img/list/man.png" class="icon" height="20" width="20" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input id="nameErjCust" class="form-control" readonly />
+                                                            <label class="form-label"> مشتری</label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <a id="btnKhdt" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Khdt">
+                                                            <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input id="nameKhdt" class="form-control" readonly />
+                                                            <label class="form-label"> نوع کار</label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row col-md-12" style="padding-bottom:20px">
+                                                <div class="form-group form-float">
+                                                    <div class="form-line focused fix">
+                                                        <input type="text" id="p_Spec" data-bind="value:p_Spec" class="form-control" />
+                                                        <label class="form-label">ملاحظات</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <a id="btnRelatedDocs" class="dropdown-toggle" data-toggle="modal" data-target="#modal-RelatedDocs">
+                                                            <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input id="p_RelatedDocs" data-bind="value:p_RelatedDocs" class="form-control" readonly />
+                                                            <label class="form-label">پرونده های مرتبط</label>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="cardErj">
-                                    <div class="header" style="background-color: #f5d3b4;">
-                                        <div class="row form-inline modal-header" style="padding:0px;">
-                                            <a id="ShowHideSpec">
+                            <div class="cardErj">
+                                <div class="header" style="background-color: #f5d3b4;">
+                                    <div class="row form-inline modal-header" style="padding:0px;">
+                                        <a id="ShowHideSpec">
 
-                                            </a>
-                                            <h6>توضیحات پرونده</h6>
-                                        </div>
-                                    </div>
-                                    <div class="body" style="padding:10px;">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 10px;">
-                                                        <h6 id="ShowHideEghdamComm" style="cursor: pointer;">اقدام</h6>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                            <div class="form-line">
-                                                                <textarea rows="4" id="eghdamComm" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 10px;">
-                                                        <h6 id="ShowHideDocDesc" style="cursor: pointer;">عمومی</h6>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                            <div class="form-line">
-                                                                <textarea rows="4" id="docDesc" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td style="width: 10px;">
-
-                                                        <h6 id="ShowHideSpecialComm" style="cursor: pointer;">مدیران</h6>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                            <div class="form-line">
-                                                                <textarea rows="4" id="specialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 10px;">
-
-                                                        <h6 id="ShowHideFinalComm" style="cursor: pointer;">نهایی</h6>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group" style="margin-bottom: 0.5rem;">
-                                                            <div class="form-line">
-                                                                <textarea rows="4" id="finalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        </a>
+                                        <h6>توضیحات پرونده</h6>
                                     </div>
                                 </div>
+                                <div class="body" style="padding:10px;">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 10px;">
+                                                    <h6 id="ShowHideEghdamComm" style="cursor: pointer;">اقدام</h6>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" id="p_EghdamComm" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 10px;">
+                                                    <h6 id="ShowHideDocDesc" style="cursor: pointer;">عمومی</h6>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" id="p_DocDesc" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
+                                            <tr>
+                                                <td style="width: 10px;">
+
+                                                    <h6 id="ShowHideSpecialComm" style="cursor: pointer;">مدیران</h6>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" id="p_SpecialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 10px;">
+
+                                                    <h6 id="ShowHideFinalComm" style="cursor: pointer;">نهایی</h6>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" id="p_FinalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div id="BodyErjDocH" style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
@@ -474,7 +479,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title"> مشتری</h4>
-                <a id="refreshcust">
+                <a id="refreshErjCust">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -483,7 +488,7 @@
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                     <table class="table table-hover table-striped tableFix">
                         <thead style="cursor: pointer;">
-                            <tr data-bind="click: sortTableCust">
+                            <tr data-bind="click: sortTableErjCust">
                                 <th data-column="Code">
                                     کد
                                     <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
@@ -504,8 +509,8 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectCust">
+                        <tbody data-bind="foreach: currentPageErjCust" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectErjCust">
                                 <td data-bind="text: Code"></td>
                                 <td data-bind="text: Name"></td>
                                 <td data-bind="text: Spec"></td>
@@ -513,9 +518,9 @@
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterCust0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterCust1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterCust2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterErjCust0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterErjCust1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterErjCust2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -526,7 +531,7 @@
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
-                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeCust">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeErjCust">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -543,17 +548,17 @@
                         </div>
                     </div>
                     <div class="col-md-6" style="text-align: left; margin-top: 10px;">
-                        <a data-bind="click: firstPageCust">
+                        <a data-bind="click: firstPageErjCust">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
-                        <a data-bind="click: previousPageCust">
+                        <a data-bind="click: previousPageErjCust">
                             <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <b data-bind="text: currentPageIndexCust() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                        <a data-bind="click: nextPageCust">
+                        <b data-bind="text: currentPageIndexErjCust() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageErjCust">
                             <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <a data-bind="click: lastPageCust">
+                        <a data-bind="click: lastPageErjCust">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
@@ -672,7 +677,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">پرونده های مرتبط</h4>
-                <a id="refreshaaaaa">
+                <a id="refreshRelatedDocs">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -682,39 +687,49 @@
                         <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped tableFix">
                                 <thead style="cursor: pointer;">
-                                    <tr data-bind="click: sortTableaaaaa">
-                                        <th data-column="Code">
-                                            شماره
-                                            <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
-                                                <i data-bind="attr: { class: iconTypeCode }"></i>
+                                    <tr data-bind="click: sortTableRelatedDocs">
+                                        <th data-column="DocNo">
+                                            شماره پرونده
+                                            <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeRelatedDocsDocNo }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Name">
-                                            نام
-                                            <span data-bind="attr: { class: currentColumn() == 'Name' ? 'isVisible' : 'isHidden' }">
-                                                <i data-bind="attr: { class: iconTypeName }"></i>
+                                        <th data-column="DocDate">
+                                            تاریخ
+                                            <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeRelatedDocsDocDate }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
-                                            ملاحظات
-                                            <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
-                                                <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                        <th data-column="CustName">
+                                            نام مشتری
+                                            <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeRelatedDocsCustName }"></i>
                                             </span>
                                         </th>
+
+                                        <th data-column="KhdtName">
+                                            نام خدمات
+                                            <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeRelatedDocsKhdtName }"></i>
+                                            </span>
+                                        </th>
+
                                     </tr>
                                 </thead>
-                                <tbody data-bind="foreach: currentPageaaaaa" style="cursor: default;">
-                                    <tr data-bind=" event: { dblclick: $parent.Addaaaaa }">
-                                        <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                <tbody data-bind="foreach: currentPageRelatedDocs" style="cursor: default;">
+                                    <tr data-bind=" event: { dblclick: $parent.AddRelatedDocs }">
+                                        <td data-bind="text: DocNo"></td>
+                                        <td data-bind="text: DocDate"></td>
+                                        <td data-bind="text: CustName"></td>
+                                        <td data-bind="text: KhdtName"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr style="background-color: #efb68399;">
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filteraaaaa0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filteraaaaa1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
-                                        <td style="padding: 0px 3px;"><input data-bind="value: filteraaaaa2, valueUpdate: 'afterkeydown'" type="text" class="form-control  float" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -723,25 +738,26 @@
                     <div class="col-md-2 centered">
                         <div class="row centered">
 
-                            <button data-bind="click: AddAllaaaaa" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
+                            <button data-bind="click: AddAllRelatedDocs" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </button>
-                            <button data-bind="click: DelAllaaaaa" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                            <button data-bind="click: DelAllRelatedDocs" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </button>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table table-hover table-striped tableFix" id="TableListaaaaa">
+                            <table class="table table-hover table-striped tableFix" id="TableListRelatedDocs">
                                 <thead style="cursor: pointer;">
                                     <tr>
-                                        <th>شماره </th>
-                                        <th>نام </th>
-                                        <th>ملاحظات</th>
+                                        <th>شماره پرونده </th>
+                                        <th>تاریخ </th>
+                                        <th>نام مشتری</th>
+                                        <th> نام خدمات</th>
                                     </tr>
                                 </thead>
-                                <tbody id="TableBodyListaaaaa" style="cursor: default;"></tbody>
+                                <tbody id="TableBodyListRelatedDocs" style="cursor: default;"></tbody>
                             </table>
                         </div>
                     </div>
@@ -752,7 +768,7 @@
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px;">
-                                <select id="pageSizeSelector" data-bind="value: pageSizeaaaaa">
+                                <select id="pageSizeSelector" data-bind="value: pageSizeRelatedDocs">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -769,17 +785,17 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="text-align: center;">
-                        <a data-bind="click: firstPageaaaaa">
+                        <a data-bind="click: firstPageRelatedDocs">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
-                        <a data-bind="click: previousPageaaaaa">
+                        <a data-bind="click: previousPageRelatedDocs">
                             <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <b data-bind="text: currentPageIndexaaaaa() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                        <a data-bind="click: nextPageaaaaa">
+                        <b data-bind="text: currentPageIndexRelatedDocs() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageRelatedDocs">
                             <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
-                        <a data-bind="click: lastPageaaaaa">
+                        <a data-bind="click: lastPageRelatedDocs">
                             <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
@@ -816,6 +832,32 @@
             ToDate: false, // default is false,
             FromDate: false, // default is false,
         });
+
+
+        $('#btnp_AmalDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_AmalDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+        $('#btnp_EndDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_EndDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
 
 
     </script>
