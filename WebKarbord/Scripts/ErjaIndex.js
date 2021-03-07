@@ -781,6 +781,7 @@
 
         ajaxFunction(Web_ErjSaveDoc_HUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_ErjSaveDoc_HObject).done(function (response) {
             lastDoc = $("#p_docno").val();
+            getErjDocH($('#pageCountSelector').val());
             if (lastDoc == "") {
                 $('#erja').prop('disabled', false);
                 $("#p_docno").val(response);
