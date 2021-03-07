@@ -749,10 +749,10 @@
             Spec: self.p_Spec(),
             CustCode: self.ErjCustCode(),
             KhdtCode: self.KhdtCode(),
-            DocDesc: $("#p_EghdamComm").val(),
-            EghdamComm: $("#p_DocDesc").val(),
-            FinalComm: $("#p_SpecialComm").val(),
-            SpecialComm: $("#p_FinalComm").val(),
+            EghdamComm: $("#p_EghdamComm").val(),
+            DocDesc: $("#p_DocDesc").val(),
+            FinalComm: $("#p_FinalComm").val(),
+            SpecialComm: $("#p_SpecialComm").val(),
             RelatedDocs: $("#p_RelatedDocs").val(),
             Mahramaneh: $("#p_Mahramaneh").val(),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
@@ -1356,10 +1356,10 @@
         $('#nameErjCust').val(item.CustName);
         $('#nameKhdt').val(item.KhdtName);
         $('#p_RelatedDocs').val('');
-        $('#p_EghdamComm').val('');
+        $('#p_EghdamComm').val(item.EghdamComm);
         $('#p_DocDesc').val(item.DocDesc);
-        $('#p_SpecialComm').val('');
-        $('#p_FinalComm').val('');
+        $('#p_SpecialComm').val(item.SpecialComm);
+        $('#p_FinalComm').val(item.FinalComm);
         $('#p_Mahramaneh').val(item.Mahramaneh);
         $('#p_Status').val(item.Status);
 
