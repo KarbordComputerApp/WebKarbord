@@ -1036,7 +1036,17 @@
             '       style: {color: Status == \'پايان يافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
+
+
+
+           // '<td><div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
+          //  '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px">folder_open</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+           // '</div></td>' +
+
+
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+
+
             CreateTableTd('DocNo', 0, 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, 0, data) +
             CreateTableTd('MahramanehName', 0, 0, 0, data) +
