@@ -9,12 +9,15 @@
     var group = sessionStorage.group;
     var server = localStorage.getItem("ApiAddress");
 
+
+
     self.ErjDocHList = ko.observableArray([]); // لیست گزارش  
     self.RelatedDocsList = ko.observableArray([]); // لیست گزارش  
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
+    self.ErjStatusList1 = ko.observableArray([]); // لیست وضعیت 
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
@@ -53,6 +56,10 @@
     self.p_RelatedDocs = ko.observable();
 
     self.p_Status = ko.observable();
+
+
+
+    var flagSave;
 
 
     $('#btnp_DocDate').click(function () {
@@ -162,6 +169,7 @@
     function getErjStatusList() {
         ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.ErjStatusList(data);
+            self.ErjStatusList1(data);
         });
     }
     getErjStatusList();
@@ -630,7 +638,7 @@
         $("#BodyErjDocH").empty();
         counterRelatedDocs = 0;
         list_RelatedDocsSelect = [];
-        $('#erja').prop('disabled', true);
+        $('#ErjDocErja').prop('disabled', true);
 
     }
 
@@ -783,7 +791,7 @@
             lastDoc = $("#p_docno").val();
             getErjDocH($('#pageCountSelector').val());
             if (lastDoc == "") {
-                $('#erja').prop('disabled', false);
+                $('#ErjDocErja').prop('disabled', false);
                 $("#p_docno").val(response);
                 showNotification('پرونده ' + response + ' ایجاد شد', 1);
             }
@@ -1356,7 +1364,7 @@
         $('#p_docno').val(item.DocNo);
         $('#nameErjCust').val(item.CustName);
         $('#nameKhdt').val(item.KhdtName);
-        $('#p_RelatedDocs').val('');
+        //$('#p_RelatedDocs').val('');
         $('#p_EghdamComm').val(item.EghdamComm);
         $('#p_DocDesc').val(item.DocDesc);
         $('#p_SpecialComm').val(item.SpecialComm);
@@ -1390,7 +1398,7 @@
         serialNumber = item.SerialNumber;
         //getDocK(serialNumber)
         getErjDocErja(serialNumber);
-        $('#erja').prop('disabled', false);
+        $('#ErjDocErja').prop('disabled', false);
 
         $('#modal-ErjDocH').modal('show');
     }
@@ -1432,6 +1440,7 @@
     function SetDataErjDocErja() {
         list = self.ErjDocErja();
         $("#BodyErjDocH").empty();
+        $("#BodyErjDocErja").empty();
         listLastBand = self.ErjResultList();
         if (list.length > 0) {
             countBand = list[list.length - 1].BandNo;
@@ -1536,42 +1545,62 @@
 
 
                 $('#BodyErjDocH').append(textBody);
+                $('#BodyErjDocErja').append(textBody);
             }
         }
     }
 
 
 
+    $('#modal-ErjDocErja').on('shown.bs.modal', function () {
+        flagSave = null;
+        $('#m_docno').val($('#p_docno').val());
+
+        $('#m_DocDate').val($('#p_DocDate').val());
+        $('#m_MhltDate').val($('#p_MhltDate').val());
+        //$('#m_Mahramaneh').val($('#p_Mahramaneh').val());
+        $('#m_Eghdam').val($('#p_EghdamName').val());
+        $('#m_Tanzim').val($('#p_TanzimName').val());
+        $('#m_CustName').val($('#nameErjCust').val());
+        $('#m_KhdtName').val($('#nameKhdt').val());
+        $('#m_Spec').val($('#p_Spec').val());
+        $('#m_RelatedDocs').val($('#p_RelatedDocs').val());
+        $('#eghdamComm').val($('#p_EghdamComm').val());
+        $('#docDesc').val($('#p_DocDesc').val());
+        $('#specialComm').val($('#p_SpecialComm').val());
+        $('#finalComm').val($('#p_FinalComm').val());
+
+        //p_Mahramaneh
+
+    });
+
+    $('#modal-ErjDocErja').on('hide.bs.modal', function () {
+       
+    });
 
 
+    $('#saveErja').click(function () {
+        flagSave = false;
+        //ErjSaveDoc_BSave(bandNo);
+        ErjSaveDoc_BSave(0);
 
+        if (counterErjUsersRonevesht > 0) {
+            ErjSaveDoc_CSave(bandNo, false);
+        }
 
+    })
 
+    var flagSave;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $('#saveParvandeh').click(function () {
+        flagSave = true;
+        if (docBMode == 1) { // رونوشت
+            ErjSaveDoc_CSave(bandNo, true);
+        }
+        else {
+            ErjSaveDoc_BSave(bandNo);
+        }
+    })
 
 
 
@@ -1601,7 +1630,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableErjDocH">' +
-            '<th>ردیف</th>' +
+            '<th></th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('MahramanehName', data) +
@@ -1646,10 +1675,10 @@
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
 
             '<td style="background-color: ' + colorRadif + ';">' +
-
-            '<div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
-            '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px">folder_open</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
-            '</div></td>' +
+            //<div style="display: flex; padding-top: 5px;">
+            //'<span data-bind="text: $root.radif($index()) "> </span> ' +
+            '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:11px">panorama_fish_eye</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+            '</td>' +
 
             CreateTableTd('DocNo', 0, 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, 0, data) +
