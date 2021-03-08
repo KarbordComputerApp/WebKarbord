@@ -1033,7 +1033,7 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">' +
             '    <tr data-bind="click: $parent.selectDocK , css: { matched: $data === $root.firstMatch() },' +
-            '       style: {color: Status == \'پايان يافته\'  ? ' +
+            '       style: {color: Status == \'پایان یافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
 

@@ -1670,14 +1670,14 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageErjDocH" data-dismiss="modal" style="cursor: default;">' +
             '    <tr data-bind="click: $parent.selectErjDocH , css: { matched: $data === $root.firstMatch() },' +
-            '       style: {color: Status == \'پايان يافته\'  ? ' +
+            '       style: {color: Status == \'پایان یافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : \'\' }">' +
 
             '<td style="background-color: ' + colorRadif + ';">' +
             //<div style="display: flex; padding-top: 5px;">
             //'<span data-bind="text: $root.radif($index()) "> </span> ' +
-            '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:11px">panorama_fish_eye</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+            '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:9px">lens</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
             '</td>' +
 
             CreateTableTd('DocNo', 0, 0, 0, data) +
