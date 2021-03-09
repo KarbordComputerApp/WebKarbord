@@ -1326,17 +1326,20 @@
 
         res = Related.split("-");
         counterRelatedDocs = res.length;
-
+        
         for (var i = 0; i < counterRelatedDocs; i++) {
-            list_RelatedDocsSelect[i] = res[i];
-            $('#TableListRelatedDocs').append(
-                '<tr data-bind="">'
-                + ' <td data-bind="text: DocNo">' + res[i] + '</td > '
-                + ' <td data-bind="text: DocDate">' + 0 + '</td > '
-                + ' <td data-bind="text: CustName">' + 0 + '</td > '
-                + ' <td data-bind="text: Spec">' +0 + '</td > '
-                + '</tr>'
-            );
+            if (res[i] != "") {
+
+                list_RelatedDocsSelect[i] = res[i];
+                $('#TableListRelatedDocs').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: DocNo">' + res[i] + '</td > '
+                    + ' <td data-bind="text: DocDate">' + 0 + '</td > '
+                    + ' <td data-bind="text: CustName">' + 0 + '</td > '
+                    + ' <td data-bind="text: Spec">' + 0 + '</td > '
+                    + '</tr>'
+                );
+            }
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
