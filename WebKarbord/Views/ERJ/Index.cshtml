@@ -136,7 +136,7 @@
 <div class="modal fade" id="modal-ErjDocH" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 0px;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -150,9 +150,9 @@
                     </a>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding-left: 0px;padding-right: 0px;">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <div style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
                             <div class="cardErj">
                                 <div class="header" style="background-color: #f5d3b4;">
@@ -163,7 +163,7 @@
                                         <h6>اطلاعات پرونده</h6>
                                     </div>
                                 </div>
-                                <div class="body" style="padding:10px;">
+                                <div class="body" style="padding-top: 10px;padding-left: 2px;padding-bottom: 2px;padding-right: 2px;">
                                     <div>
 
                                         <div class="row form-inline ">
@@ -272,9 +272,27 @@
                                                 </div>
                                             </div>
 
+
+
                                             <div class="row col-md-12">
-                                                <p class="col-md-1" style="margin-top: 5px;">نوع</p>
-                                                <div class="col-md-5">
+                                                <div class="col-md-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <a id="btnErjCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjCust">
+                                                                <img src="~/Content/img/list/man.png" class="icon" height="20" width="20" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="form-group form-float">
+                                                            <div class="form-line focused fix">
+                                                                <input id="nameErjCust" class="form-control" readonly />
+                                                                <label class="form-label"> مشتری</label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--  <p class="col-md-1" style="margin-top: 5px;">نوع</p> -->
+                                                <div class="col-md-3">
                                                     <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                                         <div class="form-group">
                                                             <select id="p_Mahramaneh" data-bind="
@@ -284,48 +302,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-                                                <p class="col-md-1" style="margin-top: 5px;">وضعیت</p>
-                                                <div class="col-sm-5">
-                                                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                                        <div class="form-group">
-                                                            <select id="p_Status" data-bind="options: ErjStatusList,
-                                                           optionsText: function(item) {return item.Status},
-                                                           optionsValue: 'Status'" style="font-size:11px"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
-
-
-
-
-
-                                            <div class="col-sm-12">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <a id="btnErjCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjCust">
-                                                            <img src="~/Content/img/list/man.png" class="icon" height="20" width="20" />
-                                                        </a>
-                                                    </div>
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input id="nameErjCust" class="form-control" readonly />
-                                                            <label class="form-label"> مشتری</label>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-
-
-
 
                                             <div class="row col-md-12">
-                                               
-                                                <div class="col-md-6">
+
+                                                <div class="col-md-9">
                                                     <div class="input-group">
                                                         <div class="input-group-addon">
                                                             <a id="btnKhdt" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Khdt">
@@ -342,9 +323,30 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- <p class="col-md-1" style="margin-top: 5px;">وضعیت</p> -->
+                                                <div class="col-sm-3">
+                                                    <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                                        <div class="form-group">
+                                                            <select id="p_Status" data-bind="options: ErjStatusList,
+                                                           optionsText: function(item) {return item.Status},
+                                                           optionsValue: 'Status'" style="font-size:11px"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                
-                                                <div class="col-sm-6">
+
+                                            <div class="row col-md-12">
+                                                <div class="row col-md-9">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="p_Spec" data-bind="value:p_Spec" class="form-control" />
+                                                            <label class="form-label">ملاحظات</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
                                                     <div class="input-group">
                                                         <div class="input-group-addon">
                                                             <a id="btnRelatedDocs" class="dropdown-toggle" data-toggle="modal" data-target="#modal-RelatedDocs">
@@ -363,16 +365,6 @@
                                             </div>
 
 
-
-                                           <div class="row col-md-12">
-                                                <div class="form-group form-float">
-                                                    <div class="form-line focused fix">
-                                                        <input type="text" id="p_Spec" data-bind="value:p_Spec" class="form-control" />
-                                                        <label class="form-label">ملاحظات</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -387,8 +379,8 @@
                                         <h6>توضیحات پرونده</h6>
                                     </div>
                                 </div>
-                                <div class="body" style="padding:10px;">
-                                    <table class="table">
+                                <div class="body" style="padding:0px;">
+                                    <table class="table" style="margin-bottom:0px;">
                                         <tbody>
                                             <tr>
                                                 <td style="width: 10px;">
@@ -397,7 +389,7 @@
                                                 <td>
                                                     <div class="form-group" style="margin-bottom: 0.5rem;">
                                                         <div class="form-line">
-                                                            <textarea rows="4" id="p_EghdamComm" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
+                                                            <textarea rows="3" id="p_EghdamComm" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -409,7 +401,7 @@
                                                 <td>
                                                     <div class="form-group" style="margin-bottom: 0.5rem;">
                                                         <div class="form-line">
-                                                            <textarea rows="4" id="p_DocDesc" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
+                                                            <textarea rows="3" id="p_DocDesc" class="form-control no-resize auto-growth string" style="border-bottom: 1px solid #ffffff;"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -423,7 +415,7 @@
                                                 <td>
                                                     <div class="form-group" style="margin-bottom: 0.5rem;">
                                                         <div class="form-line">
-                                                            <textarea rows="4" id="p_SpecialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
+                                                            <textarea rows="3" id="p_SpecialComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -436,7 +428,7 @@
                                                 <td>
                                                     <div class="form-group" style="margin-bottom: 0.5rem;">
                                                         <div class="form-line">
-                                                            <textarea rows="4" id="p_FinalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
+                                                            <textarea rows="3" id="p_FinalComm" style="border-bottom: 1px solid #ffffff;" class="form-control no-resize auto-growth string"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -448,7 +440,7 @@
 
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div id="BodyErjDocH" style="height:600px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
                         </div>
@@ -806,7 +798,7 @@
 <div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:800px;">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="border-bottom: solid 10px #f5d3b4;padding-bottom: 5px;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -814,13 +806,13 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                <div style="height:500px;overflow:auto">
                     <div class="table-responsive">
                         <table class="table table-addmin">
                             <tbody data-bind="foreach: ExtraFieldsList">
                                 <tr>
-                                    <td data-bind="text: Name" style="background-color: #e8e8e8; width:250px;">مشخصه وارده</td>
-                                    <td style="padding: 0px 10px;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1"></td>
+                                    <td data-bind="text: Name" style="background-color: #e8e8e8; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
+                                    <td style="padding: 0px 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -828,7 +820,7 @@
                 </div>
             </div>
 
-            <div>
+            <div style="border-top: solid 1px black;padding-top: 5px;">
                 <div class="row  form-inline ">
                     <div class="col-md-9 row">
 
@@ -1334,11 +1326,21 @@
 
 
 
-
-
-
-
-
+<div class="modal fade" id="modal-Comm" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" style="padding-left: 200px;" id="titleComm"></h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="comm" rows="20" class="form-control no-resize auto-growth string" style="text-align:justify"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

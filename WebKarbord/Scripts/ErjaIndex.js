@@ -76,6 +76,7 @@
     var list_ErjUsersRoneveshtSelect = new Array();
 
     var bandNo = 0;
+    var serialNumber = 0;
 
     $('#btnp_DocDate').click(function () {
         $('#p_DocDate').change();
@@ -269,7 +270,7 @@
     self.currentPageIndexErjDocH = ko.observable(0);
 
     //Get ErjDocH
-    function getErjDocH(select,page) {
+    function getErjDocH(select, page) {
         tarikh1 = '';
         tarikh2 = '';
         Status = '';
@@ -292,7 +293,7 @@
     }
 
 
-    getErjDocH($('#pageCountSelector').val(),0);
+    getErjDocH($('#pageCountSelector').val(), 0);
 
 
     $('#refreshErjDocH').click(function () {
@@ -309,7 +310,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH($('#pageCountSelector').val(),0);
+                getErjDocH($('#pageCountSelector').val(), 0);
                 self.sortTableErjDocH();
             }
         })
@@ -318,7 +319,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getErjDocH(select,0);
+        getErjDocH(select, 0);
     }
 
 
@@ -688,8 +689,6 @@
         $('#p_Mahramaneh').val(0);
         $('#p_Status').val('فعال');
         $("#BodyErjDocH").empty();
-        counterRelatedDocs = 0;
-        list_RelatedDocsSelect = [];
         $('#ErjDocErja').prop('disabled', true);
 
     }
@@ -773,6 +772,18 @@
         p_AmalDate = $("#p_AmalDate").val().toEnglishDigit();
         p_EndDate = $("#p_EndDate").val().toEnglishDigit();
 
+        custCode = self.ErjCustCode();
+        khdtCode = self.KhdtCode();
+
+        if (p_DocDate == '')
+            return showNotification('تاریخ پرونده انتخاب نشده است', 0);
+
+        if (custCode == '')
+            return showNotification('مشتری انتخاب نشده است', 0);
+
+        if (khdtCode == '')
+            return showNotification('نوع کار انتخاب نشده است', 0);
+
 
         Web_ErjSaveDoc_HObject = {
             ModeCode: 0,
@@ -823,6 +834,7 @@
 
         ajaxFunction(Web_ErjSaveDoc_HUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_ErjSaveDoc_HObject).done(function (response) {
             lastDoc = $("#p_docno").val();
+            serialNumber = response;
             currentPage = self.currentPageIndexErjDocH();
             getErjDocH($('#pageCountSelector').val(), currentPage);
             if (lastDoc == "") {
@@ -1321,24 +1333,33 @@
     });
 
     $('#modal-RelatedDocs').on('shown.bs.modal', function () {
+
         $("#TableBodyListRelatedDocs").empty();
         Related = $('#p_RelatedDocs').val();
 
         res = Related.split("-");
         counterRelatedDocs = res.length;
-        
+
         for (var i = 0; i < counterRelatedDocs; i++) {
             if (res[i] != "") {
+
+                value = ko.utils.arrayFirst(self.RelatedDocsList(), function (item) {
+                    return item.DocNo == res[i];
+                });
 
                 list_RelatedDocsSelect[i] = res[i];
                 $('#TableListRelatedDocs').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: DocNo">' + res[i] + '</td > '
-                    + ' <td data-bind="text: DocDate">' + 0 + '</td > '
-                    + ' <td data-bind="text: CustName">' + 0 + '</td > '
-                    + ' <td data-bind="text: Spec">' + 0 + '</td > '
+                    + ' <td data-bind="text: DocDate">' + value.DocDate + '</td > '
+                    + ' <td data-bind="text: CustName">' + value.CustName + '</td > '
+                    + ' <td data-bind="text: Spec">' + value.Spec + '</td > '
                     + '</tr>'
                 );
+            }
+            else {
+                counterRelatedDocs = 0;
+                list_RelatedDocsSelect = [];
             }
         }
         $('.fix').attr('class', 'form-line focused fix');
@@ -1362,7 +1383,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH(3,0);
+                getErjDocH(3, 0);
             }
         })
     })
@@ -1979,6 +2000,25 @@
 
 
 
+    $('#ShowHideEghdamComm').click(function () {
+        $('#titleComm').text('اقدام');
+        $('#modal-Comm').modal('show');
+    });
+
+    
+
+
+    $('#modal-Comm').on('shown.bs.modal', function () {
+
+    });
+
+
+
+
+
+
+
+
 
 
 
@@ -2012,12 +2052,14 @@
         self.p_Spec(item.Spec);
         self.ErjCustCode(item.CustCode);
         self.KhdtCode(item.KhdtCode);
+
+        $('#p_RelatedDocs').val('');
         self.p_RelatedDocs(item.RelatedDocs == 0 ? "" : item.RelatedDocs);
 
         $('#p_docno').val(item.DocNo);
         $('#nameErjCust').val(item.CustName);
         $('#nameKhdt').val(item.KhdtName);
-        //$('#p_RelatedDocs').val('');
+
         $('#p_EghdamComm').val(item.EghdamComm);
         $('#p_DocDesc').val(item.DocDesc);
         $('#p_SpecialComm').val(item.SpecialComm);
@@ -2051,7 +2093,13 @@
         serialNumber = item.SerialNumber;
         //getDocK(serialNumber)
         getErjDocErja(serialNumber);
-        $('#ErjDocErja').prop('disabled', false);
+
+        if (self.ErjDocErja().length == 0) {
+            $('#ErjDocErja').prop('disabled', false);
+        }
+        else {
+            $('#ErjDocErja').prop('disabled', true);
+        }
 
         $('#modal-ErjDocH').modal('show');
     }
@@ -2100,12 +2148,12 @@
             for (var j = 0; j < listLastBand.length; j++) {
                 if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
                     textLastBand +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
                     textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
                 }
                 else if (listLastBand[j].DocBMode == 1) {
                     textLastBand +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
                     textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
                 }
@@ -2135,19 +2183,19 @@
                 countRonevesht = listBand.length
 
                 if (countRonevesht > 1) {
-                    text += ' <br\> '
+                   // text += ' <br\> '
                 }
 
                 for (var j = 1; j < countRonevesht; j++) {
                     text +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
                         + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه رونوشت از :</h6> <h6>' + listBand[j].FromUserName + '</h6>'
                         + '   </div>'
                         + '</div > '
                     if (listBand[j].RjComm == '')
-                        text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
+                        text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
                     else {
-                        text += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
+                        text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                         text += ConvertComm(listBand[j].RjComm);
                     }
                     text += ' </div> ';
@@ -2157,8 +2205,8 @@
 
                 if (listBand[0].RooneveshtUsers != '' && i < countBand) {
 
-                    text += '</br>'
-                        + '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
+                    text += ''//'</br>'
+                        + '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
                         + '   <div class=" form-inline" > <h6> رونوشت به : '
                         + listBand[0].RooneveshtUsers
                         + '</h6>'
@@ -2171,20 +2219,20 @@
                     '<div style="border-top: 0px solid #fff !important;">'
                     + '    <div>'
                     + '        <div class="cardErj">'
-                    + '            <div class="header" style="background-color: #f5d3b4;">'
+                + '            <div class="header" style="background-color: #f5d3b4;padding-right: 3px;padding-left: 0px;">'
                     + '<div class="form-inline"> '
-                    + '     <div class= "col-md-9 form-inline" > '
-                    + '         <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
-                    + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
-                    + '         <h6>' + listBand[0].ToUserName + '</h6> '
+                    + '     <div class= "col-md-8 form-inline" > '
+                + '         <h6 style="font-size: 11px;">' + i + ') ' + listBand[0].FromUserName + '</h6>'
+                    + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 11px;margin-left: 0px; margin-right: 0px;" /> '
+                + '         <h6 style="font-size: 11px;">' + listBand[0].ToUserName + '</h6> '
                     + '     </div>'
-                    + '     <div class="col-md-3 form-inline"> '
-                    + '         <h6 style="padding-left: 10px">' + listBand[0].RjTimeSt + '</h6> '
-                    + '         <h6>' + listBand[0].RjDate + '</h6> '
+                    + '     <div class="col-md-4 form-inline"> '
+                    + '         <h6 style="padding-left: 5px;font-size: 11px;">' + listBand[0].RjTimeSt + '</h6> '
+                    + '         <h6 style="font-size: 11px;">' + listBand[0].RjDate + '</h6> '
                     + '     </div> '
                     + '</div>'
                     + '</div>'
-                    + '<div class="body" style="padding:10px;">'
+                    + '<div class="body" style="padding:5px;">'
 
                 textBody += text
                 if (i == countBand)
