@@ -1973,7 +1973,7 @@
         for (i = 1; i <= list_ErjUsersRoneveshtSelect.length; i++) {
             tmp = {
                 'SerialNumber': serialNumber,
-                'BandNo': 0,
+                'BandNo': 1,
                 'Natijeh': '',
                 'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
                 'RjDate': rjDate
