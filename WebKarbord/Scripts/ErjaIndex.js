@@ -1172,10 +1172,12 @@
     self.filterRelatedDocs1 = ko.observable("");
     self.filterRelatedDocs2 = ko.observable("");
     self.filterRelatedDocs3 = ko.observable("");
+    self.filterRelatedDocs4 = ko.observable("");
 
     self.iconTypeRelatedDocsDocNo = ko.observable("");
     self.iconTypeRelatedDocsDocDate = ko.observable("");
     self.iconTypeRelatedDocsCustName = ko.observable("");
+    self.iconTypeRelatedDocsKhdtName = ko.observable("");
     self.iconTypeRelatedDocsSpec = ko.observable("");
 
 
@@ -1188,8 +1190,9 @@
         var filter1 = self.filterRelatedDocs1();
         var filter2 = self.filterRelatedDocs2();
         var filter3 = self.filterRelatedDocs3();
+        var filter4 = self.filterRelatedDocs4();
 
-        if (!filter0 && !filter1 && !filter2 && !filter3) {
+        if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4) {
             return self.RelatedDocsList();
         } else {
             tempData = ko.utils.arrayFilter(self.RelatedDocsList(), function (item) {
@@ -1197,7 +1200,8 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter0) &&
                     (item.DocDate == null ? '' : item.DocDate.toString().search(filter1) >= 0) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filter2) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter3) >= 0)
+                (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter3) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter4) >= 0)
                 return result;
             })
             return tempData;
@@ -1258,11 +1262,13 @@
         self.iconTypeRelatedDocsDocNo('');
         self.iconTypeRelatedDocsDocDate('');
         self.iconTypeRelatedDocsCustName('');
+        self.iconTypeRelatedDocsKhdtName('');
         self.iconTypeRelatedDocsSpec('');
 
         if (orderProp == 'DocNo') self.iconTypeRelatedDocsDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeRelatedDocsDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustName') self.iconTypeRelatedDocsCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KhdtName') self.iconTypeRelatedDocsKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeRelatedDocsSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
@@ -1282,6 +1288,7 @@
                 + ' <td data-bind="text: DocNo">' + item.DocNo + '</td > '
                 + ' <td data-bind="text: DocDate">' + item.DocDate + '</td > '
                 + ' <td data-bind="text: CustName">' + item.CustName + '</td > '
+                + ' <td data-bind="text: KhdtName">' + item.KhdtName + '</td > '
                 + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
@@ -1301,6 +1308,7 @@
                 + ' <td data-bind="text: DocNo">' + list[i].DocNo + '</td > '
                 + ' <td data-bind="text: DocDate">' + list[i].DocDate + '</td > '
                 + ' <td data-bind="text: CustName">' + list[i].CustName + '</td > '
+                + ' <td data-bind="text: KhdtName">' + list[i].KhdtName + '</td > '
                 + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
@@ -1353,6 +1361,7 @@
                     + ' <td data-bind="text: DocNo">' + res[i] + '</td > '
                     + ' <td data-bind="text: DocDate">' + value.DocDate + '</td > '
                     + ' <td data-bind="text: CustName">' + value.CustName + '</td > '
+                    + ' <td data-bind="text: KhdtName">' + value.KhdtName + '</td > '
                     + ' <td data-bind="text: Spec">' + value.Spec + '</td > '
                     + '</tr>'
                 );
@@ -1658,6 +1667,10 @@
             }
         });
 
+        if (item.Code == self.ErjUsersCode()) {
+            find = true;
+        }
+
         if (find == false) {
             $('#TableBodyListErjUsersRonevesht').append(
                 '<tr data-bind="">'
@@ -1677,15 +1690,17 @@
         list = self.ErjUsersList();
         $("#TableBodyListErjUsersRonevesht").empty();
         for (var i = 0; i < list.length; i++) {
-            $('#TableBodyListErjUsersRonevesht').append(
-                '  <tr data-bind="">'
-                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
-                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
-                + '</tr>'
-            );
-            list_ErjUsersRoneveshtSelect[i] = list[i].Code;
-            counterErjUsersRonevesht = i + 1;
+            if (list[i].Code != self.ErjUsersCode()) {
+                $('#TableBodyListErjUsersRonevesht').append(
+                    '  <tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                    + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                    + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
+                    + '</tr>'
+                );
+                list_ErjUsersRoneveshtSelect[i] = list[i].Code;
+                counterErjUsersRonevesht = i + 1;
+            }
         }
     };
 
@@ -1932,7 +1947,7 @@
                 RjDate: rjDate,
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
-                BandNo: bandNoImput,
+                BandNo: 0,
             };
         }
 
@@ -1958,7 +1973,7 @@
         for (i = 1; i <= list_ErjUsersRoneveshtSelect.length; i++) {
             tmp = {
                 'SerialNumber': serialNumber,
-                'BandNo': bandNo,
+                'BandNo': 0,
                 'Natijeh': '',
                 'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
                 'RjDate': rjDate

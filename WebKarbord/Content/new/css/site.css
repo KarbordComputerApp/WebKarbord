@@ -34,7 +34,7 @@ thead tr {
 }
 
 .table thead tr th {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #d9d9d9;
     white-space: nowrap;
 }
 
@@ -1569,7 +1569,7 @@ p {
 
 .tableFix {
     overflow-y: auto;
-    height: 100px;
+    height: 39px;
 }
 
     .tableFix thead th {

@@ -673,31 +673,37 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped tableFix">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableRelatedDocs">
-                                        <th data-column="DocNo">
-                                            شماره پرونده
+                                        <th data-column="DocNo" style="width: 1px;">
+                                            شماره
                                             <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsDocNo }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="DocDate">
+                                        <th data-column="DocDate" style="width: 1px;">
                                             تاریخ
                                             <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsDocDate }"></i>
                                             </span>
                                         </th>
                                         <th data-column="CustName">
-                                            نام مشتری
+                                            مشتری
                                             <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsCustName }"></i>
                                             </span>
                                         </th>
-
+                                        
                                         <th data-column="KhdtName">
+                                            نوع کار
+                                            <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }">
+                                                <i data-bind="attr: { class: iconTypeRelatedDocsKhdtName }"></i>
+                                            </span>
+                                        </th>
+                                        <th data-column="Spec">
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsSpec }"></i>
@@ -711,6 +717,7 @@
                                         <td data-bind="text: DocNo"></td>
                                         <td data-bind="text: DocDate"></td>
                                         <td data-bind="text: CustName"></td>
+                                        <td data-bind="text: KhdtName"></td>
                                         <td data-bind="text: Spec"></td>
                                     </tr>
                                 </tbody>
@@ -720,18 +727,19 @@
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                         <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs3, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                        <td style="padding: 0px 3px;"><input data-bind="value: filterRelatedDocs4, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-2 centered">
+                    <div class="col-md-1 centered">
                         <div class="row centered">
 
-                            <button data-bind="click: AddAllRelatedDocs" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
+                            <button data-bind="click: AddAllRelatedDocs" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 5px 0px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </button>
-                            <button data-bind="click: DelAllRelatedDocs" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                            <button data-bind="click: DelAllRelatedDocs" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 5px 30px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </button>
                         </div>
@@ -741,10 +749,11 @@
                             <table class="table table-hover table-striped tableFix" id="TableListRelatedDocs">
                                 <thead style="cursor: pointer;">
                                     <tr>
-                                        <th>شماره پرونده </th>
-                                        <th>تاریخ </th>
-                                        <th>نام مشتری</th>
-                                        <th>ملاحظات</th>
+                                        <th style="width: 10px;">شماره </th>
+                                        <th style="width: 10px;">تاریخ </th>
+                                        <th style="width: 10px;">مشتری</th>
+                                        <th style="width: 10px;">نوع کار</th>
+                                        <th style="width: 10px;">ملاحظات</th>
                                     </tr>
                                 </thead>
                                 <tbody id="TableBodyListRelatedDocs" style="cursor: default;"></tbody>
@@ -811,7 +820,7 @@
                         <table class="table table-addmin">
                             <tbody data-bind="foreach: ExtraFieldsList">
                                 <tr>
-                                    <td data-bind="text: Name" style="background-color: #e8e8e8; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
+                                    <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
                                     <td style="padding: 0px 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1"></td>
                                 </tr>
                             </tbody>
@@ -1206,7 +1215,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped tableFix">
                                 <thead style="cursor: pointer;">
@@ -1249,12 +1258,12 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 centered">
+                    <div class="col-md-1 centered">
                         <div class="row centered">
-                            <button data-bind="click: AddAllErjUsersRonevesht" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
+                            <button data-bind="click: AddAllErjUsersRonevesht" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 5px 0px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </button>
-                            <button data-bind="click: DelAllErjUsersRonevesht" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
+                            <button data-bind="click: DelAllErjUsersRonevesht" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 5px 30px 10px">
                                 <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </button>
                         </div>
@@ -1333,10 +1342,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" style="padding-left: 200px;" id="titleComm"></h4>
+                <h4 class="modal-title" id="titleComm"></h4>
+                <a></a>
             </div>
             <div class="modal-body">
-                <textarea id="comm" rows="20" class="form-control no-resize auto-growth string" style="text-align:justify"></textarea>
+                <textarea id="comm" rows="30" class="form-control no-resize auto-growth string" style="text-align:justify"></textarea>
             </div>
         </div>
     </div>

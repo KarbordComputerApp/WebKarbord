@@ -1901,7 +1901,8 @@
         if (counterErjUsersRonevesht > 0) {
             ErjSaveDoc_CSave(bandNo, false);
         }
-
+        list_ErjUsersRoneveshtSelect = new Array();
+        counterErjUsersRonevesht = 0;
     })
 
     var flagSave;
@@ -1926,10 +1927,10 @@
         rjTime_M = $("#RjTime_M").val();
 
         fromUserCode = $("#ToUser").val();
-        if (fromUserCode == '')
+        if (fromUserCode == " ")
             fromUserCode = sessionStorage.userName;
-
-        if (fromUserCode == "") fromUserCode = sessionStorage.userName;
+         
+        if (fromUserCode == " ") fromUserCode = sessionStorage.userName;
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
             return showNotification('ارجاع شونده را انتخاب کنید', 0);
@@ -2013,8 +2014,8 @@
                 $('#modal-ErjDocErja').modal('hide');
             }
 
-            list_ErjUsersRoneveshtSelect = new Array();
-            counterErjUsersRonevesht = 0;
+           // list_ErjUsersRoneveshtSelect = new Array();
+           // counterErjUsersRonevesht = 0;
             $("#TableBodyListErjUsersRonevesht").empty();
 
             if (flagSave != null)
