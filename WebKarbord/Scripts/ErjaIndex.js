@@ -2218,7 +2218,7 @@
 
 
 
-                if (listBand[0].RooneveshtUsers != '' && i < countBand) {
+                if (listBand[0].RooneveshtUsers != '' && i <= countBand) {
 
                     text += ''//'</br>'
                         + '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
