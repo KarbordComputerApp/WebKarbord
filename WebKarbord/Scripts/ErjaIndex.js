@@ -22,7 +22,6 @@
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.RepToUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
-
     self.DocAttachList = ko.observableArray([]); // ليست پیوست
 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
@@ -45,6 +44,8 @@
 
     var ErjSaveDoc_BSaveUri = server + '/api/Web_Data/ErjSaveDoc_BSave/'; // آدرس ذخیره ارجاع
     var ErjSaveDoc_CSaveUri = server + '/api/Web_Data/ErjSaveDoc_CSave/'; // آدرس ذخیره رونوشت
+
+    var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
 
     TestUser();
 
@@ -198,6 +199,17 @@
         });
     }
     getErjUsersList();
+
+    //Get ErjResult List
+    function getErjResultList(serialNumber, bMode, toUser) {
+        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber + '/' + bMode + '/' + toUser, 'GET').done(function (data) {
+            if (bMode == null)
+                self.ErjResultList(data);
+            item = data[0];
+            bandNo = item.BandNo;
+            $("#Result").val(item.RjResult);
+        });
+    }
 
     //Get RepToUsers List
     function getRepToUsersList() {
@@ -2106,7 +2118,7 @@
 
         docBMode = item.DocBMode;
         serialNumber = item.SerialNumber;
-        //getDocK(serialNumber)
+        getErjResultList(serialNumber, null, null)
         getErjDocErja(serialNumber);
 
         if (self.ErjDocErja().length == 0) {
@@ -2158,6 +2170,7 @@
         $("#BodyErjDocH").empty();
         listLastBand = self.ErjResultList();
         if (list.length > 0) {
+            listLastBand = self.ErjResultList();
             countBand = list[list.length - 1].BandNo;
             textLastBand = '';
             for (var j = 0; j < listLastBand.length; j++) {
@@ -2218,7 +2231,7 @@
 
 
 
-                if (listBand[0].RooneveshtUsers != '' && i <= countBand) {
+                if (listBand[0].RooneveshtUsers != '' && i < countBand) {
 
                     text += ''//'</br>'
                         + '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'

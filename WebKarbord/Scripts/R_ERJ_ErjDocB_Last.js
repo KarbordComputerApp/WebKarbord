@@ -97,6 +97,7 @@
         'CustName',
         'KhdtName',
         'FromUserName',
+        'ToUserName',
         'Spec',
         'Status',
         'DocNo',
@@ -543,6 +544,7 @@
     self.filterCustName = ko.observable("");
     self.filterKhdtName = ko.observable("");
     self.filterFromUserName = ko.observable("");
+    self.filterToUserName = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterStatus = ko.observable("");
     self.filterDocNo = ko.observable("");
@@ -556,6 +558,7 @@
         var filterCustName = self.filterCustName();
         var filterKhdtName = self.filterKhdtName();
         var filterFromUserName = self.filterFromUserName();
+        var filterToUserName = self.filterToUserName();
         var filterSpec = self.filterSpec();
         var filterStatus = self.filterStatus().toUpperCase();
         var filterDocNo = self.filterDocNo();
@@ -570,6 +573,7 @@
                 (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
                 (item.KhdtName == null ? '' : item.KhdtName.toString().search(filterKhdtName) >= 0) &&
                 (item.FromUserName == null ? '' : item.FromUserName.toString().search(filterFromUserName) >= 0) &&
+            (item.ToUserName == null ? '' : item.ToUserName.toString().search(filterToUserName) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.DocNo == null ? '' : item.DocNo.toString().search(filterDocNo) >= 0) &&
@@ -651,6 +655,7 @@
     self.iconTypeCustName = ko.observable("");
     self.iconTypeKhdtName = ko.observable("");
     self.iconTypeFromUserName = ko.observable("");
+    self.iconTypeToUserName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
     self.iconTypeDocNo = ko.observable("");
@@ -690,6 +695,7 @@
         self.iconTypeCustName('');
         self.iconTypeKhdtName('');
         self.iconTypeFromUserName('');
+        self.iconTypeToUserName('');
         self.iconTypeSpec('');
         self.iconTypeStatus('');
         self.iconTypeDocNo('');
@@ -703,6 +709,7 @@
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KhdtName') self.iconTypeKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FromUserName') self.iconTypeFromUserName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ToUserName') self.iconTypeToUserName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1694,6 +1701,11 @@
         serialNumber = Band.SerialNumber;
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
+
+
+        $('#erja').removeAttr('hidden', '');
+        $('#saveParvandeh').removeAttr('hidden', '');
+
         if (docBMode == 1) { // رونوشت
             $('#panelFooterParvandeh').attr('hidden', '');
             $('#erja').attr('hidden', '');
@@ -1702,6 +1714,12 @@
             $('#panelFooterParvandeh').removeAttr('hidden', '');
             $('#erja').removeAttr('hidden', '');
         }
+
+        if (Band.ToUserCode != sessionStorage.userName) {
+            $('#erja').attr('hidden', '');
+            $('#saveParvandeh').attr('hidden', '');
+        }
+
 
         if (Band.RjReadSt == 'T' && ErjaMode == "1") {
             ErjSaveDoc_RjRead_Object = {
@@ -2119,6 +2137,7 @@
             CreateTableTh('CustName', data) +
             CreateTableTh('KhdtName', data) +
             CreateTableTh('FromUserName', data) +
+            CreateTableTh('ToUserName', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('Status', data) +
             CreateTableTh('DocNo', data) +
@@ -2139,6 +2158,7 @@
             CreateTableTd('CustName', 0, 0, data) +
             CreateTableTd('KhdtName', 0, 0, data) +
             CreateTableTd('FromUserName', 0, 0, data) +
+            CreateTableTd('ToUserName', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
@@ -2175,6 +2195,7 @@
             CreateTableTdSearch('CustName', data) +
             CreateTableTdSearch('KhdtName', data) +
             CreateTableTdSearch('FromUserName', data) +
+            CreateTableTdSearch('ToUserName', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('DocNo', data) +
