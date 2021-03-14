@@ -205,9 +205,12 @@
         ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber + '/' + bMode + '/' + toUser, 'GET').done(function (data) {
             if (bMode == null)
                 self.ErjResultList(data);
+
             item = data[0];
-            bandNo = item.BandNo;
-            $("#Result").val(item.RjResult);
+            if (item != null) {
+                bandNo = item.BandNo;
+            }
+           // $("#Result").val(item.RjResult);
         });
     }
 
