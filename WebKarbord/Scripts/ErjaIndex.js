@@ -1682,9 +1682,9 @@
             }
         });
 
-        if (item.Code == self.ErjUsersCode()) {
-            find = true;
-        }
+        //if (item.Code == self.ErjUsersCode()) {
+        //    find = true;
+        //}
 
         if (find == false) {
             $('#TableBodyListErjUsersRonevesht').append(
@@ -1705,7 +1705,7 @@
         list = self.ErjUsersList();
         $("#TableBodyListErjUsersRonevesht").empty();
         for (var i = 0; i < list.length; i++) {
-            if (list[i].Code != self.ErjUsersCode()) {
+            //if (list[i].Code != self.ErjUsersCode()) {
                 $('#TableBodyListErjUsersRonevesht').append(
                     '  <tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
@@ -1715,7 +1715,7 @@
                 );
                 list_ErjUsersRoneveshtSelect[i] = list[i].Code;
                 counterErjUsersRonevesht = i + 1;
-            }
+           // }
         }
     };
 
@@ -1910,6 +1910,10 @@
         $('#modal-Erja').modal('hide');
         list_ErjUsersRoneveshtSelect = new Array();
         counterErjUsersRonevesht = 0;
+        $('#modal-ErjDocErja').modal('hide');
+        $('#modal-ErjDocH').modal('hide');
+        getErjDocH($('#pageCountSelector').val(), 0);
+        self.sortTableErjDocH();
     })
 
 
@@ -1970,6 +1974,7 @@
             $("#TableBodyListErjUsersRonevesht").empty();
         });
         flagInsertFdoch = 1;
+        //getErjUsersList();
     };
 
 
@@ -1978,31 +1983,39 @@
     function ErjSaveDoc_CSave() {
         rjDate = ShamsiDate();
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
-
+        var notUsers = false;
+        toUser = self.ErjUsersCode();
         fromUserCode = sessionStorage.userName;
 
         var obj = [];
 
-
-
         for (i = 1; i <= list_ErjUsersRoneveshtSelect.length; i++) {
-            tmp = {
-                'SerialNumber': serialNumber,
-                'BandNo': 1,
-                'Natijeh': '',
-                'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
-                'RjDate': rjDate
-            };
-            obj.push(tmp);
+            if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
+                tmp = {
+                    'SerialNumber': serialNumber,
+                    'BandNo': 1,
+                    'Natijeh': '',
+                    'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
+                    'RjDate': rjDate
+                };
+                obj.push(tmp);
+            } else {
+                notUsers = true;
+            }
         }
 
 
         ajaxFunction(ErjSaveDoc_CSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
             $('#modal-Erja').modal('hide');
             $('#modal-ErjDocErja').modal('hide');
-            //getDocB_Last();
+            $('#modal-ErjDocH').modal('hide');
         });
         flagInsertFdoch = 1;
+
+        if (notUsers == true) {
+           // showNotification('امکان رونوشت به کاربر اجاع شونده وجود', 0);
+        }
+
     };
 
 
