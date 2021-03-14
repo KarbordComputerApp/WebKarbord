@@ -1912,8 +1912,11 @@
         counterErjUsersRonevesht = 0;
         $('#modal-ErjDocErja').modal('hide');
         $('#modal-ErjDocH').modal('hide');
-        getErjDocH($('#pageCountSelector').val(), 0);
-        self.sortTableErjDocH();
+        currentPage = self.currentPageIndexErjDocH();
+        getErjDocH($('#pageCountSelector').val(), currentPage);
+
+        //getErjDocH($('#pageCountSelector').val(), 0);
+        //self.sortTableErjDocH();
     })
 
 

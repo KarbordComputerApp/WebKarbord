@@ -573,7 +573,7 @@
                 (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
                 (item.KhdtName == null ? '' : item.KhdtName.toString().search(filterKhdtName) >= 0) &&
                 (item.FromUserName == null ? '' : item.FromUserName.toString().search(filterFromUserName) >= 0) &&
-            (item.ToUserName == null ? '' : item.ToUserName.toString().search(filterToUserName) >= 0) &&
+                (item.ToUserName == null ? '' : item.ToUserName.toString().search(filterToUserName) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.DocNo == null ? '' : item.DocNo.toString().search(filterDocNo) >= 0) &&
@@ -1723,7 +1723,7 @@
 
         if (Band.RjReadSt == 'T' && ErjaMode == "1") {
             ErjSaveDoc_RjRead_Object = {
-                DocBMode: Band.DocBMode, 
+                DocBMode: Band.DocBMode,
                 SerialNumber: Band.SerialNumber,
                 BandNo: Band.BandNo,
                 RjReadSt: 'F'
@@ -1947,7 +1947,7 @@
         fromUserCode = $("#ToUser").val();
         if (fromUserCode == " ")
             fromUserCode = sessionStorage.userName;
-         
+
         if (fromUserCode == " ") fromUserCode = sessionStorage.userName;
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
@@ -2032,8 +2032,8 @@
                 $('#modal-ErjDocErja').modal('hide');
             }
 
-           // list_ErjUsersRoneveshtSelect = new Array();
-           // counterErjUsersRonevesht = 0;
+            // list_ErjUsersRoneveshtSelect = new Array();
+            // counterErjUsersRonevesht = 0;
             $("#TableBodyListErjUsersRonevesht").empty();
 
             if (flagSave != null)
@@ -2063,20 +2063,25 @@
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
         fromUserCode = $("#ToUser").val();
+        toUser = self.ErjUsersCode();
 
         var obj = [];
 
         if (isSave == false) { // رونوشت به
 
             for (i = 1; i <= list_ErjUsersRoneveshtSelect.length; i++) {
-                tmp = {
-                    'SerialNumber': serialNumber,
-                    'BandNo': bandNoImput + 1,
-                    'Natijeh': '',
-                    'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
-                    'RjDate': rjDate
-                };
-                obj.push(tmp);
+                if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
+                    tmp = {
+                        'SerialNumber': serialNumber,
+                        'BandNo': bandNoImput + 1,
+                        'Natijeh': '',
+                        'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
+                        'RjDate': rjDate
+                    };
+                    obj.push(tmp);
+                } else {
+                    notUsers = true;
+                }
             }
         }
         else // ذخیره پرونده های رونوشت
@@ -2085,15 +2090,16 @@
             if (natijeh == '') {
                 return showNotification('متن نتیجه را وارد کنید', 0);
             }
-
-            tmp = {
-                'SerialNumber': serialNumber,
-                'BandNo': bandNoImput,
-                'Natijeh': natijeh,
-                'ToUserCode': fromUserCode,
-                'RjDate': rjDate
-            };
-            obj.push(tmp);
+            if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
+                tmp = {
+                    'SerialNumber': serialNumber,
+                    'BandNo': bandNoImput,
+                    'Natijeh': natijeh,
+                    'ToUserCode': fromUserCode,
+                    'RjDate': rjDate
+                };
+                obj.push(tmp);
+            }
         }
 
         ajaxFunction(ErjSaveDoc_CSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
