@@ -1912,6 +1912,24 @@
 
 
     $('#saveErja').click(function () {
+
+        rjTime_H = $("#RjTime_H").val();
+        rjTime_M = $("#RjTime_M").val();
+
+        if (self.ErjUsersCode() == null) {
+          return showNotification('ارجاع شونده را انتخاب کنید', 0);
+        }
+
+        if (rjTime_H == '' && rjTime_M == '') {
+           return showNotification('زمان صرف شده را وارد کنید', 0);
+        }
+
+        natijeh = $("#e_Result").val();
+
+        if (natijeh == '') {
+           return showNotification('متن ارجاع را وارد کنید', 0);
+        }
+
         flagSave = false;
         //ErjSaveDoc_BSave(bandNo);
         ErjSaveDoc_BSave(0);
@@ -1951,7 +1969,7 @@
         if (fromUserCode == " ") fromUserCode = sessionStorage.userName;
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
-            return showNotification('ارجاع شونده را انتخاب کنید', 0);
+         //   return showNotification('ارجاع شونده را انتخاب کنید', 0);
         }
 
         toUserCode = self.ErjUsersCode();
@@ -1978,7 +1996,7 @@
                 rjTime = rjTime_H + rjTime_M;
             }
             else {
-                return showNotification('زمان صرف شده را وارد کنید', 0);
+              //  return showNotification('زمان صرف شده را وارد کنید', 0);
             }
         }
 
@@ -1987,7 +2005,7 @@
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
-                return showNotification('متن ارجاع را وارد کنید', 0);
+             //   return showNotification('متن ارجاع را وارد کنید', 0);
             }
 
 
