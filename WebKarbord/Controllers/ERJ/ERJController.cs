@@ -13,5 +13,12 @@ namespace WebKarbord.Controllers.ERJ
             return View();
         }
 
+        public ActionResult Erja()
+        {
+            return View();
+        }
+
+
+
     }
 }

@@ -84,7 +84,15 @@
     var list_KhdtSelect = new Array()
     var ErjaMode;
 
-    $("#textTotal").text('');
+
+
+    if  (sessionStorage.ModeCodeErja == 1)
+        $("#title_erja").text('ارجاعات پرونده دریافتی');
+    else
+        $("#title_erja").text('ارجاعات پرونده ارسالی');
+
+
+    
 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -134,7 +142,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(aceErj, salErj, group, rprtId, "/ReportERJ/ErjDocB_Last", columns, self.SettingColumnList());
+        SaveColumn(aceErj, salErj, group, rprtId, "/ERJ/Erja", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -245,22 +253,7 @@
     getRepFromUsersList();
     getMahramanehList();
 
-    function AddErjaMode() {
-        select = document.getElementById('ErjaMode');
-        for (var i = 1; i <= 2; i++) {
-            opt = document.createElement('option');
-            if (i == 1) {
-                opt.value = i;
-                opt.innerHTML = 'دریافتی';
-                opt.selected = true;
-            }
-            if (i == 2) {
-                opt.value = i;
-                opt.innerHTML = 'ارسالی';
-            }
-            select.appendChild(opt);
-        }
-    }
+   
 
     function AddDocBMode() {
         select = document.getElementById('DocBMode');
@@ -297,76 +290,44 @@
 
 
     AddDocBMode();
-    AddErjaMode();
+
 
 
     //Get DocB_Last
     function getDocB_Last() {
-
-        ErjaMode = $("#ErjaMode").val();
-        if (ErjaMode == null) ErjaMode = -1;
-
         DocBMode = $("#DocBMode").val();
         if (DocBMode == null) DocBMode = -1;
 
         ToUser = $("#ToUser").val();
-        if (ToUser == null) ToUser = "";
-
         FromUser = $("#FromUser").val();
-        if (FromUser == null) FromUser = "";
 
-
-        AzDocDate = $("#azDocDate").val().toEnglishDigit();
-        TaDocDate = $("#taDocDate").val().toEnglishDigit();
-
-        AzRjDate = $("#azRjDate").val().toEnglishDigit();
-        TaRjDate = $("#taRjDate").val().toEnglishDigit();
-
-        AzMhltDate = $("#azMhltDate").val().toEnglishDigit();
-        TaMhltDate = $("#taMhltDate").val().toEnglishDigit();
-
-
-        Status = $("#status").val();
-        if (Status == null) Status = "";
-
-        SrchSt = $("#SrchSt").val();
-        if (SrchSt == null) SrchSt = "";
-
-        var ErjCust = '';
-        for (var i = 0; i <= counterErjCust - 1; i++) {
-            if (i < counterErjCust - 1)
-                ErjCust += list_ErjCustSelect[i] + '*';
-            else
-                ErjCust += list_ErjCustSelect[i];
-        }
-
-        var Khdt = '';
-        for (var i = 0; i <= counterKhdt - 1; i++) {
-            if (i < counterKhdt - 1)
-                Khdt += list_KhdtSelect[i] + '*';
-            else
-                Khdt += list_KhdtSelect[i];
-        }
+        mode = sessionStorage.ModeCodeErja;
 
         var DocB_LastObject = {
-            erjaMode: ErjaMode,
+            erjaMode: mode,
             docBMode: DocBMode,
-            fromUserCode: FromUser,
-            toUserCode: ToUser,
-            azDocDate: AzDocDate,
-            taDocDate: TaDocDate,
-            azRjDate: AzRjDate,
-            taRjDate: TaRjDate,
-            azMhltDate: AzMhltDate,
-            taMhltDate: TaMhltDate,
-            status: Status,
-            custCode: ErjCust,
-            khdtCode: Khdt,
-            srchSt: SrchSt,
+            fromUserCode: mode == 1 ? '' : sessionStorage.userName ,
+            toUserCode: mode == 1 ? sessionStorage.userName : '',
+            azDocDate: '',
+            taDocDate: '',
+            azRjDate: '',
+            taRjDate: '',
+            azMhltDate: '',
+            taMhltDate: '',
+            status: '',
+            custCode: '',
+            khdtCode: '',
+            srchSt: '',
         };
         ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, true).done(function (response) {
             self.DocB_LastList(response);
         });
+    }
+
+    getDocB_Last();
+
+    self.DocBModeChange = function () {
+        getDocB_Last();
     }
 
     //Get ErjDocErja
@@ -534,7 +495,7 @@
     $('#nameKhdt').val('همه موارد');
 
     self.currentPageDocB_Last = ko.observable();
-    pageSizeDocB_Last = localStorage.getItem('pageSizeDocB_Last') == null ? 10 : localStorage.getItem('pageSizeDocB_Last');
+    pageSizeDocB_Last = localStorage.getItem('pageSizeDocB_Last' + sessionStorage.ModeCodeErja) == null ? 10 : localStorage.getItem('pageSizeDocB_Last' + sessionStorage.ModeCodeErja);
     self.pageSizeDocB_Last = ko.observable(pageSizeDocB_Last);
     self.currentPageIndexDocB_Last = ko.observable(0);
     self.sortType = "ascending";
@@ -618,7 +579,7 @@
         var pageSizeDocB_Last = parseInt(self.pageSizeDocB_Last(), 10),
             startIndex = pageSizeDocB_Last * self.currentPageIndexDocB_Last(),
             endIndex = startIndex + pageSizeDocB_Last;
-        localStorage.setItem('pageSizeDocB_Last', pageSizeDocB_Last);
+        localStorage.setItem('pageSizeDocB_Last' + sessionStorage.ModeCodeErja, pageSizeDocB_Last);
         return self.filterDocB_LastList().slice(startIndex, endIndex);
     });
 
@@ -2136,17 +2097,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     self.radif = function (index) {
         countShow = self.pageSizeDocB_Last();
         page = self.currentPageIndexDocB_Last();
@@ -2160,7 +2110,6 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
-            '<th>ردیف</th>' +
             CreateTableTh('RjStatus', data) +
             CreateTableTh('RjDate', data) +
             CreateTableTh('RjMhltDate', data) +
@@ -2177,10 +2126,7 @@
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
-            '<td style="background-color: ' + colorRadif + ';">' +
-            '<div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
-            '<i data-bind="style: {\'display\': RjReadSt == \'F\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px;">notifications_none</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
-            '</div></td>' +
+            //'<td style="background-color: ' + colorRadif + ';">' +
             //style: {\'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } 
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
@@ -2218,7 +2164,6 @@
             CreateTableTdSum('MhltDate', 1, data) +
             ' </tr>' +*/
             '  <tr style="background-color: #efb68399;">' +
-            '<td>جستجو</td>' +
             CreateTableTdSearch('RjStatus', data) +
             CreateTableTdSearch('RjDate', data) +
             CreateTableTdSearch('RjMhltDate', data) +

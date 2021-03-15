@@ -711,6 +711,7 @@
     <Content Include="Scripts\R_AFI_IDocR.js" />
     <Content Include="Scripts\R_AFI_TrzAcc.js" />
     <Content Include="Scripts\R_AFI_TrzIKalaExf.js" />
+    <Content Include="Scripts\Erja.js" />
     <Content Include="Scripts\R_ERJ_ErjDocB_Last.js" />
     <Content Include="Scripts\R_ERJ_ErjDocK.js" />
     <Content Include="Scripts\R_AFI_TrzIKala.js" />
@@ -903,6 +904,7 @@
     <Content Include="Views\AFISanad\AddAdoc.cshtml" />
     <Content Include="Views\ReportAFI\Krdx.cshtml" />
     <Content Include="Views\ERJ\Index.cshtml" />
+    <Content Include="Views\ERJ\Erja.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -304,6 +304,7 @@
             self.ErjDocHList(response);
             self.RelatedDocsList(response);
             self.currentPageIndexErjDocH(page);
+
         });
     }
 
@@ -335,6 +336,7 @@
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
         getErjDocH(select, 0);
+        self.sortTableErjDocH();
     }
 
 
@@ -704,6 +706,7 @@
         $('#p_Mahramaneh').val(0);
         $('#p_Status').val('فعال');
         $("#BodyErjDocH").empty();
+        $('#ErjDocErja').removeAttr('hidden', '');
         $('#ErjDocErja').prop('disabled', true);
 
     }
@@ -727,6 +730,8 @@
                 ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + ErjDocHBand.SerialNumber, 'DELETE').done(function (response) {
                     currentPage = self.currentPageIndexErjDocH();
                     getErjDocH($('#pageCountSelector').val(), currentPage);
+                    self.sortTableErjDocH();
+                    self.currentPageIndexErjDocH(currentPage);
                     //self.currentPageIndexErjDocH(currentPage);
                     showNotification('پرونده حذف شد', 1);
                 });
@@ -852,6 +857,8 @@
             serialNumber = response;
             currentPage = self.currentPageIndexErjDocH();
             getErjDocH($('#pageCountSelector').val(), currentPage);
+            self.sortTableErjDocH();
+            self.currentPageIndexErjDocH(currentPage);
             if (lastDoc == "") {
                 $('#ErjDocErja').prop('disabled', false);
                 $("#p_docno").val(response);
@@ -1408,6 +1415,7 @@
         }).then((result) => {
             if (result.value) {
                 getErjDocH(3, 0);
+                self.sortTableErjDocH();
             }
         })
     })
@@ -1914,6 +1922,7 @@
         $('#modal-ErjDocH').modal('hide');
         currentPage = self.currentPageIndexErjDocH();
         getErjDocH($('#pageCountSelector').val(), currentPage);
+        self.sortTableErjDocH();
 
         //getErjDocH($('#pageCountSelector').val(), 0);
         //self.sortTableErjDocH();
@@ -2140,11 +2149,15 @@
         getErjResultList(serialNumber, null, null)
         getErjDocErja(serialNumber);
 
+
         if (self.ErjDocErja().length == 0) {
-            $('#ErjDocErja').prop('disabled', false);
+            $('#ErjDocErja').removeAttr('hidden', '');
+
+            //$('#ErjDocErja').prop('disabled', false);
         }
         else {
-            $('#ErjDocErja').prop('disabled', true);
+            $('#ErjDocErja').attr('hidden', '');
+            //$('#ErjDocErja').prop('disabled', true);
         }
 
         $('#modal-ErjDocH').modal('show');

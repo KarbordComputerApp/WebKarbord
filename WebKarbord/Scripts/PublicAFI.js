@@ -247,6 +247,7 @@ $("#AReport_Menu").hide();
 $("#FReport_Menu").hide();
 $("#IReport_Menu").hide();
 $("#EReport_Menu").hide();
+$("#EDOC_Menu").hide();
 
 /*if (afiaccess[0] == 0 && afiaccess[1] == 0 &&
     afiaccess[2] == 0 && afiaccess[3] == 0 &&
@@ -1709,6 +1710,7 @@ function SetValidationErj() {
 
     if (erjaccess[0] == true || erjaccess[1] == true) {
         $("#EReport_Menu").show();
+        $("#EDOC_Menu").show();
         erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
         erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
 
@@ -1812,6 +1814,21 @@ $("#IDOC_O").click(function () {
     sessionStorage.InOut = 2;
     sessionStorage.lastPageSelect = 0;
 });
+
+
+
+$("#Erja_Resive").click(function () {
+    sessionStorage.setItem('listFilter', null);
+    sessionStorage.ModeCodeErja = 1;
+});
+
+
+$("#Erja_Send").click(function () {
+    sessionStorage.setItem('listFilter', null);
+    sessionStorage.ModeCodeErja = 2;
+});
+
+
 
 
 //MODECODE_IDOC_AVAL = 101 'موجودي اول دوره';
@@ -2012,6 +2029,7 @@ $('#EDOC_Menu').click(function () {
     sessionStorage.SelectMenu = 7;
 });
 
+
 $('#ADOC_Menu').removeAttr('class');
 $('#FDOC_Menu').removeAttr('class');
 $('#IDOC_Menu').removeAttr('class');
@@ -2052,6 +2070,7 @@ else if (sessionStorage.SelectMenu == 6) {
 else if (sessionStorage.SelectMenu == 7) {
     $('#EDOC_Menu').attr('class', 'active');
 }
+
 
 $.fn.inputFilter = function (inputFilter) {
     return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
