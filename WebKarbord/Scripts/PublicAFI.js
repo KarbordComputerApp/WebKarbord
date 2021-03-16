@@ -201,13 +201,15 @@ function CheckGroupErj(GroupName) {
 }
 
 
-erjaccess = [false, false]
+erjaccess = [false, false, false, false, false]
 
 if (CheckGroupErj(sessionStorage.group) == true) {
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 5; i++) {
         erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
         erjAccessApi[i] == 'ErjDocErja' ? erjaccess[1] = true : null;
-
+        erjAccessApi[i] == 'ErjDoc' ? erjaccess[2] = true : null;
+        erjAccessApi[i] == 'Erja_Resive' ? erjaccess[3] = true : null;
+        erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
     }
 }
 
@@ -247,7 +249,7 @@ $("#AReport_Menu").hide();
 $("#FReport_Menu").hide();
 $("#IReport_Menu").hide();
 $("#EReport_Menu").hide();
-$("#EDOC_Menu").hide();
+$("#ErjaDOC_Menu").hide();
 
 /*if (afiaccess[0] == 0 && afiaccess[1] == 0 &&
     afiaccess[2] == 0 && afiaccess[3] == 0 &&
@@ -319,7 +321,7 @@ function ajaxFunction(uri, method, data, sync) {
         async: sync == null ? false : sync,
         beforeSend: function () {
             if (sync == true) {
-                
+
                 $('#loadingsite').attr('class', 'page-proccess-wrapper');
                 $('#loadingsite').css('display', 'block');
             }
@@ -338,7 +340,7 @@ function ajaxFunction(uri, method, data, sync) {
         complete: function () {
             if (sync == true) {
                 $('#loadingsite').css('display', 'none');
-               $('#loadingsite').attr('class', 'page-loader-wrapper');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
             }
         },
         //async: true,
@@ -501,7 +503,7 @@ function getProgName(value) {
 //Get Param List
 async function getParamList() {
 
-    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET',null,true).done(function (data) {
+    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET', null, true).done(function (data) {
         ParamList(data);
         $('#information').hide();
         if (self.ParamList().length > 0) {
@@ -639,8 +641,21 @@ function CheckAccessReport(Code) {
 }
 
 
+function CheckAccessErj(TrsName) {
+    if (accessErj[0].TrsName == 'ADMIN') {
+        return true;
+    }
+    else {
+        for (var i = 0; i < accessErj.length; i++) {
+            if (accessErj[i].TrsName == TrsName)
+                return true;
+        }
+    }
+    return false
+}
+
 function CheckAccessReportErj(Code) {
-    if (access[0].TrsName == 'ADMIN') {
+    if (accessErj[0].TrsName == 'ADMIN') {
         return true;
     }
     else {
@@ -768,12 +783,15 @@ function getAccessList() {
                 erjaccess = [false, false]
 
                 if (CheckGroupErj(sessionStorage.group) == true) {
-                    for (var i = 0; i < 2; i++) {
+                    for (var i = 0; i < 5; i++) {
                         erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
                         erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
+                        erjAccessApi[i] == 'ErjDoc' ? erjaccess[2] = true : null;
+                        erjAccessApi[i] == 'Erja_Resive' ? erjaccess[3] = true : null;
+                        erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
                     }
 
-                    ajaxFunction(AccessUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET',true).done(function (data) {
+                    ajaxFunction(AccessUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                         self.AccessList(data);
                         if (self.AccessList().length > 0) {
                             localStorage.setItem('AccessErj', JSON.stringify(data));
@@ -1707,10 +1725,11 @@ function SetValidationErj() {
     validation = CheckAccessReportErj('ErjDocErja');
     ShowMenuErj[1] = validation;  // گزارش فهرست ارجاعات
 
+    validation = CheckAccessErj('ErjDoc');
+    ShowMenuErj[2] = validation;  // پرونده ها
 
     if (erjaccess[0] == true || erjaccess[1] == true) {
         $("#EReport_Menu").show();
-        $("#EDOC_Menu").show();
         erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
         erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
 
@@ -1720,6 +1739,37 @@ function SetValidationErj() {
     else {
         $("#EReport_Menu").hide();
     }
+
+
+
+
+
+    if (erjaccess[2] == true || erjaccess[3] == true || erjaccess[4] == true) {
+        $("#ErjaDOC_Menu").show();
+        erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();
+        erjaccess[3] == true ? $("#Erja_Resive").show() : $("#Erja_Resive").hide();
+        erjaccess[4] == true ? $("#Erja_Send").show() : $("#Erja_Send").hide();
+        //erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+        //erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+    }
+    else {
+        $("#ErjaDOC_Menu").hide();
+    }
+
+    
+
+    validation = CheckAccessErj('NEW_ErjDOC');// new parvandeh
+    validation == true ? $("#AddNewErjDocH").show() : $("#AddNewErjDocH").hide()
+
+    validation = CheckAccessErj('CHG_ErjDOC');// edit parvandeh
+    //validation == true ? $("#UpdateErjDocH").show() : $("#UpdateErjDocH").hide()
+    validation == true ? sessionStorage.CHG_ErjDOC = true : sessionStorage.CHG_ErjDOC = false
+
+    validation = CheckAccessErj('DEL_ErjDOC'); // delete parvandeh
+    //validation == true ? $("#DeleteErjDocH").show() : $("#DeleteErjDocH").hide()
+    validation == true ? sessionStorage.DEL_ErjDOC = true : sessionStorage.DEL_ErjDOC = false
+
+
 
 }
 
@@ -2025,7 +2075,7 @@ $('#EReport_Menu').click(function () {
     sessionStorage.SelectMenu = 6;
 });
 
-$('#EDOC_Menu').click(function () {
+$('#ErjaDOC_Menu').click(function () {
     sessionStorage.SelectMenu = 7;
 });
 
@@ -2037,10 +2087,10 @@ $('#AReport_Menu').removeAttr('class');
 $('#IReport_Menu').removeAttr('class');
 $('#FReport_Menu').removeAttr('class');
 $('#EReport_Menu').removeAttr('class');
-$('#EDOC_Menu').removeAttr('class');
+$('#ErjaDOC_Menu').removeAttr('class');
 
 if (sessionStorage.SelectMenu == 0) {
-    $('#EDOC_Menu').attr('class', 'active');
+    $('#ErjaDOC_Menu').attr('class', 'active');
 }
 
 if (sessionStorage.SelectMenu == 1) {
@@ -2068,7 +2118,7 @@ else if (sessionStorage.SelectMenu == 6) {
 }
 
 else if (sessionStorage.SelectMenu == 7) {
-    $('#EDOC_Menu').attr('class', 'active');
+    $('#ErjaDOC_Menu').attr('class', 'active');
 }
 
 

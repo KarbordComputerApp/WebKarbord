@@ -2321,12 +2321,24 @@
 
 
 
-
-
-
     self.ShowAction = function (Eghdam) {
-        return true;
+        if (sessionStorage.DEL_ErjDOC == 'true')
+            return Eghdam == sessionStorage.userName ? true : false
+        else
+            return false;
     }
+
+
+    self.ShowActionUpdate = function (EditDocTrs) {
+
+        if (sessionStorage.CHG_ErjDOC == 'true')
+            return EditDocTrs == 1 ? true : false
+        else
+            return false;
+    }
+
+
+    
 
 
     self.radif = function (index) {
@@ -2429,7 +2441,7 @@
             CreateTableTd('F19', 0, 0, 0, data) +
             CreateTableTd('F20', 0, 0, 0, data) +
             '<td>' +
-            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH">' +
+            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(EditDocTrs)">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(Eghdam)">' +

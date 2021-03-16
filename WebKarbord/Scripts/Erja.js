@@ -330,6 +330,27 @@
         getDocB_Last();
     }
 
+
+
+    $('#refreshErja').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست ارجاعات به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                getDocB_Last();
+            }
+        })
+    })
+
+
     //Get ErjDocErja
     function getErjDocErja(serialNumber) {
         var ErjDocErjaObject = {
