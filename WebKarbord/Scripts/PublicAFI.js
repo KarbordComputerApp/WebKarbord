@@ -20,6 +20,8 @@ var listFilter;
 
 var colorRadif = '#d9d9d9';
 
+var ListColumns;
+
 
 
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
@@ -1756,7 +1758,7 @@ function SetValidationErj() {
         $("#ErjaDOC_Menu").hide();
     }
 
-    
+
 
     validation = CheckAccessErj('NEW_ErjDOC');// new parvandeh
     validation == true ? $("#AddNewErjDocH").show() : $("#AddNewErjDocH").hide()
@@ -1768,8 +1770,6 @@ function SetValidationErj() {
     validation = CheckAccessErj('DEL_ErjDOC'); // delete parvandeh
     //validation == true ? $("#DeleteErjDocH").show() : $("#DeleteErjDocH").hide()
     validation == true ? sessionStorage.DEL_ErjDOC = true : sessionStorage.DEL_ErjDOC = false
-
-
 
 }
 
@@ -2202,7 +2202,7 @@ function SetColumn(code, indexId, data) {
     for (i = 0; i < data.length; i++) {
         item = data[i];
         user = item.UserCode;
-        if (item.Code == code) {
+        if (item.Code == code && item.Name != "" ) {
             index = i;
         }
     }
@@ -2211,7 +2211,7 @@ function SetColumn(code, indexId, data) {
         name = data[index].Name;
         visible = data[index].Visible;
         findCode = code.search("Code");
-        if (user == "*Default*" &&
+        if (user == "*Default*" && 
             (
                 (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
                 code.lastIndexOf("Amount2") > 0 ||
@@ -2526,7 +2526,7 @@ function createDesigner() {
 
 
 
-function setReport_m(reportObject, mrtFileName, variablesObject) {
+function setReport_m(reportObject, mrtFileName, variablesObject, titlesObject) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
         return showNotification('ابتدا گزارش گیری کنید', 0);
@@ -2553,6 +2553,12 @@ function setReport_m(reportObject, mrtFileName, variablesObject) {
     variablesReport = '{"variables":[{' + variablesObject + '}]}';
     variablesDataSet.readJson(variablesReport);
     report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
+
+
+    titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+    titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+    titlesDataSet.readJson(titlesReport);
+    report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
 
 
 
@@ -2651,6 +2657,19 @@ function setReport(reportObject, mrtFileName, variablesObject) {
     variablesDataSet.readJson(variablesReport);
     report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
 
+
+    titlesObject = '';
+    for (var i = 0; i < ListColumns.length; i++) {
+        titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
+    }
+
+
+    titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+    titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+    titlesDataSet.readJson(titlesReport);
+    report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
+
+
     report.dictionary.synchronize();
 
     viewer.report = report;
@@ -2669,4 +2688,25 @@ function sleep(milliseconds) {
         }
     }
 }
+
+
+function base64ToArrayBuffer(base64) {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+        var ascii = binaryString.charCodeAt(i);
+        bytes[i] = ascii;
+    }
+    return bytes;
+}
+
+function saveByteArray(reportName, byte) {
+    var blob = new Blob([byte], { type: 'octet/stream' });
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = reportName;
+    link.download = fileName;
+    link.click();
+};
 

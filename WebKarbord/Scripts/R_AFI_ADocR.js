@@ -117,6 +117,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }

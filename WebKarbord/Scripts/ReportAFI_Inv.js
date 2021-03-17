@@ -311,7 +311,13 @@
 
     createViewer();
     $('#Print').click(function () {
+        FromDate = $("#aztarikh").val().toEnglishDigit();
+        ToDate = $("#tatarikh").val().toEnglishDigit();
+
         variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+
         setReport(self.filterThvl(), 'Free', variable);
     });
 };

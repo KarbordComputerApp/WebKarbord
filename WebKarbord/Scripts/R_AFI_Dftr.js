@@ -116,6 +116,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -1986,9 +1987,15 @@
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
 
+        FromShomarh = $("#azshomarh").val();
+        ToShomarh = $("#tashomarh").val();
+
         variable = '"ReportDate":"' + DateNow + '",';
         variable += '"FromDate":"' + FromDate + '",';
         variable += '"ToDate":"' + ToDate + '",';
+
+        variable += '"FromDocNo":"' + FromShomarh + '",';
+        variable += '"ToDocNo":"' + ToShomarh + '",';
 
         setReport(self.filterDftrList(), 'Report_Dftr', variable);
     });

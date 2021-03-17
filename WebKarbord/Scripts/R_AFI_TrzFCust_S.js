@@ -141,6 +141,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -2623,7 +2624,26 @@
 
     createViewer();
     $('#Print').click(function () {
+        FromDate = $("#aztarikh").val().toEnglishDigit();
+        ToDate = $("#tatarikh").val().toEnglishDigit();
+
+        status_R = "";
+        if (list_StatusSelect.length == 0)
+            status_R = "همه موارد";
+        else {
+            for (var i = 0; i < list_StatusSelect.length; i++) {
+                if (i < list_StatusSelect.length - 1)
+                    status_R += list_StatusSelect[i] + '-';
+                else
+                    status_R += list_StatusSelect[i];
+            }
+        }
+ 
         variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+        variable += '"Status":"' + status_R + '",';
+
         setReport(self.filterTrzFCust_SList(), 'Report_TrzFCust_S', variable);
     });
 

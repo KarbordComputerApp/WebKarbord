@@ -149,6 +149,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -2719,7 +2720,13 @@
 
     createViewer();
     $('#Print').click(function () {
+        FromDate = $("#aztarikh").val().toEnglishDigit();
+        ToDate = $("#tatarikh").val().toEnglishDigit();
+
         variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+
         setReport(self.filterTrzFKala_PList(), 'Report_TrzFKala_P', variable);
     });
 

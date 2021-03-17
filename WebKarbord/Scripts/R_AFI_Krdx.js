@@ -41,7 +41,9 @@
     });
 
     self.InvCode = ko.observable();
+    self.InvName = ko.observable();
     self.KalaCode = ko.observable();
+    self.KalaName = ko.observable();
     var allSearchKala = true;
 
 
@@ -186,6 +188,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -1342,6 +1345,7 @@
     self.selectInv = function (item) {
         $('#nameInv').val('(' + item.Code + ') ' + item.Name);
         self.InvCode(item.Code);
+        self.InvName(item.Name);
     }
 
 
@@ -1488,6 +1492,7 @@
     self.selectKala = function (item) {
         $('#nameKala').val('(' + item.Code + ') ' + item.Name);
         self.KalaCode(item.Code);
+        self.KalaName(item.Name);
     }
 
 
@@ -2999,7 +3004,17 @@
 
     createViewer();
     $('#Print').click(function () {
+        FromDate = $("#aztarikh").val().toEnglishDigit();
+        ToDate = $("#tatarikh").val().toEnglishDigit();
+
         variable = '"ReportDate":"' + DateNow + '",';
+        variable += '"FromDate":"' + FromDate + '",';
+        variable += '"ToDate":"' + ToDate + '",';
+        variable += '"InvCode":"' + self.InvCode() + '",';
+        variable += '"InvName":"' + self.InvName() + '",';
+        variable += '"KalaCode":"' + self.KalaCode() + '",';
+        variable += '"KalaName":"' + self.KalaName() + '",';
+
         setReport(self.filterKrdxList(), 'Report_Krdx', variable);
     });
 

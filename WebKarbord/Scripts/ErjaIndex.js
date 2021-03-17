@@ -142,6 +142,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
+            ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -210,7 +211,7 @@
             if (item != null) {
                 bandNo = item.BandNo;
             }
-           // $("#Result").val(item.RjResult);
+            // $("#Result").val(item.RjResult);
         });
     }
 
@@ -1222,7 +1223,7 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filter0) &&
                     (item.DocDate == null ? '' : item.DocDate.toString().search(filter1) >= 0) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filter2) >= 0) &&
-                (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter3) >= 0) &&
+                    (item.KhdtName == null ? '' : item.KhdtName.toString().search(filter3) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filter4) >= 0)
                 return result;
             })
@@ -1714,16 +1715,16 @@
         $("#TableBodyListErjUsersRonevesht").empty();
         for (var i = 0; i < list.length; i++) {
             //if (list[i].Code != self.ErjUsersCode()) {
-                $('#TableBodyListErjUsersRonevesht').append(
-                    '  <tr data-bind="">'
-                    + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
-                    + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                    + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
-                    + '</tr>'
-                );
-                list_ErjUsersRoneveshtSelect[i] = list[i].Code;
-                counterErjUsersRonevesht = i + 1;
-           // }
+            $('#TableBodyListErjUsersRonevesht').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
+                + '</tr>'
+            );
+            list_ErjUsersRoneveshtSelect[i] = list[i].Code;
+            counterErjUsersRonevesht = i + 1;
+            // }
         }
     };
 
@@ -1850,7 +1851,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getDocAttachList(serialNumberAttach);
+                getDocAttachList(serialNumber);
                 $("div.loadingZone").hide();
             }
         })
@@ -1860,6 +1861,190 @@
 
 
 
+
+    $('#attachFile').click(function () {
+        getDocAttachList(serialNumber);
+    });
+
+    self.selectDocAttach = function (item) {
+
+        var fileName = item.FName.split(".");
+        var DownloadAttachObject = {
+            SerialNumber: item.SerialNumber,
+            BandNo: item.BandNo
+        }
+
+        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
+            var sampleArr = base64ToArrayBuffer(data);
+            saveByteArray(fileName[0] + ".zip", sampleArr);
+        });
+    }
+
+
+
+    self.DeleteDocAttach = function (Band) {
+        Swal.fire({
+            title: 'تایید حذف',
+            text: "آیا پیوست انتخابی حذف شود ؟",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+
+                /* ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + ErjDocHBand.SerialNumber, 'DELETE').done(function (response) {
+                     currentPage = self.currentPageIndexErjDocH();
+                     getErjDocH($('#pageCountSelector').val(), currentPage);
+                     self.sortTableErjDocH();
+                     self.currentPageIndexErjDocH(currentPage);
+                     showNotification('پرونده حذف شد', 1);
+                 });*/
+
+
+            }
+        })
+    };
+
+
+
+
+
+    $("#AddNewDocAttach").on('click', function (e) {
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+
+    function addFileToZip(n) {
+
+
+        var fi = document.getElementById("upload");
+        var fileInput = fi;
+        var files = [];
+
+        // get all selected file
+
+        $.each(fileInput.files, function (i, file) {
+            files.push(file);
+        });
+
+        //create a zip object
+
+        var zip = new JSZip();
+
+
+      //  if (n >= files.length) {
+
+            //here generate file to zip on client side
+        zip.generateAsync(
+
+            // { type: "blob", compression: "default" }
+            {
+                type: "blob",
+                compression: "DEFLATE",
+                compressionOptions: {
+                    level: 9
+                }
+            }
+
+        ).then(function (content) {
+
+                //generated zip content to file type
+                var files = new File([content], "name.zip");
+
+                var formData = new FormData();
+                formData.append('fileZip', files);
+
+                //send generated file to server
+                $.ajax({
+                    data: formData,
+                    url: '/your_path',
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert("success");
+                    }
+                });
+
+                return;
+            });
+
+            var file = files[n];
+            var arrayBuffer;
+            var fileReader = new FileReader();
+            fileReader.onload = function () {
+                arrayBuffer = this.result;
+                zip.file(file.name, arrayBuffer);
+              //  addFileToZip(n + 1);
+            };
+            fileReader.readAsArrayBuffer(file);
+        //}
+    }
+
+
+   
+    //add all files to zip 
+
+  /*  function addFileToZip(n) {
+        if (n >= files.length) {
+
+            //here generate file to zip on client side
+            zip.generateAsync({ type: "blob", compression: "default" }).then(function (content) {
+
+                //generated zip content to file type
+                var files = new File([content], "name.zip");
+
+                var formData = new FormData();
+                formData.append('fileZip', files);
+
+                //send generated file to server
+                $.ajax({
+                    data: formData,
+                    url: '/your_path',
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert("success");
+                    }
+                });
+
+                return;
+            })
+            var file = files[n];
+            var arrayBuffer;
+            var fileReader = new FileReader();
+            fileReader.onload = function () {
+                arrayBuffer = this.result;
+                zip.file(file.name, arrayBuffer);
+                addFileToZip(n + 1);
+            };
+            fileReader.readAsArrayBuffer(file);
+        }
+        addFileToZip(0);
+    }
+*/
+    this.fileUpload = function (data, e) {
+        var dataFile;
+        var file = e.target.files[0];
+        var name = file.name;
+        var size = file.size;
+        var reader = new FileReader();
+
+        reader.onloadend = function (onloadend_e) {
+            var result = reader.result;
+            dataFile = result; // از اینجا فایل شروع به آپلود می کند
+            addFileToZip(dataFile);
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
 
 
 
@@ -2025,7 +2210,7 @@
         flagInsertFdoch = 1;
 
         if (notUsers == true) {
-           // showNotification('امکان رونوشت به کاربر اجاع شونده وجود', 0);
+            // showNotification('امکان رونوشت به کاربر اجاع شونده وجود', 0);
         }
 
     };
@@ -2060,7 +2245,7 @@
         $('#modal-Comm').modal('show');
     });
 
-    
+
 
 
     $('#modal-Comm').on('shown.bs.modal', function () {
@@ -2243,7 +2428,7 @@
                 countRonevesht = listBand.length
 
                 if (countRonevesht > 1) {
-                   // text += ' <br\> '
+                    // text += ' <br\> '
                 }
 
                 for (var j = 1; j < countRonevesht; j++) {
@@ -2279,12 +2464,12 @@
                     '<div style="border-top: 0px solid #fff !important;">'
                     + '    <div>'
                     + '        <div class="cardErj">'
-                + '            <div class="header" style="background-color: #f5d3b4;padding-right: 3px;padding-left: 0px;">'
+                    + '            <div class="header" style="background-color: #f5d3b4;padding-right: 3px;padding-left: 0px;">'
                     + '<div class="form-inline"> '
                     + '     <div class= "col-md-8 form-inline" > '
-                + '         <h6 style="font-size: 11px;">' + i + ') ' + listBand[0].FromUserName + '</h6>'
+                    + '         <h6 style="font-size: 11px;">' + i + ') ' + listBand[0].FromUserName + '</h6>'
                     + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 11px;margin-left: 0px; margin-right: 0px;" /> '
-                + '         <h6 style="font-size: 11px;">' + listBand[0].ToUserName + '</h6> '
+                    + '         <h6 style="font-size: 11px;">' + listBand[0].ToUserName + '</h6> '
                     + '     </div>'
                     + '     <div class="col-md-4 form-inline"> '
                     + '         <h6 style="padding-left: 5px;font-size: 11px;">' + listBand[0].RjTimeSt + '</h6> '
@@ -2338,7 +2523,7 @@
     }
 
 
-    
+
 
 
     self.radif = function (index) {

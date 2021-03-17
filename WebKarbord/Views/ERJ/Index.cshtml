@@ -696,7 +696,7 @@
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsCustName }"></i>
                                             </span>
                                         </th>
-                                        
+
                                         <th data-column="KhdtName">
                                             نوع کار
                                             <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }">
@@ -854,9 +854,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">پیوست</h4>
-                <a id="refreshDocAttach">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
-                </a>
+
+
+                <div>
+                    <a id="refreshDocAttach">
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    </a>
+
+                   
+                    <input id="upload" type="file" style="display:none" data-bind="event: {change: $root.fileUpload}" />
+                    <a id="AddNewDocAttach">
+                        <img src="/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20">
+                    </a>
+                </div>
+
+
             </div>
             <div class="modal-body">
 
@@ -883,7 +895,11 @@
                                 <td data-bind="text: Comm"></td>
                                 <td>
                                     <a data-bind="click: $root.selectDocAttach">
-                                        <img src="/Content/img/list/download.png" width="20" height="20" />
+                                        <img src="/Content/img/list/download.png" width="20" height="20" style="margin-left:10px" />
+                                    </a>
+
+                                    <a id="DeleteDocAttach" data-bind="click: $root.DeleteDocAttach">
+                                        <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16">
                                     </a>
                                 </td>
                             </tr>
