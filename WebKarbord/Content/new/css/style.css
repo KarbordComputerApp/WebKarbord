@@ -4255,7 +4255,7 @@
 
 @font-face {
     font-family: 'vazir';
-    src: url('../fonts/Vazir-Bold-FD-WOL.eot?#') format('eot'), url('../fonts/Vazir-Bold-FD-WOL.woff') format('woff'), url('../fonts/Vazir-Bold-FD-WOL.ttf') format('truetype');
+    src: url('../../fonts/Vazir-Bold-FD-WOL.eot') format('embedded-opentype'), url('../../fonts/Vazir-Bold-FD-WOL.ttf') format('truetype'), url('../../fonts/Vazir-Bold-FD-WOL.woff') format('woff'), url('../../fonts/Vazir-FD-WOL.eot') format('embedded-opentype'), url('../../fonts/Vazir-FD-WOL.ttf') format('truetype'), url('../../fonts/Vazir-FD-WOL.woff') format('woff'), url('../../fonts/Vazir-FD-WOLReport.ttf') format('truetype');
 }
 
 
@@ -20323,6 +20323,8 @@ span.badge {
         padding: 15px;
         position: relative;
         margin: 10px 10px 0px 10px;
+        padding-bottom: 15px;
+        
     }
 
         .card .header .header-dropdown {
