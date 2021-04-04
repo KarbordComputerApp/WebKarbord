@@ -47,6 +47,9 @@
 
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
 
+    var ErjDocAttach_SaveUri = server + '/api/Web_Data/ErjDocAttach_Save/'; // ذخیره پیوست
+    var ErjDocAttach_DelUri = server + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
+
     TestUser();
 
     shamsiDate = ShamsiDate();
@@ -1936,9 +1939,9 @@
         var zip = new JSZip();
 
 
-      //  if (n >= files.length) {
+        //  if (n >= files.length) {
 
-            //here generate file to zip on client side
+        //here generate file to zip on client side
         zip.generateAsync(
 
             // { type: "blob", compression: "default" }
@@ -1952,99 +1955,231 @@
 
         ).then(function (content) {
 
-                //generated zip content to file type
-                var files = new File([content], "name.zip");
+            //generated zip content to file type
+            var files = new File([content], "name.zip");
 
-                var formData = new FormData();
-                formData.append('fileZip', files);
+            var formData = new FormData();
+            formData.append('fileZip', files);
 
-                //send generated file to server
-                $.ajax({
-                    data: formData,
-                    url: '/your_path',
-                    type: 'POST',
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        alert("success");
-                    }
-                });
-
-                return;
+            //send generated file to server
+            $.ajax({
+                data: formData,
+                url: '/your_path',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert("success");
+                }
             });
 
-            var file = files[n];
-            var arrayBuffer;
-            var fileReader = new FileReader();
-            fileReader.onload = function () {
-                arrayBuffer = this.result;
-                zip.file(file.name, arrayBuffer);
-              //  addFileToZip(n + 1);
-            };
-            fileReader.readAsArrayBuffer(file);
+            return;
+        });
+
+        var file = files[n];
+        var arrayBuffer;
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            arrayBuffer = this.result;
+            zip.file(file.name, arrayBuffer);
+            //  addFileToZip(n + 1);
+        };
+        fileReader.readAsArrayBuffer(file);
         //}
     }
 
 
-   
+
     //add all files to zip 
 
-  /*  function addFileToZip(n) {
-        if (n >= files.length) {
-
-            //here generate file to zip on client side
-            zip.generateAsync({ type: "blob", compression: "default" }).then(function (content) {
-
-                //generated zip content to file type
-                var files = new File([content], "name.zip");
-
-                var formData = new FormData();
-                formData.append('fileZip', files);
-
-                //send generated file to server
-                $.ajax({
-                    data: formData,
-                    url: '/your_path',
-                    type: 'POST',
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        alert("success");
-                    }
-                });
-
-                return;
-            })
-            var file = files[n];
-            var arrayBuffer;
-            var fileReader = new FileReader();
-            fileReader.onload = function () {
-                arrayBuffer = this.result;
-                zip.file(file.name, arrayBuffer);
-                addFileToZip(n + 1);
-            };
-            fileReader.readAsArrayBuffer(file);
-        }
-        addFileToZip(0);
-    }
-*/
+    /*  function addFileToZip(n) {
+          if (n >= files.length) {
+  
+              //here generate file to zip on client side
+              zip.generateAsync({ type: "blob", compression: "default" }).then(function (content) {
+  
+                  //generated zip content to file type
+                  var files = new File([content], "name.zip");
+  
+                  var formData = new FormData();
+                  formData.append('fileZip', files);
+  
+                  //send generated file to server
+                  $.ajax({
+                      data: formData,
+                      url: '/your_path',
+                      type: 'POST',
+                      processData: false,
+                      contentType: false,
+                      success: function (response) {
+                          alert("success");
+                      }
+                  });
+  
+                  return;
+              })
+              var file = files[n];
+              var arrayBuffer;
+              var fileReader = new FileReader();
+              fileReader.onload = function () {
+                  arrayBuffer = this.result;
+                  zip.file(file.name, arrayBuffer);
+                  addFileToZip(n + 1);
+              };
+              fileReader.readAsArrayBuffer(file);
+          }
+          addFileToZip(0);
+      }
+  */
     this.fileUpload = function (data, e) {
         var dataFile;
         var file = e.target.files[0];
         var name = file.name;
         var size = file.size;
-        var reader = new FileReader();
+        Swal.fire({
+            title: 'تایید آپلود ؟',
+            text: "آیا " + name + " به پیوست افزوده شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
 
-        reader.onloadend = function (onloadend_e) {
-            var result = reader.result;
-            dataFile = result; // از اینجا فایل شروع به آپلود می کند
-            addFileToZip(dataFile);
+
+
+                var reader = new FileReader();
+
+                reader.onloadend = function (onloadend_e) {
+                    var result = reader.result;
+                    //mimeType = result.substring(result.lastIndexOf("data") + 5, result.lastIndexOf(";"));
+                    //result = result.substring(result.lastIndexOf("base64") + 7);
+
+                    // dataFile = result; // از اینجا فایل شروع به آپلود می کند
+                    //addFileToZip(dataFile);
+                    //a = dataUriToBlob(result);
+                  
+                    ErjDocAttach_Save(name, name, result);
+
+
+                   
+                };
+
+                
+
+                if (file) {
+                    //reader.readAsDataURL(file);
+                    reader.readAsArrayBuffer(file);
+                }
+
+
+
+
+            }
+        })
+
+
+
+    };
+
+
+    function dataUriToBlob(dataURI) {
+        // serialize the base64/URLEncoded data
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+            byteString = atob(dataURI.split(',')[1]);
+        }
+        else {
+            byteString = unescape(dataURI.split(',')[1]);
+        }
+
+        // parse the mime type
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+        // construct a Blob of the image data
+        var array = [];
+        for (var i = 0; i < byteString.length; i++) {
+            array.push(byteString.charCodeAt(i));
+        }
+        //var a = Uint8Array(array);    return a;
+        return new Blob([new Uint8Array(array)], { type: mimeString });
+    }
+
+
+    //Add DocAttach  ذخیره پیوست
+    function ErjDocAttach_Save(fileName, fileFullName, atch) {
+
+        attachDate = ShamsiDate();
+
+       // var blob = dataUriToBlob(atch);
+        //var fd = new FormData();
+
+        //formData.append("studImg", file);
+
+       // var objectURL = URL.createObjectURL(blob);
+
+       // var formData = new FormData();
+       // for (var i = 0; i < files.length; i++) {
+       //     formData.append("fileInput", files[i]);
+       // }
+
+        Web_DocAttach_Save = {
+            SerialNumber: serialNumber,
+            ProgName: 'ERJ1',
+            ModeCode: 1,
+            BandNo: 0,
+            Code: '',
+            Comm: 'مدرک پیوست - ' + attachDate + ' - ' + sessionStorage.userNameFa + ' - ' + fileName,
+            FName: fileFullName,
+            Atch: atch,
         };
 
-        if (file) {
-            reader.readAsDataURL(file);
-        }
+
+
+
+        ajaxFunction(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Save).done(function (response) {
+
+        });
+
     };
+
+
+    //del DocAttach  حذف پیوست
+    function ErjDocAttach_Del(bandNoImput) {
+
+        Web_DocAttach_Del = {
+            SerialNumber: serialNumber,
+            ProgName: '',
+            ModeCode: '',
+            BandNo: bandNoImput
+        };
+
+        ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Del).done(function (response) {
+
+        });
+
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
