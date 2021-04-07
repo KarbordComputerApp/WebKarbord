@@ -26,7 +26,7 @@
     var allSearchADocH = true;
     var docDate;
     var serial;
-    
+
 
 
     var accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
@@ -73,7 +73,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
-            ListColumns = data;
+            //ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -83,6 +83,12 @@
                     SetColumn(columns[i - 1], i, data);
                 }
             }
+
+
+            ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + 'ADocP' + '/' + username, 'GET').done(function (data) {
+                ListColumns = data;
+            });
+
         });
 
     }
@@ -425,7 +431,7 @@
             startIndex = pageSizeADocH * self.currentPageIndexADocH(),
             endIndex = startIndex + pageSizeADocH;
         localStorage.setItem('pageSizeADocH', pageSizeADocH);
-  return self.filterADocHList().slice(startIndex, endIndex);
+        return self.filterADocHList().slice(startIndex, endIndex);
     });
 
     self.nextPageADocH = function () {
@@ -952,11 +958,11 @@
         return text;
     }
 
-     createViewer();
-     $('#Print').click(function () {
-         variable = '"ReportDate":"' + DateNow + '",';
-         setReport(self.filterADocHList(), 'ADoc', variable);
-     });
+    createViewer();
+    $('#Print').click(function () {
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterADocHList(), 'ADoc', variable);
+    });
 
 
     self.MoveSanad = function (item) {

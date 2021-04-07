@@ -14,9 +14,6 @@
     <link href="~/Content/new/css/site.css" rel="stylesheet" />
     <link href="~/Content/new/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet" />
     <link href="~/Content/new/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet" />
-    <script src="~/Content/new/js/stimulsoft.reports.js"></script>
-    <script src="~/Content/new/js/stimulsoft.viewer.js"></script>
-    <script src="~/Content/new/js/stimulsoft.designer.js"></script>
 </head>
 <!--<body class="light rtlSite" ondragstart="return false;" ondrop="return false;" onpaste="return false"> -->
 <body class="light rtlSite" ondragstart="return false;" ondrop="return false;">
@@ -298,7 +295,7 @@
                     </div>
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
-            <div class="profile-usertitle-job " id="TextNoUser"></div>-->
+                        <div class="profile-usertitle-job " id="TextNoUser"></div>-->
                         <div class="profile-usertitle-job ">
                             <span id="titleVer">@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)</span>
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
@@ -308,8 +305,8 @@
                     </div>
                 </li>
                 <!--<li id="Select_ACE">
-        @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
-    </li>-->
+                    @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
+                </li>-->
                 <li id="ADOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
@@ -360,21 +357,21 @@
                 </li>
 
                 <!-- <li id="Setting_Menu">
-        <a href="javascript:void(0);" class="menu-toggle">
-            <i class="fa fa-tachometer"></i>
-            <span>تنظیمات</span>
-        </a>
-        <ul class="ml-menu">
-            <li>@Html.ActionLink("ورود", "Login", "Home")</li>
-            <li>@Html.ActionLink("تنظیمات دیتابیس سرور", "AddSqlServer", "Home")</li>
-        </ul>
-    </li>-->
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="fa fa-tachometer"></i>
+                        <span>تنظیمات</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>@Html.ActionLink("ورود", "Login", "Home")</li>
+                        <li>@Html.ActionLink("تنظیمات دیتابیس سرور", "AddSqlServer", "Home")</li>
+                    </ul>
+                </li>-->
 
                 <li id="ErjaDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
-                       <!-- <i>
-                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
-                        </i>-->
+                        <!-- <i>
+                             <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                         </i>-->
                         <span>اسناد اتوماسیون</span>
                     </a>
                     <ul class="ml-menu">
@@ -671,13 +668,16 @@
     <script src="~/Content/js/sweet2.js"></script>
     <script src="~/Content/js/jalaali.js"></script>
     <script src="~/Scripts/app.js"></script>
+    <script src="~/Content/new/js/stimulsoft.reports.js"></script>
+    <script src="~/Content/new/js/stimulsoft.viewer.js"></script>
+    <script src="~/Content/new/js/stimulsoft.designer.js"></script>
     <script src="~/Content/new/js/num2persian-min.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Scripts/PublicAFI.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
     <script src="~/Content/new/js/jquery.md5.js"></script>
     <script src="~/Content/new/js/farsiInput.js"></script>
-    <!--<script src="~/Content/new/js/require.js"></script>-->
 
+    <!--<script src="~/Content/new/js/require.js"></script>-->
     <!-- <script src="~/Scripts/SelectProgram.js"></script>-->
     @RenderSection("scripts", false)
 

@@ -247,6 +247,17 @@
     var TestFDocUri = server + '/api/FDocData/TestFDoc/'; // آدرس تست فاکتور 
 
 
+    var rprtId = 'FDocP';
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            ListColumns = data;
+        });
+    }
+    getRprtColsList(false, sessionStorage.userName);
+
     //Get ExtraFields List
     function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {

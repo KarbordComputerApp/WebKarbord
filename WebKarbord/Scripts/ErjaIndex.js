@@ -47,7 +47,8 @@
 
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
 
-    var ErjDocAttach_SaveUri = server + '/api/Web_Data/ErjDocAttach_Save/'; // ذخیره پیوست
+    // var ErjDocAttach_SaveUri = server + '/api/Web_Data/ErjDocAttach_Save/'; // ذخیره پیوست
+    var ErjDocAttach_SaveUri = server + '/api/FileUpload/UploadFile/'; // ذخیره پیوست
     var ErjDocAttach_DelUri = server + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
 
     TestUser();
@@ -302,7 +303,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
             select: select,
-            AccessSanad: true,
+            AccessSanad: sessionStorage.AccessSanad,
         };
         ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject).done(function (response) {
             self.ErjDocHList(response);
@@ -1899,15 +1900,17 @@
         }).then((result) => {
             if (result.value) {
 
-                /* ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + ErjDocHBand.SerialNumber, 'DELETE').done(function (response) {
-                     currentPage = self.currentPageIndexErjDocH();
-                     getErjDocH($('#pageCountSelector').val(), currentPage);
-                     self.sortTableErjDocH();
-                     self.currentPageIndexErjDocH(currentPage);
-                     showNotification('پرونده حذف شد', 1);
-                 });*/
+                Web_DocAttach_Save = {
+                    SerialNumber: Band.SerialNumber,
+                    ProgName: 'ERJ1',
+                    ModeCode: 1,
+                    BandNo: Band.BandNo,
+                };
 
-
+                ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Save).done(function (response) {
+                    getDocAttachList(serialNumber);
+                    showNotification('پیوست حذف شد', 1);
+                });
             }
         })
     };
@@ -2031,6 +2034,60 @@
           addFileToZip(0);
       }
   */
+
+
+
+    function ajaxFunctionUpload(uri, data) {
+
+        var userNameAccount = localStorage.getItem("userNameAccount");
+        var passAccount = localStorage.getItem("passAccount");
+
+        return $.ajax({
+            url: uri,
+            type: 'POST',
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            headers: {
+                'userName': userNameAccount,
+                'password': passAccount,
+                'userKarbord': sessionStorage.userName,
+            },
+            success: function (fileName) {
+                // $("#fileProgress").hide();
+                // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
+            },
+            xhr: function () {
+                var fileXhr = $.ajaxSettings.xhr();
+                if (fileXhr.upload) {
+                    $("progress").show();
+                    fileXhr.upload.addEventListener("progress", function (e) {
+                        if (e.lengthComputable) {
+                            $("#fileProgress").attr({
+                                value: e.loaded,
+                                max: e.total
+                            });
+                        }
+                    }, false);
+                }
+                return fileXhr;
+            }
+        });
+    }
+
+
+
+    $("body").on("click", "#btnUpload", function () {
+
+
+
+      
+      
+
+    });
+
     this.fileUpload = function (data, e) {
         var dataFile;
         var file = e.target.files[0];
@@ -2049,31 +2106,54 @@
         }).then((result) => {
             if (result.value) {
 
+                file = $("#upload")[0].files[0];
+                fileFullName = file.name;
+                fileName = fileFullName.split(".");
+                fileName = fileName[0];
+
+                attachDate = ShamsiDate();
+
+                var formData = new FormData();
+
+                formData.append("SerialNumber", serialNumber);
+                formData.append("ProgName", "ERJ1");
+                formData.append("ModeCode", 1);
+                formData.append("BandNo", 0);
+                formData.append("Code", "");
+                formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
+                formData.append("FName", fileFullName);
+                formData.append("Atch", file);
+
+                ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData).done(function (response) {
+                    getDocAttachList(serialNumber);
+                })
 
 
-                var reader = new FileReader();
 
-                reader.onloadend = function (onloadend_e) {
-                    var result = reader.result;
-                    //mimeType = result.substring(result.lastIndexOf("data") + 5, result.lastIndexOf(";"));
-                    //result = result.substring(result.lastIndexOf("base64") + 7);
 
-                    // dataFile = result; // از اینجا فایل شروع به آپلود می کند
-                    //addFileToZip(dataFile);
-                    //a = dataUriToBlob(result);
+                /* var reader = new FileReader();
+  
+                  reader.onloadend = function (onloadend_e) {
+                      var result = reader.result;
+                      //mimeType = result.substring(result.lastIndexOf("data") + 5, result.lastIndexOf(";"));
+                      //result = result.substring(result.lastIndexOf("base64") + 7);
+  
+                      // dataFile = result; // از اینجا فایل شروع به آپلود می کند
+                      //addFileToZip(dataFile);
+                      //a = dataUriToBlob(result);
+                    
+                      ErjDocAttach_Save(name, name, result);
+  
+  
+                     
+                  };
+  
                   
-                    ErjDocAttach_Save(name, name, result);
-
-
-                   
-                };
-
-                
-
-                if (file) {
-                    //reader.readAsDataURL(file);
-                    reader.readAsArrayBuffer(file);
-                }
+  
+                  if (file) {
+                      reader.readAsDataURL(file);
+                      //reader.readAsArrayBuffer(file);
+                  }*/
 
 
 
@@ -2107,44 +2187,6 @@
         //var a = Uint8Array(array);    return a;
         return new Blob([new Uint8Array(array)], { type: mimeString });
     }
-
-
-    //Add DocAttach  ذخیره پیوست
-    function ErjDocAttach_Save(fileName, fileFullName, atch) {
-
-        attachDate = ShamsiDate();
-
-       // var blob = dataUriToBlob(atch);
-        //var fd = new FormData();
-
-        //formData.append("studImg", file);
-
-       // var objectURL = URL.createObjectURL(blob);
-
-       // var formData = new FormData();
-       // for (var i = 0; i < files.length; i++) {
-       //     formData.append("fileInput", files[i]);
-       // }
-
-        Web_DocAttach_Save = {
-            SerialNumber: serialNumber,
-            ProgName: 'ERJ1',
-            ModeCode: 1,
-            BandNo: 0,
-            Code: '',
-            Comm: 'مدرک پیوست - ' + attachDate + ' - ' + sessionStorage.userNameFa + ' - ' + fileName,
-            FName: fileFullName,
-            Atch: atch,
-        };
-
-
-
-
-        ajaxFunction(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Save).done(function (response) {
-
-        });
-
-    };
 
 
     //del DocAttach  حذف پیوست

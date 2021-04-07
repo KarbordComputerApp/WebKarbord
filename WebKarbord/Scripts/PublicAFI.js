@@ -1771,6 +1771,9 @@ function SetValidationErj() {
     //validation == true ? $("#DeleteErjDocH").show() : $("#DeleteErjDocH").hide()
     validation == true ? sessionStorage.DEL_ErjDOC = true : sessionStorage.DEL_ErjDOC = false
 
+    validation = CheckAccess('OTHERUSER_ErjDOC');
+    validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+
 }
 
 

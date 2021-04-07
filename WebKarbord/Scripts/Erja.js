@@ -1931,11 +1931,8 @@
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
 
-        fromUserCode = $("#ToUser").val();
-        if (fromUserCode == " ")
-            fromUserCode = sessionStorage.userName;
-
-        if (fromUserCode == " ") fromUserCode = sessionStorage.userName;
+        fromUserCode = sessionStorage.userName;
+        
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
          //   return showNotification('ارجاع شونده را انتخاب کنید', 0);

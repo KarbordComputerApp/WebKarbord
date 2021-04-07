@@ -237,7 +237,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
-            ListColumns = data;
+           // ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -247,6 +247,11 @@
                     SetColumn(columns[i - 1], i, data);
                 }
             }
+
+            ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + 'FDocP' + '/' + username, 'GET').done(function (data) {
+                ListColumns = data;
+            });
+
         });
 
     }

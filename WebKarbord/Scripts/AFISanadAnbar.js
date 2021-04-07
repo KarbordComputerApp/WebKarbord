@@ -204,6 +204,16 @@
     var TestIDocUri = server + '/api/IDocData/TestIDoc/'; // آدرس تست سند 
 
 
+    var rprtId = 'IDocP';
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+
+    function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            self.SettingColumnList(data);
+            ListColumns = data;
+        });
+    }
+    getRprtColsList(false, sessionStorage.userName);
 
     //Get Thvl List
     function getThvlList() {
