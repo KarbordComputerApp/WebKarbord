@@ -651,6 +651,7 @@
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
     <Content Include="Content\new\js\farsiInput.js" />
+    <Content Include="Content\new\js\jszip.min.js" />
     <Content Include="Content\new\js\num2persian-min.js" />
     <Content Include="Content\new\js\require.js" />
     <Content Include="Content\new\js\stimulsoft.designer.js" />

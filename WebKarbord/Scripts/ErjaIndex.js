@@ -280,6 +280,7 @@
 
     //Get Mahramaneh List
     function getMahramanehList() {
+
         ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.MahramanehList(data);
         });
@@ -1924,118 +1925,6 @@
         $("#upload:hidden").trigger('click');
     });
 
-    function addFileToZip(n) {
-
-
-        var fi = document.getElementById("upload");
-        var fileInput = fi;
-        var files = [];
-
-        // get all selected file
-
-        $.each(fileInput.files, function (i, file) {
-            files.push(file);
-        });
-
-        //create a zip object
-
-        var zip = new JSZip();
-
-
-        //  if (n >= files.length) {
-
-        //here generate file to zip on client side
-        zip.generateAsync(
-
-            // { type: "blob", compression: "default" }
-            {
-                type: "blob",
-                compression: "DEFLATE",
-                compressionOptions: {
-                    level: 9
-                }
-            }
-
-        ).then(function (content) {
-
-            //generated zip content to file type
-            var files = new File([content], "name.zip");
-
-            var formData = new FormData();
-            formData.append('fileZip', files);
-
-            //send generated file to server
-            $.ajax({
-                data: formData,
-                url: '/your_path',
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    alert("success");
-                }
-            });
-
-            return;
-        });
-
-        var file = files[n];
-        var arrayBuffer;
-        var fileReader = new FileReader();
-        fileReader.onload = function () {
-            arrayBuffer = this.result;
-            zip.file(file.name, arrayBuffer);
-            //  addFileToZip(n + 1);
-        };
-        fileReader.readAsArrayBuffer(file);
-        //}
-    }
-
-
-
-    //add all files to zip 
-
-    /*  function addFileToZip(n) {
-          if (n >= files.length) {
-  
-              //here generate file to zip on client side
-              zip.generateAsync({ type: "blob", compression: "default" }).then(function (content) {
-  
-                  //generated zip content to file type
-                  var files = new File([content], "name.zip");
-  
-                  var formData = new FormData();
-                  formData.append('fileZip', files);
-  
-                  //send generated file to server
-                  $.ajax({
-                      data: formData,
-                      url: '/your_path',
-                      type: 'POST',
-                      processData: false,
-                      contentType: false,
-                      success: function (response) {
-                          alert("success");
-                      }
-                  });
-  
-                  return;
-              })
-              var file = files[n];
-              var arrayBuffer;
-              var fileReader = new FileReader();
-              fileReader.onload = function () {
-                  arrayBuffer = this.result;
-                  zip.file(file.name, arrayBuffer);
-                  addFileToZip(n + 1);
-              };
-              fileReader.readAsArrayBuffer(file);
-          }
-          addFileToZip(0);
-      }
-  */
-
-
 
     function ajaxFunctionUpload(uri, data) {
 
@@ -2083,10 +1972,28 @@
 
 
 
-      
-      
+
+
 
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     this.fileUpload = function (data, e) {
         var dataFile;
@@ -2105,55 +2012,99 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
+                var file = document.getElementById("upload");
 
-                file = $("#upload")[0].files[0];
-                fileFullName = file.name;
-                fileName = fileFullName.split(".");
-                fileName = fileName[0];
-
-                attachDate = ShamsiDate();
-
-                var formData = new FormData();
-
-                formData.append("SerialNumber", serialNumber);
-                formData.append("ProgName", "ERJ1");
-                formData.append("ModeCode", 1);
-                formData.append("BandNo", 0);
-                formData.append("Code", "");
-                formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
-                formData.append("FName", fileFullName);
-                formData.append("Atch", file);
-
-                ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData).done(function (response) {
-                    getDocAttachList(serialNumber);
-                })
+                fileFullName = file.files[0].name;
+                var zip = new JSZip();
 
 
+                zip.file(fileFullName, file.files[0]);
+                zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
+
+                    var file = new File([content], fileFullName, { type: "zip" });
 
 
-                /* var reader = new FileReader();
-  
-                  reader.onloadend = function (onloadend_e) {
-                      var result = reader.result;
-                      //mimeType = result.substring(result.lastIndexOf("data") + 5, result.lastIndexOf(";"));
-                      //result = result.substring(result.lastIndexOf("base64") + 7);
-  
-                      // dataFile = result; // از اینجا فایل شروع به آپلود می کند
-                      //addFileToZip(dataFile);
-                      //a = dataUriToBlob(result);
-                    
-                      ErjDocAttach_Save(name, name, result);
-  
-  
-                     
-                  };
-  
-                  
-  
-                  if (file) {
-                      reader.readAsDataURL(file);
-                      //reader.readAsArrayBuffer(file);
-                  }*/
+                    //file = $("#upload")[0].files[0];
+
+                    fileName = fileFullName.split(".");
+                    fileName = fileName[0];
+
+                    attachDate = ShamsiDate();
+
+                    var formData = new FormData();
+
+                    formData.append("SerialNumber", serialNumber);
+                    formData.append("ProgName", "ERJ1");
+                    formData.append("ModeCode", 1);
+                    formData.append("BandNo", 0);
+                    formData.append("Code", "");
+                    formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
+                    formData.append("FName", fileFullName);
+                    formData.append("Atch", file);
+
+                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData).done(function (response) {
+                        getDocAttachList(serialNumber);
+                    })
+                });
+
+
+
+                /*function addFileToZip(n) {
+                    var arrayBuffer;
+                    var fileReader = new FileReader();
+                    fileReader.onload = function () {
+                        arrayBuffer = this.result;
+                        zip.file(file.name, arrayBuffer);
+                        //var a = zip.generate({ type: "blob", compression: "deflate" });
+                        // addFileToZip(n + 1);
+                    };
+                    fileReader.readAsArrayBuffer(file);
+                }
+                addFileToZip(0);*/
+
+
+
+                //myFunction();
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // });
+
+                //var reader = new FileReader();
+                //var arrayBuffer;
+
+                //reader.onloadend = function (onloadend_e) {
+                   
+                //};
+
+
+
+                //if (file) {
+                    //reader.readAsDataURL(file);
+                   // reader.readAsArrayBuffer(file);
+               // }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2166,6 +2117,88 @@
     };
 
 
+
+
+    function myFunction() {
+
+        /* Make a zip file here */
+        //file = $("#upload")[0].files[0];
+        var fi = $("#upload")[0].files[0];
+        var fileInput = fi;
+        var files = [];
+
+        // get all selected file
+
+        $.each(fileInput.files, function (i, file) {
+            files.push(file);
+        });
+
+        //create a zip object
+
+        var zip = new JSZip();
+
+        //add all files to zip 
+
+        function addFileToZip(n) {
+            if (n >= files.length) {
+
+                //here generate file to zip on client side
+                zip.generateAsync({ type: "blob", compression: "default" }).then(function (content) {
+
+                    //generated zip content to file type
+                    var files = new File([content], "name.zip");
+
+                    var formData = new FormData();
+                    formData.append('fileZip', files);
+
+                    //send generated file to server
+                   
+                })
+                var file = files[n];
+                var arrayBuffer;
+                var fileReader = new FileReader();
+                fileReader.onload = function () {
+                    arrayBuffer = this.result;
+                    zip.file(file.name, arrayBuffer);
+                    addFileToZip(n + 1);
+                };
+                fileReader.readAsArrayBuffer(file);
+            }
+            addFileToZip(0);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+    function dataURItoBlob(dataURI) {
+        // convert base64/URLEncoded data component to raw binary data held in a string
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to a typed array
+        var ia = new Uint8Array(byteString.length);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ia], { type: mimeString });
+    }
+
+
+    /*
     function dataUriToBlob(dataURI) {
         // serialize the base64/URLEncoded data
         var byteString;
@@ -2175,10 +2208,10 @@
         else {
             byteString = unescape(dataURI.split(',')[1]);
         }
-
+ 
         // parse the mime type
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-
+ 
         // construct a Blob of the image data
         var array = [];
         for (var i = 0; i < byteString.length; i++) {
@@ -2187,7 +2220,7 @@
         //var a = Uint8Array(array);    return a;
         return new Blob([new Uint8Array(array)], { type: mimeString });
     }
-
+    */
 
     //del DocAttach  حذف پیوست
     function ErjDocAttach_Del(bandNoImput) {

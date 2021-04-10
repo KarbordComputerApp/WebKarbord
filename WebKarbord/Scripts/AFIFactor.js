@@ -694,10 +694,10 @@
 
         bandnumber = 0;
 
+        docno = $("#docnoout").val();
 
-        if (self.DocNoOut == '') {
-            return showNotification('شماره فاکتور را وارد کنيد ', 0);
-            //            return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره فاکتور را وارد کنيد ' });
+        if (docno == '') {
+            docno = '0';
         }
 
         if (tarikh.length != 10) {
@@ -841,7 +841,7 @@
             ModeCode: sessionStorage.ModeCode,
             DocNoMode: 1,
             InsertMode: 0,
-            DocNo: 0,
+            DocNo: docno,
             StartNo: 0,
             EndNo: 0,
             Tanzim: '*' + sessionStorage.userName + '*',
@@ -902,7 +902,7 @@
             DocNoOut = res[1];
             sessionStorage.searchFDocH = DocNoOut;
             $('#textnumberfactor').show();
-            $('#docnoout').text(DocNoOut);
+            $('#docnoout').val(DocNoOut);
             // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخيره شد ' });
             flaglog = 'N';
         });
@@ -968,7 +968,7 @@
             ModeCode: sessionStorage.ModeCode,
             DocNoMode: 1,
             InsertMode: 0,
-            DocNo: $("#docnoout").text(),
+            DocNo: $("#docnoout").val(),
             StartNo: 0,
             EndNo: 0,
             Tanzim: sessionStorage.userName,
@@ -1034,7 +1034,7 @@
             //            Serial = res[0];
             //            DocNoOut = res[1];
             //            $('#docnoout').val(DocNoOut);
-            sessionStorage.searchFDocH = $("#docnoout").text();
+            sessionStorage.searchFDocH = $("#docnoout").val();
             $('#finalSave_Title').attr('hidden', '');
             flaglog = 'N';
             //flagInsertFdoch = 0;
@@ -2469,7 +2469,7 @@
                 $('#discountCol').val('');
                 $('#ghabelpardakht').val('');
                 $('#textnumberfactor').hide();
-                $('#docnoout').text('جدید');
+                $('#docnoout').val('');
                 sessionStorage.searchFDocH = "";
                 $("#status").val('موقت');
                 sessionStorage.Status = 'موقت';
@@ -2813,7 +2813,7 @@
         self.PriceCode(sessionStorage.PriceCode);
         kalapricecode = sessionStorage.PriceCode;
 
-        $("#docnoout").text(sessionStorage.DocNo);
+        $("#docnoout").val(sessionStorage.DocNo);
         $('#textnumberfactor').show();
         //$('#ghabelpardakht').text('');
         $('#nameHesab').val(sessionStorage.CustCode == '' ? '' : '(' + sessionStorage.CustCode + ') ' + sessionStorage.CustName);
