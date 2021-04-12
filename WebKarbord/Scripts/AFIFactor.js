@@ -18,6 +18,13 @@
     if (sessionStorage.flagCopy == 'Y')
         flaglog = "N";
 
+    if (ace == 'Web1') {
+        $('#docnoout').attr('class', 'form-control int');
+    }
+    else {
+        $('#docnoout').attr('class', 'form-control ShomarehSanad');
+    }
+
     $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
     $("#groupTest").text('نام گروه' + sessionStorage.group);
     $("#salTest").text('سال مالی' + sessionStorage.sal);
@@ -2368,6 +2375,34 @@
                 key == 13 ||
                 key == 46 ||
                 key == 111 || key == 191 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+    }
+
+
+
+    self.docNoKeyDown = function (AddMinList, e) {
+        if (e.shiftKey) {
+            return
+        }
+        else {
+            var key = e.charCode || e.keyCode || 0;
+            //if (key == 110 || key == 190 || key == 111 || key == 191)
+            //    key = 47;
+            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+            // home, end, period, and numpad decimal
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                (
+                   ace=='Web8' &&  (key == 109 || key == 111)
+                )
+                || key == 191 ||
                 (key >= 35 && key <= 40) ||
                 (key >= 48 && key <= 57) ||
                 (key >= 96 && key <= 105)

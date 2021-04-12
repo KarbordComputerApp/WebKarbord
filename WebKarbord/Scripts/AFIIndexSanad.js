@@ -9,6 +9,7 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.StatusList = ko.observableArray([]); // وضعیت  
+    self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
 
 
     self.StatusSanad = ko.observable();
@@ -22,6 +23,7 @@
     var AMoveSanadUri = server + '/api/ADocData/MoveSanad/'; // آدرس انتقال اسناد ها 
     var AChangeStatusUri = server + '/api/ADocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
+    var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
 
     var allSearchADocH = true;
     var docDate;
@@ -103,6 +105,15 @@
             }
         });
     }
+
+
+    //Get ADocP List
+    function getADocP(serialNumber) {
+        ajaxFunction(ADocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.ADocPList(data);
+        });
+    }
+
 
     $('#SaveColumns').click(function () {
         SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
@@ -1038,6 +1049,30 @@
 
     self.currentPageIndexADocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
     //sessionStorage.moveSanad == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
+
+
+
+    self.PrintSanad = function (item) {
+        serial = item.SerialNumber;
+        docDate = item.DocDate;
+
+        getADocP(serial);
+        if (self.ADocPList().length == 0)
+            return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
+
+
+        variable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.ADocPList(), 'ADoc', variable);
+    }
+
+    $('#PrintSanad').click(function () {
+
+
+
+    });
+
+
+
     self.sortTableADocH();
 
 };
