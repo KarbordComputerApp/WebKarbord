@@ -696,9 +696,6 @@
 
         docno = $("#docnoout").val();
 
-        if (docno == '') {
-            docno = '0';
-        }
 
         if (tarikh.length != 10) {
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -897,7 +894,7 @@
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             //$('#DatileFactor').show();
             //$('#Save').attr('disabled', true);
-            var res = response.split("-");
+            var res = response.split("@");
             Serial = res[0];
             DocNoOut = res[1];
             sessionStorage.searchFDocH = DocNoOut;

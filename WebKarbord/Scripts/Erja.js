@@ -299,9 +299,6 @@
         DocBMode = $("#DocBMode").val();
         if (DocBMode == null) DocBMode = -1;
 
-        ToUser = $("#ToUser").val();
-        FromUser = $("#FromUser").val();
-
         mode = sessionStorage.ModeCodeErja;
 
         var DocB_LastObject = {
@@ -1262,20 +1259,7 @@
         })
     })
 
-    $('#ErjaMode').change(function () {
-        var erjaMode = $('#ErjaMode').val();
-        if (erjaMode == 1) {
-            $('#ToUser').val(sessionStorage.userName);
-            $('#FromUser').val(' ');
-        }
-        else {
-            $('#ToUser').val(' ');
-            $('#FromUser').val(sessionStorage.userName);
-        }
-
-    })
-
-
+   
     $('.fix').attr('class', 'form-line date focused fix');
 
 
@@ -2046,7 +2030,7 @@
         rjDate = ShamsiDate();
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
-        fromUserCode = $("#ToUser").val();
+        fromUserCode = sessionStorage.userName;
         toUser = self.ErjUsersCode();
 
         var obj = [];

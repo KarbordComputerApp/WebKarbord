@@ -2015,19 +2015,20 @@
                 var file = document.getElementById("upload");
 
                 fileFullName = file.files[0].name;
+                fileData = fileFullName.split(".");
+                fileName = fileData[0];
+                fileType = '.' + fileData[1];
+
                 var zip = new JSZip();
 
 
-                zip.file(fileFullName, file.files[0]);
+                zip.file('temp' + fileType, file.files[0]);
                 zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
 
                     var file = new File([content], fileFullName, { type: "zip" });
 
-
                     //file = $("#upload")[0].files[0];
 
-                    fileName = fileFullName.split(".");
-                    fileName = fileName[0];
 
                     attachDate = ShamsiDate();
 
@@ -2711,14 +2712,9 @@
 
 
 
-
-
-
-
-
-    self.ShowAction = function (Eghdam) {
-        if (sessionStorage.DEL_ErjDOC == 'true')
-            return Eghdam == sessionStorage.userName ? true : false
+    self.ShowAction = function (DeleteDocTrs) {
+        if (sessionStorage.DEL_ErjDOC == 'true' && DeleteDocTrs == 1)
+            return true;
         else
             return false;
     }
@@ -2726,8 +2722,8 @@
 
     self.ShowActionUpdate = function (EditDocTrs) {
 
-        if (sessionStorage.CHG_ErjDOC == 'true')
-            return EditDocTrs == 1 ? true : false
+        if (sessionStorage.CHG_ErjDOC == 'true' && EditDocTrs == 1)
+            return true;
         else
             return false;
     }
@@ -2839,7 +2835,7 @@
             '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(EditDocTrs)">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(Eghdam)">' +
+            '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

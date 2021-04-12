@@ -184,6 +184,75 @@ $("input.float").keydown(function (e) {
 });
 
 
+
+
+
+
+$("input.ShomarehSanad").keydown(function (e) {
+    if (e.ctrlKey) {
+        // CTRL + INS
+        if (!((e.keyCode == 45) ||
+            // CTRL + C
+            (e.keyCode == 67) ||
+            // CTRL + V
+            (e.keyCode == 86))) {
+
+            e.preventDefault();
+        }
+    }
+    else {
+        if (e.shiftKey) {
+            // SHIFT + TAB
+            if (!((e.keyCode == 9) ||
+                // SHIFT + LEFT ARROW KEY
+                (e.keyCode == 37) ||
+                // SHIFT + RIGHT ARROW KEY
+                (e.keyCode == 39) ||
+                // SHIFT + INS
+                (e.keyCode == 45))) {
+                e.preventDefault();
+            }
+        }
+        else {
+            // BACKSPACE
+            if (!((e.keyCode == 8) ||
+                // TAB
+                (e.keyCode == 9) ||
+                // LEFT ARROW KEY
+                (e.keyCode == 37) ||
+                // RIGHT ARROW KEY
+                (e.keyCode == 39) ||
+                // DELETE
+                (e.keyCode == 46) ||
+                (e.keyCode == 109) ||
+
+                //(e.keyCode == 110) ||
+                // NUMBER KEYS
+                ((e.keyCode >= 48) && (e.keyCode <= 57)) ||
+                // NUMLOCK KEYS
+                ((e.keyCode >= 96) && (e.keyCode <= 105)))) {
+                e.preventDefault();
+            }
+        }
+    }
+    if (e.keyCode == 110 || e.keyCode == 190 || e.keyCode == 111 || e.keyCode == 191) {
+        this.value = this.value + String.fromCharCode(47);
+    }
+    //this.value = Comma(this.value);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 $("input.string").keypress(function (e) {
     var key = e.charCode || e.keyCode || 0;
     if (key == 39)
