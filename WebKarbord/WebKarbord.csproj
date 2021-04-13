@@ -188,6 +188,8 @@
     <Content Include="Content\img\list\download.png" />
     <Content Include="Content\img\Loading.png" />
     <Content Include="Content\img\loading.svg" />
+    <Content Include="Content\img\send.svg" />
+    <Content Include="Content\img\view.svg" />
     <Content Include="Content\img\Warning.jpg" />
     <Content Include="Content\img\Error.jpg" />
     <Content Include="Content\img\Accept.jpg" />

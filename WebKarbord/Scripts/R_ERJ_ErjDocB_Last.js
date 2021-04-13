@@ -1707,38 +1707,10 @@
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
 
-
-        $('#erja').removeAttr('hidden', '');
-        $('#saveParvandeh').removeAttr('hidden', '');
-        $('#panel_Result').removeAttr('hidden', '');
-
-        if (docBMode == 1) { // رونوشت
-            $('#panelFooterParvandeh').attr('hidden', '');
-            $('#erja').attr('hidden', '');
-        }
-        else {
-            $('#panelFooterParvandeh').removeAttr('hidden', '');
-            $('#erja').removeAttr('hidden', '');
-        }
-
-        if (Band.ToUserCode != sessionStorage.userName) {
-            $('#erja').attr('hidden', '');
-            $('#panel_Result').attr('hidden', '');
-            $('#saveParvandeh').attr('hidden', '');
-        }
-
-
-        if (Band.RjReadSt == 'T' && ErjaMode == "1") {
-            ErjSaveDoc_RjRead_Object = {
-                DocBMode: Band.DocBMode,
-                SerialNumber: Band.SerialNumber,
-                BandNo: Band.BandNo,
-                RjReadSt: 'F'
-            };
-
-            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) { });
-        }
-
+        $('#erja').attr('hidden', '');
+        $('#panel_Result').attr('hidden', '');
+        $('#saveParvandeh').attr('hidden', '');
+      
     }
 
 
@@ -2196,7 +2168,7 @@
             CreateTableTd('MhltDate', 0, 0, data) +
             '<td>' +
             '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
-            '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />' +
+            '        <img src="/Content/img/view.svg" width="20" height="20" style="margin-left:10px" />' +
             '    </a >' +
             '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
             '        <img src="/Content/img/list/attach_file.png" width="20" height="20" style="margin-left:10px" />' +

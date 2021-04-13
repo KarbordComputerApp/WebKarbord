@@ -2374,7 +2374,7 @@
                 RjDate: rjDate,
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
-                BandNo: 0,
+                BandNo: bandNoImput,
             };
         }
 

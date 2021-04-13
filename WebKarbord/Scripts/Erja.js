@@ -86,13 +86,18 @@
 
 
 
-    if  (sessionStorage.ModeCodeErja == 1)
+    if (sessionStorage.ModeCodeErja == 1) {
         $("#title_erja").text('ارجاعات پرونده دریافتی');
-    else
+        $("#titleSaveErja").text('ارجاع جدید');
+
+    }
+    else {
         $("#title_erja").text('ارجاعات پرونده ارسالی');
+        $("#titleSaveErja").text('تغییر ارجاع');
+    }
 
 
-    
+
 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -254,7 +259,7 @@
     getRepFromUsersList();
     getMahramanehList();
 
-   
+
 
     function AddDocBMode() {
         select = document.getElementById('DocBMode');
@@ -304,7 +309,7 @@
         var DocB_LastObject = {
             erjaMode: mode,
             docBMode: DocBMode,
-            fromUserCode: mode == 1 ? '' : sessionStorage.userName ,
+            fromUserCode: mode == 1 ? '' : sessionStorage.userName,
             toUserCode: mode == 1 ? sessionStorage.userName : '',
             azDocDate: '',
             taDocDate: '',
@@ -398,7 +403,7 @@
 
                 if (listLastBand[j].ToUserCode == sessionStorage.userName) {
                     $('#Result').val(listLastBand[j].RjResult);
-                }    
+                }
 
             }
 
@@ -506,6 +511,9 @@
         $('#loadingsite').css('display', 'none');
 
     });
+
+
+
 
 
 
@@ -1259,7 +1267,7 @@
         })
     })
 
-   
+
     $('.fix').attr('class', 'form-line date focused fix');
 
 
@@ -1667,7 +1675,7 @@
             $('#erja').removeAttr('hidden', '');
         }
 
-        if (Band.ToUserCode != sessionStorage.userName) {
+        if (Band.ToUserCode != sessionStorage.userName) { 
             $('#erja').attr('hidden', '');
             $('#panel_Result').attr('hidden', '');
             $('#saveParvandeh').attr('hidden', '');
@@ -1686,6 +1694,49 @@
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    self.UpdateErjDocErja = function (Band) {
+        serialNumber = Band.SerialNumber;
+        getErjDocErja(serialNumber);
+
+        list = self.ErjDocErja();
+        var result = ko.utils.arrayFirst(list, function (product) {
+            return product.DocBMode == 0 &&  product.BandNo === Math.max.apply(null, ko.utils.arrayMap(list, function (e) {
+                return e.BandNo;
+            }));
+        });
+
+
+        bandNo = result.BandNo;
+
+        $('#e_Result').val(result.RjComm);
+
+        $('#nameErjBe').val(result.ToUserName);
+        self.ErjUsersCode(result.ToUserCode);
+        $('#nameRoneveshtBe').val('هیچکس');
+        $('#RjMhltDate').val(Band.MhltDate);
+
+        rjTime = result.RjTimeSt.split(":");
+        $('#RjTime_H').val(rjTime[0]);
+        $('#RjTime_M').val(rjTime[1]);
+        
+    }
+
+
+
+
+
 
 
     $('#btn-eghdamComm').click(function () {
@@ -1852,15 +1903,18 @@
 
 
     $('#modal-Erja').on('shown.bs.modal', function () {
-        flagSave = null;
-        ErjSaveDoc_BSave(bandNo);
         $('#e_Result').css("height", "409px");
-        $('#e_Result').val($('#Result').val());
-        $('#nameErjBe').val('انتخاب نشده');
-        $('#nameRoneveshtBe').val('هیچکس');
-        $('#RjMhltDate').val('');
-        $('#RjTime_M').val('');
-        $('#RjTime_H').val('');
+        if (sessionStorage.ModeCodeErja == 1) {
+            flagSave = null;
+            ErjSaveDoc_BSave(bandNo);
+            $('#e_Result').val($('#Result').val());
+            $('#nameErjBe').val('انتخاب نشده');
+            $('#nameRoneveshtBe').val('هیچکس');
+            $('#RjMhltDate').val('');
+            $('#RjTime_M').val('');
+            $('#RjTime_H').val('');
+        }
+        $('.fix').attr('class', 'form-line focused fix');
     });
 
 
@@ -1870,22 +1924,27 @@
         rjTime_M = $("#RjTime_M").val();
 
         if (self.ErjUsersCode() == null) {
-          return showNotification('ارجاع شونده را انتخاب کنید', 0);
+            return showNotification('ارجاع شونده را انتخاب کنید', 0);
         }
 
         if (rjTime_H == '' && rjTime_M == '') {
-           return showNotification('زمان صرف شده را وارد کنید', 0);
+            return showNotification('زمان صرف شده را وارد کنید', 0);
         }
 
         natijeh = $("#e_Result").val();
 
         if (natijeh == '') {
-           return showNotification('متن ارجاع را وارد کنید', 0);
+            return showNotification('متن ارجاع را وارد کنید', 0);
         }
 
         flagSave = false;
         //ErjSaveDoc_BSave(bandNo);
-        ErjSaveDoc_BSave(0);
+
+        if (sessionStorage.ModeCodeErja == 1) {
+            ErjSaveDoc_BSave(0);
+        } else {
+            ErjSaveDoc_BSave(bandNo);
+        }
 
         if (counterErjUsersRonevesht > 0) {
             ErjSaveDoc_CSave(bandNo, false);
@@ -1916,15 +1975,15 @@
         rjTime_M = $("#RjTime_M").val();
 
         fromUserCode = sessionStorage.userName;
-        
+
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
-         //   return showNotification('ارجاع شونده را انتخاب کنید', 0);
+            //   return showNotification('ارجاع شونده را انتخاب کنید', 0);
         }
 
         toUserCode = self.ErjUsersCode();
 
-        if (bandNoImput == 0) {
+        if (bandNoImput == 0 || sessionStorage.ModeCodeErja == "2") {
             if (rjTime_H != '' || rjTime_M != '') {
 
                 if (rjTime_M != '') {
@@ -1946,16 +2005,16 @@
                 rjTime = rjTime_H + rjTime_M;
             }
             else {
-              //  return showNotification('زمان صرف شده را وارد کنید', 0);
+                //  return showNotification('زمان صرف شده را وارد کنید', 0);
             }
         }
 
         var ErjSaveDoc_BSaveObject;
-        if (bandNoImput == 0) { // erja
+        if (bandNoImput == 0 || sessionStorage.ModeCodeErja == "2") { // erja
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
-             //   return showNotification('متن ارجاع را وارد کنید', 0);
+                //   return showNotification('متن ارجاع را وارد کنید', 0);
             }
 
 
@@ -2059,14 +2118,14 @@
                 return showNotification('متن نتیجه را وارد کنید', 0);
             }
             //if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
-                tmp = {
-                    'SerialNumber': serialNumber,
-                    'BandNo': bandNoImput,
-                    'Natijeh': natijeh,
-                    'ToUserCode': fromUserCode,
-                    'RjDate': rjDate
-                };
-                obj.push(tmp);
+            tmp = {
+                'SerialNumber': serialNumber,
+                'BandNo': bandNoImput,
+                'Natijeh': natijeh,
+                'ToUserCode': fromUserCode,
+                'RjDate': rjDate
+            };
+            obj.push(tmp);
             //}
         }
 
@@ -2089,7 +2148,8 @@
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
-        $('#TableReport').append(
+
+        html =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
@@ -2122,10 +2182,24 @@
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 0, data) +
-            '<td>' +
-            '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
-            '        <img src="/Content/img/list/SearchKala.png" width="20" height="20" style="margin-left:10px" />' +
-            '    </a >' +
+            '<td>';
+
+        if (sessionStorage.ModeCodeErja == 1) // دریافتی
+            html +=
+                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
+                '      <img src="/Content/img/send.svg" width = "20" height = "20" style = "margin-left:10px"/>   ' +
+                '    </a >';
+        else // ارسالی
+            html +=
+                '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
+                '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">'+
+                '</a >' +
+                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
+                '      <img src="/Content/img/view.svg" width = "20" height = "20" style = "margin-left:10px"/>   ' +
+                '</a >';
+
+
+        html +=
             '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
             '        <img src="/Content/img/list/attach_file.png" width="20" height="20" style="margin-left:10px" />' +
             '    </a >' +
@@ -2161,7 +2235,8 @@
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
-        );
+
+        $('#TableReport').append(html);
     }
 
     function CreateTableTh(field, data) {
