@@ -24,6 +24,7 @@
     self.RepFromUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
 
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
+    self.RooneveshtUsersList = ko.observableArray([]); // لیست افرادی که رونوشت دارند
     self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
 
     self.DocB_LastList = ko.observableArray([]); // لیست گزارش  
@@ -43,6 +44,7 @@
 
 
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
+    var RooneveshtUsersListUri = server + '/api/Web_Data/Web_RooneveshtUsersList/'; // لیست افرادی که رونوشت دارند
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
@@ -218,6 +220,20 @@
     function getMahramanehList() {
         ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.MahramanehList(data);
+        });
+    }
+
+
+    //Get RooneveshtUsersList
+    function getRooneveshtUsersList(serial, bandNo) {
+
+        var RooneveshtUsersList_Object = {
+            SerialNumber: serial,
+            BandNo: bandNo
+        }
+
+        ajaxFunction(RooneveshtUsersListUri + aceErj + '/' + salErj + '/' + group, 'POST', RooneveshtUsersList_Object).done(function (data) {
+            self.RooneveshtUsersList(data);
         });
     }
 
@@ -1675,7 +1691,7 @@
             $('#erja').removeAttr('hidden', '');
         }
 
-        if (Band.ToUserCode != sessionStorage.userName) { 
+        if (Band.ToUserCode != sessionStorage.userName) {
             $('#erja').attr('hidden', '');
             $('#panel_Result').attr('hidden', '');
             $('#saveParvandeh').attr('hidden', '');
@@ -1712,7 +1728,7 @@
 
         list = self.ErjDocErja();
         var result = ko.utils.arrayFirst(list, function (product) {
-            return product.DocBMode == 0 &&  product.BandNo === Math.max.apply(null, ko.utils.arrayMap(list, function (e) {
+            return product.DocBMode == 0 && product.BandNo === Math.max.apply(null, ko.utils.arrayMap(list, function (e) {
                 return e.BandNo;
             }));
         });
@@ -1720,17 +1736,43 @@
 
         bandNo = result.BandNo;
 
+        getRooneveshtUsersList(serialNumber, bandNo);
+        listUsers = self.RooneveshtUsersList();
+        countUsers = listUsers.length;
+
+        list_ErjUsersRoneveshtSelect = new Array();
+        counterErjUsersRonevesht = countUsers;
+
+        $("#TableBodyListErjUsersRonevesht").empty();
+        for (var i = 0; i < countUsers; i++) {
+            list_ErjUsersRoneveshtSelect[i] = listUsers[i].ToUserCode;
+
+            $('#TableBodyListErjUsersRonevesht').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + listUsers[i].ToUserCode + '</td > '
+                + ' <td data-bind="text: Name">' + listUsers[i].ToUserName + '</td > '
+                + ' <td data-bind="text: Spec"> </td >'
+                + '</tr>'
+            );
+        }
+
+
         $('#e_Result').val(result.RjComm);
 
         $('#nameErjBe').val(result.ToUserName);
         self.ErjUsersCode(result.ToUserCode);
-        $('#nameRoneveshtBe').val('هیچکس');
-        $('#RjMhltDate').val(Band.MhltDate);
+
+        if (countUsers == 0)
+            $('#nameRoneveshtBe').val('هیچکس');
+        else
+            $('#nameRoneveshtBe').val(countUsers + ' مورد انتخاب شده ');
+
+        $('#RjMhltDate').val(Band.RjMhltDate);
 
         rjTime = result.RjTimeSt.split(":");
         $('#RjTime_H').val(rjTime[0]);
         $('#RjTime_M').val(rjTime[1]);
-        
+
     }
 
 
@@ -2192,7 +2234,7 @@
         else // ارسالی
             html +=
                 '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
-                '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">'+
+                '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">' +
                 '</a >' +
                 '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
                 '      <img src="/Content/img/view.svg" width = "18" height = "18" style = "margin-left:10px"/>   ' +
