@@ -6,6 +6,8 @@ var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
 var accessErj = JSON.parse(localStorage.getItem("AccessErj"));
 var accessReportErj = JSON.parse(localStorage.getItem("AccessReportErj"));
 
+var lockNumber = localStorage.getItem("lockNumber");
+
 const MODECODE_ADOC_A = 1;
 const MODECODE_ADOC_EFT = 2;
 const MODECODE_ADOC_EKH = 3;
@@ -39,6 +41,8 @@ var LoginTestUri = server + '/api/Web_Data/LoginTest'; // تست ورود کار
 var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
 var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
 
+var PrintFormsUri = server + '/api/Web_Data/PrintForms/'; // آدرس فرم های چاپ
+
 
 var MachineId = localStorage.getItem("MachineIdKarbord");
 if (MachineId == null || MachineId == '') {
@@ -46,6 +50,8 @@ if (MachineId == null || MachineId == '') {
     id = d.getDate() + d.getTime();
     localStorage.setItem("MachineIdKarbord", id);
 }
+
+
 
 ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال
@@ -2093,7 +2099,7 @@ $('#EReport_Menu').removeAttr('class');
 $('#ErjaDOC_Menu').removeAttr('class');
 
 if (sessionStorage.SelectMenu == 0) {
-    $('#ErjaDOC_Menu').attr('class', 'active');
+    $('#ADOC_Menu').attr('class', 'active');
 }
 
 if (sessionStorage.SelectMenu == 1) {

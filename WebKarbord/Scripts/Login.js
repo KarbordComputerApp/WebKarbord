@@ -149,9 +149,12 @@
                 afi8Access = data.AFI8_Access;
                 erjAccess = data.ERJ_Access;
 
+                lockNumber = data.lockNumber;
+
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);
                 localStorage.setItem('passAccount', passAccount);
+                localStorage.setItem("lockNumber", lockNumber);
 
                 localStorage.setItem('DataAccount', JSON.stringify(data));
                 localStorage.setItem('afi1List', afi1List);

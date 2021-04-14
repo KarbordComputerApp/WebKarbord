@@ -2959,6 +2959,28 @@
 
     //    $('#modal-hesab').modal({ backdrop: 'static', keyboard: false })
     createViewer();
+
+
+    function GetPrintForms(Mode) {
+
+        var PrintForms_Object = {
+            LockNumber : lockNumber,
+            mode : Mode
+        };
+        ajaxFunction(PrintFormsUri + ace, 'POST', PrintForms_Object).done(function (data) {
+            var obj = JSON.parse(data);
+        });
+    }
+
+
+    $('#Print').click(function () {
+        GetPrintForms("SFDOC");
+
+    });
+
+ 
+
+    /*
     $('#Print').click(function () {
         if (Serial == '')
             return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
@@ -3033,6 +3055,32 @@
 
         setReport(self.FDocPList(), 'Free', variable);
     });
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /*

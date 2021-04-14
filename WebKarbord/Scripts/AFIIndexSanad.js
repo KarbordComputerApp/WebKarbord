@@ -841,10 +841,6 @@
             '            چاپ ' +
             '        </a>' +
             '    </li>' +
-
-            '    <li> <a href="javascript:void(0);" style="font-size: 11px;text-align: right;">' +
-            '        ' +
-            '    </a> </li> ' +
             '</ul>' +
 
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
