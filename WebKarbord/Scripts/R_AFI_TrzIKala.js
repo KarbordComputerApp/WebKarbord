@@ -2864,7 +2864,7 @@
         printVariable += '"ToDate":"' + ToDate + '",';
 
         printName = null;
-        sessionStorage.ModePrint = "ReportTrzIKala";
+        sessionStorage.ModePrint = "ReportTrzIKalaMaster";
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
     });
