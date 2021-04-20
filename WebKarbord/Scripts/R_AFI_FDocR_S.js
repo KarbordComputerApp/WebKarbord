@@ -2520,15 +2520,184 @@
     }
 
     createViewer();
+
+    pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
+    self.pageSizePrintForms = ko.observable(pageSizePrintForms);
+    self.currentPageIndexKhdt = ko.observable(0);
+
+    self.currentPageIndexPrintForms = ko.observable(0);
+    self.filterPrintForms0 = ko.observable("");
+    self.filterPrintForms1 = ko.observable("");
+
+    self.filterPrintFormsList = ko.computed(function () {
+
+        self.currentPageIndexPrintForms(0);
+        var filter0 = self.filterPrintForms0();
+        var filter1 = self.filterPrintForms1();
+
+        if (!filter0 && !filter1) {
+            return PrintFormsList();
+        } else {
+            tempData = ko.utils.arrayFilter(PrintFormsList(), function (item) {
+                result =
+                    (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0) &&
+                    (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPagePrintForms = ko.computed(function () {
+        var pageSizePrintForms = parseInt(self.pageSizePrintForms(), 10),
+            startIndex = pageSizePrintForms * self.currentPageIndexPrintForms(),
+            endIndex = startIndex + pageSizePrintForms;
+        localStorage.setItem('pageSizePrintForms', pageSizePrintForms);
+        return self.filterPrintFormsList().slice(startIndex, endIndex);
+    });
+
+    self.nextPagePrintForms = function () {
+        if (((self.currentPageIndexPrintForms() + 1) * self.pageSizePrintForms()) < self.filterPrintFormsList().length) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() + 1);
+        }
+    };
+
+    self.previousPagePrintForms = function () {
+        if (self.currentPageIndexPrintForms() > 0) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() - 1);
+        }
+    };
+
+    self.firstPagePrintForms = function () {
+        self.currentPageIndexPrintForms(0);
+    };
+
+
+    self.lastPagePrintForms = function () {
+        countPrintForms = parseInt(self.filterPrintFormsList().length / self.pageSizePrintForms(), 10);
+        if ((self.filterPrintFormsList().length % self.pageSizePrintForms()) == 0)
+            self.currentPageIndexPrintForms(countPrintForms - 1);
+        else
+            self.currentPageIndexPrintForms(countPrintForms);
+    };
+
+
+    self.iconTypenamefa = ko.observable("");
+
+    self.sortTablePrintForms = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        PrintFormsList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        if (orderProp == 'namefa') self.iconTypenamefa((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    self.CodePrint = ko.observable();
+
+    self.radifPrint = function (index) {
+        countShow = self.pageSizePrintForms();
+        page = self.currentPageIndexPrintForms();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
+
+    self.ShowActionPrint = function (isPublic) {
+        return isPublic == 1 ? false : true;
+    }
+
+
+    self.ShowPrintForms = function (item) {
+        printName = item.namefa;
+        address = item.address;
+        data = item.Data;
+        printPublic = item.isPublic == 1 ? true : false;
+        setReport(self.FDocR_SList(), data, printVariable);
+    };
+
+
+    self.SelectedPrintForms = function (item) {
+        SelectedPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
+
+
+    self.DeletePrintForms = function (item) {
+        Swal.fire({
+            title: 'تایید حذف ؟',
+            text: "آیا فرم چاپ انتخابی حذف شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                address = item.address;
+                DeletePrintForm(address);
+                GetPrintForms(sessionStorage.ModePrint);
+            }
+        })
+
+    };
+
+    $('#AddNewPrintForms').click(function () {
+        printName = 'فرم جدید';
+        printPublic = false;
+        setReport(self.FDocR_SList(), '', printVariable);
+    });
+
+
     $('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
 
-        variable = '"ReportDate":"' + DateNow + '",';
-        variable += '"FromDate":"' + FromDate + '",';
-        variable += '"ToDate":"' + ToDate + '",';
+        printVariable = '"ReportDate":"' + DateNow + '",';
+        printVariable += '"FromDate":"' + FromDate + '",';
+        printVariable += '"ToDate":"' + ToDate + '",';
+        printName = null;
+        sessionStorage.ModePrint = "ReportFDocR_S";
+        GetPrintForms(sessionStorage.ModePrint);
+        self.filterPrintForms1("1");
+    });
 
-        setReport(self.filterFDocR_SList(), 'Report_FDocR_S', variable);
+    $('#DesignPrint').click(function () {
+        self.filterPrintForms1("");
+        $('#modal-Print').modal('hide');
+        $('#modal-PrintForms').modal('show');
+    });
+
+    $('#AcceptPrint').click(function () {
+        codeSelect = self.CodePrint();
+        list = PrintFormsList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].code == codeSelect) {
+                name = list[i].namefa;
+                data = list[i].Data;
+            }
+        }
+        setReport(self.FDocR_SList(), data, printVariable);
+        $('#modal-Print').modal('hide');
     });
 
     

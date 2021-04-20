@@ -24,6 +24,11 @@ var colorRadif = '#d9d9d9';
 
 var ListColumns;
 
+var printName;
+var printPublic;
+var printVariable = "";
+var resTestSavePrintForm = "";
+
 
 
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
@@ -42,6 +47,10 @@ var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات �
 var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
 
 var PrintFormsUri = server + '/api/Web_Data/PrintForms/'; // آدرس فرم های چاپ
+var DeletePrintFormUri = server + '/api/Web_Data/DeletePrintForm/'; // آدرس حذف فرم های چاپ
+var SavePrintFormUri = server + '/api/Web_Data/SavePrintForm/'; // آدرس ذخیره فرم های چاپ
+var TestSavePrintFormUri = server + '/api/Web_Data/TestSavePrintForm/'; // آدرس تست ذخیره فرم های چاپ
+var SelectedPrintFormUri = server + '/api/Web_Data/SelectedPrintForm/'; // آدرس انتخاب فرم چاپ
 
 
 var MachineId = localStorage.getItem("MachineIdKarbord");
@@ -57,6 +66,8 @@ ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال
 AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
+
+PrintFormsList = ko.observableArray([]); // لیست چاپ 
 
 $('#userNameFa').text(sessionStorage.userNameFa);
 $('#userNameHome').text(sessionStorage.userNameFa + ' ');
@@ -2211,7 +2222,7 @@ function SetColumn(code, indexId, data) {
     for (i = 0; i < data.length; i++) {
         item = data[i];
         user = item.UserCode;
-        if (item.Code == code && item.Name != "" ) {
+        if (item.Code == code && item.Name != "") {
             index = i;
         }
     }
@@ -2220,7 +2231,7 @@ function SetColumn(code, indexId, data) {
         name = data[index].Name;
         visible = data[index].Visible;
         findCode = code.search("Code");
-        if (user == "*Default*" && 
+        if (user == "*Default*" &&
             (
                 (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
                 code.lastIndexOf("Amount2") > 0 ||
@@ -2482,7 +2493,17 @@ function createViewer() {
     options.toolbar.showSaveButton = true;
 
 
+    //options.toolbar.showDesignButton = false;
     options.toolbar.showDesignButton = sessionStorage.UserAdmin == 'true';
+
+    if (sessionStorage.UserAdmin == 'true') {
+        $('#DesignPrint').attr('style', 'display: unset');
+    } else {
+        $('#DesignPrint').attr('style', 'display: none');
+    }
+
+
+
 
     options.toolbar.showFullScreenButton = false;
 
@@ -2498,8 +2519,9 @@ function createViewer() {
     report = new Stimulsoft.Report.StiReport();
     viewer.onDesignReport = function (e) {
         this.visible = false;
-        if (designer == null) createDesigner();
-        //report.synchronize();
+        designer = null;
+        createDesigner();
+        report._reportFile = printName == null ? 'فرم چاپ' : printName;
         designer.report = report;
         designer.visible = true;
     };
@@ -2523,19 +2545,48 @@ function createDesigner() {
     var options = new Stimulsoft.Designer.StiDesignerOptions();
     options.appearance.fullScreenMode = true;
     options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+
     designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
     designer.renderHtml("designerContent");
 
     designer.onExit = function (e) {
         this.visible = false;
-        viewer.visible = true;
+        viewer.visible = false;
+        $("#modal-Report").modal('hide');
     }
+
+    designer.onSaveReport = function (e) {
+        if (printPublic == false) {
+            //designer.jsObject.SendCommandSaveAsReport();
+            var jsonStr = e.report.saveToJsonString();
+            SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
+        }
+        else {
+            alert('فرم های چاپ عمومی امکان تغییر را ندارند');
+        }
+    }
+
+    designer.onSaveAsReport = function (e) {
+        var jsonStr = e.report.saveToJsonString();
+        var name = e.fileName;
+        resTestSavePrintForm = "";
+
+        TestSavePrintForm(sessionStorage.ModePrint, e.fileName);
+
+        if (resTestSavePrintForm == "FindFile") {
+            alert("نام گزارش تکراری است و امکان ذخیره وجود ندارد");
+        }
+        else {
+            SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
+        }
+    };
+
 }
 
 
 
 
-function setReport_m(reportObject, mrtFileName, variablesObject, titlesObject) {
+function setReport(reportObject, addressMrt, variablesObject) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
         return showNotification('ابتدا گزارش گیری کنید', 0);
@@ -2545,114 +2596,15 @@ function setReport_m(reportObject, mrtFileName, variablesObject, titlesObject) {
     var secondsStart = dStart.getTime();
     dateDifference = DateNow + secondsStart; // عدد یونیک
 
-    addressMrt = '/Content/Report/' + mrtFileName + '.mrt?dt=' + dateDifference;
+    //addressMrt = '/Content/Report/' + addressMrt + '.mrt?dt=' + dateDifference;
 
-    if (mrtFileName != "Free") {
-        report.loadFile(addressMrt);
-    }
-    report.dictionary.databases.clear();
-    dataSet = new Stimulsoft.System.Data.DataSet("Database");
-    DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
+    //if (addressMrt != "Free") {
+    //    report.loadFile(j);
+    //}
 
-    dataSet.readJson(DataReport);
-    report.regData(dataSet.dataSetName, "", dataSet);
+    report = new Stimulsoft.Report.StiReport();
+    report.loadFile(addressMrt);
 
-    variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
-    //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
-    variablesReport = '{"variables":[{' + variablesObject + '}]}';
-    variablesDataSet.readJson(variablesReport);
-    report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
-
-
-    titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
-    titlesReport = '{"Titles":[{' + titlesObject + '}]}';
-    titlesDataSet.readJson(titlesReport);
-    report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
-
-
-
-    /*var variablesReportDate = null;
-    variablesReportDate = new Stimulsoft.Report.Dictionary.StiVariable();
-    variablesReportDate.name = "ReportDate";
-    variablesReportDate.value = secondsStart;//DateNow;
-    report.dictionary.variables.add(variablesReportDate);
-
-    var variablesFromDate = new Stimulsoft.Report.Dictionary.StiVariable();
-    variablesFromDate.name = "FromDate";
-    variablesFromDate.value = FromDate;
-    report.dictionary.variables.add(variablesFromDate);
-
-    var variablesToDate = new Stimulsoft.Report.Dictionary.StiVariable();
-    variablesToDate.name = "ToDate";
-    variablesToDate.value = ToDate;
-    report.dictionary.variables.add(variablesToDate);*/
-
-
-    // report.getDictionary().getVariables().get("var1").setValue("your value");
-    //report.getVariables().put(paramName, value);
-
-    // report.dictionary.synchronize();
-
-    /* var variables = new Stimulsoft.Report.Dictionary.StiVariable();
-       variables.name = "Address";
-       variables.alias = "Address";
-       variables.Type = Stimulsoft.System.StimulsoftType;
-       variables.requestFromUser = false;
-       variables.value = "1234 Address ";
-       report.dictionary.variables.add(variables);
-   */
-
-    /*  var di = new Stimulsoft.Report.Dictionary.StiDialogInfo();
-       di.allowUserValues = false;
-        di.keys = ["1", "2", "3", "4"];
-        di.values = ["1", "2", "3", "4"];
-        newVariable.dialogInfo = di;
-        report.dictionary.variables.add(newVariable); */
-
-
-
-    /*
-        var newVariable = new Stimulsoft.Report.Dictionary.StiVariable();
-        newVariable.name = "Variable";
-        newVariable.alias = "Variable";
-        newVariable.type = Stimulsoft.System.StimulsoftStringList;
-        newVariable.requestFromUser = true;
-    
-        var di = new Stimulsoft.Report.Dictionary.StiDialogInfo();
-        di.allowUserValues = false;
-        di.keys = ["1", "2", "3", "4"];
-        di.values = ["1", "2", "3", "4"];
-    
-        newVariable.dialogInfo = di;
-    
-        report.dictionary.variables.add(newVariable);
-        //report.dictionary.variables.getByName("var1").valueObject = "your value";
-        */
-
-    report.dictionary.synchronize();
-
-    viewer.report = report;
-    report.render();
-
-    $('#modal-Report').modal('show');
-}
-
-
-function setReport(reportObject, mrtFileName, variablesObject) {
-    DataReport = reportObject;
-    if (DataReport.length == 0 || DataReport == null || DataReport == "") {
-        return showNotification('ابتدا گزارش گیری کنید', 0);
-    }
-
-    var dStart = new Date();
-    var secondsStart = dStart.getTime();
-    dateDifference = DateNow + secondsStart; // عدد یونیک
-
-    addressMrt = '/Content/Report/' + mrtFileName + '.mrt?dt=' + dateDifference;
-
-    if (mrtFileName != "Free") {
-        report.loadFile(addressMrt);
-    }
     report.dictionary.databases.clear();
     dataSet = new Stimulsoft.System.Data.DataSet("Database");
     DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
@@ -2684,10 +2636,15 @@ function setReport(reportObject, mrtFileName, variablesObject) {
     viewer.report = report;
     //report.render();
 
-
+    viewer.visible = true;
     $('#modal-Report').modal('show');
 
+    viewer.onExit = function (e) {
+        this.visible = false;
+    }
+
 }
+
 
 function sleep(milliseconds) {
     var start = new Date().getTime();
@@ -2718,4 +2675,95 @@ function saveByteArray(reportName, byte) {
     link.download = fileName;
     link.click();
 };
+
+
+
+
+
+function GetPrintForms(Mode) {
+
+    var PrintForms_Object = {
+        LockNumber: lockNumber,
+        mode: Mode
+    };
+    ajaxFunction(PrintFormsUri + sessionStorage.ace, 'POST', PrintForms_Object).done(function (data) {
+        PrintFormsList(data);
+    });
+}
+
+$('#refreshPrintForms').click(function () {
+    Swal.fire({
+        title: 'تایید به روز رسانی',
+        text: "فرم های چاپ به روز رسانی شود ؟",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'خیر',
+        allowOutsideClick: false,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'بله'
+    }).then((result) => {
+        if (result.value) {
+            $("div.loadingZone").show();
+            GetPrintForms(sessionStorage.ModePrint);
+            $("div.loadingZone").hide();
+        }
+    })
+})
+
+$('#modal-Report').on('hide.bs.modal', function () {
+    GetPrintForms(sessionStorage.ModePrint);
+});
+
+
+
+
+function DeletePrintForm(address) {
+
+    var DeletePrintForm_Object = {
+        LockNumber: lockNumber,
+        Address: address
+    };
+    ajaxFunction(DeletePrintFormUri + sessionStorage.ace, 'POST', DeletePrintForm_Object).done(function (data) {
+
+    });
+}
+
+function TestSavePrintForm(mode, name) {
+
+    var TestSavePrintForm_Object = {
+        LockNumber: lockNumber,
+        Name: name,
+        Mode: mode
+    };
+    ajaxFunction(TestSavePrintFormUri + sessionStorage.ace, 'POST', TestSavePrintForm_Object).done(function (data) {
+        resTestSavePrintForm = data;
+    });
+}
+
+function SavePrintForm(mode, name, data) {
+
+    var SavePrintForm_Object = {
+        LockNumber: lockNumber,
+        Name: name,
+        Mode: mode,
+        Data: data
+    };
+    ajaxFunction(SavePrintFormUri + sessionStorage.ace, 'POST', SavePrintForm_Object).done(function (data) {
+
+    });
+}
+
+
+function SelectedPrintForm(address, isPublic) {
+
+    var SelectedPrintForm_Object = {
+        LockNumber: lockNumber,
+        Address: address,
+        isPublic: isPublic,
+    };
+    ajaxFunction(SelectedPrintFormUri + sessionStorage.ace, 'POST', SelectedPrintForm_Object).done(function (data) {
+
+    });
+}
 

@@ -144,6 +144,8 @@
 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
+
+
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             $('#TitleHeaderFactor').text('سفارش فروش');
@@ -1497,7 +1499,7 @@
 
     //$('#DatileFactor').hide();
     if (flagupdateHeader != 1) {
-        if (parseInt(sessionStorage.sal) < SalNow )
+        if (parseInt(sessionStorage.sal) < SalNow)
             getFDocHLastDate();
     }
 
@@ -1588,7 +1590,7 @@
             startIndex = pageSizeCust * self.currentPageIndexCust(),
             endIndex = startIndex + pageSizeCust;
         localStorage.setItem('pageSizeCust', pageSizeCust);
-  return self.filterCustList().slice(startIndex, endIndex);
+        return self.filterCustList().slice(startIndex, endIndex);
     });
 
 
@@ -1683,7 +1685,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-  return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -2400,7 +2402,7 @@
                 key == 13 ||
                 key == 46 ||
                 (
-                   ace=='Web8' &&  (key == 109 || key == 111)
+                    ace == 'Web8' && (key == 109 || key == 111)
                 )
                 || key == 191 ||
                 (key >= 35 && key <= 40) ||
@@ -2961,158 +2963,216 @@
     createViewer();
 
 
-    function GetPrintForms(Mode) {
 
-        var PrintForms_Object = {
-            LockNumber : lockNumber,
-            mode : Mode
-        };
-        ajaxFunction(PrintFormsUri + ace, 'POST', PrintForms_Object).done(function (data) {
-            var obj = JSON.parse(data);
+
+
+
+
+
+
+    pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
+    self.pageSizePrintForms = ko.observable(pageSizePrintForms);
+    self.currentPageIndexKhdt = ko.observable(0);
+
+    self.currentPageIndexPrintForms = ko.observable(0);
+    self.filterPrintForms0 = ko.observable("");
+    self.filterPrintForms1 = ko.observable("");
+
+    self.filterPrintFormsList = ko.computed(function () {
+
+        self.currentPageIndexPrintForms(0);
+        var filter0 = self.filterPrintForms0();
+        var filter1 = self.filterPrintForms1();
+
+        if (!filter0 && !filter1) {
+            return PrintFormsList();
+        } else {
+            tempData = ko.utils.arrayFilter(PrintFormsList(), function (item) {
+                result =
+                    (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0)&&
+                (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPagePrintForms = ko.computed(function () {
+        var pageSizePrintForms = parseInt(self.pageSizePrintForms(), 10),
+            startIndex = pageSizePrintForms * self.currentPageIndexPrintForms(),
+            endIndex = startIndex + pageSizePrintForms;
+        localStorage.setItem('pageSizePrintForms', pageSizePrintForms);
+        return self.filterPrintFormsList().slice(startIndex, endIndex);
+    });
+
+    self.nextPagePrintForms = function () {
+        if (((self.currentPageIndexPrintForms() + 1) * self.pageSizePrintForms()) < self.filterPrintFormsList().length) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() + 1);
+        }
+    };
+
+    self.previousPagePrintForms = function () {
+        if (self.currentPageIndexPrintForms() > 0) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() - 1);
+        }
+    };
+
+    self.firstPagePrintForms = function () {
+        self.currentPageIndexPrintForms(0);
+    };
+
+
+    self.lastPagePrintForms = function () {
+        countPrintForms = parseInt(self.filterPrintFormsList().length / self.pageSizePrintForms(), 10);
+        if ((self.filterPrintFormsList().length % self.pageSizePrintForms()) == 0)
+            self.currentPageIndexPrintForms(countPrintForms - 1);
+        else
+            self.currentPageIndexPrintForms(countPrintForms);
+    };
+
+
+    self.iconTypenamefa = ko.observable("");
+
+    self.sortTablePrintForms = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        PrintFormsList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
         });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        if (orderProp == 'namefa') self.iconTypenamefa((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    self.CodePrint = ko.observable();
+
+    self.radifPrint = function (index) {
+        countShow = self.pageSizePrintForms();
+        page = self.currentPageIndexPrintForms();
+        calc = (countShow * page) + 1;
+        return index + calc;
     }
 
 
-    $('#Print').click(function () {
-        GetPrintForms("SFDOC");
+    self.ShowActionPrint = function (isPublic) {
+        return isPublic == 1 ? false : true;
+    }
 
+
+    self.ShowPrintForms = function (item) {
+        printName = item.namefa;
+        address = item.address;
+        data = item.Data;
+        printPublic = item.isPublic == 1 ? true : false;
+        setReport(self.FDocPList(), data, printVariable);
+    };
+
+
+    self.SelectedPrintForms = function (item) {
+        SelectedPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
+
+
+    self.DeletePrintForms = function (item) {
+        Swal.fire({
+            title: 'تایید حذف ؟',
+            text: "آیا فرم چاپ انتخابی حذف شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                address = item.address;
+                DeletePrintForm(address);
+                GetPrintForms(sessionStorage.ModePrint);
+            }
+        })
+
+    };
+
+    $('#AddNewPrintForms').click(function () {
+        printName = 'فرم جدید';
+        printPublic = false;
+        setReport(self.FDocPList(), '', printVariable);
     });
 
- 
 
-    /*
     $('#Print').click(function () {
         if (Serial == '')
             return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
             return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
-
         textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice;
-
-        variable = '"ReportDate":"' + DateNow + '",' +
+        printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
-
-
-
-        textAccess = 'دسترسی ندارید';
-        switch (sessionStorage.ModeCode.toString()) {
-            case sessionStorage.MODECODE_FDOC_SO:
-                if (sessionStorage.Access_SHOWPRICE_SFORD == 'true')
-                    setReport(self.FDocPList(), 'Factor_SFORD', variable)
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_SP:
-                if (sessionStorage.Access_SHOWPRICE_SPDOC == 'true')
-                    setReport(self.FDocPList(), 'Factor_SPDOC', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_S:
-                if (sessionStorage.Access_SHOWPRICE_SFDOC == 'true')
-                    setReport(self.FDocPList(), 'Factor_SFDOC', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_SR:
-                if (sessionStorage.Access_SHOWPRICE_SRDOC == 'true')
-                    setReport(self.FDocPList(), 'Factor_SRDOC', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_SH:
-                setReport(self.FDocPList(), 'Factor_SHVL_NoPrice', variable);
-                break;
-            case sessionStorage.MODECODE_FDOC_SE:
-                setReport(self.FDocPList(), 'Factor_SEXT_NoPrice', variable);
-                break;
-            case sessionStorage.MODECODE_FDOC_PO:
-                if (sessionStorage.Access_SHOWPRICE_PFORD == 'true')
-                    setReport(self.FDocPList(), 'Factor_PFORD', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_PP:
-                if (sessionStorage.Access_SHOWPRICE_PPDOC == 'true')
-                    setReport(self.FDocPList(), 'Factor_PPDOC', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_P:
-                if (sessionStorage.Access_SHOWPRICE_PFDOC == 'true')
-                    setReport(self.FDocPList(), 'Factor_PFDOC', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-            case sessionStorage.MODECODE_FDOC_PR:
-                if (sessionStorage.Access_SHOWPRICE_PRDOC == 'true')
-                    setReport(self.FDocPList(), 'Factor_PRDOC', variable);
-                else
-                    return showNotification(textAccess, 0);
-                break;
-        }
-
-        setReport(self.FDocPList(), 'Free', variable);
+        printName = null;
+        sessionStorage.ModePrint = sessionStorage.ModeCode;
+        GetPrintForms(sessionStorage.ModePrint);
+        self.filterPrintForms1("1");
     });
-    */
 
+    $('#DesignPrint').click(function () {
+        self.filterPrintForms1("");
+        $('#modal-Print').modal('hide');
+        $('#modal-PrintForms').modal('show');
+    });    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    $(window).keydown(function (event) {
-        if (event.ctrlKey == false && event.keyCode == 113) {
-            flagFinalSave = true;
-            self.UpdateFDocH();
-            event.preventDefault();
+    $('#AcceptPrint').click(function () {
+        codeSelect = self.CodePrint();
+        list = PrintFormsList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].code == codeSelect) {
+                name = list[i].namefa;
+                data = list[i].Data;
+            }
         }
-    
+        setReport(self.FDocPList(), data, printVariable);
+        $('#modal-Print').modal('hide');
     });
-    
-    Date.prototype.addDays = function (days) {
-        var date = new Date(this.valueOf());
-        date.setDate(date.getDate() + days);
-        return date;
-    }
-    
-    
-    var date = new Date();
-    date.addDays(5);
-    
-    $("#tarikh").keyup(function (e) {
-    
-        a = e.keyCode;
-        var date = new Date();
-    
-        addMonthToDateTime($('#tarikh').val(), 1);
-        //down : 40
-        //up : 38
-    })
-    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     $('#tarikh').keypress(function () {

@@ -640,6 +640,162 @@
         </div>
     </section>
 
+
+    <div class="modal fade" id="modal-PrintForms" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">لیست فرم های چاپ</h4>
+                    <div>
+                        <a id="refreshPrintForms">
+                            <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                        </a>
+                        <input id="upload" type="file" style="display:none" data-bind="event: {change: $root.fileUpload}" />
+                        <a id="AddNewPrintForms">
+                            <img src="/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20">
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <br />
+                    <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                        <table class="table table-hover table-striped tableFix">
+                            <thead style="cursor: pointer;">
+                                <tr data-bind="click: sortTablePrintForms">
+                                    <th style="width: 10px;">وضعیت</th>
+                                    <th data-column="namefa" style="text-align: center;">
+                                        نام
+                                        <span data-bind="attr: { class: currentColumn() == 'namefa' ? 'isVisible' : 'isHidden' }">
+                                            <i data-bind="attr: { class: iconTypenamefa }"></i>
+                                        </span>
+                                    </th>
+                                    <th style="width:1px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: currentPagePrintForms" style="cursor: default;">
+                                <tr>
+                                    <td style="background-color: #d9d9d9;padding:0px">
+                                        <!--<i data-bind="text: $root.radifPrint($index())" style="font-style: unset;padding-right: 10px; padding-left: 10px;"></i>-->
+                                        <input type="checkbox" style="width: 16px;margin-right: 20px;"
+                                               data-bind="checked: Selected == 1 ? true : false,
+                                                      click: $root.SelectedPrintForms" />
+                                    </td>
+
+                                    <td data-bind="text: namefa"></td>
+                                    <td>
+                                        <a data-bind="click: $root.ShowPrintForms">
+                                            <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                        </a>
+                                        <a data-bind="click: $root.DeletePrintForms, visible: $root.ShowActionPrint(isPublic)">
+                                            <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr style="background-color: #efb68399">
+                                    <td>جستجو</td>
+                                    <td style="padding: 0px 3px;"><input data-bind="value: filterPrintForms0, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-inline">
+                                <label>نمایش</label>
+                                <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                    <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizePrintForms">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                        <option value="60">60</option>
+                                        <option value="70">70</option>
+                                        <option value="80">80</option>
+                                        <option value="90">90</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <label>رکورد در هر صفحه</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                            <a data-bind="click: firstPagePrintForms">
+                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            </a>
+                            <a data-bind="click: previousPagePrintForms">
+                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            </a>
+                            <b data-bind="text: currentPageIndexPrintForms() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                            <a data-bind="click: nextPagePrintForms">
+                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            </a>
+                            <a data-bind="click: lastPagePrintForms">
+                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="modal-Print" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">فرم های چاپ </h4>
+
+                    <div>
+                        <a id="DesignPrint">
+                            <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16">
+                        </a>
+                        <a></a>
+                    </div>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <select id="printList" data-bind="options: currentPagePrintForms,
+                                                          optionsText: function(item) {return item.namefa},
+                                                          optionsValue: 'code',
+                                                          value: CodePrint"></select>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                    <button type="button" id="AcceptPrint" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                        چاپ
+                    </button>
+                    <button type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                        انصراف
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
     <div class="modal fade" id="modal-Report" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" dir="ltr">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -659,6 +815,11 @@
         <div id="designerContent"></div>
         <div id="viewerContent"></div>
     </div>
+
+
+
+
+
 
 
     <script src="~/Content/new/js/app.min.js"></script>

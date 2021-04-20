@@ -239,7 +239,7 @@
             user: sessionStorage.userName,
             accessSanad: sessionStorage.AccessSanad,
             updatedate: null,
-            ModeCode : null
+            ModeCode: null
         }
 
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (data) {
@@ -457,11 +457,11 @@
                     (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
                     (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
                     ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
-                (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
-                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
-                (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
+                    (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
+                    (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                    (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
+                    (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                    (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
                     (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
                     (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
@@ -521,7 +521,7 @@
             startIndex = pageSizeIDocH * self.currentPageIndexIDocH(),
             endIndex = startIndex + pageSizeIDocH;
         localStorage.setItem('pageSizeIDocH', pageSizeIDocH);
-   return self.filterIDocHList().slice(startIndex, endIndex);
+        return self.filterIDocHList().slice(startIndex, endIndex);
     });
 
     self.nextPageIDocH = function () {
@@ -1357,8 +1357,8 @@
 
     /*createViewer();
     $('#Print').click(function () {
-        variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterIDocHList(), 'Free', variable);
+        printVariable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterIDocHList(), 'Free', printVariable);
     });*/
 
 
@@ -1373,7 +1373,10 @@
 
     createViewer();
 
+
+
     self.PrintSanad = function (item) {
+
         serial = item.SerialNumber;
         docDate = item.DocDate;
 
@@ -1383,26 +1386,195 @@
 
         textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
 
-        variable = '"ReportDate":"' + DateNow + '",' +
+        printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
 
 
         if (sessionStorage.InOut == 1) {
             if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
-                setReport(self.IDocPList(), 'Sanad_IDoc', variable);
+                sessionStorage.ModePrint = 'IDoc';
             else
-                setReport(self.IDocPList(), 'Sanad_IDoc_NoPrice', variable);
+                sessionStorage.ModePrint = 'IDoc_NoPrice';
         }
         else {
-            setReport(self.IDocPList(), 'Sanad_ODoc_NoPrice', variable);
+            sessionStorage.ModePrint = 'ODoc';
         }
+
+
+
+
+        printName = null;
+        GetPrintForms(sessionStorage.ModePrint);
+        self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
     }
 
-    $('#PrintSanad').click(function () {
+    pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
+    self.pageSizePrintForms = ko.observable(pageSizePrintForms);
+    self.currentPageIndexKhdt = ko.observable(0);
 
+    self.currentPageIndexPrintForms = ko.observable(0);
+    self.filterPrintForms0 = ko.observable("");
+    self.filterPrintForms1 = ko.observable("");
 
+    self.filterPrintFormsList = ko.computed(function () {
 
+        self.currentPageIndexPrintForms(0);
+        var filter0 = self.filterPrintForms0();
+        var filter1 = self.filterPrintForms1();
+
+        if (!filter0 && !filter1) {
+            return PrintFormsList();
+        } else {
+            tempData = ko.utils.arrayFilter(PrintFormsList(), function (item) {
+                result =
+                    (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0) &&
+                    (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
+                return result;
+            })
+            return tempData;
+        }
     });
+
+
+
+    self.currentPagePrintForms = ko.computed(function () {
+        var pageSizePrintForms = parseInt(self.pageSizePrintForms(), 10),
+            startIndex = pageSizePrintForms * self.currentPageIndexPrintForms(),
+            endIndex = startIndex + pageSizePrintForms;
+        localStorage.setItem('pageSizePrintForms', pageSizePrintForms);
+        return self.filterPrintFormsList().slice(startIndex, endIndex);
+    });
+
+    self.nextPagePrintForms = function () {
+        if (((self.currentPageIndexPrintForms() + 1) * self.pageSizePrintForms()) < self.filterPrintFormsList().length) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() + 1);
+        }
+    };
+
+    self.previousPagePrintForms = function () {
+        if (self.currentPageIndexPrintForms() > 0) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() - 1);
+        }
+    };
+
+    self.firstPagePrintForms = function () {
+        self.currentPageIndexPrintForms(0);
+    };
+
+
+    self.lastPagePrintForms = function () {
+        countPrintForms = parseInt(self.filterPrintFormsList().length / self.pageSizePrintForms(), 10);
+        if ((self.filterPrintFormsList().length % self.pageSizePrintForms()) == 0)
+            self.currentPageIndexPrintForms(countPrintForms - 1);
+        else
+            self.currentPageIndexPrintForms(countPrintForms);
+    };
+
+
+    self.iconTypenamefa = ko.observable("");
+
+    self.sortTablePrintForms = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        PrintFormsList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        if (orderProp == 'namefa') self.iconTypenamefa((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    self.CodePrint = ko.observable();
+
+    self.radifPrint = function (index) {
+        countShow = self.pageSizePrintForms();
+        page = self.currentPageIndexPrintForms();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
+
+    self.ShowActionPrint = function (isPublic) {
+        return isPublic == 1 ? false : true;
+    }
+
+
+    self.ShowPrintForms = function (item) {
+        printName = item.namefa;
+        address = item.address;
+        data = item.Data;
+        printPublic = item.isPublic == 1 ? true : false;
+        setReport(self.IDocPList(), data, printVariable);
+    };
+
+
+    self.SelectedPrintForms = function (item) {
+        SelectedPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
+
+
+    self.DeletePrintForms = function (item) {
+        Swal.fire({
+            title: 'تایید حذف ؟',
+            text: "آیا فرم چاپ انتخابی حذف شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                address = item.address;
+                DeletePrintForm(address);
+                GetPrintForms(sessionStorage.ModePrint);
+            }
+        })
+
+    };
+
+    $('#AddNewPrintForms').click(function () {
+        printName = 'فرم جدید';
+        printPublic = false;
+        setReport(self.IDocPList(), '', printVariable);
+    });
+
+
+    $('#DesignPrint').click(function () {
+        self.filterPrintForms1("");
+        $('#modal-Print').modal('hide');
+        $('#modal-PrintForms').modal('show');
+    });
+
+    $('#AcceptPrint').click(function () {
+        codeSelect = self.CodePrint();
+        list = PrintFormsList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].code == codeSelect) {
+                name = list[i].namefa;
+                data = list[i].Data;
+            }
+        }
+        setReport(self.IDocPList(), data, printVariable);
+        $('#modal-Print').modal('hide');
+    });
+
 
 
     self.sortTableIDocH();

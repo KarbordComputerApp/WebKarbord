@@ -1612,7 +1612,7 @@ input[type="checkbox"] {
 }
 
 #StiViewerReportPanel {
-    position: initial !important;
+    position: absolute !important;
 }
 
 

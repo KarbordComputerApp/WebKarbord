@@ -54,6 +54,7 @@
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
     var ErjSaveDoc_BSaveUri = server + '/api/Web_Data/ErjSaveDoc_BSave/'; // آدرس ذخیره ارجاع
     var ErjSaveDoc_CSaveUri = server + '/api/Web_Data/ErjSaveDoc_CSave/'; // آدرس ذخیره رونوشت
+    var ErjSaveDoc_CDUri = server + '/api/Web_Data/ErjSaveDoc_CD/'; // آدرس حذف رونوشت
 
     var ErjSaveDoc_RjRead_Uri = server + '/api/Web_Data/ErjSaveDoc_RjRead/'; // آدرس ذخیره دیدن ارجاع
 
@@ -88,7 +89,7 @@
 
 
 
-    if (sessionStorage.ModeCodeErja == 1) {
+    if (sessionStorage.ModeCodeErja == "1") {
         $("#title_erja").text('ارجاعات پرونده دریافتی');
         $("#titleSaveErja").text('ارجاع جدید');
 
@@ -1946,7 +1947,7 @@
 
     $('#modal-Erja').on('shown.bs.modal', function () {
         $('#e_Result').css("height", "409px");
-        if (sessionStorage.ModeCodeErja == 1) {
+        if (sessionStorage.ModeCodeErja == "1") {
             flagSave = null;
             ErjSaveDoc_BSave(bandNo);
             $('#e_Result').val($('#Result').val());
@@ -1982,14 +1983,19 @@
         flagSave = false;
         //ErjSaveDoc_BSave(bandNo);
 
-        if (sessionStorage.ModeCodeErja == 1) {
+        if (sessionStorage.ModeCodeErja == "1") {
             ErjSaveDoc_BSave(0);
         } else {
             ErjSaveDoc_BSave(bandNo);
         }
 
         if (counterErjUsersRonevesht > 0) {
-            ErjSaveDoc_CSave(bandNo, false);
+            if (sessionStorage.ModeCodeErja == "2") {
+                ErjSaveDoc_CD(bandNo);
+                ErjSaveDoc_CSave(bandNo, false);
+            }
+            else
+            ErjSaveDoc_CSave(bandNo + 1 , false);
         }
         list_ErjUsersRoneveshtSelect = new Array();
         counterErjUsersRonevesht = 0;
@@ -2142,7 +2148,7 @@
                 if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
                     tmp = {
                         'SerialNumber': serialNumber,
-                        'BandNo': bandNoImput + 1,
+                        'BandNo': bandNoImput,
                         'Natijeh': '',
                         'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
                         'RjDate': rjDate
@@ -2177,6 +2183,18 @@
             getDocB_Last();
         });
         flagInsertFdoch = 1;
+    };
+
+
+
+    //Delete DocC  حذف رونوشت
+    function ErjSaveDoc_CD(bandNoImput) {
+        obj = {
+            'SerialNumber': serialNumber,
+            'BandNo': bandNoImput,
+        };
+        ajaxFunction(ErjSaveDoc_CDUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
+        });
     };
 
 
@@ -2226,10 +2244,10 @@
             CreateTableTd('MhltDate', 0, 0, data) +
             '<td>';
 
-        if (sessionStorage.ModeCodeErja == 1) // دریافتی
+        if (sessionStorage.ModeCodeErja == "1") // دریافتی
             html +=
                 '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
-                '      <img src="/Content/img/send.svg" width = "18" height = "18" style = "margin-left:10px"/>   ' +
+                '    <i class="far fa-share" style="font-size: 12px;"></i>  ' +
                 '    </a >';
         else // ارسالی
             html +=
@@ -2249,6 +2267,8 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
+
+
             /*' <tr style="background-color:#e37d228f;">' +
             '<td></td>' +
             CreateTableTdSum('RjStatus', 0, data) +
@@ -2356,9 +2376,11 @@
     }
 
     createViewer();
+
+
     $('#Print').click(function () {
-        variable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterDocB_LastList(), 'Free', variable);
+        printVariable = '"ReportDate":"' + DateNow + '",';
+        setReport(self.filterDocB_LastList(), 'Free', printVariable);
     });
 
     /*    $(function () {
