@@ -3014,6 +3014,11 @@
         return true;
     };
 
+    self.SelectedAccessGhimat = function (item) {
+        SelectedAccessGhimatPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
 
     self.DeletePrintForms = function (item) {
         Swal.fire({

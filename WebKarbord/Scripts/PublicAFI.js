@@ -51,6 +51,7 @@ var DeletePrintFormUri = server + '/api/Web_Data/DeletePrintForm/'; // آدرس 
 var SavePrintFormUri = server + '/api/Web_Data/SavePrintForm/'; // آدرس ذخیره فرم های چاپ
 var TestSavePrintFormUri = server + '/api/Web_Data/TestSavePrintForm/'; // آدرس تست ذخیره فرم های چاپ
 var SelectedPrintFormUri = server + '/api/Web_Data/SelectedPrintForm/'; // آدرس انتخاب فرم چاپ
+var SelectedAccessGhimatPrintFormUri = server + '/api/Web_Data/SelectedAccessGhimatPrintForm/'; // آدرس دسترسی قیمت فرم چاپ
 
 
 var MachineId = localStorage.getItem("MachineIdKarbord");
@@ -2518,12 +2519,8 @@ function createViewer() {
 
     report = new Stimulsoft.Report.StiReport();
     viewer.onDesignReport = function (e) {
-        this.visible = false;
-        designer = null;
+        
         createDesigner();
-        report._reportFile = printName == null ? 'فرم چاپ' : printName;
-        designer.report = report;
-        designer.visible = true;
     };
     viewer.renderHtml("viewerContent");
 
@@ -2542,6 +2539,8 @@ function createViewer() {
 
 var DataReport;
 function createDesigner() {
+    viewer.visible = false;
+    designer = null;
     var options = new Stimulsoft.Designer.StiDesignerOptions();
     options.appearance.fullScreenMode = true;
     options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
@@ -2580,6 +2579,10 @@ function createDesigner() {
             SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
         }
     };
+
+    report._reportFile = printName == null ? 'فرم چاپ' : printName;
+    designer.report = report;
+    designer.visible = true;
 
 }
 
@@ -2764,6 +2767,21 @@ function SelectedPrintForm(address, isPublic) {
     };
     ajaxFunction(SelectedPrintFormUri + sessionStorage.ace, 'POST', SelectedPrintForm_Object).done(function (data) {
 
+    });
+}
+
+
+function SelectedAccessGhimatPrintForm(address, isPublic) {
+
+    var SelectedAccessGhimatPrintForm_Object = {
+        LockNumber: lockNumber,
+        Address: address,
+        isPublic: isPublic,
+    };
+    ajaxFunction(SelectedAccessGhimatPrintFormUri + sessionStorage.ace, 'POST', SelectedAccessGhimatPrintForm_Object).done(function (data) {
+        if (data == "FindFile") {
+            showNotification('فایلی با نام مشابه وجود دارد و امکان تغییر نیست', 0);
+        }
     });
 }
 

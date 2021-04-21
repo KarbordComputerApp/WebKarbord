@@ -3089,6 +3089,14 @@
     };
 
 
+    self.SelectedAccessGhimat = function (item) {
+        SelectedAccessGhimatPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
+
+
+
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: 'تایید حذف ؟',
@@ -3150,6 +3158,77 @@
         setReport(self.FDocPList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
+
+
+
+
+
+   /* $('#addPrinttest').click(function () {
+        codeSelect = self.CodePrint();
+        list = PrintFormsList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].code == codeSelect) {
+                name = list[i].namefa;
+                data = list[i].Data;
+            }
+        }*/
+
+
+    DataReport = self.FDocPList();
+        if (DataReport.length == 0 || DataReport == null || DataReport == "") {
+            return showNotification('ابتدا گزارش گیری کنید', 0);
+        }
+
+        var dStart = new Date();
+        var secondsStart = dStart.getTime();
+        dateDifference = DateNow + secondsStart; // عدد یونیک
+
+
+        report = new Stimulsoft.Report.StiReport();
+    report.loadFile(data);
+
+        report.dictionary.databases.clear();
+        dataSet = new Stimulsoft.System.Data.DataSet("Database");
+        DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
+
+        dataSet.readJson(DataReport);
+        report.regData(dataSet.dataSetName, "", dataSet);
+
+        variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
+        //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
+    variablesReport = '{"variables":[{' + printVariable + '}]}';
+        variablesDataSet.readJson(variablesReport);
+        report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
+
+
+        titlesObject = '';
+        for (var i = 0; i < ListColumns.length; i++) {
+            titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
+        }
+
+
+        titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+        titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+        titlesDataSet.readJson(titlesReport);
+        report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
+
+
+        report.dictionary.synchronize();
+
+        viewer.report = report;
+        //report.render();
+
+        viewer.visible = true;
+        $('#modal-Report').modal('show');
+
+        viewer.onExit = function (e) {
+            this.visible = false;
+        }
+        createDesigner();
+    });
+
+
+
 
 
 

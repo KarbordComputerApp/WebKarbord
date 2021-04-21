@@ -666,6 +666,7 @@
                             <thead style="cursor: pointer;">
                                 <tr data-bind="click: sortTablePrintForms">
                                     <th style="width: 10px;">وضعیت</th>
+                                    <th style="width: 10px;">بدون قیمت</th>
                                     <th data-column="namefa" style="text-align: center;">
                                         نام
                                         <span data-bind="attr: { class: currentColumn() == 'namefa' ? 'isVisible' : 'isHidden' }">
@@ -677,11 +678,17 @@
                             </thead>
                             <tbody data-bind="foreach: currentPagePrintForms" style="cursor: default;">
                                 <tr>
-                                    <td style="background-color: #d9d9d9;padding:0px">
+                                    <td style="padding:0px">
                                         <!--<i data-bind="text: $root.radifPrint($index())" style="font-style: unset;padding-right: 10px; padding-left: 10px;"></i>-->
                                         <input type="checkbox" style="width: 16px;margin-right: 20px;"
                                                data-bind="checked: Selected == 1 ? true : false,
                                                       click: $root.SelectedPrintForms" />
+                                    </td>
+
+                                    <td style="padding:0px">
+                                        <input type="checkbox" style="width: 16px;margin-right: 25px;"
+                                               data-bind="checked: accessGhimat == 1 ? true : false,
+                                                      click: $root.SelectedAccessGhimat , visible: $root.ShowActionPrint(isPublic)" />
                                     </td>
 
                                     <td data-bind="text: namefa"></td>
@@ -698,6 +705,7 @@
                             <tfoot>
                                 <tr style="background-color: #efb68399">
                                     <td>جستجو</td>
+                                    <td></td>
                                     <td style="padding: 0px 3px;"><input data-bind="value: filterPrintForms0, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
                                     <td></td>
                                 </tr>
@@ -767,6 +775,12 @@
                         <a id="DesignPrint">
                             <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16">
                         </a>
+
+                      <!--  <a id="addPrinttest">
+                            <img src="/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="16" height="16">
+                        </a>-->
+
+
                         <a></a>
                     </div>
 

@@ -1678,6 +1678,8 @@
         getDocK(serialNumber)
         getErjDocErja(serialNumber);
 
+        $('#m_StatusParvandeh').val(Band.Status);
+        $('#m_StatusErja').val(Band.RjStatus);
 
         $('#erja').removeAttr('hidden', '');
         $('#saveParvandeh').removeAttr('hidden', '');
