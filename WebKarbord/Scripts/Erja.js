@@ -2077,6 +2077,7 @@
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
+                SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1
             };
         }
         else // save
@@ -2094,6 +2095,7 @@
                 RjTime: 0,
                 RjMhltDate: '',
                 BandNo: bandNoImput,
+                SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1
             };
         }
 
