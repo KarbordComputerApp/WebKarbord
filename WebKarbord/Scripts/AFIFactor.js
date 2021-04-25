@@ -41,6 +41,8 @@
 
 
     var codeCust = '';
+    var codeOpr = '';
+    var codeMkz = '';
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -111,6 +113,10 @@
     self.DocDate = ko.observable(DateNow);//(ShamsiDate()); 
     self.Spec = ko.observable();
     self.CustCode = ko.observable();
+
+    self.OprCode = ko.observable();
+    self.MkzCode = ko.observable();
+
     self.PriceCode = ko.observable();
     self.InvCode = ko.observable();
     self.StatusFactor = ko.observable();
@@ -138,10 +144,11 @@
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.PaymentList = ko.observableArray([]); // ليست نحوه پرداخت 
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
+    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
+    self.OprList = ko.observableArray([]); // ليست پروژه ها
+
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
-
     self.TestFDocList = ko.observableArray([]); // لیست تست 
-
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
 
@@ -255,6 +262,9 @@
 
     var TestFDocUri = server + '/api/FDocData/TestFDoc/'; // آدرس تست فاکتور 
 
+    var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
+    var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
+
 
     var rprtId = 'FDocP';
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -338,6 +348,20 @@
         progName = getProgName('S');
         ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
             self.StatusList(data);
+        });
+    }
+
+    //Get Opr List
+    function getOprList() {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.OprList(data);
+        });
+    }
+
+    //Get  Mkz List
+    function getMkzList() {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.MkzList(data);
         });
     }
 
@@ -633,6 +657,10 @@
         $('#nameHesab').val('');
         self.PriceCode('');
         self.InvCode('');
+        self.OprCode('');
+        self.MkzCode('');
+        codeOpr = '';
+        codeMkz = '';
     };
 
 
@@ -688,7 +716,7 @@
     self.ButtonFDocH = function ButtonFDocH(newFDocH) {
         if (flagInsertFdoch == 0) {
             self.ClearFDocB();
-            AddFDocH(newFDocH);
+            var a = AddFDocH(newFDocH);
             flagInsertFdoch == 1 ? $('#modal-Band').modal() : null
         } else {
             $('#modal-Band').modal()
@@ -906,13 +934,19 @@
             var res = response.split("@");
             Serial = res[0];
             DocNoOut = res[1];
-            sessionStorage.searchFDocH = DocNoOut;
-            $('#textnumberfactor').show();
-            $('#docnoout').val(DocNoOut);
-            // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخيره شد ' });
-            flaglog = 'N';
+            if (Serial == "0") {
+                flagInsertFdoch == 0;
+                showNotification(DocNoOut, 0);
+            }
+            else {
+                sessionStorage.searchFDocH = DocNoOut;
+                $('#textnumberfactor').show();
+                $('#docnoout').val(DocNoOut);
+                // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخيره شد ' });
+                flaglog = 'N';
+                flagInsertFdoch = 1;
+            }
         });
-        flagInsertFdoch = 1;
     };
 
 
@@ -1031,73 +1065,48 @@
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
-            //            $('#DatileFactor').show();
-            //           $('#Save').attr('disabled', true);
-            //            var res = response.split("-");
-            //            Serial = res[0];
-            //            DocNoOut = res[1];
-            //            $('#docnoout').val(DocNoOut);
-            sessionStorage.searchFDocH = $("#docnoout").val();
-            $('#finalSave_Title').attr('hidden', '');
-            flaglog = 'N';
-            //flagInsertFdoch = 0;
-            //FinalSave
+            if (response == "") {
+                sessionStorage.searchFDocH = $("#docnoout").val();
+                $('#finalSave_Title').attr('hidden', '');
+                flaglog = 'N';
 
-            /* getAddMinList(sessionStorage.sels, Serial, sessionStorage.CustCode,
-                    0,
-                    $("#AddMinSharh1").val(),
-                    $("#AddMinSharh2").val(),
-                    $("#AddMinSharh3").val(),
-                    $("#AddMinSharh4").val(),
-                    $("#AddMinSharh5").val(),
-                    $("#AddMinSharh6").val(),
-                    $("#AddMinSharh7").val(),
-                    $("#AddMinSharh8").val(),
-                    $("#AddMinSharh8").val(),
-                    $("#AddMinSharh10").val(),
-                    sessionStorage.AddMin1,
-                    sessionStorage.AddMin2,
-                    sessionStorage.AddMin3,
-                    sessionStorage.AddMin4,
-                    sessionStorage.AddMin5,
-                    sessionStorage.AddMin6,
-                    sessionStorage.AddMin7,
-                    sessionStorage.AddMin8,
-                    sessionStorage.AddMin9,
-                    sessionStorage.AddMin10);*/
-
-            if (flagKalaPrice == true) {
-                ajaxFunction(UpdatePriceUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST').done(function (response) {
-                    self.FDocBList(response);
+                if (flagKalaPrice == true) {
+                    ajaxFunction(UpdatePriceUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST').done(function (response) {
+                        self.FDocBList(response);
+                        getFDocH(Serial);
+                        CalcDiscontCol(self.CustCode());
+                        flagFinalSave = false;
+                        flagKalaPrice = false;
+                        //Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'تغییرات با موفقیت انجام شد' });
+                        showNotification('تغییرات با موفقیت انجام شد', 1)
+                    });
+                } else {
                     getFDocH(Serial);
-                    CalcDiscontCol(self.CustCode());
-                    flagFinalSave = false;
-                    flagKalaPrice = false;
-                    //Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'تغییرات با موفقیت انجام شد' });
-                    showNotification('تغییرات با موفقیت انجام شد', 1)
-                });
-            } else {
-                getFDocH(Serial);
-            }
+                }
 
 
-            if (flagupdateHeader == 1 && flagFinalSave == true) {
-                sessionStorage.flagupdateHeader = 0;
-                flagupdateHeader = 0;
-                window.location.href = sessionStorage.urlFDocH;
-            }
-            else if (flagupdateHeader == 1 && flagFinalSave == false) {
+                if (flagupdateHeader == 1 && flagFinalSave == true) {
+                    sessionStorage.flagupdateHeader = 0;
+                    flagupdateHeader = 0;
+                    window.location.href = sessionStorage.urlFDocH;
+                }
+                else if (flagupdateHeader == 1 && flagFinalSave == false) {
 
-            }
-            else if (flagupdateHeader == 0 && flagFinalSave == false) {
+                }
+                else if (flagupdateHeader == 0 && flagFinalSave == false) {
 
+                }
+                else {
+                    showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);
+                }
             }
             else {
-                showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);
-                //Swal.fire({ type: 'success', title: 'ثبت موفق', text: $('#TitleHeaderFactor').text() + ' ذخيره شد ' });
+                return showNotification('خطا : ' + response, 0);
             }
 
         });
@@ -1282,6 +1291,8 @@
             Up_Flag: flag,
             ModeCode: sessionStorage.ModeCode,
             flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
 
         };
         if (self.bundNumberImport > 0) {
@@ -1474,6 +1485,8 @@
             Up_Flag: flag,
             ModeCode: sessionStorage.ModeCode,
             flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
         };
 
         ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', FDocBObject).done(function (response) {
@@ -1515,6 +1528,8 @@
         );
     getPaymentList();
     getStatusList();
+    getOprList();
+    getMkzList();
 
 
     //$(document).ready(function () { });
@@ -2004,7 +2019,324 @@
         }
 
     };
+
     //-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageOpr = ko.observable();
+    pageSizeOpr = localStorage.getItem('pageSizeOpr') == null ? 10 : localStorage.getItem('pageSizeOpr');
+    self.pageSizeOpr = ko.observable(pageSizeOpr);
+    self.currentPageIndexOpr = ko.observable(0);
+
+    self.filterOpr0 = ko.observable("");
+    self.filterOpr1 = ko.observable("");
+    self.filterOpr2 = ko.observable("");
+
+    self.filterOprList = ko.computed(function () {
+
+        self.currentPageIndexOpr(0);
+        var filter0 = self.filterOpr0().toUpperCase();
+        var filter1 = self.filterOpr1();
+        var filter2 = self.filterOpr2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.OprList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageOpr = ko.computed(function () {
+        var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
+            startIndex = pageSizeOpr * self.currentPageIndexOpr(),
+            endIndex = startIndex + pageSizeOpr;
+        localStorage.setItem('pageSizeOpr', pageSizeOpr);
+        return self.filterOprList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageOpr = function () {
+        if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
+        }
+    };
+
+    self.previousPageOpr = function () {
+        if (self.currentPageIndexOpr() > 0) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
+        }
+    };
+
+    self.firstPageOpr = function () {
+        self.currentPageIndexOpr(0);
+    };
+
+    self.lastPageOpr = function () {
+        countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
+        if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
+            self.currentPageIndexOpr(countOpr - 1);
+        else
+            self.currentPageIndexOpr(countOpr);
+    };
+
+    self.sortTableOpr = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.OprList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshOpr').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست پروژه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getOprList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectOpr = function (item) {
+        codeOpr = item.Code;
+        $('#nameOpr').val('(' + item.Code + ') ' + item.Name)
+        self.OprCode(item.Code)
+    };
+
+
+    $('#modal-Opr').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+    self.currentPageMkz = ko.observable();
+    pageSizeMkz = localStorage.getItem('pageSizeMkz') == null ? 10 : localStorage.getItem('pageSizeMkz');
+    self.pageSizeMkz = ko.observable(pageSizeMkz);
+    self.currentPageIndexMkz = ko.observable(0);
+
+    self.filterMkz0 = ko.observable("");
+    self.filterMkz1 = ko.observable("");
+    self.filterMkz2 = ko.observable("");
+
+    self.filterMkzList = ko.computed(function () {
+
+        self.currentPageIndexMkz(0);
+        var filter0 = self.filterMkz0().toUpperCase();
+        var filter1 = self.filterMkz1();
+        var filter2 = self.filterMkz2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.MkzList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.MkzList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageMkz = ko.computed(function () {
+        var pageSizeMkz = parseInt(self.pageSizeMkz(), 10),
+            startIndex = pageSizeMkz * self.currentPageIndexMkz(),
+            endIndex = startIndex + pageSizeMkz;
+        localStorage.setItem('pageSizeMkz', pageSizeMkz);
+        return self.filterMkzList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageMkz = function () {
+        if (((self.currentPageIndexMkz() + 1) * self.pageSizeMkz()) < self.filterMkzList().length) {
+            self.currentPageIndexMkz(self.currentPageIndexMkz() + 1);
+        }
+    };
+
+    self.previousPageMkz = function () {
+        if (self.currentPageIndexMkz() > 0) {
+            self.currentPageIndexMkz(self.currentPageIndexMkz() - 1);
+        }
+    };
+
+    self.firstPageMkz = function () {
+        self.currentPageIndexMkz(0);
+    };
+
+    self.lastPageMkz = function () {
+        countMkz = parseInt(self.filterMkzList().length / self.pageSizeMkz(), 10);
+        if ((self.filterMkzList().length % self.pageSizeMkz()) == 0)
+            self.currentPageIndexMkz(countMkz - 1);
+        else
+            self.currentPageIndexMkz(countMkz);
+    };
+
+    self.sortTableMkz = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.MkzList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshMkz').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست مرکز هزینه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getMkzList();
+                $("div.loadingZone").hide();
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+            }
+        })
+    })
+
+
+
+    self.selectMkz = function (item) {
+        codeMkz = item.Code;
+        $('#nameMkz').val('(' + item.Code + ') ' + item.Name)
+        self.MkzCode(item.Code)
+    };
+
+    $('#modal-Mkz').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     self.DeleteBand = function (factorBand) {
@@ -2556,6 +2888,10 @@
                 self.Discount();
                 self.MainUnit();
                 self.Comm();
+                self.OprCode('');
+                self.MkzCode('');
+                codeOpr = '';
+                codeMkz = '';
                 flaglog = "Y";
                 if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                 //$("#inv").val(sessionStorage.InvDefult);
@@ -2856,6 +3192,17 @@
         // sessionStorage.Status = item.Status;
         // sessionStorage.PaymentType = item.PaymentType;
 
+        self.OprCode(sessionStorage.OprCode);
+        codeOpr = sessionStorage.OprCode;
+
+        self.MkzCode(sessionStorage.MkzCode);
+        codeMkz = sessionStorage.MkzCode;
+
+
+        $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
+        $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
+
+
         getFDocH(Serial);
         getFDocB(Serial);
 
@@ -2989,8 +3336,8 @@
         } else {
             tempData = ko.utils.arrayFilter(PrintFormsList(), function (item) {
                 result =
-                    (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0)&&
-                (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
+                    (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0) &&
+                    (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
                 return result;
             })
             return tempData;
@@ -3144,7 +3491,7 @@
         self.filterPrintForms1("");
         $('#modal-Print').modal('hide');
         $('#modal-PrintForms').modal('show');
-    });    
+    });
 
     $('#AcceptPrint').click(function () {
         codeSelect = self.CodePrint();
@@ -3163,70 +3510,70 @@
 
 
 
-   /* $('#addPrinttest').click(function () {
-        codeSelect = self.CodePrint();
-        list = PrintFormsList();
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].code == codeSelect) {
-                name = list[i].namefa;
-                data = list[i].Data;
-            }
-        }
-
-
-    DataReport = self.FDocPList();
-        if (DataReport.length == 0 || DataReport == null || DataReport == "") {
-            return showNotification('ابتدا گزارش گیری کنید', 0);
-        }
-
-        var dStart = new Date();
-        var secondsStart = dStart.getTime();
-        dateDifference = DateNow + secondsStart; // عدد یونیک
-
-
-        report = new Stimulsoft.Report.StiReport();
-    report.loadFile(data);
-
-        report.dictionary.databases.clear();
-        dataSet = new Stimulsoft.System.Data.DataSet("Database");
-        DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
-
-        dataSet.readJson(DataReport);
-        report.regData(dataSet.dataSetName, "", dataSet);
-
-        variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
-        //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
-    variablesReport = '{"variables":[{' + printVariable + '}]}';
-        variablesDataSet.readJson(variablesReport);
-        report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
-
-
-        titlesObject = '';
-        for (var i = 0; i < ListColumns.length; i++) {
-            titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
-        }
-
-
-        titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
-        titlesReport = '{"Titles":[{' + titlesObject + '}]}';
-        titlesDataSet.readJson(titlesReport);
-        report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
-
-
-        report.dictionary.synchronize();
-
-        viewer.report = report;
-        //report.render();
-
-        viewer.visible = true;
-        $('#modal-Report').modal('show');
-
-        viewer.onExit = function (e) {
-            this.visible = false;
-        }
-        createDesigner();
-    });
-    */
+    /* $('#addPrinttest').click(function () {
+         codeSelect = self.CodePrint();
+         list = PrintFormsList();
+         for (var i = 0; i < list.length; i++) {
+             if (list[i].code == codeSelect) {
+                 name = list[i].namefa;
+                 data = list[i].Data;
+             }
+         }
+ 
+ 
+     DataReport = self.FDocPList();
+         if (DataReport.length == 0 || DataReport == null || DataReport == "") {
+             return showNotification('ابتدا گزارش گیری کنید', 0);
+         }
+ 
+         var dStart = new Date();
+         var secondsStart = dStart.getTime();
+         dateDifference = DateNow + secondsStart; // عدد یونیک
+ 
+ 
+         report = new Stimulsoft.Report.StiReport();
+     report.loadFile(data);
+ 
+         report.dictionary.databases.clear();
+         dataSet = new Stimulsoft.System.Data.DataSet("Database");
+         DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
+ 
+         dataSet.readJson(DataReport);
+         report.regData(dataSet.dataSetName, "", dataSet);
+ 
+         variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
+         //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
+     variablesReport = '{"variables":[{' + printVariable + '}]}';
+         variablesDataSet.readJson(variablesReport);
+         report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
+ 
+ 
+         titlesObject = '';
+         for (var i = 0; i < ListColumns.length; i++) {
+             titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
+         }
+ 
+ 
+         titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+         titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+         titlesDataSet.readJson(titlesReport);
+         report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
+ 
+ 
+         report.dictionary.synchronize();
+ 
+         viewer.report = report;
+         //report.render();
+ 
+         viewer.visible = true;
+         $('#modal-Report').modal('show');
+ 
+         viewer.onExit = function (e) {
+             this.visible = false;
+         }
+         createDesigner();
+     });
+     */
 
 
 

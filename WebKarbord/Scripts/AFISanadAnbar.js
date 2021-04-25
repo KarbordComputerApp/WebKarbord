@@ -24,6 +24,8 @@
     var server = localStorage.getItem("ApiAddress");
 
     var codeThvl = '';
+    var codeOpr = '';
+    var codeMkz = '';
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -97,6 +99,11 @@
     self.modeCode = ko.observable();
     self.StatusSanad = ko.observable();
 
+
+    self.OprCode = ko.observable();
+    self.MkzCode = ko.observable();
+
+
     self.BandNo = ko.observable();
     self.KalaCode = ko.observable();
     self.Amount1 = ko.observable();
@@ -120,6 +127,8 @@
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestIDocList = ko.observableArray([]); // لیست تست 
+    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
+    self.OprList = ko.observableArray([]); // ليست پروژه ها
 
 
     if (sessionStorage.InOut == 1) {
@@ -135,6 +144,7 @@
         //sessionStorage.Access_SHOWPRICE_IIDOC = false;
         if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true') {
             $('#ViewGGhimat').show();
+            $('#emptyDivSanad').hide();
             $('#unitPriceShow').show();
             $('#totalPriceShow').show();
             $('#unitpriceshowgridtitle').show();
@@ -146,6 +156,7 @@
         }
         else {
             $('#ViewGGhimat').hide();
+            $('#emptyDivSanad').show();
             $('#unitPriceShow').hide();
             $('#totalPriceShow').hide();
             $('#unitpriceshowgridtitle').hide();
@@ -202,6 +213,9 @@
     var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
 
     var TestIDocUri = server + '/api/IDocData/TestIDoc/'; // آدرس تست سند 
+
+    var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
+    var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
 
 
     var rprtId = 'IDocP';
@@ -274,6 +288,25 @@
             //}
         });
     }
+
+
+
+    //Get Opr List
+    function getOprList() {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.OprList(data);
+        });
+    }
+
+    //Get  Mkz List
+    function getMkzList() {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+            self.MkzList(data);
+        });
+    }
+
+
+
     var lastStatus = "";
     $("#status").click(function () {
         lastStatus = $("#status").val();
@@ -766,6 +799,8 @@
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
         };
 
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'PUT', IDocHObject).done(function (response) {
@@ -923,6 +958,8 @@
             Up_Flag: flag,
             InOut: sessionStorage.InOut,
             flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -1015,6 +1052,8 @@
             Up_Flag: flag,
             InOut: sessionStorage.InOut,
             flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
         };
 
         ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', IDocBObject).done(function (response) {
@@ -1047,6 +1086,8 @@
     getThvlList();
     getKalaList();
     getExtraFieldsList();
+    getOprList();
+    getMkzList();
     //AddModeCode();
     flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
     getInvList();
@@ -1085,6 +1126,17 @@
 
         getIDocB(Serial);
         getIDocH(Serial);
+
+
+        self.OprCode(sessionStorage.OprCode);
+        codeOpr = sessionStorage.OprCode;
+
+        self.MkzCode(sessionStorage.MkzCode);
+        codeMkz = sessionStorage.MkzCode;
+
+
+        $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
+        $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
 
         $("#modeCode").val(sessionStorage.ModeCodeValue);
         self.modeCode(sessionStorage.ModeCodeValue);
@@ -1430,6 +1482,322 @@
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageOpr = ko.observable();
+    pageSizeOpr = localStorage.getItem('pageSizeOpr') == null ? 10 : localStorage.getItem('pageSizeOpr');
+    self.pageSizeOpr = ko.observable(pageSizeOpr);
+    self.currentPageIndexOpr = ko.observable(0);
+
+    self.filterOpr0 = ko.observable("");
+    self.filterOpr1 = ko.observable("");
+    self.filterOpr2 = ko.observable("");
+
+    self.filterOprList = ko.computed(function () {
+
+        self.currentPageIndexOpr(0);
+        var filter0 = self.filterOpr0().toUpperCase();
+        var filter1 = self.filterOpr1();
+        var filter2 = self.filterOpr2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.OprList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageOpr = ko.computed(function () {
+        var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
+            startIndex = pageSizeOpr * self.currentPageIndexOpr(),
+            endIndex = startIndex + pageSizeOpr;
+        localStorage.setItem('pageSizeOpr', pageSizeOpr);
+        return self.filterOprList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageOpr = function () {
+        if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
+        }
+    };
+
+    self.previousPageOpr = function () {
+        if (self.currentPageIndexOpr() > 0) {
+            self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
+        }
+    };
+
+    self.firstPageOpr = function () {
+        self.currentPageIndexOpr(0);
+    };
+
+    self.lastPageOpr = function () {
+        countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
+        if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
+            self.currentPageIndexOpr(countOpr - 1);
+        else
+            self.currentPageIndexOpr(countOpr);
+    };
+
+    self.sortTableOpr = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.OprList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshOpr').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست پروژه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getOprList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    self.selectOpr = function (item) {
+        codeOpr = item.Code;
+        $('#nameOpr').val('(' + item.Code + ') ' + item.Name)
+        self.OprCode(item.Code)
+    };
+
+
+    $('#modal-Opr').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+    self.currentPageMkz = ko.observable();
+    pageSizeMkz = localStorage.getItem('pageSizeMkz') == null ? 10 : localStorage.getItem('pageSizeMkz');
+    self.pageSizeMkz = ko.observable(pageSizeMkz);
+    self.currentPageIndexMkz = ko.observable(0);
+
+    self.filterMkz0 = ko.observable("");
+    self.filterMkz1 = ko.observable("");
+    self.filterMkz2 = ko.observable("");
+
+    self.filterMkzList = ko.computed(function () {
+
+        self.currentPageIndexMkz(0);
+        var filter0 = self.filterMkz0().toUpperCase();
+        var filter1 = self.filterMkz1();
+        var filter2 = self.filterMkz2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.MkzList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.MkzList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageMkz = ko.computed(function () {
+        var pageSizeMkz = parseInt(self.pageSizeMkz(), 10),
+            startIndex = pageSizeMkz * self.currentPageIndexMkz(),
+            endIndex = startIndex + pageSizeMkz;
+        localStorage.setItem('pageSizeMkz', pageSizeMkz);
+        return self.filterMkzList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageMkz = function () {
+        if (((self.currentPageIndexMkz() + 1) * self.pageSizeMkz()) < self.filterMkzList().length) {
+            self.currentPageIndexMkz(self.currentPageIndexMkz() + 1);
+        }
+    };
+
+    self.previousPageMkz = function () {
+        if (self.currentPageIndexMkz() > 0) {
+            self.currentPageIndexMkz(self.currentPageIndexMkz() - 1);
+        }
+    };
+
+    self.firstPageMkz = function () {
+        self.currentPageIndexMkz(0);
+    };
+
+    self.lastPageMkz = function () {
+        countMkz = parseInt(self.filterMkzList().length / self.pageSizeMkz(), 10);
+        if ((self.filterMkzList().length % self.pageSizeMkz()) == 0)
+            self.currentPageIndexMkz(countMkz - 1);
+        else
+            self.currentPageIndexMkz(countMkz);
+    };
+
+    self.sortTableMkz = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.MkzList.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshMkz').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست مرکز هزینه به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getMkzList();
+                $("div.loadingZone").hide();
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+            }
+        })
+    })
+
+
+
+    self.selectMkz = function (item) {
+        codeMkz = item.Code;
+        $('#nameMkz').val('(' + item.Code + ') ' + item.Name)
+        self.MkzCode(item.Code)
+    };
+
+    $('#modal-Mkz').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     self.selectFactor = function (item) {
         if (self.flagupdateband == true) {

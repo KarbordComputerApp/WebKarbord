@@ -822,7 +822,7 @@
             BranchCode: 0,
             UserCode: sessionStorage.userName,
             Eghdam: self.p_Eghdam(),
-            Tanzim: self.p_Tanzim(),
+            Tanzim: sessionStorage.userName,
             TahieShode: 'Web',
             Status: $("#p_Status").val(),
             Spec: self.p_Spec(),
@@ -1885,8 +1885,6 @@
         });
     }
 
-
-
     self.DeleteDocAttach = function (Band) {
         Swal.fire({
             title: 'تایید حذف',
@@ -1915,85 +1913,11 @@
             }
         })
     };
-
-
-
-
-
+    
     $("#AddNewDocAttach").on('click', function (e) {
         e.preventDefault();
         $("#upload:hidden").trigger('click');
     });
-
-
-    function ajaxFunctionUpload(uri, data) {
-
-        var userNameAccount = localStorage.getItem("userNameAccount");
-        var passAccount = localStorage.getItem("passAccount");
-
-        return $.ajax({
-            url: uri,
-            type: 'POST',
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-
-            headers: {
-                'userName': userNameAccount,
-                'password': passAccount,
-                'userKarbord': sessionStorage.userName,
-            },
-            success: function (fileName) {
-                // $("#fileProgress").hide();
-                // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
-            },
-            xhr: function () {
-                var fileXhr = $.ajaxSettings.xhr();
-                if (fileXhr.upload) {
-                    $("progress").show();
-                    fileXhr.upload.addEventListener("progress", function (e) {
-                        if (e.lengthComputable) {
-                            $("#fileProgress").attr({
-                                value: e.loaded,
-                                max: e.total
-                            });
-                        }
-                    }, false);
-                }
-                return fileXhr;
-            }
-        });
-    }
-
-
-
-    $("body").on("click", "#btnUpload", function () {
-
-
-
-
-
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     this.fileUpload = function (data, e) {
         var dataFile;
@@ -2047,69 +1971,6 @@
                         getDocAttachList(serialNumber);
                     })
                 });
-
-
-
-                /*function addFileToZip(n) {
-                    var arrayBuffer;
-                    var fileReader = new FileReader();
-                    fileReader.onload = function () {
-                        arrayBuffer = this.result;
-                        zip.file(file.name, arrayBuffer);
-                        //var a = zip.generate({ type: "blob", compression: "deflate" });
-                        // addFileToZip(n + 1);
-                    };
-                    fileReader.readAsArrayBuffer(file);
-                }
-                addFileToZip(0);*/
-
-
-
-                //myFunction();
-
-               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                // });
-
-                //var reader = new FileReader();
-                //var arrayBuffer;
-
-                //reader.onloadend = function (onloadend_e) {
-                   
-                //};
-
-
-
-                //if (file) {
-                    //reader.readAsDataURL(file);
-                   // reader.readAsArrayBuffer(file);
-               // }
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
         })
 
@@ -2117,65 +1978,17 @@
 
     };
 
-
-
-
-    function myFunction() {
-
-        /* Make a zip file here */
-        //file = $("#upload")[0].files[0];
-        var fi = $("#upload")[0].files[0];
-        var fileInput = fi;
-        var files = [];
-
-        // get all selected file
-
-        $.each(fileInput.files, function (i, file) {
-            files.push(file);
+    //del DocAttach  حذف پیوست
+    function ErjDocAttach_Del(bandNoImput) {
+        Web_DocAttach_Del = {
+            SerialNumber: serialNumber,
+            ProgName: '',
+            ModeCode: '',
+            BandNo: bandNoImput
+        };
+        ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Del).done(function (response) {
         });
-
-        //create a zip object
-
-        var zip = new JSZip();
-
-        //add all files to zip 
-
-        function addFileToZip(n) {
-            if (n >= files.length) {
-
-                //here generate file to zip on client side
-                zip.generateAsync({ type: "blob", compression: "default" }).then(function (content) {
-
-                    //generated zip content to file type
-                    var files = new File([content], "name.zip");
-
-                    var formData = new FormData();
-                    formData.append('fileZip', files);
-
-                    //send generated file to server
-                   
-                })
-                var file = files[n];
-                var arrayBuffer;
-                var fileReader = new FileReader();
-                fileReader.onload = function () {
-                    arrayBuffer = this.result;
-                    zip.file(file.name, arrayBuffer);
-                    addFileToZip(n + 1);
-                };
-                fileReader.readAsArrayBuffer(file);
-            }
-            addFileToZip(0);
-        }
-
-    }
-
-
-
-
-
-
-
+    };
 
 
     function dataURItoBlob(dataURI) {
@@ -2197,48 +2010,6 @@
 
         return new Blob([ia], { type: mimeString });
     }
-
-
-    /*
-    function dataUriToBlob(dataURI) {
-        // serialize the base64/URLEncoded data
-        var byteString;
-        if (dataURI.split(',')[0].indexOf('base64') >= 0) {
-            byteString = atob(dataURI.split(',')[1]);
-        }
-        else {
-            byteString = unescape(dataURI.split(',')[1]);
-        }
- 
-        // parse the mime type
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
- 
-        // construct a Blob of the image data
-        var array = [];
-        for (var i = 0; i < byteString.length; i++) {
-            array.push(byteString.charCodeAt(i));
-        }
-        //var a = Uint8Array(array);    return a;
-        return new Blob([new Uint8Array(array)], { type: mimeString });
-    }
-    */
-
-    //del DocAttach  حذف پیوست
-    function ErjDocAttach_Del(bandNoImput) {
-
-        Web_DocAttach_Del = {
-            SerialNumber: serialNumber,
-            ProgName: '',
-            ModeCode: '',
-            BandNo: bandNoImput
-        };
-
-        ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Del).done(function (response) {
-
-        });
-
-    };
-
 
 
 

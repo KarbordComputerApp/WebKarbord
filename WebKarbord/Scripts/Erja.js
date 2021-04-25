@@ -53,6 +53,7 @@
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
     var ErjSaveDoc_BSaveUri = server + '/api/Web_Data/ErjSaveDoc_BSave/'; // آدرس ذخیره ارجاع
+    var ErjSaveDoc_HStatusUri = server + '/api/Web_Data/ErjSaveDoc_HStatus/'; // آدرس ذخیره وضعیت
     var ErjSaveDoc_CSaveUri = server + '/api/Web_Data/ErjSaveDoc_CSave/'; // آدرس ذخیره رونوشت
     var ErjSaveDoc_CDUri = server + '/api/Web_Data/ErjSaveDoc_CD/'; // آدرس حذف رونوشت
 
@@ -60,6 +61,9 @@
 
     var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
     var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
+
+    var ErjDocAttach_SaveUri = server + '/api/FileUpload/UploadFile/'; // ذخیره پیوست
+    var ErjDocAttach_DelUri = server + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
 
 
     self.AzDocDate = ko.observable('');
@@ -334,7 +338,7 @@
             taRjDate: '',
             azMhltDate: '',
             taMhltDate: '',
-            status: '',
+            status: 'فعال',
             custCode: '',
             khdtCode: '',
             srchSt: '',
@@ -1013,7 +1017,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getDocAttachList(serialNumberAttach);
+                getDocAttachList(serialNumber);
                 $("div.loadingZone").hide();
             }
         })
@@ -1021,46 +1025,122 @@
 
 
     self.ViewDocAttach = function (Band) {
-        serialNumberAttach = Band.SerialNumber;
+        serialNumber = Band.SerialNumber;
         getDocAttachList(Band.SerialNumber);
     }
 
+    $('#attachFile').click(function () {
+        getDocAttachList(serialNumber);
+    });
 
 
+    self.DeleteDocAttach = function (Band) {
+        Swal.fire({
+            title: 'تایید حذف',
+            text: "آیا پیوست انتخابی حذف شود ؟",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
 
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
 
+                Web_DocAttach_Save = {
+                    SerialNumber: Band.SerialNumber,
+                    ProgName: 'ERJ1',
+                    ModeCode: 1,
+                    BandNo: Band.BandNo,
+                };
 
-
-
-    /*
-    
-        const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-            const byteCharacters = atob(b64Data);
-            const byteArrays = [];
-    
-            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                const slice = byteCharacters.slice(offset, offset + sliceSize);
-    
-                const byteNumbers = new Array(slice.length);
-                for (let i = 0; i < slice.length; i++) {
-                    byteNumbers[i] = slice.charCodeAt(i);
-                }
-    
-                const byteArray = new Uint8Array(byteNumbers);
-                byteArrays.push(byteArray);
+                ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Save).done(function (response) {
+                    getDocAttachList(serialNumber);
+                    showNotification('پیوست حذف شد', 1);
+                });
             }
-    
-            const blob = new Blob(byteArrays, { type: contentType });
-            return blob;
-        }
-    
-        function blobToFile(theBlob, fileName) {
-            //A Blob() is almost a File() - it's just missing the two properties below which we will add
-            theBlob.lastModifiedDate = new Date();
-            theBlob.name = fileName;
-            return theBlob;
-        }
-        */
+        })
+    };
+
+    $("#AddNewDocAttach").on('click', function (e) {
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+
+    this.fileUpload = function (data, e) {
+        var dataFile;
+        var file = e.target.files[0];
+        var name = file.name;
+        var size = file.size;
+        Swal.fire({
+            title: 'تایید آپلود ؟',
+            text: "آیا " + name + " به پیوست افزوده شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                var file = document.getElementById("upload");
+
+                fileFullName = file.files[0].name;
+                fileData = fileFullName.split(".");
+                fileName = fileData[0];
+                fileType = '.' + fileData[1];
+
+                var zip = new JSZip();
+
+
+                zip.file('temp' + fileType, file.files[0]);
+                zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
+
+                    var file = new File([content], fileFullName, { type: "zip" });
+
+                    //file = $("#upload")[0].files[0];
+
+
+                    attachDate = ShamsiDate();
+
+                    var formData = new FormData();
+
+                    formData.append("SerialNumber", serialNumber);
+                    formData.append("ProgName", "ERJ1");
+                    formData.append("ModeCode", 1);
+                    formData.append("BandNo", 0);
+                    formData.append("Code", "");
+                    formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
+                    formData.append("FName", fileFullName);
+                    formData.append("Atch", file);
+
+                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData).done(function (response) {
+                        getDocAttachList(serialNumber);
+                    })
+                });
+            }
+        })
+
+
+
+    };
+
+    //del DocAttach  حذف پیوست
+    function ErjDocAttach_Del(bandNoImput) {
+        Web_DocAttach_Del = {
+            SerialNumber: serialNumber,
+            ProgName: '',
+            ModeCode: '',
+            BandNo: bandNoImput
+        };
+        ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Del).done(function (response) {
+        });
+    };
+
+
+
 
 
     self.selectDocAttach = function (item) {
@@ -1074,38 +1154,7 @@
         ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data);
             saveByteArray(fileName[0] + ".zip", sampleArr);
-
-            //const contentType = 'image/png';
-            //const b64Data = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
-
-            //const blob = b64toBlob(b64Data, contentType);
-            //const blobUrl = URL.createObjectURL(blob);
-
-            //const img = document.createElement('img');
-            //img.src = blobUrl;
-            //img.id = "asd";
-            // document.body.appendChild(img);
-
-
-
-
-            // var sampleArr = base64ToArrayBuffer(data);
-            // saveByteArray("Sample Report", sampleArr);
-
-
-            //var byteArray = new Uint8Array(data);
-            /*  var json = JSON.stringify(data);
-               var a = window.document.createElement('a');
-               var blob = new Blob([json], { type: "octet/stream" });
-               var file = new File([blob], "name");
-   
-               a.href = window.URL.createObjectURL(blob);
-   
-               a.download = item.FName;
-               document.body.appendChild(a)
-               a.click();
-               document.body.removeChild(a)*/
-        });
+         });
     }
 
 
@@ -1997,7 +2046,7 @@
                 ErjSaveDoc_CSave(bandNo, false);
             }
             else
-            ErjSaveDoc_CSave(bandNo + 1 , false);
+                ErjSaveDoc_CSave(bandNo + 1, false);
         }
         list_ErjUsersRoneveshtSelect = new Array();
         counterErjUsersRonevesht = 0;
@@ -2008,6 +2057,7 @@
     $('#saveParvandeh').click(function () {
         flagSave = true;
         if (docBMode == 1) { // رونوشت
+            ErjSaveDoc_CD(bandNo);
             ErjSaveDoc_CSave(bandNo, true);
         }
         else {
@@ -2097,6 +2147,17 @@
                 BandNo: bandNoImput,
                 SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1
             };
+
+            status = $("#m_StatusParvandeh").val();
+
+            ErjSaveDoc_HStatusObject = {
+                SerialNumber: serialNumber,
+                Status: status
+            };
+            ajaxFunction(ErjSaveDoc_HStatusUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_HStatusObject).done(function (response) {
+
+            });
+
         }
 
 

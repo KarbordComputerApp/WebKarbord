@@ -18,7 +18,7 @@
                 </div>
             </div>
             <br />
-            
+
             <div class="body">
                 <form class="clearfix">
                     <div class="row form-inline ">
@@ -348,9 +348,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">ارجاع پرونده</h4>
-                <a id="refreshErjCust">
-
-                </a>
+                <div>
+                    <a id="attachFile" class="dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" style="margin-left: 10px;">
+                        <img src="/Content/img/list/attach_file.png" width="20" height="20">
+                    </a>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -666,14 +668,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">پیوست</h4>
-                <a id="refreshDocAttach">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
-                </a>
+
+                <div>
+                    <a id="refreshDocAttach">
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    </a>
+                    <input id="upload" type="file" style="display:none" data-bind="event: {change: $root.fileUpload}" />
+                    <a id="AddNewDocAttach">
+                        <img src="/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20">
+                    </a>
+                </div>
+
+
             </div>
             <div class="modal-body">
-
-
-
                 <br />
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                     <table class="table table-hover table-striped tableFix">
@@ -695,7 +703,11 @@
                                 <td data-bind="text: Comm"></td>
                                 <td>
                                     <a data-bind="click: $root.selectDocAttach">
-                                        <img src="/Content/img/list/download.png" width="20" height="20" />
+                                        <img src="/Content/img/list/download.png" width="20" height="20" style="margin-left:10px" />
+                                    </a>
+
+                                    <a id="DeleteDocAttach" data-bind="click: $root.DeleteDocAttach">
+                                        <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16">
                                     </a>
                                 </td>
                             </tr>
@@ -747,24 +759,10 @@
                         </a>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1547,6 +1545,7 @@
     </script>
     <script src="~/Content/new/js/form.min.js"></script>
     <script src="~/Content/new/js/advanced-form-elements.js"></script>
+    <script src="~/Content/new/js/jszip.min.js"></script>
     <script src="~/Scripts/Erja.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
 }
 

@@ -393,6 +393,46 @@ function ajaxFunctionOther(uri, method, data) {
 }
 
 
+function ajaxFunctionUpload(uri, data) {
+
+    var userNameAccount = localStorage.getItem("userNameAccount");
+    var passAccount = localStorage.getItem("passAccount");
+    return $.ajax({
+        url: uri,
+        type: 'POST',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        headers: {
+            'userName': userNameAccount,
+            'password': passAccount,
+            'userKarbord': sessionStorage.userName,
+        },
+        success: function (fileName) {
+            // $("#fileProgress").hide();
+            // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
+        },
+        xhr: function () {
+            var fileXhr = $.ajaxSettings.xhr();
+            if (fileXhr.upload) {
+                $("progress").show();
+                fileXhr.upload.addEventListener("progress", function (e) {
+                    if (e.lengthComputable) {
+                        $("#fileProgress").attr({
+                            value: e.loaded,
+                            max: e.total
+                        });
+                    }
+                }, false);
+            }
+            return fileXhr;
+        }
+    });
+}
+
+
+
 function download(content, fileName, contentType) {
     var a = document.createElement("a");
     var file = new Blob([content], { type: contentType });

@@ -801,6 +801,12 @@
         sessionStorage.F19 = item.F19;
         sessionStorage.F20 = item.F20;
 
+        sessionStorage.OprCode = item.OprCode;
+        sessionStorage.OprName = item.OprName;
+
+        sessionStorage.MkzCode = item.MkzCode;
+        sessionStorage.MkzName = item.MkzName;
+
         sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
         window.location.href = sessionStorage.urlAddIDocH;

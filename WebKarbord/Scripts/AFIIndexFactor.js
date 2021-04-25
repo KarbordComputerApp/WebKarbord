@@ -237,7 +237,7 @@
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
-           // ListColumns = data;
+            // ListColumns = data;
             if (FlagSetting) {
                 CreateTableReport(data)
             }
@@ -1281,6 +1281,12 @@
         sessionStorage.InvCode = item.InvCode;
         sessionStorage.Eghdam = item.Eghdam;
         sessionStorage.TaeedF = item.Taeed;
+
+        sessionStorage.OprCode = item.OprCode;
+        sessionStorage.OprName = item.OprName;
+
+        sessionStorage.MkzCode = item.MkzCode;
+        sessionStorage.MkzName = item.MkzName;
 
         sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
         sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
