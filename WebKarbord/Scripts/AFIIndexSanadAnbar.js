@@ -1063,6 +1063,12 @@
             sessionStorage.Eghdam = item.Eghdam;
             sessionStorage.InOut = item.InOut;
 
+            sessionStorage.OprCode = item.OprCode;
+            sessionStorage.OprName = item.OprName;
+
+            sessionStorage.MkzCode = item.MkzCode;
+            sessionStorage.MkzName = item.MkzName;
+
 
             // sessionStorage.ModeCodeValue = modeCodeMove;
 

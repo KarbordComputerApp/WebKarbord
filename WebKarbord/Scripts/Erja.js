@@ -93,16 +93,43 @@
 
 
 
+
+    function AddDocBMode() {
+        select = document.getElementById('DocBMode');
+        for (var i = 1; i <= 3; i++) {
+            opt = document.createElement('option');
+            if (i == 1) {
+                opt.value = 4;
+                opt.innerHTML = 'کلیه ارجاعات';
+                opt.selected = true;
+            }
+            if (i == 2) {
+                opt.value = 5;
+                opt.innerHTML = 'فقط ارجاعات اصلی';
+            }
+            if (i == 3) {
+                opt.value = 6;
+                opt.innerHTML = 'فقط رونوشت ها';
+            }
+            select.appendChild(opt);
+        }
+    }
+
     if (sessionStorage.ModeCodeErja == "1") {
         $("#title_erja").text('ارجاعات پرونده دریافتی');
         $("#titleSaveErja").text('ارجاع جدید');
+        AddDocBMode();
+        $('#showDocBMode').css('display', 'block');
 
     }
     else {
         $("#title_erja").text('ارجاعات پرونده ارسالی');
         $("#titleSaveErja").text('تغییر ارجاع');
+        $('#showDocBMode').css('display', 'none');
     }
 
+
+    //showDocBMode
 
 
 
@@ -282,7 +309,7 @@
 
 
 
-    function AddDocBMode() {
+    /*function AddDocBMode() {
         select = document.getElementById('DocBMode');
         for (var i = 1; i <= 6; i++) {
             opt = document.createElement('option');
@@ -313,10 +340,7 @@
             }
             select.appendChild(opt);
         }
-    }
-
-
-    AddDocBMode();
+    }*/
 
 
 
@@ -329,7 +353,7 @@
 
         var DocB_LastObject = {
             erjaMode: mode,
-            docBMode: DocBMode,
+            docBMode: mode == 1 ? DocBMode : "5",
             fromUserCode: mode == 1 ? '' : sessionStorage.userName,
             toUserCode: mode == 1 ? sessionStorage.userName : '',
             azDocDate: '',
@@ -1154,7 +1178,7 @@
         ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data);
             saveByteArray(fileName[0] + ".zip", sampleArr);
-         });
+        });
     }
 
 
@@ -1733,6 +1757,8 @@
         $('#erja').removeAttr('hidden', '');
         $('#saveParvandeh').removeAttr('hidden', '');
         $('#panel_Result').removeAttr('hidden', '');
+        $('#m_StatusParvandeh').prop('disabled', false);
+        $('#m_StatusErja').prop('disabled', false);
 
         if (docBMode == 1) { // رونوشت
             $('#panelFooterParvandeh').attr('hidden', '');
@@ -1743,11 +1769,18 @@
             $('#erja').removeAttr('hidden', '');
         }
 
-        if (Band.ToUserCode != sessionStorage.userName) {
+        if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2" ) {
             $('#erja').attr('hidden', '');
             $('#panel_Result').attr('hidden', '');
             $('#saveParvandeh').attr('hidden', '');
+            $('#m_StatusParvandeh').prop('disabled', true);
+            $('#m_StatusErja').prop('disabled', true);
         }
+
+
+
+
+
 
 
         if (Band.RjReadSt == 'T' && ErjaMode == "1") {
@@ -2021,7 +2054,7 @@
             return showNotification('ارجاع شونده را انتخاب کنید', 0);
         }
 
-        if (rjTime_H == '' && rjTime_M == '') {
+        if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
             return showNotification('زمان صرف شده را وارد کنید', 0);
         }
 
