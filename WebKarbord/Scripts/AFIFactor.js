@@ -960,6 +960,8 @@
         //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
         //}
 
+       
+
         if (Serial == "" || self.FDocBList().length == 0)
             return showNotification('فاکتور دارای بند قابل ذخیره نیست', 0);
 
@@ -2931,8 +2933,13 @@
     $('#action_bodyfactor').attr('style', 'display: none');
     $('#action_footerfactor').attr('style', 'display: none');
     $('#action_Fdoc').attr('style', 'display: none');
-    $('#button_cust').attr('style', 'display: none');
     $('#insertband').attr('style', 'display: none');
+    $('#button_cust').attr('style', 'display: none');
+    $('#btnMkz').attr('style', 'display: none');
+    $('#btnOpr').attr('style', 'display: none');
+    $('#gGhimat').attr('disabled', true);
+    $('#inv').attr('disabled', true);
+
 
     var showPrice = false;
 
@@ -3118,10 +3125,21 @@
             $('#action_Fdoc').removeAttr('style');
             $('#button_cust').removeAttr('style');
             $('#insertband').removeAttr('style');
+            $('#btnMkz').removeAttr('style');
+            $('#btnOpr').removeAttr('style');
+            $('#gGhimat').attr('disabled', false);
+            $('#inv').attr('disabled', false);
         }
     }
 
     $(this).CheckAccess();
+
+
+
+
+
+
+
 
     $("#searchHesab").on("keydown", function search(e) {
         if (allSearchHesab == false) {
@@ -3239,6 +3257,22 @@
         self.PaymentFactor(sessionStorage.PaymentType);
         $("#paymenttype").val(sessionStorage.PaymentType);
         //sessionStorage.flagupdateHeader = 0;
+
+        if (codeOpr == "!!!" || codeMkz == "!!!") {
+
+            $('#action_headerfactor').attr('style', 'display: none');
+            $('#action_bodyfactor').attr('style', 'display: none');
+            $('#action_footerfactor').attr('style', 'display: none');
+            $('#action_Fdoc').attr('style', 'display: none');
+            $('#insertband').attr('style', 'display: none');
+            $('#button_cust').attr('style', 'display: none');
+            $('#btnMkz').attr('style', 'display: none');
+            $('#btnOpr').attr('style', 'display: none');
+            $('#gGhimat').attr('disabled', true);
+            $('#inv').attr('disabled', true);
+            
+            showNotification('فاکتور دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
+        }
     }
 
     $('#modal-OtherField').on('shown.bs.modal', function () {
@@ -3485,6 +3519,7 @@
         sessionStorage.ModePrint = sessionStorage.ModeCode;
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
     });
 
     $('#DesignPrint').click(function () {
@@ -3635,6 +3670,11 @@
     $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderFactor').text());
 
     $('#FinalSave').click(function () {
+
+        if (true) {
+
+        }
+
         flagFinalSave = true;
 
         var TestFDocObject = {

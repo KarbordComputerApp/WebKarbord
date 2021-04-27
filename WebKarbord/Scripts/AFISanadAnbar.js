@@ -1095,6 +1095,86 @@
 
     getStatusList();
 
+
+
+
+    $('#action_header').attr('style', 'display: none');
+    $('#action_body').attr('style', 'display: none');
+    $('#action_footer').attr('style', 'display: none');
+    $('#action_Hdoc').attr('style', 'display: none');
+    $('#insertband').attr('style', 'display: none');
+    $('#button_Thvl').attr('style', 'display: none');
+
+    $('#btnMkz').attr('style', 'display: none');
+    $('#btnOpr').attr('style', 'display: none');
+    $('#gGhimat').attr('disabled', true);
+
+
+
+    var viewAction = false;
+
+
+
+    if (sessionStorage.InOut == 1) {
+
+        accessTaeed = sessionStorage.Access_TAEED_IIDOC == 'true'
+        accessTasvib = sessionStorage.Access_TASVIB_IIDOC == 'true'
+
+        if (sessionStorage.AccessViewSanadAnbarVarede == 'true') {
+            viewAction = true;
+        }
+        else {
+            if (sessionStorage.Eghdam == sessionStorage.userName) {
+                viewAction = true;
+            }
+        }
+    }
+    else {
+
+        accessTaeed = sessionStorage.Access_TAEED_IODOC == 'true'
+        accessTasvib = sessionStorage.Access_TASVIB_IODOC == 'true'
+
+        if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
+            viewAction = true;
+        }
+        else {
+            if (sessionStorage.Eghdam == sessionStorage.userName) {
+                viewAction = true;
+            }
+        }
+
+    }
+
+    if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveSanadAnbar == "false" && flagupdateHeader == 1) {
+        viewAction = false;
+    } else {
+        sessionStorage.BeforeMoveSanadAnbar = false;
+    }
+
+    if (accessTaeed == false && sessionStorage.Status == 'تایید')
+        viewAction = false;
+
+    if (accessTasvib == false && sessionStorage.Status == 'تصویب')
+        viewAction = false;
+
+
+    if (viewAction) {
+        $('#action_header').removeAttr('style');
+        $('#action_body').removeAttr('style');
+        $('#action_footer').removeAttr('style');
+        $('#action_Hdoc').removeAttr('style');
+        $('#insertband').removeAttr('style');
+        $('#button_Thvl').removeAttr('style');
+
+        $('#btnMkz').removeAttr('style');
+        $('#btnOpr').removeAttr('style');
+        $('#gGhimat').removeAttr('disabled', false);
+
+    }
+
+
+
+
     if (flagupdateHeader == 1) {
         flagInsertIDoch = 1;
         Serial = sessionStorage.SerialNumber;
@@ -1147,6 +1227,27 @@
         $("#status").val(sessionStorage.Status);
         //sessionStorage.flagupdateHeader = 0;
         flagOtherFieldShow = true;
+
+
+        if (codeOpr == "!!!" || codeMkz == "!!!") {
+            $('#action_header').attr('style', 'display: none');
+            $('#action_body').attr('style', 'display: none');
+            $('#action_footer').attr('style', 'display: none');
+            $('#action_Hdoc').attr('style', 'display: none');
+            $('#insertband').attr('style', 'display: none');
+            $('#button_Thvl').attr('style', 'display: none');
+
+            $('#btnMkz').attr('style', 'display: none');
+            $('#btnOpr').attr('style', 'display: none');
+            $('#gGhimat').attr('disabled', true);
+
+            showNotification('فاکتور دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
+        }
+
+
+
+
+
     }
 
     //$(document).ready(function () { });
@@ -2253,69 +2354,7 @@
 
 
 
-    $('#action_header').attr('style', 'display: none');
-    $('#action_body').attr('style', 'display: none');
-    $('#action_footer').attr('style', 'display: none');
-    $('#action_Hdoc').attr('style', 'display: none');
-    $('#insertband').attr('style', 'display: none');
-
-
-
-    var viewAction = false;
-
-
-
-    if (sessionStorage.InOut == 1) {
-
-        accessTaeed = sessionStorage.Access_TAEED_IIDOC == 'true'
-        accessTasvib = sessionStorage.Access_TASVIB_IIDOC == 'true'
-
-        if (sessionStorage.AccessViewSanadAnbarVarede == 'true') {
-            viewAction = true;
-        }
-        else {
-            if (sessionStorage.Eghdam == sessionStorage.userName) {
-                viewAction = true;
-            }
-        }
-    }
-    else {
-
-        accessTaeed = sessionStorage.Access_TAEED_IODOC == 'true'
-        accessTasvib = sessionStorage.Access_TASVIB_IODOC == 'true'
-
-        if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
-            viewAction = true;
-        }
-        else {
-            if (sessionStorage.Eghdam == sessionStorage.userName) {
-                viewAction = true;
-            }
-        }
-
-    }
-
-    if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveSanadAnbar == "false" && flagupdateHeader == 1) {
-        viewAction = false;
-    } else {
-        sessionStorage.BeforeMoveSanadAnbar = false;
-    }
-
-    if (accessTaeed == false && sessionStorage.Status == 'تایید')
-        viewAction = false;
-
-    if (accessTasvib == false && sessionStorage.Status == 'تصویب')
-        viewAction = false;
-
-
-    if (viewAction) {
-        $('#action_header').removeAttr('style');
-        $('#action_body').removeAttr('style');
-        $('#action_footer').removeAttr('style');
-        $('#action_Hdoc').removeAttr('style');
-        $('#insertband').removeAttr('style');
-    }
-
+  
 
     $("#searchThvl").on("keydown", function search(e) {
         if (allSearchThvl == false) {
@@ -2620,6 +2659,7 @@
         printName = null;
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
     });
 
     $('#DesignPrint').click(function () {
