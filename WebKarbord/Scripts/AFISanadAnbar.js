@@ -642,7 +642,7 @@
             ModeCode: modeCode,
             DocNoMode: ace == 'Web1' ? 1 : 2,
             InsertMode: 0,
-            DocNo: docno,
+            DocNo: docno == "" ? 0 : docno,
             StartNo: 0,
             EndNo: 0,
             Tanzim: '*' + sessionStorage.userName + '*',
