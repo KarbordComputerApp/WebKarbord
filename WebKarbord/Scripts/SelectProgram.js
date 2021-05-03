@@ -3,6 +3,7 @@
     var aceList = [];
     var afi1List = [];
     var afi8List = [];
+    var afiList = [];
     var erjList = [];
 
     var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
@@ -14,6 +15,7 @@
         localStorage.getItem('afi1List') != null ? afi1List = localStorage.getItem('afi1List').split("-") : afi1List = null;
         localStorage.getItem('afi8List') != null ? afi8List = localStorage.getItem('afi8List').split("-") : afi8List = null;
         localStorage.getItem('erjList') != null ? erjList = localStorage.getItem('erjList').split("-") : erjList = null;
+        localStorage.getItem('afiList') != null ? afiList = JSON.parse(localStorage.getItem('afiList')) : afiList = null;
 
         var count = 0;
 
@@ -40,20 +42,12 @@
         $("#DropGroup").append('<option value="0">گروه را انتخاب کنید</option>');
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
         if (programSelect != 0) {
-            if (programSelect == 'Web1') {
-                for (var i = 0; i < afi1List.length; i++) {
-                    $("#DropGroup").append('<option value="'
-                        + afi1List[i] + '">'
-                        + afi1List[i] + '</option>');
+
+            for (var i = 0; i < afiList.length; i++) {
+                $("#DropGroup").append('<option value="'
+                    + afiList[i].Code + '">'
+                    + afiList[i].Code + " - " + afiList[i].Name + '</option>');
                 }
-            }
-            if (programSelect == 'Web8') {
-                for (var i = 0; i < afi8List.length; i++) {
-                    $("#DropGroup").append('<option value="'
-                        + afi8List[i] + '">'
-                        + afi8List[i] + '</option>');
-                }
-            }
         }
     }
 

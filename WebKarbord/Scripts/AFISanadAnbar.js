@@ -583,6 +583,7 @@
         modeCode = $("#modeCode").val();
 
         bandnumber = 0;
+        docno = $("#docnoout").val();
 
         if (tarikh.length != 10) {
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
@@ -609,11 +610,6 @@
         if (modeCode == '') {
             return showNotification('نوع سند را انتخاب کنید', 0);
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
-        }
-
-        if (self.DocNoOut == '') {
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنيد ' });
-            return showNotification('شماره سند را وارد کنيد', 0);
         }
 
 
@@ -646,7 +642,7 @@
             ModeCode: modeCode,
             DocNoMode: ace == 'Web1' ? 1 : 2,
             InsertMode: 0,
-            DocNo: 0,
+            DocNo: docno,
             StartNo: 0,
             EndNo: 0,
             Tanzim: '*' + sessionStorage.userName + '*',
@@ -686,7 +682,7 @@
             var res = response.split("-");
             Serial = res[0];
             DocNoOut = res[1];
-            $('#docnoout').text(DocNoOut);
+            $('#docnoout').val(DocNoOut);
             sessionStorage.searchIDocH = Serial;
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخيره شد ' });
 
@@ -738,12 +734,18 @@
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
         }
 
+        if (self.DocNoOut == '') {
+            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنيد ' });
+            return showNotification('شماره سند را وارد کنيد', 0);
+        }
+
         //if (codeThvl == '') {
         //    showNotification(sessionStorage.InOut == 1 ? 'تحویل دهنده انتخاب نشده است' : 'تحویل گیرنده انتخاب نشده است', 2);
         //}
 
-        if ($('#docnoout').text() == '0') {
-            return showNotification('ابتدا بند ها وارد کنید', 0);
+        if ($('#docnoout').val() == '') {
+            //return showNotification('ابتدا بند ها وارد کنید', 0);
+            return showNotification('شماره سند را وارد کنيد', 0);
         }
 
 
@@ -762,7 +764,7 @@
             ModeCode: modeCode,
             DocNoMode: 1,
             InsertMode: 0,
-            DocNo: $("#docnoout").text(),
+            DocNo: $("#docnoout").val(),
             StartNo: 0,
             EndNo: 0,
             Tanzim: sessionStorage.userName,
@@ -1198,7 +1200,7 @@
         else
             $('#nameThvl').val('');
 
-        $("#docnoout").text(sessionStorage.DocNo);
+        $("#docnoout").val(sessionStorage.DocNo);
         //  $("#modeCode").val(sessionStorage.ModeCodeValue);
 
         self.PriceCode(sessionStorage.PriceCode);
@@ -2351,6 +2353,25 @@
         })
     });
 
+
+
+    self.docNoKeyDown = function (AddMinList, e) {
+        if (e.shiftKey) {
+            return
+        }
+        else {
+            var key = e.charCode || e.keyCode || 0;
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+    }
 
 
 

@@ -9,19 +9,21 @@
 
     var check = 0;
 
-    var LoginUri; // آدرس حساب
+    var LoginUri; // 
     var LoginTestUri;
+
+
 
     //Debug
     var serverAccount = 'http://localhost:902/api/';
     //var serverAccount = 'http://localhost:49961/api/';
-    
+
 
     // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
     // var serverAccount = 'http://192.168.0.109:902/api/'; //Office 109
-   //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
+    //var serverAccount = 'http://185.208.174.64:902/api/'; //Interanet
 
-    
+
     var MachineId = localStorage.getItem("MachineIdKarbord");
     if (MachineId == null || MachineId == '') {
         var d = new Date();
@@ -46,7 +48,7 @@
     function getLoginData() {
 
         pass === '' ? pass = 'null' : pass = pass;
-        ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET',true,true).done(function (data) {
+        ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET', true, true).done(function (data) {
 
             if (data == "error") {
                 return showNotification('اشکال در اتصال به سرور', 0);
@@ -81,13 +83,41 @@
             else {
 
                 var progCaption;
-                if (localStorage.getItem('afi1List') == 'null')
-                {
+                if (localStorage.getItem('afi1List') == 'null') {
                     sessionStorage.ace = 'Web8';
                     progCaption = ' وب : سیستم جامع';
+                    groups = localStorage.getItem('afi8List');
+
+                    tempAccess = localStorage.getItem('afi8Access');
+                    //"ADOC*SFORD*SPFCT*SFCT*SRFCT*SHVL*SEXT*PFORD*PPFCT*PFCT*PRFCT*IIDOC*IODOC*TrzAcc*Dftr*ADocR*TChk*FDocR_S*FDocR_P*TrzFKala_S*TrzFKala_P*TrzFCust_S*TrzFCust_P*Krdx*TrzIKala*TrzIKalaExf*IDocR*"
+                    if (tempAccess.search("ADOC") == 0 ||
+                        tempAccess.search("TrzAcc") == 0 ||
+                        tempAccess.search("Dftr") == 0 ||
+                        tempAccess.search("ADocR") == 0)
+                        progName = "ACC5"
+
+                    else if (tempAccess.search("SPFCT") == 0 ||
+                        tempAccess.search("PFCT") == 0 ||
+                        tempAccess.search("FDocR_P") == 0 ||
+                        tempAccess.search("TrzFKala_P") == 0 ||
+                        tempAccess.search("TrzFCust_S") == 0)
+                        progName = "FCT5"
+
+                    else if (tempAccess.search("IIDOC") == 0 ||
+                        tempAccess.search("IODOC") == 0 ||
+                        tempAccess.search("TrzIKala") == 0 ||
+                        tempAccess.search("Krdx") == 0 ||
+                        tempAccess.search("IDocR") == 0)
+                        progName = "INV5"
+                    else
+                        progName = "ERJ1"
+
+
                 } else {
                     sessionStorage.ace = 'Web1';
                     progCaption = ' وب : مالی بازرگانی';
+                    groups = localStorage.getItem('afi1List');
+                    progName = "afi1"
                 }
 
                 var LoginTestObject = {
@@ -109,10 +139,30 @@
                         sessionStorage.pass = pass;
                         localStorage.setItem("userName", user.toUpperCase());
                         localStorage.setItem('password', pass);
+
+
+
+                        var GroupsObject = {
+                            ProgName: progName,
+                            User: sessionStorage.userName,
+                            Groups: groups.replace('-', ',')
+                        }
+
+                        server = localStorage.getItem("ApiAddress");
+                        ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
+                            localStorage.setItem('afiList', JSON.stringify(data));
+                            a = localStorage.getItem('afiList');
+                        });
+
+
+
+
+
+
                         window.location.href = sessionStorage.urlSetting;
                     }
                     else {
-                        
+
                         var ipW = datalogin.CompName.split("-");
                         $('#title_dataUser').text('کاربر ' + sessionStorage.userNameFa + ' قبلا وارد سیستم شده است');
                         $('#param_ipw').text(ipW[1]);
@@ -125,9 +175,6 @@
                         $('#modal-dataUser').modal('show');
                     }
                 });
-
-
-
             }
         });
     }

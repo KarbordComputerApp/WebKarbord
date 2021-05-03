@@ -9,7 +9,9 @@
                 <div class="form-inline">
                     <strong id="TitleHeaderAnbar"></strong>
                     <strong style="margin-left: 5px; margin-right: 5px;">به شماره</strong>
-                    <lable id="docnoout">جدید</lable>
+                    <!--<lable id="docnoout">جدید</lable>-->
+                    <input data-bind=" event:{ keydown : $root.docNoKeyDown}" id="docnoout" class="form-control" style="width: 70px;text-align: center;" maxlength="10" />
+
 
                     <div class="input-group" style="margin-right: 10px;">
                         <div class="input-group-addon">
@@ -33,8 +35,8 @@
                         </a>
 
                         <!--                        <a id="SettingColumn" class="">
-                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
-                        </a>-->
+            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+        </a>-->
                         <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
                             <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
                         </a>
