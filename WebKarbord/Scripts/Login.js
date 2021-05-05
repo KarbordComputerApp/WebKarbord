@@ -145,7 +145,7 @@
                         var GroupsObject = {
                             ProgName: progName,
                             User: sessionStorage.userName,
-                            Groups: groups.replace('-', ',')
+                            Groups: groups.replaceAll('-', ',')
                         }
 
                         server = localStorage.getItem("ApiAddress");

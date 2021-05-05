@@ -489,6 +489,8 @@ function SetSelectProgram() {
     var group = $("#DropGroup").val();
     var sal = $("#DropSal").val();
 
+    //group = group.length == 1 ? "0" + group : group;
+
     if (server == '' || server == null) {
         showNotification('دوباره لاگین کنید', 0);
         //Swal.fire({ type: 'info', title: 'خطا در ورود به نرم افزار', text: 'دوباره لاگین کنید' });

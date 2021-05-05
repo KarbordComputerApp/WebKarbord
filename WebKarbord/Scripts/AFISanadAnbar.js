@@ -1243,7 +1243,7 @@
             $('#btnOpr').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);
 
-            showNotification('فاکتور دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
+            showNotification('سند دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
         }
 
 

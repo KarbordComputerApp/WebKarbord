@@ -2582,26 +2582,26 @@
             CreateTableTd('Spec', 0, 0, 0, data) +
             CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
             CreateTableTd('SerialNumber', 0, 0, 0, data) +
-            CreateTableTd('F01', 0, 0, 0, data) +
-            CreateTableTd('F02', 0, 0, 0, data) +
-            CreateTableTd('F03', 0, 0, 0, data) +
-            CreateTableTd('F04', 0, 0, 0, data) +
-            CreateTableTd('F05', 0, 0, 0, data) +
-            CreateTableTd('F06', 0, 0, 0, data) +
-            CreateTableTd('F07', 0, 0, 0, data) +
-            CreateTableTd('F08', 0, 0, 0, data) +
-            CreateTableTd('F09', 0, 0, 0, data) +
-            CreateTableTd('F10', 0, 0, 0, data) +
-            CreateTableTd('F11', 0, 0, 0, data) +
-            CreateTableTd('F12', 0, 0, 0, data) +
-            CreateTableTd('F13', 0, 0, 0, data) +
-            CreateTableTd('F14', 0, 0, 0, data) +
-            CreateTableTd('F15', 0, 0, 0, data) +
-            CreateTableTd('F16', 0, 0, 0, data) +
-            CreateTableTd('F17', 0, 0, 0, data) +
-            CreateTableTd('F18', 0, 0, 0, data) +
-            CreateTableTd('F19', 0, 0, 0, data) +
-            CreateTableTd('F20', 0, 0, 0, data) +
+            CreateTableTd('F01', 0, 4, 0, data) +
+            CreateTableTd('F02', 0, 4, 0, data) +
+            CreateTableTd('F03', 0, 4, 0, data) +
+            CreateTableTd('F04', 0, 4, 0, data) +
+            CreateTableTd('F05', 0, 4, 0, data) +
+            CreateTableTd('F06', 0, 4, 0, data) +
+            CreateTableTd('F07', 0, 4, 0, data) +
+            CreateTableTd('F08', 0, 4, 0, data) +
+            CreateTableTd('F09', 0, 4, 0, data) +
+            CreateTableTd('F10', 0, 4, 0, data) +
+            CreateTableTd('F11', 0, 4, 0, data) +
+            CreateTableTd('F12', 0, 4, 0, data) +
+            CreateTableTd('F13', 0, 4, 0, data) +
+            CreateTableTd('F14', 0, 4, 0, data) +
+            CreateTableTd('F15', 0, 4, 0, data) +
+            CreateTableTd('F16', 0, 4, 0, data) +
+            CreateTableTd('F17', 0, 4, 0, data) +
+            CreateTableTd('F18', 0, 4, 0, data) +
+            CreateTableTd('F19', 0, 4, 0, data) +
+            CreateTableTd('F20', 0, 4, 0, data) +
             '<td>' +
             '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(EditDocTrs)">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +

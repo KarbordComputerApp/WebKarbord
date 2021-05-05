@@ -44,8 +44,10 @@
         if (programSelect != 0) {
 
             for (var i = 0; i < afiList.length; i++) {
+
+                value = afiList[i].Code < 10 ? "0" + afiList[i].Code : ""+afiList[i].Code;
                 $("#DropGroup").append('<option value="'
-                    + afiList[i].Code + '">'
+                    + value + '">'
                     + afiList[i].Code + " - " + afiList[i].Name + '</option>');
                 }
         }

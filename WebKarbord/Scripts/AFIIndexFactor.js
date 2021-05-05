@@ -1748,26 +1748,26 @@
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
 
-            CreateTableTd('F01', 0, 0, data) +
-            CreateTableTd('F02', 0, 0, data) +
-            CreateTableTd('F03', 0, 0, data) +
-            CreateTableTd('F04', 0, 0, data) +
-            CreateTableTd('F05', 0, 0, data) +
-            CreateTableTd('F06', 0, 0, data) +
-            CreateTableTd('F07', 0, 0, data) +
-            CreateTableTd('F08', 0, 0, data) +
-            CreateTableTd('F09', 0, 0, data) +
-            CreateTableTd('F10', 0, 0, data) +
-            CreateTableTd('F11', 0, 0, data) +
-            CreateTableTd('F12', 0, 0, data) +
-            CreateTableTd('F13', 0, 0, data) +
-            CreateTableTd('F14', 0, 0, data) +
-            CreateTableTd('F15', 0, 0, data) +
-            CreateTableTd('F16', 0, 0, data) +
-            CreateTableTd('F17', 0, 0, data) +
-            CreateTableTd('F18', 0, 0, data) +
-            CreateTableTd('F19', 0, 0, data) +
-            CreateTableTd('F20', 0, 0, data) +
+            CreateTableTd('F01', 0, 4, data) +
+            CreateTableTd('F02', 0, 4, data) +
+            CreateTableTd('F03', 0, 4, data) +
+            CreateTableTd('F04', 0, 4, data) +
+            CreateTableTd('F05', 0, 4, data) +
+            CreateTableTd('F06', 0, 4, data) +
+            CreateTableTd('F07', 0, 4, data) +
+            CreateTableTd('F08', 0, 4, data) +
+            CreateTableTd('F09', 0, 4, data) +
+            CreateTableTd('F10', 0, 4, data) +
+            CreateTableTd('F11', 0, 4, data) +
+            CreateTableTd('F12', 0, 4, data) +
+            CreateTableTd('F13', 0, 4, data) +
+            CreateTableTd('F14', 0, 4, data) +
+            CreateTableTd('F15', 0, 4, data) +
+            CreateTableTd('F16', 0, 4, data) +
+            CreateTableTd('F17', 0, 4, data) +
+            CreateTableTd('F18', 0, 4, data) +
+            CreateTableTd('F19', 0, 4, data) +
+            CreateTableTd('F20', 0, 4, data) +
             '<td>' +
 
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
@@ -1889,6 +1889,9 @@
                 break;
             case 3:
                 text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + '.toFixed(' + Deghat + ')) ) : \'0\'" style="text-align: right;"></td>'
+                break;
+            case 4:
+                text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
                 break;
         }
         return text;

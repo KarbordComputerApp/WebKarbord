@@ -35,8 +35,8 @@
                         </a>
 
                         <!--                        <a id="SettingColumn" class="">
-            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
-        </a>-->
+                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        </a>-->
                         <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
                             <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
                         </a>
@@ -106,46 +106,46 @@
 
 
 
-                        <div class="row ">
-                            <div class="input-group  col-sm-3">
-                                <div class="input-group-addon">
-                                    <a id="btnOpr" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Opr">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
-                                    </a>
-                                </div>
-                                <div class="form-group form-float" style="margin-bottom: 5px;">
-                                    <div class="form-line focused fix">
-                                        <input id="nameOpr" class="form-control" readonly />
-                                        <label class="form-label"> پروژه</label>
-                                    </div>
+                    <div class="row ">
+                        <div class="input-group  col-sm-3">
+                            <div class="input-group-addon">
+                                <a id="btnOpr" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Opr">
+                                    <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                </a>
+                            </div>
+                            <div class="form-group form-float" style="margin-bottom: 5px;">
+                                <div class="form-line focused fix">
+                                    <input id="nameOpr" class="form-control" readonly />
+                                    <label class="form-label"> پروژه</label>
                                 </div>
                             </div>
-
-                            <div class="input-group  col-sm-3">
-                                <div class="input-group-addon">
-                                    <a id="btnMkz" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Mkz">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
-                                    </a>
-                                </div>
-                                <div class="form-group form-float" style="margin-bottom: 5px;">
-                                    <div class="form-line focused fix">
-                                        <input id="nameMkz" class="form-control" readonly />
-                                        <label class="form-label"> مرکز هزینه</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 form-inline">
-                                <div class="form-group form-float" style="margin-bottom: 0px;">
-                                    <div class="form-line focused">
-                                        <input id="Spec" class="form-control" data-bind="value:Spec" />
-                                        <label class="form-label active">ملاحظات</label>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-</form>
+
+                        <div class="input-group  col-sm-3">
+                            <div class="input-group-addon">
+                                <a id="btnMkz" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Mkz">
+                                    <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                </a>
+                            </div>
+                            <div class="form-group form-float" style="margin-bottom: 5px;">
+                                <div class="form-line focused fix">
+                                    <input id="nameMkz" class="form-control" readonly />
+                                    <label class="form-label"> مرکز هزینه</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 form-inline">
+                            <div class="form-group form-float" style="margin-bottom: 0px;">
+                                <div class="form-line focused">
+                                    <input id="Spec" class="form-control" data-bind="value:Spec" />
+                                    <label class="form-label active">ملاحظات</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
 
                 <div style="height:320px;overflow:auto;">
                     <div class="table-responsive">
@@ -664,33 +664,48 @@
     <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:800px;">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="border-bottom: solid 10px #f5d3b4;padding-bottom: 5px;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title">مشخصات اضافی</h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                <div style="height:500px;overflow:auto">
                     <div class="table-responsive">
                         <table class="table table-addmin">
                             <tbody data-bind="foreach: ExtraFieldsList">
                                 <tr>
-                                    <td data-bind="text: Name" style="background-color: #c4c4c4; width:250px;"></td>
-                                    <td style="padding: 0px 10px;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" /></td>
+                                    <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
+                                    <td style="padding: 0px 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" style="border-bottom: 1px solid #d4d4d4;" id="ExtraFields1"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            <div style="border-top: solid 1px black;padding-top: 5px;">
+                <div class="row  form-inline ">
+                    <div class="col-md-9 row">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
+                            بازگشت
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="modal-FinalSave" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
