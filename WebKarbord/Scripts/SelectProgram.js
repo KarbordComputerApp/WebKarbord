@@ -59,13 +59,20 @@
         $("#DropSal").empty();
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
         if (programSelect != 0 && GroupSelect != 0) {
-            ajaxFunction(DatabseSalUrl + programSelect + '/' + GroupSelect, 'GET').done(function (data) {
+
+            var DatabseSalObject = {
+                ProgName: sessionStorage.progName,
+                Group: GroupSelect,
+                UserCode: sessionStorage.userName
+            }
+
+            ajaxFunction(DatabseSalUrl, 'Post', DatabseSalObject).done(function (data) {
                 self.DatabseSalList(data);
                 if (self.DatabseSalList().length > 0) {
                     for (var i = 1; i < self.DatabseSalList().length + 1; i++) {
                         var sal = self.DatabseSalList()[i - 1];
                         $("#DropSal").append('<option value="'
-                            + sal.Name + '">'
+                            + sal.Code + '">'
                             + sal.Name + '</option>');
                         if (localStorage.getItem('sal') != null) {
                             $("#DropSal").val(localStorage.getItem('sal'));

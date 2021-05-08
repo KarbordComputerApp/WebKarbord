@@ -218,6 +218,12 @@
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
 
 
+    $('#docnoout').attr('readonly', false);
+
+    if (sessionStorage.InvDocNo == "1") {
+        $('#docnoout').attr('readonly', true);
+    }
+
     var rprtId = 'IDocP';
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 

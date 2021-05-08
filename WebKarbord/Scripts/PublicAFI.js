@@ -32,6 +32,7 @@ var resTestSavePrintForm = "";
 
 
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
+var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس پارامتر
 var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
 var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
@@ -544,7 +545,18 @@ function SetSelectProgram() {
 //}
 
 $("#SaveParam").click(function () {
-    SetSelectProgram();
+    var ace = sessionStorage.ace;
+    var group = $("#DropGroup").val();
+    var sal = $("#DropSal").val();
+
+    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group, 'GET', null, true).done(function (data) {
+
+        if (data == "error") {
+            return showNotification('اشکال در اتصال به دیتابیس', 0);
+        }
+
+        SetSelectProgram();
+    });
 });
 
 function getProgName(value) {
@@ -565,7 +577,7 @@ function getProgName(value) {
 //Get Param List
 async function getParamList() {
 
-    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET', null, true).done(function (data) {
+    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET', null, false).done(function (data) {
         ParamList(data);
         $('#information').hide();
         if (self.ParamList().length > 0) {
@@ -625,6 +637,8 @@ async function getParamList() {
 
             sessionStorage.IDOCI_TestZeroAmount = SearchArry("IDOCI_TestZeroAmount", "IDOCI_TestZeroAmount", self.ParamList());
             sessionStorage.IDOCO_TestZeroAmount = SearchArry("IDOCO_TestZeroAmount", "IDOCO_TestZeroAmount", self.ParamList());
+
+            sessionStorage.InvDocNo = SearchArry("InvDocNo", "Fixed", self.ParamList());
 
 
 
@@ -2561,7 +2575,7 @@ function createViewer() {
 
     report = new Stimulsoft.Report.StiReport();
     viewer.onDesignReport = function (e) {
-        
+
         createDesigner();
     };
     viewer.renderHtml("viewerContent");

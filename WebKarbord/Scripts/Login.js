@@ -140,7 +140,7 @@
                         localStorage.setItem("userName", user.toUpperCase());
                         localStorage.setItem('password', pass);
 
-
+                        sessionStorage.progName = progName;
 
                         var GroupsObject = {
                             ProgName: progName,
