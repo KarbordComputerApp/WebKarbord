@@ -45,6 +45,8 @@
 
     invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
 
+    var invSelect= "";
+
     $('#finalSave_Title').attr('hidden', '');
 
     var invCode = sessionStorage.InvCode;
@@ -218,11 +220,11 @@
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
 
 
-    $('#docnoout').attr('readonly', false);
+    //$('#docnoout').attr('readonly', false);
 
-    if (sessionStorage.InvDocNo == "1") {
-        $('#docnoout').attr('readonly', true);
-    }
+    //if (sessionStorage.InvDocNo == "1") {
+    //    $('#docnoout').attr('readonly', true);
+    //}
 
     var rprtId = 'IDocP';
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -382,29 +384,33 @@
             //var storedNames = JSON.parse(localStorage.getItem("inv"));
             //self.InvList(storedNames);
             if (self.InvList().length > 0) {
+
                 if (flagupdateHeader == 1) {
-                    // $("#inv").val(sessionStorage.InvCode);
-                    // self.InvCode(sessionStorage.InvCode);
+                    invSelect = sessionStorage.InvCode;
                 }
                 else {
-
-                    //if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
-
-                    if (sessionStorage.InvDefult == "null") {
-                        $("#inv").val(sessionStorage.invSelect);
+                    if (sessionStorage.InvDefult == "null" || sessionStorage.InvDefult == "") {
+                        //$("#inv").val(invSelected);
+                        invSelect = invSelected;
                     }
                     else {
-                        $("#inv").val(sessionStorage.InvDefult);
+                        //$("#inv").val(sessionStorage.InvDefult);
+                        invSelect = sessionStorage.InvDefult;
                     }
-
-                    //if (sessionStorage.InvDefult == "") {
-                    //    $("#inv").val(sessionStorage.invSelect);
-                    //}
-                    //else {
-                    //    $("#inv").val(sessionStorage.InvDefult);
-                    //}
                 }
             }
+
+            $('#docnoout').attr('readonly', false);
+            var list = data;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == invSelect) {
+                    if (list[i].AutoDocNo == 1) {
+                        $('#docnoout').attr('readonly', true);
+                    }
+                }
+            }
+            
+
         });
     }
 
@@ -2307,6 +2313,27 @@
         flagFinalSave = true;
     })
 
+
+    $("#inv").change(function () {
+        if (flagupdateHeader != 1 && invSelect == "") {
+            invSelect = $("#inv").val();
+
+            $('#docnoout').attr('readonly', false);
+
+            var list = self.InvList();
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == invSelect) {
+                    if (list[i].AutoDocNo == 1) {
+                        $('#docnoout').val("");
+                        $('#docnoout').attr('readonly', true);
+                    }
+                }
+            }
+        }
+        invSelect = "";
+
+    });
+
     $("#gGhimat").change(function () {
 
         if ($("#textBandNo").text() > '0' && viewAction == true) {
@@ -2381,7 +2408,7 @@
 
 
 
-  
+
 
     $("#searchThvl").on("keydown", function search(e) {
         if (allSearchThvl == false) {
@@ -2652,6 +2679,8 @@
         })
 
     };
+
+    
 
     $('#AddNewPrintForms').click(function () {
         printName = 'فرم جدید';
