@@ -158,7 +158,6 @@
             $('#TitleHeaderFactor').text('سفارش فروش');
             $('#TitleBodyFactor').text('سفارش فروش');
             $('#TitleFooterFactor').text('سفارش فروش');
-            //ModeCodeExtraFields = 'FDOCSO';
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SP:
@@ -166,63 +165,75 @@
             $('#TitleBodyFactor').text('پیش فاکتور فروش ');
             $('#TitleFooterFactor').text('پیش فاکتور فروش ');
             //ModeCodeExtraFields = 'FDOCSP';
-            ModeCodeExtraFields = 'FSDOC';
+            if (ace == 'Web1')
+                ModeCodeExtraFields = 'FDOCS';
+            else
+                ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_S:
             $('#TitleHeaderFactor').text('فاکتور فروش ');
             $('#TitleBodyFactor').text('فاکتور فروش ');
             $('#TitleFooterFactor').text('فاکتور فروش ');
             //ModeCodeExtraFields = 'FSDOC';
-            ModeCodeExtraFields = 'FSDOC';
+            if (ace == 'Web1')
+                ModeCodeExtraFields = 'FDOCS';
+            else
+                ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SR:
             $('#TitleHeaderFactor').text('برگشت از فروش ');
             $('#TitleBodyFactor').text('برگشت از فروش ');
             $('#TitleFooterFactor').text('برگشت از فروش ');
-            //ModeCodeExtraFields = 'FDOCSR';
-            ModeCodeExtraFields = 'FSDOC';
+            if (ace == 'Web1')
+                ModeCodeExtraFields = 'FDOCS';
+            else
+                ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SH:
             $('#TitleHeaderFactor').text('حواله فروش');
             $('#TitleBodyFactor').text('حواله فروش');
             $('#TitleFooterFactor').text('حواله فروش');
-            //ModeCodeExtraFields = 'FDOCSH';
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SE:
             $('#TitleHeaderFactor').text('برگه خروج');
             $('#TitleBodyFactor').text('برگه خروج');
             $('#TitleFooterFactor').text('برگه خروج');
-            //ModeCodeExtraFields = 'FDOCSE';
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PO:
             $('#TitleHeaderFactor').text('سفارش خرید');
             $('#TitleBodyFactor').text('سفارش خرید');
             $('#TitleFooterFactor').text('سفارش خرید');
-            //ModeCodeExtraFields = 'FDOCPO';
             ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PP:
             $('#TitleHeaderFactor').text('پیش فاکتور خرید ');
             $('#TitleBodyFactor').text('پیش فاکتور خرید ');
             $('#TitleFooterFactor').text('پیش فاکتور خرید ');
-            //ModeCodeExtraFields = 'FDOCPP';
             ModeCodeExtraFields = 'FPDOC';
+            if (ace == 'Web1')
+                ModeCodeExtraFields = 'FDOCP';
+            else
+                ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_P:
             $('#TitleHeaderFactor').text('فاکتور خرید ');
             $('#TitleBodyFactor').text('فاکتور خرید ');
             $('#TitleFooterFactor').text('فاکتور خرید ');
-            //ModeCodeExtraFields = 'FDOCP';
-            ModeCodeExtraFields = 'FPDOC';
+            if (ace == 'Web1')
+                ModeCodeExtraFields = 'FDOCP';
+            else
+                ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PR:
             $('#TitleHeaderFactor').text('برگشت از خرید ');
             $('#TitleBodyFactor').text('برگشت از خرید ');
             $('#TitleFooterFactor').text('برگشت از خرید ');
-            //ModeCodeExtraFields = 'FDOCPR';
-            ModeCodeExtraFields = 'FPDOC';
+            if (ace == 'Web1')
+                ModeCodeExtraFields = 'FDOCP';
+            else
+                ModeCodeExtraFields = 'FPDOC';
             break;
     }
 
@@ -970,7 +981,7 @@
         //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
         //}
 
-       
+
 
         if (Serial == "" || self.FDocBList().length == 0)
             return showNotification('فاکتور دارای بند قابل ذخیره نیست', 0);
@@ -3280,7 +3291,7 @@
             $('#btnOpr').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);
             $('#inv').attr('disabled', true);
-            
+
             showNotification($('#TitleHeaderFactor').text() + ' دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
         }
     }

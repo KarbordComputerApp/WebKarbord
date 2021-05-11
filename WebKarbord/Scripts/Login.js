@@ -89,25 +89,40 @@
                     groups = localStorage.getItem('afi8List');
 
                     tempAccess = localStorage.getItem('afi8Access');
-                    //"ADOC*SFORD*SPFCT*SFCT*SRFCT*SHVL*SEXT*PFORD*PPFCT*PFCT*PRFCT*IIDOC*IODOC*TrzAcc*Dftr*ADocR*TChk*FDocR_S*FDocR_P*TrzFKala_S*TrzFKala_P*TrzFCust_S*TrzFCust_P*Krdx*TrzIKala*TrzIKalaExf*IDocR*"
-                    if (tempAccess.search("ADOC") == 0 ||
-                        tempAccess.search("TrzAcc") == 0 ||
-                        tempAccess.search("Dftr") == 0 ||
-                        tempAccess.search("ADocR") == 0)
+
+                   
+                    if (tempAccess.search("ADOC") > 0 ||
+                        tempAccess.search("TrzAcc")> 0 ||
+                        tempAccess.search("Dftr") > 0 ||
+                        tempAccess.search("TChk") > 0 ||
+                        tempAccess.search("ADocR") > 0)
                         progName = "ACC5"
 
-                    else if (tempAccess.search("SPFCT") == 0 ||
-                        tempAccess.search("PFCT") == 0 ||
-                        tempAccess.search("FDocR_P") == 0 ||
-                        tempAccess.search("TrzFKala_P") == 0 ||
-                        tempAccess.search("TrzFCust_S") == 0)
+                    else if (
+                        tempAccess.search("SFORD") > 0 ||
+                        tempAccess.search("SPFCT") > 0 ||
+                        tempAccess.search("SFCT") > 0 ||
+                        tempAccess.search("SRFCT") > 0 ||
+                        tempAccess.search("SHVL") > 0 ||
+                        tempAccess.search("SEXT") > 0 ||
+                        tempAccess.search("PFORD") > 0 ||
+                        tempAccess.search("PPFCT") > 0 ||
+                        tempAccess.search("PFCT") > 0 ||
+                        tempAccess.search("PRFCT") > 0 ||
+                        tempAccess.search("FDocR_S") > 0 ||
+                        tempAccess.search("FDocR_P") > 0 ||
+                        tempAccess.search("TrzFKala_S") > 0 ||
+                        tempAccess.search("TrzFKala_P") > 0 ||
+                        tempAccess.search("TrzFCust_S") > 0 ||
+                        tempAccess.search("TrzFCust_P") > 0)
                         progName = "FCT5"
 
-                    else if (tempAccess.search("IIDOC") == 0 ||
-                        tempAccess.search("IODOC") == 0 ||
-                        tempAccess.search("TrzIKala") == 0 ||
-                        tempAccess.search("Krdx") == 0 ||
-                        tempAccess.search("IDocR") == 0)
+                    else if (tempAccess.search("IIDOC") > 0 ||
+                        tempAccess.search("IODOC") > 0 ||
+                        tempAccess.search("TrzIKala") > 0 ||
+                        tempAccess.search("TrzIKalaExf") > 0 ||
+                        tempAccess.search("Krdx") > 0 ||
+                        tempAccess.search("IDocR") > 0)
                         progName = "INV5"
                     else
                         progName = "ERJ1"

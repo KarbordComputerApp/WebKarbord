@@ -714,7 +714,26 @@
         $("#BodyErjDocH").empty();
         $('#ErjDocErja').removeAttr('hidden', '');
         $('#ErjDocErja').prop('disabled', true);
-
+        $('#ExtraFields1').val('');
+        $('#ExtraFields2').val('');
+        $('#ExtraFields3').val('');
+        $('#ExtraFields4').val('');
+        $('#ExtraFields5').val('');
+        $('#ExtraFields6').val('');
+        $('#ExtraFields7').val('');
+        $('#ExtraFields8').val('');
+        $('#ExtraFields9').val('');
+        $('#ExtraFields10').val('');
+        $('#ExtraFields11').val('');
+        $('#ExtraFields12').val('');
+        $('#ExtraFields13').val('');
+        $('#ExtraFields14').val('');
+        $('#ExtraFields15').val('');
+        $('#ExtraFields16').val('');
+        $('#ExtraFields17').val('');
+        $('#ExtraFields18').val('');
+        $('#ExtraFields19').val('');
+        $('#ExtraFields20').val('');
     }
 
 
@@ -1913,7 +1932,7 @@
             }
         })
     };
-    
+
     $("#AddNewDocAttach").on('click', function (e) {
         e.preventDefault();
         $("#upload:hidden").trigger('click');
