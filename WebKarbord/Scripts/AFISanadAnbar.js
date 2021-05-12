@@ -862,6 +862,7 @@
                 showNotification('سند ذخیره شد', 1);
                 // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
             }
+            return "OK";
 
         });
 
@@ -2802,7 +2803,10 @@
 
     $('#FinalSave').click(function () {
 
-        self.UpdateIDocH();
+
+        if (self.UpdateIDocH() != "OK") {
+            return null;
+        }
         //flagFinalSave = true;
 
         var TestIDocObject = {

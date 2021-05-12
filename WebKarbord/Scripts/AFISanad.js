@@ -2535,17 +2535,17 @@
         status = $("#status").val();
 
         if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+            return showNotification('تاریخ را صحيح وارد کنيد', 0);
         }
 
         if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
+            return showNotification('تاریخ را وارد کنيد', 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification('تاریخ وارد شده با سال انتخابي همخواني ندارد', 0);
         }
 
         if (modeCode == '') {
@@ -2605,6 +2605,7 @@
             // $('#finalSave_Title').attr('hidden', '');
 
             flaglog = 'N';
+            return "OK";
 
         });
     };
@@ -3027,7 +3028,9 @@
 
         $('#titleFinalSave').text('ذخیره سند حسابداری');
 
-        self.UpdateADocH();
+        if (self.UpdateADocH() != "OK") {
+            return null;
+        }
 
         var TestADocObject = {
             SerialNumber: Serial

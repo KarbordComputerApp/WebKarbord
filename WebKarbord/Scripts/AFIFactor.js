@@ -1115,6 +1115,7 @@
                 return showNotification('خطا : ' + response, 0);
             }
 
+            return "OK";
         });
 
     }
@@ -3700,8 +3701,10 @@
     $('#FinalSave').click(function () {
 
 
-        self.UpdateFDocH();
 
+        if (self.UpdateFDocH() != "OK") {
+            return null;
+        }
 
 
         var TestFDocObject = {
