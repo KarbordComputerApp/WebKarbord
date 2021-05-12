@@ -2308,6 +2308,47 @@
         $('#p_Mahramaneh').val(item.Mahramaneh);
         $('#p_Status').val(item.Status);
 
+        sessionStorage.F01 = item.F01;
+        sessionStorage.F02 = item.F02;
+        sessionStorage.F03 = item.F03;
+        sessionStorage.F04 = item.F04;
+        sessionStorage.F05 = item.F05;
+        sessionStorage.F06 = item.F06;
+        sessionStorage.F07 = item.F07;
+        sessionStorage.F08 = item.F08;
+        sessionStorage.F09 = item.F09;
+        sessionStorage.F10 = item.F10;
+        sessionStorage.F11 = item.F11;
+        sessionStorage.F12 = item.F12;
+        sessionStorage.F13 = item.F13;
+        sessionStorage.F14 = item.F14;
+        sessionStorage.F15 = item.F15;
+        sessionStorage.F16 = item.F16;
+        sessionStorage.F17 = item.F17;
+        sessionStorage.F18 = item.F18;
+        sessionStorage.F19 = item.F19;
+        sessionStorage.F20 = item.F20;
+
+        $("#ExtraFields1").val(sessionStorage.F01);
+        $("#ExtraFields2").val(sessionStorage.F02);
+        $("#ExtraFields3").val(sessionStorage.F03);
+        $("#ExtraFields4").val(sessionStorage.F04);
+        $("#ExtraFields5").val(sessionStorage.F05);
+        $("#ExtraFields6").val(sessionStorage.F06);
+        $("#ExtraFields7").val(sessionStorage.F07);
+        $("#ExtraFields8").val(sessionStorage.F08);
+        $("#ExtraFields9").val(sessionStorage.F09);
+        $("#ExtraFields10").val(sessionStorage.F10);
+        $("#ExtraFields11").val(sessionStorage.F11);
+        $("#ExtraFields12").val(sessionStorage.F12);
+        $("#ExtraFields13").val(sessionStorage.F13);
+        $("#ExtraFields14").val(sessionStorage.F14);
+        $("#ExtraFields15").val(sessionStorage.F15);
+        $("#ExtraFields16").val(sessionStorage.F16);
+        $("#ExtraFields17").val(sessionStorage.F17);
+        $("#ExtraFields18").val(sessionStorage.F18);
+        $("#ExtraFields19").val(sessionStorage.F19);
+        $("#ExtraFields20").val(sessionStorage.F20);
 
         $("#ExtraFields1").val(item.F01);
         $("#ExtraFields2").val(item.F02);

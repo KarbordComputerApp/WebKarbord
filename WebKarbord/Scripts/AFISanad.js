@@ -242,6 +242,7 @@
     var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
 
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
+    var SaveADoc_HZUri = server + '/api/ADocData/SaveADoc_HZ/'; // آدرس ویرایس ستون تنظیم 
 
 
 
@@ -624,7 +625,7 @@
             startIndex = pageSizeAcc * self.currentPageIndexAcc(),
             endIndex = startIndex + pageSizeAcc;
         localStorage.setItem('pageSizeAcc', pageSizeAcc);
-  return self.filterAccList().slice(startIndex, endIndex);
+        return self.filterAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageAcc = function () {
@@ -694,7 +695,7 @@
         }).then((result) => {
             if (result.value) {
                 getAccList();
-                }
+            }
         })
     })
 
@@ -863,7 +864,7 @@
             startIndex = pageSizeZAcc * self.currentPageIndexZAcc(),
             endIndex = startIndex + pageSizeZAcc;
         localStorage.setItem('pageSizeZAcc', pageSizeZAcc);
-   return self.filterZAccList().slice(startIndex, endIndex);
+        return self.filterZAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageZAcc = function () {
@@ -1007,7 +1008,7 @@
             startIndex = pageSizeTraf * self.currentPageIndexTraf(),
             endIndex = startIndex + pageSizeTraf;
         localStorage.setItem('pageSizeTraf', pageSizeTraf);
-  return self.filterTrafList().slice(startIndex, endIndex);
+        return self.filterTrafList().slice(startIndex, endIndex);
     });
 
     self.nextPageTraf = function () {
@@ -1164,7 +1165,7 @@
             startIndex = pageSizeTrafZ * self.currentPageIndexTrafZ(),
             endIndex = startIndex + pageSizeTrafZ;
         localStorage.setItem('pageSizeTrafZ', pageSizeTrafZ);
-  return self.filterTrafZList().slice(startIndex, endIndex);
+        return self.filterTrafZList().slice(startIndex, endIndex);
     });
 
     self.nextPageTrafZ = function () {
@@ -1233,7 +1234,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-               getZAccList();
+                getZAccList();
             }
         })
     })
@@ -1297,7 +1298,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-   return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -1433,7 +1434,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -1580,7 +1581,7 @@
             startIndex = pageSizeArz * self.currentPageIndexArz(),
             endIndex = startIndex + pageSizeArz;
         localStorage.setItem('pageSizeArz', pageSizeArz);
-  return self.filterArzList().slice(startIndex, endIndex);
+        return self.filterArzList().slice(startIndex, endIndex);
     });
 
     self.nextPageArz = function () {
@@ -1717,7 +1718,7 @@
             startIndex = pageSizeBank * self.currentPageIndexBank(),
             endIndex = startIndex + pageSizeBank;
         localStorage.setItem('pageSizeBank', pageSizeBank);
-   return self.filterBankList().slice(startIndex, endIndex);
+        return self.filterBankList().slice(startIndex, endIndex);
     });
 
     self.nextPageBank = function () {
@@ -1843,7 +1844,7 @@
             startIndex = pageSizeShobe * self.currentPageIndexShobe(),
             endIndex = startIndex + pageSizeShobe;
         localStorage.setItem('pageSizeShobe', pageSizeShobe);
-  return self.filterShobeList().slice(startIndex, endIndex);
+        return self.filterShobeList().slice(startIndex, endIndex);
     });
 
     self.nextPageShobe = function () {
@@ -1973,7 +1974,7 @@
             startIndex = pageSizeJari * self.currentPageIndexJari(),
             endIndex = startIndex + pageSizeJari;
         localStorage.setItem('pageSizeJari', pageSizeJari);
-  return self.filterJariList().slice(startIndex, endIndex);
+        return self.filterJariList().slice(startIndex, endIndex);
     });
 
     self.nextPageJari = function () {
@@ -2136,7 +2137,7 @@
             startIndex = pageSizeCheck * self.currentPageIndexCheck(),
             endIndex = startIndex + pageSizeCheck;
         localStorage.setItem('pageSizeCheck', pageSizeCheck);
-   return self.filterCheckList().slice(startIndex, endIndex);
+        return self.filterCheckList().slice(startIndex, endIndex);
     });
 
     self.nextPageCheck = function () {
@@ -2567,33 +2568,33 @@
             DocDate: tarikh,
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Tanzim: sessionStorage.userName,
+            Tanzim: '*' + sessionStorage.userName + '*',
             Taeed: status == "تایید" ? sessionStorage.userName : '',
             Tasvib: '',
             TahieShode: sessionStorage.ace,
             Status: status,
             Spec: self.Spec(),
             Footer: $("#footer").val(),
-            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
-            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
-            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
-            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
-            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
-            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
-            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
-            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
-            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
-            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
-            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val() == "" ? sessionStorage.F04 : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val() == "" ? sessionStorage.F05 : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val() == "" ? sessionStorage.F06 : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val() == "" ? sessionStorage.F07 : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val() == "" ? sessionStorage.F08 : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val() == "" ? sessionStorage.F09 : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
             flagLog: flaglog,
         };
 
@@ -2601,18 +2602,10 @@
             sessionStorage.searchADocH = Serial;
             getADocH(Serial);
 
-            $('#finalSave_Title').attr('hidden', '');
+            // $('#finalSave_Title').attr('hidden', '');
 
             flaglog = 'N';
-            if (flagupdateHeader == 1) {
-                sessionStorage.flagupdateHeader = 0;
-                flagupdateHeader = 0;
-                window.location.href = sessionStorage.urlADocH;
-            }
-            else {
-                showNotification('سند ذخیره شد ', 1);
-                //Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
-            }
+
         });
     };
 
@@ -3005,6 +2998,25 @@
         })
     };
 
+    function SetTanzimSanad() {
+
+        var AFI_SaveADoc_HZ = {
+            SerialNumber: Serial,
+            Tanzim: sessionStorage.userName,
+        };
+
+        ajaxFunction(SaveADoc_HZUri + ace + '/' + sal + '/' + group, 'POST', AFI_SaveADoc_HZ).done(function (data) {
+            if (flagupdateHeader == 1) {
+                sessionStorage.flagupdateHeader = 0;
+                flagupdateHeader = 0;
+                window.location.href = sessionStorage.urlADocH;
+            }
+            else {
+                showNotification('سند ذخیره شد ', 1);
+            }
+        });
+    }
+
 
 
     $('#FinalSave').click(function () {
@@ -3015,6 +3027,8 @@
 
         $('#titleFinalSave').text('ذخیره سند حسابداری');
 
+        self.UpdateADocH();
+
         var TestADocObject = {
             SerialNumber: Serial
         };
@@ -3024,9 +3038,10 @@
             self.TestADocList(obj);
             if (data.length > 2) {
                 $('#modal-FinalSave').modal('show');
-                SetDataTestDocB()
+                SetDataTestDocB();
             } else {
-                self.UpdateADocH();
+                //self.UpdateADocH();
+                SetTanzimSanad();
             }
         });
     });
@@ -3108,7 +3123,9 @@
 
     $('#FinalSave-Modal').click(function () {
         $('#modal-FinalSave').modal('hide');
-        self.UpdateADocH();
+        //self.UpdateADocH();
+        SetTanzimSanad();
+
     });
 
     $('#modal-FinalSave').on('shown.bs.modal', function () {

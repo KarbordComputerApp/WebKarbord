@@ -165,29 +165,20 @@
             $('#TitleBodyFactor').text('پیش فاکتور فروش ');
             $('#TitleFooterFactor').text('پیش فاکتور فروش ');
             //ModeCodeExtraFields = 'FDOCSP';
-            if (ace == 'Web1')
-                ModeCodeExtraFields = 'FDOCS';
-            else
-                ModeCodeExtraFields = 'FSDOC';
+            ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_S:
             $('#TitleHeaderFactor').text('فاکتور فروش ');
             $('#TitleBodyFactor').text('فاکتور فروش ');
             $('#TitleFooterFactor').text('فاکتور فروش ');
             //ModeCodeExtraFields = 'FSDOC';
-            if (ace == 'Web1')
-                ModeCodeExtraFields = 'FDOCS';
-            else
-                ModeCodeExtraFields = 'FSDOC';
+            ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SR:
             $('#TitleHeaderFactor').text('برگشت از فروش ');
             $('#TitleBodyFactor').text('برگشت از فروش ');
             $('#TitleFooterFactor').text('برگشت از فروش ');
-            if (ace == 'Web1')
-                ModeCodeExtraFields = 'FDOCS';
-            else
-                ModeCodeExtraFields = 'FSDOC';
+            ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SH:
             $('#TitleHeaderFactor').text('حواله فروش');
@@ -212,28 +203,18 @@
             $('#TitleBodyFactor').text('پیش فاکتور خرید ');
             $('#TitleFooterFactor').text('پیش فاکتور خرید ');
             ModeCodeExtraFields = 'FPDOC';
-            if (ace == 'Web1')
-                ModeCodeExtraFields = 'FDOCP';
-            else
-                ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_P:
             $('#TitleHeaderFactor').text('فاکتور خرید ');
             $('#TitleBodyFactor').text('فاکتور خرید ');
             $('#TitleFooterFactor').text('فاکتور خرید ');
-            if (ace == 'Web1')
-                ModeCodeExtraFields = 'FDOCP';
-            else
-                ModeCodeExtraFields = 'FPDOC';
+            ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PR:
             $('#TitleHeaderFactor').text('برگشت از خرید ');
             $('#TitleBodyFactor').text('برگشت از خرید ');
             $('#TitleFooterFactor').text('برگشت از خرید ');
-            if (ace == 'Web1')
-                ModeCodeExtraFields = 'FDOCP';
-            else
-                ModeCodeExtraFields = 'FPDOC';
+            ModeCodeExtraFields = 'FPDOC';
             break;
     }
 
@@ -285,6 +266,8 @@
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
+
+    var SaveFDoc_HZUri = server + '/api/FDocData/SaveFDoc_HZ/'; // آدرس ویرایس ستون تنظیم
 
 
     var rprtId = 'FDocP';
@@ -1034,7 +1017,7 @@
             DocNo: $("#docnoout").val(),
             StartNo: 0,
             EndNo: 0,
-            Tanzim: sessionStorage.userName,
+            Tanzim: '*' + sessionStorage.userName + '*',
             TahieShode: sessionStorage.ace,
             VstrCode: 'null',
             VstrPer: 0,
@@ -1067,26 +1050,26 @@
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat),
-            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
-            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
-            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
-            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
-            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
-            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
-            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
-            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
-            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
-            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
-            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val() == "" ? sessionStorage.F04 : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val() == "" ? sessionStorage.F05 : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val() == "" ? sessionStorage.F06 : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val() == "" ? sessionStorage.F07 : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val() == "" ? sessionStorage.F08 : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val() == "" ? sessionStorage.F09 : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
             flagLog: flaglog,
             OprCode: codeOpr,
             MkzCode: codeMkz,
@@ -1095,7 +1078,7 @@
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
             if (response == "") {
                 sessionStorage.searchFDocH = $("#docnoout").val();
-                $('#finalSave_Title').attr('hidden', '');
+                // $('#finalSave_Title').attr('hidden', '');
                 flaglog = 'N';
 
                 if (flagKalaPrice == true) {
@@ -3690,13 +3673,36 @@
 
     $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderFactor').text());
 
+
+
+
+
+    function SetTanzimSanad() {
+
+        var AFI_SaveFDoc_HZ = {
+            SerialNumber: Serial,
+            Tanzim: sessionStorage.userName,
+        };
+
+        ajaxFunction(SaveFDoc_HZUri + ace + '/' + sal + '/' + group, 'POST', AFI_SaveFDoc_HZ).done(function (data) {
+            if (flagupdateHeader == 1) {
+                sessionStorage.flagupdateHeader = 0;
+                flagupdateHeader = 0;
+                window.location.href = sessionStorage.urlFDocH;
+            }
+            else {
+                showNotification('سند ذخیره شد ', 1);
+            }
+        });
+    }
+
+
     $('#FinalSave').click(function () {
 
-        if (true) {
 
-        }
+        self.UpdateFDocH();
 
-        flagFinalSave = true;
+
 
         var TestFDocObject = {
             SerialNumber: Serial
@@ -3714,7 +3720,9 @@
                     $('#modal-FinalSave').modal('show');
                     SetDataTestDocB()
                 } else {
-                    self.UpdateFDocH();
+                    flagFinalSave = true;
+                    SetTanzimSanad();
+                    //self.UpdateFDocH();
                 }
             }
 
@@ -3799,7 +3807,8 @@
 
     $('#FinalSave-Modal').click(function () {
         $('#modal-FinalSave').modal('hide');
-        self.UpdateFDocH();
+        //self.UpdateFDocH();
+        SetTanzimSanad();
     });
 
     $('#modal-FinalSave').on('shown.bs.modal', function () {
