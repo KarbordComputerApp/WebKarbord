@@ -2903,6 +2903,56 @@
                 if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                 //$("#inv").val(sessionStorage.InvDefult);
                 $("#gGhimat").val(sessionStorage.GPriceDefult);
+
+                self.OprCode("");
+                self.MkzCode("");
+                $('#nameOpr').val("");
+                $('#nameMkz').val("");
+
+                sessionStorage.F01 = "";
+                sessionStorage.F02 = "";
+                sessionStorage.F03 = "";
+                sessionStorage.F04 = "";
+                sessionStorage.F05 = "";
+                sessionStorage.F06 = "";
+                sessionStorage.F07 = "";
+                sessionStorage.F08 = "";
+                sessionStorage.F09 = "";
+                sessionStorage.F10 = "";
+                sessionStorage.F11 = "";
+                sessionStorage.F12 = "";
+                sessionStorage.F13 = "";
+                sessionStorage.F14 = "";
+                sessionStorage.F15 = "";
+                sessionStorage.F16 = "";
+                sessionStorage.F17 = "";
+                sessionStorage.F18 = "";
+                sessionStorage.F19 = "";
+                sessionStorage.F20 = "";
+
+                $("#ExtraFields1").val("");
+                $("#ExtraFields2").val("");
+                $("#ExtraFields3").val("");
+                $("#ExtraFields4").val("");
+                $("#ExtraFields5").val("");
+                $("#ExtraFields6").val("");
+                $("#ExtraFields7").val("");
+                $("#ExtraFields8").val("");
+                $("#ExtraFields9").val("");
+                $("#ExtraFields10").val("");
+                $("#ExtraFields11").val("");
+                $("#ExtraFields12").val("");
+                $("#ExtraFields13").val("");
+                $("#ExtraFields14").val("");
+                $("#ExtraFields15").val("");
+                $("#ExtraFields16").val("");
+                $("#ExtraFields17").val("");
+                $("#ExtraFields18").val("");
+                $("#ExtraFields19").val("");
+                $("#ExtraFields20").val("");
+
+
+
                 //sessionStorage.sels == "true" ? sessionStorage.GPriceDefultS : sessionStorage.GPriceDefultP
                 $(this).CheckAccess();
             }
