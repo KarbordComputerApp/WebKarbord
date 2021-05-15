@@ -1115,9 +1115,9 @@
                 return showNotification('خطا : ' + response, 0);
             }
 
-            return "OK";
+            
         });
-
+        return "OK";
     }
 
     //Add new FDocB  

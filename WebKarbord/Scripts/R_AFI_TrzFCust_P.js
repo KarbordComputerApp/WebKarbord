@@ -225,7 +225,7 @@
             opt = document.createElement('option');
             opt.value = SearchMode('فاکتور خرید', self.FModeList()) + '*' + SearchMode('برگشت از خرسد', self.FModeList());
             opt.innerHTML = 'فاکتور خرید با احتساب برگشتی';
-            opt.selected = true;ي
+            opt.selected = true;
             select.appendChild(opt);
         });
     }

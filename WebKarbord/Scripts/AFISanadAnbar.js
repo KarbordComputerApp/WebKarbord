@@ -862,10 +862,10 @@
                 showNotification('سند ذخیره شد', 1);
                 // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
             }
-            return "OK";
+            
 
         });
-
+        return "OK";
     }
 
     //Add new IDocB  
