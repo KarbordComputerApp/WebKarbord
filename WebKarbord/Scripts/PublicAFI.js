@@ -638,8 +638,7 @@ async function getParamList() {
             sessionStorage.IDOCI_TestZeroAmount = SearchArry("IDOCI_TestZeroAmount", "IDOCI_TestZeroAmount", self.ParamList());
             sessionStorage.IDOCO_TestZeroAmount = SearchArry("IDOCO_TestZeroAmount", "IDOCO_TestZeroAmount", self.ParamList());
 
-            sessionStorage.InvDocNo = SearchArry("InvDocNo", "Fixed", self.ParamList());
-
+            sessionStorage.AllInvSameNo = SearchArry("AllInvSameNo", "AllInvSameNo", self.ParamList());
 
 
 

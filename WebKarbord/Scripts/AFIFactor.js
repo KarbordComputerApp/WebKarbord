@@ -3867,6 +3867,22 @@
     $('#modal-FinalSave').on('shown.bs.modal', function () {
     });
 
+    $("#nameOpr").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameOpr").val('');
+            codeOpr = '';
+            self.OprCode("");
+        }
+    });
+
+    $("#nameMkz").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameMkz").val('');
+            codeMkz = '';
+            self.MkzCode("");
+        }
+    });
+
 
 };
 

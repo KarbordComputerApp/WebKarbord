@@ -18,6 +18,8 @@
 
     var flaglog = "Y";
 
+    var sameNoAllMode = 0;
+
     if (sessionStorage.flagCopy == 'Y')
         flaglog = "N";
 
@@ -407,6 +409,7 @@
             var list = data;
             for (var i = 0; i < list.length; i++) {
                 if (list[i].Code == invSelect) {
+                    sameNoAllMode = list[i].SameNoAllMode;
                     if (list[i].AutoDocNo == 1) {
                         $('#docnoout').attr('readonly', true);
                     }
@@ -655,7 +658,9 @@
             UserCode: sessionStorage.userName,
             BranchCode: 0,
             ModeCode: modeCode,
-            DocNoMode: ace == 'Web1' ? 1 : 2,
+            DocNoMode: ace == 'Web1' ? 1 :
+                sessionStorage.AllInvSameNo == "1" ? 1 :
+                sameNoAllMode == 1 ? 2 : 3 ,
             InsertMode: 0,
             DocNo: docno == "" ? 0 : docno,
             StartNo: 0,
@@ -2323,6 +2328,7 @@
             var list = self.InvList();
             for (var i = 0; i < list.length; i++) {
                 if (list[i].Code == invSelect) {
+                    sameNoAllMode = list[i].SameNoAllMode;
                     if (list[i].AutoDocNo == 1) {
                         $('#docnoout').val("");
                         $('#docnoout').attr('readonly', true);
@@ -2899,6 +2905,22 @@
     });
 
     $('#modal-FinalSave').on('shown.bs.modal', function () {
+    });
+
+    $("#nameOpr").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameOpr").val('');
+            codeOpr = '';
+            self.OprCode("");
+        }
+    });
+
+    $("#nameMkz").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameMkz").val('');
+            codeMkz = '';
+            self.MkzCode("");
+        }
     });
 
 };
