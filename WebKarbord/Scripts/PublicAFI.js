@@ -552,7 +552,7 @@ $("#SaveParam").click(function () {
     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group, 'GET', null, true).done(function (data) {
 
         if (data == "error") {
-            return showNotification('اشکال در اتصال به دیتابیس', 0);
+            return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ', 0);
         }
 
         SetSelectProgram();
