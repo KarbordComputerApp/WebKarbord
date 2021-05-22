@@ -232,7 +232,9 @@
     function getKalaList() {
         var KalaObject = {
             withimage: false,
-            updatedate: null
+            updatedate: null,
+            Mode: 0,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
@@ -365,7 +367,7 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(FDocR_SUri + ace + '/' + sal + '/' + group, 'POST', FDocR_SObject).done(function (response) {
+        ajaxFunction(FDocR_SUri + ace + '/' + sal + '/' + group, 'POST', FDocR_SObject,true).done(function (response) {
             self.FDocR_SList(response);
             calcsum(self.FDocR_SList());
             $("div.loader").hide();
@@ -448,11 +450,8 @@
     }
 
     $("#CreateReport").click(function () {
-        $('#loadingsite').css('display', 'block');
         getFDocR_S();
         self.sortTableFDocR_S();
-        $('#loadingsite').css('display', 'none');
-       
     });
 
     getFModeList();

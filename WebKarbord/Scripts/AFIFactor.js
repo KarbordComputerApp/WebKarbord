@@ -291,7 +291,7 @@
     //Get Cust List
     function getCustList() {
         var CustObject = {
-            forSale: sessionStorage.InOut == 1 ? true : false,
+            forSale: sessionStorage.InOut == 2 ? true : false,
             updatedate: null,
             Mode: 2,
             UserCode: sessionStorage.userName,
@@ -305,7 +305,9 @@
     function getKalaList() {
         var KalaObject = {
             withimage: false,
-            updatedate: null
+            updatedate: null,
+            Mode: 2,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
@@ -3002,6 +3004,11 @@
 
     $.fn.CheckAccess = function () {
 
+        if (sessionStorage.AccessPrint_Factor == "false") {
+            $('#Print_Factor').attr('style', 'display: none')
+        }
+
+
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
 
             showPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
@@ -3561,7 +3568,7 @@
     });
 
 
-    $('#Print').click(function () {
+    $('#Print_Factor').click(function () {
         if (Serial == '')
             return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
         getFDocP(Serial);
@@ -3742,7 +3749,8 @@
                 window.location.href = sessionStorage.urlFDocH;
             }
             else {
-                showNotification('سند ذخیره شد ', 1);
+                showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);
+                //showNotification('سند ذخیره شد ', 1);
             }
         });
     }
@@ -3766,7 +3774,8 @@
             var obj = JSON.parse(data);
             self.TestFDocList(obj);
             if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
-                self.UpdateFDocH();
+                //flagFinalSave = true;
+                SetTanzimSanad();
             }
             else {
                 if (data.length > 2) {

@@ -93,6 +93,9 @@
     var columns = [
         'KalaCode',
         'KalaName',
+        'KalaUnitName1',
+        'KalaUnitName2',
+        'KalaUnitName3',
         'InvCode',
         'InvName',
         'KalaFanniNo',
@@ -191,7 +194,9 @@
     function getKalaList() {
         var KalaObject = {
             withimage: false,
-            updatedate: null
+            updatedate: null,
+            Mode: 0,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
@@ -363,7 +368,7 @@
             OprCode: oprcode,
         };
 
-        ajaxFunction(TrzIExfUri + ace + '/' + sal + '/' + group, 'POST', TrzIExfObject).done(function (response) {
+        ajaxFunction(TrzIExfUri + ace + '/' + sal + '/' + group, 'POST', TrzIExfObject,true).done(function (response) {
             self.TrzIExfList(response);
             calcsum(self.TrzIExfList());
         });
@@ -457,11 +462,8 @@
     }
 
     $("#CreateReport").click(function () {
-
-        $('#loadingsite').css('display', 'block');
         getTrzIExf();
         self.sortTableTrzIExf();
-        $('#loadingsite').css('display', 'none');
     });
 
 
@@ -499,6 +501,9 @@
     self.filterInvName = ko.observable("");
     self.filterKalaCode = ko.observable("");
     self.filterKalaName = ko.observable("");
+    self.filterKalaUnitName1 = ko.observable("");
+    self.filterKalaUnitName2 = ko.observable("");
+    self.filterKalaUnitName3 = ko.observable("");
     self.filterKalaFanniNo = ko.observable("");
 
     self.filterKalaFileNo = ko.observable("");
@@ -545,6 +550,9 @@
         var filterInvName = self.filterInvName();
         var filterKalaCode = self.filterKalaCode();
         var filterKalaName = self.filterKalaName();
+        var filterKalaUnitName1 = self.filterKalaUnitName1();
+        var filterKalaUnitName2 = self.filterKalaUnitName2();
+        var filterKalaUnitName3 = self.filterKalaUnitName3();
         var filterKalaFanniNo = self.filterKalaFanniNo();
 
         var filterKalaFileNo = self.filterKalaFileNo();
@@ -611,6 +619,9 @@
             result =
                 ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filterKalaCode) &&
                 (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
+                (item.KalaUnitName1 == null ? '' : item.KalaUnitName1.toString().search(filterKalaUnitName1) >= 0) &&
+                (item.KalaUnitName2 == null ? '' : item.KalaUnitName2.toString().search(filterKalaUnitName2) >= 0) &&
+                (item.KalaUnitName3 == null ? '' : item.KalaUnitName3.toString().search(filterKalaUnitName3) >= 0) &&
                 ko.utils.stringStartsWith(item.InvCode.toString().toLowerCase(), filterInvCode) &&
                 (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
                 (item.KalaFanniNo == null ? '' : item.KalaFanniNo.toString().search(filterKalaFanniNo) >= 0) &&
@@ -724,6 +735,9 @@
     self.iconTypeInvName = ko.observable("");
     self.iconTypeKalaCode = ko.observable("");
     self.iconTypeKalaName = ko.observable("");
+    self.iconTypeKalaUnitName1 = ko.observable("");
+    self.iconTypeKalaUnitName2 = ko.observable("");
+    self.iconTypeKalaUnitName3 = ko.observable("");
     self.iconTypeKalaFanniNo = ko.observable("");
     self.iconTypeStatus = ko.observable("");
 
@@ -793,6 +807,9 @@
         self.iconTypeInvName('');
         self.iconTypeKalaCode('');
         self.iconTypeKalaName('');
+        self.iconTypeKalaUnitName1('');
+        self.iconTypeKalaUnitName2('');
+        self.iconTypeKalaUnitName3('');
         self.iconTypeKalaFanniNo('');
 
         self.iconTypeKalaFileNo('');
@@ -834,6 +851,9 @@
         if (orderProp == 'SortInvName') self.iconTypeInvName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortKalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortKalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaUnitName1') self.iconTypeKalaUnitName1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaUnitName2') self.iconTypeKalaUnitName2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaUnitName3') self.iconTypeKalaUnitName3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaFanniNo') self.iconTypeKalaFanniNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
         if (orderProp == 'KalaFileNo') self.iconTypeKalaFileNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2612,6 +2632,9 @@
             '<th>ردیف</th>' +
             CreateTableTh('KalaCode', data) +
             CreateTableTh('KalaName', data) +
+            CreateTableTh('KalaUnitName1', data) +
+            CreateTableTh('KalaUnitName2', data) +
+            CreateTableTh('KalaUnitName3', data) +
             CreateTableTh('InvCode', data) +
             CreateTableTh('InvName', data) +
             CreateTableTh('KalaFanniNo', data) +
@@ -2655,6 +2678,9 @@
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('KalaCode', 0, 0, data) +
             CreateTableTd('KalaName', 0, 0, data) +
+            CreateTableTd('KalaUnitName1', 0, 0, data) +
+            CreateTableTd('KalaUnitName2', 0, 0, data) +
+            CreateTableTd('KalaUnitName3', 0, 0, data) +
             CreateTableTd('InvCode', 0, 0, data) +
             CreateTableTd('InvName', 0, 0, data) +
             CreateTableTd('KalaFanniNo', 0, 0, data) +
@@ -2698,6 +2724,9 @@
             '<td>جمع</td>' +
             CreateTableTdSum('KalaCode', 0, data) +
             CreateTableTdSum('KalaName', 1, data) +
+            CreateTableTdSum('KalaUnitName1', 1, data) +
+            CreateTableTdSum('KalaUnitName2', 1, data) +
+            CreateTableTdSum('KalaUnitName3', 1, data) +
             CreateTableTdSum('InvCode', 1, data) +
             CreateTableTdSum('InvName', 1, data) +
             CreateTableTdSum('KalaFanniNo', 1, data) +
@@ -2739,6 +2768,9 @@
             '<td></td>' +
             CreateTableTdSearch('KalaCode', data) +
             CreateTableTdSearch('KalaName', data) +
+            CreateTableTdSearch('KalaUnitName1', data) +
+            CreateTableTdSearch('KalaUnitName2', data) +
+            CreateTableTdSearch('KalaUnitName3', data) +
             CreateTableTdSearch('InvCode', data) +
             CreateTableTdSearch('InvName', data) +
             CreateTableTdSearch('KalaFanniNo', data) +

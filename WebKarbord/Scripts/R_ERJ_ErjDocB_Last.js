@@ -520,12 +520,8 @@
 
 
     $("#CreateReport").click(function () {
-        //$('#ToUser').val(sessionStorage.userName);
-        $('#loadingsite').css('display', 'block');
         getDocB_Last();
         self.sortTableDocB_Last();
-        $('#loadingsite').css('display', 'none');
-
     });
 
 

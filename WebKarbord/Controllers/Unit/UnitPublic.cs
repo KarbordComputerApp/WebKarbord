@@ -15,11 +15,11 @@ namespace WebKarbord.Controllers.Unit
 {
     public class UnitPublic
     {
-        //public static string titleVer = "ورژن تست : ";
-        //public static string titleVerNumber = "376";
+        public static string titleVer = "ورژن تست : ";
+        public static string titleVerNumber = "381";
 
-        public static string titleVer = "ورژن : ";
-          public static string titleVerNumber = "1014";
+        //public static string titleVer = "ورژن : ";
+        //   public static string titleVerNumber = "1014";
 
         //public static string MAC;
         //public static string IP4;

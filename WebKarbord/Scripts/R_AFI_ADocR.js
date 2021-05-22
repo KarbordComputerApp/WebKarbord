@@ -284,7 +284,7 @@
             JamRooz: $('#JamRooz').val(),
         };
 
-        ajaxFunction(ADocRUri + ace + '/' + sal + '/' + group, 'POST', ADocRObject).done(function (response) {
+        ajaxFunction(ADocRUri + ace + '/' + sal + '/' + group, 'POST', ADocRObject,true).done(function (response) {
             self.ADocRList(response);
             // calcsum(self.ADocRList());
         });
@@ -306,10 +306,8 @@
     }
 
     $("#CreateReport").click(function () {
-        $('#loadingsite').css('display', 'block');
         getADocR();
         self.sortTableADocR();
-        $('#loadingsite').css('display', 'none');
     });
 
 

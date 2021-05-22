@@ -3175,8 +3175,14 @@
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="click: $parent.selectSanad">' +
             CreateTableTd('BandNo', 0, 0, data) +
-            CreateTableTd('AccFullCode', 0, 0, data) +
-            CreateTableTd('AccFullName', 0, 0, data) +
+            //CreateTableTd('AccFullCode', 0, 0, data) +
+            //CreateTableTd('AccFullName', 0, 0, data) +
+
+            //'<td  class="CellWithComment"> <span data-bind="text: AccFullCode" data-toggle="tooltip" title="Hooray!" ></span>  </td>' +
+
+            '<td  class="CellWithComment"> <span data-bind="text: AccFullCode" ></span>  <span data-bind="text: AccCompleteName" class="CellComment"></span>   </td>' +
+            '<td  class="CellWithComment"> <span data-bind="text: AccFullName" ></span>  <span data-bind="text: AccCompleteName" class="CellComment"></span>   </td>' +
+
             CreateTableTd('Comm', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
@@ -3456,6 +3462,10 @@
 
     $.fn.CheckAccess = function () {
 
+        if (sessionStorage.AccessPrint_SanadHesab == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
 
         accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
         accessDaem = sessionStorage.Access_DAEM_ADOC == 'true'
@@ -3653,7 +3663,7 @@
     });
 
 
-    $('#Print').click(function () {
+    $('#Print_SanadHesab').click(function () {
 
         if (Serial == '')
             return showNotification('ابتدا سند را ذخیره کنید', 0);
@@ -3668,6 +3678,7 @@
         sessionStorage.ModePrint = "ADoc";
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
     });
 
     $('#DesignPrint').click(function () {

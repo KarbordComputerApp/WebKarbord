@@ -136,6 +136,11 @@
     self.OprList = ko.observableArray([]); // ليست پروژه ها
 
 
+
+    if (sessionStorage.AccessPrint_SanadAnbar == "false") {
+        $('#Print_SanadAnbar').attr('style', 'display: none')
+    }
+
     if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
         $('#LableThvlCode').text('نام تحویل دهنده ');
@@ -257,7 +262,9 @@
     function getKalaList() {
         var KalaObject = {
             withimage: false,
-            updatedate: null
+            updatedate: null,
+            Mode: 3,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
@@ -2695,7 +2702,7 @@
     });
 
 
-    $('#Print').click(function () {
+    $('#Print_SanadAnbar').click(function () {
 
         if (Serial == '')
             return showNotification('ابتدا سند را ذخیره کنید', 0);

@@ -1786,15 +1786,20 @@
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             '            تغییر وضعیت' +
             '        </a>' +
-            '    </li>' +
+            '    </li>';
 
-            '    <li>' +
-            '        <a id="PrintFactor" data-bind="click: $root.PrintFactor" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-            '            چاپ ' +
-            '        </a>' +
-            '    </li>' +
-            '</ul>' +
+        if (sessionStorage.AccessPrint_Factor == "true") {
+            dataTable +=
+                '    <li>' +
+                '        <a id="PrintFactor" data-bind="click: $root.PrintFactor" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
+                '            چاپ ' +
+                '        </a>' +
+                '    </li>';
+        }
+
+
+        dataTable += '</ul>' +
 
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +

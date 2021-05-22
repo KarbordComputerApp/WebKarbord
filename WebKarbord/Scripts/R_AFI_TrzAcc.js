@@ -232,7 +232,7 @@
             Sath: sath,
         };
 
-        ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject).done(function (response) {
+        ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject,true).done(function (response) {
             self.TrzAccList(response);
             //calcsum(self.TrzAccList());
         });
@@ -275,11 +275,8 @@
     }
 
     $("#CreateReport").click(function () {
-        $('#loadingsite').css('display', 'block');
         getTrzAcc();
         self.sortTableTrzAcc();
-        $('#loadingsite').css('display', 'none');
-       
     });
 
 

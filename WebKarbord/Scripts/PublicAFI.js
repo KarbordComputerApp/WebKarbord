@@ -342,7 +342,6 @@ function ajaxFunction(uri, method, data, sync) {
         async: sync == null ? false : sync,
         beforeSend: function () {
             if (sync == true) {
-
                 $('#loadingsite').attr('class', 'page-proccess-wrapper');
                 $('#loadingsite').css('display', 'block');
             }
@@ -359,7 +358,8 @@ function ajaxFunction(uri, method, data, sync) {
             'userKarbord': sessionStorage.userName,
         },
         complete: function () {
-            if (sync == true) {
+            var n = uri.search("ChangeDatabase");
+            if (sync == true && n == -1 ) {
                 $('#loadingsite').css('display', 'none');
                 $('#loadingsite').attr('class', 'page-loader-wrapper');
             }
@@ -1079,8 +1079,9 @@ function SetValidation() {
         validation = CheckAccess('OTHERUSER_VIEW_ADOC');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        //validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
-        //validation == true ? $("#").show() : $("#").hide()
+        validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
+        validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
+
 
         validation = CheckAccess('OTHERUSER_CHG_ADOC');// AccessViewADoc
         if (validation == true) {
@@ -1107,8 +1108,12 @@ function SetValidation() {
 
         validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SFORD'); // delete sefaresh forosh
+
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
+
+        validation = CheckAccess('PRN_SFORD'); // Print 
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         validation = CheckAccess('OTHERUSER_VIEW_SFORD');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -1159,8 +1164,8 @@ function SetValidation() {
         validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-        //validation = CheckAccess('PRN_SPDOC'); // Print pish Factor forosh
-        //validation == true ? $("#").show() : $("#").hide()
+        validation = CheckAccess('PRN_SPDOC'); // Print pish Factor forosh
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         //validation = CheckAccess('AccessSanad_SPDOC');// AccessSanad
         //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -1208,8 +1213,8 @@ function SetValidation() {
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
 
-        //validation = CheckAccess('PRN_SDOC'); // Print Factor forosh
-        //validation == true ? $("#").show() : $("#").hide()
+        validation = CheckAccess('PRN_SDOC'); // Print Factor forosh
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         validation = CheckAccess('OTHERUSER_VIEW_SFDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -1254,8 +1259,10 @@ function SetValidation() {
         validation = CheckAccess('DEL_SRDOC'); // delete back Factor forosh
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
-        //validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
-        //validation == true ? $("#").show() : $("#").hide()
+
+        validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
+
         validation = CheckAccess('OTHERUSER_VIEW_SRDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
@@ -1300,6 +1307,9 @@ function SetValidation() {
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SHVL = true : sessionStorage.DEL_SHVL = false
 
+        validation = CheckAccess('PRN_SHVL'); // Print
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
+
         validation = CheckAccess('OTHERUSER_VIEW_SHVL');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
@@ -1341,6 +1351,9 @@ function SetValidation() {
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SEXT = true : sessionStorage.DEL_SEXT = false
 
+        validation = CheckAccess('PRN_SEXT'); // Print
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
+
         validation = CheckAccess('OTHERUSER_VIEW_SEXT');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
@@ -1381,6 +1394,9 @@ function SetValidation() {
         validation = CheckAccess('DEL_PFORD'); // delete
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PFORD = true : sessionStorage.DEL_PFORD = false
+
+        validation = CheckAccess('PRN_PFORD'); // Print
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         validation = CheckAccess('OTHERUSER_VIEW_PFORD');
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -1426,8 +1442,10 @@ function SetValidation() {
         validation = CheckAccess('DEL_PPDOC'); // delete pish Factor kharid
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PPDOC = true : sessionStorage.DEL_PPDOC = false
-        //validation = CheckAccess('PRN_PPDOC'); // Print pish Factor kharid
-        //validation == true ? $("#").show() : $("#").hide()
+
+        validation = CheckAccess('PRN_PPDOC'); // Print pish Factor kharid
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
+
         //validation = CheckAccess('OTHERUSER_PPDOC');// AccessSanad
         //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
@@ -1472,8 +1490,9 @@ function SetValidation() {
         validation = CheckAccess('DEL_PFDOC'); // delete Factor kharid
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
-        //validation = CheckAccess('PRN_PDOC'); // Print Factor kharid
-        //validation == true ? $("#").show() : $("#").hide()
+
+        validation = CheckAccess('PRN_PDOC'); // Print Factor kharid
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -1519,8 +1538,9 @@ function SetValidation() {
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PRDOC = true : sessionStorage.DEL_PRDOC = false
 
-        //validation = CheckAccess('PRN_PRDOC'); // Print back Factor kharid
-        //validation == true ? $("#").show() : $("#").hide()
+        validation = CheckAccess('PRN_PRDOC'); // Print back Factor kharid
+        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
+
         validation = CheckAccess('OTHERUSER_VIEW_PRDOC');// AccessSanad
         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
@@ -1569,8 +1589,9 @@ function SetValidation() {
         validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
         validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
 
-        //validation = CheckAccess('PRN_IIDOC'); // Print varedae anbar
-        //validation == true ? $("#").show() : $("#").hide()
+        validation = CheckAccess('PRN_IIDOC'); // Print
+        validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
+
 
 
         validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
@@ -1611,8 +1632,10 @@ function SetValidation() {
         validation = CheckAccess('DEL_IODOC'); // delete sadere anbar
         validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
         validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
-        //validation = CheckAccess('PRN_IODOC'); // print sadere anbar
-        // validation == true ? $("#").show() : $("#").hide()
+
+        validation = CheckAccess('PRN_IODOC'); // Print
+        validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
+
 
         validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
         validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false

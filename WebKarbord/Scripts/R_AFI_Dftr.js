@@ -281,7 +281,7 @@
             Naghl: naghl,
         };
 
-        ajaxFunction(DftrUri + ace + '/' + sal + '/' + group, 'POST', DftrObject).done(function (response) {
+        ajaxFunction(DftrUri + ace + '/' + sal + '/' + group, 'POST', DftrObject, true).done(function (response) {
             self.DftrList(response);
 
         });
@@ -322,10 +322,8 @@
     }
 
     $("#CreateReport").click(function () {
-        $('#loadingsite').css('display', 'block');
         getDftr();
         self.sortTableDftr();
-        $('#loadingsite').css('display', 'none');
     });
 
 

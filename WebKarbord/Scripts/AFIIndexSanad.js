@@ -749,7 +749,7 @@
 
     function CreateTableReport(data) {
         $("#TableList").empty();
-        $('#TableList').append(
+        dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableADocH">' +
@@ -833,16 +833,20 @@
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             '            تغییر وضعیت' +
             '        </a>' +
-            '    </li>' +
+            '    </li>' ;
 
-            '    <li>' +
-            '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-            '            چاپ ' +
-            '        </a>' +
-            '    </li>' +
+        if (sessionStorage.AccessPrint_SanadHesab == "true") {
+            dataTable +=
+                '    <li>' +
+                '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
+                '            چاپ ' +
+                '        </a>' +
+                '    </li>';
+        }
+
+        dataTable +=
             '</ul>' +
-
             '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
             '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
             '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +
@@ -883,8 +887,10 @@
             CreateTableTdSearch('F20', data) +
             '      </tr>' +
             '  </tfoot>' +
-            '</table >'
-        );
+            '</table >';
+
+        $('#TableList').append(dataTable);
+        
     }
 
     function CreateTableTh(field, data) {

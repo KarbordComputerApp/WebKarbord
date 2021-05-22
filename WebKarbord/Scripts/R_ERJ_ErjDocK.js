@@ -214,18 +214,15 @@
             SrchSt: SrchSt,
             SerialNumber: 0,
         };
-        ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject).done(function (response) {
+        ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject,true).done(function (response) {
             self.DocKList(response);
         });
     }
 
 
     $("#CreateReport").click(function () {
-       
-        $('#loadingsite').css('display', 'block');
         getDocK();
         self.sortTableDocK();
-        $('#loadingsite').css('display', 'none');
     });
 
     getErjStatusList();

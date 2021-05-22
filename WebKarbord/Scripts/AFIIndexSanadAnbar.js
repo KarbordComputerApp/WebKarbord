@@ -1138,7 +1138,8 @@
 
     function CreateTableReport(data) {
         $("#TableList").empty();
-        $('#TableList').append(
+
+        dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableIDocH">' +
@@ -1239,16 +1240,20 @@
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             '            تغییر وضعیت' +
             '        </a>' +
-            '    </li>' +
+            '    </li>';
+        if (sessionStorage.AccessPrint_SanadAnbar == "true") {
 
-            '    <li>' +
-            '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-            '            چاپ ' +
-            '        </a>' +
-            '    </li>' +
+            dataTable +=
+                '    <li>' +
+                '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
+                '            چاپ ' +
+                '        </a>' +
+                '    </li>';
+        }
+
+        dataTable +=
             '</ul>' +
-
             '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
@@ -1298,8 +1303,9 @@
             CreateTableTdSearch('F20', data) +
             '      </tr>' +
             '  </tfoot>' +
-            '</table >'
-        );
+            '</table >';
+
+        $('#TableList').append(dataTable);
     }
 
     function CreateTableTh(field, data) {
@@ -1370,11 +1376,6 @@
     self.currentPageIndexIDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
 
-    /*createViewer();
-    $('#Print').click(function () {
-        printVariable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterIDocHList(), 'Free', printVariable);
-    });*/
 
 
     var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 

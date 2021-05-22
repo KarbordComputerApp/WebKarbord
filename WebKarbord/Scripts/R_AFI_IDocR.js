@@ -199,7 +199,9 @@
     function getKalaList() {
         var KalaObject = {
             withimage: false,
-            updatedate: null
+            updatedate: null,
+            Mode: 0,
+            UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
             self.KalaList(data);
@@ -348,7 +350,7 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject).done(function (response) {
+        ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject,true).done(function (response) {
             self.IDocRList(response);
           //  calcsum(self.IDocRList());
         });
@@ -396,10 +398,8 @@
     }
 
     $("#CreateReport").click(function () {
-        $('#loadingsite').css('display', 'block');
         getIDocR();
         self.sortTableIDocR();
-        $('#loadingsite').css('display', 'none');
     });
 
     getInvList();

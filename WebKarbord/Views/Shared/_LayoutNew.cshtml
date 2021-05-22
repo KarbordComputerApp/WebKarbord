@@ -299,6 +299,9 @@
                         <div class="profile-usertitle-job ">
                             <span id="titleVer">@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)</span>
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
+                            <br />
+                            <span id="titleVer">ورژن سرویس : 381</span>
+                            <span id="titleVerNumber" style="padding-right:5px"></span>
                         </div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1007</div> -->
 
@@ -322,7 +325,8 @@
                 <li id="FDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
-                            <img src="~/Content/img/docsels.png" width="24" />
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                            <!--<img src="~/Content/img/docsels.png" width="24" /> -->
                         </i>
                         <span>اسناد خرید و فروش</span>
                     </a>
@@ -369,9 +373,9 @@
 
                 <li id="ErjaDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <!-- <i>
+                         <i>
                              <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
-                         </i>-->
+                         </i>
                         <span>اسناد اتوماسیون</span>
                     </a>
                     <ul class="ml-menu">
@@ -388,7 +392,7 @@
                         <span>گزارشات حسابداری</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="TrzAcc">@Html.ActionLink("تراز دفاتر", "TrzAcc", "ReportAFI")</li>
+                        <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
                         <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
                         <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
                         <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>
