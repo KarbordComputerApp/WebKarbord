@@ -23,6 +23,7 @@
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.RepToUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.DocAttachList = ko.observableArray([]); // ليست پیوست
+    self.TestDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var ErjDocHUri = server + '/api/Web_Data/ErjDocH/'; // آدرس گزارش
@@ -50,6 +51,7 @@
     // var ErjDocAttach_SaveUri = server + '/api/Web_Data/ErjDocAttach_Save/'; // ذخیره پیوست
     var ErjDocAttach_SaveUri = server + '/api/FileUpload/UploadFile/'; // ذخیره پیوست
     var ErjDocAttach_DelUri = server + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
+    var Doc_DeleteUri = server + '/api/ErjDocH/TestDoc_Delete/'; // آدرس تست حذف
 
     TestUser();
 
@@ -752,19 +754,116 @@
         }).then((result) => {
             if (result.value) {
 
-                ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + ErjDocHBand.SerialNumber, 'DELETE').done(function (response) {
-                    currentPage = self.currentPageIndexErjDocH();
-                    getErjDocH($('#pageCountSelector').val(), currentPage);
-                    self.sortTableErjDocH();
-                    self.currentPageIndexErjDocH(currentPage);
-                    //self.currentPageIndexErjDocH(currentPage);
-                    showNotification('پرونده حذف شد', 1);
+                serial = ErjDocHBand.SerialNumber;
+                var TestDoc_DeleteObject = {
+                    SerialNumber: serial
+                };
+
+                ajaxFunction(Doc_DeleteUri + aceErj + '/' + salErj + '/' + group, 'POST', TestDoc_DeleteObject).done(function (data) {
+                    var obj = JSON.parse(data);
+                    self.TestDoc_DeleteList(obj);
+                    //if (data.length > 2) {
+                        $('#modal-TestDelete').modal('show');
+                        SetDataTestDocB();
+                    //}
                 });
-
-
             }
         })
     };
+
+
+
+    function SetDataTestDocB() {
+        $("#BodyTestDoc_Delete").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestDoc_DeleteList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            /*if (list[i].TestName == "Opr")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+            else if (list[i].TestName == "Mkz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+            else if (list[i].TestName == "Arz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+            else if (list[i].TestName == "Mahiat")
+                //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
+
+            else if (list[i].TestName == "Balance")
+                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
+
+            else if (list[i].TestName == "ZeroBand")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
+
+
+            else if (list[i].TestName == "Traf")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
+
+            else if (list[i].TestName == "Check")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
+*/
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestDoc_Delete').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#TestDelete-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#TestDelete-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
+
+
+    }
+
+
+    $('#Delete-Modal').click(function () {
+        ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + serial, 'DELETE').done(function (response) {
+            currentPage = self.currentPageIndexErjDocH();
+            getErjDocH($('#pageCountSelector').val(), currentPage);
+            self.sortTableErjDocH();
+            self.currentPageIndexErjDocH(currentPage);
+            //self.currentPageIndexErjDocH(currentPage);
+            showNotification('پرونده حذف شد', 1);
+        });
+
+        $('#modal-TestDelete').modal('hide');
+    });
+
+
+
+
 
 
 

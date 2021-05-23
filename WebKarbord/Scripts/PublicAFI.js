@@ -552,6 +552,8 @@ $("#SaveParam").click(function () {
     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group, 'GET', null, true).done(function (data) {
 
         if (data == "error") {
+            $('#loadingsite').css('display', 'none');
+            $('#loadingsite').attr('class', 'page-loader-wrapper');
             return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ', 0);
         }
 

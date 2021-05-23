@@ -2394,6 +2394,26 @@
                 sessionStorage.flagupdateHeader = 0;
                 sessionStorage.Status = 'موقت';
                 flaglog = "Y";
+                sessionStorage.F01 = "";
+                sessionStorage.F02 = "";
+                sessionStorage.F03 = "";
+                sessionStorage.F04 = "";
+                sessionStorage.F05 = "";
+                sessionStorage.F06 = "";
+                sessionStorage.F07 = "";
+                sessionStorage.F08 = "";
+                sessionStorage.F09 = "";
+                sessionStorage.F10 = "";
+                sessionStorage.F11 = "";
+                sessionStorage.F12 = "";
+                sessionStorage.F13 = "";
+                sessionStorage.F14 = "";
+                sessionStorage.F15 = "";
+                sessionStorage.F16 = "";
+                sessionStorage.F17 = "";
+                sessionStorage.F18 = "";
+                sessionStorage.F19 = "";
+                sessionStorage.F20 = "";
                 window.location.href = sessionStorage.urlAddIDocH;
             }
         })

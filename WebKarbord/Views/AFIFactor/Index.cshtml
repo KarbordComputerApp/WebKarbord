@@ -267,7 +267,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line focused fix">
                                     <input type="text" id="darsadMove" class="form-control float" />
-                                    <label class="form-label" >درصد از مقدار باقیمانده</label>
+                                    <label class="form-label">درصد از مقدار باقیمانده</label>
                                 </div>
                             </div>
                         </div>
@@ -422,6 +422,60 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="modal-TestDelete" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="titleFinalSave">حذف سند</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div id="BodyTestDoc_Delete" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+
+                    <div class="body" style="padding:7px;">
+                        <div class="form-inline">
+                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
+                            <p style="margin-left: 3px;">هشدار :</p>
+                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div>
+                    <div class="row  form-inline ">
+                        <div class="col-md-6 row">
+                            <div style="margin-right: 0px;margin-left: 0px;">
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
+                                </div>
+
+                                <div id="ShowCountError" class="row">
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                                بازگشت
+                            </button>
+                            <button type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

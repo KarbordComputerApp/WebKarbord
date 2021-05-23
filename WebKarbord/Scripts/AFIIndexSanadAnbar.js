@@ -18,6 +18,7 @@
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
     self.InvList = ko.observableArray([]); // ليست انبار ها
+    self.TestIDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
 
@@ -30,6 +31,8 @@
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
     var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
+    var IDoc_DeleteUri = server + '/api/IDocData/TestIDoc_Delete/'; // آدرس تست حذف 
+
 
 
     self.InvCode = ko.observable();
@@ -702,6 +705,26 @@
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = 'موقت';
         invCode = $('#invSelect').val();
+        sessionStorage.F01 = "";
+        sessionStorage.F02 = "";
+        sessionStorage.F03 = "";
+        sessionStorage.F04 = "";
+        sessionStorage.F05 = "";
+        sessionStorage.F06 = "";
+        sessionStorage.F07 = "";
+        sessionStorage.F08 = "";
+        sessionStorage.F09 = "";
+        sessionStorage.F10 = "";
+        sessionStorage.F11 = "";
+        sessionStorage.F12 = "";
+        sessionStorage.F13 = "";
+        sessionStorage.F14 = "";
+        sessionStorage.F15 = "";
+        sessionStorage.F16 = "";
+        sessionStorage.F17 = "";
+        sessionStorage.F18 = "";
+        sessionStorage.F19 = "";
+        sessionStorage.F20 = "";
         //if (invCode == '' || invCode == null) 
         //{
         //    return showNotification('انبار را انتخاب کنيد');
@@ -736,7 +759,7 @@
         })
     });
 
-    self.DeleteIDocH = function (factorBand) {
+    self.DeleteIDocH = function (SanadBand) {
 
         Swal.fire({
             title: 'تایید حذف ؟',
@@ -750,16 +773,112 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
-                    currentPage = self.currentPageIndexIDocH();
-                    getIDocH(0, invSelected);
-                    self.currentPageIndexIDocH(currentPage);
-                    showNotification('سند حذف شد ', 1);
-                    // Swal.fire({ type: 'success', title: 'حذف موفق', text: ' سند حذف شد ' });
+                serial = SanadBand.SerialNumber;
+                var TestIDoc_DeleteObject = {
+                    SerialNumber: serial
+                };
+
+                ajaxFunction(IDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_DeleteObject).done(function (data) {
+                    var obj = JSON.parse(data);
+                    self.TestIDoc_DeleteList(obj);
+                    //if (data.length > 2) {
+                    $('#modal-TestDelete').modal('show');
+                    SetDataTestDocB();
+                    //}
                 });
             }
         })
     };
+
+
+    function SetDataTestDocB() {
+        $("#BodyTestDoc_Delete").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestIDoc_DeleteList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            /*if (list[i].TestName == "Opr")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+            else if (list[i].TestName == "Mkz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+            else if (list[i].TestName == "Arz")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+            else if (list[i].TestName == "Mahiat")
+                //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
+
+            else if (list[i].TestName == "Balance")
+                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
+
+            else if (list[i].TestName == "ZeroBand")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
+
+
+            else if (list[i].TestName == "Traf")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
+
+            else if (list[i].TestName == "Check")
+                textBody += '<p>بند شماره ' + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
+*/
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestDoc_Delete').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#TestDelete-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#TestDelete-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
+
+
+    }
+
+
+    $('#Delete-Modal').click(function () {
+
+        ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
+            currentPage = self.currentPageIndexIDocH();
+            getIDocH(0, invSelected);
+            self.currentPageIndexIDocH(currentPage);
+            showNotification('سند حذف شد ', 1);
+        });
+
+        $('#modal-TestDelete').modal('hide');
+    });
+
+
 
 
 
