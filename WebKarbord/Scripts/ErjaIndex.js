@@ -794,6 +794,9 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
+            if (list[i].TestName == "DocR")
+                textBody += '<p>این پرونده دارای پرونده مرتبط است و قابل حذف نیست</p>';
+
             /*if (list[i].TestName == "Opr")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
             else if (list[i].TestName == "Mkz")

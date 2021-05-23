@@ -1215,7 +1215,7 @@ function SetValidation() {
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
 
-        validation = CheckAccess('PRN_SDOC'); // Print Factor forosh
+        validation = CheckAccess('PRN_SFDOC'); // Print Factor forosh
         validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         validation = CheckAccess('OTHERUSER_VIEW_SFDOC');// AccessSanad
@@ -1493,7 +1493,7 @@ function SetValidation() {
         validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
 
-        validation = CheckAccess('PRN_PDOC'); // Print Factor kharid
+        validation = CheckAccess('PRN_PFDOC'); // Print Factor kharid
         validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
 
         validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad

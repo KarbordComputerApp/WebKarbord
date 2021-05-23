@@ -737,11 +737,11 @@
         $('#CountError').text(countError);
 
         if (countError > 0) {
-            $('#TestDelete-Modal').attr('hidden', '');
+            $('#Delete-Modal').attr('hidden', '');
             $('#ShowCountError').removeAttr('hidden', '');
         }
         else {
-            $('#TestDelete-Modal').removeAttr('hidden', '')
+            $('#Delete-Modal').removeAttr('hidden', '')
             $('#ShowCountError').attr('hidden', '');
         }
 
