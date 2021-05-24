@@ -1294,7 +1294,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_InvSelect[i] = list[i].Code;
@@ -1475,7 +1474,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_KGruSelect[i] = list[i].Code;
@@ -1664,7 +1662,6 @@
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
                 + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[i] = list[i].Code;
@@ -1847,7 +1844,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_CGruSelect[i] = list[i].Code;
@@ -2037,7 +2033,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_CustSelect[i] = list[i].Code;
@@ -2218,7 +2213,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_OprSelect[i] = list[i].Code;
@@ -2401,7 +2395,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_MkzSelect[i] = list[i].Code;

@@ -3837,6 +3837,9 @@
             else if (list[i].TestName == 'Inv')
                 textBody += '<p>' + ' انبار انتخاب نشده است ' + ' </p>';
 
+            else if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
             textBody +=
                 '    </div>' +
                 '</div>';

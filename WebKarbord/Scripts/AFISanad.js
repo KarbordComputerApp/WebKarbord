@@ -3094,6 +3094,8 @@
             else if (list[i].TestName == "Check")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
 
+            else if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
 
             textBody +=
                 '    </div>' +

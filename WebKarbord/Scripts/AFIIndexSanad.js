@@ -705,6 +705,9 @@
                     ' <p style="margin-left: 3px;">خطا :</p>'
             }
 
+            if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
             /*if (list[i].TestName == "Opr")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
             else if (list[i].TestName == "Mkz")

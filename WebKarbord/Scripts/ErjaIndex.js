@@ -800,6 +800,9 @@
             if (list[i].TestName == "DocR")
                 textBody += '<p>این پرونده دارای پرونده مرتبط است و قابل حذف نیست</p>';
 
+            else if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
            textBody +=
                 '    </div>' +
                 '</div>';
@@ -1827,7 +1830,6 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: Spec">' + list[i].Spec + '</td > '
                 + '</tr>'
             );
             list_ErjUsersRoneveshtSelect[i] = list[i].Code;

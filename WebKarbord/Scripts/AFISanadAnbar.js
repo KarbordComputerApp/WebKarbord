@@ -2895,6 +2895,8 @@
             else if (list[i].TestName == 'Thvl')
                 textBody += '<p>' + $('#LableThvlCode').text() + ' انتخاب نشده است ' + ' </p>';
 
+            else if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
 
             textBody +=
                 '    </div>' +

@@ -821,6 +821,9 @@
             else if (list[i].TestName == "FctReg")
                 textBody += '<p>این سند انبار ثبت خرید و فروش شده است و قابل حذف نیست</p>';
 
+            else if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
             textBody +=
                 '    </div>' +
                 '</div>';
