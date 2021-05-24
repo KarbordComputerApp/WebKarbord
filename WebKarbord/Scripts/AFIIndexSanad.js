@@ -669,10 +669,13 @@
                 ajaxFunction(ADoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_DeleteObject).done(function (data) {
                     var obj = JSON.parse(data);
                     self.TestADoc_DeleteList(obj);
-                    //if (data.length > 2) {
-                    $('#modal-TestDelete').modal('show');
-                    SetDataTestDocB();
-                    //}
+                    if (data.length > 2) {
+                        $('#modal-TestDelete').modal('show');
+                        SetDataTestDocB();
+                    }
+                    else {
+                        DeleteSanad();
+                    }
                 });
             }
         })
@@ -755,15 +758,18 @@
 
     }
 
-
-    $('#Delete-Modal').click(function () {
+    function DeleteSanad() {
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group + '/' + serial, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexADocH();
             getADocH($('#pageCountSelector').val());
             self.currentPageIndexADocH(currentPage);
             showNotification('سند حذف شد ', 1);
         });
+    }
 
+
+    $('#Delete-Modal').click(function () {
+        DeleteSanad();
         $('#modal-TestDelete').modal('hide');
     });
 

@@ -9,7 +9,7 @@
 
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card"  style="margin-top:0px;">
+        <div class="card" style="margin-top:0px;">
             <div class="header">
                 <h2><strong>تراز حساب</strong></h2>
                 <div class="row header-dropdown m-r--5">
@@ -284,28 +284,40 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1 centered">
-                        <div class="row centered">
-                            <button data-bind="click: AddAllAcc" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 0px 0px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
-                            </button>
-                            <button data-bind="click: DelAllAcc" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 0px 0px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
-                            </button>
+                    <div class="col-md-5">
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="row centered">
+                                    <div style="height:160px; width:20px"></div>
+                                    <a data-bind="click: AddAllAcc" style="height:18px;padding-right: 3px;">
+                                        <img src="~/Content/img/list/streamline-icon-navigation-last.png" style="width:22px;height:18px;" />
+                                    </a>
+                                    <div style="height:80px"></div>
+                                    <a data-bind="click: DelAllAcc" style="height:18px;padding-right: 3px;" >
+                                        <img src="~/Content/img/list/streamline-icon-navigation-first.png" style="width:22px;height:18px;"/>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-11">
+                                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                                    <table class="table table-hover table-striped tableFix" id="TableSelectedAcc">
+                                        <thead style="cursor: pointer;">
+                                            <tr>
+                                                <th>کد</th>
+                                                <th>نام</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="TableBodyListAcc" style="cursor: default;"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table table-hover table-striped tableFix" id="TableSelectedAcc">
-                                <thead style="cursor: pointer;">
-                                    <tr>
-                                        <th>کد</th>
-                                        <th>نام</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="TableBodyListAcc" style="cursor: default;"></tbody>
-                            </table>
-                        </div>
+
+
+
                     </div>
                 </div>
                 <br />

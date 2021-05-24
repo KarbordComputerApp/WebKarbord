@@ -128,6 +128,9 @@
         'KalaExf14',
         'KalaExf15',
         'MainUnitName',
+        'KalaUnitName1',
+        'KalaUnitName2',
+        'KalaUnitName3',
         'Amount1',
         'Amount2',
         'Amount3',
@@ -461,6 +464,9 @@
     self.filterKalaExf14 = ko.observable("");
     self.filterKalaExf15 = ko.observable("");
     self.filterMainUnitName = ko.observable("");
+    self.filterKalaUnitName1 = ko.observable("");
+    self.filterKalaUnitName2 = ko.observable("");
+    self.filterKalaUnitName3 = ko.observable("");
     self.filterAmount1 = ko.observable("");
     self.filterAmount2 = ko.observable("");
     self.filterAmount3 = ko.observable("");
@@ -505,6 +511,9 @@
         var filterKalaExf15 = self.filterKalaExf15();
 
         var filterMainUnitName = self.filterMainUnitName();
+        var filterKalaUnitName1 = self.filterKalaUnitName1();
+        var filterKalaUnitName2 = self.filterKalaUnitName2();
+        var filterKalaUnitName3 = self.filterKalaUnitName3();
         var filterAmount1 = self.filterAmount1();
         var filterAmount2 = self.filterAmount2();
         var filterAmount3 = self.filterAmount3();
@@ -555,6 +564,9 @@
             (item.KalaExf15 == null ? '' : item.KalaExf15.toString().search(filterKalaExf15) >= 0) &&
 
             (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
+            (item.KalaUnitName1 == null ? '' : item.KalaUnitName1.toString().search(filterKalaUnitName1) >= 0) &&
+            (item.KalaUnitName2 == null ? '' : item.KalaUnitName2.toString().search(filterKalaUnitName2) >= 0) &&
+            (item.KalaUnitName3 == null ? '' : item.KalaUnitName3.toString().search(filterKalaUnitName3) >= 0) &&
             ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
             ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
             ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
@@ -662,6 +674,9 @@
     self.iconTypeKalaExf14 = ko.observable("");
     self.iconTypeKalaExf15 = ko.observable("");
     self.iconTypeMainUnitName = ko.observable("");
+    self.iconTypeKalaUnitName1 = ko.observable("");
+    self.iconTypeKalaUnitName2 = ko.observable("");
+    self.iconTypeKalaUnitName3 = ko.observable("");
     self.iconTypeAmount1 = ko.observable("");
     self.iconTypeAmount2 = ko.observable("");
     self.iconTypeAmount3 = ko.observable("");
@@ -736,6 +751,9 @@
         self.iconTypeKalaExf15('');
 
         self.iconTypeMainUnitName('');
+        self.iconTypeKalaUnitName1('');
+        self.iconTypeKalaUnitName2('');
+        self.iconTypeKalaUnitName3('');
         self.iconTypeAmount1('');
         self.iconTypeAmount2('');
         self.iconTypeAmount3('');
@@ -743,12 +761,6 @@
         self.iconTypeTotalPrice('');
         self.iconTypeBandSpec('');
         self.iconTypeComm('');
-
-            /*
-    DocDate - DocNo - ModeName - InvName - Spec - Status - Taeed - Tasvib - ThvlName -
-    MkzName - OprName - SerialNumber - BandNo - KalaName - KalaFileNo - KalaState - KalaExf1.. 15 -
-    MainUnitName - Amount1 - Amount2 - Amount3 - UnitPrice - TotalPrice - BandSpec - Comm
-    */
 
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -784,6 +796,9 @@
         if (orderProp == 'KalaExf15') self.iconTypeKalaExf15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
         if (orderProp == 'MainUnitName') self.iconTypeMainUnitName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaUnitName1') self.iconTypeKalaUnitName1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaUnitName2') self.iconTypeKalaUnitName2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaUnitName3') self.iconTypeKalaUnitName3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount1') self.iconTypeAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount2') self.iconTypeAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Amount3') self.iconTypeAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2366,6 +2381,9 @@
             CreateTableTh('KalaExf14', data) +
             CreateTableTh('KalaExf15', data) +
             CreateTableTh('MainUnitName', data) +
+            CreateTableTh('KalaUnitName1', data) +
+            CreateTableTh('KalaUnitName2', data) +
+            CreateTableTh('KalaUnitName3', data) +
             CreateTableTh('Amount1', data) +
             CreateTableTh('Amount2', data) +
             CreateTableTh('Amount3', data) +
@@ -2410,6 +2428,9 @@
             CreateTableTd('KalaExf14', 0, 0, data) +
             CreateTableTd('KalaExf15', 0, 0, data) +
             CreateTableTd('MainUnitName', 0, 0, data) +
+            CreateTableTd('KalaUnitName1', 0, 0, data) +
+            CreateTableTd('KalaUnitName2', 0, 0, data) +
+            CreateTableTd('KalaUnitName3', 0, 0, data) +
             CreateTableTd('Amount1', 'DeghatM1', 1, data) +
             CreateTableTd('Amount2', 'DeghatM2', 1, data) +
             CreateTableTd('Amount3', 'DeghatM3', 1, data) +
@@ -2454,6 +2475,9 @@
             CreateTableTdSum('KalaExf14', 1, data) +
             CreateTableTdSum('KalaExf15', 1, data) +
             CreateTableTdSum('MainUnitName', 1, data) +
+            CreateTableTdSum('KalaUnitName1', 1, data) +
+            CreateTableTdSum('KalaUnitName2', 1, data) +
+            CreateTableTdSum('KalaUnitName3', 1, data) +
             CreateTableTdSum('Amount1', 2, data) +
             CreateTableTdSum('Amount2', 2, data) +
             CreateTableTdSum('Amount3', 2, data) +
@@ -2496,6 +2520,9 @@
             CreateTableTdSearch('KalaExf14', data) +
             CreateTableTdSearch('KalaExf15', data) +
             CreateTableTdSearch('MainUnitName', data) +
+            CreateTableTdSearch('KalaUnitName1', data) +
+            CreateTableTdSearch('KalaUnitName2', data) +
+            CreateTableTdSearch('KalaUnitName3', data) +
             CreateTableTdSearch('Amount1', data) +
             CreateTableTdSearch('Amount2', data) +
             CreateTableTdSearch('Amount3', data) +

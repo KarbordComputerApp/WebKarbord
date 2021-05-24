@@ -1050,10 +1050,13 @@
                 ajaxFunction(FDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_DeleteObject).done(function (data) {
                     var obj = JSON.parse(data);
                     self.TestFDoc_DeleteList(obj);
-                    //if (data.length > 2) {
-                    $('#modal-TestDelete').modal('show');
-                    SetDataTestDocB();
-                    //}
+                    if (data.length > 2) {
+                        $('#modal-TestDelete').modal('show');
+                        SetDataTestDocB();
+                    }
+                    else {
+                        DeleteFactor();
+                    }
                 });
 
             }
@@ -1119,16 +1122,19 @@
     }
 
 
-    $('#Delete-Modal').click(function () {
 
+    function DeleteFactor() {
         ajaxFunction(FDocHHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexFDocH();
-            //self.IDocHList(response);
             getFDocH($('#pageCountSelector').val());
             self.currentPageIndexFDocH(currentPage);
             showNotification(TitleListFactor + ' حذف شد ', 1);
         });
+    }
 
+
+    $('#Delete-Modal').click(function () {
+        DeleteFactor();
         $('#modal-TestDelete').modal('hide');
     });
 
@@ -2019,7 +2025,7 @@
             text += 'Hidden ';
 
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }"  type="text" class="type_' + type;
-        text += ' form-control" style="height: 2.4rem; direction: ltr;text-align: right; " /> </td>';
+        text += ' form-control" style="height: 2.4rem; direction: ltr;text-align: right" /> </td>';
 
         return text;
     }

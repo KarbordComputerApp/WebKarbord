@@ -762,10 +762,13 @@
                 ajaxFunction(Doc_DeleteUri + aceErj + '/' + salErj + '/' + group, 'POST', TestDoc_DeleteObject).done(function (data) {
                     var obj = JSON.parse(data);
                     self.TestDoc_DeleteList(obj);
-                    //if (data.length > 2) {
+                    if (data.length > 2) {
                         $('#modal-TestDelete').modal('show');
                         SetDataTestDocB();
-                    //}
+                    }
+                    else {
+                        DeleteParvandeh();
+                    }
                 });
             }
         })
@@ -797,31 +800,7 @@
             if (list[i].TestName == "DocR")
                 textBody += '<p>این پرونده دارای پرونده مرتبط است و قابل حذف نیست</p>';
 
-            /*if (list[i].TestName == "Opr")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
-            else if (list[i].TestName == "Mkz")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
-            else if (list[i].TestName == "Arz")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
-            else if (list[i].TestName == "Mahiat")
-                //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
-
-            else if (list[i].TestName == "Balance")
-                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
-
-            else if (list[i].TestName == "ZeroBand")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
-
-
-            else if (list[i].TestName == "Traf")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
-
-            else if (list[i].TestName == "Check")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
-*/
-
-            textBody +=
+           textBody +=
                 '    </div>' +
                 '</div>';
         }
@@ -832,11 +811,11 @@
         $('#CountError').text(countError);
 
         if (countError > 0) {
-            $('#TestDelete-Modal').attr('hidden', '');
+            $('#Delete-Modal').attr('hidden', '');
             $('#ShowCountError').removeAttr('hidden', '');
         }
         else {
-            $('#TestDelete-Modal').removeAttr('hidden', '')
+            $('#Delete-Modal').removeAttr('hidden', '')
             $('#ShowCountError').attr('hidden', '');
         }
 
@@ -850,17 +829,20 @@
 
     }
 
-
-    $('#Delete-Modal').click(function () {
+    function DeleteParvandeh() {
         ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + serial, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexErjDocH();
             getErjDocH($('#pageCountSelector').val(), currentPage);
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
-            //self.currentPageIndexErjDocH(currentPage);
             showNotification('پرونده حذف شد', 1);
         });
+    }
 
+
+
+    $('#Delete-Modal').click(function () {
+        DeleteParvandeh();
         $('#modal-TestDelete').modal('hide');
     });
 
