@@ -11,6 +11,11 @@
 
     $('#information').hide();
 
+    if (sessionStorage.userName != 'ACE') {
+        $('#show_RepairDatabaseConfig').hide();
+        $('#show_RepairDatabase').hide();
+    }
+
     function SetAceData() {
         localStorage.getItem('afi1List') != null ? afi1List = localStorage.getItem('afi1List').split("-") : afi1List = null;
         localStorage.getItem('afi8List') != null ? afi8List = localStorage.getItem('afi8List').split("-") : afi8List = null;
@@ -45,11 +50,11 @@
 
             for (var i = 0; i < afiList.length; i++) {
 
-                value = afiList[i].Code < 10 ? "0" + afiList[i].Code : ""+afiList[i].Code;
+                value = afiList[i].Code < 10 ? "0" + afiList[i].Code : "" + afiList[i].Code;
                 $("#DropGroup").append('<option value="'
                     + value + '">'
                     + afiList[i].Code + " - " + afiList[i].Name + '</option>');
-                }
+            }
         }
     }
 

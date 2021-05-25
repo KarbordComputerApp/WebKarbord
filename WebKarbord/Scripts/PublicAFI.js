@@ -32,7 +32,8 @@ var resTestSavePrintForm = "";
 
 
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
-var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس پارامتر
+var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
+var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
 var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
 var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
@@ -359,7 +360,7 @@ function ajaxFunction(uri, method, data, sync) {
         },
         complete: function () {
             var n = uri.search("ChangeDatabase");
-            if (sync == true && n == -1 ) {
+            if (sync == true && n == -1) {
                 $('#loadingsite').css('display', 'none');
                 $('#loadingsite').attr('class', 'page-loader-wrapper');
             }
@@ -549,7 +550,13 @@ $("#SaveParam").click(function () {
     var group = $("#DropGroup").val();
     var sal = $("#DropSal").val();
 
-    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group, 'GET', null, true).done(function (data) {
+    if (group == '0' || group == null)
+        return showNotification('گروه را انتخاب کنید', 0);
+
+    if (sal == '0' || sal == null)
+        return showNotification('سال را انتخاب کنید', 0);
+
+    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true', 'GET', null, true).done(function (data) {
 
         if (data == "error") {
             $('#loadingsite').css('display', 'none');
@@ -560,6 +567,104 @@ $("#SaveParam").click(function () {
         SetSelectProgram();
     });
 });
+
+
+
+
+$("#repairDatabase").click(function () {
+    var ace = sessionStorage.ace;
+    var group = $("#DropGroup").val();
+    var sal = $("#DropSal").val();
+
+    if (group == '0' || group == null)
+        return showNotification('گروه را انتخاب کنید', 0);
+
+    if (sal == '0' || sal == null)
+        return showNotification('سال را انتخاب کنید', 0);
+
+    Swal.fire({
+        title: 'بازسازی بانک اطلاعاتی',
+        text: "آیا اطلاعات گروه  " + group + " سال " + sal +" بازسازی شود ؟",
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'خیر',
+        allowOutsideClick: false,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'بله'
+    }).then((result) => {
+        if (result.value) {
+
+            Swal.fire({
+                title: 'تایید نهایی',
+                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا باز سازی انجام شود ؟",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
+                    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false', 'GET', null, true).done(function (data) {
+                        $('#loadingsite').css('display', 'none');
+                        $('#loadingsite').attr('class', 'page-loader-wrapper');
+                        showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
+                    });
+                }
+            })
+        }
+    })
+
+});
+
+
+
+
+
+$("#repairDatabaseConfig").click(function () {
+    var ace = sessionStorage.ace;
+
+    Swal.fire({
+        title: 'بازسازی اطلاعات کاربران',
+        text: "آیا اطلاعات بازسازی شود ؟",
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'خیر',
+        allowOutsideClick: false,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'بله'
+    }).then((result) => {
+        if (result.value) {
+
+            Swal.fire({
+                title: 'تایید نهایی',
+                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا باز سازی انجام شود ؟",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
+                    ajaxFunction(ChangeDatabaseConfigUri, 'GET', null, true).done(function (data) {
+                        $('#loadingsite').css('display', 'none');
+                        $('#loadingsite').attr('class', 'page-loader-wrapper');
+                        showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
+                    });
+                }
+            })
+        }
+    })
+
+});
+
+
+
 
 function getProgName(value) {
     if (sessionStorage.ace == 'Web8') {
