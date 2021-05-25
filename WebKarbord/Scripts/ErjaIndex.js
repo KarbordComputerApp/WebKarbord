@@ -1423,7 +1423,6 @@
                 + ' <td data-bind="text: DocDate">' + item.DocDate + '</td > '
                 + ' <td data-bind="text: CustName">' + item.CustName + '</td > '
                 + ' <td data-bind="text: KhdtName">' + item.KhdtName + '</td > '
-                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
             list_RelatedDocsSelect[counterRelatedDocs] = item.DocNo;
@@ -1811,7 +1810,6 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
-                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
             list_ErjUsersRoneveshtSelect[counterErjUsersRonevesht] = item.Code;
