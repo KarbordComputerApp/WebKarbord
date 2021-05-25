@@ -597,7 +597,7 @@ $("#repairDatabase").click(function () {
 
             Swal.fire({
                 title: 'تایید نهایی',
-                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا باز سازی انجام شود ؟",
+                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -641,7 +641,7 @@ $("#repairDatabaseConfig").click(function () {
 
             Swal.fire({
                 title: 'تایید نهایی',
-                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا باز سازی انجام شود ؟",
+                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',

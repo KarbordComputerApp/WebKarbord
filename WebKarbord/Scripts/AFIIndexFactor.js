@@ -1087,10 +1087,10 @@
             }
 
             if (list[i].TestName == "AccReg")
-                textBody += '<p>این فاکتور ثبت حسابداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>این ' + TitleListFactor +' ثبت حسابداری شده است و قابل حذف نیست</p>';
 
             else if (list[i].TestName == "InvReg")
-                textBody += '<p>این فاکتور ثبت انبارداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>این ' + TitleListFactor+' ثبت انبارداری شده است و قابل حذف نیست</p>';
 
             else if (list[i].TestCap != "") 
                 textBody += '<p>' + list[i].TestCap + '</p>';
