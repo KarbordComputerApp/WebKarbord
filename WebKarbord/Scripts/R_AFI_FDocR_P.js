@@ -370,7 +370,6 @@
         ajaxFunction(FDocR_PUri + ace + '/' + sal + '/' + group, 'POST', FDocR_PObject,true).done(function (response) {
             self.FDocR_PList(response);
             calcsum(self.FDocR_PList());
-            $("div.loader").hide();
         });
     }
 

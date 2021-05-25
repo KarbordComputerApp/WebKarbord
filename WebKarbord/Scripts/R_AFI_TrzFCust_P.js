@@ -428,7 +428,6 @@
         };
         ajaxFunction(TrzFCust_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFCust_PObject,true).done(function (response) {
             self.TrzFCust_PList(response);
-            $("div.loader").hide();
         });
     }
 

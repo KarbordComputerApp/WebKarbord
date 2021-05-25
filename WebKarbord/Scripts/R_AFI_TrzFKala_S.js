@@ -434,7 +434,6 @@
         };
         ajaxFunction(TrzFKala_SUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_SObject,true).done(function (response) {
             self.TrzFKala_SList(response);
-            $("div.loader").hide();
         });
     }
 
