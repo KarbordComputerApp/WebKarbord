@@ -627,7 +627,7 @@ $("#repairDatabaseConfig").click(function () {
     var ace = sessionStorage.ace;
 
     Swal.fire({
-        title: 'بازسازی اطلاعات کاربران',
+        title: 'بازسازی اطلاعات سیستم',
         text: "آیا اطلاعات بازسازی شود ؟",
         type: 'warning',
         showCancelButton: true,

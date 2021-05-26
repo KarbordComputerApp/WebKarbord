@@ -10,12 +10,12 @@
     self.IDocRList = ko.observableArray([]); // لیست اطلاعات انبار 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.ThvlList = ko.observableArray([]); // ليست حساب ها
-    self.KalaList = ko.observableArray([]); // ليست کالا ها
+    self.KalaList = ko.observableArray([]); // ليست کالاها
 
     self.InvCode = ko.observable(); 
     var IDocRUri = server + '/api/Web_Data/IDocR/'; // آدرس لیست اسناد انبار 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
-    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
+    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس حساب
 
     self.AzDate = ko.observable();

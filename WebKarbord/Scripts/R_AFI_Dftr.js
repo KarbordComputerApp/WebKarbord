@@ -606,7 +606,7 @@
                 $("div.loadingZone").show();
                 getMkzList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
             }
         })
     })

@@ -7,7 +7,7 @@
     var server = localStorage.getItem("ApiAddress");
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
-    self.KalaList = ko.observableArray([]); // ليست کالا ها
+    self.KalaList = ko.observableArray([]); // ليست کالاها
     self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه   
 
@@ -18,7 +18,7 @@
 
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
-    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
+    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس وارده صادره
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
@@ -1336,7 +1336,7 @@
                 $("div.loadingZone").show();
                 getInvList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
             }
         })
     })
@@ -1470,7 +1470,7 @@
     $('#refreshkala').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست کالا ها به روز رسانی شود ؟",
+            text: "لیست کالاها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1483,7 +1483,7 @@
                 $("div.loadingZone").show();
                 getKalaList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
             }
         })
     })
@@ -1795,7 +1795,7 @@
                 $("div.loadingZone").show();
                 getMkzList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
             }
         })
     })

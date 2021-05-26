@@ -134,7 +134,7 @@
     self.Comm = ko.observable();
 
     self.CustList = ko.observableArray([]); // ليست حساب ها
-    self.KalaList = ko.observableArray([]); // ليست کالا ها
+    self.KalaList = ko.observableArray([]); // ليست کالاها
     self.KalaPriceList = ko.observableArray([]); // ليست گروه قيمت
     self.KalaPriceBList = ko.observableArray([]); // قيمت کالا بر اساس گروه قیمت
     self.FDocBList = ko.observableArray([]); // ليست فاکتور
@@ -250,7 +250,7 @@
     var FDocHLastDateUri = server + '/api/FDocData/FDocH/LastDate/'; // آدرس آخرین تاریخ سند
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس حساب
-    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
+    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قيمت
     var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قيمت کالا بر اساس گروه قیمت
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
@@ -2301,7 +2301,7 @@
                 $("div.loadingZone").show();
                 getMkzList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
             }
         })
     })
@@ -2472,7 +2472,7 @@
     $('#refreshkala').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست کالا ها به روز رسانی شود ؟",
+            text: "لیست کالاها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

@@ -7,9 +7,9 @@
     var server = localStorage.getItem("ApiAddress");
 
     self.InvList = ko.observableArray([]); // ليست انبار ها
-    self.KalaList = ko.observableArray([]); // ليست کالا ها
+    self.KalaList = ko.observableArray([]); // ليست کالاها
     self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
-    self.KGruList = ko.observableArray([]); // ليست گروه کالا ها
+    self.KGruList = ko.observableArray([]); // ليست گروه کالاها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
     self.StatusList = ko.observableArray([]); // ليست نوع سند ها
@@ -19,7 +19,7 @@
     self.IDocRList = ko.observableArray([]); // لیست گزارش  
 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
-    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالا ها
+    var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس وارده صادره
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
@@ -1285,7 +1285,7 @@
     $('#refreshkala').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست کالا ها به روز رسانی شود ؟",
+            text: "لیست کالاها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1659,7 +1659,7 @@
                 $("div.loadingZone").show();
                 getMkzList();
                 $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالا ها به روز رسانی شد' });
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
             }
         })
     })
