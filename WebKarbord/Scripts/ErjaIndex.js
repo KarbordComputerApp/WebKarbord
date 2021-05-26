@@ -1423,6 +1423,7 @@
                 + ' <td data-bind="text: DocDate">' + item.DocDate + '</td > '
                 + ' <td data-bind="text: CustName">' + item.CustName + '</td > '
                 + ' <td data-bind="text: KhdtName">' + item.KhdtName + '</td > '
+                + ' <td data-bind="text: Spec">' + item.Spec + '</td > '
                 + '</tr>'
             );
             list_RelatedDocsSelect[counterRelatedDocs] = item.DocNo;
@@ -1982,7 +1983,7 @@
             BandNo: item.BandNo
         }
 
-        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
+        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject, true).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data);
             saveByteArray(fileName[0] + ".zip", sampleArr);
         });
@@ -2378,8 +2379,14 @@
         self.ErjCustCode(item.CustCode);
         self.KhdtCode(item.KhdtCode);
 
-        $('#p_RelatedDocs').val('');
-        self.p_RelatedDocs(item.RelatedDocs == 0 ? "" : item.RelatedDocs);
+        if (item.RelatedDocs == "0") {
+            $('#p_RelatedDocs').val('');
+            self.p_RelatedDocs("");
+        }
+        else{
+            $('#p_RelatedDocs').val(item.RelatedDocs);
+            self.p_RelatedDocs(item.RelatedDocs);
+        }
 
         $('#p_docno').val(item.DocNo);
         $('#nameErjCust').val(item.CustName);

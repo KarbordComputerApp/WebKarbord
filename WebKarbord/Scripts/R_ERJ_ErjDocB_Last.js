@@ -1081,7 +1081,7 @@
             BandNo: item.BandNo
         }
 
-        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject).done(function (data) {
+        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject,true).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data);
             saveByteArray(fileName[0] + ".zip", sampleArr);
 
