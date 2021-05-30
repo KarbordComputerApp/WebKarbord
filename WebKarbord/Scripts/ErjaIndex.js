@@ -2071,7 +2071,7 @@
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
-                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData).done(function (response) {
+                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData,true).done(function (response) {
                         getDocAttachList(serialNumber);
                     })
                 });

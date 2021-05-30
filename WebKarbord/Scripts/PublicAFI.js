@@ -395,7 +395,7 @@ function ajaxFunctionOther(uri, method, data) {
 }
 
 
-function ajaxFunctionUpload(uri, data) {
+function ajaxFunctionUpload(uri, data, sync) {
 
     var userNameAccount = localStorage.getItem("userNameAccount");
     var passAccount = localStorage.getItem("passAccount");
@@ -406,6 +406,15 @@ function ajaxFunctionUpload(uri, data) {
         cache: false,
         contentType: false,
         processData: false,
+
+        async: sync == null ? false : sync,
+        beforeSend: function () {
+            if (sync == true) {
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
+
         headers: {
             'userName': userNameAccount,
             'password': passAccount,
@@ -414,6 +423,13 @@ function ajaxFunctionUpload(uri, data) {
         success: function (fileName) {
             // $("#fileProgress").hide();
             // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
+        },
+        complete: function () {
+            var n = uri.search("ChangeDatabase");
+            if (sync == true && n == -1) {
+                $('#loadingsite').css('display', 'none');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
         },
         xhr: function () {
             var fileXhr = $.ajaxSettings.xhr();
@@ -556,13 +572,25 @@ $("#SaveParam").click(function () {
     if (sal == '0' || sal == null)
         return showNotification('سال را انتخاب کنید', 0);
 
-    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true', 'GET', null, true).done(function (data) {
+    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {
 
-        if (data == "error") {
-            $('#loadingsite').css('display', 'none');
-            $('#loadingsite').attr('class', 'page-loader-wrapper');
-            return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ', 0);
+        $('#loadingsite').css('display', 'none');
+        $('#loadingsite').attr('class', 'page-loader-wrapper');
+
+        if (data != "OK") {
+
+            if (data.search("لطفا منتظر بمانید") > 0) {
+                return showNotification(data, 0);
+            }
+            else {
+                if (ace == 'Web8') {
+                    return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ' + " <br /> <br />" + data, 0);
+                } else {
+                    return showNotification('اشکال در ایجاد بانک اطلاعاتی ' + data, 0);
+                }
+            }
         }
+
 
         SetSelectProgram();
     });
@@ -584,7 +612,7 @@ $("#repairDatabase").click(function () {
 
     Swal.fire({
         title: 'بازسازی بانک اطلاعاتی',
-        text: "آیا اطلاعات گروه  " + group + " سال " + sal +" بازسازی شود ؟",
+        text: "آیا اطلاعات گروه  " + group + " سال " + sal + " بازسازی شود ؟",
         type: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',
@@ -607,10 +635,25 @@ $("#repairDatabase").click(function () {
                 confirmButtonText: 'بله'
             }).then((result) => {
                 if (result.value) {
-                    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false', 'GET', null, true).done(function (data) {
+                    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
-                        showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
+                        if (data == "OK") {
+                            showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
+                        } else {
+
+                            if (data.search("لطفا منتظر بمانید") > 0) {
+                                return showNotification(data, 0);
+                            }
+                            else {
+                                if (ace == 'Web8') {
+                                    return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ' + " <br /> <br />" + data, 0);
+                                } else {
+                                    return showNotification('خطا در بازسازی اطلاعات ' + " <br /> <br />" + data, 0);
+                                }
+                            }
+                            //showNotification(data, 0);
+                        }
                     });
                 }
             })
@@ -651,10 +694,17 @@ $("#repairDatabaseConfig").click(function () {
                 confirmButtonText: 'بله'
             }).then((result) => {
                 if (result.value) {
-                    ajaxFunction(ChangeDatabaseConfigUri, 'GET', null, true).done(function (data) {
+                    ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber, 'GET', null, true).done(function (data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
-                        showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
+                        if (data == "OK") {
+                            showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
+                        } else {
+                            if (data.search("لطفا منتظر بمانید") > 0)
+                                return showNotification(data, 0);
+                            else
+                                return showNotification('خطا در بازسازی اطلاعات ' + " <br /> <br />" + data, 0);
+                        }
                     });
                 }
             })
