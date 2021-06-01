@@ -84,16 +84,16 @@
             else {
 
                 var progCaption;
-                if (localStorage.getItem('afi1List') == 'null') {
+                if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
                     sessionStorage.ace = 'Web8';
                     progCaption = ' وب : سیستم جامع';
                     groups = localStorage.getItem('afi8List');
 
                     tempAccess = localStorage.getItem('afi8Access');
 
-                   
+
                     if (tempAccess.search("ADOC") > 0 ||
-                        tempAccess.search("TrzAcc")> 0 ||
+                        tempAccess.search("TrzAcc") > 0 ||
                         tempAccess.search("Dftr") > 0 ||
                         tempAccess.search("TChk") > 0 ||
                         tempAccess.search("ADocR") > 0)
@@ -125,15 +125,21 @@
                         tempAccess.search("Krdx") > 0 ||
                         tempAccess.search("IDocR") > 0)
                         progName = "INV5"
-                    else
-                        progName = "ERJ1"
+
+                    //progName = "ERJ1"
 
 
-                } else {
+                } else if (localStorage.getItem('afi1List') != 'null' && localStorage.getItem('afi8List') == 'null') {
                     sessionStorage.ace = 'Web1';
                     progCaption = ' وب : مالی بازرگانی';
                     groups = localStorage.getItem('afi1List');
                     progName = "afi1"
+                }
+                else {
+                    sessionStorage.ace = 'Web2';
+                    progCaption = ' وب : اتوماسیون';
+                    groups = localStorage.getItem('erjList');
+                    progName = "ERJ1"
                 }
 
                 var LoginTestObject = {
@@ -148,6 +154,11 @@
                     FlagTest: 0
                 }
                 ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+
+                    if (datalogin == "MaxCount") {
+                        return showNotification('محدودیت ورود تعداد کاربران', 0);
+                    }
+
                     res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
                     if (datalogin.ID == -1) {
                         res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];

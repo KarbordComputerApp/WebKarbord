@@ -25,15 +25,19 @@
         var count = 0;
 
         $('#DropAce').text('');
-        if (afi1List == "null" || afi1List == '') {
+        if (afi1List == "null"  && afi8List != "null" ) {
             sessionStorage.ace = 'Web8';
             sessionStorage.aceName = 'نرم افزار سیستم جامع';
             $('#DropAce').text(sessionStorage.aceName);
-
         }
-        else {
+        else if (afi1List != "null"  && afi8List == "null" ) {
             sessionStorage.ace = 'Web1';
             sessionStorage.aceName = 'نرم افزار مالی بازرگانی';
+            $('#DropAce').text(sessionStorage.aceName)
+        }
+        else {
+            sessionStorage.ace = 'Web2';
+            sessionStorage.aceName = 'نرم افزار اتوماسیون';
             $('#DropAce').text(sessionStorage.aceName)
         }
     }

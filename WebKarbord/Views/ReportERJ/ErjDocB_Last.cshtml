@@ -1250,7 +1250,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped tableFix">
                                 <thead style="cursor: pointer;">
@@ -1293,68 +1293,79 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 centered">
-                        <div class="row centered">
-                            <button data-bind="click: AddAllErjUsersRonevesht" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 140px 30px 0px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
-                            </button>
-                            <button data-bind="click: DelAllErjUsersRonevesht" class="btn btn-outline-info " style="border: 1px solid #d5741e !important; margin: 80px 30px 30px 10px">
-                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
-                            </button>
-                        </div>
-                    </div>
+
                     <div class="col-md-5">
-                        <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                            <table class="table table-hover table-striped tableFix" id="TableSelectedErjUsersRonevesht">
-                                <thead style="cursor: pointer;">
-                                    <tr>
-                                        <th>کد</th>
-                                        <th>نام</th>
-                                        <th>ملاحظات</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="TableBodyListErjUsersRonevesht" style="cursor: default;"></tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="row centered">
+                                    <div style="height:160px; width:20px"></div>
+                                    <a data-bind="click: AddAllErjUsersRonevesht" style="height:18px;padding-right: 3px;">
+                                        <img src="/Content/img/list/streamline-icon-navigation-last.png" style="width:22px;height:18px;" />
+                                    </a>
+                                    <div style="height:80px"></div>
+                                    <a data-bind="click: DelAllErjUsersRonevesht" style="height:18px;padding-right: 3px;">
+                                        <img src="/Content/img/list/streamline-icon-navigation-first.png" style="width:22px;height:18px;" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-11">
+
+                                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                                    <table class="table table-hover table-striped tableFix" id="TableSelectedErjUsersRonevesht">
+                                        <thead style="cursor: pointer;">
+                                            <tr>
+                                                <th>کد</th>
+                                                <th>نام</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="TableBodyListErjUsersRonevesht" style="cursor: default;"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-inline">
-                            <label>نمایش</label>
-                            <div class="form-group" style="text-align: center; width: 50px;">
-                                <select id="pageSizeSelector" data-bind="value: pageSizeErjUsersRonevesht">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                    <option value="70">70</option>
-                                    <option value="80">80</option>
-                                    <option value="90">90</option>
-                                    <option value="100">100</option>
-                                </select>
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-inline">
+                                    <label>نمایش</label>
+                                    <div class="form-group" style="text-align: center; width: 50px;">
+                                        <select id="pageSizeSelector" data-bind="value: pageSizeErjUsersRonevesht">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                            <option value="60">60</option>
+                                            <option value="70">70</option>
+                                            <option value="80">80</option>
+                                            <option value="90">90</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <label>رکورد</label>
+                                </div>
                             </div>
-                            <label>رکورد</label>
-                        </div>
-                    </div>
-                    <div class="col-md-5" style="text-align: center;">
+                            <div class="col-md-8" style="text-align: left;">
 
-                        <a data-bind="click: firstPageErjUsersRonevesht">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
-                        </a>
-                        <a data-bind="click: previousPageErjUsersRonevesht">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                        </a>
-                        <b data-bind="text: currentPageIndexErjUsersRonevesht() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                        <a data-bind="click: nextPageErjUsersRonevesht">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                        </a>
-                        <a data-bind="click: lastPageErjUsersRonevesht">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
-                        </a>
+                                <a data-bind="click: firstPageErjUsersRonevesht">
+                                    <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                </a>
+                                <a data-bind="click: previousPageErjUsersRonevesht">
+                                    <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                </a>
+                                <b data-bind="text: currentPageIndexErjUsersRonevesht() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <a data-bind="click: nextPageErjUsersRonevesht">
+                                    <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                </a>
+                                <a data-bind="click: lastPageErjUsersRonevesht">
+                                    <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1782,7 +1793,7 @@
     <script src="~/Content/new/js/advanced-form-elements.js"></script>
     <!--<script src="~/Scripts/PublicErja.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>-->
     <script src="~/Scripts/R_ERJ_ErjDocB_Last.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
-    }
+}
 
 
 

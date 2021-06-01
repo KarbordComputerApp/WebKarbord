@@ -1134,7 +1134,7 @@
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
-                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData,true).done(function (response) {
+                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData, true).done(function (response) {
                         getDocAttachList(serialNumber);
                     })
                 });
@@ -1169,7 +1169,7 @@
             BandNo: item.BandNo
         }
 
-        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject,true).done(function (data) {
+        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject, true).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data);
             saveByteArray(fileName[0] + ".zip", sampleArr);
         });
@@ -1759,7 +1759,7 @@
             $('#erja').removeAttr('hidden', '');
         }
 
-        if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2" ) {
+        if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2") {
             $('#erja').attr('hidden', '');
             $('#panel_Result').attr('hidden', '');
             $('#saveParvandeh').attr('hidden', '');
@@ -1773,7 +1773,7 @@
 
 
 
-        if (Band.RjReadSt == 'T' && ErjaMode == "1") {
+        if (Band.RjReadSt == 'T' && sessionStorage.ModeCodeErja == "1") {
             ErjSaveDoc_RjRead_Object = {
                 DocBMode: Band.DocBMode,
                 SerialNumber: Band.SerialNumber,
@@ -2301,6 +2301,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
+            '<th>ردیف</th>' +
             CreateTableTh('RjStatus', data) +
             CreateTableTh('RjDate', data) +
             CreateTableTh('RjMhltDate', data) +
@@ -2315,10 +2316,17 @@
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
+
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
             //'<td style="background-color: ' + colorRadif + ';">' +
             //style: {\'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } 
+
+        '<td style="background-color: ' + colorRadif + ';">' +
+            '<div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
+            '<i data-bind="style: {\'display\': RjReadSt == \'F\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px;padding-right:10px;">notifications_none</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+            '</div></td>' +
+
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +
@@ -2371,6 +2379,7 @@
             CreateTableTdSum('MhltDate', 1, data) +
             ' </tr>' +*/
             '  <tr style="background-color: #efb68399;">' +
+            '<td>جستجو</td>' +
             CreateTableTdSearch('RjStatus', data) +
             CreateTableTdSearch('RjDate', data) +
             CreateTableTdSearch('RjMhltDate', data) +

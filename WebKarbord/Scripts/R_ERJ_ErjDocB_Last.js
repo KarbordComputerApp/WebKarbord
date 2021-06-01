@@ -1703,6 +1703,21 @@
         $('#erja').attr('hidden', '');
         $('#panel_Result').attr('hidden', '');
         $('#saveParvandeh').attr('hidden', '');
+
+
+
+        if (Band.RjReadSt == 'T' && ErjaMode == "1") {
+            ErjSaveDoc_RjRead_Object = {
+                DocBMode: Band.DocBMode,
+                SerialNumber: Band.SerialNumber,
+                BandNo: Band.BandNo,
+                RjReadSt: 'F'
+            };
+
+            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) { });
+        }
+
+
       
     }
 
@@ -2145,7 +2160,7 @@
             '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
             '<td style="background-color: ' + colorRadif + ';">' +
             '<div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
-            '<i data-bind="style: {\'display\': RjReadSt == \'F\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px;">notifications_none</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+            '<i data-bind="style: {\'display\': RjReadSt == \'F\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px;padding-right:10px;">notifications_none</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
             '</div></td>' +
             //style: {\'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } 
             CreateTableTd('RjStatus', 0, 1, data) +
