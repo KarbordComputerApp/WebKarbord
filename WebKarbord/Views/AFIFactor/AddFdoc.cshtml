@@ -377,13 +377,13 @@
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableCust">
                                 <th data-column="Code">
-                                    <span id="TitleCodeTableModalCust"> </span>
+                                    <span data-column="Code" id="TitleCodeTableModalCust"> </span>
                                     <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
                                 <th data-column="SortName">
-                                    <span id="TitleNameTableModalCust"> </span>
+                                    <span data-column="SortName" id="TitleNameTableModalCust"> </span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
@@ -976,7 +976,7 @@
                     <table class="table table-hover table-striped tableFix">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableMkz">
-                                <th data-column="Code">
+                                <th data-column="SortCode">
                                     کد
                                     <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
