@@ -35,6 +35,8 @@
                     <lable id="finalSave_Title" style="margin: auto; width: 50%; color: coral;">(( برای ثبت تغییرات کلید ثبت نهایی را بزنید ))</lable>
 
                     <div class="row header-dropdown m-r--5">
+
+
                         <a id="Print_Factor" style="margin-left: 10px;">
                             <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
                         </a>
@@ -236,6 +238,12 @@
                 <a class="col-md-12" id="insertband" data-bind="click:ButtonFDocH" style="color: #fdfdfd;">
                     <img src="~/Content/img/sanad/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
                     <label>سطر جدید</label>
+                </a>
+
+
+                <a id="Barcode" data-bind="click:ButtonFDocHBarcode" style="color: #fdfdfd;margin-right: 10px;">
+                    <img src="~/Content/img/barcode.png" width="24" height="24" />
+                    <label>بارکد</label>
                 </a>
             </div>
         </div>
@@ -1052,6 +1060,52 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-Barcode" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:150px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">بارکد </h4>
+                <div>
+                    <a></a>
+                </div>
+            </div>
+            <div class="modal-body">
+                <br />
+                <br />
+
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="form-group form-float">
+                            <div class="form-line  date fix">
+                                <input type="text" id="Barcode_Value" class="form-control">
+                                <label class="form-label active">بارکد </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <img src="~/Content/img/barcode.png" height="50" />
+
+                </div>
+
+
+
+            </div>
+
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+
+
+            </div>
+
+        </div>
+
     </div>
 </div>
 

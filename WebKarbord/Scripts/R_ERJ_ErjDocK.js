@@ -959,7 +959,7 @@
     }
 
     self.ViewSpecialComm = function (Band) {
-        if (Band.FinalCommTrs == 1) {
+        if (Band.SpecialCommTrs == 1) {
             $('#titleComm').text('توضیحات مدیران');
             $('#modal-Comm').modal('show');
             $('#comm').val(Band.SpecialComm);

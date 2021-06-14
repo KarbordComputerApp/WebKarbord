@@ -2025,7 +2025,7 @@ function SetValidationErj() {
     validation == true ? sessionStorage.DEL_ErjDOC = true : sessionStorage.DEL_ErjDOC = false
 
     validation = CheckAccessErj('OTHERUSER_ErjDOC');
-    validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+    validation == true ? sessionStorage.AccessSanadErj = true : sessionStorage.AccessSanadErj = false
 
 }
 

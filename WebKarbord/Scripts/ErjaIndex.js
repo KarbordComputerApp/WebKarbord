@@ -306,7 +306,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
             select: select,
-            AccessSanad: sessionStorage.AccessSanad,
+            AccessSanad: sessionStorage.AccessSanadErj,
         };
         ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject).done(function (response) {
             self.ErjDocHList(response);
