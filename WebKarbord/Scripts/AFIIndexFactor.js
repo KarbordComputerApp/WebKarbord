@@ -43,8 +43,11 @@
     var showFinalPrice = false;
     var accessTaeed = false;
     var accessTasvib = false;
+   
 
     sessionStorage.flagCopy = 'N';
+
+    $("#Barcode").removeAttr('hidden', '');
 
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
@@ -88,6 +91,7 @@
                 $('#TitleListFactor').text('حواله های فروش');
                 defultMove = sessionStorage.Move_SHVL;
                 inOut = 2;
+                //if (sessionStorage. == "-1") $("#Barcode").attr('hidden', '');
                 break;
             }
 
@@ -97,6 +101,7 @@
                 $('#TitleListFactor').text('برگه های خروج');
                 defultMove = sessionStorage.Move_SEXT;
                 inOut = 2;
+                //if (sessionStorage. == "-1") $("#Barcode").attr('hidden', '');
                 break;
             }
 
@@ -1087,12 +1092,12 @@
             }
 
             if (list[i].TestName == "AccReg")
-                textBody += '<p>این ' + TitleListFactor +' ثبت حسابداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>این ' + TitleListFactor + ' ثبت حسابداری شده است و قابل حذف نیست</p>';
 
             else if (list[i].TestName == "InvReg")
-                textBody += '<p>این ' + TitleListFactor+' ثبت انبارداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>این ' + TitleListFactor + ' ثبت انبارداری شده است و قابل حذف نیست</p>';
 
-            else if (list[i].TestCap != "") 
+            else if (list[i].TestCap != "")
                 textBody += '<p>' + list[i].TestCap + '</p>';
 
             textBody +=

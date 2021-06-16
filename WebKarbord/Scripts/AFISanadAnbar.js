@@ -52,6 +52,7 @@
 
     $('#finalSave_Title').attr('hidden', '');
 
+
     var invCode = sessionStorage.InvCode;
 
     var totalPrice;
@@ -137,9 +138,15 @@
 
 
 
+    //Delete After Test
+    var amountAfterBarCode;
+
     if (sessionStorage.AccessPrint_SanadAnbar == "false") {
         $('#Print_SanadAnbar').attr('style', 'display: none')
     }
+
+    $("#Barcode").removeAttr('hidden', '');
+    
 
     if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
@@ -151,7 +158,8 @@
         $('#ViewSpec').attr('class', 'col-sm-3');
         ModeCodeExtraFields = 'IDOCI';
 
-        //sessionStorage.Access_SHOWPRICE_IIDOC = false;
+        amountAfterBarCode = sessionStorage.IDOCIAmountAfterBarCode
+
         if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true') {
             $('#ViewGGhimat').show();
             $('#emptyDivSanad').hide();
@@ -189,6 +197,8 @@
         $('#ViewSpec').attr('class', 'col-sm-5');
         ModeCodeExtraFields = 'IDOCO';
 
+        amountAfterBarCode = sessionStorage.IDOCOAmountAfterBarCode
+
         $('#ViewGGhimat').hide();
         $('#unitPriceShow').hide();
         $('#totalPriceShow').hide();
@@ -201,9 +211,16 @@
     }
 
 
+    $("#Panel_Barcode_Amount").attr('hidden', '');
 
+    //Delete after Test
+    amountAfterBarCode = "2";
 
+    if (amountAfterBarCode == "-1")
+        $("#Barcode").attr('hidden', '');
 
+    else if (amountAfterBarCode == "1")
+        $("#Panel_Barcode_Amount").removeAttr('hidden', '');
 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس حساب
@@ -598,6 +615,354 @@
         }
 
     }
+
+
+   /* 
+
+    $("#Barcode_Value").keydown(function (e) {
+        if (e.keyCode == 13) {
+            barcode = $("#Barcode_Value").val();
+            barcode1 = "(" + barcode + ")";
+            if (barcode != '') {
+                tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
+                    result = item.BarCode.indexOf(barcode1) >= 0
+                    //result = item.BarCode == null ? '' : item.BarCode.toString().search(barcode) >= 0
+                    return result;
+                });
+
+                if (tempData.length > 0) {
+                    kala = tempData[0];
+
+                    GetBandNumber();
+                    if (Serial == '') {
+                        return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+                    }
+
+                    defaultUnit = kala.DefaultUnit;
+
+                    amount = 1;
+
+                    a1 = 0;
+                    a2 = 0;
+                    a3 = 0;
+
+                    unitPrice = 0;
+                    totalPrice = 0;
+                    kalapricecode = $("#gGhimat").val();
+                    if (kalapricecode == null) kalapricecode = "";
+
+                    if (sessionStorage.sels == "true") {
+                        Price1 = kala.SPrice1;
+                        Price2 = kala.SPrice2;
+                        Price3 = kala.SPrice3;
+                    } else {
+                        Price1 = kala.PPrice1;
+                        Price2 = kala.PPrice2;
+                        Price3 = kala.PPrice3;
+                    }
+
+                    getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, kala.Code);
+
+                    if (defaultUnit == "1") {
+                        a1 = amount;
+                        kala.zarib2 == 0 ? a2 = 0 : a2 = amount / kala.zarib2;
+                        kala.zarib3 == 0 ? a3 = 0 : a3 = amount / kala.zarib3;
+                        unitPrice = Price1;
+                        totalPrice = a1 * unitPrice;
+
+                    }
+                    else if (defaultUnit == "2") {
+                        a1 = amount * kala.zarib2;
+                        a2 = amount;
+                        kala.zarib3 == 0 ? a3 = 0 : a3 = amount / kala.zarib2;
+                        unitPrice = Price2;
+                        totalPrice = a2 * unitPrice;
+                    }
+                    else if (defaultUnit == "3") {
+                        a1 = (amount * kala.zarib2) * (kala.zarib2);
+                        a2 = amount * kala.zarib2;
+                        a3 = amount;
+                        unitPrice = Price3;
+                        totalPrice = a2 * unitPrice;
+                    }
+
+                    a1 != 0 ? a1 = a1.toFixed(kala.DeghatM1) : a1 = "";
+                    a2 != 0 ? a2 = a2.toFixed(kala.DeghatM2) : a2 = "";
+                    a3 != 0 ? a3 = a3.toFixed(kala.DeghatM3) : a3 = "";
+
+
+
+                    var IDocBObject = {
+                        SerialNumber: Serial,//self.SerialNumber(),
+                        BandNo: bandnumber,
+                        KalaCode: kala.Code,
+                        Amount1: a1,
+                        Amount2: a2,
+                        Amount3: a3,
+                        UnitPrice: unitPrice,
+                        TotalPrice: totalPrice,
+                        Discount: 0,
+                        MainUnit: defaultUnit,
+                        Comm: '',
+                        Up_Flag: 1,
+                        ModeCode: sessionStorage.ModeCode,
+                        flagLog: 'N',
+                        OprCode: codeOpr,
+                        MkzCode: codeMkz,
+                    };
+                    if (self.bundNumberImport > 0) {
+                        bandnumber = self.bundNumberImport;
+                    }
+                    SendIDocB(IDocBObject);
+                    $("#Barcode_Value").val('');
+
+                }
+            }
+        }
+    });*/
+
+    self.ButtonIDocHBarcode = function ButtonIDocH(newIDocH) {
+        if (flagInsertIDoch == 0) {
+            var a = AddIDocH(newIDocH);
+            flagInsertIDoch == 1 ? $('#modal-Barcode').modal() : null
+        } else {
+            $('#modal-Barcode').modal()
+        }
+    }
+
+    var DataKalaBarcode;
+
+    $("#Barcode_Value").keydown(function (e) {
+        $('#TitleBarcode').text('');
+        if (e.keyCode == 13) {
+            barcode = $("#Barcode_Value").val();
+            barcode1 = "(" + barcode + ")";
+            if (barcode != '') {
+                tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
+                    result = item.BarCode.indexOf(barcode1) >= 0
+                    //result = item.BarCode == null ? '' : item.BarCode.toString().search('(' + barcode + ')') >= 0
+                    return result;
+                });
+
+                if (tempData.length > 0) {
+                    DataKalaBarcode = tempData[0];
+
+                    if (amountAfterBarCode == '0') {
+                        SetDataBarCode(DataKalaBarcode, 1);
+                        $('#TitleBarcode').text('بند جدید ایجاد شد');
+                    }
+                    else if (amountAfterBarCode == '1') {
+                        $('#Barcode_Amount').val('');
+                        $('#Barcode_Amount').focus();
+                        $('#TitleBarcode').text('مقدار را وارد کنید');
+                    }
+                    else if (amountAfterBarCode == '2') {
+
+                        tempData = ko.utils.arrayFilter(self.IDocBList(), function (item) {
+                            result = item.KalaCode == DataKalaBarcode.Code
+                            return result;
+                        });
+                        if (tempData.length == 0) { // بند کالا وجود نداشت
+                            SetDataBarCode(DataKalaBarcode, 1);
+                            $('#TitleBarcode').text('بند جدید ایجاد شد');
+                        }
+                        else {
+                            dataBandKala = tempData[0];
+
+                            if (dataBandKala.MainUnit == "1") {
+                                amountB = dataBandKala.Amount1 + 1;
+                                a1 = amountB;
+                                DataKalaBarcode.zarib2 == 0 ? a2 = 0 : a2 = amountB / DataKalaBarcode.zarib2;
+                                DataKalaBarcode.zarib3 == 0 ? a3 = 0 : a3 = amountB / DataKalaBarcode.zarib3;
+
+                                if (dataBandKala.UP_Flag == true) {
+                                    unitPrice = dataBandKala.UnitPrice;
+                                    totalPrice = a1 * dataBandKala.UnitPrice;
+                                }
+                                else {
+                                    unitPrice = dataBandKala.TotalPrice / a1;
+                                    totalPrice = dataBandKala.TotalPrice;
+                                }
+                            }
+                            else if (dataBandKala.MainUnit == "2") {
+                                amountB = dataBandKala.Amount2 + 1;
+                                a1 = amountB * DataKalaBarcode.zarib2;
+                                a2 = amountB;
+                                DataKalaBarcode.zarib3 == 0 ? a3 = 0 : a3 = amountB / DataKalaBarcode.zarib2;
+
+                                if (dataBandKala.UP_Flag == true) {
+                                    unitPrice = dataBandKala.UnitPrice;
+                                    totalPrice = a2 * dataBandKala.UnitPrice;
+                                }
+                                else {
+                                    unitPrice = dataBandKala.TotalPrice / a2;
+                                    totalPrice = dataBandKala.TotalPrice;
+                                }
+
+                            }
+                            else if (dataBandKala.MainUnit == "3") {
+                                amountB = dataBandKala.Amount2 + 1;
+                                a1 = (amountB * DataKalaBarcode.zarib2) * (DataKalaBarcode.zarib2);
+                                a2 = amountB * DataKalaBarcode.zarib2;
+                                a3 = amountB;
+
+                                if (dataBandKala.UP_Flag == true) {
+                                    unitPrice = dataBandKala.UnitPrice;
+                                    totalPrice = a3 * dataBandKala.UnitPrice;
+                                }
+                                else {
+                                    unitPrice = dataBandKala.TotalPrice / a2;
+                                    totalPrice = dataBandKala.TotalPrice;
+                                }
+                            }
+
+                            a1 != 0 ? a1 = a1.toFixed(DataKalaBarcode.DeghatM1) : a1 = "";
+                            a2 != 0 ? a2 = a2.toFixed(DataKalaBarcode.DeghatM2) : a2 = "";
+                            a3 != 0 ? a3 = a3.toFixed(DataKalaBarcode.DeghatM3) : a3 = "";
+
+                            var IDocBObject = {
+                                SerialNumber: dataBandKala.SerialNumber,
+                                BandNo: dataBandKala.BandNo,
+                                KalaCode: dataBandKala.KalaCode,
+                                Amount1: a1,
+                                Amount2: a2,
+                                Amount3: a3,
+                                UnitPrice: unitPrice,
+                                TotalPrice: totalPrice,
+                                Discount: dataBandKala.Discount,
+                                MainUnit: dataBandKala.MainUnit,
+                                Comm: dataBandKala.Comm,
+                                Up_Flag: dataBandKala.UP_Flag,
+                                ModeCode: sessionStorage.ModeCode,
+                                flagLog: flaglog,
+                                OprCode: codeOpr,
+                                MkzCode: codeMkz,
+                            };
+                            SendIDocBU(IDocBObject);
+                            if (acceptUpdate == true) {
+                                $('#TitleBarcode').text(' بند شماره ' + dataBandKala.BandNo + ' ویرایش شد ');
+                                $('#Barcode_Value').val('');
+                                $('#Barcode_Value').focus();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    $("#Barcode_Amount").keydown(function (e) {
+        amountB = $("#Barcode_Amount").val();
+        if (amountB > 0) {
+            if (e.keyCode == 13) {
+                SetDataBarCode(DataKalaBarcode, parseFloat(amountB));
+                $('#Barcode_Amount').val('');
+                $('#Barcode_Value').val('');
+                $('#Barcode_Value').focus();
+                $('#TitleBarcode').text('بند جدید ایجاد شد');
+            }
+        }
+    });
+
+
+    $('#modal-Barcode').on('shown.bs.modal', function () {
+        $('#TitleBarcode').text('');
+        $('#Barcode_Value').val('');
+        $('#Barcode_Amount').val('');
+        $('#Barcode_Value').focus();
+    });
+
+
+    function SetDataBarCode(kala, amountB) {
+        GetBandNumber();
+        if (Serial == '') {
+            return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+        }
+
+        defaultUnit = kala.DefaultUnit;
+
+        a1 = 0;
+        a2 = 0;
+        a3 = 0;
+
+        unitPrice = 0;
+        totalPrice = 0;
+        kalapricecode = $("#gGhimat").val();
+        if (kalapricecode == null) kalapricecode = "";
+
+        if (sessionStorage.sels == "true") {
+            Price1 = kala.SPrice1;
+            Price2 = kala.SPrice2;
+            Price3 = kala.SPrice3;
+        } else {
+            Price1 = kala.PPrice1;
+            Price2 = kala.PPrice2;
+            Price3 = kala.PPrice3;
+        }
+
+        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, kala.Code);
+
+        if (defaultUnit == "1") {
+            a1 = amountB;
+            kala.zarib2 == 0 ? a2 = 0 : a2 = amountB / kala.zarib2;
+            kala.zarib3 == 0 ? a3 = 0 : a3 = amountB / kala.zarib3;
+            unitPrice = Price1;
+            totalPrice = a1 * unitPrice;
+
+        }
+        else if (defaultUnit == "2") {
+            a1 = amountB * kala.zarib2;
+            a2 = amountB;
+            kala.zarib3 == 0 ? a3 = 0 : a3 = amountB / kala.zarib2;
+            unitPrice = Price2;
+            totalPrice = a2 * unitPrice;
+        }
+        else if (defaultUnit == "3") {
+            a1 = (amountB * kala.zarib2) * (kala.zarib2);
+            a2 = amountB * kala.zarib2;
+            a3 = amountB;
+            unitPrice = Price3;
+            totalPrice = a3 * unitPrice;
+        }
+
+        a1 != 0 ? a1 = a1.toFixed(kala.DeghatM1) : a1 = "";
+        a2 != 0 ? a2 = a2.toFixed(kala.DeghatM2) : a2 = "";
+        a3 != 0 ? a3 = a3.toFixed(kala.DeghatM3) : a3 = "";
+
+        var IDocBObject = {
+            SerialNumber: Serial,//self.SerialNumber(),
+            BandNo: bandnumber,
+            KalaCode: kala.Code,
+            Amount1: a1,
+            Amount2: a2,
+            Amount3: a3,
+            UnitPrice: unitPrice,
+            TotalPrice: totalPrice,
+            Discount: 0,
+            MainUnit: defaultUnit,
+            Comm: '',
+            Up_Flag: 1,
+            ModeCode: sessionStorage.ModeCode,
+            flagLog: 'N',
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
+        };
+
+        if (self.bundNumberImport > 0) {
+            bandnumber = self.bundNumberImport;
+        }
+
+        SendIDocBI(IDocBObject);
+        $("#Barcode_Value").val('');
+    }
+
+
+
+
+
+
+
+
 
     //Add new IDocH 
     function AddIDocH(newIDocH) {
@@ -995,6 +1360,25 @@
             bandnumber = self.bundNumberImport;
         }
 
+        SendIDocBI(IDocBObject);
+
+        /*ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', IDocBObject).done(function (response) {
+            self.IDocBList(response);
+            getIDocH(Serial);
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumber + ' ذخيره شد ' });
+            self.flagupdateband = false;
+            self.bundNumberImport = 0;
+            self.ClearIDocB();
+            flaglog = 'N';
+            $('#Save').removeAttr('disabled');
+            showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
+        });
+        $('#Save').removeAttr('disabled');*/
+
+    };
+
+    function SendIDocBI(IDocBObject) {
+
         ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', IDocBObject).done(function (response) {
             self.IDocBList(response);
             getIDocH(Serial);
@@ -1006,10 +1390,9 @@
             $('#Save').removeAttr('disabled');
             showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
         });
-        $('#Save').removeAttr('disabled');
+    }
 
-    };
-
+    acceptUpdate = false;
     //update IDocB
     self.UpdateIDocB = function UpdateIDocB(newIDocB) {
         //KalaCode = $("#codeKala").val();
@@ -1086,6 +1469,17 @@
             MkzCode: codeMkz,
         };
 
+
+        acceptUpdate = false;
+        SendIDocBU(IDocBObject);
+        if (acceptUpdate == true) {
+            showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+        }
+    };
+
+
+    function SendIDocBU(IDocBObject) {
+
         ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', IDocBObject).done(function (response) {
             self.IDocBList(response);
             getIDocH(Serial);
@@ -1098,9 +1492,10 @@
             $('#modal-Band').modal('hide');
             self.ClearIDocB();
             flaglog = 'N';
-            showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+            //showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+            acceptUpdate = true;
         });
-    };
+    }
 
     self.SerialNumber('0');
 

@@ -235,6 +235,10 @@
                     <img src="~/Content/img/sanad/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
                     <label>سطر جدید</label>
                 </a>
+                <a id="Barcode" data-bind="click:ButtonIDocHBarcode" style="color: #fdfdfd;margin-right: 10px;">
+                    <img src="~/Content/img/barcode.png" width="24" height="24" />
+                    <label>بارکد</label>
+                </a>
             </div>
         </div>
 
@@ -972,6 +976,93 @@
         </div>
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="modal-Barcode" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:160px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">بارکد </h4>
+                <div>
+                    <a></a>
+                </div>
+            </div>
+            <div class="modal-body">
+                <br />
+                <p style="text-align: center;color:green;height:14px" id="TitleBarcode"></p>
+                <br />
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group form-float">
+                            <div class="form-line  date fix">
+                                <input type="text" id="Barcode_Value" class="form-control">
+                                <label class="form-label active">بارکد </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" id="Panel_Barcode_Amount">
+                        <div class="form-group form-float">
+                            <div class="form-line  date fix">
+                                <input type="text" id="Barcode_Amount" class="form-control">
+                                <label class="form-label active">مقدار </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="~/Content/img/barcode.png" height="50" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+
+<div class="modal fade" id="modal-Barcode" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:150px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">بارکد </h4>
+                <div>
+                    <a></a>
+                </div>
+            </div>
+            <div class="modal-body">
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="form-group form-float">
+                            <div class="form-line  date fix">
+                                <input type="text" id="Barcode_Value" class="form-control">
+                                <label class="form-label active">بارکد </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <img src="~/Content/img/barcode.png" height="50" />
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+-->
 
 
 
