@@ -482,8 +482,8 @@
     $('#modal-Acc').on('shown.bs.modal', function () {
 
         dispBands = $("#DispBands").val();
-        dispBands == 1 ? self.filterAcc3("1") : self.filterAcc3("")
-
+        dispBands == 1 ? self.filterAcc3("1") : dispBands == 2 ? self.filterAcc3("2") :   self.filterAcc3("")
+       
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1216,7 +1216,7 @@
 
     function getDispBands() {
         select = document.getElementById('DispBands');
-        for (var i = 0; i <= 1; i++) {
+        for (var i = 0; i <= 2; i++) {
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
@@ -1226,6 +1226,10 @@
             if (i == 1) {
                 opt.value = 1;
                 opt.innerHTML = 'حساب های کل';
+            }
+            if (i == 2) {
+                opt.value = 2;
+                opt.innerHTML = 'حساب های معین';
             }
 
             select.appendChild(opt);

@@ -730,7 +730,7 @@
         }
     }
 
-    var DataKalaBarcode;
+    var DataKalaBarcode = null;
 
     $("#Barcode_Value").keydown(function (e) {
         $('#TitleBarcode').text('');
@@ -738,13 +738,6 @@
             barcode = $("#Barcode_Value").val();
             barcode1 = "(" + barcode + ")";
             if (barcode != '') {
-
-
-
-
-
-
-
                 tempData = null
                 list = self.KalaList();
                 for (var i = 0; i < list.length; i++) {
@@ -889,11 +882,14 @@
         if (amountB > 0) {
             if (e.keyCode == 13) {
                 SetDataBarCode(DataKalaBarcode, parseFloat(amountB));
-                DataKalaBarcode = '';
+                if (DataKalaBarcode != null) {
+                    $('#TitleBarcode').text('بند جدید ایجاد شد');
+                }
+                DataKalaBarcode = null;
                 $('#Barcode_Amount').val('');
                 $('#Barcode_Value').val('');
                 $('#Barcode_Value').focus();
-                $('#TitleBarcode').text('بند جدید ایجاد شد');
+                
             }
         }
     });
@@ -911,6 +907,10 @@
         GetBandNumber();
         if (Serial == '') {
             return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+        }
+
+        if (DataKalaBarcode == null) {
+            return showNotification('کالایی یافت نشد', 0);
         }
 
         defaultUnit = kala.DefaultUnit;

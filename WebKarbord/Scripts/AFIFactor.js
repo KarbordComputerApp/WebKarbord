@@ -3805,11 +3805,13 @@
         if (amountB > 0) {
             if (e.keyCode == 13) {
                 SetDataBarCode(DataKalaBarcode, parseFloat(amountB));
+                if (DataKalaBarcode != null) {
+                    $('#TitleBarcode').text('بند جدید ایجاد شد');
+                }
                 DataKalaBarcode = null;
                 $('#Barcode_Amount').val('');
                 $('#Barcode_Value').val('');
                 $('#Barcode_Value').focus();
-                $('#TitleBarcode').text('بند جدید ایجاد شد');
             }
         }
     });
