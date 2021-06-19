@@ -1547,7 +1547,7 @@
         if (acceptUpdate == true) {
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
         }
-           
+
     };
 
     function SendFDocBU(FDocBObject) {
@@ -3661,22 +3661,40 @@
 
 
 
-    var DataKalaBarcode;
+    var DataKalaBarcode = null;
 
     $("#Barcode_Value").keydown(function (e) {
         $('#TitleBarcode').text('');
         if (e.keyCode == 13) {
             barcode = $("#Barcode_Value").val();
-            barcode1 = "(" + barcode + ")";
+            // barcode1 = "(" + barcode + ")";
             if (barcode != '') {
-                tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
-                    result = item.BarCode.indexOf(barcode1) >= 0
-                    //result = item.BarCode == null ? '' : item.BarCode.toString().search('(' + barcode + ')') >= 0
-                    return result;
-                });
 
-                if (tempData.length > 0) {
-                    DataKalaBarcode = tempData[0];
+                tempData = null
+                list = self.KalaList();
+                for (var i = 0; i < list.length; i++) {
+
+                    barCodeList = list[i].BarCode.split(')');
+                    if (barCodeList.length > 1) {
+                        for (var j = 0; j < barCodeList.length; j++) {
+                            result = '(' + barcode == barCodeList[j];
+                            if (result == true)
+                                break;
+                        }
+                    }
+                    else {
+                        result = list[i].BarCode == barcode;
+                    }
+                    if (result == true) {
+                        tempData = list[i];
+                        break;
+                    }
+                }
+
+
+
+                if (tempData != null) {
+                    DataKalaBarcode = tempData;
 
                     if (amountAfterBarCode == '0') {
                         SetDataBarCode(DataKalaBarcode, 1);
@@ -3711,7 +3729,7 @@
                                     totalPrice = a1 * dataBandKala.UnitPrice;
                                 }
                                 else {
-                                    unitPrice = dataBandKala.TotalPrice / a1 ;
+                                    unitPrice = dataBandKala.TotalPrice / a1;
                                     totalPrice = dataBandKala.TotalPrice;
                                 }
                             }
@@ -3729,7 +3747,7 @@
                                     unitPrice = dataBandKala.TotalPrice / a2;
                                     totalPrice = dataBandKala.TotalPrice;
                                 }
-                                
+
                             }
                             else if (dataBandKala.MainUnit == "3") {
                                 amountB = dataBandKala.Amount2 + 1;
@@ -3787,6 +3805,7 @@
         if (amountB > 0) {
             if (e.keyCode == 13) {
                 SetDataBarCode(DataKalaBarcode, parseFloat(amountB));
+                DataKalaBarcode = null;
                 $('#Barcode_Amount').val('');
                 $('#Barcode_Value').val('');
                 $('#Barcode_Value').focus();
@@ -3808,6 +3827,9 @@
         GetBandNumber();
         if (Serial == '') {
             return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+        }
+        if (DataKalaBarcode == null) {
+            return showNotification('کالایی یافت نشد', 0);
         }
 
         defaultUnit = kala.DefaultUnit;
@@ -3913,55 +3935,55 @@
                  data = list[i].Data;
              }
          }
- 
- 
+     
+     
      DataReport = self.FDocPList();
          if (DataReport.length == 0 || DataReport == null || DataReport == "") {
              return showNotification('ابتدا گزارش گیری کنید', 0);
          }
- 
+     
          var dStart = new Date();
          var secondsStart = dStart.getTime();
          dateDifference = DateNow + secondsStart; // عدد یونیک
- 
- 
+     
+     
          report = new Stimulsoft.Report.StiReport();
      report.loadFile(data);
- 
+     
          report.dictionary.databases.clear();
          dataSet = new Stimulsoft.System.Data.DataSet("Database");
          DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
- 
+     
          dataSet.readJson(DataReport);
          report.regData(dataSet.dataSetName, "", dataSet);
- 
+     
          variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
          //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
      variablesReport = '{"variables":[{' + printVariable + '}]}';
          variablesDataSet.readJson(variablesReport);
          report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
- 
- 
+     
+     
          titlesObject = '';
          for (var i = 0; i < ListColumns.length; i++) {
              titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
          }
- 
- 
+     
+     
          titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
          titlesReport = '{"Titles":[{' + titlesObject + '}]}';
          titlesDataSet.readJson(titlesReport);
          report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
- 
- 
+     
+     
          report.dictionary.synchronize();
- 
+     
          viewer.report = report;
          //report.render();
- 
+     
          viewer.visible = true;
          $('#modal-Report').modal('show');
- 
+     
          viewer.onExit = function (e) {
              this.visible = false;
          }

@@ -138,7 +138,7 @@
 
 
 
-    //Delete After Test
+   
     var amountAfterBarCode;
 
     if (sessionStorage.AccessPrint_SanadAnbar == "false") {
@@ -214,7 +214,7 @@
     $("#Panel_Barcode_Amount").attr('hidden', '');
 
     //Delete after Test
-    amountAfterBarCode = "2";
+    //amountAfterBarCode = "2";
 
     if (amountAfterBarCode == "-1")
         $("#Barcode").attr('hidden', '');
@@ -738,14 +738,47 @@
             barcode = $("#Barcode_Value").val();
             barcode1 = "(" + barcode + ")";
             if (barcode != '') {
+
+
+
+
+
+
+
+                tempData = null
+                list = self.KalaList();
+                for (var i = 0; i < list.length; i++) {
+
+                    barCodeList = list[i].BarCode.split(')');
+                    if (barCodeList.length > 1) {
+                        for (var j = 0; j < barCodeList.length; j++) {
+                            result = '(' + barcode == barCodeList[j];
+                            if (result == true)
+                                break;
+                        }
+                    }
+                    else {
+                        result = list[i].BarCode == barcode;
+                    }
+                    if (result == true) {
+                        tempData = list[i];
+                        break;
+                    }
+                }
+                /*
+
                 tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
                     result = item.BarCode.indexOf(barcode1) >= 0
                     //result = item.BarCode == null ? '' : item.BarCode.toString().search('(' + barcode + ')') >= 0
                     return result;
-                });
+                });*/
 
-                if (tempData.length > 0) {
-                    DataKalaBarcode = tempData[0];
+
+
+
+
+                if (tempData != null) {
+                    DataKalaBarcode = tempData;
 
                     if (amountAfterBarCode == '0') {
                         SetDataBarCode(DataKalaBarcode, 1);
@@ -856,6 +889,7 @@
         if (amountB > 0) {
             if (e.keyCode == 13) {
                 SetDataBarCode(DataKalaBarcode, parseFloat(amountB));
+                DataKalaBarcode = '';
                 $('#Barcode_Amount').val('');
                 $('#Barcode_Value').val('');
                 $('#Barcode_Value').focus();
