@@ -809,8 +809,10 @@
         self.search("");
         self.currentColumn(orderProp);
         self.FDocHList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
 
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
@@ -979,9 +981,8 @@
             return null
         self.currentColumn1(orderProp);
         self.FDocHList1.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
-
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType1 == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2218,9 +2219,8 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
-
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

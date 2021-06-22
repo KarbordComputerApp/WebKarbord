@@ -596,8 +596,8 @@
 
         self.currentColumn(orderProp);
         self.ErjDocHList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1087,8 +1087,8 @@
             return null
         self.currentColumn(orderProp);
         self.ErjCustList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1228,8 +1228,8 @@
             return null
         self.currentColumn(orderProp);
         self.KhdtList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1381,8 +1381,8 @@
             return null
         self.currentColumn(orderProp);
         self.RelatedDocsList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1617,8 +1617,8 @@
             return null
         self.currentColumn(orderProp);
         self.ErjUsersList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1742,8 +1742,8 @@
             return null
         self.currentColumn(orderProp);
         self.ErjUsersList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1927,8 +1927,8 @@
             return null
         self.currentColumn(orderProp);
         self.DocAttachList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

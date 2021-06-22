@@ -3119,40 +3119,48 @@ function SelectedAccessGhimatPrintForm(address, isPublic) {
 
 
 function FixSortName(name) {
-    str = name.replace('آ', String.fromCharCode(1000));
-    str = str.replace('ا', String.fromCharCode(1001));
-    str = str.replace('ب', String.fromCharCode(1002));
-    str = str.replace('پ', String.fromCharCode(1003));
-    str = str.replace('ت', String.fromCharCode(1004));
-    str = str.replace('ث', String.fromCharCode(1005));
-    str = str.replace('ج', String.fromCharCode(1006));
-    str = str.replace('چ', String.fromCharCode(1007));
-    str = str.replace('ح', String.fromCharCode(1008));
-    str = str.replace('خ', String.fromCharCode(1009));
-    str = str.replace('د', String.fromCharCode(1010));
-    str = str.replace('ذ', String.fromCharCode(1011));
-    str = str.replace('ر', String.fromCharCode(1012));
-    str = str.replace('ز', String.fromCharCode(1013));
-    str = str.replace('ژ', String.fromCharCode(1014));
-    str = str.replace('س', String.fromCharCode(1015));
-    str = str.replace('ش', String.fromCharCode(1016));
-    str = str.replace('ص', String.fromCharCode(1017));
-    str = str.replace('ض', String.fromCharCode(1018));
-    str = str.replace('ط', String.fromCharCode(1019));
-    str = str.replace('ظ', String.fromCharCode(1020));
-    str = str.replace('ع', String.fromCharCode(1021));
-    str = str.replace('غ', String.fromCharCode(1022));
-    str = str.replace('ف', String.fromCharCode(1023));
-    str = str.replace('ق', String.fromCharCode(1024));
-    str = str.replace('ك', String.fromCharCode(1025));
-    str = str.replace('ک', String.fromCharCode(1026));
-    str = str.replace('گ', String.fromCharCode(1027));
-    str = str.replace('ل', String.fromCharCode(1028));
-    str = str.replace('م', String.fromCharCode(1029));
-    str = str.replace('ن', String.fromCharCode(1030));
-    str = str.replace('و', String.fromCharCode(1031));
-    str = str.replace('ه', String.fromCharCode(1032));
-    str = str.replace('ی', String.fromCharCode(1033));
+
+    if (typeof name == "string") {
+        str = name.trim();
+        str = str.replace('آ', String.fromCharCode(1000));
+        str = str.replace('ا', String.fromCharCode(1001));
+        str = str.replace('ب', String.fromCharCode(1002));
+        str = str.replace('پ', String.fromCharCode(1003));
+        str = str.replace('ت', String.fromCharCode(1004));
+        str = str.replace('ث', String.fromCharCode(1005));
+        str = str.replace('ج', String.fromCharCode(1006));
+        str = str.replace('چ', String.fromCharCode(1007));
+        str = str.replace('ح', String.fromCharCode(1008));
+        str = str.replace('خ', String.fromCharCode(1009));
+        str = str.replace('د', String.fromCharCode(1010));
+        str = str.replace('ذ', String.fromCharCode(1011));
+        str = str.replace('ر', String.fromCharCode(1012));
+        str = str.replace('ز', String.fromCharCode(1013));
+        str = str.replace('ژ', String.fromCharCode(1014));
+        str = str.replace('س', String.fromCharCode(1015));
+        str = str.replace('ش', String.fromCharCode(1016));
+        str = str.replace('ص', String.fromCharCode(1017));
+        str = str.replace('ض', String.fromCharCode(1018));
+        str = str.replace('ط', String.fromCharCode(1019));
+        str = str.replace('ظ', String.fromCharCode(1020));
+        str = str.replace('ع', String.fromCharCode(1021));
+        str = str.replace('غ', String.fromCharCode(1022));
+        str = str.replace('ف', String.fromCharCode(1023));
+        str = str.replace('ق', String.fromCharCode(1024));
+        str = str.replace('ك', String.fromCharCode(1025));
+        str = str.replace('ک', String.fromCharCode(1026));
+        str = str.replace('گ', String.fromCharCode(1027));
+        str = str.replace('ل', String.fromCharCode(1028));
+        str = str.replace('م', String.fromCharCode(1029));
+        str = str.replace('ن', String.fromCharCode(1030));
+        str = str.replace('و', String.fromCharCode(1031));
+        str = str.replace('ه', String.fromCharCode(1032));
+        str = str.replace('ی', String.fromCharCode(1033));
+    }
+    else {
+        str = name;
+    }
+
     return str
 }
 

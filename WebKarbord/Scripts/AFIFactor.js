@@ -1798,8 +1798,9 @@
             return null
         self.currentColumn(orderProp);
         self.CustList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
 
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
@@ -1900,8 +1901,9 @@
             return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
 
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
@@ -2271,8 +2273,8 @@
             return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
 
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
@@ -2405,8 +2407,8 @@
             return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
 
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
@@ -3648,8 +3650,8 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp].trim());
-            rightVal = FixSortName(right[orderProp].trim());
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
 
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
