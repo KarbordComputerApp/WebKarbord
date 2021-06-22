@@ -102,6 +102,7 @@
 
     var accessTaeed = false;
     var accessTasvib = false;
+    var accessCancel = false;
 
     var firstUpdateShow;
     self.flagupdateband = false;
@@ -402,6 +403,11 @@
         if (accessTaeed == false && selectStatus == 'تایید') {
             $("#status").val(lastStatus);
             return showNotification('دسترسی تایید ندارید', 0);
+        }
+
+        if (accessCancel == false && selectStatus == 'باطل') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی باطل ندارید', 0);
         }
 
         if (accessTasvib == false && selectStatus == 'تصویب') {
@@ -814,6 +820,23 @@
                     else if (sessionStorage.FDOCSR_TestCust == "2")
                         return showNotification('خریدار انتخاب نشده است', 0);
                     break;
+
+                case sessionStorage.MODECODE_FDOC_SH:
+                    if (sessionStorage.FDOCSH_TestCust == "1")
+                        showNotification('خریدار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSH_TestCust == "2")
+                        return showNotification('خریدار انتخاب نشده است', 0);
+                    break;
+
+                case sessionStorage.MODECODE_FDOC_SE:
+                    if (sessionStorage.FDOCSE_TestCust == "1")
+                        showNotification('خریدار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSE_TestCust == "2")
+                        return showNotification('خریدار انتخاب نشده است', 0);
+                    break;
+
+
+
                 case sessionStorage.MODECODE_FDOC_PO:
                     if (sessionStorage.FDOCPO_TestCust == "1")
                         showNotification('فروشنده انتخاب نشده است', 2);
@@ -868,6 +891,19 @@
                     else if (sessionStorage.FDOCSR_TestInv == "2")
                         return showNotification('انبار انتخاب نشده است', 0);
                     break;
+                case sessionStorage.MODECODE_FDOC_SH:
+                    if (sessionStorage.FDOCSH_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSH_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SE:
+                    if (sessionStorage.FDOCSE_TestInv == "1")
+                        showNotification('انبار انتخاب نشده است', 2);
+                    else if (sessionStorage.FDOCSE_TestInv == "2")
+                        return showNotification('انبار انتخاب نشده است', 0);
+                    break;
+
                 case sessionStorage.MODECODE_FDOC_PO:
                     if (sessionStorage.FDOCPO_TestInv == "1")
                         showNotification('انبار انتخاب نشده است', 2);
@@ -1231,6 +1267,21 @@
                             else if (sessionStorage.FDOCSR_TestZeroAmount == "2")
                                 return showNotification(textZeroAmount, 0);
                             break;
+
+                        case sessionStorage.MODECODE_FDOC_SH:
+                            if (sessionStorage.FDOCSH_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSH_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_SE:
+                            if (sessionStorage.FDOCSE_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSE_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+
+
                         case sessionStorage.MODECODE_FDOC_PO:
                             if (sessionStorage.FDOCPO_TestZeroAmount == "1")
                                 showNotification(textZeroAmount, 2);
@@ -1286,12 +1337,28 @@
                     else if (sessionStorage.FDOCSR_TestZeroPrice == "2")
                         return showNotification(textZeroPrice, 0);
                     break;
+
+                /*case sessionStorage.MODECODE_FDOC_SH:
+                    if (sessionStorage.FDOCSH_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSH_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SE:
+                    if (sessionStorage.FDOCSE_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSE_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;*/
+
+
                 case sessionStorage.MODECODE_FDOC_PO:
                     if (sessionStorage.FDOCPO_TestZeroPrice == "1")
                         showNotification(textZeroPrice, 2);
                     else if (sessionStorage.FDOCPO_TestZeroPrice == "2")
                         return showNotification(textZeroPrice, 0);
                     break;
+
                 case sessionStorage.MODECODE_FDOC_PP:
                     if (sessionStorage.FDOCPP_TestZeroPrice == "1")
                         showNotification(textZeroPrice, 2);
@@ -1442,6 +1509,19 @@
                             else if (sessionStorage.FDOCSR_TestZeroAmount == "2")
                                 return showNotification(textZeroAmount, 0);
                             break;
+                        case sessionStorage.MODECODE_FDOC_SH:
+                            if (sessionStorage.FDOCSH_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSH_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+                        case sessionStorage.MODECODE_FDOC_SE:
+                            if (sessionStorage.FDOCSE_TestZeroAmount == "1")
+                                showNotification(textZeroAmount, 2);
+                            else if (sessionStorage.FDOCSE_TestZeroAmount == "2")
+                                return showNotification(textZeroAmount, 0);
+                            break;
+
                         case sessionStorage.MODECODE_FDOC_PO:
                             if (sessionStorage.FDOCPO_TestZeroAmount == "1")
                                 showNotification(textZeroAmount, 2);
@@ -1497,6 +1577,20 @@
                     else if (sessionStorage.FDOCSR_TestZeroPrice == "2")
                         return showNotification(textZeroPrice, 0);
                     break;
+
+                /*case sessionStorage.MODECODE_FDOC_SH:
+                    if (sessionStorage.FDOCSH_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSH_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;
+                case sessionStorage.MODECODE_FDOC_SE:
+                    if (sessionStorage.FDOCSE_TestZeroPrice == "1")
+                        showNotification(textZeroPrice, 2);
+                    else if (sessionStorage.FDOCSE_TestZeroPrice == "2")
+                        return showNotification(textZeroPrice, 0);
+                    break;*/
+
                 case sessionStorage.MODECODE_FDOC_PO:
                     if (sessionStorage.FDOCPO_TestZeroPrice == "1")
                         showNotification(textZeroPrice, 2);
@@ -1704,8 +1798,9 @@
             return null
         self.currentColumn(orderProp);
         self.CustList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1805,8 +1900,9 @@
             return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2175,8 +2271,9 @@
             return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2308,8 +2405,9 @@
             return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -3067,6 +3165,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
             accessTaeed = sessionStorage.Access_TAEED_SFORD == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SFORD == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SFORD == 'true'
 
             if (sessionStorage.AccessViewSefareshForosh == 'true') {
                 viewAction = true;
@@ -3082,6 +3181,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
             accessTaeed = sessionStorage.Access_TAEED_SPDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SPDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SPDOC == 'true'
 
             if (sessionStorage.AccessViewPishFactorForosh == 'true') {
                 viewAction = true;
@@ -3097,6 +3197,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
             accessTaeed = sessionStorage.Access_TAEED_SFDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SFDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SFDOC == 'true'
 
             if (sessionStorage.AccessViewFactorForosh == 'true') {
                 viewAction = true;
@@ -3112,6 +3213,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
             accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SRDOC == 'true'
 
             if (sessionStorage.AccessViewBackFactorForosh == 'true') {
                 viewAction = true;
@@ -3128,6 +3230,7 @@
 
             accessTaeed = sessionStorage.Access_TAEED_SHVL == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SHVL == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SHVL == 'true'
 
             if (sessionStorage.AccessViewHavaleForosh == 'true') {
                 viewAction = true;
@@ -3142,6 +3245,7 @@
 
             accessTaeed = sessionStorage.Access_TAEED_SEXT == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SEXT == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SEXT == 'true'
 
             if (sessionStorage.AccessViewBargeKhoroj == 'true') {
                 viewAction = true;
@@ -3157,6 +3261,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
             accessTaeed = sessionStorage.Access_TAEED_PFORD == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PFORD == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PFORD == 'true'
 
             if (sessionStorage.AccessViewSefareshKharid == 'true') {
                 viewAction = true;
@@ -3176,6 +3281,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
             accessTaeed = sessionStorage.Access_TAEED_PPDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PPDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PPDOC == 'true'
 
             if (sessionStorage.AccessViewPishFactorKharid == 'true') {
                 viewAction = true;
@@ -3193,6 +3299,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
             accessTaeed = sessionStorage.Access_TAEED_PFDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PFDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PFDOC == 'true'
 
             if (sessionStorage.AccessViewFactorKharid == 'true') {
                 viewAction = true;
@@ -3208,6 +3315,7 @@
             showPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
             accessTaeed = sessionStorage.Access_TAEED_PRDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PRDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PRDOC == 'true'
 
             if (sessionStorage.AccessViewBackFactorKharid == 'true') {
                 viewAction = true;
@@ -3230,6 +3338,9 @@
             viewAction = false;
 
         if (accessTasvib == false && sessionStorage.Status == 'تصویب')
+            viewAction = false;
+
+        if (accessCancel == false && sessionStorage.Status == 'باطل')
             viewAction = false;
 
 
@@ -3537,8 +3648,9 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

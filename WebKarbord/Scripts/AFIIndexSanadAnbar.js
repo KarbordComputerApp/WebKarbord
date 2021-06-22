@@ -132,8 +132,7 @@
     $("#status").change(function () {
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
-            //accessTaeed
-            // accessTasvib
+
             if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تایید ندارید', 0);
@@ -142,6 +141,11 @@
             if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تصویب ندارید', 0);
+            }
+
+            if (sessionStorage.Access_CANCEL_IIDOC == 'false' && selectStatus == 'باطل') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی باطل', 0);
             }
 
         }
@@ -156,6 +160,12 @@
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی تصویب', 0);
             }
+
+            if (sessionStorage.Access_CANCEL_IODOC == 'false' && selectStatus == 'باطل') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی باطل', 0);
+            }
+
         }
 
 
@@ -614,8 +624,9 @@
 
         self.currentColumn(orderProp);
         self.IDocHList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1605,8 +1616,9 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

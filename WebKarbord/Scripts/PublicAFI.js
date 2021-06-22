@@ -31,6 +31,7 @@ var resTestSavePrintForm = "";
 
 
 
+
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
 var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
 var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
@@ -55,6 +56,10 @@ var TestSavePrintFormUri = server + '/api/Web_Data/TestSavePrintForm/'; // آد�
 var SelectedPrintFormUri = server + '/api/Web_Data/SelectedPrintForm/'; // آدرس انتخاب فرم چاپ
 var SelectedAccessGhimatPrintFormUri = server + '/api/Web_Data/SelectedAccessGhimatPrintForm/'; // آدرس دسترسی قیمت فرم چاپ
 
+var MessageUri = sessionStorage.serverAccount + 'Account/Messages/'; // آدرس پیام ها
+
+
+
 
 var MachineId = localStorage.getItem("MachineIdKarbord");
 if (MachineId == null || MachineId == '') {
@@ -65,12 +70,46 @@ if (MachineId == null || MachineId == '') {
 
 
 
+
+
 ParamList = ko.observableArray([]); // پارامتر ها
 DatabseSalList = ko.observableArray([]); // دیتابیس های سال
 AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 
 PrintFormsList = ko.observableArray([]); // لیست چاپ 
+
+MessageList = ko.observableArray([]);
+
+
+getMessageList();
+//Get Message List
+function getMessageList() {
+    ajaxFunction(MessageUri + lockNumber , 'GET').done(function (data) {
+        MessageList(data);
+    });
+}
+
+selectMessage = function (item) {
+
+    $('#titleMessage').text(item.title);
+    $('#bodyMessage').val(item.body);
+    $('#modal-Message').modal('show');
+}
+
+//Get kala List
+function getKalaList() {
+    var KalaObject = {
+        withimage: false,
+        updatedate: null,
+        Mode: 2,
+        UserCode: sessionStorage.userName,
+    }
+    ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        self.KalaList(data);
+    });
+}
+
 
 $('#userNameFa').text(sessionStorage.userNameFa);
 $('#userNameHome').text(sessionStorage.userNameFa + ' ');
@@ -341,6 +380,7 @@ function ajaxFunction(uri, method, data, sync) {
     return $.ajax({
         type: method,
         async: sync == null ? false : sync,
+        encoding: 'UTF-8',
         beforeSend: function () {
             if (sync == true) {
                 $('#loadingsite').attr('class', 'page-proccess-wrapper');
@@ -756,6 +796,8 @@ async function getParamList() {
             sessionStorage.FDOCSP_TestCust = SearchArry("FDOCSP_TestCust", "FDOCSP_TestCust", self.ParamList());
             sessionStorage.FDOCS_TestCust = SearchArry("FDOCS_TestCust", "FDOCS_TestCust", self.ParamList());
             sessionStorage.FDOCSR_TestCust = SearchArry("FDOCSR_TestCust", "FDOCSR_TestCust", self.ParamList());
+            sessionStorage.FDOCSH_TestCust = SearchArry("FDOCSH_TestCust", "FDOCSH_TestCust", self.ParamList());
+            sessionStorage.FDOCSE_TestCust = SearchArry("FDOCSE_TestCust", "FDOCSE_TestCust", self.ParamList());
             sessionStorage.FDOCPO_TestCust = SearchArry("FDOCPO_TestCust", "FDOCPO_TestCust", self.ParamList());
             sessionStorage.FDOCPP_TestCust = SearchArry("FDOCPP_TestCust", "FDOCPP_TestCust", self.ParamList());
             sessionStorage.FDOCP_TestCust = SearchArry("FDOCP_TestCust", "FDOCP_TestCust", self.ParamList());
@@ -765,6 +807,8 @@ async function getParamList() {
             sessionStorage.FDOCSP_TestZeroAmount = SearchArry("FDOCSP_TestZeroAmount", "FDOCSP_TestZeroAmount", self.ParamList());
             sessionStorage.FDOCS_TestZeroAmount = SearchArry("FDOCS_TestZeroAmount", "FDOCS_TestZeroAmount", self.ParamList());
             sessionStorage.FDOCSR_TestZeroAmount = SearchArry("FDOCSR_TestZeroAmount", "FDOCSR_TestZeroAmount", self.ParamList());
+            sessionStorage.FDOCSH_TestZeroAmount = SearchArry("FDOCSH_TestZeroAmount", "FDOCSH_TestZeroAmount", self.ParamList());
+            sessionStorage.FDOCSE_TestZeroAmount = SearchArry("FDOCSE_TestZeroAmount", "FDOCSE_TestZeroAmount", self.ParamList());
             sessionStorage.FDOCPO_TestZeroAmount = SearchArry("FDOCPO_TestZeroAmount", "FDOCPO_TestZeroAmount", self.ParamList());
             sessionStorage.FDOCPP_TestZeroAmount = SearchArry("FDOCPP_TestZeroAmount", "FDOCPP_TestZeroAmount", self.ParamList());
             sessionStorage.FDOCP_TestZeroAmount = SearchArry("FDOCP_TestZeroAmount", "FDOCP_TestZeroAmount", self.ParamList());
@@ -774,6 +818,8 @@ async function getParamList() {
             sessionStorage.FDOCSP_TestZeroPrice = SearchArry("FDOCSP_TestZeroPrice", "FDOCSP_TestZeroPrice", self.ParamList());
             sessionStorage.FDOCS_TestZeroPrice = SearchArry("FDOCS_TestZeroPrice", "FDOCS_TestZeroPrice", self.ParamList());
             sessionStorage.FDOCSR_TestZeroPrice = SearchArry("FDOCSR_TestZeroPrice", "FDOCSR_TestZeroPrice", self.ParamList());
+            sessionStorage.FDOCSH_TestZeroPrice = SearchArry("FDOCSH_TestZeroPrice", "FDOCSH_TestZeroPrice", self.ParamList());
+            sessionStorage.FDOCSE_TestZeroPrice = SearchArry("FDOCSE_TestZeroPrice", "FDOCSE_TestZeroPrice", self.ParamList());
             sessionStorage.FDOCPO_TestZeroPrice = SearchArry("FDOCPO_TestZeroPrice", "FDOCPO_TestZeroPrice", self.ParamList());
             sessionStorage.FDOCPP_TestZeroPrice = SearchArry("FDOCPP_TestZeroPrice", "FDOCPP_TestZeroPrice", self.ParamList());
             sessionStorage.FDOCP_TestZeroPrice = SearchArry("FDOCP_TestZeroPrice", "FDOCP_TestZeroPrice", self.ParamList());
@@ -783,6 +829,8 @@ async function getParamList() {
             sessionStorage.FDOCSP_TestInv = SearchArry("FDOCSP_TestInv", "FDOCSP_TestInv", self.ParamList());
             sessionStorage.FDOCS_TestInv = SearchArry("FDOCS_TestInv", "FDOCS_TestInv", self.ParamList());
             sessionStorage.FDOCSR_TestInv = SearchArry("FDOCSR_TestInv", "FDOCSR_TestInv", self.ParamList());
+            sessionStorage.FDOCSH_TestInv = SearchArry("FDOCSH_TestInv", "FDOCSH_TestInv", self.ParamList());
+            sessionStorage.FDOCSE_TestInv = SearchArry("FDOCSE_TestInv", "FDOCSE_TestInv", self.ParamList());
             sessionStorage.FDOCPO_TestInv = SearchArry("FDOCPO_TestInv", "FDOCPO_TestInv", self.ParamList());
             sessionStorage.FDOCPP_TestInv = SearchArry("FDOCPP_TestInv", "FDOCPP_TestInv", self.ParamList());
             sessionStorage.FDOCP_TestInv = SearchArry("FDOCP_TestInv", "FDOCP_TestInv", self.ParamList());
@@ -1292,6 +1340,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_SFORD');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_SFORD = true : sessionStorage.Access_TAEED_SFORD = false
 
+        validation = CheckAccess('CANCEL_SFORD');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SFORD = true : sessionStorage.Access_CANCEL_SFORD = false
+
         validation = CheckAccess('TASVIB_SFORD');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_SFORD = true : sessionStorage.Access_TASVIB_SFORD = false
 
@@ -1344,6 +1395,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_SPDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_SPDOC = true : sessionStorage.Access_TAEED_SPDOC = false
 
+        validation = CheckAccess('CANCEL_SPDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SPDOC = true : sessionStorage.Access_CANCEL_SPDOC = false
+
         validation = CheckAccess('TASVIB_SPDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_SPDOC = true : sessionStorage.Access_TASVIB_SPDOC = false
 
@@ -1394,6 +1448,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_SFDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_SFDOC = true : sessionStorage.Access_TAEED_SFDOC = false
 
+        validation = CheckAccess('CANCEL_SFDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
+
         validation = CheckAccess('TASVIB_SFDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_SFDOC = true : sessionStorage.Access_TASVIB_SFDOC = false
 
@@ -1440,6 +1497,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_SRDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_SRDOC = true : sessionStorage.Access_TAEED_SRDOC = false
 
+        validation = CheckAccess('CANCEL_SFDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
+
 
         validation = CheckAccess('TASVIB_SRDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_SRDOC = true : sessionStorage.Access_TASVIB_SRDOC = false
@@ -1484,6 +1544,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_SHVL');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_SHVL = true : sessionStorage.Access_TAEED_SHVL = false
 
+        validation = CheckAccess('CANCEL_SFDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
+
         validation = CheckAccess('TASVIB_SHVL');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_SHVL = true : sessionStorage.Access_TASVIB_SHVL = false
 
@@ -1527,6 +1590,9 @@ function SetValidation() {
 
         validation = CheckAccess('TAEED_SEXT');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_SEXT = true : sessionStorage.Access_TAEED_SEXT = false
+
+        validation = CheckAccess('CANCEL_SEXT');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SEXT = true : sessionStorage.Access_CANCEL_SEXT = false
 
         validation = CheckAccess('TASVIB_SEXT');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_SEXT = true : sessionStorage.Access_TASVIB_SEXT = false
@@ -1574,6 +1640,9 @@ function SetValidation() {
 
         validation = CheckAccess('TAEED_PFORD');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_PFORD = true : sessionStorage.Access_TAEED_PFORD = false
+
+        validation = CheckAccess('CANCEL_SEXT');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_SEXT = true : sessionStorage.Access_CANCEL_SEXT = false
 
         validation = CheckAccess('TASVIB_PFORD');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_PFORD = true : sessionStorage.Access_TASVIB_PFORD = false
@@ -1626,6 +1695,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_PPDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_PPDOC = true : sessionStorage.Access_TAEED_PPDOC = false
 
+        validation = CheckAccess('CANCEL_PPDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_PPDOC = true : sessionStorage.Access_CANCEL_PPDOC = false
+
         validation = CheckAccess('TASVIB_PPDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_PPDOC = true : sessionStorage.Access_TASVIB_PPDOC = false
 
@@ -1670,6 +1742,9 @@ function SetValidation() {
 
         validation = CheckAccess('TAEED_PFDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_PFDOC = true : sessionStorage.Access_TAEED_PFDOC = false
+
+        validation = CheckAccess('CANCEL_PFDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_PFDOC = true : sessionStorage.Access_CANCEL_PFDOC = false
 
         validation = CheckAccess('TASVIB_PFDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_PFDOC = true : sessionStorage.Access_TASVIB_PFDOC = false
@@ -1717,6 +1792,9 @@ function SetValidation() {
 
         validation = CheckAccess('TAEED_PRDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_PRDOC = true : sessionStorage.Access_TAEED_PRDOC = false
+
+        validation = CheckAccess('CANCEL_PRDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_PRDOC = true : sessionStorage.Access_CANCEL_PRDOC = false
 
         validation = CheckAccess('TASVIB_PRDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_PRDOC = true : sessionStorage.Access_TASVIB_PRDOC = false
@@ -1768,6 +1846,9 @@ function SetValidation() {
         validation = CheckAccess('TAEED_IIDOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_IIDOC = true : sessionStorage.Access_TAEED_IIDOC = false
 
+        validation = CheckAccess('CANCEL_IIDOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_IIDOC = true : sessionStorage.Access_CANCEL_IIDOC = false
+
         validation = CheckAccess('TASVIB_IIDOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_IIDOC = true : sessionStorage.Access_TASVIB_IIDOC = false
 
@@ -1810,6 +1891,9 @@ function SetValidation() {
 
         validation = CheckAccess('TAEED_IODOC');// AccessTaeed
         validation == true ? sessionStorage.Access_TAEED_IODOC = true : sessionStorage.Access_TAEED_IODOC = false
+
+        validation = CheckAccess('CANCEL_IODOC');// AccessCANCEL  باطل
+        validation == true ? sessionStorage.Access_CANCEL_IODOC = true : sessionStorage.Access_CANCEL_IODOC = false
 
         validation = CheckAccess('TASVIB_IODOC');// AccessTasvib
         validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
@@ -3029,5 +3113,46 @@ function SelectedAccessGhimatPrintForm(address, isPublic) {
             showNotification('فایلی با نام مشابه وجود دارد و امکان تغییر نیست', 0);
         }
     });
+}
+
+
+
+
+function FixSortName(name) {
+    str = name.replace('آ', String.fromCharCode(1000));
+    str = str.replace('ا', String.fromCharCode(1001));
+    str = str.replace('ب', String.fromCharCode(1002));
+    str = str.replace('پ', String.fromCharCode(1003));
+    str = str.replace('ت', String.fromCharCode(1004));
+    str = str.replace('ث', String.fromCharCode(1005));
+    str = str.replace('ج', String.fromCharCode(1006));
+    str = str.replace('چ', String.fromCharCode(1007));
+    str = str.replace('ح', String.fromCharCode(1008));
+    str = str.replace('خ', String.fromCharCode(1009));
+    str = str.replace('د', String.fromCharCode(1010));
+    str = str.replace('ذ', String.fromCharCode(1011));
+    str = str.replace('ر', String.fromCharCode(1012));
+    str = str.replace('ز', String.fromCharCode(1013));
+    str = str.replace('ژ', String.fromCharCode(1014));
+    str = str.replace('س', String.fromCharCode(1015));
+    str = str.replace('ش', String.fromCharCode(1016));
+    str = str.replace('ص', String.fromCharCode(1017));
+    str = str.replace('ض', String.fromCharCode(1018));
+    str = str.replace('ط', String.fromCharCode(1019));
+    str = str.replace('ظ', String.fromCharCode(1020));
+    str = str.replace('ع', String.fromCharCode(1021));
+    str = str.replace('غ', String.fromCharCode(1022));
+    str = str.replace('ف', String.fromCharCode(1023));
+    str = str.replace('ق', String.fromCharCode(1024));
+    str = str.replace('ك', String.fromCharCode(1025));
+    str = str.replace('ک', String.fromCharCode(1026));
+    str = str.replace('گ', String.fromCharCode(1027));
+    str = str.replace('ل', String.fromCharCode(1028));
+    str = str.replace('م', String.fromCharCode(1029));
+    str = str.replace('ن', String.fromCharCode(1030));
+    str = str.replace('و', String.fromCharCode(1031));
+    str = str.replace('ه', String.fromCharCode(1032));
+    str = str.replace('ی', String.fromCharCode(1033));
+    return str
 }
 

@@ -844,8 +844,8 @@
 
         self.currentColumn(orderProp);
         self.TrzFKala_PList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1029,8 +1029,8 @@
             return null
         self.currentColumn(orderProp);
         self.StatusList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1198,8 +1198,8 @@
             return null
         self.currentColumn(orderProp);
         self.InvList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1380,8 +1380,8 @@
             return null
         self.currentColumn(orderProp);
         self.KGruList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1564,8 +1564,8 @@
             return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1748,8 +1748,8 @@
             return null
         self.currentColumn(orderProp);
         self.CGruList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1935,8 +1935,8 @@
             return null
         self.currentColumn(orderProp);
         self.CustList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2114,8 +2114,8 @@
             return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2294,8 +2294,8 @@
             return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2776,8 +2776,8 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

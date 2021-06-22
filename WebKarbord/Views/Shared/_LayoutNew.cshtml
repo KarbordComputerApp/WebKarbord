@@ -192,69 +192,7 @@
                         </a>
                     </li>
 
-                    <!--                    <li class="dropdown pull-left">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <img src="~/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16" />
-                        </a>
-                        <ul class="dropdown-menu pullDown" style="padding: 20px;border-radius: 25px;">
-                            <li class="header" style="margin: 10px;padding-bottom: 15px;">
-                                <h3>تنظیمات نرم افزار</h3>
-                            </li>
-                            <li class="body" style="margin-top: 10px;">
 
-                                <ul class="" style="height:300px !important">
-
-                                    <li style="width: 100%;">
-                                        <div class="form-group form-float" style=" border: 1px solid white;
-                                                                border-radius: 30px;
-                                                                padding: 20px;
-                                                                background-color: white;
-                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
-                                            <div class="form-line">
-                                                <select id="DropAce" class="form-control" style="text-indent: 30px;direction: rtl;">
-                                                    <option value="0">نرم افزار را انتخاب کنید</option>
-                                                </select>
-                                                <img class="form-label" src="~/Content/img/Setting/streamline-icon-cd-partition@48x48.png" width="16" height="16" style="top: 0px;" />
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li style="width: 100%;">
-                                        <div class="form-group form-float" style=" border: 1px solid white;
-                                                                border-radius: 30px;
-                                                                padding: 20px;
-                                                                background-color: white;
-                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
-                                            <div class="form-line">
-                                                <select id="DropGroup" class="form-control" style="text-indent: 30px;direction: rtl;">
-                                                    <option value="0">گروه را انتخاب کنید</option>
-                                                </select>
-                                                <img class="form-label" src="~/Content/img/Setting/streamline-icon-checklist@48x48.png" width="16" height="16" style="top: 0px;" />
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li style="width: 100%;">
-                                        <div class="form-group form-float" style=" border: 1px solid white;
-                                                                border-radius: 30px;
-                                                                padding: 20px;
-                                                                background-color: white;
-                                                                box-shadow: 5px 5px 20px 1px #4048524f;">
-                                            <div class="form-line">
-                                                <select id="DropSal" class="form-control" style="text-indent: 30px;direction: rtl;">
-                                                    <option value="0">سال را انتخاب کنید</option>
-                                                </select>
-                                                <img class="form-label" src="~/Content/img/Setting/streamline-icon-calendar-3@48x48.png" width="16" height="16" style="top: 0px;" />
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <button type="button" id="SaveParam" class="btn btn-primary btn-block" style="background-color: #eb8121 !important; margin-left:0px;">ثبت</button>
-                            </li>
-                        </ul>
-                    </li>-->
 
                     <li class="pull-left">
                         <a href="/Home/Index" class="dropdown-toggle" data-close="true">
@@ -268,28 +206,13 @@
                             <img src="~/Content/img/streamline-icon-alarm-bell-1@48x48.png" width="16" height="16" />
                         </a>
                         <ul class="dropdown-menu pullDown">
-                            <li class="header">اطلاعیه ها</li>
-                            <li class="body">
+                            <li class="header">پیام ها</li>
+                            <li class="body" style="width: inherit;">
                                 <ul class="menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span class="table-img msg-user">
-                                                <!--  <img src="assets/images/user/user1.jpg" alt="">-->
-                                            </span>
-                                            <span class="menu-info">
-                                                <span class="menu-title">ACE</span>
-
-                                                <span class="menu-desc">
-                                                    <i class="material-icons">access_time</i>
-                                                </span>
-                                                <span class="menu-desc"></span>
-                                            </span>
-                                        </a>
+                                    <li data-bind="foreach: MessageList">
+                                        <a data-bind="text: title , click: selectMessage" style="text-align:right;padding: 0px 10px 0px 10px;" ></a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="javascript:void(0);">مشاهده تمام اطلاعیه ها</a>
                             </li>
                         </ul>
                     </li>
@@ -322,7 +245,7 @@
                             <span id="titleVer">@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)</span>
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
                             <br />
-                            <span id="titleVer">ورژن سرویس : 515</span>
+                            <span id="titleVer">ورژن سرویس : 516</span>
                             <span id="titleVerNumber" style="padding-right:5px"></span>
                         </div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1007</div> -->
@@ -860,6 +783,27 @@
 
 
 
+
+
+
+
+    <div class="modal fade" id="modal-Message" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="titleMessage"></h4>
+                    <a></a>
+                </div>
+                <div class="modal-body">
+                    <textarea id="bodyMessage" rows="30" class="form-control no-resize auto-growth string" style="text-align:justify"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 

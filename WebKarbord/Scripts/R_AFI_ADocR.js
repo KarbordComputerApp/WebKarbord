@@ -284,7 +284,7 @@
             JamRooz: $('#JamRooz').val(),
         };
 
-        ajaxFunction(ADocRUri + ace + '/' + sal + '/' + group, 'POST', ADocRObject,true).done(function (response) {
+        ajaxFunction(ADocRUri + ace + '/' + sal + '/' + group, 'POST', ADocRObject, true).done(function (response) {
             self.ADocRList(response);
             // calcsum(self.ADocRList());
         });
@@ -358,7 +358,7 @@
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
+                    ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
                 return result;
             })
             return tempData;
@@ -371,7 +371,7 @@
             startIndex = pageSizeAcc * self.currentPageIndexAcc(),
             endIndex = startIndex + pageSizeAcc;
         localStorage.setItem('pageSizeAcc', pageSizeAcc);
-  return self.filterAccList().slice(startIndex, endIndex);
+        return self.filterAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageAcc = function () {
@@ -398,6 +398,8 @@
             self.currentPageIndexAcc(countAcc);
     };
 
+
+
     self.sortTableAcc = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null) {
@@ -405,8 +407,9 @@
         }
         self.currentColumn(orderProp);
         self.AccList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -425,6 +428,14 @@
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
+
+
+
+
+
+
+
+
 
     self.PageCountView = function () {
         sessionStorage.invSelect = $('#invSelect').val();
@@ -553,7 +564,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -587,8 +598,8 @@
         }
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -734,7 +745,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-  return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -768,8 +779,8 @@
         }
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -915,7 +926,7 @@
             startIndex = pageSizeAMode * self.currentPageIndexAMode(),
             endIndex = startIndex + pageSizeAMode;
         localStorage.setItem('pageSizeAMode', pageSizeAMode);
-   return self.filterAModeList().slice(startIndex, endIndex);
+        return self.filterAModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageAMode = function () {
@@ -949,8 +960,8 @@
         }
         self.currentColumn(orderProp);
         self.AModeList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1103,7 +1114,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-   return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -1137,8 +1148,8 @@
         }
         self.currentColumn(orderProp);
         self.StatusList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1463,7 +1474,7 @@
             startIndex = pageSizeADocR * self.currentPageIndexADocR(),
             endIndex = startIndex + pageSizeADocR;
         localStorage.setItem('pageSizeADocR', pageSizeADocR);
-   return self.filterADocRList().slice(startIndex, endIndex);
+        return self.filterADocRList().slice(startIndex, endIndex);
     });
 
     self.nextPageADocR = function () {
@@ -1507,8 +1518,8 @@
 
         self.currentColumn(orderProp);
         self.ADocRList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2017,8 +2028,8 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2099,7 +2110,7 @@
 
 
     $('#Print').click(function () {
-        
+
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
 
@@ -2136,7 +2147,7 @@
         setReport(self.ADocRList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
-    
+
 };
 
 ko.applyBindings(new ViewModel());

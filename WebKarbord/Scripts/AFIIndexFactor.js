@@ -43,7 +43,8 @@
     var showFinalPrice = false;
     var accessTaeed = false;
     var accessTasvib = false;
-   
+    var accessCancel = false;
+
 
     sessionStorage.flagCopy = 'N';
 
@@ -192,49 +193,59 @@
             accessTaeed = sessionStorage.Access_TAEED_SFORD == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SFORD == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SFORD == 'true'
         }
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
             accessTaeed = sessionStorage.Access_TAEED_SPDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SPDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SPDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
             accessTaeed = sessionStorage.Access_TAEED_SFDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SFDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SFDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
             accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SRDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
             accessTaeed = sessionStorage.Access_TAEED_SHVL == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SHVL == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SHVL == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
             accessTaeed = sessionStorage.Access_TAEED_SEXT == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_SEXT == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_SEXT == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
             accessTaeed = sessionStorage.Access_TAEED_PFORD == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PFORD == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PFORD == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+            accessTaeed = sessionStorage.Access_TAEED_PPDOC == 'true'
+            accessTasvib = sessionStorage.Access_TASVIB_PPDOC == 'true'
+            showFinalPrice = sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PPDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
             accessTaeed = sessionStorage.Access_TAEED_PFDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PFDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PFDOC == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
             accessTaeed = sessionStorage.Access_TAEED_PRDOC == 'true'
             accessTasvib = sessionStorage.Access_TASVIB_PRDOC == 'true'
             showFinalPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
+            accessCancel = sessionStorage.Access_CANCEL_PRDOC == 'true'
         }
     }
     $(this).CheckAccess();
@@ -337,6 +348,11 @@
         if (accessTasvib == false && selectStatus == 'تصویب') {
             $("#status").val(lastStatus);
             return showNotification('دسترسی تصویب ندارید', 0);
+        }
+
+        if (accessCancel == false && selectStatus == 'باطل') {
+            $("#status").val(lastStatus);
+            return showNotification('دسترسی باطل ندارید', 0);
         }
 
         if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
@@ -793,8 +809,9 @@
         self.search("");
         self.currentColumn(orderProp);
         self.FDocHList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -962,8 +979,9 @@
             return null
         self.currentColumn1(orderProp);
         self.FDocHList1.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType1 == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2200,8 +2218,9 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
+
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

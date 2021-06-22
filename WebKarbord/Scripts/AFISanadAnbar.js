@@ -85,6 +85,7 @@
 
     var accessTaeed = false;
     var accessTasvib = false;
+    var accessCancel = false;
 
     var flag = -1;
     var flagInsertIDoch = 0;
@@ -352,8 +353,7 @@
     $("#status").change(function () {
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
-            //accessTaeed
-            // accessTasvib
+
             if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تایید ندارید', 0);
@@ -362,6 +362,11 @@
             if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تصویب ندارید', 0);
+            }
+
+            if (sessionStorage.Access_CANCEL_IIDOC == 'false' && selectStatus == 'باطل') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی باطل', 0);
             }
 
         }
@@ -376,7 +381,13 @@
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی تصویب', 0);
             }
+
+            if (sessionStorage.Access_CANCEL_IODOC == 'false' && selectStatus == 'باطل') {
+                $("#status").val(lastStatus);
+                return showNotification('نیاز به دسترسی باطل', 0);
+            }
         }
+
 
 
         if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
@@ -1578,6 +1589,7 @@
 
         accessTaeed = sessionStorage.Access_TAEED_IIDOC == 'true'
         accessTasvib = sessionStorage.Access_TASVIB_IIDOC == 'true'
+        accessCancel = sessionStorage.Access_CANCEL_IIDOC == 'true'
 
         if (sessionStorage.AccessViewSanadAnbarVarede == 'true') {
             viewAction = true;
@@ -1592,6 +1604,7 @@
 
         accessTaeed = sessionStorage.Access_TAEED_IODOC == 'true'
         accessTasvib = sessionStorage.Access_TASVIB_IODOC == 'true'
+        accessCancel = sessionStorage.Access_CANCEL_IODOC == 'true'
 
         if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
             viewAction = true;
@@ -1614,6 +1627,9 @@
         viewAction = false;
 
     if (accessTasvib == false && sessionStorage.Status == 'تصویب')
+        viewAction = false;
+
+    if (accessCancel == false && sessionStorage.Status == 'باطل')
         viewAction = false;
 
 
@@ -1796,8 +1812,8 @@
             return null
         self.currentColumn(orderProp);
         self.ThvlList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -1886,8 +1902,8 @@
             return null
         self.currentColumn(orderProp);
         self.KalaList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2140,8 +2156,8 @@
             return null
         self.currentColumn(orderProp);
         self.OprList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -2273,8 +2289,8 @@
             return null
         self.currentColumn(orderProp);
         self.MkzList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -3068,8 +3084,8 @@
             return null
         self.currentColumn(orderProp);
         PrintFormsList.sort(function (left, right) {
-            leftVal = left[orderProp];
-            rightVal = right[orderProp];
+            leftVal = FixSortName(left[orderProp].trim());
+            rightVal = FixSortName(right[orderProp].trim());
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }

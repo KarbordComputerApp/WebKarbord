@@ -744,6 +744,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ErjaIndex.js" />
+    <Content Include="Scripts\HomeIndex.js" />
     <Content Include="Scripts\R_AFI_ADocR.js" />
     <Content Include="Scripts\R_AFI_Krdx.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_P.js" />
