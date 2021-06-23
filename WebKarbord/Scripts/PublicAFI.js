@@ -85,7 +85,7 @@ MessageList = ko.observableArray([]);
 getMessageList();
 //Get Message List
 function getMessageList() {
-    ajaxFunction(MessageUri + lockNumber , 'GET').done(function (data) {
+    ajaxFunction(MessageUri + lockNumber, 'GET').done(function (data) {
         MessageList(data);
     });
 }
@@ -3119,48 +3119,102 @@ function SelectedAccessGhimatPrintForm(address, isPublic) {
 
 
 function FixSortName(name) {
+    /*
+        str = str.replace(String.fromCharCode(1570), String.fromCharCode(11000));
+        str = str.replace(String.fromCharCode(1575), String.fromCharCode(11001));
+        str = str.replace(String.fromCharCode(1576), String.fromCharCode(11002));
+        str = str.replace(String.fromCharCode(1662), String.fromCharCode(11003));
+        str = str.replace(String.fromCharCode(1578), String.fromCharCode(11004));
+        str = str.replace(String.fromCharCode(1579), String.fromCharCode(11005));
+        str = str.replace(String.fromCharCode(1580), String.fromCharCode(11006));
+        str = str.replace(String.fromCharCode(1670), String.fromCharCode(11007));
+        str = str.replace(String.fromCharCode(1581), String.fromCharCode(11008));
+        str = str.replace(String.fromCharCode(1582), String.fromCharCode(11009));
+        str = str.replace(String.fromCharCode(1583), String.fromCharCode(11010));
+        str = str.replace(String.fromCharCode(1584), String.fromCharCode(11011));
+        str = str.replace(String.fromCharCode(1585), String.fromCharCode(11012));
+        str = str.replace(String.fromCharCode(1586), String.fromCharCode(11013));
+        str = str.replace(String.fromCharCode(1688), String.fromCharCode(11014));
+        str = str.replace(String.fromCharCode(1587), String.fromCharCode(11015));
+        str = str.replace(String.fromCharCode(1588), String.fromCharCode(11016));
+        str = str.replace(String.fromCharCode(1589), String.fromCharCode(11017));
+        str = str.replace(String.fromCharCode(1590), String.fromCharCode(11018));
+        str = str.replace(String.fromCharCode(1591), String.fromCharCode(11019));
+        str = str.replace(String.fromCharCode(1592), String.fromCharCode(11020));
+        str = str.replace(String.fromCharCode(1593), String.fromCharCode(11021));
+        str = str.replace(String.fromCharCode(1594), String.fromCharCode(11022));
+        str = str.replace(String.fromCharCode(1601), String.fromCharCode(11023));
+        str = str.replace(String.fromCharCode(1602), String.fromCharCode(11024));
+        str = str.replace(String.fromCharCode(1603), String.fromCharCode(11025));
+        str = str.replace(String.fromCharCode(1705), String.fromCharCode(11026));
+        str = str.replace(String.fromCharCode(1711), String.fromCharCode(11027));
+        str = str.replace(String.fromCharCode(1604), String.fromCharCode(11028));
+        str = str.replace(String.fromCharCode(1605), String.fromCharCode(11029));
+        str = str.replace(String.fromCharCode(1606), String.fromCharCode(11030));
+        str = str.replace(String.fromCharCode(1608), String.fromCharCode(11031));
+        str = str.replace(String.fromCharCode(1607), String.fromCharCode(11032));
+        str = str.replace(String.fromCharCode(1470), String.fromCharCode(11033));
+        str = str.replace(String.fromCharCode(1740), String.fromCharCode(11033));
+     */
 
-    if (typeof name == "string") {
+    if (typeof name == "string" && name != "" &&  name.substring(0, 4) != '    ') {
+        /*str = '';
+            value = name.split('-');
+            if (value.length > 1) {
+                for (var i = 0; i < value.length; i++) {
+                    str = str + fixedSize_JS(value[i], 10)
+                }
+            }
+            else {*/
         str = name.trim();
-        str = str.replace('آ', String.fromCharCode(1000));
-        str = str.replace('ا', String.fromCharCode(1001));
-        str = str.replace('ب', String.fromCharCode(1002));
-        str = str.replace('پ', String.fromCharCode(1003));
-        str = str.replace('ت', String.fromCharCode(1004));
-        str = str.replace('ث', String.fromCharCode(1005));
-        str = str.replace('ج', String.fromCharCode(1006));
-        str = str.replace('چ', String.fromCharCode(1007));
-        str = str.replace('ح', String.fromCharCode(1008));
-        str = str.replace('خ', String.fromCharCode(1009));
-        str = str.replace('د', String.fromCharCode(1010));
-        str = str.replace('ذ', String.fromCharCode(1011));
-        str = str.replace('ر', String.fromCharCode(1012));
-        str = str.replace('ز', String.fromCharCode(1013));
-        str = str.replace('ژ', String.fromCharCode(1014));
-        str = str.replace('س', String.fromCharCode(1015));
-        str = str.replace('ش', String.fromCharCode(1016));
-        str = str.replace('ص', String.fromCharCode(1017));
-        str = str.replace('ض', String.fromCharCode(1018));
-        str = str.replace('ط', String.fromCharCode(1019));
-        str = str.replace('ظ', String.fromCharCode(1020));
-        str = str.replace('ع', String.fromCharCode(1021));
-        str = str.replace('غ', String.fromCharCode(1022));
-        str = str.replace('ف', String.fromCharCode(1023));
-        str = str.replace('ق', String.fromCharCode(1024));
-        str = str.replace('ك', String.fromCharCode(1025));
-        str = str.replace('ک', String.fromCharCode(1026));
-        str = str.replace('گ', String.fromCharCode(1027));
-        str = str.replace('ل', String.fromCharCode(1028));
-        str = str.replace('م', String.fromCharCode(1029));
-        str = str.replace('ن', String.fromCharCode(1030));
-        str = str.replace('و', String.fromCharCode(1031));
-        str = str.replace('ه', String.fromCharCode(1032));
-        str = str.replace('ی', String.fromCharCode(1033));
+        str = str.replaceAll('آ', String.fromCharCode(1000));
+        str = str.replaceAll('ا', String.fromCharCode(1001));
+        str = str.replaceAll('ب', String.fromCharCode(1002));
+        str = str.replaceAll('پ', String.fromCharCode(1003));
+        str = str.replaceAll('ت', String.fromCharCode(1004));
+        str = str.replaceAll('ث', String.fromCharCode(1005));
+        str = str.replaceAll('ج', String.fromCharCode(1006));
+        str = str.replaceAll('چ', String.fromCharCode(1007));
+        str = str.replaceAll('ح', String.fromCharCode(1008));
+        str = str.replaceAll('خ', String.fromCharCode(1009));
+        str = str.replaceAll('د', String.fromCharCode(1010));
+        str = str.replaceAll('ذ', String.fromCharCode(1011));
+        str = str.replaceAll('ر', String.fromCharCode(1012));
+        str = str.replaceAll('ز', String.fromCharCode(1013));
+        str = str.replaceAll('ژ', String.fromCharCode(1014));
+        str = str.replaceAll('س', String.fromCharCode(1015));
+        str = str.replaceAll('ش', String.fromCharCode(1016));
+        str = str.replaceAll('ص', String.fromCharCode(1017));
+        str = str.replaceAll('ض', String.fromCharCode(1018));
+        str = str.replaceAll('ط', String.fromCharCode(1019));
+        str = str.replaceAll('ظ', String.fromCharCode(1020));
+        str = str.replaceAll('ع', String.fromCharCode(1021));
+        str = str.replaceAll('غ', String.fromCharCode(1022));
+        str = str.replaceAll('ف', String.fromCharCode(1023));
+        str = str.replaceAll('ق', String.fromCharCode(1024));
+        str = str.replaceAll('ك', String.fromCharCode(1025));
+        str = str.replaceAll('ک', String.fromCharCode(1026));
+        str = str.replaceAll('گ', String.fromCharCode(1027));
+        str = str.replaceAll('ل', String.fromCharCode(1028));
+        str = str.replaceAll('م', String.fromCharCode(1029));
+        str = str.replaceAll('ن', String.fromCharCode(1030));
+        str = str.replaceAll('و', String.fromCharCode(1031));
+        str = str.replaceAll('ه', String.fromCharCode(1032));
+        str = str.replaceAll('ی', String.fromCharCode(1033));
+        str = str.replaceAll('ي', String.fromCharCode(1033));
+        //}
     }
     else {
         str = name;
     }
 
     return str
+}
+
+function fixedSize_JS(value, size) {
+    if (typeof value != "string")
+        value = value.toString();
+
+    return value.padStart(size).substring(0, size);
 }
 
