@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Box";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2><strong>لیست پیام ها</strong></h2>
+                <div class="row header-dropdown m-r--5">
+                    <a id="refreshBox" class="">
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    </a>
+                    <a id="AddNewBox"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
+                </div>
+            </div>
+            <div class="body">
+                <br />
+                <br />
+                <!--<div class="row form-inline ">
+                    <div class="col-sm-2">
+                        <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                            <div class="form-group">
+                                <select id="BoxMode"><option value="1">دریافتی</option><option value="2">ارسالی</option></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />-->
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFix">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableBox">
+                                <th style="width: 0px;">ردیف</th>
+                                <th data-column="mode" style="width: 0px;">
+                                    نوع
+                                    <span data-bind="attr: { class: currentColumn() == 'mode' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypemode }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="date" style="width: 0px;">
+                                    تاریخ
+                                    <span data-bind="attr: { class: currentColumn() == 'date' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypedate }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="title" style="width: 300px;">
+                                    عنوان
+                                    <span data-bind="attr: { class: currentColumn() == 'title' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypetitle }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="body">
+                                    متن
+                                    <span data-bind="attr: { class: currentColumn() == 'body' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypebody }"></i>
+                                    </span>
+                                </th>
+                                <th style="width: 0px;">
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageBox" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectBox">
+                                <td data-bind="text: $root.radif($index())" style="background-color: #d9d9d9;"></td>
+                                <td data-bind="text: mode == '1' ? 'ارسالی' : 'دریافتی'"></td>  <!--به دلیل فارسی بودن متن برعکس افتاده-->
+
+                                <td data-bind="text: date"></td>
+                                <td data-bind="text: title" class="ellipsis"></td>
+                                <td data-bind="text: body" class="ellipsis"></td>
+
+                                <td>
+                                    <a data-bind="click: $root.ViewBox">
+                                        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">
+                                    </a>
+                                    <a data-bind="click: $root.ViewBoxAttach , visible: namefile != ''">
+                                        <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px">
+                                    </a>
+                                    <a data-bind="click: $root.DeleteBox , visible: mode == 1">
+                                        <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="18" height="18" style="margin-left:10px">
+                                    </a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td>جستجو</td>
+                                <td></td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterBox0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterBox1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterBox2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeBox">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageBox">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageBox">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexBox() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageBox">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageBox">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-inline pull-left">
+                            <label>تعداد کل رکورد ها</label>
+                            <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
+
+                            <label>نمایش</label>
+                            <div>
+                                <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
+                                    <option value="0">100 رکورد آخر</option>
+                                    <option value="3">تمام رکوردها</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="modal fade" id="modal-Box" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="titleBox"></h4>
+                <a></a>
+            </div>
+            <div class="modal-body">
+                <textarea id="bodyBox" rows="30" class="form-control no-resize auto-growth string" style="text-align:justify"></textarea>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+
+
+
+<div class="modal fade" id="modal-Box" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab" style="width:980px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="titleSaveBox"></h4>
+                <a></a>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 0.5rem;">
+                    <div class="cardErj">
+                        <div class="header" style="background-color: #f5d3b4;">
+                            <div class="row form-inline modal-header" style="padding:0px;">
+                                متن پیام
+                            </div>
+                        </div>
+                        <div class="body" style="padding:10px;">
+
+                            <div class="col-sm-12">
+                                <div class="form-group form-float">
+                                    <div class="form-line fix">
+                                        <input id="titleBox" class="form-control">
+                                        <label class="form-label active">عنوان</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                <div class="form-line">
+                                    <textarea rows="25" id="bodyBox" class="form-control no-resize auto-growth string"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="panel_Action">
+                <div class="row  form-inline ">
+                    <div class="col-md-12 row">
+                        <input id="upload" type="file" data-bind="event: {change: $root.fileUpload}" class="col-md-11" />
+                        <div class="col-md-1 pull-left">
+                            <button type="button" id="saveBox" class="btn btn-primary  pull-left"><i class="fa fa-sign-in fa-lg fa-fw"></i>ارسال</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Content/new/js/jszip.min.js"></script>
+    <script src="~/Scripts/Box.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
+}
+

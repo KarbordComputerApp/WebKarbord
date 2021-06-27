@@ -186,10 +186,12 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\barcode reader.png" />
     <Content Include="Content\img\barcode.png" />
+    <Content Include="Content\img\email.png" />
     <Content Include="Content\img\list\attach_file.png" />
     <Content Include="Content\img\list\download.png" />
     <Content Include="Content\img\Loading.png" />
     <Content Include="Content\img\loading.svg" />
+    <Content Include="Content\img\mail.png" />
     <Content Include="Content\img\repair-config.svg" />
     <Content Include="Content\img\repair-sal.svg" />
     <Content Include="Content\img\Repair.png" />
@@ -743,6 +745,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Box.js" />
     <Content Include="Scripts\ErjaIndex.js" />
     <Content Include="Scripts\HomeIndex.js" />
     <Content Include="Scripts\R_AFI_ADocR.js" />
@@ -918,6 +921,7 @@
     <Content Include="Views\ReportAFI\Krdx.cshtml" />
     <Content Include="Views\ERJ\Index.cshtml" />
     <Content Include="Views\ERJ\Erja.cshtml" />
+    <Content Include="Views\Home\Box.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -25,6 +25,11 @@ namespace WebKarbord.Controllers
             return View();
         }
 
+          public ActionResult Box()
+        {
+            return View();
+        }
+
 
         public ActionResult Setting()
         {
@@ -259,5 +264,9 @@ namespace WebKarbord.Controllers
             ViewData["actionName"] = actionName;
             View("Login").ExecuteResult(this.ControllerContext);
         }
+
+
+
+
     }
 }

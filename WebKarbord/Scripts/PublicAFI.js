@@ -82,7 +82,10 @@ PrintFormsList = ko.observableArray([]); // لیست چاپ
 MessageList = ko.observableArray([]);
 
 
-getMessageList();
+if (lockNumber != '' || lockNumber != null) {
+    getMessageList();
+}
+
 //Get Message List
 function getMessageList() {
     ajaxFunction(MessageUri + lockNumber, 'GET').done(function (data) {

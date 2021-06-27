@@ -202,7 +202,7 @@
 
                     <li class="dropdown pull-left">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <span class="label-count bg-orange"></span>
+                            <!--<span class="label-count bg-orange"></span>-->
                             <img src="~/Content/img/streamline-icon-alarm-bell-1@48x48.png" width="16" height="16" />
                         </a>
                         <ul class="dropdown-menu pullDown">
@@ -210,19 +210,18 @@
                             <li class="body" style="width: inherit;">
                                 <ul class="menu">
                                     <li data-bind="foreach: MessageList">
-                                        <a data-bind="text: title , click: selectMessage" style="text-align:right;padding: 0px 10px 0px 10px;" ></a>
+                                        <a data-bind="text: title , click: selectMessage" style="text-align:right;padding: 0px 10px 0px 10px;"></a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
 
-                    <!-- <li class="fullscreen">
-                        <a href="javascript:;" class="fullscreen-btn">
-                            <i class="fa fa-expand"></i>
+                    <li class="dropdown pull-left">
+                        <a href="/Home/Box">
+                            <img id="" src="~/Content/img/email.png" width="23" height="25" style="margin-top: 1px;" />
                         </a>
-                    </li>-->
-                    <!-- <li style="color:black">|</li>-->
+                    </li>
                 </ul>
             </div>
         </div>
