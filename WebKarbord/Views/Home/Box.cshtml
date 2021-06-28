@@ -21,16 +21,21 @@
             <div class="body">
                 <br />
                 <br />
-                <!--<div class="row form-inline ">
+                <div class="row form-inline ">
                     <div class="col-sm-2">
                         <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                             <div class="form-group">
-                                <select id="BoxMode"><option value="1">دریافتی</option><option value="2">ارسالی</option></select>
+                                <select id="BoxMode">
+                                    <option value="0" selected>ارسالی - دریافتی</option>
+                                    <option value="1">ارسالی</option>
+                                    <option value="2">دریافتی</option>
+                                    <option value="3">حذف شده ها</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br />-->
+                <br />
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                     <table class="table table-hover table-striped tableFix">
                         <thead style="cursor: pointer;">
@@ -68,7 +73,7 @@
                         <tbody data-bind="foreach: currentPageBox" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectBox">
                                 <td data-bind="text: $root.radif($index())" style="background-color: #d9d9d9;"></td>
-                                <td data-bind="text: mode == '1' ? 'ارسالی' : 'دریافتی'"></td>  <!--به دلیل فارسی بودن متن برعکس افتاده-->
+                                <td data-bind="text: mode == '1' ? 'ارسالی' : mode == '2' ? 'دریافتی':'حذف شده' "></td>  <!--به دلیل فارسی بودن متن برعکس افتاده-->
 
                                 <td data-bind="text: date"></td>
                                 <td data-bind="text: title" class="ellipsis"></td>
@@ -78,7 +83,7 @@
                                     <a data-bind="click: $root.ViewBox">
                                         <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">
                                     </a>
-                                    <a data-bind="click: $root.ViewBoxAttach , visible: namefile != ''">
+                                    <a data-bind="click: $root.ViewBoxAttach , visible: namefile != null">
                                         <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px">
                                     </a>
                                     <a data-bind="click: $root.DeleteBox , visible: mode == 1">

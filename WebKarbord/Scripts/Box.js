@@ -24,18 +24,25 @@
 
     shamsiDate = ShamsiDate();
 
-    getBoxList(0)
+
+
+    getBoxList()
     //Get Box List
-    function getBoxList(mode) {
+    function getBoxList() {
         var BoxObject = {
             LockNumber: lockNumber,
-            Mode: mode,
+            Mode: $("#BoxMode").val(),
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(BoxUri, 'POST', BoxObject).done(function (data) {
             self.BoxList(data);
         });
     }
+
+
+    $("#BoxMode").change(function () {
+        getBoxList();
+    });
 
 
     function getBoxAttach(fileName) {

@@ -82,7 +82,7 @@ PrintFormsList = ko.observableArray([]); // لیست چاپ
 MessageList = ko.observableArray([]);
 
 
-if (lockNumber != '' || lockNumber != null) {
+if ((lockNumber != '' || lockNumber != null) && sessionStorage.Login == "OK") {
     getMessageList();
 }
 

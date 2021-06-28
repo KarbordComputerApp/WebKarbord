@@ -12,12 +12,14 @@
     var LoginUri; // 
     var LoginTestUri;
 
+    sessionStorage.SelectMenu = '';
+
 
 
     //Debug
-    var serverAccount = 'http://localhost:902/api/';
+    //var serverAccount = 'http://localhost:902/api/';
 
-    //var serverAccount = 'http://localhost:49961/api/';
+    var serverAccount = 'http://localhost:49961/api/';
 
 
     // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
@@ -273,6 +275,7 @@
         localStorage.setItem('Access', null);
         localStorage.setItem('AccessErj', null);
         sessionStorage.SelectMenu = 0;
+        sessionStorage.Login = "OK";
         getLoginData();
     }
 
