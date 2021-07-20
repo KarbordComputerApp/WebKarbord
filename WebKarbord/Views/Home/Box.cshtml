@@ -83,7 +83,7 @@
                                     <a data-bind="click: $root.ViewBox">
                                         <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">
                                     </a>
-                                    <a data-bind="click: $root.ViewBoxAttach , visible: namefile != null">
+                                    <a data-bind="click: $root.ViewBoxAttach , visible: namefile != '' && namefile != null ">
                                         <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px">
                                     </a>
                                     <a data-bind="click: $root.DeleteBox , visible: mode == 1">
