@@ -16,10 +16,7 @@
 
 
 
-    //Debug
-    var serverAccount = 'http://localhost:902/api/';
-
-    //var serverAccount = 'http://localhost:49961/api/';
+    var serverAccount = 'http://192.168.0.114:902/api/';
 
 
     // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
