@@ -67,7 +67,7 @@
         var GroupSelect = $("#DropGroup").val();
         $("#DropSal").empty();
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
-        if (programSelect != 0 && GroupSelect != 0) {
+        if (programSelect != 0 && GroupSelect != 0 && GroupSelect != null) {
 
             var DatabseSalObject = {
                 ProgName: sessionStorage.progName,
