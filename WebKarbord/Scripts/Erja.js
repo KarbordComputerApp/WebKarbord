@@ -101,11 +101,11 @@
             if (i == 1) {
                 opt.value = 4;
                 opt.innerHTML = 'کلیه ارجاعات';
-                opt.selected = true;
             }
             if (i == 2) {
                 opt.value = 5;
                 opt.innerHTML = 'فقط ارجاعات اصلی';
+                opt.selected = true;
             }
             if (i == 3) {
                 opt.value = 6;
