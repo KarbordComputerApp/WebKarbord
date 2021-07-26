@@ -290,6 +290,7 @@
     //Get DocAttach List
     function getDocAttachList(serial) {
         var DocAttachObject = {
+            ModeCode: 1,
             SerialNumber: serial
         }
         ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {
@@ -1768,11 +1769,6 @@
         }
 
 
-
-
-
-
-
         if (Band.RjReadSt == 'T' && sessionStorage.ModeCodeErja == "1") {
             ErjSaveDoc_RjRead_Object = {
                 DocBMode: Band.DocBMode,
@@ -1785,15 +1781,6 @@
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 

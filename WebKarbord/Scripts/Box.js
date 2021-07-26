@@ -11,15 +11,15 @@
 
 
 
-    self.BoxList = ko.observableArray([]); // لیست پیام ها  
+    self.BoxList = ko.observableArray([]); // لیست اعلامیه ها  
 
 
-    var BoxUri = sessionStorage.serverAccount + 'Account/Box/'; // آدرس پیام ها
+    var BoxUri = sessionStorage.serverAccount + 'Account/Box/'; // آدرس اعلامیه ها
     var DownloadUri = sessionStorage.serverAccount + 'FileUpload/DownloadFile/'; // دانلود 
-    var AddBoxUri = sessionStorage.serverAccount + 'Account/InsertBox/'; // افزودن پیام 
-    var UploadUri = sessionStorage.serverAccount + 'FileUpload/UploadFile/'; // افزودن پیام 
-    var DeleteFileUri = sessionStorage.serverAccount + 'FileUpload/DeleteFile/'; // حذف پیوست پیام 
-    var DeleteBoxUri = sessionStorage.serverAccount + 'Account/DeleteBox/'; // حذف  پیام 
+    var AddBoxUri = sessionStorage.serverAccount + 'Account/InsertBox/'; // افزودن اعلامیه 
+    var UploadUri = sessionStorage.serverAccount + 'FileUpload/UploadFile/'; // افزودن اعلامیه 
+    var DeleteFileUri = sessionStorage.serverAccount + 'FileUpload/DeleteFile/'; // حذف پیوست اعلامیه 
+    var DeleteBoxUri = sessionStorage.serverAccount + 'Account/DeleteBox/'; // حذف  اعلامیه 
 
 
     shamsiDate = ShamsiDate();
@@ -164,7 +164,7 @@
     $('#refreshBox').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست پیام ها به روز رسانی شود ؟",
+            text: "لیست اعلامیه ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -206,7 +206,7 @@
     self.DeleteBox = function (item) {
         Swal.fire({
             title: 'تایید حذف',
-            text: "آیا پیام انتخابی حذف شود ؟",
+            text: "آیا اعلامیه انتخابی حذف شود ؟",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -223,7 +223,7 @@
 
                 ajaxFunction(DeleteBoxUri + '/' + lockNumber + '/' + item.id, 'GET', true).done(function (data) {
                     getBoxList();
-                    showNotification('پیام حذف شد', 1);
+                    showNotification('اعلامیه حذف شد', 1);
                 });
             }
 
@@ -301,7 +301,7 @@
         ajaxFunction(AddBoxUri, 'POST', InsertBoxObject).done(function (data) {
             $('#modal-Box').modal('hide');
             getBoxList();
-            showNotification('پیام ارسال شد', 1);
+            showNotification('اعلامیه ارسال شد', 1);
         });
 
 
