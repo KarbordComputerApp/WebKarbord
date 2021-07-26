@@ -691,6 +691,7 @@
         //docBMode = Band.DocBMode;
         //serialNumber = Band.SerialNumber;
         // p_docno
+        serialNumber = 0;
         self.p_DocDate(shamsiDate);
         self.p_MhltDate('');
         self.p_AmalDate('');
@@ -1973,7 +1974,12 @@
 
 
     $('#attachFile').click(function () {
-        getDocAttachList(serialNumber);
+        if (serialNumber > 0) {
+            $('#modal-DocAttach').modal('show');
+            getDocAttachList(serialNumber);
+        }
+        else
+            showNotification('ابتدا پرونده را ذخیره کنید', 2);
     });
 
     self.selectDocAttach = function (item) {
