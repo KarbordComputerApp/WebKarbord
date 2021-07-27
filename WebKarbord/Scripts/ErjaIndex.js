@@ -326,6 +326,11 @@
         ErjCust = '';
         Khdt = '';
 
+        if (sal == null)
+            sal = '';
+
+        if (status == null)
+            status = '';
 
         var ErjDocHObject = {
             Mode: 0,
@@ -2367,6 +2372,15 @@
             ShowDataUpdate(docnoSearch);
         }
     });
+
+    $("#btn_DocNoSearch").click(function (e) {
+        docnoSearch = $("#DocNoSearch").val();
+        if (docnoSearch == '') {
+            return showNotification('شماره پرونده را وارد کنید', 2);
+        }
+        ShowDataUpdate(docnoSearch);
+    });
+
 
 
 

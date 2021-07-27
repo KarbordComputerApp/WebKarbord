@@ -8,33 +8,26 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
-                <h2><strong>لیست پرونده ها</strong></h2>
-                <div class="row header-dropdown m-r--5">
-                    <a id="SettingColumn" class="">
-                        <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                <div class="form-inline focused">
+                    <strong style="margin-left: 5px; margin-right: 5px;">لیست پرونده ها</strong>
+
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره پرونده</strong>
+                    <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
+                    <a id="btn_DocNoSearch">
+                        <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;"/>
                     </a>
-                    <a id="refreshErjDocH" class="">
-                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
-                    </a>
-                    <a id="AddNewErjDocH" data-bind="click: $root.AddNewDocH" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocH"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
+                    <div class="row header-dropdown m-r--5">
+                        <a id="SettingColumn" class="">
+                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        </a>
+                        <a id="refreshErjDocH" class="">
+                            <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                        </a>
+                        <a id="AddNewErjDocH" data-bind="click: $root.AddNewDocH" class="dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocH"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
+                    </div>
                 </div>
             </div>
             <div class="body">
-
-                <br />
-                <br />
-                    <div class="row form-inline ">
-                            <div class="col-sm-2">
-                                <div class="form-group form-float">
-                                    <div class="form-line focused fix">
-                                        <input type="text" id="DocNoSearch" class="form-control int"/>
-                                        <label class="form-label">شماره پرونده</label>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                <br />
-
                 <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
 
                 </div>
@@ -59,24 +52,26 @@
                             </div>
                             <label>رکورد در هر صفحه</label>
 
-                            <label style="padding-right: 2px;">در سال</label>
+                            <label style="padding-right: 20px;">سال</label>
 
-                            <div class="form-group" style="text-align: center; width: 60px;  margin: 5px;">
-                                <select id="DocYears"
+                            <div class="form-group" style="text-align: center; width: 80px;  margin: 5px;">
+                                <select id="DocYears" class="selectorange"
                                         data-bind="options: ErjDocYearsList,
                                                            optionsText: function(item) {return item.Year},
                                                            optionsValue: 'Year',
                                                            value: DocYearsSelect,
+                                                           optionsCaption : 'همه',
                                                            event:{ change: $root.PageCountView}"></select>
                             </div>
 
-                            <label style="padding-right: 2px;">با وضعیت</label>
-                            <div class="form-group" style="text-align: center; width: 80px;  margin: 5px;">
-                                <select id="StatusParvandeh"
+                            <label style="padding-right: 20px;">وضعیت</label>
+                            <div class="form-group" style="text-align: center; width: 100px;  margin: 5px;">
+                                <select id="StatusParvandeh" class="selectorange"
                                         data-bind="options: ErjStatusList,
                                                            optionsText: function(item) {return item.Status},
                                                            optionsValue: 'Status',
                                                            value: StatusParvandehSelect,
+                                                           optionsCaption : 'همه',
                                                            event:{ change: $root.PageCountView}"></select>
                             </div>
                           
