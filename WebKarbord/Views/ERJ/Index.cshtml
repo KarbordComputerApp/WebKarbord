@@ -20,13 +20,27 @@
                 </div>
             </div>
             <div class="body">
+
                 <br />
+                <br />
+                    <div class="row form-inline ">
+                            <div class="col-sm-2">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input type="text" id="DocNoSearch" class="form-control int"/>
+                                        <label class="form-label">شماره پرونده</label>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                <br />
+
                 <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
 
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md">
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
@@ -46,34 +60,26 @@
                             <label>رکورد در هر صفحه</label>
 
                             <label style="padding-right: 2px;">در سال</label>
-                            <div class="col-md-2">
-                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                    <div class="form-group focused">
 
-                                        <select id="DocYears"
-                                                data-bind="options: ErjDocYearsList,
+                            <div class="form-group" style="text-align: center; width: 60px;  margin: 5px;">
+                                <select id="DocYears"
+                                        data-bind="options: ErjDocYearsList,
                                                            optionsText: function(item) {return item.Year},
                                                            optionsValue: 'Year',
                                                            value: DocYearsSelect,
                                                            event:{ change: $root.PageCountView}"></select>
-
-                                    </div>
-                                </div>
                             </div>
 
                             <label style="padding-right: 2px;">با وضعیت</label>
-                            <div class="col-md-3">
-                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                    <div class="form-group">
-                                        <select id="StatusParvandeh" 
-                                                data-bind="options: ErjStatusList,
+                            <div class="form-group" style="text-align: center; width: 80px;  margin: 5px;">
+                                <select id="StatusParvandeh"
+                                        data-bind="options: ErjStatusList,
                                                            optionsText: function(item) {return item.Status},
                                                            optionsValue: 'Status',
                                                            value: StatusParvandehSelect,
                                                            event:{ change: $root.PageCountView}"></select>
-                                    </div>
-                                </div>
                             </div>
+                          
 
                         </div>
                     </div>
@@ -82,41 +88,41 @@
 
 
 
-                <div class="col-md-3" style="text-align: center; margin-top: 10px;">
-                    <a data-bind="click: firstPageErjDocH">
-                        <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
-                    </a>
-                    <a data-bind="click: previousPageErjDocH">
-                        <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                    </a>
-                    <b data-bind="text: currentPageIndexErjDocH() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
-                    <a data-bind="click: nextPageErjDocH">
-                        <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                    </a>
-                    <a data-bind="click: lastPageErjDocH">
-                        <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
-                    </a>
+                    <div class="col-md-2" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageErjDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageErjDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexErjDocH() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageErjDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageErjDocH">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
 
-                </div>
+                    </div>
 
-                <div class="col-md-5">
-                    <div class="form-inline pull-left">
-                        <label>تعداد کل رکورد ها</label>
-                        <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
+                    <div class="col-md-4">
+                        <div class="form-inline pull-left">
+                            <label>تعداد کل رکورد ها</label>
+                            <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
 
-                        <label>نمایش</label>
-                        <div>
-                            <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-                                <option value="0">100 رکورد آخر</option>
-                                <option value="3">تمام رکوردها</option>
-                            </select>
+                            <label>نمایش</label>
+                            <div>
+                                <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
+                                    <option value="0">100 رکورد آخر</option>
+                                    <option value="3">تمام رکوردها</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 

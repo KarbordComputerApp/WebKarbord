@@ -214,7 +214,7 @@
             DocYearsSelect = localStorage.getItem('DocYearsSelect') == null ? '' : localStorage.getItem('DocYearsSelect');
             self.DocYearsSelect(DocYearsSelect);
 
-            
+
 
         });
     }
@@ -261,7 +261,7 @@
     //Get DocAttach List
     function getDocAttachList(serial) {
         var DocAttachObject = {
-            ModeCode : 1,
+            ModeCode: 1,
             SerialNumber: serial
         }
         ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {
@@ -333,7 +333,7 @@
             select: select,
             AccessSanad: sessionStorage.AccessSanadErj,
             Sal: sal,
-            Status: status, 
+            Status: status,
             DocNo: docno,
         };
 
@@ -349,7 +349,7 @@
     }
 
 
-    getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(),'');
+    getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
 
 
     $('#refreshErjDocH').click(function () {
@@ -366,7 +366,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(),'');
+                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
                 self.sortTableErjDocH();
             }
         })
@@ -836,7 +836,7 @@
             else if (list[i].TestCap != "")
                 textBody += '<p>' + list[i].TestCap + '</p>';
 
-           textBody +=
+            textBody +=
                 '    </div>' +
                 '</div>';
         }
@@ -2103,7 +2103,7 @@
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
-                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData,true).done(function (response) {
+                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData, true).done(function (response) {
                         getDocAttachList(serialNumber);
                     })
                 });
@@ -2335,29 +2335,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     $('#ShowHideEghdamComm').click(function () {
         $('#titleComm').text('اقدام');
         $('#modal-Comm').modal('show');
@@ -2378,124 +2355,137 @@
 
 
 
+    $("#DocNoSearch").keydown(function (e) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    self.UpdateErjDocH = function (item) {
-
-        self.p_DocDate(item.DocDate);
-        self.p_MhltDate(item.MhltDate);
-        self.p_AmalDate(item.AmalDate);
-        self.p_EndDate(item.EndDate);
-
-        self.p_Eghdam(item.Eghdam);
-        self.p_Tanzim(item.Tanzim);
-
-        self.p_EghdamName(item.EghdamName);
-        self.p_TanzimName(item.TanzimName);
-        self.p_Spec(item.Spec);
-        self.ErjCustCode(item.CustCode);
-        self.KhdtCode(item.KhdtCode);
-
-        if (item.RelatedDocs == "0") {
-            $('#p_RelatedDocs').val('');
-            self.p_RelatedDocs("");
+        // BACKSPACE
+        if (e.keyCode == 13) {
+            docnoSearch = $("#DocNoSearch").val();
+            if (docnoSearch == '') {
+                return showNotification('شماره پرونده را وارد کنید', 2);
+            }
+            ShowDataUpdate(docnoSearch);
         }
-        else{
-            $('#p_RelatedDocs').val(item.RelatedDocs);
-            self.p_RelatedDocs(item.RelatedDocs);
-        }
+    });
 
-        $('#p_docno').val(item.DocNo);
-        $('#nameErjCust').val(item.CustName);
-        $('#nameKhdt').val(item.KhdtName);
 
-        $('#p_EghdamComm').val(item.EghdamComm);
-        $('#p_DocDesc').val(item.DocDesc);
-        $('#p_SpecialComm').val(item.SpecialComm);
-        $('#p_FinalComm').val(item.FinalComm);
-        $('#p_Mahramaneh').val(item.Mahramaneh);
-        $('#p_Status').val(item.Status);
 
-        sessionStorage.F01 = item.F01;
-        sessionStorage.F02 = item.F02;
-        sessionStorage.F03 = item.F03;
-        sessionStorage.F04 = item.F04;
-        sessionStorage.F05 = item.F05;
-        sessionStorage.F06 = item.F06;
-        sessionStorage.F07 = item.F07;
-        sessionStorage.F08 = item.F08;
-        sessionStorage.F09 = item.F09;
-        sessionStorage.F10 = item.F10;
-        sessionStorage.F11 = item.F11;
-        sessionStorage.F12 = item.F12;
-        sessionStorage.F13 = item.F13;
-        sessionStorage.F14 = item.F14;
-        sessionStorage.F15 = item.F15;
-        sessionStorage.F16 = item.F16;
-        sessionStorage.F17 = item.F17;
-        sessionStorage.F18 = item.F18;
-        sessionStorage.F19 = item.F19;
-        sessionStorage.F20 = item.F20;
+    function ShowDataUpdate(docno) {
 
-        $("#ExtraFields1").val(sessionStorage.F01);
-        $("#ExtraFields2").val(sessionStorage.F02);
-        $("#ExtraFields3").val(sessionStorage.F03);
-        $("#ExtraFields4").val(sessionStorage.F04);
-        $("#ExtraFields5").val(sessionStorage.F05);
-        $("#ExtraFields6").val(sessionStorage.F06);
-        $("#ExtraFields7").val(sessionStorage.F07);
-        $("#ExtraFields8").val(sessionStorage.F08);
-        $("#ExtraFields9").val(sessionStorage.F09);
-        $("#ExtraFields10").val(sessionStorage.F10);
-        $("#ExtraFields11").val(sessionStorage.F11);
-        $("#ExtraFields12").val(sessionStorage.F12);
-        $("#ExtraFields13").val(sessionStorage.F13);
-        $("#ExtraFields14").val(sessionStorage.F14);
-        $("#ExtraFields15").val(sessionStorage.F15);
-        $("#ExtraFields16").val(sessionStorage.F16);
-        $("#ExtraFields17").val(sessionStorage.F17);
-        $("#ExtraFields18").val(sessionStorage.F18);
-        $("#ExtraFields19").val(sessionStorage.F19);
-        $("#ExtraFields20").val(sessionStorage.F20);
+        var ErjDocHObject = {
+            Mode: 0,
+            UserCode: sessionStorage.userName,
+            select: 3,
+            AccessSanad: sessionStorage.AccessSanadErj,
+            Sal: '',
+            Status: '',
+            DocNo: docno,
+        };
 
-        $("#ExtraFields1").val(item.F01);
-        $("#ExtraFields2").val(item.F02);
-        $("#ExtraFields3").val(item.F03);
-        $("#ExtraFields4").val(item.F04);
-        $("#ExtraFields5").val(item.F05);
-        $("#ExtraFields6").val(item.F06);
-        $("#ExtraFields7").val(item.F07);
-        $("#ExtraFields8").val(item.F08);
-        $("#ExtraFields9").val(item.F09);
-        $("#ExtraFields10").val(item.F10);
-        $("#ExtraFields11").val(item.F11);
-        $("#ExtraFields12").val(item.F12);
-        $("#ExtraFields13").val(item.F13);
-        $("#ExtraFields14").val(item.F14);
-        $("#ExtraFields15").val(item.F15);
-        $("#ExtraFields16").val(item.F16);
-        $("#ExtraFields17").val(item.F17);
-        $("#ExtraFields18").val(item.F18);
-        $("#ExtraFields19").val(item.F19);
-        $("#ExtraFields20").val(item.F20);
+        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, false).done(function (response) {
+            if (response.length == 0) {
+                return showNotification('پرونده یافت نشد', 0);
+            }
+            var data = response[0];
 
-        docBMode = item.DocBMode;
-        serialNumber = item.SerialNumber;
+            self.p_DocDate(data["DocDate"]);
+            self.p_MhltDate(data["MhltDate"]);
+            self.p_AmalDate(data["AmalDate"]); 
+            self.p_EndDate(data["EndDate"]);
+
+            self.p_Eghdam(data["Eghdam"]);
+            self.p_Tanzim(data["Tanzim"]);
+            
+            self.p_EghdamName(data["EghdamName"]);
+            self.p_TanzimName(data["TanzimName"]);
+            self.p_Spec(data["Spec"]);
+            self.ErjCustCode(data["CustCode"]);
+            self.KhdtCode(data["KhdtCode"]);
+
+            if (data["RelatedDocs"] == "0") {
+                $('#p_RelatedDocs').val('');
+                self.p_RelatedDocs("");
+            }
+            else {
+                $('#p_RelatedDocs').val(data["RelatedDocs"]);
+                self.p_RelatedDocs(data["RelatedDocs"]);
+            }
+
+            $('#p_docno').val(data["DocNo"]);
+            $('#nameErjCust').val(data["CustName"]);
+            $('#nameKhdt').val(data["KhdtName"]);
+
+            $('#p_EghdamComm').val(data["EghdamComm"]);
+            $('#p_DocDesc').val(data["DocDesc"]);
+            $('#p_SpecialComm').val(data["SpecialComm"]);
+            $('#p_FinalComm').val(data["FinalComm"]);
+            $('#p_Mahramaneh').val(data["Mahramaneh"]);
+            $('#p_Status').val(data["Status"]);
+
+            sessionStorage.F01 = data["F01"];
+            sessionStorage.F02 = data["F02"];
+            sessionStorage.F03 = data["F03"];
+            sessionStorage.F04 = data["F04"];
+            sessionStorage.F05 = data["F05"];
+            sessionStorage.F06 = data["F06"];
+            sessionStorage.F07 = data["F07"];
+            sessionStorage.F08 = data["F08"];
+            sessionStorage.F09 = data["F09"];
+            sessionStorage.F10 = data["F10"];
+            sessionStorage.F11 = data["F11"];
+            sessionStorage.F12 = data["F12"];
+            sessionStorage.F13 = data["F13"];
+            sessionStorage.F14 = data["F14"];
+            sessionStorage.F15 = data["F15"];
+            sessionStorage.F16 = data["F16"];
+            sessionStorage.F17 = data["F17"];
+            sessionStorage.F18 = data["F18"];
+            sessionStorage.F19 = data["F19"];
+            sessionStorage.F20 = data["F20"];
+
+            $("#ExtraFields1").val(sessionStorage.F01);
+            $("#ExtraFields2").val(sessionStorage.F02);
+            $("#ExtraFields3").val(sessionStorage.F03);
+            $("#ExtraFields4").val(sessionStorage.F04);
+            $("#ExtraFields5").val(sessionStorage.F05);
+            $("#ExtraFields6").val(sessionStorage.F06);
+            $("#ExtraFields7").val(sessionStorage.F07);
+            $("#ExtraFields8").val(sessionStorage.F08);
+            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields10").val(sessionStorage.F10);
+            $("#ExtraFields11").val(sessionStorage.F11);
+            $("#ExtraFields12").val(sessionStorage.F12);
+            $("#ExtraFields13").val(sessionStorage.F13);
+            $("#ExtraFields14").val(sessionStorage.F14);
+            $("#ExtraFields15").val(sessionStorage.F15);
+            $("#ExtraFields16").val(sessionStorage.F16);
+            $("#ExtraFields17").val(sessionStorage.F17);
+            $("#ExtraFields18").val(sessionStorage.F18);
+            $("#ExtraFields19").val(sessionStorage.F19);
+            $("#ExtraFields20").val(sessionStorage.F20);
+
+            $("#ExtraFields1").val(data["F01"]);
+            $("#ExtraFields2").val(data["F02"]);
+            $("#ExtraFields3").val(data["F03"]);
+            $("#ExtraFields4").val(data["F04"]);
+            $("#ExtraFields5").val(data["F05"]);
+            $("#ExtraFields6").val(data["F06"]);
+            $("#ExtraFields7").val(data["F07"]);
+            $("#ExtraFields8").val(data["F08"]);
+            $("#ExtraFields9").val(data["F09"]);
+            $("#ExtraFields10").val(data["F10"]);
+            $("#ExtraFields11").val(data["F11"]);
+            $("#ExtraFields12").val(data["F12"]);
+            $("#ExtraFields13").val(data["F13"]);
+            $("#ExtraFields14").val(data["F14"]);
+            $("#ExtraFields15").val(data["F15"]);
+            $("#ExtraFields16").val(data["F16"]);
+            $("#ExtraFields17").val(data["F17"]);
+            $("#ExtraFields18").val(data["F18"]);
+            $("#ExtraFields19").val(data["F19"]);
+            $("#ExtraFields20").val(data["F20"]);
+
+            docBMode = data["DocBMode"];
+        serialNumber = data["SerialNumber"];
         getErjResultList(serialNumber, null, null)
         getErjDocErja(serialNumber);
 
@@ -2511,428 +2501,566 @@
         }
 
         $('#modal-ErjDocH').modal('show');
-    }
 
-
-
-
-
-    function getErjDocErja(serialNumber) {
-        var ErjDocErjaObject = {
-            SerialNumber: serialNumber,
-        };
-        ajaxFunction(ErjDocErjaUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocErjaObject).done(function (response) {
-            self.ErjDocErja(response);
-            SetDataErjDocErja();
-        });
-    }
-
-
-
-    self.FilterErjValue = ko.observable("");
-    self.FilterErj = ko.computed(function () {
-        var filter = self.FilterErjValue();
-        return ko.utils.arrayFilter(self.ErjDocErja(), function (item) {
-            return item.BandNo == filter;
-        });
     });
+}
 
 
-    function ConvertComm(comm) {
-        var res = comm.split("\r\n");
-        tempText = '';
-        for (var i = 0; i < res.length; i++) {
-            tempText += '<p>' + res[i] + '</p> '
-        }
-        return tempText;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+self.UpdateErjDocH = function (item) {
+
+    self.p_DocDate(item.DocDate);
+    self.p_MhltDate(item.MhltDate);
+    self.p_AmalDate(item.AmalDate);
+    self.p_EndDate(item.EndDate);
+
+    self.p_Eghdam(item.Eghdam);
+    self.p_Tanzim(item.Tanzim);
+
+    self.p_EghdamName(item.EghdamName);
+    self.p_TanzimName(item.TanzimName);
+    self.p_Spec(item.Spec);
+    self.ErjCustCode(item.CustCode);
+    self.KhdtCode(item.KhdtCode);
+
+    if (item.RelatedDocs == "0") {
+        $('#p_RelatedDocs').val('');
+        self.p_RelatedDocs("");
+    }
+    else {
+        $('#p_RelatedDocs').val(item.RelatedDocs);
+        self.p_RelatedDocs(item.RelatedDocs);
     }
 
-    function SetDataErjDocErja() {
-        list = self.ErjDocErja();
-        $("#BodyErjDocH").empty();
+    $('#p_docno').val(item.DocNo);
+    $('#nameErjCust').val(item.CustName);
+    $('#nameKhdt').val(item.KhdtName);
+
+    $('#p_EghdamComm').val(item.EghdamComm);
+    $('#p_DocDesc').val(item.DocDesc);
+    $('#p_SpecialComm').val(item.SpecialComm);
+    $('#p_FinalComm').val(item.FinalComm);
+    $('#p_Mahramaneh').val(item.Mahramaneh);
+    $('#p_Status').val(item.Status);
+
+    sessionStorage.F01 = item.F01;
+    sessionStorage.F02 = item.F02;
+    sessionStorage.F03 = item.F03;
+    sessionStorage.F04 = item.F04;
+    sessionStorage.F05 = item.F05;
+    sessionStorage.F06 = item.F06;
+    sessionStorage.F07 = item.F07;
+    sessionStorage.F08 = item.F08;
+    sessionStorage.F09 = item.F09;
+    sessionStorage.F10 = item.F10;
+    sessionStorage.F11 = item.F11;
+    sessionStorage.F12 = item.F12;
+    sessionStorage.F13 = item.F13;
+    sessionStorage.F14 = item.F14;
+    sessionStorage.F15 = item.F15;
+    sessionStorage.F16 = item.F16;
+    sessionStorage.F17 = item.F17;
+    sessionStorage.F18 = item.F18;
+    sessionStorage.F19 = item.F19;
+    sessionStorage.F20 = item.F20;
+
+    $("#ExtraFields1").val(sessionStorage.F01);
+    $("#ExtraFields2").val(sessionStorage.F02);
+    $("#ExtraFields3").val(sessionStorage.F03);
+    $("#ExtraFields4").val(sessionStorage.F04);
+    $("#ExtraFields5").val(sessionStorage.F05);
+    $("#ExtraFields6").val(sessionStorage.F06);
+    $("#ExtraFields7").val(sessionStorage.F07);
+    $("#ExtraFields8").val(sessionStorage.F08);
+    $("#ExtraFields9").val(sessionStorage.F09);
+    $("#ExtraFields10").val(sessionStorage.F10);
+    $("#ExtraFields11").val(sessionStorage.F11);
+    $("#ExtraFields12").val(sessionStorage.F12);
+    $("#ExtraFields13").val(sessionStorage.F13);
+    $("#ExtraFields14").val(sessionStorage.F14);
+    $("#ExtraFields15").val(sessionStorage.F15);
+    $("#ExtraFields16").val(sessionStorage.F16);
+    $("#ExtraFields17").val(sessionStorage.F17);
+    $("#ExtraFields18").val(sessionStorage.F18);
+    $("#ExtraFields19").val(sessionStorage.F19);
+    $("#ExtraFields20").val(sessionStorage.F20);
+
+    $("#ExtraFields1").val(item.F01);
+    $("#ExtraFields2").val(item.F02);
+    $("#ExtraFields3").val(item.F03);
+    $("#ExtraFields4").val(item.F04);
+    $("#ExtraFields5").val(item.F05);
+    $("#ExtraFields6").val(item.F06);
+    $("#ExtraFields7").val(item.F07);
+    $("#ExtraFields8").val(item.F08);
+    $("#ExtraFields9").val(item.F09);
+    $("#ExtraFields10").val(item.F10);
+    $("#ExtraFields11").val(item.F11);
+    $("#ExtraFields12").val(item.F12);
+    $("#ExtraFields13").val(item.F13);
+    $("#ExtraFields14").val(item.F14);
+    $("#ExtraFields15").val(item.F15);
+    $("#ExtraFields16").val(item.F16);
+    $("#ExtraFields17").val(item.F17);
+    $("#ExtraFields18").val(item.F18);
+    $("#ExtraFields19").val(item.F19);
+    $("#ExtraFields20").val(item.F20);
+
+    docBMode = item.DocBMode;
+    serialNumber = item.SerialNumber;
+    getErjResultList(serialNumber, null, null)
+    getErjDocErja(serialNumber);
+
+
+    if (self.ErjDocErja().length == 0) {
+        $('#ErjDocErja').removeAttr('hidden', '');
+
+        //$('#ErjDocErja').prop('disabled', false);
+    }
+    else {
+        $('#ErjDocErja').attr('hidden', '');
+        //$('#ErjDocErja').prop('disabled', true);
+    }
+
+    $('#modal-ErjDocH').modal('show');
+}
+
+
+
+
+
+function getErjDocErja(serialNumber) {
+    var ErjDocErjaObject = {
+        SerialNumber: serialNumber,
+    };
+    ajaxFunction(ErjDocErjaUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocErjaObject).done(function (response) {
+        self.ErjDocErja(response);
+        SetDataErjDocErja();
+    });
+}
+
+
+
+self.FilterErjValue = ko.observable("");
+self.FilterErj = ko.computed(function () {
+    var filter = self.FilterErjValue();
+    return ko.utils.arrayFilter(self.ErjDocErja(), function (item) {
+        return item.BandNo == filter;
+    });
+});
+
+
+function ConvertComm(comm) {
+    var res = comm.split("\r\n");
+    if (res.length == 1)
+        var res = comm.split("\n");
+    tempText = '';
+    for (var i = 0; i < res.length; i++) {
+        tempText += '<p>' + res[i] + '</p> '
+    }
+    return tempText;
+}
+
+function SetDataErjDocErja() {
+    list = self.ErjDocErja();
+    $("#BodyErjDocH").empty();
+    listLastBand = self.ErjResultList();
+    if (list.length > 0) {
         listLastBand = self.ErjResultList();
-        if (list.length > 0) {
-            listLastBand = self.ErjResultList();
-            countBand = list[list.length - 1].BandNo;
-            textLastBand = '';
-            for (var j = 0; j < listLastBand.length; j++) {
-                if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
-                    textLastBand +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
-                }
-                else if (listLastBand[j].DocBMode == 1) {
-                    textLastBand +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
+        countBand = list[list.length - 1].BandNo;
+        textLastBand = '';
+        for (var j = 0; j < listLastBand.length; j++) {
+            if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
+                textLastBand +=
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
+            }
+            else if (listLastBand[j].DocBMode == 1) {
+                textLastBand +=
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
-                }
+            }
 
 
-                if (listLastBand[j].RjResult == '') {
-                    if (listLastBand[j].DocBMode > 0) {
-                        textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
-                        textLastBand += ' </div> ';
-                    }
-                }
-                else {
-                    textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
-                    textLastBand += ConvertComm(listLastBand[j].RjResult);
+            if (listLastBand[j].RjResult == '') {
+                if (listLastBand[j].DocBMode > 0) {
+                    textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
                     textLastBand += ' </div> ';
                 }
-
-
+            }
+            else {
+                textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
+                textLastBand += ConvertComm(listLastBand[j].RjResult);
+                textLastBand += ' </div> ';
             }
 
-            for (var i = 1; i <= countBand; i++) {
 
-                self.FilterErjValue(i);
-                listBand = self.FilterErj();
-                text = ConvertComm(listBand[0].RjComm);
+        }
 
-                countRonevesht = listBand.length
+        for (var i = 1; i <= countBand; i++) {
 
-                if (countRonevesht > 1) {
-                    // text += ' <br\> '
-                }
+            self.FilterErjValue(i);
+            listBand = self.FilterErj();
+            text = ConvertComm(listBand[0].RjComm);
 
-                for (var j = 1; j < countRonevesht; j++) {
-                    text +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                        + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه رونوشت از :</h6> <h6>' + listBand[j].FromUserName + '</h6>'
-                        + '   </div>'
-                        + '</div > '
-                    if (listBand[j].RjComm == '')
-                        text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
-                    else {
-                        text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
-                        text += ConvertComm(listBand[j].RjComm);
-                    }
-                    text += ' </div> ';
-                }
+            countRonevesht = listBand.length
 
-
-
-                if (listBand[0].RooneveshtUsers != '' && i < countBand) {
-
-                    text += ''//'</br>'
-                        + '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
-                        + '   <div class=" form-inline" > <h6> رونوشت به : '
-                        + listBand[0].RooneveshtUsers
-                        + '</h6>'
-                        + '</div > '
-                    text += ' </div> ';
-                }
-
-
-                textBody =
-                    '<div style="border-top: 0px solid #fff !important;">'
-                    + '    <div>'
-                    + '        <div class="cardErj">'
-                    + '            <div class="header" style="background-color: #f5d3b4;padding-right: 3px;padding-left: 0px;">'
-                    + '<div class="form-inline"> '
-                    + '     <div class= "col-md-8 form-inline" > '
-                    + '         <h6 style="font-size: 11px;">' + i + ') ' + listBand[0].FromUserName + '</h6>'
-                    + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 11px;margin-left: 0px; margin-right: 0px;" /> '
-                    + '         <h6 style="font-size: 11px;">' + listBand[0].ToUserName + '</h6> '
-                    + '     </div>'
-                    + '     <div class="col-md-4 form-inline"> '
-                    + '         <h6 style="padding-left: 5px;font-size: 11px;">' + listBand[0].RjTimeSt + '</h6> '
-                    + '         <h6 style="font-size: 11px;">' + listBand[0].RjDate + '</h6> '
-                    + '     </div> '
-                    + '</div>'
-                    + '</div>'
-                    + '<div class="body" style="padding:5px;">'
-
-                textBody += text
-                if (i == countBand)
-                    textBody += textLastBand
-
-                textBody += '</div>'
-                    + '        </div>'
-                    + '    </div>'
-                    + '</div>'
-
-                $('#BodyErjDocH').append(textBody);
+            if (countRonevesht > 1) {
+                // text += ' <br\> '
             }
-            if (i > 0)
-                bandNo = i
-            else
-                bandNo = 1;
 
+            for (var j = 1; j < countRonevesht; j++) {
+                text +=
+                    '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                    + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه رونوشت از :</h6> <h6>' + listBand[j].FromUserName + '</h6>'
+                    + '   </div>'
+                    + '</div > '
+                if (listBand[j].RjComm == '')
+                    text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
+                else {
+                    text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
+                    text += ConvertComm(listBand[j].RjComm);
+                }
+                text += ' </div> ';
+            }
+
+
+
+            if (listBand[0].RooneveshtUsers != '' && i < countBand) {
+
+                text += ''//'</br>'
+                    + '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
+                    + '   <div class=" form-inline" > <h6> رونوشت به : '
+                    + listBand[0].RooneveshtUsers
+                    + '</h6>'
+                    + '</div > '
+                text += ' </div> ';
+            }
+
+
+            textBody =
+                '<div style="border-top: 0px solid #fff !important;">'
+                + '    <div>'
+                + '        <div class="cardErj">'
+                + '            <div class="header" style="background-color: #f5d3b4;padding-right: 3px;padding-left: 0px;">'
+                + '<div class="form-inline"> '
+                + '     <div class= "col-md-8 form-inline" > '
+                + '         <h6 style="font-size: 11px;">' + i + ') ' + listBand[0].FromUserName + '</h6>'
+                + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 11px;margin-left: 0px; margin-right: 0px;" /> '
+                + '         <h6 style="font-size: 11px;">' + listBand[0].ToUserName + '</h6> '
+                + '     </div>'
+                + '     <div class="col-md-4 form-inline"> '
+                + '         <h6 style="padding-left: 5px;font-size: 11px;">' + listBand[0].RjTimeSt + '</h6> '
+                + '         <h6 style="font-size: 11px;">' + listBand[0].RjDate + '</h6> '
+                + '     </div> '
+                + '</div>'
+                + '</div>'
+                + '<div class="body" style="padding:5px;">'
+
+            textBody += text
+            if (i == countBand)
+                textBody += textLastBand
+
+            textBody += '</div>'
+                + '        </div>'
+                + '    </div>'
+                + '</div>'
+
+            $('#BodyErjDocH').append(textBody);
         }
-    }
-
-
-
-
-    self.ShowAction = function (DeleteDocTrs) {
-        if (sessionStorage.DEL_ErjDOC == 'true' && DeleteDocTrs == 1)
-            return true;
+        if (i > 0)
+            bandNo = i
         else
-            return false;
+            bandNo = 1;
+
     }
+}
 
 
-    self.ShowActionUpdate = function (EditDocTrs) {
 
-        if (sessionStorage.CHG_ErjDOC == 'true' && EditDocTrs == 1)
-            return true;
-        else
-            return false;
+
+self.ShowAction = function (DeleteDocTrs) {
+    if (sessionStorage.DEL_ErjDOC == 'true' && DeleteDocTrs == 1)
+        return true;
+    else
+        return false;
+}
+
+
+self.ShowActionUpdate = function (EditDocTrs) {
+
+    if (sessionStorage.CHG_ErjDOC == 'true' && EditDocTrs == 1)
+        return true;
+    else
+        return false;
+}
+
+
+
+
+
+self.radif = function (index) {
+    countShow = self.pageSizeErjDocH();
+    page = self.currentPageIndexErjDocH();
+    calc = (countShow * page) + 1;
+    return index + calc;
+}
+
+
+function CreateTableReport(data) {
+    $("#TableList").empty();
+    $('#TableList').append(
+        ' <table class="table table-hover">' +
+        '   <thead style="cursor: pointer;">' +
+        '       <tr data-bind="click: sortTableErjDocH">' +
+        // '<th></th>' +
+        CreateTableTh('DocNo', data) +
+        CreateTableTh('DocDate', data) +
+        CreateTableTh('MahramanehName', data) +
+        CreateTableTh('Eghdam', data) +
+        CreateTableTh('Tanzim', data) +
+        CreateTableTh('AmalDate', data) +
+        CreateTableTh('MhltDate', data) +
+        CreateTableTh('EndDate', data) +
+        CreateTableTh('CustCode', data) +
+        CreateTableTh('CustName', data) +
+        CreateTableTh('Status', data) +
+        CreateTableTh('Spec', data) +
+        CreateTableTh('KhdtName', data) +
+        CreateTableTh('SerialNumber', data) +
+        CreateTableTh('F01', data) +
+        CreateTableTh('F02', data) +
+        CreateTableTh('F03', data) +
+        CreateTableTh('F04', data) +
+        CreateTableTh('F05', data) +
+        CreateTableTh('F06', data) +
+        CreateTableTh('F07', data) +
+        CreateTableTh('F08', data) +
+        CreateTableTh('F09', data) +
+        CreateTableTh('F10', data) +
+        CreateTableTh('F11', data) +
+        CreateTableTh('F12', data) +
+        CreateTableTh('F13', data) +
+        CreateTableTh('F14', data) +
+        CreateTableTh('F15', data) +
+        CreateTableTh('F16', data) +
+        CreateTableTh('F17', data) +
+        CreateTableTh('F18', data) +
+        CreateTableTh('F19', data) +
+        CreateTableTh('F20', data) +
+        '<th>عملیات</th>' +
+        '      </tr>' +
+        '   </thead >' +
+        '<tbody data-bind="foreach: currentPageErjDocH" data-dismiss="modal" style="cursor: default;">' +
+        '    <tr data-bind="click: $parent.selectErjDocH , css: { matched: $data === $root.firstMatch() },' +
+        '       style: {color: Status == \'پایان یافته\'  ? ' +
+        '\'#15a01b\'' +
+        ': Status == \'باطل\' ? \'red\' : DocBExists == \'0\'  ? \'#673ab7\' : \'\' }">' +
+
+        /* '<td style="background-color: ' + colorRadif + ';">' +
+         //<div style="display: flex; padding-top: 5px;">
+         //'<span data-bind="text: $root.radif($index()) "> </span> ' +
+         '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:9px">lens</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+         '</td>' +
+         */
+
+        CreateTableTd('DocNo', 0, 0, 0, data) +
+        CreateTableTd('DocDate', 0, 0, 0, data) +
+        CreateTableTd('MahramanehName', 0, 0, 0, data) +
+        CreateTableTd('Eghdam', 0, 0, 0, data) +
+        CreateTableTd('Tanzim', 0, 0, 0, data) +
+        CreateTableTd('AmalDate', 0, 0, 0, data) +
+        CreateTableTd('MhltDate', 0, 0, 0, data) +
+        CreateTableTd('EndDate', 0, 0, 0, data) +
+        CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
+        CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
+        CreateTableTd('Status', 0, 0, 0, data) +
+        CreateTableTd('Spec', 0, 0, 0, data) +
+        CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
+        CreateTableTd('SerialNumber', 0, 0, 0, data) +
+        CreateTableTd('F01', 0, 4, 0, data) +
+        CreateTableTd('F02', 0, 4, 0, data) +
+        CreateTableTd('F03', 0, 4, 0, data) +
+        CreateTableTd('F04', 0, 4, 0, data) +
+        CreateTableTd('F05', 0, 4, 0, data) +
+        CreateTableTd('F06', 0, 4, 0, data) +
+        CreateTableTd('F07', 0, 4, 0, data) +
+        CreateTableTd('F08', 0, 4, 0, data) +
+        CreateTableTd('F09', 0, 4, 0, data) +
+        CreateTableTd('F10', 0, 4, 0, data) +
+        CreateTableTd('F11', 0, 4, 0, data) +
+        CreateTableTd('F12', 0, 4, 0, data) +
+        CreateTableTd('F13', 0, 4, 0, data) +
+        CreateTableTd('F14', 0, 4, 0, data) +
+        CreateTableTd('F15', 0, 4, 0, data) +
+        CreateTableTd('F16', 0, 4, 0, data) +
+        CreateTableTd('F17', 0, 4, 0, data) +
+        CreateTableTd('F18', 0, 4, 0, data) +
+        CreateTableTd('F19', 0, 4, 0, data) +
+        CreateTableTd('F20', 0, 4, 0, data) +
+        '<td>' +
+        '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(EditDocTrs)">' +
+        '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
+        '   </a>' +
+        '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs)">' +
+        '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
+        '   </a>' +
+        '</td >' +
+
+        '        </tr>' +
+        '</tbody>' +
+        ' <tfoot>' +
+        '  <tr style="background-color: #efb68399;">' +
+        // '<td></td>' +
+        CreateTableTdSearch('DocNo', data) +
+        CreateTableTdSearch('DocDate', data) +
+        CreateTableTdSearch('MahramanehName', data) +
+        CreateTableTdSearch('Eghdam', data) +
+        CreateTableTdSearch('Tanzim', data) +
+        CreateTableTdSearch('AmalDate', data) +
+        CreateTableTdSearch('MhltDate', data) +
+        CreateTableTdSearch('EndDate', data) +
+        CreateTableTdSearch('CustCode', data) +
+        CreateTableTdSearch('CustName', data) +
+        CreateTableTdSearch('Status', data) +
+        CreateTableTdSearch('Spec', data) +
+        CreateTableTdSearch('KhdtName', data) +
+        CreateTableTdSearch('SerialNumber', data) +
+        CreateTableTdSearch('F01', data) +
+        CreateTableTdSearch('F02', data) +
+        CreateTableTdSearch('F03', data) +
+        CreateTableTdSearch('F04', data) +
+        CreateTableTdSearch('F05', data) +
+        CreateTableTdSearch('F06', data) +
+        CreateTableTdSearch('F07', data) +
+        CreateTableTdSearch('F08', data) +
+        CreateTableTdSearch('F09', data) +
+        CreateTableTdSearch('F10', data) +
+        CreateTableTdSearch('F11', data) +
+        CreateTableTdSearch('F12', data) +
+        CreateTableTdSearch('F13', data) +
+        CreateTableTdSearch('F14', data) +
+        CreateTableTdSearch('F15', data) +
+        CreateTableTdSearch('F16', data) +
+        CreateTableTdSearch('F17', data) +
+        CreateTableTdSearch('F18', data) +
+        CreateTableTdSearch('F19', data) +
+        CreateTableTdSearch('F20', data) +
+        '      </tr>' +
+        '  </tfoot>' +
+        '</table >'
+    );
+}
+
+function CreateTableTh(field, data) {
+
+    text = '<th ';
+
+    TextField = FindTextField(field, data);
+    sortField = field == 'DocNo' ? 'DocNo' : field
+    if (TextField == 0)
+        text += 'Hidden ';
+
+    text += 'data-column="' + sortField + '">' +
+        '<span data-column="' + sortField + '">' + TextField + '</span>' +
+        '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
+        '    <i data-bind="attr: { class: iconType' + field + ' }"  data-column="' + sortField + '" ></i> </span> ' +
+        '</th>';
+    return text;
+}
+
+function CreateTableTd(field, Deghat, no, color, data) {
+    text = '<td ';
+
+    TextField = FindTextField(field, data);
+    if (TextField == 0)
+        text += 'Hidden ';
+
+    color = "\'" + color + "\'";
+
+    switch (no) {
+        case 0:
+            text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
+            break;
+        case 1:
+            text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+            break;
+        case 2:
+            text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+            break;
+        case 3:
+            text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
+            break;
+        case 4:
+            text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
+            break;
+        case 5:
+            text += 'data-bind="click: $root.View' + field + ', style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  } " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
+            break;
+
     }
+    return text;
+}
 
+function CreateTableTdSum(field, no, data) {
+    text = '<td ';
 
+    TextField = FindTextField(field, data);
+    if (TextField == 0)
+        text += 'Hidden ';
 
-
-
-    self.radif = function (index) {
-        countShow = self.pageSizeErjDocH();
-        page = self.currentPageIndexErjDocH();
-        calc = (countShow * page) + 1;
-        return index + calc;
+    switch (no) {
+        case 0:
+            text += 'id="textTotal"></td>';
+            break;
+        case 1:
+            text += '></td>'
+            break;
+        case 2:
+            text += 'id="total' + field + '" style="direction: ltr;"></td>'
+            break;
     }
+    return text;
+}
 
 
-    function CreateTableReport(data) {
-        $("#TableList").empty();
-        $('#TableList').append(
-            ' <table class="table table-hover">' +
-            '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableErjDocH">' +
-            // '<th></th>' +
-            CreateTableTh('DocNo', data) +
-            CreateTableTh('DocDate', data) +
-            CreateTableTh('MahramanehName', data) +
-            CreateTableTh('Eghdam', data) +
-            CreateTableTh('Tanzim', data) +
-            CreateTableTh('AmalDate', data) +
-            CreateTableTh('MhltDate', data) +
-            CreateTableTh('EndDate', data) +
-            CreateTableTh('CustCode', data) +
-            CreateTableTh('CustName', data) +
-            CreateTableTh('Status', data) +
-            CreateTableTh('Spec', data) +
-            CreateTableTh('KhdtName', data) +
-            CreateTableTh('SerialNumber', data) +
-            CreateTableTh('F01', data) +
-            CreateTableTh('F02', data) +
-            CreateTableTh('F03', data) +
-            CreateTableTh('F04', data) +
-            CreateTableTh('F05', data) +
-            CreateTableTh('F06', data) +
-            CreateTableTh('F07', data) +
-            CreateTableTh('F08', data) +
-            CreateTableTh('F09', data) +
-            CreateTableTh('F10', data) +
-            CreateTableTh('F11', data) +
-            CreateTableTh('F12', data) +
-            CreateTableTh('F13', data) +
-            CreateTableTh('F14', data) +
-            CreateTableTh('F15', data) +
-            CreateTableTh('F16', data) +
-            CreateTableTh('F17', data) +
-            CreateTableTh('F18', data) +
-            CreateTableTh('F19', data) +
-            CreateTableTh('F20', data) +
-            '<th>عملیات</th>' +
-            '      </tr>' +
-            '   </thead >' +
-            '<tbody data-bind="foreach: currentPageErjDocH" data-dismiss="modal" style="cursor: default;">' +
-            '    <tr data-bind="click: $parent.selectErjDocH , css: { matched: $data === $root.firstMatch() },' +
-            '       style: {color: Status == \'پایان یافته\'  ? ' +
-            '\'#15a01b\'' +
-            ': Status == \'باطل\' ? \'red\' : DocBExists == \'0\'  ? \'#673ab7\' : \'\' }">' +
+function CreateTableTdSearch(field, data) {
+    text = '<td ';
 
-            /* '<td style="background-color: ' + colorRadif + ';">' +
-             //<div style="display: flex; padding-top: 5px;">
-             //'<span data-bind="text: $root.radif($index()) "> </span> ' +
-             '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:9px">lens</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
-             '</td>' +
-             */
+    TextField = FindTextField(field, data);
+    type = FindTypeField(field, data);
+    if (TextField == 0)
+        text += 'Hidden ';
 
-            CreateTableTd('DocNo', 0, 0, 0, data) +
-            CreateTableTd('DocDate', 0, 0, 0, data) +
-            CreateTableTd('MahramanehName', 0, 0, 0, data) +
-            CreateTableTd('Eghdam', 0, 0, 0, data) +
-            CreateTableTd('Tanzim', 0, 0, 0, data) +
-            CreateTableTd('AmalDate', 0, 0, 0, data) +
-            CreateTableTd('MhltDate', 0, 0, 0, data) +
-            CreateTableTd('EndDate', 0, 0, 0, data) +
-            CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('Status', 0, 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, 0, data) +
-            CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('SerialNumber', 0, 0, 0, data) +
-            CreateTableTd('F01', 0, 4, 0, data) +
-            CreateTableTd('F02', 0, 4, 0, data) +
-            CreateTableTd('F03', 0, 4, 0, data) +
-            CreateTableTd('F04', 0, 4, 0, data) +
-            CreateTableTd('F05', 0, 4, 0, data) +
-            CreateTableTd('F06', 0, 4, 0, data) +
-            CreateTableTd('F07', 0, 4, 0, data) +
-            CreateTableTd('F08', 0, 4, 0, data) +
-            CreateTableTd('F09', 0, 4, 0, data) +
-            CreateTableTd('F10', 0, 4, 0, data) +
-            CreateTableTd('F11', 0, 4, 0, data) +
-            CreateTableTd('F12', 0, 4, 0, data) +
-            CreateTableTd('F13', 0, 4, 0, data) +
-            CreateTableTd('F14', 0, 4, 0, data) +
-            CreateTableTd('F15', 0, 4, 0, data) +
-            CreateTableTd('F16', 0, 4, 0, data) +
-            CreateTableTd('F17', 0, 4, 0, data) +
-            CreateTableTd('F18', 0, 4, 0, data) +
-            CreateTableTd('F19', 0, 4, 0, data) +
-            CreateTableTd('F20', 0, 4, 0, data) +
-            '<td>' +
-            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(EditDocTrs)">' +
-            '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
-            '   </a>' +
-            '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs)">' +
-            '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
-            '   </a>' +
-            '</td >' +
-
-            '        </tr>' +
-            '</tbody>' +
-            ' <tfoot>' +
-            '  <tr style="background-color: #efb68399;">' +
-            // '<td></td>' +
-            CreateTableTdSearch('DocNo', data) +
-            CreateTableTdSearch('DocDate', data) +
-            CreateTableTdSearch('MahramanehName', data) +
-            CreateTableTdSearch('Eghdam', data) +
-            CreateTableTdSearch('Tanzim', data) +
-            CreateTableTdSearch('AmalDate', data) +
-            CreateTableTdSearch('MhltDate', data) +
-            CreateTableTdSearch('EndDate', data) +
-            CreateTableTdSearch('CustCode', data) +
-            CreateTableTdSearch('CustName', data) +
-            CreateTableTdSearch('Status', data) +
-            CreateTableTdSearch('Spec', data) +
-            CreateTableTdSearch('KhdtName', data) +
-            CreateTableTdSearch('SerialNumber', data) +
-            CreateTableTdSearch('F01', data) +
-            CreateTableTdSearch('F02', data) +
-            CreateTableTdSearch('F03', data) +
-            CreateTableTdSearch('F04', data) +
-            CreateTableTdSearch('F05', data) +
-            CreateTableTdSearch('F06', data) +
-            CreateTableTdSearch('F07', data) +
-            CreateTableTdSearch('F08', data) +
-            CreateTableTdSearch('F09', data) +
-            CreateTableTdSearch('F10', data) +
-            CreateTableTdSearch('F11', data) +
-            CreateTableTdSearch('F12', data) +
-            CreateTableTdSearch('F13', data) +
-            CreateTableTdSearch('F14', data) +
-            CreateTableTdSearch('F15', data) +
-            CreateTableTdSearch('F16', data) +
-            CreateTableTdSearch('F17', data) +
-            CreateTableTdSearch('F18', data) +
-            CreateTableTdSearch('F19', data) +
-            CreateTableTdSearch('F20', data) +
-            '      </tr>' +
-            '  </tfoot>' +
-            '</table >'
-        );
-    }
-
-    function CreateTableTh(field, data) {
-
-        text = '<th ';
-
-        TextField = FindTextField(field, data);
-        sortField = field == 'DocNo' ? 'DocNo' : field
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'data-column="' + sortField + '">' +
-            '<span data-column="' + sortField + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }"  data-column="' + sortField + '" ></i> </span> ' +
-            '</th>';
-        return text;
-    }
-
-    function CreateTableTd(field, Deghat, no, color, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        color = "\'" + color + "\'";
-
-        switch (no) {
-            case 0:
-                text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
-                break;
-            case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
-                break;
-            case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
-                break;
-            case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
-                break;
-            case 4:
-                text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
-                break;
-            case 5:
-                text += 'data-bind="click: $root.View' + field + ', style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  } " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
-                break;
-
-        }
-        return text;
-    }
-
-    function CreateTableTdSum(field, no, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        switch (no) {
-            case 0:
-                text += 'id="textTotal"></td>';
-                break;
-            case 1:
-                text += '></td>'
-                break;
-            case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
-                break;
-        }
-        return text;
-    }
+    text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+    text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
+    return text;
+}
 
 
-    function CreateTableTdSearch(field, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        type = FindTypeField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
-        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
-        return text;
-    }
+self.SearchKeyDown = function (viewModel, e) {
+    return KeyPressSearch(e);
+}
 
 
-    self.SearchKeyDown = function (viewModel, e) {
-        return KeyPressSearch(e);
-    }
+self.currentPageIndexErjDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
-
-    self.currentPageIndexErjDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
-
-    self.sortTableErjDocH();
+self.sortTableErjDocH();
 };
 
 ko.applyBindings(new ViewModel());

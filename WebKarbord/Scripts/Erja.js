@@ -423,6 +423,8 @@
 
     function ConvertComm(comm) {
         var res = comm.split("\r\n");
+        if (res.length == 1)
+         var res = comm.split("\n");
         tempText = '';
         for (var i = 0; i < res.length; i++) {
             tempText += '<p>' + res[i] + '</p> '
@@ -1779,7 +1781,6 @@
 
             ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) { });
         }
-
     }
 
 
@@ -1903,6 +1904,15 @@
         $('#imgSpec').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
         $('#imgResult').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
 
+        if (serialNumber > 0) {
+            autosize.update($('#Result'));
+        }
+
+    });
+
+
+    $('#modal-ErjDocErja').on('hide.bs.modal', function () {
+        getDocB_Last();
     });
 
     $('#ShowHideInformation').click(function () {
@@ -2255,7 +2265,7 @@
         ajaxFunction(ErjSaveDoc_CSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
             $('#modal-Erja').modal('hide');
             $('#modal-ErjDocErja').modal('hide');
-            getDocB_Last();
+            //getDocB_Last();
         });
         flagInsertFdoch = 1;
     };
