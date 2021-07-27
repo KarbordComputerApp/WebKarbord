@@ -17,6 +17,7 @@
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
+    self.ErjDocYearsList = ko.observableArray([]); // لیست سال پرونده ها 
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
@@ -31,6 +32,7 @@
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
+    var ErjDocYearsUri = server + '/api/Web_Data/ErjDocYears/'; // آدرس سال پرونده ها 
     var Web_ErjSaveDoc_Del_Uri = server + '/api/ErjDocH/'; // حذف پرونده
     var Web_ErjSaveDoc_HUri = server + '/api/ErjDocH/'; // آدرس ذخیره پرونده
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
@@ -77,6 +79,10 @@
 
     self.p_Status = ko.observable();
     self.ErjUsersCode = ko.observable();
+
+
+    self.DocYearsSelect = ko.observable();
+    self.StatusParvandehSelect = ko.observable();
 
     var ErjUsersRoneveshtCode = '';
     var counterErjUsersRonevesht = 0;
@@ -193,9 +199,27 @@
     function getErjStatusList() {
         ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
             self.ErjStatusList(data);
+
+            StatusParvandehSelect = localStorage.getItem('StatusParvandehSelect') == null ? '' : localStorage.getItem('StatusParvandehSelect');
+            self.StatusParvandehSelect(StatusParvandehSelect);
         });
     }
     getErjStatusList();
+
+
+    //Get ErjDocYears List
+    function getErjDocYearsList() {
+        ajaxFunction(ErjDocYearsUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+            self.ErjDocYearsList(data);
+            DocYearsSelect = localStorage.getItem('DocYearsSelect') == null ? '' : localStorage.getItem('DocYearsSelect');
+            self.DocYearsSelect(DocYearsSelect);
+
+            
+
+        });
+    }
+    getErjDocYearsList();
+
 
     //Get ErjUsers List
     function getErjUsersList() {
@@ -294,7 +318,7 @@
     self.currentPageIndexErjDocH = ko.observable(0);
 
     //Get ErjDocH
-    function getErjDocH(select, page) {
+    function getErjDocH(select, page, status, sal, docno) {
         tarikh1 = '';
         tarikh2 = '';
         Status = '';
@@ -308,17 +332,24 @@
             UserCode: sessionStorage.userName,
             select: select,
             AccessSanad: sessionStorage.AccessSanadErj,
+            Sal: sal,
+            Status: status, 
+            DocNo: docno,
         };
-        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject).done(function (response) {
+
+        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, true).done(function (response) {
             self.ErjDocHList(response);
             self.RelatedDocsList(response);
             self.currentPageIndexErjDocH(page);
+
+            localStorage.setItem('DocYearsSelect', sal);
+            localStorage.setItem('StatusParvandehSelect', status);
 
         });
     }
 
 
-    getErjDocH($('#pageCountSelector').val(), 0);
+    getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(),'');
 
 
     $('#refreshErjDocH').click(function () {
@@ -335,7 +366,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH($('#pageCountSelector').val(), 0);
+                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(),'');
                 self.sortTableErjDocH();
             }
         })
@@ -344,7 +375,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getErjDocH(select, 0);
+        getErjDocH(select, 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
         self.sortTableErjDocH();
     }
 
@@ -837,7 +868,7 @@
     function DeleteParvandeh() {
         ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + serial, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexErjDocH();
-            getErjDocH($('#pageCountSelector').val(), currentPage);
+            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
             showNotification('پرونده حذف شد', 1);
@@ -970,7 +1001,7 @@
             lastDoc = $("#p_docno").val();
             serialNumber = response;
             currentPage = self.currentPageIndexErjDocH();
-            getErjDocH($('#pageCountSelector').val(), currentPage);
+            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
             if (lastDoc == "") {
@@ -1528,7 +1559,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH(3, 0);
+                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
                 self.sortTableErjDocH();
             }
         })
@@ -1765,12 +1796,6 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
-    }
 
 
     $('#refreshErjUsersRonevesht').click(function () {
@@ -2199,7 +2224,7 @@
         $('#modal-ErjDocErja').modal('hide');
         $('#modal-ErjDocH').modal('hide');
         currentPage = self.currentPageIndexErjDocH();
-        getErjDocH($('#pageCountSelector').val(), currentPage);
+        getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
         self.sortTableErjDocH();
 
         //getErjDocH($('#pageCountSelector').val(), 0);
