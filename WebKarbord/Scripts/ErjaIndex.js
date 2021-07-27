@@ -2282,6 +2282,7 @@
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
+                RjStatus: $("#m_StatusErja").val(),
             };
         }
 

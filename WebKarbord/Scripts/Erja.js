@@ -2147,7 +2147,8 @@
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
-                SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1
+                SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1,
+                RjStatus: $("#m_StatusErja").val(),
             };
         }
         else // save
@@ -2165,7 +2166,8 @@
                 RjTime: 0,
                 RjMhltDate: '',
                 BandNo: bandNoImput,
-                SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1
+                SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1,
+                RjStatus: $("#m_StatusErja").val(),
             };
 
             status = $("#m_StatusParvandeh").val();
