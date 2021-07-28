@@ -342,7 +342,7 @@
             DocNo: docno,
         };
 
-        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, true).done(function (response) {
+        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, false).done(function (response) {
             self.ErjDocHList(response);
             self.RelatedDocsList(response);
             self.currentPageIndexErjDocH(page);
@@ -2362,8 +2362,6 @@
 
 
     $("#DocNoSearch").keydown(function (e) {
-
-        // BACKSPACE
         if (e.keyCode == 13) {
             docnoSearch = $("#DocNoSearch").val();
             if (docnoSearch == '') {
@@ -2386,6 +2384,7 @@
 
     function ShowDataUpdate(docno) {
 
+
         var ErjDocHObject = {
             Mode: 0,
             UserCode: sessionStorage.userName,
@@ -2400,6 +2399,11 @@
             if (response.length == 0) {
                 return showNotification('پرونده یافت نشد', 0);
             }
+
+            if (response.length > 1) {
+                return showNotification('بیش از یک پرونده وجود دارد', 0);
+            }
+
             var data = response[0];
 
             self.p_DocDate(data["DocDate"]);
@@ -2900,7 +2904,7 @@ function CreateTableReport(data) {
         CreateTableTd('Eghdam', 0, 0, 0, data) +
         CreateTableTd('Tanzim', 0, 0, 0, data) +
         CreateTableTd('AmalDate', 0, 0, 0, data) +
-        CreateTableTd('MhltDate', 0, 0, 0, data) +
+        CreateTableTd('MhltDate', 0, 6, 0, data) +
         CreateTableTd('EndDate', 0, 0, 0, data) +
         CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
         CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
@@ -3008,6 +3012,8 @@ function CreateTableTd(field, Deghat, no, color, data) {
 
     color = "\'" + color + "\'";
 
+    shamsiDateTemp = "\'" + shamsiDate + "\'";
+
     switch (no) {
         case 0:
             text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
@@ -3026,6 +3032,10 @@ function CreateTableTd(field, Deghat, no, color, data) {
             break;
         case 5:
             text += 'data-bind="click: $root.View' + field + ', style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  } " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
+            break;
+
+        case 6:
+            text += 'data-bind="text: ' + field + ',style: { color: ' + field + ' < ' + shamsiDateTemp+'   ? \'red\' : \'\'}"></td>';
             break;
 
     }

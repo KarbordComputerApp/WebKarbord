@@ -91,7 +91,11 @@
     var list_KhdtSelect = new Array()
     var ErjaMode;
 
+    var lastUserErjCode = '';
+    var lastUserErjName = '';
 
+
+    shamsiDate = ShamsiDate();
 
 
     function AddDocBMode() {
@@ -368,7 +372,7 @@
             khdtCode: '',
             srchSt: '',
         };
-        ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, true).done(function (response) {
+        ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
             self.DocB_LastList(response);
         });
     }
@@ -545,19 +549,14 @@
                 + '    </div>'
                 + '</div>'
 
+            
+            
 
             $('#BodyErjDocErja').append(textBody);
         }
+        lastUserErjCode = listBand[0].FromUserCode;
+        lastUserErjName = listBand[0].FromUserName;
     }
-
-
-    $("#CreateReport").click(function () {
-        getDocB_Last();
-        self.sortTableDocB_Last();
-    });
-
-
-
 
 
 
@@ -698,6 +697,8 @@
     self.iconTypeMhltDate = ko.observable("");
 
     self.sortTableDocB_Last = function (viewModel, e) {
+
+
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
@@ -710,8 +711,15 @@
 
         localStorage.setItem("sort" + rprtId, orderProp);
         localStorage.setItem("sortType" + rprtId, self.sortType);
+
+
+        self.search("");
         self.currentColumn(orderProp);
+
+        a = self.DocB_LastList();
+
         self.DocB_LastList.sort(function (left, right) {
+
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -720,6 +728,8 @@
             else {
                 return leftVal > rightVal ? 1 : -1;
             }
+
+
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
@@ -1124,7 +1134,7 @@
                     //file = $("#upload")[0].files[0];
 
 
-                    attachDate = ShamsiDate();
+                    attachDate = shamsiDate;
 
                     var formData = new FormData();
 
@@ -2022,7 +2032,13 @@
             flagSave = null;
             ErjSaveDoc_BSave(bandNo);
             $('#e_Result').val($('#Result').val());
-            $('#nameErjBe').val('انتخاب نشده');
+            if (lastUserErjCode != '' && lastUserErjName != '') {
+                $('#nameErjBe').val('(' + lastUserErjCode + ') ' + lastUserErjName);
+                self.ErjUsersCode(lastUserErjCode);
+            }
+            else {
+                $('#nameErjBe').val('انتخاب نشده');
+            }
             $('#nameRoneveshtBe').val('هیچکس');
             $('#RjMhltDate').val('');
             $('#RjTime_M').val('');
@@ -2089,7 +2105,7 @@
 
     //Add DocB  ذخیره ارجاعات
     function ErjSaveDoc_BSave(bandNoImput) {
-        rjDate = ShamsiDate();
+        rjDate = shamsiDate;
         rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
@@ -2221,7 +2237,7 @@
 
     //Add DocC  ذخیره رونوشت
     function ErjSaveDoc_CSave(bandNoImput, isSave) {
-        rjDate = ShamsiDate();
+        rjDate = shamsiDate;
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
         fromUserCode = sessionStorage.userName;
@@ -2328,7 +2344,7 @@
 
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
-            CreateTableTd('RjMhltDate', 0, 0, data) +
+            CreateTableTd('RjMhltDate', 0, 3, data) +
             CreateTableTd('CustName', 0, 0, data) +
             CreateTableTd('KhdtName', 0, 0, data) +
             CreateTableTd('FromUserName', 0, 0, data) +
@@ -2336,7 +2352,7 @@
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
-            CreateTableTd('MhltDate', 0, 0, data) +
+            CreateTableTd('MhltDate', 0, 2, data) +
             '<td>';
 
         if (sessionStorage.ModeCodeErja == "1") // دریافتی
@@ -2422,6 +2438,8 @@
         if (TextField == 0)
             text += 'Hidden ';
 
+        shamsiDateTemp = "\'" + shamsiDate + "\'";
+
         switch (no) {
             case 0:
                 text += 'data-bind="text: ' + field + '"></td>';
@@ -2429,6 +2447,13 @@
             case 1:
                 text += 'data-bind="text: RjStatus,style: { color: DocBMode == 1  ? \'#e48f43\' : \'\'}"></td>';
                 //text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+            case 2:
+                text += 'data-bind="text: ' + field + ',style: { color: ' + field + ' < ' + shamsiDateTemp + '   ? \'red\' : \'\'}"></td>';
+                break;
+
+            case 3:
+                text += 'data-bind="text: ' + field + ',style: { color: ' + field + ' < ' + shamsiDateTemp + '   ? \'red\' : \'\'}"></td>';
                 break;
         }
         return text;
@@ -2495,7 +2520,7 @@
 
     });
 
-
+    self.sortTableDocB_Last();
 };
 
 ko.applyBindings(new ViewModel());

@@ -3745,7 +3745,22 @@
         printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
         printName = null;
+
         sessionStorage.ModePrint = sessionStorage.ModeCode;
+        if (ace == "Web1") {
+            if (sessionStorage.ModeCode == 51)
+                sessionStorage.ModePrint = 'SPFCT';
+            else if (sessionStorage.ModeCode == 52)
+                sessionStorage.ModePrint = 'SFCT';
+            else if (sessionStorage.ModeCode == 53)
+                sessionStorage.ModePrint = 'SRFCT';
+            else if (sessionStorage.ModeCode == 54)
+                sessionStorage.ModePrint = 'PPFCT';
+            else if (sessionStorage.ModeCode == 55)
+                sessionStorage.ModePrint = 'PFCT';
+            else if (sessionStorage.ModeCode == 56)
+                sessionStorage.ModePrint = 'PRFCT';
+        }
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
         $('#modal-Print').modal('show');
