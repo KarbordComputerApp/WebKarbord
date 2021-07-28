@@ -14,7 +14,7 @@
     var bandNo = 0;
     var docBMode = 0;
 
-    var finalCommTrs;
+    var SpecialCommTrs;
 
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
@@ -1726,11 +1726,12 @@
             $("#docDesc").val(item.DocDesc);
 
             specialComm = item.SpecialComm;
+            SpecialCommTrs = item.SpecialCommTrs;
             $("#specialComm").val('برای نمایش کلیک کنید');
             TextHighlight("#specialComm");
 
             $("#finalComm").val(item.FinalComm);
-            finalCommTrs = item.FinalCommTrs;
+            
 
             //getErjResultList(serialnumber, docBMode, self.ToUserCode());
             getErjResultList(serialnumber, null, null)
@@ -1739,7 +1740,7 @@
     }
 
     $('#specialComm').click(function () {
-        if (finalCommTrs == 1) {
+        if (SpecialCommTrs == 1) {
             TextHighlightDel("#specialComm");
             $("#specialComm").val(specialComm);
         }
