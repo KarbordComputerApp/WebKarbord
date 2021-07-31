@@ -1625,7 +1625,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getErjUsersRoneveshtList();
+                getErjUsersList();
                 $("div.loadingZone").hide();
             }
         })
