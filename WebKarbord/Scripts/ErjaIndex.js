@@ -2839,7 +2839,14 @@ self.radif = function (index) {
     page = self.currentPageIndexErjDocH();
     calc = (countShow * page) + 1;
     return index + calc;
-}
+    }
+
+
+    self.ViewSpec  = function (Band) {
+        $('#titleComm').text('ملاحظات');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(Band.Spec);
+    }
 
 
 function CreateTableReport(data) {
@@ -2910,7 +2917,7 @@ function CreateTableReport(data) {
         CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
         CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
         CreateTableTd('Status', 0, 0, 0, data) +
-        CreateTableTd('Spec', 0, 0, 0, data) +
+        CreateTableTd('Spec', 0, 4, 0, data) +
         CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
         CreateTableTd('SerialNumber', 0, 0, 0, data) +
         CreateTableTd('F01', 0, 4, 0, data) +
