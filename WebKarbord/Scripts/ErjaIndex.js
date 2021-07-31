@@ -2683,16 +2683,17 @@ self.FilterErj = ko.computed(function () {
 });
 
 
-function ConvertComm(comm) {
-    var res = comm.split("\r\n");
-    if (res.length == 1)
-        var res = comm.split("\n");
-    tempText = '';
-    for (var i = 0; i < res.length; i++) {
-        tempText += '<p>' + res[i] + '</p> '
+    function ConvertComm(comm) {
+        var res = comm.split("\r\n");
+        if (res.length == 1)
+            var res = comm.split("\n");
+        tempText = '';
+        for (var i = 0; i < res.length; i++) {
+            r = res[i] == "" ? "‍‍" : res[i];
+            tempText += '<p>' + r + '</p> '
+        }
+        return tempText;
     }
-    return tempText;
-}
 
 function SetDataErjDocErja() {
     list = self.ErjDocErja();
@@ -2718,7 +2719,7 @@ function SetDataErjDocErja() {
 
             if (listLastBand[j].RjResult == '') {
                 if (listLastBand[j].DocBMode > 0) {
-                    textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
+                    textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">' + "‍‍";
                     textLastBand += ' </div> ';
                 }
             }
@@ -2750,7 +2751,7 @@ function SetDataErjDocErja() {
                     + '   </div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
-                    text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">.';
+                    text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;color: #a7a3a3cc;font-style: italic;background-color: #e2e1e12e;border-radius: 10px;">' + "‍‍";
                 else {
                     text += ' <div style="margin: 0px 15px 0px 0px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                     text += ConvertComm(listBand[j].RjComm);
