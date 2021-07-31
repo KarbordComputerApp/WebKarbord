@@ -347,6 +347,7 @@
         }
     }*/
 
+    //RjMhltDate
 
 
     //Get DocB_Last
@@ -375,12 +376,14 @@
         ajaxFunction(DocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
             self.DocB_LastList(response);
         });
+       // self.sortTableDocB_Last();
     }
 
     getDocB_Last();
 
     self.DocBModeChange = function () {
         getDocB_Last();
+        self.sortTableDocB_Last();
     }
 
 
@@ -399,6 +402,7 @@
         }).then((result) => {
             if (result.value) {
                 getDocB_Last();
+                self.sortTableDocB_Last();
             }
         })
     })
@@ -1924,6 +1928,7 @@
 
     $('#modal-ErjDocErja').on('hide.bs.modal', function () {
         getDocB_Last();
+        self.sortTableDocB_Last();
     });
 
     $('#ShowHideInformation').click(function () {
@@ -2215,8 +2220,10 @@
             // counterErjUsersRonevesht = 0;
             $("#TableBodyListErjUsersRonevesht").empty();
 
-            if (flagSave != null)
+            if (flagSave != null) {
                 getDocB_Last();
+                self.sortTableDocB_Last();
+            }
 
         });
         flagInsertFdoch = 1;

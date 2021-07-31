@@ -47,7 +47,8 @@
     var flagSearchAcc = 0;
     var flagSearchZAcc = 0;
     var flagSearchTraf = 0;
-    var flagSearchTrafZ = 0;
+    var flagSearchTrafZ = 0;            
+
     var flagSearchOpr = 0;
     var flagSearchMkz = 0;
     var flagSearchArz = 0;
