@@ -2167,11 +2167,11 @@
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 0, data) +
-            CreateTableTd('CustName', 0, 0, data) +
+            CreateTableTd('CustName', 0, 4, data) +
             CreateTableTd('KhdtName', 0, 0, data) +
             CreateTableTd('FromUserName', 0, 0, data) +
             CreateTableTd('ToUserName', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 0, data) +
@@ -2250,6 +2250,13 @@
             case 1:
                 text += 'data-bind="text: RjStatus,style: { color: DocBMode == 1  ? \'#e48f43\' : \'\'}"></td>';
                 //text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '.toFixed(' + Deghat + ' % 10)), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+            case 3:
+                text += 'data-bind="text: ' + field + ',style: { color: ' + field + ' < ' + shamsiDateTemp + '   ? \'red\' : \'\'}"></td>';
+                break;
+
+            case 4:
+                text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
                 break;
         }
         return text;
@@ -2508,6 +2515,14 @@
     $("#AddParvandeh").click(function () {
 
     });
+
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
+
+    self.ViewCustName  = function (Band) {
+        ViewSpec(Band.CustName)
+    }
 
 
 };

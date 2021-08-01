@@ -917,7 +917,7 @@
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null} " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
             CreateTableTd('Taeed', 0, 0, data) +
@@ -1550,6 +1550,9 @@
     });
 
 
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
 
 
     self.sortTableADocH();

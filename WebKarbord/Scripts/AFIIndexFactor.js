@@ -1870,7 +1870,7 @@
             dataTable += CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
 
         dataTable +=
-            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
@@ -2069,6 +2069,7 @@
     }
 
     createViewer();
+
 
 
     /*
@@ -2358,6 +2359,9 @@
     });
 
 
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
 
     self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 

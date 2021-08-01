@@ -1310,7 +1310,7 @@
             CreateTableTd('InvName', 0, 0, data) +
             CreateTableTd('ThvlName', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
@@ -1717,6 +1717,9 @@
     });
 
 
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
 
     self.sortTableIDocH();
 

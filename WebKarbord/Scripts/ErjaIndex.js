@@ -181,12 +181,20 @@
 
     //Get ErjCust List
     function getErjCustList() {
-        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET', true,true).done(function (data) {
             self.ErjCustList(data);
         });
     }
-    getErjCustList();
+    //;
 
+
+    $('#btnErjCust').click(function () {
+        if (self.ErjCustList().length == 0) {
+            getErjCustList();
+        }
+    });
+
+    
 
     function getKhdtList() {
         ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
@@ -2340,10 +2348,36 @@
     };
 
 
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
 
-    $('#ShowHideEghdamComm').click(function () {
+    self.ViewCustName = function (Band) {
+        ViewSpec(Band.CustName)
+    }
+
+    $('#ShowEghdamComm').click(function () {
         $('#titleComm').text('اقدام');
         $('#modal-Comm').modal('show');
+        $('#comm').val($('#p_EghdamComm').val());
+    });
+
+    $('#ShowDocDesc').click(function () {
+        $('#titleComm').text('عمومی');
+        $('#modal-Comm').modal('show');
+        $('#comm').val($('#p_DocDesc').val());
+    });
+
+    $('#ShowSpecialComm').click(function () {
+        $('#titleComm').text('مدیران');
+        $('#modal-Comm').modal('show');
+        $('#comm').val($('#p_SpecialComm').val());
+    });
+
+    $('#ShowFinalComm').click(function () {
+        $('#titleComm').text('نهایی');
+        $('#modal-Comm').modal('show');
+        $('#comm').val($('#p_FinalComm').val());
     });
 
 
@@ -2807,10 +2841,15 @@ function SetDataErjDocErja() {
             bandNo = i
         else
             bandNo = 1;
-
     }
 }
 
+    $("#modal-ErjDocH").on('shown.bs.modal', function () {
+        setTimeout(function () {
+            var element = document.getElementById("BodyErjDocH");
+            element.scrollTop = element.scrollHeight;
+        }, 100);
+    });
 
 
 
@@ -2842,11 +2881,7 @@ self.radif = function (index) {
     }
 
 
-    self.ViewSpec  = function (Band) {
-        $('#titleComm').text('ملاحظات');
-        $('#modal-Comm').modal('show');
-        $('#comm').val(Band.Spec);
-    }
+
 
 
 function CreateTableReport(data) {
@@ -2915,7 +2950,7 @@ function CreateTableReport(data) {
         CreateTableTd('MhltDate', 0, 6, 0, data) +
         CreateTableTd('EndDate', 0, 0, 0, data) +
         CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
-        CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
+        CreateTableTd('CustName', 0, 4, '#f2f2f2', data) +
         CreateTableTd('Status', 0, 0, 0, data) +
         CreateTableTd('Spec', 0, 4, 0, data) +
         CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +

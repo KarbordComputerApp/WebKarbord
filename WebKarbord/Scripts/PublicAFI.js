@@ -3221,3 +3221,19 @@ function fixedSize_JS(value, size) {
     return value.padStart(size).substring(0, size);
 }
 
+function ViewSpec(Spec) {
+    if (Spec.length > 15) {
+        $('#titleComm').text('ملاحظات');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(Spec);
+    }
+}
+
+function ViewCustName(CustName) {
+    if (CustName.length > 15) {
+        $('#titleComm').text('نام مشتری');
+        $('#modal-Comm').modal('show');
+        $('#comm').val(CustName);
+    }
+}
+

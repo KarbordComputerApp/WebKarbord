@@ -305,11 +305,11 @@
 
 
     getErjStatusList();
-    getErjCustList();
-    getKhdtList();
+    //getErjCustList();
+    //getKhdtList();
     getErjUsersList();
-    getRepToUsersList();
-    getRepFromUsersList();
+    //getRepToUsersList();
+    //getRepFromUsersList();
     getMahramanehList();
 
 
@@ -554,16 +554,33 @@
                 + '    </div>'
                 + '</div>'
 
-            
-            
 
             $('#BodyErjDocErja').append(textBody);
         }
         lastUserErjCode = listBand[0].FromUserCode;
         lastUserErjName = listBand[0].FromUserName;
+
+
+       // updateScroll();
     }
 
+    $("#modal-ErjDocErja").on('shown.bs.modal', function () {
+        setTimeout(function () {
+            var element = document.getElementById("BodyErjDocErja");
+            element.scrollTop = element.scrollHeight;
+        }, 100);
+    });
 
+
+    /*function updateScroll() {
+        var element = document.getElementById("BodyErjDocErja");
+        element.scrollTop = element.scrollHeight;
+    }
+
+    setInterval(updateScroll, 1000);*/
+
+    var element = document.getElementById("BodyErjDocErja");
+    element.scrollTop = element.scrollHeight;
 
 
     $('#nameErjCust').val('همه موارد');
@@ -2318,6 +2335,12 @@
         return index + calc;
     }
 
+
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
+
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
@@ -2354,11 +2377,11 @@
             CreateTableTd('RjStatus', 0, 1, data) +
             CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 3, data) +
-            CreateTableTd('CustName', 0, 0, data) +
+            CreateTableTd('CustName', 0, 4, data) +
             CreateTableTd('KhdtName', 0, 0, data) +
             CreateTableTd('FromUserName', 0, 0, data) +
             CreateTableTd('ToUserName', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 2, data) +
@@ -2464,6 +2487,10 @@
             case 3:
                 text += 'data-bind="text: ' + field + ',style: { color: ' + field + ' < ' + shamsiDateTemp + '   ? \'red\' : \'\'}"></td>';
                 break;
+
+            case 4:
+                text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
+                break;
         }
         return text;
     }
@@ -2528,6 +2555,13 @@
     $("#AddParvandeh").click(function () {
 
     });
+
+    self.ViewCustName = function (Band) {
+        ViewSpec(Band.CustName)
+    }
+
+
+
 
     self.sortTableDocB_Last();
 };
