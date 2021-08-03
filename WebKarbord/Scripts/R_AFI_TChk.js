@@ -134,10 +134,16 @@
             UserCode: sessionStorage.userName,
         }
 
-        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject).done(function (data) {
+        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {
             self.AccList(data);
         });
     }
+
+    $('#btnAcc').click(function () {
+        if (self.AccList().length == 0) {
+            getAccList();
+        }
+    });
 
     //Get CheckStatus List
     function getCheckStatusList(PDMode) {
@@ -210,7 +216,6 @@
 
 
     getPDMode();
-    getAccList();
     getCheckStatusList(1);
 
     $('#nameAcc').val('همه موارد');

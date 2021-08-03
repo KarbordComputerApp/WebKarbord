@@ -168,10 +168,18 @@
 
     //Get Status List
     function getStatusList() {
-        progName = getProgName('A');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('AccStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('AccStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('A');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("AccStatus", JSON.stringify(data));
+            });
+        }
     }
 
 

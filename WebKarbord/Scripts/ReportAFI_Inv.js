@@ -93,10 +93,16 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject,true).done(function (data) {
             self.ThvlList(data);
         });
     }
+
+    $('#btnThvl').click(function () {
+        if (self.ThvlList().length == 0) {
+            getThvlList();
+        }
+    });
 
     //Get kala List
     function getKalaList() {
@@ -106,11 +112,15 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
         });
     }
-
+    $('#btnkala').click(function () {
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
+    });
     //Get Inv List
     function getInvList() {
         ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
@@ -123,8 +133,7 @@
     });
 
     getInvList();
-    getThvlList();
-    getKalaList();
+    //getKalaList();
 
 
     self.currentPageThvl = ko.observable();

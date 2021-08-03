@@ -174,25 +174,39 @@
             UserCode: sessionStorage.userName,
         }
 
-        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject).done(function (data) {
+        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {
             self.AccList(data);
         });
     }
 
+    $('#btnAcc').click(function () {
+        if (self.AccList().length == 0) {
+            getAccList();
+        }
+    });
+
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
-
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
-
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
     //Get AMode List
     function getAModeList() {
         ajaxFunction(AModeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
@@ -202,10 +216,18 @@
 
     //Get Status List
     function getStatusList() {
-        progName = getProgName('A');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('AccStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('AccStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('A');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("AccStatus", JSON.stringify(data));
+            });
+        }
     }
 
 
@@ -327,9 +349,6 @@
     });
 
 
-    getAccList();
-    getOprList();
-    getMkzList();
     getNaghl();
     getAModeList();
     getStatusList();

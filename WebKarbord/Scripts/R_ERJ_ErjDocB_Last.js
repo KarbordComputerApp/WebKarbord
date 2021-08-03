@@ -162,25 +162,43 @@
 
     //Get ErjCust List
     function getErjCustList() {
-        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET', true, true).done(function (data) {
             self.ErjCustList(data);
         });
     }
 
+    $('#btnErjCust').click(function () {
+        if (self.ErjCustList().length == 0) {
+            getErjCustList();
+        }
+    });
+
     //Get Khdt List 
     function getKhdtList() {
-        ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET', true, true).done(function (data) {
             self.KhdtList(data);
         });
     }
 
-    //Get ErjUsers List
-    function getErjUsersList() {
-        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-            self.ErjUsersList(data);
-            //$('#ToUser').val(sessionStorage.userName);
-            //$('#FromUser').val(' ');
-        });
+    $('#btnKhdt').click(function () {
+        if (self.KhdtList().length == 0) {
+            getKhdtList();
+        }
+    });
+
+    function getErjUsersList(Reload) {
+
+        list = localStorage.getItem('ErjUsers');
+        if (list != null && Reload == false) {
+            list = JSON.parse(localStorage.getItem('ErjUsers'));
+            self.ErjUsersList(list)
+        }
+        else {
+            ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                self.ErjUsersList(data);
+                localStorage.setItem("ErjUsers", JSON.stringify(data));
+            });
+        }
     }
 
     //Get RepToUsers List
@@ -203,9 +221,17 @@
 
     //Get Mahramaneh List
     function getMahramanehList() {
-        ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
-            self.MahramanehList(data);
-        });
+        list = localStorage.getItem('Mahramaneh');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('Mahramaneh'));
+            self.MahramanehList(list)
+        }
+        else {
+            ajaxFunction(MahramanehUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+                self.MahramanehList(data);
+                localStorage.setItem("Mahramaneh", JSON.stringify(data));
+            });
+        }
     }
 
     //Get ErjResult List
@@ -221,9 +247,17 @@
 
     //Get ErjStatus List
     function getErjStatusList() {
-        ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
-            self.ErjStatusList(data);
-        });
+        list = localStorage.getItem('ErjStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('ErjStatus'));
+            self.ErjStatusList(list)
+        }
+        else {
+            ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+                self.ErjStatusList(data);
+                localStorage.setItem("ErjStatus", JSON.stringify(data));
+            });
+        }
     }
 
     //Get DocAttach List
@@ -240,9 +274,9 @@
 
 
     getErjStatusList();
-    getErjCustList();
-    getKhdtList();
-    getErjUsersList();
+    //getErjCustList();
+    //getKhdtList();
+    getErjUsersList(false);
     getRepToUsersList();
     getRepFromUsersList();
     getMahramanehList();
@@ -1430,7 +1464,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getErjUsersList();
+                getErjUsersList(true);
                 $("div.loadingZone").hide();
             }
         })
@@ -2299,7 +2333,7 @@
         text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>'; return text;
     }
 
-    createViewer();
+    //createViewer();
 
     /*$('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
@@ -2521,7 +2555,7 @@
     }
 
     self.ViewCustName  = function (Band) {
-        ViewSpec(Band.CustName)
+        ViewCustName(Band.CustName)
     }
 
 

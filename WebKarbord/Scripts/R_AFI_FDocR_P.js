@@ -237,10 +237,15 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
         });
     }
+    $('#btnkala').click(function () {
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
+    });
 
     //Get Inv List 
     function getInvList() {
@@ -255,10 +260,17 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject).done(function (data) {
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function (data) {
             self.KGruList(data);
         });
     }
+
+    $('#btnKGru').click(function () {
+        if (self.KGruList().length == 0) {
+            getKGruList();
+        }
+    });
+
 
     self.OptionsCaptionAnbar = ko.computed(function () {
         return 'همه انبار ها';
@@ -273,25 +285,37 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
             self.CustList(data);
         });
     }
-
+    $('#btnCust').click(function () {
+        if (self.CustList().length == 0) {
+            getCustList();
+        }
+    });
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
-
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
-
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
     //Get FDocR_P
     function getFDocR_P() {
 
@@ -455,11 +479,9 @@
 
     getFModeList();
     getInvList();
-    getKalaList();
-    getCustList();
-    getKGruList();
-    getOprList();
-    getMkzList();
+    //getKalaList();
+    //getCustList();
+    //getKGruList();
 
     $('#nameKala').val('همه موارد');
     $('#nameInv').val('همه موارد');

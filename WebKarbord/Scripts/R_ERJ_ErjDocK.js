@@ -154,26 +154,46 @@
 
 
 
-
     //Get ErjCust List
     function getErjCustList() {
-        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET', true, true).done(function (data) {
             self.ErjCustList(data);
         });
     }
 
-    //Get Khdt List
+    $('#btnErjCust').click(function () {
+        if (self.ErjCustList().length == 0) {
+            getErjCustList();
+        }
+    });
+
+    //Get Khdt List 
     function getKhdtList() {
-        ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(KhdtUri + aceErj + '/' + salErj + '/' + group, 'GET', true, true).done(function (data) {
             self.KhdtList(data);
         });
     }
 
+    $('#btnKhdt').click(function () {
+        if (self.KhdtList().length == 0) {
+            getKhdtList();
+        }
+    });
+
+
     //Get ErjStatus List
     function getErjStatusList() {
-        ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
-            self.ErjStatusList(data);
-        });
+        list = localStorage.getItem('ErjStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('ErjStatus'));
+            self.ErjStatusList(list)
+        }
+        else {
+            ajaxFunction(ErjStatusUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+                self.ErjStatusList(data);
+                localStorage.setItem("ErjStatus", JSON.stringify(data));
+            });
+        }
     }
 
     //Get DocK
@@ -226,8 +246,8 @@
     });
 
     getErjStatusList();
-    getErjCustList();
-    getKhdtList();
+    //getErjCustList();
+    //getKhdtList();
 
     $('#nameErjCust').val('همه موارد');
     $('#nameKhdt').val('همه موارد');
@@ -1050,13 +1070,13 @@
             CreateTableTd('MhltDate', 0, 0, 0, data) +
             CreateTableTd('EndDate', 0, 0, 0, data) +
             CreateTableTd('CustCode', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('CustName', 0, 0, '#f2f2f2', data) +
+            CreateTableTd('CustName', 0, 4, '#f2f2f2', data) +
             CreateTableTd('DocDesc', 0, 4, 0, data) +
             CreateTableTd('EghdamComm', 0, 4, 0, data) +
             CreateTableTd('FinalComm', 0, 4, 0, data) +
             CreateTableTd('SpecialComm', 0, 5, '#f2f2f2', data) +
             CreateTableTd('Status', 0, 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, 0, data) +
+            CreateTableTd('Spec', 0, 4, 0, data) +
             CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
             CreateTableTd('RjTime', 0, 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, 0, data) +
@@ -1261,7 +1281,7 @@
     }
 
 
-    createViewer();
+    //createViewer();
 
     /*$('#Print').click(function () {
         FromDate = $("#aztarikh").val().toEnglishDigit();
@@ -1461,7 +1481,14 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+    self.ViewSpec = function (Band) {
+        ViewSpec(Band.Spec)
+    }
+
+    self.ViewCustName = function (Band) {
+        ViewCustName(Band.CustName)
+    }
+
 };
 
 ko.applyBindings(new ViewModel());

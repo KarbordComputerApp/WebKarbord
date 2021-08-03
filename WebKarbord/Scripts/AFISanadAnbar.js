@@ -271,10 +271,17 @@
             Mode: 3,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
             self.ThvlList(data);
         });
     }
+
+    $('#btnThvl').click(function () {
+        if (self.ThvlList().length == 0) {
+            getThvlList();
+        }
+    });
+
 
     //Get kala List
     function getKalaList() {
@@ -284,10 +291,15 @@
             Mode: 3,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
         });
     }
+    $('#btnkala').click(function () {
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
+    });
 
     //Get ExtraFields List
     function getExtraFieldsList() {
@@ -317,33 +329,45 @@
 
     //Get Status List
     function getStatusList() {
-        progName = getProgName('P');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-            //if (self.StatusList().length > 0) {
-            // if (flagupdateHeader == 1)
-            //        $("#status").val(sessionStorage.Status);
-            //}
-        });
+        list = localStorage.getItem('InvStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('InvStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('P');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("InvStatus", JSON.stringify(data));
+            });
+        }
     }
 
 
 
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
-
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
 
-
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
 
     var lastStatus = "";
     $("#status").click(function () {
@@ -1553,11 +1577,9 @@
     }
 
     getIModeList();
-    getThvlList();
-    getKalaList();
+    //getThvlList();
+    //getKalaList();
     getExtraFieldsList();
-    getOprList();
-    getMkzList();
     //AddModeCode();
     flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
     getInvList();
@@ -1573,7 +1595,7 @@
     $('#action_footer').attr('style', 'display: none');
     $('#action_Hdoc').attr('style', 'display: none');
     $('#insertband').attr('style', 'display: none');
-    $('#button_Thvl').attr('style', 'display: none');
+    $('#btnThvl').attr('style', 'display: none');
 
     $('#btnMkz').attr('style', 'display: none');
     $('#btnOpr').attr('style', 'display: none');
@@ -1639,7 +1661,7 @@
         $('#action_footer').removeAttr('style');
         $('#action_Hdoc').removeAttr('style');
         $('#insertband').removeAttr('style');
-        $('#button_Thvl').removeAttr('style');
+        $('#btnThvl').removeAttr('style');
 
         $('#btnMkz').removeAttr('style');
         $('#btnOpr').removeAttr('style');
@@ -1710,7 +1732,7 @@
             $('#action_footer').attr('style', 'display: none');
             $('#action_Hdoc').attr('style', 'display: none');
             $('#insertband').attr('style', 'display: none');
-            $('#button_Thvl').attr('style', 'display: none');
+            $('#btn_Thvl').attr('style', 'display: none');
 
             $('#btnMkz').attr('style', 'display: none');
             $('#btnOpr').attr('style', 'display: none');

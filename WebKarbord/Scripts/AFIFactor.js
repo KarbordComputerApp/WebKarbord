@@ -317,10 +317,15 @@
             Mode: 2,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject).done(function (data) {
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
             self.CustList(data);
         });
     }
+    $('#btnCust').click(function () {
+        if (self.CustList().length == 0) {
+            getCustList();
+        }
+    });
 
     //Get kala List
     function getKalaList() {
@@ -330,10 +335,16 @@
             Mode: 2,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
         });
     }
+
+    $('#btnkala').click(function () {
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
+    });
 
     //Get KalaPrice List
     function getKalaPriceList(insert) {
@@ -372,26 +383,44 @@
 
     //Get Status List
     function getStatusList() {
-        progName = getProgName('S');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('FctStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('FctStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('S');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("FctStatus", JSON.stringify(data));
+            });
+        }
     }
 
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
 
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
 
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
 
     var lastStatus = "";
     $("#status").click(function () {
@@ -1673,8 +1702,8 @@
     }
 
     getExtraFieldsList();
-    getCustList();
-    getKalaList();
+    //getCustList();
+    //getKalaList();
     getInvList();
     flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
     if (flagupdateHeader != 1)
@@ -1684,8 +1713,7 @@
         );
     getPaymentList();
     getStatusList();
-    getOprList();
-    getMkzList();
+
 
 
     //$(document).ready(function () { });
@@ -3144,7 +3172,7 @@
     $('#action_footerfactor').attr('style', 'display: none');
     $('#action_Fdoc').attr('style', 'display: none');
     $('#insertband').attr('style', 'display: none');
-    $('#button_cust').attr('style', 'display: none');
+    $('#btnCust').attr('style', 'display: none');
     $('#btnMkz').attr('style', 'display: none');
     $('#btnOpr').attr('style', 'display: none');
     $('#gGhimat').attr('disabled', true);
@@ -3351,7 +3379,7 @@
             $('#action_bodyfactor').removeAttr('style');
             $('#action_footerfactor').removeAttr('style');
             $('#action_Fdoc').removeAttr('style');
-            $('#button_cust').removeAttr('style');
+            $('#btnCust').removeAttr('style');
             $('#insertband').removeAttr('style');
             $('#btnMkz').removeAttr('style');
             $('#btnOpr').removeAttr('style');
@@ -3493,7 +3521,7 @@
             $('#action_footerfactor').attr('style', 'display: none');
             $('#action_Fdoc').attr('style', 'display: none');
             $('#insertband').attr('style', 'display: none');
-            $('#button_cust').attr('style', 'display: none');
+            $('#btnCust').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
             $('#btnOpr').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);

@@ -257,10 +257,18 @@
 
     //Get Status List
     function getStatusList() {
-        progName = getProgName('A');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('AccStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('AccStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('A');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("AccStatus", JSON.stringify(data));
+            });
+        }
     }
 
 
@@ -272,10 +280,16 @@
             UserCode: sessionStorage.userName,
         }
 
-        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject).done(function (data) {
+        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {
             self.AccList(data);
         });
     }
+
+    $('#btnAcc').click(function () {
+        if (self.AccList().length == 0) {
+            getAccList();
+        }
+    });
 
 
 
@@ -299,18 +313,29 @@
 
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
 
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
+
     //Get Arz List
     function getArzList() {
-        ajaxFunction(ArzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(ArzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.ArzList(data);
         });
     }
 
+    $('#btnArz').click(function () {
+        if (self.ArzList().length == 0) {
+            getArzList();
+        }
+    });
     //Get CheckList List
     function getCheckList(PDMode) {
         ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
@@ -320,31 +345,56 @@
 
     //Get BankList List
     function getBankList() {
-        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.BankList(data);
         });
     }
 
+    $('#btnBank').click(function () {
+        if (self.BankList().length == 0) {
+            getBankList();
+        }
+    });
+
     //Get ShobeList List
     function getShobeList() {
-        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.ShobeList(data);
         });
     }
 
+    $('#btnShobe').click(function () {
+        if (self.ShobeList().length == 0) {
+            getShobeList();
+        }
+    });
+
     //Get JariList List
     function getJariList() {
-        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.JariList(data);
         });
     }
 
+    $('#btnJari').click(function () {
+        if (self.JariList().length == 0) {
+            getJariList();
+        }
+    });
+
+
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
+
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
 
     //Get SanadCols List
     function getColsSanadList() {
@@ -370,11 +420,23 @@
         });
     }
 
+
+
+
+
     //Get CheckStatus List
     function getCheckStatusList(PDMode) {
-        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
-            self.CheckStatusList(data);
-        });
+        list = localStorage.getItem('CheckStatus' + PDMode );
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('CheckStatus' + PDMode));
+            self.CheckStatusList(list)
+        }
+        else {
+            ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
+                self.CheckStatusList(data);
+                localStorage.setItem('CheckStatus' + PDMode, JSON.stringify(data));
+            });
+        }
     }
 
     //Get ADocH 
@@ -431,14 +493,14 @@
 
     getColsSanadList();
     getColsCheckList();
-    getAccList();
+    //getAccList();
     getAModeList();
-    getOprList();
-    getArzList();
-    getMkzList();
-    getBankList();
-    getShobeList();
-    getJariList();
+    //getOprList();
+    //getArzList();
+   // getMkzList();
+    //getBankList();
+    //getShobeList();
+    //getJariList();
     getCheckStatusList(1);
     getStatusList();
     getExtraFieldsList();

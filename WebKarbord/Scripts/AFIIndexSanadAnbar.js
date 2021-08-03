@@ -116,10 +116,18 @@
 
     //Get Status List
     function getStatusList() {
-        progName = getProgName('P');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('InvStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('InvStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('P');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("InvStatus", JSON.stringify(data));
+            });
+        }
     }
 
 

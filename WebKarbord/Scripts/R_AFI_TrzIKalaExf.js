@@ -198,11 +198,15 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
         });
     }
-
+    $('#btnkala').click(function () {
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
+    });
     //Get Inv List 
     function getInvList() {
         ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
@@ -216,17 +220,33 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject).done(function (data) {
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function (data) {
             self.KGruList(data);
         });
     }
 
+   
+
+    $('#btnKGru').click(function () {
+        if (self.KGruList().length == 0) {
+            getKGruList();
+        }
+    });
+
     //Get Status List
     function getStatusList() {
-        progName = getProgName('P');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('InvStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('InvStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('P');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("InvStatus", JSON.stringify(data));
+            });
+        }
     }
 
 
@@ -241,10 +261,15 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject,true).done(function (data) {
             self.ThvlList(data);
         });
     }
+    $('#btnThvl').click(function () {
+        if (self.ThvlList().length == 0) {
+            getThvlList();
+        }
+    });
 
     //Get TGru List
     function getTGruList() {
@@ -252,24 +277,39 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(TGruUri + ace + '/' + sal + '/' + group, 'POST', TGruObject).done(function (data) {
+        ajaxFunction(TGruUri + ace + '/' + sal + '/' + group, 'POST', TGruObject, true).done(function (data) {
             self.TGruList(data);
         });
     }
 
+    $('#btnTGru').click(function () {
+        if (self.TGruList().length == 0) {
+            getTGruList();
+        }
+    });
+
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
-
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
 
     self.OptionsCaptionAnbar = ko.computed(function () {
         return 'همه انبار ها';
@@ -468,12 +508,9 @@
 
 
     getInvList();
-    getKalaList();
-    getTGruList();
-    getThvlList();
-    getKGruList();
-    getOprList();
-    getMkzList();
+    //getKalaList();
+   // getTGruList();
+    //getKGruList();
     getStatusList();
 
     $('#nameKala').val('همه موارد');

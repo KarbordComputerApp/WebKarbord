@@ -82,9 +82,14 @@ PrintFormsList = ko.observableArray([]); // لیست چاپ
 MessageList = ko.observableArray([]);
 
 
-if ((lockNumber != '' || lockNumber != null) && sessionStorage.Login == "OK") {
-    getMessageList();
-}
+
+
+
+$("#Btn_ShowMessage").click(function () {
+    if ((lockNumber != '' || lockNumber != null) && sessionStorage.Login == "OK") {
+        getMessageList();
+    }
+});
 
 //Get Message List
 function getMessageList() {
@@ -101,7 +106,7 @@ selectMessage = function (item) {
 }
 
 //Get kala List
-function getKalaList() {
+/*function getKalaList() {
     var KalaObject = {
         withimage: false,
         updatedate: null,
@@ -111,7 +116,7 @@ function getKalaList() {
     ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
         self.KalaList(data);
     });
-}
+}*/
 
 
 $('#userNameFa').text(sessionStorage.userNameFa);

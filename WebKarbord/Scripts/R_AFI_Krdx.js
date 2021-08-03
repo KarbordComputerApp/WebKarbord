@@ -249,11 +249,15 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
         });
     }
-
+    $('#btnkala').click(function () {
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
+    });
     //Get Inv List 
     function getInvList() {
         ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
@@ -273,31 +277,52 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject).done(function (data) {
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject,true).done(function (data) {
             self.ThvlList(data);
         });
     }
+    $('#btnThvl').click(function () {
+        if (self.ThvlList().length == 0) {
+            getThvlList();
+        }
+    });
 
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.OprList(data);
         });
     }
-
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
             self.MkzList(data);
         });
     }
-
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
     //Get Status List
     function getStatusList() {
-        progName = getProgName('P');
-        ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
-            self.StatusList(data);
-        });
+        list = localStorage.getItem('InvStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('InvStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('P');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("InvStatus", JSON.stringify(data));
+            });
+        }
     }
 
     //Get Krdx
@@ -457,12 +482,9 @@
     });
 
     getInvList();
-    getKalaList();
+    //getKalaList();
     getByKalaExf();
     getNaghl();
-    getThvlList();
-    getOprList();
-    getMkzList();
     getStatusList();
 
     $('#nameKala').val('');
