@@ -48,7 +48,17 @@
     function getLoginData() {
 
         pass === '' ? pass = 'null' : pass = pass;
-        ajaxFunction(LoginUri + user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3', 'GET', true, true).done(function (data) {
+
+
+        var LoginObject = {
+            userName: user,
+            pass: pass,
+            param1: 'u-Xe',
+            param2: 'zqQ3',
+        }
+
+        //+ user + '/' + pass + '/' + 'u-Xe' + '/' + 'zqQ3'
+        ajaxFunction(LoginUri, 'POST', LoginObject, true).done(function (data) {
 
             if (data == "error") {
                 return showNotification('اشکال در اتصال به سرور', 0);

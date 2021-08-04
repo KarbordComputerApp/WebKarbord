@@ -2269,10 +2269,10 @@ ShamsiDate();
 
 
 
-function showNotification(text, colorNumber) {
+function showNotification(text, colorNumber, From, Align , time) {
 
-    placementFrom = sessionStorage.placementFrom;
-    placementAlign = sessionStorage.placementAlign;
+    placementFrom = From == null ? sessionStorage.placementFrom : From;
+    placementAlign = Align == null ? sessionStorage.placementAlign : Align;
     animateEnter = sessionStorage.animateEnter;
     animateExit = sessionStorage.animateExit;
     if (colorNumber == 0)
@@ -2298,7 +2298,7 @@ function showNotification(text, colorNumber) {
             type: colorName,
             allow_dismiss: allowDismiss,
             newest_on_top: true,
-            timer: 1000,
+            timer: time = null ? 1000 : time,
             placement: {
                 from: placementFrom,
                 align: placementAlign
@@ -3239,6 +3239,41 @@ function ViewCustName(CustName) {
         $('#titleComm').text('نام مشتری');
         $('#modal-Comm').modal('show');
         $('#comm').val(CustName);
+    }
+}
+
+AlertErja();
+setInterval(AlertErja, 60000);
+function AlertErja() {
+    if (accessErj != null) {
+
+        var aceErj = 'Web2';
+        var salErj = '0000';
+
+        var CountErjDocB_LastUri = server + '/api/Web_Data/Web_CountErjDocB_Last/';
+
+        var DocB_LastObject = {
+            erjaMode: '1',
+            docBMode: '5',
+            fromUserCode: '',
+            toUserCode: sessionStorage.userName,
+            azDocDate: '',
+            taDocDate: '',
+            azRjDate: '',
+            taRjDate: '',
+            azMhltDate: '',
+            taMhltDate: '',
+            status: 'فعال',
+            custCode: '',
+            khdtCode: '',
+            srchSt: '',
+        };
+        ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + sessionStorage.group, 'POST', DocB_LastObject, false).done(function (response) {
+            count = parseInt(response);
+            if (count > 0) {
+                showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
+            }
+        });
     }
 }
 

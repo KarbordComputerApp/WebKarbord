@@ -2298,6 +2298,9 @@
         }
 
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
+           // a = data;
+           // var strCopy = data.split('~');
+           // var strCopy1 = strCopy[0].split('!');
             self.IModeList(data);
         });
     }
