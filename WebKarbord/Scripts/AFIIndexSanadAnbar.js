@@ -33,7 +33,7 @@
     var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
     var IDoc_DeleteUri = server + '/api/IDocData/TestIDoc_Delete/'; // آدرس تست حذف 
 
-
+    
 
     self.InvCode = ko.observable();
     self.InvCodeMove = ko.observable();

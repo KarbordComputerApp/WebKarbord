@@ -622,6 +622,10 @@ $("#SaveParam").click(function () {
 
     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {
 
+        localStorage.removeItem('AccStatus');
+        localStorage.removeItem('ErjDocYears');
+       
+
         $('#loadingsite').css('display', 'none');
         $('#loadingsite').attr('class', 'page-loader-wrapper');
 
@@ -2438,7 +2442,13 @@ $('#ErjaDOC_Menu').click(function () {
     sessionStorage.SelectMenu = 7;
 });
 
+$('#Base_Menu').click(function () {
+    sessionStorage.SelectMenu = 8;
+});
 
+
+
+$('#Base_Menu').removeAttr('class');
 $('#ADOC_Menu').removeAttr('class');
 $('#FDOC_Menu').removeAttr('class');
 $('#IDOC_Menu').removeAttr('class');
@@ -2478,6 +2488,10 @@ else if (sessionStorage.SelectMenu == 6) {
 
 else if (sessionStorage.SelectMenu == 7) {
     $('#ErjaDOC_Menu').attr('class', 'active');
+}
+
+if (sessionStorage.SelectMenu == 8) {
+    $('#Base_Menu').attr('class', 'active');
 }
 
 
@@ -3242,8 +3256,8 @@ function ViewCustName(CustName) {
     }
 }
 
-AlertErja();
-setInterval(AlertErja, 60000);
+//AlertErja();
+//setInterval(AlertErja, 60000);
 function AlertErja() {
     if (accessErj != null) {
 

@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AFI\AFIBaseController.cs" />
     <Compile Include="Controllers\AFI\AFIFactorController.cs" />
     <Compile Include="Controllers\AFI\AFISanadAnbarController.cs" />
     <Compile Include="Controllers\AFI\AFISanadController.cs" />
@@ -736,6 +737,8 @@
     <Content Include="Content\fonts\Vazir-FD-WOL.eot" />
     <Content Include="Content\fonts\Vazir-FD-WOL.ttf" />
     <Content Include="Content\fonts\Vazir-FD-WOL.woff" />
+    <Content Include="Scripts\AFIBase_Cust.js" />
+    <Content Include="Scripts\AFIBase_Kala.js" />
     <Content Include="Scripts\AFIIndexSanad.js" />
     <Content Include="Scripts\AFIIndexSanadAnbar.js" />
     <Content Include="Scripts\AFISanad.js" />
@@ -922,6 +925,8 @@
     <Content Include="Views\ERJ\Index.cshtml" />
     <Content Include="Views\ERJ\Erja.cshtml" />
     <Content Include="Views\Home\Box.cshtml" />
+    <Content Include="Views\AFIBase\Kala.cshtml" />
+    <Content Include="Views\AFIBase\Cust.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

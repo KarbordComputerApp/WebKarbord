@@ -1,0 +1,377 @@
+﻿@using WebKarbord.Controllers.Unit;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="form-inline focused">
+                    <strong style="margin-left: 5px; margin-right: 5px;">لیست مشتری ها</strong>
+
+                    <div class="row header-dropdown m-r--5">
+                        <a id="SettingColumn" class="">
+                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        </a>
+                        <a id="refreshCust" class="">
+                            <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                        </a>
+                        <a id="AddNewCust" data-bind="click: $root.AddNewCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Cust"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <label>نمایش</label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeCust">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label>رکورد در هر صفحه</label>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                        <a data-bind="click: firstPageCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexCust() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageCust">
+                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-inline pull-left">
+                            <label>تعداد کل رکورد ها</label>
+                            <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
+
+                            <!-- <label>نمایش</label>
+     <div>
+         <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
+             <option value="0">100 رکورد آخر</option>
+             <option value="3">تمام رکوردها</option>
+         </select>
+     </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-SettingColumn" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">تنظیم ستون ها</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-addmin">
+                        <thead style="cursor: pointer;">
+                            <tr>
+                                <td>ردیف</td>
+                                <td style="width:250px;"> نام ستون</td>
+                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                    <label for="AllSettingColumns">انتخاب همه</label>
+                                    <input id="AllSettingColumns" type="checkbox" />
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody id="TableColumn"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                            پیش فرض
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                            تایید
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Cust" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog modal-entesab" style="max-width: 1100px;">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 0px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">مشتری</h4>
+                <div>
+                    <a id="attachFile" class="dropdown-toggle" style="margin-left: 10px;">
+                        <!--data-toggle="modal" data-target="#modal-DocAttach"-->
+                        <img src="/Content/img/list/attach_file.png" width="20" height="20">
+                    </a>
+                    <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
+                        <img src="/Content/img/sanad/paper-write.png" width="20" height="20">
+                    </a>
+                </div>
+            </div>
+            <div class="modal-body" style="padding-left: 0px;padding-right: 0px;">
+                <div class="row">
+                   
+                </div>
+            </div>
+            <div>
+                <div class="row  form-inline ">
+                    <div class="col-md-9 row">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" id="saveCust" class="btn btn-primary  pull-left" style=" margin-left: 8px; margin-right: 8px;"><i class="fa fa-sign-in fa-lg fa-fw"></i>ذخیره</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="max-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: solid 10px #f5d3b4;padding-bottom: 5px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">مشخصات اضافی</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="height:500px;overflow:auto">
+                    <div class="table-responsive">
+                        <table class="table table-addmin">
+                            <tbody data-bind="foreach: ExtraFieldsList">
+                                <tr>
+                                    <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
+                                    <td style="padding: 0px 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" style="border-bottom: 1px solid #d4d4d4;" id="ExtraFields1"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border-top: solid 1px black;padding-top: 5px;">
+                <div class="row  form-inline ">
+                    <div class="col-md-9 row">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
+                            بازگشت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="modal-TestDelete" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="titleFinalSave">حذف مشتری</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div id="BodyTestDoc_Delete" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+
+                    <div class="body" style="padding:7px;">
+                        <div class="form-inline">
+                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
+                            <p style="margin-left: 3px;">هشدار :</p>
+                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div>
+                    <div class="row  form-inline ">
+                        <div class="col-md-6 row">
+                            <div style="margin-right: 0px;margin-left: 0px;">
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
+                                </div>
+
+                                <div id="ShowCountError" class="row">
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                                بازگشت
+                            </button>
+                            <button type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        $('#btnp_DocDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_DocDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+        $('#btnp_MhltDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_MhltDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+
+        $('#btnp_AmalDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_AmalDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+        $('#btnp_EndDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_EndDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+        $('#btnRjMhltDate').MdPersianDateTimePicker({
+            targetTextSelector: '#RjMhltDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+
+
+    </script>
+    <script src="~/Content/new/js/jszip.min.js"></script>
+    <script src="~/Scripts/AFIBase_Cust.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
+}
+

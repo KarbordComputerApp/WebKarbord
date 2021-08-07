@@ -32,7 +32,6 @@
     var serial;
 
 
-
     var accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
     var accessDaem = sessionStorage.Access_DAEM_ADOC == 'true'
 
@@ -169,7 +168,7 @@
     //Get Status List
     function getStatusList() {
         list = localStorage.getItem('AccStatus');
-        if (list != null) {
+        if (list != null ) {
             list = JSON.parse(localStorage.getItem('AccStatus'));
             self.StatusList(list)
         }
@@ -922,7 +921,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : Status == \'باطل\' ? \'red\' : null} " >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color :  Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : null} " >' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 4, data) +
