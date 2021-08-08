@@ -28,26 +28,26 @@
         'Name',
         'Spec',
         'Eghdam',
-        /*'F01',
-        'F02',
-        'F03',
-        'F04',
-        'F05',
-        'F06',
-        'F07',
-        'F08',
-        'F09',
-        'F10',
-        'F11',
-        'F12',
-        'F13',
-        'F14',
-        'F15',
-        'F16',
-        'F17',
-        'F18',
-        'F19',
-        'F20'*/
+        'CustF01',
+        'CustF02',
+        'CustF03',
+        'CustF04',
+        'CustF05',
+        'CustF06',
+        'CustF07',
+        'CustF08',
+        'CustF09',
+        'CustF10',
+        'CustF11',
+        'CustF12',
+        'CustF13',
+        'CustF14',
+        'CustF15',
+        'CustF16',
+        'CustF17',
+        'CustF18',
+        'CustF19',
+        'CustF20'
     ];
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -165,26 +165,26 @@
     self.filterName = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterEghdam = ko.observable("");
-    /*self.filterF01 = ko.observable("");
-    self.filterF02 = ko.observable("");
-    self.filterF03 = ko.observable("");
-    self.filterF04 = ko.observable("");
-    self.filterF05 = ko.observable("");
-    self.filterF06 = ko.observable("");
-    self.filterF07 = ko.observable("");
-    self.filterF08 = ko.observable("");
-    self.filterF09 = ko.observable("");
-    self.filterF10 = ko.observable("");
-    self.filterF11 = ko.observable("");
-    self.filterF12 = ko.observable("");
-    self.filterF13 = ko.observable("");
-    self.filterF14 = ko.observable("");
-    self.filterF15 = ko.observable("");
-    self.filterF16 = ko.observable("");
-    self.filterF17 = ko.observable("");
-    self.filterF18 = ko.observable("");
-    self.filterF19 = ko.observable("");
-    self.filterF20 = ko.observable("");*/
+    self.filterCustF01 = ko.observable("");
+    self.filterCustF02 = ko.observable("");
+    self.filterCustF03 = ko.observable("");
+    self.filterCustF04 = ko.observable("");
+    self.filterCustF05 = ko.observable("");
+    self.filterCustF06 = ko.observable("");
+    self.filterCustF07 = ko.observable("");
+    self.filterCustF08 = ko.observable("");
+    self.filterCustF09 = ko.observable("");
+    self.filterCustF10 = ko.observable("");
+    self.filterCustF11 = ko.observable("");
+    self.filterCustF12 = ko.observable("");
+    self.filterCustF13 = ko.observable("");
+    self.filterCustF14 = ko.observable("");
+    self.filterCustF15 = ko.observable("");
+    self.filterCustF16 = ko.observable("");
+    self.filterCustF17 = ko.observable("");
+    self.filterCustF18 = ko.observable("");
+    self.filterCustF19 = ko.observable("");
+    self.filterCustF20 = ko.observable("");
 
     listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
     if (listFilter != null) {
@@ -192,26 +192,26 @@
         self.filterName(listFilter[1]);
         self.filterSpec(listFilter[2]);
         self.filterEghdam(listFilter[3]);
-        /*self.filterF01(listFilter[4]);
-        self.filterF02(listFilter[5]);
-        self.filterF03(listFilter[6]);
-        self.filterF04(listFilter[7]);
-        self.filterF05(listFilter[8]);
-        self.filterF06(listFilter[9]);
-        self.filterF07(listFilter[10]);
-        self.filterF08(listFilter[11]);
-        self.filterF09(listFilter[12]);
-        self.filterF10(listFilter[13]);
-        self.filterF11(listFilter[14]);
-        self.filterF12(listFilter[15]);
-        self.filterF13(listFilter[16]);
-        self.filterF14(listFilter[17]);
-        self.filterF15(listFilter[18]);
-        self.filterF16(listFilter[19]);
-        self.filterF17(listFilter[20]);
-        self.filterF18(listFilter[21]);
-        self.filterF19(listFilter[22]);
-        self.filterF20(listFilter[23]);*/
+        self.filterCustF01(listFilter[4]);
+        self.filterCustF02(listFilter[5]);
+        self.filterCustF03(listFilter[6]);
+        self.filterCustF04(listFilter[7]);
+        self.filterCustF05(listFilter[8]);
+        self.filterCustF06(listFilter[9]);
+        self.filterCustF07(listFilter[10]);
+        self.filterCustF08(listFilter[11]);
+        self.filterCustF09(listFilter[12]);
+        self.filterCustF10(listFilter[13]);
+        self.filterCustF11(listFilter[14]);
+        self.filterCustF12(listFilter[15]);
+        self.filterCustF13(listFilter[16]);
+        self.filterCustF14(listFilter[17]);
+        self.filterCustF15(listFilter[18]);
+        self.filterCustF16(listFilter[19]);
+        self.filterCustF17(listFilter[20]);
+        self.filterCustF18(listFilter[21]);
+        self.filterCustF19(listFilter[22]);
+        self.filterCustF20(listFilter[23]);
     }
     self.filterCustList = ko.computed(function () {
         self.currentPageIndexCust(0);
@@ -219,32 +219,32 @@
         var filterName = self.filterName();
         var filterSpec = self.filterSpec();
         var filterEghdam = self.filterEghdam();
-       /* var filterF01 = self.filterF01();
-        var filterF02 = self.filterF02();
-        var filterF03 = self.filterF03();
-        var filterF04 = self.filterF04();
-        var filterF05 = self.filterF05();
-        var filterF06 = self.filterF06();
-        var filterF07 = self.filterF07();
-        var filterF08 = self.filterF08();
-        var filterF09 = self.filterF09();
-        var filterF10 = self.filterF10();
-        var filterF11 = self.filterF11();
-        var filterF12 = self.filterF12();
-        var filterF13 = self.filterF13();
-        var filterF14 = self.filterF14();
-        var filterF15 = self.filterF15();
-        var filterF16 = self.filterF16();
-        var filterF17 = self.filterF17();
-        var filterF18 = self.filterF18();
-        var filterF19 = self.filterF19();
-        var filterF20 = self.filterF20();*/
+        var filterCustF01 = self.filterCustF01();
+        var filterCustF02 = self.filterCustF02();
+        var filterCustF03 = self.filterCustF03();
+        var filterCustF04 = self.filterCustF04();
+        var filterCustF05 = self.filterCustF05();
+        var filterCustF06 = self.filterCustF06();
+        var filterCustF07 = self.filterCustF07();
+        var filterCustF08 = self.filterCustF08();
+        var filterCustF09 = self.filterCustF09();
+        var filterCustF10 = self.filterCustF10();
+        var filterCustF11 = self.filterCustF11();
+        var filterCustF12 = self.filterCustF12();
+        var filterCustF13 = self.filterCustF13();
+        var filterCustF14 = self.filterCustF14();
+        var filterCustF15 = self.filterCustF15();
+        var filterCustF16 = self.filterCustF16();
+        var filterCustF17 = self.filterCustF17();
+        var filterCustF18 = self.filterCustF18();
+        var filterCustF19 = self.filterCustF19();
+        var filterCustF20 = self.filterCustF20();
 
         filterEghdam = filterEghdam.replace("/", ".");
 
 
-        if (!filterCode && !filterName && !filterSpec && !filterEghdam /*&& !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
-            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20*/) {
+        if (!filterCode && !filterName && !filterSpec && !filterEghdam && !filterCustF01 && !filterCustF02 && !filterCustF03 && !filterCustF04 && !filterCustF05 && !filterCustF06 && !filterCustF07 && !filterCustF08 && !filterCustF09 && !filterCustF10 &&
+            !filterCustF11 && !filterCustF12 && !filterCustF13 && !filterCustF14 && !filterCustF15 && !filterCustF16 && !filterCustF17 && !filterCustF18 && !filterCustF19 && !filterCustF20) {
             $("#CountRecord").text(self.CustList().length);
             sessionStorage.setItem('listFilter', null);
             return self.CustList();
@@ -254,27 +254,27 @@
                 filterCode,
                 filterName,
                 filterSpec,
-                filterEghdam
-                /*filterF01,
-                filterF02,
-                filterF03,
-                filterF04,
-                filterF05,
-                filterF06,
-                filterF07,
-                filterF08,
-                filterF09,
-                filterF10,
-                filterF11,
-                filterF12,
-                filterF13,
-                filterF14,
-                filterF15,
-                filterF16,
-                filterF17,
-                filterF18,
-                filterF19,
-                filterF20*/
+                filterEghdam,
+                filterCustF01,
+                filterCustF02,
+                filterCustF03,
+                filterCustF04,
+                filterCustF05,
+                filterCustF06,
+                filterCustF07,
+                filterCustF08,
+                filterCustF09,
+                filterCustF10,
+                filterCustF11,
+                filterCustF12,
+                filterCustF13,
+                filterCustF14,
+                filterCustF15,
+                filterCustF16,
+                filterCustF17,
+                filterCustF18,
+                filterCustF19,
+                filterCustF20
             ];
             sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.CustList(), function (item) {
@@ -282,27 +282,27 @@
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filterName) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
-                    (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) /*&&
-                    (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
-                    (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
-                    (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
-                    (item.F04 == null ? '' : item.F04.toString().search(filterF04) >= 0) &&
-                    (item.F05 == null ? '' : item.F05.toString().search(filterF05) >= 0) &&
-                    (item.F06 == null ? '' : item.F06.toString().search(filterF06) >= 0) &&
-                    (item.F07 == null ? '' : item.F07.toString().search(filterF07) >= 0) &&
-                    (item.F08 == null ? '' : item.F08.toString().search(filterF08) >= 0) &&
-                    (item.F09 == null ? '' : item.F09.toString().search(filterF09) >= 0) &&
-                    (item.F10 == null ? '' : item.F10.toString().search(filterF10) >= 0) &&
-                    (item.F11 == null ? '' : item.F11.toString().search(filterF11) >= 0) &&
-                    (item.F12 == null ? '' : item.F12.toString().search(filterF12) >= 0) &&
-                    (item.F13 == null ? '' : item.F13.toString().search(filterF13) >= 0) &&
-                    (item.F14 == null ? '' : item.F14.toString().search(filterF14) >= 0) &&
-                    (item.F15 == null ? '' : item.F15.toString().search(filterF15) >= 0) &&
-                    (item.F16 == null ? '' : item.F16.toString().search(filterF16) >= 0) &&
-                    (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
-                    (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
-                    (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
-                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)*/
+                    (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
+                    (item.CustF01 == null ? '' : item.CustF01.toString().search(filterCustF01) >= 0) &&
+                    (item.CustF02 == null ? '' : item.CustF02.toString().search(filterCustF02) >= 0) &&
+                    (item.CustF03 == null ? '' : item.CustF03.toString().search(filterCustF03) >= 0) &&
+                    (item.CustF04 == null ? '' : item.CustF04.toString().search(filterCustF04) >= 0) &&
+                    (item.CustF05 == null ? '' : item.CustF05.toString().search(filterCustF05) >= 0) &&
+                    (item.CustF06 == null ? '' : item.CustF06.toString().search(filterCustF06) >= 0) &&
+                    (item.CustF07 == null ? '' : item.CustF07.toString().search(filterCustF07) >= 0) &&
+                    (item.CustF08 == null ? '' : item.CustF08.toString().search(filterCustF08) >= 0) &&
+                    (item.CustF09 == null ? '' : item.CustF09.toString().search(filterCustF09) >= 0) &&
+                    (item.CustF10 == null ? '' : item.CustF10.toString().search(filterCustF10) >= 0) &&
+                    (item.CustF11 == null ? '' : item.CustF11.toString().search(filterCustF11) >= 0) &&
+                    (item.CustF12 == null ? '' : item.CustF12.toString().search(filterCustF12) >= 0) &&
+                    (item.CustF13 == null ? '' : item.CustF13.toString().search(filterCustF13) >= 0) &&
+                    (item.CustF14 == null ? '' : item.CustF14.toString().search(filterCustF14) >= 0) &&
+                    (item.CustF15 == null ? '' : item.CustF15.toString().search(filterCustF15) >= 0) &&
+                    (item.CustF16 == null ? '' : item.CustF16.toString().search(filterCustF16) >= 0) &&
+                    (item.CustF17 == null ? '' : item.CustF17.toString().search(filterCustF17) >= 0) &&
+                    (item.CustF18 == null ? '' : item.CustF18.toString().search(filterCustF18) >= 0) &&
+                    (item.CustF19 == null ? '' : item.CustF19.toString().search(filterCustF19) >= 0) &&
+                    (item.CustF20 == null ? '' : item.CustF20.toString().search(filterCustF20) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -375,26 +375,26 @@
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeEghdam = ko.observable("");
-    /*self.iconTypeF01 = ko.observable("");
-    self.iconTypeF02 = ko.observable("");
-    self.iconTypeF03 = ko.observable("");
-    self.iconTypeF04 = ko.observable("");
-    self.iconTypeF05 = ko.observable("");
-    self.iconTypeF06 = ko.observable("");
-    self.iconTypeF07 = ko.observable("");
-    self.iconTypeF08 = ko.observable("");
-    self.iconTypeF09 = ko.observable("");
-    self.iconTypeF10 = ko.observable("");
-    self.iconTypeF11 = ko.observable("");
-    self.iconTypeF12 = ko.observable("");
-    self.iconTypeF13 = ko.observable("");
-    self.iconTypeF14 = ko.observable("");
-    self.iconTypeF15 = ko.observable("");
-    self.iconTypeF16 = ko.observable("");
-    self.iconTypeF17 = ko.observable("");
-    self.iconTypeF18 = ko.observable("");
-    self.iconTypeF19 = ko.observable("");
-    self.iconTypeF20 = ko.observable("");*/
+    self.iconTypeCustF01 = ko.observable("");
+    self.iconTypeCustF02 = ko.observable("");
+    self.iconTypeCustF03 = ko.observable("");
+    self.iconTypeCustF04 = ko.observable("");
+    self.iconTypeCustF05 = ko.observable("");
+    self.iconTypeCustF06 = ko.observable("");
+    self.iconTypeCustF07 = ko.observable("");
+    self.iconTypeCustF08 = ko.observable("");
+    self.iconTypeCustF09 = ko.observable("");
+    self.iconTypeCustF10 = ko.observable("");
+    self.iconTypeCustF11 = ko.observable("");
+    self.iconTypeCustF12 = ko.observable("");
+    self.iconTypeCustF13 = ko.observable("");
+    self.iconTypeCustF14 = ko.observable("");
+    self.iconTypeCustF15 = ko.observable("");
+    self.iconTypeCustF16 = ko.observable("");
+    self.iconTypeCustF17 = ko.observable("");
+    self.iconTypeCustF18 = ko.observable("");
+    self.iconTypeCustF19 = ko.observable("");
+    self.iconTypeCustF20 = ko.observable("");
 
 
     self.sortTableCust = function (viewModel, e) {
@@ -434,51 +434,51 @@
         self.iconTypeName('');
         self.iconTypeSpec('');
         self.iconTypeEghdam('');
-        /*self.iconTypeF01('');
-        self.iconTypeF02('');
-        self.iconTypeF03('');
-        self.iconTypeF04('');
-        self.iconTypeF05('');
-        self.iconTypeF06('');
-        self.iconTypeF07('');
-        self.iconTypeF08('');
-        self.iconTypeF09('');
-        self.iconTypeF10('');
-        self.iconTypeF11('');
-        self.iconTypeF12('');
-        self.iconTypeF13('');
-        self.iconTypeF14('');
-        self.iconTypeF15('');
-        self.iconTypeF16('');
-        self.iconTypeF17('');
-        self.iconTypeF18('');
-        self.iconTypeF19('');
-        self.iconTypeF20('');*/
+        self.iconTypeCustF01('');
+        self.iconTypeCustF02('');
+        self.iconTypeCustF03('');
+        self.iconTypeCustF04('');
+        self.iconTypeCustF05('');
+        self.iconTypeCustF06('');
+        self.iconTypeCustF07('');
+        self.iconTypeCustF08('');
+        self.iconTypeCustF09('');
+        self.iconTypeCustF10('');
+        self.iconTypeCustF11('');
+        self.iconTypeCustF12('');
+        self.iconTypeCustF13('');
+        self.iconTypeCustF14('');
+        self.iconTypeCustF15('');
+        self.iconTypeCustF16('');
+        self.iconTypeCustF17('');
+        self.iconTypeCustF18('');
+        self.iconTypeCustF19('');
+        self.iconTypeCustF20('');
 
         if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Eghdam') self.iconTypeEghdam((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        /*if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F04') self.iconTypeF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F05') self.iconTypeF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F06') self.iconTypeF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F07') self.iconTypeF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F08') self.iconTypeF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F09') self.iconTypeF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F10') self.iconTypeF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F11') self.iconTypeF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F12') self.iconTypeF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F13') self.iconTypeF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F14') self.iconTypeF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F15') self.iconTypeF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F16') self.iconTypeF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F17') self.iconTypeF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");*/
+        if (orderProp == 'CustF01') self.iconTypeCustF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF02') self.iconTypeCustF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF03') self.iconTypeCustF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF04') self.iconTypeCustF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF05') self.iconTypeCustF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF06') self.iconTypeCustF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF07') self.iconTypeCustF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF08') self.iconTypeCustF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF09') self.iconTypeCustF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF10') self.iconTypeCustF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF11') self.iconTypeCustF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF12') self.iconTypeCustF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF13') self.iconTypeCustF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF14') self.iconTypeCustF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF15') self.iconTypeCustF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF16') self.iconTypeCustF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF17') self.iconTypeCustF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF18') self.iconTypeCustF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF19') self.iconTypeCustF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustF20') self.iconTypeCustF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -507,6 +507,246 @@
 
 
 
+    self.AddNewCust = function () {
+        kGruCode = '';
+        $('#Code').val('');
+        $('#Name').val('');
+        $('#FanniNo').val('');
+        $('#Spec').val('');
+        $('#nameKGru').val('');
+
+        $('#UnitName1').val('');
+        $('#UnitName2').val('');
+        $('#UnitName3').val('');
+        $('#DeghatM1').val('');
+        $('#DeghatM2').val('');
+        $('#DeghatM3').val('');
+        $('#DeghatR1').val('');
+        $('#DeghatR2').val('');
+        $('#DeghatR3').val('');
+        $('#Vazn1').val('');
+        $('#Vazn2').val('');
+        $('#Vazn3').val('');
+        $('#zarib1').val('');
+        $('#zarib2').val('');
+        $('#zarib3').val('');
+        $('#SPrice1').val('');
+        $('#SPrice2').val('');
+        $('#SPrice3').val('');
+        $('#DefaultUnit1').text('پیش فرض');
+        $('#DefaultUnit2').text('');
+        $('#DefaultUnit3').text('');
+
+        $('#ExtraFields1').val('');
+        $('#ExtraFields2').val('');
+        $('#ExtraFields3').val('');
+        $('#ExtraFields4').val('');
+        $('#ExtraFields5').val('');
+        $('#ExtraFields6').val('');
+        $('#ExtraFields7').val('');
+        $('#ExtraFields8').val('');
+        $('#ExtraFields9').val('');
+        $('#ExtraFields10').val('');
+        $('#ExtraFields11').val('');
+        $('#ExtraFields12').val('');
+        $('#ExtraFields13').val('');
+        $('#ExtraFields14').val('');
+        $('#ExtraFields15').val('');
+        $('#ExtraFields16').val('');
+        $('#ExtraFields17').val('');
+        $('#ExtraFields18').val('');
+        $('#ExtraFields19').val('');
+        $('#ExtraFields20').val('');
+
+        $("#Code").focus();
+        $('#modal-Cust').modal('show');
+    }
+
+    self.UpdateCust = function (item) {
+
+        $('#Code').val(item.Code);
+        $('#Name').val(item.Name);
+        $('#FanniNo').val(item.FanniNo);
+        $('#Spec').val(item.Spec);
+        $('#nameKGru').val('');
+
+        $('#UnitName1').val(item.UnitName1);
+        $('#UnitName2').val(item.UnitName2);
+        $('#UnitName3').val(item.UnitName3);
+        $('#DeghatM1').val(item.DeghatM1);
+        $('#DeghatM2').val(item.DeghatM2);
+        $('#DeghatM3').val(item.DeghatM3);
+        $('#DeghatR1').val(item.DeghatR1);
+        $('#DeghatR2').val(item.DeghatR2);
+        $('#DeghatR3').val(item.DeghatR3);
+        $('#Vazn1').val('');
+        $('#Vazn2').val('');
+        $('#Vazn3').val('');
+        $('#zarib1').val(item.zarib1);
+        $('#zarib2').val(item.zarib2);
+        $('#zarib3').val(item.zarib3);
+        $('#SPrice1').val(item.SPrice1);
+        $('#SPrice2').val(item.SPrice2);
+        $('#SPrice3').val(item.SPrice3);
+
+        $('#DefaultUnit1').text('');
+        $('#DefaultUnit2').text('');
+        $('#DefaultUnit3').text('');
+
+        if (item.DefaultUnit == "1") {
+            $('#DefaultUnit1').text('پیش فرض');
+        } else if (item.DefaultUnit == "2") {
+            $('#DefaultUnit2').text('پیش فرض');
+        } else if (item.DefaultUnit == "3") {
+            $('#DefaultUnit3').text('پیش فرض');
+        };
+
+
+
+
+        kGruCode = item.KGruCode;
+        if (kGruCode != '')
+            $('#nameKGru').val('(' + item.KGruCode + ') ' + item.KGruName);
+
+
+        sessionStorage.F01 = item.CustF01;
+        sessionStorage.F02 = item.CustF02;
+        sessionStorage.F03 = item.CustF03;
+        sessionStorage.F04 = item.CustF04;
+        sessionStorage.F05 = item.CustF05;
+        sessionStorage.F06 = item.CustF06;
+        sessionStorage.F07 = item.CustF07;
+        sessionStorage.F08 = item.CustF08;
+        sessionStorage.F09 = item.CustF09;
+        sessionStorage.F10 = item.CustF10;
+        sessionStorage.F11 = item.CustF11;
+        sessionStorage.F12 = item.CustF12;
+        sessionStorage.F13 = item.CustF13;
+        sessionStorage.F14 = item.CustF14;
+        sessionStorage.F15 = item.CustF15;
+        sessionStorage.F16 = item.CustF16;
+        sessionStorage.F17 = item.CustF17;
+        sessionStorage.F18 = item.CustF18;
+        sessionStorage.F19 = item.CustF19;
+        sessionStorage.F20 = item.CustF20;
+
+        $("#ExtraFields1").val(sessionStorage.CustF01);
+        $("#ExtraFields2").val(sessionStorage.CustF02);
+        $("#ExtraFields3").val(sessionStorage.CustF03);
+        $("#ExtraFields4").val(sessionStorage.CustF04);
+        $("#ExtraFields5").val(sessionStorage.CustF05);
+        $("#ExtraFields6").val(sessionStorage.CustF06);
+        $("#ExtraFields7").val(sessionStorage.CustF07);
+        $("#ExtraFields8").val(sessionStorage.CustF08);
+        $("#ExtraFields9").val(sessionStorage.CustF09);
+        $("#ExtraFields10").val(sessionStorage.CustF10);
+        $("#ExtraFields11").val(sessionStorage.CustF11);
+        $("#ExtraFields12").val(sessionStorage.CustF12);
+        $("#ExtraFields13").val(sessionStorage.CustF13);
+        $("#ExtraFields14").val(sessionStorage.CustF14);
+        $("#ExtraFields15").val(sessionStorage.CustF15);
+        $("#ExtraFields16").val(sessionStorage.CustF16);
+        $("#ExtraFields17").val(sessionStorage.CustF17);
+        $("#ExtraFields18").val(sessionStorage.CustF18);
+        $("#ExtraFields19").val(sessionStorage.CustF19);
+        $("#ExtraFields20").val(sessionStorage.CustF20);
+
+        $("#ExtraFields1").val(item.CustF01);
+        $("#ExtraFields2").val(item.CustF02);
+        $("#ExtraFields3").val(item.CustF03);
+        $("#ExtraFields4").val(item.CustF04);
+        $("#ExtraFields5").val(item.CustF05);
+        $("#ExtraFields6").val(item.CustF06);
+        $("#ExtraFields7").val(item.CustF07);
+        $("#ExtraFields8").val(item.CustF08);
+        $("#ExtraFields9").val(item.CustF09);
+        $("#ExtraFields10").val(item.CustF10);
+        $("#ExtraFields11").val(item.CustF11);
+        $("#ExtraFields12").val(item.CustF12);
+        $("#ExtraFields13").val(item.CustF13);
+        $("#ExtraFields14").val(item.CustF14);
+        $("#ExtraFields15").val(item.CustF15);
+        $("#ExtraFields16").val(item.CustF16);
+        $("#ExtraFields17").val(item.CustF17);
+        $("#ExtraFields18").val(item.CustF18);
+        $("#ExtraFields19").val(item.CustF19);
+        $("#ExtraFields20").val(item.CustF20);
+
+        $("#Code").focus();
+        $('#modal-Cust').modal('show');
+    }
+
+
+    $('#saveCust').click(function () {
+        code = $('#Code').val();
+        name = $('#Name').val();
+        fanniNo = $('#FanniNo').val();
+        spec = $('#Spec').val();
+
+        var SaveCust_Object = {
+            BranchCode: 0,
+            UserCode: sessionStorage.userName,
+            Code: code,
+            Name: name,
+            FanniNo: fanniNo,
+            Spec: spec,
+            KGruCode: kGruCode,
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+        };
+
+        ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
+            getCustList();
+            showNotification('ذخيره شد ', 1);
+        });
+
+    });
+
+
+    self.DeleteCust = function (item) {
+
+        Swal.fire({
+            title: 'تایید حذف ؟',
+            text: "آیا کالای انتخابی حذف شود",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                ajaxFunction(DelCustUri + ace + '/' + sal + '/' + group + '/' + item.Code + '//', 'GET').done(function (response) {
+                    currentPage = self.currentPageIndexCust();
+                    getCustList();
+                    self.currentPageIndexCust(currentPage);
+
+                    showNotification('حذف شد ', 1);
+                });
+            }
+        })
+    };
+
+
 
 
 
@@ -520,26 +760,26 @@
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('Eghdam', data) +
-            /*CreateTableTh('F01', data) +
-            CreateTableTh('F02', data) +
-            CreateTableTh('F03', data) +
-            CreateTableTh('F04', data) +
-            CreateTableTh('F05', data) +
-            CreateTableTh('F06', data) +
-            CreateTableTh('F07', data) +
-            CreateTableTh('F08', data) +
-            CreateTableTh('F09', data) +
-            CreateTableTh('F10', data) +
-            CreateTableTh('F11', data) +
-            CreateTableTh('F12', data) +
-            CreateTableTh('F13', data) +
-            CreateTableTh('F14', data) +
-            CreateTableTh('F15', data) +
-            CreateTableTh('F16', data) +
-            CreateTableTh('F17', data) +
-            CreateTableTh('F18', data) +
-            CreateTableTh('F19', data) +
-            CreateTableTh('F20', data) +*/
+           CreateTableTh('CustF01', data) +
+            CreateTableTh('CustF02', data) +
+            CreateTableTh('CustF03', data) +
+            CreateTableTh('CustF04', data) +
+            CreateTableTh('CustF05', data) +
+            CreateTableTh('CustF06', data) +
+            CreateTableTh('CustF07', data) +
+            CreateTableTh('CustF08', data) +
+            CreateTableTh('CustF09', data) +
+            CreateTableTh('CustF10', data) +
+            CreateTableTh('CustF11', data) +
+            CreateTableTh('CustF12', data) +
+            CreateTableTh('CustF13', data) +
+            CreateTableTh('CustF14', data) +
+            CreateTableTh('CustF15', data) +
+            CreateTableTh('CustF16', data) +
+            CreateTableTh('CustF17', data) +
+            CreateTableTh('CustF18', data) +
+            CreateTableTh('CustF19', data) +
+            CreateTableTh('CustF20', data) +
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -550,26 +790,26 @@
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Eghdam', 0, 4, data) +
-            /*CreateTableTd('F01', 0, 4, data) +
-            CreateTableTd('F02', 0, 4, data) +
-            CreateTableTd('F03', 0, 4, data) +
-            CreateTableTd('F04', 0, 4, data) +
-            CreateTableTd('F05', 0, 4, data) +
-            CreateTableTd('F06', 0, 4, data) +
-            CreateTableTd('F07', 0, 4, data) +
-            CreateTableTd('F08', 0, 4, data) +
-            CreateTableTd('F09', 0, 4, data) +
-            CreateTableTd('F10', 0, 4, data) +
-            CreateTableTd('F11', 0, 4, data) +
-            CreateTableTd('F12', 0, 4, data) +
-            CreateTableTd('F13', 0, 4, data) +
-            CreateTableTd('F14', 0, 4, data) +
-            CreateTableTd('F15', 0, 4, data) +
-            CreateTableTd('F16', 0, 4, data) +
-            CreateTableTd('F17', 0, 4, data) +
-            CreateTableTd('F18', 0, 4, data) +
-            CreateTableTd('F19', 0, 4, data) +
-            CreateTableTd('F20', 0, 4, data) +*/
+            CreateTableTd('CustF01', 0, 4, data) +
+            CreateTableTd('CustF02', 0, 4, data) +
+            CreateTableTd('CustF03', 0, 4, data) +
+            CreateTableTd('CustF04', 0, 4, data) +
+            CreateTableTd('CustF05', 0, 4, data) +
+            CreateTableTd('CustF06', 0, 4, data) +
+            CreateTableTd('CustF07', 0, 4, data) +
+            CreateTableTd('CustF08', 0, 4, data) +
+            CreateTableTd('CustF09', 0, 4, data) +
+            CreateTableTd('CustF10', 0, 4, data) +
+            CreateTableTd('CustF11', 0, 4, data) +
+            CreateTableTd('CustF12', 0, 4, data) +
+            CreateTableTd('CustF13', 0, 4, data) +
+            CreateTableTd('CustF14', 0, 4, data) +
+            CreateTableTd('CustF15', 0, 4, data) +
+            CreateTableTd('CustF16', 0, 4, data) +
+            CreateTableTd('CustF17', 0, 4, data) +
+            CreateTableTd('CustF18', 0, 4, data) +
+            CreateTableTd('CustF19', 0, 4, data) +
+            CreateTableTd('CustF20', 0, 4, data) +
             '<td>' +
             '   <a id="UpdateCust" data-bind="click: $root.UpdateCust">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
@@ -587,26 +827,26 @@
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('Eghdam', data) +
-           /* CreateTableTdSearch('F01', data) +
-            CreateTableTdSearch('F02', data) +
-            CreateTableTdSearch('F03', data) +
-            CreateTableTdSearch('F04', data) +
-            CreateTableTdSearch('F05', data) +
-            CreateTableTdSearch('F06', data) +
-            CreateTableTdSearch('F07', data) +
-            CreateTableTdSearch('F08', data) +
-            CreateTableTdSearch('F09', data) +
-            CreateTableTdSearch('F10', data) +
-            CreateTableTdSearch('F11', data) +
-            CreateTableTdSearch('F12', data) +
-            CreateTableTdSearch('F13', data) +
-            CreateTableTdSearch('F14', data) +
-            CreateTableTdSearch('F15', data) +
-            CreateTableTdSearch('F16', data) +
-            CreateTableTdSearch('F17', data) +
-            CreateTableTdSearch('F18', data) +
-            CreateTableTdSearch('F19', data) +
-            CreateTableTdSearch('F20', data) +*/
+            CreateTableTdSearch('CustF01', data) +
+            CreateTableTdSearch('CustF02', data) +
+            CreateTableTdSearch('CustF03', data) +
+            CreateTableTdSearch('CustF04', data) +
+            CreateTableTdSearch('CustF05', data) +
+            CreateTableTdSearch('CustF06', data) +
+            CreateTableTdSearch('CustF07', data) +
+            CreateTableTdSearch('CustF08', data) +
+            CreateTableTdSearch('CustF09', data) +
+            CreateTableTdSearch('CustF10', data) +
+            CreateTableTdSearch('CustF11', data) +
+            CreateTableTdSearch('CustF12', data) +
+            CreateTableTdSearch('CustF13', data) +
+            CreateTableTdSearch('CustF14', data) +
+            CreateTableTdSearch('CustF15', data) +
+            CreateTableTdSearch('CustF16', data) +
+            CreateTableTdSearch('CustF17', data) +
+            CreateTableTdSearch('CustF18', data) +
+            CreateTableTdSearch('CustF19', data) +
+            CreateTableTdSearch('CustF20', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -680,14 +920,7 @@
 
 
 
-    var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
-    self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
-    //Get FDocP List
-    function getFDocP(serialNumber) {
-        ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
-            self.FDocPList(data);
-        });
-    }
+
     self.sortTableCust();
 };
 

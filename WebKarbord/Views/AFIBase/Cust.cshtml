@@ -18,7 +18,7 @@
                         <a id="refreshCust" class="">
                             <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                         </a>
-                        <a id="AddNewCust" data-bind="click: $root.AddNewCust" class="dropdown-toggle" data-toggle="modal" data-target="#modal-Cust"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
+                        <a id="AddNewCust" data-bind="click: $root.AddNewCust"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
                     </div>
                 </div>
             </div>
@@ -76,12 +76,12 @@
                             <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
 
                             <!-- <label>نمایش</label>
-     <div>
-         <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-             <option value="0">100 رکورد آخر</option>
-             <option value="3">تمام رکوردها</option>
-         </select>
-     </div>-->
+                            <div>
+                                <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
+                                    <option value="0">100 رکورد آخر</option>
+                                    <option value="3">تمام رکوردها</option>
+                                </select>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -138,26 +138,22 @@
 
 
 <div class="modal fade" id="modal-Cust" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog modal-entesab" style="max-width: 1100px;">
+    <div class="modal-dialog" style="max-width: 1000px;">
         <div class="modal-content">
-            <div class="modal-header" style="padding-bottom: 0px;">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">مشتری</h4>
                 <div>
-                    <a id="attachFile" class="dropdown-toggle" style="margin-left: 10px;">
-                        <!--data-toggle="modal" data-target="#modal-DocAttach"-->
-                        <img src="/Content/img/list/attach_file.png" width="20" height="20">
-                    </a>
                     <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-target="#modal-OtherField" style="margin-left: 10px;">
                         <img src="/Content/img/sanad/paper-write.png" width="20" height="20">
                     </a>
                 </div>
             </div>
-            <div class="modal-body" style="padding-left: 0px;padding-right: 0px;">
-                <div class="row">
-                   
+            <div class="modal-body">
+                <div class="box box-info">
+                
                 </div>
             </div>
             <div>
@@ -174,6 +170,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 <div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:800px;">
@@ -307,67 +307,6 @@
 
 @section scripts{
     <script type="text/javascript">
-        $('#btnp_DocDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_DocDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-        $('#btnp_MhltDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_MhltDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-
-        $('#btnp_AmalDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_AmalDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-        $('#btnp_EndDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_EndDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-        $('#btnRjMhltDate').MdPersianDateTimePicker({
-            targetTextSelector: '#RjMhltDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
 
 
     </script>
