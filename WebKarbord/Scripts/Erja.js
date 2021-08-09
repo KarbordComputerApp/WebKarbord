@@ -768,7 +768,7 @@
 
 
 
-        if (orderProp == 'RjStatus') self.iconTypeRjStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RjStatusSort') self.iconTypeRjStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'RjDate') self.iconTypeRjDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'RjMhltDate') self.iconTypeRjMhltDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2107,8 +2107,10 @@
         text = '<th ';
 
         TextField = FindTextField(field, data);
-        //sortField = field == 'DocNo' ? 'SortDocNo' : field
-        sortField = field;
+
+        sortField = field == 'RjStatus' ? 'RjStatusSort' : field
+
+        //sortField = field;
         if (TextField == 0)
             text += 'Hidden ';
 
