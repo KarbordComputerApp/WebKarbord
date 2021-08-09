@@ -138,7 +138,7 @@
 
 
 <div class="modal fade" id="modal-Kala" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 1000px;">
+    <div class="modal-dialog" style="max-width: 700px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -166,7 +166,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Name" class="form-control" />
@@ -175,7 +175,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" id="showFanniNo">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="FanniNo" class="form-control" />
@@ -216,20 +216,16 @@
                         <table class="table tableFix">
                             <thead>
                                 <tr>
-                                    <th style="width: 200px;">واحد</th>
+                                    <th style="width: 300px;">واحد</th>
                                     <th colspan="2">دقت اعشار</th>
-                                    <th>وزن</th>
                                     <th>مقدار بر حسب </th>
-                                    <th>قیمت</th>
                                     <th>واحد پیش فرض</th>
                                 </tr>
                                 <tr >
                                     <th></th>
                                     <th>مقدار</th>
                                     <th>مبلغ</th>
-                                    <th></th>
                                     <th>واحد اصلی</th>
-                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -238,30 +234,24 @@
                                     <td style="padding: 0px 3px;"><input id="UnitName1" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="DeghatM1" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="DeghatR1" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="Vazn1" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="zarib1" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="SPrice1" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><p id="DefaultUnit1"></p> </td>
+                                    <td style="padding: 0px 3px;" id="B_DefaultUnit1"><p id="DefaultUnit1"></p> </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding: 0px 3px;"><input id="UnitName2" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="DeghatM2" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="DeghatR2" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="Vazn2" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="zarib2" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="SPrice2" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><p id="DefaultUnit2"></p> </td>
+                                    <td style="padding: 0px 3px;" id="B_DefaultUnit2"><p id="DefaultUnit2"></p> </td>
                                 </tr>
 
                                 <tr>
                                     <td style="padding: 0px 3px;"><input id="UnitName3" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="DeghatM3" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="DeghatR3" type="text" class="form-control int" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="Vazn3" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
                                     <td style="padding: 0px 3px;"><input id="zarib3" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="SPrice3" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><p id="DefaultUnit3"></p> </td>
+                                    <td style="padding: 0px 3px;" id="B_DefaultUnit3"><p id="DefaultUnit3"></p> </td>
                                  </tr>
                             </tbody>
                         </table>

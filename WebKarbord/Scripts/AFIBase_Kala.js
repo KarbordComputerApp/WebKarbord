@@ -648,9 +648,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
                 getKGruList();
-                $("div.loadingZone").hide();
             }
         })
     })
@@ -680,15 +678,9 @@
         $('#DeghatR1').val('');
         $('#DeghatR2').val('');
         $('#DeghatR3').val('');
-        $('#Vazn1').val('');
-        $('#Vazn2').val('');
-        $('#Vazn3').val('');
         $('#zarib1').val('');
         $('#zarib2').val('');
         $('#zarib3').val('');
-        $('#SPrice1').val('');
-        $('#SPrice2').val('');
-        $('#SPrice3').val('');
         $('#DefaultUnit1').text('پیش فرض');
         $('#DefaultUnit2').text('');
         $('#DefaultUnit3').text('');
@@ -735,15 +727,9 @@
         $('#DeghatR1').val(item.DeghatR1);
         $('#DeghatR2').val(item.DeghatR2);
         $('#DeghatR3').val(item.DeghatR3);
-        $('#Vazn1').val('');
-        $('#Vazn2').val('');
-        $('#Vazn3').val('');
         $('#zarib1').val(item.zarib1);
         $('#zarib2').val(item.zarib2);
         $('#zarib3').val(item.zarib3);
-        $('#SPrice1').val(item.SPrice1);
-        $('#SPrice2').val(item.SPrice2);
-        $('#SPrice3').val(item.SPrice3);
 
         $('#DefaultUnit1').text('');
         $('#DefaultUnit2').text('');
@@ -751,19 +737,19 @@
 
         if (item.DefaultUnit == "1") {
             $('#DefaultUnit1').text('پیش فرض');
-        } else if(item.DefaultUnit == "2") {
+        } else if (item.DefaultUnit == "2") {
             $('#DefaultUnit2').text('پیش فرض');
-        } else if(item.DefaultUnit == "3") {
+        } else if (item.DefaultUnit == "3") {
             $('#DefaultUnit3').text('پیش فرض');
         };
-      
+
 
 
 
         kGruCode = item.KGruCode;
         if (kGruCode != '')
             $('#nameKGru').val('(' + item.KGruCode + ') ' + item.KGruName);
- 
+
 
         sessionStorage.F01 = item.KalaF01;
         sessionStorage.F02 = item.KalaF02;
@@ -832,21 +818,70 @@
         $('#modal-Kala').modal('show');
     }
 
-    
+    $('#modal-Kala').on('show.bs.modal', function () {
+        if (ace == 'Web8') {
+            $('#showFanniNo').css('display', 'none');
+        }
+    });
+
+
+   
+    $('#B_DefaultUnit1').click(function () {
+        $('#DefaultUnit1').text('پیش فرض'); 
+        $('#DefaultUnit2').text(''); 
+        $('#DefaultUnit3').text(''); 
+    })
+
+    $('#B_DefaultUnit2').click(function () {
+        $('#DefaultUnit1').text('');
+        $('#DefaultUnit2').text('پیش فرض');
+        $('#DefaultUnit3').text('');
+    })
+
+    $('#B_DefaultUnit3').click(function () {
+        $('#DefaultUnit1').text('');
+        $('#DefaultUnit2').text('');
+        $('#DefaultUnit3').text('پیش فرض');
+    })
+
+
+
     $('#saveKala').click(function () {
-        code = $('#Code').val();
-        name = $('#Name').val();
-        fanniNo = $('#FanniNo').val();
-        spec = $('#Spec').val();
+
+        if ($('#DefaultUnit1').text() == 'پیش فرض') defaultUnit = 1;
+        else if ($('#DefaultUnit2').text() == 'پیش فرض') defaultUnit = 2;
+        else if ($('#DefaultUnit3').text() == 'پیش فرض') defaultUnit = 3;
 
         var SaveKala_Object = {
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Code: code,
-            Name: name,
-            FanniNo: fanniNo,
-            Spec: spec,
+            Code: $('#Code').val(),
+            Name: $('#Name').val(),
+            FanniNo: $('#FanniNo').val(),
+            Spec: $('#Spec').val(),
             KGruCode: kGruCode,
+            DefaultUnit: defaultUnit,
+            UnitName1: $('#UnitName1').val(),
+            UnitName2: $('#UnitName2').val(),
+            UnitName3: $('#UnitName3').val(),
+            /*Weight1: 1,
+            Weight2: 1,
+            Weight3: 1,
+            SPrice1: 1,
+            SPrice2: 1,
+            SPrice3: 1,
+            PPrice1: 1,
+            PPrice2: 1,
+            PPrice3: 1,*/
+            Zarib1: $('#zarib1').val(),
+            Zarib2: $('#zarib2').val(),
+            Zarib3: $('#zarib3').val(),
+            DeghatM1: $('#DeghatM1').val(),
+            DeghatM2: $('#DeghatM2').val(),
+            DeghatM3: $('#DeghatM3').val(),
+            DeghatR1: $('#DeghatR1').val(),
+            DeghatR2: $('#DeghatR2').val(),
+            DeghatR3: $('#DeghatR3').val(),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
@@ -871,6 +906,7 @@
 
         ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
             getKalaList();
+            $('#modal-Kala').modal('hide');
             showNotification('ذخيره شد ', 1);
         });
 
@@ -891,17 +927,17 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(DelKalaUri + ace + '/' + sal + '/' + group + '/' + item.Code + '//' , 'GET').done(function (response) {
+                ajaxFunction(DelKalaUri + ace + '/' + sal + '/' + group + '/' + item.Code + '//', 'GET').done(function (response) {
                     currentPage = self.currentPageIndexKala();
                     getKalaList();
                     self.currentPageIndexKala(currentPage);
-                   
-                    showNotification('حذف شد ', 1); 
+
+                    showNotification('حذف شد ', 1);
                 });
             }
         })
     };
-    
+
 
 
 

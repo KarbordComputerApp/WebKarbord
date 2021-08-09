@@ -9,15 +9,20 @@
     self.CustList = ko.observableArray([]); // ليست مشتری ها
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
+    self.CGruList = ko.observableArray([]); // ليست گروه مشتریها
 
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس مشتری ها
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
+    var CGruUri = server + '/api/Web_Data/CGru/'; // آدرس گروه مشتری
+    var SaveCustUri = server + '/api/Web_Data/AFI_SaveCust/'; // آدرس ذخیره مشتری
+    var DelCustUri = server + '/api/Web_Data/AFI_DelCust/'; // آدرس حذف مشتری
 
 
     TestUser();
     shamsiDate = ShamsiDate();
 
+    var cGruCode = '';
 
 
     var rprtId = 'Cust';
@@ -141,6 +146,24 @@
     }
 
     getCustList();
+
+    //Get  CGru List
+    function getCGruList() {
+        var CGruObject = {
+            Mode: 0,
+            ModeGru: 0,
+            UserCode: sessionStorage.userName,
+        }
+        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group, 'POST', CGruObject, true).done(function (data) {
+            self.CGruList(data);
+        });
+    }
+
+    $('#btnCGru').click(function () {
+        if (self.CGruList().length == 0) {
+            getCGruList();
+        }
+    });
 
 
 
@@ -507,35 +530,159 @@
 
 
 
+
+
+
+
+
+    self.currentPageCGru = ko.observable();
+    pageSizeCGru = localStorage.getItem('pageSizeCGru') == null ? 10 : localStorage.getItem('pageSizeCGru');
+    self.pageSizeCGru = ko.observable(pageSizeCGru);
+    self.currentPageIndexCGru = ko.observable(0);
+
+    self.filterCGru0 = ko.observable("");
+    self.filterCGru1 = ko.observable("");
+    self.filterCGru2 = ko.observable("");
+
+    self.filterCGruList = ko.computed(function () {
+
+        self.currentPageIndexCGru(0);
+        var filter0 = self.filterCGru0().toUpperCase();
+        var filter1 = self.filterCGru1();
+        var filter2 = self.filterCGru2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.CGruList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.CGruList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageCGru = ko.computed(function () {
+        var pageSizeCGru = parseInt(self.pageSizeCGru(), 10),
+            startIndex = pageSizeCGru * self.currentPageIndexCGru(),
+            endIndex = startIndex + pageSizeCGru;
+        localStorage.setItem('pageSizeCGru', pageSizeCGru);
+        return self.filterCGruList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageCGru = function () {
+        if (((self.currentPageIndexCGru() + 1) * self.pageSizeCGru()) < self.filterCGruList().length) {
+            self.currentPageIndexCGru(self.currentPageIndexCGru() + 1);
+        }
+    };
+
+    self.previousPageCGru = function () {
+        if (self.currentPageIndexCGru() > 0) {
+            self.currentPageIndexCGru(self.currentPageIndexCGru() - 1);
+        }
+    };
+
+    self.firstPageCGru = function () {
+        self.currentPageIndexCGru(0);
+    };
+
+    self.lastPageCGru = function () {
+        countCGru = parseInt(self.filterCGruList().length / self.pageSizeCGru(), 10);
+        if ((self.filterCGruList().length % self.pageSizeCGru()) == 0)
+            self.currentPageIndexCGru(countCGru - 1);
+        else
+            self.currentPageIndexCGru(countCGru);
+    };
+
+    self.sortTableCGru = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.CGruList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshCGru').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست گروه کالا به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                getCGruList();
+            }
+        })
+    })
+
+
+    self.selectCGru = function (item) {
+        cGruCode = item.Code;
+        $('#nameCGru').val('(' + item.Code + ') ' + item.Name);
+    }
+
+
+
+
+
+
     self.AddNewCust = function () {
-        kGruCode = '';
+        cGruCode = '';
         $('#Code').val('');
         $('#Name').val('');
-        $('#FanniNo').val('');
         $('#Spec').val('');
-        $('#nameKGru').val('');
-
-        $('#UnitName1').val('');
-        $('#UnitName2').val('');
-        $('#UnitName3').val('');
-        $('#DeghatM1').val('');
-        $('#DeghatM2').val('');
-        $('#DeghatM3').val('');
-        $('#DeghatR1').val('');
-        $('#DeghatR2').val('');
-        $('#DeghatR3').val('');
-        $('#Vazn1').val('');
-        $('#Vazn2').val('');
-        $('#Vazn3').val('');
-        $('#zarib1').val('');
-        $('#zarib2').val('');
-        $('#zarib3').val('');
-        $('#SPrice1').val('');
-        $('#SPrice2').val('');
-        $('#SPrice3').val('');
-        $('#DefaultUnit1').text('پیش فرض');
-        $('#DefaultUnit2').text('');
-        $('#DefaultUnit3').text('');
+        $('#MelliCode').val('');
+        $('#EcoCode').val('');
+        $('#Ostan').val('');
+        $('#Shahrestan').val('');
+        $('#Region').val('');
+        $('#City').val('');
+        $('#Street').val('');
+        $('#Alley').val('');
+        $('#Plack').val('');
+        $('#ZipCode').val('');
+        $('#Tel').val('');
+        $('#Fax').val('');
+        $('#EtebarNaghd').val('');
+        $('#EtebarCheck').val('');
+        $('#nameCGru').val('');
 
         $('#ExtraFields1').val('');
         $('#ExtraFields2').val('');
@@ -566,47 +713,26 @@
 
         $('#Code').val(item.Code);
         $('#Name').val(item.Name);
-        $('#FanniNo').val(item.FanniNo);
         $('#Spec').val(item.Spec);
-        $('#nameKGru').val('');
+        $('#MelliCode').val(item.MelliCode);
+        $('#EcoCode').val(item.EcoCode);
+        $('#Ostan').val(item.Ostan);
+        $('#Shahrestan').val(item.Shahrestan);
+        $('#Region').val(item.Region);
+        $('#City').val(item.City);
+        $('#Street').val(item.Street);
+        $('#Alley').val(item.Alley);
+        $('#Plack').val(item.Plack);
+        $('#ZipCode').val(item.ZipCode);
+        $('#Tel').val(item.Tel);
+        $('#Fax').val(item.Fax);
+        $('#EtebarNaghd').val(item.EtebarNaghd);
+        $('#EtebarCheck').val(item.EtebarCheck);
 
-        $('#UnitName1').val(item.UnitName1);
-        $('#UnitName2').val(item.UnitName2);
-        $('#UnitName3').val(item.UnitName3);
-        $('#DeghatM1').val(item.DeghatM1);
-        $('#DeghatM2').val(item.DeghatM2);
-        $('#DeghatM3').val(item.DeghatM3);
-        $('#DeghatR1').val(item.DeghatR1);
-        $('#DeghatR2').val(item.DeghatR2);
-        $('#DeghatR3').val(item.DeghatR3);
-        $('#Vazn1').val('');
-        $('#Vazn2').val('');
-        $('#Vazn3').val('');
-        $('#zarib1').val(item.zarib1);
-        $('#zarib2').val(item.zarib2);
-        $('#zarib3').val(item.zarib3);
-        $('#SPrice1').val(item.SPrice1);
-        $('#SPrice2').val(item.SPrice2);
-        $('#SPrice3').val(item.SPrice3);
-
-        $('#DefaultUnit1').text('');
-        $('#DefaultUnit2').text('');
-        $('#DefaultUnit3').text('');
-
-        if (item.DefaultUnit == "1") {
-            $('#DefaultUnit1').text('پیش فرض');
-        } else if (item.DefaultUnit == "2") {
-            $('#DefaultUnit2').text('پیش فرض');
-        } else if (item.DefaultUnit == "3") {
-            $('#DefaultUnit3').text('پیش فرض');
-        };
-
-
-
-
-        kGruCode = item.KGruCode;
-        if (kGruCode != '')
-            $('#nameKGru').val('(' + item.KGruCode + ') ' + item.KGruName);
+        $('#nameCGru').val('');
+        cGruCode = item.CGruCode;
+        if (cGruCode != '')
+            $('#nameCGru').val('(' + item.CGruCode + ') ' + item.CGruName);
 
 
         sessionStorage.F01 = item.CustF01;
@@ -686,11 +812,26 @@
         var SaveCust_Object = {
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Code: code,
-            Name: name,
-            FanniNo: fanniNo,
-            Spec: spec,
-            KGruCode: kGruCode,
+            Code: $('#Code').val(),
+            Name: $('#Name').val(),
+            Spec: $('#Spec').val(),
+
+            MelliCode: $('#MelliCode').val(),
+            EcoCode: $('#EcoCode').val(),
+            Ostan: $('#Ostan').val(),
+            Shahrestan: $('#Shahrestan').val(),
+            Region: $('#Region').val(),
+            City: $('#City').val(),
+            Street: $('#Street').val(),
+            Alley: $('#Alley').val(),
+            Plack: $('#Plack').val(),
+            ZipCode: $('#ZipCode').val(),
+            Tel: $('#Tel').val(),
+            Mobile: $('#Mobile').val(),
+            Fax: $('#Fax').val(),
+            EtebarNaghd: $('#EtebarNaghd').val(),
+            EtebarCheck: $('#EtebarCheck').val(),
+            CGruCode: cGruCode,
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
@@ -715,6 +856,7 @@
 
         ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
             getCustList();
+            $('#modal-Cust').modal('hide');
             showNotification('ذخيره شد ', 1);
         });
 
@@ -725,7 +867,7 @@
 
         Swal.fire({
             title: 'تایید حذف ؟',
-            text: "آیا کالای انتخابی حذف شود",
+            text: "آیا مشتری انتخابی حذف شود",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -739,7 +881,6 @@
                     currentPage = self.currentPageIndexCust();
                     getCustList();
                     self.currentPageIndexCust(currentPage);
-
                     showNotification('حذف شد ', 1);
                 });
             }
@@ -858,7 +999,8 @@
         text = '<th ';
         TextField = FindTextField(field, data);
 
-        sortField = field == 'Code' ? 'SortCode' : field;// == 'Name' ? 'SortName' : field;
+        //sortField = field == 'Code' ? 'SortCode' : field;// == 'Name' ? 'SortName' : field;
+        sortField = field == 'Name' ? 'SortName' : field;// == 'Name' ? 'SortName' : field;
          
 
         if (TextField == 0)
