@@ -3256,8 +3256,8 @@ function ViewCustName(CustName) {
     }
 }
 
-//AlertErja();
-//setInterval(AlertErja, 60000);
+AlertErja();
+setInterval(AlertErja, 60000);
 function AlertErja() {
     if (accessErj != null) {
 
