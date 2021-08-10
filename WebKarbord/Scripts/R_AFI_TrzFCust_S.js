@@ -185,6 +185,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/TrzFCust_S", columns, self.SettingColumnList());
     });
 
     getRprtColsList(true, sessionStorage.userName);

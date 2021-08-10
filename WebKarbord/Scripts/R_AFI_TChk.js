@@ -117,6 +117,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/TChk", columns, self.SettingColumnList());
     });
 
     getRprtColsList(true, sessionStorage.userName);

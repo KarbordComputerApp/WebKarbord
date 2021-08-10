@@ -308,6 +308,8 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -393,7 +395,10 @@
 
         ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
+            currentPage = self.currentPageIndexFDocH();
             getFDocH($('#pageCountSelector').val());
+            self.sortTableFDocH();
+            self.currentPageIndexFDocH(currentPage);
         });
 
     });

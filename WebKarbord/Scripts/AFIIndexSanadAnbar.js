@@ -207,6 +207,8 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanadAnbar/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -1256,7 +1258,13 @@
 
         ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
+            
+
+            currentPage = self.currentPageIndexIDocH();
             getIDocH(0, invSelected);
+            self.sortTableIDocH();
+            self.currentPageIndexIDocH(currentPage);
+
         });
 
     });

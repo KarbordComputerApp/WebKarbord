@@ -124,6 +124,8 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -678,7 +680,7 @@
         $('#DeghatR1').val('');
         $('#DeghatR2').val('');
         $('#DeghatR3').val('');
-        $('#zarib1').val('');
+        $('#zarib1').val('1');
         $('#zarib2').val('');
         $('#zarib3').val('');
         $('#DefaultUnit1').text('پیش فرض');
@@ -873,7 +875,7 @@
             PPrice1: 1,
             PPrice2: 1,
             PPrice3: 1,*/
-            Zarib1: $('#zarib1').val(),
+            Zarib1: 1,//$('#zarib1').val(),
             Zarib2: $('#zarib2').val(),
             Zarib3: $('#zarib3').val(),
             DeghatM1: $('#DeghatM1').val(),

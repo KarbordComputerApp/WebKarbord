@@ -153,6 +153,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(aceErj, salErj, group, rprtId, "/ReportERJ/ErjDocB_Last", columns, self.SettingColumnList());
     });
 
     getRprtColsList(true, sessionStorage.userName);

@@ -176,6 +176,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/FDocR_S", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -193,6 +194,9 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/ReportAFI/FDocR_S", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
+
     });
 
     getRprtColsList(true, sessionStorage.userName);

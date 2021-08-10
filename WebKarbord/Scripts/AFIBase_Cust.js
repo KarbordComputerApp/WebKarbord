@@ -6,17 +6,17 @@
     var group = sessionStorage.group;
     var server = localStorage.getItem("ApiAddress");
 
-    self.CustList = ko.observableArray([]); // ليست مشتری ها
-    self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
+    self.CustList = ko.observableArray([]); // ليست خریداران/فروشندگان 
+    self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
-    self.CGruList = ko.observableArray([]); // ليست گروه مشتریها
+    self.CGruList = ko.observableArray([]); // ليست گروه خریداران/فروشندگان
 
 
-    var CustUri = server + '/api/Web_Data/Cust/'; // آدرس مشتری ها
+    var CustUri = server + '/api/Web_Data/Cust/'; // آدرس خریداران/فروشندگان 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
-    var CGruUri = server + '/api/Web_Data/CGru/'; // آدرس گروه مشتری
-    var SaveCustUri = server + '/api/Web_Data/AFI_SaveCust/'; // آدرس ذخیره مشتری
-    var DelCustUri = server + '/api/Web_Data/AFI_DelCust/'; // آدرس حذف مشتری
+    var CGruUri = server + '/api/Web_Data/CGru/'; // آدرس گروه خریداران/فروشندگان
+    var SaveCustUri = server + '/api/Web_Data/AFI_SaveCust/'; // آدرس ذخیره خریداران/فروشندگان
+    var DelCustUri = server + '/api/Web_Data/AFI_DelCust/'; // آدرس حذف خریداران/فروشندگان
 
 
     TestUser();
@@ -124,6 +124,8 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIBase/Cust", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -135,7 +137,7 @@
 
     function getCustList() {
         var CustObject = {
-            forSale: sessionStorage.InOut == 2 ? true : false,
+            forSale: null,
             updatedate: null,
             Mode: 2,
             UserCode: sessionStorage.userName,
@@ -511,7 +513,7 @@
 
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست مشتری ها به روز رسانی شود ؟",
+            text: "لیست خریداران/فروشندگان  به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -637,7 +639,7 @@
     $('#refreshCGru').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست گروه کالا به روز رسانی شود ؟",
+            text: "لیست گروه خریداران/فروشندگان به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -679,9 +681,11 @@
         $('#Plack').val('');
         $('#ZipCode').val('');
         $('#Tel').val('');
+        $('#Mobile').val('');
         $('#Fax').val('');
         $('#EtebarNaghd').val('');
         $('#EtebarCheck').val('');
+        $('#Email').val('');
         $('#nameCGru').val('');
 
         $('#ExtraFields1').val('');
@@ -725,10 +729,11 @@
         $('#Plack').val(item.Plack);
         $('#ZipCode').val(item.ZipCode);
         $('#Tel').val(item.Tel);
+        $('#Mobile').val(item.Tel);
         $('#Fax').val(item.Fax);
         $('#EtebarNaghd').val(item.EtebarNaghd);
         $('#EtebarCheck').val(item.EtebarCheck);
-
+        $('#Email').val(item.Email);
         $('#nameCGru').val('');
         cGruCode = item.CGruCode;
         if (cGruCode != '')
@@ -832,6 +837,7 @@
             EtebarNaghd: $('#EtebarNaghd').val(),
             EtebarCheck: $('#EtebarCheck').val(),
             CGruCode: cGruCode,
+            Email: $('#Email').val(),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
@@ -867,7 +873,7 @@
 
         Swal.fire({
             title: 'تایید حذف ؟',
-            text: "آیا مشتری انتخابی حذف شود",
+            text: "آیا خریداران/فروشندگان انتخابی حذف شود",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

@@ -328,6 +328,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(aceErj, salErj, group, rprtId, "/ERJ/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -345,6 +346,9 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
+        SaveColumn(aceErj, salErj, group, rprtId, "/ERJ/index", columns, self.SettingColumnList());
+        sessionStorage.setItem('listFilter', null);
+
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -386,6 +390,15 @@
         if (status == null)
             status = '';
 
+
+        sort = localStorage.getItem("sort" + rprtId);
+        sortType = localStorage.getItem("sortType" + rprtId);
+
+        if (sortType == "ascending")
+            sort = sort + " asc";
+        else
+            sort = sort + " desc"; 
+
         var ErjDocHObject = {
             Mode: 0,
             UserCode: sessionStorage.userName,
@@ -394,6 +407,7 @@
             Sal: sal,
             Status: status,
             DocNo: docno,
+            Sort: sort
         };
 
         ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, false).done(function (response) {
