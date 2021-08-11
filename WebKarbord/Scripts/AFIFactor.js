@@ -2854,12 +2854,12 @@
         else if (unitvalue == "2") {
             a1 = amount * zarib2;
             a2 = amount;
-            zarib3 == 0 ? a3 = 0 : a3 = amount / zarib2;
+            zarib3 == 0 ? a3 = 0 : a3 = a1 / zarib3;
             Price2 > 0 ? $("#unitPrice").val(NumberToNumberString(Price2)) : $("#unitPrice").val('');
         }
         else if (unitvalue == "3") {
-            a1 = (amount * zarib2) * (zarib2);
-            a2 = amount * zarib2;
+            a1 = (amount * zarib3);// * (zarib2);
+            a2 = a1 / zarib2;
             a3 = amount;
             Price3 > 0 ? $("#unitPrice").val(NumberToNumberString(Price3)) : $("#unitPrice").val('');
         }
