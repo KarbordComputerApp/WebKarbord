@@ -729,7 +729,7 @@
         $('#Plack').val(item.Plack);
         $('#ZipCode').val(item.ZipCode);
         $('#Tel').val(item.Tel);
-        $('#Mobile').val(item.Tel);
+        $('#Mobile').val(item.Mobile);
         $('#Fax').val(item.Fax);
         $('#EtebarNaghd').val(item.EtebarNaghd);
         $('#EtebarCheck').val(item.EtebarCheck);
