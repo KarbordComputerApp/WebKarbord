@@ -667,6 +667,7 @@
 
     self.AddNewCust = function () {
         cGruCode = '';
+        $('#Code').attr('readonly', false);
         $('#Code').val('');
         $('#Name').val('');
         $('#Spec').val('');
@@ -716,6 +717,7 @@
     self.UpdateCust = function (item) {
 
         $('#Code').val(item.Code);
+        $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
         $('#Spec').val(item.Spec);
         $('#MelliCode').val(item.MelliCode);

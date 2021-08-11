@@ -670,6 +670,8 @@
         $('#FanniNo').val('');
         $('#Spec').val('');
         $('#nameKGru').val('');
+        
+        $('#Code').attr('readonly', false);
 
         $('#UnitName1').val('');
         $('#UnitName2').val('');
@@ -715,6 +717,7 @@
     self.UpdateKala = function (item) {
 
         $('#Code').val(item.Code);
+        $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
         $('#FanniNo').val(item.FanniNo);
         $('#Spec').val(item.Spec);

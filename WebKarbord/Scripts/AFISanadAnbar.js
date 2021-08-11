@@ -2024,7 +2024,32 @@
 
         //$('#unitName').val(item.UnitName1);
         Price1 > 0 ? $("#unitPrice").val(NumberToNumberString(Price1)) : $("#unitPrice").val('');
-        $("#amounttext").text(item.UnitName1);
+
+
+
+        defaultUnit = item.DefaultUnit;
+        $('#unitName').val(defaultUnit);
+
+        if (defaultUnit == 1) {
+            $("#amounttext").val(item.UnitName1);
+            $("#iconzarib1").css("backgroundColor", "#c0bfbf");
+            $("#iconzarib2").css("backgroundColor", "white");
+            $("#iconzarib3").css("backgroundColor", "white");
+        }
+        else if (defaultUnit == 2) {
+            $("#amounttext").text(item.UnitName2);
+            $("#iconzarib1").css("backgroundColor", "white");
+            $("#iconzarib2").css("backgroundColor", "#c0bfbf");
+            $("#iconzarib3").css("backgroundColor", "white");
+        }
+        else if (defaultUnit == 3) {
+            $("#amounttext").text(item.UnitName3);
+            $("#iconzarib1").css("backgroundColor", "white");
+            $("#iconzarib2").css("backgroundColor", "white");
+            $("#iconzarib3").css("backgroundColor", "#c0bfbf");
+        }
+
+
         $("#txtzarib1").text(item.UnitName1);
         $("#txtzarib2").text(item.UnitName2);
         $("#txtzarib3").text(item.UnitName3);
