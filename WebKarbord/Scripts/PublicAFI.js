@@ -623,8 +623,10 @@ $("#SaveParam").click(function () {
     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {
 
         localStorage.removeItem('AccStatus');
+        localStorage.removeItem('FctStatus');
+        localStorage.removeItem('InvStatus');
         localStorage.removeItem('ErjDocYears');
-       
+
 
         $('#loadingsite').css('display', 'none');
         $('#loadingsite').attr('class', 'page-loader-wrapper');
@@ -2110,6 +2112,7 @@ function SetValidationErj() {
         $("#ErjaDOC_Menu").show();
         erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();
         erjaccess[3] == true ? $("#Erja_Resive").show() : $("#Erja_Resive").hide();
+        erjaccess[3] == true ? $("#P_NotificationErja").show() : $("#P_NotificationErja").hide();
         erjaccess[4] == true ? $("#Erja_Send").show() : $("#Erja_Send").hide();
         //erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
         //erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
@@ -2235,6 +2238,11 @@ $("#Erja_Resive").click(function () {
     sessionStorage.ModeCodeErja = 1;
 });
 
+$("#P_NotificationErja").click(function () {
+    sessionStorage.setItem('listFilter', null);
+    sessionStorage.ModeCodeErja = 1;
+});
+
 
 $("#Erja_Send").click(function () {
     sessionStorage.setItem('listFilter', null);
@@ -2273,7 +2281,7 @@ ShamsiDate();
 
 
 
-function showNotification(text, colorNumber, From, Align , time) {
+function showNotification(text, colorNumber, From, Align, time) {
 
     placementFrom = From == null ? sessionStorage.placementFrom : From;
     placementAlign = Align == null ? sessionStorage.placementAlign : Align;
@@ -2568,7 +2576,7 @@ function CreateTableColumn(data) {
     );
 }*/
 
-function SetColumn(code, indexId, data) {
+function SetColumn(code, indexId, data, mode) {
     var index = -1;
     var name = '';
     var user = '';
@@ -2617,7 +2625,8 @@ function SetColumn(code, indexId, data) {
                 code == "ArzName" ||
                 code == "ArzRate" ||
                 code == "ArzValue" ||
-
+                code == "ToUserName" && mode == "ErjDocB_Last1" ||
+                code == "FromUserName" && mode == "ErjDocB_Last2" ||
                 code == "Shobe" ||
                 code == "Jari" ||
                 code == "F01" ||
@@ -3179,7 +3188,7 @@ function FixSortName(name) {
         str = str.replace(String.fromCharCode(1740), String.fromCharCode(11033));
      */
 
-    if (typeof name == "string" && name != "" &&  name.substring(0, 4) != '    ') {
+    if (typeof name == "string" && name != "" && name.substring(0, 4) != '    ') {
         /*str = '';
             value = name.split('-');
             if (value.length > 1) {
@@ -3285,9 +3294,21 @@ function AlertErja() {
         ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + sessionStorage.group, 'POST', DocB_LastObject, false).done(function (response) {
             count = parseInt(response);
             if (count > 0) {
-                showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
+                $("#notificationCount").text(count);
+                // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
+            }
+            else {
+                $("#notificationCount").text('');
             }
         });
     }
+}
+
+if (sessionStorage.userName != 'ACE') {
+    $("#P_Box").hide();
+}
+
+if (sessionStorage.group == "0") {
+    $("#P_NotificationErja").hide();
 }
 

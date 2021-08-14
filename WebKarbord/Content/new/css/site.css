@@ -1675,3 +1675,15 @@ input[type="checkbox"] {
 .blink {
     animation: blinker 1s step-start infinite;
 }
+
+.notification {
+}
+
+    .notification .badge {
+        position: absolute;
+        top: -3px;
+        right: -10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+    }

@@ -193,6 +193,7 @@
     <Content Include="Content\img\Loading.png" />
     <Content Include="Content\img\loading.svg" />
     <Content Include="Content\img\mail.png" />
+    <Content Include="Content\img\notificationErja.png" />
     <Content Include="Content\img\repair-config.svg" />
     <Content Include="Content\img\repair-sal.svg" />
     <Content Include="Content\img\Repair.png" />

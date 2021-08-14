@@ -170,7 +170,7 @@
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
-                SetColumn(columns[i - 1], i, data);
+                SetColumn(columns[i - 1], i, data, rprtId + sessionStorage.ModeCodeErja);
             }
         });
     }
