@@ -319,6 +319,7 @@ $("#FReport_Menu").hide();
 $("#IReport_Menu").hide();
 $("#EReport_Menu").hide();
 $("#ErjaDOC_Menu").hide();
+$("#P_NotificationErja").hide();
 
 /*if (afiaccess[0] == 0 && afiaccess[1] == 0 &&
     afiaccess[2] == 0 && afiaccess[3] == 0 &&
@@ -2119,6 +2120,7 @@ function SetValidationErj() {
     }
     else {
         $("#ErjaDOC_Menu").hide();
+        $("#P_NotificationErja").hide();
     }
 
 

@@ -131,6 +131,8 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
     var rprtId = 'ErjDocB_Last';
+    //var rprtId = sessionStorage.ModeCodeErja == '1' ? 'ErjDocB_Last_D' : 'ErjDocB_Last_E';
+
     var columns = [
         'RjStatus',
         'RjDate',
