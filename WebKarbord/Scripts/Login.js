@@ -85,10 +85,11 @@
                 // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
                 sessionStorage.userName = '';
                 sessionStorage.pass = '';
+                sessionStorage.userNameFa = '';
 
                 localStorage.setItem("userName", '');
                 localStorage.setItem('password', '');
-                sessionStorage.userNameFa = '';
+                localStorage.setItem('userNameFa', '');
             }
             else {
 
@@ -171,6 +172,9 @@
                     res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
                     if (datalogin.ID == -1) {
                         res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
+
+                        //localStorage.setItem('userNameFa', '');
+
                         sessionStorage.userName = user.toUpperCase();
                         sessionStorage.pass = pass;
                         localStorage.setItem("userName", user.toUpperCase());

@@ -31,7 +31,6 @@ var resTestSavePrintForm = "";
 
 
 
-
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
 var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
 var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
@@ -637,6 +636,9 @@ $("#SaveParam").click(function () {
             if (data.search("لطفا منتظر بمانید") > 0) {
                 return showNotification(data, 0);
             }
+            else if (data == "UseLog") {
+                showNotification('اطلاعات در حال بازسازی است. لطفا منتظر بمانید', 2);
+            }
             else {
                 if (ace == 'Web8') {
                     return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ' + " <br /> <br />" + data, 0);
@@ -700,6 +702,9 @@ $("#repairDatabase").click(function () {
                             if (data.search("لطفا منتظر بمانید") > 0) {
                                 return showNotification(data, 0);
                             }
+                            else if (data == "UseLog") {
+                                showNotification('اطلاعات در حال بازسازی است. لطفا منتظر بمانید', 2);
+                            }
                             else {
                                 if (ace == 'Web8') {
                                     return showNotification(' اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی ' + sal + ' برای تمام سیستم ها ایجاد کرده اید ' + " <br /> <br />" + data, 0);
@@ -754,7 +759,11 @@ $("#repairDatabaseConfig").click(function () {
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
                         if (data == "OK") {
                             showNotification('بازسازی اطلاعات با موفقیت انجام شد', 1);
-                        } else {
+                        }
+                        else if (data == "UseLog") {
+                            showNotification('اطلاعات در حال بازسازی است. لطفا منتظر بمانید', 2);
+                        }
+                        else {
                             if (data.search("لطفا منتظر بمانید") > 0)
                                 return showNotification(data, 0);
                             else
@@ -2627,8 +2636,8 @@ function SetColumn(code, indexId, data, mode) {
                 code == "ArzName" ||
                 code == "ArzRate" ||
                 code == "ArzValue" ||
-                code == "ToUserName" && mode == "ErjDocB_Last1" ||
-                code == "FromUserName" && mode == "ErjDocB_Last2" ||
+                (code == "ToUserName" && mode == "ErjDocB_Last_D") ||
+                (code == "FromUserName" && mode == "ErjDocB_Last_E") ||
                 code == "Shobe" ||
                 code == "Jari" ||
                 code == "F01" ||

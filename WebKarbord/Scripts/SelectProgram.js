@@ -26,16 +26,25 @@
 
         $('#DropAce').text('');
         if (afi1List == "null"  && afi8List != "null" ) {
+            //localStorage.setItem('ace', 'Web8');
+            //localStorage.setItem('aceName', 'نرم افزار سیستم جامع');
+
             sessionStorage.ace = 'Web8';
             sessionStorage.aceName = 'نرم افزار سیستم جامع';
             $('#DropAce').text(sessionStorage.aceName);
         }
-        else if (afi1List != "null"  && afi8List == "null" ) {
+        else if (afi1List != "null" && afi8List == "null") {
+            //localStorage.setItem('ace', 'Web1');
+            //localStorage.setItem('aceName', 'نرم افزار مالی بازرگانی');
+
             sessionStorage.ace = 'Web1';
             sessionStorage.aceName = 'نرم افزار مالی بازرگانی';
             $('#DropAce').text(sessionStorage.aceName)
         }
         else {
+            //localStorage.setItem('ace', 'Web2');
+            //localStorage.setItem('aceName', 'نرم افزار اتوماسیون');
+
             sessionStorage.ace = 'Web2';
             sessionStorage.aceName = 'نرم افزار اتوماسیون';
             $('#DropAce').text(sessionStorage.aceName)

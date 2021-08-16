@@ -1,8 +1,14 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-    var group = sessionStorage.group;
+    //var ace = sessionStorage.ace;
+    //var sal = sessionStorage.sal;
+    //var group = sessionStorage.group;
+   
+    var ace = localStorage.getItem('ace');
+    var sal = localStorage.getItem('sal');
+    var group = localStorage.getItem('group'); 
+
+
     var flagupdateHeader = 0;
     var server = localStorage.getItem("ApiAddress");
 
@@ -74,7 +80,7 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             //ListColumns = data;
             if (FlagSetting) {
@@ -88,7 +94,7 @@
             }
 
 
-            ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + 'ADocP' + '/' + username, 'GET').done(function (data) {
+            ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + 'ADocP' + '/' + username, 'GET').done(function (data) {
                 ListColumns = data;
             });
 
@@ -98,7 +104,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -117,13 +123,13 @@
 
 
     $('#SaveColumns').click(function () {
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
         counterColumn = 0;
-        getRprtColsList(false, sessionStorage.userName);
+        getRprtColsList(false, localStorage.getItem("userName"));
     });
 
 
@@ -138,11 +144,11 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFISanad/index", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
-    getRprtColsList(true, sessionStorage.userName);
+    getRprtColsList(true, localStorage.getItem("userName"));
 
 
 
@@ -150,7 +156,7 @@
 
     //Get ADocH 
     function getADocH(select) {
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + sessionStorage.userName + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);
@@ -216,7 +222,7 @@
     $('#ChangeStatus').click(function () {
         var StatusChangeObject = {
             DMode: 0,
-            UserCode: sessionStorage.userName,
+            UserCode: localStorage.getItem("userName"),
             SerialNumber: serial,
             Status: self.StatusSanad(),
         };
@@ -633,7 +639,7 @@
 
     $('#AddNewSanad').click(function () {
         sessionStorage.flagupdateHeader = 0;
-        sessionStorage.Eghdam = sessionStorage.userName;
+        sessionStorage.Eghdam = localStorage.getItem("userName");
         sessionStorage.Status = 'موقت';
         sessionStorage.F01 = "";
         sessionStorage.F02 = "";
@@ -833,7 +839,7 @@
     self.ShowAction = function (Eghdam) {
         if (sessionStorage.DEL_ADOC == 'true') {
             if (sessionStorage.AccessViewSanad == 'false') {
-                return Eghdam == sessionStorage.userName ? true : false
+                return Eghdam == localStorage.getItem("userName") ? true : false
             }
             else {
                 return true;
@@ -1310,8 +1316,8 @@
         var MoveObject = {
             SerialNumber: serial,
             DocDate: docDate,
-            UserCode: sessionStorage.userName,
-            TahieShode: sessionStorage.ace,
+            UserCode: localStorage.getItem("userName"),
+            TahieShode: ace,
             DocNoMode: 1,
             InsertMode: 0,
             DocNo: 1,

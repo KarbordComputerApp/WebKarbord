@@ -130,8 +130,8 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'ErjDocB_Last';
-    //var rprtId = sessionStorage.ModeCodeErja == '1' ? 'ErjDocB_Last_D' : 'ErjDocB_Last_E';
+    //var rprtId = 'ErjDocB_Last';
+    var rprtId = sessionStorage.ModeCodeErja == '1' ? 'ErjDocB_Last_D' : 'ErjDocB_Last_E';
 
     var columns = [
         'RjStatus',
@@ -172,7 +172,7 @@
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
-                SetColumn(columns[i - 1], i, data, rprtId + sessionStorage.ModeCodeErja);
+                SetColumn(columns[i - 1], i, data, rprtId);
             }
         });
     }
@@ -1470,7 +1470,9 @@
                 RjReadSt: 'F'
             };
 
-            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) { });
+            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
+                AlertErja();
+            });
         }
     }
 
@@ -1894,6 +1896,7 @@
             else if (flagSave == false) {
                 $('#modal-Erja').modal('hide');
                 $('#modal-ErjDocErja').modal('hide');
+                AlertErja();
             }
 
             // list_ErjUsersRoneveshtSelect = new Array();
