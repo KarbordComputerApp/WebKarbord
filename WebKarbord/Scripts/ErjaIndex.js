@@ -1,15 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-
-    var aceErj = 'Web2';
-    var salErj = '0000';
-
-    var group = sessionStorage.group;
-    var server = localStorage.getItem("ApiAddress");
-
-
 
     self.ErjDocHList = ko.observableArray([]); // لیست گزارش  
     self.RelatedDocsList = ko.observableArray([]); // لیست گزارش  
@@ -394,10 +384,12 @@
         sort = localStorage.getItem("sort" + rprtId);
         sortType = localStorage.getItem("sortType" + rprtId);
 
-        if (sortType == "ascending")
-            sort = sort + " asc";
-        else
-            sort = sort + " desc"; 
+        if (sort != null) {
+            if (sortType == "ascending")
+                sort = sort + " asc";
+            else
+                sort = sort + " desc";
+        }
 
         var ErjDocHObject = {
             Mode: 0,

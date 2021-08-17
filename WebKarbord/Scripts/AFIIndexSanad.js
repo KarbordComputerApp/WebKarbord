@@ -1,16 +1,7 @@
 ﻿var ViewModel = function () {
     var self = this;
-    //var ace = sessionStorage.ace;
-    //var sal = sessionStorage.sal;
-    //var group = sessionStorage.group;
-   
-    var ace = localStorage.getItem('ace');
-    var sal = localStorage.getItem('sal');
-    var group = localStorage.getItem('group'); 
-
 
     var flagupdateHeader = 0;
-    var server = localStorage.getItem("ApiAddress");
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  

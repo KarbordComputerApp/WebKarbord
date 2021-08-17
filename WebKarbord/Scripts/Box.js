@@ -1,25 +1,15 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-
-    var aceErj = 'Web2';
-    var salErj = '0000';
-
-    var group = sessionStorage.group;
-    var server = localStorage.getItem("ApiAddress");
-
-
-
+   
     self.BoxList = ko.observableArray([]); // لیست اعلامیه ها  
 
 
-    var BoxUri = sessionStorage.serverAccount + 'Account/Box/'; // آدرس اعلامیه ها
-    var DownloadUri = sessionStorage.serverAccount + 'FileUpload/DownloadFile/'; // دانلود 
-    var AddBoxUri = sessionStorage.serverAccount + 'Account/InsertBox/'; // افزودن اعلامیه 
-    var UploadUri = sessionStorage.serverAccount + 'FileUpload/UploadFile/'; // افزودن اعلامیه 
-    var DeleteFileUri = sessionStorage.serverAccount + 'FileUpload/DeleteFile/'; // حذف پیوست اعلامیه 
-    var DeleteBoxUri = sessionStorage.serverAccount + 'Account/DeleteBox/'; // حذف  اعلامیه 
+    var BoxUri = serverAccount + 'Account/Box/'; // آدرس اعلامیه ها
+    var DownloadUri = serverAccount + 'FileUpload/DownloadFile/'; // دانلود 
+    var AddBoxUri = serverAccount + 'Account/InsertBox/'; // افزودن اعلامیه 
+    var UploadUri = serverAccount + 'FileUpload/UploadFile/'; // افزودن اعلامیه 
+    var DeleteFileUri = serverAccount + 'FileUpload/DeleteFile/'; // حذف پیوست اعلامیه 
+    var DeleteBoxUri = serverAccount + 'Account/DeleteBox/'; // حذف  اعلامیه 
 
 
     shamsiDate = ShamsiDate();

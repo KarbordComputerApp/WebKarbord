@@ -1,16 +1,19 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-    var group = sessionStorage.group;
+
     var flagupdateHeader = 0;
-    var server = localStorage.getItem("ApiAddress");
     sessionStorage.BeforeMoveFactor = false;
 
 
-    $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
-    $("#groupTest").text('نام گروه' + sessionStorage.group);
-    $("#salTest").text('سال مالی' + sessionStorage.sal);
+    $("#aceTest").text('نام نرم افزار' + ace);
+    $("#groupTest").text('نام گروه' + group);
+    $("#salTest").text('سال مالی' + sal);
+
+
+    sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+    sessionStorage.InOut = localStorage.getItem("InOut");
+    sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+
 
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.FDocHList1 = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش
@@ -254,7 +257,7 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             // ListColumns = data;
             if (FlagSetting) {
@@ -267,7 +270,7 @@
                 }
             }
 
-            ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + 'FDocP' + '/' + username, 'GET').done(function (data) {
+            ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + 'FDocP' + '/' + username, 'GET').done(function (data) {
                 ListColumns = data;
             });
 
@@ -277,7 +280,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -287,7 +290,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
@@ -308,7 +311,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
@@ -442,7 +445,7 @@
     }
 
     if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-        // getFDocH1(sessionStorage.sal);
+        // getFDocH1(sal);
     }
 
     getFDocH($('#pageCountSelector').val());
@@ -1666,7 +1669,7 @@
             SerialNumber: serial,
             DocDate: docDate,
             UserCode: sessionStorage.userName,
-            TahieShode: sessionStorage.ace,
+            TahieShode: ace,
             LastModeCode: sessionStorage.ModeCode,
             ModeCode: modeCodeMove,
             DocNoMode: 1,

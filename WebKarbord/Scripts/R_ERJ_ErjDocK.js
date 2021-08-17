@@ -1,13 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-
-    var aceErj = 'Web2';//sessionStorage.ace;
-    var salErj = '0000';//sessionStorage.sal;
-
-    var group = sessionStorage.group;
-    var server = localStorage.getItem("ApiAddress");
 
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها

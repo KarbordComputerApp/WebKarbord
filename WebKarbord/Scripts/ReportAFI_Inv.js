@@ -1,11 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-    var group = sessionStorage.group;
-    var flagupdateHeader = 0;
-    var server = localStorage.getItem("ApiAddress");
-
 
     self.IDocRList = ko.observableArray([]); // لیست اطلاعات انبار 
     self.InvList = ko.observableArray([]); // ليست انبار ها

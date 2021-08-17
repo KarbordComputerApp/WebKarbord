@@ -30,24 +30,34 @@
             //localStorage.setItem('aceName', 'نرم افزار سیستم جامع');
 
             sessionStorage.ace = 'Web8';
+            localStorage.setItem("ace", 'Web8');
+            localStorage.setItem("aceName", 'نرم افزار سیستم جامع');
             sessionStorage.aceName = 'نرم افزار سیستم جامع';
             $('#DropAce').text(sessionStorage.aceName);
+            $('#ace_TitleMenu').text(sessionStorage.aceName);
+            
         }
         else if (afi1List != "null" && afi8List == "null") {
             //localStorage.setItem('ace', 'Web1');
             //localStorage.setItem('aceName', 'نرم افزار مالی بازرگانی');
 
             sessionStorage.ace = 'Web1';
+            localStorage.setItem("ace", 'Web1');
+            localStorage.setItem("aceName", 'نرم افزار مالی بازرگانی');
             sessionStorage.aceName = 'نرم افزار مالی بازرگانی';
             $('#DropAce').text(sessionStorage.aceName)
+            $('#ace_TitleMenu').text(sessionStorage.aceName);
         }
         else {
             //localStorage.setItem('ace', 'Web2');
             //localStorage.setItem('aceName', 'نرم افزار اتوماسیون');
 
             sessionStorage.ace = 'Web2';
+            localStorage.setItem("ace", 'Web2');
             sessionStorage.aceName = 'نرم افزار اتوماسیون';
+            localStorage.setItem("aceName", 'نرم افزار اتوماسیون');
             $('#DropAce').text(sessionStorage.aceName)
+            $('#ace_TitleMenu').text(sessionStorage.aceName);
         }
     }
 
@@ -72,7 +82,8 @@
     }
 
     function SetSalData() {
-        var programSelect = sessionStorage.ace;
+        var programSelect = ace;
+
         var GroupSelect = $("#DropGroup").val();
         $("#DropSal").empty();
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
@@ -88,12 +99,12 @@
                 self.DatabseSalList(data);
                 if (self.DatabseSalList().length > 0) {
                     for (var i = 1; i < self.DatabseSalList().length + 1; i++) {
-                        var sal = self.DatabseSalList()[i - 1];
+                         salData = self.DatabseSalList()[i - 1];
                         $("#DropSal").append('<option value="'
-                            + sal.Code + '">'
-                            + sal.Name + '</option>');
-                        if (localStorage.getItem('sal') != null) {
-                            $("#DropSal").val(localStorage.getItem('sal'));
+                            + salData.Code + '">'
+                            + salData.Name + '</option>');
+                        if (sal != "") {
+                            $("#DropSal").val(sal);
                         }
                     }
                 }
@@ -119,11 +130,11 @@
         $('#information').hide();
     });
 
-    if (localStorage.getItem('ace') != null) {
-        $("#DropAce").val(localStorage.getItem('ace'));
+    if (ace != null) {
+        $("#DropAce").val(ace);
         SetGroupData();
-        if (localStorage.getItem('group') != null) {
-            $("#DropGroup").val(localStorage.getItem('group'));
+        if (group != null) {
+            $("#DropGroup").val(group);
             SetSalData();
         }
     }

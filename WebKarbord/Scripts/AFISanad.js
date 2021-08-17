@@ -1,9 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-    var group = sessionStorage.group;
-    var server = localStorage.getItem("ApiAddress");
 
     var flagupdateHeader;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
@@ -110,7 +106,7 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -128,7 +124,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -138,7 +134,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/AddAdoc", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFISanad/AddAdoc", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
@@ -159,7 +155,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFISanad/AddAdoc", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFISanad/AddAdoc", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
@@ -401,7 +397,7 @@
 
     //Get SanadCols List
     function getColsSanadList() {
-        ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
             self.SettingColumnList(data);
             CreateTableSanad(data);
         });
@@ -409,13 +405,13 @@
 
     //Get CheckCols List
     function getColsCheckList() {
-        ajaxFunction(ColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/CheckList/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/CheckList/' + sessionStorage.userName, 'GET').done(function (data) {
             CreateTableCheck(data);
         });
     }
 
     function getADocHLastDate() {
-        ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
+        ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group , 'GET').done(function (data) {
             self.DocDate(data);
             $('#btntarikh').click(function () {
                 $('#tarikh').change();
@@ -541,7 +537,7 @@
     else {
         flagInsertADocH = 0;
 
-        if (parseInt(sessionStorage.sal) < SalNow) {
+        if (parseInt(sal) < SalNow) {
             getADocHLastDate();
         }
     }
@@ -2563,7 +2559,7 @@
             Tanzim: '*' + sessionStorage.userName + '*',
             Taeed: status == "تایید" ? sessionStorage.userName : '',
             Tasvib: '',
-            TahieShode: sessionStorage.ace,
+            TahieShode: ace,
             Eghdam: sessionStorage.userName,
             Status: status,
             Spec: self.Spec(),
@@ -2647,7 +2643,7 @@
             Tanzim: '*' + sessionStorage.userName + '*',
             Taeed: status == "تایید" ? sessionStorage.userName : '',
             Tasvib: '',
-            TahieShode: sessionStorage.ace,
+            TahieShode: ace,
             Status: status,
             Spec: self.Spec(),
             Footer: $("#footer").val(),

@@ -17,6 +17,7 @@
 
 
     var serverAccount = 'http://localhost:902/api/';
+    localStorage.setItem("serverAccount", serverAccount);
 
 
     // var serverAccount = 'http://192.168.6.204:902/api/'; //Canada
@@ -31,7 +32,6 @@
         localStorage.setItem("MachineIdKarbord", id);
     }
 
-    sessionStorage.serverAccount = serverAccount;
 
     var AccountUri = serverAccount + 'Account/'; // آدرس حساب
     self.LoginList = ko.observableArray([]); // ليست حساب ها
@@ -95,6 +95,7 @@
 
                 var progCaption;
                 if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
+                    localStorage.setItem("ace", 'Web8');
                     sessionStorage.ace = 'Web8';
                     progCaption = ' وب : سیستم جامع';
                     groups = localStorage.getItem('afi8List');
@@ -140,12 +141,14 @@
 
 
                 } else if (localStorage.getItem('afi1List') != 'null' && localStorage.getItem('afi8List') == 'null') {
+                    localStorage.setItem("ace", 'Web1');
                     sessionStorage.ace = 'Web1';
                     progCaption = ' وب : مالی بازرگانی';
                     groups = localStorage.getItem('afi1List');
                     progName = "afi1"
                 }
                 else {
+                    localStorage.setItem("ace", 'Web2');
                     sessionStorage.ace = 'Web2';
                     progCaption = ' وب : اتوماسیون';
                     groups = localStorage.getItem('erjList');
@@ -177,6 +180,7 @@
 
                         sessionStorage.userName = user.toUpperCase();
                         sessionStorage.pass = pass;
+                        localStorage.setItem("userNameFa", sessionStorage.userNameFa);
                         localStorage.setItem("userName", user.toUpperCase());
                         localStorage.setItem('password', pass);
 
@@ -281,8 +285,11 @@
         LoginUri = server + '/api/Web_Data/Login/';
         LoginTestUri = server + '/api/Web_Data/LoginTest';
         //sessionStorage.ace = 0;
-        sessionStorage.group = 0;
-        sessionStorage.sal = 0;
+
+        //localStorage.setItem('ace', '');
+        //localStorage.setItem('group', '');
+        //localStorage.setItem('sal', '');
+
         localStorage.setItem('Access', null);
         localStorage.setItem('AccessErj', null);
         sessionStorage.SelectMenu = 0;
@@ -314,9 +321,11 @@
         //    asciipassAccount += (passAccount[i].charCodeAt(0) * 1024) + ',';
         //asciipassAccount += i;
 
-        sessionStorage.ace = 0;
-        sessionStorage.group = 0;
-        sessionStorage.sal = 0;
+
+        localStorage.setItem('ace', '');
+        localStorage.setItem('group', '');
+        localStorage.setItem('sal', '');
+
         getAccountData();
     }
 

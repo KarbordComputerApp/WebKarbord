@@ -1,8 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-    var group = sessionStorage.group;
     var forSels = true;
 
     var viewAction = false;
@@ -25,14 +22,12 @@
         $('#docnoout').attr('class', 'form-control ShomarehSanad');
     }
 
-    $("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
-    $("#groupTest").text('نام گروه' + sessionStorage.group);
-    $("#salTest").text('سال مالی' + sessionStorage.sal);
-    $("#salTest").text('سال مالی' + sessionStorage.sal);
+    $("#aceTest").text('نام نرم افزار' + ace);
+    $("#groupTest").text('نام گروه' + group);
+    $("#salTest").text('سال مالی' + sal);
 
     //var server = $("#server").text();
     //sessionStorage.searchFDocH = "";
-    var server = localStorage.getItem("ApiAddress");
 
     $('#textnumberfactor').hide();
     $('#finalSave_Title').attr('hidden', '');
@@ -295,7 +290,7 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             ListColumns = data;
         });
@@ -979,7 +974,7 @@
             StartNo: 0,
             EndNo: 0,
             Tanzim: '*' + sessionStorage.userName + '*',
-            TahieShode: sessionStorage.ace,
+            TahieShode: ace,
             VstrCode: '',
             VstrPer: 0,
             PakhshCode: '',
@@ -1114,7 +1109,7 @@
             StartNo: 0,
             EndNo: 0,
             Tanzim: '*' + sessionStorage.userName + '*',
-            TahieShode: sessionStorage.ace,
+            TahieShode: ace,
             VstrCode: 'null',
             VstrPer: 0,
             PakhshCode: '',
@@ -1697,7 +1692,7 @@
 
     //$('#DatileFactor').hide();
     if (flagupdateHeader != 1) {
-        if (parseInt(sessionStorage.sal) < SalNow)
+        if (parseInt(sal) < SalNow)
             getFDocHLastDate();
     }
 

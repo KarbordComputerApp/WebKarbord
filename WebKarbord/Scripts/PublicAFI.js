@@ -1,4 +1,157 @@
-﻿var server = localStorage.getItem("ApiAddress");
+﻿
+var server = localStorage.getItem('ApiAddress');
+var ace = localStorage.getItem('ace');
+var sal = localStorage.getItem('sal');
+var group = localStorage.getItem('group');
+var aceErj = 'Web2';
+var salErj = '0000';
+
+var userName = localStorage.getItem('userName', '');
+var pass = localStorage.getItem('password', '');
+
+
+sessionStorage.userNameFa = localStorage.getItem('userNameFa');
+sessionStorage.CoName = localStorage.getItem('CoName');
+sessionStorage.aceName = localStorage.getItem('aceName');
+sessionStorage.userName = userName;
+sessionStorage.pass = pass;
+var serverAccount = localStorage.getItem('serverAccount');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sessionStorage.CoName = localStorage.getItem("CoName");
+sessionStorage.BeginDate = localStorage.getItem("BeginDate");
+
+sessionStorage.EndDate = localStorage.getItem("EndDate");
+sessionStorage.Deghat = localStorage.getItem("Deghat");
+sessionStorage.InvDefult = localStorage.getItem("InvDefult");
+sessionStorage.GPriceDefultS = localStorage.getItem("GPriceDefultS");
+sessionStorage.GPriceDefultP = localStorage.getItem("GPriceDefultP");
+sessionStorage.GPriceDefultI = localStorage.getItem("GPriceDefultI");
+
+
+sessionStorage.ADOC_TestZeroPrice = localStorage.getItem("ADOC_TestZeroPrice");
+sessionStorage.ADOC_TestTraf = localStorage.getItem("ADOC_TestTraf");
+sessionStorage.ADOC_TestCheck = localStorage.getItem("ADOC_TestCheck");
+
+sessionStorage.FDOCSO_TestCust = localStorage.getItem("FDOCSO_TestCust");
+sessionStorage.FDOCSP_TestCust = localStorage.getItem("FDOCSP_TestCust");
+sessionStorage.FDOCS_TestCust = localStorage.getItem("FDOCS_TestCust");
+sessionStorage.FDOCSR_TestCust = localStorage.getItem("FDOCSR_TestCust");
+sessionStorage.FDOCSH_TestCust = localStorage.getItem("FDOCSH_TestCust");
+sessionStorage.FDOCSE_TestCust = localStorage.getItem("FDOCSE_TestCust");
+sessionStorage.FDOCPO_TestCust = localStorage.getItem("FDOCPO_TestCust");
+sessionStorage.FDOCPP_TestCust = localStorage.getItem("FDOCPP_TestCust");
+sessionStorage.FDOCP_TestCust = localStorage.getItem("FDOCP_TestCust");
+sessionStorage.FDOCPR_TestCust = localStorage.getItem("FDOCPR_TestCust");
+
+sessionStorage.FDOCSO_TestZeroAmount = localStorage.getItem("FDOCSO_TestZeroAmount");
+sessionStorage.FDOCSP_TestZeroAmount = localStorage.getItem("FDOCSP_TestZeroAmount");
+sessionStorage.FDOCS_TestZeroAmount = localStorage.getItem("FDOCS_TestZeroAmount");
+sessionStorage.FDOCSR_TestZeroAmount = localStorage.getItem("FDOCSR_TestZeroAmount");
+sessionStorage.FDOCSH_TestZeroAmount = localStorage.getItem("FDOCSH_TestZeroAmount");
+sessionStorage.FDOCSE_TestZeroAmount = localStorage.getItem("FDOCSE_TestZeroAmount");
+sessionStorage.FDOCPO_TestZeroAmount = localStorage.getItem("FDOCPO_TestZeroAmount");
+sessionStorage.FDOCPP_TestZeroAmount = localStorage.getItem("FDOCPP_TestZeroAmount");
+sessionStorage.FDOCP_TestZeroAmount = localStorage.getItem("FDOCP_TestZeroAmount");
+sessionStorage.FDOCPR_TestZeroAmount = localStorage.getItem("FDOCPR_TestZeroAmount");
+
+sessionStorage.FDOCSO_TestZeroPrice = localStorage.getItem("FDOCSO_TestZeroPrice");
+sessionStorage.FDOCSP_TestZeroPrice = localStorage.getItem("FDOCSP_TestZeroPrice");
+sessionStorage.FDOCS_TestZeroPrice = localStorage.getItem("FDOCS_TestZeroPrice");
+sessionStorage.FDOCSR_TestZeroPrice = localStorage.getItem("FDOCSR_TestZeroPrice");
+sessionStorage.FDOCSH_TestZeroPrice = localStorage.getItem("FDOCSH_TestZeroPrice");
+sessionStorage.FDOCSE_TestZeroPrice = localStorage.getItem("FDOCSE_TestZeroPrice");
+sessionStorage.FDOCPO_TestZeroPrice = localStorage.getItem("FDOCPO_TestZeroPrice");
+sessionStorage.FDOCPP_TestZeroPrice = localStorage.getItem("FDOCPP_TestZeroPrice");
+sessionStorage.FDOCP_TestZeroPrice = localStorage.getItem("FDOCP_TestZeroPrice");
+sessionStorage.FDOCPR_TestZeroPrice = localStorage.getItem("FDOCPR_TestZeroPrice");
+
+sessionStorage.FDOCSO_TestInv = localStorage.getItem("FDOCSO_TestInv");
+sessionStorage.FDOCSP_TestInv = localStorage.getItem("FDOCSP_TestInv");
+sessionStorage.FDOCS_TestInv = localStorage.getItem("FDOCS_TestInv");
+sessionStorage.FDOCSR_TestInv = localStorage.getItem("FDOCSR_TestInv");
+sessionStorage.FDOCSH_TestInv = localStorage.getItem("FDOCSH_TestInv");
+sessionStorage.FDOCSE_TestInv = localStorage.getItem("FDOCSE_TestInv");
+sessionStorage.FDOCPO_TestInv = localStorage.getItem("FDOCPO_TestInv");
+sessionStorage.FDOCPP_TestInv = localStorage.getItem("FDOCPP_TestInv");
+sessionStorage.FDOCP_TestInv = localStorage.getItem("FDOCP_TestInv");
+sessionStorage.FDOCPR_TestInv = localStorage.getItem("FDOCPR_TestInv");
+
+
+sessionStorage.IDOCI_TestThvl = localStorage.getItem("IDOCI_TestThvl");
+sessionStorage.IDOCO_TestThvl = localStorage.getItem("IDOCO_TestThvl");
+
+sessionStorage.IDOCI_TestZeroAmount = localStorage.getItem("IDOCI_TestZeroAmount");
+sessionStorage.IDOCO_TestZeroAmount = localStorage.getItem("IDOCO_TestZeroAmount");
+
+sessionStorage.AllInvSameNo = localStorage.getItem("AllInvSameNo");
+
+sessionStorage.IDOCIAmountAfterBarCode = localStorage.getItem("IDOCIAmountAfterBarCode");
+sessionStorage.IDOCOAmountAfterBarCode = localStorage.getItem("IDOCOAmountAfterBarCode");
+
+sessionStorage.FDOCSOAmountAfterBarCode = localStorage.getItem("FDOCSOAmountAfterBarCode");
+sessionStorage.FDOCSPAmountAfterBarCode = localStorage.getItem("FDOCSPAmountAfterBarCode");
+sessionStorage.FDOCSAmountAfterBarCode = localStorage.getItem("FDOCSAmountAfterBarCode");
+sessionStorage.FDOCSRAmountAfterBarCode = localStorage.getItem("FDOCSRAmountAfterBarCode");
+sessionStorage.FDOCSHAmountAfterBarCode = localStorage.getItem("FDOCSHAmountAfterBarCode");
+sessionStorage.FDOCSEAmountAfterBarCode = localStorage.getItem("FDOCSEAmountAfterBarCode");
+sessionStorage.FDOCPOAmountAfterBarCode = localStorage.getItem("FDOCPOAmountAfterBarCode");
+sessionStorage.FDOCPPAmountAfterBarCode = localStorage.getItem("FDOCPPAmountAfterBarCode");
+sessionStorage.FDOCPAmountAfterBarCode = localStorage.getItem("FDOCPAmountAfterBarCode");
+sessionStorage.FDOCPRAmountAfterBarCode = localStorage.getItem("FDOCPRAmountAfterBarCode");
+
+
+if (ace == 'Web8') {
+    sessionStorage.Move_SCONT = localStorage.getItem("Move_SCONT");
+    sessionStorage.Move_SORD = localStorage.getItem("Move_SORD");
+    sessionStorage.Move_SPFCT = localStorage.getItem("Move_SPFCT");
+    sessionStorage.Move_SFCT = localStorage.getItem("Move_SFCT");
+    sessionStorage.Move_SRFCT = localStorage.getItem("Move_SRFCT");
+    sessionStorage.Move_SHVL = localStorage.getItem("Move_SHVL");
+    sessionStorage.Move_SEXT = localStorage.getItem("Move_SEXT");
+    sessionStorage.Move_PCONT = localStorage.getItem("Move_PCONT");
+    sessionStorage.Move_PORD = localStorage.getItem("Move_PORD");
+    sessionStorage.Move_PPFCT = localStorage.getItem("Move_PPFCT");
+    sessionStorage.Move_PFCT = localStorage.getItem("Move_PFCT");
+    sessionStorage.Move_PRFCT = localStorage.getItem("Move_PRFCT");
+}
+else {
+    sessionStorage.Move_SPFCT = localStorage.getItem("Move_SPFCT");
+    sessionStorage.Move_SFCT = localStorage.getItem("Move_SFCT");
+    sessionStorage.Move_SRFCT = localStorage.getItem("Move_SRFCT");
+    sessionStorage.Move_PPFCT = localStorage.getItem("Move_PPFCT");
+    sessionStorage.Move_PFCT = localStorage.getItem("Move_PFCT");
+    sessionStorage.Move_PRFCT = localStorage.getItem("Move_PRFCT");
+}
+
+
+
+
+
+
+
+
+
 $('#TextUserName').text(sessionStorage.userName);
 var access = JSON.parse(localStorage.getItem("Access"));
 var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
@@ -31,6 +184,9 @@ var resTestSavePrintForm = "";
 
 
 
+
+
+
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
 var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
 var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
@@ -55,7 +211,7 @@ var TestSavePrintFormUri = server + '/api/Web_Data/TestSavePrintForm/'; // آد�
 var SelectedPrintFormUri = server + '/api/Web_Data/SelectedPrintForm/'; // آدرس انتخاب فرم چاپ
 var SelectedAccessGhimatPrintFormUri = server + '/api/Web_Data/SelectedAccessGhimatPrintForm/'; // آدرس دسترسی قیمت فرم چاپ
 
-var MessageUri = sessionStorage.serverAccount + 'Account/Messages/'; // آدرس پیام ها
+var MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
 
 
 
@@ -123,12 +279,12 @@ $('#userNameHome').text(sessionStorage.userNameFa + ' ');
 
 $('#coName_TitleMenu').val(sessionStorage.CoName);
 $('#ace_TitleMenu').val(sessionStorage.aceName);
-$('#group_TitleMenu').val(sessionStorage.group == "0" ? 'انتخاب نشده' : sessionStorage.group);
-$('#sal_TitleMenu').val(sessionStorage.sal == "0" ? 'انتخاب نشده' : sessionStorage.sal);
+$('#group_TitleMenu').val(group == "0" ? 'انتخاب نشده' : group);
+$('#sal_TitleMenu').val(sal == "0" ? 'انتخاب نشده' : sal);
 
 
 
-if (sessionStorage.ace == 'Web1') {
+if (ace == 'Web1') {
     sessionStorage.MODECODE_FDOC_SO = 0;
     sessionStorage.MODECODE_FDOC_SP = 51;
     sessionStorage.MODECODE_FDOC_S = 52;
@@ -176,20 +332,7 @@ const MODECODE_IDOC_OS = 109;
 const MODECODE_IDOC_IMAHSOOL = 110;
 const MODECODE_IDOC_OMAVAD = 111;
 
-//if (localStorage.getItem("ApiAddress");  == null || sessionStorage.ApiAddress == "") {
-//    sessionStorage.ApiAddress = $("#serverTest").text();
-//    server = sessionStorage.ApiAddress;
-//}
-//else
-//    server = sessionStorage.ApiAddress;
 
-//$("#aceTest").text('نام نرم افزار' + sessionStorage.ace);
-//$("#groupTest").text('نام گروه' + sessionStorage.group);
-//$("#salTest").text('سال مالی' + sessionStorage.sal);
-
-//  $("#ace").val(sessionStorage.ace);
-//  $("#group").val(sessionStorage.group);
-//  $("#sal").val(sessionStorage.sal);
 
 //تنظیمات هشدار ها
 
@@ -271,7 +414,7 @@ function CheckGroupErj(GroupName) {
 
 erjaccess = [false, false, false, false, false]
 
-if (CheckGroupErj(sessionStorage.group) == true) {
+if (CheckGroupErj(group) == true) {
     for (var i = 0; i < 5; i++) {
         erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
         erjAccessApi[i] == 'ErjDocErja' ? erjaccess[1] = true : null;
@@ -523,7 +666,7 @@ function GetDataApi(Url, localStorageName) { // دریافت اطلاعات از
 }
 
 function CountTable(tableName, ModeCode, InOut) {
-    ajaxFunction(CountTableUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + tableName + '/' + ModeCode + '/' + InOut, 'GET').done(function (dataCount) {
+    ajaxFunction(CountTableUri + ace + '/' + sal + '/' + group + '/' + tableName + '/' + ModeCode + '/' + InOut, 'GET').done(function (dataCount) {
         count = dataCount;
     });
     return count;
@@ -551,9 +694,8 @@ function SearchMode(name, myArray) {
 
 
 function SetSelectProgram() {
-    var ace = sessionStorage.ace;
-    var group = $("#DropGroup").val();
-    var sal = $("#DropSal").val();
+    group = $("#DropGroup").val();
+    sal = $("#DropSal").val();
 
     //group = group.length == 1 ? "0" + group : group;
 
@@ -579,9 +721,6 @@ function SetSelectProgram() {
         return false;
     }
     try {
-        //sessionStorage.ace = ace;
-        sessionStorage.group = group;
-        sessionStorage.sal = sal;
 
         localStorage.setItem('ace', ace);
         localStorage.setItem('group', group);
@@ -610,9 +749,12 @@ function SetSelectProgram() {
 //}
 
 $("#SaveParam").click(function () {
-    var ace = sessionStorage.ace;
-    var group = $("#DropGroup").val();
-    var sal = $("#DropSal").val();
+    group = $("#DropGroup").val();
+    sal = $("#DropSal").val();
+
+    localStorage.setItem('ace', ace);
+    localStorage.setItem('group', group);
+    localStorage.setItem('sal', sal);
 
     if (group == '0' || group == null)
         return showNotification('گروه را انتخاب کنید', 0);
@@ -657,9 +799,8 @@ $("#SaveParam").click(function () {
 
 
 $("#repairDatabase").click(function () {
-    var ace = sessionStorage.ace;
-    var group = $("#DropGroup").val();
-    var sal = $("#DropSal").val();
+    group = $("#DropGroup").val();
+    sal = $("#DropSal").val();
 
     if (group == '0' || group == null)
         return showNotification('گروه را انتخاب کنید', 0);
@@ -727,8 +868,6 @@ $("#repairDatabase").click(function () {
 
 
 $("#repairDatabaseConfig").click(function () {
-    var ace = sessionStorage.ace;
-
     Swal.fire({
         title: 'بازسازی اطلاعات سیستم',
         text: "آیا اطلاعات بازسازی شود ؟",
@@ -781,7 +920,7 @@ $("#repairDatabaseConfig").click(function () {
 
 
 function getProgName(value) {
-    if (sessionStorage.ace == 'Web8') {
+    if (ace == 'Web8') {
         if (value == 'A')
             return 'Acc5';
         else if (value == 'S')
@@ -789,7 +928,7 @@ function getProgName(value) {
         else if (value == 'P')
             return 'Inv5';
     }
-    else if (sessionStorage.ace == 'Web1')
+    else if (ace == 'Web1')
         return 'Afi1';
     else
         return 'نامشخص';
@@ -798,120 +937,211 @@ function getProgName(value) {
 //Get Param List
 async function getParamList() {
 
-    ajaxFunction(ParamUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group, 'GET', null, false).done(function (data) {
+    ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function (data) {
         ParamList(data);
         $('#information').hide();
         if (self.ParamList().length > 0) {
+
             sessionStorage.CoName = SearchArry("CoName", "Value", self.ParamList());
+            localStorage.setItem("CoName", sessionStorage.CoName);
+            $('#coName_TitleMenu').val(sessionStorage.CoName);
+
             sessionStorage.BeginDate = SearchArry("SalMali", "BeginDate", self.ParamList());
+            localStorage.setItem("BeginDate", sessionStorage.BeginDate);
+
             sessionStorage.EndDate = SearchArry("SalMali", "EndDate", self.ParamList());
+            localStorage.setItem("EndDate", sessionStorage.EndDate);
             sessionStorage.Deghat = SearchArry("Deghat", "Deghat", self.ParamList());
+            localStorage.setItem("Deghat", sessionStorage.Deghat);
             sessionStorage.InvDefult = SearchArry("Inv", "Default", self.ParamList());
+            localStorage.setItem("InvDefult", sessionStorage.InvDefult);
             sessionStorage.GPriceDefultS = SearchArry("KalaPriceS", "Default", self.ParamList());
+            localStorage.setItem("GPriceDefultS", sessionStorage.GPriceDefultS);
             sessionStorage.GPriceDefultP = SearchArry("KalaPriceP", "Default", self.ParamList());
+            localStorage.setItem("GPriceDefultP", sessionStorage.GPriceDefultP);
             sessionStorage.GPriceDefultI = SearchArry("KalaPriceI", "Default", self.ParamList());
+            localStorage.setItem("GPriceDefultI", sessionStorage.GPriceDefultI);
 
 
             sessionStorage.ADOC_TestZeroPrice = SearchArry("ADOC_TestZeroPrice", "ADOC_TestZeroPrice", self.ParamList());
+            localStorage.setItem("ADOC_TestZeroPrice", sessionStorage.ADOC_TestZeroPrice);
             sessionStorage.ADOC_TestTraf = SearchArry("ADOC_TestTraf", "ADOC_TestTraf", self.ParamList());
+            localStorage.setItem("ADOC_TestTraf", sessionStorage.ADOC_TestTraf);
             sessionStorage.ADOC_TestCheck = SearchArry("ADOC_TestCheck", "ADOC_TestCheck", self.ParamList());
+            localStorage.setItem("ADOC_TestCheck", sessionStorage.ADOC_TestCheck);
 
             sessionStorage.FDOCSO_TestCust = SearchArry("FDOCSO_TestCust", "FDOCSO_TestCust", self.ParamList());
+            localStorage.setItem("FDOCSO_TestCust", sessionStorage.FDOCSO_TestCust);
             sessionStorage.FDOCSP_TestCust = SearchArry("FDOCSP_TestCust", "FDOCSP_TestCust", self.ParamList());
+            localStorage.setItem("FDOCSP_TestCust", sessionStorage.FDOCSP_TestCust);
             sessionStorage.FDOCS_TestCust = SearchArry("FDOCS_TestCust", "FDOCS_TestCust", self.ParamList());
+            localStorage.setItem("FDOCS_TestCust", sessionStorage.FDOCS_TestCust);
             sessionStorage.FDOCSR_TestCust = SearchArry("FDOCSR_TestCust", "FDOCSR_TestCust", self.ParamList());
+            localStorage.setItem("FDOCSR_TestCust", sessionStorage.FDOCSR_TestCust);
             sessionStorage.FDOCSH_TestCust = SearchArry("FDOCSH_TestCust", "FDOCSH_TestCust", self.ParamList());
+            localStorage.setItem("FDOCSH_TestCust", sessionStorage.FDOCSH_TestCust);
             sessionStorage.FDOCSE_TestCust = SearchArry("FDOCSE_TestCust", "FDOCSE_TestCust", self.ParamList());
+            localStorage.setItem("FDOCSE_TestCust", sessionStorage.FDOCSE_TestCust);
             sessionStorage.FDOCPO_TestCust = SearchArry("FDOCPO_TestCust", "FDOCPO_TestCust", self.ParamList());
+            localStorage.setItem("FDOCPO_TestCust", sessionStorage.FDOCPO_TestCust);
             sessionStorage.FDOCPP_TestCust = SearchArry("FDOCPP_TestCust", "FDOCPP_TestCust", self.ParamList());
+            localStorage.setItem("FDOCPP_TestCust", sessionStorage.FDOCPP_TestCust);
             sessionStorage.FDOCP_TestCust = SearchArry("FDOCP_TestCust", "FDOCP_TestCust", self.ParamList());
+            localStorage.setItem("FDOCP_TestCust", sessionStorage.FDOCP_TestCust);
             sessionStorage.FDOCPR_TestCust = SearchArry("FDOCPR_TestCust", "FDOCPR_TestCust", self.ParamList());
+            localStorage.setItem("FDOCPR_TestCust", sessionStorage.FDOCPR_TestCust);
 
             sessionStorage.FDOCSO_TestZeroAmount = SearchArry("FDOCSO_TestZeroAmount", "FDOCSO_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCSO_TestZeroAmount", sessionStorage.FDOCSO_TestZeroAmount);
             sessionStorage.FDOCSP_TestZeroAmount = SearchArry("FDOCSP_TestZeroAmount", "FDOCSP_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCSP_TestZeroAmount", sessionStorage.FDOCSP_TestZeroAmount);
             sessionStorage.FDOCS_TestZeroAmount = SearchArry("FDOCS_TestZeroAmount", "FDOCS_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCS_TestZeroAmount", sessionStorage.FDOCS_TestZeroAmount);
             sessionStorage.FDOCSR_TestZeroAmount = SearchArry("FDOCSR_TestZeroAmount", "FDOCSR_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCSR_TestZeroAmount", sessionStorage.FDOCSR_TestZeroAmount);
             sessionStorage.FDOCSH_TestZeroAmount = SearchArry("FDOCSH_TestZeroAmount", "FDOCSH_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCSH_TestZeroAmount", sessionStorage.FDOCSH_TestZeroAmount);
             sessionStorage.FDOCSE_TestZeroAmount = SearchArry("FDOCSE_TestZeroAmount", "FDOCSE_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCSE_TestZeroAmount", sessionStorage.FDOCSE_TestZeroAmount);
             sessionStorage.FDOCPO_TestZeroAmount = SearchArry("FDOCPO_TestZeroAmount", "FDOCPO_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCPO_TestZeroAmount", sessionStorage.FDOCPO_TestZeroAmount);
             sessionStorage.FDOCPP_TestZeroAmount = SearchArry("FDOCPP_TestZeroAmount", "FDOCPP_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCPP_TestZeroAmount", sessionStorage.FDOCPP_TestZeroAmount);
             sessionStorage.FDOCP_TestZeroAmount = SearchArry("FDOCP_TestZeroAmount", "FDOCP_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCP_TestZeroAmount", sessionStorage.FDOCP_TestZeroAmount);
             sessionStorage.FDOCPR_TestZeroAmount = SearchArry("FDOCPR_TestZeroAmount", "FDOCPR_TestZeroAmount", self.ParamList());
+            localStorage.setItem("FDOCPR_TestZeroAmount", sessionStorage.FDOCPR_TestZeroAmount);
 
             sessionStorage.FDOCSO_TestZeroPrice = SearchArry("FDOCSO_TestZeroPrice", "FDOCSO_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCSO_TestZeroPrice", sessionStorage.FDOCSO_TestZeroPrice);
             sessionStorage.FDOCSP_TestZeroPrice = SearchArry("FDOCSP_TestZeroPrice", "FDOCSP_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCSP_TestZeroPrice", sessionStorage.FDOCSP_TestZeroPrice);
             sessionStorage.FDOCS_TestZeroPrice = SearchArry("FDOCS_TestZeroPrice", "FDOCS_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCS_TestZeroPrice", sessionStorage.FDOCS_TestZeroPrice);
             sessionStorage.FDOCSR_TestZeroPrice = SearchArry("FDOCSR_TestZeroPrice", "FDOCSR_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCSR_TestZeroPrice", sessionStorage.FDOCSR_TestZeroPrice);
             sessionStorage.FDOCSH_TestZeroPrice = SearchArry("FDOCSH_TestZeroPrice", "FDOCSH_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCSH_TestZeroPrice", sessionStorage.FDOCSH_TestZeroPrice);
             sessionStorage.FDOCSE_TestZeroPrice = SearchArry("FDOCSE_TestZeroPrice", "FDOCSE_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCSE_TestZeroPrice", sessionStorage.FDOCSE_TestZeroPrice);
             sessionStorage.FDOCPO_TestZeroPrice = SearchArry("FDOCPO_TestZeroPrice", "FDOCPO_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCPO_TestZeroPrice", sessionStorage.FDOCPO_TestZeroPrice);
             sessionStorage.FDOCPP_TestZeroPrice = SearchArry("FDOCPP_TestZeroPrice", "FDOCPP_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCPP_TestZeroPrice", sessionStorage.FDOCPP_TestZeroPrice);
             sessionStorage.FDOCP_TestZeroPrice = SearchArry("FDOCP_TestZeroPrice", "FDOCP_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCP_TestZeroPrice", sessionStorage.FDOCP_TestZeroPrice);
             sessionStorage.FDOCPR_TestZeroPrice = SearchArry("FDOCPR_TestZeroPrice", "FDOCPR_TestZeroPrice", self.ParamList());
+            localStorage.setItem("FDOCPR_TestZeroPrice", sessionStorage.FDOCPR_TestZeroPrice);
 
             sessionStorage.FDOCSO_TestInv = SearchArry("FDOCSO_TestInv", "FDOCSO_TestInv", self.ParamList());
+            localStorage.setItem("FDOCSO_TestInv", sessionStorage.FDOCSO_TestInv);
             sessionStorage.FDOCSP_TestInv = SearchArry("FDOCSP_TestInv", "FDOCSP_TestInv", self.ParamList());
+            localStorage.setItem("FDOCSP_TestInv", sessionStorage.FDOCSP_TestInv);
             sessionStorage.FDOCS_TestInv = SearchArry("FDOCS_TestInv", "FDOCS_TestInv", self.ParamList());
+            localStorage.setItem("FDOCS_TestInv", sessionStorage.FDOCS_TestInv);
             sessionStorage.FDOCSR_TestInv = SearchArry("FDOCSR_TestInv", "FDOCSR_TestInv", self.ParamList());
+            localStorage.setItem("FDOCSR_TestInv", sessionStorage.FDOCSR_TestInv);
             sessionStorage.FDOCSH_TestInv = SearchArry("FDOCSH_TestInv", "FDOCSH_TestInv", self.ParamList());
+            localStorage.setItem("FDOCSH_TestInv", sessionStorage.FDOCSH_TestInv);
             sessionStorage.FDOCSE_TestInv = SearchArry("FDOCSE_TestInv", "FDOCSE_TestInv", self.ParamList());
+            localStorage.setItem("FDOCSE_TestInv", sessionStorage.FDOCSE_TestInv);
             sessionStorage.FDOCPO_TestInv = SearchArry("FDOCPO_TestInv", "FDOCPO_TestInv", self.ParamList());
+            localStorage.setItem("FDOCPO_TestInv", sessionStorage.FDOCPO_TestInv);
             sessionStorage.FDOCPP_TestInv = SearchArry("FDOCPP_TestInv", "FDOCPP_TestInv", self.ParamList());
+            localStorage.setItem("FDOCPP_TestInv", sessionStorage.FDOCPP_TestInv);
             sessionStorage.FDOCP_TestInv = SearchArry("FDOCP_TestInv", "FDOCP_TestInv", self.ParamList());
+            localStorage.setItem("FDOCP_TestInv", sessionStorage.FDOCP_TestInv);
             sessionStorage.FDOCPR_TestInv = SearchArry("FDOCPR_TestInv", "FDOCPR_TestInv", self.ParamList());
+            localStorage.setItem("FDOCPR_TestInv", sessionStorage.FDOCPR_TestInv);
 
 
             sessionStorage.IDOCI_TestThvl = SearchArry("IDOCI_TestThvl", "IDOCI_TestThvl", self.ParamList());
+            localStorage.setItem("IDOCI_TestThvl", sessionStorage.IDOCI_TestThvl);
             sessionStorage.IDOCO_TestThvl = SearchArry("IDOCO_TestThvl", "IDOCO_TestThvl", self.ParamList());
+            localStorage.setItem("IDOCO_TestThvl", sessionStorage.IDOCO_TestThvl);
 
             sessionStorage.IDOCI_TestZeroAmount = SearchArry("IDOCI_TestZeroAmount", "IDOCI_TestZeroAmount", self.ParamList());
+            localStorage.setItem("IDOCI_TestZeroAmount", sessionStorage.IDOCI_TestZeroAmount);
             sessionStorage.IDOCO_TestZeroAmount = SearchArry("IDOCO_TestZeroAmount", "IDOCO_TestZeroAmount", self.ParamList());
+            localStorage.setItem("IDOCO_TestZeroAmount", sessionStorage.IDOCO_TestZeroAmount);
 
             sessionStorage.AllInvSameNo = SearchArry("AllInvSameNo", "AllInvSameNo", self.ParamList());
+            localStorage.setItem("AllInvSameNo", sessionStorage.AllInvSameNo);
 
             sessionStorage.IDOCIAmountAfterBarCode = SearchArry("IDOCIAmountAfterBarCode", "IDOCIAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("IDOCIAmountAfterBarCode", sessionStorage.IDOCIAmountAfterBarCode);
             sessionStorage.IDOCOAmountAfterBarCode = SearchArry("IDOCOAmountAfterBarCode", "IDOCOAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("IDOCOAmountAfterBarCode", sessionStorage.IDOCOAmountAfterBarCode);
 
             sessionStorage.FDOCSOAmountAfterBarCode = SearchArry("FDOCSOAmountAfterBarCode", "FDOCSOAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCSOAmountAfterBarCode", sessionStorage.FDOCSOAmountAfterBarCode);
             sessionStorage.FDOCSPAmountAfterBarCode = SearchArry("FDOCSPAmountAfterBarCode", "FDOCSPAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCSPAmountAfterBarCode", sessionStorage.FDOCSPAmountAfterBarCode);
             sessionStorage.FDOCSAmountAfterBarCode = SearchArry("FDOCSAmountAfterBarCode", "FDOCSAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCSAmountAfterBarCode", sessionStorage.FDOCSAmountAfterBarCode);
             sessionStorage.FDOCSRAmountAfterBarCode = SearchArry("FDOCSRAmountAfterBarCode", "FDOCSRAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCSRAmountAfterBarCode", sessionStorage.FDOCSRAmountAfterBarCode);
             sessionStorage.FDOCSHAmountAfterBarCode = SearchArry("FDOCSHAmountAfterBarCode", "FDOCSHAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCSHAmountAfterBarCode", sessionStorage.FDOCSHAmountAfterBarCode);
             sessionStorage.FDOCSEAmountAfterBarCode = SearchArry("FDOCSEAmountAfterBarCode", "FDOCSEAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCSEAmountAfterBarCode", sessionStorage.FDOCSEAmountAfterBarCode);
             sessionStorage.FDOCPOAmountAfterBarCode = SearchArry("FDOCPOAmountAfterBarCode", "FDOCPOAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCPOAmountAfterBarCode", sessionStorage.FDOCPOAmountAfterBarCode);
             sessionStorage.FDOCPPAmountAfterBarCode = SearchArry("FDOCPPAmountAfterBarCode", "FDOCPPAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCPPAmountAfterBarCode", sessionStorage.FDOCPPAmountAfterBarCode);
             sessionStorage.FDOCPAmountAfterBarCode = SearchArry("FDOCPAmountAfterBarCode", "FDOCPAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCPAmountAfterBarCode", sessionStorage.FDOCPAmountAfterBarCode);
             sessionStorage.FDOCPRAmountAfterBarCode = SearchArry("FDOCPRAmountAfterBarCode", "FDOCPRAmountAfterBarCode", self.ParamList());
+            localStorage.setItem("FDOCPRAmountAfterBarCode", sessionStorage.FDOCPRAmountAfterBarCode);
 
 
-            if (sessionStorage.ace == 'Web8') {
+            if (ace == 'Web8') {
                 sessionStorage.Move_SCONT = SearchArry("MoveTo", "SCONT", self.ParamList());
+                localStorage.setItem("Move_SCONT", sessionStorage.Move_SCONT);
                 sessionStorage.Move_SORD = SearchArry("MoveTo", "SORD", self.ParamList());
+                localStorage.setItem("Move_SORD", sessionStorage.Move_SORD);
                 sessionStorage.Move_SPFCT = SearchArry("MoveTo", "SPFCT", self.ParamList());
+                localStorage.setItem("Move_SPFCT", sessionStorage.Move_SPFCT);
                 sessionStorage.Move_SFCT = SearchArry("MoveTo", "SFCT", self.ParamList());
+                localStorage.setItem("Move_SFCT", sessionStorage.Move_SFCT);
                 sessionStorage.Move_SRFCT = SearchArry("MoveTo", "SRFCT", self.ParamList());
+                localStorage.setItem("Move_SRFCT", sessionStorage.Move_SRFCT);
                 sessionStorage.Move_SHVL = SearchArry("MoveTo", "SHVL", self.ParamList());
+                localStorage.setItem("Move_SHVL", sessionStorage.Move_SHVL);
                 sessionStorage.Move_SEXT = SearchArry("MoveTo", "SEXT", self.ParamList());
+                localStorage.setItem("Move_SEXT", sessionStorage.Move_SEXT);
                 sessionStorage.Move_PCONT = SearchArry("MoveTo", "PCONT", self.ParamList());
+                localStorage.setItem("Move_PCONT", sessionStorage.Move_PCONT);
                 sessionStorage.Move_PORD = SearchArry("MoveTo", "PORD", self.ParamList());
+                localStorage.setItem("Move_PORD", sessionStorage.Move_PORD);
                 sessionStorage.Move_PPFCT = SearchArry("MoveTo", "PPFCT", self.ParamList());
+                localStorage.setItem("Move_PPFCT", sessionStorage.Move_PPFCT);
                 sessionStorage.Move_PFCT = SearchArry("MoveTo", "PFCT", self.ParamList());
+                localStorage.setItem("Move_PFCT", sessionStorage.Move_PFCT);
                 sessionStorage.Move_PRFCT = SearchArry("MoveTo", "PRFCT", self.ParamList());
+                localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
             }
             else {
                 sessionStorage.Move_SPFCT = SearchArry("MoveTo", "51", self.ParamList());
+                localStorage.setItem("Move_SPFCT", sessionStorage.Move_SPFCT);
                 sessionStorage.Move_SFCT = SearchArry("MoveTo", "52", self.ParamList());
+                localStorage.setItem("Move_SFCT", sessionStorage.Move_SFCT);
                 sessionStorage.Move_SRFCT = SearchArry("MoveTo", "53", self.ParamList());
+                localStorage.setItem("Move_SRFCT", sessionStorage.Move_SRFCT);
                 sessionStorage.Move_PPFCT = SearchArry("MoveTo", "54", self.ParamList());
+                localStorage.setItem("Move_PPFCT", sessionStorage.Move_PPFCT);
                 sessionStorage.Move_PFCT = SearchArry("MoveTo", "55", self.ParamList());
+                localStorage.setItem("Move_PFCT", sessionStorage.Move_PFCT);
                 sessionStorage.Move_PRFCT = SearchArry("MoveTo", "56", self.ParamList());
+                localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
             }
 
 
             sessionStorage.invSelect = "";
-            /* $('#param1').text(sessionStorage.ace == "null" ? "انتخاب نشده است" : sessionStorage.ace);
-             $('#param2').text(sessionStorage.group == "null" ? "انتخاب نشده است" : sessionStorage.group);
-             $('#param3').text(sessionStorage.sal == "null" ? "انتخاب نشده است" : sessionStorage.sal);
+            localStorage.setItem("invSelect", sessionStorage.invSelect);
+            /* $('#param1').text(ace == "null" ? "انتخاب نشده است" : sessionStorage.ace);
+             $('#param2').text(group == "null" ? "انتخاب نشده است" : sessionStorage.group);
+             $('#param3').text(sal == "null" ? "انتخاب نشده است" : sessionStorage.sal);
              $('#param4').text(sessionStorage.BeginDate == "null" ? "انتخاب نشده است" : sessionStorage.BeginDate);
              $('#param5').text(sessionStorage.EndDate == "null" ? "انتخاب نشده است" : sessionStorage.EndDate);
              $('#param6').text(sessionStorage.Deghat == "null" ? "انتخاب نشده است" : sessionStorage.Deghat);
@@ -1024,7 +1254,7 @@ function GetShowField(Code, InOut) {
 //Get Access List
 function getAccessList() {
 
-    AccountUri = sessionStorage.serverAccount + 'Account/'; // آدرس حساب
+    AccountUri = serverAccount + 'Account/'; // آدرس حساب
     ajaxFunctionAccount(AccountUri + localStorage.getItem("userNameAccount") + '/' +
         localStorage.getItem("passAccount"), 'GET', true).done(function (data) {
             if (data === null) {
@@ -1054,7 +1284,7 @@ function getAccessList() {
 
 
 
-                if (sessionStorage.ace == 'Web1') {
+                if (ace == 'Web1') {
                     afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = ''
                 }
                 else {
@@ -1097,7 +1327,7 @@ function getAccessList() {
 
                 erjaccess = [false, false]
 
-                if (CheckGroupErj(sessionStorage.group) == true) {
+                if (CheckGroupErj(group) == true) {
                     for (var i = 0; i < 5; i++) {
                         erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
                         erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
@@ -1106,13 +1336,13 @@ function getAccessList() {
                         erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
                     }
 
-                    ajaxFunction(AccessUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                    ajaxFunction(AccessUri + aceErj + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                         self.AccessList(data);
                         if (self.AccessList().length > 0) {
                             localStorage.setItem('AccessErj', JSON.stringify(data));
                             accssErj = JSON.parse(localStorage.getItem("AccessErj"));
 
-                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                                 self.AccessListReport(data);
                                 if (self.AccessListReport().length > 0) {
                                     localStorage.setItem('AccessReportErj', JSON.stringify(data));
@@ -1126,7 +1356,7 @@ function getAccessList() {
 
                 }
 
-                ajaxFunction(AccessUri + sessionStorage.ace + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                ajaxFunction(AccessUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                     self.AccessList(data);
                     if (self.AccessList().length > 0) {
                         localStorage.setItem('Access', JSON.stringify(data));
@@ -1137,17 +1367,33 @@ function getAccessList() {
                         //}
 
 
-                        ajaxFunction(AccessReportUri + sessionStorage.ace + '/' + sessionStorage.group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                        ajaxFunction(AccessReportUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                             self.AccessListReport(data);
                             if (self.AccessListReport().length > 0) {
                                 localStorage.setItem('AccessReport', JSON.stringify(data));
                                 accessReport = JSON.parse(localStorage.getItem("AccessReport"));
                                 SetValidation();
-                                window.location.href = sessionStorage.urlIndex;
                             }
                         });
                     }
                 });
+
+                localStorage.setItem("Inbox", 0);
+                ajaxFunction(AccessUri + "null" + '/' + "0" + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].TrsName == "Inbox") {
+                                localStorage.setItem("Inbox", 1);
+                            }
+                        }
+                    }
+
+                    if (sessionStorage.userName == "ACE") {
+                        localStorage.setItem("Inbox", 1);
+                    }
+                    window.location.href = sessionStorage.urlIndex;
+                });
+
 
 
             }
@@ -1165,7 +1411,7 @@ function TestUser() {
         Country: '',
         City: '',
         UserCode: sessionStorage.userName,
-        ProgName: sessionStorage.ace,
+        ProgName: ace,
         ProgVer: '',
         ProgCaption: '',
         FlagTest: 1
@@ -2158,17 +2404,35 @@ $("#ADOC").click(function () {
 });
 
 $("#FDOC_SO").click(function () {
-    sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SO;
     sessionStorage.InOut = 2; // فروش
     sessionStorage.lastPageSelect = 0;
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
+
+$('#FDOC_SO').on("contextmenu", function () {
+    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SO;
+    sessionStorage.InOut = 2; // فروش
+    sessionStorage.lastPageSelect = 0;
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+}); 
+
 
 $("#FDOC_SP").click(function () {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SP;
     sessionStorage.InOut = 2; // فروش
     sessionStorage.lastPageSelect = 0;
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_S").click(function () {
@@ -2176,6 +2440,11 @@ $("#FDOC_S").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_S;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_SR").click(function () {
@@ -2183,13 +2452,22 @@ $("#FDOC_SR").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SR;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_SH").click(function () {
-    sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SH;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_SE").click(function () {
@@ -2197,6 +2475,11 @@ $("#FDOC_SE").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SE;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_PO").click(function () {
@@ -2204,6 +2487,11 @@ $("#FDOC_PO").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PO;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_PP").click(function () {
@@ -2211,6 +2499,11 @@ $("#FDOC_PP").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PP;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#FDOC_P").click(function () {
@@ -2218,6 +2511,11 @@ $("#FDOC_P").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_P;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 
@@ -2226,6 +2524,11 @@ $("#FDOC_PR").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PR;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#IDOC_I").click(function () {
@@ -2233,6 +2536,11 @@ $("#IDOC_I").click(function () {
     sessionStorage.ModeCode = '';
     sessionStorage.InOut = 1;
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 $("#IDOC_O").click(function () {
@@ -2240,24 +2548,35 @@ $("#IDOC_O").click(function () {
     sessionStorage.ModeCode = '';
     sessionStorage.InOut = 2;
     sessionStorage.lastPageSelect = 0;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
+    localStorage.setItem('InOut', sessionStorage.InOut);
+    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
 
 
 
 $("#Erja_Resive").click(function () {
-    sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCodeErja = 1;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
 });
 
 $("#P_NotificationErja").click(function () {
-    sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCodeErja = 1;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
 });
 
 
 $("#Erja_Send").click(function () {
-    sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCodeErja = 2;
+
+    localStorage.setItem('listFilter', null);
+    localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
 });
 
 
@@ -2745,7 +3064,7 @@ function LogOut() {
     var LogOutObject = {
         MachineId: MachineId,
         UserCode: sessionStorage.userName,
-        ProgName: sessionStorage.ace
+        ProgName: ace
     }
     ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
         sessionStorage.userName = '';
@@ -3061,7 +3380,7 @@ function GetPrintForms(Mode) {
         LockNumber: lockNumber,
         mode: Mode
     };
-    ajaxFunction(PrintFormsUri + sessionStorage.ace, 'POST', PrintForms_Object).done(function (data) {
+    ajaxFunction(PrintFormsUri + ace, 'POST', PrintForms_Object).done(function (data) {
         PrintFormsList(data);
     });
 }
@@ -3099,7 +3418,7 @@ function DeletePrintForm(address) {
         LockNumber: lockNumber,
         Address: address
     };
-    ajaxFunction(DeletePrintFormUri + sessionStorage.ace, 'POST', DeletePrintForm_Object).done(function (data) {
+    ajaxFunction(DeletePrintFormUri + ace, 'POST', DeletePrintForm_Object).done(function (data) {
 
     });
 }
@@ -3111,7 +3430,7 @@ function TestSavePrintForm(mode, name) {
         Name: name,
         Mode: mode
     };
-    ajaxFunction(TestSavePrintFormUri + sessionStorage.ace, 'POST', TestSavePrintForm_Object).done(function (data) {
+    ajaxFunction(TestSavePrintFormUri + ace, 'POST', TestSavePrintForm_Object).done(function (data) {
         resTestSavePrintForm = data;
     });
 }
@@ -3124,7 +3443,7 @@ function SavePrintForm(mode, name, data) {
         Mode: mode,
         Data: data
     };
-    ajaxFunction(SavePrintFormUri + sessionStorage.ace, 'POST', SavePrintForm_Object).done(function (data) {
+    ajaxFunction(SavePrintFormUri + ace, 'POST', SavePrintForm_Object).done(function (data) {
 
     });
 }
@@ -3137,7 +3456,7 @@ function SelectedPrintForm(address, isPublic) {
         Address: address,
         isPublic: isPublic,
     };
-    ajaxFunction(SelectedPrintFormUri + sessionStorage.ace, 'POST', SelectedPrintForm_Object).done(function (data) {
+    ajaxFunction(SelectedPrintFormUri + ace, 'POST', SelectedPrintForm_Object).done(function (data) {
 
     });
 }
@@ -3150,7 +3469,7 @@ function SelectedAccessGhimatPrintForm(address, isPublic) {
         Address: address,
         isPublic: isPublic,
     };
-    ajaxFunction(SelectedAccessGhimatPrintFormUri + sessionStorage.ace, 'POST', SelectedAccessGhimatPrintForm_Object).done(function (data) {
+    ajaxFunction(SelectedAccessGhimatPrintFormUri + ace, 'POST', SelectedAccessGhimatPrintForm_Object).done(function (data) {
         if (data == "FindFile") {
             showNotification('فایلی با نام مشابه وجود دارد و امکان تغییر نیست', 0);
         }
@@ -3302,7 +3621,7 @@ function AlertErja() {
             khdtCode: '',
             srchSt: '',
         };
-        ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + sessionStorage.group, 'POST', DocB_LastObject, false).done(function (response) {
+        ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
             count = parseInt(response);
             if (count > 0) {
                 $("#notificationCount").text(count);
@@ -3315,11 +3634,13 @@ function AlertErja() {
     }
 }
 
-if (sessionStorage.userName != 'ACE') {
-    $("#P_Box").hide();
+$("#P_Box").hide();
+
+if (localStorage.getItem("Inbox") == "1") {
+    $("#P_Box").show();
 }
 
-if (sessionStorage.group == "0") {
+if (group == "0") {
     $("#P_NotificationErja").hide();
 }
 

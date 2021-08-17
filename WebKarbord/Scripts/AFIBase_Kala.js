@@ -1,10 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-
-    var group = sessionStorage.group;
-    var server = localStorage.getItem("ApiAddress");
 
     self.KalaList = ko.observableArray([]); // ليست کالاها
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -62,7 +57,7 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             // ListColumns = data;
             if (FlagSetting) {
@@ -75,7 +70,7 @@
                 }
             }
 
-            ajaxFunction(RprtColsUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
                 ListColumns = data;
             });
 
@@ -85,7 +80,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + sessionStorage.ace + '/' + sessionStorage.sal + '/' + sessionStorage.group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -103,7 +98,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
@@ -124,7 +119,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(sessionStorage.ace, sessionStorage.sal, sessionStorage.group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 

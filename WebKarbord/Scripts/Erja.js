@@ -1,13 +1,5 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var ace = sessionStorage.ace;
-    var sal = sessionStorage.sal;
-
-    var aceErj = 'Web2';
-    var salErj = '0000';
-
-    var group = sessionStorage.group;
-    var server = localStorage.getItem("ApiAddress");
 
     var serialNumber = 0;
     var serialNumberAttach = 0;
