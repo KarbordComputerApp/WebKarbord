@@ -17,7 +17,69 @@ sessionStorage.userName = userName;
 sessionStorage.pass = pass;
 var serverAccount = localStorage.getItem('serverAccount');
 
+sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 
+
+//localStorage.setItem("NewTab", "ShowNewTab");
+var ShowNewTab = localStorage.getItem('NewTab');
+
+if (ShowNewTab == "ShowNewTab") {
+    $("#checkbox_ShowNewTab").prop('checked', true);
+    $('.useBlank').attr('target', '_blank');
+}
+else {
+    $("#checkbox_ShowNewTab").prop('checked', false);
+    $('.useBlank').attr('target', '');
+}
+
+
+$("#checkbox_ShowNewTab").click(function () {
+
+    if ($('#checkbox_ShowNewTab').is(':checked') == true) {
+        localStorage.setItem("NewTab", "ShowNewTab");
+        $('.useBlank').attr('target', '_blank');
+    }
+    else {
+        localStorage.setItem("NewTab", "NotShowNewTab");
+        $('.useBlank').attr('target', '');
+    }
+});
+
+
+
+
+
+href = window.location.href;
+sp = href.split('/');
+hrefHome = '/' + sp[3] + '/' + sp[4];
+hrefSetting = '/' + sp[3] + '/' + sp[4];
+
+
+
+if (ShowNewTab == "ShowNewTab" && (hrefHome != localStorage.getItem("urlIndex") && hrefSetting != localStorage.getItem("urlSetting")) ) {
+    $("#P_Setting").css({ display: "none" });
+    $("#P_Home").css({ display: "none" });
+    $("body").addClass("side-closed");
+    $("body").addClass("submenu-closed");
+    $(".sidebar-user-panel").css({ display: "none" });
+}
+else
+{
+    $("#P_Setting").css({ display: "block" });
+    $("#P_Home").css({ display: "block" });
+    $("body").removeClass("side-closed");
+    $("body").removeClass("submenu-closed");
+    $(".sidebar-user-panel").css({ display: "block" });
+}
+
+
+if (ShowNewTab == "ShowNewTab" && hrefHome == localStorage.getItem("urlIndex")) {
+    $("#P_Home").css({ display: "none" });
+}
+
+if (ShowNewTab == "ShowNewTab" && hrefSetting == localStorage.getItem("urlSetting")) {
+    $("#P_Setting").css({ display: "none" });
+}
 
 
 
@@ -733,6 +795,7 @@ function SetSelectProgram() {
         getAccessList();
         $('#SaveParam').removeAttr('disabled');
 
+        localStorage.setItem("ModeCode", '');
         sessionStorage.ModeCode = '';
 
         return true;
@@ -1391,7 +1454,7 @@ function getAccessList() {
                     if (sessionStorage.userName == "ACE") {
                         localStorage.setItem("Inbox", 1);
                     }
-                    window.location.href = sessionStorage.urlIndex;
+                    window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
                 });
 
 
@@ -1421,7 +1484,7 @@ function TestUser() {
         if (datalogin.ID >= 0) {
             //showNotification('لطفا دوباره وارد شوید', 0);
             //sleep(10000);
-            window.location.href = sessionStorage.urlLogin;
+            window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
         }
     });
 
@@ -1521,8 +1584,11 @@ function SetValidation() {
     ShowMenu[30] = validation;  // گزارش کاردکس
 
 
-    sessionStorage.FDoc_REP_PRICE = CheckAccessReport('FDoc_REP_PRICE'); // خرید و فروش دسترسی مبلغ در گزارشات
-    sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');// دسترسی مبلغ در گزارشات انبار
+    //localStorage.setItem("", );
+    localStorage.setItem("FDoc_REP_PRICE", CheckAccessReport('FDoc_REP_PRICE')); // خرید و فروش دسترسی مبلغ در گزارشات
+    localStorage.setItem("IDoc_REP_PRICE", CheckAccessReport('IDoc_REP_PRICE')); // دسترسی مبلغ در گزارشات انبار
+    //sessionStorage.FDoc_REP_PRICE = CheckAccessReport('FDoc_REP_PRICE');
+    //sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');
 
 
 
@@ -1545,36 +1611,38 @@ function SetValidation() {
     if (sessionStorage.ModeCode == 'ADOC') {
         validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
         validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
+
+        localStorage.setItem("moveSanad", validation);
         sessionStorage.moveSanad = validation;
 
         validation = CheckAccess('CHG_ADOC');// edit Sanad Hesab
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
+        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
         validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
 
         validation = CheckAccess('DEL_ADOC'); // delete Sanad Hesab
         validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
-        validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
+        validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
+
 
         validation = CheckAccess('TAEED_ADOC');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
+        validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
 
         validation = CheckAccess('DAEM_ADOC');// AccessDaem
-        validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
-
+        validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
 
         validation = CheckAccess('OTHERUSER_VIEW_ADOC');
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
 
         validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
-        validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
+        validation == true ? localStorage.setItem("AccessPrint_SanadHesab", "true") : localStorage.setItem("AccessPrint_SanadHesab", "false")
 
 
         validation = CheckAccess('OTHERUSER_CHG_ADOC');// AccessViewADoc
         if (validation == true) {
-            sessionStorage.AccessViewSanad = true;
+            localStorage.setItem("AccessViewSanad", "true"); 
         }
         else {
-            sessionStorage.AccessViewSanad = false;
+            localStorage.setItem("AccessViewSanad", "false"); 
         }
     }
 
@@ -2300,7 +2368,7 @@ function SetValidation() {
         }
     }
 
-    // window.location.href = sessionStorage.urlIndex;
+    // window.location.href = localStorage.getItem("urlIndex");
 
     /*if (afiaccess[0] == 0 && afiaccess[1] == 0 &&
    afiaccess[2] == 0 && afiaccess[3] == 0 &&
@@ -2397,8 +2465,26 @@ function SetValidationErj() {
 }
 
 
+
+$('.rightClick').on("contextmenu", function () {
+    id = $(this).attr('id');
+    if (id == "ADOC") {
+        sessionStorage.setItem('listFilter', null);
+        localStorage.setItem("ModeCode", 'ADOC');
+        sessionStorage.ModeCode = 'ADOC';
+        sessionStorage.lastPageSelect = 0;
+    }
+  
+}); 
+
+$('.rightClick').click("contextmenu", function () {
+    id = $(this).attr('id');
+
+}); 
+
 $("#ADOC").click(function () {
     sessionStorage.setItem('listFilter', null);
+    localStorage.setItem("ModeCode", 'ADOC');
     sessionStorage.ModeCode = 'ADOC';
     sessionStorage.lastPageSelect = 0;
 });
@@ -2412,16 +2498,6 @@ $("#FDOC_SO").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 });
-
-$('#FDOC_SO').on("contextmenu", function () {
-    sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SO;
-    sessionStorage.InOut = 2; // فروش
-    sessionStorage.lastPageSelect = 0;
-    localStorage.setItem('listFilter', null);
-    localStorage.setItem('ModeCode', sessionStorage.ModeCode);
-    localStorage.setItem('InOut', sessionStorage.InOut);
-    localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
-}); 
 
 
 $("#FDOC_SP").click(function () {
@@ -2437,6 +2513,7 @@ $("#FDOC_SP").click(function () {
 
 $("#FDOC_S").click(function () {
     sessionStorage.setItem('listFilter', null);
+    localStorage.setItem("ModeCode", sessionStorage.MODECODE_FDOC_S);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_S;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
@@ -3071,7 +3148,7 @@ function LogOut() {
         sessionStorage.pass = '';
         localStorage.setItem("userName", '');
         localStorage.setItem('password', '');
-        window.location.href = sessionStorage.urlLogin;
+        window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
     });
 }
 

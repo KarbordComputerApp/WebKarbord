@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="PRAGMA" content="NO-CACHE">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>کاربرد کامپیوتر</title>
+    <title>@ViewBag.Title</title>
     <link rel="icon" href="~/Content/new/img/loading.png" type="image/x-icon" />
     <link href="~/Content/new/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/new/css/materialize.min.css" rel="stylesheet" />
@@ -93,7 +93,7 @@
 
 
 
-                <ul class="pull-right">
+                <ul class="pull-right" style="padding-right: 0px;">
                     <li>
                         <a href="javascript:void(0);" class="sidemenu-collapse">
                             <i class="material-icons">reorder</i>
@@ -158,35 +158,35 @@
                                     </li>
                                 </ul>
                                 <!--
-                 <ul class="user_dw_menu">
-                          <li>
-                              <a href="javascript:void(0);">
-                                  <i class="material-icons">person</i>پروفایل
-                              </a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0);">
-                                  <i class="material-icons">feedback</i>بازخورد
-                              </a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0);">
-                                  <i class="material-icons">help</i>راهنما
-                              </a>
-                          </li>
-                          <li>
-                              <a id="LogOut">
-                                  <i class="material-icons">power_settings_new</i>خروج
-                              </a>
-                          </li>
-                </ul>-->
+                                 <ul class="user_dw_menu">
+                                          <li>
+                                              <a href="javascript:void(0);">
+                                                  <i class="material-icons">person</i>پروفایل
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="javascript:void(0);">
+                                                  <i class="material-icons">feedback</i>بازخورد
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="javascript:void(0);">
+                                                  <i class="material-icons">help</i>راهنما
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a id="LogOut">
+                                                  <i class="material-icons">power_settings_new</i>خروج
+                                              </a>
+                                          </li>
+                                </ul>-->
                             </li>
                         </ul>
 
                     </li>
 
                     <li style="color: #e77e22;font-size: 35px;margin-top: 5px;margin-right: 8px;" class="pull-left">|</li>
-                    <li class="pull-left">
+                    <li class="pull-left" id="P_Setting">
                         <a href="/Home/Setting" class="dropdown-toggle" data-close="true">
                             <img src="~/Content/img/streamline-icon-cog-1@48x48.png" width="16" height="16" />
                         </a>
@@ -194,7 +194,7 @@
 
 
 
-                    <li class="pull-left">
+                    <li class="pull-left" id="P_Home">
                         <a href="/Home/Index" class="dropdown-toggle" data-close="true">
                             <img src="~/Content/img/streamline-icon-house-2@48x48.png" width="16" height="16" />
                         </a>
@@ -264,44 +264,83 @@
                 <!--<li id="Select_ACE">
                     @Html.ActionLink("انتخاب نرم افزار", "Index", "Home")
                 </li>-->
-                
-                
+
+
                 <li id="Base_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
-                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
                         <span>اطلاعات پایه</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="BaseKala">@Html.ActionLink("کالا", "Kala", "AFIBase")</li>
-                        <li id="BaseKala">@Html.ActionLink("خریداران/فروشندگان", "Cust", "AFIBase")</li>
+                        <li id="BaseKala" class="rightClick">
+                            <!--@Html.ActionLink("کالا", "Kala", "AFIBase")-->
+                            <a class="useBlank" target="_blank" href=@Url.Action("Kala","AFIBase")> کالا ها</a>
+                        </li>
+                        <li id="BaseCust" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Cust","AFIBase")> خریداران/فروشندگان</a>
+                        </li>
                     </ul>
                 </li>
-                
+
                 <li id="ADOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
-                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
                         <span>اسناد حسابداری</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="ADOC">@Html.ActionLink("سند حسابداری", "Index", "AFISanad")</li>
+                        <li id="ADOC" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFISanad")>سند حسابداری</a>
+                        </li>
                     </ul>
                 </li>
 
                 <li id="FDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
-                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                             <!--<img src="~/Content/img/docsels.png" width="24" /> -->
                         </i>
                         <span>اسناد خرید و فروش</span>
                     </a>
 
                     <ul class="ml-menu">
-                        <li id="FDOC_SO">@Html.ActionLink("سفارش فروش", "Index", "AFIFactor")</li>
+                        <li id="FDOC_SO" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")> سفارش فروش</a>
+                        </li>
+                        <li id="FDOC_SP" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>پیش فاکتور فروش</a>
+                        </li>
+
+                        <li id="FDOC_S" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>فاکتور فروش</a>
+                        </li>
+                        <li id="FDOC_SR" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>برگشت از فروش</a>
+                        </li>
+                        <li id="FDOC_SH" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>حواله فروش</a>
+                        </li>
+                        <li id="FDOC_SE" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>برگه خروج</a>
+                        </li>
+                        <li id="FDOC_PO" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>سفارش خرید</a>
+                        </li>
+                        <li id="FDOC_PP" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>پیش فاکتور خرید</a>
+                        </li>
+                        <li id="FDOC_P" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>فاکتور خرید</a>
+                        </li>
+                        <li id="FDOC_PR" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>برگشت از خرید</a>
+                        </li>
+
+                        <!--><li id="FDOC_SO">@Html.ActionLink("سفارش فروش", "Index", "AFIFactor")</li>
                         <li id="FDOC_SP">@Html.ActionLink("پیش فاکتور فروش", "Index", "AFIFactor")</li>
                         <li id="FDOC_S"> @Html.ActionLink("فاکتور فروش", "Index", "AFIFactor")</li>
                         <li id="FDOC_SR">@Html.ActionLink("برگشت از فروش", "Index", "AFIFactor")</li>
@@ -310,7 +349,7 @@
                         <li id="FDOC_PO">@Html.ActionLink("سفارش خرید", "Index", "AFIFactor")</li>
                         <li id="FDOC_PP">@Html.ActionLink("پیش فاکتور خرید", "Index", "AFIFactor")</li>
                         <li id="FDOC_P"> @Html.ActionLink("فاکتور خرید", "Index", "AFIFactor")</li>
-                        <li id="FDOC_PR">@Html.ActionLink("برگشت از خرید", "Index", "AFIFactor")</li>
+                        <li id="FDOC_PR">@Html.ActionLink("برگشت از خرید", "Index", "AFIFactor")</li>-->
                     </ul>
                 </li>
 
@@ -319,13 +358,20 @@
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
                             <!-- <img src="~/Content/img/SanadAnbar.png" width="24" />-->
-                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
                         <span>اسناد انبار</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="IDOC_I">@Html.ActionLink("اسناد وارده به انبار", "Index", "AFISanadAnbar")</li>
-                        <li id="IDOC_O">@Html.ActionLink("اسناد صادره از انبار", "Index", "AFISanadAnbar")</li>
+                        <li id="IDOC_I" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFISanadAnbar")>اسناد وارده به انبار</a>
+                        </li>
+                        <li id="IDOC_O" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFISanadAnbar")>اسناد صادره از انبار</a>
+                        </li>
+
+                        <!--><li id="IDOC_I">@Html.ActionLink("اسناد وارده به انبار", "Index", "AFISanadAnbar")</li>
+                        <li id="IDOC_O">@Html.ActionLink("اسناد صادره از انبار", "Index", "AFISanadAnbar")</li>-->
                     </ul>
                 </li>
 
@@ -343,14 +389,26 @@
                 <li id="ErjaDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
-                            <img src="~/Content/img/SanadAnbarWhite.png" width="24" />
+                            <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
                         <span>اسناد اتوماسیون</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="ErjaDOC">@Html.ActionLink("پرونده", "Index", "ERJ")</li>
-                        <li id="Erja_Resive">@Html.ActionLink("ارجاعات پرونده دریافتی", "Erja", "ERJ")</li>
-                        <li id="Erja_Send">@Html.ActionLink("ارجاعات پرونده ارسالی", "Erja", "ERJ")</li>
+
+                        <li id="ErjaDOC" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Index","ERJ")>پرونده</a>
+                        </li>
+                        <li id="Erja_Resive" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")>ارجاعات پرونده دریافتی</a>
+                        </li>
+                        <li id="Erja_Send" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")>ارجاعات پرونده ارسالی</a>
+                        </li>
+                        <!--
+    <li id="ErjaDOC">@Html.ActionLink("پرونده", "Index", "ERJ")</li>
+    <li id="Erja_Resive">@Html.ActionLink("ارجاعات پرونده دریافتی", "Erja", "ERJ")</li>
+    <li id="Erja_Send">@Html.ActionLink("ارجاعات پرونده ارسالی", "Erja", "ERJ")</li>
+        -->
                     </ul>
                 </li>
 
@@ -361,10 +419,23 @@
                         <span>گزارشات حسابداری</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
+                        <li id="TrzAcc" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzAcc","ReportAFI")>تراز حساب</a>
+                        </li>
+                        <li id="Dftr" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Dftr","ReportAFI")>دفتر حساب</a>
+                        </li>
+                        <li id="ADocR" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("ADocR","ReportAFI")>دفتر روزنامه</a>
+                        </li>
+                        <li id="TChk" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TChk","ReportAFI")>صورت خلاصه چک ها</a>
+                        </li>
+
+                       <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
                         <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
                         <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
-                        <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>
+                        <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -374,12 +445,30 @@
                         <span>گزارشات خرید و فروش</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="FDocR_S">@Html.ActionLink("ريز گردش اسناد فروش", "FDocR_S", "ReportAFI")</li>
+                        <li id="FDocR_S" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("FDocR_S","ReportAFI")>ريز گردش اسناد فروش</a>
+                        </li>
+                        <li id="FDocR_P" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("FDocR_P","ReportAFI")>ريز گردش اسناد خرید</a>
+                        </li>
+                        <li id="TrzFKala_S" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFKala_S","ReportAFI")>تراز فروش کالاها</a>
+                        </li>
+                        <li id="TrzFKala_P" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFKala_P","ReportAFI")>تراز خرید کالاها</a>
+                        </li>
+                        <li id="TrzFCust_S" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFCust_S","ReportAFI")>تراز فروش به خریداران</a>
+                        </li>
+                        <li id="TrzFCust_P" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFCust_P","ReportAFI")>تراز خرید از فروشندگان</a>
+                        </li>
+                        <!--<li id="FDocR_S">@Html.ActionLink("ريز گردش اسناد فروش", "FDocR_S", "ReportAFI")</li>
                         <li id="FDocR_P">@Html.ActionLink("ريز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
                         <li id="TrzFKala_S">@Html.ActionLink("تراز فروش کالاها", "TrzFKala_S", "ReportAFI")</li>
                         <li id="TrzFKala_P">@Html.ActionLink("تراز خرید کالاها", "TrzFKala_P", "ReportAFI")</li>
                         <li id="TrzFCust_S">@Html.ActionLink("تراز فروش به خریداران", "TrzFCust_S", "ReportAFI")</li>
-                        <li id="TrzFCust_P">@Html.ActionLink("تراز خرید از فروشندگان", "TrzFCust_P", "ReportAFI")</li>
+                        <li id="TrzFCust_P">@Html.ActionLink("تراز خرید از فروشندگان", "TrzFCust_P", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -389,10 +478,23 @@
                         <span>گزارشات انبار</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="Krdx">@Html.ActionLink("کاردکس کالا", "Krdx", "ReportAFI")</li>
+                        <li id="Krdx" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("Krdx","ReportAFI")>کاردکس کالا</a>
+                        </li>
+                        <li id="TrzIKala" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzIKala","ReportAFI")>موجودی کالا</a>
+                        </li>
+                        <li id="TrzIKalaExf" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("TrzIKalaExf","ReportAFI")>موجودی کالا به تفکیک ویژگی</a>
+                        </li>
+                        <li id="IDocR" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("IDocR","ReportAFI")>ريز گردش اسناد انبارداری</a>
+                        </li>
+
+                        <!--<li id="Krdx">@Html.ActionLink("کاردکس کالا", "Krdx", "ReportAFI")</li>
                         <li id="TrzIKala">@Html.ActionLink("موجودی کالا", "TrzIKala", "ReportAFI")</li>
                         <li id="TrzIKalaExf">@Html.ActionLink("موجودی کالا به تفکیک ویژگی", "TrzIKalaExf", "ReportAFI")</li>
-                        <li id="IDocR">@Html.ActionLink("ريز گردش اسناد انبارداری", "IDocR", "ReportAFI")</li>
+                        <li id="IDocR">@Html.ActionLink("ريز گردش اسناد انبارداری", "IDocR", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -402,8 +504,15 @@
                         <span>گزارشات اتوماسیون اداری</span>
                     </a>
                     <ul class="ml-menu">
-                        <li id="ErjDocK">@Html.ActionLink("فهرست پرونده ها", "ErjDocK", "ReportERJ")</li>
-                        <li id="ErjDocB_Last">@Html.ActionLink("ليست ارجاعات پرونده ها", "ErjDocB_Last", "ReportERJ")</li>
+                        <li id="ErjDocK" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("ErjDocK","ReportERJ")>فهرست پرونده ها</a>
+                        </li>
+                        <li id="ErjDocB_Last" class="rightClick">
+                            <a class="useBlank" target="_blank" href=@Url.Action("ErjDocB_Last","ReportERJ")>ليست ارجاعات پرونده ها</a>
+                        </li>
+
+                        <!--<li id="ErjDocK">@Html.ActionLink("فهرست پرونده ها", "ErjDocK", "ReportERJ")</li>
+                        <li id="ErjDocB_Last">@Html.ActionLink("ليست ارجاعات پرونده ها", "ErjDocB_Last", "ReportERJ")</li>-->
                     </ul>
                 </li>
             </ul>

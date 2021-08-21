@@ -3536,15 +3536,15 @@
 
     $.fn.CheckAccess = function () {
 
-        if (sessionStorage.AccessPrint_SanadHesab == "false") {
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
             $('#Print_SanadHesab').attr('style', 'display: none')
         }
 
 
-        accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
-        accessDaem = sessionStorage.Access_DAEM_ADOC == 'true'
+        accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
+        accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
 
-        if (sessionStorage.AccessViewSanad == 'true') {
+        if (localStorage.getItem("AccessViewSanad") == 'true') {
             viewAction = true;
         }
         else {
@@ -3553,7 +3553,7 @@
             }
         }
 
-        if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
+        if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
             viewAction = false;
         } else {
             sessionStorage.BeforeMoveSanad = false;

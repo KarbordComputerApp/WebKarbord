@@ -203,7 +203,7 @@
 
 
 
-                        window.location.href = sessionStorage.urlSetting;
+                        window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
                     else {
 

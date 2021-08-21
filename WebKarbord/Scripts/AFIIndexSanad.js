@@ -29,8 +29,8 @@
     var serial;
 
 
-    var accessTaeed = sessionStorage.Access_TAEED_ADOC == 'true'
-    var accessDaem = sessionStorage.Access_DAEM_ADOC == 'true'
+    var accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
+    var accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
 
 
 
@@ -147,7 +147,7 @@
 
     //Get ADocH 
     function getADocH(select) {
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + sessionStorage.AccessSanad, 'GET').done(function (data) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + localStorage.getItem("AccessSanad"), 'GET').done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);
@@ -828,8 +828,8 @@
     }
 
     self.ShowAction = function (Eghdam) {
-        if (sessionStorage.DEL_ADOC == 'true') {
-            if (sessionStorage.AccessViewSanad == 'false') {
+        if (localStorage.getItem("DEL_ADOC") == 'true') {
+            if (localStorage.getItem("AccessViewSanad") == 'false') {
                 return Eghdam == localStorage.getItem("userName") ? true : false
             }
             else {
@@ -841,7 +841,7 @@
     }
 
     self.ShowMove = function (Eghdam) {
-        if (sessionStorage.moveSanad == 'true')
+        if (localStorage.getItem("moveSanad") == 'true')
             return true;
         else
             return false;
@@ -972,7 +972,7 @@
             '        </a>' +
             '    </li>';
 
-        if (sessionStorage.AccessPrint_SanadHesab == "true") {
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "true") {
             dataTable +=
                 '    <li>' +
                 '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
@@ -1366,7 +1366,6 @@
     });
 
     self.currentPageIndexADocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
-    //sessionStorage.moveSanad == true ? $("#MoveSanad").show() : $("#MoveSanad").hide()
 
 
 

@@ -10,7 +10,7 @@
     $("#salTest").text('سال مالی' + sal);
 
 
-    sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+    
     sessionStorage.InOut = localStorage.getItem("InOut");
     sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
 
@@ -1481,6 +1481,7 @@
         sessionStorage.F18 = item.F18;
         sessionStorage.F19 = item.F19;
         sessionStorage.F20 = item.F20;
+        localStorage.setItem("ModeCode", item.ModeCode);
         sessionStorage.ModeCode = item.ModeCode;
 
         sessionStorage.Status = item.Status;
@@ -1692,6 +1693,7 @@
             item = response;
             item = item[0];
 
+            localStorage.setItem("ModeCode", modeCodeMove);
             sessionStorage.ModeCode = modeCodeMove;
 
             switch (modeCodeMove.toString()) {

@@ -43,9 +43,14 @@
     @RenderBody()
     <script type="text/javascript">
         sessionStorage.ver = @(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber);
-        sessionStorage.urlIndex = '@Url.Action("Index", "Home")';
-        sessionStorage.urlLogin = '@Url.Action("login", "Home")';
-        sessionStorage.urlSetting = '@Url.Action("Setting", "Home")';
+        //sessionStorage.urlIndex = '@Url.Action("Index", "Home")';
+        //sessionStorage.urlLogin = '@Url.Action("login", "Home")';
+        //sessionStorage.urlSetting = '@Url.Action("Setting", "Home")';
+
+        localStorage.setItem("urlIndex", '@Url.Action("Index", "Home")'); 
+        localStorage.setItem("urlLogin", '@Url.Action("login", "Home")'); 
+        localStorage.setItem("urlSetting", '@Url.Action("Setting", "Home")'); 
+        
     </script>
     <script src="~/Content/new/js/app.min.js"></script>
     <script src="~/Content/new/js/admin.js"></script>
