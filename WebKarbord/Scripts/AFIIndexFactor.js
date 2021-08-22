@@ -4,15 +4,19 @@
     var flagupdateHeader = 0;
     sessionStorage.BeforeMoveFactor = false;
 
-
-    $("#aceTest").text('نام نرم افزار' + ace);
-    $("#groupTest").text('نام گروه' + group);
-    $("#salTest").text('سال مالی' + sal);
-
-
     
-    sessionStorage.InOut = localStorage.getItem("InOut");
-    sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+    
+    
+
+    if (sessionStorage.ModeCode == null) {
+        sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+        sessionStorage.InOut = localStorage.getItem("InOut");
+        sessionStorage.newFactor = localStorage.getItem("newFactor");
+        sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor");
+        sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
+        sessionStorage.moveFactor = localStorage.getItem("moveFactor");
+        sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+    }
 
 
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
@@ -58,6 +62,7 @@
             {
                 TitleListFactor = 'سفارش فروش';
                 $('#TitleListFactor').text('سفارشات فروش');
+                $('#titlePage').text('سفارشات فروش');
                 defultMove = sessionStorage.Move_SORD;
                 inOut = 2;
                 break;
@@ -66,6 +71,7 @@
             {
                 TitleListFactor = 'پیش فاکتور فروش';
                 $('#TitleListFactor').text('پیش فاکتور های فروش');
+                $('#titlePage').text('پیش فاکتور های فروش');
                 defultMove = sessionStorage.Move_SPFCT;
                 inOut = 2;
                 break;
@@ -74,6 +80,7 @@
             {
                 TitleListFactor = 'فاکتور فروش';
                 $('#TitleListFactor').text('فاکتور های فروش');
+                $('#titlePage').text('فاکتور های فروش');
                 defultMove = sessionStorage.Move_SFCT;
                 inOut = 2;
                 break;
@@ -82,6 +89,7 @@
             {
                 TitleListFactor = 'برگشت از فروش';
                 $('#TitleListFactor').text('برگشتی های فروش');
+                $('#titlePage').text('برگشتی های فروش');
                 defultMove = '';//sessionStorage.Move_SRFCT;
                 $("#menu1").attr('hidden', '');
                 $("#TabMove").attr('hidden', '');
@@ -93,6 +101,7 @@
             {
                 TitleListFactor = 'حواله فروش';
                 $('#TitleListFactor').text('حواله های فروش');
+                $('#titlePage').text('حواله های فروش');
                 defultMove = sessionStorage.Move_SHVL;
                 inOut = 2;
                 //if (sessionStorage. == "-1") $("#Barcode").attr('hidden', '');
@@ -103,6 +112,7 @@
             {
                 TitleListFactor = 'برگه خروج';
                 $('#TitleListFactor').text('برگه های خروج');
+                $('#titlePage').text('برگه های خروج');
                 defultMove = sessionStorage.Move_SEXT;
                 inOut = 2;
                 //if (sessionStorage. == "-1") $("#Barcode").attr('hidden', '');
@@ -113,6 +123,7 @@
             {
                 TitleListFactor = 'سفارش خرید';
                 $('#TitleListFactor').text('سفارشات خرید');
+                $('#titlePage').text('سفارشات خرید');
                 defultMove = sessionStorage.Move_PORD;
                 inOut = 1;
                 break;
@@ -122,6 +133,7 @@
             {
                 TitleListFactor = 'پیش فاکتور خرید';
                 $('#TitleListFactor').text('پیش فاکتور های خرید');
+                $('#titlePage').text('پیش فاکتور های خرید');
                 defultMove = sessionStorage.Move_PPFCT;
                 inOut = 1;
                 break;
@@ -131,6 +143,7 @@
             {
                 TitleListFactor = 'فاکتور خرید';
                 $('#TitleListFactor').text('فاکتور های خرید');
+                $('#titlePage').text('فاکتور های خرید');
                 defultMove = sessionStorage.Move_PFCT;
                 inOut = 1;
                 break;
@@ -140,6 +153,7 @@
             {
                 TitleListFactor = 'برگشت از خرید';
                 $('#TitleListFactor').text('برگشتی های خرید');
+                $('#titlePage').text('برگشتی های خرید');
                 $("#menu1").attr('hidden', '');
                 $("#TabMove").attr('hidden', '');
                 defultMove = '';//sessionStorage.Move_PRFCT;
@@ -193,62 +207,62 @@
 
     $.fn.CheckAccess = function () {
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-            accessTaeed = sessionStorage.Access_TAEED_SFORD == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SFORD == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SFORD == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SFORD") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SFORD") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_SFORD") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SFORD") == 'true'
         }
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
-            accessTaeed = sessionStorage.Access_TAEED_SPDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SPDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SPDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SPDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SPDOC") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_SPDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SPDOC") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
-            accessTaeed = sessionStorage.Access_TAEED_SFDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SFDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SFDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SFDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SFDOC") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_SFDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SFDOC") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
-            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SRDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SRDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SRDOC") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_SRDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SRDOC") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-            accessTaeed = sessionStorage.Access_TAEED_SHVL == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SHVL == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SHVL == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SHVL") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SHVL") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SHVL") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
-            accessTaeed = sessionStorage.Access_TAEED_SEXT == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SEXT == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SEXT == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SEXT") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SEXT") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SEXT") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-            accessTaeed = sessionStorage.Access_TAEED_PFORD == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PFORD == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PFORD == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PFORD") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PFORD") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_PFORD") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PFORD") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-            accessTaeed = sessionStorage.Access_TAEED_PPDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PPDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PPDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PPDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PPDOC") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_PPDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PPDOC") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-            accessTaeed = sessionStorage.Access_TAEED_PFDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PFDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PFDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PFDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PFDOC") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_PFDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PFDOC") == 'true'
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-            accessTaeed = sessionStorage.Access_TAEED_PRDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PRDOC == 'true'
-            showFinalPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PRDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PRDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PRDOC") == 'true'
+            showFinalPrice = localStorage.getItem("Access_SHOWPRICE_PRDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PRDOC") == 'true'
         }
     }
     $(this).CheckAccess();
@@ -1255,8 +1269,8 @@
     self.ShowAction = function (Eghdam) {
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-            if (sessionStorage.DEL_SFORD == 'true') {
-                if (sessionStorage.AccessViewSefareshForosh == 'false') {
+            if (localStorage.getItem("DEL_SFORD") == 'true') {
+                if (localStorage.getItem("AccessViewSefareshForosh") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1268,8 +1282,8 @@
         }
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
-            if (sessionStorage.DEL_SPDOC == 'true') {
-                if (sessionStorage.AccessViewPishFactorForosh == 'false') {
+            if (localStorage.getItem("DEL_SPDOC") == 'true') {
+                if (localStorage.getItem("AccessViewPishFactorForosh") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1280,8 +1294,8 @@
                 return false;
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
-            if (sessionStorage.DEL_SDOC == 'true') {
-                if (sessionStorage.AccessViewFactorForosh == 'false') {
+            if (localStorage.getItem("DEL_SDOC") == 'true') {
+                if (localStorage.getItem("AccessViewFactorForosh") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1294,8 +1308,8 @@
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
-            if (sessionStorage.DEL_SRDOC == 'true') {
-                if (sessionStorage.AccessViewBackFactorForosh == 'false') {
+            if (localStorage.getItem("DEL_SRDOC") == 'true') {
+                if (localStorage.getItem("AccessViewBackFactorForosh") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1308,8 +1322,8 @@
         }
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-            if (sessionStorage.DEL_SHVL == 'true') {
-                if (sessionStorage.AccessViewHavaleForosh == 'false') {
+            if (localStorage.getItem("DEL_SHVL") == 'true') {
+                if (localStorage.getItem("AccessViewHavaleForosh") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1321,8 +1335,8 @@
         }
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
-            if (sessionStorage.DEL_SEXT == 'true') {
-                if (sessionStorage.AccessViewBargeKhoroj == 'false') {
+            if (localStorage.getItem("DEL_SEXT") == 'true') {
+                if (localStorage.getItem("AccessViewBargeKhoroj") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1334,8 +1348,8 @@
         }
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-            if (sessionStorage.DEL_PFORD == 'true') {
-                if (sessionStorage.AccessViewSefareshKharid == 'false') {
+            if (localStorage.getItem("DEL_PFORD") == 'true') {
+                if (localStorage.getItem("AccessViewSefareshKharid") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1347,8 +1361,8 @@
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-            if (sessionStorage.DEL_PPDOC == 'true') {
-                if (sessionStorage.AccessViewPishFactorKharid == 'false') {
+            if (localStorage.getItem("DEL_PPDOC") == 'true') {
+                if (localStorage.getItem("AccessViewPishFactorKharid") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1361,8 +1375,8 @@
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-            if (sessionStorage.DEL_PDOC == 'true') {
-                if (sessionStorage.AccessViewFactorKharid == 'false') {
+            if (localStorage.getItem("DEL_PDOC") == 'true') {
+                if (localStorage.getItem("AccessViewFactorKharid") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1375,8 +1389,8 @@
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-            if (sessionStorage.DEL_PRDOC == 'true') {
-                if (sessionStorage.AccessViewBackFactorKharid == 'false') {
+            if (localStorage.getItem("DEL_PRDOC") == 'true') {
+                if (localStorage.getItem("AccessViewBackFactorKharid") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {

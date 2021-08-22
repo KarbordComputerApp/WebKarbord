@@ -9,6 +9,10 @@
     self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestADoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
+    if (sessionStorage.ModeCode == null) {
+        sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+        sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+    }
 
     self.StatusSanad = ko.observable();
 

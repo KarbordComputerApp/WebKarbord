@@ -9,6 +9,15 @@
     var serial;
     var invSelected = 0;
 
+    if (sessionStorage.ModeCode == null) {
+        sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+        sessionStorage.InOut = localStorage.getItem("InOut");
+        sessionStorage.moveSanadAnbar = localStorage.getItem("moveSanadAnbar");
+        sessionStorage.AccessPrint_SanadAnbar = localStorage.getItem("AccessPrint_SanadAnbar");
+        sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
+        sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+    }
+
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها
     self.StatusList = ko.observableArray([]); // وضعیت  
@@ -137,17 +146,17 @@
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
 
-            if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
+            if (localStorage.getItem("Access_TAEED_IIDOC") == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تایید ندارید', 0);
             }
 
-            if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
+            if (localStorage.getItem("Access_TASVIB_IIDOC") == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تصویب ندارید', 0);
             }
 
-            if (sessionStorage.Access_CANCEL_IIDOC == 'false' && selectStatus == 'باطل') {
+            if (localStorage.getItem("Access_CANCEL_IIDOC") == 'false' && selectStatus == 'باطل') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی باطل', 0);
             }
@@ -155,17 +164,17 @@
         }
 
         if (sessionStorage.InOut == 2) {
-            if (sessionStorage.Access_TAEED_IODOC == 'false' && selectStatus == 'تایید') {
+            if (localStorage.getItem("Access_TAEED_IODOC") == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی تایید', 0);
             }
 
-            if (sessionStorage.Access_TASVIB_IODOC == 'false' && selectStatus == 'تصویب') {
+            if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی تصویب', 0);
             }
 
-            if (sessionStorage.Access_CANCEL_IODOC == 'false' && selectStatus == 'باطل') {
+            if (localStorage.getItem("Access_CANCEL_IODOC") == 'false' && selectStatus == 'باطل') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی باطل', 0);
             }
@@ -954,10 +963,13 @@
         sessionStorage.sels = true;
         $('#TitleThvlName').text('نام تحویل دهنده');
         $('#TitleListAnbar').text('اسناد وارده به انبار');
+        $('#titlePage').text('اسناد وارده به انبار');
+
     } else {
         sessionStorage.sels = false;
         $('#TitleThvlName').text('نام تحویل گیرنده');
         $('#TitleListAnbar').text('اسناد صادره از انبار');
+        $('#titlePage').text('اسناد صادره از انبار');
     }
 
 
@@ -1004,8 +1016,8 @@
 
 
         if (sessionStorage.InOut == 1) {
-            if (sessionStorage.DEL_IIDOC == 'true') {
-                if (sessionStorage.AccessViewSanadAnbarVarede == 'false') {
+            if (localStorage.getItem("DEL_IIDOC") == 'true') {
+                if (localStorage.getItem("AccessViewSanadAnbarVarede") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1016,8 +1028,8 @@
                 return false;
         }
         else {
-            if (sessionStorage.DEL_IODOC == 'true') {
-                if (sessionStorage.AccessViewSanadAnbarSadere == 'false') {
+            if (localStorage.getItem("DEL_IODOC") == 'true') {
+                if (localStorage.getItem("AccessViewSanadAnbarSadere") == 'false') {
                     return Eghdam == sessionStorage.userName ? true : false
                 }
                 else {
@@ -1538,7 +1550,7 @@
 
 
         if (sessionStorage.InOut == 1) {
-            if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
+            if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true')
                 sessionStorage.ModePrint = 'IDoc';
             else
                 sessionStorage.ModePrint = 'IDoc_NoPrice';

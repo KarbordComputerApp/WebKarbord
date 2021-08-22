@@ -8,9 +8,10 @@
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
-    $("#aceTest").text('نام نرم افزار' + ace);
-    $("#groupTest").text('نام گروه' + group);
-    $("#salTest").text('سال مالی' + sal);
+    if (sessionStorage.CHG == null) {
+        sessionStorage.CHG = localStorage.getItem("CHG")
+        //sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
+    }
 
     TestUser();
 
@@ -45,7 +46,7 @@
 
     invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
 
-    var invSelect= "";
+    var invSelect = "";
 
     $('#finalSave_Title').attr('hidden', '');
 
@@ -136,7 +137,7 @@
 
 
 
-   
+
     var amountAfterBarCode;
 
     if (sessionStorage.AccessPrint_SanadAnbar == "false") {
@@ -144,10 +145,11 @@
     }
 
     $("#Barcode").removeAttr('hidden', '');
-    
+
 
     if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
+        $('#titlePage').text('سند وارده به انبار ');
         $('#LableThvlCode').text('نام تحویل دهنده ');
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل دهنده');
         $('#TitleModalThvl').text('لیست تحویل دهند گان ');
@@ -158,7 +160,7 @@
 
         amountAfterBarCode = sessionStorage.IDOCIAmountAfterBarCode
 
-        if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true') {
+        if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true') {
             $('#ViewGGhimat').show();
             $('#emptyDivSanad').hide();
             $('#unitPriceShow').show();
@@ -187,6 +189,7 @@
 
     } else {
         $('#TitleHeaderAnbar').text('سند صادره از انبار');
+        $('#titlePage').text('سند صادره از انبار');
         $('#LableThvlCode').text('تحویل گیرنده ');
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل گیرنده ');
         $('#TitleModalThvl').text('لیست تحویل گیرند گان');
@@ -375,17 +378,17 @@
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
 
-            if (sessionStorage.Access_TAEED_IIDOC == 'false' && selectStatus == 'تایید') {
+            if (localStorage.getItem("Access_TAEED_IIDOC") == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تایید ندارید', 0);
             }
 
-            if (sessionStorage.Access_TASVIB_IIDOC == 'false' && selectStatus == 'تصویب') {
+            if (localStorage.getItem("Access_TASVIB_IIDOC") == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
                 return showNotification('دسترسی تصویب ندارید', 0);
             }
 
-            if (sessionStorage.Access_CANCEL_IIDOC == 'false' && selectStatus == 'باطل') {
+            if (localStorage.getItem("Access_CANCEL_IIDOC") == 'false' && selectStatus == 'باطل') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی باطل', 0);
             }
@@ -393,17 +396,17 @@
         }
 
         if (sessionStorage.InOut == 2) {
-            if (sessionStorage.Access_TAEED_IODOC == 'false' && selectStatus == 'تایید') {
+            if (localStorage.getItem("Access_TAEED_IODOC") == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی تایید', 0);
             }
 
-            if (sessionStorage.Access_TASVIB_IODOC == 'false' && selectStatus == 'تصویب') {
+            if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی تصویب', 0);
             }
 
-            if (sessionStorage.Access_CANCEL_IODOC == 'false' && selectStatus == 'باطل') {
+            if (localStorage.getItem("Access_CANCEL_IODOC") == 'false' && selectStatus == 'باطل') {
                 $("#status").val(lastStatus);
                 return showNotification('نیاز به دسترسی باطل', 0);
             }
@@ -471,7 +474,7 @@
                     }
                 }
             }
-            
+
 
         });
     }
@@ -649,109 +652,109 @@
     }
 
 
-   /* 
-
-    $("#Barcode_Value").keydown(function (e) {
-        if (e.keyCode == 13) {
-            barcode = $("#Barcode_Value").val();
-            barcode1 = "(" + barcode + ")";
-            if (barcode != '') {
-                tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
-                    result = item.BarCode.indexOf(barcode1) >= 0
-                    //result = item.BarCode == null ? '' : item.BarCode.toString().search(barcode) >= 0
-                    return result;
-                });
-
-                if (tempData.length > 0) {
-                    kala = tempData[0];
-
-                    GetBandNumber();
-                    if (Serial == '') {
-                        return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
-                    }
-
-                    defaultUnit = kala.DefaultUnit;
-
-                    amount = 1;
-
-                    a1 = 0;
-                    a2 = 0;
-                    a3 = 0;
-
-                    unitPrice = 0;
-                    totalPrice = 0;
-                    kalapricecode = $("#gGhimat").val();
-                    if (kalapricecode == null) kalapricecode = "";
-
-                    if (sessionStorage.sels == "true") {
-                        Price1 = kala.SPrice1;
-                        Price2 = kala.SPrice2;
-                        Price3 = kala.SPrice3;
-                    } else {
-                        Price1 = kala.PPrice1;
-                        Price2 = kala.PPrice2;
-                        Price3 = kala.PPrice3;
-                    }
-
-                    getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, kala.Code);
-
-                    if (defaultUnit == "1") {
-                        a1 = amount;
-                        kala.zarib2 == 0 ? a2 = 0 : a2 = amount / kala.zarib2;
-                        kala.zarib3 == 0 ? a3 = 0 : a3 = amount / kala.zarib3;
-                        unitPrice = Price1;
-                        totalPrice = a1 * unitPrice;
-
-                    }
-                    else if (defaultUnit == "2") {
-                        a1 = amount * kala.zarib2;
-                        a2 = amount;
-                        kala.zarib3 == 0 ? a3 = 0 : a3 = amount / kala.zarib2;
-                        unitPrice = Price2;
-                        totalPrice = a2 * unitPrice;
-                    }
-                    else if (defaultUnit == "3") {
-                        a1 = (amount * kala.zarib2) * (kala.zarib2);
-                        a2 = amount * kala.zarib2;
-                        a3 = amount;
-                        unitPrice = Price3;
-                        totalPrice = a2 * unitPrice;
-                    }
-
-                    a1 != 0 ? a1 = a1.toFixed(kala.DeghatM1) : a1 = "";
-                    a2 != 0 ? a2 = a2.toFixed(kala.DeghatM2) : a2 = "";
-                    a3 != 0 ? a3 = a3.toFixed(kala.DeghatM3) : a3 = "";
-
-
-
-                    var IDocBObject = {
-                        SerialNumber: Serial,//self.SerialNumber(),
-                        BandNo: bandnumber,
-                        KalaCode: kala.Code,
-                        Amount1: a1,
-                        Amount2: a2,
-                        Amount3: a3,
-                        UnitPrice: unitPrice,
-                        TotalPrice: totalPrice,
-                        Discount: 0,
-                        MainUnit: defaultUnit,
-                        Comm: '',
-                        Up_Flag: 1,
-                        ModeCode: sessionStorage.ModeCode,
-                        flagLog: 'N',
-                        OprCode: codeOpr,
-                        MkzCode: codeMkz,
-                    };
-                    if (self.bundNumberImport > 0) {
-                        bandnumber = self.bundNumberImport;
-                    }
-                    SendIDocB(IDocBObject);
-                    $("#Barcode_Value").val('');
-
-                }
-            }
-        }
-    });*/
+    /* 
+ 
+     $("#Barcode_Value").keydown(function (e) {
+         if (e.keyCode == 13) {
+             barcode = $("#Barcode_Value").val();
+             barcode1 = "(" + barcode + ")";
+             if (barcode != '') {
+                 tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
+                     result = item.BarCode.indexOf(barcode1) >= 0
+                     //result = item.BarCode == null ? '' : item.BarCode.toString().search(barcode) >= 0
+                     return result;
+                 });
+ 
+                 if (tempData.length > 0) {
+                     kala = tempData[0];
+ 
+                     GetBandNumber();
+                     if (Serial == '') {
+                         return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+                     }
+ 
+                     defaultUnit = kala.DefaultUnit;
+ 
+                     amount = 1;
+ 
+                     a1 = 0;
+                     a2 = 0;
+                     a3 = 0;
+ 
+                     unitPrice = 0;
+                     totalPrice = 0;
+                     kalapricecode = $("#gGhimat").val();
+                     if (kalapricecode == null) kalapricecode = "";
+ 
+                     if (sessionStorage.sels == "true") {
+                         Price1 = kala.SPrice1;
+                         Price2 = kala.SPrice2;
+                         Price3 = kala.SPrice3;
+                     } else {
+                         Price1 = kala.PPrice1;
+                         Price2 = kala.PPrice2;
+                         Price3 = kala.PPrice3;
+                     }
+ 
+                     getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, kala.Code);
+ 
+                     if (defaultUnit == "1") {
+                         a1 = amount;
+                         kala.zarib2 == 0 ? a2 = 0 : a2 = amount / kala.zarib2;
+                         kala.zarib3 == 0 ? a3 = 0 : a3 = amount / kala.zarib3;
+                         unitPrice = Price1;
+                         totalPrice = a1 * unitPrice;
+ 
+                     }
+                     else if (defaultUnit == "2") {
+                         a1 = amount * kala.zarib2;
+                         a2 = amount;
+                         kala.zarib3 == 0 ? a3 = 0 : a3 = amount / kala.zarib2;
+                         unitPrice = Price2;
+                         totalPrice = a2 * unitPrice;
+                     }
+                     else if (defaultUnit == "3") {
+                         a1 = (amount * kala.zarib2) * (kala.zarib2);
+                         a2 = amount * kala.zarib2;
+                         a3 = amount;
+                         unitPrice = Price3;
+                         totalPrice = a2 * unitPrice;
+                     }
+ 
+                     a1 != 0 ? a1 = a1.toFixed(kala.DeghatM1) : a1 = "";
+                     a2 != 0 ? a2 = a2.toFixed(kala.DeghatM2) : a2 = "";
+                     a3 != 0 ? a3 = a3.toFixed(kala.DeghatM3) : a3 = "";
+ 
+ 
+ 
+                     var IDocBObject = {
+                         SerialNumber: Serial,//self.SerialNumber(),
+                         BandNo: bandnumber,
+                         KalaCode: kala.Code,
+                         Amount1: a1,
+                         Amount2: a2,
+                         Amount3: a3,
+                         UnitPrice: unitPrice,
+                         TotalPrice: totalPrice,
+                         Discount: 0,
+                         MainUnit: defaultUnit,
+                         Comm: '',
+                         Up_Flag: 1,
+                         ModeCode: sessionStorage.ModeCode,
+                         flagLog: 'N',
+                         OprCode: codeOpr,
+                         MkzCode: codeMkz,
+                     };
+                     if (self.bundNumberImport > 0) {
+                         bandnumber = self.bundNumberImport;
+                     }
+                     SendIDocB(IDocBObject);
+                     $("#Barcode_Value").val('');
+ 
+                 }
+             }
+         }
+     });*/
 
     self.ButtonIDocHBarcode = function ButtonIDocH(newIDocH) {
         if (flagInsertIDoch == 0) {
@@ -921,7 +924,7 @@
                 $('#Barcode_Amount').val('');
                 $('#Barcode_Value').val('');
                 $('#Barcode_Value').focus();
-                
+
             }
         }
     });
@@ -1098,7 +1101,7 @@
             ModeCode: modeCode,
             DocNoMode: ace == 'Web1' ? 1 :
                 sessionStorage.AllInvSameNo == "1" ? 1 :
-                sameNoAllMode == 1 ? 2 : 3 ,
+                    sameNoAllMode == 1 ? 2 : 3,
             InsertMode: 0,
             DocNo: docno == "" ? 0 : docno,
             StartNo: 0,
@@ -1305,7 +1308,7 @@
                 showNotification('سند ذخیره شد', 1);
                 // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
             }
-            
+
 
         });
         return "OK";
@@ -1606,11 +1609,11 @@
 
     if (sessionStorage.InOut == 1) {
 
-        accessTaeed = sessionStorage.Access_TAEED_IIDOC == 'true'
-        accessTasvib = sessionStorage.Access_TASVIB_IIDOC == 'true'
-        accessCancel = sessionStorage.Access_CANCEL_IIDOC == 'true'
+        accessTaeed = localStorage.getItem("Access_TAEED_IIDOC") == 'true'
+        accessTasvib = localStorage.getItem("Access_TASVIB_IIDOC") == 'true'
+        accessCancel = localStorage.getItem("Access_CANCEL_IIDOC") == 'true'
 
-        if (sessionStorage.AccessViewSanadAnbarVarede == 'true') {
+        if (localStorage.getItem("AccessViewSanadAnbarVarede") == 'true') {
             viewAction = true;
         }
         else {
@@ -1621,11 +1624,11 @@
     }
     else {
 
-        accessTaeed = sessionStorage.Access_TAEED_IODOC == 'true'
-        accessTasvib = sessionStorage.Access_TASVIB_IODOC == 'true'
-        accessCancel = sessionStorage.Access_CANCEL_IODOC == 'true'
+        accessTaeed = localStorage.getItem("Access_TAEED_IODOC") == 'true'
+        accessTasvib = localStorage.getItem("Access_TASVIB_IODOC") == 'true'
+        accessCancel = localStorage.getItem("Access_CANCEL_IODOC") == 'true'
 
-        if (sessionStorage.AccessViewSanadAnbarSadere == 'true') {
+        if (localStorage.getItem("AccessViewSanadAnbarSadere") == 'true') {
             viewAction = true;
         }
         else {
@@ -3204,7 +3207,7 @@
 
     };
 
-    
+
 
     $('#AddNewPrintForms').click(function () {
         printName = 'فرم جدید';
@@ -3227,7 +3230,7 @@
             '"TextFinalPrice":"' + textFinalPrice + '",';
 
         if (sessionStorage.InOut == 1) {
-            if (sessionStorage.Access_SHOWPRICE_IIDOC == 'true')
+            if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true')
                 sessionStorage.ModePrint = 'IDoc';
             else
                 sessionStorage.ModePrint = 'IDoc_NoPrice';

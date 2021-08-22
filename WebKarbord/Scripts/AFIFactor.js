@@ -10,6 +10,12 @@
     var flagOtherFieldShow;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
+    if (sessionStorage.CHG == null) {
+        sessionStorage.CHG = localStorage.getItem("CHG")
+        sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor") 
+    }
+
+
     var flaglog = "Y";
 
     if (sessionStorage.flagCopy == 'Y')
@@ -155,6 +161,7 @@
             $('#TitleHeaderFactor').text('سفارش فروش');
             $('#TitleBodyFactor').text('سفارش فروش');
             $('#TitleFooterFactor').text('سفارش فروش');
+            $('#titlePage').text('سفارش فروش');
             ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSOAmountAfterBarCode;
             break;
@@ -162,6 +169,7 @@
             $('#TitleHeaderFactor').text('پیش فاکتور فروش ');
             $('#TitleBodyFactor').text('پیش فاکتور فروش ');
             $('#TitleFooterFactor').text('پیش فاکتور فروش ');
+            $('#titlePage').text('پیش فاکتور فروش ');
             amountAfterBarCode = sessionStorage.FDOCSPAmountAfterBarCode;
             //ModeCodeExtraFields = 'FDOCSP';
             ModeCodeExtraFields = 'FSDOC';
@@ -170,6 +178,7 @@
             $('#TitleHeaderFactor').text('فاکتور فروش ');
             $('#TitleBodyFactor').text('فاکتور فروش ');
             $('#TitleFooterFactor').text('فاکتور فروش ');
+            $('#titlePage').text('فاکتور فروش ');
             //ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
@@ -178,6 +187,7 @@
             $('#TitleHeaderFactor').text('برگشت از فروش ');
             $('#TitleBodyFactor').text('برگشت از فروش ');
             $('#TitleFooterFactor').text('برگشت از فروش ');
+            $('#titlePage').text('برگشت از فروش ');
             amountAfterBarCode = sessionStorage.FDOCSRAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
@@ -185,6 +195,7 @@
             $('#TitleHeaderFactor').text('حواله فروش');
             $('#TitleBodyFactor').text('حواله فروش');
             $('#TitleFooterFactor').text('حواله فروش');
+            $('#titlePage').text('حواله فروش');
             amountAfterBarCode = sessionStorage.FDOCSHAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
@@ -192,6 +203,7 @@
             $('#TitleHeaderFactor').text('برگه خروج');
             $('#TitleBodyFactor').text('برگه خروج');
             $('#TitleFooterFactor').text('برگه خروج');
+            $('#titlePage').text('برگه خروج');
             amountAfterBarCode = sessionStorage.FDOCSEAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
@@ -199,6 +211,7 @@
             $('#TitleHeaderFactor').text('سفارش خرید');
             $('#TitleBodyFactor').text('سفارش خرید');
             $('#TitleFooterFactor').text('سفارش خرید');
+            $('#titlePage').text('سفارش خرید');
             amountAfterBarCode = sessionStorage.FDOCPOAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
             break;
@@ -206,6 +219,7 @@
             $('#TitleHeaderFactor').text('پیش فاکتور خرید ');
             $('#TitleBodyFactor').text('پیش فاکتور خرید ');
             $('#TitleFooterFactor').text('پیش فاکتور خرید ');
+            $('#titlePage').text('پیش فاکتور خرید ');
             amountAfterBarCode = sessionStorage.FDOCPPAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
             break;
@@ -213,6 +227,7 @@
             $('#TitleHeaderFactor').text('فاکتور خرید ');
             $('#TitleBodyFactor').text('فاکتور خرید ');
             $('#TitleFooterFactor').text('فاکتور خرید ');
+            $('#titlePage').text('فاکتور خرید ');
             amountAfterBarCode = sessionStorage.FDOCPAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
             break;
@@ -220,6 +235,7 @@
             $('#TitleHeaderFactor').text('برگشت از خرید ');
             $('#TitleBodyFactor').text('برگشت از خرید ');
             $('#TitleFooterFactor').text('برگشت از خرید ');
+            $('#titlePage').text('برگشت از خرید ');
             ModeCodeExtraFields = 'FPDOC';
             amountAfterBarCode = sessionStorage.FDOCPRAmountAfterBarCode;
             break;
@@ -3211,12 +3227,13 @@
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_SFORD == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_SFORD == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SFORD == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SFORD == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SFORD") == 'true';// sessionStorage.Access_SHOWPRICE_SFORD == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SFORD") == 'true';//sessionStorage.Access_TAEED_SFORD == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SFORD") == 'true';//sessionStorage.Access_TASVIB_SFORD == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SFORD") == 'true';//sessionStorage.Access_CANCEL_SFORD == 'true'
 
-            if (sessionStorage.AccessViewSefareshForosh == 'true') {
+
+            if (localStorage.getItem("AccessViewSefareshForosh") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3227,12 +3244,12 @@
         }
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_SPDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SPDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SPDOC == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SPDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SPDOC") == 'true';//sessionStorage.Access_TAEED_SPDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SPDOC") == 'true';//sessionStorage.Access_TASVIB_SPDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SPDOC") == 'true';//sessionStorage.Access_CANCEL_SPDOC == 'true'
 
-            if (sessionStorage.AccessViewPishFactorForosh == 'true') {
+            if (localStorage.getItem("AccessViewPishFactorForosh") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3243,12 +3260,12 @@
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_SFDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SFDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SFDOC == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SFDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SFDOC") == 'true';//sessionStorage.Access_TAEED_SFDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SFDOC") == 'true';//sessionStorage.Access_TASVIB_SFDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SFDOC") == 'true';//sessionStorage.Access_CANCEL_SFDOC == 'true'
 
-            if (sessionStorage.AccessViewFactorForosh == 'true') {
+            if (localStorage.getItem("AccessViewFactorForosh") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3259,12 +3276,12 @@
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_SRDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SRDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SRDOC == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SRDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SRDOC") == 'true';//sessionStorage.Access_TAEED_SRDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SRDOC") == 'true';//sessionStorage.Access_TASVIB_SRDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SRDOC") == 'true';//sessionStorage.Access_CANCEL_SRDOC == 'true'
 
-            if (sessionStorage.AccessViewBackFactorForosh == 'true') {
+            if (localStorage.getItem("AccessViewBackFactorForosh") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3277,11 +3294,11 @@
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
 
-            accessTaeed = sessionStorage.Access_TAEED_SHVL == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SHVL == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SHVL == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SHVL") == 'true';//sessionStorage.Access_TAEED_SHVL == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SHVL") == 'true';//sessionStorage.Access_TASVIB_SHVL == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SHVL") == 'true';//sessionStorage.Access_CANCEL_SHVL == 'true'
 
-            if (sessionStorage.AccessViewHavaleForosh == 'true') {
+            if (localStorage.getItem("AccessViewHavaleForosh") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3292,11 +3309,11 @@
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
 
-            accessTaeed = sessionStorage.Access_TAEED_SEXT == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_SEXT == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_SEXT == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SEXT") == 'true';//sessionStorage.Access_TAEED_SEXT == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SEXT") == 'true';//sessionStorage.Access_TASVIB_SEXT == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SEXT") == 'true';//sessionStorage.Access_CANCEL_SEXT == 'true'
 
-            if (sessionStorage.AccessViewBargeKhoroj == 'true') {
+            if (localStorage.getItem("AccessViewBargeKhoroj") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3307,12 +3324,12 @@
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_PFORD == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_PFORD == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PFORD == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PFORD == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PFORD") == 'true';//sessionStorage.Access_SHOWPRICE_PFORD == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PFORD") == 'true';//sessionStorage.Access_TAEED_PFORD == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PFORD") == 'true';//sessionStorage.Access_TASVIB_PFORD == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PFORD") == 'true';//sessionStorage.Access_CANCEL_PFORD == 'true'
 
-            if (sessionStorage.AccessViewSefareshKharid == 'true') {
+            if (localStorage.getItem("AccessViewSefareshKharid") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3327,12 +3344,12 @@
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_PPDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PPDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PPDOC == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PPDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PPDOC") == 'true';//sessionStorage.Access_TAEED_PPDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PPDOC") == 'true';//sessionStorage.Access_TASVIB_PPDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PPDOC") == 'true';//sessionStorage.Access_CANCEL_PPDOC == 'true'
 
-            if (sessionStorage.AccessViewPishFactorKharid == 'true') {
+            if (localStorage.getItem("AccessViewPishFactorKharid") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3345,12 +3362,12 @@
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_PFDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PFDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PFDOC == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PFDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PFDOC") == 'true';//sessionStorage.Access_TAEED_PFDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PFDOC") == 'true';//sessionStorage.Access_TASVIB_PFDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PFDOC") == 'true';//sessionStorage.Access_CANCEL_PFDOC == 'true'
 
-            if (sessionStorage.AccessViewFactorKharid == 'true') {
+            if (localStorage.getItem("AccessViewFactorKharid") == 'true') {
                 viewAction = true;
             }
             else {
@@ -3361,12 +3378,12 @@
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
 
-            showPrice = sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
-            accessTaeed = sessionStorage.Access_TAEED_PRDOC == 'true'
-            accessTasvib = sessionStorage.Access_TASVIB_PRDOC == 'true'
-            accessCancel = sessionStorage.Access_CANCEL_PRDOC == 'true'
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PRDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PRDOC") == 'true';//sessionStorage.Access_TAEED_PRDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PRDOC") == 'true';//sessionStorage.Access_TASVIB_PRDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PRDOC") == 'true';//sessionStorage.Access_CANCEL_PRDOC == 'true'
 
-            if (sessionStorage.AccessViewBackFactorKharid == 'true') {
+            if (localStorage.getItem("AccessViewBackFactorKharid") == 'true') {
                 viewAction = true;
             }
             else {

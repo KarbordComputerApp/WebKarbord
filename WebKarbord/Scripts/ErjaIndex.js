@@ -1,6 +1,12 @@
 ﻿var ViewModel = function () {
     var self = this;
 
+
+    if (sessionStorage.AccessSanadErj == null) {
+        sessionStorage.AccessSanadErj = localStorage.getItem("AccessSanadErj");
+        sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+    }
+
     self.ErjDocHList = ko.observableArray([]); // لیست گزارش  
     self.RelatedDocsList = ko.observableArray([]); // لیست گزارش  
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
@@ -2905,7 +2911,7 @@
 
 
     self.ShowAction = function (DeleteDocTrs) {
-        if (sessionStorage.DEL_ErjDOC == 'true' && DeleteDocTrs == 1)
+        if (localStorage.getItem("DEL_ErjDOC") == 'true' && DeleteDocTrs == 1)
             return true;
         else
             return false;
@@ -2914,7 +2920,7 @@
 
     self.ShowActionUpdate = function (EditDocTrs) {
 
-        if (sessionStorage.CHG_ErjDOC == 'true' && EditDocTrs == 1)
+        if (localStorage.getItem("CHG_ErjDOC") == 'true' && EditDocTrs == 1)
             return true;
         else
             return false;

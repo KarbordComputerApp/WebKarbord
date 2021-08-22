@@ -8,6 +8,11 @@
 
     var SpecialCommTrs;
 
+    if (sessionStorage.ModeCodeErja == null) {
+        sessionStorage.ModeCodeErja = localStorage.getItem("ModeCodeErja");
+
+    }
+
 
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
@@ -103,6 +108,7 @@
 
     if (sessionStorage.ModeCodeErja == "1") {
         $("#title_erja").text('ارجاعات پرونده دریافتی');
+        $("#titlePage").text('ارجاعات پرونده دریافتی');
         $("#titleSaveErja").text('ارجاع جدید');
         AddDocBMode();
         $('#showDocBMode').css('display', 'block');
@@ -110,6 +116,7 @@
     }
     else {
         $("#title_erja").text('ارجاعات پرونده ارسالی');
+        $("#titlePage").text('ارجاعات پرونده ارسالی');
         $("#titleSaveErja").text('تغییر ارجاع');
         $('#showDocBMode').css('display', 'none');
     }
@@ -1549,17 +1556,6 @@
         $("#comm").val(text);
     })
 
-    /*  if (sessionStorage.userModeErj == 'USER') {
-          $('#FromUser').prop('disabled', true);
-          $('#ToUser').prop('disabled', true);
-      }
-      else {
-          $('#FromUser').prop('disabled', false);
-          $('#ToUser').prop('disabled', false);
-      }
-      */
-
-
 
 
 
@@ -1761,7 +1757,7 @@
                 ErjSaveDoc_CSave(bandNo + 1, false);
         }
         list_ErjUsersRoneveshtSelect = new Array();
-        counterErjUsersRonevesht = 0;
+        counterErjUsersRonevesht = 0; 
     })
 
     var flagSave;
