@@ -196,7 +196,7 @@
         $('#TitleCodeTableModalThvl').text('کد تحویل گیرنده ');
         $('#TitleNameTableModalThvl').text('نام تحویل گیرنده ');
         $('#ViewSpec').attr('class', 'col-sm-5');
-        ModeCodeExtraFields = 'IDOCO';
+        ModeCodeExtraFields = 'IDOCO'; 
 
         amountAfterBarCode = sessionStorage.IDOCOAmountAfterBarCode
 
