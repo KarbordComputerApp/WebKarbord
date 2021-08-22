@@ -24,18 +24,18 @@ sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 var ShowNewTab = localStorage.getItem('NewTab');
 
 if (ShowNewTab == "ShowNewTab") {
-    $("#checkbox_ShowNewTab").prop('checked', true);
+    $("#checkbox_ShowNewTab").prop('checked', false);
     $('.useBlank').attr('target', '_blank');
 }
 else {
-    $("#checkbox_ShowNewTab").prop('checked', false);
+    $("#checkbox_ShowNewTab").prop('checked', true);
     $('.useBlank').attr('target', '');
 }
 
 
 $("#checkbox_ShowNewTab").click(function () {
 
-    if ($('#checkbox_ShowNewTab').is(':checked') == true) {
+    if ($('#checkbox_ShowNewTab').is(':checked') == false) {
         localStorage.setItem("NewTab", "ShowNewTab");
         $('.useBlank').attr('target', '_blank');
     }
