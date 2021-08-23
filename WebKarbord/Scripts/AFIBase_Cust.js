@@ -5,6 +5,7 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.CGruList = ko.observableArray([]); // ليست گروه خریداران/فروشندگان
+    self.TestCust_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس خریداران/فروشندگان 
@@ -12,6 +13,7 @@
     var CGruUri = server + '/api/Web_Data/CGru/'; // آدرس گروه خریداران/فروشندگان
     var SaveCustUri = server + '/api/Web_Data/AFI_SaveCust/'; // آدرس ذخیره خریداران/فروشندگان
     var DelCustUri = server + '/api/Web_Data/AFI_DelCust/'; // آدرس حذف خریداران/فروشندگان
+    var Cust_DeleteUri = server + '/api/Web_Data/TestCust_Delete/'; // آدرس تست حذف 
 
 
     TestUser();
@@ -624,9 +626,7 @@
 
     self.PageCountView = function () {
         sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
     }
 
 
@@ -880,15 +880,87 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(DelCustUri + ace + '/' + sal + '/' + group + '/' + item.Code + '//', 'GET').done(function (response) {
-                    currentPage = self.currentPageIndexCust();
-                    getCustList();
-                    self.currentPageIndexCust(currentPage);
-                    showNotification('حذف شد ', 1);
+                code = item.Code;
+                var TestCust_DeleteObject = {
+                    Code: code
+                };
+
+                ajaxFunction(Cust_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestCust_DeleteObject).done(function (data) {
+                    var obj = JSON.parse(data);
+                    self.TestCust_DeleteList(obj);
+                    if (data.length > 2) {
+                        $('#modal-TestDelete').modal('show');
+                        SetDataTestCust();
+                    }
+                    else {
+                        DeleteCust(code);
+                    }
                 });
             }
         })
     };
+
+    function SetDataTestCust() {
+        $("#BodyTestCust_Delete").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestCust_DeleteList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestCust_Delete').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#Delete-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#Delete-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
+
+
+    }
+
+    function DeleteCust(code) {
+        ajaxFunction(DelCustUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
+            currentPage = self.currentPageIndexCust();
+            getCustList();
+            self.currentPageIndexCust(currentPage);
+            showNotification('حذف شد ', 1);
+        });
+    }
 
 
 

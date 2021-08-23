@@ -5,6 +5,7 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.KGruList = ko.observableArray([]); // ليست گروه کالاها
+    self.TestKala_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
@@ -12,6 +13,7 @@
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var SaveKalaUri = server + '/api/Web_Data/AFI_SaveKala/'; // آدرس ذخیره کالا
     var DelKalaUri = server + '/api/Web_Data/AFI_DelKala/'; // آدرس حذف کالا
+    var Kala_DeleteUri = server + '/api/Web_Data/TestKala_Delete/'; // آدرس تست حذف 
 
     TestUser();
     shamsiDate = ShamsiDate();
@@ -927,16 +929,89 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                ajaxFunction(DelKalaUri + ace + '/' + sal + '/' + group + '/' + item.Code + '//', 'GET').done(function (response) {
-                    currentPage = self.currentPageIndexKala();
-                    getKalaList();
-                    self.currentPageIndexKala(currentPage);
+                code = item.Code;
+                var TestKala_DeleteObject = {
+                    Code: code
+                };
 
-                    showNotification('حذف شد ', 1);
+                ajaxFunction(Kala_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestKala_DeleteObject).done(function (data) {
+                    var obj = JSON.parse(data);
+                    self.TestKala_DeleteList(obj);
+                    if (data.length > 2) {
+                        $('#modal-TestDelete').modal('show');
+                        SetDataTestKala();
+                    }
+                    else {
+                        DeleteKala(code);
+                    }
                 });
             }
         })
     };
+
+
+    function SetDataTestKala() {
+        $("#BodyTestKala_Delete").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestKala_DeleteList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestKala_Delete').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#Delete-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#Delete-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
+
+
+    }
+
+    function DeleteKala(code) {
+        ajaxFunction(DelKalaUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
+            currentPage = self.currentPageIndexKala();
+            getKalaList();
+            self.currentPageIndexKala(currentPage);
+            showNotification('حذف شد ', 1);
+        });
+    }
+
 
 
 

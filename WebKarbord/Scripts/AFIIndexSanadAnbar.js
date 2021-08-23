@@ -16,6 +16,114 @@
         sessionStorage.AccessPrint_SanadAnbar = localStorage.getItem("AccessPrint_SanadAnbar");
         sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+
+        if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
+            validation = CheckAccess('NEW_IIDOC');// new varedae anbar
+            validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
+            sessionStorage.moveSanadAnbar = validation;
+            localStorage.setItem("moveSanadAnbar", validation);
+
+            validation = CheckAccess('CHG_IIDOC');// edit varedae anbar
+            validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
+            validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
+            validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
+
+            validation = CheckAccess('DEL_IIDOC'); // delete varedae anbar
+            validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
+            validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
+            validation == true ? localStorage.setItem("DEL_IIDOC", "true") : localStorage.setItem("DEL_IIDOC", "false")
+
+            validation = CheckAccess('PRN_IIDOC'); // Print
+            validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
+            validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
+
+
+            validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
+            validation == true ? sessionStorage.Access_SHOWPRICE_IIDOC = true : sessionStorage.Access_SHOWPRICE_IIDOC = false
+            validation == true ? localStorage.setItem("Access_SHOWPRICE_IIDOC", "true") : localStorage.setItem("Access_SHOWPRICE_IIDOC", "false")
+
+            validation = CheckAccess('TAEED_IIDOC');// AccessTaeed
+            validation == true ? sessionStorage.Access_TAEED_IIDOC = true : sessionStorage.Access_TAEED_IIDOC = false
+            validation == true ? localStorage.setItem("Access_TAEED_IIDOC", "true") : localStorage.setItem("Access_TAEED_IIDOC", "false")
+
+            validation = CheckAccess('CANCEL_IIDOC');// AccessCANCEL  باطل
+            validation == true ? sessionStorage.Access_CANCEL_IIDOC = true : sessionStorage.Access_CANCEL_IIDOC = false
+            validation == true ? localStorage.setItem("Access_CANCEL_IIDOC", "true") : localStorage.setItem("Access_CANCEL_IIDOC", "false")
+
+            validation = CheckAccess('TASVIB_IIDOC');// AccessTasvib
+            validation == true ? sessionStorage.Access_TASVIB_IIDOC = true : sessionStorage.Access_TASVIB_IIDOC = false
+            validation == true ? localStorage.setItem("Access_TASVIB_IIDOC", "true") : localStorage.setItem("Access_TASVIB_IIDOC", "false")
+
+
+            validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
+            validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+
+            validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
+            if (validation == true) {
+                sessionStorage.AccessViewSanadAnbarVarede = true;
+                localStorage.setItem("AccessViewSanadAnbarVarede", "true")
+            }
+            else {
+                sessionStorage.AccessViewSanadAnbarVarede = false;
+                localStorage.setItem("AccessViewSanadAnbarVarede", "false")
+            }
+        }
+
+        if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
+            validation = CheckAccess('NEW_IODOC');// new sadere anbar
+            validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
+            sessionStorage.moveSanadAnbar = validation;
+            localStorage.setItem("moveSanadAnbar", validation);
+
+
+            validation = CheckAccess('CHG_IODOC');// edit sadere anbar
+            validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
+            validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
+            validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
+
+            validation = CheckAccess('DEL_IODOC'); // delete sadere anbar
+            validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
+            validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
+            validation == true ? localStorage.setItem("DEL_IODOC", "true") : localStorage.setItem("DEL_IODOC", "false")
+
+            validation = CheckAccess('PRN_IODOC'); // Print
+            validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
+            validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
+
+
+            validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
+            validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false
+            validation == true ? localStorage.setItem("Access_SHOWPRICE_IODOC", "true") : localStorage.setItem("Access_SHOWPRICE_IODOC", "false")
+
+            validation = CheckAccess('TAEED_IODOC');// AccessTaeed
+            validation == true ? sessionStorage.Access_TAEED_IODOC = true : sessionStorage.Access_TAEED_IODOC = false
+            validation == true ? localStorage.setItem("Access_TAEED_IODOC", "true") : localStorage.setItem("Access_TAEED_IODOC", "false")
+
+            validation = CheckAccess('CANCEL_IODOC');// AccessCANCEL  باطل
+            validation == true ? sessionStorage.Access_CANCEL_IODOC = true : sessionStorage.Access_CANCEL_IODOC = false
+            validation == true ? localStorage.setItem("Access_CANCEL_IODOC", "true") : localStorage.setItem("Access_CANCEL_IODOC", "false")
+
+            validation = CheckAccess('TASVIB_IODOC');// AccessTasvib
+            validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
+            validation == true ? localStorage.setItem("Access_TASVIB_IODOC", "true") : localStorage.setItem("Access_TASVIB_IODOC", "false")
+
+            validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
+            validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+
+            validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
+            if (validation == true) {
+                sessionStorage.AccessViewSanadAnbarSadere = true;
+                localStorage.setItem("AccessViewSanadAnbarSadere", "true")
+            }
+            else {
+                sessionStorage.AccessViewSanadAnbarSadere = false;
+                localStorage.setItem("AccessViewSanadAnbarSadere", "false")
+            }
+
+        }
+
     }
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها

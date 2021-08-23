@@ -1757,7 +1757,7 @@
                 ErjSaveDoc_CSave(bandNo + 1, false);
         }
         list_ErjUsersRoneveshtSelect = new Array();
-        counterErjUsersRonevesht = 0; 
+        counterErjUsersRonevesht = 0;
     })
 
     var flagSave;

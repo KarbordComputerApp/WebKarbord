@@ -1608,7 +1608,7 @@ function SetValidation() {
 
 
     // سند حسابداری
-    if (sessionStorage.ModeCode == 'ADOC') {
+  /*  if (sessionStorage.ModeCode == 'ADOC') {
         validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
         validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
 
@@ -1621,7 +1621,8 @@ function SetValidation() {
         validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
 
         validation = CheckAccess('DEL_ADOC'); // delete Sanad Hesab
-        validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
+        //validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
+
         validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
         validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
 
@@ -1653,28 +1654,35 @@ function SetValidation() {
             localStorage.setItem("AccessViewSanad", "false"); 
         }
     }
-
+    */
 
 
     validation = CheckAccess('SFORD');
     ShowMenu[26] = validation;  // سفارش فروش
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+    /*$("#AddNewFactor").hide();
+    $("#TabPor").hide();
+    $("#UpdateFactor").hide();
+    $("#DeleteFactor").hide();*/
+
+    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
         validation = CheckAccess('NEW_SFORD');// new sefaresh forosh
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+       
+
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_SFORD');// edit sefaresh forosh
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
+       // validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
 
 
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation = CheckAccess('DEL_SFORD'); // delete sefaresh forosh
 
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
         validation == true ? localStorage.setItem("DEL_SFORD", "true") : localStorage.setItem("DEL_SFORD", "false")
 
@@ -1717,7 +1725,7 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
 
 
@@ -1725,20 +1733,20 @@ function SetValidation() {
     ShowMenu[3] = validation;  // پیش فاکتور قروش
     //sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
         validation = CheckAccess('NEW_SPDOC');// new pish Factor forosh
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_SPDOC');// edit pish Factor forosh
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_SPDOC'); // delete pish Factor forosh
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+       // validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SPDOC = true : sessionStorage.DEL_SPDOC = false
         validation == true ? localStorage.setItem("DEL_SPDOC", "true") : localStorage.setItem("DEL_SPDOC", "false")
 
@@ -1784,28 +1792,28 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
     // OTHERUSER_SDOC
 
     validation = CheckAccess('SFDOC');
     ShowMenu[4] = validation;  //  فاکتور قروش
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+   /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
         validation = CheckAccess('NEW_SFDOC');// new Factor forosh
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_SFDOC');// edit Factor forosh
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
 
 
         validation = CheckAccess('DEL_SFDOC'); // delete Factor forosh
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
         validation == true ? localStorage.setItem("DEL_SDOC", "true") : localStorage.setItem("DEL_SDOC", "false")
 
@@ -1849,25 +1857,25 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
     validation = CheckAccess('SRDOC');
     ShowMenu[5] = validation;  // برگشت فاکتور قروش
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+   /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
         validation = CheckAccess('NEW_SRDOC');// new back Factor forosh
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_SRDOC');// edit back Factor forosh
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_SRDOC'); // delete back Factor forosh
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
         validation == true ? localStorage.setItem("DEL_SRDOC", "true") : localStorage.setItem("DEL_SRDOC", "false")
 
@@ -1910,26 +1918,26 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
 
     validation = CheckAccess('SHVL');
     ShowMenu[27] = validation;  // حواله فروش
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+   /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
         validation = CheckAccess('NEW_SHVL');// new 
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_SHVL');// edit
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_SHVL'); // delete 
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SHVL = true : sessionStorage.DEL_SHVL = false
         validation == true ? localStorage.setItem("DEL_SHVL", "true") : localStorage.setItem("DEL_SHVL", "false")
 
@@ -1968,26 +1976,26 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
 
     validation = CheckAccess('SEXT');
     ShowMenu[28] = validation;  //برگه خروج 
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
         validation = CheckAccess('NEW_SEXT');// new 
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_SEXT');// edit 
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_SEXT'); // delete 
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_SEXT = true : sessionStorage.DEL_SEXT = false
         validation == true ? localStorage.setItem("DEL_SEXT", "true") : localStorage.setItem("DEL_SEXT", "false")
 
@@ -2026,26 +2034,26 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
 
     validation = CheckAccess('PFORD');
     ShowMenu[29] = validation;  // سفارش خرید
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
         validation = CheckAccess('NEW_PFORD');// new
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_PFORD');// edit
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_PFORD'); // delete
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PFORD = true : sessionStorage.DEL_PFORD = false
         validation == true ? localStorage.setItem("DEL_PFORD", "true") : localStorage.setItem("DEL_PFORD", "false")
 
@@ -2088,27 +2096,27 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
 
 
     validation = CheckAccess('PPDOC');
     ShowMenu[6] = validation;  // پیش فاکتور خرید
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
         validation = CheckAccess('NEW_PPDOC');// new pish Factor kharid
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_PPDOC');// edit pish Factor kharid
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_PPDOC'); // delete pish Factor kharid
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PPDOC = true : sessionStorage.DEL_PPDOC = false
         validation == true ? localStorage.setItem("DEL_PPDOC", "true") : localStorage.setItem("DEL_PPDOC", "false")
 
@@ -2153,25 +2161,25 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
     validation = CheckAccess('PFDOC');
     ShowMenu[7] = validation;  //  فاکتور خرید
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
         validation = CheckAccess('NEW_PFDOC');// new Factor kharid
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_PFDOC');// edit Factor kharid
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
         validation = CheckAccess('DEL_PFDOC'); // delete Factor kharid
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
         validation == true ? localStorage.setItem("DEL_PDOC", "true") : localStorage.setItem("DEL_PDOC", "false")
 
@@ -2213,27 +2221,27 @@ function SetValidation() {
         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
-    }
+    }*/
 
 
     validation = CheckAccess('PRDOC');
     ShowMenu[8] = validation;  // برگشت فاکتور خرید
 
-    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+  /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         validation = CheckAccess('NEW_PRDOC');// new back Factor kharid
-        validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        validation == true ? $("#TabPor").show() : $("#TabPor").hide()
+        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
+        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
         sessionStorage.newFactor = validation;
         localStorage.setItem("newFactor", validation);
 
         validation = CheckAccess('CHG_PRDOC');// edit back Factor kharid
-        validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
+        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
 
         validation = CheckAccess('DEL_PRDOC'); // delete back Factor kharid
-        validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
+        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
         validation == true ? sessionStorage.DEL_PRDOC = true : sessionStorage.DEL_PRDOC = false
         validation == true ? localStorage.setItem("DEL_PRDOC", "true") : localStorage.setItem("DEL_PRDOC", "false")
 
@@ -2276,7 +2284,7 @@ function SetValidation() {
         sessionStorage.moveFactor = validation;
         localStorage.setItem("moveFactor", validation);
 
-    }
+    }*/
 
 
 
@@ -2287,7 +2295,7 @@ function SetValidation() {
     validation = CheckAccess('IIDOC');
     ShowMenu[9] = validation;  // وارده انبار
 
-    if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
+ /*   if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
         validation = CheckAccess('NEW_IIDOC');// new varedae anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
         sessionStorage.moveSanadAnbar = validation;
@@ -2338,12 +2346,12 @@ function SetValidation() {
             sessionStorage.AccessViewSanadAnbarVarede = false;
             localStorage.setItem("AccessViewSanadAnbarVarede", "false")
         }
-    }
+    }*/
 
     validation = CheckAccess('IODOC');
     ShowMenu[10] = validation;  // صادره انبار
 
-    if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
+  /*  if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
         validation = CheckAccess('NEW_IODOC');// new sadere anbar
         validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
         sessionStorage.moveSanadAnbar = validation;
@@ -2395,7 +2403,7 @@ function SetValidation() {
             localStorage.setItem("AccessViewSanadAnbarSadere", "false")
         }
 
-    }
+    }*/
 
     if (access[0].TrsName == 'ADMIN') {
         sessionStorage.AccessSanad = true;

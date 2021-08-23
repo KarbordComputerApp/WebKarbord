@@ -428,7 +428,7 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div id="BodyTestDoc_Delete" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+                <div id="BodyTestKala_Delete" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
                     <div class="body" style="padding:7px;">
                         <div class="form-inline">
@@ -474,72 +474,6 @@
 
 
 @section scripts{
-    <script type="text/javascript">
-        $('#btnp_DocDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_DocDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-        $('#btnp_MhltDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_MhltDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-
-        $('#btnp_AmalDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_AmalDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-        $('#btnp_EndDate').MdPersianDateTimePicker({
-            targetTextSelector: '#p_EndDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-        $('#btnRjMhltDate').MdPersianDateTimePicker({
-            targetTextSelector: '#RjMhltDate',
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-        });
-
-
-
-    </script>
-    <script src="~/Content/new/js/jszip.min.js"></script>
     <script src="~/Scripts/AFIBase_Kala.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
 }
 
