@@ -12,7 +12,7 @@
 
     if (sessionStorage.CHG == null) {
         sessionStorage.CHG = localStorage.getItem("CHG")
-        sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor") 
+        sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
     }
 
 
@@ -152,6 +152,7 @@
 
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestFDocList = ko.observableArray([]); // لیست تست 
+    self.TestFDoc_NewList = ko.observableArray([]); // لیست تست جدید
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
 
@@ -295,6 +296,7 @@
     var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
 
     var TestFDocUri = server + '/api/FDocData/TestFDoc/'; // آدرس تست فاکتور 
+    var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
@@ -787,18 +789,130 @@
 
     self.ButtonFDocH = function ButtonFDocH(newFDocH) {
         if (flagInsertFdoch == 0) {
-            self.ClearFDocB();
-            var a = AddFDocH(newFDocH);
-            flagInsertFdoch == 1 ? $('#modal-Band').modal() : null
+
+            var tarikh = $("#tarikh").val().toEnglishDigit();
+
+            if (tarikh.length != 10)
+                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+
+            if (tarikh == '')
+                return showNotification('تاريخ را وارد کنيد', 0);
+
+            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            else
+                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+
+            var TestFDoc_NewObject = {
+                DocDate: tarikh,
+                ModeCode: sessionStorage.ModeCode
+            };
+
+            ajaxFunction(TestFDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_NewObject).done(function (data) {
+                var obj = JSON.parse(data);
+                self.TestFDoc_NewList(obj);
+                if (data.length > 2) {
+                    $('#modal-Test_New').modal('show');
+                    SetDataTest_New();
+                } else {
+                    self.ClearFDocB();
+                    var a = AddFDocH(newFDocH);
+                    flagInsertFdoch == 1 ? $('#modal-Band').modal() : null
+                }
+            });
         } else {
             $('#modal-Band').modal()
         }
     }
 
+
+
+
+    function SetDataTest_New() {
+        $("#BodyTest_New").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestFDoc_NewList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTest_New').append(textBody);
+
+        $('#CountWarning_New').text(countWarning);
+        $('#CountError_New').text(countError);
+
+        if (countError > 0) {
+            $('#Delete-Modal').attr('hidden', '');
+            $('#ShowCountError_New').removeAttr('hidden', '');
+        }
+        else {
+            $('#Delete-Modal').removeAttr('hidden', '')
+            $('#ShowCountError_New').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning_New').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning_New').attr('hidden', '');
+        }
+
+
+    }
+
+
     self.ButtonFDocHBarcode = function ButtonFDocH(newFDocH) {
         if (flagInsertFdoch == 0) {
-            var a = AddFDocH(newFDocH);
-            flagInsertFdoch == 1 ? $('#modal-Barcode').modal() : null
+
+            var tarikh = $("#tarikh").val().toEnglishDigit();
+
+            if (tarikh.length != 10)
+                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+
+            if (tarikh == '')
+                return showNotification('تاريخ را وارد کنيد', 0);
+
+            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            else
+                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+
+            var TestFDoc_NewObject = {
+                DocDate: tarikh,
+                ModeCode: sessionStorage.ModeCode
+            };
+
+            ajaxFunction(TestFDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_NewObject).done(function (data) {
+                var obj = JSON.parse(data);
+                self.TestFDoc_NewList(obj);
+                if (data.length > 2) {
+                    $('#modal-Test_New').modal('show');
+                    SetDataTest_New();
+                } else {
+                    var a = AddFDocH(newFDocH);
+                    flagInsertFdoch == 1 ? $('#modal-Barcode').modal() : null
+                }
+            });
+           
         } else {
             $('#modal-Barcode').modal()
         }
@@ -2086,7 +2200,7 @@
 
         $('#codeKala').val(item.Code);
         $('#nameKala').val('(' + item.Code + ') ' + item.Name);
-        
+
         Price1 > 0 ? $("#unitPrice").val(NumberToNumberString(Price1)) : $("#unitPrice").val('');
 
         defaultUnit = item.DefaultUnit;
@@ -2112,7 +2226,7 @@
         }
 
 
-        
+
         $("#txtzarib1").text(item.UnitName1);
         $("#txtzarib2").text(item.UnitName2);
         $("#txtzarib3").text(item.UnitName3);

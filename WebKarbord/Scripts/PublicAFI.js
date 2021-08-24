@@ -2654,6 +2654,11 @@ $("#ADOC").click(function () {
     sessionStorage.ModeCode = 'ADOC';
     sessionStorage.lastPageSelect = 0;
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+
+/*    var newTabs = [];
+    newTabs.push(window.open("/AFISanad/Index", "_blank"));
+    newTabs[0].focus();
+    newTabs[0].close();*/
 });
 
 $("#FDOC_SO").click(function () {

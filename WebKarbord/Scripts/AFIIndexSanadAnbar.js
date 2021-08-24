@@ -9,7 +9,7 @@
     var serial;
     var invSelected = 0;
 
-    if (sessionStorage.ModeCode == null) {
+    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.moveSanadAnbar = localStorage.getItem("moveSanadAnbar");

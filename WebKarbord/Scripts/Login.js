@@ -289,6 +289,7 @@
         //localStorage.setItem('ace', '');
         //localStorage.setItem('group', '');
         //localStorage.setItem('sal', '');
+        localStorage.setItem("Inbox", 0);
 
         localStorage.setItem('Access', null);
         localStorage.setItem('AccessErj', null);
@@ -325,6 +326,7 @@
         localStorage.setItem('ace', '');
         localStorage.setItem('group', '');
         localStorage.setItem('sal', '');
+        localStorage.setItem("Inbox", 0);
 
         getAccountData();
     }

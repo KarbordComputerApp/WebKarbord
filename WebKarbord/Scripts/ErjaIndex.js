@@ -389,13 +389,7 @@
 
         sort = localStorage.getItem("sort" + rprtId);
         sortType = localStorage.getItem("sortType" + rprtId);
-
-        if (sort != null) {
-            if (sortType == "ascending")
-                sort = sort + " asc";
-            else
-                sort = sort + " desc";
-        }
+      
 
         var ErjDocHObject = {
             Mode: 0,
@@ -405,7 +399,8 @@
             Sal: sal,
             Status: status,
             DocNo: docno,
-            Sort: sort
+            Sort: sort,
+            ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         };
 
         ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, false).done(function (response) {
@@ -460,7 +455,9 @@
     self.currentPageErjDocH = ko.observable();
     pageSizeErjDocH = localStorage.getItem('pageSizeErjDocH') == null ? 10 : localStorage.getItem('pageSizeErjDocH');
     self.pageSizeErjDocH = ko.observable(pageSizeErjDocH);
+    
     self.sortType = "ascending";
+
     self.currentColumn = ko.observable("");
     self.iconType = ko.observable("");
 
@@ -691,25 +688,24 @@
         if (orderProp == null)
             return null
 
-        localStorage.setItem("sort" + rprtId, orderProp);
-        localStorage.setItem("sortType" + rprtId, self.sortType);
+        if (e != null) {
+            self.currentColumn(orderProp);
+            self.ErjDocHList.sort(function (left, right) {
+                leftVal = FixSortName(left[orderProp]);
+                rightVal = FixSortName(right[orderProp]);
+                if (self.sortType == "ascending") {
+                    return leftVal < rightVal ? 1 : -1;
+                }
+                else {
+                    return leftVal > rightVal ? 1 : -1;
+                }
+            });
 
+            self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-
-
-        self.currentColumn(orderProp);
-        self.ErjDocHList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp]);
-            rightVal = FixSortName(right[orderProp]);
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
-
+            localStorage.setItem("sort" + rprtId, orderProp);
+            localStorage.setItem("sortType" + rprtId, self.sortType);
+        }
 
 
         self.iconTypeDocNo('');

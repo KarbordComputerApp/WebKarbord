@@ -8,7 +8,7 @@
 
 
 
-    if (sessionStorage.ModeCode == null) {
+    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab" ) {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.newFactor = localStorage.getItem("newFactor");
@@ -1101,12 +1101,17 @@
     //Get FDocH 
     function getFDocH(select) {
 
+        sort = localStorage.getItem("sortFdocH_" + sessionStorage.ModeCode);
+        sortType = localStorage.getItem("sortTypeFdocH_" + sessionStorage.ModeCode);
+
         var FDocHMinObject = {
             ModeCode: sessionStorage.ModeCode,
             select: select,
             user: sessionStorage.userName,
             AccessSanad: sessionStorage.AccessSanad,
-            updatedate: null
+            updatedate: null,
+            Sort: sort,
+            ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         }
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (data) {
@@ -1501,25 +1506,32 @@
         if (orderProp == null)
             return null
 
-        localStorage.setItem("sortFdocH_" + sessionStorage.ModeCode, orderProp);
-        localStorage.setItem("sortTypeFdocH_" + sessionStorage.ModeCode, self.sortType);
+
 
         self.search("");
-        self.currentColumn(orderProp);
-        self.FDocHList.sort(function (left, right) {
 
-            leftVal = FixSortName(left[orderProp]);
-            rightVal = FixSortName(right[orderProp]);
+        if (e != null) {
+            self.currentColumn(orderProp);
+            self.FDocHList.sort(function (left, right) {
+
+                leftVal = FixSortName(left[orderProp]);
+                rightVal = FixSortName(right[orderProp]);
 
 
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+                if (self.sortType == "ascending") {
+                    return leftVal < rightVal ? 1 : -1;
+                }
+                else {
+                    return leftVal > rightVal ? 1 : -1;
+                }
+            });
+
+            self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+            localStorage.setItem("sortFdocH_" + sessionStorage.ModeCode, orderProp);
+            localStorage.setItem("sortTypeFdocH_" + sessionStorage.ModeCode, self.sortType);
+        }
+       
 
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
@@ -1707,7 +1719,7 @@
         }).then((result) => {
             if (result.value) {
                 getFDocH($('#pageCountSelector').val());
-                self.sortTableFDocH();
+                //self.sortTableFDocH();
                 //$('#pageCountSelector').val(0);
                 //Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست فاکتور ها به روز رسانی شد' });
             }

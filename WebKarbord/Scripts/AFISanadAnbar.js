@@ -134,6 +134,7 @@
     self.TestIDocList = ko.observableArray([]); // لیست تست 
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
 
 
@@ -241,6 +242,7 @@
     var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
 
     var TestIDocUri = server + '/api/IDocData/TestIDoc/'; // آدرس تست سند 
+    var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد  
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
@@ -642,14 +644,99 @@
 
     self.ButtonIDocH = function ButtonIDocH(newIDocH) {
         if (flagInsertIDoch == 0) {
-            self.ClearIDocB();
-            AddIDocH(newIDocH);
-            flagInsertIDoch == 1 ? $('#modal-Band').modal() : null
+
+
+            var tarikh = $("#tarikh").val().toEnglishDigit();
+
+            if (tarikh.length != 10)
+                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+
+            if (tarikh == '')
+                return showNotification('تاريخ را وارد کنيد', 0);
+
+            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            else
+                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+
+            var TestIDoc_NewObject = {
+                DocDate: tarikh,
+                ModeCode: sessionStorage.ModeCode
+            };
+
+            ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {
+                var obj = JSON.parse(data);
+                self.TestIDoc_NewList(obj);
+                if (data.length > 2) {
+                    $('#modal-Test_New').modal('show');
+                    SetDataTest_New();
+                } else {
+                    self.ClearIDocB();
+                    AddIDocH(newIDocH);
+                    flagInsertIDoch == 1 ? $('#modal-Band').modal() : null
+                }
+            });
+
+
+           
         } else {
             $('#modal-Band').modal()
         }
 
     }
+
+    function SetDataTest_New() {
+        $("#BodyTest_New").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestIDoc_NewList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">هشدار :</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">خطا :</p>'
+            }
+
+            if (list[i].TestCap != "")
+                textBody += '<p>' + list[i].TestCap + '</p>';
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTest_New').append(textBody);
+
+        $('#CountWarning_New').text(countWarning);
+        $('#CountError_New').text(countError);
+
+        if (countError > 0) {
+            $('#Delete-Modal').attr('hidden', '');
+            $('#ShowCountError_New').removeAttr('hidden', '');
+        }
+        else {
+            $('#Delete-Modal').removeAttr('hidden', '')
+            $('#ShowCountError_New').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning_New').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning_New').attr('hidden', '');
+        }
+
+
+    }
+
 
 
     /* 
@@ -758,8 +845,40 @@
 
     self.ButtonIDocHBarcode = function ButtonIDocH(newIDocH) {
         if (flagInsertIDoch == 0) {
-            var a = AddIDocH(newIDocH);
-            flagInsertIDoch == 1 ? $('#modal-Barcode').modal() : null
+
+
+
+
+            var tarikh = $("#tarikh").val().toEnglishDigit();
+
+            if (tarikh.length != 10)
+                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+
+            if (tarikh == '')
+                return showNotification('تاريخ را وارد کنيد', 0);
+
+            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            else
+                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+
+            var TestIDoc_NewObject = {
+                DocDate: tarikh,
+                ModeCode: sessionStorage.ModeCode
+            };
+
+            ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {
+                var obj = JSON.parse(data);
+                self.TestIDoc_NewList(obj);
+                if (data.length > 2) {
+                    $('#modal-Test_New').modal('show');
+                    SetDataTest_New();
+                } else {
+                    var a = AddIDocH(newIDocH);
+                    flagInsertIDoch == 1 ? $('#modal-Barcode').modal() : null
+                }
+            });
+
+
         } else {
             $('#modal-Barcode').modal()
         }
