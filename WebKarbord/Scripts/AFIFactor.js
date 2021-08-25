@@ -280,6 +280,7 @@
     var UpdatePriceUri = server + '/api/FDocData/UpdatePrice/'; // آدرس اعمال گروه قیمت
     var FDocHListUri = server + '/api/FDocData/FDocH/'; //آدر اطلاعات فاکتور  
     var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
+    var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
     var FDocHLastDateUri = server + '/api/FDocData/FDocH/LastDate/'; // آدرس آخرین تاریخ سند
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس حساب
@@ -3596,6 +3597,9 @@
     });
 
     if (flagupdateHeader == 1) {
+
+
+
         flagInsertFdoch = 1;
         Serial = sessionStorage.SerialNumber;
         self.SerialNumber(Serial);
@@ -3667,6 +3671,12 @@
         self.PaymentFactor(sessionStorage.PaymentType);
         $("#paymenttype").val(sessionStorage.PaymentType);
         //sessionStorage.flagupdateHeader = 0;
+
+
+        ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.FDocBList(data);
+        });
+
 
         if (codeOpr == "!!!" || codeMkz == "!!!") {
 

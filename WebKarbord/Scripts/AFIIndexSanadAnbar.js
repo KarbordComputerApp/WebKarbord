@@ -146,7 +146,7 @@
     var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
     var IDoc_DeleteUri = server + '/api/IDocData/TestIDoc_Delete/'; // آدرس تست حذف 
 
-    
+
 
     self.InvCode = ko.observable();
     self.InvCodeMove = ko.observable();
@@ -170,6 +170,17 @@
         'MkzName',
         'OprCode',
         'OprName',
+        'ThvlRegion',
+        'ThvlCity',
+        'ThvlStreet',
+        'ThvlAlley',
+        'ThvlPlack',
+        'ThvlZipCode',
+        'ThvlTel',
+        'ThvlMobile',
+        'ThvlFax',
+        'ThvlEMail',
+        'ThvlAddress',
         'F01',
         'F02',
         'F03',
@@ -429,6 +440,18 @@
     self.filterMkzName = ko.observable("");
     self.filterOprCode = ko.observable("");
     self.filterOprName = ko.observable("");
+    self.filterThvlRegion = ko.observable("");
+    self.filterThvlCity = ko.observable("");
+    self.filterThvlStreet = ko.observable("");
+    self.filterThvlAlley = ko.observable("");
+    self.filterThvlPlack = ko.observable("");
+    self.filterThvlZipCode = ko.observable("");
+    self.filterThvlTel = ko.observable("");
+    self.filterThvlMobile = ko.observable("");
+    self.filterThvlFax = ko.observable("");
+    self.filterThvlEMail = ko.observable("");
+    self.filterThvlAddress = ko.observable("");
+
     self.filterF01 = ko.observable("");
     self.filterF02 = ko.observable("");
     self.filterF03 = ko.observable("");
@@ -468,26 +491,37 @@
         self.filterMkzName(listFilter[13]);
         self.filterOprCode(listFilter[14]);
         self.filterOprName(listFilter[15]);
-        self.filterF01(listFilter[16]);
-        self.filterF02(listFilter[17]);
-        self.filterF03(listFilter[18]);
-        self.filterF04(listFilter[19]);
-        self.filterF05(listFilter[20]);
-        self.filterF06(listFilter[21]);
-        self.filterF07(listFilter[22]);
-        self.filterF08(listFilter[23]);
-        self.filterF09(listFilter[24]);
-        self.filterF10(listFilter[25]);
-        self.filterF11(listFilter[26]);
-        self.filterF12(listFilter[27]);
-        self.filterF13(listFilter[28]);
-        self.filterF14(listFilter[29]);
-        self.filterF15(listFilter[30]);
-        self.filterF16(listFilter[31]);
-        self.filterF17(listFilter[32]);
-        self.filterF18(listFilter[33]);
-        self.filterF19(listFilter[34]);
-        self.filterF20(listFilter[35]);
+        self.filterThvlRegion(listFilter[16]);
+        self.filterThvlCity(listFilter[17]);
+        self.filterThvlStreet(listFilter[18]);
+        self.filterThvlAlley(listFilter[19]);
+        self.filterThvlPlack(listFilter[20]);
+        self.filterThvlZipCode(listFilter[21]);
+        self.filterThvlTel(listFilter[22]);
+        self.filterThvlMobile(listFilter[23]);
+        self.filterThvlFax(listFilter[24]);
+        self.filterThvlEMail(listFilter[25]);
+        self.filterThvlAddress(listFilter[26]);
+        self.filterF01(listFilter[27]);
+        self.filterF02(listFilter[28]);
+        self.filterF03(listFilter[29]);
+        self.filterF04(listFilter[30]);
+        self.filterF05(listFilter[31]);
+        self.filterF06(listFilter[32]);
+        self.filterF07(listFilter[33]);
+        self.filterF08(listFilter[34]);
+        self.filterF09(listFilter[35]);
+        self.filterF10(listFilter[36]);
+        self.filterF11(listFilter[37]);
+        self.filterF12(listFilter[38]);
+        self.filterF13(listFilter[39]);
+        self.filterF14(listFilter[40]);
+        self.filterF15(listFilter[41]);
+        self.filterF16(listFilter[42]);
+        self.filterF17(listFilter[43]);
+        self.filterF18(listFilter[44]);
+        self.filterF19(listFilter[45]);
+        self.filterF20(listFilter[46]);
     }
 
 
@@ -510,6 +544,17 @@
         var filterMkzName = self.filterMkzName();
         var filterOprCode = self.filterOprCode();
         var filterOprName = self.filterOprName();
+        var filterThvlRegion = self.filterThvlRegion();
+        var filterThvlCity = self.filterThvlCity();
+        var filterThvlStreet = self.filterThvlStreet();
+        var filterThvlAlley = self.filterThvlAlley();
+        var filterThvlPlack = self.filterThvlPlack();
+        var filterThvlZipCode = self.filterThvlZipCode();
+        var filterThvlTel = self.filterThvlTel();
+        var filterThvlMobile = self.filterThvlMobile();
+        var filterThvlFax = self.filterThvlFax();
+        var filterThvlEMail = self.filterThvlEMail();
+        var filterThvlAddress = self.filterThvlAddress();
         var filterF01 = self.filterF01();
         var filterF02 = self.filterF02();
         var filterF03 = self.filterF03();
@@ -533,6 +578,8 @@
 
         if (!filterDocNo && !filterDocDate && !filterInvName && !filterThvlName && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
             !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber && !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
+
+            !filterThvlRegion && !filterThvlCity && !filterThvlStreet && !filterThvlAlley && !filterThvlPlack && !filterThvlZipCode && !filterThvlTel && !filterThvlMobile && !filterThvlFax && !filterThvlEMail && !filterThvlAddress &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             $("#CountRecord").text(self.IDocHList().length);
@@ -557,6 +604,17 @@
                 filterMkzName,
                 filterOprCode,
                 filterOprName,
+                filterThvlRegion,
+                filterThvlCity,
+                filterThvlStreet,
+                filterThvlAlley,
+                filterThvlPlack,
+                filterThvlZipCode,
+                filterThvlTel,
+                filterThvlMobile,
+                filterThvlFax,
+                filterThvlEMail,
+                filterThvlAddress,
                 filterF01,
                 filterF02,
                 filterF03,
@@ -597,6 +655,17 @@
                     (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
                     (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
                     (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                    (item.ThvlRegion == null ? '' : item.ThvlRegion.toString().search(filterThvlRegion) >= 0) &&
+                    (item.ThvlCity == null ? '' : item.ThvlCity.toString().search(filterThvlCity) >= 0) &&
+                    (item.ThvlStreet == null ? '' : item.ThvlStreet.toString().search(filterThvlStreet) >= 0) &&
+                    (item.ThvlAlley == null ? '' : item.ThvlAlley.toString().search(filterThvlAlley) >= 0) &&
+                    (item.ThvlPlack == null ? '' : item.ThvlPlack.toString().search(filterThvlPlack) >= 0) &&
+                    (item.ThvlZipCode == null ? '' : item.ThvlZipCode.toString().search(filterThvlZipCode) >= 0) &&
+                    (item.ThvlTel == null ? '' : item.ThvlTel.toString().search(filterThvlTel) >= 0) &&
+                    (item.ThvlMobile == null ? '' : item.ThvlMobile.toString().search(filterThvlMobile) >= 0) &&
+                    (item.ThvlFax == null ? '' : item.ThvlFax.toString().search(filterThvlFax) >= 0) &&
+                    (item.ThvlEMail == null ? '' : item.ThvlEMail.toString().search(filterThvlEMail) >= 0) &&
+                    (item.ThvlAddress == null ? '' : item.ThvlAddress.toString().search(filterThvlAddress) >= 0) &&
                     (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                     (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
                     (item.F03 == null ? '' : item.F03.toString().search(filterF03) >= 0) &&
@@ -708,6 +777,17 @@
     self.iconTypeMkzName = ko.observable("");
     self.iconTypeOprCode = ko.observable("");
     self.iconTypeOprName = ko.observable("");
+    self.iconTypeThvlRegion = ko.observable("");
+    self.iconTypeThvlCity = ko.observable("");
+    self.iconTypeThvlStreet = ko.observable("");
+    self.iconTypeThvlAlley = ko.observable("");
+    self.iconTypeThvlPlack = ko.observable("");
+    self.iconTypeThvlZipCode = ko.observable("");
+    self.iconTypeThvlTel = ko.observable("");
+    self.iconTypeThvlMobile = ko.observable("");
+    self.iconTypeThvlFax = ko.observable("");
+    self.iconTypeThvlEMail = ko.observable("");
+    self.iconTypeThvlAddress = ko.observable("");
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
     self.iconTypeF03 = ko.observable("");
@@ -774,6 +854,17 @@
         self.iconTypeMkzName('');
         self.iconTypeOprCode('');
         self.iconTypeOprName('');
+        self.iconTypeThvlRegion('');
+        self.iconTypeThvlCity('');
+        self.iconTypeThvlStreet('');
+        self.iconTypeThvlAlley('');
+        self.iconTypeThvlPlack('');
+        self.iconTypeThvlZipCode('');
+        self.iconTypeThvlTel('');
+        self.iconTypeThvlMobile('');
+        self.iconTypeThvlFax('');
+        self.iconTypeThvlEMail('');
+        self.iconTypeThvlAddress('');
         self.iconTypeF01('');
         self.iconTypeF02('');
         self.iconTypeF03('');
@@ -811,6 +902,17 @@
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlRegion') self.iconTypeThvlRegion((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlCity') self.iconTypeThvlCity((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlStreet') self.iconTypeThvlStreet((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlAlley') self.iconTypeThvlAlley((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlPlack') self.iconTypeThvlPlack((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlZipCode') self.iconTypeThvlZipCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlTel') self.iconTypeThvlTel((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlMobile') self.iconTypeThvlMobile((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlFax') self.iconTypeThvlFax((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlEMail') self.iconTypeThvlEMail((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlAddress') self.iconTypeThvlAddress((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F03') self.iconTypeF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -994,7 +1096,7 @@
             showNotification('سند حذف شد ', 1);
         });
     }
-        
+
 
     $('#Delete-Modal').click(function () {
         DeleteSanadAnbar();
@@ -1374,7 +1476,7 @@
 
         ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
-            
+
 
             currentPage = self.currentPageIndexIDocH();
             getIDocH(0, invSelected);
@@ -1410,6 +1512,17 @@
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
+            CreateTableTh('ThvlRegion', data) +
+            CreateTableTh('ThvlCity', data) +
+            CreateTableTh('ThvlStreet', data) +
+            CreateTableTh('ThvlAlley', data) +
+            CreateTableTh('ThvlPlack', data) +
+            CreateTableTh('ThvlZipCode', data) +
+            CreateTableTh('ThvlTel', data) +
+            CreateTableTh('ThvlMobile', data) +
+            CreateTableTh('ThvlFax', data) +
+            CreateTableTh('ThvlEMail', data) +
+            CreateTableTh('ThvlAddress', data) +
             CreateTableTh('F01', data) +
             CreateTableTh('F02', data) +
             CreateTableTh('F03', data) +
@@ -1453,6 +1566,17 @@
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
+            CreateTableTd('ThvlRegion', 0, 0, data) +
+            CreateTableTd('ThvlCity', 0, 0, data) +
+            CreateTableTd('ThvlStreet', 0, 0, data) +
+            CreateTableTd('ThvlAlley', 0, 0, data) +
+            CreateTableTd('ThvlPlack', 0, 0, data) +
+            CreateTableTd('ThvlZipCode', 0, 0, data) +
+            CreateTableTd('ThvlTel', 0, 0, data) +
+            CreateTableTd('ThvlMobile', 0, 0, data) +
+            CreateTableTd('ThvlFax', 0, 0, data) +
+            CreateTableTd('ThvlEmail', 0, 0, data) +
+            CreateTableTd('ThvlAddress', 0, 0, data) +
             CreateTableTd('F01', 0, 4, data) +
             CreateTableTd('F02', 0, 4, data) +
             CreateTableTd('F03', 0, 4, data) +
@@ -1532,6 +1656,17 @@
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
             CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('ThvlRegion', data) +
+            CreateTableTdSearch('ThvlCity', data) +
+            CreateTableTdSearch('ThvlStreet', data) +
+            CreateTableTdSearch('ThvlAlley', data) +
+            CreateTableTdSearch('ThvlPlack', data) +
+            CreateTableTdSearch('ThvlZipCode', data) +
+            CreateTableTdSearch('ThvlTel', data) +
+            CreateTableTdSearch('ThvlMobile', data) +
+            CreateTableTdSearch('ThvlFax', data) +
+            CreateTableTdSearch('ThvlEMail', data) +
+            CreateTableTdSearch('ThvlAddress', data) +
             CreateTableTdSearch('F01', data) +
             CreateTableTdSearch('F02', data) +
             CreateTableTdSearch('F03', data) +
