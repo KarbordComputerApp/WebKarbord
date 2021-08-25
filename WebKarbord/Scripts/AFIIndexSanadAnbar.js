@@ -578,8 +578,8 @@
 
         if (!filterDocNo && !filterDocDate && !filterInvName && !filterThvlName && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
             !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber && !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
-
-            !filterThvlRegion && !filterThvlCity && !filterThvlStreet && !filterThvlAlley && !filterThvlPlack && !filterThvlZipCode && !filterThvlTel && !filterThvlMobile && !filterThvlFax && !filterThvlEMail && !filterThvlAddress &&
+            !filterThvlRegion && !filterThvlCity && !filterThvlStreet && !filterThvlAlley && !filterThvlPlack && !filterThvlZipCode && !filterThvlTel && !filterThvlMobile
+            && !filterThvlFax && !filterThvlEMail && !filterThvlAddress &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
             $("#CountRecord").text(self.IDocHList().length);
@@ -1575,7 +1575,7 @@
             CreateTableTd('ThvlTel', 0, 0, data) +
             CreateTableTd('ThvlMobile', 0, 0, data) +
             CreateTableTd('ThvlFax', 0, 0, data) +
-            CreateTableTd('ThvlEmail', 0, 0, data) +
+            CreateTableTd('ThvlEMail', 0, 0, data) +
             CreateTableTd('ThvlAddress', 0, 0, data) +
             CreateTableTd('F01', 0, 4, data) +
             CreateTableTd('F02', 0, 4, data) +
