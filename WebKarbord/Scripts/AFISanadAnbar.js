@@ -882,6 +882,10 @@
         } else {
             $('#modal-Barcode').modal()
         }
+
+        if (self.KalaList().length == 0) {
+            getKalaList();
+        }
     }
 
     var DataKalaBarcode = null;
