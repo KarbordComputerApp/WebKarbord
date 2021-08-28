@@ -19,6 +19,27 @@
     shamsiDate = ShamsiDate();
 
 
+
+
+
+    validation = CheckAccess('NEW_KALA');// New Kala
+    sessionStorage.NEW_KALA = validation;
+    validation == true ? $("#AddNewKala").show() : $("#AddNewKala").hide()
+
+    validation = CheckAccess('CHG_KALA');// edit Kala
+    sessionStorage.CHG_KALA = validation;
+
+    validation = CheckAccess('DEL_KALA'); // delete Kala
+    sessionStorage.DEL_KALA = validation;
+
+    self.ShowAction = function (Code) {
+        if (sessionStorage.DEL_KALA == 'true')
+            return true;
+        else
+            return false;
+    }
+
+
     var kGruCode = '';
 
     var rprtId = 'Kala';
@@ -661,13 +682,14 @@
 
 
     self.AddNewKala = function () {
+        sessionStorage.NEW_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
         kGruCode = '';
         $('#Code').val('');
         $('#Name').val('');
         $('#FanniNo').val('');
         $('#Spec').val('');
         $('#nameKGru').val('');
-        
+
         $('#Code').attr('readonly', false);
 
         $('#UnitName1').val('');
@@ -713,6 +735,7 @@
 
     self.UpdateKala = function (item) {
 
+        sessionStorage.CHG_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -827,11 +850,11 @@
     });
 
 
-   
+
     $('#B_DefaultUnit1').click(function () {
-        $('#DefaultUnit1').text('پیش فرض'); 
-        $('#DefaultUnit2').text(''); 
-        $('#DefaultUnit3').text(''); 
+        $('#DefaultUnit1').text('پیش فرض');
+        $('#DefaultUnit2').text('');
+        $('#DefaultUnit3').text('');
     })
 
     $('#B_DefaultUnit2').click(function () {
@@ -1085,7 +1108,7 @@
             '   <a id="UpdateKala" data-bind="click: $root.UpdateKala">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteKala" data-bind="click: $root.DeleteKala">' +
+            '   <a id="DeleteKala" data-bind="click: $root.DeleteKala, visible: $root.ShowAction(Code)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

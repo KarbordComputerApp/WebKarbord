@@ -170,8 +170,10 @@
         'MkzName',
         'OprCode',
         'OprName',
-        'ThvlRegion',
+        'ThvlOstan',
+        'ThvlShahrestan',
         'ThvlCity',
+        'ThvlRegion',
         'ThvlStreet',
         'ThvlAlley',
         'ThvlPlack',
@@ -441,6 +443,8 @@
     self.filterOprCode = ko.observable("");
     self.filterOprName = ko.observable("");
     self.filterThvlRegion = ko.observable("");
+    self.filterThvlOstan = ko.observable("");
+    self.filterThvlShahrestan = ko.observable("");
     self.filterThvlCity = ko.observable("");
     self.filterThvlStreet = ko.observable("");
     self.filterThvlAlley = ko.observable("");

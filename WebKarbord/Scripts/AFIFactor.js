@@ -280,7 +280,6 @@
     var UpdatePriceUri = server + '/api/FDocData/UpdatePrice/'; // آدرس اعمال گروه قیمت
     var FDocHListUri = server + '/api/FDocData/FDocH/'; //آدر اطلاعات فاکتور  
     var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
-    var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
     var FDocHLastDateUri = server + '/api/FDocData/FDocH/LastDate/'; // آدرس آخرین تاریخ سند
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس حساب
@@ -298,6 +297,7 @@
 
     var TestFDocUri = server + '/api/FDocData/TestFDoc/'; // آدرس تست فاکتور 
     var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
+    var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
@@ -913,7 +913,7 @@
                     flagInsertFdoch == 1 ? $('#modal-Barcode').modal() : null
                 }
             });
-           
+
         } else {
             $('#modal-Barcode').modal()
         }
@@ -1396,6 +1396,16 @@
         Amount2 = SlashToDot($('#amount2').text());
         Amount3 = SlashToDot($('#amount3').text());
 
+        if ((Amount1 == "" || Amount2 == "" || Amount3 == "")) {
+            if (amount > 0)
+                Amount1 = amount;
+            else
+                Amount1 = "0";
+        }
+
+        if (uKala == null)
+            uKala = 1;
+
         textZeroAmount = 'مقدار صفر است'
 
         if (Amount3 == 0)
@@ -1544,9 +1554,9 @@
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumber,
             KalaCode: KalaCode,
-            Amount1: SlashToDot($('#amount1').text()),// self.Amount1(),
-            Amount2: SlashToDot($('#amount2').text()),//self.Amount2(),
-            Amount3: SlashToDot($('#amount3').text()),//self.Amount3(),
+            Amount1: Amount1,//SlashToDot($('#amount2').text()),//self.Amount2(),
+            Amount2: Amount2,//SlashToDot($('#amount2').text()),//self.Amount2(),
+            Amount3: Amount3,//SlashToDot($('#amount3').text()),//self.Amount3(),
             UnitPrice: unitprice + '',
             TotalPrice: totalPrice + '',//self.TotalPrice(),
             Discount: discountprice,//self.Discount(),
@@ -1637,6 +1647,16 @@
         Amount1 = SlashToDot($('#amount1').text());
         Amount2 = SlashToDot($('#amount2').text());
         Amount3 = SlashToDot($('#amount3').text());
+
+        if ((Amount1 == "" || Amount2 == "" || Amount3 == "")) {
+            if (amount > 0)
+                Amount1 = amount;
+            else
+                Amount1 = "0";
+        }
+
+        if (uKala == null)
+            uKala = 1;
 
         textZeroAmount = 'مقدار صفر است'
 
@@ -1781,9 +1801,9 @@
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumberedit,
             KalaCode: KalaCode,
-            Amount1: SlashToDot($('#amount1').text()),// self.Amount1(),
-            Amount2: SlashToDot($('#amount2').text()),//self.Amount2(),
-            Amount3: SlashToDot($('#amount3').text()),//self.Amount3(),
+            Amount1: Amount1,//SlashToDot($('#amount1').text()),// self.Amount1(),
+            Amount2: Amount2,//SlashToDot($('#amount2').text()),//self.Amount2(),
+            Amount3: Amount3,//SlashToDot($('#amount3').text()),//self.Amount3(),
             UnitPrice: unitprice,
             TotalPrice: totalPrice,//self.TotalPrice(),
             Discount: discountprice,//self.Discount(),
@@ -2832,6 +2852,9 @@
         $("#totalPrice").val() == '' ? totalPrice = 0 : totalPrice = parseFloat(SlashToDot($("#totalPrice").val()));
         //if (flag == -1) flag = 0;
         var sum = 0;
+        if (unitvalue == null) {
+            unitvalue = 1;
+        }
         if (unitvalue > 0) {
             if (amount > 0) {
                 if (unitvalue == "1") {
@@ -3163,6 +3186,7 @@
                     $("#AddMinSharh8").val(),
                     $("#AddMinSharh9").val(),
                     $("#AddMinSharh10").val(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                closedDate = false;
                 codeCust = '';
                 sessionStorage.flagupdateHeader = 0;
                 self.ClearFDocH();
@@ -3326,6 +3350,7 @@
     $('#action_footerfactor').attr('style', 'display: none');
     $('#action_Fdoc').attr('style', 'display: none');
     $('#insertband').attr('style', 'display: none');
+    $('#Barcode').attr('style', 'display: none');
     $('#btnCust').attr('style', 'display: none');
     $('#btnMkz').attr('style', 'display: none');
     $('#btnOpr').attr('style', 'display: none');
@@ -3536,6 +3561,7 @@
             $('#action_Fdoc').removeAttr('style');
             $('#btnCust').removeAttr('style');
             $('#insertband').removeAttr('style');
+            $('#Barcode').removeAttr('style');
             $('#btnMkz').removeAttr('style');
             $('#btnOpr').removeAttr('style');
             $('#gGhimat').attr('disabled', false);
@@ -3673,24 +3699,41 @@
         //sessionStorage.flagupdateHeader = 0;
 
 
-        ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
-            self.FDocBList(data);
+
+        var closedDate = false;
+
+        var TestFDoc_EditObject = {
+            Serialnumber: Serial
+        }
+
+        ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    showNotification(list[i].TestCap, 0);
+                }
+            }
+
         });
 
+       
 
-        if (codeOpr == "!!!" || codeMkz == "!!!") {
-
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true) {
             $('#action_headerfactor').attr('style', 'display: none');
             $('#action_bodyfactor').attr('style', 'display: none');
             $('#action_footerfactor').attr('style', 'display: none');
             $('#action_Fdoc').attr('style', 'display: none');
             $('#insertband').attr('style', 'display: none');
+            $('#Barcode').attr('style', 'display: none');
             $('#btnCust').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
             $('#btnOpr').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);
             $('#inv').attr('disabled', true);
+        }
 
+        if (codeOpr == "!!!" || codeMkz == "!!!") {
             showNotification($('#TitleHeaderFactor').text() + ' دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
         }
     }

@@ -406,10 +406,10 @@ var erjGroupApi;
 //access = JSON.parse(localStorage.getItem("Access"));
 tempAccess = localStorage.getItem("afi1Access");
 if (tempAccess == "null" || tempAccess == "" || tempAccess == null) {
-    afiAccessApi = localStorage.getItem("afi8Access").split("*")
+    afiAccessApi = localStorage.getItem('afi8Access').split("*")
 }
 else {
-    afiAccessApi = localStorage.getItem("afi1Access").split("*")
+    afiAccessApi = localStorage.getItem('afi1Access').split("*")
 }
 
 
@@ -424,7 +424,7 @@ afiaccess = [false, false, false, false, false, false, false, false, false, fals
     false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
 
-for (var i = 0; i <= 27; i++) {
+for (var i = 0; i <= 28; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -453,6 +453,8 @@ for (var i = 0; i <= 27; i++) {
     afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
     afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
     afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
+    afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
+    afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
 }
 
 function CheckGroupErj(GroupName) {
@@ -514,6 +516,7 @@ $("#TrzIKala").hide();
 $("#TrzIKalaExf").hide();
 $("#IDocR").hide();
 $("#Krdx").hide();
+$("#Base_Menu").hide();
 $("#ADOC_Menu").hide();
 $("#FDOC_Menu").hide();
 $("#IDOC_Menu").hide();
@@ -1356,7 +1359,7 @@ function getAccessList() {
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 27; i++) {
+                for (var i = 0; i <= 28; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -1385,6 +1388,8 @@ function getAccessList() {
                     afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
                     afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
                     afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
+                    afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
+                    afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
                 }
 
                 erjaccess = [false, false]
@@ -1581,6 +1586,11 @@ function SetValidation() {
 
     validation = CheckAccessReport('Krdx');
     ShowMenu[30] = validation;  // گزارش کاردکس
+
+    validation = CheckAccess('KALA');
+    ShowMenu[31] = validation;  // کالا ها
+    validation = CheckAccess('CUST');
+    ShowMenu[32] = validation;  // خریداران / فروشندگان
 
 
     //localStorage.setItem("", );
@@ -2411,6 +2421,17 @@ function SetValidation() {
         //sessionStorage.AccessViewSanadAnbarVarede = true;
     }
 
+
+
+    if (afiaccess[27] == true || afiaccess[28] == true) {
+        $("#Base_Menu").show();
+        (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
+        (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
+    }
+    else {
+        $("#Base_Menu").hide();
+    }
+
     if (ShowMenu[0]) {
         if (afiaccess[21] == true) {
             if (ShowMenu[25]) {
@@ -2424,9 +2445,6 @@ function SetValidation() {
         else {
             $("#ADOC_Menu").hide();
         }
-
-
-
 
         if (afiaccess[0] == true || afiaccess[1] == true || afiaccess[2] == true || afiaccess[3] == true || afiaccess[4] == true || afiaccess[5] == true
             || afiaccess[22] == true || afiaccess[23] == true || afiaccess[24] == true || afiaccess[25] == true) {

@@ -56,6 +56,8 @@
     var accessTaeed = false;
     var accessDaem = false;
 
+    var closedDate = false;
+
     function ClearSearch() {
         flagSearchAcc = 0;
         flagSearchZAcc = 0;
@@ -244,6 +246,7 @@
 
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
     var TestADoc_NewUri = server + '/api/ADocData/TestADoc_New/'; // آدرس تست ایجاد  
+    var TestADoc_EditUri = server + '/api/ADocData/TestADoc_Edit/'; // آدرس تست ویرایش 
     var SaveADoc_HZUri = server + '/api/ADocData/SaveADoc_HZ/'; // آدرس ویرایس ستون تنظیم 
 
 
@@ -535,6 +538,25 @@
         self.StatusSanad(sessionStorage.Status);
         $("#status").val(sessionStorage.Status);
         flagOtherFieldShow = true;
+
+       
+
+        var TestADoc_EditObject = {
+            Serialnumber: Serial
+        }
+
+        ajaxFunction(TestADoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_EditObject, false).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    showNotification(list[i].TestCap, 0);
+                }
+            }
+
+        });
+
+
     }
     else {
         flagInsertADocH = 0;
@@ -590,6 +612,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
+                closedDate = false;
                 sessionStorage.flagupdateHeader = 0;
                 AccCode = "";
                 AccZCode = "";
@@ -3662,12 +3685,15 @@
 
     $(this).CheckAccess();
 
+
+    if (closedDate == true) {
+        $('#action_headersanad').attr('style', 'display: none');
+        $('#action_bodysanad').attr('style', 'display: none');
+        $('#action_Adoc').attr('style', 'display: none');
+        $('#insertband').attr('style', 'display: none');
+    }
+
     createViewer();
-
-
-
-
-
 
 
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');

@@ -19,6 +19,27 @@
     TestUser();
     shamsiDate = ShamsiDate();
 
+
+
+    validation = CheckAccess('NEW_CUST');// New CUST
+    sessionStorage.NEW_CUST = validation;
+    validation == true ? $("#AddNewCust").show() : $("#AddNewCust").hide()
+
+    validation = CheckAccess('CHG_CUST');// edit CUST
+    sessionStorage.CHG_CUST = validation;
+
+    validation = CheckAccess('DEL_CUST'); // delete CUST
+    sessionStorage.DEL_CUST = validation;
+
+    self.ShowAction = function (Code) {
+        if (sessionStorage.DEL_CUST == 'true')
+            return true;
+        else
+            return false;
+    }
+
+
+
     var cGruCode = '';
 
 
@@ -661,6 +682,7 @@
 
 
     self.AddNewCust = function () {
+        sessionStorage.NEW_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         cGruCode = '';
         $('#Code').attr('readonly', false);
         $('#Code').val('');
@@ -711,6 +733,7 @@
 
     self.UpdateCust = function (item) {
 
+        sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -1030,7 +1053,7 @@
             '   <a id="UpdateCust" data-bind="click: $root.UpdateCust">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteCust" data-bind="click: $root.DeleteCust">' +
+            '   <a id="DeleteCust" data-bind="click: $root.DeleteCust, visible: $root.ShowAction(Code)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

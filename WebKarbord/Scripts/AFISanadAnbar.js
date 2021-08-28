@@ -242,7 +242,8 @@
     var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
 
     var TestIDocUri = server + '/api/IDocData/TestIDoc/'; // آدرس تست سند 
-    var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد  
+    var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد 
+    var TestIDoc_EditUri = server + '/api/IDocData/TestIDoc_Edit/'; // آدرس تست ویرایش 
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
@@ -1474,9 +1475,48 @@
         }
 
 
+        var nKala = $('#nameKala').val();
+        var uKala = $("#unitName option:selected").val();
+        var amount = SlashToDot($("#amount").val());
+        var unitprice = SlashToDot($("#unitPrice").val());
+        totalPrice = SlashToDot($("#totalPrice").val());
+
+        if (flag == 0) {
+            unitprice = totalPrice / amount;
+        }
+
+        comm = $("#comm").val();
+
+
+        if (KalaCode == '' || nKala == '' || uKala == '') {
+            return showNotification('کالا را وارد کنید', 0);
+        }
+
+        if (amount == '') {
+            amount = 0;
+        }
+
+        if ((unitprice == '' && totalPrice == '') || (sessionStorage.InOut == 2)) {
+            unitprice = 0;
+            totalPrice = 0;
+        }
+
+
+
+
         Amount1 = SlashToDot($('#amount1').text());
         Amount2 = SlashToDot($('#amount2').text());
         Amount3 = SlashToDot($('#amount3').text());
+
+        if ((Amount1 == "" || Amount2 == "" || Amount3 == "")) {
+            if (amount > 0)
+                Amount1 = amount;
+            else
+                Amount1 = "0";
+        }
+
+        if (uKala == null)
+            uKala = 1;
 
         textZeroAmount = 'مقدار صفر است'
         if (Amount3 == 0)
@@ -1497,37 +1537,7 @@
                 }
 
 
-        //        var cKala = $('#codeKala').val();
-        var nKala = $('#nameKala').val();
-        //var uKala = $('#unitName').val();
-
-        var uKala = $("#unitName option:selected").val();
-
-        var amount = SlashToDot($("#amount").val());
-        var unitprice = SlashToDot($("#unitPrice").val());
-        totalPrice = SlashToDot($("#totalPrice").val());
-
-        if (flag == 0) {
-            unitprice = totalPrice / amount;
-        }
-
-        comm = $("#comm").val();
-
-
-        if (KalaCode == '' || nKala == '' || uKala == '') {
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
-            return showNotification('کالا را وارد کنید', 0);
-        }
-
-        if (amount == '') {
-            amount = 0;
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'مقدار را وارد کنيد' });
-        }
-
-        if ((unitprice == '' && totalPrice == '') || (sessionStorage.InOut == 2)) {
-            unitprice = 0;
-            totalPrice = 0;
-        }
+      
 
         $('#Save').attr('disabled', 'disabled');
 
@@ -1535,9 +1545,9 @@
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumber,
             KalaCode: KalaCode,
-            Amount1: SlashToDot($('#amount1').text()),// self.Amount1(),
-            Amount2: SlashToDot($('#amount2').text()),//self.Amount2(),
-            Amount3: SlashToDot($('#amount3').text()),//self.Amount3(),
+            Amount1: Amount1,//SlashToDot($('#amount1').text()),// self.Amount1(),
+            Amount2: Amount2,//SlashToDot($('#amount2').text()),//self.Amount2(),
+            Amount3: Amount3,//SlashToDot($('#amount3').text()),//self.Amount3(),
             UnitPrice: unitprice + '',
             TotalPrice: totalPrice + '',//self.TotalPrice(),
             MainUnit: uKala,//self.MainUnit(),
@@ -1612,9 +1622,29 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
         }
 
+
+        if (amount == '') {
+            amount = 0;
+        }
+
+        if ((unitprice == '' && totalPrice == '') || (sessionStorage.InOut == 2)) {
+            unitprice = 0;
+            totalPrice = 0;
+        }
+
         Amount1 = SlashToDot($('#amount1').text());
         Amount2 = SlashToDot($('#amount2').text());
         Amount3 = SlashToDot($('#amount3').text());
+
+        if ((Amount1 == "" || Amount2 == "" || Amount3 == "")) {
+            if (amount > 0)
+                Amount1 = amount;
+            else
+                Amount1 = "0";
+        }
+
+        if (uKala == null)
+            uKala = 1;
 
         textZeroAmount = 'مقدار صفر است'
         if (Amount3 == 0)
@@ -1634,22 +1664,15 @@
                     }
                 }
 
-        if (amount == '') {
-            amount = 0;
-        }
-
-        if ((unitprice == '' && totalPrice == '') || (sessionStorage.InOut == 2)) {
-            unitprice = 0;
-            totalPrice = 0;
-        }
+        
 
         var IDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumberedit,
             KalaCode: KalaCode,
-            Amount1: SlashToDot($('#amount1').text()),// self.Amount1(),
-            Amount2: SlashToDot($('#amount2').text()),//self.Amount2(),
-            Amount3: SlashToDot($('#amount3').text()),//self.Amount3(),
+            Amount1: Amount1,//SlashToDot($('#amount1').text()),// self.Amount1(),
+            Amount2: Amount2,//SlashToDot($('#amount2').text()),//self.Amount2(),
+            Amount3: Amount3,//SlashToDot($('#amount3').text()),//self.Amount3(),
             UnitPrice: unitprice,
             TotalPrice: totalPrice,//self.TotalPrice(),
             MainUnit: uKala,//self.MainUnit(),
@@ -1718,6 +1741,7 @@
     $('#action_footer').attr('style', 'display: none');
     $('#action_Hdoc').attr('style', 'display: none');
     $('#insertband').attr('style', 'display: none');
+    $('#Barcode').attr('style', 'display: none');
     $('#btnThvl').attr('style', 'display: none');
 
     $('#btnMkz').attr('style', 'display: none');
@@ -1784,6 +1808,7 @@
         $('#action_footer').removeAttr('style');
         $('#action_Hdoc').removeAttr('style');
         $('#insertband').removeAttr('style');
+        $('#Barcode').removeAttr('style');
         $('#btnThvl').removeAttr('style');
 
         $('#btnMkz').removeAttr('style');
@@ -1849,24 +1874,43 @@
         flagOtherFieldShow = true;
 
 
-        if (codeOpr == "!!!" || codeMkz == "!!!") {
+
+
+        var closedDate = false;
+
+        var TestIDoc_EditObject = {
+            Serialnumber: Serial
+        }
+
+        ajaxFunction(TestIDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_EditObject, false).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    showNotification(list[i].TestCap, 0);
+                }
+            }
+
+        });
+
+
+
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true) {
             $('#action_header').attr('style', 'display: none');
             $('#action_body').attr('style', 'display: none');
             $('#action_footer').attr('style', 'display: none');
             $('#action_Hdoc').attr('style', 'display: none');
             $('#insertband').attr('style', 'display: none');
+            $('#Barcode').attr('style', 'display: none');
             $('#btn_Thvl').attr('style', 'display: none');
-
             $('#btnMkz').attr('style', 'display: none');
             $('#btnOpr').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);
-
-            showNotification('سند دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
         }
 
-
-
-
+        if (codeOpr == "!!!" || codeMkz == "!!!") {
+            showNotification('سند دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
+        }
 
     }
 
@@ -2874,8 +2918,11 @@
         $("#amount").val() == '' ? amount = 0 : amount = parseFloat(SlashToDot($("#amount").val()));
         $("#unitPrice").val() == '' ? unitPrice = 0 : unitPrice = parseFloat(SlashToDot($("#unitPrice").val()));
         $("#totalPrice").val() == '' ? totalPrice = 0 : totalPrice = parseFloat(SlashToDot($("#totalPrice").val()));
-
         var sum = 0;
+        if (unitvalue == null) {
+            unitvalue = 1;
+        }
+
         if (unitvalue > 0) {
             if (amount > 0) {
                 if (unitvalue == "1") {
@@ -3008,6 +3055,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
+                closedDate = false;
                 sessionStorage.flagupdateHeader = 0;
                 sessionStorage.Status = 'موقت';
                 flaglog = "Y";
