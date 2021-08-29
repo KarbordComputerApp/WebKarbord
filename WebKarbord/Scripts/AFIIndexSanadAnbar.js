@@ -132,6 +132,7 @@
     self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
     self.InvList = ko.observableArray([]); // ليست انبار ها
     self.TestIDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
+    self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
 
@@ -145,6 +146,8 @@
     var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
     var IDocHCountUri = server + '/api/IDocData/IDocH/'; // تعداد رکورد های سند 
     var IDoc_DeleteUri = server + '/api/IDocData/TestIDoc_Delete/'; // آدرس تست حذف 
+    var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد 
+    var TestIDoc_EditUri = server + '/api/IDocData/TestIDoc_Edit/'; // آدرس تست ویرایش 
 
 
 
@@ -1306,6 +1309,7 @@
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
+
         $('#modeCodePor').val(item.ModeCode);
 
         $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
@@ -1317,6 +1321,9 @@
         }
         else
             self.InvCodeMove(invSelected)
+
+
+
 
         $('#modal-Move').modal();
     }
@@ -1387,85 +1394,105 @@
         modeCodeMove = $('#modeCodePor').val();
         invSelectMove = $('#invSelectMove').val();
         localStorage.setItem('InvSelectSanadAnbarMove', invSelectMove);
-        sessionStorage.flagCopy = 'Y'
-        var MoveObject = {
-            SerialNumber: serial,
+
+
+        var closedDate = false;
+        var TestIDoc_NewObject = {
             DocDate: docDate,
-            UserCode: sessionStorage.userName,
-            TahieShode: ace,
-            ModeCode: modeCodeMove,
-            InvCode: invSelectMove,
-            DocNoMode: 1,
-            InsertMode: 0,
-            DocNo: 1,
-            StartNo: 0,
-            EndNo: 0,
-            BranchCode: 0,
-            MoveMode: 0,
+            ModeCode: modeCodeMove
         };
-        $('#modal-Move').modal('hide');
-        showNotification('در حال انتقال لطفا منتظر بمانید', 1);
 
-        ajaxFunction(IMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
-            item = response;
-            item = item[0];
-
-            sessionStorage.searchIDocH = item.SerialNumber;
-
-            sessionStorage.flagupdateHeader = 1;
-            sessionStorage.SerialNumber = item.SerialNumber;
-            sessionStorage.DocNo = item.DocNo;
-            sessionStorage.DocDate = item.DocDate;
-            sessionStorage.ThvlCode = item.ThvlCode;
-            sessionStorage.ThvlName = item.ThvlName == null ? '' : item.ThvlName;
-            sessionStorage.InvCode = item.InvCode;
-            sessionStorage.Spec = item.Spec;
-            sessionStorage.PriceCode = item.KalaPriceCode;
-            sessionStorage.ModeCodeValue = item.ModeCode;
-            sessionStorage.Status = item.Status;
-            sessionStorage.PaymentType = item.PaymentType;
-            sessionStorage.Footer = item.Footer;
-            sessionStorage.Eghdam = item.Eghdam;
-            sessionStorage.InOut = item.InOut;
-
-            sessionStorage.OprCode = item.OprCode;
-            sessionStorage.OprName = item.OprName;
-
-            sessionStorage.MkzCode = item.MkzCode;
-            sessionStorage.MkzName = item.MkzName;
-
-
-            // sessionStorage.ModeCodeValue = modeCodeMove;
-
-            sessionStorage.F01 = item.F01;
-            sessionStorage.F02 = item.F02;
-            sessionStorage.F03 = item.F03;
-            sessionStorage.F04 = item.F04;
-            sessionStorage.F05 = item.F05;
-            sessionStorage.F06 = item.F06;
-            sessionStorage.F07 = item.F07;
-            sessionStorage.F08 = item.F08;
-            sessionStorage.F09 = item.F09;
-            sessionStorage.F10 = item.F10;
-            sessionStorage.F11 = item.F11;
-            sessionStorage.F12 = item.F12;
-            sessionStorage.F13 = item.F13;
-            sessionStorage.F14 = item.F14;
-            sessionStorage.F15 = item.F15;
-            sessionStorage.F16 = item.F16;
-            sessionStorage.F17 = item.F17;
-            sessionStorage.F18 = item.F18;
-            sessionStorage.F19 = item.F19;
-            sessionStorage.F20 = item.F20;
-
-            sessionStorage.Status = item.Status;
-            sessionStorage.PaymentType = item.PaymentType;
-            sessionStorage.Footer = item.Footer;
-            sessionStorage.BeforeMoveSanadAnbar = true;
-
-            window.location.href = sessionStorage.urlAddIDocH;
+        ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    showNotification(list[i].TestCap, 0);
+                }
+            }
         });
 
+        if (closedDate == false) {
+
+            sessionStorage.flagCopy = 'Y'
+            var MoveObject = {
+                SerialNumber: serial,
+                DocDate: docDate,
+                UserCode: sessionStorage.userName,
+                TahieShode: ace,
+                ModeCode: modeCodeMove,
+                InvCode: invSelectMove,
+                DocNoMode: 1,
+                InsertMode: 0,
+                DocNo: 1,
+                StartNo: 0,
+                EndNo: 0,
+                BranchCode: 0,
+                MoveMode: 0,
+            };
+            $('#modal-Move').modal('hide');
+            showNotification('در حال انتقال لطفا منتظر بمانید', 1);
+
+            ajaxFunction(IMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
+                item = response;
+                item = item[0];
+
+                sessionStorage.searchIDocH = item.SerialNumber;
+
+                sessionStorage.flagupdateHeader = 1;
+                sessionStorage.SerialNumber = item.SerialNumber;
+                sessionStorage.DocNo = item.DocNo;
+                sessionStorage.DocDate = item.DocDate;
+                sessionStorage.ThvlCode = item.ThvlCode;
+                sessionStorage.ThvlName = item.ThvlName == null ? '' : item.ThvlName;
+                sessionStorage.InvCode = item.InvCode;
+                sessionStorage.Spec = item.Spec;
+                sessionStorage.PriceCode = item.KalaPriceCode;
+                sessionStorage.ModeCodeValue = item.ModeCode;
+                sessionStorage.Status = item.Status;
+                sessionStorage.PaymentType = item.PaymentType;
+                sessionStorage.Footer = item.Footer;
+                sessionStorage.Eghdam = item.Eghdam;
+                sessionStorage.InOut = item.InOut;
+
+                sessionStorage.OprCode = item.OprCode;
+                sessionStorage.OprName = item.OprName;
+
+                sessionStorage.MkzCode = item.MkzCode;
+                sessionStorage.MkzName = item.MkzName;
+
+
+                // sessionStorage.ModeCodeValue = modeCodeMove;
+
+                sessionStorage.F01 = item.F01;
+                sessionStorage.F02 = item.F02;
+                sessionStorage.F03 = item.F03;
+                sessionStorage.F04 = item.F04;
+                sessionStorage.F05 = item.F05;
+                sessionStorage.F06 = item.F06;
+                sessionStorage.F07 = item.F07;
+                sessionStorage.F08 = item.F08;
+                sessionStorage.F09 = item.F09;
+                sessionStorage.F10 = item.F10;
+                sessionStorage.F11 = item.F11;
+                sessionStorage.F12 = item.F12;
+                sessionStorage.F13 = item.F13;
+                sessionStorage.F14 = item.F14;
+                sessionStorage.F15 = item.F15;
+                sessionStorage.F16 = item.F16;
+                sessionStorage.F17 = item.F17;
+                sessionStorage.F18 = item.F18;
+                sessionStorage.F19 = item.F19;
+                sessionStorage.F20 = item.F20;
+
+                sessionStorage.Status = item.Status;
+                sessionStorage.PaymentType = item.PaymentType;
+                sessionStorage.Footer = item.Footer;
+                sessionStorage.BeforeMoveSanadAnbar = true;
+
+                window.location.href = sessionStorage.urlAddIDocH;
+            });
+        }
     });
 
 
@@ -1473,11 +1500,28 @@
 
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
-        sessionStorage.Status = item.Status;
-        self.StatusSanad(item.Status);
-        $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
 
-        $('#modal-ChangeStatusSanad').modal();
+        var closedDate = false;
+        var TestIDoc_EditObject = {
+            Serialnumber: Serial
+        }
+
+        ajaxFunction(TestIDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_EditObject, false).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    return showNotification(list[i].TestCap, 0);
+                }
+            }
+        });
+
+        if (closedDate == false) {
+            sessionStorage.Status = item.Status;
+            self.StatusSanad(item.Status);
+            $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
+            $('#modal-ChangeStatusSanad').modal();
+        }
     }
 
 

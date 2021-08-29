@@ -933,6 +933,10 @@
 
         docno = $("#docnoout").val();
 
+        if (docno.length > 10) {
+            return showNotification('شماره نباید بیشتر از ده رقم باشد', 0);
+        }
+
 
         if (tarikh.length != 10) {
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -1190,6 +1194,11 @@
         //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
         //}
 
+        docno = $("#docnoout").val();
+
+        if (docno.length > 10) {
+            return showNotification('شماره نباید بیشتر از ده رقم باشد', 0);
+        }
 
 
         if (Serial == "" || self.FDocBList().length == 0)

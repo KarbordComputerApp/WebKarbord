@@ -157,7 +157,7 @@
         var CustObject = {
             forSale: null,
             updatedate: null,
-            Mode: 2,
+            Mode: 0,
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {

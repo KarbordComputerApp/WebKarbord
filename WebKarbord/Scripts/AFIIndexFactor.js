@@ -706,6 +706,9 @@
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
     var FDoc_DeleteUri = server + '/api/FDocData/TestFDoc_Delete/'; // آدرس تست حذف 
+    var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
+    var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
+
 
 
     var allSearchFDocH = true;
@@ -1060,10 +1063,29 @@
 
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
-        sessionStorage.Status = item.Status;
-        self.StatusFactor(item.Status);
-        $('#titleChangeStatus').text(' تغییر وضعیت ' + TitleListFactor + ' ' + item.DocNo + ' به ');
-        $('#modal-ChangeStatusFactor').modal();
+
+        var closedDate = false;
+
+        var TestFDoc_EditObject = {
+            Serialnumber: Serial
+        }
+
+        ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    return showNotification(list[i].TestCap, 0);
+                }
+            }
+        });
+
+        if (closedDate == false) {
+            sessionStorage.Status = item.Status;
+            self.StatusFactor(item.Status);
+            $('#titleChangeStatus').text(' تغییر وضعیت ' + TitleListFactor + ' ' + item.DocNo + ' به ');
+            $('#modal-ChangeStatusFactor').modal();
+        }
     }
 
 
@@ -2335,163 +2357,182 @@
 
         modeCodeMove = moveMode == 1 ? $('#modeCodeMove').val() : $('#modeCodePor').val()
 
-        if (moveMode == 0) {
-            sessionStorage.flagCopy = 'Y'
-        }
-        else if (moveMode == 1) {
-
-            darsadMove = SlashToDot($('#darsadMove').val());
-
-            if (darsadMove == '' || darsadMove == '0')
-                return showNotification('درصد را وارد کنید', 0);
-
-            if (parseFloat(darsadMove) > 100)
-                return showNotification('بیشتر از 100 درصد', 0);
-
-            ajaxFunction(FTestMoveFactorUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + modeCodeMove, 'POST').done(function (response) {
-                if (response == '')
-                    testmove = true
-                else {
-                    Texttestmove = response;
-                    testmove = false
-                }
-            });
-        }
-        if (moveMode == 1 && testmove == false)
-            return showNotification(Texttestmove, 0);
-
-        var MoveObject = {
-            SerialNumber: serial,
+        var closedDate = false;
+        var TestFDoc_NewObject = {
             DocDate: docDate,
-            UserCode: sessionStorage.userName,
-            TahieShode: ace,
-            LastModeCode: sessionStorage.ModeCode,
-            ModeCode: modeCodeMove,
-            DocNoMode: 1,
-            InsertMode: 0,
-            DocNo: 1,
-            StartNo: 0,
-            EndNo: 0,
-            BranchCode: 0,
-            MoveMode: moveMode,
-            Per: darsadMove,
+            ModeCode: modeCodeMove
         };
 
-
-        $('#modal-Move').modal('hide');
-
-
-        showNotification('در حال انتقال لطفا منتظر بمانید', 1);
-
-        ajaxFunction(FMoveFactorUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
-            item = response;
-            item = item[0];
-
-            localStorage.setItem("ModeCode", modeCodeMove);
-            sessionStorage.ModeCode = modeCodeMove;
-
-            switch (modeCodeMove.toString()) {
-                case sessionStorage.MODECODE_FDOC_SO:
-                    sessionStorage.InOut = 2;
-                    break;
-                case sessionStorage.MODECODE_FDOC_SP:
-                    sessionStorage.InOut = 2;
-                    break;
-                case sessionStorage.MODECODE_FDOC_S:
-                    sessionStorage.InOut = 2;
-                    break;
-                case sessionStorage.MODECODE_FDOC_SR:
-                    sessionStorage.InOut = 2;
-                    break;
-                case sessionStorage.MODECODE_FDOC_SH:
-                    sessionStorage.InOut = 2;
-                    break;
-                case sessionStorage.MODECODE_FDOC_SE:
-                    sessionStorage.InOut = 2;
-                    break;
-                case sessionStorage.MODECODE_FDOC_PO:
-                    sessionStorage.InOut = 1;
-                    break;
-                case sessionStorage.MODECODE_FDOC_PP:
-                    sessionStorage.InOut = 1;
-                    break;
-                case sessionStorage.MODECODE_FDOC_P:
-                    sessionStorage.InOut = 1;
-                    break;
-                case sessionStorage.MODECODE_FDOC_PR:
-                    sessionStorage.InOut = 1;
-                    break;
+        ajaxFunction(TestFDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_NewObject).done(function (data) {
+            list = JSON.parse(data);
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].TestName == "YTrs") {
+                    closedDate = true;
+                    showNotification(list[i].TestCap, 0);
+                }
             }
-
-            sessionStorage.searchFDocH = item.DocNo;
-
-            sessionStorage.flagupdateHeader = 1;
-            sessionStorage.SerialNumber = item.SerialNumber;
-            sessionStorage.DocNo = item.DocNo;
-            sessionStorage.DocDate = item.DocDate;
-            sessionStorage.CustCode = item.CustCode;
-            sessionStorage.CustName = item.CustName;
-            sessionStorage.Spec = item.Spec;
-            sessionStorage.PriceCode = item.KalaPriceCode;
-            sessionStorage.InvCode = item.InvCode;
-            sessionStorage.Eghdam = item.Eghdam;
-
-            sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
-            sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
-            sessionStorage.AddMinSpec3 = item.AddMinSpec3// == "" ? null : item.AddMinSpec3;
-            sessionStorage.AddMinSpec4 = item.AddMinSpec4// == "" ? null : item.AddMinSpec4;
-            sessionStorage.AddMinSpec5 = item.AddMinSpec5// == "" ? null : item.AddMinSpec5;
-            sessionStorage.AddMinSpec6 = item.AddMinSpec6// == "" ? null : item.AddMinSpec6;
-            sessionStorage.AddMinSpec7 = item.AddMinSpec7// == "" ? null : item.AddMinSpec7;
-            sessionStorage.AddMinSpec8 = item.AddMinSpec8// == "" ? null : item.AddMinSpec8;
-            sessionStorage.AddMinSpec9 = item.AddMinSpec9// == "" ? null : item.AddMinSpec9;
-            sessionStorage.AddMinSpec10 = item.AddMinSpec10 //== "" ? null : item.AddMinSpec10;
-
-            sessionStorage.AddMin1 = item.AddMinPrice1 == null ? 0 : item.AddMinPrice1;
-            sessionStorage.AddMin2 = item.AddMinPrice2 == null ? 0 : item.AddMinPrice2;
-            sessionStorage.AddMin3 = item.AddMinPrice3 == null ? 0 : item.AddMinPrice3;
-            sessionStorage.AddMin4 = item.AddMinPrice4 == null ? 0 : item.AddMinPrice4;
-            sessionStorage.AddMin5 = item.AddMinPrice5 == null ? 0 : item.AddMinPrice5;
-            sessionStorage.AddMin6 = item.AddMinPrice6 == null ? 0 : item.AddMinPrice6;
-            sessionStorage.AddMin7 = item.AddMinPrice7 == null ? 0 : item.AddMinPrice7;
-            sessionStorage.AddMin8 = item.AddMinPrice8 == null ? 0 : item.AddMinPrice8;
-            sessionStorage.AddMin9 = item.AddMinPrice9 == null ? 0 : item.AddMinPrice9;
-            sessionStorage.AddMin10 = item.AddMinPrice10 == null ? 0 : item.AddMinPrice10;
-
-            sessionStorage.F01 = item.F01;
-            sessionStorage.F02 = item.F02;
-            sessionStorage.F03 = item.F03;
-            sessionStorage.F04 = item.F04;
-            sessionStorage.F05 = item.F05;
-            sessionStorage.F06 = item.F06;
-            sessionStorage.F07 = item.F07;
-            sessionStorage.F08 = item.F08;
-            sessionStorage.F09 = item.F09;
-            sessionStorage.F10 = item.F10;
-            sessionStorage.F11 = item.F11;
-            sessionStorage.F12 = item.F12;
-            sessionStorage.F13 = item.F13;
-            sessionStorage.F14 = item.F14;
-            sessionStorage.F15 = item.F15;
-            sessionStorage.F16 = item.F16;
-            sessionStorage.F17 = item.F17;
-            sessionStorage.F18 = item.F18;
-            sessionStorage.F19 = item.F19;
-            sessionStorage.F20 = item.F20;
-
-            sessionStorage.OprCode = item.OprCode;
-            sessionStorage.OprName = item.OprName;
-
-            sessionStorage.MkzCode = item.MkzCode;
-            sessionStorage.MkzName = item.MkzName;
-
-            sessionStorage.Status = item.Status;
-            sessionStorage.PaymentType = item.PaymentType;
-            sessionStorage.Footer = item.Footer;
-            sessionStorage.BeforeMoveFactor = true;
-
-            window.location.href = sessionStorage.urlAddFDocH;
         });
+
+        if (closedDate == false) {
+
+            if (moveMode == 0) {
+                sessionStorage.flagCopy = 'Y'
+            }
+            else if (moveMode == 1) {
+
+                darsadMove = SlashToDot($('#darsadMove').val());
+
+                if (darsadMove == '' || darsadMove == '0')
+                    return showNotification('درصد را وارد کنید', 0);
+
+                if (parseFloat(darsadMove) > 100)
+                    return showNotification('بیشتر از 100 درصد', 0);
+
+                ajaxFunction(FTestMoveFactorUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + modeCodeMove, 'POST').done(function (response) {
+                    if (response == '')
+                        testmove = true
+                    else {
+                        Texttestmove = response;
+                        testmove = false
+                    }
+                });
+            }
+            if (moveMode == 1 && testmove == false)
+                return showNotification(Texttestmove, 0);
+
+            var MoveObject = {
+                SerialNumber: serial,
+                DocDate: docDate,
+                UserCode: sessionStorage.userName,
+                TahieShode: ace,
+                LastModeCode: sessionStorage.ModeCode,
+                ModeCode: modeCodeMove,
+                DocNoMode: 1,
+                InsertMode: 0,
+                DocNo: 1,
+                StartNo: 0,
+                EndNo: 0,
+                BranchCode: 0,
+                MoveMode: moveMode,
+                Per: darsadMove,
+            };
+
+
+            $('#modal-Move').modal('hide');
+
+
+            showNotification('در حال انتقال لطفا منتظر بمانید', 1);
+
+            ajaxFunction(FMoveFactorUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
+                item = response;
+                item = item[0];
+
+                localStorage.setItem("ModeCode", modeCodeMove);
+                sessionStorage.ModeCode = modeCodeMove;
+
+                switch (modeCodeMove.toString()) {
+                    case sessionStorage.MODECODE_FDOC_SO:
+                        sessionStorage.InOut = 2;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_SP:
+                        sessionStorage.InOut = 2;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_S:
+                        sessionStorage.InOut = 2;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_SR:
+                        sessionStorage.InOut = 2;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_SH:
+                        sessionStorage.InOut = 2;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_SE:
+                        sessionStorage.InOut = 2;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_PO:
+                        sessionStorage.InOut = 1;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_PP:
+                        sessionStorage.InOut = 1;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_P:
+                        sessionStorage.InOut = 1;
+                        break;
+                    case sessionStorage.MODECODE_FDOC_PR:
+                        sessionStorage.InOut = 1;
+                        break;
+                }
+
+                sessionStorage.searchFDocH = item.DocNo;
+
+                sessionStorage.flagupdateHeader = 1;
+                sessionStorage.SerialNumber = item.SerialNumber;
+                sessionStorage.DocNo = item.DocNo;
+                sessionStorage.DocDate = item.DocDate;
+                sessionStorage.CustCode = item.CustCode;
+                sessionStorage.CustName = item.CustName;
+                sessionStorage.Spec = item.Spec;
+                sessionStorage.PriceCode = item.KalaPriceCode;
+                sessionStorage.InvCode = item.InvCode;
+                sessionStorage.Eghdam = item.Eghdam;
+
+                sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
+                sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
+                sessionStorage.AddMinSpec3 = item.AddMinSpec3// == "" ? null : item.AddMinSpec3;
+                sessionStorage.AddMinSpec4 = item.AddMinSpec4// == "" ? null : item.AddMinSpec4;
+                sessionStorage.AddMinSpec5 = item.AddMinSpec5// == "" ? null : item.AddMinSpec5;
+                sessionStorage.AddMinSpec6 = item.AddMinSpec6// == "" ? null : item.AddMinSpec6;
+                sessionStorage.AddMinSpec7 = item.AddMinSpec7// == "" ? null : item.AddMinSpec7;
+                sessionStorage.AddMinSpec8 = item.AddMinSpec8// == "" ? null : item.AddMinSpec8;
+                sessionStorage.AddMinSpec9 = item.AddMinSpec9// == "" ? null : item.AddMinSpec9;
+                sessionStorage.AddMinSpec10 = item.AddMinSpec10 //== "" ? null : item.AddMinSpec10;
+
+                sessionStorage.AddMin1 = item.AddMinPrice1 == null ? 0 : item.AddMinPrice1;
+                sessionStorage.AddMin2 = item.AddMinPrice2 == null ? 0 : item.AddMinPrice2;
+                sessionStorage.AddMin3 = item.AddMinPrice3 == null ? 0 : item.AddMinPrice3;
+                sessionStorage.AddMin4 = item.AddMinPrice4 == null ? 0 : item.AddMinPrice4;
+                sessionStorage.AddMin5 = item.AddMinPrice5 == null ? 0 : item.AddMinPrice5;
+                sessionStorage.AddMin6 = item.AddMinPrice6 == null ? 0 : item.AddMinPrice6;
+                sessionStorage.AddMin7 = item.AddMinPrice7 == null ? 0 : item.AddMinPrice7;
+                sessionStorage.AddMin8 = item.AddMinPrice8 == null ? 0 : item.AddMinPrice8;
+                sessionStorage.AddMin9 = item.AddMinPrice9 == null ? 0 : item.AddMinPrice9;
+                sessionStorage.AddMin10 = item.AddMinPrice10 == null ? 0 : item.AddMinPrice10;
+
+                sessionStorage.F01 = item.F01;
+                sessionStorage.F02 = item.F02;
+                sessionStorage.F03 = item.F03;
+                sessionStorage.F04 = item.F04;
+                sessionStorage.F05 = item.F05;
+                sessionStorage.F06 = item.F06;
+                sessionStorage.F07 = item.F07;
+                sessionStorage.F08 = item.F08;
+                sessionStorage.F09 = item.F09;
+                sessionStorage.F10 = item.F10;
+                sessionStorage.F11 = item.F11;
+                sessionStorage.F12 = item.F12;
+                sessionStorage.F13 = item.F13;
+                sessionStorage.F14 = item.F14;
+                sessionStorage.F15 = item.F15;
+                sessionStorage.F16 = item.F16;
+                sessionStorage.F17 = item.F17;
+                sessionStorage.F18 = item.F18;
+                sessionStorage.F19 = item.F19;
+                sessionStorage.F20 = item.F20;
+
+                sessionStorage.OprCode = item.OprCode;
+                sessionStorage.OprName = item.OprName;
+
+                sessionStorage.MkzCode = item.MkzCode;
+                sessionStorage.MkzName = item.MkzName;
+
+                sessionStorage.Status = item.Status;
+                sessionStorage.PaymentType = item.PaymentType;
+                sessionStorage.Footer = item.Footer;
+                sessionStorage.BeforeMoveFactor = true;
+
+                window.location.href = sessionStorage.urlAddFDocH;
+            });
+        }
     });
 
 

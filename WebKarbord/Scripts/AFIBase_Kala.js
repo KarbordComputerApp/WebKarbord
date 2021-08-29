@@ -156,7 +156,7 @@
         var KalaObject = {
             withimage: false,
             updatedate: null,
-            Mode: 2,
+            Mode: 0,
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {

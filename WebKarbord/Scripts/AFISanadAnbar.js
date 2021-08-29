@@ -1168,6 +1168,10 @@
         bandnumber = 0;
         docno = $("#docnoout").val();
 
+        if (docno.length > 10) {
+            return showNotification('شماره نباید بیشتر از ده رقم باشد', 0);
+        }
+
         if (tarikh.length != 10) {
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
