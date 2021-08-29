@@ -3219,6 +3219,8 @@ function SetColumn(code, indexId, data, mode) {
                 code == "CheckVosoolDate" ||
 
                 code == "ThvlRegion" ||
+                code == "ThvlOstan" ||
+                code == "ThvlShahrestan" ||
                 code == "ThvlCity" ||
                 code == "ThvlStreet" ||
                 code == "ThvlAlley" ||
