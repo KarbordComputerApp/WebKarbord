@@ -1503,7 +1503,7 @@
 
         var closedDate = false;
         var TestIDoc_EditObject = {
-            Serialnumber: Serial
+            Serialnumber: serial
         }
 
         ajaxFunction(TestIDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_EditObject, false).done(function (data) {

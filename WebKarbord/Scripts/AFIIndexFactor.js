@@ -1067,7 +1067,7 @@
         var closedDate = false;
 
         var TestFDoc_EditObject = {
-            Serialnumber: Serial
+            Serialnumber: serial
         }
 
         ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
