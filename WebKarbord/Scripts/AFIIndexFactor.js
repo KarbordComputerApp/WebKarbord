@@ -1103,7 +1103,7 @@
         ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
             currentPage = self.currentPageIndexFDocH();
-            getFDocH($('#pageCountSelector').val(),false);
+            getFDocH($('#pageCountSelector').val(), false);
             self.sortTableFDocH();
             self.currentPageIndexFDocH(currentPage);
         });
@@ -1153,10 +1153,7 @@
         }
 
         if (changeSelector == false) {
-
             TextField = FindTextField(sort, self.SettingColumnList());
-            $("#textSorted").text(TextField);
-
             $('#pageCountSelector').empty();
             select = document.getElementById('pageCountSelector');
             for (var i = 1; i <= 2; i++) {
@@ -1164,9 +1161,11 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        opt.innerHTML = '100 رکورد' + ' آخر';
+                        textSort = '100 رکورد  آخر به ترتیب ';
                     else
-                        opt.innerHTML = '100 رکورد' + ' اول';
+                        textSort = '100 رکورد اول به ترتیب ';
+
+                    opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
                 }
                 if (i == 2) {
                     opt.value = 3;
@@ -1175,7 +1174,7 @@
                 select.appendChild(opt);
             }
         }
-        
+
     }
 
     function getFDocH1(salselect) {
@@ -1562,8 +1561,6 @@
 
         if (orderProp == null)
             return null
-
-
 
         self.search("");
 
@@ -1993,7 +1990,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getFDocH(select,true);
+        getFDocH(select, true);
     }
 
     self.ShowMove = function (Eghdam) {

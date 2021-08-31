@@ -379,7 +379,9 @@
     self.currentPageIndexIDocH = ko.observable(0);
 
     //Get IDocH
-    function getIDocH(select, invCode) {
+    function getIDocH(select, invCode, changeSelector) {
+        sort = localStorage.getItem("sortIdocH_" + sessionStorage.InOut);
+        sortType = localStorage.getItem("sortTypeIdocH_" + sessionStorage.InOut);
 
         if (invCode == "" || invCode == "null" || invCode == null)
             invCode = "";
@@ -391,7 +393,9 @@
             user: sessionStorage.userName,
             accessSanad: sessionStorage.AccessSanad,
             updatedate: null,
-            ModeCode: null
+            ModeCode: null,
+            Sort: sort,
+            ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         }
 
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (data) {
@@ -406,6 +410,39 @@
             localStorage.setItem('InvSelectSanadAnbar', invCode);
             invSelected = invCode;
         });
+
+
+        if (sort == "" || sort == "null" || sort == null) {
+            sort = "DocDate";
+            sortType = "descending";
+        }
+
+        if (sort == "SortDocNo") {
+            sort = "DocNo"
+        }
+
+        if (changeSelector == false) {
+            TextField = FindTextField(sort, self.SettingColumnList());
+            $('#pageCountSelector').empty();
+            select = document.getElementById('pageCountSelector');
+            for (var i = 1; i <= 2; i++) {
+                opt = document.createElement('option');
+                if (i == 1) {
+                    opt.value = 0;
+                    if (sortType == "descending")
+                        textSort = '100 رکورد  آخر به ترتیب ';
+                    else
+                        textSort = '100 رکورد اول به ترتیب ';
+
+                    opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
+                }
+                if (i == 2) {
+                    opt.value = 3;
+                    opt.innerHTML = 'تمام رکوردها';
+                }
+                select.appendChild(opt);
+            }
+        }
     }
 
     self.OptionsCaptionAnbar = ko.computed(function () {
@@ -418,7 +455,7 @@
     getInvList();
     getStatusList();
 
-    getIDocH(0, invSelected);
+    getIDocH(0, invSelected, false);
     $('#invSelect').val(invSelected);
 
     //------------------------------------------------------
@@ -839,21 +876,23 @@
         if (orderProp == null)
             return null
 
-        localStorage.setItem("sortIdocH_" + sessionStorage.InOut, orderProp);
-        localStorage.setItem("sortTypeIdocH_" + sessionStorage.InOut, self.sortType);
+        if (e != null) {
 
-        self.currentColumn(orderProp);
-        self.IDocHList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp]);
-            rightVal = FixSortName(right[orderProp]);
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+            self.currentColumn(orderProp);
+            self.IDocHList.sort(function (left, right) {
+                leftVal = FixSortName(left[orderProp]);
+                rightVal = FixSortName(right[orderProp]);
+                if (self.sortType == "ascending") {
+                    return leftVal < rightVal ? 1 : -1;
+                }
+                else {
+                    return leftVal > rightVal ? 1 : -1;
+                }
+            });
+            self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+            localStorage.setItem("sortIdocH_" + sessionStorage.InOut, orderProp);
+            localStorage.setItem("sortTypeIdocH_" + sessionStorage.InOut, self.sortType);
+        }
 
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
@@ -1007,8 +1046,8 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getIDocH($('#pageCountSelector').val(), invSelected);
-                self.sortTableIDocH();
+                getIDocH($('#pageCountSelector').val(), invSelected, false);
+                // self.sortTableIDocH();
                 //$('#pageCountSelector').val(0);
                 // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست اسناد به روز رسانی شد' });
             }
@@ -1112,7 +1151,7 @@
     function DeleteSanadAnbar() {
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexIDocH();
-            getIDocH(0, invSelected);
+            getIDocH(0, invSelected, false);
             self.currentPageIndexIDocH(currentPage);
             showNotification('سند حذف شد ', 1);
         });
@@ -1232,7 +1271,7 @@
     self.PageCountView = function () {
         invSelect = $('#invSelect').val() == '' ? '' : $('#invSelect').val();
         select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
+        getIDocH(select, invSelect, true);
     }
 
 
@@ -1541,7 +1580,7 @@
 
 
             currentPage = self.currentPageIndexIDocH();
-            getIDocH(0, invSelected);
+            getIDocH(0, invSelected, false);
             self.sortTableIDocH();
             self.currentPageIndexIDocH(currentPage);
 

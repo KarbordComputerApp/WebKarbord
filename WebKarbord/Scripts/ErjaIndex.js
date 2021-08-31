@@ -372,7 +372,7 @@
     self.currentPageIndexErjDocH = ko.observable(0);
 
     //Get ErjDocH
-    function getErjDocH(select, page, status, sal, docno) {
+    function getErjDocH(select, page, status, sal, docno, changeSelector) {
         tarikh1 = '';
         tarikh2 = '';
         Status = '';
@@ -420,23 +420,33 @@
         if (sort == "SortDocNo") {
             sort = "DocNo"
         }
+        if (changeSelector == false) {
+            TextField = FindTextField(sort, self.SettingColumnList());
+            $('#pageCountSelector').empty();
+            select = document.getElementById('pageCountSelector');
+            for (var i = 1; i <= 2; i++) {
+                opt = document.createElement('option');
+                if (i == 1) {
+                    opt.value = 0;
+                    if (sortType == "descending")
+                        textSort = '100 رکورد  آخر به ترتیب ';
+                    else
+                        textSort = '100 رکورد اول به ترتیب ';
 
-        TextField = FindTextField(sort, self.SettingColumnList());
-        if (sortType == "descending")
-            $("#textModeSort").text("آخر");
-        else
-            $("#textModeSort").text("اول");
-        //if (sortType == "descending")
-       //     TextField = TextField + " نزولی"
-       // else
-        //    TextField = TextField + " صعودی"
-
-        $("#textSorted").text(TextField);
+                    opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
+                }
+                if (i == 2) {
+                    opt.value = 3;
+                    opt.innerHTML = 'تمام رکوردها';
+                }
+                select.appendChild(opt);
+            }
+        }
 
     }
 
 
-    getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+    getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
 
 
     $('#refreshErjDocH').click(function () {
@@ -453,7 +463,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
                 self.sortTableErjDocH();
             }
         })
@@ -462,7 +472,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getErjDocH(select, 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+        getErjDocH(select, 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '', true);
         self.sortTableErjDocH();
     }
 
@@ -956,7 +966,7 @@
     function DeleteParvandeh() {
         ajaxFunction(Web_ErjSaveDoc_Del_Uri + aceErj + '/' + salErj + '/' + group + '/' + serial, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexErjDocH();
-            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
             showNotification('پرونده حذف شد', 1);
@@ -1089,7 +1099,7 @@
             lastDoc = $("#p_docno").val();
             serialNumber = response;
             currentPage = self.currentPageIndexErjDocH();
-            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
             if (lastDoc == "") {
@@ -1647,7 +1657,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+                getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
                 self.sortTableErjDocH();
             }
         })
@@ -2311,7 +2321,7 @@
         $('#modal-ErjDocErja').modal('hide');
         $('#modal-ErjDocH').modal('hide');
         currentPage = self.currentPageIndexErjDocH();
-        getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '');
+        getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
         self.sortTableErjDocH();
 
         //getErjDocH($('#pageCountSelector').val(), 0);
