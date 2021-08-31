@@ -1626,6 +1626,11 @@
             // autosize.update($('textarea'));
             autosize.update($('#eghdamComm'));
             autosize.update($('#docDesc'));
+
+            if (SpecialCommTrs == 1) {
+                TextHighlightDel("#specialComm");
+                $("#specialComm").val(specialComm);
+            }
             autosize.update($('#specialComm'));
             autosize.update($('#finalComm'));
             $('#imgSpec').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
@@ -1633,7 +1638,37 @@
 
     })
 
-    $('#ShowHideEghdamComm').click(function () {
+
+
+    $('#ShowEghdamComm').click(function () {
+        $('#titleComm').text('اقدام');
+        $('#modal-Comm').modal('show');
+        $('#comm').attr("style", "");
+        $('#comm').val($('#eghdamComm').val());
+    });
+
+    $('#ShowDocDesc').click(function () {
+        $('#titleComm').text('عمومی');
+        $('#modal-Comm').modal('show');
+        $('#comm').attr("style", "");
+        $('#comm').val($('#docDesc').val());
+    });
+
+    $('#ShowSpecialComm').click(function () {
+        $('#titleComm').text('مدیران');
+        $('#modal-Comm').modal('show');
+        $('#comm').attr("style", "");
+        $('#comm').val($('#specialComm').val());
+    });
+
+    $('#ShowFinalComm').click(function () {
+        $('#titleComm').text('نهایی');
+        $('#modal-Comm').modal('show');
+        $('#comm').attr("style", "");
+        $('#comm').val($('#finalComm').val());
+    });
+
+    /*$('#ShowHideEghdamComm').click(function () {
         if (showHideEghdamComm) {
             showHideEghdamComm = false;
             $('#eghdamComm').css("height", "24px");
@@ -1675,7 +1710,7 @@
             showHideFinalComm = true;
             autosize.update($('#finalComm'));
         }
-    })
+    })*/
 
 
 
