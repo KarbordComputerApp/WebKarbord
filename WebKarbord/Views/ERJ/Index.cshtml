@@ -108,10 +108,13 @@
                             <label>نمایش</label>
                             <div>
                                 <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-                                    <option value="0">100 رکورد آخر</option>
+                                    <option value="0">100 رکورد</option>
                                     <option value="3">تمام رکوردها</option>
                                 </select>
                             </div>
+                            <label id="textModeSort"style="margin-right: 5px;"></label>
+                            <label style="margin-right: 5px; margin-left: 5px;">بر اساس</label>
+                            <label id="textSorted"></label>
                         </div>
                     </div>
                 </div>

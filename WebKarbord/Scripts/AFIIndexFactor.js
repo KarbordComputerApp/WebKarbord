@@ -8,7 +8,7 @@
 
 
 
-    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab" ) {
+    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.newFactor = localStorage.getItem("newFactor");
@@ -1103,7 +1103,7 @@
         ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
             currentPage = self.currentPageIndexFDocH();
-            getFDocH($('#pageCountSelector').val());
+            getFDocH($('#pageCountSelector').val(),false);
             self.sortTableFDocH();
             self.currentPageIndexFDocH(currentPage);
         });
@@ -1121,7 +1121,7 @@
 
 
     //Get FDocH 
-    function getFDocH(select) {
+    function getFDocH(select, changeSelector) {
 
         sort = localStorage.getItem("sortFdocH_" + sessionStorage.ModeCode);
         sortType = localStorage.getItem("sortTypeFdocH_" + sessionStorage.ModeCode);
@@ -1141,6 +1141,41 @@
             sessionStorage.flagupdateHeader = 0;
             self.FDocHList(data);
         });
+
+
+        if (sort == "" || sort == "null" || sort == null) {
+            sort = "DocDate";
+            sortType = "descending";
+        }
+
+        if (sort == "SortDocNo") {
+            sort = "DocNo"
+        }
+
+        if (changeSelector == false) {
+
+            TextField = FindTextField(sort, self.SettingColumnList());
+            $("#textSorted").text(TextField);
+
+            $('#pageCountSelector').empty();
+            select = document.getElementById('pageCountSelector');
+            for (var i = 1; i <= 2; i++) {
+                opt = document.createElement('option');
+                if (i == 1) {
+                    opt.value = 0;
+                    if (sortType == "descending")
+                        opt.innerHTML = '100 رکورد' + ' آخر';
+                    else
+                        opt.innerHTML = '100 رکورد' + ' اول';
+                }
+                if (i == 2) {
+                    opt.value = 3;
+                    opt.innerHTML = 'تمام رکوردها';
+                }
+                select.appendChild(opt);
+            }
+        }
+        
     }
 
     function getFDocH1(salselect) {
@@ -1157,7 +1192,7 @@
         // getFDocH1(sal);
     }
 
-    getFDocH($('#pageCountSelector').val());
+    getFDocH($('#pageCountSelector').val(), false);
 
     //------------------------------------------------------
     self.currentPageFDocH = ko.observable();
@@ -1553,7 +1588,7 @@
             localStorage.setItem("sortFdocH_" + sessionStorage.ModeCode, orderProp);
             localStorage.setItem("sortTypeFdocH_" + sessionStorage.ModeCode, self.sortType);
         }
-       
+
 
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
@@ -1740,7 +1775,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getFDocH($('#pageCountSelector').val());
+                getFDocH($('#pageCountSelector').val(), false);
                 //self.sortTableFDocH();
                 //$('#pageCountSelector').val(0);
                 //Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست فاکتور ها به روز رسانی شد' });
@@ -1885,7 +1920,7 @@
     function DeleteFactor() {
         ajaxFunction(FDocHHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexFDocH();
-            getFDocH($('#pageCountSelector').val());
+            getFDocH($('#pageCountSelector').val(), false);
             self.currentPageIndexFDocH(currentPage);
             showNotification(TitleListFactor + ' حذف شد ', 1);
         });
@@ -1958,7 +1993,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getFDocH(select);
+        getFDocH(select,true);
     }
 
     self.ShowMove = function (Eghdam) {

@@ -247,28 +247,28 @@
 
 
     //Get ErjUsers List
-/*    function getErjUsersList() {
-        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-            self.ErjUsersList(data);
-            //$('#ToUser').val(sessionStorage.userName);
-            //$('#FromUser').val(' ');
-        });
-    }*/
+    /*    function getErjUsersList() {
+            ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                self.ErjUsersList(data);
+                //$('#ToUser').val(sessionStorage.userName);
+                //$('#FromUser').val(' ');
+            });
+        }*/
 
     //Get ErjUsers List
-   function getErjUsersList(Reload) {
+    function getErjUsersList(Reload) {
 
-      list = localStorage.getItem('ErjUsers');
-       if (list != null && Reload == false) {
-           list = JSON.parse(localStorage.getItem('ErjUsers'));
-           self.ErjUsersList(list)
-       }
-       else {
-           ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-               self.ErjUsersList(data);
-               localStorage.setItem("ErjUsers", JSON.stringify(data));
-           });
-       }
+        list = localStorage.getItem('ErjUsers');
+        if (list != null && Reload == false) {
+            list = JSON.parse(localStorage.getItem('ErjUsers'));
+            self.ErjUsersList(list)
+        }
+        else {
+            ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                self.ErjUsersList(data);
+                localStorage.setItem("ErjUsers", JSON.stringify(data));
+            });
+        }
     }
 
     getErjUsersList(false);
@@ -389,7 +389,7 @@
 
         sort = localStorage.getItem("sort" + rprtId);
         sortType = localStorage.getItem("sortType" + rprtId);
-      
+
 
         var ErjDocHObject = {
             Mode: 0,
@@ -410,8 +410,29 @@
 
             localStorage.setItem('DocYearsSelect', sal);
             localStorage.setItem('StatusParvandehSelect', status);
-
         });
+
+        if (sort == "" || sort == "null" || sort == null) {
+            sort = "DocDate";
+            sortType = "descending";
+        }
+
+        if (sort == "SortDocNo") {
+            sort = "DocNo"
+        }
+
+        TextField = FindTextField(sort, self.SettingColumnList());
+        if (sortType == "descending")
+            $("#textModeSort").text("آخر");
+        else
+            $("#textModeSort").text("اول");
+        //if (sortType == "descending")
+       //     TextField = TextField + " نزولی"
+       // else
+        //    TextField = TextField + " صعودی"
+
+        $("#textSorted").text(TextField);
+
     }
 
 
@@ -455,7 +476,7 @@
     self.currentPageErjDocH = ko.observable();
     pageSizeErjDocH = localStorage.getItem('pageSizeErjDocH') == null ? 10 : localStorage.getItem('pageSizeErjDocH');
     self.pageSizeErjDocH = ko.observable(pageSizeErjDocH);
-    
+
     self.sortType = "ascending";
 
     self.currentColumn = ko.observable("");
@@ -1878,7 +1899,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                
+
                 getErjUsersList(true);
             }
         })
