@@ -200,12 +200,64 @@
 
 
     //Get ADocH 
-    function getADocH(select) {
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + localStorage.getItem("AccessSanad"), 'GET').done(function (data) {
+    function getADocH(select, changeSelector) {
+        lastSelect = select;
+        sort = localStorage.getItem("sortAdocH");
+        sortType = localStorage.getItem("sortTypeAdocH");
+
+        var ADocHObject = {
+            Select: select,
+            User: sessionStorage.userName,
+            AccessSanad: localStorage.getItem("AccessSanad"),
+            Sort: sort,
+            ModeSort: sortType == "ascending" ? "ASC" : "DESC"
+        }
+
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);
         });
+
+
+        if (sort == "" || sort == "null" || sort == null) {
+            sort = "DocDate";
+            sortType = "descending";
+        }
+
+        if (sort == "SortDocNo") {
+            sort = "DocNo"
+        }
+
+        if (changeSelector == false) {
+            TextField = FindTextField(sort, self.SettingColumnList());
+            $('#pageCountSelector').empty();
+            select = document.getElementById('pageCountSelector');
+            for (var i = 1; i <= 2; i++) {
+                opt = document.createElement('option');
+                if (i == 1) {
+                    opt.value = 0;
+                    if (sortType == "descending")
+                        textSort = '100 رکورد  آخر به ترتیب ';
+                    else
+                        textSort = '100 رکورد اول به ترتیب ';
+
+                    opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
+                }
+                if (i == 2) {
+                    opt.value = 3;
+                    opt.innerHTML = 'تمام رکوردها';
+                }
+                select.appendChild(opt);
+            }
+            $('#pageCountSelector').val(lastSelect);
+        }
+
+       /* ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + localStorage.getItem("AccessSanad"), 'GET').done(function (data) {
+            flagupdateHeader = 0;
+            sessionStorage.flagupdateHeader = 0;
+            self.ADocHList(data);
+        });*/
     }
 
 
@@ -296,7 +348,7 @@
         ajaxFunction(AChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
             currentPage = self.currentPageIndexADocH();
-            getADocH($('#pageCountSelector').val());
+            getADocH($('#pageCountSelector').val(),false);
             self.sortTableADocH();
             self.currentPageIndexADocH(currentPage);
         });
@@ -306,7 +358,7 @@
 
 
     getStatusList();
-    getADocH($('#pageCountSelector').val());
+    getADocH($('#pageCountSelector').val(), false);
 
 
     //------------------------------------------------------
@@ -601,22 +653,29 @@
         if (orderProp == null)
             return null
 
-        localStorage.setItem("sortAdocH", orderProp);
-        localStorage.setItem("sortTypeAdocH", self.sortType);
 
-        self.search("");
-        self.currentColumn(orderProp);
-        self.ADocHList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp]);
-            rightVal = FixSortName(right[orderProp]);
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        if (e != null) {
+            self.currentColumn(orderProp);
+            self.ADocHList.sort(function (left, right) {
+
+                leftVal = FixSortName(left[orderProp]);
+                rightVal = FixSortName(right[orderProp]);
+
+
+                if (self.sortType == "ascending") {
+                    return leftVal < rightVal ? 1 : -1;
+                }
+                else {
+                    return leftVal > rightVal ? 1 : -1;
+                }
+            });
+
+            self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+            localStorage.setItem("sortAdocH", orderProp);
+            localStorage.setItem("sortTypeAdocH", self.sortType);
+        }
 
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
@@ -695,7 +754,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getADocH($('#pageCountSelector').val());
+                getADocH($('#pageCountSelector').val(), false);
                 self.sortTableADocH();
             }
         })
@@ -846,7 +905,7 @@
     function DeleteSanad() {
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group + '/' + serial, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexADocH();
-            getADocH($('#pageCountSelector').val());
+            getADocH($('#pageCountSelector').val(), false);
             self.currentPageIndexADocH(currentPage);
             showNotification('سند حذف شد ', 1);
         });
@@ -952,7 +1011,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getADocH(select);
+        getADocH(select,true);
     }
 
 

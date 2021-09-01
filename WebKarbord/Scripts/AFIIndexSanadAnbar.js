@@ -380,6 +380,7 @@
 
     //Get IDocH
     function getIDocH(select, invCode, changeSelector) {
+        lastSelect = select;
         sort = localStorage.getItem("sortIdocH_" + sessionStorage.InOut);
         sortType = localStorage.getItem("sortTypeIdocH_" + sessionStorage.InOut);
 
@@ -442,6 +443,7 @@
                 }
                 select.appendChild(opt);
             }
+            $('#pageCountSelector').val(lastSelect);
         }
     }
 

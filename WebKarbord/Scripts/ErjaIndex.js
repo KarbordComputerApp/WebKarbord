@@ -373,6 +373,7 @@
 
     //Get ErjDocH
     function getErjDocH(select, page, status, sal, docno, changeSelector) {
+        lastSelect = select;
         tarikh1 = '';
         tarikh2 = '';
         Status = '';
@@ -441,6 +442,7 @@
                 }
                 select.appendChild(opt);
             }
+            $('#pageCountSelector').val(lastSelect);
         }
 
     }

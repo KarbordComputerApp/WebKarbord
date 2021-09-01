@@ -8,27 +8,33 @@
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-            <div class="header">
-                <h2><strong>لیست <b id="TitleListFactor"></b></strong></h2>
-                <div class="row header-dropdown m-r--5">
-                    <!-- <a id="Print" style="margin-left: 10px;">
-                         <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-                     </a> -->
-                    <a id="SettingColumn" class="">
-                        <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
-                    </a>
-                    <a id="refreshFDocH" class="">
-                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
-                    </a>
-                    <a id="AddNewFactor" class="">
-                        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
+            <div class="header" style="padding-bottom: 5px;">
+                <div class="form-inline focused">
+                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست <b id="TitleListFactor"></b></strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره سند</strong>
+                    <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
+                    <a id="btn_DocNoSearch">
+                        <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
                     </a>
 
+                    <div class="row header-dropdown m-r--5">
+                        <!-- <a id="Print" style="margin-left: 10px;">
+                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
+                        </a> -->
+                        <a id="SettingColumn" class="">
+                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" />
+                        </a>
+                        <a id="refreshFDocH" class="">
+                            <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                        </a>
+                        <a id="AddNewFactor" class="">
+                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
+                        </a>
+
+                    </div>
                 </div>
             </div>
             <div class="body">
-                <br />
-                <br />
                 <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
 
                 </div>

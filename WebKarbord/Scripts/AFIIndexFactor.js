@@ -1123,6 +1123,7 @@
     //Get FDocH 
     function getFDocH(select, changeSelector) {
 
+        lastSelect = select;
         sort = localStorage.getItem("sortFdocH_" + sessionStorage.ModeCode);
         sortType = localStorage.getItem("sortTypeFdocH_" + sessionStorage.ModeCode);
 
@@ -1173,6 +1174,7 @@
                 }
                 select.appendChild(opt);
             }
+            $('#pageCountSelector').val(lastSelect);
         }
 
     }

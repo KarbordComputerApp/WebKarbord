@@ -786,7 +786,7 @@
     };
 
 
-  
+
 
 
 
@@ -1040,7 +1040,7 @@
     }
 
 
-    
+
 
     $('.fix').attr('class', 'form-line date focused fix');
 
@@ -1655,10 +1655,15 @@
     });
 
     $('#ShowSpecialComm').click(function () {
-        $('#titleComm').text('مدیران');
-        $('#modal-Comm').modal('show');
-        $('#comm').attr("style", "");
-        $('#comm').val($('#specialComm').val());
+
+        if (SpecialCommTrs == 1) {
+            TextHighlightDel("#specialComm");
+            $("#specialComm").val(specialComm);
+            $('#titleComm').text('مدیران');
+            $('#modal-Comm').modal('show');
+            $('#comm').attr("style", "");
+            $('#comm').val($('#specialComm').val());
+        }
     });
 
     $('#ShowFinalComm').click(function () {
@@ -1799,7 +1804,7 @@
 
 
 
-    
+
 
     $('#saveParvandeh').click(function () {
         flagSave = true;
@@ -1808,6 +1813,7 @@
             ErjSaveDoc_CSave(bandNo, true);
         }
         else {
+            $('#modal-ErjDocErja').modal('hide');
             ErjSaveDoc_BSave(bandNo);
         }
     })
