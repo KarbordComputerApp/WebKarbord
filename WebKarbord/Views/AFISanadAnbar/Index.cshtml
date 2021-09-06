@@ -13,8 +13,20 @@
             <div class="header" style="padding-bottom: 5px;">
                 <div class="form-inline focused">
                     <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست <b id="TitleListAnbar"></b></strong>
-                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره سند</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره سند<b id="TitleListAnbarSearch"></b></strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
+                    <strong style="margin-left: 5px; margin-right: 5px;">انبار</strong>
+                    <div class="col-md-3 ">
+                        <div class="form-inline">
+                            <select id="invSelect" data-bind="options: InvList,
+                               optionsText: function(item) {return item.Name},
+                               optionsValue: 'Code',
+                               value: InvCode,
+                               optionsCaption: OptionsCaptionAnbar(),
+                               event:{ change: $root.PageCountView}"></select>
+                        </div>
+                    </div>
+
                     <a id="btn_DocNoSearch">
                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
                     </a>
@@ -34,7 +46,7 @@
             </div>
             <div class="body">
                 <div class="row">
-                    <div class="col-md-6 ">
+                   <!-- <div class="col-md-6 ">
                         <div class="form-inline">
                             <label>انبار</label>
                             <div class="col-md-10" style="text-align: center;">
@@ -46,7 +58,7 @@
                                event:{ change: $root.PageCountView}"></select>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <!-- <div class="col-md-6">
                         <div class="input-group">

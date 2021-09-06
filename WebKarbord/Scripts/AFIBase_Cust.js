@@ -17,7 +17,6 @@
 
 
     TestUser();
-    shamsiDate = ShamsiDate();
 
 
 

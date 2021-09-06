@@ -16,10 +16,6 @@
     var Kala_DeleteUri = server + '/api/Web_Data/TestKala_Delete/'; // آدرس تست حذف 
 
     TestUser();
-    shamsiDate = ShamsiDate();
-
-
-
 
 
     validation = CheckAccess('NEW_KALA');// New Kala

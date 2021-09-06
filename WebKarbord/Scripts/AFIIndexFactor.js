@@ -832,6 +832,8 @@
             }
     }
 
+    $('#TitleListFactorSearch').text(" " + TitleListFactor);
+
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 

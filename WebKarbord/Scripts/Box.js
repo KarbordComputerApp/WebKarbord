@@ -12,10 +12,6 @@
     var DeleteBoxUri = serverAccount + 'Account/DeleteBox/'; // حذف  اعلامیه 
 
 
-    shamsiDate = ShamsiDate();
-
-
-
     getBoxList()
     //Get Box List
     function getBoxList() {
@@ -282,7 +278,7 @@
         var InsertBoxObject = {
             Mode: 1,
             LockNumber: lockNumber,
-            Date: ShamsiDate(),
+            Date: DateNow,
             Title: title,
             Body: body,
             NameFile: fileFullName,

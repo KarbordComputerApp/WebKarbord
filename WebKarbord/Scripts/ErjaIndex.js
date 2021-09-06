@@ -53,7 +53,6 @@
 
     TestUser();
 
-    shamsiDate = ShamsiDate();
     //self.AzDate = ko.observable(shamsiDate.substring(0, 4) - 1 + '/01/01');
     //self.TaDate = ko.observable(shamsiDate);
 
@@ -823,7 +822,7 @@
         //serialNumber = Band.SerialNumber;
         // p_docno
         serialNumber = 0;
-        self.p_DocDate(shamsiDate);
+        self.p_DocDate(DateNow);
         self.p_MhltDate('');
         self.p_AmalDate('');
         self.p_EndDate('');
@@ -1031,7 +1030,7 @@
     function ErjSaveDoc_HI() {
         docNo = $("#p_docno").val();
 
-        rjDate = ShamsiDate();
+        rjDate = DateNow;
         p_DocDate = $("#p_DocDate").val().toEnglishDigit();
         p_MhltDate = $("#p_MhltDate").val().toEnglishDigit();
         p_AmalDate = $("#p_AmalDate").val().toEnglishDigit();
@@ -2189,7 +2188,7 @@
                     //file = $("#upload")[0].files[0];
 
 
-                    attachDate = ShamsiDate();
+                    attachDate = DateNow;
 
                     var formData = new FormData();
 
@@ -2333,7 +2332,7 @@
 
     //Add DocB  ذخیره ارجاعات
     function ErjSaveDoc_BSave(bandNoImput) {
-        rjDate = ShamsiDate();
+        rjDate = DateNow;
         rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
@@ -2377,7 +2376,7 @@
                 Natijeh: natijeh,
                 FromUserCode: fromUserCode,
                 ToUserCode: toUserCode,
-                RjDate: rjDate,
+                RjDate: '',//rjDate,
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
@@ -2396,7 +2395,7 @@
 
     //Add DocC  ذخیره رونوشت
     function ErjSaveDoc_CSave() {
-        rjDate = ShamsiDate();
+        rjDate = DateNow;
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
         var notUsers = false;
         toUser = self.ErjUsersCode();
@@ -3141,7 +3140,7 @@
 
         color = "\'" + color + "\'";
 
-        shamsiDateTemp = "\'" + shamsiDate + "\'";
+        shamsiDateTemp = "\'" + DateNow + "\'";
 
         switch (no) {
             case 0:

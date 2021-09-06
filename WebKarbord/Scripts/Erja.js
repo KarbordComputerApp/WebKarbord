@@ -82,8 +82,6 @@
     var lastUserErjName = '';
 
 
-    shamsiDate = ShamsiDate();
-
 
     function AddDocBMode() {
         select = document.getElementById('DocBMode');
@@ -985,7 +983,7 @@
                     //file = $("#upload")[0].files[0];
 
 
-                    attachDate = shamsiDate;
+                    attachDate = DateNow;
 
                     var formData = new FormData();
 
@@ -1822,7 +1820,7 @@
 
     //Add DocB  ذخیره ارجاعات
     function ErjSaveDoc_BSave(bandNoImput) {
-        rjDate = shamsiDate;
+        rjDate = DateNow;
         rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
@@ -1876,7 +1874,7 @@
                 Natijeh: natijeh,
                 FromUserCode: fromUserCode,
                 ToUserCode: toUserCode,
-                RjDate: rjDate,
+                RjDate: '',//rjDate,
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
@@ -1895,7 +1893,7 @@
                 Natijeh: natijeh,
                 FromUserCode: '',
                 ToUserCode: '',
-                RjDate: rjDate,
+                RjDate: '',//rjDate,
                 RjTime: 0,
                 RjMhltDate: '',
                 BandNo: bandNoImput,
@@ -1957,7 +1955,7 @@
 
     //Add DocC  ذخیره رونوشت
     function ErjSaveDoc_CSave(bandNoImput, isSave) {
-        rjDate = shamsiDate;
+        rjDate = DateNow;
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
         fromUserCode = sessionStorage.userName;
@@ -2166,7 +2164,7 @@
         if (TextField == 0)
             text += 'Hidden ';
 
-        shamsiDateTemp = "\'" + shamsiDate + "\'";
+        shamsiDateTemp = "\'" + DateNow + "\'";
 
         switch (no) {
             case 0:

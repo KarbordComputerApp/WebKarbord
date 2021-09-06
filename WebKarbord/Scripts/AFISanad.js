@@ -74,6 +74,7 @@
 
     ClearSearch();
 
+    $('#titlePage').text("سند حسابداری");
 
     $('#finalSave_Title').attr('hidden', '');
 
@@ -539,7 +540,8 @@
         $("#status").val(sessionStorage.Status);
         flagOtherFieldShow = true;
 
-       
+
+        $('#titlePage').text("سند حسابداری شماره " + sessionStorage.DocNo);
 
         var TestADoc_EditObject = {
             Serialnumber: Serial
@@ -612,6 +614,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
+                $('#titlePage').text("سند حسابداری");
                 closedDate = false;
                 sessionStorage.flagupdateHeader = 0;
                 AccCode = "";

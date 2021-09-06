@@ -1831,6 +1831,9 @@
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
 
+
+        $('#titlePage').text(sessionStorage.ModeName + " " + sessionStorage.DocNo + " " + AppendAnbar(sessionStorage.InvName));
+
         $('#btntarikh').click(function () {
             $('#tarikh').change();
         });

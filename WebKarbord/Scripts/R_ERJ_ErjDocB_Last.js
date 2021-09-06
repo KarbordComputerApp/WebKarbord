@@ -1972,7 +1972,7 @@
 
     //Add DocB  ذخیره ارجاعات
     function ErjSaveDoc_BSave(bandNoImput) {
-        rjDate = ShamsiDate();
+        rjDate = DateNow;
         rjMhltDate = $("#RjMhltDate").val().toEnglishDigit();
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
@@ -2029,7 +2029,7 @@
                 Natijeh: natijeh,
                 FromUserCode: fromUserCode,
                 ToUserCode: toUserCode,
-                RjDate: rjDate,
+                RjDate: '',//rjDate,
                 RjTime: rjTime,
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
@@ -2046,7 +2046,7 @@
                 Natijeh: natijeh,
                 FromUserCode: '',
                 ToUserCode: '',
-                RjDate: rjDate,
+                RjDate: '',//rjDate,
                 RjTime: 0,
                 RjMhltDate: '',
                 BandNo: bandNoImput,
@@ -2092,7 +2092,7 @@
 
     //Add DocC  ذخیره رونوشت
     function ErjSaveDoc_CSave(bandNoImput, isSave) {
-        rjDate = ShamsiDate();
+        rjDate = DateNow;
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
         fromUserCode = $("#ToUser").val();

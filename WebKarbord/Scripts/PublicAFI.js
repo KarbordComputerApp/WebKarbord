@@ -1,5 +1,4 @@
-﻿
-var server = localStorage.getItem('ApiAddress');
+﻿var server = localStorage.getItem('ApiAddress');
 var ace = localStorage.getItem('ace');
 var sal = localStorage.getItem('sal');
 var group = localStorage.getItem('group');
@@ -274,6 +273,7 @@ var SelectedAccessGhimatPrintFormUri = server + '/api/Web_Data/SelectedAccessGhi
 
 var MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
 
+var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
 
 
 
@@ -314,12 +314,40 @@ function getMessageList() {
     });
 }
 
-selectMessage = function (item) {
 
+selectMessage = function (item) {
     $('#titleMessage').text(item.title);
     $('#bodyMessage').val(item.body);
     $('#modal-Message').modal('show');
 }
+
+
+
+var DateNow;
+var SalNow;
+//Get Date List
+function getDateServer() {
+    var date;
+    ajaxFunction(DateUri, 'GET').done(function (data) {
+       // data = "2021/09/06";
+        listDate = data.split("/");
+        if (parseInt(listDate[0]) > 1300 && parseInt(listDate[0]) < 2000) {
+            DateNow = data;
+            SalNow = listDate[0];
+        }
+        else {
+            date = toJalaali(parseInt(listDate[0]), parseInt(listDate[1]), parseInt(listDate[2]), 'Short');
+            date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
+            date.jd <= 9 ? day = '0' + date.jd : day = date.jd;
+            temp = date.jy + '/' + mah + '/' + day;
+            SalNow = date.jy;
+            DateNow = temp;
+        }
+    });
+}
+
+//
+getDateServer();
 
 //Get kala List
 /*function getKalaList() {
@@ -2860,9 +2888,8 @@ $("#Erja_Send").click(function () {
 //MODECODE_IDOC_OMOVE: 107 'انتقال از انبار';
 //MODECODE_IDOC_OS: 109 'حواله فروش';
 //MODECODE_IDOC_OMAVAD: 111 'حواله مواد';
-var DateNow;
-var SalNow;
-function ShamsiDate() {
+
+/*function ShamsiDate() {
     d = new Date();
     date = toJalaali(d.getFullYear(), d.getMonth() + 1, d.getDate(), 'Short');
     date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
@@ -2873,7 +2900,7 @@ function ShamsiDate() {
     return temp;
 }
 
-ShamsiDate();
+ShamsiDate();*/
 
 
 
@@ -3922,5 +3949,14 @@ if (localStorage.getItem("Inbox") == "1") {
 
 if (group == "0") {
     $("#P_NotificationErja").hide();
+}
+
+
+function AppendAnbar(invName) {
+    inc = invName.includes("انبار");
+    if (inc == false) {
+        invName = 'انبار ' + invName
+    }
+    return invName
 }
 

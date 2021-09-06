@@ -113,7 +113,7 @@
     var Serial = '';
     self.DocNoOut = ko.observable();
 
-    self.DocDate = ko.observable(DateNow);//(ShamsiDate()); 
+    self.DocDate = ko.observable(DateNow);
     self.Spec = ko.observable();
     self.CustCode = ko.observable();
 
@@ -155,92 +155,76 @@
     self.TestFDoc_NewList = ko.observableArray([]); // لیست تست جدید
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
-
+    FDOC_SO_Text = "سفارش فروش";
+    FDOC_SP_Text = "پیش فاکتور فروش";
+    FDOC_S_Text = "فاکتور فروش";
+    FDOC_SR_Text = "برگشت از فروش";
+    FDOC_SH_Text = "حواله فروش";
+    FDOC_SE_Text = "برگه خروج";
+    FDOC_PO_Text = "سفارش خرید";
+    FDOC_PP_Text = "پیش فاکتور خرید";
+    FDOC_P_Text = "فاکتور خرید";
+    FDOC_PR_Text = "برگشت از خرید";
 
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
-            $('#TitleHeaderFactor').text('سفارش فروش');
-            $('#TitleBodyFactor').text('سفارش فروش');
-            $('#TitleFooterFactor').text('سفارش فروش');
-            $('#titlePage').text('سفارش فروش');
+            textFactor = FDOC_SO_Text;
             ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSOAmountAfterBarCode;
             break;
         case sessionStorage.MODECODE_FDOC_SP:
-            $('#TitleHeaderFactor').text('پیش فاکتور فروش ');
-            $('#TitleBodyFactor').text('پیش فاکتور فروش ');
-            $('#TitleFooterFactor').text('پیش فاکتور فروش ');
-            $('#titlePage').text('پیش فاکتور فروش ');
+            textFactor = FDOC_SP_Text;
             amountAfterBarCode = sessionStorage.FDOCSPAmountAfterBarCode;
             //ModeCodeExtraFields = 'FDOCSP';
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_S:
-            $('#TitleHeaderFactor').text('فاکتور فروش ');
-            $('#TitleBodyFactor').text('فاکتور فروش ');
-            $('#TitleFooterFactor').text('فاکتور فروش ');
-            $('#titlePage').text('فاکتور فروش ');
+            textFactor = FDOC_S_Text;
             //ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SR:
-            $('#TitleHeaderFactor').text('برگشت از فروش ');
-            $('#TitleBodyFactor').text('برگشت از فروش ');
-            $('#TitleFooterFactor').text('برگشت از فروش ');
-            $('#titlePage').text('برگشت از فروش ');
+            textFactor = FDOC_SR_Text;
             amountAfterBarCode = sessionStorage.FDOCSRAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SH:
-            $('#TitleHeaderFactor').text('حواله فروش');
-            $('#TitleBodyFactor').text('حواله فروش');
-            $('#TitleFooterFactor').text('حواله فروش');
-            $('#titlePage').text('حواله فروش');
+            textFactor = FDOC_SH_Text;
             amountAfterBarCode = sessionStorage.FDOCSHAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SE:
-            $('#TitleHeaderFactor').text('برگه خروج');
-            $('#TitleBodyFactor').text('برگه خروج');
-            $('#TitleFooterFactor').text('برگه خروج');
-            $('#titlePage').text('برگه خروج');
+            textFactor = FDOC_SE_Text;
             amountAfterBarCode = sessionStorage.FDOCSEAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PO:
-            $('#TitleHeaderFactor').text('سفارش خرید');
-            $('#TitleBodyFactor').text('سفارش خرید');
-            $('#TitleFooterFactor').text('سفارش خرید');
-            $('#titlePage').text('سفارش خرید');
+            textFactor = FDOC_PO_Text;
             amountAfterBarCode = sessionStorage.FDOCPOAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PP:
-            $('#TitleHeaderFactor').text('پیش فاکتور خرید ');
-            $('#TitleBodyFactor').text('پیش فاکتور خرید ');
-            $('#TitleFooterFactor').text('پیش فاکتور خرید ');
-            $('#titlePage').text('پیش فاکتور خرید ');
+            textFactor = FDOC_PP_Text;
             amountAfterBarCode = sessionStorage.FDOCPPAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_P:
-            $('#TitleHeaderFactor').text('فاکتور خرید ');
-            $('#TitleBodyFactor').text('فاکتور خرید ');
-            $('#TitleFooterFactor').text('فاکتور خرید ');
-            $('#titlePage').text('فاکتور خرید ');
+            textFactor = FDOC_P_Text;
             amountAfterBarCode = sessionStorage.FDOCPAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PR:
-            $('#TitleHeaderFactor').text('برگشت از خرید ');
-            $('#TitleBodyFactor').text('برگشت از خرید ');
-            $('#TitleFooterFactor').text('برگشت از خرید ');
-            $('#titlePage').text('برگشت از خرید ');
+            textFactor = FDOC_PR_Text;
             ModeCodeExtraFields = 'FPDOC';
             amountAfterBarCode = sessionStorage.FDOCPRAmountAfterBarCode;
             break;
     }
+
+    $('#TitleHeaderFactor').text(textFactor + " ");
+    $('#TitleBodyFactor').text(textFactor + " ");
+    $('#TitleFooterFactor').text(textFactor + " ");
+    $('#titlePage').text(textFactor + " ");
 
     $("#Panel_Barcode_Amount").attr('hidden', '');
 
@@ -3184,6 +3168,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
+                $('#titlePage').text(textFactor + " ");
                 getAddMinList(sessionStorage.sels, -1, '', 0,
                     $("#AddMinSharh1").val(),
                     $("#AddMinSharh2").val(),
@@ -3706,6 +3691,8 @@
         self.PaymentFactor(sessionStorage.PaymentType);
         $("#paymenttype").val(sessionStorage.PaymentType);
         //sessionStorage.flagupdateHeader = 0;
+
+        $('#titlePage').text(textFactor + " شماره " + sessionStorage.DocNo);
 
 
 

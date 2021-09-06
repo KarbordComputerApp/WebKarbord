@@ -410,6 +410,27 @@
             self.currentPageIndexIDocH(0);
             localStorage.setItem('InvSelectSanadAnbar', invCode);
             invSelected = invCode;
+
+
+
+            if (sessionStorage.InOut == 1)
+                textNoSanad = ' وارده ';
+            else
+                textNoSanad = ' صادره ';
+
+
+            list = self.InvList();
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == invSelected)
+                    invName = list[i].Name;
+            }
+
+            //aaaaa = $("#invSelect option:selected").text();
+            if (invCode == "")
+                $('#titlePage').text('اسناد' + textNoSanad + ' تمام انبار ها');
+            else
+                $('#titlePage').text('اسناد' + textNoSanad + AppendAnbar(invName));
+
         });
 
 
@@ -1178,9 +1199,11 @@
 
         sessionStorage.ThvlName = item.ThvlName == null ? '' : item.ThvlName;
         sessionStorage.InvCode = item.InvCode;
+        sessionStorage.InvName = item.InvName;
         sessionStorage.Spec = item.Spec;
         sessionStorage.PriceCode = item.KalaPriceCode;
         sessionStorage.ModeCodeValue = item.ModeCode;
+        sessionStorage.ModeName = item.ModeName;
         sessionStorage.Status = item.Status;
         sessionStorage.PaymentType = item.PaymentType;
         sessionStorage.Footer = item.Footer;
@@ -1235,13 +1258,15 @@
         sessionStorage.sels = true;
         $('#TitleThvlName').text('نام تحویل دهنده');
         $('#TitleListAnbar').text('اسناد وارده به انبار');
-        $('#titlePage').text('اسناد وارده به انبار');
+        $('#TitleListAnbarSearch').text(' وارده ');
+        // $('#titlePage').text('اسناد وارده');
 
     } else {
         sessionStorage.sels = false;
         $('#TitleThvlName').text('نام تحویل گیرنده');
         $('#TitleListAnbar').text('اسناد صادره از انبار');
-        $('#titlePage').text('اسناد صادره از انبار');
+        $('#TitleListAnbarSearch').text(' صادره ');
+        // $('#titlePage').text('اسناد صادره');
     }
 
 
@@ -1339,22 +1364,14 @@
 
 
 
-    function AddAnbar(invName) {
-        inc = invName.includes("انبار");
-        if (inc == false) {
-            invName = 'انبار ' + invName
-        }
-        return invName
-    }
-
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
 
         $('#modeCodePor').val(item.ModeCode);
 
-        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
-        $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' در ');
+        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' به ');
+        $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' در ');
 
         if (invSelected == '') {
             temp = localStorage.getItem('InvSelectSanadAnbarMove')
@@ -1560,7 +1577,7 @@
         if (closedDate == false) {
             sessionStorage.Status = item.Status;
             self.StatusSanad(item.Status);
-            $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AddAnbar(item.InvName) + ' به ');
+            $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' به ');
             $('#modal-ChangeStatusSanad').modal();
         }
     }
