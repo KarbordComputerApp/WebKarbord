@@ -328,22 +328,31 @@ var SalNow;
 //Get Date List
 function getDateServer() {
     var date;
-    ajaxFunction(DateUri, 'GET').done(function (data) {
-       // data = "2021/09/06";
-        listDate = data.split("/");
-        if (parseInt(listDate[0]) > 1300 && parseInt(listDate[0]) < 2000) {
-            DateNow = data;
+    if (server != null) {
+
+        ajaxFunction(DateUri, 'GET').done(function (data) {
+            listDate = data[0].split("/");
+            DateNow = data[0];
             SalNow = listDate[0];
-        }
-        else {
-            date = toJalaali(parseInt(listDate[0]), parseInt(listDate[1]), parseInt(listDate[2]), 'Short');
-            date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
-            date.jd <= 9 ? day = '0' + date.jd : day = date.jd;
-            temp = date.jy + '/' + mah + '/' + day;
-            SalNow = date.jy;
-            DateNow = temp;
-        }
-    });
+
+
+
+            // data = "2021/09/06";
+            /*listDate = data.split("/");
+            if (parseInt(listDate[0]) > 1300 && parseInt(listDate[0]) < 2000) {
+                DateNow = data;
+                SalNow = listDate[0];
+            }
+            else {
+                date = toJalaali(parseInt(listDate[0]), parseInt(listDate[1]), parseInt(listDate[2]), 'Short');
+                date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
+                date.jd <= 9 ? day = '0' + date.jd : day = date.jd;
+                temp = date.jy + '/' + mah + '/' + day;
+                SalNow = date.jy;
+                DateNow = temp;
+            }*/
+        });
+    }
 }
 
 //

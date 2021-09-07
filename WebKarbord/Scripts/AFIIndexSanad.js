@@ -210,6 +210,7 @@
             User: sessionStorage.userName,
             AccessSanad: localStorage.getItem("AccessSanad"),
             Sort: sort,
+            SerialNumber : "",
             ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         }
 
@@ -958,6 +959,99 @@
 
         window.location.href = sessionStorage.urlAddADocH;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#DocNoSearch").keydown(function (e) {
+        if (e.keyCode == 13) {
+            docnoSearch = $("#DocNoSearch").val();
+            if (docnoSearch == '') {
+                return showNotification('شماره سند را وارد کنید', 2);
+            }
+            ShowDataUpdate(docnoSearch);
+        }
+    });
+
+    $("#btn_DocNoSearch").click(function (e) {
+        docnoSearch = $("#DocNoSearch").val();
+        if (docnoSearch == '') {
+            return showNotification('شماره سند را وارد کنید', 2);
+        }
+        ShowDataUpdate(docnoSearch);
+    });
+
+
+
+
+    function ShowDataUpdate(docNo) {
+
+        var ADocHObject = {
+            Select: 3,
+            User: sessionStorage.userName,
+            AccessSanad: localStorage.getItem("AccessSanad"),
+            Sort: '',
+            DocNo: docNo,
+            ModeSort: 'DESC'
+        }
+
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject, false).done(function (response) {
+            if (response.length == 0) {
+                return showNotification('سند یافت نشد', 0);
+            }
+
+            if (response.length > 1) {
+                return showNotification('بیش از یک سند وجود دارد', 0);
+            }
+
+            var data = response[0];
+
+            sessionStorage.flagupdateHeader = 1;
+            sessionStorage.SerialNumber = data.SerialNumber;
+            sessionStorage.DocNo = data.DocNo;
+            sessionStorage.DocDate = data.DocDate;
+            sessionStorage.Spec = data.Spec;
+            sessionStorage.Tanzim = data.Tanzim;
+            sessionStorage.Taeed = data.Taeed;
+            sessionStorage.Eghdam = data.Eghdam;
+            sessionStorage.Tasvib = data.Tasvib;
+            sessionStorage.Status = data.Status;
+            sessionStorage.Eghdam = data.Eghdam;
+            sessionStorage.ModeCodeSanad = data.ModeCode;
+
+            sessionStorage.F01 = data.F01;
+            sessionStorage.F02 = data.F02;
+            sessionStorage.F03 = data.F03;
+            sessionStorage.F04 = data.F04;
+            sessionStorage.F05 = data.F05;
+            sessionStorage.F06 = data.F06;
+            sessionStorage.F07 = data.F07;
+            sessionStorage.F08 = data.F08;
+            sessionStorage.F09 = data.F09;
+            sessionStorage.F10 = data.F10;
+            sessionStorage.F11 = data.F11;
+            sessionStorage.F12 = data.F12;
+            sessionStorage.F13 = data.F13;
+            sessionStorage.F14 = data.F14;
+            sessionStorage.F15 = data.F15;
+            sessionStorage.F16 = data.F16;
+            sessionStorage.F17 = data.F17;
+            sessionStorage.F18 = data.F18;
+            sessionStorage.F19 = data.F19;
+            sessionStorage.F20 = data.F20;
+            sessionStorage.lastPageSelect = self.currentPageIndexADocH();
+            window.location.href = sessionStorage.urlAddADocH;
+        });
+    }
+
 
     self.ShowAction = function (Eghdam) {
         if (localStorage.getItem("DEL_ADOC") == 'true') {

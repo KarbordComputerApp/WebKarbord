@@ -224,7 +224,7 @@
     $('#TitleHeaderFactor').text(textFactor + " ");
     $('#TitleBodyFactor').text(textFactor + " ");
     $('#TitleFooterFactor').text(textFactor + " ");
-    $('#titlePage').text(textFactor + " ");
+    $('#titlePage').text(textFactor + " جدید ");
 
     $("#Panel_Barcode_Amount").attr('hidden', '');
 
@@ -3168,7 +3168,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $('#titlePage').text(textFactor + " ");
+                $('#titlePage').text(textFactor + " جدید ");
                 getAddMinList(sessionStorage.sels, -1, '', 0,
                     $("#AddMinSharh1").val(),
                     $("#AddMinSharh2").val(),
@@ -3692,7 +3692,7 @@
         $("#paymenttype").val(sessionStorage.PaymentType);
         //sessionStorage.flagupdateHeader = 0;
 
-        $('#titlePage').text(textFactor + " شماره " + sessionStorage.DocNo);
+        $('#titlePage').text(textFactor + " شماره " + sessionStorage.DocNo.toPersianDigit());
 
 
 

@@ -150,7 +150,7 @@
 
     if (sessionStorage.InOut == 1) {
         $('#TitleHeaderAnbar').text('سند وارده به انبار ');
-        $('#titlePage').text('سند وارده به انبار ');
+        $('#titlePage').text('سند وارده به انبار جدید');
         $('#LableThvlCode').text('نام تحویل دهنده ');
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل دهنده');
         $('#TitleModalThvl').text('لیست تحویل دهند گان ');
@@ -190,7 +190,7 @@
 
     } else {
         $('#TitleHeaderAnbar').text('سند صادره از انبار');
-        $('#titlePage').text('سند صادره از انبار');
+        $('#titlePage').text(' سند صادره از انبار جدید');
         $('#LableThvlCode').text('تحویل گیرنده ');
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل گیرنده ');
         $('#TitleModalThvl').text('لیست تحویل گیرند گان');
@@ -1832,7 +1832,7 @@
         self.DocDate(sessionStorage.DocDate);
 
 
-        $('#titlePage').text(sessionStorage.ModeName + " " + sessionStorage.DocNo + " " + AppendAnbar(sessionStorage.InvName));
+        $('#titlePage').text(sessionStorage.ModeName + " " + sessionStorage.DocNo.toPersianDigit() + " " + AppendAnbar(sessionStorage.InvName));
 
         $('#btntarikh').click(function () {
             $('#tarikh').change();

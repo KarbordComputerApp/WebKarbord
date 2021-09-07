@@ -74,7 +74,7 @@
 
     ClearSearch();
 
-    $('#titlePage').text("سند حسابداری");
+    $('#titlePage').text("سند حسابداری جدید");
 
     $('#finalSave_Title').attr('hidden', '');
 
@@ -541,7 +541,7 @@
         flagOtherFieldShow = true;
 
 
-        $('#titlePage').text("سند حسابداری شماره " + sessionStorage.DocNo);
+        $('#titlePage').text("سند حسابداری شماره " + sessionStorage.DocNo.toPersianDigit());
 
         var TestADoc_EditObject = {
             Serialnumber: Serial
@@ -614,7 +614,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                $('#titlePage').text("سند حسابداری");
+                $('#titlePage').text("سند حسابداری جدید");
                 closedDate = false;
                 sessionStorage.flagupdateHeader = 0;
                 AccCode = "";
