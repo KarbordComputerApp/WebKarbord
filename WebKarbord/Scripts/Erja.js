@@ -1732,11 +1732,14 @@
 
     })
 
-
+    var flagSave;
+    var flagIsSave
 
 
 
     $('#modal-Erja').on('shown.bs.modal', function () {
+
+        flagIsSave = false;
         $('#e_Result').css("height", "409px");
         if (sessionStorage.ModeCodeErja == "1") {
             flagSave = null;
@@ -1758,6 +1761,29 @@
     });
 
 
+    $('#modal-Erja').on('hide.bs.modal', function () {
+        if (flagIsSave == true) {
+            flagIsSave = false;
+            if (sessionStorage.ModeCodeErja == "1") {
+                ErjSaveDoc_BSave(0);
+            } else {
+                ErjSaveDoc_BSave(bandNo);
+            }
+
+            if (counterErjUsersRonevesht > 0) {
+                if (sessionStorage.ModeCodeErja == "2") {
+                    ErjSaveDoc_CD(bandNo);
+                    ErjSaveDoc_CSave(bandNo, false);
+                }
+                else
+                    ErjSaveDoc_CSave(bandNo + 1, false);
+            }
+            list_ErjUsersRoneveshtSelect = new Array();
+            counterErjUsersRonevesht = 0;
+        }
+
+    });
+
     $('#saveErja').click(function () {
 
         rjTime_H = $("#RjTime_H").val();
@@ -1778,9 +1804,17 @@
         }
 
         flagSave = false;
+        flagIsSave = true;
+
+        //showNotification('در حال ارجاع ، لطفا منتظر بمانید', 3);
+
+        $('#modal-Erja').modal('hide');
+        $('#modal-ErjDocErja').modal('hide');
         //ErjSaveDoc_BSave(bandNo);
 
-        if (sessionStorage.ModeCodeErja == "1") {
+
+        /*
+          if (sessionStorage.ModeCodeErja == "1") {
             ErjSaveDoc_BSave(0);
         } else {
             ErjSaveDoc_BSave(bandNo);
@@ -1796,9 +1830,12 @@
         }
         list_ErjUsersRoneveshtSelect = new Array();
         counterErjUsersRonevesht = 0;
+        */
+
     })
 
-    var flagSave;
+
+
 
 
 
@@ -1921,8 +1958,8 @@
                 $('#modal-ErjDocErja').modal('hide');
             }
             else if (flagSave == false) {
-                $('#modal-Erja').modal('hide');
-                $('#modal-ErjDocErja').modal('hide');
+                //$('#modal-Erja').modal('hide');
+                // $('#modal-ErjDocErja').modal('hide');
                 AlertErja();
             }
 

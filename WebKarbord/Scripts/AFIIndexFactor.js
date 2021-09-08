@@ -1136,7 +1136,8 @@
             AccessSanad: sessionStorage.AccessSanad,
             updatedate: null,
             Sort: sort,
-            ModeSort: sortType == "ascending" ? "ASC" : "DESC"
+            ModeSort: sortType == "ascending" ? "ASC" : "DESC",
+            DocNo: '',
         }
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (data) {
@@ -2244,6 +2245,142 @@
 
         window.location.href = sessionStorage.urlAddFDocH;
     }
+
+
+
+
+
+
+
+
+
+
+    $("#DocNoSearch").keydown(function (e) {
+        if (e.keyCode == 13) {
+            docnoSearch = $("#DocNoSearch").val();
+            if (docnoSearch == '') {
+                return showNotification('شماره ' + TitleListFactor + ' را وارد کنید', 2);
+            }
+            ShowDataUpdate(docnoSearch);
+        }
+    });
+
+    $("#btn_DocNoSearch").click(function (e) {
+        docnoSearch = $("#DocNoSearch").val();
+        if (docnoSearch == '') {
+            return showNotification('شماره ' + TitleListFactor + '  را وارد کنید', 2);
+        }
+        ShowDataUpdate(docnoSearch);
+    });
+
+
+
+
+    function ShowDataUpdate(docNo) {
+
+
+
+        var FDocHMinObject = {
+            ModeCode: sessionStorage.ModeCode,
+            select: 3,
+            user: sessionStorage.userName,
+            AccessSanad: sessionStorage.AccessSanad,
+            updatedate: null,
+            Sort: '',
+            ModeSort: '',
+            DocNo: docNo,
+        }
+
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (response) {
+
+            if (response.length == 0) {
+                return showNotification(TitleListFactor + ' یافت نشد ', 0);
+            }
+
+            if (response.length > 1) {
+                return showNotification('بیش از یک ' + TitleListFactor + '  وجود دارد', 0);
+            }
+
+            var data = response[0];
+
+            sessionStorage.flagupdateHeader = 1;
+
+
+            sessionStorage.SerialNumber = data.SerialNumber;
+            sessionStorage.DocNo = data.DocNo;
+            sessionStorage.DocDate = data.DocDate;
+            sessionStorage.CustCode = data.CustCode;
+            sessionStorage.CustName = data.CustName;
+            sessionStorage.Spec = data.Spec;
+            sessionStorage.PriceCode = data.KalaPriceCode;
+            sessionStorage.InvCode = data.InvCode;
+            sessionStorage.Eghdam = data.Eghdam;
+            sessionStorage.TaeedF = data.Taeed;
+
+            sessionStorage.OprCode = data.OprCode;
+            sessionStorage.OprName = data.OprName;
+
+            sessionStorage.MkzCode = data.MkzCode;
+            sessionStorage.MkzName = data.MkzName;
+
+            sessionStorage.AddMinSpec1 = data.AddMinSpec1//== "" ? null : data.AddMinSpec1;
+            sessionStorage.AddMinSpec2 = data.AddMinSpec2// == "" ? null : data.AddMinSpec2;
+            sessionStorage.AddMinSpec3 = data.AddMinSpec3// == "" ? null : data.AddMinSpec3;
+            sessionStorage.AddMinSpec4 = data.AddMinSpec4// == "" ? null : data.AddMinSpec4;
+            sessionStorage.AddMinSpec5 = data.AddMinSpec5// == "" ? null : data.AddMinSpec5;
+            sessionStorage.AddMinSpec6 = data.AddMinSpec6// == "" ? null : data.AddMinSpec6;
+            sessionStorage.AddMinSpec7 = data.AddMinSpec7// == "" ? null : data.AddMinSpec7;
+            sessionStorage.AddMinSpec8 = data.AddMinSpec8// == "" ? null : data.AddMinSpec8;
+            sessionStorage.AddMinSpec9 = data.AddMinSpec9// == "" ? null : data.AddMinSpec9;
+            sessionStorage.AddMinSpec10 = data.AddMinSpec10 //== "" ? null : data.AddMinSpec10;
+
+            sessionStorage.AddMin1 = data.AddMinPrice1 == null ? 0 : data.AddMinPrice1;
+            sessionStorage.AddMin2 = data.AddMinPrice2 == null ? 0 : data.AddMinPrice2;
+            sessionStorage.AddMin3 = data.AddMinPrice3 == null ? 0 : data.AddMinPrice3;
+            sessionStorage.AddMin4 = data.AddMinPrice4 == null ? 0 : data.AddMinPrice4;
+            sessionStorage.AddMin5 = data.AddMinPrice5 == null ? 0 : data.AddMinPrice5;
+            sessionStorage.AddMin6 = data.AddMinPrice6 == null ? 0 : data.AddMinPrice6;
+            sessionStorage.AddMin7 = data.AddMinPrice7 == null ? 0 : data.AddMinPrice7;
+            sessionStorage.AddMin8 = data.AddMinPrice8 == null ? 0 : data.AddMinPrice8;
+            sessionStorage.AddMin9 = data.AddMinPrice9 == null ? 0 : data.AddMinPrice9;
+            sessionStorage.AddMin10 = data.AddMinPrice10 == null ? 0 : data.AddMinPrice10;
+
+            sessionStorage.F01 = data.F01;
+            sessionStorage.F02 = data.F02;
+            sessionStorage.F03 = data.F03;
+            sessionStorage.F04 = data.F04;
+            sessionStorage.F05 = data.F05;
+            sessionStorage.F06 = data.F06;
+            sessionStorage.F07 = data.F07;
+            sessionStorage.F08 = data.F08;
+            sessionStorage.F09 = data.F09;
+            sessionStorage.F10 = data.F10;
+            sessionStorage.F11 = data.F11;
+            sessionStorage.F12 = data.F12;
+            sessionStorage.F13 = data.F13;
+            sessionStorage.F14 = data.F14;
+            sessionStorage.F15 = data.F15;
+            sessionStorage.F16 = data.F16;
+            sessionStorage.F17 = data.F17;
+            sessionStorage.F18 = data.F18;
+            sessionStorage.F19 = data.F19;
+            sessionStorage.F20 = data.F20;
+            localStorage.setItem("ModeCode", data.ModeCode);
+            sessionStorage.ModeCode = data.ModeCode;
+
+            sessionStorage.Status = data.Status;
+            sessionStorage.PaymentType = data.PaymentType;
+            sessionStorage.Footer = data.Footer;
+
+            sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
+
+            window.location.href = sessionStorage.urlAddFDocH;
+        });
+    }
+
+
+
+
 
     self.MoveFactor = function (item) {
         serial = item.SerialNumber;
