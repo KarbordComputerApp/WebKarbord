@@ -130,19 +130,37 @@
     //var rprtId = 'ErjDocB_Last';
     var rprtId = sessionStorage.ModeCodeErja == '1' ? 'ErjDocB_Last_D' : 'ErjDocB_Last_E';
 
-    var columns = [
-        'RjStatus',
-        'RjDate',
-        'RjMhltDate',
-        'CustName',
-        'KhdtName',
-        'FromUserName',
-        'ToUserName',
-        'Spec',
-        'Status',
-        'DocNo',
-        'MhltDate'
-    ];
+    var columns = [];
+
+    if (sessionStorage.ModeCodeErja == '1') {
+        columns = [
+            'RjStatus',
+            'RjDate',
+            'RjMhltDate',
+            'CustName',
+            'KhdtName',
+            'FromUserName',
+            'ToUserName',
+            'Spec',
+            'Status',
+            'DocNo',
+            'MhltDate'
+        ];
+    }
+    else {
+        columns = [
+            'RjDate',
+            'RjMhltDate',
+            'CustName',
+            'KhdtName',
+            'FromUserName',
+            'ToUserName',
+            'Spec',
+            'Status',
+            'DocNo',
+            'MhltDate'
+        ];
+    }
 
 
     //Get RprtCols List
@@ -2077,8 +2095,13 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
-            '<th>ردیف</th>' +
-            CreateTableTh('RjStatus', data) +
+            '<th>ردیف</th>';
+
+        if (sessionStorage.ModeCodeErja == '1') {
+            html += CreateTableTh('RjStatus', data);
+        }
+
+        html +=
             CreateTableTh('RjDate', data) +
             CreateTableTh('RjMhltDate', data) +
             CreateTableTh('CustName', data) +
@@ -2101,10 +2124,13 @@
             '<td style="background-color: ' + colorRadif + ';">' +
             '<div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
             '<i data-bind="style: {\'display\': RjReadSt == \'F\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px;padding-right:10px;">notifications_none</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
-            '</div></td>' +
+            '</div></td>';
 
-            CreateTableTd('RjStatus', 0, 1, data) +
-            CreateTableTd('RjDate', 0, 0, data) +
+        if (sessionStorage.ModeCodeErja == '1') {
+            html += CreateTableTd('RjStatus', 0, 1, data);
+        }
+
+        html += CreateTableTd('RjDate', 0, 0, data) +
             CreateTableTd('RjMhltDate', 0, 3, data) +
             CreateTableTd('CustName', 0, 4, data) +
             CreateTableTd('KhdtName', 0, 0, data) +
@@ -2141,22 +2167,12 @@
             ' <tfoot>' +
 
 
-            /*' <tr style="background-color:#e37d228f;">' +
-            '<td></td>' +
-            CreateTableTdSum('RjStatus', 0, data) +
-            CreateTableTdSum('RjDate', 1, data) +
-            CreateTableTdSum('RjMhltDate', 1, data) +
-            CreateTableTdSum('CustName', 1, data) +
-            CreateTableTdSum('KhdtName', 1, data) +
-            CreateTableTdSum('FromUserName', 1, data) +
-            CreateTableTdSum('Spec', 1, data) +
-            CreateTableTdSum('Status', 1, data) +
-            CreateTableTdSum('DocNo', 1, data) +
-            CreateTableTdSum('MhltDate', 1, data) +
-            ' </tr>' +*/
             '  <tr style="background-color: #efb68399;">' +
-            '<td>جستجو</td>' +
-            CreateTableTdSearch('RjStatus', data) +
+            '<td>جستجو</td>';
+        if (sessionStorage.ModeCodeErja == '1') {
+            html += CreateTableTdSearch('RjStatus', data);
+        }
+        html +=
             CreateTableTdSearch('RjDate', data) +
             CreateTableTdSearch('RjMhltDate', data) +
             CreateTableTdSearch('CustName', data) +

@@ -213,46 +213,58 @@
 
 
 
-                        <table class="table tableFix">
+                        <table style="border-collapse: collapse;border-radius: 1em;overflow: hidden;">
                             <thead>
                                 <tr>
-                                    <th style="width: 300px;">واحد</th>
-                                    <th colspan="2">دقت اعشار</th>
-                                    <th>مقدار بر حسب </th>
-                                    <th>پیش فرض</th>
+                                    <th style="width: 300px;background-color: white; border: 1px solid #ec8121;text-align: center;">واحد</th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;" colspan="2">دقت اعشار</th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;"> مقدار بر حسب واحد اصلی</th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;">پیش فرض</th>
                                 </tr>
-                                <tr >
-                                    <th></th>
-                                    <th>مقدار</th>
-                                    <th>ریال</th>
-                                    <th>واحد اصلی</th>
-                                    <th></th>
+                                <tr>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;"></th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;">مقدار</th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;">ریال</th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;"></th>
+                                    <th style="background-color: white; border: 1px solid #ec8121;text-align: center;"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="padding: 0px 3px;"><input id="UnitName1" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="DeghatM1" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="DeghatR1" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1"/> </td>
-                                    <td style="padding: 0px 3px;"><input id="zarib1" type="text" class="form-control float" style="height: 2.4rem;" readonly /> </td>
-                                    <td style="padding: 0px 3px;" id="B_DefaultUnit1"><p id="DefaultUnit1"></p> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="UnitName1" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
+                                    <td style="padding: 0px 3px;border: 1px solid #ec8121;"><input id="DeghatM1" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="DeghatR1" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="zarib1" type="text" class="form-control" style="height: 2.4rem;" readonly /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;" id="B_DefaultUnit1">
+                                        <center>
+                                            <img id="DefaultUnit1" src="~/Content/img/tik.png" width="16" height="16" />
+                                        </center>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="UnitName2" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="DeghatM2" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="DeghatR2" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="zarib2" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;" id="B_DefaultUnit2">
+                                        <center>
+                                            <img id="DefaultUnit2" src="~/Content/img/tik.png" width="16" height="16" />
+                                        </center>
+                                    </td>
                                 </tr>
 
                                 <tr>
-                                    <td style="padding: 0px 3px;"><input id="UnitName2" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="DeghatM2" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1"/> </td>
-                                    <td style="padding: 0px 3px;"><input id="DeghatR2" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1"/> </td>
-                                    <td style="padding: 0px 3px;"><input id="zarib2" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;" id="B_DefaultUnit2"><p id="DefaultUnit2"></p> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="UnitName3" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="DeghatM3" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="DeghatR3" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;"><input id="zarib3" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
+                                    <td style="padding: 0px 3px; border: 1px solid #ec8121;" id="B_DefaultUnit3">
+                                        <center>
+                                            <img id="DefaultUnit3" src="~/Content/img/tik.png" width="16" height="16" />
+                                        </center>
+                                    </td>
                                 </tr>
-
-                                <tr>
-                                    <td style="padding: 0px 3px;"><input id="UnitName3" type="text" class="form-control type_1" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;"><input id="DeghatM3" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1"/> </td>
-                                    <td style="padding: 0px 3px;"><input id="DeghatR3" type="text" class="form-control int" style="height: 2.4rem;" size="1" maxlength="1"/> </td>
-                                    <td style="padding: 0px 3px;"><input id="zarib3" type="text" class="form-control float" style="height: 2.4rem;" /> </td>
-                                    <td style="padding: 0px 3px;" id="B_DefaultUnit3"><p id="DefaultUnit3"></p> </td>
-                                 </tr>
                             </tbody>
                         </table>
                     </form>
@@ -376,12 +388,12 @@
 
 <div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:800px;">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: solid 10px #f5d3b4;padding-bottom: 5px;">
+        <div class="modal-content" style="padding-right: 30px;padding-left: 30px;padding-bottom: 20px;padding-top: 20px;">
+            <div class="modal-header" style="padding-bottom: 5px;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">مشخصات اضافی</h4>
+                <h4 class="modal-title" style="color:#c49069">مشخصات اضافی</h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -390,8 +402,19 @@
                         <table class="table table-addmin">
                             <tbody data-bind="foreach: ExtraFieldsList">
                                 <tr>
-                                    <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
-                                    <td style="padding: 0px 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" style="border-bottom: 1px solid #d4d4d4;" id="ExtraFields1"></td>
+                                    <!-- <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>-->
+                                    <td style="padding: 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;">
+
+
+
+                                        <div class="form-group form-float" style="margin-bottom: 10px">
+                                            <div class="form-line focused fix">
+                                                <input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" style="border-bottom: 1px solid #d4d4d4;" id="ExtraFields1">
+                                                <label class="form-label active" data-bind="text: Name"></label>
+                                            </div>
+                                        </div>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -399,7 +422,7 @@
                 </div>
             </div>
 
-            <div style="border-top: solid 1px black;padding-top: 5px;">
+            <div style="padding-top: 5px;">
                 <div class="row  form-inline ">
                     <div class="col-md-9 row">
 

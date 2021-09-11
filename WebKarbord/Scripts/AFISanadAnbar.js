@@ -44,7 +44,10 @@
     var Price2;
     var Price3;
 
-    invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
+    if (sessionStorage.InOut == "1")
+        invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
+    else
+        invSelected = localStorage.getItem('InvSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_Out');
 
     var invSelect = "";
 
@@ -197,7 +200,7 @@
         $('#TitleCodeTableModalThvl').text('کد تحویل گیرنده ');
         $('#TitleNameTableModalThvl').text('نام تحویل گیرنده ');
         $('#ViewSpec').attr('class', 'col-sm-5');
-        ModeCodeExtraFields = 'IDOCO'; 
+        ModeCodeExtraFields = 'IDOCO';
 
         amountAfterBarCode = sessionStorage.IDOCOAmountAfterBarCode
 
@@ -678,7 +681,7 @@
             });
 
 
-           
+
         } else {
             $('#modal-Band').modal()
         }
@@ -1541,7 +1544,7 @@
                 }
 
 
-      
+
 
         $('#Save').attr('disabled', 'disabled');
 
@@ -1668,7 +1671,7 @@
                     }
                 }
 
-        
+
 
         var IDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),

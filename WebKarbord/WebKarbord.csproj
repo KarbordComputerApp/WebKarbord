@@ -198,6 +198,7 @@
     <Content Include="Content\img\repair-sal.svg" />
     <Content Include="Content\img\Repair.png" />
     <Content Include="Content\img\send.svg" />
+    <Content Include="Content\img\tik.png" />
     <Content Include="Content\img\view.svg" />
     <Content Include="Content\img\Warning.jpg" />
     <Content Include="Content\img\Error.jpg" />

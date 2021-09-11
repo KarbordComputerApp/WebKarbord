@@ -356,7 +356,12 @@
             self.InvList(data);
             //localStorage.setItem('InvSelectSanadAnbar', '');
             // last = localStorage.getItem('InvSelectSanadAnbar');
-            invSelected = localStorage.getItem('InvSelectSanadAnbar') == null ? '' : localStorage.getItem('InvSelectSanadAnbar');
+            if (sessionStorage.InOut == "1") {
+                invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
+            }
+            else {
+                invSelected = localStorage.getItem('InvSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_Out');
+            }
 
             if (self.InvList().length > 0) {
                 if (flagupdateHeader == 1) {
@@ -409,10 +414,14 @@
             //    $('#countAllRecord').text(dataCount);
             // });
             self.currentPageIndexIDocH(0);
-            localStorage.setItem('InvSelectSanadAnbar', invCode);
+
+            if (sessionStorage.InOut == "1")
+                localStorage.setItem('InvSelectSanadAnbar_In', invCode);
+            else
+                localStorage.setItem('InvSelectSanadAnbar_Out', invCode);
+
+
             invSelected = invCode;
-
-
 
             if (sessionStorage.InOut == 1)
                 textNoSanad = ' وارده ';
