@@ -23,18 +23,19 @@ var serverAccount = localStorage.getItem('serverAccount');
 var ShowNewTab = localStorage.getItem('NewTab');
 
 if (ShowNewTab == "ShowNewTab") {
-    $("#checkbox_ShowNewTab").prop('checked', false);
+
+    $("#NewTab").val(1);
     $('.useBlank').attr('target', '_blank');
 }
 else {
-    $("#checkbox_ShowNewTab").prop('checked', true);
+    $("#NewTab").val(0);
     $('.useBlank').attr('target', '');
 }
 
 
-$("#checkbox_ShowNewTab").click(function () {
+$("#NewTab").change(function () {
 
-    if ($('#checkbox_ShowNewTab').is(':checked') == false) {
+    if ($('#NewTab').val() == 1) {
         localStorage.setItem("NewTab", "ShowNewTab");
         $('.useBlank').attr('target', '_blank');
     }
@@ -3968,4 +3969,9 @@ function AppendAnbar(invName) {
     }
     return invName
 }
+
+
+
+
+
 

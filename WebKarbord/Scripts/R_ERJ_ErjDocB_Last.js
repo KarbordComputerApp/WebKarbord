@@ -2203,10 +2203,10 @@
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 0, data) +
             '<td>' +
-            '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
+            '    <a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +
             '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
-            '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
+            '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" data-backdrop="static" data-keyboard="false">' +
             '        <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
             '</td >' +

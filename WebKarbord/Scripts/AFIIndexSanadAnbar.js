@@ -392,6 +392,18 @@
         if (invCode == "" || invCode == "null" || invCode == null)
             invCode = "";
 
+        invName = '';
+        list = self.InvList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].Code == invCode)
+                invName = list[i].Name;
+        }
+
+        if (invName == '') {
+            invCode = "";
+            invName = 'همه انبارها'
+        }
+
         var IDocHMinObject = {
             InOut: sessionStorage.InOut,
             select: select,
@@ -429,15 +441,8 @@
                 textNoSanad = ' صادره ';
 
 
-            list = self.InvList();
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].Code == invSelected)
-                    invName = list[i].Name;
-            }
-
-            //aaaaa = $("#invSelect option:selected").text();
             if (invCode == "")
-                $('#titlePage').text('اسناد' + textNoSanad + ' تمام انبار ها');
+                $('#titlePage').text('اسناد' + textNoSanad + ' همه انبارها');
             else
                 $('#titlePage').text('اسناد' + textNoSanad + AppendAnbar(invName));
 
@@ -480,7 +485,7 @@
 
     self.OptionsCaptionAnbar = ko.computed(function () {
         //        return self.InvList().length > 1 ? 'همه انبار ها' : 'انبار تعریف نشده است';
-        return 'همه انبار ها';
+        return 'همه انبارها';
 
     });
 

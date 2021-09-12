@@ -1036,6 +1036,7 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocK" data-dismiss="modal" style="cursor: default;">' +
@@ -1046,9 +1047,9 @@
 
 
 
-           // '<td><div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
-          //  '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px">folder_open</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
-           // '</div></td>' +
+            // '<td><div style="display: flex; padding-top: 5px;"><span data-bind="text: $root.radif($index()) "> </span> ' +
+            //  '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:18px;padding-right:10px">folder_open</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
+            // '</div></td>' +
 
 
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
@@ -1093,10 +1094,16 @@
             CreateTableTd('F18', 0, 0, 0, data) +
             CreateTableTd('F19', 0, 0, 0, data) +
             CreateTableTd('F20', 0, 0, 0, data) +
+            '<td>' +
+            '    <a data-bind="click: $root.ViewErjDocH">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
+
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
-            ' <tr style="background-color:#e37d228f;">' +
+            /*' <tr style="background-color:#e37d228f;">' +
             '<td></td>' +
             CreateTableTdSum('DocNo', 0, data) +
             CreateTableTdSum('DocDate', 1, data) +
@@ -1137,7 +1144,7 @@
             CreateTableTdSum('F18', 1, data) +
             CreateTableTdSum('F19', 1, data) +
             CreateTableTdSum('F20', 1, data) +
-            ' </tr>' +
+            ' </tr>' +*/
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
             CreateTableTdSearch('DocNo', data) +

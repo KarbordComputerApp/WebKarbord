@@ -68,7 +68,7 @@
     self.e_MhltErja = ko.observable('');
     self.ErjUsersCode = ko.observable();
     self.ToUserCode = ko.observable();
-
+    self.FarayandCode = ko.observable();
 
     self.Status = ko.observable();
 
@@ -1935,6 +1935,7 @@
                 BandNo: bandNoImput,
                 SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1,
                 RjStatus: $("#m_StatusErja").val(),
+                FarayandCode: self.FarayandCode(),
             };
         }
         else // save
@@ -1954,6 +1955,7 @@
                 BandNo: bandNoImput,
                 SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1,
                 RjStatus: $("#m_StatusErja").val(),
+                FarayandCode: 0,
             };
 
             status = $("#m_StatusParvandeh").val();
@@ -2144,7 +2146,7 @@
 
         if (sessionStorage.ModeCodeErja == "1") // دریافتی
             html +=
-                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
+                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +
                 '    <i class="far fa-share" style="font-size: 12px;"></i>  ' +
                 '    </a >';
         else // ارسالی
@@ -2152,13 +2154,13 @@
                 '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
                 '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">' +
                 '</a >' +
-                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" >' +
+                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +
                 '      <img src="/Content/img/view.svg" width = "18" height = "18" style = "margin-left:10px"/>   ' +
                 '</a >';
 
 
         html +=
-            '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" >' +
+            '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" data-backdrop="static" data-keyboard="false" >' +
             '        <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
             '</td >' +

@@ -3398,7 +3398,7 @@
             '<a data-bind="click: $root.DeleteBand">' +
             '    <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '</a>' +
-            '<a data-bind="click: $root.ImportBand" data-toggle="modal" data-target="#modal-Band">' +
+            '<a data-bind="click: $root.ImportBand" data-toggle="modal" data-target="#modal-Band" data-backdrop="static" data-keyboard="false">' +
             '    <img src="/Content/img/sanad/streamline-icon-logout-alternate@48x48.png" width="16" height="16" />' +
             '</a>' +
             '</td >' +

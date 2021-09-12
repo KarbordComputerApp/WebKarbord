@@ -17,8 +17,8 @@
 
 
 
-    var serverAccount = 'http://192.168.0.114:902/api/';
-    //var serverAccount = 'http://127.0.0.1:902/api/';
+    //var serverAccount = 'http://192.168.0.114:902/api/';
+    var serverAccount = 'http://127.0.0.1:902/api/';
 
     localStorage.setItem("serverAccount", serverAccount);
 
