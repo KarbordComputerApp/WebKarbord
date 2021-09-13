@@ -128,7 +128,7 @@
     self.KalaPriceBList = ko.observableArray([]); // قيمت کالا بر اساس گروه قیمت
     self.IDocBList = ko.observableArray([]); // ليست بند های سند
     self.UnitList = ko.observableArray([]); // ليست واحد ها
-    self.InvList = ko.observableArray([]); // ليست انبار ها
+    self.InvList = ko.observableArray([]); // ليست انبارها
     self.IDocHList = ko.observableArray([]); // اطلاعات  سند  
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IModeList = ko.observableArray([]); // نوع سند 

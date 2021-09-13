@@ -65,7 +65,7 @@
         'Status',
         'Spec',
         'KhdtName',
-        'RjTime',
+        'RjTimeSt',
         'SerialNumber',
         'F01',
         'F02',
@@ -271,7 +271,7 @@
     self.filterStatus = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterKhdtName = ko.observable("");
-    self.filterRjTime = ko.observable("");
+    self.filterRjTimeSt = ko.observable("");
     self.filterSerialNumber = ko.observable("");
     self.filterF01 = ko.observable("");
     self.filterF02 = ko.observable("");
@@ -314,7 +314,7 @@
         var filterStatus = self.filterStatus().toUpperCase();
         var filterSpec = self.filterSpec().toUpperCase();
         var filterKhdtName = self.filterKhdtName().toUpperCase();
-        var filterRjTime = self.filterRjTime().toUpperCase();
+        var filterRjTimeSt = self.filterRjTimeSt().toUpperCase();
         var filterSerialNumber = self.filterSerialNumber().toUpperCase();
         var filterF01 = self.filterF01();
         var filterF02 = self.filterF02();
@@ -356,7 +356,8 @@
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 (item.KhdtName == null ? '' : item.KhdtName.toString().search(filterKhdtName) >= 0) &&
-                ko.utils.stringStartsWith(item.RjTime.toString().toLowerCase(), filterRjTime) &&
+            (item.RjTimeSt == null ? '' : item.RjTimeSt.toString().search(filterRjTimeSt) >= 0) &&
+                //ko.utils.stringStartsWith(item.RjTimeSt.toString().toLowerCase(), filterRjTimeSt) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                 (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
                 (item.F02 == null ? '' : item.F02.toString().search(filterF02) >= 0) &&
@@ -463,7 +464,7 @@
     self.iconTypeStatus = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeKhdtName = ko.observable("");
-    self.iconTypeRjTime = ko.observable("");
+    self.iconTypeRjTimeSt = ko.observable("");
     self.iconTypeSerialNumber = ko.observable("");
     self.iconTypeF01 = ko.observable("");
     self.iconTypeF02 = ko.observable("");
@@ -536,7 +537,7 @@
         self.iconTypeStatus('');
         self.iconTypeSpec('');
         self.iconTypeKhdtName('');
-        self.iconTypeRjTime('');
+        self.iconTypeRjTimeSt('');
         self.iconTypeSerialNumber('');
         self.iconTypeF01('');
         self.iconTypeF02('');
@@ -578,7 +579,7 @@
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KhdtName') self.iconTypeKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'RjTime') self.iconTypeRjTime((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RjTimeSt') self.iconTypeRjTimeSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1014,7 +1015,7 @@
             CreateTableTh('Status', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('KhdtName', data) +
-            CreateTableTh('RjTime', data) +
+            CreateTableTh('RjTimeSt', data) +
             CreateTableTh('SerialNumber', data) +
             CreateTableTh('F01', data) +
             CreateTableTh('F02', data) +
@@ -1072,7 +1073,7 @@
             CreateTableTd('Status', 0, 0, 0, data) +
             CreateTableTd('Spec', 0, 4, 0, data) +
             CreateTableTd('KhdtName', 0, 0, '#f2f2f2', data) +
-            CreateTableTd('RjTime', 0, 0, 0, data) +
+            CreateTableTd('RjTimeSt', 0, 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, 0, data) +
             CreateTableTd('F01', 0, 0, 0, data) +
             CreateTableTd('F02', 0, 0, 0, data) +
@@ -1122,7 +1123,7 @@
             CreateTableTdSum('Status', 1, data) +
             CreateTableTdSum('Spec', 1, data) +
             CreateTableTdSum('KhdtName', 1, data) +
-            CreateTableTdSum('RjTime', 1, data) +
+            CreateTableTdSum('RjTimeSt', 1, data) +
             CreateTableTdSum('SerialNumber', 1, data) +
             CreateTableTdSum('F01', 1, data) +
             CreateTableTdSum('F02', 1, data) +
@@ -1164,7 +1165,7 @@
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('KhdtName', data) +
-            CreateTableTdSearch('RjTime', data) +
+            CreateTableTdSearch('RjTimeSt', data) +
             CreateTableTdSearch('SerialNumber', data) +
             CreateTableTdSearch('F01', data) +
             CreateTableTdSearch('F02', data) +

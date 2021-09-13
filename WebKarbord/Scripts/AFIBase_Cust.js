@@ -732,7 +732,7 @@
 
     self.UpdateCust = function (item) {
        // sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
-        item.EditBaseTrs == 'true' && sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
+        item.EditBaseTrs == true && sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);

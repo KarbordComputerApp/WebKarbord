@@ -15,6 +15,7 @@
 
 
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
+    self.FarayandList = ko.observableArray([]); // لیست فرایند 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.RepToUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.RepFromUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
@@ -41,6 +42,7 @@
     var RooneveshtUsersListUri = server + '/api/Web_Data/Web_RooneveshtUsersList/'; // لیست افرادی که رونوشت دارند
     var ErjResultUri = server + '/api/Web_Data/Web_ErjResult/'; // آدرس نتیجه
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
+    var FarayandUri = server + '/api/Web_Data/Farayand/'; // آدرس فرایند 
     var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
@@ -312,6 +314,21 @@
         }
     }
 
+    //Get Farayand List
+    function getFarayandList(Reload) {
+        list = localStorage.getItem('Farayand');
+        if (list != null && Reload == false) {
+            list = JSON.parse(localStorage.getItem('Farayand'));
+            self.FarayandList(list)
+        }
+        else {
+            ajaxFunction(FarayandUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
+                self.FarayandList(data);
+                localStorage.setItem("Farayand", JSON.stringify(data));
+            });
+        }
+    }
+
     //Get DocAttach List
     function getDocAttachList(serial) {
         var DocAttachObject = {
@@ -326,6 +343,7 @@
 
 
     getErjStatusList();
+    getFarayandList(false);
     getErjUsersList(false);
     //getRepToUsersList();
     //getRepFromUsersList();
@@ -460,6 +478,7 @@
         return tempText;
     }
 
+    var lastBand = 0;
     function SetDataErjDocErja() {
         list = self.ErjDocErja();
 
@@ -473,6 +492,8 @@
                 textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
             }
             else if (listLastBand[j].DocBMode == 1) {
+                lastBand = listLastBand[j].BandNo;
+                //lastRonevesht += listLastBand[j].ToUserCode + ',';
                 textLastBand +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
                 textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
@@ -1381,6 +1402,146 @@
     });
 
 
+
+
+
+
+
+
+
+
+
+
+    self.currentPageFarayand = ko.observable();
+    pageSizeFarayand = localStorage.getItem('pageSizeFarayand') == null ? 10 : localStorage.getItem('pageSizeFarayand');
+    self.pageSizeFarayand = ko.observable(pageSizeFarayand);
+    self.currentPageIndexFarayand = ko.observable(0);
+
+    self.iconTypeCode = ko.observable("");
+    self.iconTypeName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+
+    self.currentPageFarayand = ko.observable();
+    self.filterFarayand0 = ko.observable("");
+    self.filterFarayand1 = ko.observable("");
+    self.filterFarayand2 = ko.observable("");
+
+    self.filterFarayandList = ko.computed(function () {
+
+        self.currentPageIndexFarayand(0);
+        var filter0 = self.filterFarayand0().toUpperCase();
+        var filter1 = self.filterFarayand1();
+        var filter2 = self.filterFarayand2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.FarayandList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.FarayandList(), function (item) {
+                result =
+                    (item.Code == null ? '' : item.Code.toString().search(filter0) >= 0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPageFarayand = ko.computed(function () {
+        var pageSizeFarayand = parseInt(self.pageSizeFarayand(), 10),
+            startIndex = pageSizeFarayand * self.currentPageIndexFarayand(),
+            endIndex = startIndex + pageSizeFarayand;
+        localStorage.setItem('pageSizeFarayand', pageSizeFarayand);
+        return self.filterFarayandList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageFarayand = function () {
+        if (((self.currentPageIndexFarayand() + 1) * self.pageSizeFarayand()) < self.filterFarayandList().length) {
+            self.currentPageIndexFarayand(self.currentPageIndexFarayand() + 1);
+        }
+    };
+
+    self.previousPageFarayand = function () {
+        if (self.currentPageIndexFarayand() > 0) {
+            self.currentPageIndexFarayand(self.currentPageIndexFarayand() - 1);
+        }
+    };
+
+    self.firstPageFarayand = function () {
+        self.currentPageIndexFarayand(0);
+    };
+
+
+    self.lastPageFarayand = function () {
+        countFarayand = parseInt(self.filterFarayandList().length / self.pageSizeFarayand(), 10);
+        if ((self.filterFarayandList().length % self.pageSizeFarayand()) == 0)
+            self.currentPageIndexFarayand(countFarayand - 1);
+        else
+            self.currentPageIndexFarayand(countFarayand);
+    };
+
+    self.sortTableFarayand = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.FarayandList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+    };
+
+    $('#refreshFarayand').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست فرایندها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                getFarayandList(true);
+            }
+        })
+    })
+
+    self.selectFarayand = function (item) {
+        $('#nameFarayand').val(item.Name);
+        self.FarayandCode(item.Code);
+    }
+
+
+    $('#modal-Farayand').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
     self.ToUserCode(sessionStorage.userName);
 
 
@@ -1522,7 +1683,7 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + listUsers[i].ToUserCode + '</td > '
                 + ' <td data-bind="text: Name">' + listUsers[i].ToUserName + '</td > '
-                + ' <td data-bind="text: Spec"> </td >'
+                //+ ' <td data-bind="text: Spec"> </td >'
                 + '</tr>'
             );
         }
@@ -1543,6 +1704,7 @@
         rjTime = result.RjTimeSt.split(":");
         $('#RjTime_H').val(rjTime[0]);
         $('#RjTime_M').val(rjTime[1]);
+        $('#nameFarayand').val('');
 
     }
 
@@ -1770,6 +1932,7 @@
             else {
                 $('#nameErjBe').val('انتخاب نشده');
             }
+            $('#nameFarayand').val('');
             $('#nameRoneveshtBe').val('هیچکس');
             $('#RjMhltDate').val('');
             $('#RjTime_M').val('');
@@ -2304,6 +2467,31 @@
     self.ViewCustName = function (Band) {
         ViewCustName(Band.CustName)
     }
+
+
+
+    $("#lastRonevesht").click(function () {
+
+        getRooneveshtUsersList(serialNumber, lastBand);
+        listUsers = self.RooneveshtUsersList();
+        countUsers = listUsers.length;
+
+        list_ErjUsersRoneveshtSelect = new Array();
+        counterErjUsersRonevesht = countUsers;
+
+        $("#TableBodyListErjUsersRonevesht").empty();
+        for (var i = 0; i < countUsers; i++) {
+            list_ErjUsersRoneveshtSelect[i] = listUsers[i].ToUserCode;
+
+            $('#TableBodyListErjUsersRonevesht').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + listUsers[i].ToUserCode + '</td > '
+                + ' <td data-bind="text: Name">' + listUsers[i].ToUserName + '</td > '
+                //+ ' <td data-bind="text: Spec"> </td >'
+                + '</tr>'
+            );
+        }
+    });
 
 
 

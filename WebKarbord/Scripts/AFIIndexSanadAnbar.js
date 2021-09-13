@@ -130,7 +130,7 @@
     self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
-    self.InvList = ko.observableArray([]); // ليست انبار ها
+    self.InvList = ko.observableArray([]); // ليست انبارها
     self.TestIDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
     self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
@@ -484,7 +484,7 @@
     }
 
     self.OptionsCaptionAnbar = ko.computed(function () {
-        //        return self.InvList().length > 1 ? 'همه انبار ها' : 'انبار تعریف نشده است';
+        //        return self.InvList().length > 1 ? 'همه انبارها' : 'انبار تعریف نشده است';
         return 'همه انبارها';
 
     });

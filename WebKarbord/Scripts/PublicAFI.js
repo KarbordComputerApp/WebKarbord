@@ -1626,7 +1626,7 @@ function SetValidation() {
     ShowMenu[30] = validation;  // گزارش کاردکس
 
     validation = CheckAccess('KALA');
-    ShowMenu[31] = validation;  // کالا ها
+    ShowMenu[31] = validation;  // کالاها
     validation = CheckAccess('CUST');
     ShowMenu[32] = validation;  // خریداران / فروشندگان
 
@@ -3268,6 +3268,20 @@ function SetColumn(code, indexId, data, mode) {
                 code == "ThvlFax" ||
                 code == "ThvlEMail" ||
                 code == "ThvlAddress" ||
+
+                code == "CustEcoCode" ||
+                code == "CustMelliCode" ||
+                code == "CustTel" ||
+                code == "CustFax" ||
+                code == "CustMobile" ||
+                code == "CustEmail" ||
+                code == "CustCity" ||
+                code == "CustStreet" ||
+                code == "CustAlley" ||
+                code == "CustPlack" ||
+                code == "CustZipCode" ||
+
+                //  CustEcoCode, CustMelliCode, CustTel, CustFax, CustMobile, CustEmail, CustCity, CustStreet, CustAlley, CustPlack, CustZipCode
 
                 code == "ArzName" ||
                 code == "ArzRate" ||

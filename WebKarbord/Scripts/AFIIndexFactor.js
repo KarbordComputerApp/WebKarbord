@@ -873,7 +873,18 @@
         'F17',
         'F18',
         'F19',
-        'F20'
+        'F20',
+        'CustEcoCode',
+        'CustMelliCode',
+        'CustTel',
+        'CustFax',
+        'CustMobile',
+        'CustEmail',
+        'CustCity',
+        'CustStreet',
+        'CustAlley',
+        'CustPlack',
+        'CustZipCode'
     ];
 
 
@@ -1280,6 +1291,17 @@
     self.filterF18 = ko.observable("");
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
+    self.filterCustEcoCode = ko.observable("");
+    self.filterCustMelliCode = ko.observable("");
+    self.filterCustTel = ko.observable("");
+    self.filterCustFax = ko.observable("");
+    self.filterCustMobile = ko.observable("");
+    self.filterCustEmail = ko.observable("");
+    self.filterCustCity = ko.observable("");
+    self.filterCustStreet = ko.observable("");
+    self.filterCustAlley = ko.observable("");
+    self.filterCustPlack = ko.observable("");
+    self.filterCustZipCode = ko.observable("");
 
 
     listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
@@ -1319,6 +1341,17 @@
         self.filterF18(listFilter[32]);
         self.filterF19(listFilter[33]);
         self.filterF20(listFilter[34]);
+        self.filterCustEcoCode(listFilter[35]);
+        self.filterCustMelliCode(listFilter[36]);
+        self.filterCustTel(listFilter[37]);
+        self.filterCustFax(listFilter[38]);
+        self.filterCustMobile(listFilter[39]);
+        self.filterCustEmail(listFilter[40]);
+        self.filterCustCity(listFilter[41]);
+        self.filterCustStreet(listFilter[42]);
+        self.filterCustAlley(listFilter[43]);
+        self.filterCustPlack(listFilter[44]);
+        self.filterCustZipCode(listFilter[45]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -1357,14 +1390,27 @@
         var filterF18 = self.filterF18();
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
+        var filterCustEcoCode = self.filterCustEcoCode();
+        var filterCustMelliCode = self.filterCustMelliCode();
+        var filterCustTel = self.filterCustTel();
+        var filterCustFax = self.filterCustFax();
+        var filterCustMobile = self.filterCustMobile();
+        var filterCustEmail = self.filterCustEmail();
+        var filterCustCity = self.filterCustCity();
+        var filterCustStreet = self.filterCustStreet();
+        var filterCustAlley = self.filterCustAlley();
+        var filterCustPlack = self.filterCustPlack();
+        var filterCustZipCode = self.filterCustZipCode();
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
-
 
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
             !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
-            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
+            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 &&
+            !filterCustEcoCode && !filterCustMelliCode && !filterCustTel && !filterCustFax && !filterCustMobile && !filterCustEmail && !filterCustCity &&
+            !filterCustStreet && !filterCustAlley && !filterCustPlack && !filterCustZipCode
+        ) {
             // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
             $("#CountRecord").text(self.FDocHList().length);
             sessionStorage.setItem('listFilter', null);
@@ -1406,7 +1452,18 @@
                 filterF17,
                 filterF18,
                 filterF19,
-                filterF20
+                filterF20,
+                filterCustEcoCode,
+                filterCustMelliCode,
+                filterCustTel,
+                filterCustFax,
+                filterCustMobile,
+                filterCustEmail,
+                filterCustCity,
+                filterCustStreet,
+                filterCustAlley,
+                filterCustPlack,
+                filterCustZipCode
             ];
             sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
@@ -1445,7 +1502,18 @@
                     (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
                     (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
                     (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
-                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
+                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0) &&
+                    (item.CustEcoCode == null ? '' : item.CustEcoCode.toString().search(filterCustEcoCode) >= 0) &&
+                    (item.CustMelliCode == null ? '' : item.CustMelliCode.toString().search(filterCustMelliCode) >= 0) &&
+                    (item.CustTel == null ? '' : item.CustTel.toString().search(filterCustTel) >= 0) &&
+                    (item.CustFax == null ? '' : item.CustFax.toString().search(filterCustFax) >= 0) &&
+                    (item.CustMobile == null ? '' : item.CustMobile.toString().search(filterCustMobile) >= 0) &&
+                    (item.CustEmail == null ? '' : item.CustEmail.toString().search(filterCustEmail) >= 0) &&
+                    (item.CustCity == null ? '' : item.CustCity.toString().search(filterCustCity) >= 0) &&
+                    (item.CustStreet == null ? '' : item.CustStreet.toString().search(filterCustStreet) >= 0) &&
+                    (item.CustAlley == null ? '' : item.CustAlley.toString().search(filterCustAlley) >= 0) &&
+                    (item.CustPlack == null ? '' : item.CustPlack.toString().search(filterCustPlack) >= 0) &&
+                    (item.CustZipCode == null ? '' : item.CustZipCode.toString().search(filterCustZipCode) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -1552,6 +1620,17 @@
     self.iconTypeF18 = ko.observable("");
     self.iconTypeF19 = ko.observable("");
     self.iconTypeF20 = ko.observable("");
+    self.iconTypeCustEcoCode = ko.observable("");
+    self.iconTypeCustMelliCode = ko.observable("");
+    self.iconTypeCustTel = ko.observable("");
+    self.iconTypeCustFax = ko.observable("");
+    self.iconTypeCustMobile = ko.observable("");
+    self.iconTypeCustEmail = ko.observable("");
+    self.iconTypeCustCity = ko.observable("");
+    self.iconTypeCustStreet = ko.observable("");
+    self.iconTypeCustAlley = ko.observable("");
+    self.iconTypeCustPlack = ko.observable("");
+    self.iconTypeCustZipCode = ko.observable("");
 
 
     self.sortTableFDocH = function (viewModel, e) {
@@ -1628,6 +1707,17 @@
         self.iconTypeF18('');
         self.iconTypeF19('');
         self.iconTypeF20('');
+        self.iconTypeCustEcoCode('');
+        self.iconTypeCustMelliCode('');
+        self.iconTypeCustTel('');
+        self.iconTypeCustFax('');
+        self.iconTypeCustMobile('');
+        self.iconTypeCustEmail('');
+        self.iconTypeCustCity('');
+        self.iconTypeCustStreet('');
+        self.iconTypeCustAlley('');
+        self.iconTypeCustPlack('');
+        self.iconTypeCustZipCode('');
 
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1664,6 +1754,18 @@
         if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustEcoCode') self.iconTypeCustEcoCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustMelliCode') self.iconTypeCustMelliCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustTel') self.iconTypeCustTel((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustFax') self.iconTypeCustFax((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustMobile') self.iconTypeCustMobile((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustEmail') self.iconTypeCustEmail((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustCity') self.iconTypeCustCity((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustStreet') self.iconTypeCustStreet((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustAlley') self.iconTypeCustAlley((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustPlack') self.iconTypeCustPlack((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CustZipCode') self.iconTypeCustZipCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
     };
 
 
@@ -1809,6 +1911,18 @@
         sessionStorage.F18 = "";
         sessionStorage.F19 = "";
         sessionStorage.F20 = "";
+        sessionStorage.CustEcoCode = "";
+        sessionStorage.CustMelliCode = "";
+        sessionStorage.CustTel = "";
+        sessionStorage.CustFax = "";
+        sessionStorage.CustMobile = "";
+        sessionStorage.CustEmail = "";
+        sessionStorage.CustCity = "";
+        sessionStorage.CustStreet = "";
+        sessionStorage.CustAlley = "";
+        sessionStorage.CustPlack = "";
+        sessionStorage.CustZipCode = "";
+
         //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         //    $('#modal-SelectFactor').modal('show');
         //    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
@@ -2234,6 +2348,19 @@
         sessionStorage.F18 = item.F18;
         sessionStorage.F19 = item.F19;
         sessionStorage.F20 = item.F20;
+        sessionStorage.CustEcoCode = item.CustEcoCode;
+        sessionStorage.CustMelliCode = item.CustMelliCode;
+        sessionStorage.CustTel = item.CustTel;
+        sessionStorage.CustFax = item.CustFax;
+        sessionStorage.CustMobile = item.CustMobile;
+        sessionStorage.CustEmail = item.CustEmail;
+        sessionStorage.CustCity = item.CustCity;
+        sessionStorage.CustStreet = item.CustStreet;
+        sessionStorage.CustAlley = item.CustAlley;
+        sessionStorage.CustPlack = item.CustPlack;
+        sessionStorage.CustZipCode = item.CustZipCode;
+
+
         localStorage.setItem("ModeCode", item.ModeCode);
         sessionStorage.ModeCode = item.ModeCode;
 
@@ -2365,6 +2492,18 @@
             sessionStorage.F18 = data.F18;
             sessionStorage.F19 = data.F19;
             sessionStorage.F20 = data.F20;
+            sessionStorage.CustEcoCode = data.CustEcoCode;
+            sessionStorage.CustMelliCode = data.CustMelliCode;
+            sessionStorage.CustTel = data.CustTel;
+            sessionStorage.CustFax = data.CustFax;
+            sessionStorage.CustMobile = data.CustMobile;
+            sessionStorage.CustEmail = data.CustEmail;
+            sessionStorage.CustCity = data.CustCity;
+            sessionStorage.CustStreet = data.CustStreet;
+            sessionStorage.CustAlley = data.CustAlley;
+            sessionStorage.CustPlack = data.CustPlack;
+            sessionStorage.CustZipCode = data.CustZipCode;
+
             localStorage.setItem("ModeCode", data.ModeCode);
             sessionStorage.ModeCode = data.ModeCode;
 
@@ -2691,6 +2830,17 @@
                 sessionStorage.F18 = item.F18;
                 sessionStorage.F19 = item.F19;
                 sessionStorage.F20 = item.F20;
+                sessionStorage.CustEcoCode = item.CustEcoCode;
+                sessionStorage.CustMelliCode = item.CustMelliCode;
+                sessionStorage.CustTel = item.CustTel;
+                sessionStorage.CustFax = item.CustFax;
+                sessionStorage.CustMobile = item.CustMobile;
+                sessionStorage.CustEmail = item.CustEmail;
+                sessionStorage.CustCity = item.CustCity;
+                sessionStorage.CustStreet = item.CustStreet;
+                sessionStorage.CustAlley = item.CustAlley;
+                sessionStorage.CustPlack = item.CustPlack;
+                sessionStorage.CustZipCode = item.CustZipCode;
 
                 sessionStorage.OprCode = item.OprCode;
                 sessionStorage.OprName = item.OprName;
@@ -2783,6 +2933,18 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
+            CreateTableTh('CustEcoCode', data) +
+            CreateTableTh('CustMelliCode', data) +
+            CreateTableTh('CustTel', data) +
+            CreateTableTh('CustFax', data) +
+            CreateTableTh('CustMobile', data) +
+            CreateTableTh('CustEmail', data) +
+            CreateTableTh('CustCity', data) +
+            CreateTableTh('CustStreet', data) +
+            CreateTableTh('CustAlley', data) +
+            CreateTableTh('CustPlack', data) +
+            CreateTableTh('CustZipCode', data) +
+
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -2829,6 +2991,18 @@
             CreateTableTd('F18', 0, 4, data) +
             CreateTableTd('F19', 0, 4, data) +
             CreateTableTd('F20', 0, 4, data) +
+            CreateTableTd('CustEcoCode', 0, 4, data) +
+            CreateTableTd('CustMelliCode', 0, 4, data) +
+            CreateTableTd('CustTel', 0, 4, data) +
+            CreateTableTd('CustFax', 0, 4, data) +
+            CreateTableTd('CustMobile', 0, 4, data) +
+            CreateTableTd('CustEmail', 0, 4, data) +
+            CreateTableTd('CustCity', 0, 4, data) +
+            CreateTableTd('CustStreet', 0, 4, data) +
+            CreateTableTd('CustAlley', 0, 4, data) +
+            CreateTableTd('CustPlack', 0, 4, data) +
+            CreateTableTd('CustZipCode', 0, 4, data) +
+
             '<td>' +
 
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
@@ -2913,7 +3087,18 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
-            '      </tr>' +
+            CreateTableTdSearch('CustEcoCode', data) +
+            CreateTableTdSearch('CustMelliCode', data) +
+            CreateTableTdSearch('CustTel', data) +
+            CreateTableTdSearch('CustFax', data) +
+            CreateTableTdSearch('CustMobile', data) +
+            CreateTableTdSearch('CustEmail', data) +
+            CreateTableTdSearch('CustCity', data) +
+            CreateTableTdSearch('CustStreet', data) +
+            CreateTableTdSearch('CustAlley', data) +
+            CreateTableTdSearch('CustPlack', data) +
+            CreateTableTdSearch('CustZipCode', data) +
+                   '      </tr>' +
             '  </tfoot>' +
             '</table >'
         $('#TableList').append(dataTable);

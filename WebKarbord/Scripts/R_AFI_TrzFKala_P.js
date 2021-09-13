@@ -1,7 +1,7 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.InvList = ko.observableArray([]); // ليست انبار ها
+    self.InvList = ko.observableArray([]); // ليست انبارها
     self.KalaList = ko.observableArray([]); // ليست کالاها
     self.CustList = ko.observableArray([]); // ليست مشتریان 
     self.CGruList = ko.observableArray([]); // ليست  گروه مشتریان 
@@ -294,7 +294,7 @@
     });
 
     self.OptionsCaptionAnbar = ko.computed(function () {
-        return 'همه انبار ها';
+        return 'همه انبارها';
     });
 
 
@@ -1262,7 +1262,7 @@
     $('#refreshInv').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست انبار ها به روز رسانی شود ؟",
+            text: "لیست انبارها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

@@ -13,7 +13,7 @@
 
                     <div class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="">
-                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" data-backdrop="static" data-keyboard="false"/>
+                            <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" data-backdrop="static" data-keyboard="false" />
                         </a>
                         <a id="refreshCust" class="">
                             <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
@@ -137,7 +137,7 @@
 </div>
 
 
-<div class="modal fade" id="modal-Cust" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+<div class="modal fade" id="modal-Cust" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" style="max-width: 1000px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -475,7 +475,7 @@
 </div>
 
 
-
+<!--
 <div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:800px;">
         <div class="modal-content">
@@ -513,6 +513,61 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="max-width:750px;">
+        <div class="modal-content" style="/*padding-right: 30px;padding-left: 30px;padding-bottom: 20px;padding-top: 20px;*/">
+            <div class="modal-header" style="padding-bottom: 5px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" style="color:#ed882e">مشخصات اضافی</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="border: solid 1px #ed882e;border-radius: 2%;padding-top: 10px;">
+                    <div style="height:500px;overflow:auto;padding-top: 10px;">
+                        <div class="table-responsive">
+                            <table class="table table-addmin">
+                                <tbody data-bind="foreach: ExtraFieldsList">
+                                    <tr>
+                                        <!-- <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>-->
+                                        <td style="padding: 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;">
+                                            <div class="form-group " style="margin-bottom: 10px">
+                                                <div class="form-line focused fix">
+                                                    <input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1">
+                                                    <label class="form-label active" data-bind="text: Name"></label>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div style="padding: 10px;">
+                        <div class="row  form-inline ">
+                            <div class="col-md-9 row">
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
+                                    بازگشت
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 ﻿var ViewModel = function () {
     var self = this;
     
-    self.InvList = ko.observableArray([]); // ليست انبار ها
+    self.InvList = ko.observableArray([]); // ليست انبارها
     self.KalaList = ko.observableArray([]); // ليست کالاها
     self.TGruList = ko.observableArray([]); // ليست گروه وارده صادره 
     self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
@@ -238,7 +238,7 @@
 
 
     self.OptionsCaptionAnbar = ko.computed(function () {
-        return 'همه انبار ها';
+        return 'همه انبارها';
     });
 
 
@@ -300,7 +300,7 @@
     });
 
     self.OptionsCaptionAnbar = ko.computed(function () {
-        return 'همه انبار ها';
+        return 'همه انبارها';
     });
 
     //Get TrzI
@@ -918,7 +918,7 @@
     $('#refreshInv').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست انبار ها به روز رسانی شود ؟",
+            text: "لیست انبارها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

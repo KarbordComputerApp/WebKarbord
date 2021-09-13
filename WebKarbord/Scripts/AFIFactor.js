@@ -142,7 +142,7 @@
     self.KalaPriceBList = ko.observableArray([]); // قيمت کالا بر اساس گروه قیمت
     self.FDocBList = ko.observableArray([]); // ليست فاکتور
     self.UnitList = ko.observableArray([]); // ليست واحد ها
-    self.InvList = ko.observableArray([]); // ليست انبار ها
+    self.InvList = ko.observableArray([]); // ليست انبارها
     self.AddMinList = ko.observableArray([]); // ليست کسورات و افزایشات 
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
     self.PaymentList = ko.observableArray([]); // ليست نحوه پرداخت 

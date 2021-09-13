@@ -523,7 +523,7 @@
 
         Swal.fire({
             title: 'تایید به روز رسانی',
-            text: "لیست کالا ها به روز رسانی شود ؟",
+            text: "لیست کالاها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

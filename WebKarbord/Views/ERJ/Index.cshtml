@@ -14,7 +14,7 @@
                     <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره پرونده</strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
                     <a id="btn_DocNoSearch">
-                        <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;"/>
+                        <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
                     </a>
                     <div class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="">
@@ -74,7 +74,7 @@
                                                            optionsCaption : 'همه',
                                                            event:{ change: $root.PageCountView}"></select>
                             </div>
-                          
+
 
                         </div>
                     </div>
@@ -849,7 +849,7 @@
     </div>
 </div>
 
-
+<!--
 <div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:800px;">
         <div class="modal-content">
@@ -891,6 +891,57 @@
         </div>
     </div>
 </div>
+
+-->
+
+
+<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="max-width:750px;">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 5px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" style="color:#ed882e">مشخصات اضافی</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div style="border: solid 1px #ed882e;border-radius: 2%;padding-top: 10px;">
+                    <div style="height:500px;overflow:auto;padding-top: 10px;">
+                        <div class="table-responsive">
+                            <table class="table table-addmin">
+                                <tbody data-bind="foreach: ExtraFieldsList">
+                                    <tr>
+                                        <td style="padding: 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;">
+                                            <div class="form-group " style="margin-bottom: 10px">
+                                                <div class="form-line focused fix">
+                                                    <input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1">
+                                                    <label class="form-label active" data-bind="text: Name"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="padding: 10px;">
+                        <div class="row  form-inline ">
+                            <div class="col-md-9 row">
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
+                                    بازگشت
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="modal fade" id="modal-DocAttach" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
