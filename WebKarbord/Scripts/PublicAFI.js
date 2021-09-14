@@ -3280,9 +3280,10 @@ function SetColumn(code, indexId, data, mode) {
                 code == "CustAlley" ||
                 code == "CustPlack" ||
                 code == "CustZipCode" ||
-
-                //  CustEcoCode, CustMelliCode, CustTel, CustFax, CustMobile, CustEmail, CustCity, CustStreet, CustAlley, CustPlack, CustZipCode
-
+                code == "CustAddress" ||
+                code == "CustOstan" ||
+                code == "CustShahrestan" ||
+                code == "CustRegion" ||
                 code == "ArzName" ||
                 code == "ArzRate" ||
                 code == "ArzValue" ||

@@ -11,7 +11,7 @@
                     <strong id="title_erja" style="margin-left: 5px; margin-right: 5px;"></strong>
 
                     <div id="showDocBMode">
-                        <select id="DocBMode" data-bind="event:{ change: $root.DocBModeChange}" style="width: 250px;text-align: center;"></select>
+                        <select id="DocBMode" data-bind="event:{ change: $root.DocBModeChange}" style="width: 150px;"></select>
                     </div>
                     <div class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="">
@@ -372,6 +372,11 @@
             <div>
                 <div class="row  form-inline ">
                     <div class="col-md-9 row">
+
+
+
+
+
                         <div id="panelFooterParvandeh" class="col-md-12 row">
                             <p class="col-md-2">وضعیت ارجاع</p>
                             <div class="col-md-3">
@@ -396,6 +401,50 @@
                             </div>
 
                         </div>
+
+
+
+
+                        <div id="panelFooterRonevesht" class="col-sm-12 row" style="padding-top: 12px;">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-btn">
+                                            <a id="btnSaptDate">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="p_SaptDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" for="">تاریخ ثبت</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <div class="form-group form-float">
+                                    <div class="form-line fix">
+                                        <input id="p_RjTime_M" class="form-control int" style="margin-bottom: 0px;" />
+                                        <label class="form-label active">دقیقه</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <div class="form-group form-float">
+                                    <div class="form-line fix">
+                                        <input id="p_RjTime_H" class="form-control int fix" style="margin-bottom: 0px;" />
+                                        <label class="form-label active">ساعت</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
 
                     <div class="col-md-3">
@@ -896,7 +945,7 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="text-align: left;">
-                        <button type="button" id="lastRonevesht" class="btn btn-primary  pull-left" style="font-size: 10px;">همان افراد قبل</button>
+                        <button type="button" id="lastRonevesht" class="btn btn-primary  pull-left" style="font-size: 10px;padding-right: 10px;padding-left: 10px;display:none">همان افراد قبل</button>
                     </div>
                 </div>
             </div>
@@ -1402,6 +1451,18 @@
 
         $('#btnRjMhltDate').MdPersianDateTimePicker({
             targetTextSelector: '#RjMhltDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+        });
+
+        $('#btnSaptDate').MdPersianDateTimePicker({
+            targetTextSelector: '#p_SaptDate',
             dateFormat: 'yyyy-MM-dd',
             Placement: 'bottom', // default is 'bottom'
             Trigger: 'focus', // default is 'focus',

@@ -227,7 +227,7 @@
             SrchSt: SrchSt,
             SerialNumber: 0,
         };
-        ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject,true).done(function (response) {
+        ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject, true).done(function (response) {
             self.DocKList(response);
         });
     }
@@ -356,7 +356,7 @@
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 (item.KhdtName == null ? '' : item.KhdtName.toString().search(filterKhdtName) >= 0) &&
-            (item.RjTimeSt == null ? '' : item.RjTimeSt.toString().search(filterRjTimeSt) >= 0) &&
+                (item.RjTimeSt == null ? '' : item.RjTimeSt.toString().search(filterRjTimeSt) >= 0) &&
                 //ko.utils.stringStartsWith(item.RjTimeSt.toString().toLowerCase(), filterRjTimeSt) &&
                 ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
                 (item.F01 == null ? '' : item.F01.toString().search(filterF01) >= 0) &&
@@ -417,7 +417,7 @@
             startIndex = pageSizeDocK * self.currentPageIndexDocK(),
             endIndex = startIndex + pageSizeDocK;
         localStorage.setItem('pageSizeDocK', pageSizeDocK);
-  return self.filterDocKList().slice(startIndex, endIndex);
+        return self.filterDocKList().slice(startIndex, endIndex);
     });
 
     self.nextPageDocK = function () {
@@ -499,7 +499,7 @@
         if (orderProp == null)
             return null
 
-        localStorage.setItem("sort" + rprtId , orderProp);
+        localStorage.setItem("sort" + rprtId, orderProp);
         localStorage.setItem("sortType" + rprtId, self.sortType);
 
 
@@ -579,7 +579,7 @@
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KhdtName') self.iconTypeKhdtName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'RjTimeSt') self.iconTypeRjTimeSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RjTime') self.iconTypeRjTimeSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F01') self.iconTypeF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F02') self.iconTypeF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -644,7 +644,7 @@
             startIndex = pageSizeErjCust * self.currentPageIndexErjCust(),
             endIndex = startIndex + pageSizeErjCust;
         localStorage.setItem('pageSizeDocK', pageSizeDocK);
-  return self.filterErjCustList().slice(startIndex, endIndex);
+        return self.filterErjCustList().slice(startIndex, endIndex);
     });
 
     self.nextPageErjCust = function () {
@@ -675,7 +675,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.ErjCustList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
@@ -812,7 +812,7 @@
             startIndex = pageSizeKhdt * self.currentPageIndexKhdt(),
             endIndex = startIndex + pageSizeKhdt;
         localStorage.setItem('pageSizeKhdt', pageSizeKhdt);
-   return self.filterKhdtList().slice(startIndex, endIndex);
+        return self.filterKhdtList().slice(startIndex, endIndex);
     });
 
     self.nextPageKhdt = function () {
@@ -843,7 +843,7 @@
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
-       self.currentColumn(orderProp);
+        self.currentColumn(orderProp);
         self.KhdtList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
@@ -1198,7 +1198,7 @@
         text = '<th ';
 
         TextField = FindTextField(field, data);
-        sortField = field == 'DocNo' ? 'DocNo' : field
+        sortField = field == 'RjTimeSt' ? 'RjTime' : field
         if (TextField == 0)
             text += 'Hidden ';
 

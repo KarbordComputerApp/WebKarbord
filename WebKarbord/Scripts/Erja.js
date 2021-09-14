@@ -146,7 +146,9 @@
             'Spec',
             'Status',
             'DocNo',
-            'MhltDate'
+            'MhltDate',
+            'FarayandCode',
+            'FarayandName'
         ];
     }
     else {
@@ -160,7 +162,9 @@
             'Spec',
             'Status',
             'DocNo',
-            'MhltDate'
+            'MhltDate',
+            'FarayandCode',
+            'FarayandName'
         ];
     }
 
@@ -314,19 +318,21 @@
         }
     }
 
+    var doc_KhdtCode = 0;
+
     //Get Farayand List
-    function getFarayandList(Reload) {
-        list = localStorage.getItem('Farayand');
+    function getFarayandList(KhdtCode) {
+        /*list = localStorage.getItem('Farayand');
         if (list != null && Reload == false) {
             list = JSON.parse(localStorage.getItem('Farayand'));
             self.FarayandList(list)
         }
-        else {
-            ajaxFunction(FarayandUri + aceErj + '/' + salErj + '/' + group, 'GET').done(function (data) {
-                self.FarayandList(data);
-                localStorage.setItem("Farayand", JSON.stringify(data));
-            });
-        }
+        else {*/
+        ajaxFunction(FarayandUri + aceErj + '/' + salErj + '/' + group + '/' + KhdtCode, 'GET').done(function (data) {
+            self.FarayandList(data);
+            localStorage.setItem("Farayand", JSON.stringify(data));
+        });
+        // }
     }
 
     //Get DocAttach List
@@ -343,7 +349,7 @@
 
 
     getErjStatusList();
-    getFarayandList(false);
+    //getFarayandList(false);
     getErjUsersList(false);
     //getRepToUsersList();
     //getRepFromUsersList();
@@ -644,6 +650,9 @@
     self.filterStatus = ko.observable("");
     self.filterDocNo = ko.observable("");
     self.filterMhltDate = ko.observable("");
+    self.filterFarayandCode = ko.observable("");
+    self.filterFarayandName = ko.observable("");
+
 
     self.filterDocB_LastList = ko.computed(function () {
         self.currentPageIndexDocB_Last(0);
@@ -658,6 +667,9 @@
         var filterStatus = self.filterStatus().toUpperCase();
         var filterDocNo = self.filterDocNo();
         var filterMhltDate = self.filterMhltDate();
+        var filterFarayandCode = self.filterFarayandCode();
+        var filterFarayandName = self.filterFarayandName();
+
 
 
         tempData = ko.utils.arrayFilter(self.DocB_LastList(), function (item) {
@@ -672,7 +684,9 @@
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.DocNo == null ? '' : item.DocNo.toString().search(filterDocNo) >= 0) &&
-                (item.MhltDate == null ? '' : item.MhltDate.toString().search(filterMhltDate) >= 0)
+                (item.MhltDate == null ? '' : item.MhltDate.toString().search(filterMhltDate) >= 0) &&
+                (item.FarayandCode == null ? '' : item.FarayandCode.toString().search(filterFarayandCode) >= 0) &&
+                (item.FarayandName == null ? '' : item.FarayandName.toString().search(filterFarayandName) >= 0)
             return result;
         })
         $("#CountRecord").text(tempData.length);
@@ -755,6 +769,9 @@
     self.iconTypeStatus = ko.observable("");
     self.iconTypeDocNo = ko.observable("");
     self.iconTypeMhltDate = ko.observable("");
+    self.iconTypeFarayandCode = ko.observable("");
+    self.iconTypeFarayandName = ko.observable("");
+
 
     self.sortTableDocB_Last = function (viewModel, e) {
 
@@ -806,6 +823,8 @@
         self.iconTypeStatus('');
         self.iconTypeDocNo('');
         self.iconTypeMhltDate('');
+        self.iconTypeFarayandCode('');
+        self.iconTypeFarayandName('');
 
 
 
@@ -820,6 +839,8 @@
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MhltDate') self.iconTypeMhltDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'FarayandCode') self.iconTypeFarayandCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'FarayandName') self.iconTypeFarayandName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -1521,7 +1542,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getFarayandList(true);
+                getFarayandList(doc_KhdtCode);
             }
         })
     })
@@ -1571,7 +1592,7 @@
             $("#m_Eghdam").val(item.Eghdam);
             $("#m_Mahramaneh").val(item.Mahramaneh);
             $("#m_Tanzim").val(item.Tanzim);
-
+            doc_KhdtCode = item.KhdtCode;
             $("#m_CustName").val(item.CustName);
             $("#m_KhdtName").val(item.KhdtName);
             $("#m_Spec").val(item.Spec);
@@ -1613,6 +1634,7 @@
 
         $('#m_StatusParvandeh').val(Band.Status);
         $('#m_StatusErja').val(Band.RjStatus);
+       
 
         $('#erja').removeAttr('hidden', '');
         $('#saveParvandeh').removeAttr('hidden', '');
@@ -1622,10 +1644,16 @@
 
         if (docBMode == 1) { // رونوشت
             $('#panelFooterParvandeh').attr('hidden', '');
+            $('#panelFooterRonevesht').removeAttr('hidden', '');
             $('#erja').attr('hidden', '');
+
+            $('#p_SaptDate').val('');
+            $('#p_RjTime_M').val('');
+            $('#p_RjTime_H').val('');
         }
         else {
             $('#panelFooterParvandeh').removeAttr('hidden', '');
+            $('#panelFooterRonevesht').attr('hidden', '');
             $('#erja').removeAttr('hidden', '');
         }
 
@@ -1691,7 +1719,11 @@
 
         $('#e_Result').val(result.RjComm);
 
-        $('#nameErjBe').val(result.ToUserName);
+        $('#nameFarayand').val(Band.FarayandName);
+        self.FarayandCode(Band.FarayandCode);
+
+
+        $('#nameErjBe').val(result.FromUserName);
         self.ErjUsersCode(result.ToUserCode);
 
         if (countUsers == 0)
@@ -1704,7 +1736,6 @@
         rjTime = result.RjTimeSt.split(":");
         $('#RjTime_H').val(rjTime[0]);
         $('#RjTime_M').val(rjTime[1]);
-        $('#nameFarayand').val('');
 
     }
 
@@ -1938,6 +1969,7 @@
             $('#RjTime_M').val('');
             $('#RjTime_H').val('');
         }
+        getFarayandList(doc_KhdtCode);
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2023,6 +2055,7 @@
 
 
     $('#saveParvandeh').click(function () {
+        $('html').css('cursor', 'wait');
         flagSave = true;
         if (docBMode == 1) { // رونوشت
             ErjSaveDoc_CD(bandNo);
@@ -2032,6 +2065,7 @@
             $('#modal-ErjDocErja').modal('hide');
             ErjSaveDoc_BSave(bandNo);
         }
+        $('html').css('cursor', 'default');
     })
 
 
@@ -2175,6 +2209,7 @@
 
     //Add DocC  ذخیره رونوشت
     function ErjSaveDoc_CSave(bandNoImput, isSave) {
+        
         rjDate = DateNow;
         // toUserCode = 1; // انتخاب شده ها برای رونوشت
 
@@ -2192,7 +2227,8 @@
                         'BandNo': bandNoImput,
                         'Natijeh': '',
                         'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
-                        'RjDate': rjDate
+                        'RjDate': rjDate,
+                        'RjTime' : 0
                     };
                     obj.push(tmp);
                 } else {
@@ -2203,16 +2239,51 @@
         else // ذخیره پرونده های رونوشت
         {
             natijeh = $("#Result").val();
+            rjDate = $("#p_SaptDate").val();
+            rjTime_H = $("#p_RjTime_H").val();
+            rjTime_M = $("#p_RjTime_M").val();
+
+            if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
+                return showNotification('زمان صرف شده را وارد کنید', 0);
+            }
+
+            if (rjTime_H != '' || rjTime_M != '') {
+
+                if (rjTime_M != '') {
+                    rjTime_M = parseInt(rjTime_M);
+                    rjTime_M = rjTime_M / 60;
+                }
+                else {
+                    rjTime_M = parseInt('0');
+                }
+
+                if (rjTime_H != '') {
+                    rjTime_H = parseInt(rjTime_H);
+                }
+                else {
+                    rjTime_H = parseInt("0");
+                }
+
+
+                rjTime = rjTime_H + rjTime_M;
+            }
+
+
             if (natijeh == '') {
                 return showNotification('متن نتیجه را وارد کنید', 0);
             }
+
+           
+
+
             //if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
             tmp = {
                 'SerialNumber': serialNumber,
                 'BandNo': bandNoImput,
                 'Natijeh': natijeh,
                 'ToUserCode': fromUserCode,
-                'RjDate': rjDate
+                'RjDate': rjDate,
+                'RjTime': rjTime
             };
             obj.push(tmp);
             //}
@@ -2277,6 +2348,9 @@
             CreateTableTh('Status', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('MhltDate', data) +
+            CreateTableTh('FarayandCode', data) +
+            CreateTableTh('FarayandName', data) +
+
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -2305,6 +2379,9 @@
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 2, data) +
+            CreateTableTd('FarayandCode', 0, 2, data) +
+            CreateTableTd('FarayandName', 0, 2, data) +
+
             '<td>';
 
         if (sessionStorage.ModeCodeErja == "1") // دریافتی
@@ -2348,6 +2425,8 @@
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('MhltDate', data) +
+            CreateTableTdSearch('FarayandCode', data) +
+            CreateTableTdSearch('FarayandName', data) +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

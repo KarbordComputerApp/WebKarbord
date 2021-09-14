@@ -8,6 +8,7 @@
     }
 
     self.ErjDocHList = ko.observableArray([]); // لیست گزارش  
+    self.FarayandList = ko.observableArray([]); // لیست فرایند 
     self.RelatedDocsList = ko.observableArray([]); // لیست گزارش  
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
     self.ErjCustList = ko.observableArray([]); // ليست مشتریان
@@ -23,6 +24,7 @@
     self.TestDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    var FarayandUri = server + '/api/Web_Data/Farayand/'; // آدرس فرایند 
     var ErjDocHUri = server + '/api/Web_Data/ErjDocH/'; // آدرس گزارش
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
@@ -78,6 +80,8 @@
 
     self.DocYearsSelect = ko.observable();
     self.StatusParvandehSelect = ko.observable();
+
+    self.FarayandCode = ko.observable();
 
     var ErjUsersRoneveshtCode = '';
     var counterErjUsersRonevesht = 0;
@@ -297,6 +301,15 @@
     //getRepToUsersList();
 
 
+    var doc_KhdtCode = 0;
+
+    //Get Farayand List
+    function getFarayandList(KhdtCode) {
+        ajaxFunction(FarayandUri + aceErj + '/' + salErj + '/' + group + '/' + KhdtCode, 'GET').done(function (data) {
+            self.FarayandList(data);
+            localStorage.setItem("Farayand", JSON.stringify(data));
+        });
+    }
 
 
     //Get DocAttach List
@@ -1048,6 +1061,7 @@
         if (khdtCode == '')
             return showNotification('نوع کار انتخاب نشده است', 0);
 
+        doc_KhdtCode = self.KhdtCode();
 
         Web_ErjSaveDoc_HObject = {
             ModeCode: 0,
@@ -1405,6 +1419,7 @@
     self.selectKhdt = function (item) {
         $('#nameKhdt').val('(' + item.Code + ') ' + item.Name)
         self.KhdtCode(item.Code)
+        doc_KhdtCode = item.Code;
     };
 
 
@@ -1984,6 +1999,143 @@
 
 
 
+
+
+
+
+
+
+
+
+    self.currentPageFarayand = ko.observable();
+    pageSizeFarayand = localStorage.getItem('pageSizeFarayand') == null ? 10 : localStorage.getItem('pageSizeFarayand');
+    self.pageSizeFarayand = ko.observable(pageSizeFarayand);
+    self.currentPageIndexFarayand = ko.observable(0);
+
+    self.iconTypeCode = ko.observable("");
+    self.iconTypeName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+
+    self.currentPageFarayand = ko.observable();
+    self.filterFarayand0 = ko.observable("");
+    self.filterFarayand1 = ko.observable("");
+    self.filterFarayand2 = ko.observable("");
+
+    self.filterFarayandList = ko.computed(function () {
+
+        self.currentPageIndexFarayand(0);
+        var filter0 = self.filterFarayand0().toUpperCase();
+        var filter1 = self.filterFarayand1();
+        var filter2 = self.filterFarayand2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.FarayandList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.FarayandList(), function (item) {
+                result =
+                    (item.Code == null ? '' : item.Code.toString().search(filter0) >= 0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPageFarayand = ko.computed(function () {
+        var pageSizeFarayand = parseInt(self.pageSizeFarayand(), 10),
+            startIndex = pageSizeFarayand * self.currentPageIndexFarayand(),
+            endIndex = startIndex + pageSizeFarayand;
+        localStorage.setItem('pageSizeFarayand', pageSizeFarayand);
+        return self.filterFarayandList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageFarayand = function () {
+        if (((self.currentPageIndexFarayand() + 1) * self.pageSizeFarayand()) < self.filterFarayandList().length) {
+            self.currentPageIndexFarayand(self.currentPageIndexFarayand() + 1);
+        }
+    };
+
+    self.previousPageFarayand = function () {
+        if (self.currentPageIndexFarayand() > 0) {
+            self.currentPageIndexFarayand(self.currentPageIndexFarayand() - 1);
+        }
+    };
+
+    self.firstPageFarayand = function () {
+        self.currentPageIndexFarayand(0);
+    };
+
+
+    self.lastPageFarayand = function () {
+        countFarayand = parseInt(self.filterFarayandList().length / self.pageSizeFarayand(), 10);
+        if ((self.filterFarayandList().length % self.pageSizeFarayand()) == 0)
+            self.currentPageIndexFarayand(countFarayand - 1);
+        else
+            self.currentPageIndexFarayand(countFarayand);
+    };
+
+    self.sortTableFarayand = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.FarayandList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+    };
+
+    $('#refreshFarayand').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست فرایندها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                getFarayandList(doc_KhdtCode);
+            }
+        })
+    })
+
+    self.selectFarayand = function (item) {
+        $('#nameFarayand').val(item.Name);
+        self.FarayandCode(item.Code);
+    }
+
+
+    $('#modal-Farayand').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
     pageSizeDocAttach = localStorage.getItem('pageSizeDocAttach') == null ? 10 : localStorage.getItem('pageSizeDocAttach');
     self.pageSizeDocAttach = ko.observable(pageSizeDocAttach);
     self.currentPageIndexKhdt = ko.observable(0);
@@ -2286,6 +2438,8 @@
         $('#RjMhltDate').val('');
         $('#RjTime_M').val('');
         $('#RjTime_H').val('');
+        $('#nameFarayand').val('');
+        getFarayandList(doc_KhdtCode);
     });
 
 
@@ -2381,6 +2535,7 @@
                 RjMhltDate: rjMhltDate,
                 BandNo: bandNoImput,
                 RjStatus: $("#m_StatusErja").val(),
+                FarayandCode: self.FarayandCode(),
             };
         }
 
@@ -2674,7 +2829,7 @@
         self.p_Spec(item.Spec);
         self.ErjCustCode(item.CustCode);
         self.KhdtCode(item.KhdtCode);
-
+        doc_KhdtCode = item.KhdtCode;
         if (item.RelatedDocs == "0") {
             $('#p_RelatedDocs').val('');
             self.p_RelatedDocs("");
