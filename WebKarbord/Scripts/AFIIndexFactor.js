@@ -2470,7 +2470,7 @@
             DocNo: docNo,
         }
 
-        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (response) {
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject,true).done(function (response) {
 
             if (response.length == 0) {
                 return showNotification(TitleListFactor + ' یافت نشد ', 0);

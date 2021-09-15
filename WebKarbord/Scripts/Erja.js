@@ -147,7 +147,7 @@
             'Status',
             'DocNo',
             'MhltDate',
-            'FarayandCode',
+            //'FarayandCode',
             'FarayandName'
         ];
     }
@@ -163,7 +163,7 @@
             'Status',
             'DocNo',
             'MhltDate',
-            'FarayandCode',
+            //'FarayandCode',
             'FarayandName'
         ];
     }
@@ -1647,9 +1647,18 @@
             $('#panelFooterRonevesht').removeAttr('hidden', '');
             $('#erja').attr('hidden', '');
 
-            $('#p_SaptDate').val('');
+            $('#p_SaptDate').val(DateNow);
             $('#p_RjTime_M').val('');
             $('#p_RjTime_H').val('');
+
+
+            if (Band.RjTime > 0) {
+                $('#p_SaptDate').val(Band.DocDate);
+                rjtimeRonevesht = Band.RjTimeSt.split(":");
+                 $('#p_RjTime_H').val(rjtimeRonevesht[0]);
+                $('#p_RjTime_M').val(rjtimeRonevesht[1]);
+            }
+           
         }
         else {
             $('#panelFooterParvandeh').removeAttr('hidden', '');
@@ -2062,7 +2071,7 @@
             ErjSaveDoc_CSave(bandNo, true);
         }
         else {
-            $('#modal-ErjDocErja').modal('hide');
+            //$('#modal-ErjDocErja').modal('hide');
             ErjSaveDoc_BSave(bandNo);
         }
         $('html').css('cursor', 'default');
@@ -2172,7 +2181,7 @@
             //bandNo = response;
 
             if (flagSave == true) {
-                $('#modal-ErjDocErja').modal('hide');
+                //$('#modal-ErjDocErja').modal('hide');
             }
             else if (flagSave == false) {
                 //$('#modal-Erja').modal('hide');
@@ -2239,7 +2248,7 @@
         else // ذخیره پرونده های رونوشت
         {
             natijeh = $("#Result").val();
-            rjDate = $("#p_SaptDate").val();
+            rjDate = $("#p_SaptDate").val().toEnglishDigit();
             rjTime_H = $("#p_RjTime_H").val();
             rjTime_M = $("#p_RjTime_M").val();
 
@@ -2291,7 +2300,7 @@
 
         ajaxFunction(ErjSaveDoc_CSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
             $('#modal-Erja').modal('hide');
-            $('#modal-ErjDocErja').modal('hide');
+            //$('#modal-ErjDocErja').modal('hide');
             //getDocB_Last();
         });
         flagInsertFdoch = 1;

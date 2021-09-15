@@ -173,6 +173,8 @@
         'MkzName',
         'OprCode',
         'OprName',
+        'ThvlEcoCode',
+        'ThvlMelliCode',
         'ThvlOstan',
         'ThvlShahrestan',
         'ThvlCity',
@@ -521,6 +523,8 @@
     self.filterOprCode = ko.observable("");
     self.filterOprName = ko.observable("");
     self.filterThvlRegion = ko.observable("");
+    self.filterThvlEcoCode = ko.observable("");
+    self.filterThvlMelliCode = ko.observable("");
     self.filterThvlOstan = ko.observable("");
     self.filterThvlShahrestan = ko.observable("");
     self.filterThvlCity = ko.observable("");
@@ -606,6 +610,9 @@
         self.filterF18(listFilter[46]);
         self.filterF19(listFilter[47]);
         self.filterF20(listFilter[48]);
+        self.filterThvlEcoCode(listFilter[49]);
+        self.filterThvlMelliCode(listFilter[50]);
+
     }
 
 
@@ -661,13 +668,15 @@
         var filterF18 = self.filterF18();
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
+        var filterThvlEcoCode = self.filterThvlEcoCode();
+        var filterThvlMelliCode = self.filterThvlMelliCode();
 
         if (!filterDocNo && !filterDocDate && !filterInvName && !filterThvlName && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
             !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber && !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
             !filterThvlRegion && !filterThvlOstan && !filterThvlShahrestan && !filterThvlCity && !filterThvlStreet && !filterThvlAlley && !filterThvlPlack && !filterThvlZipCode && !filterThvlTel && !filterThvlMobile
             && !filterThvlFax && !filterThvlEMail && !filterThvlAddress &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
-            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
+            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 && !filterThvlEcoCode && !filterThvlMelliCode) {
             $("#CountRecord").text(self.IDocHList().length);
             // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
             sessionStorage.setItem('listFilter', null);
@@ -722,7 +731,9 @@
                 filterF17,
                 filterF18,
                 filterF19,
-                filterF20
+                filterF20,
+                filterThvlEcoCode,
+                filterThvlMelliCode
             ];
             sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
@@ -775,7 +786,10 @@
                     (item.F17 == null ? '' : item.F17.toString().search(filterF17) >= 0) &&
                     (item.F18 == null ? '' : item.F18.toString().search(filterF18) >= 0) &&
                     (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
-                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0)
+                    (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0) &&
+                    (item.ThvlEcoCode == null ? '' : item.ThvlEcoCode.toString().search(filterThvlEcoCode) >= 0) &&
+                    (item.ThvlMelliCode == null ? '' : item.ThvlMelliCode.toString().search(filterThvlMelliCode) >= 0)
+
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -900,6 +914,9 @@
     self.iconTypeF18 = ko.observable("");
     self.iconTypeF19 = ko.observable("");
     self.iconTypeF20 = ko.observable("");
+    self.iconTypeThvlEcoCode = ko.observable("");
+    self.iconTypeThvlMelliCode = ko.observable("");
+
 
     self.sortTableIDocH = function (viewModel, e) {
 
@@ -981,6 +998,8 @@
         self.iconTypeF18('');
         self.iconTypeF19('');
         self.iconTypeF20('');
+        self.iconTypeThvlEcoCode('');
+        self.iconTypeThvlMelliCode('');
 
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1031,6 +1050,8 @@
         if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlEcoCode') self.iconTypeThvlEcoCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ThvlMelliCode') self.iconTypeThvlMelliCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
     $('#AddNewSanadAnbar').click(function () {
@@ -1301,7 +1322,7 @@
             DocNo: docNo,
         }
 
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (response) {
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject, true).done(function (response) {
             if (response.length == 0) {
                 return showNotification('سند' + TitleListAnbarSearch + 'یافت نشد', 0);
             }
@@ -1761,6 +1782,8 @@
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
+            CreateTableTh('ThvlEcoCode', data) +
+            CreateTableTh('ThvlMelliCode', data) +
             CreateTableTh('ThvlOstan', data) +
             CreateTableTh('ThvlShahrestan', data) +
             CreateTableTh('ThvlCity', data) +
@@ -1817,6 +1840,8 @@
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
+            CreateTableTd('ThvlEcoCode', 0, 0, data) +
+            CreateTableTd('ThvlMelliCode', 0, 0, data) +
             CreateTableTd('ThvlOstan', 0, 0, data) +
             CreateTableTd('ThvlShahrestan', 0, 0, data) +
             CreateTableTd('ThvlCity', 0, 0, data) +
@@ -1909,6 +1934,8 @@
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
             CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('ThvlEcoCode', data) +
+            CreateTableTdSearch('ThvlMelliCode', data) +
             CreateTableTdSearch('ThvlOstan', data) +
             CreateTableTdSearch('ThvlShahrestan', data) +
             CreateTableTdSearch('ThvlCity', data) +

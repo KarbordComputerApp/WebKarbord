@@ -954,6 +954,13 @@
 
 
 
+
+    self.ShowErjDocH = function (Band) {
+        localStorage.setItem("DocNoErjReport", Band.DocNo);
+        window.open(sessionStorage.urlErjaIndex, '_blank');
+    }
+
+
     self.ViewDocDesc = function (Band) {
         $('#titleComm').text('توضیحات عمومی');
         $('#modal-Comm').modal('show');
@@ -1096,7 +1103,7 @@
             CreateTableTd('F19', 0, 0, 0, data) +
             CreateTableTd('F20', 0, 0, 0, data) +
             '<td>' +
-            '    <a data-bind="click: $root.ViewErjDocH">' +
+            '    <a data-bind="click: $root.ShowErjDocH">' +
             '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
             '</td >' +

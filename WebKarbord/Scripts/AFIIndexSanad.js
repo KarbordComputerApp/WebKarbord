@@ -991,6 +991,13 @@
 
 
 
+    DocNoReport = localStorage.getItem("DocNoAFISanad");
+    if (DocNoReport != "null") {
+        localStorage.setItem("DocNoAFISanad", null);
+        //$("#DocNoSearch").val(DocNoReport);
+        ShowDataUpdate(DocNoReport);
+    }
+
 
     function ShowDataUpdate(docNo) {
 
@@ -1003,7 +1010,7 @@
             ModeSort: 'DESC'
         }
 
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject, false).done(function (response) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject, true).done(function (response) {
             if (response.length == 0) {
                 return showNotification('سند یافت نشد', 0);
             }

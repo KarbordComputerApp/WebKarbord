@@ -1239,7 +1239,8 @@
             CreateTableTh('Best', data) +
             CreateTableTh('MonBede', data) +
             CreateTableTh('MonBest', data) +
-            CreateTableTh('MonTotal', data) +
+        CreateTableTh('MonTotal', data) +
+        '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">';
@@ -1258,7 +1259,12 @@
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
+        CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
+            '<td>' +
+            '    <a data-bind="click: $root.ShowAFISanad">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +

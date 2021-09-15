@@ -1686,6 +1686,12 @@
 
 
 
+
+    self.ShowAFISanad = function (Band) {
+        localStorage.setItem("DocNoAFISanad", Band.DocNo);
+        window.open(sessionStorage.urlAFISanadIndex, '_blank');
+    }
+
     self.radif = function (index) {
         countShow = self.pageSizeADocR();
         page = self.currentPageIndexADocR();
@@ -1742,6 +1748,7 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocR" data-dismiss="modal" style="cursor: default;">' +
@@ -1789,6 +1796,12 @@
             CreateTableTd('F18', 0, 0, data) +
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
+            '<td>' +
+            '    <a data-bind="click: $root.ShowAFISanad">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
+
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +

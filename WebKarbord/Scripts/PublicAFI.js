@@ -2710,6 +2710,8 @@ $("#ADOC").click(function () {
     sessionStorage.lastPageSelect = 0;
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 
+    localStorage.setItem("DocNoAFISanad", null);
+
     /*    var newTabs = [];
         newTabs.push(window.open("/AFISanad/Index", "_blank"));
         newTabs[0].focus();
@@ -2724,6 +2726,8 @@ $("#FDOC_SO").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 
@@ -2736,6 +2740,7 @@ $("#FDOC_SP").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_S").click(function () {
@@ -2749,6 +2754,7 @@ $("#FDOC_S").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_SR").click(function () {
@@ -2761,6 +2767,7 @@ $("#FDOC_SR").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_SH").click(function () {
@@ -2772,6 +2779,7 @@ $("#FDOC_SH").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_SE").click(function () {
@@ -2784,6 +2792,7 @@ $("#FDOC_SE").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_PO").click(function () {
@@ -2796,6 +2805,7 @@ $("#FDOC_PO").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_PP").click(function () {
@@ -2808,6 +2818,7 @@ $("#FDOC_PP").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#FDOC_P").click(function () {
@@ -2820,6 +2831,7 @@ $("#FDOC_P").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 
@@ -2833,6 +2845,7 @@ $("#FDOC_PR").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFIFactor", null);
 });
 
 $("#IDOC_I").click(function () {
@@ -2845,6 +2858,7 @@ $("#IDOC_I").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFISanadAnbar", null);
 });
 
 $("#IDOC_O").click(function () {
@@ -2857,6 +2871,7 @@ $("#IDOC_O").click(function () {
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
+    localStorage.setItem("DocNoAFISanadAnbar", null);
 });
 
 
@@ -2882,6 +2897,14 @@ $("#Erja_Send").click(function () {
     localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
 });
+
+
+$("#ErjaDOC").click(function () {
+    localStorage.SetItem('DocNoErjDocK', null);
+});
+
+
+
 
 
 
@@ -3268,6 +3291,8 @@ function SetColumn(code, indexId, data, mode) {
                 code == "ThvlFax" ||
                 code == "ThvlEMail" ||
                 code == "ThvlAddress" ||
+                code == "ThvlMelliCode" ||
+                code == "ThvlEcoCode" ||
 
                 code == "CustEcoCode" ||
                 code == "CustMelliCode" ||

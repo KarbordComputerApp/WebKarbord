@@ -1038,7 +1038,6 @@
 
 
 
-
     //Add   ذخیره پرونده
     function ErjSaveDoc_HI() {
         docNo = $("#p_docno").val();
@@ -2565,7 +2564,8 @@
                     'BandNo': 1,
                     'Natijeh': '',
                     'ToUserCode': list_ErjUsersRoneveshtSelect[i - 1],
-                    'RjDate': rjDate
+                    'RjDate': rjDate,
+                    'RjTime': 0
                 };
                 obj.push(tmp);
             } else {
@@ -2654,6 +2654,14 @@
     });
 
 
+    DocNoReport = localStorage.getItem("DocNoErjReport");
+    if (DocNoReport != "null") {
+        localStorage.setItem("DocNoErjReport", null);
+        $("#DocNoSearch").val(DocNoReport);
+        ShowDataUpdate(DocNoReport);
+    }
+
+
 
 
     function ShowDataUpdate(docno) {
@@ -2669,7 +2677,7 @@
             DocNo: docno,
         };
 
-        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, false).done(function (response) {
+        ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, true).done(function (response) {
             if (response.length == 0) {
                 return showNotification('پرونده یافت نشد', 0);
             }
@@ -3369,6 +3377,7 @@
     self.currentPageIndexErjDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
     self.sortTableErjDocH();
+
 };
 
 ko.applyBindings(new ViewModel());

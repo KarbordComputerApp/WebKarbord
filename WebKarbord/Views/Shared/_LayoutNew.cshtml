@@ -405,10 +405,10 @@
                             <a class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")>ارجاعات پرونده ارسالی</a>
                         </li>
                         <!--
-    <li id="ErjaDOC">@Html.ActionLink("پرونده", "Index", "ERJ")</li>
-    <li id="Erja_Resive">@Html.ActionLink("ارجاعات پرونده دریافتی", "Erja", "ERJ")</li>
-    <li id="Erja_Send">@Html.ActionLink("ارجاعات پرونده ارسالی", "Erja", "ERJ")</li>
-        -->
+                        <li id="ErjaDOC">@Html.ActionLink("پرونده", "Index", "ERJ")</li>
+                        <li id="Erja_Resive">@Html.ActionLink("ارجاعات پرونده دریافتی", "Erja", "ERJ")</li>
+                        <li id="Erja_Send">@Html.ActionLink("ارجاعات پرونده ارسالی", "Erja", "ERJ")</li>
+                            -->
                     </ul>
                 </li>
 
@@ -432,10 +432,10 @@
                             <a class="useBlank" target="_blank" href=@Url.Action("TChk","ReportAFI")>صورت خلاصه چک ها</a>
                         </li>
 
-                       <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
-                        <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
-                        <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
-                        <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
+                        <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
+                         <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
+                         <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
+                         <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -975,6 +975,15 @@
     <script src="~/Content/new/js/jquery.md5.js"></script>
     <script src="~/Content/new/js/farsiInput.js"></script>
 
+
+    <script type="text/javascript">
+        sessionStorage.urlAFISanadIndex = '@Url.Action("Index", "AFISanad")';
+        sessionStorage.urlAFIFactorIndex = '@Url.Action("Index", "AFIFactor")';
+        sessionStorage.urlAFISanadAnbarIndex = '@Url.Action("Index", "AFISanadAnbar")';
+        sessionStorage.urlErjaIndex = '@Url.Action("Index", "ERJ")';
+
+    </script>
+
     <!--<script src="~/Content/new/js/require.js"></script>-->
     <!-- <script src="~/Scripts/SelectProgram.js"></script>-->
     @RenderSection("scripts", false)
@@ -984,5 +993,7 @@
              e.stopPropagation();
          });
     </script>-->
+
+
 </body>
 </html>

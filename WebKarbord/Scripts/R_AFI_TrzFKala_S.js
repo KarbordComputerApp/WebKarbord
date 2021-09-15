@@ -2447,6 +2447,12 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
+    self.ShowAFIFactor = function (Band) {
+        localStorage.setItem("DocNoAFIFactor", Band.DocNo);
+        localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
+        window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+    }
+
     self.radif = function (index) {
         countShow = self.pageSizeTrzFKala_S();
         page = self.currentPageIndexTrzFKala_S();
@@ -2505,6 +2511,7 @@
             CreateTableTh('AddMinPrice10', data) +
             CreateTableTh('OnlyDiscountPrice', data) +
             CreateTableTh('FinalPrice', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTrzFKala_S" data-dismiss="modal" style="cursor: default;">' +
@@ -2555,6 +2562,11 @@
             CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, data) +
             CreateTableTd('OnlyDiscountPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
+            '<td>' +
+            '    <a data-bind="click: $root.ShowAFIFactor">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
