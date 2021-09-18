@@ -83,6 +83,10 @@
     var serial;
 
 
+    DocNoReport = localStorage.getItem("DocNoAFISanad");
+    
+
+
     var accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
     var accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
 
@@ -193,8 +197,9 @@
         sessionStorage.setItem('listFilter', null);
     });
 
-    getRprtColsList(true, localStorage.getItem("userName"));
-
+    if (DocNoReport == "null") {
+        getRprtColsList(true, localStorage.getItem("userName"));
+    }
 
 
 
@@ -359,8 +364,10 @@
 
 
     getStatusList();
-    getADocH($('#pageCountSelector').val(), false);
 
+    if (DocNoReport == "null") {
+        getADocH($('#pageCountSelector').val(), false);
+    }
 
     //------------------------------------------------------
     self.currentPageADocH = ko.observable();
@@ -990,11 +997,8 @@
     });
 
 
-
-    DocNoReport = localStorage.getItem("DocNoAFISanad");
     if (DocNoReport != "null") {
         localStorage.setItem("DocNoAFISanad", null);
-        //$("#DocNoSearch").val(DocNoReport);
         ShowDataUpdate(DocNoReport);
     }
 

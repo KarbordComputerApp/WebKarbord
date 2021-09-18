@@ -2140,11 +2140,37 @@
 
     $('.fix').attr('class', 'form-line date focused fix');
 
+
     self.ShowAFIFactor = function (Band) {
         localStorage.setItem("DocNoAFIFactor", Band.DocNo);
         localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
         window.open(sessionStorage.urlAFIFactorIndex, '_blank');
     }
+
+
+
+    KalaCodeReport = localStorage.getItem("KalaCodeReport");
+    CustCodeReport = localStorage.getItem("CustCodeReport");
+
+    if (KalaCodeReport != "null" && CustCodeReport == "null") {
+        localStorage.setItem("KalaCodeReport", null);
+        counterKala = 1;
+        list_KalaSelect[0] = KalaCodeReport;
+        $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+        getFDocR_P();
+    }
+
+
+
+    if (KalaCodeReport == "null" && CustCodeReport != "null") {
+        localStorage.setItem("CustCodeReport", null);
+        counterCust = 1;
+        list_CustSelect[0] = CustCodeReport;
+        $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
+        getFDocR_P();
+    }
+
+
 
     self.radif = function (index) {
         countShow = self.pageSizeFDocR_P();
@@ -2152,6 +2178,7 @@
         calc = (countShow * page) + 1;
         return index + calc;
     }
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();

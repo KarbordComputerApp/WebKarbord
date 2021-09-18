@@ -841,7 +841,7 @@
             CreateTableTh('CheckRadif', data) +
             CreateTableTh('CheckComm', data) +
             CreateTableTh('CheckVosoolDate', data) +
-            '<th>عملیات</th>' +
+            //'<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageTChk" data-dismiss="modal" style="cursor: default;">' +
@@ -861,11 +861,11 @@
             CreateTableTd('CheckRadif', 0, 0, data) +
             CreateTableTd('CheckComm', 0, 0, data) +
             CreateTableTd('CheckVosoolDate', 0, 0, data) +
-            '<td>' +
+            /*'<td>' +
             '    <a data-bind="click: $root.ShowAFISanad">' +
             '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
-            '</td >' +
+            '</td >' +*/
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +

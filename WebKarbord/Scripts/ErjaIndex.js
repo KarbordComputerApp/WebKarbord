@@ -107,6 +107,13 @@
     });
 
 
+    DocNoReport = localStorage.getItem("DocNoErjReport");
+    if (DocNoReport != "null") {
+        localStorage.setItem("DocNoErjReport", null);
+        $("#DocNoSearch").val(DocNoReport);
+        ShowDataUpdate(DocNoReport);
+    }
+
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -359,8 +366,10 @@
 
     });
 
-    getRprtColsList(true, sessionStorage.userName);
 
+    if (DocNoReport == "null") {
+        getRprtColsList(true, sessionStorage.userName);
+    }
 
 
     //Get Mahramaneh List
@@ -378,6 +387,7 @@
             });
         }
     }
+
 
     getMahramanehList();
 
@@ -459,9 +469,9 @@
 
     }
 
-
-    getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
-
+    if (DocNoReport == "null") {
+        getErjDocH($('#pageCountSelector').val(), 0, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
+    }
 
     $('#refreshErjDocH').click(function () {
 
@@ -1113,7 +1123,9 @@
             lastDoc = $("#p_docno").val();
             serialNumber = response;
             currentPage = self.currentPageIndexErjDocH();
-            getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
+            if (DocNoReport == "null") {
+                getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
+            }
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
             if (lastDoc == "") {
@@ -2654,14 +2666,6 @@
     });
 
 
-    DocNoReport = localStorage.getItem("DocNoErjReport");
-    if (DocNoReport != "null") {
-        localStorage.setItem("DocNoErjReport", null);
-        $("#DocNoSearch").val(DocNoReport);
-        ShowDataUpdate(DocNoReport);
-    }
-
-
 
 
     function ShowDataUpdate(docno) {
@@ -3099,6 +3103,14 @@
         }, 100);
     });
 
+
+    $("#modal-ErjDocH").on('hide.bs.modal', function () {
+
+        if (DocNoReport != "null") {
+            close();
+        }
+
+    });
 
 
     self.ShowAction = function (DeleteDocTrs) {

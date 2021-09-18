@@ -241,7 +241,7 @@
             Sath: sath,
         };
 
-        ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject,true).done(function (response) {
+        ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject, true).done(function (response) {
             self.TrzAccList(response);
             //calcsum(self.TrzAccList());
         });
@@ -399,7 +399,7 @@
             startIndex = pageSizeTrzAcc * self.currentPageIndexTrzAcc(),
             endIndex = startIndex + pageSizeTrzAcc;
         localStorage.setItem('pageSizeTrzAcc', pageSizeTrzAcc);
-  return self.filterTrzAccList().slice(startIndex, endIndex);
+        return self.filterTrzAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageTrzAcc = function () {
@@ -517,7 +517,7 @@
             startIndex = pageSizeAcc * self.currentPageIndexAcc(),
             endIndex = startIndex + pageSizeAcc;
         localStorage.setItem('pageSizeAcc', pageSizeAcc);
-  return self.filterAccList().slice(startIndex, endIndex);
+        return self.filterAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageAcc = function () {
@@ -703,7 +703,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -883,7 +883,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-  return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -1069,7 +1069,7 @@
             startIndex = pageSizeAMode * self.currentPageIndexAMode(),
             endIndex = startIndex + pageSizeAMode;
         localStorage.setItem('pageSizeAMode', pageSizeAMode);
-  return self.filterAModeList().slice(startIndex, endIndex);
+        return self.filterAModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageAMode = function () {
@@ -1214,6 +1214,45 @@
 
 
 
+    self.ShowTrzAcc_Riz = function (Band) {
+        LevelReport = $("#Level").val();
+        if (LevelReport == 5)
+            return showNotification('سطح آخر', 0);
+
+        localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("LevelReport", LevelReport);
+        window.open(sessionStorage.urlTrzAcc, '_blank');
+    }
+
+    self.ShowDftr = function (Band) {
+        localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("AccNameReport", Band.AccName);
+        window.open(sessionStorage.urlDftr, '_blank');
+    }
+
+    self.ShowADocR = function (Band) {
+        localStorage.setItem("AccCodeReport", Band.AccCode);
+        window.open(sessionStorage.urlADocR, '_blank');
+    }
+
+
+
+
+    AccCodeReport = localStorage.getItem("AccCodeReport");
+    if (AccCodeReport != "null") {
+        localStorage.setItem("AccCodeReport", null);
+        counterAcc = 1;
+        list_AccSelect[0] = AccCodeReport;
+        $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
+        old_LevelReport = parseInt(localStorage.getItem("LevelReport"));
+        $("#Level").val(old_LevelReport + 1);
+        getTrzAcc();
+    }
+
+
+
+
+
 
     self.radif = function (index) {
         countShow = self.pageSizeTrzAcc();
@@ -1239,8 +1278,8 @@
             CreateTableTh('Best', data) +
             CreateTableTh('MonBede', data) +
             CreateTableTh('MonBest', data) +
-        CreateTableTh('MonTotal', data) +
-        '<th>عملیات</th>' +
+            CreateTableTh('MonTotal', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">';
@@ -1251,6 +1290,7 @@
             createTable +=
                 '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
 
+
         createTable +=
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('AccCode', 0, 0, data) +
@@ -1259,13 +1299,32 @@
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
-        CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
             '<td>' +
-            '    <a data-bind="click: $root.ShowAFISanad">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
-            '    </a >' +
+            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            '</a>' +
+            '<ul class="dropdown-menu">' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowADocR" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '            دفتر روزنامه' +
+            '        </a>' +
+            '    </li>' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowTrzAcc_Riz" style="font-size: 11px;text-align: right;">' +
+            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '            تراز زیر حساب' +
+            '        </a>' +
+            '    </li>' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowDftr" style="font-size: 11px;text-align: right;">' +
+            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '            دفتر حساب ' +
+            '        </a>' +
+            '    </li>' +
             '</td >' +
-            '        </tr>' +
+            '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +

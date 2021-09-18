@@ -6,6 +6,10 @@
 
 
 
+    DocNoReport = localStorage.getItem("DocNoAFIFactor");
+    if (DocNoReport != "null") {
+        sessionStorage.ModeCode = localStorage.getItem("ModeCodeAFIFactor");
+    }
 
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
@@ -1017,8 +1021,10 @@
         sessionStorage.setItem('listFilter', null);
     });
 
-    getRprtColsList(true, sessionStorage.userName);
 
+    if (DocNoReport == "null") {
+        getRprtColsList(true, sessionStorage.userName);
+    }
 
 
 
@@ -1211,7 +1217,9 @@
         // getFDocH1(sal);
     }
 
-    getFDocH($('#pageCountSelector').val(), false);
+    if (DocNoReport == "null") {
+        getFDocH($('#pageCountSelector').val(), false);
+    }
 
     //------------------------------------------------------
     self.currentPageFDocH = ko.observable();
@@ -1665,7 +1673,7 @@
     self.iconTypeCustOstan = ko.observable("");
     self.iconTypeCustShahrestan = ko.observable("");
     self.iconTypeCustRegion = ko.observable("");
-    
+
 
     self.sortTableFDocH = function (viewModel, e) {
 
@@ -1807,7 +1815,7 @@
         if (orderProp == 'CustOstan') self.iconTypeCustOstan((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustShahrestan') self.iconTypeCustShahrestan((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustRegion') self.iconTypeCustRegion((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-  
+
     };
 
 
@@ -2410,7 +2418,7 @@
         sessionStorage.CustShahrestan = item.CustShahrestan;
         sessionStorage.CustRegion = item.CustRegion;
 
-        
+
 
 
         localStorage.setItem("ModeCode", item.ModeCode);
@@ -2452,7 +2460,11 @@
         ShowDataUpdate(docnoSearch);
     });
 
-
+    if (DocNoReport != "null") {
+        localStorage.setItem("DocNoAFIFactor", null);
+        //localStorage.setItem("ModeCodeAFIFactor", null);
+        ShowDataUpdate(DocNoReport);
+    }
 
 
     function ShowDataUpdate(docNo) {
@@ -2470,7 +2482,7 @@
             DocNo: docNo,
         }
 
-        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject,true).done(function (response) {
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject, true).done(function (response) {
 
             if (response.length == 0) {
                 return showNotification(TitleListFactor + ' یافت نشد ', 0);

@@ -1697,12 +1697,27 @@
     }
 
 
+
+    AccCodeReport = localStorage.getItem("AccCodeReport");
+    if (AccCodeReport != "null") {
+        localStorage.setItem("AccCodeReport", null);
+        self.AccCode(AccCodeReport);
+        AccNameReport = localStorage.getItem("AccNameReport");
+        $('#nameAcc').val('(' + AccCodeReport + ' ) ' + AccNameReport);
+        getDftr();
+    }
+
+
+
+
+
     self.radif = function (index) {
         countShow = self.pageSizeDftr();
         page = self.currentPageIndexDftr();
         calc = (countShow * page) + 1;
         return index + calc;
     }
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();

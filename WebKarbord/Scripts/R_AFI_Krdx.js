@@ -2482,6 +2482,19 @@
 
     var showPrice = false;
 
+
+
+    self.ShowAFISanadAnbar = function (Band) {
+        invCode = self.InvCode();
+        localStorage.setItem("InvCodeAFISanadAnbar", Band.invCode);
+        localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
+        localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+        localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
+        window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+    }
+
+
+
     self.radif = function (index) {
         countShow = self.pageSizeKrdx();
         page = self.currentPageIndexKrdx();
@@ -2598,6 +2611,7 @@
              CreateTableTh('Kalaf18', data) +
              CreateTableTh('Kalaf19', data) +
              CreateTableTh('Kalaf20', data) +*/
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
@@ -2702,7 +2716,11 @@
            CreateTableTd('Kalaf18', 0, 0, data) +
            CreateTableTd('Kalaf19', 0, 0, data) +
            CreateTableTd('Kalaf20', 0, 0, data) +*/
-
+            '<td>' +
+            '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +

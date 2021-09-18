@@ -2366,12 +2366,12 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
 
-    self.ShowAFIFactor = function (Band) {
-        localStorage.setItem("DocNoAFIFactor", Band.DocNo);
-        localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
-        window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+    self.ShowFDocR_S = function (Band) {
+        localStorage.setItem("CustCodeReport", Band.CustCode);
+        window.open(sessionStorage.urlFDocR_S, '_blank');
     }
 
+    
     self.radif = function (index) {
         countShow = self.pageSizeTrzFCust_S();
         page = self.currentPageIndexTrzFCust_S();
@@ -2471,7 +2471,7 @@
             CreateTableTd('OnlyDiscountPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
             '<td>' +
-            '    <a data-bind="click: $root.ShowAFIFactor">' +
+            '    <a data-bind="click: $root.ShowFDocR_S">' +
             '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
             '</td >' +

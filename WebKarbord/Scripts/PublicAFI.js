@@ -2906,6 +2906,25 @@ $("#ErjaDOC").click(function () {
 
 
 
+$("#TrzAcc").click(function () {
+    localStorage.setItem("AccCodeReport", null);
+    localStorage.setItem("LevelReport", null);
+});
+
+$("#ADocR").click(function () {
+    localStorage.setItem("AccCodeReport", null);
+});
+
+
+$("#Dftr").click(function () {
+    localStorage.setItem("AccCodeReport", null);
+    localStorage.setItem("AccNameReport", null);
+});
+
+
+
+
+
 
 
 

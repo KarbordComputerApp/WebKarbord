@@ -1653,7 +1653,7 @@
 
 
             if (Band.RjTime > 0) {
-                $('#p_SaptDate').val(Band.DocDate);
+                $('#p_SaptDate').val(Band.RjDate);
                 rjtimeRonevesht = Band.RjTimeSt.split(":");
                  $('#p_RjTime_H').val(rjtimeRonevesht[0]);
                 $('#p_RjTime_M').val(rjtimeRonevesht[1]);
@@ -1992,14 +1992,14 @@
                 ErjSaveDoc_BSave(bandNo);
             }
 
-            if (counterErjUsersRonevesht > 0) {
+           // if (counterErjUsersRonevesht > 0) {
                 if (sessionStorage.ModeCodeErja == "2") {
                     ErjSaveDoc_CD(bandNo);
                     ErjSaveDoc_CSave(bandNo, false);
                 }
                 else
                     ErjSaveDoc_CSave(bandNo + 1, false);
-            }
+            //}
             list_ErjUsersRoneveshtSelect = new Array();
             counterErjUsersRonevesht = 0;
         }
@@ -2064,7 +2064,7 @@
 
 
     $('#saveParvandeh').click(function () {
-        $('html').css('cursor', 'wait');
+       // $('html').css('cursor', 'wait');
         flagSave = true;
         if (docBMode == 1) { // رونوشت
             ErjSaveDoc_CD(bandNo);
@@ -2074,7 +2074,7 @@
             //$('#modal-ErjDocErja').modal('hide');
             ErjSaveDoc_BSave(bandNo);
         }
-        $('html').css('cursor', 'default');
+       // $('html').css('cursor', 'default');
     })
 
 
@@ -2181,6 +2181,7 @@
             //bandNo = response;
 
             if (flagSave == true) {
+                showNotification('پرونده ' + serialNumber + ' ذخیره شد', 1);
                 //$('#modal-ErjDocErja').modal('hide');
             }
             else if (flagSave == false) {
@@ -2300,6 +2301,7 @@
 
         ajaxFunction(ErjSaveDoc_CSaveUri + aceErj + '/' + salErj + '/' + group, 'POST', obj).done(function (response) {
             $('#modal-Erja').modal('hide');
+            showNotification('پرونده ' + serialNumber + ' ذخیره شد', 1);
             //$('#modal-ErjDocErja').modal('hide');
             //getDocB_Last();
         });
@@ -2388,8 +2390,8 @@
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 2, data) +
-            CreateTableTd('FarayandCode', 0, 2, data) +
-            CreateTableTd('FarayandName', 0, 2, data) +
+            CreateTableTd('FarayandCode', 0, 0, data) +
+            CreateTableTd('FarayandName', 0, 0, data) +
 
             '<td>';
 

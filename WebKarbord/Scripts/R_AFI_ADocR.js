@@ -1692,6 +1692,22 @@
         window.open(sessionStorage.urlAFISanadIndex, '_blank');
     }
 
+
+
+
+    AccCodeReport = localStorage.getItem("AccCodeReport");
+    if (AccCodeReport != "null") {
+        localStorage.setItem("AccCodeReport", null);
+        counterAcc = 1;
+        list_AccSelect[0] = AccCodeReport;
+        $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
+        getADocR();
+    }
+
+
+
+
+
     self.radif = function (index) {
         countShow = self.pageSizeADocR();
         page = self.currentPageIndexADocR();
