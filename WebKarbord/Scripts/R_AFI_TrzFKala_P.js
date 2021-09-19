@@ -353,11 +353,117 @@
             getMkzList();
         }
     });
+
+
+
+
+
+
+    var azTarikh;
+    var taTarikh;
+    var azShomarh;
+    var taShomarh;
+    var zeroValue;
+    var modeCode1;
+    var modeCode2;
+    var statusCode;
+    var invcode;
+    var kalacode;
+    var kGrucode;
+    var Custcode;
+    var CGrucode;
+    var mkzcode;
+    var oprcode;
+
+
+    function SetFilter() {
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
+
+        azShomarh = $("#azshomarh").val();
+        taShomarh = $("#tashomarh").val();
+
+        zeroValue = $("#zeroValue").val();
+
+        modeCode = $("#modeCode").val().split("*");
+        modeCode1 = modeCode[0];
+        modeCode2 = modeCode[1];
+        if (modeCode.length == 1)
+            modeCode2 = '';
+
+        statusCode = '';
+        for (var i = 0; i <= counterStatus - 1; i++) {
+            if (i < counterStatus - 1)
+                statusCode += list_StatusSelect[i] + '*';
+            else
+                statusCode += list_StatusSelect[i];
+        }
+
+        invcode = '';
+        for (var i = 0; i <= counterInv - 1; i++) {
+            if (i < counterInv - 1)
+                invcode += list_InvSelect[i] + '*';
+            else
+                invcode += list_InvSelect[i];
+        }
+
+        kGrucode = '';
+        for (var i = 0; i <= counterKGru - 1; i++) {
+            if (i < counterKGru - 1)
+                kGrucode += list_KGruSelect[i] + '*';
+            else
+                kGrucode += list_KGruSelect[i];
+        }
+
+        kalacode = '';
+        for (var i = 0; i <= counterKala - 1; i++) {
+            if (i < counterKala - 1)
+                kalacode += list_KalaSelect[i] + '*';
+            else
+                kalacode += list_KalaSelect[i];
+        }
+
+        Custcode = '';
+        for (var i = 0; i <= counterCust - 1; i++) {
+            if (i < counterCust - 1)
+                Custcode += list_CustSelect[i] + '*';
+            else
+                Custcode += list_CustSelect[i];
+        }
+
+        CGrucode = '';
+        for (var i = 0; i <= counterCGru - 1; i++) {
+            if (i < counterCGru - 1)
+                CGrucode += list_CGruSelect[i] + '*';
+            else
+                CGrucode += list_CGruSelect[i];
+        }
+
+        mkzcode = '';
+        for (var i = 0; i <= counterMkz - 1; i++) {
+            if (i < counterMkz - 1)
+                mkzcode += list_MkzSelect[i] + '*';
+            else
+                mkzcode += list_MkzSelect[i];
+        }
+
+        oprcode = '';
+        for (var i = 0; i <= counterOpr - 1; i++) {
+            if (i < counterOpr - 1)
+                oprcode += list_OprSelect[i] + '*';
+            else
+                oprcode += list_OprSelect[i];
+        }
+
+    }
+
+
+
     //Get TrzFKala_P
     function getTrzFKala_P() {
 
 
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
+        /*tarikh1 = $("#aztarikh").val().toEnglishDigit();
         tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
         azShomarh = $("#azshomarh").val();
@@ -433,14 +539,14 @@
                 oprcode += list_OprSelect[i] + '*';
             else
                 oprcode += list_OprSelect[i];
-        }
+        }*/
 
-
+        SetFilter();
         var TrzFKala_PObject = {
             ModeCode1: modeCode1,
             ModeCode2: modeCode2,
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             azShomarh: azShomarh,
             taShomarh: taShomarh,
             CustCode: Custcode,
@@ -2439,7 +2545,20 @@
 
 
     self.ShowFDocR_P = function (Band) {
+        SetFilter();
+        localStorage.setItem("IsReport", "true");
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("ModeCodeReport", $("#modeCode").val());
+        localStorage.setItem("ModeCode1Report", modeCode1);
+        localStorage.setItem("ModeCode2Report", modeCode2);
+        localStorage.setItem("InvCodeReport", invcode);
         localStorage.setItem("KalaCodeReport", Band.KalaCode);
+        localStorage.setItem("KGruCodeReport", kGrucode);
+        localStorage.setItem("CustCodeReport", Custcode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
+
         window.open(sessionStorage.urlFDocR_P, '_blank');
     }
 

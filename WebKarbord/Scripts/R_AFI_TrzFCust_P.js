@@ -227,7 +227,7 @@
             }
 
             opt = document.createElement('option');
-            opt.value = SearchMode('فاکتور خرید', self.FModeList()) + '*' + SearchMode('برگشت از خرسد', self.FModeList());
+            opt.value = SearchMode('فاکتور خرید', self.FModeList()) + '*' + SearchMode('برگشت از خرید', self.FModeList());
             opt.innerHTML = 'فاکتور خرید با احتساب برگشتی';
             opt.selected = true;
             select.appendChild(opt);
@@ -358,11 +358,29 @@
         }
     });
     //Get TrzFCust_P
-    function getTrzFCust_P() {
 
 
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+
+    var azTarikh;
+    var taTarikh;
+    var azShomarh;
+    var taShomarh;
+    var zeroValue;
+    var modeCode1;
+    var modeCode2;
+    var statusCode;
+    var invcode;
+    var kalacode;
+    var kGrucode;
+    var Custcode;
+    var CGrucode;
+    var mkzcode;
+    var oprcode;
+
+
+    function SetFilter() {
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
 
         azShomarh = $("#azshomarh").val();
         taShomarh = $("#tashomarh").val();
@@ -375,7 +393,7 @@
         if (modeCode.length == 1)
             modeCode2 = '';
 
-        var statusCode = '';
+        statusCode = '';
         for (var i = 0; i <= counterStatus - 1; i++) {
             if (i < counterStatus - 1)
                 statusCode += list_StatusSelect[i] + '*';
@@ -383,7 +401,7 @@
                 statusCode += list_StatusSelect[i];
         }
 
-        var invcode = '';
+        invcode = '';
         for (var i = 0; i <= counterInv - 1; i++) {
             if (i < counterInv - 1)
                 invcode += list_InvSelect[i] + '*';
@@ -391,7 +409,7 @@
                 invcode += list_InvSelect[i];
         }
 
-        var kGrucode = '';
+        kGrucode = '';
         for (var i = 0; i <= counterKGru - 1; i++) {
             if (i < counterKGru - 1)
                 kGrucode += list_KGruSelect[i] + '*';
@@ -399,7 +417,7 @@
                 kGrucode += list_KGruSelect[i];
         }
 
-        var kalacode = '';
+        kalacode = '';
         for (var i = 0; i <= counterKala - 1; i++) {
             if (i < counterKala - 1)
                 kalacode += list_KalaSelect[i] + '*';
@@ -407,7 +425,7 @@
                 kalacode += list_KalaSelect[i];
         }
 
-        var Custcode = '';
+        Custcode = '';
         for (var i = 0; i <= counterCust - 1; i++) {
             if (i < counterCust - 1)
                 Custcode += list_CustSelect[i] + '*';
@@ -415,7 +433,7 @@
                 Custcode += list_CustSelect[i];
         }
 
-        var CGrucode = '';
+        CGrucode = '';
         for (var i = 0; i <= counterCGru - 1; i++) {
             if (i < counterCGru - 1)
                 CGrucode += list_CGruSelect[i] + '*';
@@ -423,7 +441,7 @@
                 CGrucode += list_CGruSelect[i];
         }
 
-        var mkzcode = '';
+        mkzcode = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
             if (i < counterMkz - 1)
                 mkzcode += list_MkzSelect[i] + '*';
@@ -431,7 +449,7 @@
                 mkzcode += list_MkzSelect[i];
         }
 
-        var oprcode = '';
+        oprcode = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
             if (i < counterOpr - 1)
                 oprcode += list_OprSelect[i] + '*';
@@ -439,12 +457,16 @@
                 oprcode += list_OprSelect[i];
         }
 
+    }
 
+
+    function getTrzFCust_P() {
+        SetFilter();
         var TrzFCust_PObject = {
             ModeCode1: modeCode1,
             ModeCode2: modeCode2,
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             azShomarh: azShomarh,
             taShomarh: taShomarh,
             CustCode: Custcode,
@@ -2367,13 +2389,28 @@
     });
 
 
-
-
     $('.fix').attr('class', 'form-line date focused fix');
 
 
     self.ShowFDocR_P = function (Band) {
+        if (Band.CustCode == "") {
+            return showNotification("به دلیل ثبت نشدن فروشنده امکان نمایش وجود ندارد", 0)
+        }
+
+        SetFilter();
+        localStorage.setItem("IsReport", "true");
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("ModeCodeReport",  $("#modeCode").val());
+        localStorage.setItem("ModeCode1Report", modeCode1);
+        localStorage.setItem("ModeCode2Report", modeCode2);
+        localStorage.setItem("InvCodeReport", invcode);
+        localStorage.setItem("KalaCodeReport", kalacode);
+        localStorage.setItem("KGruCodeReport", kGrucode);
         localStorage.setItem("CustCodeReport", Band.CustCode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
+
         window.open(sessionStorage.urlFDocR_P, '_blank');
     }
 

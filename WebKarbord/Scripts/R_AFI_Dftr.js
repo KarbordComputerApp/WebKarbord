@@ -234,8 +234,11 @@
     //Get getDftr
     function getDftr() {
 
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
+
+        //tarikh1 = $("#aztarikh").val().toEnglishDigit();
+        //tarikh2 = $("#tatarikh").val().toEnglishDigit();
 
         azShomarh = $("#azshomarh").val();
         taShomarh = $("#tashomarh").val();
@@ -288,8 +291,8 @@
 
 
         var DftrObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             azShomarh: azShomarh,
             taShomarh: taShomarh,
             AccCode: codeAcc,
@@ -1699,11 +1702,34 @@
 
 
     AccCodeReport = localStorage.getItem("AccCodeReport");
+    localStorage.setItem("AccCodeReport", null);
     if (AccCodeReport != "null") {
-        localStorage.setItem("AccCodeReport", null);
         self.AccCode(AccCodeReport);
         AccNameReport = localStorage.getItem("AccNameReport");
         $('#nameAcc').val('(' + AccCodeReport + ' ) ' + AccNameReport);
+
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+        aModeCode = localStorage.getItem("AModeCodeReport");
+        list_AModeSelect = aModeCode.split("*");
+        counterAMode = list_AModeSelect.length;
+        list_AModeSelect[0] == "" ? $('#nameAMode').val('همه موارد') : $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
         getDftr();
     }
 

@@ -187,15 +187,24 @@
     $('#nameAMode').val('همه موارد');
 
 
-    //Get TrzAcc
-    function getTrzAcc() {
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+
+    var azTarikh;
+    var taTarikh;
+    var sath;
+    var level;
+    var accCode;
+    var aModeCode;
+    var mkzcode;
+    var oprcode;
+
+    function SetFilter() {
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();// $("#tatarikh").val().toEnglishDigit();
 
         sath = $("#SathTaraz").val();
         level = $("#Level").val();
 
-        var accCode = '';
+        accCode = '';
         for (var i = 0; i <= counterAcc - 1; i++) {
             if (i < counterAcc - 1)
                 accCode += list_AccSelect[i] + '*';
@@ -204,7 +213,7 @@
         }
 
 
-        var aModeCode = '';
+        aModeCode = '';
         for (var i = 0; i <= counterAMode - 1; i++) {
             if (i < counterAMode - 1)
                 aModeCode += list_AModeSelect[i] + '*';
@@ -213,7 +222,7 @@
         }
 
 
-        var mkzcode = '';
+        mkzcode = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
             if (i < counterMkz - 1)
                 mkzcode += list_MkzSelect[i] + '*';
@@ -221,18 +230,23 @@
                 mkzcode += list_MkzSelect[i];
         }
 
-        var oprcode = '';
+        oprcode = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
             if (i < counterOpr - 1)
                 oprcode += list_OprSelect[i] + '*';
             else
                 oprcode += list_OprSelect[i];
         }
+    }
 
 
+
+    //Get TrzAcc
+    function getTrzAcc() {
+        SetFilter();
         var TrzAccObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             AModeCode: aModeCode,
             AccCode: accCode,
             MkzCode: mkzcode,
@@ -1215,23 +1229,39 @@
 
 
     self.ShowTrzAcc_Riz = function (Band) {
-        LevelReport = $("#Level").val();
-        if (LevelReport == 5)
-            return showNotification('سطح آخر', 0);
-
+        SetFilter();
         localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("LevelReport", LevelReport);
+        localStorage.setItem("AccNameReport", Band.AccName);
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("LevelReport", level);
+        localStorage.setItem("SathReport", sath);
         window.open(sessionStorage.urlTrzAcc, '_blank');
     }
 
     self.ShowDftr = function (Band) {
+        SetFilter();
         localStorage.setItem("AccCodeReport", Band.AccCode);
         localStorage.setItem("AccNameReport", Band.AccName);
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
         window.open(sessionStorage.urlDftr, '_blank');
     }
 
     self.ShowADocR = function (Band) {
+        SetFilter();
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
         localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
         window.open(sessionStorage.urlADocR, '_blank');
     }
 
@@ -1239,13 +1269,41 @@
 
 
     AccCodeReport = localStorage.getItem("AccCodeReport");
+    localStorage.setItem("AccCodeReport", null);
     if (AccCodeReport != "null") {
-        localStorage.setItem("AccCodeReport", null);
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
         $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
         old_LevelReport = parseInt(localStorage.getItem("LevelReport"));
         $("#Level").val(old_LevelReport + 1);
+
+
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+        aModeCode = localStorage.getItem("AModeCodeReport");
+        list_AModeSelect = aModeCode.split("*");
+        counterAMode = list_AModeSelect.length;
+        list_AModeSelect[0] == "" ? $('#nameAMode').val('همه موارد') : $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+
+        sath = localStorage.getItem("SathReport");
+        $('#SathTaraz').val(sath); 
+
         getTrzAcc();
     }
 
@@ -1312,9 +1370,9 @@
             '        </a>' +
             '    </li>' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowTrzAcc_Riz" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowTrzAcc_Riz , visible: HasChild == 1" style="font-size: 11px;text-align: right;">' +
             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            تراز زیر حساب' +
+            '             تراز زیر حساب ها' +
             '        </a>' +
             '    </li>' +
             '    <li>' +

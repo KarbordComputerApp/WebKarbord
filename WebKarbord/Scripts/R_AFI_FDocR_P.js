@@ -213,8 +213,6 @@
                 opt = document.createElement('option');
                 opt.value = data[i].Code;
                 opt.innerHTML = data[i].Name;
-                if (i == 1)
-                    opt.selected = true;
                 select.appendChild(opt);
             }
 
@@ -389,7 +387,7 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(FDocR_PUri + ace + '/' + sal + '/' + group, 'POST', FDocR_PObject,true).done(function (response) {
+        ajaxFunction(FDocR_PUri + ace + '/' + sal + '/' + group, 'POST', FDocR_PObject, true).done(function (response) {
             self.FDocR_PList(response);
             calcsum(self.FDocR_PList());
         });
@@ -451,7 +449,7 @@
             KalaDeghat3 > maxKalaDeghat3 ? maxKalaDeghat3 = KalaDeghat3 : maxKalaDeghat3 = maxKalaDeghat3;
         }
 
-       // $("#textTotal").text('جمع');
+        // $("#textTotal").text('جمع');
         $("#totalAmount1").text(NumberToNumberString(totalAmount1.toFixed(maxKalaDeghat1)));
         $("#totalAmount2").text(NumberToNumberString(totalAmount2.toFixed(maxKalaDeghat2)));
         $("#totalAmount3").text(NumberToNumberString(totalAmount3.toFixed(maxKalaDeghat3)));
@@ -767,7 +765,7 @@
             startIndex = pageSizeFDocR_P * self.currentPageIndexFDocR_P(),
             endIndex = startIndex + pageSizeFDocR_P;
         localStorage.setItem('pageSizeFDocR_P', pageSizeFDocR_P);
-  return self.filterFDocR_PList().slice(startIndex, endIndex);
+        return self.filterFDocR_PList().slice(startIndex, endIndex);
     });
 
     self.nextPageFDocR_P = function () {
@@ -1084,7 +1082,7 @@
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-    return self.filterInvList().slice(startIndex, endIndex);
+        return self.filterInvList().slice(startIndex, endIndex);
     });
 
     self.nextPageInv = function () {
@@ -1266,7 +1264,7 @@
             startIndex = pageSizeKGru * self.currentPageIndexKGru(),
             endIndex = startIndex + pageSizeKGru;
         localStorage.setItem('pageSizeKGru', pageSizeKGru);
-   return self.filterKGruList().slice(startIndex, endIndex);
+        return self.filterKGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageKGru = function () {
@@ -1450,7 +1448,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-   return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -1633,7 +1631,7 @@
             startIndex = pageSizeCust * self.currentPageIndexCust(),
             endIndex = startIndex + pageSizeCust;
         localStorage.setItem('pageSizeCust', pageSizeCust);
-     return self.filterCustList().slice(startIndex, endIndex);
+        return self.filterCustList().slice(startIndex, endIndex);
     });
 
     self.nextPageCust = function () {
@@ -1812,7 +1810,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-   return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -1992,7 +1990,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -2149,28 +2147,70 @@
 
 
 
-    KalaCodeReport = localStorage.getItem("KalaCodeReport");
-    CustCodeReport = localStorage.getItem("CustCodeReport");
+    IsReport = localStorage.getItem("IsReport");
+    localStorage.setItem("IsReport", null);
 
-    if (KalaCodeReport != "null" && CustCodeReport == "null") {
-        localStorage.setItem("KalaCodeReport", null);
-        counterKala = 1;
-        list_KalaSelect[0] = KalaCodeReport;
-        $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+
+    if (IsReport == "true") {
+
+        KalaCodeReport = localStorage.getItem("KalaCodeReport");
+        CustCodeReport = localStorage.getItem("CustCodeReport");
+
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+        modeCode = localStorage.getItem("ModeCodeReport"); 
+        $("#modeCode").val(modeCode);
+
+        KalaCode = localStorage.getItem("KalaCodeReport");
+        list_KalaSelect = KalaCode.split("*");
+        counterKala = list_KalaSelect.length;
+        list_KalaSelect[0] == "" ? $('#nameKala').val('همه موارد') : $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+
+        CustCode = localStorage.getItem("CustCodeReport");
+        list_CustSelect = CustCode.split("*");
+        counterCust = list_CustSelect.length;
+        list_CustSelect[0] == "" ? $('#nameCust').val('همه موارد') : $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
+
+
+        InvCode = localStorage.getItem("InvCodeReport");
+        list_InvSelect = InvCode.split("*");
+        counterInv = list_InvSelect.length;
+        list_InvSelect[0] == "" ? $('#nameInv').val('همه موارد') : $('#nameInv').val(counterInv + ' مورد انتخاب شده ');
+
+        KGruCode = localStorage.getItem("KGruCodeReport");
+        list_KGruSelect = KGruCode.split("*");
+        counterKGru = list_KGruSelect.length;
+        list_KGruSelect[0] == "" ? $('#nameKGru').val('همه موارد') : $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ');
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+
+
         getFDocR_P();
     }
 
 
 
-    if (KalaCodeReport == "null" && CustCodeReport != "null") {
-        localStorage.setItem("CustCodeReport", null);
+    /*if (KalaCodeReport == "null" && CustCodeReport != "null") {
+        
         counterCust = 1;
         list_CustSelect[0] = CustCodeReport;
         $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
         getFDocR_P();
     }
-
-
+    */
 
     self.radif = function (index) {
         countShow = self.pageSizeFDocR_P();
@@ -2561,7 +2601,7 @@
             text += 'Hidden ';
 
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
-        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';        return text;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>'; return text;
     }
 
     createViewer();
@@ -2751,7 +2791,7 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+
 };
 
 ko.applyBindings(new ViewModel());

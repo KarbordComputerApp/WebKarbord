@@ -8,6 +8,7 @@
     var docDate;
     var serial;
     var invSelected = 0;
+    var modeCodeSelected = 0;
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
@@ -127,7 +128,8 @@
     }
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
-    self.IModeList = ko.observableArray([]); // لیست نوع فاکتور ها
+    self.IModeAllList = ko.observableArray([]); // لیست نوع اسناد انبار
+    self.IModeList = ko.observableArray([]); // لیست نوع اسناد انبار
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
     self.InvList = ko.observableArray([]); // ليست انبارها
@@ -152,6 +154,7 @@
 
 
     self.InvCode = ko.observable();
+    self.IModeCode = ko.observable();
     self.InvCodeMove = ko.observable();
     self.StatusSanad = ko.observable();
 
@@ -380,19 +383,109 @@
 
         });
     }
+
+
+
+
+    //Get  IMode List
+    function getIModeList() {
+
+
+        var IModeObject = {
+            Mode: 3,
+            InOut: sessionStorage.InOut,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
+            self.IModeList(data);
+
+            if (sessionStorage.InOut == "1") {
+                modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_In') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_In');
+            }
+            else {
+                modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_Out');
+            }
+            self.IModeCode(modeCodeSelected);
+        });
+    }
+
+    getIModeList();
+
+
+   //Get  IMode List
+    function getIModeAllList() {
+
+
+        var IModeObject = {
+            Mode: 3,
+            InOut: 0,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
+            self.IModeAllList(data);
+
+            var textExc = '';
+
+            textExc = '<select id="modeCodePor">';
+
+            for (var i = 0; i < data.length; i++) {
+
+                if (
+                    (CheckAccess('NEW_IIDOC') && data[i].InOut == 1) ||
+                    (CheckAccess('NEW_IODOC') && data[i].InOut == 2)
+                ) {
+
+                    textExc += '<option value="' + data[i].Code + '"';
+                    if (data[i].InOut == 1) {
+                        textExc += 'style="background-color: #f5e6ac" ';
+                    }
+                    textExc += '>' + data[i].Name + '</option>';
+
+                }
+
+            }
+
+            textExc += '</select>';
+
+            $("#modeListPor").empty();
+            $('#modeListPor').append(textExc);
+
+            dataMove = ko.utils.arrayFilter(self.IModeAllList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.InOut.toString().toLowerCase(), sessionStorage.InOut)
+                return result;
+            })
+
+            select = document.getElementById('modeCodeMove');
+            for (var i = 0; i < dataMove.length; i++) {
+                opt = document.createElement('option');
+                opt.value = dataMove[i].Code;
+                opt.innerHTML = dataMove[i].Name;
+                select.appendChild(opt);
+            }
+
+        });
+    }
+
+    getIModeAllList();
+
     //var storedNames = JSON.parse(sessionStorage.getItem("inv"));
     // self.InvList(storedNames);
 
     self.currentPageIndexIDocH = ko.observable(0);
 
     //Get IDocH
-    function getIDocH(select, invCode, changeSelector) {
+    function getIDocH(select, invCode, modeCode, changeSelector) {
         lastSelect = select;
         sort = localStorage.getItem("sortIdocH_" + sessionStorage.InOut);
         sortType = localStorage.getItem("sortTypeIdocH_" + sessionStorage.InOut);
 
         if (invCode == "" || invCode == "null" || invCode == null)
             invCode = "";
+
+
 
         invName = '';
         list = self.InvList();
@@ -406,6 +499,24 @@
             invName = 'همه انبارها'
         }
 
+
+
+        if (modeCode == "" || modeCode == "null" || modeCode == null)
+            modeCode = "";
+
+        modeName = '';
+        list = self.IModeList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].Code == modeCode)
+                modeName = list[i].Name;
+        }
+
+        if (modeName == '') {
+            modeCode = "";
+            modeName = sessionStorage.InOut == 1 ? 'همه انواع سند وارده' : 'همه انواع سند صادره';
+        }
+
+
         var IDocHMinObject = {
             InOut: sessionStorage.InOut,
             select: select,
@@ -413,13 +524,13 @@
             user: sessionStorage.userName,
             accessSanad: sessionStorage.AccessSanad,
             updatedate: null,
-            ModeCode: null,
+            ModeCode: modeCode,
             Sort: sort,
             ModeSort: sortType == "ascending" ? "ASC" : "DESC",
             DocNo: '',
         }
 
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject).done(function (data) {
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject,true).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.IDocHList(data);
@@ -429,13 +540,17 @@
             // });
             self.currentPageIndexIDocH(0);
 
-            if (sessionStorage.InOut == "1")
+            if (sessionStorage.InOut == "1") {
                 localStorage.setItem('InvSelectSanadAnbar_In', invCode);
-            else
+                localStorage.setItem('ModeCodeSelectSanadAnbar_In', modeCode);
+            }
+            else {
                 localStorage.setItem('InvSelectSanadAnbar_Out', invCode);
-
+                localStorage.setItem('ModeCodeSelectSanadAnbar_Out', modeCode);
+            }
 
             invSelected = invCode;
+            modeCodeSelected = modeCode;
 
             if (sessionStorage.InOut == 1)
                 textNoSanad = ' وارده ';
@@ -488,15 +603,22 @@
     self.OptionsCaptionAnbar = ko.computed(function () {
         //        return self.InvList().length > 1 ? 'همه انبارها' : 'انبار تعریف نشده است';
         return 'همه انبارها';
+    });
 
+    self.OptionsCaptionIMode = ko.computed(function () {
+        if (sessionStorage.InOut == 1)
+            return 'همه انواع سند وارده';
+        else
+            return 'همه انواع سند صادره';
     });
 
 
     getInvList();
     getStatusList();
 
-    getIDocH(0, invSelected, false);
+    getIDocH(0, invSelected, modeCodeSelected, false);
     $('#invSelect').val(invSelected);
+    $('#IMode').val(modeCodeSelected);
 
     //------------------------------------------------------
     self.currentPageIDocH = ko.observable();
@@ -1105,7 +1227,7 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getIDocH($('#pageCountSelector').val(), invSelected, false);
+                getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
                 // self.sortTableIDocH();
                 //$('#pageCountSelector').val(0);
                 // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست اسناد به روز رسانی شد' });
@@ -1210,7 +1332,7 @@
     function DeleteSanadAnbar() {
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
             currentPage = self.currentPageIndexIDocH();
-            getIDocH(0, invSelected, false);
+            getIDocH(0, invSelected, modeCodeSelected, false);
             self.currentPageIndexIDocH(currentPage);
             showNotification('سند حذف شد ', 1);
         });
@@ -1309,6 +1431,10 @@
         if (inv == "" || inv == "null" || inv == null)
             inv = "";
 
+        modeCode = $("#IMode").val();
+        if (modeCode == "" || modeCode == "null" || modeCode == null)
+            modeCode = "";
+
         var IDocHMinObject = {
             InOut: sessionStorage.InOut,
             select: 3,
@@ -1316,7 +1442,7 @@
             user: sessionStorage.userName,
             accessSanad: sessionStorage.AccessSanad,
             updatedate: null,
-            ModeCode: null,
+            ModeCode: modeCode,
             Sort: '',
             ModeSort: '',
             DocNo: docNo,
@@ -1447,8 +1573,9 @@
 
     self.PageCountView = function () {
         invSelect = $('#invSelect').val() == '' ? '' : $('#invSelect').val();
+        modeSelect = $('#IMode').val() == '' ? '' : $('#IMode').val();
         select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect, true);
+        getIDocH(select, invSelect, modeSelect, true);
     }
 
 
@@ -1538,66 +1665,7 @@
 
 
 
-    getIModeList();
-    //Get  IMode List
-    function getIModeList() {
-
-
-        var IModeObject = {
-            Mode: 3,
-            InOut: 0,
-            UserCode: sessionStorage.userName,
-        }
-
-        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
-            self.IModeList(data);
-
-            var textExc = '';
-
-            textExc = '<select id="modeCodePor">';
-
-            for (var i = 0; i < data.length; i++) {
-
-                if (
-                    (CheckAccess('NEW_IIDOC') && data[i].InOut == 1) ||
-                    (CheckAccess('NEW_IODOC') && data[i].InOut == 2)
-                ) {
-
-                    textExc += '<option value="' + data[i].Code + '"';
-                    if (data[i].InOut == 1) {
-                        textExc += 'style="background-color: #f5e6ac" ';
-                    }
-                    textExc += '>' + data[i].Name + '</option>';
-
-                }
-
-            }
-
-            textExc += '</select>';
-
-            $("#modeListPor").empty();
-            $('#modeListPor').append(textExc);
-
-
-
-            dataMove = ko.utils.arrayFilter(self.IModeList(), function (item) {
-                result =
-                    ko.utils.stringStartsWith(item.InOut.toString().toLowerCase(), sessionStorage.InOut)
-                return result;
-            })
-
-            select = document.getElementById('modeCodeMove');
-            for (var i = 0; i < dataMove.length; i++) {
-                opt = document.createElement('option');
-                opt.value = dataMove[i].Code;
-                opt.innerHTML = dataMove[i].Name;
-                select.appendChild(opt);
-            }
-
-        });
-    }
-
-
+  
     $('#Move').click(function () {
         modeCodeMove = $('#modeCodePor').val();
         invSelectMove = $('#invSelectMove').val();
@@ -1749,7 +1817,7 @@
 
 
             currentPage = self.currentPageIndexIDocH();
-            getIDocH(0, invSelected, false);
+            getIDocH(0, invSelected, modeCodeSelected, false);
             self.sortTableIDocH();
             self.currentPageIndexIDocH(currentPage);
 

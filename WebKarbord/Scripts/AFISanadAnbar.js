@@ -44,12 +44,17 @@
     var Price2;
     var Price3;
 
-    if (sessionStorage.InOut == "1")
+    if (sessionStorage.InOut == "1") {
         invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
-    else
+        modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_In') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_In');
+    }
+    else {
         invSelected = localStorage.getItem('InvSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_Out');
+        modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_Out');
+    }
 
     var invSelect = "";
+    var modeCodeSelect = "";
 
     $('#finalSave_Title').attr('hidden', '');
 
@@ -104,7 +109,8 @@
     self.ThvlCode = ko.observable();
     self.PriceCode = ko.observable();
     self.InvCode = ko.observable(invSelected);
-    self.modeCode = ko.observable();
+    self.modeCode = ko.observable(modeCodeSelected);
+
     self.StatusSanad = ko.observable();
 
 
@@ -506,6 +512,7 @@
 
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
             self.IModeList(data);
+            
         });
     }
 

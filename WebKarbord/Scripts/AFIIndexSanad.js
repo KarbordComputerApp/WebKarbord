@@ -9,6 +9,11 @@
     self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestADoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
+    DocNoReport = localStorage.getItem("DocNoAFISanad");
+    if (DocNoReport != "null") {
+        localStorage.setItem("ModeCode", "ADOC");
+    }
+
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
@@ -83,7 +88,7 @@
     var serial;
 
 
-    DocNoReport = localStorage.getItem("DocNoAFISanad");
+    //DocNoReport = localStorage.getItem("DocNoAFISanad");
     
 
 

@@ -237,19 +237,18 @@
     }
 
 
+
+
     //Get getADocR
     function getADocR() {
-
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
-
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
         azShomarh = $("#azshomarh").val();
         taShomarh = $("#tashomarh").val();
-
         dispBands = $("#DispBands").val();
         jamRooz = $("#JamRooz").val();
 
-        var accCode = '';
+        accCode = '';
         for (var i = 0; i <= counterAcc - 1; i++) {
             if (i < counterAcc - 1)
                 accCode += list_AccSelect[i] + '*';
@@ -257,7 +256,7 @@
                 accCode += list_AccSelect[i];
         }
 
-        var aModeCode = '';
+        aModeCode = '';
         for (var i = 0; i <= counterAMode - 1; i++) {
             if (i < counterAMode - 1)
                 aModeCode += list_AModeSelect[i] + '*';
@@ -266,16 +265,7 @@
         }
 
 
-        var statusCode = '';
-        for (var i = 0; i <= counterStatus - 1; i++) {
-            if (i < counterStatus - 1)
-                statusCode += list_StatusSelect[i] + '*';
-            else
-                statusCode += list_StatusSelect[i];
-        }
-
-
-        var mkzcode = '';
+        mkzcode = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
             if (i < counterMkz - 1)
                 mkzcode += list_MkzSelect[i] + '*';
@@ -283,7 +273,7 @@
                 mkzcode += list_MkzSelect[i];
         }
 
-        var oprcode = '';
+        oprcode = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
             if (i < counterOpr - 1)
                 oprcode += list_OprSelect[i] + '*';
@@ -292,9 +282,19 @@
         }
 
 
+
+
+        statusCode = '';
+        for (var i = 0; i <= counterStatus - 1; i++) {
+            if (i < counterStatus - 1)
+                statusCode += list_StatusSelect[i] + '*';
+            else
+                statusCode += list_StatusSelect[i];
+        }
+
         var ADocRObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             azShomarh: azShomarh,
             taShomarh: taShomarh,
             AccCode: accCode,
@@ -344,6 +344,7 @@
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
     $('#nameAMode').val('همه موارد');
+    $('#nameStatus').val('همه موارد');
 
 
     self.iconTypeCode = ko.observable("");
@@ -1696,15 +1697,37 @@
 
 
     AccCodeReport = localStorage.getItem("AccCodeReport");
+    localStorage.setItem("AccCodeReport", null);
     if (AccCodeReport != "null") {
-        localStorage.setItem("AccCodeReport", null);
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
         $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
+
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+        aModeCode = localStorage.getItem("AModeCodeReport");
+        list_AModeSelect = aModeCode.split("*");
+        counterAMode = list_AModeSelect.length;
+        list_AModeSelect[0] == "" ? $('#nameAMode').val('همه موارد') : $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+
         getADocR();
     }
-
-
 
 
 
@@ -1812,13 +1835,17 @@
             CreateTableTd('F18', 0, 0, data) +
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
-            '<td>' +
-            '    <a data-bind="click: $root.ShowAFISanad">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            ' <td>' +
+            ' <a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '    <a data-bind="click: $root.ShowAFISanad" style="font-size: 11px;">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
             '    </a >' +
-            '</td >' +
-
-            '        </tr>' +
+            ' </td >' +
+            '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +

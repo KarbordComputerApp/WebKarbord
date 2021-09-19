@@ -2147,27 +2147,61 @@
 
 
 
-    KalaCodeReport = localStorage.getItem("KalaCodeReport");
-    CustCodeReport = localStorage.getItem("CustCodeReport");
+    IsReport = localStorage.getItem("IsReport");
+    localStorage.setItem("IsReport", null);
 
-    if (KalaCodeReport != "null" && CustCodeReport == "null") {
-        localStorage.setItem("KalaCodeReport", null);
-        counterKala = 1;
-        list_KalaSelect[0] = KalaCodeReport;
-        $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+    //localStorage.setItem("KalaCodeReport", null);
+    // localStorage.setItem("CustCodeReport", null);
+
+    if (IsReport == "true") {
+
+        KalaCodeReport = localStorage.getItem("KalaCodeReport");
+        CustCodeReport = localStorage.getItem("CustCodeReport");
+
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+        modeCode = localStorage.getItem("ModeCodeReport");
+        $("#modeCode").val(modeCode);
+
+        KalaCode = localStorage.getItem("KalaCodeReport");
+        list_KalaSelect = KalaCode.split("*");
+        counterKala = list_KalaSelect.length;
+        list_KalaSelect[0] == "" ? $('#nameKala').val('همه موارد') : $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+
+        CustCode = localStorage.getItem("CustCodeReport");
+        list_CustSelect = CustCode.split("*");
+        counterCust = list_CustSelect.length;
+        list_CustSelect[0] == "" ? $('#nameCust').val('همه موارد') : $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
+
+
+        InvCode = localStorage.getItem("InvCodeReport");
+        list_InvSelect = InvCode.split("*");
+        counterInv = list_InvSelect.length;
+        list_InvSelect[0] == "" ? $('#nameInv').val('همه موارد') : $('#nameInv').val(counterInv + ' مورد انتخاب شده ');
+
+        KGruCode = localStorage.getItem("KGruCodeReport");
+        list_KGruSelect = KGruCode.split("*");
+        counterKGru = list_KGruSelect.length;
+        list_KGruSelect[0] == "" ? $('#nameKGru').val('همه موارد') : $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ');
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+
+
         getFDocR_S();
     }
-
-
-
-    if (KalaCodeReport == "null" && CustCodeReport != "null") {
-        localStorage.setItem("CustCodeReport", null);
-        counterCust = 1;
-        list_CustSelect[0] = CustCodeReport;
-        $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
-        getFDocR_S();
-    }
-
 
 
 

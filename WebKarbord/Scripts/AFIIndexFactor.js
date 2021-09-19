@@ -8,7 +8,8 @@
 
     DocNoReport = localStorage.getItem("DocNoAFIFactor");
     if (DocNoReport != "null") {
-        sessionStorage.ModeCode = localStorage.getItem("ModeCodeAFIFactor");
+        mode = localStorage.getItem("ModeCodeAFIFactor");
+        localStorage.setItem("ModeCode", mode)
     }
 
 
