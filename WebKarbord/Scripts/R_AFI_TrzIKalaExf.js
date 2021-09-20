@@ -311,13 +311,25 @@
         return 'همه انبارها';
     });
 
-    //Get TrzIExf
-    function getTrzIExf() {
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+
+    var azTarikh;
+    var taTarikh;
+    var invcode;
+    var kGrucode;
+    var kalacode;
+    var tGrucode;
+    var thvlcode;
+    var mkzcode;
+    var oprcode;
+    var statuscode;
+    var imodecode;
 
 
-        var invcode = '';
+    function SetFilter() {
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
+
+        invcode = '';
         for (var i = 0; i <= counterInv - 1; i++) {
             if (i < counterInv - 1)
                 invcode += list_InvSelect[i] + '*';
@@ -325,7 +337,7 @@
                 invcode += list_InvSelect[i];
         }
 
-        var kGrucode = '';
+        kGrucode = '';
         for (var i = 0; i <= counterKGru - 1; i++) {
             if (i < counterKGru - 1)
                 kGrucode += list_KGruSelect[i] + '*';
@@ -333,7 +345,7 @@
                 kGrucode += list_KGruSelect[i];
         }
 
-        var kalacode = '';
+        kalacode = '';
         for (var i = 0; i <= counterKala - 1; i++) {
             if (i < counterKala - 1)
                 kalacode += list_KalaSelect[i] + '*';
@@ -341,15 +353,7 @@
                 kalacode += list_KalaSelect[i];
         }
 
-        var thvlcode = '';
-        for (var i = 0; i <= counterThvl - 1; i++) {
-            if (i < counterThvl - 1)
-                thvlcode += list_ThvlSelect[i] + '*';
-            else
-                thvlcode += list_ThvlSelect[i];
-        }
-
-        var tGrucode = '';
+        tGrucode = '';
         for (var i = 0; i <= counterTGru - 1; i++) {
             if (i < counterTGru - 1)
                 tGrucode += list_TGruSelect[i] + '*';
@@ -357,7 +361,15 @@
                 tGrucode += list_TGruSelect[i];
         }
 
-        var mkzcode = '';
+        thvlcode = '';
+        for (var i = 0; i <= counterThvl - 1; i++) {
+            if (i < counterThvl - 1)
+                thvlcode += list_ThvlSelect[i] + '*';
+            else
+                thvlcode += list_ThvlSelect[i];
+        }
+
+        mkzcode = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
             if (i < counterMkz - 1)
                 mkzcode += list_MkzSelect[i] + '*';
@@ -365,7 +377,7 @@
                 mkzcode += list_MkzSelect[i];
         }
 
-        var oprcode = '';
+        oprcode = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
             if (i < counterOpr - 1)
                 oprcode += list_OprSelect[i] + '*';
@@ -373,7 +385,7 @@
                 oprcode += list_OprSelect[i];
         }
 
-        var statuscode = '';
+        statuscode = '';
         for (var i = 0; i <= counterStatus - 1; i++) {
             if (i < counterStatus - 1)
                 statuscode += list_StatusSelect[i] + '*';
@@ -381,7 +393,7 @@
                 statuscode += list_StatusSelect[i];
         }
 
-        var imodecode = '';
+        imodecode = '';
         for (var i = 0; i <= counterIMode - 1; i++) {
             if (i < counterIMode - 1)
                 imodecode += list_IModeSelect[i] + '*';
@@ -389,10 +401,15 @@
                 imodecode += list_IModeSelect[i];
         }
 
+    }
 
+
+    //Get TrzIExf
+    function getTrzIExf() {
+        SetFilter();
         var TrzIExfObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             StatusCode: statuscode,
             ModeCode: imodecode,
             InvCode: invcode,
@@ -2629,6 +2646,45 @@
 
 
 
+    self.ShowKrdx = function (Band) {
+        SetFilter();
+        localStorage.setItem("IsReport", "true");
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("InvCodeReport", Band.InvCode);
+        localStorage.setItem("InvNameReport", Band.InvName);
+        localStorage.setItem("KGruCodeReport", kGrucode);
+        localStorage.setItem("KalaCodeReport", Band.KalaCode);
+        localStorage.setItem("KalaNameReport", Band.KalaName);
+        localStorage.setItem("TGruCodeReport", tGrucode);
+        localStorage.setItem("ThvlCodeReport", thvlcode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("StatusCodeReport", statuscode);
+        localStorage.setItem("IModeCodeReport", imodecode);
+        window.open(sessionStorage.urlKrdx, '_blank');
+    }
+
+
+    self.ShowIDocR = function (Band) {
+        SetFilter();
+        localStorage.setItem("IsReport", "true");
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("InvCodeReport", Band.InvCode);
+        localStorage.setItem("KGruCodeReport", kGrucode);
+        localStorage.setItem("KalaCodeReport", Band.KalaCode);
+        //localStorage.setItem("KalaCodeReport", kalacode);
+        localStorage.setItem("TGruCodeReport", tGrucode);
+        localStorage.setItem("ThvlCodeReport", thvlcode);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("StatusCodeReport", statuscode);
+        localStorage.setItem("IModeCodeReport", imodecode);
+        window.open(sessionStorage.urlIDocR, '_blank');
+    }
+
+
     var showPrice = false;
 
     self.radif = function (index) {
@@ -2690,6 +2746,7 @@
             CreateTableTh('MAmount2', data) +
             CreateTableTh('MAmount3', data) +
             CreateTableTh('MTotalPrice', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageTrzIExf}" style="cursor: default;">' +
@@ -2736,7 +2793,25 @@
             CreateTableTd('MAmount2', 'KalaDeghat2', 1, data) +
             CreateTableTd('MAmount3', 'KalaDeghat3', 1, data) +
             CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data) +
-            '        </tr>' +
+            '<td>' +
+            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            '</a>' +
+            '<ul class="dropdown-menu">' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowKrdx, visible: Tag != 1" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '           کاردکس' +
+            '        </a>' +
+            '    </li>' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowIDocR" style="font-size: 11px;text-align: right;">' +
+            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '             ریز گردش اسناد انبارداری' +
+            '        </a>' +
+            '    </li>' +
+            '</td >' +
+            '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +

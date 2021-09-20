@@ -12,23 +12,10 @@
         <div class="card">
             <div class="header" style="padding-bottom: 5px;">
                 <div class="form-inline focused">
-                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست <b id="TitleListAnbar"></b></strong>
-                   
-                    <!--<strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره سند<b id="TitleListAnbarSearch"></b></strong>-->
-                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره</strong>
-                    <div class="col-md-2 ">
-                        <div class="form-inline">
-                            <select id="IMode" data-bind="options: IModeList,
-                               optionsText: function(item) {return item.Name},
-                               optionsValue: 'Code',
-                               value: IModeCode,
-                               optionsCaption: OptionsCaptionIMode(),
-                               event:{ change: $root.PageCountView}"></select>
-                        </div>
-                    </div>
 
-                    <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;margin-bottom: 1px;margin-left: 5px;margin-right: 5px;" />
-                    <strong style="margin-left: 5px; margin-right: 5px;">انبار</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست <b id="TitleListAnbar"></b></strong>
+
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">انبار</strong>
                     <div class="col-md-2 ">
                         <div class="form-inline">
                             <select id="invSelect" data-bind="options: InvList,
@@ -39,6 +26,23 @@
                                event:{ change: $root.PageCountView}"></select>
                         </div>
                     </div>
+                    <!--<strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی شماره سند<b id="TitleListAnbarSearch"></b></strong>-->
+                    <strong style="margin-left: 5px; margin-right: 5px;">جستجوی</strong>
+                    <div class="col-md-2 ">
+                        <div class="form-inline">
+                            <select id="IMode" data-bind="options: IModeList,
+                               optionsText: function(item) {return item.Name},
+                               optionsValue: 'Code',
+                               value: IModeCode,
+                               optionsCaption: OptionsCaptionIMode(),
+                               event:{ change: $root.PageCountView}"></select>
+                        </div>
+                    </div>
+                   
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 5px;">شماره</strong>
+                    <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;margin-bottom: 1px;margin-left: 5px;margin-right: 5px;" />
+
+
 
                     <a id="btn_DocNoSearch">
                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />

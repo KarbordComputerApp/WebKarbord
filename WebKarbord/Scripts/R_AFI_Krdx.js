@@ -1,8 +1,8 @@
 ﻿var ViewModel = function () {
     var self = this;
-   
+
     var flagupdateHeader = 0;
-   
+
     self.InvList = ko.observableArray([]); // ليست انبارها
     self.KalaList = ko.observableArray([]); // ليست کالاها
     self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
@@ -277,7 +277,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject,true).done(function (data) {
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
             self.ThvlList(data);
         });
     }
@@ -327,8 +327,8 @@
 
     //Get Krdx
     function getKrdx() {
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
 
         naghl = $("#naghl").val();
 
@@ -388,8 +388,8 @@
 
 
         var KrdxObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             ModeCode: imodecode,
             InvCode: invCode,
             KGruCode: '',
@@ -400,7 +400,7 @@
             StatusCode: statuscode,
             Naghl: naghl,
         };
-        ajaxFunction(KrdxUri + ace + '/' + sal + '/' + group, 'POST', KrdxObject,true).done(function (response) {
+        ajaxFunction(KrdxUri + ace + '/' + sal + '/' + group, 'POST', KrdxObject, true).done(function (response) {
             self.KrdxList(response);
             //  calcsum(self.KrdxList());
         });
@@ -873,7 +873,7 @@
             startIndex = pageSizeKrdx * self.currentPageIndexKrdx(),
             endIndex = startIndex + pageSizeKrdx;
         localStorage.setItem('pageSizeKrdx', pageSizeKrdx);
-  return self.filterKrdxList().slice(startIndex, endIndex);
+        return self.filterKrdxList().slice(startIndex, endIndex);
     });
 
     self.nextPageKrdx = function () {
@@ -1287,7 +1287,7 @@
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-  return self.filterInvList().slice(startIndex, endIndex);
+        return self.filterInvList().slice(startIndex, endIndex);
     });
 
     self.nextPageInv = function () {
@@ -1432,7 +1432,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-  return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -1559,7 +1559,7 @@
             startIndex = pageSizeThvl * self.currentPageIndexThvl(),
             endIndex = startIndex + pageSizeThvl;
         localStorage.setItem('pageSizeThvl', pageSizeThvl);
-  return self.filterThvlList().slice(startIndex, endIndex);
+        return self.filterThvlList().slice(startIndex, endIndex);
     });
 
     self.nextPageThvl = function () {
@@ -1738,7 +1738,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -1918,7 +1918,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-  return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -2133,7 +2133,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-  return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -2298,9 +2298,9 @@
         }
 
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
-           // a = data;
-           // var strCopy = data.split('~');
-           // var strCopy1 = strCopy[0].split('!');
+            // a = data;
+            // var strCopy = data.split('~');
+            // var strCopy1 = strCopy[0].split('!');
             self.IModeList(data);
         });
     }
@@ -2338,7 +2338,7 @@
             startIndex = pageSizeIMode * self.currentPageIndexIMode(),
             endIndex = startIndex + pageSizeIMode;
         localStorage.setItem('pageSizeIMode', pageSizeIMode);
-  return self.filterIModeList().slice(startIndex, endIndex);
+        return self.filterIModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageIMode = function () {
@@ -2483,15 +2483,73 @@
     var showPrice = false;
 
 
-
     self.ShowAFISanadAnbar = function (Band) {
         invCode = self.InvCode();
-        localStorage.setItem("InvCodeAFISanadAnbar", Band.invCode);
+        localStorage.setItem("InvCodeAFISanadAnbar", invCode);
         localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
         localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
         localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
         window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
     }
+
+
+
+
+    IsReport = localStorage.getItem("IsReport");
+    localStorage.setItem("IsReport", null);
+
+
+    if (IsReport == "true") {
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+        InvCodeReport = localStorage.getItem("InvCodeReport");
+        InvNameReport = localStorage.getItem("InvNameReport");
+        self.InvCode(InvCodeReport);
+        $('#nameInv').val('( ' + InvCodeReport + ' ) ' + InvNameReport);
+
+        KalaCodeReport = localStorage.getItem("KalaCodeReport");
+        KalaNameReport = localStorage.getItem("KalaNameReport");
+        self.KalaCode(KalaCodeReport);
+        $('#nameKala').val('( ' + KalaCodeReport + ' ) ' + KalaNameReport);
+
+
+        ThvlCode = localStorage.getItem("ThvlCodeReport");
+        list_ThvlSelect = ThvlCode.split("*");
+        counterThvl = list_ThvlSelect.length;
+        list_ThvlSelect[0] == "" ? $('#nameThvl').val('همه موارد') : $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ');
+
+        StatusCode = localStorage.getItem("StatusCodeReport");
+        list_StatusSelect = StatusCode.split("*");
+        counterStatus = list_StatusSelect.length;
+        list_StatusSelect[0] == "" ? $('#nameStatus').val('همه موارد') : $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
+
+
+
+        ImodeCode = localStorage.getItem("IModeCodeReport");
+        list_IModeSelect = ImodeCode.split("*");
+        counterIMode = list_IModeSelect.length;
+        list_IModeSelect[0] == "" ? $('#nameIMode').val('همه موارد') : $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ');
+
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+
+        getKrdx();
+
+    }
+
 
 
 
@@ -3231,7 +3289,7 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+
 };
 
 ko.applyBindings(new ViewModel());

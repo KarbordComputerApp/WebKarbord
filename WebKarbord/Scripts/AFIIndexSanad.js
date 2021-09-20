@@ -10,7 +10,7 @@
     self.TestADoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
     DocNoReport = localStorage.getItem("DocNoAFISanad");
-    if (DocNoReport != "null") {
+    if (DocNoReport != "null" && DocNoReport != null) {
         localStorage.setItem("ModeCode", "ADOC");
     }
 
@@ -20,7 +20,8 @@
 
         if (sessionStorage.ModeCode == 'ADOC') {
             validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
-            validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
+            validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
+            validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
 
             localStorage.setItem("moveSanad", validation);
             sessionStorage.moveSanad = validation;
@@ -1002,7 +1003,7 @@
     });
 
 
-    if (DocNoReport != "null") {
+    if (DocNoReport != "null" && DocNoReport != null) {
         localStorage.setItem("DocNoAFISanad", null);
         ShowDataUpdate(DocNoReport);
     }

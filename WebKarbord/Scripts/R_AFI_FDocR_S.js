@@ -318,8 +318,8 @@
     function getFDocR_S() {
 
 
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
 
         modeCode = $("#modeCode").val().split("*");
 
@@ -379,8 +379,8 @@
 
 
         var FDocR_SObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
             ModeCode1: modeCode1,
             ModeCode2: modeCode2,
             InvCode: invcode,

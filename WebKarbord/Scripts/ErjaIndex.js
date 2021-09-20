@@ -108,7 +108,7 @@
 
 
     DocNoReport = localStorage.getItem("DocNoErjReport");
-    if (DocNoReport != "null") {
+    if (DocNoReport != "null" && DocNoReport != null) {
         localStorage.setItem("DocNoErjReport", null);
         $("#DocNoSearch").val(DocNoReport);
         ShowDataUpdate(DocNoReport);
@@ -2692,6 +2692,12 @@
 
             var data = response[0];
 
+            if (data.ShowDocTrs == 0) {
+                return showNotification('شما به این پرونده دسترسی ندارید', 0);
+            }
+
+            data.EditDocTrs == 0 ? $("#P_Action").hide() : $("#P_Action").show();
+
             self.p_DocDate(data["DocDate"]);
             self.p_MhltDate(data["MhltDate"]);
             self.p_AmalDate(data["AmalDate"]);
@@ -3106,7 +3112,7 @@
 
     $("#modal-ErjDocH").on('hide.bs.modal', function () {
 
-        if (DocNoReport != "null") {
+        if (DocNoReport != "null" && DocNoReport != null) {
             close();
         }
 

@@ -1301,8 +1301,8 @@
         counterOpr = list_OprSelect.length;
         list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
 
-        sath = localStorage.getItem("SathReport");
-        $('#SathTaraz').val(sath); 
+        //sath = localStorage.getItem("SathReport");
+        //$('#SathTaraz').val(sath); 
 
         getTrzAcc();
     }

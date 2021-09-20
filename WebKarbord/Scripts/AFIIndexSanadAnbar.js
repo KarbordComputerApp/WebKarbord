@@ -10,7 +10,15 @@
     var invSelected = 0;
     var modeCodeSelected = 0;
 
-    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
+    DocNoReport = localStorage.getItem("DocNoAFISanadAnbar");
+    if (DocNoReport != "null" && DocNoReport != null) {
+        sessionStorage.removeItem("ModeCode");
+        inOut = localStorage.getItem("InOutAFISanadAnbar");
+        localStorage.setItem("InOut", inOut);
+    }
+
+
+    if (sessionStorage.ModeCode == null  || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.moveSanadAnbar = localStorage.getItem("moveSanadAnbar");
@@ -18,9 +26,11 @@
         sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
 
-        if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
+        if (sessionStorage.InOut == 1) {
             validation = CheckAccess('NEW_IIDOC');// new varedae anbar
             validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
+            validation == true ? sessionStorage.NEW_IIDOC = true : sessionStorage.NEW_IIDOC = false;
+
             sessionStorage.moveSanadAnbar = validation;
             localStorage.setItem("moveSanadAnbar", validation);
 
@@ -71,9 +81,11 @@
             }
         }
 
-        if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
+        if (sessionStorage.InOut == 2) {
             validation = CheckAccess('NEW_IODOC');// new sadere anbar
             validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
+            validation == true ? sessionStorage.NEW_IODOC = true : sessionStorage.NEW_IODOC = false;
+
             sessionStorage.moveSanadAnbar = validation;
             localStorage.setItem("moveSanadAnbar", validation);
 
@@ -345,7 +357,9 @@
         sessionStorage.setItem('listFilter', null);
     });
 
-    getRprtColsList(true, sessionStorage.userName);
+    if (DocNoReport == "null") {
+        getRprtColsList(true, sessionStorage.userName);
+    }
 
 
 
@@ -413,7 +427,7 @@
     getIModeList();
 
 
-   //Get  IMode List
+    //Get  IMode List
     function getIModeAllList() {
 
 
@@ -530,7 +544,7 @@
             DocNo: '',
         }
 
-        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject,true).done(function (data) {
+        ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject, true).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.IDocHList(data);
@@ -616,7 +630,10 @@
     getInvList();
     getStatusList();
 
-    getIDocH(0, invSelected, modeCodeSelected, false);
+    if (DocNoReport == "null") {
+        getIDocH(0, invSelected, modeCodeSelected, false);
+    }
+
     $('#invSelect').val(invSelected);
     $('#IMode').val(modeCodeSelected);
 
@@ -1411,7 +1428,7 @@
             if (docnoSearch == '') {
                 return showNotification('شماره سند' + TitleListAnbarSearch + 'را وارد کنید', 2);
             }
-            ShowDataUpdate(docnoSearch);
+            ShowDataUpdate(docnoSearch, $("#invSelect").val(), $("#IMode").val());
         }
     });
 
@@ -1420,18 +1437,22 @@
         if (docnoSearch == '') {
             return showNotification('شماره سند' + TitleListAnbarSearch + 'را وارد کنید', 2);
         }
-        ShowDataUpdate(docnoSearch);
+        ShowDataUpdate(docnoSearch, $("#invSelect").val(), $("#IMode").val());
     });
 
+    if (DocNoReport != "null") {
+        invCode = localStorage.getItem("InvCodeAFISanadAnbar");
+        modeCode = localStorage.getItem("ModeCodeAFISanadAnbar");
+
+        ShowDataUpdate(DocNoReport, invCode, modeCode);
+        localStorage.setItem("DocNoAFISanadAnbar",null)
+    }
 
 
-
-    function ShowDataUpdate(docNo) {
-        inv = $("#invSelect").val();
+    function ShowDataUpdate(docNo, inv, modeCode) {
         if (inv == "" || inv == "null" || inv == null)
             inv = "";
 
-        modeCode = $("#IMode").val();
         if (modeCode == "" || modeCode == "null" || modeCode == null)
             modeCode = "";
 
@@ -1665,7 +1686,7 @@
 
 
 
-  
+
     $('#Move').click(function () {
         modeCodeMove = $('#modeCodePor').val();
         invSelectMove = $('#invSelectMove').val();

@@ -7,7 +7,7 @@
 
 
     DocNoReport = localStorage.getItem("DocNoAFIFactor");
-    if (DocNoReport != "null") {
+    if (DocNoReport != "null" && DocNoReport != null) {
         mode = localStorage.getItem("ModeCodeAFIFactor");
         localStorage.setItem("ModeCode", mode)
     }
@@ -2461,7 +2461,7 @@
         ShowDataUpdate(docnoSearch);
     });
 
-    if (DocNoReport != "null") {
+    if (DocNoReport != "null" && DocNoReport != null) {
         localStorage.setItem("DocNoAFIFactor", null);
         //localStorage.setItem("ModeCodeAFIFactor", null);
         ShowDataUpdate(DocNoReport);

@@ -3152,7 +3152,7 @@
 
 
 
-
+    sessionStorage.newFactor == "true" ? $("#AddNewFactor").show() : $("#AddNewFactor").hide();
 
     $('#AddNewFactor').click(function () {
 

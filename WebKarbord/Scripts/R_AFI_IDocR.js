@@ -217,7 +217,7 @@
     });
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
         });
     }
@@ -228,7 +228,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject,true).done(function (data) {
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function (data) {
             self.KGruList(data);
         });
     }
@@ -267,7 +267,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject,true).done(function (data) {
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
             self.ThvlList(data);
         });
     }
@@ -302,8 +302,11 @@
     });
     //Get IDocR
     function getIDocR() {
-        tarikh1 = $("#aztarikh").val().toEnglishDigit();
-        tarikh2 = $("#tatarikh").val().toEnglishDigit();
+        //tarikh1 = $("#aztarikh").val().toEnglishDigit();
+        //tarikh2 = $("#tatarikh").val().toEnglishDigit();
+
+        azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
+        taTarikh = self.TaDate().toEnglishDigit();//$("#tatarikh").val().toEnglishDigit();
 
         //noSanadAnbar = $("#noSanadAnbar").val();
 
@@ -373,9 +376,9 @@
 
 
         var IDocRObject = {
-            azTarikh: tarikh1,
-            taTarikh: tarikh2,
-            DocNo:0,
+            azTarikh: azTarikh,
+            taTarikh: taTarikh,
+            DocNo: 0,
             StatusCode: statuscode,
             ModeCode: imodecode,
             InvCode: invcode,
@@ -385,9 +388,9 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject,true).done(function (response) {
+        ajaxFunction(IDocRUri + ace + '/' + sal + '/' + group, 'POST', IDocRObject, true).done(function (response) {
             self.IDocRList(response);
-          //  calcsum(self.IDocRList());
+            //  calcsum(self.IDocRList());
         });
     }
 
@@ -439,8 +442,8 @@
 
     getInvList();
     //getKalaList();
-   // getNoSanad();
-   
+    // getNoSanad();
+
     //getKGruList();
     getStatusList();
 
@@ -560,53 +563,53 @@
 
         tempData = ko.utils.arrayFilter(self.IDocRList(), function (item) {
             result =
-            (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
-            ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
-            (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
-            (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
-            (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
-            (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
-            (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
-            (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
-            (item.ThvlName == null ? '' : item.ThvlName.toString().search(filterThvlName) >= 0) &&
-            (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
-            (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-            ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
-            ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo) &&
-            (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
+                (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
+                ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
+                (item.ModeName == null ? '' : item.ModeName.toString().search(filterModeName) >= 0) &&
+                (item.InvName == null ? '' : item.InvName.toString().search(filterInvName) >= 0) &&
+                (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
+                (item.Taeed == null ? '' : item.Taeed.toString().search(filterTaeed) >= 0) &&
+                (item.Tasvib == null ? '' : item.Tasvib.toString().search(filterTasvib) >= 0) &&
+                (item.ThvlName == null ? '' : item.ThvlName.toString().search(filterThvlName) >= 0) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber) &&
+                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo) &&
+                (item.KalaName == null ? '' : item.KalaName.toString().search(filterKalaName) >= 0) &&
 
-            (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
-            (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
-            (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
-            (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
-            (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
-            (item.KalaExf4 == null ? '' : item.KalaExf4.toString().search(filterKalaExf4) >= 0) &&
-            (item.KalaExf5 == null ? '' : item.KalaExf5.toString().search(filterKalaExf5) >= 0) &&
-            (item.KalaExf6 == null ? '' : item.KalaExf6.toString().search(filterKalaExf6) >= 0) &&
-            (item.KalaExf7 == null ? '' : item.KalaExf7.toString().search(filterKalaExf7) >= 0) &&
-            (item.KalaExf8 == null ? '' : item.KalaExf8.toString().search(filterKalaExf8) >= 0) &&
-            (item.KalaExf9 == null ? '' : item.KalaExf9.toString().search(filterKalaExf9) >= 0) &&
-            (item.KalaExf10 == null ? '' : item.KalaExf10.toString().search(filterKalaExf10) >= 0) &&
-            (item.KalaExf11 == null ? '' : item.KalaExf11.toString().search(filterKalaExf11) >= 0) &&
-            (item.KalaExf12 == null ? '' : item.KalaExf12.toString().search(filterKalaExf12) >= 0) &&
-            (item.KalaExf13 == null ? '' : item.KalaExf13.toString().search(filterKalaExf13) >= 0) &&
-            (item.KalaExf14 == null ? '' : item.KalaExf14.toString().search(filterKalaExf14) >= 0) &&
-            (item.KalaExf15 == null ? '' : item.KalaExf15.toString().search(filterKalaExf15) >= 0) &&
+                (item.KalaFileNo == null ? '' : item.KalaFileNo.toString().search(filterKalaFileNo) >= 0) &&
+                (item.KalaState == null ? '' : item.KalaState.toString().search(filterKalaState) >= 0) &&
+                (item.KalaExf1 == null ? '' : item.KalaExf1.toString().search(filterKalaExf1) >= 0) &&
+                (item.KalaExf2 == null ? '' : item.KalaExf2.toString().search(filterKalaExf2) >= 0) &&
+                (item.KalaExf3 == null ? '' : item.KalaExf3.toString().search(filterKalaExf3) >= 0) &&
+                (item.KalaExf4 == null ? '' : item.KalaExf4.toString().search(filterKalaExf4) >= 0) &&
+                (item.KalaExf5 == null ? '' : item.KalaExf5.toString().search(filterKalaExf5) >= 0) &&
+                (item.KalaExf6 == null ? '' : item.KalaExf6.toString().search(filterKalaExf6) >= 0) &&
+                (item.KalaExf7 == null ? '' : item.KalaExf7.toString().search(filterKalaExf7) >= 0) &&
+                (item.KalaExf8 == null ? '' : item.KalaExf8.toString().search(filterKalaExf8) >= 0) &&
+                (item.KalaExf9 == null ? '' : item.KalaExf9.toString().search(filterKalaExf9) >= 0) &&
+                (item.KalaExf10 == null ? '' : item.KalaExf10.toString().search(filterKalaExf10) >= 0) &&
+                (item.KalaExf11 == null ? '' : item.KalaExf11.toString().search(filterKalaExf11) >= 0) &&
+                (item.KalaExf12 == null ? '' : item.KalaExf12.toString().search(filterKalaExf12) >= 0) &&
+                (item.KalaExf13 == null ? '' : item.KalaExf13.toString().search(filterKalaExf13) >= 0) &&
+                (item.KalaExf14 == null ? '' : item.KalaExf14.toString().search(filterKalaExf14) >= 0) &&
+                (item.KalaExf15 == null ? '' : item.KalaExf15.toString().search(filterKalaExf15) >= 0) &&
 
-            (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
-            (item.KalaUnitName1 == null ? '' : item.KalaUnitName1.toString().search(filterKalaUnitName1) >= 0) &&
-            (item.KalaUnitName2 == null ? '' : item.KalaUnitName2.toString().search(filterKalaUnitName2) >= 0) &&
-            (item.KalaUnitName3 == null ? '' : item.KalaUnitName3.toString().search(filterKalaUnitName3) >= 0) &&
-            ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
-            ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
-            ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
-            ko.utils.stringStartsWith(item.UnitPrice.toString(), filterUnitPrice) &&
-            ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
-            (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
-            (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0)
+                (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filterMainUnitName) >= 0) &&
+                (item.KalaUnitName1 == null ? '' : item.KalaUnitName1.toString().search(filterKalaUnitName1) >= 0) &&
+                (item.KalaUnitName2 == null ? '' : item.KalaUnitName2.toString().search(filterKalaUnitName2) >= 0) &&
+                (item.KalaUnitName3 == null ? '' : item.KalaUnitName3.toString().search(filterKalaUnitName3) >= 0) &&
+                ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filterAmount1) &&
+                ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filterAmount2) &&
+                ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filterAmount3) &&
+                ko.utils.stringStartsWith(item.UnitPrice.toString(), filterUnitPrice) &&
+                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
+                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
+                (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0)
             return result;
         })
-         calcsum(tempData);
+        calcsum(tempData);
         $("#CountRecord").text(tempData.length);
         return tempData;
     });
@@ -642,7 +645,7 @@
             startIndex = pageSizeIDocR * self.currentPageIndexIDocR(),
             endIndex = startIndex + pageSizeIDocR;
         localStorage.setItem('pageSizeIDocR', pageSizeIDocR);
-  return self.filterIDocRList().slice(startIndex, endIndex);
+        return self.filterIDocRList().slice(startIndex, endIndex);
     });
 
     self.nextPageIDocR = function () {
@@ -882,7 +885,7 @@
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-   return self.filterInvList().slice(startIndex, endIndex);
+        return self.filterInvList().slice(startIndex, endIndex);
     });
 
     self.nextPageInv = function () {
@@ -1064,7 +1067,7 @@
             startIndex = pageSizeKGru * self.currentPageIndexKGru(),
             endIndex = startIndex + pageSizeKGru;
         localStorage.setItem('pageSizeKGru', pageSizeKGru);
-  return self.filterKGruList().slice(startIndex, endIndex);
+        return self.filterKGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageKGru = function () {
@@ -1248,7 +1251,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-  return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -1431,7 +1434,7 @@
             startIndex = pageSizeThvl * self.currentPageIndexThvl(),
             endIndex = startIndex + pageSizeThvl;
         localStorage.setItem('pageSizeThvl', pageSizeThvl);
-  return self.filterThvlList().slice(startIndex, endIndex);
+        return self.filterThvlList().slice(startIndex, endIndex);
     });
 
     self.nextPageThvl = function () {
@@ -1610,7 +1613,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -1790,7 +1793,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-  return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -1933,27 +1936,27 @@
     });
 
 
-   /* function getNoSanad() {
-        select = document.getElementById('noSanadAnbar');
-        for (var i = 0; i <= 2; i++) {
-            opt = document.createElement('option');
-            if (i == 0) {
-                opt.value = 0;
-                opt.innerHTML = 'همه موارد';
-                opt.selected = true;
-            }
-            if (i == 1) {
-                opt.value = 1;
-                opt.innerHTML = 'وارده به انبار';
-
-            }
-            if (i == 2) {
-                opt.value = 2;
-                opt.innerHTML = 'صادره از انبار';
-            }
-            select.appendChild(opt);
-        }
-    };*/
+    /* function getNoSanad() {
+         select = document.getElementById('noSanadAnbar');
+         for (var i = 0; i <= 2; i++) {
+             opt = document.createElement('option');
+             if (i == 0) {
+                 opt.value = 0;
+                 opt.innerHTML = 'همه موارد';
+                 opt.selected = true;
+             }
+             if (i == 1) {
+                 opt.value = 1;
+                 opt.innerHTML = 'وارده به انبار';
+ 
+             }
+             if (i == 2) {
+                 opt.value = 2;
+                 opt.innerHTML = 'صادره از انبار';
+             }
+             select.appendChild(opt);
+         }
+     };*/
 
     self.currentPageStatus = ko.observable();
     pageSizeStatus = localStorage.getItem('pageSizeStatus') == null ? 10 : localStorage.getItem('pageSizeStatus');
@@ -1985,7 +1988,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-  return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -2195,7 +2198,7 @@
             startIndex = pageSizeIMode * self.currentPageIndexIMode(),
             endIndex = startIndex + pageSizeIMode;
         localStorage.setItem('pageSizeIMode', pageSizeIMode);
-  return self.filterIModeList().slice(startIndex, endIndex);
+        return self.filterIModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageIMode = function () {
@@ -2337,14 +2340,87 @@
 
 
 
-
-
-
-
-
-
-
     $('.fix').attr('class', 'form-line date focused fix');
+
+
+
+
+
+    self.ShowAFISanadAnbar = function (Band) {
+        localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
+        localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
+        localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+        localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
+        window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+    }
+
+    IsReport = localStorage.getItem("IsReport");
+    localStorage.setItem("IsReport", null);
+
+
+    if (IsReport == "true") {
+        azTarikh = localStorage.getItem("AzTarikhReport");
+        self.AzDate(azTarikh);
+
+        taTarikh = localStorage.getItem("TaTarikhReport");
+        self.TaDate(taTarikh);
+
+
+
+        InvCodeReport = localStorage.getItem("InvCodeReport");
+        list_InvSelect = InvCodeReport.split("*");
+        counterInv = list_InvSelect.length;
+        list_InvSelect[0] == "" ? $('#nameInv').val('همه موارد') : $('#nameInv').val(counterInv + ' مورد انتخاب شده ');
+
+
+        KGruCodeReport = localStorage.getItem("KGruCodeReport");
+        list_KGruSelect = KGruCodeReport.split("*");
+        counterKGru = list_KGruSelect.length;
+        list_KGruSelect[0] == "" ? $('#nameKGru').val('همه موارد') : $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ');
+
+
+        KalaCodeReport = localStorage.getItem("KalaCodeReport");
+        list_KalaSelect = KalaCodeReport.split("*");
+        counterKala = list_KalaSelect.length;
+        list_KalaSelect[0] == "" ? $('#nameKala').val('همه موارد') : $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+
+
+        ThvlCode = localStorage.getItem("ThvlCodeReport");
+        list_ThvlSelect = ThvlCode.split("*");
+        counterThvl = list_ThvlSelect.length;
+        list_ThvlSelect[0] == "" ? $('#nameThvl').val('همه موارد') : $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ');
+
+
+        StatusCode = localStorage.getItem("StatusCodeReport");
+        list_StatusSelect = StatusCode.split("*");
+        counterStatus = list_StatusSelect.length;
+        list_StatusSelect[0] == "" ? $('#nameStatus').val('همه موارد') : $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
+
+
+        ImodeCode = localStorage.getItem("IModeCodeReport");
+        list_IModeSelect = ImodeCode.split("*");
+        counterIMode = list_IModeSelect.length;
+        list_IModeSelect[0] == "" ? $('#nameIMode').val('همه موارد') : $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ');
+
+
+        mkzCode = localStorage.getItem("MkzCodeReport");
+        list_MkzSelect = mkzCode.split("*");
+        counterMkz = list_MkzSelect.length;
+        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+
+
+        oprCode = localStorage.getItem("OprCodeReport");
+        list_OprSelect = oprCode.split("*");
+        counterOpr = list_OprSelect.length;
+        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+
+        getIDocR();
+    }
+
+
+
+
+
 
 
     var showPrice = false;
@@ -2356,6 +2432,10 @@
         return index + calc;
     }
 
+
+
+
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
@@ -2366,7 +2446,9 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableIDocR">' +
-            '<th>ردیف</th>' +
+
+            //'<th style="position: sticky;right: 0px;">ردیف</th>' +
+            '<th style="position: sticky;right: 0px;width:100px"><div class= "row" style="width: 100px;"> <div class="col-md-6">ردیف</div><div class="col-md-6">عملیات</div></div></th> ' +
             CreateTableTh('DocDate', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('ModeName', data) +
@@ -2413,7 +2495,45 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageIDocR}" style="cursor: default;">' +
             '   <tr data-bind=" style: {\'background-color\':  Status == \'باطل\'  ? \'#ff252540\' : null  } " > ' +
-            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+
+
+            '<td style="background-color: ' + colorRadif + '; position: sticky;right: 0px;">' +
+            '   <div class= "row">' +
+            '     <div class="col-md-6" data-bind="text: $root.radif($index())"></div>' +
+            '     <div class="col-md-6">' +
+            '        <a data-bind="click: $root.ShowAFISanadAnbar">' +
+            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '        </a>' +
+            '     </div>' +
+            '   </div>' +
+            '</td>' +
+
+            /*'<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + '; position: sticky;right: 0px;"></td>' +
+            '<td style="position: sticky;right: 0px;">' +
+            '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
+
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + '; position: sticky;right: 0px;">' +
+
+
+            '<td style="position: sticky;right: 0px;">' +
+            '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +
+
+            +'</td>' +*/
+
+            /*'<td style="position: sticky;right: 0px;">' +
+            '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            '    </a >' +
+            '</td >' +*/
+
+
+
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('ModeName', 0, 0, data) +
@@ -2422,7 +2542,7 @@
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('Taeed', 0, 0, data) +
             CreateTableTd('Tasvib', 0, 0, data) +
-            CreateTableTd('ThvlName',0, 0, data) +
+            CreateTableTd('ThvlName', 0, 0, data) +
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('SerialNumber', 0, 0, data) +
@@ -2454,8 +2574,9 @@
             CreateTableTd('Amount3', 'DeghatM3', 1, data) +
             CreateTableTd('UnitPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('BandSpec',0, 0, data) +
+            CreateTableTd('BandSpec', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
+            
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -2645,7 +2766,7 @@
                 text += 'Hidden ';
 
             text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
-            text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';            return text;
+            text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>'; return text;
         }
     }
 
@@ -2838,7 +2959,7 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+
 };
 
 ko.applyBindings(new ViewModel());

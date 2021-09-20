@@ -545,6 +545,35 @@
 
         dispBands = $("#DispBands").val();
         dispBands == 1 ? self.filterAcc3("1") : self.filterAcc3("")
+
+
+
+
+
+
+
+        $("#TableSelectedAcc").empty();
+
+        for (var i = 0; i < counterAcc; i++) {
+            if (list_AccSelect[i] != "") {
+
+                value = ko.utils.arrayFirst(self.AccList(), function (item) {
+                    return item.Code == list_AccSelect[i];
+                });
+
+                $('#TableSelectedAcc').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_AccSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
+
+
+
+
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 

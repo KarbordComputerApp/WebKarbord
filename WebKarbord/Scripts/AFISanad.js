@@ -598,7 +598,7 @@
         }
     }
 
-
+    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
 
     $('#AddNewSanad').click(function () {
 

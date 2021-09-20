@@ -512,7 +512,7 @@
 
         ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
             self.IModeList(data);
-            
+
         });
     }
 
@@ -3057,6 +3057,13 @@
             })
         }
     })
+
+
+    if (sessionStorage.InOut == 1)
+        sessionStorage.NEW_IIDOC == "true" ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide();
+    else
+        sessionStorage.NEW_IODOC == "true" ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide();
+
 
     $('#AddNewSanadAnbar').click(function () {
 
