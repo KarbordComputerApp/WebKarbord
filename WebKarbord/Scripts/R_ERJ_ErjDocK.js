@@ -991,6 +991,14 @@
     }
 
 
+
+    //$("#ErjaDOC").hide();
+    self.AccessAction = function (InOut) {
+        res = $("#ErjaDOC").css("display") != "none"
+        return res;
+    }
+
+
     self.radif = function (index) {
         countShow = self.pageSizeDocK();
         page = self.currentPageIndexDocK();
@@ -1102,13 +1110,28 @@
             CreateTableTd('F18', 0, 0, 0, data) +
             CreateTableTd('F19', 0, 0, 0, data) +
             CreateTableTd('F20', 0, 0, 0, data) +
-            '<td>' +
-            '    <a data-bind="click: $root.ShowErjDocH">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
-            '    </a >' +
-            '</td >' +
 
-            '        </tr>' +
+            ' <td>' +
+            ' <a data-bind="visible: $root.AccessAction()" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '      <a data-bind="click: $root.ShowErjDocH" style="font-size: 11px;">' +
+            '          <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش پرونده' +
+            '      </a >' +
+            '    </li>' +
+            ' </ul>' +
+            ' </td >' +
+            '</tr>' +
+
+            /* '<td>' +
+             '    <a data-bind="click: $root.ShowErjDocH">' +
+             '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+             '    </a >' +
+             '</td >' +
+ 
+             '        </tr>' +*/
             '</tbody>' +
             ' <tfoot>' +
             /*' <tr style="background-color:#e37d228f;">' +

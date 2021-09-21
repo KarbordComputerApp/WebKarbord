@@ -2562,6 +2562,12 @@
         window.open(sessionStorage.urlFDocR_P, '_blank');
     }
 
+   // $("#FDocR_P").hide();
+    self.AccessAction = function (nameRprt) {
+        if (nameRprt == "FDocR_P")
+            return $("#FDocR_P").css("display") != "none"
+    }
+
     self.radif = function (index) {
         countShow = self.pageSizeTrzFKala_P();
         page = self.currentPageIndexTrzFKala_P();
@@ -2673,11 +2679,16 @@
             CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, data) +
             CreateTableTd('OnlyDiscountPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
-            '<td>' +
-            '    <a data-bind="click: $root.ShowFDocR_P">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            ' <td>' +
+            ' <a  data-bind="visible: $root.AccessAction(\'FDocR_P\') == true" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '    <a data-bind="click: $root.ShowFDocR_P" style="font-size: 11px;">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> ريز گردش اسناد خرید' +
             '    </a >' +
-            '</td >' +
+            ' </td >' +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +

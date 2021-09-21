@@ -1027,6 +1027,23 @@
     });
 
     $('#modal-Inv').on('shown.bs.modal', function () {
+
+        $("#TableBodyListInv").empty();
+        for (var i = 0; i < counterInv; i++) {
+            if (list_InvSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.InvList(), function (item) {
+                    return item.Code == list_InvSelect[i];
+                });
+
+                $('#TableBodyListInv').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_InvSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1206,6 +1223,21 @@
     });
 
     $('#modal-KGru').on('shown.bs.modal', function () {
+        $("#TableBodyListKGru").empty();
+        for (var i = 0; i < counterKGru; i++) {
+            if (list_KGruSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.KGruList(), function (item) {
+                    return item.Code == list_KGruSelect[i];
+                });
+
+                $('#TableBodyListKGru').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_KGruSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1393,6 +1425,22 @@
     });
 
     $('#modal-kala').on('shown.bs.modal', function () {
+        $("#TableBodyListKala").empty();
+        for (var i = 0; i < counterKala; i++) {
+            if (list_KalaSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.KalaList(), function (item) {
+                    return item.Code == list_KalaSelect[i];
+                });
+
+                $('#TableBodyListKala').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_KalaSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: FanniNo">' + value.FanniNo + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1573,6 +1621,21 @@
     });
 
     $('#modal-Thvl').on('shown.bs.modal', function () {
+        $("#TableBodyListThvl").empty();
+        for (var i = 0; i < counterThvl; i++) {
+            if (list_ThvlSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.ThvlList(), function (item) {
+                    return item.Code == list_ThvlSelect[i];
+                });
+
+                $('#TableBodyListThvl').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_ThvlSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1753,6 +1816,21 @@
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+        $("#TableBodyListMkz").empty();
+        for (var i = 0; i < counterMkz; i++) {
+            if (list_MkzSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
+                    return item.Code == list_MkzSelect[i];
+                });
+
+                $('#TableBodyListMkz').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1932,6 +2010,21 @@
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < counterOpr; i++) {
+            if (list_OprSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.OprList(), function (item) {
+                    return item.Code == list_OprSelect[i];
+                });
+
+                $('#TableBodyListOpr').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2133,6 +2226,20 @@
     });
 
     $('#modal-Status').on('shown.bs.modal', function () {
+        $("#TableBodyListStatus").empty();
+        for (var i = 0; i < counterStatus; i++) {
+            if (list_StatusSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.StatusList(), function (item) {
+                    return item.Status == list_StatusSelect[i];
+                });
+
+                $('#TableBodyListStatus').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Status">' + value.Status + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2335,6 +2442,21 @@
     });
 
     $('#modal-IMode').on('shown.bs.modal', function () {
+        $("#TableBodyListIMode").empty();
+        for (var i = 0; i < counterIMode; i++) {
+            if (list_IModeSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.IModeList(), function (item) {
+                    return item.Code == list_IModeSelect[i];
+                });
+
+                $('#TableBodyListIMode').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_IModeSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2422,6 +2544,17 @@
 
 
 
+   // $("#IDOC_I").hide();
+   //$("#IDOC_O").hide();
+    self.AccessAction = function (InOut) {
+        if (InOut == '1')
+            res = $("#IDOC_I").css("display") != "none"
+        else if (InOut == '2')
+            res = $("#IDOC_O").css("display") != "none"
+
+        return res;
+    }
+
 
     var showPrice = false;
 
@@ -2447,8 +2580,8 @@
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableIDocR">' +
 
-            //'<th style="position: sticky;right: 0px;">ردیف</th>' +
-            '<th style="position: sticky;right: 0px;width:100px"><div class= "row" style="width: 100px;"> <div class="col-md-6">ردیف</div><div class="col-md-6">عملیات</div></div></th> ' +
+            '<th style="position: sticky;right: 0px;">ردیف</th>' +
+            //'<th style="position: sticky;right: 0px;width:100px"><div class= "row" style="width: 100px;"> <div class="col-md-6">ردیف</div><div class="col-md-6">عملیات</div></div></th> ' +
             CreateTableTh('DocDate', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('ModeName', data) +
@@ -2491,13 +2624,14 @@
             CreateTableTh('TotalPrice', data) +
             CreateTableTh('BandSpec', data) +
             CreateTableTh('Comm', data) +
+            '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageIDocR}" style="cursor: default;">' +
             '   <tr data-bind=" style: {\'background-color\':  Status == \'باطل\'  ? \'#ff252540\' : null  } " > ' +
 
 
-            '<td style="background-color: ' + colorRadif + '; position: sticky;right: 0px;">' +
+            /*'<td style="background-color: ' + colorRadif + '; position: sticky;right: 0px;">' +
             '   <div class= "row">' +
             '     <div class="col-md-6" data-bind="text: $root.radif($index())"></div>' +
             '     <div class="col-md-6">' +
@@ -2506,19 +2640,14 @@
             '        </a>' +
             '     </div>' +
             '   </div>' +
-            '</td>' +
-
-            /*'<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + '; position: sticky;right: 0px;"></td>' +
-            '<td style="position: sticky;right: 0px;">' +
-            '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
-            '    </a >' +
-            '</td >' +
-
-            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + '; position: sticky;right: 0px;">' +
+            '</td>' +*/
 
 
-            '<td style="position: sticky;right: 0px;">' +
+            //'<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + '; position: sticky;right: 0px;">' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';">' +
+
+
+            /*'<td style="position: sticky;right: 0px;">' +
             '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
             '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
@@ -2576,8 +2705,19 @@
             CreateTableTd('TotalPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('BandSpec', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
-            
-            '        </tr>' +
+            ' <td>' +
+            ' <a data-bind="visible: $root.AccessAction(InOut)" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '      <a data-bind="click: $root.ShowAFISanadAnbar" style="font-size: 11px;">' +
+            '          <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
+            '      </a >' +
+            '    </li>' +
+            ' </ul>' +
+            ' </td >' +
+            '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +

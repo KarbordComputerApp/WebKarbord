@@ -1,6 +1,6 @@
 ﻿var ViewModel = function () {
     var self = this;
-    
+
     self.AccList = ko.observableArray([]); // ليست حساب ها
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
@@ -396,7 +396,7 @@
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
+                    ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
                 return result;
             })
             return tempData;
@@ -409,7 +409,7 @@
             startIndex = pageSizeAcc * self.currentPageIndexAcc(),
             endIndex = startIndex + pageSizeAcc;
         localStorage.setItem('pageSizeAcc', pageSizeAcc);
-  return self.filterAccList().slice(startIndex, endIndex);
+        return self.filterAccList().slice(startIndex, endIndex);
     });
 
     self.nextPageAcc = function () {
@@ -503,8 +503,8 @@
     $('#modal-Acc').on('shown.bs.modal', function () {
 
         dispBands = $("#DispBands").val();
-        dispBands == 1 ? self.filterAcc3("1") : dispBands == 2 ? self.filterAcc3("2") :   self.filterAcc3("")
-       
+        dispBands == 1 ? self.filterAcc3("1") : dispBands == 2 ? self.filterAcc3("2") : self.filterAcc3("")
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -547,7 +547,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -688,6 +688,21 @@
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+        $("#TableBodyListMkz").empty();
+        for (var i = 0; i < counterMkz; i++) {
+            if (list_MkzSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
+                    return item.Code == list_MkzSelect[i];
+                });
+
+                $('#TableBodyListMkz').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -728,7 +743,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-   return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -868,6 +883,21 @@
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < counterOpr; i++) {
+            if (list_OprSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.OprList(), function (item) {
+                    return item.Code == list_OprSelect[i];
+                });
+
+                $('#TableBodyListOpr').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -909,7 +939,7 @@
             startIndex = pageSizeAMode * self.currentPageIndexAMode(),
             endIndex = startIndex + pageSizeAMode;
         localStorage.setItem('pageSizeAMode', pageSizeAMode);
-    return self.filterAModeList().slice(startIndex, endIndex);
+        return self.filterAModeList().slice(startIndex, endIndex);
     });
 
     self.nextPageAMode = function () {
@@ -1049,6 +1079,21 @@
     });
 
     $('#modal-AMode').on('shown.bs.modal', function () {
+        $("#TableBodyListAMode").empty();
+        for (var i = 0; i < counterAMode; i++) {
+            if (list_AModeSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.AModeList(), function (item) {
+                    return item.Code == list_AModeSelect[i];
+                });
+
+                $('#TableBodyListAMode').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_AModeSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1097,7 +1142,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-     return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -1231,6 +1276,20 @@
     });
 
     $('#modal-Status').on('shown.bs.modal', function () {
+        $("#TableBodyListStatus").empty();
+        for (var i = 0; i < counterStatus; i++) {
+            if (list_StatusSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.StatusList(), function (item) {
+                    return item.Status == list_StatusSelect[i];
+                });
+
+                $('#TableBodyListStatus').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Status">' + value.Status + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1475,7 +1534,7 @@
             startIndex = pageSizeDftr * self.currentPageIndexDftr(),
             endIndex = startIndex + pageSizeDftr;
         localStorage.setItem('pageSizeDftr', pageSizeDftr);
-   return self.filterDftrList().slice(startIndex, endIndex);
+        return self.filterDftrList().slice(startIndex, endIndex);
     });
 
     self.nextPageDftr = function () {
@@ -1706,7 +1765,7 @@
     if (AccCodeReport != "null") {
         self.AccCode(AccCodeReport);
         AccNameReport = localStorage.getItem("AccNameReport");
-        $('#nameAcc').val('(' + AccCodeReport + ' ) ' + AccNameReport);
+        $('#nameAcc').val('(' + AccCodeReport + ') ' + AccNameReport);
 
         azTarikh = localStorage.getItem("AzTarikhReport");
         self.AzDate(azTarikh);
@@ -1735,6 +1794,13 @@
 
 
 
+
+    //$("#ADOC").hide();
+
+    self.AccessAction = function () {
+        res = $("#ADOC").css("display") != "none"
+        return res;
+    }
 
 
     self.radif = function (index) {
@@ -1848,12 +1914,18 @@
             CreateTableTd('F18', 0, 0, data) +
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
-            '<td>' +
-            '    <a data-bind="click: $root.ShowAFISanad">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
-            '    </a >' +
-            '</td >' +
-            '        </tr>' +
+            ' <td>' +
+            ' <a data-bind="visible: $root.AccessAction()" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '    <a data-bind="click: $root.ShowAFISanad" style="font-size: 11px;">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
+            '    </a>' +
+            ' </td>' +
+            '</tr>' +
+
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
@@ -2260,7 +2332,7 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+
 };
 
 ko.applyBindings(new ViewModel());

@@ -1377,15 +1377,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
     self.currentPageKala = ko.observable();
     pageSizeKala = localStorage.getItem('pageSizeKala') == null ? 10 : localStorage.getItem('pageSizeKala');
     self.pageSizeKala = ko.observable(pageSizeKala);
@@ -1698,6 +1689,21 @@
     });
 
     $('#modal-Thvl').on('shown.bs.modal', function () {
+        $("#TableBodyListThvl").empty();
+        for (var i = 0; i < counterThvl; i++) {
+            if (list_ThvlSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.ThvlList(), function (item) {
+                    return item.Code == list_ThvlSelect[i];
+                });
+
+                $('#TableBodyListThvl').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_ThvlSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1878,6 +1884,21 @@
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+        $("#TableBodyListMkz").empty();
+        for (var i = 0; i < counterMkz; i++) {
+            if (list_MkzSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
+                    return item.Code == list_MkzSelect[i];
+                });
+
+                $('#TableBodyListMkz').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2057,6 +2078,21 @@
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < counterOpr; i++) {
+            if (list_OprSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.OprList(), function (item) {
+                    return item.Code == list_OprSelect[i];
+                });
+
+                $('#TableBodyListOpr').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2278,6 +2314,20 @@
     });
 
     $('#modal-Status').on('shown.bs.modal', function () {
+        $("#TableBodyListStatus").empty();
+        for (var i = 0; i < counterStatus; i++) {
+            if (list_StatusSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.StatusList(), function (item) {
+                    return item.Status == list_StatusSelect[i];
+                });
+
+                $('#TableBodyListStatus').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Status">' + value.Status + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2475,6 +2525,21 @@
     });
 
     $('#modal-IMode').on('shown.bs.modal', function () {
+        $("#TableBodyListIMode").empty();
+        for (var i = 0; i < counterIMode; i++) {
+            if (list_IModeSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.IModeList(), function (item) {
+                    return item.Code == list_IModeSelect[i];
+                });
+
+                $('#TableBodyListIMode').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_IModeSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2509,12 +2574,12 @@
         InvCodeReport = localStorage.getItem("InvCodeReport");
         InvNameReport = localStorage.getItem("InvNameReport");
         self.InvCode(InvCodeReport);
-        $('#nameInv').val('( ' + InvCodeReport + ' ) ' + InvNameReport);
+        $('#nameInv').val('(' + InvCodeReport + ') ' + InvNameReport);
 
         KalaCodeReport = localStorage.getItem("KalaCodeReport");
         KalaNameReport = localStorage.getItem("KalaNameReport");
         self.KalaCode(KalaCodeReport);
-        $('#nameKala').val('( ' + KalaCodeReport + ' ) ' + KalaNameReport);
+        $('#nameKala').val('(' + KalaCodeReport + ') ' + KalaNameReport);
 
 
         ThvlCode = localStorage.getItem("ThvlCodeReport");
@@ -2550,8 +2615,16 @@
 
     }
 
-
-
+    //$("#IDOC_I").hide();
+    //$("#IDOC_O").hide();
+    self.AccessAction = function (InOut) {
+        if (InOut == '1')
+            res = $("#IDOC_I").css("display") != "none"
+        else if (InOut == '2')
+            res = $("#IDOC_O").css("display") != "none"
+       
+        return res;
+    }
 
     self.radif = function (index) {
         countShow = self.pageSizeKrdx();
@@ -2774,12 +2847,18 @@
            CreateTableTd('Kalaf18', 0, 0, data) +
            CreateTableTd('Kalaf19', 0, 0, data) +
            CreateTableTd('Kalaf20', 0, 0, data) +*/
-            '<td>' +
-            '    <a data-bind="click: $root.ShowAFISanadAnbar">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            ' <td>' +
+            ' <a data-bind="visible: $root.AccessAction(InOut)" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '    <a data-bind="click: $root.ShowAFISanadAnbar" style="font-size: 11px;">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
             '    </a >' +
-            '</td >' +
-            '        </tr>' +
+            ' </td >' +
+            '</tr>' +
+
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +

@@ -2572,6 +2572,25 @@
     }
 
 
+  // $("#Krdx").hide();
+  // $("#IDocR").hide();
+    self.AccessAction = function (nameRprt) {
+        if (nameRprt == "Krdx")
+            res = $("#Krdx").css("display") != "none"
+        else if (nameRprt == "IDocR")
+            res = $("#IDocR").css("display") != "none"
+
+        return res;
+    }
+
+    self.AccessActionMenu = function () {
+        if ($("#Krdx").css("display") != "none" || $("#IDocR").css("display") != "none")
+            res = true;
+        else
+            res = false;
+        return res;
+    }
+
 
     self.radif = function (index) {
         countShow = self.pageSizeTrzI();
@@ -2646,18 +2665,18 @@
             CreateTableTd('MAmount3', 'KalaDeghat3', 1, data) +
             CreateTableTd('MTotalPrice', sessionStorage.Deghat, 2, data) +
             '<td>' +
-            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '<a data-bind="visible: $root.AccessActionMenu() == true" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowKrdx" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowKrdx , visible: $root.AccessAction(\'Krdx\') == true" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '           کاردکس' +
             '        </a>' +
             '    </li>' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowIDocR" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowIDocR , visible: $root.AccessAction(\'IDocR\') == true" style="font-size: 11px;text-align: right;">' +
             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '             ریز گردش اسناد انبارداری' +
             '        </a>' +

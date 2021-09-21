@@ -41,22 +41,27 @@
     var AccCode = '';
     var counterAcc = 0;
     var list_AccSelect = new Array();
+    var list_AccNameSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
     var list_MkzSelect = new Array();
+    var list_MkzNameSelect = new Array();
 
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+    var list_OprNameSelect = new Array();
 
     var AModeCode = '';
     var counterAMode = 0;
     var list_AModeSelect = new Array();
+    var list_AModeNameSelect = new Array();
 
     var StatusCode = '';
     var counterStatus = 0;
     var list_StatusSelect = new Array();
+    var list_StatusNameSelect = new Array();
 
 
 
@@ -541,6 +546,8 @@
             $('#nameAcc').val('همه موارد');
     });
 
+
+
     $('#modal-Acc').on('shown.bs.modal', function () {
 
         dispBands = $("#DispBands").val();
@@ -548,23 +555,17 @@
 
 
 
-
-
-
-
-        $("#TableSelectedAcc").empty();
-
+        $("#TableBodyListAcc").empty();
         for (var i = 0; i < counterAcc; i++) {
             if (list_AccSelect[i] != "") {
-
-                value = ko.utils.arrayFirst(self.AccList(), function (item) {
+                /*value = ko.utils.arrayFirst(self.AccList(), function (item) {
                     return item.Code == list_AccSelect[i];
-                });
+                });*/
 
-                $('#TableSelectedAcc').append(
+                $('#TableBodyListAcc').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_AccSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_AccNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -573,6 +574,21 @@
 
 
 
+        /* $("#TableBodyListAcc").empty();
+         for (var i = 0; i < counterAcc; i++) {
+             if (list_AccSelect[i] != "") {
+                 value = ko.utils.arrayFirst(self.AccList(), function (item) {
+                     return item.Code == list_AccSelect[i];
+                 });
+ 
+                 $('#TableBodyListAcc').append(
+                     '<tr data-bind="">'
+                     + ' <td data-bind="text: Code">' + list_AccSelect[i] + '</td > '
+                     + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                     + '</tr>'
+                 );
+             }
+         }*/
 
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -756,6 +772,23 @@
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+
+        $("#TableBodyListMkz").empty();
+        for (var i = 0; i < counterMkz; i++) {
+            if (list_MkzSelect[i] != "") {
+                /*value = ko.utils.arrayFirst(self.MkzList(), function (item) {
+                    return item.Code == list_MkzSelect[i];
+                });*/
+
+                $('#TableBodyListMkz').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_MkzNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -936,6 +969,22 @@
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < counterOpr; i++) {
+            if (list_OprSelect[i] != "") {
+                /*value = ko.utils.arrayFirst(self.OprList(), function (item) {
+                    return item.Code == list_OprSelect[i];
+                });*/
+
+                $('#TableBodyListOpr').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_OprNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1117,6 +1166,21 @@
     });
 
     $('#modal-AMode').on('shown.bs.modal', function () {
+        $("#TableBodyListAMode").empty();
+        for (var i = 0; i < counterAMode; i++) {
+            if (list_AModeSelect[i] != "") {
+                /*value = ko.utils.arrayFirst(self.AModeList(), function (item) {
+                    return item.Code == list_AModeSelect[i];
+                });*/
+
+                $('#TableBodyListAMode').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_AModeSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_AModeNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1299,6 +1363,20 @@
     });
 
     $('#modal-Status').on('shown.bs.modal', function () {
+        $("#TableBodyListStatus").empty();
+        for (var i = 0; i < counterStatus; i++) {
+            if (list_StatusSelect[i] != "") {
+               /* value = ko.utils.arrayFirst(self.StatusList(), function (item) {
+                    return item.Status == list_StatusSelect[i];
+                });*/
+
+                $('#TableBodyListStatus').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Status">' + value.Status + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1728,8 +1806,10 @@
     AccCodeReport = localStorage.getItem("AccCodeReport");
     localStorage.setItem("AccCodeReport", null);
     if (AccCodeReport != "null") {
+        AccNameReport = localStorage.getItem("AccNameReport");
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
+        list_AccNameSelect[0] = AccNameReport;
         $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
 
         azTarikh = localStorage.getItem("AzTarikhReport");
@@ -1739,26 +1819,53 @@
         self.TaDate(taTarikh);
 
         aModeCode = localStorage.getItem("AModeCodeReport");
-        list_AModeSelect = aModeCode.split("*");
-        counterAMode = list_AModeSelect.length;
-        list_AModeSelect[0] == "" ? $('#nameAMode').val('همه موارد') : $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+        if (aModeCode != "") {
+            aModeName = localStorage.getItem("AModeNameReport");
+            list_AModeSelect = aModeCode.split("*");
+            list_AModeNameSelect = aModeName.split("*");
+            counterAMode = list_AModeSelect.length;
+            $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameAMode').val('همه موارد');
+
 
 
         mkzCode = localStorage.getItem("MkzCodeReport");
-        list_MkzSelect = mkzCode.split("*");
-        counterMkz = list_MkzSelect.length;
-        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        if (mkzCode != "") {
+            mkzName = localStorage.getItem("MkzNameReport");
+            list_MkzSelect = mkzCode.split("*");
+            list_MkzNameSelect = mkzName.split("*");
+
+            counterMkz = list_MkzSelect.length;
+            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameMkz').val('همه موارد')
 
 
         oprCode = localStorage.getItem("OprCodeReport");
-        list_OprSelect = oprCode.split("*");
-        counterOpr = list_OprSelect.length;
-        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        if (oprCode != "") {
+            oprName = localStorage.getItem("OprNameReport");
+            list_OprSelect = oprCode.split("*");
+            list_OprNameSelect = oprName.split("*");
+
+            counterOpr = list_OprSelect.length;
+            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameOpr').val('همه موارد');
 
         getADocR();
     }
 
 
+    // $("#ADOC").hide();
+
+    self.AccessAction = function () {
+        res = $("#ADOC").css("display") != "none"
+        return res;
+    }
 
     self.radif = function (index) {
         countShow = self.pageSizeADocR();
@@ -1865,7 +1972,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             ' <td>' +
-            ' <a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            ' <a data-bind="visible: $root.AccessAction()" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             ' </a>' +
             ' <ul class="dropdown-menu">' +

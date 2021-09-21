@@ -2696,7 +2696,7 @@
                 return showNotification('شما به این پرونده دسترسی ندارید', 0);
             }
 
-            data.EditDocTrs == 0 ? $("#P_Action").hide() : $("#P_Action").show();
+            data.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true'  ? $("#P_Action").show() : $("#P_Action").hide();
 
             self.p_DocDate(data["DocDate"]);
             self.p_MhltDate(data["MhltDate"]);

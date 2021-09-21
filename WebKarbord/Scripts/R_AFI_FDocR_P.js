@@ -1227,6 +1227,21 @@
     });
 
     $('#modal-Inv').on('shown.bs.modal', function () {
+        $("#TableBodyListInv").empty();
+        for (var i = 0; i < counterInv; i++) {
+            if (list_InvSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.InvList(), function (item) {
+                    return item.Code == list_InvSelect[i];
+                });
+
+                $('#TableBodyListInv').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_InvSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1406,6 +1421,21 @@
     });
 
     $('#modal-KGru').on('shown.bs.modal', function () {
+        $("#TableBodyListKGru").empty();
+        for (var i = 0; i < counterKGru; i++) {
+            if (list_KGruSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.KGruList(), function (item) {
+                    return item.Code == list_KGruSelect[i];
+                });
+
+                $('#TableBodyListKGru').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_KGruSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1593,6 +1623,22 @@
     });
 
     $('#modal-kala').on('shown.bs.modal', function () {
+        $("#TableBodyListKala").empty();
+        for (var i = 0; i < counterKala; i++) {
+            if (list_KalaSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.KalaList(), function (item) {
+                    return item.Code == list_KalaSelect[i];
+                });
+
+                $('#TableBodyListKala').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_KalaSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: FanniNo">' + value.FanniNo + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1773,6 +1819,21 @@
     });
 
     $('#modal-Cust').on('shown.bs.modal', function () {
+        $("#TableBodyListCust").empty();
+        for (var i = 0; i < counterCust; i++) {
+            if (list_CustSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.CustList(), function (item) {
+                    return item.Code == list_CustSelect[i];
+                });
+
+                $('#TableBodyListCust').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_CustSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1952,6 +2013,21 @@
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < counterOpr; i++) {
+            if (list_OprSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.OprList(), function (item) {
+                    return item.Code == list_OprSelect[i];
+                });
+
+                $('#TableBodyListOpr').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2133,6 +2209,21 @@
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+        $("#TableBodyListMkz").empty();
+        for (var i = 0; i < counterMkz; i++) {
+            if (list_MkzSelect[i] != "") {
+                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
+                    return item.Code == list_MkzSelect[i];
+                });
+
+                $('#TableBodyListMkz').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -2206,14 +2297,41 @@
 
 
 
-    /*if (KalaCodeReport == "null" && CustCodeReport != "null") {
-        
-        counterCust = 1;
-        list_CustSelect[0] = CustCodeReport;
-        $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
-        getFDocR_P();
+   // $("#FDOC_SO").hide(); //  سفارش فروش
+    //$("#FDOC_SP").hide();//پیش فاکتور فروش
+   // $("#FDOC_S").hide();//فاکتور فروش
+    //$("#FDOC_SR").hide();//برگشت از فروش
+   // $("#FDOC_SH").hide();//حواله فروش
+   // $("#FDOC_SE").hide();//برگه خروج
+   // $("#FDOC_PO").hide();//سفارش خرید
+   // $("#FDOC_PP").hide();//پیش فاکتور خرید
+   // $("#FDOC_P").hide();//فاکتور خرید
+   // $("#FDOC_PR").hide(); //برگشت از خرید
+
+    self.AccessAction = function (ModeCode) {
+        if (ModeCode == 'SORD')
+            res = $("#FDOC_SO").css("display") != "none"
+        else if (ModeCode == 'SPFCT')
+            res = $("#FDOC_SP").css("display") != "none"
+        else if (ModeCode == 'SFCT')
+            res = $("#FDOC_S").css("display") != "none"
+        else if (ModeCode == 'SRFCT')
+            res = $("#FDOC_SR").css("display") != "none"
+        else if (ModeCode == 'SHVL')
+            res = $("#FDOC_SH").css("display") != "none"
+        else if (ModeCode == 'SEXT')
+            res = $("#FDOC_SE").css("display") != "none"
+        else if (ModeCode == 'PORD')
+            res = $("#FDOC_PO").css("display") != "none"
+        else if (ModeCode == 'PPFCT')
+            res = $("#FDOC_PP").css("display") != "none"
+        else if (ModeCode == 'PFCT')
+            res = $("#FDOC_P").css("display") != "none"
+        else if (ModeCode == 'PRFCT')
+            res = $("#FDOC_PR").css("display") != "none"
+        return res;
     }
-    */
+
 
     self.radif = function (index) {
         countShow = self.pageSizeFDocR_P();
@@ -2372,12 +2490,17 @@
             CreateTableTd('F18', 0, 0, data) +
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
-            '<td>' +
-            '    <a data-bind="click: $root.ShowAFIFactor">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' +
+            ' <td>' +
+            ' <a data-bind="visible: $root.AccessAction(ModeCode)" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            '    <span class="caret"></span>' +
+            ' </a>' +
+            ' <ul class="dropdown-menu">' +
+            '    <li>' +
+            '    <a data-bind="click: $root.ShowAFIFactor" style="font-size: 11px;">' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش فاکتور' +
             '    </a >' +
-            '</td >' +
-            '        </tr>' +
+            ' </td >' +
+            '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +

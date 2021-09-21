@@ -44,18 +44,22 @@
     var AccCode = '';
     var counterAcc = 0;
     var list_AccSelect = new Array();
+    var list_AccNameSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
     var list_MkzSelect = new Array();
+    var list_MkzNameSelect = new Array();
 
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+    var list_OprNameSelect = new Array();
 
     var AModeCode = '';
     var counterAMode = 0;
     var list_AModeSelect = new Array();
+    var list_AModeNameSelect = new Array();
 
 
 
@@ -193,9 +197,13 @@
     var sath;
     var level;
     var accCode;
+    var accName;
     var aModeCode;
+    var aModeName;
     var mkzcode;
+    var mkzname;
     var oprcode;
+    var oprname;
 
     function SetFilter() {
         azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
@@ -206,36 +214,52 @@
 
         accCode = '';
         for (var i = 0; i <= counterAcc - 1; i++) {
-            if (i < counterAcc - 1)
+            if (i < counterAcc - 1) {
                 accCode += list_AccSelect[i] + '*';
-            else
+                accName += list_AccNameSelect[i] + '*';
+            }
+            else {
                 accCode += list_AccSelect[i];
+                accName += list_AccNameSelect[i];
+            }
         }
 
 
         aModeCode = '';
         for (var i = 0; i <= counterAMode - 1; i++) {
-            if (i < counterAMode - 1)
+            if (i < counterAMode - 1) {
                 aModeCode += list_AModeSelect[i] + '*';
-            else
+                aModeName += list_AModeNameSelect[i] + '*';
+            }
+            else {
                 aModeCode += list_AModeSelect[i];
+                aModeName += list_AModeNameSelect[i];
+            }
         }
 
 
         mkzcode = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
-            if (i < counterMkz - 1)
+            if (i < counterMkz - 1) {
                 mkzcode += list_MkzSelect[i] + '*';
-            else
+                mkzname += list_MkzNameSelect[i] + '*';
+            }
+            else {
                 mkzcode += list_MkzSelect[i];
+                mkzname += list_MkzNameSelect[i];
+            }
         }
 
         oprcode = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
-            if (i < counterOpr - 1)
+            if (i < counterOpr - 1) {
                 oprcode += list_OprSelect[i] + '*';
-            else
+                oprname += list_OprNameSelect[i] + '*';
+            }
+            else {
                 oprcode += list_OprSelect[i];
+                oprname += list_OprNameSelect[i];
+            }
         }
     }
 
@@ -633,6 +657,7 @@
                 + '</tr>'
             );
             list_AccSelect[counterAcc] = item.Code;
+            list_AccNameSelect[counterAcc] = item.Name;
             counterAcc = counterAcc + 1;
         }
     };
@@ -640,6 +665,7 @@
 
     self.AddAllAcc = function () {
         list_AccSelect = new Array();
+        list_AccNameSelect = new Array();
         list = self.filterAccList();
         $("#TableBodyListAcc").empty();
         for (var i = 0; i < list.length; i++) {
@@ -650,6 +676,7 @@
                 + '</tr>'
             );
             list_AccSelect[i] = list[i].Code;
+            list_AccNameSelect[i] = list[i].Name;
             counterAcc = i + 1;
         }
     };
@@ -820,6 +847,7 @@
                 + '</tr>'
             );
             list_MkzSelect[counterMkz] = item.Code;
+            list_MkzNameSelect[counterMkz] = item.Name;
             counterMkz = counterMkz + 1;
         }
     };
@@ -827,6 +855,7 @@
 
     self.AddAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         list = self.MkzList();
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < list.length; i++) {
@@ -837,6 +866,7 @@
                 + '</tr>'
             );
             list_MkzSelect[i] = list[i].Code;
+            list_MkzNameSelect[i] = list[i].Name;
             counterMkz = i + 1;
         }
     };
@@ -844,6 +874,7 @@
 
     self.DelAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         counterMkz = 0;
         $("#TableBodyListMkz").empty();
     };
@@ -999,6 +1030,7 @@
                 + '</tr>'
             );
             list_OprSelect[counterOpr] = item.Code;
+            list_OprNameSelect[counterOpr] = item.Name;
             counterOpr = counterOpr + 1;
         }
     };
@@ -1006,6 +1038,7 @@
 
     self.AddAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         list = self.OprList();
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1016,6 +1049,7 @@
                 + '</tr>'
             );
             list_OprSelect[i] = list[i].Code;
+            list_OprNameSelect[i] = list[i].Name;
             counterOpr = i + 1;
         }
     };
@@ -1023,6 +1057,7 @@
 
     self.DelAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         counterOpr = 0;
         $("#TableBodyListOpr").empty();
     };
@@ -1185,6 +1220,7 @@
                 + '</tr>'
             );
             list_AModeSelect[counterAMode] = item.Code;
+            list_AModeNameSelect[counterAMode] = item.Name;
             counterAMode = counterAMode + 1;
         }
     };
@@ -1192,6 +1228,7 @@
 
     self.AddAllAMode = function () {
         list_AModeSelect = new Array();
+        list_AModeNameSelect = new Array();
         list = self.AModeList();
         $("#TableBodyListAMode").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1202,6 +1239,7 @@
                 + '</tr>'
             );
             list_AModeSelect[i] = list[i].Code;
+            list_AModeNameSelect[i] = list[i].Name;
             counterAMode = i + 1;
         }
     };
@@ -1209,6 +1247,7 @@
 
     self.DelAllAMode = function () {
         list_AModeSelect = new Array();
+        list_AModeNameSelect = new Array();
         counterAMode = 0;
         $("#TableBodyListAMode").empty();
     };
@@ -1235,8 +1274,11 @@
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
         localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
         localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
         localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
         localStorage.setItem("LevelReport", level);
         localStorage.setItem("SathReport", sath);
         window.open(sessionStorage.urlTrzAcc, '_blank');
@@ -1249,8 +1291,11 @@
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
         localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
         localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
         localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
         window.open(sessionStorage.urlDftr, '_blank');
     }
 
@@ -1259,9 +1304,13 @@
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
         localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("AccNameReport", Band.AccName);
         localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
         localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
         localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
         window.open(sessionStorage.urlADocR, '_blank');
     }
 
@@ -1320,6 +1369,18 @@
     }
 
 
+    self.AccessAction = function (nameRprt) {
+        if (nameRprt == "ADocR")
+            res = $("#ADocR").css("display") != "none"
+        else if (nameRprt == "Dftr")
+            res = $("#Dftr").css("display") != "none"
+
+        return res;
+    }
+
+    //$("#ADocR").hide();
+    //$("#Dftr").hide();
+
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
@@ -1364,7 +1425,7 @@
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowADocR" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '            دفتر روزنامه' +
             '        </a>' +
@@ -1376,7 +1437,7 @@
             '        </a>' +
             '    </li>' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowDftr" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '            دفتر حساب ' +
             '        </a>' +
