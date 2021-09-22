@@ -230,6 +230,12 @@
                         </a>
                     </li>
 
+                    <li class="dropdown pull-left" id="P_AccessRefresh">
+                        <a id="AccessRefresh">
+                            <img src="~/Content/img/account-convert.png" width="20" height="20" style="margin-top: 3px;" />
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -464,11 +470,11 @@
                             <a class="useBlank" target="_blank" href=@Url.Action("FDocR_P","ReportAFI")>ريز گردش اسناد خرید</a>
                         </li>
                         <!--<li id="FDocR_S">@Html.ActionLink("ريز گردش اسناد فروش", "FDocR_S", "ReportAFI")</li>
-    <li id="FDocR_P">@Html.ActionLink("ريز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
-    <li id="TrzFKala_S">@Html.ActionLink("تراز فروش کالاها", "TrzFKala_S", "ReportAFI")</li>
-    <li id="TrzFKala_P">@Html.ActionLink("تراز خرید کالاها", "TrzFKala_P", "ReportAFI")</li>
-    <li id="TrzFCust_S">@Html.ActionLink("تراز فروش به خریداران", "TrzFCust_S", "ReportAFI")</li>
-    <li id="TrzFCust_P">@Html.ActionLink("تراز خرید از فروشندگان", "TrzFCust_P", "ReportAFI")</li>-->
+                        <li id="FDocR_P">@Html.ActionLink("ريز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
+                        <li id="TrzFKala_S">@Html.ActionLink("تراز فروش کالاها", "TrzFKala_S", "ReportAFI")</li>
+                        <li id="TrzFKala_P">@Html.ActionLink("تراز خرید کالاها", "TrzFKala_P", "ReportAFI")</li>
+                        <li id="TrzFCust_S">@Html.ActionLink("تراز فروش به خریداران", "TrzFCust_S", "ReportAFI")</li>
+                        <li id="TrzFCust_P">@Html.ActionLink("تراز خرید از فروشندگان", "TrzFCust_P", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -957,6 +963,24 @@
 
 
 
+    <script type="text/javascript">
+        sessionStorage.versionTitle = '@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)';
+
+        sessionStorage.urlAFISanadIndex = '@Url.Action("Index", "AFISanad")';
+        sessionStorage.urlAFIFactorIndex = '@Url.Action("Index", "AFIFactor")';
+        sessionStorage.urlAFISanadAnbarIndex = '@Url.Action("Index", "AFISanadAnbar")';
+        sessionStorage.urlErjaIndex = '@Url.Action("Index", "ERJ")';
+
+        sessionStorage.urlTrzAcc = '@Url.Action("TrzAcc", "ReportAFI")';
+        sessionStorage.urlDftr = '@Url.Action("Dftr", "ReportAFI")';
+        sessionStorage.urlADocR = '@Url.Action("ADocR", "ReportAFI")';
+
+        sessionStorage.urlFDocR_S = '@Url.Action("FDocR_S","ReportAFI")';
+        sessionStorage.urlFDocR_P = '@Url.Action("FDocR_P","ReportAFI")';
+
+        sessionStorage.urlKrdx = '@Url.Action("Krdx", "ReportAFI")';
+        sessionStorage.urlIDocR = '@Url.Action("IDocR", "ReportAFI")';
+    </script>
 
 
     <script src="~/Content/new/js/app.min.js"></script>
@@ -976,22 +1000,6 @@
     <script src="~/Content/new/js/farsiInput.js"></script>
 
 
-    <script type="text/javascript">
-        sessionStorage.urlAFISanadIndex = '@Url.Action("Index", "AFISanad")';
-        sessionStorage.urlAFIFactorIndex = '@Url.Action("Index", "AFIFactor")';
-        sessionStorage.urlAFISanadAnbarIndex = '@Url.Action("Index", "AFISanadAnbar")';
-        sessionStorage.urlErjaIndex = '@Url.Action("Index", "ERJ")';
-
-        sessionStorage.urlTrzAcc = '@Url.Action("TrzAcc", "ReportAFI")';
-        sessionStorage.urlDftr = '@Url.Action("Dftr", "ReportAFI")';
-        sessionStorage.urlADocR = '@Url.Action("ADocR", "ReportAFI")';
-
-        sessionStorage.urlFDocR_S = '@Url.Action("FDocR_S","ReportAFI")';
-        sessionStorage.urlFDocR_P = '@Url.Action("FDocR_P","ReportAFI")';
-
-        sessionStorage.urlKrdx = '@Url.Action("Krdx", "ReportAFI")';
-        sessionStorage.urlIDocR = '@Url.Action("IDocR", "ReportAFI")';
-    </script>
 
     <!--<script src="~/Content/new/js/require.js"></script>-->
     <!-- <script src="~/Scripts/SelectProgram.js"></script>-->

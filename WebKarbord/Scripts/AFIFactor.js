@@ -4427,7 +4427,14 @@
             if (flagupdateHeader == 1) {
                 sessionStorage.flagupdateHeader = 0;
                 flagupdateHeader = 0;
-                window.location.href = sessionStorage.urlFDocH;
+
+                if (sessionStorage.IsReport == "true") {
+                    sessionStorage.IsReport = "false";
+                    close();
+                }
+                else {
+                    window.location.href = sessionStorage.urlFDocH;
+                }
             }
             else {
                 showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);

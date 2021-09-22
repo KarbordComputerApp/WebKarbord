@@ -18,7 +18,7 @@
     }
 
 
-    if (sessionStorage.ModeCode == null  || ShowNewTab != "ShowNewTab") {
+    if (sessionStorage.ModeCode == null ||  ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.moveSanadAnbar = localStorage.getItem("moveSanadAnbar");
@@ -28,8 +28,10 @@
 
         if (sessionStorage.InOut == 1) {
             validation = CheckAccess('NEW_IIDOC');// new varedae anbar
+            sessionStorage.newSanadAnbar = validation;
             validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
             validation == true ? sessionStorage.NEW_IIDOC = true : sessionStorage.NEW_IIDOC = false;
+
 
             sessionStorage.moveSanadAnbar = validation;
             localStorage.setItem("moveSanadAnbar", validation);
@@ -138,6 +140,14 @@
         }
 
     }
+
+   
+    if (sessionStorage.InOut == 1)
+        sessionStorage.NEW_IIDOC == "true" ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide();
+    else
+        sessionStorage.NEW_IODOC == "true" ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide();
+
+    
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.IModeAllList = ko.observableArray([]); // لیست نوع اسناد انبار
@@ -1443,8 +1453,8 @@
     if (DocNoReport != "null") {
         invCode = localStorage.getItem("InvCodeAFISanadAnbar");
         modeCode = localStorage.getItem("ModeCodeAFISanadAnbar");
-
         ShowDataUpdate(DocNoReport, invCode, modeCode);
+        sessionStorage.IsReport = "true";
         localStorage.setItem("DocNoAFISanadAnbar",null)
     }
 

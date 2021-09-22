@@ -10,6 +10,7 @@
     self.DatabseSalList = ko.observableArray([]); // دیتابیس های سال
 
     $('#information').hide();
+    //$("#P_AccessRefresh").hide();
 
     if (sessionStorage.userName != 'ACE') {
         $('#show_RepairDatabaseConfig').hide();

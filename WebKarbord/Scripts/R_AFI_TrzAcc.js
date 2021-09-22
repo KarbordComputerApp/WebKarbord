@@ -213,6 +213,7 @@
         level = $("#Level").val();
 
         accCode = '';
+        accName = '';
         for (var i = 0; i <= counterAcc - 1; i++) {
             if (i < counterAcc - 1) {
                 accCode += list_AccSelect[i] + '*';
@@ -226,6 +227,7 @@
 
 
         aModeCode = '';
+        aModeName = '';
         for (var i = 0; i <= counterAMode - 1; i++) {
             if (i < counterAMode - 1) {
                 aModeCode += list_AModeSelect[i] + '*';
@@ -239,6 +241,7 @@
 
 
         mkzcode = '';
+        mkzname = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
             if (i < counterMkz - 1) {
                 mkzcode += list_MkzSelect[i] + '*';
@@ -251,6 +254,7 @@
         }
 
         oprcode = '';
+        oprname = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
             if (i < counterOpr - 1) {
                 oprcode += list_OprSelect[i] + '*';
@@ -701,6 +705,17 @@
         level = $("#Level").val();
         level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
 
+        $("#TableBodyListAcc").empty();
+        for (var i = 0; i < counterAcc; i++) {
+            if (list_AccSelect[i] != "") {
+                $('#TableBodyListAcc').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_AccSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_AccNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
 
         $('.fix').attr('class', 'form-line focused fix');
     });
@@ -887,7 +902,18 @@
             $('#nameMkz').val('همه موارد');
     });
 
-    $('#modal-Mkz').on('shown.bs.modal', function () {
+    $('#modal-Mkz').on('shown.bs.modal', function() {
+        $("#TableBodyListMkz").empty();
+        for (var i = 0; i < counterMkz; i++) {
+            if (list_MkzSelect[i] != "") {
+                $('#TableBodyListMkz').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_MkzNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1071,6 +1097,17 @@
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
+        $("#TableBodyListOpr").empty();
+        for (var i = 0; i < counterOpr; i++) {
+            if (list_OprSelect[i] != "") {
+                $('#TableBodyListOpr').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_OprNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1260,7 +1297,19 @@
             $('#nameAMode').val('همه موارد');
     });
 
-    $('#modal-AMode').on('shown.bs.modal', function () {
+    $('#modal-AMode').on('shown.bs.modal', function() {
+        $("#TableBodyListAMode").empty();
+        for (var i = 0; i < counterAMode; i++) {
+            if (list_AModeSelect[i] != "") {
+                $('#TableBodyListAMode').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + list_AModeSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_AModeNameSelect[i] + '</td > '
+                    + '</tr>'
+                );
+            }
+        }
+
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -1320,9 +1369,15 @@
     AccCodeReport = localStorage.getItem("AccCodeReport");
     localStorage.setItem("AccCodeReport", null);
     if (AccCodeReport != "null") {
+
+        AccNameReport = localStorage.getItem("AccNameReport");
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
+        list_AccNameSelect[0] = AccNameReport;
         $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
+
+
+
         old_LevelReport = parseInt(localStorage.getItem("LevelReport"));
         $("#Level").val(old_LevelReport + 1);
 
@@ -1334,24 +1389,41 @@
         self.TaDate(taTarikh);
 
         aModeCode = localStorage.getItem("AModeCodeReport");
-        list_AModeSelect = aModeCode.split("*");
-        counterAMode = list_AModeSelect.length;
-        list_AModeSelect[0] == "" ? $('#nameAMode').val('همه موارد') : $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+        if (aModeCode != "") {
+            aModeName = localStorage.getItem("AModeNameReport");
+            list_AModeSelect = aModeCode.split("*");
+            list_AModeNameSelect = aModeName.split("*");
+            counterAMode = list_AModeSelect.length;
+            $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameAMode').val('همه موارد');
 
 
         mkzCode = localStorage.getItem("MkzCodeReport");
-        list_MkzSelect = mkzCode.split("*");
-        counterMkz = list_MkzSelect.length;
-        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        if (mkzCode != "") {
+            mkzName = localStorage.getItem("MkzNameReport");
+            list_MkzSelect = mkzCode.split("*");
+            list_MkzNameSelect = mkzName.split("*");
+
+            counterMkz = list_MkzSelect.length;
+            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameMkz').val('همه موارد')
 
 
         oprCode = localStorage.getItem("OprCodeReport");
-        list_OprSelect = oprCode.split("*");
-        counterOpr = list_OprSelect.length;
-        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        if (oprCode != "") {
+            oprName = localStorage.getItem("OprNameReport");
+            list_OprSelect = oprCode.split("*");
+            list_OprNameSelect = oprName.split("*");
 
-        //sath = localStorage.getItem("SathReport");
-        //$('#SathTaraz').val(sath); 
+            counterOpr = list_OprSelect.length;
+            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameOpr').val('همه موارد');
 
         getTrzAcc();
     }

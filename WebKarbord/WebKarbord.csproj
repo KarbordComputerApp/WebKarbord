@@ -185,6 +185,7 @@
     <Content Include="Content\css\rtl.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\account-convert.png" />
     <Content Include="Content\img\barcode reader.png" />
     <Content Include="Content\img\barcode.png" />
     <Content Include="Content\img\email.png" />

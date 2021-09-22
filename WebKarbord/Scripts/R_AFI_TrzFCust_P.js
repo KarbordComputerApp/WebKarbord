@@ -56,30 +56,37 @@
     var KalaCode = '';
     var counterKala = 0;
     var list_KalaSelect = new Array();
+    var list_KalaNameSelect = new Array();
 
     var InvCode = '';
     var counterInv = 0;
     var list_InvSelect = new Array();
+    var list_InvNameSelect = new Array();
 
     var KGruCode = '';
     var counterKGru = 0;
     var list_KGruSelect = new Array();
+    var list_KGruNameSelect = new Array();
 
     var CustCode = '';
     var counterCust = 0;
     var list_CustSelect = new Array();
+    var list_CustNameSelect = new Array();
 
     var CGruCode = '';
     var counterCGru = 0;
     var list_CGruSelect = new Array();
+    var list_CGruNameSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
     var list_MkzSelect = new Array();
+    var list_MkzNameSelect = new Array();
 
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+    var list_OprNameSelect = new Array();
 
 
 
@@ -370,12 +377,19 @@
     var modeCode2;
     var statusCode;
     var invcode;
+    var invname;
     var kalacode;
+    var kalaname;
     var kGrucode;
+    var kGruname;
     var Custcode;
+    var Custname;
     var CGrucode;
+    var CGruname;
     var mkzcode;
+    var mkzname;
     var oprcode;
+    var oprname;
 
 
     function SetFilter() {
@@ -402,59 +416,94 @@
         }
 
         invcode = '';
+        invname = '';
         for (var i = 0; i <= counterInv - 1; i++) {
-            if (i < counterInv - 1)
+            if (i < counterInv - 1) {
                 invcode += list_InvSelect[i] + '*';
-            else
+                invname += list_InvNameSelect[i] + '*';
+            }
+            else {
                 invcode += list_InvSelect[i];
+                invname += list_InvNameSelect[i];
+            }
         }
 
         kGrucode = '';
+        kGruname = '';
         for (var i = 0; i <= counterKGru - 1; i++) {
-            if (i < counterKGru - 1)
+            if (i < counterKGru - 1) {
                 kGrucode += list_KGruSelect[i] + '*';
-            else
+                kGruname += list_KGruNameSelect[i] + '*';
+            }
+            else {
                 kGrucode += list_KGruSelect[i];
+                kGruname += list_KGruNameSelect[i];
+            }
         }
 
         kalacode = '';
+        kalaname = '';
         for (var i = 0; i <= counterKala - 1; i++) {
-            if (i < counterKala - 1)
+            if (i < counterKala - 1) {
                 kalacode += list_KalaSelect[i] + '*';
-            else
+                kalaname += list_KalaNameSelect[i] + '*';
+            }
+            else {
                 kalacode += list_KalaSelect[i];
+                kalaname += list_KalaNameSelect[i];
+            }
         }
 
         Custcode = '';
+        Custname = '';
         for (var i = 0; i <= counterCust - 1; i++) {
-            if (i < counterCust - 1)
+            if (i < counterCust - 1) {
                 Custcode += list_CustSelect[i] + '*';
-            else
+                Custname += list_CustNameSelect[i] + '*';
+            }
+            else {
                 Custcode += list_CustSelect[i];
+                Custname += list_CustNameSelect[i];
+            }
         }
 
         CGrucode = '';
+        CGruname = '';
         for (var i = 0; i <= counterCGru - 1; i++) {
-            if (i < counterCGru - 1)
+            if (i < counterCGru - 1) {
                 CGrucode += list_CGruSelect[i] + '*';
-            else
+                CGruname += list_CGruNameSelect[i] + '*';
+            }
+            else {
                 CGrucode += list_CGruSelect[i];
+                CGruname += list_CGruNameSelect[i];
+            }
         }
 
         mkzcode = '';
+        mkzname = '';
         for (var i = 0; i <= counterMkz - 1; i++) {
-            if (i < counterMkz - 1)
+            if (i < counterMkz - 1) {
                 mkzcode += list_MkzSelect[i] + '*';
-            else
+                mkzname += list_MkzNameSelect[i] + '*';
+            }
+            else {
                 mkzcode += list_MkzSelect[i];
+                mkzname += list_MkzNameSelect[i];
+            }
         }
 
         oprcode = '';
+        oprname = '';
         for (var i = 0; i <= counterOpr - 1; i++) {
-            if (i < counterOpr - 1)
+            if (i < counterOpr - 1) {
                 oprcode += list_OprSelect[i] + '*';
-            else
+                oprname += list_OprNameSelect[i] + '*';
+            }
+            else {
                 oprcode += list_OprSelect[i];
+                oprname += list_OprNameSelect[i];
+            }
         }
 
     }
@@ -1068,7 +1117,6 @@
 
 
     self.AddStatus = function (item) {
-
         StatusCode = item.Code;
         find = false;
         list_StatusSelect.forEach(function (item, key) {
@@ -1261,6 +1309,7 @@
                 + '</tr>'
             );
             list_InvSelect[counterInv] = item.Code;
+            list_InvNameSelect[counterInv] = item.Name;
             counterInv = counterInv + 1;
         }
     };
@@ -1268,6 +1317,7 @@
 
     self.AddAllInv = function () {
         list_InvSelect = new Array();
+        list_InvNameSelect = new Array();
         list = self.InvList();
         $("#TableBodyListInv").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1278,6 +1328,7 @@
                 + '</tr>'
             );
             list_InvSelect[i] = list[i].Code;
+            list_InvNameSelect[i] = list[i].Name;
             counterInv = i + 1;
         }
     };
@@ -1285,6 +1336,7 @@
 
     self.DelAllInv = function () {
         list_InvSelect = new Array();
+        list_InvNameSelect = new Array();
         counterInv = 0;
         $("#TableBodyListInv").empty();
     };
@@ -1440,6 +1492,7 @@
                 + '</tr>'
             );
             list_KGruSelect[counterKGru] = item.Code;
+            list_KGruNameSelect[counterKGru] = item.Name;
             counterKGru = counterKGru + 1;
         }
     };
@@ -1447,6 +1500,7 @@
 
     self.AddAllKGru = function () {
         list_KGruSelect = new Array();
+        list_KGruNameSelect = new Array();
         list = self.KGruList();
         $("#TableBodyListKGru").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1457,6 +1511,7 @@
                 + '</tr>'
             );
             list_KGruSelect[i] = list[i].Code;
+            list_KGruNameSelect[i] = list[i].Name;
             counterKGru = i + 1;
         }
     };
@@ -1464,6 +1519,7 @@
 
     self.DelAllKGru = function () {
         list_KGruSelect = new Array();
+        list_KGruNameSelect = new Array();
         counterKGru = 0;
         $("#TableBodyListKGru").empty();
     };
@@ -1622,10 +1678,11 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
-                + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
+              //  + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[counterKala] = item.Code;
+            list_KalaNameSelect[counterKala] = item.Name;
             counterKala = counterKala + 1;
         }
     };
@@ -1633,6 +1690,7 @@
 
     self.AddAllKala = function () {
         list_KalaSelect = new Array();
+        list_KalaNameSelect = new Array();
         list = self.KalaList();
         $("#TableBodyListKala").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1640,10 +1698,11 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
+              //  + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[i] = list[i].Code;
+            list_KalaNameSelect[i] = list[i].Name;
             counterKala = i + 1;
         }
     };
@@ -1651,6 +1710,7 @@
 
     self.DelAllKala = function () {
         list_KalaSelect = new Array();
+        list_KalaNameSelect = new Array();
         counterKala = 0;
         $("#TableBodyListKala").empty();
     };
@@ -1808,6 +1868,7 @@
                 + '</tr>'
             );
             list_CGruSelect[counterCGru] = item.Code;
+            list_CGruNameSelect[counterCGru] = item.Name;
             counterCGru = counterCGru + 1;
         }
     };
@@ -1815,6 +1876,7 @@
 
     self.AddAllCGru = function () {
         list_CGruSelect = new Array();
+        list_CGruNameSelect = new Array();
         list = self.CGruList();
         $("#TableBodyListCGru").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1825,6 +1887,7 @@
                 + '</tr>'
             );
             list_CGruSelect[i] = list[i].Code;
+            list_CGruNameSelect[i] = list[i].Name;
             counterCGru = i + 1;
         }
     };
@@ -1832,6 +1895,7 @@
 
     self.DelAllCGru = function () {
         list_CGruSelect = new Array();
+        list_CGruNameSelect = new Array();
         counterCGru = 0;
         $("#TableBodyListCGru").empty();
     };
@@ -1988,6 +2052,7 @@
                 + '</tr>'
             );
             list_CustSelect[counterCust] = item.Code;
+            list_CustNameSelect[counterCust] = item.Name;
             counterCust = counterCust + 1;
         }
     };
@@ -1995,6 +2060,7 @@
 
     self.AddAllCust = function () {
         list_CustSelect = new Array();
+        list_CustNameSelect = new Array();
         list = self.CustList();
         $("#TableBodyListCust").empty();
         for (var i = 0; i < list.length; i++) {
@@ -2005,6 +2071,7 @@
                 + '</tr>'
             );
             list_CustSelect[i] = list[i].Code;
+            list_CustNameSelect[i] = list[i].Name;
             counterCust = i + 1;
         }
     };
@@ -2012,6 +2079,7 @@
 
     self.DelAllCust = function () {
         list_CustSelect = new Array();
+        list_CustNameSelect = new Array();
         counterCust = 0;
         $("#TableBodyListCust").empty();
     };
@@ -2167,6 +2235,7 @@
                 + '</tr>'
             );
             list_OprSelect[counterOpr] = item.Code;
+            list_OprNameSelect[counterOpr] = item.Name;
             counterOpr = counterOpr + 1;
         }
     };
@@ -2174,6 +2243,7 @@
 
     self.AddAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         list = self.OprList();
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < list.length; i++) {
@@ -2184,6 +2254,7 @@
                 + '</tr>'
             );
             list_OprSelect[i] = list[i].Code;
+            list_OprNameSelect[i] = list[i].Name;
             counterOpr = i + 1;
         }
     };
@@ -2191,6 +2262,7 @@
 
     self.DelAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         counterOpr = 0;
         $("#TableBodyListOpr").empty();
     };
@@ -2331,7 +2403,6 @@
 
 
     self.AddMkz = function (item) {
-
         MkzCode = item.Code;
         find = false;
         list_MkzSelect.forEach(function (item, key) {
@@ -2348,6 +2419,7 @@
                 + '</tr>'
             );
             list_MkzSelect[counterMkz] = item.Code;
+            list_MkzNameSelect[counterMkz] = item.Name;
             counterMkz = counterMkz + 1;
         }
     };
@@ -2355,6 +2427,7 @@
 
     self.AddAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         list = self.MkzList();
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < list.length; i++) {
@@ -2365,6 +2438,7 @@
                 + '</tr>'
             );
             list_MkzSelect[i] = list[i].Code;
+            list_MkzNameSelect[i] = list[i].Name;
             counterMkz = i + 1;
         }
     };
@@ -2372,6 +2446,7 @@
 
     self.DelAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         counterMkz = 0;
         $("#TableBodyListMkz").empty();
     };
@@ -2405,12 +2480,17 @@
         localStorage.setItem("ModeCode1Report", modeCode1);
         localStorage.setItem("ModeCode2Report", modeCode2);
         localStorage.setItem("InvCodeReport", invcode);
+        localStorage.setItem("InvNameReport", invname);
         localStorage.setItem("KalaCodeReport", kalacode);
+        localStorage.setItem("KalaNameReport", kalaname);
         localStorage.setItem("KGruCodeReport", kGrucode);
+        localStorage.setItem("KGruNameReport", kGruname);
         localStorage.setItem("CustCodeReport", Band.CustCode);
+        localStorage.setItem("CustNameReport", Band.CustName);
         localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
         localStorage.setItem("OprCodeReport", oprcode);
-
+        localStorage.setItem("OprNameReport", oprname);
         window.open(sessionStorage.urlFDocR_P, '_blank');
     }
 

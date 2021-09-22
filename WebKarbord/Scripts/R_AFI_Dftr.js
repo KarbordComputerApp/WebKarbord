@@ -41,14 +41,17 @@
     var MkzCode = '';
     var counterMkz = 0;
     var list_MkzSelect = new Array();
+    var list_MkzNameSelect = new Array();
 
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+    var list_OprNameSelect = new Array();
 
     var AModeCode = '';
     var counterAMode = 0;
     var list_AModeSelect = new Array();
+    var list_AModeNameSelect = new Array();
 
     var StatusCode = '';
     var counterStatus = 0;
@@ -501,10 +504,8 @@
 
 
     $('#modal-Acc').on('shown.bs.modal', function () {
-
         dispBands = $("#DispBands").val();
         dispBands == 1 ? self.filterAcc3("1") : dispBands == 2 ? self.filterAcc3("2") : self.filterAcc3("")
-
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -651,6 +652,7 @@
                 + '</tr>'
             );
             list_MkzSelect[counterMkz] = item.Code;
+            list_MkzNameSelect[counterMkz] = item.Name;
             counterMkz = counterMkz + 1;
         }
     };
@@ -658,6 +660,7 @@
 
     self.AddAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         list = self.MkzList();
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < list.length; i++) {
@@ -668,6 +671,7 @@
                 + '</tr>'
             );
             list_MkzSelect[i] = list[i].Code;
+            list_MkzNameSelect[i] = list[i].Name;
             counterMkz = i + 1;
         }
     };
@@ -675,6 +679,7 @@
 
     self.DelAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         counterMkz = 0;
         $("#TableBodyListMkz").empty();
     };
@@ -690,17 +695,16 @@
     $('#modal-Mkz').on('shown.bs.modal', function () {
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < counterMkz; i++) {
-            if (list_MkzSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
-                    return item.Code == list_MkzSelect[i];
-                });
-
-                $('#TableBodyListMkz').append(
-                    '<tr data-bind="">'
-                    + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
-                    + '</tr>'
-                );
+            $("#TableBodyListMkz").empty();
+            for (var i = 0; i < counterMkz; i++) {
+                if (list_MkzSelect[i] != "") {
+                    $('#TableBodyListMkz').append(
+                        '<tr data-bind="">'
+                        + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
+                        + ' <td data-bind="text: Name">' + list_MkzNameSelect[i] + '</td > '
+                        + '</tr>'
+                    );
+                }
             }
         }
         $('.fix').attr('class', 'form-line focused fix');
@@ -846,6 +850,7 @@
                 + '</tr>'
             );
             list_OprSelect[counterOpr] = item.Code;
+            list_OprNameSelect[counterOpr] = item.Name;
             counterOpr = counterOpr + 1;
         }
     };
@@ -853,6 +858,7 @@
 
     self.AddAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         list = self.OprList();
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < list.length; i++) {
@@ -863,6 +869,7 @@
                 + '</tr>'
             );
             list_OprSelect[i] = list[i].Code;
+            list_OprNameSelect[i] = list[i].Name;
             counterOpr = i + 1;
         }
     };
@@ -870,6 +877,7 @@
 
     self.DelAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         counterOpr = 0;
         $("#TableBodyListOpr").empty();
     };
@@ -886,14 +894,10 @@
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < counterOpr; i++) {
             if (list_OprSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.OprList(), function (item) {
-                    return item.Code == list_OprSelect[i];
-                });
-
                 $('#TableBodyListOpr').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_OprNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1042,6 +1046,7 @@
                 + '</tr>'
             );
             list_AModeSelect[counterAMode] = item.Code;
+            list_AModeNameSelect[counterAMode] = item.Name;
             counterAMode = counterAMode + 1;
         }
     };
@@ -1049,6 +1054,7 @@
 
     self.AddAllAMode = function () {
         list_AModeSelect = new Array();
+        list_AModeNameSelect = new Array();
         list = self.AModeList();
         $("#TableBodyListAMode").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1059,6 +1065,7 @@
                 + '</tr>'
             );
             list_AModeSelect[i] = list[i].Code;
+            list_AModeNameSelect[i] = list[i].Name;
             counterAMode = i + 1;
         }
     };
@@ -1066,6 +1073,7 @@
 
     self.DelAllAMode = function () {
         list_AModeSelect = new Array();
+        list_AModeNameSelect = new Array();
         counterAMode = 0;
         $("#TableBodyListAMode").empty();
     };
@@ -1082,14 +1090,10 @@
         $("#TableBodyListAMode").empty();
         for (var i = 0; i < counterAMode; i++) {
             if (list_AModeSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.AModeList(), function (item) {
-                    return item.Code == list_AModeSelect[i];
-                });
-
                 $('#TableBodyListAMode').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_AModeSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_AModeNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1224,11 +1228,10 @@
 
 
     self.AddStatus = function (item) {
-
-        StatusCode = item.Code;
+        Status = item.Status;
         find = false;
-        list_StatusSelect.forEach(function (item, key) {
-            if (item == StatusCode) {
+        list_StatusSelect.forEach(function(item, key) {
+            if (item == Status) {
                 find = true;
             }
         });
@@ -1279,13 +1282,9 @@
         $("#TableBodyListStatus").empty();
         for (var i = 0; i < counterStatus; i++) {
             if (list_StatusSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.StatusList(), function (item) {
-                    return item.Status == list_StatusSelect[i];
-                });
-
                 $('#TableBodyListStatus').append(
                     '<tr data-bind="">'
-                    + ' <td data-bind="text: Status">' + value.Status + '</td > '
+                    + ' <td data-bind="text: Status">' + list_StatusSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1774,21 +1773,42 @@
         self.TaDate(taTarikh);
 
         aModeCode = localStorage.getItem("AModeCodeReport");
-        list_AModeSelect = aModeCode.split("*");
-        counterAMode = list_AModeSelect.length;
-        list_AModeSelect[0] == "" ? $('#nameAMode').val('همه موارد') : $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+        if (aModeCode != "") {
+            aModeName = localStorage.getItem("AModeNameReport");
+            list_AModeSelect = aModeCode.split("*");
+            list_AModeNameSelect = aModeName.split("*");
+            counterAMode = list_AModeSelect.length;
+            $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameAMode').val('همه موارد');
 
 
         mkzCode = localStorage.getItem("MkzCodeReport");
-        list_MkzSelect = mkzCode.split("*");
-        counterMkz = list_MkzSelect.length;
-        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        if (mkzCode != "") {
+            mkzName = localStorage.getItem("MkzNameReport");
+            list_MkzSelect = mkzCode.split("*");
+            list_MkzNameSelect = mkzName.split("*");
+
+            counterMkz = list_MkzSelect.length;
+            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameMkz').val('همه موارد')
 
 
         oprCode = localStorage.getItem("OprCodeReport");
-        list_OprSelect = oprCode.split("*");
-        counterOpr = list_OprSelect.length;
-        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        if (oprCode != "") {
+            oprName = localStorage.getItem("OprNameReport");
+            list_OprSelect = oprCode.split("*");
+            list_OprNameSelect = oprName.split("*");
+
+            counterOpr = list_OprSelect.length;
+            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameOpr').val('همه موارد');
+
         getDftr();
     }
 

@@ -29,69 +29,6 @@
             //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
             //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
 
-
-            sessionStorage.newFactor = validation;
-            localStorage.setItem("newFactor", validation);
-
-            validation = CheckAccess('CHG_SFORD');// edit sefaresh forosh
-            validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-            validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-            // validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-
-
-            validation = CheckAccess('DEL_SFORD'); // delete sefaresh forosh
-
-            //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-            validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
-            validation == true ? localStorage.setItem("DEL_SFORD", "true") : localStorage.setItem("DEL_SFORD", "false")
-
-            validation = CheckAccess('PRN_SFORD'); // Print 
-            validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-            validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-            validation = CheckAccess('OTHERUSER_VIEW_SFORD');
-            validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-            validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-            validation = CheckAccess('SHOWPRICE_SFORD');// AccessPrice
-            validation == true ? sessionStorage.Access_SHOWPRICE_SFORD = true : sessionStorage.Access_SHOWPRICE_SFORD = false
-            validation == true ? localStorage.setItem("Access_SHOWPRICE_SFORD", "true") : localStorage.setItem("Access_SHOWPRICE_SFORD", "false")
-
-            validation = CheckAccess('TAEED_SFORD');// AccessTaeed
-            validation == true ? sessionStorage.Access_TAEED_SFORD = true : sessionStorage.Access_TAEED_SFORD = false
-            validation == true ? localStorage.setItem("Access_TAEED_SFORD", "true") : localStorage.setItem("Access_TAEED_SFORD", "false")
-
-            validation = CheckAccess('CANCEL_SFORD');// AccessCANCEL  باطل
-            validation == true ? sessionStorage.Access_CANCEL_SFORD = true : sessionStorage.Access_CANCEL_SFORD = false
-            validation == true ? localStorage.setItem("Access_CANCEL_SFORD", "true") : localStorage.setItem("Access_CANCEL_SFORD", "false")
-
-            validation = CheckAccess('TASVIB_SFORD');// AccessTasvib
-            validation == true ? sessionStorage.Access_TASVIB_SFORD = true : sessionStorage.Access_TASVIB_SFORD = false
-            validation == true ? localStorage.setItem("Access_TASVIB_SFORD", "true") : localStorage.setItem("Access_TASVIB_SFORD", "false")
-
-            validation = CheckAccess('OTHERUSER_CHG_SFORD');// AccessViewSanad
-            if (validation == true) {
-                sessionStorage.AccessViewSefareshForosh = true;
-                localStorage.setItem("AccessViewSefareshForosh", "true")
-            }
-            else {
-                sessionStorage.AccessViewSefareshForosh = false;
-                localStorage.setItem("AccessViewSefareshForosh", "false")
-
-            }
-
-            validation = CheckAccess('MOVE_SFORD');
-            validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-            sessionStorage.moveFactor = validation;
-            localStorage.setItem("moveFactor", validation);
-        }
-
-        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-            validation = CheckAccess('NEW_SFORD');// new sefaresh forosh
-            //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-            //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-
-
             sessionStorage.newFactor = validation;
             localStorage.setItem("newFactor", validation);
 
@@ -2463,6 +2400,7 @@
 
     if (DocNoReport != "null" && DocNoReport != null) {
         localStorage.setItem("DocNoAFIFactor", null);
+        sessionStorage.IsReport = "true";
         //localStorage.setItem("ModeCodeAFIFactor", null);
         ShowDataUpdate(DocNoReport);
     }

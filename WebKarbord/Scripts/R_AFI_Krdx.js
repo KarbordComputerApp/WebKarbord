@@ -47,14 +47,17 @@
     var ThvlCode = '';
     var counterThvl = 0;
     var list_ThvlSelect = new Array();
+    var list_ThvlNameSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
     var list_MkzSelect = new Array();
+    var list_MkzNameSelect = new Array();
 
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+    var list_OprNameSelect = new Array();
 
     var StatusCode = '';
     var counterStatus;
@@ -72,6 +75,7 @@
     var IModeCode = '';
     var counterIMode = 0;
     var list_IModeSelect = new Array();
+    var list_IModeNameSelect = new Array();
 
     $("#textTotal").text('');
 
@@ -1652,6 +1656,7 @@
                 + '</tr>'
             );
             list_ThvlSelect[counterThvl] = item.Code;
+            list_ThvlNameSelect[counterThvl] = item.self.Name;
             counterThvl = counterThvl + 1;
         }
     };
@@ -1659,6 +1664,7 @@
 
     self.AddAllThvl = function () {
         list_ThvlSelect = new Array();
+        list_ThvlNameSelect = new Array();
         list = self.ThvlList();
         $("#TableBodyListThvl").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1669,6 +1675,7 @@
                 + '</tr>'
             );
             list_ThvlSelect[i] = list[i].Code;
+            list_ThvlNameSelect[i] = list[i].Name;
             counterThvl = i + 1;
         }
     };
@@ -1676,6 +1683,7 @@
 
     self.DelAllThvl = function () {
         list_ThvlSelect = new Array();
+        list_ThvlNameSelect = new Array();
         counterThvl = 0;
         $("#TableBodyListThvl").empty();
     };
@@ -1692,14 +1700,10 @@
         $("#TableBodyListThvl").empty();
         for (var i = 0; i < counterThvl; i++) {
             if (list_ThvlSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.ThvlList(), function (item) {
-                    return item.Code == list_ThvlSelect[i];
-                });
-
                 $('#TableBodyListThvl').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_ThvlSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_ThvlNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1847,6 +1851,7 @@
                 + '</tr>'
             );
             list_MkzSelect[counterMkz] = item.Code;
+            list_MkzNameSelect[counterMkz] = item.Name;
             counterMkz = counterMkz + 1;
         }
     };
@@ -1854,6 +1859,7 @@
 
     self.AddAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         list = self.MkzList();
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1864,6 +1870,7 @@
                 + '</tr>'
             );
             list_MkzSelect[i] = list[i].Code;
+            list_MkzNameSelect[i] = list[i].Name;
             counterMkz = i + 1;
         }
     };
@@ -1871,6 +1878,7 @@
 
     self.DelAllMkz = function () {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         counterMkz = 0;
         $("#TableBodyListMkz").empty();
     };
@@ -1887,14 +1895,11 @@
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < counterMkz; i++) {
             if (list_MkzSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
-                    return item.Code == list_MkzSelect[i];
-                });
 
                 $('#TableBodyListMkz').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_MkzNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2041,6 +2046,7 @@
                 + '</tr>'
             );
             list_OprSelect[counterOpr] = item.Code;
+            list_OprNameSelect[counterOpr] = item.Name;
             counterOpr = counterOpr + 1;
         }
     };
@@ -2048,6 +2054,7 @@
 
     self.AddAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         list = self.OprList();
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < list.length; i++) {
@@ -2058,6 +2065,7 @@
                 + '</tr>'
             );
             list_OprSelect[i] = list[i].Code;
+            list_OprNameSelect[i] = list[i].Name;
             counterOpr = i + 1;
         }
     };
@@ -2065,6 +2073,7 @@
 
     self.DelAllOpr = function () {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         counterOpr = 0;
         $("#TableBodyListOpr").empty();
     };
@@ -2081,14 +2090,11 @@
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < counterOpr; i++) {
             if (list_OprSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.OprList(), function (item) {
-                    return item.Code == list_OprSelect[i];
-                });
 
                 $('#TableBodyListOpr').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_OprNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2317,13 +2323,9 @@
         $("#TableBodyListStatus").empty();
         for (var i = 0; i < counterStatus; i++) {
             if (list_StatusSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.StatusList(), function (item) {
-                    return item.Status == list_StatusSelect[i];
-                });
-
                 $('#TableBodyListStatus').append(
                     '<tr data-bind="">'
-                    + ' <td data-bind="text: Status">' + value.Status + '</td > '
+                    + ' <td data-bind="text: Status">' + list_StatusSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2488,6 +2490,7 @@
                 + '</tr>'
             );
             list_IModeSelect[counterIMode] = item.Code;
+            list_IModeNameSelect[counterIMode] = item.Name;
             counterIMode = counterIMode + 1;
         }
     };
@@ -2495,6 +2498,7 @@
 
     self.AddAllIMode = function () {
         list_IModeSelect = new Array();
+        list_IModeNameSelect = new Array();
         list = self.IModeList();
         $("#TableBodyListIMode").empty();
         for (var i = 0; i < list.length; i++) {
@@ -2505,6 +2509,7 @@
                 + '</tr>'
             );
             list_IModeSelect[i] = list[i].Code;
+            list_IModeNameSelect[i] = list[i].Name;
             counterIMode = i + 1;
         }
     };
@@ -2512,6 +2517,7 @@
 
     self.DelAllIMode = function () {
         list_IModeSelect = new Array();
+        list_IModeNameSelect = new Array();
         counterIMode = 0;
         $("#TableBodyListIMode").empty();
     };
@@ -2528,14 +2534,11 @@
         $("#TableBodyListIMode").empty();
         for (var i = 0; i < counterIMode; i++) {
             if (list_IModeSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.IModeList(), function (item) {
-                    return item.Code == list_IModeSelect[i];
-                });
 
                 $('#TableBodyListIMode').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_IModeSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_IModeNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2583,33 +2586,60 @@
 
 
         ThvlCode = localStorage.getItem("ThvlCodeReport");
-        list_ThvlSelect = ThvlCode.split("*");
-        counterThvl = list_ThvlSelect.length;
-        list_ThvlSelect[0] == "" ? $('#nameThvl').val('همه موارد') : $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ');
+        if (ThvlCode != "") {
+            ThvlName = localStorage.getItem("ThvlNameReport");
+            list_ThvlSelect = ThvlCode.split("*");
+            list_ThvlNameSelect = ThvlName.split("*");
+            counterThvl = list_ThvlSelect.length;
+            $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameThvl').val('همه موارد');
+
 
         StatusCode = localStorage.getItem("StatusCodeReport");
-        list_StatusSelect = StatusCode.split("*");
-        counterStatus = list_StatusSelect.length;
-        list_StatusSelect[0] == "" ? $('#nameStatus').val('همه موارد') : $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
-
+        if (StatusCode != "") {
+            list_StatusSelect = StatusCode.split("*");
+            counterStatus = list_StatusSelect.length;
+            $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameStatus').val('همه موارد');
 
 
         ImodeCode = localStorage.getItem("IModeCodeReport");
-        list_IModeSelect = ImodeCode.split("*");
-        counterIMode = list_IModeSelect.length;
-        list_IModeSelect[0] == "" ? $('#nameIMode').val('همه موارد') : $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ');
+        if (ImodeCode != "") {
+            ImodeName = localStorage.getItem("IModeNameReport");
+            list_IModeSelect = ImodeCode.split("*");
+            list_IModeNameSelect = ImodeName.split("*");
+            counterIMode = list_IModeSelect.length;
+            $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameIMode').val('همه موارد');
 
 
         mkzCode = localStorage.getItem("MkzCodeReport");
-        list_MkzSelect = mkzCode.split("*");
-        counterMkz = list_MkzSelect.length;
-        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
-
+        if (mkzCode != "") {
+            mkzName = localStorage.getItem("MkzNameReport");
+            list_MkzSelect = mkzCode.split("*");
+            list_MkzNameSelect = mkzName.split("*");
+            counterMkz = list_MkzSelect.length;
+            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameMkz').val('همه موارد');
 
         oprCode = localStorage.getItem("OprCodeReport");
-        list_OprSelect = oprCode.split("*");
-        counterOpr = list_OprSelect.length;
-        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        if (oprCode != "") {
+            oprName = localStorage.getItem("OprNameReport");
+            list_OprSelect = oprCode.split("*");
+            list_OprNameSelect = oprName.split("*");
+            counterOpr = list_OprSelect.length;
+            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameOpr').val('همه موارد');
 
         getKrdx();
 

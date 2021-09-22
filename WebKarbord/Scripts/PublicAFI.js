@@ -8,6 +8,11 @@ var salErj = '0000';
 var userName = localStorage.getItem('userName', '');
 var pass = localStorage.getItem('password', '');
 
+$("#AccessRefresh").hide();
+
+if (sessionStorage.versionTitle == "ورژن تست : ") {
+    $("#AccessRefresh").show();
+}
 
 sessionStorage.userNameFa = localStorage.getItem('userNameFa');
 sessionStorage.CoName = localStorage.getItem('CoName');
@@ -33,7 +38,7 @@ else {
 }
 
 
-$("#NewTab").change(function () {
+$("#NewTab").change(function() {
 
     if ($('#NewTab').val() == 1) {
         localStorage.setItem("NewTab", "ShowNewTab");
@@ -302,7 +307,7 @@ MessageList = ko.observableArray([]);
 
 
 
-$("#Btn_ShowMessage").click(function () {
+$("#Btn_ShowMessage").click(function() {
     if ((lockNumber != '' || lockNumber != null) && sessionStorage.Login == "OK") {
         getMessageList();
     }
@@ -310,13 +315,13 @@ $("#Btn_ShowMessage").click(function () {
 
 //Get Message List
 function getMessageList() {
-    ajaxFunction(MessageUri + lockNumber, 'GET').done(function (data) {
+    ajaxFunction(MessageUri + lockNumber, 'GET').done(function(data) {
         MessageList(data);
     });
 }
 
 
-selectMessage = function (item) {
+selectMessage = function(item) {
     $('#titleMessage').text(item.title);
     $('#bodyMessage').val(item.body);
     $('#modal-Message').modal('show');
@@ -331,7 +336,7 @@ function getDateServer() {
     var date;
     if (server != null) {
 
-        ajaxFunction(DateUri, 'GET').done(function (data) {
+        ajaxFunction(DateUri, 'GET').done(function(data) {
             listDate = data[0].split("/");
             DateNow = data[0];
             SalNow = listDate[0];
@@ -540,9 +545,15 @@ afiaccess[5] == 0 ? $("#FDOC_PR").hide() : $("#FDOC_PR").show();
 afiaccess[6] == 0 ? $("#IDOC_I").hide() : $("#IDOC_I").show();
 afiaccess[7] == 0 ? $("#IDOC_O").hide() : $("#IDOC_O").show();*/
 
+$("#ADOC").hide();
+
+$("#FDOC_SO").hide();
 $("#FDOC_SP").hide();
 $("#FDOC_S").hide();
 $("#FDOC_SR").hide();
+$("#FDOC_SH").hide();
+$("#FDOC_SE").hide();
+$("#FDOC_PO").hide();
 $("#FDOC_PP").hide();
 $("#FDOC_P").hide();
 $("#FDOC_PR").hide();
@@ -550,10 +561,32 @@ $("#FDOC_PR").hide();
 $("#IDOC_I").hide();
 $("#IDOC_O").hide();
 
+$("#ErjaDOC").hide();
+
+
+$("#TrzAcc").hide();
+$("#Dftr").hide();
+$("#ADocR").hide();
+$("#TChk").hide();
+
+
+$("#FDocR_S").hide();
+$("#FDocR_P").hide();
+$("#TrzFKala_S").hide();
+$("#TrzFKala_P").hide();
+$("#TrzFCust_S").hide();
+$("#TrzFCust_P").hide();
+
+
 $("#TrzIKala").hide();
 $("#TrzIKalaExf").hide();
 $("#IDocR").hide();
 $("#Krdx").hide();
+
+$("#ErjDocK").hide();
+$("#ErjDocB_Last").hide();
+
+
 $("#Base_Menu").hide();
 $("#ADOC_Menu").hide();
 $("#FDOC_Menu").hide();
@@ -597,7 +630,7 @@ function ajaxFunctionAccount(uri, method, sync, data) {
         url: uri,
         dataType: 'json',
         async: sync == null ? false : sync,
-        beforeSend: function () {
+        beforeSend: function() {
             if (sync == true) {
                 $('#loadingsite').attr('class', 'page-proccess-wrapper');
                 $('#loadingsite').css('display', 'block');
@@ -605,7 +638,7 @@ function ajaxFunctionAccount(uri, method, sync, data) {
         },
         cache: false,
         timeout: 30000,
-        complete: function () {
+        complete: function() {
             if (sync == true) {
                 $('#loadingsite').css('display', 'none');
                 $('#loadingsite').attr('class', 'page-loader-wrapper');
@@ -613,7 +646,7 @@ function ajaxFunctionAccount(uri, method, sync, data) {
         },
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null
-    }).fail(function (jqXHR, textStatus, errorThrown) {
+    }).fail(function(jqXHR, textStatus, errorThrown) {
         showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
     });
 }
@@ -634,7 +667,7 @@ function ajaxFunction(uri, method, data, sync) {
         type: method,
         async: sync == null ? false : sync,
         encoding: 'UTF-8',
-        beforeSend: function () {
+        beforeSend: function() {
             if (sync == true) {
                 $('#loadingsite').attr('class', 'page-proccess-wrapper');
                 $('#loadingsite').css('display', 'block');
@@ -651,7 +684,7 @@ function ajaxFunction(uri, method, data, sync) {
             'password': passAccount,
             'userKarbord': sessionStorage.userName,
         },
-        complete: function () {
+        complete: function() {
             var n = uri.search("ChangeDatabase");
             if (sync == true && n == -1) {
                 $('#loadingsite').css('display', 'none');
@@ -665,7 +698,7 @@ function ajaxFunction(uri, method, data, sync) {
         //contentType: 'application/x-www-form-urlencoded',
         // xhrFields: { withCredentials: true },
         data: data ? JSON.stringify(data) : null
-    }).fail(function (jqXHR, textStatus, errorThrown) {
+    }).fail(function(jqXHR, textStatus, errorThrown) {
         showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
         // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
     });
@@ -682,7 +715,7 @@ function ajaxFunctionOther(uri, method, data) {
         timeout: 30000,
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null
-    }).fail(function (jqXHR, textStatus, errorThrown) {
+    }).fail(function(jqXHR, textStatus, errorThrown) {
         showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
     });
 }
@@ -701,7 +734,7 @@ function ajaxFunctionUpload(uri, data, sync) {
         processData: false,
 
         async: sync == null ? false : sync,
-        beforeSend: function () {
+        beforeSend: function() {
             if (sync == true) {
                 $('#loadingsite').attr('class', 'page-proccess-wrapper');
                 $('#loadingsite').css('display', 'block');
@@ -713,22 +746,22 @@ function ajaxFunctionUpload(uri, data, sync) {
             'password': passAccount,
             'userKarbord': sessionStorage.userName,
         },
-        success: function (fileName) {
+        success: function(fileName) {
             // $("#fileProgress").hide();
             // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
         },
-        complete: function () {
+        complete: function() {
             var n = uri.search("ChangeDatabase");
             if (sync == true && n == -1) {
                 $('#loadingsite').css('display', 'none');
                 $('#loadingsite').attr('class', 'page-loader-wrapper');
             }
         },
-        xhr: function () {
+        xhr: function() {
             var fileXhr = $.ajaxSettings.xhr();
             if (fileXhr.upload) {
                 $("progress").show();
-                fileXhr.upload.addEventListener("progress", function (e) {
+                fileXhr.upload.addEventListener("progress", function(e) {
                     if (e.lengthComputable) {
                         $("#fileProgress").attr({
                             value: e.loaded,
@@ -757,18 +790,18 @@ function GetDataApi(Url, localStorageName) { // دریافت اطلاعات از
         url: Url,
         dataType: 'json',
         contentType: 'application/json',
-        success: function (data) {
+        success: function(data) {
             sessionStorage.setItem(localStorageName, JSON.stringify(data));
             //showNotification(' دیتای ' + localStorageName + ' دریافت شد ');
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function(xhr, textStatus, errorThrown) {
             //showNotification('خطا در دریافت اطلاعات از سرور' + '(' + errorThrown + ')');
         }
     });
 }
 
 function CountTable(tableName, ModeCode, InOut) {
-    ajaxFunction(CountTableUri + ace + '/' + sal + '/' + group + '/' + tableName + '/' + ModeCode + '/' + InOut, 'GET').done(function (dataCount) {
+    ajaxFunction(CountTableUri + ace + '/' + sal + '/' + group + '/' + tableName + '/' + ModeCode + '/' + InOut, 'GET').done(function(dataCount) {
         count = dataCount;
     });
     return count;
@@ -832,7 +865,7 @@ function SetSelectProgram() {
         $('#SaveParam').attr('disabled', 'disabled');
 
         getParamList();
-        getAccessList();
+        getAccessList(true);
         $('#SaveParam').removeAttr('disabled');
 
         localStorage.setItem("ModeCode", '');
@@ -851,7 +884,7 @@ function SetSelectProgram() {
 //    SetSelectProgram();
 //}
 
-$("#SaveParam").click(function () {
+$("#SaveParam").click(function() {
     group = $("#DropGroup").val();
     sal = $("#DropSal").val();
 
@@ -865,7 +898,7 @@ $("#SaveParam").click(function () {
     if (sal == '0' || sal == null)
         return showNotification('سال را انتخاب کنید', 0);
 
-    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {
+    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function(data) {
 
         localStorage.removeItem('AccStatus');
         localStorage.removeItem('FctStatus');
@@ -901,7 +934,7 @@ $("#SaveParam").click(function () {
 
 
 
-$("#repairDatabase").click(function () {
+$("#repairDatabase").click(function() {
     group = $("#DropGroup").val();
     sal = $("#DropSal").val();
 
@@ -936,7 +969,7 @@ $("#repairDatabase").click(function () {
                 confirmButtonText: 'بله'
             }).then((result) => {
                 if (result.value) {
-                    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) {
+                    ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function(data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
                         if (data == "OK") {
@@ -970,7 +1003,7 @@ $("#repairDatabase").click(function () {
 
 
 
-$("#repairDatabaseConfig").click(function () {
+$("#repairDatabaseConfig").click(function() {
     Swal.fire({
         title: 'بازسازی اطلاعات سیستم',
         text: "آیا اطلاعات بازسازی شود ؟",
@@ -996,7 +1029,7 @@ $("#repairDatabaseConfig").click(function () {
                 confirmButtonText: 'بله'
             }).then((result) => {
                 if (result.value) {
-                    ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber, 'GET', null, true).done(function (data) {
+                    ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber, 'GET', null, true).done(function(data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
                         if (data == "OK") {
@@ -1040,7 +1073,7 @@ function getProgName(value) {
 //Get Param List
 async function getParamList() {
 
-    ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function (data) {
+    ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function(data) {
         ParamList(data);
         $('#information').hide();
         if (self.ParamList().length > 0) {
@@ -1355,11 +1388,11 @@ function GetShowField(Code, InOut) {
 */
 
 //Get Access List
-function getAccessList() {
+function getAccessList(GoHome) {
 
     AccountUri = serverAccount + 'Account/'; // آدرس حساب
     ajaxFunctionAccount(AccountUri + localStorage.getItem("userNameAccount") + '/' +
-        localStorage.getItem("passAccount"), 'GET', true).done(function (data) {
+        localStorage.getItem("passAccount"), 'GET', true).done(function(data) {
             if (data === null) {
                 return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
                 // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
@@ -1441,13 +1474,13 @@ function getAccessList() {
                         erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
                     }
 
-                    ajaxFunction(AccessUri + aceErj + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                    ajaxFunction(AccessUri + aceErj + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function(data) {
                         self.AccessList(data);
                         if (self.AccessList().length > 0) {
                             localStorage.setItem('AccessErj', JSON.stringify(data));
                             accssErj = JSON.parse(localStorage.getItem("AccessErj"));
 
-                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                            ajaxFunction(AccessReportErjUri + 'Web2' + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function(data) {
                                 self.AccessListReport(data);
                                 if (self.AccessListReport().length > 0) {
                                     localStorage.setItem('AccessReportErj', JSON.stringify(data));
@@ -1461,7 +1494,7 @@ function getAccessList() {
 
                 }
 
-                ajaxFunction(AccessUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                ajaxFunction(AccessUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function(data) {
                     self.AccessList(data);
                     if (self.AccessList().length > 0) {
                         localStorage.setItem('Access', JSON.stringify(data));
@@ -1472,7 +1505,7 @@ function getAccessList() {
                         //}
 
 
-                        ajaxFunction(AccessReportUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                        ajaxFunction(AccessReportUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function(data) {
                             self.AccessListReport(data);
                             if (self.AccessListReport().length > 0) {
                                 localStorage.setItem('AccessReport', JSON.stringify(data));
@@ -1484,7 +1517,7 @@ function getAccessList() {
                 });
 
                 localStorage.setItem("Inbox", 0);
-                ajaxFunction(AccessUri + "null" + '/' + "0" + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
+                ajaxFunction(AccessUri + "null" + '/' + "0" + '/' + sessionStorage.userName, 'GET', true).done(function(data) {
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
                             if (data[i].TrsName == "Inbox") {
@@ -1496,7 +1529,10 @@ function getAccessList() {
                     if (sessionStorage.userName == "ACE") {
                         localStorage.setItem("Inbox", 1);
                     }
-                    window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
+                    if (GoHome == true)
+                        window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
+                    else
+                        location.reload();
                 });
 
 
@@ -1522,7 +1558,7 @@ function TestUser() {
         FlagTest: 1
     }
 
-    ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+    ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function(datalogin) {
         if (datalogin.ID >= 0) {
             //showNotification('لطفا دوباره وارد شوید', 0);
             //sleep(10000);
@@ -2573,8 +2609,9 @@ function SetValidation() {
             afiaccess[15] && ShowMenu[19] == true ? $("#ADocR").show() : $("#ADocR").hide();
             afiaccess[16] && ShowMenu[20] == true ? $("#TChk").show() : $("#TChk").hide();
 
-            if (ShowMenu[17] == false && ShowMenu[18] == false && ShowMenu[19] == false)
+            if (ShowMenu[17] == false && ShowMenu[18] == false && ShowMenu[19] == false) {
                 $("#AReport_Menu").hide();
+            }
         }
         else {
             $("#AReport_Menu").hide();
@@ -2649,8 +2686,6 @@ function SetValidationErj() {
 
 
 
-
-
     if (erjaccess[2] == true || erjaccess[3] == true || erjaccess[4] == true) {
         $("#ErjaDOC_Menu").show();
         erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();
@@ -2688,7 +2723,7 @@ function SetValidationErj() {
 
 
 
-$('.rightClick').on("contextmenu", function () {
+$('.rightClick').on("contextmenu", function() {
     id = $(this).attr('id');
     if (id == "ADOC") {
         sessionStorage.setItem('listFilter', null);
@@ -2698,12 +2733,12 @@ $('.rightClick').on("contextmenu", function () {
     }
 });
 
-$('.rightClick').click("contextmenu", function () {
+$('.rightClick').click("contextmenu", function() {
     id = $(this).attr('id');
 
 });
 
-$("#ADOC").click(function () {
+$("#ADOC").click(function() {
     sessionStorage.setItem('listFilter', null);
     localStorage.setItem("ModeCode", 'ADOC');
     sessionStorage.ModeCode = 'ADOC';
@@ -2711,6 +2746,7 @@ $("#ADOC").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 
     localStorage.setItem("DocNoAFISanad", null);
+    sessionStorage.IsReport = "false";
 
     /*    var newTabs = [];
         newTabs.push(window.open("/AFISanad/Index", "_blank"));
@@ -2718,7 +2754,7 @@ $("#ADOC").click(function () {
         newTabs[0].close();*/
 });
 
-$("#FDOC_SO").click(function () {
+$("#FDOC_SO").click(function() {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SO;
     sessionStorage.InOut = 2; // فروش
     sessionStorage.lastPageSelect = 0;
@@ -2727,11 +2763,13 @@ $("#FDOC_SO").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 
+
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
 
-$("#FDOC_SP").click(function () {
+$("#FDOC_SP").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SP;
     sessionStorage.InOut = 2; // فروش
@@ -2741,9 +2779,10 @@ $("#FDOC_SP").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_S").click(function () {
+$("#FDOC_S").click(function() {
     sessionStorage.setItem('listFilter', null);
     localStorage.setItem("ModeCode", sessionStorage.MODECODE_FDOC_S);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_S;
@@ -2755,9 +2794,10 @@ $("#FDOC_S").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_SR").click(function () {
+$("#FDOC_SR").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SR;
     sessionStorage.InOut = 2;// فروش
@@ -2768,9 +2808,10 @@ $("#FDOC_SR").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_SH").click(function () {
+$("#FDOC_SH").click(function() {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SH;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
@@ -2780,9 +2821,10 @@ $("#FDOC_SH").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_SE").click(function () {
+$("#FDOC_SE").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SE;
     sessionStorage.InOut = 2;// فروش
@@ -2793,9 +2835,10 @@ $("#FDOC_SE").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_PO").click(function () {
+$("#FDOC_PO").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PO;
     sessionStorage.InOut = 1;// خرید
@@ -2806,9 +2849,10 @@ $("#FDOC_PO").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_PP").click(function () {
+$("#FDOC_PP").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PP;
     sessionStorage.InOut = 1;// خرید
@@ -2819,9 +2863,10 @@ $("#FDOC_PP").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#FDOC_P").click(function () {
+$("#FDOC_P").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_P;
     sessionStorage.InOut = 1;// خرید
@@ -2832,10 +2877,11 @@ $("#FDOC_P").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
 
-$("#FDOC_PR").click(function () {
+$("#FDOC_PR").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PR;
     sessionStorage.InOut = 1;// خرید
@@ -2846,9 +2892,10 @@ $("#FDOC_PR").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#IDOC_I").click(function () {
+$("#IDOC_I").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = '';
     sessionStorage.InOut = 1;
@@ -2859,9 +2906,10 @@ $("#IDOC_I").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFISanadAnbar", null);
+    sessionStorage.IsReport = "false";
 });
 
-$("#IDOC_O").click(function () {
+$("#IDOC_O").click(function() {
     sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = '';
     sessionStorage.InOut = 2;
@@ -2872,18 +2920,19 @@ $("#IDOC_O").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFISanadAnbar", null);
+    sessionStorage.IsReport = "false";
 });
 
 
 
-$("#Erja_Resive").click(function () {
+$("#Erja_Resive").click(function() {
     sessionStorage.ModeCodeErja = 1;
 
     localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
 });
 
-$("#P_NotificationErja").click(function () {
+$("#P_NotificationErja").click(function() {
     sessionStorage.ModeCodeErja = 1;
 
     localStorage.setItem('listFilter', null);
@@ -2891,7 +2940,7 @@ $("#P_NotificationErja").click(function () {
 });
 
 
-$("#Erja_Send").click(function () {
+$("#Erja_Send").click(function() {
     sessionStorage.ModeCodeErja = 2;
 
     localStorage.setItem('listFilter', null);
@@ -2899,24 +2948,24 @@ $("#Erja_Send").click(function () {
 });
 
 
-$("#ErjaDOC").click(function () {
+$("#ErjaDOC").click(function() {
     localStorage.SetItem('DocNoErjDocK', null);
 });
 
 
 
 
-$("#TrzAcc").click(function () {
+$("#TrzAcc").click(function() {
     localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("LevelReport", null);
 });
 
-$("#ADocR").click(function () {
+$("#ADocR").click(function() {
     localStorage.setItem("AccCodeReport", null);
 });
 
 
-$("#Dftr").click(function () {
+$("#Dftr").click(function() {
     localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("AccNameReport", null);
 });
@@ -3092,40 +3141,40 @@ $("#group0").click(function () {
 
 
 
-$('#ADOC_Menu').click(function () {
+$('#ADOC_Menu').click(function() {
     sessionStorage.SelectMenu = 0;
 });
 
-$('#FDOC_Menu').click(function () {
+$('#FDOC_Menu').click(function() {
     sessionStorage.SelectMenu = 1;
 });
 
-$('#IDOC_Menu').click(function () {
+$('#IDOC_Menu').click(function() {
     sessionStorage.SelectMenu = 2;
 });
 
-$('#AReport_Menu').click(function () {
+$('#AReport_Menu').click(function() {
     sessionStorage.SelectMenu = 3;
 });
 
-$('#FReport_Menu').click(function () {
+$('#FReport_Menu').click(function() {
     sessionStorage.SelectMenu = 4;
 });
 
-$('#IReport_Menu').click(function () {
+$('#IReport_Menu').click(function() {
     sessionStorage.SelectMenu = 5;
 });
 
 
-$('#EReport_Menu').click(function () {
+$('#EReport_Menu').click(function() {
     sessionStorage.SelectMenu = 6;
 });
 
-$('#ErjaDOC_Menu').click(function () {
+$('#ErjaDOC_Menu').click(function() {
     sessionStorage.SelectMenu = 7;
 });
 
-$('#Base_Menu').click(function () {
+$('#Base_Menu').click(function() {
     sessionStorage.SelectMenu = 8;
 });
 
@@ -3178,8 +3227,8 @@ if (sessionStorage.SelectMenu == 8) {
 }
 
 
-$.fn.inputFilter = function (inputFilter) {
-    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+$.fn.inputFilter = function(inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
         if (inputFilter(this.value)) {
             this.oldValue = this.value;
             this.oldSelectionStart = this.selectionStart;
@@ -3430,7 +3479,7 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
 
     $('#modal-SettingColumn').modal('hide');
     showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
-    ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
+    ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function(response) {
     });
     window.location.href = route;
 }
@@ -3442,7 +3491,7 @@ function LogOut() {
         UserCode: sessionStorage.userName,
         ProgName: ace
     }
-    ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+    ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function(datalogin) {
         sessionStorage.userName = '';
         sessionStorage.pass = '';
         localStorage.setItem("userName", '');
@@ -3451,11 +3500,11 @@ function LogOut() {
     });
 }
 
-$('#LogOut').click(function () {
+$('#LogOut').click(function() {
     LogOut();
 });
 
-$('#LogOutSetting').click(function () {
+$('#LogOutSetting').click(function() {
     LogOut();
 });
 
@@ -3585,7 +3634,7 @@ function createViewer() {
 
 
     report = new Stimulsoft.Report.StiReport();
-    viewer.onDesignReport = function (e) {
+    viewer.onDesignReport = function(e) {
 
         createDesigner();
     };
@@ -3593,7 +3642,7 @@ function createViewer() {
 
     var userButton = viewer.jsObject.SmallButton("userButton", "خروج");
 
-    userButton.action = function () {
+    userButton.action = function() {
         $("#modal-Report").modal('hide');
     }
 
@@ -3615,13 +3664,13 @@ function createDesigner() {
     designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
     designer.renderHtml("designerContent");
 
-    designer.onExit = function (e) {
+    designer.onExit = function(e) {
         this.visible = false;
         viewer.visible = false;
         $("#modal-Report").modal('hide');
     }
 
-    designer.onSaveReport = function (e) {
+    designer.onSaveReport = function(e) {
         if (printPublic == false) {
             //designer.jsObject.SendCommandSaveAsReport();
             var jsonStr = e.report.saveToJsonString();
@@ -3632,7 +3681,7 @@ function createDesigner() {
         }
     }
 
-    designer.onSaveAsReport = function (e) {
+    designer.onSaveAsReport = function(e) {
         var jsonStr = e.report.saveToJsonString();
         var name = e.fileName;
         resTestSavePrintForm = "";
@@ -3709,7 +3758,7 @@ function setReport(reportObject, addressMrt, variablesObject) {
     viewer.visible = true;
     $('#modal-Report').modal('show');
 
-    viewer.onExit = function (e) {
+    viewer.onExit = function(e) {
         this.visible = false;
     }
 
@@ -3756,12 +3805,12 @@ function GetPrintForms(Mode) {
         LockNumber: lockNumber,
         mode: Mode
     };
-    ajaxFunction(PrintFormsUri + ace, 'POST', PrintForms_Object).done(function (data) {
+    ajaxFunction(PrintFormsUri + ace, 'POST', PrintForms_Object).done(function(data) {
         PrintFormsList(data);
     });
 }
 
-$('#refreshPrintForms').click(function () {
+$('#refreshPrintForms').click(function() {
     Swal.fire({
         title: 'تایید به روز رسانی',
         text: "فرم های چاپ به روز رسانی شود ؟",
@@ -3781,7 +3830,7 @@ $('#refreshPrintForms').click(function () {
     })
 })
 
-$('#modal-Report').on('hide.bs.modal', function () {
+$('#modal-Report').on('hide.bs.modal', function() {
     GetPrintForms(sessionStorage.ModePrint);
 });
 
@@ -3794,7 +3843,7 @@ function DeletePrintForm(address) {
         LockNumber: lockNumber,
         Address: address
     };
-    ajaxFunction(DeletePrintFormUri + ace, 'POST', DeletePrintForm_Object).done(function (data) {
+    ajaxFunction(DeletePrintFormUri + ace, 'POST', DeletePrintForm_Object).done(function(data) {
 
     });
 }
@@ -3806,7 +3855,7 @@ function TestSavePrintForm(mode, name) {
         Name: name,
         Mode: mode
     };
-    ajaxFunction(TestSavePrintFormUri + ace, 'POST', TestSavePrintForm_Object).done(function (data) {
+    ajaxFunction(TestSavePrintFormUri + ace, 'POST', TestSavePrintForm_Object).done(function(data) {
         resTestSavePrintForm = data;
     });
 }
@@ -3819,7 +3868,7 @@ function SavePrintForm(mode, name, data) {
         Mode: mode,
         Data: data
     };
-    ajaxFunction(SavePrintFormUri + ace, 'POST', SavePrintForm_Object).done(function (data) {
+    ajaxFunction(SavePrintFormUri + ace, 'POST', SavePrintForm_Object).done(function(data) {
 
     });
 }
@@ -3832,7 +3881,7 @@ function SelectedPrintForm(address, isPublic) {
         Address: address,
         isPublic: isPublic,
     };
-    ajaxFunction(SelectedPrintFormUri + ace, 'POST', SelectedPrintForm_Object).done(function (data) {
+    ajaxFunction(SelectedPrintFormUri + ace, 'POST', SelectedPrintForm_Object).done(function(data) {
 
     });
 }
@@ -3845,7 +3894,7 @@ function SelectedAccessGhimatPrintForm(address, isPublic) {
         Address: address,
         isPublic: isPublic,
     };
-    ajaxFunction(SelectedAccessGhimatPrintFormUri + ace, 'POST', SelectedAccessGhimatPrintForm_Object).done(function (data) {
+    ajaxFunction(SelectedAccessGhimatPrintFormUri + ace, 'POST', SelectedAccessGhimatPrintForm_Object).done(function(data) {
         if (data == "FindFile") {
             showNotification('فایلی با نام مشابه وجود دارد و امکان تغییر نیست', 0);
         }
@@ -3997,7 +4046,7 @@ function AlertErja() {
             khdtCode: '',
             srchSt: '',
         };
-        ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
+        ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function(response) {
             count = parseInt(response);
             if (count > 0) {
                 $("#notificationCount").text(count);
@@ -4028,6 +4077,12 @@ function AppendAnbar(invName) {
     }
     return invName
 }
+
+
+$("#AccessRefresh").click(function() {
+    getAccessList(false);
+});
+
 
 
 

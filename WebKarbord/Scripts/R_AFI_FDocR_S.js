@@ -1,4 +1,4 @@
-﻿var ViewModel = function () {
+﻿var ViewModel = function() {
     var self = this;
 
     var flagupdateHeader = 0;
@@ -27,11 +27,11 @@
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
-    $('#btnaztarikh').click(function () {
+    $('#btnaztarikh').click(function() {
         $('#aztarikh').change();
     });
 
-    $('#btntatarikh').click(function () {
+    $('#btntatarikh').click(function() {
         $('#tatarikh').change();
     });
 
@@ -41,26 +41,32 @@
     var KalaCode = '';
     var counterKala = 0;
     var list_KalaSelect = new Array();
+    var list_KalaNameSelect = new Array();
 
     var InvCode = '';
     var counterInv = 0;
     var list_InvSelect = new Array();
+    var list_InvNameSelect = new Array();
 
     var KGruCode = '';
     var counterKGru = 0;
     var list_KGruSelect = new Array();
+    var list_KGruNameSelect = new Array();
 
     var CustCode = '';
     var counterCust = 0;
     var list_CustSelect = new Array();
+    var list_CustNameSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
     var list_MkzSelect = new Array();
+    var list_MkzNameSelect = new Array();
 
     var OprCode = '';
     var counterOpr = 0;
     var list_OprSelect = new Array();
+    var list_OprNameSelect = new Array();
 
     $("#textTotal").text('');
 
@@ -143,7 +149,7 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function(data) {
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -161,7 +167,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function(data) {
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -170,24 +176,24 @@
         });
     }
 
-    $('#SaveColumns').click(function () {
+    $('#SaveColumns').click(function() {
         SaveColumn(ace, sal, group, rprtId, "/ReportAFI/FDocR_S", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
-    $('#modal-SettingColumn').on('show.bs.modal', function () {
+    $('#modal-SettingColumn').on('show.bs.modal', function() {
         counterColumn = 0;
         getRprtColsList(false, sessionStorage.userName);
     });
 
-    $('#AllSettingColumns').change(function () {
+    $('#AllSettingColumns').change(function() {
         var allCheck = $('#AllSettingColumns').is(':checked');
         for (var i = 1; i <= columns.length; i++) {
             $('#SettingColumns' + i).prop('checked', allCheck);
         }
     });
 
-    $('#DefultColumn').click(function () {
+    $('#DefultColumn').click(function() {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/ReportAFI/FDocR_S", columns, self.SettingColumnList());
@@ -204,7 +210,7 @@
 
     //Get  FMode List
     function getFModeList() {
-        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function (data) {
+        ajaxFunction(FModeUri + ace + '/' + sal + '/' + group + '/2', 'GET').done(function(data) {
             self.FModeList(data);
 
             select = document.getElementById('modeCode');
@@ -236,11 +242,11 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
+        ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function(data) {
             self.KalaList(data);
         });
     }
-    $('#btnkala').click(function () {
+    $('#btnkala').click(function() {
         if (self.KalaList().length == 0) {
             getKalaList();
         }
@@ -248,7 +254,7 @@
 
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function(data) {
             self.InvList(data);
         });
     }
@@ -259,18 +265,18 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function (data) {
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function(data) {
             self.KGruList(data);
         });
     }
 
-    $('#btnKGru').click(function () {
+    $('#btnKGru').click(function() {
         if (self.KGruList().length == 0) {
             getKGruList();
         }
     });
 
-    self.OptionsCaptionAnbar = ko.computed(function () {
+    self.OptionsCaptionAnbar = ko.computed(function() {
         return 'همه انبارها';
     });
 
@@ -283,33 +289,33 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
+        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function(data) {
             self.CustList(data);
         });
     }
-    $('#btnCust').click(function () {
+    $('#btnCust').click(function() {
         if (self.CustList().length == 0) {
             getCustList();
         }
     });
     //Get Opr List
     function getOprList() {
-        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+        ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function(data) {
             self.OprList(data);
         });
     }
-    $('#btnOpr').click(function () {
+    $('#btnOpr').click(function() {
         if (self.OprList().length == 0) {
             getOprList();
         }
     });
     //Get  Mkz List
     function getMkzList() {
-        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+        ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function(data) {
             self.MkzList(data);
         });
     }
-    $('#btnMkz').click(function () {
+    $('#btnMkz').click(function() {
         if (self.MkzList().length == 0) {
             getMkzList();
         }
@@ -390,7 +396,7 @@
             MkzCode: mkzcode,
             OprCode: oprcode,
         };
-        ajaxFunction(FDocR_SUri + ace + '/' + sal + '/' + group, 'POST', FDocR_SObject, true).done(function (response) {
+        ajaxFunction(FDocR_SUri + ace + '/' + sal + '/' + group, 'POST', FDocR_SObject, true).done(function(response) {
             self.FDocR_SList(response);
             calcsum(self.FDocR_SList());
         });
@@ -471,7 +477,7 @@
         $("#totalTotalPrice").text(NumberToNumberString(totalTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
     }
 
-    $("#CreateReport").click(function () {
+    $("#CreateReport").click(function() {
         getFDocR_S();
         self.sortTableFDocR_S();
     });
@@ -568,7 +574,7 @@
     self.filterF20 = ko.observable("");
 
 
-    self.filterFDocR_SList = ko.computed(function () {
+    self.filterFDocR_SList = ko.computed(function() {
         self.currentPageIndexFDocR_S(0);
         var filterDocNo = self.filterDocNo();
         var filterDocDate = self.filterDocDate();
@@ -656,7 +662,7 @@
         filterUnitPrice = filterUnitPrice.replace("/", ".");
         filterTotalPrice = filterTotalPrice.replace("/", ".");
 
-        tempData = ko.utils.arrayFilter(self.FDocR_SList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.FDocR_SList(), function(item) {
             result =
                 ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
@@ -736,7 +742,7 @@
 
     self.search = ko.observable("");
     self.search(sessionStorage.searchFDocR_S);
-    self.firstMatch = ko.dependentObservable(function () {
+    self.firstMatch = ko.dependentObservable(function() {
         var indexFDocR_S = 0;
         sessionStorage.searchFDocR_S = "";
         var search = self.search();
@@ -744,7 +750,7 @@
             self.currentPageIndexFDocR_S(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.FDocR_SList(), function (item) {
+            value = ko.utils.arrayFirst(self.FDocR_SList(), function(item) {
                 indexFDocR_S += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
@@ -760,7 +766,7 @@
     });
 
 
-    self.currentPageFDocR_S = ko.computed(function () {
+    self.currentPageFDocR_S = ko.computed(function() {
         var pageSizeFDocR_S = parseInt(self.pageSizeFDocR_S(), 10),
             startIndex = pageSizeFDocR_S * self.currentPageIndexFDocR_S(),
             endIndex = startIndex + pageSizeFDocR_S;
@@ -768,23 +774,23 @@
         return self.filterFDocR_SList().slice(startIndex, endIndex);
     });
 
-    self.nextPageFDocR_S = function () {
+    self.nextPageFDocR_S = function() {
         if (((self.currentPageIndexFDocR_S() + 1) * self.pageSizeFDocR_S()) < self.filterFDocR_SList().length) {
             self.currentPageIndexFDocR_S(self.currentPageIndexFDocR_S() + 1);
         }
     };
 
-    self.previousPageFDocR_S = function () {
+    self.previousPageFDocR_S = function() {
         if (self.currentPageIndexFDocR_S() > 0) {
             self.currentPageIndexFDocR_S(self.currentPageIndexFDocR_S() - 1);
         }
     };
 
-    self.firstPageFDocR_S = function () {
+    self.firstPageFDocR_S = function() {
         self.currentPageIndexFDocR_S(0);
     };
 
-    self.lastPageFDocR_S = function () {
+    self.lastPageFDocR_S = function() {
         tempCountFDocR_S = parseInt(self.filterFDocR_SList().length / self.pageSizeFDocR_S(), 10);
         if ((self.filterFDocR_SList().length % self.pageSizeFDocR_S()) == 0)
             self.currentPageIndexFDocR_S(tempCountFDocR_S - 1);
@@ -792,7 +798,7 @@
             self.currentPageIndexFDocR_S(tempCountFDocR_S);
     };
 
-    self.sortTableFDocR_S = function (viewModel, e) {
+    self.sortTableFDocR_S = function(viewModel, e) {
 
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
@@ -808,7 +814,7 @@
         localStorage.setItem("sortType" + rprtId, self.sortType);
 
         self.currentColumn(orderProp);
-        self.FDocR_SList.sort(function (left, right) {
+        self.FDocR_SList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -1056,7 +1062,7 @@
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
 
-    self.filterInvList = ko.computed(function () {
+    self.filterInvList = ko.computed(function() {
 
         self.currentPageIndexInv(0);
         var filter0 = self.filterInv0().toUpperCase();
@@ -1066,7 +1072,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.InvList();
         } else {
-            tempData = ko.utils.arrayFilter(self.InvList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.InvList(), function(item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -1078,7 +1084,7 @@
     });
 
 
-    self.currentPageInv = ko.computed(function () {
+    self.currentPageInv = ko.computed(function() {
         var pageSizeInv = parseInt(self.pageSizeInv(), 10),
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
@@ -1086,23 +1092,23 @@
         return self.filterInvList().slice(startIndex, endIndex);
     });
 
-    self.nextPageInv = function () {
+    self.nextPageInv = function() {
         if (((self.currentPageIndexInv() + 1) * self.pageSizeInv()) < self.filterInvList().length) {
             self.currentPageIndexInv(self.currentPageIndexInv() + 1);
         }
     };
 
-    self.previousPageInv = function () {
+    self.previousPageInv = function() {
         if (self.currentPageIndexInv() > 0) {
             self.currentPageIndexInv(self.currentPageIndexInv() - 1);
         }
     };
 
-    self.firstPageInv = function () {
+    self.firstPageInv = function() {
         self.currentPageIndexInv(0);
     };
 
-    self.lastPageInv = function () {
+    self.lastPageInv = function() {
         countInv = parseInt(self.filterInvList().length / self.pageSizeInv(), 10);
         if ((self.filterInvList().length % self.pageSizeInv()) == 0)
             self.currentPageIndexInv(countInv - 1);
@@ -1110,12 +1116,12 @@
             self.currentPageIndexInv(countInv);
     };
 
-    self.sortTableInv = function (viewModel, e) {
+    self.sortTableInv = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.InvList.sort(function (left, right) {
+        self.InvList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -1141,7 +1147,7 @@
         self.iconType((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
+    self.PageCountView = function() {
         sessionStorage.invSelect = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
@@ -1149,7 +1155,7 @@
     }
 
 
-    $('#refreshInv').click(function () {
+    $('#refreshInv').click(function() {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست انبارها به روز رسانی شود ؟",
@@ -1170,11 +1176,10 @@
     })
 
 
-    self.AddInv = function (item) {
-
+    self.AddInv = function(item) {
         InvCode = item.Code;
         find = false;
-        list_InvSelect.forEach(function (item, key) {
+        list_InvSelect.forEach(function(item, key) {
             if (item == InvCode) {
                 find = true;
             }
@@ -1188,13 +1193,15 @@
                 + '</tr>'
             );
             list_InvSelect[counterInv] = item.Code;
+            list_InvNameSelect[counterInv] = item.Name;
             counterInv = counterInv + 1;
         }
     };
 
 
-    self.AddAllInv = function () {
+    self.AddAllInv = function() {
         list_InvSelect = new Array();
+        list_InvNameSelect = new Array();
         list = self.InvList();
         $("#TableBodyListInv").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1205,37 +1212,35 @@
                 + '</tr>'
             );
             list_InvSelect[i] = list[i].Code;
+            list_InvNameSelect[i] = list[i].Name;
             counterInv = i + 1;
         }
     };
 
 
-    self.DelAllInv = function () {
+    self.DelAllInv = function() {
         list_InvSelect = new Array();
+        list_InvNameSelect = new Array();
         counterInv = 0;
         $("#TableBodyListInv").empty();
     };
 
 
-    $('#modal-Inv').on('hide.bs.modal', function () {
+    $('#modal-Inv').on('hide.bs.modal', function() {
         if (counterInv > 0)
             $('#nameInv').val(counterInv + ' مورد انتخاب شده ')
         else
             $('#nameInv').val('همه موارد');
     });
 
-    $('#modal-Inv').on('shown.bs.modal', function () {
+    $('#modal-Inv').on('shown.bs.modal', function() {
         $("#TableBodyListInv").empty();
         for (var i = 0; i < counterInv; i++) {
             if (list_InvSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.InvList(), function (item) {
-                    return item.Code == list_InvSelect[i];
-                });
-
                 $('#TableBodyListInv').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_InvSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_InvNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1254,7 +1259,7 @@
     self.filterKGru1 = ko.observable("");
     self.filterKGru2 = ko.observable("");
 
-    self.filterKGruList = ko.computed(function () {
+    self.filterKGruList = ko.computed(function() {
 
         self.currentPageIndexKGru(0);
         var filter0 = self.filterKGru0().toUpperCase();
@@ -1264,7 +1269,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.KGruList();
         } else {
-            tempData = ko.utils.arrayFilter(self.KGruList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.KGruList(), function(item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -1276,7 +1281,7 @@
     });
 
 
-    self.currentPageKGru = ko.computed(function () {
+    self.currentPageKGru = ko.computed(function() {
         var pageSizeKGru = parseInt(self.pageSizeKGru(), 10),
             startIndex = pageSizeKGru * self.currentPageIndexKGru(),
             endIndex = startIndex + pageSizeKGru;
@@ -1284,23 +1289,23 @@
         return self.filterKGruList().slice(startIndex, endIndex);
     });
 
-    self.nextPageKGru = function () {
+    self.nextPageKGru = function() {
         if (((self.currentPageIndexKGru() + 1) * self.pageSizeKGru()) < self.filterKGruList().length) {
             self.currentPageIndexKGru(self.currentPageIndexKGru() + 1);
         }
     };
 
-    self.previousPageKGru = function () {
+    self.previousPageKGru = function() {
         if (self.currentPageIndexKGru() > 0) {
             self.currentPageIndexKGru(self.currentPageIndexKGru() - 1);
         }
     };
 
-    self.firstPageKGru = function () {
+    self.firstPageKGru = function() {
         self.currentPageIndexKGru(0);
     };
 
-    self.lastPageKGru = function () {
+    self.lastPageKGru = function() {
         countKGru = parseInt(self.filterKGruList().length / self.pageSizeKGru(), 10);
         if ((self.filterKGruList().length % self.pageSizeKGru()) == 0)
             self.currentPageIndexKGru(countKGru - 1);
@@ -1308,12 +1313,12 @@
             self.currentPageIndexKGru(countKGru);
     };
 
-    self.sortTableKGru = function (viewModel, e) {
+    self.sortTableKGru = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.KGruList.sort(function (left, right) {
+        self.KGruList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -1335,7 +1340,7 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
+    self.PageCountView = function() {
         sessionStorage.invSelect = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
@@ -1344,7 +1349,7 @@
 
 
 
-    $('#refreshKGru').click(function () {
+    $('#refreshKGru').click(function() {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست گروه کالا به روز رسانی شود ؟",
@@ -1365,11 +1370,11 @@
     })
 
 
-    self.AddKGru = function (item) {
+    self.AddKGru = function(item) {
 
         KGruCode = item.Code;
         find = false;
-        list_KGruSelect.forEach(function (item, key) {
+        list_KGruSelect.forEach(function(item, key) {
             if (item == KGruCode) {
                 find = true;
             }
@@ -1383,13 +1388,15 @@
                 + '</tr>'
             );
             list_KGruSelect[counterKGru] = item.Code;
+            list_KGruNameSelect[counterKGru] = item.Name;
             counterKGru = counterKGru + 1;
         }
     };
 
 
-    self.AddAllKGru = function () {
+    self.AddAllKGru = function() {
         list_KGruSelect = new Array();
+        list_KGruNameSelect = new Array();
         list = self.KGruList();
         $("#TableBodyListKGru").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1400,37 +1407,36 @@
                 + '</tr>'
             );
             list_KGruSelect[i] = list[i].Code;
+            list_KGruNameSelect[i] = list[i].Name;
             counterKGru = i + 1;
         }
     };
 
 
-    self.DelAllKGru = function () {
+    self.DelAllKGru = function() {
         list_KGruSelect = new Array();
+        list_KGruNameSelect = new Array();
         counterKGru = 0;
         $("#TableBodyListKGru").empty();
     };
 
 
-    $('#modal-KGru').on('hide.bs.modal', function () {
+    $('#modal-KGru').on('hide.bs.modal', function() {
         if (counterKGru > 0)
             $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ')
         else
             $('#nameKGru').val('همه موارد');
     });
 
-    $('#modal-KGru').on('shown.bs.modal', function () {
+    $('#modal-KGru').on('shown.bs.modal', function() {
         $("#TableBodyListKGru").empty();
         for (var i = 0; i < counterKGru; i++) {
             if (list_KGruSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.KGruList(), function (item) {
-                    return item.Code == list_KGruSelect[i];
-                });
 
                 $('#TableBodyListKGru').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_KGruSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_KGruNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1451,7 +1457,7 @@
 
     self.iconTypeFanniNo = ko.observable("");
 
-    self.filterKalaList = ko.computed(function () {
+    self.filterKalaList = ko.computed(function() {
 
         self.currentPageIndexKala(0);
         var filter0 = self.filterKala0().toUpperCase();
@@ -1462,7 +1468,7 @@
         if (!filter0 && !filter1 && !filter2 && !filter3) {
             return self.KalaList();
         } else {
-            tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.KalaList(), function(item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -1475,7 +1481,7 @@
     });
 
 
-    self.currentPageKala = ko.computed(function () {
+    self.currentPageKala = ko.computed(function() {
         var pageSizeKala = parseInt(self.pageSizeKala(), 10),
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
@@ -1483,23 +1489,23 @@
         return self.filterKalaList().slice(startIndex, endIndex);
     });
 
-    self.nextPageKala = function () {
+    self.nextPageKala = function() {
         if (((self.currentPageIndexKala() + 1) * self.pageSizeKala()) < self.filterKalaList().length) {
             self.currentPageIndexKala(self.currentPageIndexKala() + 1);
         }
     };
 
-    self.previousPageKala = function () {
+    self.previousPageKala = function() {
         if (self.currentPageIndexKala() > 0) {
             self.currentPageIndexKala(self.currentPageIndexKala() - 1);
         }
     };
 
-    self.firstPageKala = function () {
+    self.firstPageKala = function() {
         self.currentPageIndexKala(0);
     };
 
-    self.lastPageKala = function () {
+    self.lastPageKala = function() {
         countKala = parseInt(self.filterKalaList().length / self.pageSizeKala(), 10);
         if ((self.filterKalaList().length % self.pageSizeKala()) == 0)
             self.currentPageIndexKala(countKala - 1);
@@ -1507,12 +1513,12 @@
             self.currentPageIndexKala(countKala);
     };
 
-    self.sortTableKala = function (viewModel, e) {
+    self.sortTableKala = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.KalaList.sort(function (left, right) {
+        self.KalaList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -1536,7 +1542,7 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
+    self.PageCountView = function() {
         sessionStorage.invSelect = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
@@ -1544,7 +1550,7 @@
     }
 
 
-    $('#refreshkala').click(function () {
+    $('#refreshkala').click(function() {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست کالاها به روز رسانی شود ؟",
@@ -1565,11 +1571,11 @@
     })
 
 
-    self.AddKala = function (item) {
+    self.AddKala = function(item) {
 
         KalaCode = item.Code;
         find = false;
-        list_KalaSelect.forEach(function (item, key) {
+        list_KalaSelect.forEach(function(item, key) {
             if (item == KalaCode) {
                 find = true;
             }
@@ -1580,17 +1586,19 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
-                + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
+               // + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[counterKala] = item.Code;
+            list_KalaNameSelect[counterKala] = item.Name;
             counterKala = counterKala + 1;
         }
     };
 
 
-    self.AddAllKala = function () {
+    self.AddAllKala = function() {
         list_KalaSelect = new Array();
+        list_KalaNameSelect = new Array();
         list = self.KalaList();
         $("#TableBodyListKala").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1598,42 +1606,39 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-                + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
+               // + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[i] = list[i].Code;
+            list_KalaNameSelect[i] = list[i].Name;
             counterKala = i + 1;
         }
     };
 
 
-    self.DelAllKala = function () {
+    self.DelAllKala = function() {
         list_KalaSelect = new Array();
+        list_KalaNameSelect = new Array();
         counterKala = 0;
         $("#TableBodyListKala").empty();
     };
 
 
-    $('#modal-kala').on('hide.bs.modal', function () {
+    $('#modal-kala').on('hide.bs.modal', function() {
         if (counterKala > 0)
             $('#nameKala').val(counterKala + ' مورد انتخاب شده ')
         else
             $('#nameKala').val('همه موارد');
     });
 
-    $('#modal-kala').on('shown.bs.modal', function () {
+    $('#modal-kala').on('shown.bs.modal', function() {
         $("#TableBodyListKala").empty();
         for (var i = 0; i < counterKala; i++) {
             if (list_KalaSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.KalaList(), function (item) {
-                    return item.Code == list_KalaSelect[i];
-                });
-
                 $('#TableBodyListKala').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_KalaSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
-                    + ' <td data-bind="text: FanniNo">' + value.FanniNo + '</td > '
+                    + ' <td data-bind="text: Name">' + list_KalaNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1652,7 +1657,7 @@
     self.filterCust1 = ko.observable("");
     self.filterCust2 = ko.observable("");
 
-    self.filterCustList = ko.computed(function () {
+    self.filterCustList = ko.computed(function() {
 
         self.currentPageIndexCust(0);
         var filter0 = self.filterCust0().toUpperCase();
@@ -1662,7 +1667,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.CustList();
         } else {
-            tempData = ko.utils.arrayFilter(self.CustList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.CustList(), function(item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -1674,7 +1679,7 @@
     });
 
 
-    self.currentPageCust = ko.computed(function () {
+    self.currentPageCust = ko.computed(function() {
         var pageSizeCust = parseInt(self.pageSizeCust(), 10),
             startIndex = pageSizeCust * self.currentPageIndexCust(),
             endIndex = startIndex + pageSizeCust;
@@ -1682,23 +1687,23 @@
         return self.filterCustList().slice(startIndex, endIndex);
     });
 
-    self.nextPageCust = function () {
+    self.nextPageCust = function() {
         if (((self.currentPageIndexCust() + 1) * self.pageSizeCust()) < self.filterCustList().length) {
             self.currentPageIndexCust(self.currentPageIndexCust() + 1);
         }
     };
 
-    self.previousPageCust = function () {
+    self.previousPageCust = function() {
         if (self.currentPageIndexCust() > 0) {
             self.currentPageIndexCust(self.currentPageIndexCust() - 1);
         }
     };
 
-    self.firstPageCust = function () {
+    self.firstPageCust = function() {
         self.currentPageIndexCust(0);
     };
 
-    self.lastPageCust = function () {
+    self.lastPageCust = function() {
         countCust = parseInt(self.filterCustList().length / self.pageSizeCust(), 10);
         if ((self.filterCustList().length % self.pageSizeCust()) == 0)
             self.currentPageIndexCust(countCust - 1);
@@ -1706,12 +1711,12 @@
             self.currentPageIndexCust(countCust);
     };
 
-    self.sortTableCust = function (viewModel, e) {
+    self.sortTableCust = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.CustList.sort(function (left, right) {
+        self.CustList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -1733,7 +1738,7 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
+    self.PageCountView = function() {
         sessionStorage.invSelect = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
@@ -1742,7 +1747,7 @@
 
 
 
-    $('#refreshCust').click(function () {
+    $('#refreshCust').click(function() {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست تحویل دهنده / گیرنده به روز رسانی شود ؟",
@@ -1763,11 +1768,11 @@
     })
 
 
-    self.AddCust = function (item) {
+    self.AddCust = function(item) {
 
         CustCode = item.Code;
         find = false;
-        list_CustSelect.forEach(function (item, key) {
+        list_CustSelect.forEach(function(item, key) {
             if (item == CustCode) {
                 find = true;
             }
@@ -1781,13 +1786,15 @@
                 + '</tr>'
             );
             list_CustSelect[counterCust] = item.Code;
+            list_CustNameSelect[counterCust] = item.Name;
             counterCust = counterCust + 1;
         }
     };
 
 
-    self.AddAllCust = function () {
+    self.AddAllCust = function() {
         list_CustSelect = new Array();
+        list_CustNameSelect = new Array();
         list = self.CustList();
         $("#TableBodyListCust").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1798,37 +1805,36 @@
                 + '</tr>'
             );
             list_CustSelect[i] = list[i].Code;
+            list_CustNameSelect[i] = list[i].Name;
             counterCust = i + 1;
         }
     };
 
 
-    self.DelAllCust = function () {
+    self.DelAllCust = function() {
         list_CustSelect = new Array();
+        list_CustNameSelect = new Array();
         counterCust = 0;
         $("#TableBodyListCust").empty();
     };
 
 
-    $('#modal-Cust').on('hide.bs.modal', function () {
+    $('#modal-Cust').on('hide.bs.modal', function() {
         if (counterCust > 0)
             $('#nameCust').val(counterCust + ' مورد انتخاب شده ')
         else
             $('#nameCust').val('همه موارد');
     });
 
-    $('#modal-Cust').on('shown.bs.modal', function () {
+    $('#modal-Cust').on('shown.bs.modal', function() {
         $("#TableBodyListCust").empty();
         for (var i = 0; i < counterCust; i++) {
             if (list_CustSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.CustList(), function (item) {
-                    return item.Code == list_CustSelect[i];
-                });
 
                 $('#TableBodyListCust').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_CustSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_CustNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -1846,7 +1852,7 @@
     self.filterOpr1 = ko.observable("");
     self.filterOpr2 = ko.observable("");
 
-    self.filterOprList = ko.computed(function () {
+    self.filterOprList = ko.computed(function() {
 
         self.currentPageIndexOpr(0);
         var filter0 = self.filterOpr0().toUpperCase();
@@ -1856,7 +1862,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.OprList();
         } else {
-            tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.OprList(), function(item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -1868,7 +1874,7 @@
     });
 
 
-    self.currentPageOpr = ko.computed(function () {
+    self.currentPageOpr = ko.computed(function() {
         var pageSizeOpr = parseInt(self.pageSizeOpr(), 10),
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
@@ -1876,23 +1882,23 @@
         return self.filterOprList().slice(startIndex, endIndex);
     });
 
-    self.nextPageOpr = function () {
+    self.nextPageOpr = function() {
         if (((self.currentPageIndexOpr() + 1) * self.pageSizeOpr()) < self.filterOprList().length) {
             self.currentPageIndexOpr(self.currentPageIndexOpr() + 1);
         }
     };
 
-    self.previousPageOpr = function () {
+    self.previousPageOpr = function() {
         if (self.currentPageIndexOpr() > 0) {
             self.currentPageIndexOpr(self.currentPageIndexOpr() - 1);
         }
     };
 
-    self.firstPageOpr = function () {
+    self.firstPageOpr = function() {
         self.currentPageIndexOpr(0);
     };
 
-    self.lastPageOpr = function () {
+    self.lastPageOpr = function() {
         countOpr = parseInt(self.filterOprList().length / self.pageSizeOpr(), 10);
         if ((self.filterOprList().length % self.pageSizeOpr()) == 0)
             self.currentPageIndexOpr(countOpr - 1);
@@ -1900,12 +1906,12 @@
             self.currentPageIndexOpr(countOpr);
     };
 
-    self.sortTableOpr = function (viewModel, e) {
+    self.sortTableOpr = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.OprList.sort(function (left, right) {
+        self.OprList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -1927,7 +1933,7 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
+    self.PageCountView = function() {
         sessionStorage.invSelect = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
@@ -1936,7 +1942,7 @@
 
 
 
-    $('#refreshOpr').click(function () {
+    $('#refreshOpr').click(function() {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست پروژه به روز رسانی شود ؟",
@@ -1957,11 +1963,11 @@
     })
 
 
-    self.AddOpr = function (item) {
+    self.AddOpr = function(item) {
 
         OprCode = item.Code;
         find = false;
-        list_OprSelect.forEach(function (item, key) {
+        list_OprSelect.forEach(function(item, key) {
             if (item == OprCode) {
                 find = true;
             }
@@ -1975,13 +1981,15 @@
                 + '</tr>'
             );
             list_OprSelect[counterOpr] = item.Code;
+            list_OprNameSelect[counterOpr] = item.Name;
             counterOpr = counterOpr + 1;
         }
     };
 
 
-    self.AddAllOpr = function () {
+    self.AddAllOpr = function() {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         list = self.OprList();
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1992,37 +2000,35 @@
                 + '</tr>'
             );
             list_OprSelect[i] = list[i].Code;
+            list_OprNameSelect[i] = list[i].Name;
             counterOpr = i + 1;
         }
     };
 
 
-    self.DelAllOpr = function () {
+    self.DelAllOpr = function() {
         list_OprSelect = new Array();
+        list_OprNameSelect = new Array();
         counterOpr = 0;
         $("#TableBodyListOpr").empty();
     };
 
 
-    $('#modal-Opr').on('hide.bs.modal', function () {
+    $('#modal-Opr').on('hide.bs.modal', function() {
         if (counterOpr > 0)
             $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
         else
             $('#nameOpr').val('همه موارد');
     });
 
-    $('#modal-Opr').on('shown.bs.modal', function () {
+    $('#modal-Opr').on('shown.bs.modal', function() {
         $("#TableBodyListOpr").empty();
         for (var i = 0; i < counterOpr; i++) {
             if (list_OprSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.OprList(), function (item) {
-                    return item.Code == list_OprSelect[i];
-                });
-
                 $('#TableBodyListOpr').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_OprSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_OprNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2041,7 +2047,7 @@
     self.filterMkz1 = ko.observable("");
     self.filterMkz2 = ko.observable("");
 
-    self.filterMkzList = ko.computed(function () {
+    self.filterMkzList = ko.computed(function() {
 
         self.currentPageIndexMkz(0);
         var filter0 = self.filterMkz0().toUpperCase();
@@ -2051,7 +2057,7 @@
         if (!filter0 && !filter1 && !filter2) {
             return self.MkzList();
         } else {
-            tempData = ko.utils.arrayFilter(self.MkzList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.MkzList(), function(item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -2063,7 +2069,7 @@
     });
 
 
-    self.currentPageMkz = ko.computed(function () {
+    self.currentPageMkz = ko.computed(function() {
         var pageSizeMkz = parseInt(self.pageSizeMkz(), 10),
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
@@ -2071,23 +2077,23 @@
         return self.filterMkzList().slice(startIndex, endIndex);
     });
 
-    self.nextPageMkz = function () {
+    self.nextPageMkz = function() {
         if (((self.currentPageIndexMkz() + 1) * self.pageSizeMkz()) < self.filterMkzList().length) {
             self.currentPageIndexMkz(self.currentPageIndexMkz() + 1);
         }
     };
 
-    self.previousPageMkz = function () {
+    self.previousPageMkz = function() {
         if (self.currentPageIndexMkz() > 0) {
             self.currentPageIndexMkz(self.currentPageIndexMkz() - 1);
         }
     };
 
-    self.firstPageMkz = function () {
+    self.firstPageMkz = function() {
         self.currentPageIndexMkz(0);
     };
 
-    self.lastPageMkz = function () {
+    self.lastPageMkz = function() {
         countMkz = parseInt(self.filterMkzList().length / self.pageSizeMkz(), 10);
         if ((self.filterMkzList().length % self.pageSizeMkz()) == 0)
             self.currentPageIndexMkz(countMkz - 1);
@@ -2095,12 +2101,12 @@
             self.currentPageIndexMkz(countMkz);
     };
 
-    self.sortTableMkz = function (viewModel, e) {
+    self.sortTableMkz = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.MkzList.sort(function (left, right) {
+        self.MkzList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -2122,7 +2128,7 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
+    self.PageCountView = function() {
         sessionStorage.invSelect = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
@@ -2131,7 +2137,7 @@
 
 
 
-    $('#refreshMkz').click(function () {
+    $('#refreshMkz').click(function() {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست مرکز هزینه به روز رسانی شود ؟",
@@ -2153,11 +2159,11 @@
     })
 
 
-    self.AddMkz = function (item) {
+    self.AddMkz = function(item) {
 
         MkzCode = item.Code;
         find = false;
-        list_MkzSelect.forEach(function (item, key) {
+        list_MkzSelect.forEach(function(item, key) {
             if (item == MkzCode) {
                 find = true;
             }
@@ -2171,13 +2177,15 @@
                 + '</tr>'
             );
             list_MkzSelect[counterMkz] = item.Code;
+            list_MkzNameSelect[counterMkz] = item.Name;
             counterMkz = counterMkz + 1;
         }
     };
 
 
-    self.AddAllMkz = function () {
+    self.AddAllMkz = function() {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         list = self.MkzList();
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < list.length; i++) {
@@ -2188,37 +2196,35 @@
                 + '</tr>'
             );
             list_MkzSelect[i] = list[i].Code;
+            list_MkzNameSelect[i] = list[i].Name;
             counterMkz = i + 1;
         }
     };
 
 
-    self.DelAllMkz = function () {
+    self.DelAllMkz = function() {
         list_MkzSelect = new Array();
+        list_MkzNameSelect = new Array();
         counterMkz = 0;
         $("#TableBodyListMkz").empty();
     };
 
 
-    $('#modal-Mkz').on('hide.bs.modal', function () {
+    $('#modal-Mkz').on('hide.bs.modal', function() {
         if (counterMkz > 0)
             $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ')
         else
             $('#nameMkz').val('همه موارد');
     });
 
-    $('#modal-Mkz').on('shown.bs.modal', function () {
+    $('#modal-Mkz').on('shown.bs.modal', function() {
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < counterMkz; i++) {
             if (list_MkzSelect[i] != "") {
-                value = ko.utils.arrayFirst(self.MkzList(), function (item) {
-                    return item.Code == list_MkzSelect[i];
-                });
-
                 $('#TableBodyListMkz').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_MkzSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                    + ' <td data-bind="text: Name">' + list_MkzNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2231,7 +2237,7 @@
 
     $('.fix').attr('class', 'form-line date focused fix');
 
-    self.ShowAFIFactor = function (Band) {
+    self.ShowAFIFactor = function(Band) {
         localStorage.setItem("DocNoAFIFactor", Band.DocNo);
         localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
         window.open(sessionStorage.urlAFIFactorIndex, '_blank');
@@ -2259,58 +2265,98 @@
         modeCode = localStorage.getItem("ModeCodeReport");
         $("#modeCode").val(modeCode);
 
+
         KalaCode = localStorage.getItem("KalaCodeReport");
-        list_KalaSelect = KalaCode.split("*");
-        counterKala = list_KalaSelect.length;
-        list_KalaSelect[0] == "" ? $('#nameKala').val('همه موارد') : $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+        if (KalaCode != "") {
+            KalaName = localStorage.getItem("KalaNameReport");
+            list_KalaSelect = KalaCode.split("*");
+            list_KalaNameSelect = KalaName.split("*");
+            counterKala = list_KalaSelect.length;
+            $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameKala').val('همه موارد')
+
 
         CustCode = localStorage.getItem("CustCodeReport");
-        list_CustSelect = CustCode.split("*");
-        counterCust = list_CustSelect.length;
-        list_CustSelect[0] == "" ? $('#nameCust').val('همه موارد') : $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
+        if (CustCode != "") {
+            CustName = localStorage.getItem("CustNameReport");
+            list_CustSelect = CustCode.split("*");
+            list_CustNameSelect = CustName.split("*");
+            counterCust = list_CustSelect.length;
+            $('#nameCust').val(counterCust + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameCust').val('همه موارد')
 
 
         InvCode = localStorage.getItem("InvCodeReport");
-        list_InvSelect = InvCode.split("*");
-        counterInv = list_InvSelect.length;
-        list_InvSelect[0] == "" ? $('#nameInv').val('همه موارد') : $('#nameInv').val(counterInv + ' مورد انتخاب شده ');
+        if (InvCode != "") {
+            InvName = localStorage.getItem("InvNameReport");
+            list_InvSelect = InvCode.split("*");
+            list_InvNameSelect = InvName.split("*");
+            counterInv = list_InvSelect.length;
+            $('#nameInv').val(counterInv + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameInv').val('همه موارد');
+
+
 
         KGruCode = localStorage.getItem("KGruCodeReport");
-        list_KGruSelect = KGruCode.split("*");
-        counterKGru = list_KGruSelect.length;
-        list_KGruSelect[0] == "" ? $('#nameKGru').val('همه موارد') : $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ');
+        if (KGruCode != "") {
+            KGruName = localStorage.getItem("KGruNameReport");
+            list_KGruSelect = KGruCode.split("*");
+            list_KGruNameSelect = KGruName.split("*");
+            counterKGru = list_KGruSelect.length;
+            $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameKGru').val('همه موارد');
+
 
         mkzCode = localStorage.getItem("MkzCodeReport");
-        list_MkzSelect = mkzCode.split("*");
-        counterMkz = list_MkzSelect.length;
-        list_MkzSelect[0] == "" ? $('#nameMkz').val('همه موارد') : $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
-
+        if (mkzCode != "") {
+            mkzName = localStorage.getItem("MkzNameReport");
+            list_MkzSelect = mkzCode.split("*");
+            list_MkzNameSelect = mkzName.split("*");
+            counterMkz = list_MkzSelect.length;
+            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameMkz').val('همه موارد');
 
         oprCode = localStorage.getItem("OprCodeReport");
-        list_OprSelect = oprCode.split("*");
-        counterOpr = list_OprSelect.length;
-        list_OprSelect[0] == "" ? $('#nameOpr').val('همه موارد') : $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        if (oprCode != "") {
+            oprName = localStorage.getItem("OprNameReport");
+            list_OprSelect = oprCode.split("*");
+            list_OprNameSelect = oprName.split("*");
+            counterOpr = list_OprSelect.length;
+            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+        }
+        else
+            $('#nameOpr').val('همه موارد');
 
 
         getFDocR_S();
     }
 
 
-   // $("#FDOC_SO").hide(); //  سفارش فروش
+    // $("#FDOC_SO").hide(); //  سفارش فروش
     //$("#FDOC_SP").hide();//پیش فاکتور فروش
-   // $("#FDOC_S").hide();//فاکتور فروش
+    // $("#FDOC_S").hide();//فاکتور فروش
     //$("#FDOC_SR").hide();//برگشت از فروش
-   // $("#FDOC_SH").hide();//حواله فروش
-   // $("#FDOC_SE").hide();//برگه خروج
-   // $("#FDOC_PO").hide();//سفارش خرید
-   // $("#FDOC_PP").hide();//پیش فاکتور خرید
-   // $("#FDOC_P").hide();//فاکتور خرید
-   // $("#FDOC_PR").hide(); //برگشت از خرید
+    // $("#FDOC_SH").hide();//حواله فروش
+    // $("#FDOC_SE").hide();//برگه خروج
+    // $("#FDOC_PO").hide();//سفارش خرید
+    // $("#FDOC_PP").hide();//پیش فاکتور خرید
+    // $("#FDOC_P").hide();//فاکتور خرید
+    // $("#FDOC_PR").hide(); //برگشت از خرید
 
 
 
 
-    self.AccessAction = function (ModeCode) {
+    self.AccessAction = function(ModeCode) {
         if (ModeCode == 'SORD')
             res = $("#FDOC_SO").css("display") != "none"
         else if (ModeCode == 'SPFCT')
@@ -2334,7 +2380,7 @@
         return res;
     }
 
-    self.radif = function (index) {
+    self.radif = function(index) {
         countShow = self.pageSizeFDocR_S();
         page = self.currentPageIndexFDocR_S();
         calc = (countShow * page) + 1;
@@ -2715,7 +2761,7 @@
     }
 
 
-    self.SearchKeyDown = function (viewModel, e) {
+    self.SearchKeyDown = function(viewModel, e) {
         return KeyPressSearch(e);
     }
 
@@ -2742,7 +2788,7 @@
     self.filterPrintForms0 = ko.observable("");
     self.filterPrintForms1 = ko.observable("");
 
-    self.filterPrintFormsList = ko.computed(function () {
+    self.filterPrintFormsList = ko.computed(function() {
 
         self.currentPageIndexPrintForms(0);
         var filter0 = self.filterPrintForms0();
@@ -2751,7 +2797,7 @@
         if (!filter0 && !filter1) {
             return PrintFormsList();
         } else {
-            tempData = ko.utils.arrayFilter(PrintFormsList(), function (item) {
+            tempData = ko.utils.arrayFilter(PrintFormsList(), function(item) {
                 result =
                     (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0) &&
                     (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
@@ -2763,7 +2809,7 @@
 
 
 
-    self.currentPagePrintForms = ko.computed(function () {
+    self.currentPagePrintForms = ko.computed(function() {
         var pageSizePrintForms = parseInt(self.pageSizePrintForms(), 10),
             startIndex = pageSizePrintForms * self.currentPageIndexPrintForms(),
             endIndex = startIndex + pageSizePrintForms;
@@ -2771,24 +2817,24 @@
         return self.filterPrintFormsList().slice(startIndex, endIndex);
     });
 
-    self.nextPagePrintForms = function () {
+    self.nextPagePrintForms = function() {
         if (((self.currentPageIndexPrintForms() + 1) * self.pageSizePrintForms()) < self.filterPrintFormsList().length) {
             self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() + 1);
         }
     };
 
-    self.previousPagePrintForms = function () {
+    self.previousPagePrintForms = function() {
         if (self.currentPageIndexPrintForms() > 0) {
             self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() - 1);
         }
     };
 
-    self.firstPagePrintForms = function () {
+    self.firstPagePrintForms = function() {
         self.currentPageIndexPrintForms(0);
     };
 
 
-    self.lastPagePrintForms = function () {
+    self.lastPagePrintForms = function() {
         countPrintForms = parseInt(self.filterPrintFormsList().length / self.pageSizePrintForms(), 10);
         if ((self.filterPrintFormsList().length % self.pageSizePrintForms()) == 0)
             self.currentPageIndexPrintForms(countPrintForms - 1);
@@ -2799,12 +2845,12 @@
 
     self.iconTypenamefa = ko.observable("");
 
-    self.sortTablePrintForms = function (viewModel, e) {
+    self.sortTablePrintForms = function(viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        PrintFormsList.sort(function (left, right) {
+        PrintFormsList.sort(function(left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -2824,7 +2870,7 @@
 
     self.CodePrint = ko.observable();
 
-    self.radifPrint = function (index) {
+    self.radifPrint = function(index) {
         countShow = self.pageSizePrintForms();
         page = self.currentPageIndexPrintForms();
         calc = (countShow * page) + 1;
@@ -2832,12 +2878,12 @@
     }
 
 
-    self.ShowActionPrint = function (isPublic) {
+    self.ShowActionPrint = function(isPublic) {
         return isPublic == 1 ? false : true;
     }
 
 
-    self.ShowPrintForms = function (item) {
+    self.ShowPrintForms = function(item) {
         printName = item.namefa;
         address = item.address;
         data = item.Data;
@@ -2846,19 +2892,19 @@
     };
 
 
-    self.SelectedPrintForms = function (item) {
+    self.SelectedPrintForms = function(item) {
         SelectedPrintForm(item.address, item.isPublic);
         GetPrintForms(sessionStorage.ModePrint);
         return true;
     };
 
-    self.SelectedAccessGhimat = function (item) {
+    self.SelectedAccessGhimat = function(item) {
         SelectedAccessGhimatPrintForm(item.address, item.isPublic);
         GetPrintForms(sessionStorage.ModePrint);
         return true;
     };
 
-    self.DeletePrintForms = function (item) {
+    self.DeletePrintForms = function(item) {
         Swal.fire({
             title: 'تایید حذف ؟',
             text: "آیا فرم چاپ انتخابی حذف شود",
@@ -2879,14 +2925,14 @@
 
     };
 
-    $('#AddNewPrintForms').click(function () {
+    $('#AddNewPrintForms').click(function() {
         printName = 'فرم جدید';
         printPublic = false;
         setReport(self.FDocR_SList(), '', printVariable);
     });
 
 
-    $('#Print').click(function () {
+    $('#Print').click(function() {
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
 
@@ -2899,13 +2945,13 @@
         self.filterPrintForms1("1");
     });
 
-    $('#DesignPrint').click(function () {
+    $('#DesignPrint').click(function() {
         self.filterPrintForms1("");
         $('#modal-Print').modal('hide');
         $('#modal-PrintForms').modal('show');
     });
 
-    $('#AcceptPrint').click(function () {
+    $('#AcceptPrint').click(function() {
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

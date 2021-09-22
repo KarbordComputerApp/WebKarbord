@@ -11,8 +11,10 @@
 
     DocNoReport = localStorage.getItem("DocNoAFISanad");
     if (DocNoReport != "null" && DocNoReport != null) {
+
         localStorage.setItem("ModeCode", "ADOC");
     }
+
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
@@ -20,7 +22,7 @@
 
         if (sessionStorage.ModeCode == 'ADOC') {
             validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
-            validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
+            //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
             validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
 
             localStorage.setItem("moveSanad", validation);
@@ -71,6 +73,8 @@
     self.StatusSanad = ko.observable();
 
     sessionStorage.BeforeMoveSanad = false;
+
+    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
 
     TestUser();
 
@@ -1005,6 +1009,7 @@
 
     if (DocNoReport != "null" && DocNoReport != null) {
         localStorage.setItem("DocNoAFISanad", null);
+        sessionStorage.IsReport = "true";
         ShowDataUpdate(DocNoReport);
     }
 

@@ -3195,7 +3195,13 @@
             if (flagupdateHeader == 1) {
                 sessionStorage.flagupdateHeader = 0;
                 flagupdateHeader = 0;
-                window.location.href = sessionStorage.urlADocH;
+                if (sessionStorage.IsReport == "true") {
+                    sessionStorage.IsReport = "false";
+                    close();
+                }
+                else {
+                    window.location.href = sessionStorage.urlADocH;
+                }
             }
             else {
                 showNotification('سند ذخیره شد ', 1);
