@@ -2543,7 +2543,7 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowAFIFactor" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش فاکتور' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/><span>نمایش</span> <span data-bind="text:ModeName"></span>' +
             '    </a >' +
             ' </td >' +
             '</tr>' +
