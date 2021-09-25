@@ -3111,7 +3111,7 @@
         if (localStorage.getItem("DEL_ErjDOC") == 'true' && DeleteDocTrs == 1)
             return true;
         else
-            return false;
+            return false; 
     }
 
 
