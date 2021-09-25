@@ -2821,7 +2821,7 @@
 
 
     self.UpdateErjDocH = function(item) {
-        $('#P_Action').show();
+        item.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
         self.p_DocDate(item.DocDate);
         self.p_MhltDate(item.MhltDate);
         self.p_AmalDate(item.AmalDate);
@@ -3115,9 +3115,10 @@
     }
 
 
-    self.ShowActionUpdate = function(EditDocTrs) {
+    self.ShowActionUpdate = function (ShowDocTrs,EditDocTrs) {
 
-        if (localStorage.getItem("CHG_ErjDOC") == 'true' && EditDocTrs == 1)
+       // if (localStorage.getItem("CHG_ErjDOC") == 'true' && EditDocTrs == 1)
+        if ((localStorage.getItem("CHG_ErjDOC") == 'true' && EditDocTrs == 1) || ShowDocTrs == 1)
             return true;
         else
             return false;
@@ -3230,7 +3231,7 @@
             CreateTableTd('F19', 0, 4, 0, data) +
             CreateTableTd('F20', 0, 4, 0, data) +
             '<td>' +
-            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(EditDocTrs)">' +
+            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(ShowDocTrs,EditDocTrs)">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs)">' +

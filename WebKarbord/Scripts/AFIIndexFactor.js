@@ -44,6 +44,10 @@
             validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
             validation == true ? localStorage.setItem("DEL_SFORD", "true") : localStorage.setItem("DEL_SFORD", "false")
 
+            validation = CheckAccess('VIEW_SFORD'); // VIEW SFORD 
+            validation == true ? localStorage.setItem("VIEW_SFORD", "true") : localStorage.setItem("VIEW_SFORD", "false")
+
+
             validation = CheckAccess('PRN_SFORD'); // Print 
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
@@ -101,6 +105,9 @@
             // validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
             validation == true ? sessionStorage.DEL_SPDOC = true : sessionStorage.DEL_SPDOC = false
             validation == true ? localStorage.setItem("DEL_SPDOC", "true") : localStorage.setItem("DEL_SPDOC", "false")
+
+            validation = CheckAccess('VIEW_SPDOC'); // VIEW SPDOC 
+            validation == true ? localStorage.setItem("VIEW_SPDOC", "true") : localStorage.setItem("VIEW_SPDOC", "false")
 
             validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
             validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -164,6 +171,9 @@
             validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
             validation == true ? localStorage.setItem("DEL_SDOC", "true") : localStorage.setItem("DEL_SDOC", "false")
 
+            validation = CheckAccess('VIEW_SFDOC'); // VIEW SFDOC 
+            validation == true ? localStorage.setItem("VIEW_SFDOC", "true") : localStorage.setItem("VIEW_SFDOC", "false")
+
             validation = CheckAccess('PRN_SFDOC'); // Print Factor forosh
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
@@ -223,6 +233,9 @@
             validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
             validation == true ? localStorage.setItem("DEL_SRDOC", "true") : localStorage.setItem("DEL_SRDOC", "false")
 
+            validation = CheckAccess('VIEW_SRDOC'); // VIEW SRDOC 
+            validation == true ? localStorage.setItem("VIEW_SRDOC", "true") : localStorage.setItem("VIEW_SRDOC", "false")
+
             validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
@@ -281,6 +294,9 @@
             validation == true ? sessionStorage.DEL_SHVL = true : sessionStorage.DEL_SHVL = false
             validation == true ? localStorage.setItem("DEL_SHVL", "true") : localStorage.setItem("DEL_SHVL", "false")
 
+            validation = CheckAccess('VIEW_SHVL'); // VIEW SHVL 
+            validation == true ? localStorage.setItem("VIEW_SHVL", "true") : localStorage.setItem("VIEW_SHVL", "false")
+
             validation = CheckAccess('PRN_SHVL'); // Print
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
@@ -335,6 +351,9 @@
             validation == true ? sessionStorage.DEL_SEXT = true : sessionStorage.DEL_SEXT = false
             validation == true ? localStorage.setItem("DEL_SEXT", "true") : localStorage.setItem("DEL_SEXT", "false")
 
+            validation = CheckAccess('VIEW_SEXT'); // VIEW SEXT
+            validation == true ? localStorage.setItem("VIEW_SEXT", "true") : localStorage.setItem("VIEW_SEXT", "false")
+
             validation = CheckAccess('PRN_SEXT'); // Print
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
@@ -388,6 +407,9 @@
             //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
             validation == true ? sessionStorage.DEL_PFORD = true : sessionStorage.DEL_PFORD = false
             validation == true ? localStorage.setItem("DEL_PFORD", "true") : localStorage.setItem("DEL_PFORD", "false")
+
+            validation = CheckAccess('VIEW_PFORD'); // VIEW PFORD 
+            validation == true ? localStorage.setItem("VIEW_PFORD", "true") : localStorage.setItem("VIEW_PFORD", "false")
 
             validation = CheckAccess('PRN_PFORD'); // Print
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -446,6 +468,9 @@
             //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
             validation == true ? sessionStorage.DEL_PPDOC = true : sessionStorage.DEL_PPDOC = false
             validation == true ? localStorage.setItem("DEL_PPDOC", "true") : localStorage.setItem("DEL_PPDOC", "false")
+
+            validation = CheckAccess('VIEW_PPDOC'); // VIEW PPDOC
+            validation == true ? localStorage.setItem("VIEW_PPDOC", "true") : localStorage.setItem("VIEW_PPDOC", "false")
 
             validation = CheckAccess('PRN_PPDOC'); // Print pish Factor kharid
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -507,6 +532,9 @@
             validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
             validation == true ? localStorage.setItem("DEL_PDOC", "true") : localStorage.setItem("DEL_PDOC", "false")
 
+            validation = CheckAccess('VIEW_PFDOC'); // VIEW PFDOC 
+            validation == true ? localStorage.setItem("VIEW_PFDOC", "true") : localStorage.setItem("VIEW_PFDOC", "false")
+
             validation = CheckAccess('PRN_PFDOC'); // Print Factor kharid
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
@@ -564,6 +592,9 @@
             //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
             validation == true ? sessionStorage.DEL_PRDOC = true : sessionStorage.DEL_PRDOC = false
             validation == true ? localStorage.setItem("DEL_PRDOC", "true") : localStorage.setItem("DEL_PRDOC", "false")
+
+            validation = CheckAccess('VIEW_PRDOC'); // VIEW PRDOC 
+            validation == true ? localStorage.setItem("VIEW_PRDOC", "true") : localStorage.setItem("VIEW_PRDOC", "false")
 
             validation = CheckAccess('PRN_PRDOC'); // Print back Factor kharid
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -2112,7 +2143,6 @@
     }
 
     self.ShowAction = function (Eghdam) {
-
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
             if (localStorage.getItem("DEL_SFORD") == 'true') {
                 if (localStorage.getItem("AccessViewSefareshForosh") == 'false') {
@@ -2246,6 +2276,79 @@
                 return false;
         }
     }
+
+
+    self.ViewSanad = function () {
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+            if (localStorage.getItem("VIEW_SFORD") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+            if (localStorage.getItem("VIEW_SPDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+            if (localStorage.getItem("VIEW_SDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+            if (localStorage.getItem("VIEW_SRDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+            if (localStorage.getItem("VIEW_SHVL") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+            if (localStorage.getItem("VIEW_SEXT") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+            if (localStorage.getItem("VIEW_PFORD") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+            if (localStorage.getItem("VIEW_PPDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+            if (localStorage.getItem("VIEW_PDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+            if (localStorage.getItem("VIEW_PRDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+    }
+
 
     $("#searchFDocH").on("keydown", function search(e) {
         var key = e.charCode || e.keyCode || 0;
@@ -3056,7 +3159,7 @@
 
         dataTable += '</ul>' +
 
-            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
+            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">' +

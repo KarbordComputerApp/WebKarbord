@@ -46,6 +46,10 @@
             validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
             validation == true ? localStorage.setItem("DEL_IIDOC", "true") : localStorage.setItem("DEL_IIDOC", "false")
 
+            validation = CheckAccess('VIEW_IIDOC'); // VIEW IIDOC 
+            validation == true ? localStorage.setItem("VIEW_IIDOC", "true") : localStorage.setItem("VIEW_IIDOC", "false")
+            
+
             validation = CheckAccess('PRN_IIDOC'); // Print
             validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
             validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
@@ -101,6 +105,9 @@
             validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
             validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
             validation == true ? localStorage.setItem("DEL_IODOC", "true") : localStorage.setItem("DEL_IODOC", "false")
+
+            validation = CheckAccess('VIEW_IODOC'); // VIEW IODOC 
+            validation == true ? localStorage.setItem("VIEW_IODOC", "true") : localStorage.setItem("VIEW_IODOC", "false")
 
             validation = CheckAccess('PRN_IODOC'); // Print
             validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
@@ -1618,8 +1625,6 @@
     }
 
     self.ShowAction = function (Eghdam) {
-
-
         if (sessionStorage.InOut == 1) {
             if (localStorage.getItem("DEL_IIDOC") == 'true') {
                 if (localStorage.getItem("AccessViewSanadAnbarVarede") == 'false') {
@@ -1645,6 +1650,23 @@
                 return false;
         }
     }
+
+    self.ViewSanad = function () {
+        if (sessionStorage.InOut == 1) {
+            if (localStorage.getItem("VIEW_IIDOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+        else if (sessionStorage.InOut == 2) {
+            if (localStorage.getItem("VIEW_IODOC") == 'true')
+                return true;
+            else
+                return false;
+        }
+    }
+
+
 
     $("#searchIDocH").on("keydown", function search(e) {
         if (allSearchIDocH == false) {
@@ -2006,7 +2028,7 @@
 
         dataTable +=
             '</ul>' +
-            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader">' +
+            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
             '   <a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam)">' +

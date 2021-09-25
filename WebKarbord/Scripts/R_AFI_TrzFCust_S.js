@@ -1112,10 +1112,10 @@
 
     self.AddStatus = function(item) {
 
-        StatusCode = item.Code;
+        Status = item.Status;
         find = false;
         list_StatusSelect.forEach(function(item, key) {
-            if (item == StatusCode) {
+            if (item == Status) {
                 find = true;
             }
         });

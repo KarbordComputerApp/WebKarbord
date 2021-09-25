@@ -40,6 +40,10 @@
             validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
 
 
+            validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
+            validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
+
+
             validation = CheckAccess('TAEED_ADOC');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
             validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
@@ -94,7 +98,7 @@
 
 
     //DocNoReport = localStorage.getItem("DocNoAFISanad");
-    
+
 
 
     var accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
@@ -225,7 +229,7 @@
             User: sessionStorage.userName,
             AccessSanad: localStorage.getItem("AccessSanad"),
             Sort: sort,
-            SerialNumber : "",
+            SerialNumber: "",
             ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         }
 
@@ -269,11 +273,11 @@
             $('#pageCountSelector').val(lastSelect);
         }
 
-       /* ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + localStorage.getItem("AccessSanad"), 'GET').done(function (data) {
-            flagupdateHeader = 0;
-            sessionStorage.flagupdateHeader = 0;
-            self.ADocHList(data);
-        });*/
+        /* ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group + '/top' + select + '/' + localStorage.getItem("userName") + '/' + localStorage.getItem("AccessSanad"), 'GET').done(function (data) {
+             flagupdateHeader = 0;
+             sessionStorage.flagupdateHeader = 0;
+             self.ADocHList(data);
+         });*/
     }
 
 
@@ -289,7 +293,7 @@
     //Get Status List
     function getStatusList() {
         list = localStorage.getItem('AccStatus');
-        if (list != null ) {
+        if (list != null) {
             list = JSON.parse(localStorage.getItem('AccStatus'));
             self.StatusList(list)
         }
@@ -364,7 +368,7 @@
         ajaxFunction(AChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
             currentPage = self.currentPageIndexADocH();
-            getADocH($('#pageCountSelector').val(),false);
+            getADocH($('#pageCountSelector').val(), false);
             self.sortTableADocH();
             self.currentPageIndexADocH(currentPage);
         });
@@ -1088,6 +1092,14 @@
             return false;
     }
 
+    self.ViewSanad = function () {
+        if (localStorage.getItem("VIEW_ADOC") == 'true') {
+            return true;
+        }
+        else
+            return false;
+    }
+
     self.ShowMove = function (Eghdam) {
         if (localStorage.getItem("moveSanad") == 'true')
             return true;
@@ -1127,7 +1139,7 @@
 
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
-        getADocH(select,true);
+        getADocH(select, true);
     }
 
 
@@ -1232,7 +1244,7 @@
 
         dataTable +=
             '</ul>' +
-            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader" >' +
+            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader , visible: $root.ViewSanad()" >' +
             '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
             '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +
             '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16"/></a>' +
