@@ -3211,10 +3211,14 @@
 
 
         dataTable += '</ul>' +
+            '<a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">';
 
-            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">' +
-            '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
-            '   </a>' +
+        if (sessionStorage.CHG == "true")
+            dataTable += '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a>';
+        else
+            dataTable += '<img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/></a>';
+
+        dataTable +=
             '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +

@@ -1082,6 +1082,7 @@
     }
 
 
+
     self.ShowAction = function (Eghdam) {
         if (localStorage.getItem("DEL_ADOC") == 'true') {
             if (localStorage.getItem("AccessViewSanad") == 'false') {
@@ -1095,13 +1096,21 @@
             return false;
     }
 
+
+   // self.imageUpdate = ko.observable();
     self.ViewSanad = function () {
         if (localStorage.getItem("VIEW_ADOC") == 'true') {
+           // self.imageUpdate("/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png");
             return true;
         }
-        else
+        else {
+           // self.imageUpdate("bb");
             return false;
+
+        }
     }
+
+
 
     self.ShowMove = function (Eghdam) {
         if (localStorage.getItem("moveSanad") == 'true')
@@ -1146,7 +1155,7 @@
     }
 
 
-
+   
     function CreateTableReport(data) {
         $("#TableList").empty();
         dataTable =
@@ -1247,9 +1256,17 @@
 
         dataTable +=
             '</ul>' +
-            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader , visible: $root.ViewSanad()" >' +
-            '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
-            '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +
+            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader , visible: $root.ViewSanad()" >';
+
+        if (sessionStorage.CHG == "true")
+            dataTable += '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a>'
+        else
+            dataTable += '<img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/></a>'
+
+        //'<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
+        //'<img data-bind="attr:{src: /Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png}" width="16" height="16" style="margin-left:10px"/></a >' +
+
+        dataTable += '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +
             '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16"/></a>' +
             '</td >' +
             '</tr>' +

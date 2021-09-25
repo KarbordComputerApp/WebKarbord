@@ -18,7 +18,7 @@
     }
 
 
-    if (sessionStorage.ModeCode == null ||  ShowNewTab != "ShowNewTab") {
+    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.moveSanadAnbar = localStorage.getItem("moveSanadAnbar");
@@ -48,7 +48,7 @@
 
             validation = CheckAccess('VIEW_IIDOC'); // VIEW IIDOC 
             validation == true ? localStorage.setItem("VIEW_IIDOC", "true") : localStorage.setItem("VIEW_IIDOC", "false")
-            
+
 
             validation = CheckAccess('PRN_IIDOC'); // Print
             validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
@@ -148,13 +148,13 @@
 
     }
 
-   
+
     if (sessionStorage.InOut == 1)
         sessionStorage.NEW_IIDOC == "true" ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide();
     else
         sessionStorage.NEW_IODOC == "true" ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide();
 
-    
+
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.IModeAllList = ko.observableArray([]); // لیست نوع اسناد انبار
@@ -1462,7 +1462,7 @@
         modeCode = localStorage.getItem("ModeCodeAFISanadAnbar");
         ShowDataUpdate(DocNoReport, invCode, modeCode);
         sessionStorage.IsReport = "true";
-        localStorage.setItem("DocNoAFISanadAnbar",null)
+        localStorage.setItem("DocNoAFISanadAnbar", null)
     }
 
 
@@ -2037,11 +2037,18 @@
 
         dataTable +=
             '</ul>' +
-            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">' +
-            '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
-            '   </a>' +
-            '   <a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam)">' +
-            '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
+            '   <a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">';
+
+
+        if (sessionStorage.CHG == "true")
+            dataTable += '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a>';
+        else
+            dataTable += '<img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/></a>';
+
+
+        dataTable += 
+            '<a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam)">' +
+            '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +
             '</tr>' +
