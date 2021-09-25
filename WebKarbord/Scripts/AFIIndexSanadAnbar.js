@@ -1495,6 +1495,15 @@
                 return showNotification('بیش از یک سند' + TitleListAnbarSearch + 'وجود دارد', 0);
             }
 
+            if (sessionStorage.InOut == 1) {
+                if (localStorage.getItem("VIEW_IIDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+            else if (sessionStorage.InOut == 2) {
+                if (localStorage.getItem("VIEW_IODOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
             var data = response[0];
             sessionStorage.flagupdateHeader = 1;
 

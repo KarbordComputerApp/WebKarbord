@@ -2601,9 +2601,9 @@
     //$("#IDOC_O").hide();
     self.AccessAction = function(InOut) {
         if (InOut == '1')
-            res = $("#IDOC_I").css("display") != "none"
+            res = $("#IDOC_I").css("display") != "none" && localStorage.getItem("VIEW_IIDOC") == 'true'
         else if (InOut == '2')
-            res = $("#IDOC_O").css("display") != "none"
+            res = $("#IDOC_O").css("display") != "none" && localStorage.getItem("VIEW_IODOC") == 'true'
 
         return res;
     }

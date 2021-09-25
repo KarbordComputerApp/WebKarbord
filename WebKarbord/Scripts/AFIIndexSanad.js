@@ -43,7 +43,6 @@
             validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
             validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
 
-
             validation = CheckAccess('TAEED_ADOC');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
             validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
@@ -1036,6 +1035,10 @@
 
             if (response.length > 1) {
                 return showNotification('بیش از یک سند وجود دارد', 0);
+            }
+
+            if (localStorage.getItem("VIEW_ADOC") == 'false') {
+                return showNotification('دسترسی ندارید', 0);
             }
 
             var data = response[0];

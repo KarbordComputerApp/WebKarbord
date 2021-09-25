@@ -2293,7 +2293,7 @@
                 return false;
         }
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
-            if (localStorage.getItem("VIEW_SDOC") == 'true')
+            if (localStorage.getItem("VIEW_SFDOC") == 'true')
                 return true;
             else
                 return false;
@@ -2533,6 +2533,59 @@
             if (response.length > 1) {
                 return showNotification('بیش از یک ' + TitleListFactor + '  وجود دارد', 0);
             }
+
+
+
+
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+                if (localStorage.getItem("VIEW_SFORD") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+                if (localStorage.getItem("VIEW_SPDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+            else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+                if (localStorage.getItem("VIEW_SFDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+                if (localStorage.getItem("VIEW_SRDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+                if (localStorage.getItem("VIEW_SHVL") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+                if (localStorage.getItem("VIEW_SEXT") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+                if (localStorage.getItem("VIEW_PFORD") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+                if (localStorage.getItem("VIEW_PPDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+                if (localStorage.getItem("VIEW_PDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
+            else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+                if (localStorage.getItem("VIEW_PRDOC") == 'false')
+                    return showNotification('دسترسی ندارید', 0);
+            }
+
 
             var data = response[0];
 

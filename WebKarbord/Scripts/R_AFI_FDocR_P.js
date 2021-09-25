@@ -2356,25 +2356,25 @@
 
     self.AccessAction = function (ModeCode) {
         if (ModeCode == 'SORD')
-            res = $("#FDOC_SO").css("display") != "none"
+            res = $("#FDOC_SO").css("display") != "none" && localStorage.getItem("VIEW_SFORD") == 'true'
         else if (ModeCode == 'SPFCT')
-            res = $("#FDOC_SP").css("display") != "none"
+            res = $("#FDOC_SP").css("display") != "none" && localStorage.getItem("VIEW_SPDOC") == 'true'
         else if (ModeCode == 'SFCT')
-            res = $("#FDOC_S").css("display") != "none"
+            res = $("#FDOC_S").css("display") != "none" && localStorage.getItem("VIEW_SFDOC") == 'true'
         else if (ModeCode == 'SRFCT')
-            res = $("#FDOC_SR").css("display") != "none"
+            res = $("#FDOC_SR").css("display") != "none" && localStorage.getItem("VIEW_SRDOC") == 'true'
         else if (ModeCode == 'SHVL')
-            res = $("#FDOC_SH").css("display") != "none"
+            res = $("#FDOC_SH").css("display") != "none" && localStorage.getItem("VIEW_SHVL") == 'true'
         else if (ModeCode == 'SEXT')
-            res = $("#FDOC_SE").css("display") != "none"
+            res = $("#FDOC_SE").css("display") != "none" && localStorage.getItem("VIEW_SEXT") == 'true'
         else if (ModeCode == 'PORD')
-            res = $("#FDOC_PO").css("display") != "none"
+            res = $("#FDOC_PO").css("display") != "none" && localStorage.getItem("VIEW_PFORD") == 'true'
         else if (ModeCode == 'PPFCT')
-            res = $("#FDOC_PP").css("display") != "none"
+            res = $("#FDOC_PP").css("display") != "none" && localStorage.getItem("VIEW_PPDOC") == 'true'
         else if (ModeCode == 'PFCT')
-            res = $("#FDOC_P").css("display") != "none"
+            res = $("#FDOC_P").css("display") != "none" && localStorage.getItem("VIEW_PDOC") == 'true'
         else if (ModeCode == 'PRFCT')
-            res = $("#FDOC_PR").css("display") != "none"
+            res = $("#FDOC_PR").css("display") != "none" && localStorage.getItem("VIEW_PRDOC") == 'true'
         return res;
     }
 

@@ -1871,7 +1871,7 @@
     // $("#ADOC").hide();
 
     self.AccessAction = function() {
-        res = $("#ADOC").css("display") != "none"
+        res = $("#ADOC").css("display") != "none" && localStorage.getItem("VIEW_ADOC") == 'true'
         return res;
     }
 
