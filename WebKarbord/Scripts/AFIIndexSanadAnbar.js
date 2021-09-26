@@ -46,8 +46,9 @@
             validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
             validation == true ? localStorage.setItem("DEL_IIDOC", "true") : localStorage.setItem("DEL_IIDOC", "false")
 
-            validation = CheckAccess('VIEW_IIDOC'); // VIEW IIDOC 
-            validation == true ? localStorage.setItem("VIEW_IIDOC", "true") : localStorage.setItem("VIEW_IIDOC", "false")
+
+            //validation = CheckAccess('VIEW_IIDOC'); // VIEW IIDOC 
+            //validation == true ? localStorage.setItem("VIEW_IIDOC", "true") : localStorage.setItem("VIEW_IIDOC", "false")
 
 
             validation = CheckAccess('PRN_IIDOC'); // Print
@@ -106,8 +107,8 @@
             validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
             validation == true ? localStorage.setItem("DEL_IODOC", "true") : localStorage.setItem("DEL_IODOC", "false")
 
-            validation = CheckAccess('VIEW_IODOC'); // VIEW IODOC 
-            validation == true ? localStorage.setItem("VIEW_IODOC", "true") : localStorage.setItem("VIEW_IODOC", "false")
+            //validation = CheckAccess('VIEW_IODOC'); // VIEW IODOC 
+            //validation == true ? localStorage.setItem("VIEW_IODOC", "true") : localStorage.setItem("VIEW_IODOC", "false")
 
             validation = CheckAccess('PRN_IODOC'); // Print
             validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false

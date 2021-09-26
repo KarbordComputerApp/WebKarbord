@@ -40,8 +40,8 @@
             validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
 
 
-            validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
-            validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
+            //validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
+            //validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
 
             validation = CheckAccess('TAEED_ADOC');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false

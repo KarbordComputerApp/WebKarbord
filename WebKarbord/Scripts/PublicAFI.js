@@ -1674,21 +1674,21 @@ function SetValidation() {
     //sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');
 
 
-    localStorage.setItem("VIEW_ADOC", CheckAccess('VIEW_ADOC'));
+    localStorage.setItem("VIEW_ADOC",  ace == "Web1" ? true : CheckAccess('VIEW_ADOC'));
 
-    localStorage.setItem("VIEW_SFORD", CheckAccess('VIEW_SFORD'));
-    localStorage.setItem("VIEW_SPDOC", CheckAccess('VIEW_SPDOC'));
-    localStorage.setItem("VIEW_SFDOC", CheckAccess('VIEW_SFDOC'));
-    localStorage.setItem("VIEW_SRDOC", CheckAccess('VIEW_SRDOC'));
-    localStorage.setItem("VIEW_SHVL", CheckAccess('VIEW_SHVL'));
-    localStorage.setItem("VIEW_SEXT", CheckAccess('VIEW_SEXT'));
-    localStorage.setItem("VIEW_PFORD", CheckAccess('VIEW_PFORD'));
-    localStorage.setItem("VIEW_PPDOC", CheckAccess('VIEW_PPDOC'));
-    localStorage.setItem("VIEW_PDOC", CheckAccess('VIEW_PDOC'));
-    localStorage.setItem("VIEW_PRDOC", CheckAccess('VIEW_PRDOC'));
+    localStorage.setItem("VIEW_SFORD", ace == "Web1" ? true : CheckAccess('VIEW_SFORD'));
+    localStorage.setItem("VIEW_SPDOC", ace == "Web1" ? true : CheckAccess('VIEW_SPDOC'));
+    localStorage.setItem("VIEW_SFDOC", ace == "Web1" ? true : CheckAccess('VIEW_SFDOC'));
+    localStorage.setItem("VIEW_SRDOC", ace == "Web1" ? true : CheckAccess('VIEW_SRDOC'));
+    localStorage.setItem("VIEW_SHVL", ace == "Web1" ? true : CheckAccess('VIEW_SHVL'));
+    localStorage.setItem("VIEW_SEXT", ace == "Web1" ? true : CheckAccess('VIEW_SEXT'));
+    localStorage.setItem("VIEW_PFORD", ace == "Web1" ? true : CheckAccess('VIEW_PFORD'));
+    localStorage.setItem("VIEW_PPDOC", ace == "Web1" ? true : CheckAccess('VIEW_PPDOC'));
+    localStorage.setItem("VIEW_PDOC", ace == "Web1" ? true : CheckAccess('VIEW_PDOC'));
+    localStorage.setItem("VIEW_PRDOC", ace == "Web1" ? true : CheckAccess('VIEW_PRDOC'));
 
-    localStorage.setItem("VIEW_IIDOC", CheckAccess('VIEW_IIDOC'));
-    localStorage.setItem("VIEW_IODOC", CheckAccess('VIEW_IODOC'));
+    localStorage.setItem("VIEW_IIDOC", ace == "Web1" ? true : CheckAccess('VIEW_IIDOC'));
+    localStorage.setItem("VIEW_IODOC", ace == "Web1" ? true : CheckAccess('VIEW_IODOC'));
 
 
 

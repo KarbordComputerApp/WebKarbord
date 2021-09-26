@@ -45,9 +45,8 @@
             validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
             validation == true ? localStorage.setItem("DEL_SFORD", "true") : localStorage.setItem("DEL_SFORD", "false")
 
-            validation = CheckAccess('VIEW_SFORD'); // VIEW SFORD 
-            validation == true ? localStorage.setItem("VIEW_SFORD", "true") : localStorage.setItem("VIEW_SFORD", "false")
-
+            //validation = CheckAccess('VIEW_SFORD'); // VIEW SFORD 
+            //validation == true ? localStorage.setItem("VIEW_SFORD", "true") : localStorage.setItem("VIEW_SFORD", "false")
 
             validation = CheckAccess('PRN_SFORD'); // Print 
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -107,8 +106,8 @@
             validation == true ? sessionStorage.DEL_SPDOC = true : sessionStorage.DEL_SPDOC = false
             validation == true ? localStorage.setItem("DEL_SPDOC", "true") : localStorage.setItem("DEL_SPDOC", "false")
 
-            validation = CheckAccess('VIEW_SPDOC'); // VIEW SPDOC 
-            validation == true ? localStorage.setItem("VIEW_SPDOC", "true") : localStorage.setItem("VIEW_SPDOC", "false")
+           // validation = CheckAccess('VIEW_SPDOC'); // VIEW SPDOC 
+           // validation == true ? localStorage.setItem("VIEW_SPDOC", "true") : localStorage.setItem("VIEW_SPDOC", "false")
 
             validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
             validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -172,8 +171,9 @@
             validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
             validation == true ? localStorage.setItem("DEL_SDOC", "true") : localStorage.setItem("DEL_SDOC", "false")
 
-            validation = CheckAccess('VIEW_SFDOC'); // VIEW SFDOC 
-            validation == true ? localStorage.setItem("VIEW_SFDOC", "true") : localStorage.setItem("VIEW_SFDOC", "false")
+           // validation = CheckAccess('VIEW_SFDOC'); // VIEW SFDOC 
+            //validation == true ? localStorage.setItem("VIEW_SFDOC", "true") : localStorage.setItem("VIEW_SFDOC", "false")
+
 
             validation = CheckAccess('PRN_SFDOC'); // Print Factor forosh
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -234,8 +234,9 @@
             validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
             validation == true ? localStorage.setItem("DEL_SRDOC", "true") : localStorage.setItem("DEL_SRDOC", "false")
 
-            validation = CheckAccess('VIEW_SRDOC'); // VIEW SRDOC 
-            validation == true ? localStorage.setItem("VIEW_SRDOC", "true") : localStorage.setItem("VIEW_SRDOC", "false")
+           // validation = CheckAccess('VIEW_SRDOC'); // VIEW SRDOC 
+           // validation == true ? localStorage.setItem("VIEW_SRDOC", "true") : localStorage.setItem("VIEW_SRDOC", "false")
+
 
             validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -295,8 +296,8 @@
             validation == true ? sessionStorage.DEL_SHVL = true : sessionStorage.DEL_SHVL = false
             validation == true ? localStorage.setItem("DEL_SHVL", "true") : localStorage.setItem("DEL_SHVL", "false")
 
-            validation = CheckAccess('VIEW_SHVL'); // VIEW SHVL 
-            validation == true ? localStorage.setItem("VIEW_SHVL", "true") : localStorage.setItem("VIEW_SHVL", "false")
+            //validation = CheckAccess('VIEW_SHVL'); // VIEW SHVL 
+            //validation == true ? localStorage.setItem("VIEW_SHVL", "true") : localStorage.setItem("VIEW_SHVL", "false")
 
             validation = CheckAccess('PRN_SHVL'); // Print
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -352,8 +353,8 @@
             validation == true ? sessionStorage.DEL_SEXT = true : sessionStorage.DEL_SEXT = false
             validation == true ? localStorage.setItem("DEL_SEXT", "true") : localStorage.setItem("DEL_SEXT", "false")
 
-            validation = CheckAccess('VIEW_SEXT'); // VIEW SEXT
-            validation == true ? localStorage.setItem("VIEW_SEXT", "true") : localStorage.setItem("VIEW_SEXT", "false")
+            //validation = CheckAccess('VIEW_SEXT'); // VIEW SEXT
+            //validation == true ? localStorage.setItem("VIEW_SEXT", "true") : localStorage.setItem("VIEW_SEXT", "false")
 
             validation = CheckAccess('PRN_SEXT'); // Print
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -409,8 +410,8 @@
             validation == true ? sessionStorage.DEL_PFORD = true : sessionStorage.DEL_PFORD = false
             validation == true ? localStorage.setItem("DEL_PFORD", "true") : localStorage.setItem("DEL_PFORD", "false")
 
-            validation = CheckAccess('VIEW_PFORD'); // VIEW PFORD 
-            validation == true ? localStorage.setItem("VIEW_PFORD", "true") : localStorage.setItem("VIEW_PFORD", "false")
+            //validation = CheckAccess('VIEW_PFORD'); // VIEW PFORD 
+            //validation == true ? localStorage.setItem("VIEW_PFORD", "true") : localStorage.setItem("VIEW_PFORD", "false")
 
             validation = CheckAccess('PRN_PFORD'); // Print
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -470,8 +471,8 @@
             validation == true ? sessionStorage.DEL_PPDOC = true : sessionStorage.DEL_PPDOC = false
             validation == true ? localStorage.setItem("DEL_PPDOC", "true") : localStorage.setItem("DEL_PPDOC", "false")
 
-            validation = CheckAccess('VIEW_PPDOC'); // VIEW PPDOC
-            validation == true ? localStorage.setItem("VIEW_PPDOC", "true") : localStorage.setItem("VIEW_PPDOC", "false")
+            //validation = CheckAccess('VIEW_PPDOC'); // VIEW PPDOC
+            //validation == true ? localStorage.setItem("VIEW_PPDOC", "true") : localStorage.setItem("VIEW_PPDOC", "false")
 
             validation = CheckAccess('PRN_PPDOC'); // Print pish Factor kharid
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -533,8 +534,9 @@
             validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
             validation == true ? localStorage.setItem("DEL_PDOC", "true") : localStorage.setItem("DEL_PDOC", "false")
 
-            validation = CheckAccess('VIEW_PFDOC'); // VIEW PFDOC 
-            validation == true ? localStorage.setItem("VIEW_PFDOC", "true") : localStorage.setItem("VIEW_PFDOC", "false")
+            //validation = CheckAccess('VIEW_PFDOC'); // VIEW PFDOC 
+            //validation == true ? localStorage.setItem("VIEW_PFDOC", "true") : localStorage.setItem("VIEW_PFDOC", "false")
+
 
             validation = CheckAccess('PRN_PFDOC'); // Print Factor kharid
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -594,8 +596,9 @@
             validation == true ? sessionStorage.DEL_PRDOC = true : sessionStorage.DEL_PRDOC = false
             validation == true ? localStorage.setItem("DEL_PRDOC", "true") : localStorage.setItem("DEL_PRDOC", "false")
 
-            validation = CheckAccess('VIEW_PRDOC'); // VIEW PRDOC 
-            validation == true ? localStorage.setItem("VIEW_PRDOC", "true") : localStorage.setItem("VIEW_PRDOC", "false")
+            //validation = CheckAccess('VIEW_PRDOC'); // VIEW PRDOC 
+            //validation == true ? localStorage.setItem("VIEW_PRDOC", "true") : localStorage.setItem("VIEW_PRDOC", "false")
+
 
             validation = CheckAccess('PRN_PRDOC'); // Print back Factor kharid
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
