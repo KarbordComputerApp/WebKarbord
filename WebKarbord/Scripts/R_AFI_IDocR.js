@@ -2599,12 +2599,27 @@
 
     // $("#IDOC_I").hide();
     //$("#IDOC_O").hide();
-    self.AccessAction = function(InOut) {
-        if (InOut == '1')
-            res = $("#IDOC_I").css("display") != "none" && localStorage.getItem("VIEW_IIDOC") == 'true'
-        else if (InOut == '2')
+    self.AccessAction = function (InOut, Eghdam) {
+        if (InOut == '1') {
+            if (localStorage.getItem("AccessViewSanadAnbarVarede") == 'false') {
+                res = Eghdam == sessionStorage.userName ? true : false
+            }
+            else {
+                res = true;
+            }
+            if (res == true)
+                res = $("#IDOC_I").css("display") != "none" && localStorage.getItem("VIEW_IIDOC") == 'true'
+        }
+        else if (InOut == '2') {
+            if (localStorage.getItem("AccessViewSanadAnbarSadere") == 'false') {
+                res = Eghdam == sessionStorage.userName ? true : false
+            }
+            else {
+                res = true;
+            }
+            if (res == true)
             res = $("#IDOC_O").css("display") != "none" && localStorage.getItem("VIEW_IODOC") == 'true'
-
+        }
         return res;
     }
 
@@ -2759,7 +2774,7 @@
             CreateTableTd('BandSpec', 0, 0, data) +
             CreateTableTd('Comm', 0, 0, data) +
             ' <td>' +
-            ' <a data-bind="visible: $root.AccessAction(InOut)" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            ' <a data-bind="visible: $root.AccessAction(InOut,Eghdam)" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             ' </a>' +
             ' <ul class="dropdown-menu">' +

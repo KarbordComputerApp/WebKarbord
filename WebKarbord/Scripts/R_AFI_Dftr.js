@@ -1816,9 +1816,16 @@
 
 
     //$("#ADOC").hide();
+    self.AccessAction = function (Eghdam) {
+        if (localStorage.getItem("AccessViewSanad") == 'false') {
+            res = Eghdam == sessionStorage.userName ? true : false
+        }
+        else {
+            res = true;
+        }
+        if (res == true)
+            res = $("#ADOC").css("display") != "none" && localStorage.getItem("VIEW_ADOC") == 'true'
 
-    self.AccessAction = function () {
-        res = $("#ADOC").css("display") != "none" && localStorage.getItem("VIEW_ADOC") == 'true'
         return res;
     }
 
@@ -1935,7 +1942,7 @@
             CreateTableTd('F19', 0, 0, data) +
             CreateTableTd('F20', 0, 0, data) +
             ' <td>' +
-            ' <a data-bind="visible: $root.AccessAction()" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            ' <a data-bind="visible: $root.AccessAction(Eghdam)" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             ' </a>' +
             ' <ul class="dropdown-menu">' +
