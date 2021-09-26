@@ -528,9 +528,19 @@
                 + '         <h6 style="padding-left: 10px">' + listBand[0].RjTimeSt + '</h6> '
                 + '         <h6>' + listBand[0].RjDate + '</h6> '
                 + '     </div> '
-                + '</div>'
-                + '</div>'
-                + '<div class="body" style="padding:10px;">'
+                + '</div>';
+
+            if (listBand[0].FarayandName != "") {
+                textBody += '<div class="form-inline" style = "margin-top: 5px;"> '
+                    + '     <div class= "col-md-12 form-inline" > '
+                    + '         <h6> فرایند : ' + listBand[0].FarayandName + '</h6>'
+                    + '     </div>'
+                    + '</div>';
+            }
+
+
+            textBody += '</div>'
+                + '<div class="body" style="padding:10px;">';
 
             textBody += text
             if (i == countBand)
