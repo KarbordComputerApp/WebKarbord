@@ -1692,6 +1692,7 @@ function SetValidation() {
 
 
 
+    /*
     localStorage.setItem("AccessViewSanad", CheckAccess('OTHERUSER_CHG_ADOC')) 
 
     localStorage.setItem("AccessViewSefareshForosh", CheckAccess('OTHERUSER_CHG_SFORD')) 
@@ -1707,6 +1708,25 @@ function SetValidation() {
 
     localStorage.setItem("AccessViewSanadAnbarVarede", CheckAccess('OTHERUSER_CHG_IIDOC')) 
     localStorage.setItem("AccessViewSanadAnbarSadere", CheckAccess('OTHERUSER_CHG_IODOC')) 
+    */
+
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_ADOC'))
+
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SFORD'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SPDOC'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SFDOC'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SRDOC'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SHVL'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SEXT'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PFORD'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PPDOC'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PFDOC'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PRDOC'))
+
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_IIDOC'))
+    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_IODOC'))
+
+
 
 
 

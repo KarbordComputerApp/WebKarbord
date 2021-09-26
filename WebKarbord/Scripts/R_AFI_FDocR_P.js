@@ -2355,103 +2355,50 @@
    // $("#FDOC_PR").hide(); //برگشت از خرید
 
     self.AccessAction = function (ModeCode, Eghdam) {
+        if (localStorage.getItem("AccessSanad") == 'false') {
+            res = Eghdam == sessionStorage.userName ? true : false
+        }
+        else {
+            res = true;
+        }
+
         if (ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-            if (localStorage.getItem("AccessViewSefareshForosh") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_SO").css("display") != "none" && localStorage.getItem("VIEW_SFORD") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_SP) {
-            if (localStorage.getItem("AccessViewPishFactorForosh") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_SP").css("display") != "none" && localStorage.getItem("VIEW_SPDOC") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_S) {
-            if (localStorage.getItem("AccessViewFactorForosh") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_S").css("display") != "none" && localStorage.getItem("VIEW_SFDOC") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_SR) {
-            if (localStorage.getItem("AccessViewBackFactorForosh") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_SR").css("display") != "none" && localStorage.getItem("VIEW_SRDOC") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-            if (localStorage.getItem("AccessViewHavaleForosh") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_SH").css("display") != "none" && localStorage.getItem("VIEW_SHVL") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_SE) {
-            if (localStorage.getItem("AccessViewBargeKhoroj") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_SE").css("display") != "none" && localStorage.getItem("VIEW_SEXT") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-            if (localStorage.getItem("AccessViewSefareshKharid") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_PO").css("display") != "none" && localStorage.getItem("VIEW_PFORD") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-            if (localStorage.getItem("AccessViewPishFactorKharid") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_PP").css("display") != "none" && localStorage.getItem("VIEW_PPDOC") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_P) {
-            if (localStorage.getItem("AccessViewFactorKharid") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_P").css("display") != "none" && localStorage.getItem("VIEW_PDOC") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-            if (localStorage.getItem("AccessViewBackFactorKharid") == 'false') {
-                res = Eghdam == sessionStorage.userName ? true : false
-            }
-            else {
-                res = true;
-            }
             if (res == true)
                 res = $("#FDOC_PR").css("display") != "none" && localStorage.getItem("VIEW_PRDOC") == 'true'
         }

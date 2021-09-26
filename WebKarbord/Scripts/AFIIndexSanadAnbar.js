@@ -73,9 +73,9 @@
             validation == true ? localStorage.setItem("Access_TASVIB_IIDOC", "true") : localStorage.setItem("Access_TASVIB_IIDOC", "false")
 
 
-            validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
-            validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-            validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            //validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
+            //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
 
             validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
             if (validation == true) {
@@ -131,9 +131,9 @@
             validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
             validation == true ? localStorage.setItem("Access_TASVIB_IODOC", "true") : localStorage.setItem("Access_TASVIB_IODOC", "false")
 
-            validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
-            validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-            validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            //validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
+           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+           // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
 
             validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
             if (validation == true) {

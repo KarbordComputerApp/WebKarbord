@@ -51,9 +51,9 @@
             validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
             validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
 
-            validation = CheckAccess('OTHERUSER_VIEW_ADOC');
-            validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-            validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+           // validation = CheckAccess('OTHERUSER_VIEW_ADOC');
+           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+          //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
 
             validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
             validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false

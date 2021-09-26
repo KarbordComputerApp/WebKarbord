@@ -1871,7 +1871,7 @@
     // $("#ADOC").hide();
 
     self.AccessAction = function (Eghdam) {
-        if (localStorage.getItem("AccessViewSanad") == 'false') {
+        if (localStorage.getItem("AccessSanad") == 'false') {
             res = Eghdam == sessionStorage.userName ? true : false
         }
         else {
