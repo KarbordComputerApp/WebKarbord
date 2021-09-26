@@ -19,7 +19,7 @@
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.newFactor = localStorage.getItem("newFactor");
         sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor");
-        sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
+       // sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
         sessionStorage.moveFactor = localStorage.getItem("moveFactor");
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
         sessionStorage.CHG = localStorage.setItem("CHG", "true")
@@ -55,6 +55,7 @@
             //validation = CheckAccess('OTHERUSER_VIEW_SFORD');
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SFORD");
 
             validation = CheckAccess('SHOWPRICE_SFORD');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_SFORD = true : sessionStorage.Access_SHOWPRICE_SFORD = false
@@ -112,6 +113,7 @@
             //validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SPDOC");
 
             validation = CheckAccess('PRN_SPDOC'); // Print pish Factor forosh
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
@@ -183,6 +185,7 @@
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             //sessionStorage.AccessSanad = true;
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SFDOC");
 
             validation = CheckAccess('SHOWPRICE_SFDOC');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_SFDOC = true : sessionStorage.Access_SHOWPRICE_SFDOC = false
@@ -245,6 +248,7 @@
             //validation = CheckAccess('OTHERUSER_VIEW_SRDOC');// AccessSanad
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SRDOC");
 
             validation = CheckAccess('SHOWPRICE_SRDOC');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_SRDOC = true : sessionStorage.Access_SHOWPRICE_SRDOC = false
@@ -306,6 +310,7 @@
             //validation = CheckAccess('OTHERUSER_VIEW_SHVL');
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SHVL");
 
             validation = CheckAccess('TAEED_SHVL');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_SHVL = true : sessionStorage.Access_TAEED_SHVL = false
@@ -363,6 +368,7 @@
            // validation = CheckAccess('OTHERUSER_VIEW_SEXT');
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SEXT");
 
             validation = CheckAccess('TAEED_SEXT');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_SEXT = true : sessionStorage.Access_TAEED_SEXT = false
@@ -420,6 +426,7 @@
            // validation = CheckAccess('OTHERUSER_VIEW_PFORD');
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PFORD");
 
             validation = CheckAccess('SHOWPRICE_PFORD');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_PFORD = true : sessionStorage.Access_SHOWPRICE_PFORD = false
@@ -484,6 +491,7 @@
            // validation = CheckAccess('OTHERUSER_VIEW_PPDOC');// AccessSanad
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PPDOC");
 
             validation = CheckAccess('SHOWPRICE_PPDOC');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_PPDOC = true : sessionStorage.Access_SHOWPRICE_PPDOC = false
@@ -545,6 +553,7 @@
            // validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PFDOC");
 
             validation = CheckAccess('SHOWPRICE_PFDOC');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_PFDOC = true : sessionStorage.Access_SHOWPRICE_PFDOC = false
@@ -607,6 +616,7 @@
            // validation = CheckAccess('OTHERUSER_VIEW_PRDOC');// AccessSanad
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PRDOC");
 
             validation = CheckAccess('SHOWPRICE_PRDOC');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_PRDOC = true : sessionStorage.Access_SHOWPRICE_PRDOC = false

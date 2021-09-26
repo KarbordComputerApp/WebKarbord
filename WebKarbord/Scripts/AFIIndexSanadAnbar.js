@@ -23,7 +23,7 @@
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.moveSanadAnbar = localStorage.getItem("moveSanadAnbar");
         sessionStorage.AccessPrint_SanadAnbar = localStorage.getItem("AccessPrint_SanadAnbar");
-        sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
+        //sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
 
         if (sessionStorage.InOut == 1) {
@@ -76,6 +76,7 @@
             //validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_IIDOC");
 
             validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
             if (validation == true) {
@@ -134,6 +135,7 @@
             //validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_IODOC");
 
             validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
             if (validation == true) {

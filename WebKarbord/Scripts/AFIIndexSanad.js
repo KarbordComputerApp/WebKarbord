@@ -54,6 +54,7 @@
            // validation = CheckAccess('OTHERUSER_VIEW_ADOC');
            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
           //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_ADOC");
 
             validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
             validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
@@ -226,7 +227,7 @@
         var ADocHObject = {
             Select: select,
             User: sessionStorage.userName,
-            AccessSanad: localStorage.getItem("AccessSanad"),
+            AccessSanad: sessionStorage.AccessSanad,//localStorage.getItem("AccessSanad"),
             Sort: sort,
             SerialNumber: "",
             ModeSort: sortType == "ascending" ? "ASC" : "DESC"
@@ -1022,7 +1023,7 @@
         var ADocHObject = {
             Select: 3,
             User: sessionStorage.userName,
-            AccessSanad: localStorage.getItem("AccessSanad"),
+            AccessSanad: sessionStorage.AccessSanad,//localStorage.getItem("AccessSanad"),
             Sort: '',
             DocNo: docNo,
             ModeSort: 'DESC'

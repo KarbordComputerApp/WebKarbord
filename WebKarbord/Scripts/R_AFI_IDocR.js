@@ -2600,18 +2600,23 @@
     // $("#IDOC_I").hide();
     //$("#IDOC_O").hide();
     self.AccessAction = function (InOut, Eghdam) {
-        if (localStorage.getItem("AccessSanad") == 'false') {
-            res = Eghdam == sessionStorage.userName ? true : false
-        }
-        else {
-            res = true;
-        }
-
         if (InOut == '1') {
+            if (localStorage.getItem("AccessSanad_IIDOC") == 'false') {
+                res = Eghdam == sessionStorage.userName ? true : false
+            }
+            else {
+                res = true;
+            }
             if (res == true)
                 res = $("#IDOC_I").css("display") != "none" && localStorage.getItem("VIEW_IIDOC") == 'true'
         }
         else if (InOut == '2') {
+            if (localStorage.getItem("AccessSanad_IODOC") == 'false') {
+                res = Eghdam == sessionStorage.userName ? true : false
+            }
+            else {
+                res = true;
+            }
             if (res == true)
             res = $("#IDOC_O").css("display") != "none" && localStorage.getItem("VIEW_IODOC") == 'true'
         }

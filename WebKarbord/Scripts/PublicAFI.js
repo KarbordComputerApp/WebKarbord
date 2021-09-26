@@ -1710,21 +1710,21 @@ function SetValidation() {
     localStorage.setItem("AccessViewSanadAnbarSadere", CheckAccess('OTHERUSER_CHG_IODOC')) 
     */
 
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_ADOC'))
+    localStorage.setItem("AccessSanad_ADOC", CheckAccess('OTHERUSER_VIEW_ADOC'))
 
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SFORD'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SPDOC'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SFDOC'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SRDOC'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SHVL'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_SEXT'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PFORD'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PPDOC'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PFDOC'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_PRDOC'))
+    localStorage.setItem("AccessSanad_SFORD", CheckAccess('OTHERUSER_VIEW_SFORD'))
+    localStorage.setItem("AccessSanad_SPDOC", CheckAccess('OTHERUSER_VIEW_SPDOC'))
+    localStorage.setItem("AccessSanad_SFDOC", CheckAccess('OTHERUSER_VIEW_SFDOC'))
+    localStorage.setItem("AccessSanad_SRDOC", CheckAccess('OTHERUSER_VIEW_SRDOC'))
+    localStorage.setItem("AccessSanad_SHVL", CheckAccess('OTHERUSER_VIEW_SHVL'))
+    localStorage.setItem("AccessSanad_SEXT", CheckAccess('OTHERUSER_VIEW_SEXT'))
+    localStorage.setItem("AccessSanad_PFORD", CheckAccess('OTHERUSER_VIEW_PFORD'))
+    localStorage.setItem("AccessSanad_PPDOC", CheckAccess('OTHERUSER_VIEW_PPDOC'))
+    localStorage.setItem("AccessSanad_PFDOC", CheckAccess('OTHERUSER_VIEW_PFDOC'))
+    localStorage.setItem("AccessSanad_PRDOC", CheckAccess('OTHERUSER_VIEW_PRDOC'))
 
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_IIDOC'))
-    localStorage.setItem("AccessSanad", CheckAccess('OTHERUSER_VIEW_IODOC'))
+    localStorage.setItem("AccessSanad_IIDOC", CheckAccess('OTHERUSER_VIEW_IIDOC'))
+    localStorage.setItem("AccessSanad_IODOC", CheckAccess('OTHERUSER_VIEW_IODOC'))
 
 
 
