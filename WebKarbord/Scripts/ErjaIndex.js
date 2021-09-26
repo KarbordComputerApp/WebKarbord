@@ -108,7 +108,8 @@
 
 
     DocNoReport = localStorage.getItem("DocNoErjReport");
-    if (DocNoReport != "null" && DocNoReport != null) {
+    DocNoReport = DocNoReport == null ? DocNoReport = "null" : DocNoReport
+    if (DocNoReport != "null") {
         localStorage.setItem("DocNoErjReport", null);
         $("#DocNoSearch").val(DocNoReport);
         ShowDataUpdate(DocNoReport);

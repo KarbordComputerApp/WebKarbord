@@ -2962,9 +2962,10 @@ $("#IDOC_O").click(function () {
 
 $("#Erja_Resive").click(function () {
     sessionStorage.ModeCodeErja = 1;
-
     localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
+    localStorage.SetItem('DocNoErjReport', null);
+    localStorage.SetItem('DocNoErjDocK', null);
 });
 
 $("#P_NotificationErja").click(function () {
@@ -2980,10 +2981,23 @@ $("#Erja_Send").click(function () {
 
     localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
+    localStorage.SetItem('DocNoErjReport', null);
+    localStorage.SetItem('DocNoErjDocK', null);
 });
 
 
 $("#ErjaDOC").click(function () {
+    localStorage.SetItem('DocNoErjReport', null);
+    localStorage.SetItem('DocNoErjDocK', null);
+});
+
+$("#ErjDocK").click(function () {
+    localStorage.SetItem('DocNoErjReport', null);
+    localStorage.SetItem('DocNoErjDocK', null);
+});
+
+$("#ErjDocB_Last").click(function () {
+    localStorage.SetItem('DocNoErjReport', null);
     localStorage.SetItem('DocNoErjDocK', null);
 });
 
