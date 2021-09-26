@@ -2553,9 +2553,14 @@ function SetValidation() {
 
 
     if (afiaccess[27] == true || afiaccess[28] == true) {
-        $("#Base_Menu").show();
-        (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
-        (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
+        if (ShowMenu[31] || ShowMenu[32]) {
+            $("#Base_Menu").show();
+            (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
+            (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
+        }
+        else {
+            $("#Base_Menu").hide();
+        }
     }
     else {
         $("#Base_Menu").hide();
