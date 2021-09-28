@@ -2451,8 +2451,10 @@
                 res = true;
             }
 
+            var a = localStorage.getItem("VIEW_PFDOC");
+            var b = $("#FDOC_P").css("display") != "none";
             if (res == true)
-                res = $("#FDOC_P").css("display") != "none" && localStorage.getItem("VIEW_PDOC") == 'true'
+                res = $("#FDOC_P").css("display") != "none" && localStorage.getItem("VIEW_PFDOC") == 'true'
         }
         else if (ModeCode == sessionStorage.MODECODE_FDOC_PR) {
             if (localStorage.getItem("AccessSanad_PRDOC") == 'false') {

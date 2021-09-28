@@ -37,6 +37,7 @@
 
 
     var kGruCode = '';
+    var isUpdate = false;
 
     var rprtId = 'Kala';
 
@@ -680,6 +681,7 @@
 
 
     self.AddNewKala = function () {
+        isUpdate = false;
         sessionStorage.NEW_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
         kGruCode = '';
         $('#Code').val('');
@@ -732,7 +734,7 @@
     }
 
     self.UpdateKala = function (item) {
-
+        isUpdate = true;
         sessionStorage.CHG_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
@@ -870,16 +872,36 @@
 
 
     $('#saveKala').click(function () {
+        code = $('#Code').val();
+        name = $('#Name').val();
+
+        if (code == "") {
+            return showNotification('کد کالا را وارد کنید', 0)
+        }
+        if (name == "") {
+            return showNotification('نام کالا را وارد کنید', 0)
+        }
+
+        if (isUpdate == false) {
+            listCode = ko.utils.arrayFilter(self.KalaList(), function (item) {
+                return item.Code == code;
+            });
+
+            if (listCode.length == 1) {
+                return showNotification('کد تکراری', 0)
+            }
+        }
 
         if ($('#DefaultUnit1').css('display') == 'block') defaultUnit = 1;
         else if ($('#DefaultUnit2').css('display') == 'block') defaultUnit = 2;
         else if ($('#DefaultUnit3').css('display') == 'block') defaultUnit = 3;
 
+
         var SaveKala_Object = {
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Code: $('#Code').val(),
-            Name: $('#Name').val(),
+            Code: code,
+            Name: name,
             FanniNo: $('#FanniNo').val(),
             Spec: $('#Spec').val(),
             KGruCode: kGruCode,

@@ -2349,7 +2349,7 @@
         }
 
         else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-            if (localStorage.getItem("VIEW_PDOC") == 'true')
+            if (localStorage.getItem("VIEW_PFDOC") == 'true')
                 return true;
             else
                 return false;
@@ -2591,7 +2591,7 @@
             }
 
             else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-                if (localStorage.getItem("VIEW_PDOC") == 'false')
+                if (localStorage.getItem("VIEW_PFDOC") == 'false')
                     return showNotification('دسترسی ندارید', 0);
             }
 

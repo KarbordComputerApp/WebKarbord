@@ -1684,12 +1684,11 @@ function SetValidation() {
     localStorage.setItem("VIEW_SEXT", ace == "Web1" ? true : CheckAccess('VIEW_SEXT'));
     localStorage.setItem("VIEW_PFORD", ace == "Web1" ? true : CheckAccess('VIEW_PFORD'));
     localStorage.setItem("VIEW_PPDOC", ace == "Web1" ? true : CheckAccess('VIEW_PPDOC'));
-    localStorage.setItem("VIEW_PDOC", ace == "Web1" ? true : CheckAccess('VIEW_PDOC'));
+    localStorage.setItem("VIEW_PFDOC", ace == "Web1" ? true : CheckAccess('VIEW_PFDOC')); //VIEW_PDOC
     localStorage.setItem("VIEW_PRDOC", ace == "Web1" ? true : CheckAccess('VIEW_PRDOC'));
 
     localStorage.setItem("VIEW_IIDOC", ace == "Web1" ? true : CheckAccess('VIEW_IIDOC'));
     localStorage.setItem("VIEW_IODOC", ace == "Web1" ? true : CheckAccess('VIEW_IODOC'));
-
 
 
     /*

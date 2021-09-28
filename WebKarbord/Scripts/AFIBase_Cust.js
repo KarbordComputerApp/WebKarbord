@@ -41,6 +41,8 @@
 
     var cGruCode = '';
 
+    var isUpdate = false;
+
 
     var rprtId = 'Cust';
 
@@ -681,6 +683,7 @@
 
 
     self.AddNewCust = function () {
+        isUpdate = false;
         sessionStorage.NEW_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         cGruCode = '';
         $('#Code').attr('readonly', false);
@@ -732,6 +735,8 @@
 
     self.UpdateCust = function (item) {
        // sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
+        isUpdate = true;
+
         item.EditBaseTrs == true && sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
@@ -821,7 +826,6 @@
         $("#ExtraFields18").val(item.CustF18);
         $("#ExtraFields19").val(item.CustF19);
         $("#ExtraFields20").val(item.CustF20);
-
         $("#Code").focus();
         $('#modal-Cust').modal('show');
     }
@@ -832,6 +836,23 @@
         name = $('#Name').val();
         fanniNo = $('#FanniNo').val();
         spec = $('#Spec').val();
+
+        if (code == "") {
+            return showNotification('کد خریدار/فروشنده را وارد کنید', 0)
+        }
+        if (name == "") {
+            return showNotification('نام خریدار/فروشنده را وارد کنید', 0)
+        }
+
+        if (isUpdate == false) {
+            listCode = ko.utils.arrayFilter(self.CustList(), function (item) {
+                return item.Code == code;
+            });
+
+            if (listCode.length == 1)  {
+                return showNotification('کد تکراری', 0)
+            }
+        }
 
         var SaveCust_Object = {
             BranchCode: 0,
