@@ -19,7 +19,7 @@
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.RepToUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
     self.RepFromUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
-
+    self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.MahramanehList = ko.observableArray([]); // لیست محرمانه 
     self.RooneveshtUsersList = ko.observableArray([]); // لیست افرادی که رونوشت دارند
     self.ErjResultList = ko.observableArray([]); // لیست نتیجه 
@@ -36,7 +36,7 @@
 
     var RepToUsersUri = server + '/api/Web_Data/Web_RepToUsers/'; // آدرس ارجاع شونده 
     var RepFromUsersUri = server + '/api/Web_Data/Web_RepFromUsers/'; // آدرس ارجاع دهنده 
-
+    var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
 
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
     var RooneveshtUsersListUri = server + '/api/Web_Data/Web_RooneveshtUsersList/'; // لیست افرادی که رونوشت دارند
@@ -51,6 +51,7 @@
     var ErjSaveDoc_HStatusUri = server + '/api/Web_Data/ErjSaveDoc_HStatus/'; // آدرس ذخیره وضعیت
     var ErjSaveDoc_CSaveUri = server + '/api/Web_Data/ErjSaveDoc_CSave/'; // آدرس ذخیره رونوشت
     var ErjSaveDoc_CDUri = server + '/api/Web_Data/ErjSaveDoc_CD/'; // آدرس حذف رونوشت
+    var ErjSaveDoc_RooneveshtsUri = server + '/api/Web_Data/ErjSaveDoc_Rooneveshts/'; // آدرس ویرایش رونوشت
 
     var ErjSaveDoc_RjRead_Uri = server + '/api/Web_Data/ErjSaveDoc_RjRead/'; // آدرس ذخیره دیدن ارجاع
 
@@ -227,7 +228,13 @@
     getRprtColsList(true, sessionStorage.userName);
 
 
-
+    //Get ExtraFields List
+    function getExtraFieldsList() {
+        ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
+            self.ExtraFieldsList(data);
+        });
+    }
+    getExtraFieldsList();
 
 
     //Get ErjUsers List
@@ -1618,6 +1625,69 @@
 
             $("#finalComm").val(item.FinalComm);
 
+            sessionStorage.F01 = item.F01;
+            sessionStorage.F02 = item.F02;
+            sessionStorage.F03 = item.F03;
+            sessionStorage.F04 = item.F04;
+            sessionStorage.F05 = item.F05;
+            sessionStorage.F06 = item.F06;
+            sessionStorage.F07 = item.F07;
+            sessionStorage.F08 = item.F08;
+            sessionStorage.F09 = item.F09;
+            sessionStorage.F10 = item.F10;
+            sessionStorage.F11 = item.F11;
+            sessionStorage.F12 = item.F12;
+            sessionStorage.F13 = item.F13;
+            sessionStorage.F14 = item.F14;
+            sessionStorage.F15 = item.F15;
+            sessionStorage.F16 = item.F16;
+            sessionStorage.F17 = item.F17;
+            sessionStorage.F18 = item.F18;
+            sessionStorage.F19 = item.F19;
+            sessionStorage.F20 = item.F20;
+
+            $("#ExtraFields1").val(sessionStorage.F01);
+            $("#ExtraFields2").val(sessionStorage.F02);
+            $("#ExtraFields3").val(sessionStorage.F03);
+            $("#ExtraFields4").val(sessionStorage.F04);
+            $("#ExtraFields5").val(sessionStorage.F05);
+            $("#ExtraFields6").val(sessionStorage.F06);
+            $("#ExtraFields7").val(sessionStorage.F07);
+            $("#ExtraFields8").val(sessionStorage.F08);
+            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields10").val(sessionStorage.F10);
+            $("#ExtraFields11").val(sessionStorage.F11);
+            $("#ExtraFields12").val(sessionStorage.F12);
+            $("#ExtraFields13").val(sessionStorage.F13);
+            $("#ExtraFields14").val(sessionStorage.F14);
+            $("#ExtraFields15").val(sessionStorage.F15);
+            $("#ExtraFields16").val(sessionStorage.F16);
+            $("#ExtraFields17").val(sessionStorage.F17);
+            $("#ExtraFields18").val(sessionStorage.F18);
+            $("#ExtraFields19").val(sessionStorage.F19);
+            $("#ExtraFields20").val(sessionStorage.F20);
+
+            $("#ExtraFields1").val(item.F01);
+            $("#ExtraFields2").val(item.F02);
+            $("#ExtraFields3").val(item.F03);
+            $("#ExtraFields4").val(item.F04);
+            $("#ExtraFields5").val(item.F05);
+            $("#ExtraFields6").val(item.F06);
+            $("#ExtraFields7").val(item.F07);
+            $("#ExtraFields8").val(item.F08);
+            $("#ExtraFields9").val(item.F09);
+            $("#ExtraFields10").val(item.F10);
+            $("#ExtraFields11").val(item.F11);
+            $("#ExtraFields12").val(item.F12);
+            $("#ExtraFields13").val(item.F13);
+            $("#ExtraFields14").val(item.F14);
+            $("#ExtraFields15").val(item.F15);
+            $("#ExtraFields16").val(item.F16);
+            $("#ExtraFields17").val(item.F17);
+            $("#ExtraFields18").val(item.F18);
+            $("#ExtraFields19").val(item.F19);
+            $("#ExtraFields20").val(item.F20);
+
 
             //getErjResultList(serialnumber, docBMode, self.ToUserCode());
             getErjResultList(serialnumber, null, null)
@@ -2010,8 +2080,9 @@
 
             // if (counterErjUsersRonevesht > 0) {
             if (sessionStorage.ModeCodeErja == "2") {
-                ErjSaveDoc_CD(bandNo);
-                ErjSaveDoc_CSave(bandNo, false);
+                ErjSaveDoc_Rooneveshts(bandNo);
+                //ErjSaveDoc_CD(bandNo);
+                //ErjSaveDoc_CSave(bandNo, false);
             }
             else
                 ErjSaveDoc_CSave(bandNo + 1, false);
@@ -2173,7 +2244,27 @@
                 DocDesc: $("#docDesc").val(),
                 EghdamComm: $("#eghdamComm").val(),
                 FinalComm: $("#finalComm").val(),
-                SpecialComm: $("#specialComm").val()
+                SpecialComm: $("#specialComm").val(),
+                F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+                F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+                F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+                F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+                F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+                F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+                F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+                F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+                F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+                F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+                F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+                F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+                F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+                F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+                F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+                F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+                F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+                F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+                F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+                F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             };
 
             ajaxFunction(Web_ErjSaveDoc_HUUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_HUObject).done(function (response) {
@@ -2354,6 +2445,33 @@
 
 
 
+    //Update ویرایش رونوشت ها در ارسالی
+    function ErjSaveDoc_Rooneveshts(bandNoImput) {
+
+        fromUserCode = sessionStorage.userName;
+        toUserCode = self.ErjUsersCode();
+        toUserCodes = '';
+        for (var i = 0; i < list_ErjUsersRoneveshtSelect.length; i++) {
+            if (i < list_ErjUsersRoneveshtSelect.length - 1)
+                toUserCodes += list_ErjUsersRoneveshtSelect[i] + ',';
+            else
+                toUserCodes += list_ErjUsersRoneveshtSelect[i];
+
+        }
+
+        Web_ErjSaveDoc_Rooneveshts = {
+            'SerialNumber': serialNumber,
+           // 'FromUserCode': fromUserCode,
+            'ToUserCodes': toUserCodes,
+            'BandNo': bandNoImput,
+          //  'RjDate': '',
+        };
+        ajaxFunction(ErjSaveDoc_RooneveshtsUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_ErjSaveDoc_Rooneveshts).done(function (response) {
+        });
+    };
+
+
+
     self.radif = function (index) {
         countShow = self.pageSizeDocB_Last();
         page = self.currentPageIndexDocB_Last();
@@ -2372,19 +2490,19 @@
     }
 
     self.UnRaedErja = function (Band) {
-            ErjSaveDoc_RjRead_Object = {
-                DocBMode: Band.DocBMode,
-                SerialNumber: Band.SerialNumber,
-                BandNo: Band.BandNo,
-                RjReadSt: 'T'
-            };
+        ErjSaveDoc_RjRead_Object = {
+            DocBMode: Band.DocBMode,
+            SerialNumber: Band.SerialNumber,
+            BandNo: Band.BandNo,
+            RjReadSt: 'T'
+        };
 
-            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
-                AlertErja();
-                getDocB_Last();
-                self.sortTableDocB_Last();
-            });
-       
+        ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
+            AlertErja();
+            getDocB_Last();
+            self.sortTableDocB_Last();
+        });
+
     }
 
     function CreateTableReport(data) {
@@ -2452,12 +2570,12 @@
                 '    <span class="caret"></span>' +
                 '</a>' +
                 '<ul class="dropdown-menu">' +
-                '    <li>' +
+                /*'    <li>' +
                 '        <a id="MarkErja" data-bind="click: $root.MarkErja" style="font-size: 11px;text-align: right;">' +
                 '        <i  class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px;padding-right:10px;">bookmark</i>' +
                 '            علامت زدن' +
                 '        </a>' +
-                '    </li>' +
+                '    </li>' +*/
                 '    <li data-bind="style: {\'display\': RjReadSt == \'T\'  ? \'none\' : \'unset\'}">' +
                 '        <a id="UnRaedErja" data-bind="click: $root.UnRaedErja" style="font-size: 11px;text-align: right;">' +
                 '        <i  class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px;padding-right:10px;">notifications_none</i>' +

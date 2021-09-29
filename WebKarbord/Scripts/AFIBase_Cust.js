@@ -686,6 +686,7 @@
         isUpdate = false;
         sessionStorage.NEW_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         cGruCode = '';
+
         $('#Code').attr('readonly', false);
         $('#Code').val('');
         $('#Name').val('');
@@ -834,8 +835,17 @@
     $('#saveCust').click(function () {
         code = $('#Code').val();
         name = $('#Name').val();
-        fanniNo = $('#FanniNo').val();
         spec = $('#Spec').val();
+        melliCode = $('#MelliCode').val();
+        ecoCode = $('#EcoCode').val();
+
+        if (melliCode.length < 10) {
+            return showNotification('طول کد ملی نادرست اشت', 0)
+        }
+
+        if (ecoCode.length < 11) {
+            return showNotification('طول کد اقتصادی نادرست اشت', 0)
+        }
 
         if (code == "") {
             return showNotification('کد خریدار/فروشنده را وارد کنید', 0)
@@ -860,9 +870,8 @@
             Code: $('#Code').val(),
             Name: $('#Name').val(),
             Spec: $('#Spec').val(),
-
-            MelliCode: $('#MelliCode').val(),
-            EcoCode: $('#EcoCode').val(),
+            MelliCode: melliCode,
+            EcoCode: ecoCode,
             Ostan: $('#Ostan').val(),
             Shahrestan: $('#Shahrestan').val(),
             Region: $('#Region').val(),

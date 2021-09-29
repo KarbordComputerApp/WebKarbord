@@ -15,6 +15,7 @@
         sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
     }
 
+    var resTestNew = false;
 
     var flaglog = "Y";
 
@@ -776,6 +777,7 @@
         if (flagInsertFdoch == 0) {
 
             var tarikh = $("#tarikh").val().toEnglishDigit();
+            var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
                 return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -787,9 +789,16 @@
             else
                 return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
 
-            var TestFDoc_NewObject = {
+            TestFDoc_New(Serial,tarikh, docNo);
+            if (resTestNew == true) {
+                self.ClearFDocB();
+                AddFDocH(newFDocH);
+                flagInsertFdoch == 1 ? $('#modal-Band').modal() : null
+            }
+           /* var TestFDoc_NewObject = {
                 DocDate: tarikh,
-                ModeCode: sessionStorage.ModeCode
+                ModeCode: sessionStorage.ModeCode,
+                DocNo: docNo == "" ? "Auto" : docNo,
             };
 
             ajaxFunction(TestFDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_NewObject).done(function (data) {
@@ -803,10 +812,32 @@
                     var a = AddFDocH(newFDocH);
                     flagInsertFdoch == 1 ? $('#modal-Band').modal() : null
                 }
-            });
+            });*/
         } else {
             $('#modal-Band').modal()
         }
+    }
+
+
+    function TestFDoc_New(serialNumber,tarikh, docNo) {
+        var TestFDoc_NewObject = {
+            DocDate: tarikh,
+            ModeCode: sessionStorage.ModeCode,
+            DocNo: docNo == "" ? "Auto" : docNo,
+            SerialNumber: serialNumber,
+        };
+
+        ajaxFunction(TestFDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_NewObject).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestFDoc_NewList(obj);
+            if (data.length > 2) {
+                $('#modal-Test_New').modal('show');
+                SetDataTest_New();
+                resTestNew = false;
+            } else {
+                resTestNew = true;
+            }
+        });
     }
 
 
@@ -921,7 +952,6 @@
             return showNotification('شماره نباید بیشتر از ده رقم باشد', 0);
         }
 
-
         if (tarikh.length != 10) {
             return showNotification('تاريخ را صحيح وارد کنيد', 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
@@ -938,7 +968,6 @@
             return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
         }
-
 
 
         if (codeCust == '') {
@@ -1209,6 +1238,11 @@
         else {
             return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
             // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
+        }
+
+        TestFDoc_New(Serial,tarikh, docno);
+        if (resTestNew == false) {
+            return null;
         }
 
         //if (codeCust == '') {

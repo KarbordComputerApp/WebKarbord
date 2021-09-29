@@ -19,6 +19,8 @@
 
     var sameNoAllMode = 0;
 
+    var resTestNew = false;
+
     if (sessionStorage.flagCopy == 'Y')
         flaglog = "N";
 
@@ -658,6 +660,7 @@
 
 
             var tarikh = $("#tarikh").val().toEnglishDigit();
+            var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
                 return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -669,23 +672,13 @@
             else
                 return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
 
-            var TestIDoc_NewObject = {
-                DocDate: tarikh,
-                ModeCode: sessionStorage.ModeCode
-            };
 
-            ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {
-                var obj = JSON.parse(data);
-                self.TestIDoc_NewList(obj);
-                if (data.length > 2) {
-                    $('#modal-Test_New').modal('show');
-                    SetDataTest_New();
-                } else {
-                    self.ClearIDocB();
-                    AddIDocH(newIDocH);
-                    flagInsertIDoch == 1 ? $('#modal-Band').modal() : null
-                }
-            });
+            TestIDoc_New(Serial,tarikh, docNo);
+            if (resTestNew == true) {
+                self.ClearIDocB();
+                AddIDocH(newIDocH);
+                flagInsertIDoch == 1 ? $('#modal-Band').modal() : null
+            }
 
 
 
@@ -694,6 +687,28 @@
         }
 
     }
+
+    function TestIDoc_New(serialNumber,tarikh, docNo) {
+        var TestIDoc_NewObject = {
+            DocDate: tarikh,
+            ModeCode: sessionStorage.ModeCode,
+            DocNo: docNo == "" ? "Auto" : docNo,
+            SerialNumber: serialNumber,
+        };
+
+        ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestIDoc_NewList(obj);
+            if (data.length > 2) {
+                $('#modal-Test_New').modal('show');
+                SetDataTest_New();
+                resTestNew = false;
+            } else {
+                resTestNew = true;
+            }
+        });
+    }
+
 
     function SetDataTest_New() {
         $("#BodyTest_New").empty();
@@ -1345,6 +1360,11 @@
         if ($('#docnoout').val() == '') {
             //return showNotification('ابتدا بند ها وارد کنید', 0);
             return showNotification('شماره سند را وارد کنيد', 0);
+        }
+
+        TestIDoc_New(Serial,tarikh, docno);
+        if (resTestNew == false) {
+            return null;
         }
 
 

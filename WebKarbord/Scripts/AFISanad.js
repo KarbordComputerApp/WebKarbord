@@ -15,6 +15,7 @@
 
     TestUser();
     var viewAction = false;
+    var resTestNew = false;
 
     var AccCode = "";
     var AccZCode = "";
@@ -43,7 +44,7 @@
     var flagSearchAcc = 0;
     var flagSearchZAcc = 0;
     var flagSearchTraf = 0;
-    var flagSearchTrafZ = 0;            
+    var flagSearchTrafZ = 0;
 
     var flagSearchOpr = 0;
     var flagSearchMkz = 0;
@@ -417,7 +418,7 @@
     }
 
     function getADocHLastDate() {
-        ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group , 'GET').done(function (data) {
+        ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.DocDate(data);
             $('#btntarikh').click(function () {
                 $('#tarikh').change();
@@ -431,7 +432,7 @@
 
     //Get CheckStatus List
     function getCheckStatusList(PDMode) {
-        list = localStorage.getItem('CheckStatus' + PDMode );
+        list = localStorage.getItem('CheckStatus' + PDMode);
         if (list != null) {
             list = JSON.parse(localStorage.getItem('CheckStatus' + PDMode));
             self.CheckStatusList(list)
@@ -502,7 +503,7 @@
     getAModeList();
     //getOprList();
     //getArzList();
-   // getMkzList();
+    // getMkzList();
     //getBankList();
     //getShobeList();
     //getJariList();
@@ -2538,6 +2539,7 @@
         if (flagInsertADocH == 0) {
 
             var tarikh = $("#tarikh").val().toEnglishDigit();
+            var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
                 return showNotification('تاريخ را صحيح وارد کنيد', 0);
@@ -2549,23 +2551,12 @@
             else
                 return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
 
-            var TestADoc_NewObject = {
-                DocDate: tarikh,
-                ModeCode: sessionStorage.ModeCode
-            };
 
-            ajaxFunction(TestADoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_NewObject).done(function (data) {
-                var obj = JSON.parse(data);
-                self.TestADoc_NewList(obj);
-                if (data.length > 2) {
-                    $('#modal-Test_New').modal('show');
-                    SetDataTest_New();
-                } else {
-                    AddADocH(newADocH);
-                    flagInsertADocH == 1 ? $('#modal-Band').modal() : null
-                }
-            });
-
+            TestADoc_New(Serial, tarikh, docNo);
+            if (resTestNew == true) {
+                AddADocH(newADocH);
+                flagInsertADocH == 1 ? $('#modal-Band').modal() : null
+            }
 
         } else {
 
@@ -2573,6 +2564,27 @@
         }
     }
 
+
+    function TestADoc_New(serialNumber,tarikh, docNo) {
+        var TestADoc_NewObject = {
+            DocDate: tarikh,
+            ModeCode: sessionStorage.ModeCode,
+            DocNo: docNo == "" ? "Auto" : docNo,
+            SerialNumber: serialNumber,
+        };
+
+        ajaxFunction(TestADoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_NewObject).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestADoc_NewList(obj);
+            if (data.length > 2) {
+                $('#modal-Test_New').modal('show');
+                SetDataTest_New();
+                resTestNew = false;
+            } else {
+                resTestNew = true;
+            }
+        });
+    }
 
     function SetDataTest_New() {
         $("#BodyTest_New").empty();
@@ -2745,10 +2757,16 @@
         }
 
 
+        var docNo = $("#docnoout").text();
+        TestADoc_New(Serial ,tarikh, docNo);
+        if (resTestNew == false) {
+            return null;
+        }
+
         var ADocObject = {
             SerialNumber: Serial,
             ModeCode: modeCode,
-            DocNo: $("#docnoout").text(),
+            DocNo: docNo,
             DocDate: tarikh,
             BranchCode: 0,
             UserCode: sessionStorage.userName,
@@ -2789,7 +2807,7 @@
             // $('#finalSave_Title').attr('hidden', '');
 
             flaglog = 'N';
-            
+
 
         });
         return "OK";
