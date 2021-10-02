@@ -888,7 +888,7 @@
             });
 
             if (listCode.length == 1) {
-                return showNotification('کد تکراری', 0)
+                return showNotification('کد کالا تکراری', 0)
             }
         }
 

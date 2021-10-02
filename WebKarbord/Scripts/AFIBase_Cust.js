@@ -839,12 +839,13 @@
         melliCode = $('#MelliCode').val();
         ecoCode = $('#EcoCode').val();
 
-        if (melliCode.length < 10) {
-            return showNotification('طول کد ملی نادرست اشت', 0)
+
+        if (melliCode != "" && melliCode.length < 10) {
+            return showNotification('طول کد ملی نادرست است', 0)
         }
 
-        if (ecoCode.length < 11) {
-            return showNotification('طول کد اقتصادی نادرست اشت', 0)
+        if (ecoCode != "" && ecoCode.length < 11) {
+            return showNotification('طول کد اقتصادی نادرست است', 0)
         }
 
         if (code == "") {
@@ -860,7 +861,7 @@
             });
 
             if (listCode.length == 1)  {
-                return showNotification('کد تکراری', 0)
+                return showNotification('کد خریدار/فروشنده تکراری', 0)
             }
         }
 
