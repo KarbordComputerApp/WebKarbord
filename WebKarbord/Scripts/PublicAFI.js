@@ -7,7 +7,6 @@ var salErj = '0000';
 
 var userName = localStorage.getItem('userName', '');
 var pass = localStorage.getItem('password', '');
-
 $("#AccessRefresh").hide();
 
 if (sessionStorage.versionTitle == "ورژن تست : ") {
@@ -28,13 +27,12 @@ var serverAccount = localStorage.getItem('serverAccount');
 var ShowNewTab = localStorage.getItem('NewTab');
 
 if (ShowNewTab == "ShowNewTab") {
-
     $("#NewTab").val(1);
     $('.useBlank').attr('target', '_blank');
 }
 else {
     $("#NewTab").val(0);
-    $('.useBlank').attr('target', '');
+    $('.useBlank').attr('target', '_self');
 }
 
 
@@ -46,7 +44,7 @@ $("#NewTab").change(function () {
     }
     else {
         localStorage.setItem("NewTab", "NotShowNewTab");
-        $('.useBlank').attr('target', '');
+        $('.useBlank').attr('target', '_self');
     }
 });
 
@@ -281,6 +279,114 @@ var MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
 
 var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
 
+var StatementsSaveUri = server + '/api/Web_Data/SaveStatements'; // آدرس  ذخیره عبارات تعریف شده
+
+
+
+/*
+var source = ["Apples", "Oranges", "Bananas"];
+$(function () {
+    $("#auto").autocomplete({
+        source: function (request, response) {
+            var result = $.ui.autocomplete.filter(source, request.term);
+            $("#add").toggle($.inArray(request.term, result) < 0);
+            response(result);
+        }
+    });
+
+    $("#add").on("click", function () {
+        source.push($("#auto").val());
+        $(this).hide();
+    });
+});
+*/
+
+var Statements = localStorage.getItem('StatementsList');
+
+if (Statements != '') {
+    Statements = Statements.split(',');
+}
+
+$(".autocomplete").autocomplete({
+    source: Statements
+});
+
+var id_Autocomplete;
+$(".autocomplete").select(function () {
+    /*var rect = e.target.getBoundingClientRect();
+       var x = e.clientX - rect.left; //x position within the element.
+       var y = e.clientY - rect.top;*/
+
+    id_Autocomplete = this.id;
+    var offset = $(this).offset();
+    $("#saveStatement").css({ top: offset.top, left: offset.left });
+    $("#saveStatement").show();
+    //getSelectedText();
+});
+
+
+$(".autocomplete").click(function () {
+    $("#saveStatement").hide();
+});
+
+/*
+$(".autocomplete").focusout(function () {
+    $("#saveStatement").hide();
+});
+*/
+
+
+$("#saveStatement").on("click", function () {
+    //val = $(".autocomplete").val();
+    val = $("#" + id_Autocomplete).val();
+    var StatementsList = localStorage.getItem('StatementsList');
+    if (StatementsList.search(val) == -1) {
+        StatementsList += ',' + val;
+        localStorage.setItem('StatementsList', StatementsList);
+        Statements.push(val);
+
+        var Statement_ListNew = localStorage.getItem('Statement_ListNew');
+        if (Statement_ListNew == null) {
+            Statement_ListNew = val;
+        }
+        else {
+            Statement_ListNew += ',' + val;
+        }
+        localStorage.setItem('Statement_ListNew', Statement_ListNew);
+
+    }
+    $(this).hide();
+});
+
+function SaveStatementsDatabase() {
+
+    Statement_ListNew = localStorage.getItem('Statement_ListNew');
+    if (Statement_ListNew != null) {
+        var obj = [];
+        data = Statement_ListNew.split(',');
+
+        for (i = 0; i < data.length; i++) {
+            temp = {
+                'Comm': data[i],
+            };
+            obj.push(temp);
+        }
+
+        ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
+            localStorage.removeItem('Statement_ListNew');
+        });
+    }
+}
+
+function getSelectedText() {
+    if (window.getSelection) {
+        return window.getSelection().toString();
+    } else if (document.selection) {
+        return document.selection.createRange().text;
+    }
+    return '';
+}
+
 
 
 var MachineId = localStorage.getItem("MachineIdKarbord");
@@ -289,8 +395,6 @@ if (MachineId == null || MachineId == '') {
     id = d.getDate() + d.getTime();
     localStorage.setItem("MachineIdKarbord", id);
 }
-
-
 
 
 
@@ -1674,7 +1778,7 @@ function SetValidation() {
     //sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');
 
 
-    localStorage.setItem("VIEW_ADOC",  ace == "Web1" ? true : CheckAccess('VIEW_ADOC'));
+    localStorage.setItem("VIEW_ADOC", ace == "Web1" ? true : CheckAccess('VIEW_ADOC'));
 
     localStorage.setItem("VIEW_SFORD", ace == "Web1" ? true : CheckAccess('VIEW_SFORD'));
     localStorage.setItem("VIEW_SPDOC", ace == "Web1" ? true : CheckAccess('VIEW_SPDOC'));
@@ -2797,6 +2901,68 @@ $('.rightClick').click("contextmenu", function () {
 
 });
 
+
+
+/*
+ $('a').mousedown(function(event) {
+            switch (event.which) {
+                case 1:
+                    //alert('Left mouse button pressed');
+                    $(this).attr('target','_self');
+                    break;
+                case 2:
+                    //alert('Middle mouse button pressed');
+                    $(this).attr('target','_blank');
+                    break;
+                case 3:
+                    //alert('Right mouse button pressed');
+                    $(this).attr('target','_blank');
+                    break;
+                default:
+                    //alert('You have a strange mouse');
+                    $(this).attr('target','_self"');
+            }
+        });
+ */
+//localStorage.removeItem("listForms");
+var host = 'http://' + $(location).attr('host');
+
+$(".useBlank").click(function () {
+    var url = host + $(this).attr('addr');
+    var id = $(this).attr('id');
+    var target = $(this).attr('target');
+    if (target == "_self") {
+        localStorage.removeItem("listForms");
+        window.open(url, '_self');
+    }
+    else {
+        var listForms = localStorage.getItem("listForms");
+        data = '!!' + id;
+        if (listForms == null) {
+            localStorage.setItem("listForms", data);
+        }
+        else {
+            list = listForms.split('!!');
+            find = false;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i] == id) {
+                    find = true;
+                }
+            }
+        }
+
+        if (find == true) {
+            return showNotification('در برگ نشان دیگری وجود دارد', 0)
+        }
+        else {
+            localStorage.setItem("listForms", listForms + data);
+            window.open(url, '_blank').focus();
+        }
+    }
+});
+
+
+
 $("#ADOC").click(function () {
     sessionStorage.setItem('listFilter', null);
     localStorage.setItem("ModeCode", 'ADOC');
@@ -3565,10 +3731,12 @@ function LogOut() {
         ProgName: ace
     }
     ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+        SaveStatementsDatabase();
         sessionStorage.userName = '';
         sessionStorage.pass = '';
         localStorage.setItem("userName", '');
         localStorage.setItem('password', '');
+        localStorage.removeItem("listForms");
         window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
     });
 }

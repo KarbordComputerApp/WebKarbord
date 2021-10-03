@@ -1362,7 +1362,7 @@
             return showNotification('شماره سند را وارد کنيد', 0);
         }
 
-        TestIDoc_New(Serial,tarikh, docno);
+        TestIDoc_New(Serial, tarikh, $('#docnoout').val());
         if (resTestNew == false) {
             return null;
         }

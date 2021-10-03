@@ -201,11 +201,18 @@
                             a = localStorage.getItem('afiList');
                         });
 
+                        var Statements = "";
+                        ajaxFunction(server + '/api/Web_Data/Statements', 'GET', true).done(function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (i < data.length - 1)
+                                    Statements += data[i].Name + ',';
+                                else
+                                    Statements += data[i].Name;
+                            }
+                        });
+                        localStorage.setItem('StatementsList', Statements);
 
-
-
-
-
+                        localStorage.removeItem("listForms");
                         window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
                     else {

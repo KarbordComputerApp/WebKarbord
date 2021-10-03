@@ -641,6 +641,7 @@
     <Content Include="Content\new\css\form.min.css" />
     <Content Include="Content\new\css\ionicons.css" />
     <Content Include="Content\new\css\ionicons.min.css" />
+    <Content Include="Content\new\css\jquery-ui.css" />
     <Content Include="Content\new\css\materialize.min.css" />
     <Content Include="Content\new\css\multi-select.css" />
     <Content Include="Content\new\css\PersianDateTimePicker.css" />
@@ -668,6 +669,10 @@
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
     <Content Include="Content\new\js\farsiInput.js" />
+    <Content Include="Content\new\js\jquery ui\jquery-ui.min.css" />
+    <Content Include="Content\new\js\jquery ui\jquery-ui.min.js" />
+    <Content Include="Content\new\js\jquery ui\jquery.js" />
+    <Content Include="Content\new\js\jquery-ui.js" />
     <Content Include="Content\new\js\jszip.min.js" />
     <Content Include="Content\new\js\num2persian-min.js" />
     <Content Include="Content\new\js\require.js" />

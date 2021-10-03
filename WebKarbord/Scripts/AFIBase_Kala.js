@@ -1234,6 +1234,18 @@
 
 
     self.sortTableKala();
+
+    window.onbeforeunload = function () {
+        var confirmClose = confirm();
+        if (confirmClose == false) {
+            listForms = localStorage.getItem("listForms");
+            if (listForms != null) {
+                listForms = listForms.replace('!!form_BaseKala', '');
+                localStorage.setItem("listForms", listForms);
+            }
+        }
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

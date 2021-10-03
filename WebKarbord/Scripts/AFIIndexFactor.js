@@ -3241,7 +3241,7 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-            '  <tr style="background-color: #efb68399;">' +
+            '  <tr>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('CustName', data)
@@ -3296,7 +3296,8 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
-            '      </tr>' +
+            '<td style="background-color: #efb683;"></td>'+
+        '      </tr>' +
             '  </tfoot>' +
             '</table >'
         $('#TableList').append(dataTable);
@@ -3361,7 +3362,7 @@
             text += 'Hidden ';
 
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }"  type="text" class="type_' + type;
-        text += ' form-control" style="height: 2.4rem; direction: ltr;text-align: right" /> </td>';
+        text += ' form-control" style="height: 2.4rem; direction: ltr;text-align: right;" /> </td>';
 
         return text;
     }

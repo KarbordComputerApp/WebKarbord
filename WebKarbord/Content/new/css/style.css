@@ -18485,8 +18485,9 @@ header {
 
 .table thead tr th {
     padding: 5px;
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
     text-align: center;
+    border-top-width: 0px;
 }
 
 .table th, .table td {

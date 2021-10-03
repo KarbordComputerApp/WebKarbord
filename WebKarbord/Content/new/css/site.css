@@ -28,7 +28,7 @@ ul li a img {
 }
 
 .material-icons {
-    color: #520019
+    color: #3f4853
 }
 
 .help-info label {
@@ -58,8 +58,9 @@ thead tr {
 }
 
 .table thead tr th {
-    border-bottom: 1px solid #d9d9d9;
+    /*border-bottom: 1px solid #d9d9d9;*/
     white-space: nowrap;
+    border-bottom-width: 0px;
 }
 
 .table tbody tr td {
@@ -1581,7 +1582,7 @@ select {
 }
 
 p {
-    font-size:12px;
+    font-size: 12px;
     margin-top: 2px;
     margin-bottom: 2px;
 }
@@ -1589,37 +1590,6 @@ p {
 
 
 
-
-
-.tableFix {
-    overflow-y: auto;
-    height: 39px;
-}
-
-    .tableFix thead th {
-        position: sticky;
-        top: -1px;
-    }
-
-    .tableFix tfoot tr {
-       /* top: 450px;
-        position: absolute;
-       background-color: #efb683;*/
-    }
-
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    padding: 8px 16px;
-}
-
-th {
-    background: #d9d9d9;
-}
 
 .isDisabled {
     color: currentColor;
@@ -1688,4 +1658,79 @@ input[type="checkbox"] {
         color: white;
     }
 
+
+
+
+.tableFix th {
+    background-color: #d9d9d9;
+}
+
+    .tableFix td:first-child, .tableFix th:first-child {
+        position: sticky;
+        right: 0;
+        z-index: 1;
+        background-color: #d9d9d9;
+    }
+
+    .tableFix td:last-child, .tableFix th:last-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: white;
+    }
+
+.tableFix thead tr th {
+    position: sticky;
+    top: 0;
+}
+
+.tableFix tfoot tr td {
+    position: sticky;
+    bottom: 0;
+    background-color: #efb683;
+}
+
+
+.tableFix th:first-child, .tableFix  th:last-child {
+    z-index: 2;
+    background-color: #d9d9d9;
+}
+
+
+div.ui-select-menu {
+    z-index: 100;
+}
+
+
+/*
+
+.tableFix {
+    overflow-y: auto;
+    height: 39px;
+}
+
+    .tableFix thead th {
+        position: sticky;
+        top: -1px;
+    }
+
+    .tableFix tfoot tr {
+       
+    }
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px 16px;
+}
+
+th {
+    background: #d9d9d9;
+}
+    */
 

@@ -8,12 +8,15 @@
     <link rel="icon" href="~/Content/new/img/loading.png" type="image/x-icon" />
     <link href="~/Content/new/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/new/css/materialize.min.css" rel="stylesheet" />
+    <link href="~/Content/new/js/jquery ui/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/Content/new/css/style.css" rel="stylesheet" />
     <link href="~/Content/new/css/all-themes.css" rel="stylesheet" />
     <link href="~/Content/new/js/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
     <link href="~/Content/new/css/site.css?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)" rel="stylesheet" />
     <link href="~/Content/new/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet" />
     <link href="~/Content/new/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet" />
+
+
 
     <link rel="manifest" href="/manifest.json">
     <!-- Najva Push Notification -->
@@ -282,7 +285,8 @@
                     <ul class="ml-menu">
                         <li id="BaseKala" class="rightClick">
                             <!--@Html.ActionLink("کالا", "Kala", "AFIBase")-->
-                            <a class="useBlank" target="_blank" href=@Url.Action("Kala","AFIBase")> کالاها</a>
+                            <!--<a class="useBlank" target="_blank" href=@Url.Action("Kala","AFIBase")> کالاها</a>-->
+                            <a id="form_BaseKala" class="useBlank" addr=@Url.Action("Kala","AFIBase")> کالاها</a>
                         </li>
                         <li id="BaseCust" class="rightClick">
                             <a class="useBlank" target="_blank" href=@Url.Action("Cust","AFIBase")> خریداران/فروشندگان</a>
@@ -725,7 +729,9 @@
     <section class="content">
         <div class="container-fluid">
             @RenderBody()
+            <a id="saveStatement" style="top: 100px;left: 100px;position: absolute;z-index: 100000;display:none"><span class="material-icons" style="font-size:20px">save</span></a>  
         </div>
+
     </section>
 
 
@@ -954,7 +960,7 @@
                     <h4 class="modal-title" style="padding-left: 200px;" id="titleComm">توضیحات</h4>
                 </div>
                 <div class="modal-body">
-                    <textarea id="comm" rows="20" class="form-control no-resize auto-growth string" style="text-align:justify" readonly>
+                    <textarea id="comm" rows="20" class="form-control no-resize auto-growth string autocomplete" style="text-align:justify" readonly>
                 </textarea>
                 </div>
             </div>
@@ -984,6 +990,10 @@
 
 
     <script src="~/Content/new/js/app.min.js"></script>
+
+    <!--<script src="~/Content/new/js/jquery-ui.js"></script>-->
+
+
     <script src="~/Content/new/js/admin.js"></script>
     <!-- <script src="~/Content/new/js/advanced-form-elements.js"></script>-->
     <script src="~/Content/js/knockout-3.5.0.js"></script>
@@ -997,6 +1007,14 @@
     <script src="~/Scripts/PublicAFI.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
     <script src="~/Content/new/js/jquery.md5.js"></script>
+
+
+
+
+    <!-- <script src="~/Content/new/js/jquery ui/jquery.js"></script>-->
+    <!--<script src="~/Content/new/js/jquery ui/jquery-ui.min.js"></script>-->
+    <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
+
     <script src="~/Content/new/js/farsiInput.js"></script>
 
 
