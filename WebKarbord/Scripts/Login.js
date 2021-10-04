@@ -213,7 +213,7 @@
                         localStorage.setItem('StatementsList', Statements);
 
                         localStorage.removeItem("listForms");
-                        window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
+                        //window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
                     else {
 
@@ -280,7 +280,7 @@
     self.LoginUser = function LoginUser() {
         server = localStorage.getItem("ApiAddress");
         if (server === null || server === "") {
-            return showNotification('مشخصات سرویس را وارد کنید', 0);
+            return showNotification('تنظیمات اتصال به وب را وارد کنید', 0);
             //return Swal.fire({ type: 'info', title: 'خطا در ورود', text: 'مشخصات سرویس را وارد کنید' });
         }
         user = $("#user").val();

@@ -2651,6 +2651,7 @@
             CreateTableTdSum('AddMinPrice10', 2, data) +
             CreateTableTdSum('OnlyDiscountPrice', 2, data) +
             CreateTableTdSum('FinalPrice', 2, data) +
+            '<td style="background-color: #efb683;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -2693,6 +2694,7 @@
             CreateTableTdSearch('AddMinPrice10', data) +
             CreateTableTdSearch('OnlyDiscountPrice', data) +
             CreateTableTdSearch('FinalPrice', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

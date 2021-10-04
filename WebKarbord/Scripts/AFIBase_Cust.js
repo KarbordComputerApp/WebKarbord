@@ -1018,13 +1018,20 @@
 
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeCust();
+        page = self.currentPageIndexCust();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
 
     function CreateTableReport(data) {
         $("#TableList").empty();
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableCust">' +
+        '       <tr data-bind="click: sortTableCust">' +
+        '<th>ردیف</th>' +
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
@@ -1054,7 +1061,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() } "  >' +
-
+        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
@@ -1091,7 +1098,7 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-            '  <tr style="background-color: #efb68399;">' +
+        '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('Code', data) +
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
@@ -1115,7 +1122,8 @@
             CreateTableTdSearch('CustF17', data) +
             CreateTableTdSearch('CustF18', data) +
             CreateTableTdSearch('CustF19', data) +
-            CreateTableTdSearch('CustF20', data) +
+        CreateTableTdSearch('CustF20', data) +
+        '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

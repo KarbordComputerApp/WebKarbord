@@ -2002,6 +2002,7 @@
             CreateTableTdSum('F18', 1, data) +
             CreateTableTdSum('F19', 1, data) +
             CreateTableTdSum('F20', 1, data) +
+            '<td style="background-color: #efb683;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -2050,6 +2051,7 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

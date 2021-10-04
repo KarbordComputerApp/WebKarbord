@@ -1687,7 +1687,7 @@ input[type="checkbox"] {
 .tableFix tfoot tr td {
     position: sticky;
     bottom: 0;
-    background-color: #efb683;
+    background-color: #efb683 !important;
 }
 
 
@@ -1697,10 +1697,52 @@ input[type="checkbox"] {
 }
 
 
-div.ui-select-menu {
-    z-index: 100;
+
+
+
+
+
+.tableFixList th {
+    background-color: #d9d9d9;
 }
 
+    .tableFixList td:first-child, .tableFixList th:first-child {
+        /*position: sticky;
+        right: 0;
+        z-index: 1;
+        background-color: #d9d9d9;*/
+    }
+
+    .tableFixList td:last-child, .tableFixList th:last-child {
+       /* position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: white;*/
+    }
+
+.tableFixList thead tr th {
+    position: sticky;
+    top: 0;
+}
+
+.tableFixList tfoot tr td {
+    position: sticky;
+    bottom: 0;
+    background-color: #efb683 !important;
+}
+
+
+.tableFixList th:first-child, .tableFixList th:last-child {
+    z-index: 2;
+    background-color: #d9d9d9;
+}
+
+
+
+.ui-autocomplete{
+    font-family:Vazir;
+    font-size:11px
+}
 
 /*
 

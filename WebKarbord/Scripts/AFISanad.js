@@ -297,6 +297,11 @@
         }
     });
 
+    $('#btnTraf').click(function () {
+        if (self.AccList().length == 0) {
+            getAccList();
+        }
+    });
 
 
     //Get ZAcc List
@@ -3346,12 +3351,14 @@
     });
 
 
+
     function CreateTableSanad(data) {
         $("#TableSanad").empty();
         $('#TableSanad').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr>' +
+            '<th>ردیف</th>' +
             CreateTableTh('BandNo', data) +
             CreateTableTh('AccFullCode', data) +
             CreateTableTh('AccFullName', data) +
@@ -3370,20 +3377,16 @@
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
             CreateTableTh('BandSpec', data) +
-
             CreateTableTh('ArzCode', data) +
             CreateTableTh('ArzName', data) +
             CreateTableTh('ArzRate', data) +
             CreateTableTh('ArzValue', data) +
-
-
-
-
             '<th id="action_headersanad">عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="click: $parent.selectSanad">' +
+            '<td data-bind="text: $index()+1"></td>' +
             CreateTableTd('BandNo', 0, 0, data) +
             //CreateTableTd('AccFullCode', 0, 0, data) +
             //CreateTableTd('AccFullName', 0, 0, data) +
@@ -3430,8 +3433,9 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            CreateTableTdSum('BandNo', 0, data) +
-            CreateTableTdSum('AccFullCode', 0, data) +
+            '<td style="background-color: #efb683;">جمع</td>' +
+            CreateTableTdSum('BandNo', 1, data) +
+            CreateTableTdSum('AccFullCode', 1, data) +
             CreateTableTdSum('AccFullName', 1, data) +
             CreateTableTdSum('Comm', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
@@ -3452,6 +3456,7 @@
             CreateTableTdSum('ArzName', 1, data) +
             CreateTableTdSum('ArzRate', 1, data) +
             CreateTableTdSum('ArzValue', 2, data) +
+            '<td style="background-color: #efb683;"></td>' +
             ' </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -3520,12 +3525,20 @@
     }
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeCheck();
+        page = self.currentPageIndexCheck();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
     function CreateTableCheck(data) {
         $("#TableCheck").empty();
         $('#TableCheck').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableCheck">' +
+            '<th>ردیف</th>' +
             CreateTableThCheck('CheckNo', data) +
             CreateTableThCheck('CheckDate', data) +
             CreateTableThCheck('Value', data) +
@@ -3540,10 +3553,12 @@
             CreateTableThCheck('TrafFullCode', data) +
             CreateTableThCheck('TrafFullName', data) +
             CreateTableThCheck('CheckVosoolDate', data) +
+            '<th></th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCheck" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="click: $parent.selectCheck">' +
+            '<td data-bind="text: $root.radif($index())"></td>' +
             CreateTableTdCheck('CheckNo', 0, 0, data) +
             CreateTableTdCheck('CheckDate', 0, 0, data) +
             CreateTableTdCheck('Value', 0, 2, data) +
@@ -3558,10 +3573,12 @@
             CreateTableTdCheck('TrafFullCode', 0, 0, data) +
             CreateTableTdCheck('TrafFullName', 0, 0, data) +
             CreateTableTdCheck('CheckVosoolDate', 0, 0, data) +
+            '<td></td>' +
             '        </tr>' +
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearchCheck('CheckNo', data) +
             CreateTableTdSearchCheck('CheckDate', data) +
             CreateTableTdSearchCheck('Value', data) +
@@ -3576,6 +3593,7 @@
             CreateTableTdSearchCheck('TrafFullCode', data) +
             CreateTableTdSearchCheck('TrafFullName', data) +
             CreateTableTdSearchCheck('CheckVosoolDate', data) +
+            '  <td style="background-color: #efb683;">' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

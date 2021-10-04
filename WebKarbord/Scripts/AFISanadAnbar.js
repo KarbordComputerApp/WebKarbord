@@ -673,7 +673,7 @@
                 return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
 
 
-            TestIDoc_New(Serial,tarikh, docNo);
+            TestIDoc_New(Serial, tarikh, docNo);
             if (resTestNew == true) {
                 self.ClearIDocB();
                 AddIDocH(newIDocH);
@@ -688,21 +688,27 @@
 
     }
 
-    function TestIDoc_New(serialNumber,tarikh, docNo) {
+    function TestIDoc_New(serialNumber, tarikh, docNo) {
         var TestIDoc_NewObject = {
             DocDate: tarikh,
-            ModeCode: sessionStorage.ModeCode,
-            DocNo: docNo == "" ? "Auto" : docNo,
+            ModeCode: '',
+            DocNo: docNo,
             SerialNumber: serialNumber,
         };
 
         ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {
             var obj = JSON.parse(data);
             self.TestIDoc_NewList(obj);
-            if (data.length > 2) {
-                $('#modal-Test_New').modal('show');
-                SetDataTest_New();
-                resTestNew = false;
+            if (obj.length >= 1) {
+                if (obj.length == 1 && obj[0].Test == 1) {
+                    resTestNew = true;
+                    showNotification(obj[0].TestCap, 2);
+                }
+                else {
+                    $('#modal-Test_New').modal('show');
+                    SetDataTest_New();
+                    resTestNew = false;
+                }
             } else {
                 resTestNew = true;
             }
@@ -745,11 +751,11 @@
         $('#CountError_New').text(countError);
 
         if (countError > 0) {
-            $('#Delete-Modal').attr('hidden', '');
+            $('#Accept-Modal').attr('hidden', '');
             $('#ShowCountError_New').removeAttr('hidden', '');
         }
         else {
-            $('#Delete-Modal').removeAttr('hidden', '')
+            $('#Accept-Modal').removeAttr('hidden', '')
             $('#ShowCountError_New').attr('hidden', '');
         }
 

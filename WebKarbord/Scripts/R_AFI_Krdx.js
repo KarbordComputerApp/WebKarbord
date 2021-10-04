@@ -3032,6 +3032,7 @@
            CreateTableTdSum('Kalaf18', 1, data) +
            CreateTableTdSum('Kalaf19', 1, data) +
            CreateTableTdSum('Kalaf20', 1, data) +*/
+            '<td style="background-color: #efb683;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -3134,6 +3135,7 @@
            CreateTableTdSearch('Kalaf18', data) +
            CreateTableTdSearch('Kalaf19', data) +
            CreateTableTdSearch('Kalaf20', data) +  */
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

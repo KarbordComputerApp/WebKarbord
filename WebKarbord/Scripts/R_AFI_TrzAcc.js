@@ -1526,7 +1526,8 @@
             CreateTableTdSum('Best', 2, data) +
             CreateTableTdSum('MonBede', 2, data) +
             CreateTableTdSum('MonBest', 2, data) +
-            CreateTableTdSum('MonTotal', 2, data) +
+        CreateTableTdSum('MonTotal', 2, data) +
+        '<td style="background-color: #efb683;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -1536,7 +1537,8 @@
             CreateTableTdSearch('Best', data) +
             CreateTableTdSearch('MonBede', data) +
             CreateTableTdSearch('MonBest', data) +
-            CreateTableTdSearch('MonTotal', data) +
+        CreateTableTdSearch('MonTotal', data) +
+        '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

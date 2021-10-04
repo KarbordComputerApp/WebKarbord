@@ -2995,6 +2995,7 @@
             CreateTableTdSum('MAmount2', 2, data) +
             CreateTableTdSum('MAmount3', 2, data) +
             CreateTableTdSum('MTotalPrice', 2, data) +
+            '<td style="background-color: #efb683;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -3039,6 +3040,7 @@
             CreateTableTdSearch('MAmount2', data) +
             CreateTableTdSearch('MAmount3', data) +
             CreateTableTdSearch('MTotalPrice', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

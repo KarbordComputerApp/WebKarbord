@@ -729,7 +729,11 @@
     <section class="content">
         <div class="container-fluid">
             @RenderBody()
-            <a id="saveStatement" style="top: 100px;left: 100px;position: absolute;z-index: 100000;display:none"><span class="material-icons" style="font-size:20px">save</span></a>  
+            <div id="p_Statement" class="form-inline" style="top: 100px;left: 100px;position: absolute;z-index: 100000;display:none">
+                <a id="saveStatement"><span class="material-icons" style="font-size:20px">save</span></a>
+                <a id="refreshStatement"><span class="material-icons" style="font-size:20px">refresh</span></a>
+            </div>
+
         </div>
 
     </section>

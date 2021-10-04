@@ -311,22 +311,43 @@ $(".autocomplete").autocomplete({
     source: Statements
 });
 
+
+var currentMousePos = { x: -1, y: -1 };
+
+$(document).mousemove(function (event) {
+    currentMousePos.x = event.pageX;
+    currentMousePos.y = event.pageY;
+});
+
 var id_Autocomplete;
 $(".autocomplete").select(function () {
     /*var rect = e.target.getBoundingClientRect();
        var x = e.clientX - rect.left; //x position within the element.
        var y = e.clientY - rect.top;*/
+    // var parentOffset = $(this).parent().offset();
+    //or $(this).offset(); if you really just want the current element's offset
+    //var relX = e.pageX - parentOffset.left;
+    // var relY = e.pageY - parentOffset.top;
 
     id_Autocomplete = this.id;
-    var offset = $(this).offset();
-    $("#saveStatement").css({ top: offset.top, left: offset.left });
-    $("#saveStatement").show();
+
+    //var parentOffset = $(this).parent().position();
+    // var parentOffset = $("#" + id_Autocomplete).parent().offset();
+
+    $("#p_Statement").css({ top: currentMousePos.y - 20, left: currentMousePos.x - 70 });
+    $("#p_Statement").show();
+
+
+
+    //var offset = $("#" + id_Autocomplete).position();
+    //$("#saveStatement").css({ top: offset.top, left: offset.left });
+    //$("#saveStatement").show();
     //getSelectedText();
 });
 
 
 $(".autocomplete").click(function () {
-    $("#saveStatement").hide();
+    $("#p_Statement").hide();
 });
 
 /*
@@ -341,26 +362,56 @@ $("#saveStatement").on("click", function () {
     val = $("#" + id_Autocomplete).val();
     var StatementsList = localStorage.getItem('StatementsList');
     if (StatementsList.search(val) == -1) {
+
+        SaveStatementsDatabase(val);
         StatementsList += ',' + val;
         localStorage.setItem('StatementsList', StatementsList);
         Statements.push(val);
 
-        var Statement_ListNew = localStorage.getItem('Statement_ListNew');
+        /*Statement_ListNew = localStorage.getItem('Statement_ListNew');
         if (Statement_ListNew == null) {
             Statement_ListNew = val;
         }
         else {
             Statement_ListNew += ',' + val;
         }
-        localStorage.setItem('Statement_ListNew', Statement_ListNew);
+        localStorage.setItem('Statement_ListNew', Statement_ListNew);*/
 
     }
-    $(this).hide();
+    $("#p_Statement").hide();
 });
 
-function SaveStatementsDatabase() {
 
-    Statement_ListNew = localStorage.getItem('Statement_ListNew');
+$("#refreshStatement").on("click", function () {
+
+    Statements = [];
+    temp = '';
+    ajaxFunction(server + '/api/Web_Data/Statements', 'GET', true).done(function (data) {
+        for (var i = 0; i < data.length; i++) {
+            Statements.push(data[i].Name);
+            if (i < data.length - 1)
+                temp += data[i].Name + ',';
+            else
+                temp += data[i].Name;
+        }
+    });
+    localStorage.setItem('StatementsList', temp);
+
+    //Statements = localStorage.getItem('StatementsList');
+
+    //if (Statements != '') {
+    //    Statements = Statements.split(',');
+    //}
+    //localStorage.removeItem('Statement_ListNew');
+    $("#p_Statement").hide();
+    showNotification('برای اعمال تغییرات مرورگر را رفرش کنید',1)
+});
+
+
+
+function SaveStatementsDatabase(comm) {
+
+    /*Statement_ListNew = localStorage.getItem('Statement_ListNew');
     if (Statement_ListNew != null) {
         var obj = [];
         data = Statement_ListNew.split(',');
@@ -371,6 +422,19 @@ function SaveStatementsDatabase() {
             };
             obj.push(temp);
         }
+
+        ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
+            localStorage.removeItem('Statement_ListNew');
+        });
+    }*/
+
+
+
+
+    if (comm != "" && comm != "null") {
+        obj = {
+            'Comm': comm,
+        };
 
         ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
             localStorage.removeItem('Statement_ListNew');
@@ -3731,7 +3795,7 @@ function LogOut() {
         ProgName: ace
     }
     ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
-        SaveStatementsDatabase();
+        //SaveStatementsDatabase();
         sessionStorage.userName = '';
         sessionStorage.pass = '';
         localStorage.setItem("userName", '');

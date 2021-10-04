@@ -2272,6 +2272,7 @@
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('MhltDate', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

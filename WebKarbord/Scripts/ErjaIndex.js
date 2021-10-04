@@ -3149,16 +3149,13 @@
     }
 
 
-
-
-
     function CreateTableReport(data) {
         $("#TableList").empty();
         $('#TableList').append(
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableErjDocH">' +
-            // '<th></th>' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('MahramanehName', data) +
@@ -3208,7 +3205,7 @@
              '<i data-bind="style: {\'display\': DocBExists == \'1\'  ? \'none\' : \'unset\'}" class="material-icons" style="color: #3f4d58;font-size:9px">lens</i>' +//   <span data-bind="text: RjReadSt == \'T\' ? \'X\' : null"></span> ' +
              '</td>' +
              */
-
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, 0, data) +
             CreateTableTd('MahramanehName', 0, 0, 0, data) +
@@ -3246,11 +3243,6 @@
             '<td>' +
             '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(ShowDocTrs,EditDocTrs)">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
-
-
-
-
-
             '   </a>' +
             '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs)">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
@@ -3261,7 +3253,7 @@
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +
-            // '<td></td>' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('MahramanehName', data) +
@@ -3296,6 +3288,7 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

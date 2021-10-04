@@ -1156,13 +1156,22 @@
     }
 
 
+
+
+    self.radif = function (index) {
+        countShow = self.pageSizeADocH();
+        page = self.currentPageIndexADocH();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
    
     function CreateTableReport(data) {
         $("#TableList").empty();
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableADocH">' +
+        '       <tr data-bind="click: sortTableADocH">' +
+        '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('Spec', data) +
@@ -1197,7 +1206,8 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color :  Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : null} " >' +
-            CreateTableTd('DocNo', 0, 0, data) +
+        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+        CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Eghdam', 0, 0, data) +
@@ -1274,6 +1284,7 @@
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('Spec', data) +
@@ -1303,6 +1314,7 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >';

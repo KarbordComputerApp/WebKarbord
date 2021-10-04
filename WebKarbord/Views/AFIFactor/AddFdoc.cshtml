@@ -147,7 +147,7 @@
                 </form>
                 <div style="height:285px;overflow:auto;">
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped tableFix tableFix">
+                        <table class="table table-hover table-striped tableFix">
                             <thead style="cursor: pointer;">
                                 <tr>
                                     <th>
@@ -216,8 +216,8 @@
                             </tbody>
 
                             <tfoot>
-                                <tr style="background-color:#e37d228f;">
-                                    <td id="foottextsum"> </td>
+                                <tr style="background-color:#efb683;">
+                                    <td id="foottextsum"  style="background-color: #efb683;"> </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -228,7 +228,7 @@
                                     <td id="foottexttotalprice"></td>
                                     <td id="foottextdiscount"></td>
                                     <td></td>
-                                    <td id="action_footerfactor"></td>
+                                    <td id="action_footerfactor" style="background-color: #efb683;"></td>
                                 </tr>
                             </tfoot>
 
@@ -314,7 +314,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string" placeholder="زیر نویس"></textarea>
+                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder="زیر نویس"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -381,7 +381,7 @@
             <div class="modal-body">
                 <br />
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                    <table class="table table-hover table-striped tableFix">
+                    <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableCust">
                                 <th data-column="Code">
@@ -646,7 +646,7 @@
             <div class="modal-body">
                 <br />
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                    <table class="table table-hover table-striped tableFix">
+                    <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableKala">
                                 <th data-column="Code">
@@ -801,7 +801,7 @@
                                         <td style="padding: 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;">
                                             <div class="form-group " style="margin-bottom: 10px">
                                                 <div class="form-line focused fix">
-                                                    <input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1">
+                                                    <input data-bind="attr: {'id': 'ExtraFields' + BandNo }, class: 'autocomplete'" type="text" class="form-control ">
                                                     <label class="form-label active" data-bind="text: Name"></label>
                                                 </div>
                                             </div>
@@ -934,7 +934,7 @@
             <div class="modal-body">
                 <br />
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                    <table class="table table-hover table-striped tableFix">
+                    <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableOpr">
                                 <th data-column="Code">
@@ -1031,7 +1031,7 @@
             <div class="modal-body">
                 <br />
                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
-                    <table class="table table-hover table-striped tableFix">
+                    <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableMkz">
                                 <th data-column="SortCode">

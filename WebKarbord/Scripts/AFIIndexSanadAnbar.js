@@ -1891,6 +1891,12 @@
     });
 
 
+    self.radif = function (index) {
+        countShow = self.pageSizeIDocH();
+        page = self.currentPageIndexIDocH();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
 
     function CreateTableReport(data) {
         $("#TableList").empty();
@@ -1898,7 +1904,8 @@
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableIDocH">' +
+        '       <tr data-bind="click: sortTableIDocH">' +
+        '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('InvName', data) +
@@ -1955,6 +1962,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}" >' +
+        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             //'<td data-bind="text:  $index() + 1"></td>' +
             // '<td data-bind="text: $data.DocNo"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
@@ -2057,7 +2065,8 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-            '  <tr style="background-color: #efb68399;">' +
+        '  <tr style="background-color: #efb68399;">' +
+        '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('InvName', data) +
@@ -2108,7 +2117,8 @@
             CreateTableTdSearch('F17', data) +
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
-            CreateTableTdSearch('F20', data) +
+        CreateTableTdSearch('F20', data) +
+        '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >';

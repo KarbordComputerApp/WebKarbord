@@ -701,7 +701,7 @@
         $('#DeghatR1').val('');
         $('#DeghatR2').val('');
         $('#DeghatR3').val('');
-       // $('#zarib1').val('');
+        // $('#zarib1').val('');
         $('#zarib2').val('');
         $('#zarib3').val('');
         $('#DefaultUnit1').css('display', 'block');
@@ -1062,7 +1062,12 @@
 
 
 
-
+    self.radif = function (index) {
+        countShow = self.pageSizeKala();
+        page = self.currentPageIndexKala();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
 
     function CreateTableReport(data) {
         $("#TableList").empty();
@@ -1070,6 +1075,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableKala">' +
+            '<th>ردیف</th>' +
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
@@ -1099,7 +1105,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageKala" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() } "  >' +
-
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
@@ -1137,6 +1143,7 @@
             '</tbody>' +
             ' <tfoot>' +
             '  <tr style="background-color: #efb68399;">' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('Code', data) +
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
@@ -1161,6 +1168,7 @@
             CreateTableTdSearch('KalaF18', data) +
             CreateTableTdSearch('KalaF19', data) +
             CreateTableTdSearch('KalaF20', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

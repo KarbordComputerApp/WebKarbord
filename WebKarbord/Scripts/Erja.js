@@ -2472,13 +2472,6 @@
 
 
 
-    self.radif = function (index) {
-        countShow = self.pageSizeDocB_Last();
-        page = self.currentPageIndexDocB_Last();
-        calc = (countShow * page) + 1;
-        return index + calc;
-    }
-
 
     self.ViewSpec = function (Band) {
         ViewSpec(Band.Spec)
@@ -2504,6 +2497,14 @@
         });
 
     }
+
+    self.radif = function (index) {
+        countShow = self.pageSizeDocB_Last();
+        page = self.currentPageIndexDocB_Last();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
 
     function CreateTableReport(data) {
         $("#TableReport").empty();
@@ -2602,12 +2603,10 @@
             '    </a >' +
             '</td >' +
             '</tr>' +
-            '</tbody>' +
+        '</tbody>' +
+       
             ' <tfoot>' +
-
-
-            '  <tr style="background-color: #efb68399;">' +
-            '<td>جستجو</td>';
+            '<td style="background-color: #efb683;">جستجو</td>';
         if (sessionStorage.ModeCodeErja == '1') {
             html += CreateTableTdSearch('RjStatus', data);
         }
@@ -2623,7 +2622,8 @@
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('MhltDate', data) +
             CreateTableTdSearch('FarayandCode', data) +
-            CreateTableTdSearch('FarayandName', data) +
+        CreateTableTdSearch('FarayandName', data) +
+        '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
