@@ -1703,8 +1703,10 @@
 
     $('#specialComm').click(function () {
         if (SpecialCommTrs == 1) {
-            TextHighlightDel("#specialComm");
-            $("#specialComm").val(specialComm);
+            if ($("#specialComm").css('font-style') == 'italic') {
+                TextHighlightDel("#specialComm");
+                $("#specialComm").val(specialComm);
+            }
         }
         else
             showNotification('دسترسی ندارید', 0);
@@ -1939,8 +1941,10 @@
             autosize.update($('#docDesc'));
 
             if (SpecialCommTrs == 1) {
-                TextHighlightDel("#specialComm");
-                $("#specialComm").val(specialComm);
+                if ($("#specialComm").css('font-style') == 'italic') {
+                    TextHighlightDel("#specialComm");
+                    $("#specialComm").val(specialComm);
+                }
             }
             autosize.update($('#specialComm'));
             autosize.update($('#finalComm'));
@@ -1967,8 +1971,10 @@
 
     $('#ShowSpecialComm').click(function () {
         if (SpecialCommTrs == 1) {
-            TextHighlightDel("#specialComm");
-            $("#specialComm").val(specialComm);
+            if ($("#specialComm").css('font-style') == 'italic') {
+                TextHighlightDel("#specialComm");
+                $("#specialComm").val(specialComm);
+            }
             $('#titleComm').text('مدیران');
             $('#modal-Comm').modal('show');
             $('#comm').attr("style", "");
@@ -2182,6 +2188,13 @@
     function SaveDoch() {
         status = $("#m_StatusParvandeh").val();
 
+        if ($("#specialComm").css('font-style') == 'italic')
+            special = specialComm;
+        else
+            special = $("#specialComm").val();
+
+
+
         ErjSaveDoc_HUObject = { // ذخیره اطلاعات پرونده
             SerialNumber: serialNumber,
             Tanzim: sessionStorage.userName,
@@ -2190,7 +2203,7 @@
             DocDesc: $("#docDesc").val(),
             EghdamComm: $("#eghdamComm").val(),
             FinalComm: $("#finalComm").val(),
-            SpecialComm: $("#specialComm").val(),
+            SpecialComm: special,
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
