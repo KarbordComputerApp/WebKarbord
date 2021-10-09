@@ -1618,9 +1618,9 @@
             $("#eghdamComm").val(item.EghdamComm);
 
             if (item.Eghdam == sessionStorage.userName)
-                $('#p_EghdamComm').attr('readonly', false);
+                $('#eghdamComm').attr('readonly', false);
             else
-                $('#p_EghdamComm').attr('readonly', true);
+                $('#eghdamComm').attr('readonly', true);
 
             $("#docDesc").val(item.DocDesc);
 
