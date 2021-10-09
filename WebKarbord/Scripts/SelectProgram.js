@@ -26,7 +26,7 @@
         var count = 0;
 
         $('#DropAce').text('');
-        if (afi1List == "null"  && afi8List != "null" ) {
+        if (afi1List == "null" && afi8List != "null") {
             //localStorage.setItem('ace', 'Web8');
             //localStorage.setItem('aceName', 'نرم افزار سیستم جامع');
 
@@ -36,7 +36,7 @@
             sessionStorage.aceName = 'نرم افزار سیستم جامع';
             $('#DropAce').text(sessionStorage.aceName);
             $('#ace_TitleMenu').text(sessionStorage.aceName);
-            
+
         }
         else if (afi1List != "null" && afi8List == "null") {
             //localStorage.setItem('ace', 'Web1');
@@ -99,7 +99,7 @@
                 self.DatabseSalList(data);
                 if (self.DatabseSalList().length > 0) {
                     for (var i = 1; i < self.DatabseSalList().length + 1; i++) {
-                         salData = self.DatabseSalList()[i - 1];
+                        salData = self.DatabseSalList()[i - 1];
                         $("#DropSal").append('<option value="'
                             + salData.Code + '">'
                             + salData.Name + '</option>');
@@ -138,6 +138,26 @@
             SetSalData();
         }
     }
+
+
+
+
+    (function () {
+        var now = new Date();
+        var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate();
+        //"0" + now.getHours();
+        var head = document.getElementsByTagName("head")[0];
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
+        head.appendChild(link);
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.async = true;
+        script.src = "https://app.najva.com/static/js/scripts/174-website-27295-a0b970d7-1466-49f3-bf2b-1cfa6674e8e9.js" + "?v=" + version;
+        head.appendChild(script);
+    })()
+
 
 };
 ko.applyBindings(new ViewModel());
