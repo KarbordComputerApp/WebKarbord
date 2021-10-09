@@ -1367,7 +1367,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)

@@ -893,6 +893,8 @@
         $('#ExtraFields18').val('');
         $('#ExtraFields19').val('');
         $('#ExtraFields20').val('');
+
+        $('#p_EghdamComm').attr('readonly', false); 
     }
 
 
@@ -2728,6 +2730,12 @@
             $('#nameKhdt').val(data["KhdtName"]);
 
             $('#p_EghdamComm').val(data["EghdamComm"]);
+
+            if (data["EghdamName"] == sessionStorage.userName)
+                $('#p_EghdamComm').attr('readonly', false);
+            else
+                $('#p_EghdamComm').attr('readonly', true); 
+
             $('#p_DocDesc').val(data["DocDesc"]);
             $('#p_SpecialComm').val(data["SpecialComm"]);
             $('#p_FinalComm').val(data["FinalComm"]);
@@ -2851,6 +2859,11 @@
         $('#nameKhdt').val(item.KhdtName);
 
         $('#p_EghdamComm').val(item.EghdamComm);
+        if (item.Eghdam == sessionStorage.userName) 
+            $('#p_EghdamComm').attr('readonly', false); 
+        else
+            $('#p_EghdamComm').attr('readonly', true); 
+
         $('#p_DocDesc').val(item.DocDesc);
         $('#p_SpecialComm').val(item.SpecialComm);
         $('#p_FinalComm').val(item.FinalComm);
@@ -3112,11 +3125,9 @@
 
 
     $("#modal-ErjDocH").on('hide.bs.modal', function() {
-
         if (DocNoReport != "null" && DocNoReport != null) {
             close();
         }
-
     });
 
 
@@ -3352,7 +3363,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)

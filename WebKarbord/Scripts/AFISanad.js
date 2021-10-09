@@ -3433,7 +3433,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #efb683;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">جمع</td>' +
             CreateTableTdSum('BandNo', 1, data) +
             CreateTableTdSum('AccFullCode', 1, data) +
             CreateTableTdSum('AccFullName', 1, data) +
@@ -3456,7 +3456,7 @@
             CreateTableTdSum('ArzName', 1, data) +
             CreateTableTdSum('ArzRate', 1, data) +
             CreateTableTdSum('ArzValue', 2, data) +
-            '<td style="background-color: #efb683;"></td>' +
+            '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -3502,7 +3502,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (field != "MonBede" && field != "MonBest") {

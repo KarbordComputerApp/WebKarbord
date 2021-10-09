@@ -689,11 +689,15 @@
     }
 
     function TestIDoc_New(serialNumber, tarikh, docNo) {
+
+        modeCode = $("#modeCode").val();
+        inv = $('#inv').val();
         var TestIDoc_NewObject = {
             DocDate: tarikh,
-            ModeCode: '',
-            DocNo: docNo,
+            ModeCode: modeCode,
+            DocNo: docNo == "" ? "Auto" : docNo,
             SerialNumber: serialNumber,
+            InvCode: inv,
         };
 
         ajaxFunction(TestIDoc_NewUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_NewObject).done(function (data) {

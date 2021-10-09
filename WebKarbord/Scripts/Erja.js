@@ -1616,6 +1616,12 @@
 
 
             $("#eghdamComm").val(item.EghdamComm);
+
+            if (item.Eghdam == sessionStorage.userName)
+                $('#p_EghdamComm').attr('readonly', false);
+            else
+                $('#p_EghdamComm').attr('readonly', true);
+
             $("#docDesc").val(item.DocDesc);
 
             specialComm = item.SpecialComm;
@@ -2154,6 +2160,13 @@
         // $('html').css('cursor', 'wait');
         flagSave = true;
         if (docBMode == 1) { // رونوشت
+            // ErjSaveDoc_BSave(bandNo);
+
+            trs = localStorage.getItem("userModeErj");
+            if (trs == 'ADMIN') {
+                SaveDoch();
+            }
+
             ErjSaveDoc_CD(bandNo);
             ErjSaveDoc_CSave(bandNo, true);
         }
@@ -2165,6 +2178,45 @@
     })
 
 
+
+    function SaveDoch() {
+        status = $("#m_StatusParvandeh").val();
+
+        ErjSaveDoc_HUObject = { // ذخیره اطلاعات پرونده
+            SerialNumber: serialNumber,
+            Tanzim: sessionStorage.userName,
+            Status: status,
+            Spec: $("#m_Spec").val(),
+            DocDesc: $("#docDesc").val(),
+            EghdamComm: $("#eghdamComm").val(),
+            FinalComm: $("#finalComm").val(),
+            SpecialComm: $("#specialComm").val(),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+        };
+
+        ajaxFunction(Web_ErjSaveDoc_HUUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_HUObject).done(function (response) {
+
+        });
+    }
 
     //Add DocB  ذخیره ارجاعات
     function ErjSaveDoc_BSave(bandNoImput) {
@@ -2234,42 +2286,44 @@
         else // save
         {
 
+            SaveDoch();
             status = $("#m_StatusParvandeh").val();
 
-            ErjSaveDoc_HUObject = { // ذخیره اطلاعات پرونده
-                SerialNumber: serialNumber,
-                Tanzim: sessionStorage.userName,
-                Status: status,
-                Spec: $("#m_Spec").val(),
-                DocDesc: $("#docDesc").val(),
-                EghdamComm: $("#eghdamComm").val(),
-                FinalComm: $("#finalComm").val(),
-                SpecialComm: $("#specialComm").val(),
-                F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-                F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-                F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-                F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-                F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-                F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-                F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-                F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-                F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
-                F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
-                F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
-                F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
-                F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
-                F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
-                F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
-                F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
-                F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
-                F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
-                F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-                F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
-            };
+            /* ErjSaveDoc_HUObject = { // ذخیره اطلاعات پرونده
+                 SerialNumber: serialNumber,
+                 Tanzim: sessionStorage.userName,
+                 Status: status,
+                 Spec: $("#m_Spec").val(),
+                 DocDesc: $("#docDesc").val(),
+                 EghdamComm: $("#eghdamComm").val(),
+                 FinalComm: $("#finalComm").val(),
+                 SpecialComm: $("#specialComm").val(),
+                 F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+                 F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+                 F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+                 F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+                 F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+                 F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+                 F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+                 F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+                 F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+                 F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+                 F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+                 F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+                 F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+                 F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+                 F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+                 F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+                 F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+                 F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+             };
+ 
+             ajaxFunction(Web_ErjSaveDoc_HUUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_HUObject).done(function (response) {
+ 
+             });*/
 
-            ajaxFunction(Web_ErjSaveDoc_HUUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_HUObject).done(function (response) {
-
-            });
 
             natijeh = $("#Result").val();
 
@@ -2461,10 +2515,10 @@
 
         Web_ErjSaveDoc_Rooneveshts = {
             'SerialNumber': serialNumber,
-           // 'FromUserCode': fromUserCode,
+            // 'FromUserCode': fromUserCode,
             'ToUserCodes': toUserCodes,
             'BandNo': bandNoImput,
-          //  'RjDate': '',
+            //  'RjDate': '',
         };
         ajaxFunction(ErjSaveDoc_RooneveshtsUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_ErjSaveDoc_Rooneveshts).done(function (response) {
         });
@@ -2603,8 +2657,8 @@
             '    </a >' +
             '</td >' +
             '</tr>' +
-        '</tbody>' +
-       
+            '</tbody>' +
+
             ' <tfoot>' +
             '<td style="background-color: #efb683;">جستجو</td>';
         if (sessionStorage.ModeCodeErja == '1') {
@@ -2622,8 +2676,8 @@
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('MhltDate', data) +
             CreateTableTdSearch('FarayandCode', data) +
-        CreateTableTdSearch('FarayandName', data) +
-        '<td style="background-color: #efb683;"></td>' +
+            CreateTableTdSearch('FarayandName', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -2684,7 +2738,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)

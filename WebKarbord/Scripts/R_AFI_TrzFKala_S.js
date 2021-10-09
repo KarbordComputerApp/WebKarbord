@@ -2789,7 +2789,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td>جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">جمع</td>' +
             CreateTableTdSum('KalaCode', 0, data) +
             CreateTableTdSum('KalaName', 1, data) +
             CreateTableTdSum('KalaF01', 1, data) +
@@ -2835,7 +2835,7 @@
             CreateTableTdSum('AddMinPrice10', 2, data) +
             CreateTableTdSum('OnlyDiscountPrice', 2, data) +
             CreateTableTdSum('FinalPrice', 2, data) +
-            '<td style="background-color: #efb683;"></td>' +
+            '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -2934,7 +2934,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)

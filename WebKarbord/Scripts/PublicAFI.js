@@ -334,7 +334,7 @@ $(".autocomplete").select(function () {
     //var parentOffset = $(this).parent().position();
     // var parentOffset = $("#" + id_Autocomplete).parent().offset();
 
-    $("#p_Statement").css({ top: currentMousePos.y - 20, left: currentMousePos.x - 70 });
+    $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
     $("#p_Statement").show();
 
 
@@ -2989,6 +2989,8 @@ $('.rightClick').click("contextmenu", function () {
         });
  */
 //localStorage.removeItem("listForms");
+
+
 var host = 'http://' + $(location).attr('host');
 
 $(".useBlank").click(function () {

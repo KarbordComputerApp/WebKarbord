@@ -213,7 +213,7 @@
                         localStorage.setItem('StatementsList', Statements);
 
                         localStorage.removeItem("listForms");
-                        //window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
+                        window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
                     else {
 

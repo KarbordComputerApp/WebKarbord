@@ -1672,6 +1672,7 @@ input[type="checkbox"] {
         background-color: #d9d9d9;
     }
 
+
     .tableFix td:last-child, .tableFix th:last-child {
         position: sticky;
         left: 0;
@@ -1684,7 +1685,7 @@ input[type="checkbox"] {
     top: 0;
 }
 
-.tableFix tfoot tr td {
+.tableFix tfoot tr td  {
     position: sticky;
     bottom: 0;
     background-color: #efb683 !important;
@@ -1743,6 +1744,7 @@ input[type="checkbox"] {
     font-family:Vazir;
     font-size:11px
 }
+
 
 /*
 

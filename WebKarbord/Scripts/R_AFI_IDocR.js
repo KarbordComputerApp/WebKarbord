@@ -2789,7 +2789,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td>جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">جمع</td>' +
             CreateTableTdSum('DocDate', 0, data) +
             CreateTableTdSum('DocNo', 1, data) +
             CreateTableTdSum('ModeName', 1, data) +
@@ -2832,6 +2832,7 @@
             CreateTableTdSum('TotalPrice', 2, data) +
             CreateTableTdSum('BandSpec', 1, data) +
             CreateTableTdSum('Comm', 1, data) +
+            '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -2877,6 +2878,7 @@
             CreateTableTdSearch('TotalPrice', data) +
             CreateTableTdSearch('BandSpec', data) +
             CreateTableTdSearch('Comm', data) +
+            '<td></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -2937,7 +2939,7 @@
         if (field.includes('Price') == true && showPrice == false)
             return ''
         else {
-            text = '<td ';
+            text = '<td style="background-color: #e37d228f !important;"';
 
             TextField = FindTextField(field, data);
             if (TextField == 0)

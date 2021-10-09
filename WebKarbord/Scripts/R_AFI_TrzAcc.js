@@ -902,7 +902,7 @@
             $('#nameMkz').val('همه موارد');
     });
 
-    $('#modal-Mkz').on('shown.bs.modal', function() {
+    $('#modal-Mkz').on('shown.bs.modal', function () {
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < counterMkz; i++) {
             if (list_MkzSelect[i] != "") {
@@ -1297,7 +1297,7 @@
             $('#nameAMode').val('همه موارد');
     });
 
-    $('#modal-AMode').on('shown.bs.modal', function() {
+    $('#modal-AMode').on('shown.bs.modal', function () {
         $("#TableBodyListAMode").empty();
         for (var i = 0; i < counterAMode; i++) {
             if (list_AModeSelect[i] != "") {
@@ -1519,15 +1519,15 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td>جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">جمع</td>' +
             CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
             CreateTableTdSum('MonBede', 2, data) +
             CreateTableTdSum('MonBest', 2, data) +
-        CreateTableTdSum('MonTotal', 2, data) +
-        '<td style="background-color: #efb683;"></td>' +
+            CreateTableTdSum('MonTotal', 2, data) +
+            '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -1537,8 +1537,8 @@
             CreateTableTdSearch('Best', data) +
             CreateTableTdSearch('MonBede', data) +
             CreateTableTdSearch('MonBest', data) +
-        CreateTableTdSearch('MonTotal', data) +
-        '<td style="background-color: #efb683;"></td>' +
+            CreateTableTdSearch('MonTotal', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -1594,7 +1594,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)

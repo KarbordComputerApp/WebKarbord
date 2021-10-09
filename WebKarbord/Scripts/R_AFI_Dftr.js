@@ -1956,7 +1956,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td>جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">جمع</td>' +
             CreateTableTdSum('DocNo', 0, data) +
             CreateTableTdSum('DocDate', 1, data) +
             CreateTableTdSum('AccCode', 1, data) +
@@ -2002,7 +2002,7 @@
             CreateTableTdSum('F18', 1, data) +
             CreateTableTdSum('F19', 1, data) +
             CreateTableTdSum('F20', 1, data) +
-            '<td style="background-color: #efb683;"></td>' +
+            '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -2104,7 +2104,7 @@
     }
 
     function CreateTableTdSum(field, no, data) {
-        text = '<td ';
+        text = '<td style="background-color: #e37d228f !important;"';
 
         TextField = FindTextField(field, data);
         if (TextField == 0)
