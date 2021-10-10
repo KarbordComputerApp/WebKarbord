@@ -1627,6 +1627,8 @@
             specialComm = item.SpecialComm;
             SpecialCommTrs = item.SpecialCommTrs;
             $("#specialComm").val('برای نمایش کلیک کنید');
+            $("#specialComm").attr('readonly', true);
+
             TextHighlight("#specialComm");
 
             $("#finalComm").val(item.FinalComm);
@@ -1705,6 +1707,7 @@
         if (SpecialCommTrs == 1) {
             if ($("#specialComm").css('font-style') == 'italic') {
                 TextHighlightDel("#specialComm");
+                $("#specialComm").attr('readonly', false);
                 $("#specialComm").val(specialComm);
             }
         }
@@ -1942,6 +1945,7 @@
 
             if (SpecialCommTrs == 1) {
                 if ($("#specialComm").css('font-style') == 'italic') {
+                    $("#specialComm").attr('readonly', false);
                     TextHighlightDel("#specialComm");
                     $("#specialComm").val(specialComm);
                 }
@@ -1972,6 +1976,7 @@
     $('#ShowSpecialComm').click(function () {
         if (SpecialCommTrs == 1) {
             if ($("#specialComm").css('font-style') == 'italic') {
+                $("#specialComm").attr('readonly', false);
                 TextHighlightDel("#specialComm");
                 $("#specialComm").val(specialComm);
             }

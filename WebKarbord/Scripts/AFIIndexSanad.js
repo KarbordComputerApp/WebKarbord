@@ -51,9 +51,9 @@
             validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
             validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
 
-           // validation = CheckAccess('OTHERUSER_VIEW_ADOC');
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-          //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            // validation = CheckAccess('OTHERUSER_VIEW_ADOC');
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_ADOC");
 
             validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
@@ -942,45 +942,49 @@
 
 
     self.UpdateHeader = function (item) {
-        sessionStorage.flagupdateHeader = 1;
-        sessionStorage.SerialNumber = item.SerialNumber;
-        sessionStorage.DocNo = item.DocNo;
-        sessionStorage.DocDate = item.DocDate;
-        sessionStorage.Spec = item.Spec;
-        sessionStorage.Tanzim = item.Tanzim;
-        sessionStorage.Taeed = item.Taeed;
-        sessionStorage.Eghdam = item.Eghdam;
-        sessionStorage.Tasvib = item.Tasvib;
-        sessionStorage.Status = item.Status;
-        sessionStorage.Eghdam = item.Eghdam;
-        sessionStorage.ModeCodeSanad = item.ModeCode;
+        if (TestUseSanad("SanadHesab", item.SerialNumber) == true) {
+            showNotification('سند در تب دیگری وجود دارد', 0)
+        }
+        else {
+            sessionStorage.flagupdateHeader = 1;
+            sessionStorage.SerialNumber = item.SerialNumber;
+            sessionStorage.DocNo = item.DocNo;
+            sessionStorage.DocDate = item.DocDate;
+            sessionStorage.Spec = item.Spec;
+            sessionStorage.Tanzim = item.Tanzim;
+            sessionStorage.Taeed = item.Taeed;
+            sessionStorage.Eghdam = item.Eghdam;
+            sessionStorage.Tasvib = item.Tasvib;
+            sessionStorage.Status = item.Status;
+            sessionStorage.Eghdam = item.Eghdam;
+            sessionStorage.ModeCodeSanad = item.ModeCode;
 
-        sessionStorage.F01 = item.F01;
-        sessionStorage.F02 = item.F02;
-        sessionStorage.F03 = item.F03;
-        sessionStorage.F04 = item.F04;
-        sessionStorage.F05 = item.F05;
-        sessionStorage.F06 = item.F06;
-        sessionStorage.F07 = item.F07;
-        sessionStorage.F08 = item.F08;
-        sessionStorage.F09 = item.F09;
-        sessionStorage.F10 = item.F10;
-        sessionStorage.F11 = item.F11;
-        sessionStorage.F12 = item.F12;
-        sessionStorage.F13 = item.F13;
-        sessionStorage.F14 = item.F14;
-        sessionStorage.F15 = item.F15;
-        sessionStorage.F16 = item.F16;
-        sessionStorage.F17 = item.F17;
-        sessionStorage.F18 = item.F18;
-        sessionStorage.F19 = item.F19;
-        sessionStorage.F20 = item.F20;
-
-        sessionStorage.lastPageSelect = self.currentPageIndexADocH();
-
-        window.location.href = sessionStorage.urlAddADocH;
+            sessionStorage.F01 = item.F01;
+            sessionStorage.F02 = item.F02;
+            sessionStorage.F03 = item.F03;
+            sessionStorage.F04 = item.F04;
+            sessionStorage.F05 = item.F05;
+            sessionStorage.F06 = item.F06;
+            sessionStorage.F07 = item.F07;
+            sessionStorage.F08 = item.F08;
+            sessionStorage.F09 = item.F09;
+            sessionStorage.F10 = item.F10;
+            sessionStorage.F11 = item.F11;
+            sessionStorage.F12 = item.F12;
+            sessionStorage.F13 = item.F13;
+            sessionStorage.F14 = item.F14;
+            sessionStorage.F15 = item.F15;
+            sessionStorage.F16 = item.F16;
+            sessionStorage.F17 = item.F17;
+            sessionStorage.F18 = item.F18;
+            sessionStorage.F19 = item.F19;
+            sessionStorage.F20 = item.F20;
+            sessionStorage.lastPageSelect = self.currentPageIndexADocH();
+            window.location.href = sessionStorage.urlAddADocH;
+        }
     }
 
+   // localStorage.setItem("listSanadHesabUse", "0");
 
 
 
@@ -1098,14 +1102,14 @@
     }
 
 
-   // self.imageUpdate = ko.observable();
+    // self.imageUpdate = ko.observable();
     self.ViewSanad = function () {
         if (localStorage.getItem("VIEW_ADOC") == 'true') {
-           // self.imageUpdate("/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png");
+            // self.imageUpdate("/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png");
             return true;
         }
         else {
-           // self.imageUpdate("bb");
+            // self.imageUpdate("bb");
             return false;
 
         }
@@ -1164,14 +1168,14 @@
         calc = (countShow * page) + 1;
         return index + calc;
     }
-   
+
     function CreateTableReport(data) {
         $("#TableList").empty();
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-        '       <tr data-bind="click: sortTableADocH">' +
-        '<th>ردیف</th>' +
+            '       <tr data-bind="click: sortTableADocH">' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('Spec', data) +
@@ -1206,8 +1210,8 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color :  Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : null} " >' +
-        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-        CreateTableTd('DocNo', 0, 0, data) +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+            CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('Spec', 0, 4, data) +
             CreateTableTd('Eghdam', 0, 0, data) +

@@ -404,7 +404,7 @@ $("#refreshStatement").on("click", function () {
     //}
     //localStorage.removeItem('Statement_ListNew');
     $("#p_Statement").hide();
-    showNotification('برای اعمال تغییرات مرورگر را رفرش کنید',1)
+    showNotification('برای اعمال تغییرات مرورگر را رفرش کنید', 1)
 });
 
 
@@ -1073,6 +1073,12 @@ $("#SaveParam").click(function () {
         localStorage.removeItem('InvStatus');
         localStorage.removeItem('ErjDocYears');
 
+
+        localStorage.setItem("listKalaUse", "0");
+        localStorage.setItem("listCustUse", "0");
+        localStorage.setItem("listSanadHesabUse", "0")
+        localStorage.setItem("listFactorUse", "0")
+        localStorage.setItem("listSanadAnbarUse", "0")
 
         $('#loadingsite').css('display', 'none');
         $('#loadingsite').attr('class', 'page-loader-wrapper');
@@ -2993,6 +2999,7 @@ $('.rightClick').click("contextmenu", function () {
 
 var host = 'http://' + $(location).attr('host');
 
+/*
 $(".useBlank").click(function () {
     var url = host + $(this).attr('addr');
     var id = $(this).attr('id');
@@ -3021,11 +3028,16 @@ $(".useBlank").click(function () {
             return showNotification('در برگ نشان دیگری وجود دارد', 0)
         }
         else {
-            localStorage.setItem("listForms", listForms + data);
+            if (id != null)
+                localStorage.setItem("listForms", listForms + data);
             window.open(url, '_blank').focus();
         }
     }
-});
+});*/
+
+
+
+
 
 
 
@@ -4378,9 +4390,11 @@ if (group == "0") {
 
 
 function AppendAnbar(invName) {
-    inc = invName.includes("انبار");
-    if (inc == false) {
-        invName = 'انبار ' + invName
+    if (invName != null) {
+        inc = invName.includes("انبار");
+        if (inc == false) {
+            invName = 'انبار ' + invName
+        }
     }
     return invName
 }
@@ -4389,6 +4403,44 @@ function AppendAnbar(invName) {
 $("#AccessRefresh").click(function () {
     getAccessList(false);
 });
+
+
+function TestUseSanad(FormName, Id) {
+    var listUse = localStorage.getItem("list" + FormName + "Use");
+    if (listUse == null) {
+        localStorage.setItem("list" + FormName + "Use", "0");
+        listUse = localStorage.getItem("list" + FormName + "Use");
+    }
+    data = ',' + Id;
+    list = listUse.split(',');
+    find = false;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i] == Id) {
+            find = true;
+        }
+    }
+
+    if (find == true) {
+        return true;
+        //showNotification('در حال استفاده', 0)
+    }
+    else {
+        localStorage.setItem("list" + FormName + "Use", list + data);
+        return false;
+    }
+}
+
+function RemoveUseSanad(FormName, Id) {
+    listUse = localStorage.getItem("list" + FormName + "Use");
+
+    if (listUse == null) {
+        localStorage.setItem("list" + FormName + "Use", "0");
+        listUse = localStorage.getItem("list" + FormName + "Use");
+    }
+
+    listUse = listUse.replace(',' + Id, '');
+    localStorage.setItem("list" + FormName + "Use", listUse);
+}
 
 
 

@@ -40,6 +40,7 @@
 
 
     var cGruCode = '';
+    var custCode = '';
 
     var isUpdate = false;
 
@@ -828,8 +829,23 @@
         $("#ExtraFields19").val(item.CustF19);
         $("#ExtraFields20").val(item.CustF20);
         $("#Code").focus();
-        $('#modal-Cust').modal('show');
+
+        custCode = item.Code;
+        if (TestUseSanad("Cust", custCode) == true) {
+            showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
+        }
+        else {
+            $('#modal-Cust').modal('show');
+        }
     }
+
+    $('#modal-Cust').on('hide.bs.modal', function () {
+        RemoveUseSanad("Cust", custCode);
+    });
+
+    window.onbeforeunload = function () {
+        RemoveUseSanad("Cust", custCode);
+    };
 
 
     $('#saveCust').click(function () {

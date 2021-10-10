@@ -3677,6 +3677,10 @@
         }
     });
 
+    window.onbeforeunload = function () {
+        RemoveUseSanad("SanadAnbar", sessionStorage.SerialNumber);
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

@@ -3990,6 +3990,9 @@
         }
     });
 
+    window.onbeforeunload = function () {
+        RemoveUseSanad("SanadHesab", sessionStorage.SerialNumber);
+    };
 
 };
 

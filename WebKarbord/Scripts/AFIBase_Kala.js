@@ -37,6 +37,8 @@
 
 
     var kGruCode = '';
+    var kalaCode = '';
+
     var isUpdate = false;
 
     var rprtId = 'Kala';
@@ -840,14 +842,53 @@
         $("#ExtraFields20").val(item.KalaF20);
 
         $("#Code").focus();
-        $('#modal-Kala').modal('show');
+
+        /*var listKalaUse = localStorage.getItem("listKalaUse");
+        kalaCode = item.Code;
+
+        data = ',' + kalaCode;
+        list = listKalaUse.split(',');
+        find = false;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i] == kalaCode) {
+                find = true;
+            }
+        }
+
+        if (find == true) {
+            return showNotification('در حال استفاده', 0)
+        }
+        else {
+            localStorage.setItem("listKalaUse", list + data);
+            $('#modal-Kala').modal('show');
+        }*/
+        kalaCode = item.Code;
+        if (TestUseSanad("Kala", kalaCode) == true) {
+            showNotification('کالا در تب دیگری در حال ویرایش است', 0)
+        }
+        else {
+            $('#modal-Kala').modal('show');
+        }
+
     }
+
 
     $('#modal-Kala').on('show.bs.modal', function () {
         if (ace == 'Web8') {
             $('#showFanniNo').css('display', 'none');
         }
     });
+
+    $('#modal-Kala').on('hide.bs.modal', function () {
+        RemoveUseSanad("Kala", kalaCode);
+        /*listKalaUse = localStorage.getItem("listKalaUse");
+        listKalaUse = listKalaUse.replace(',' + kalaCode, '');
+        localStorage.setItem("listKalaUse", listKalaUse);*/
+    });
+
+
+   
+
 
 
 
@@ -1244,14 +1285,19 @@
     self.sortTableKala();
 
     window.onbeforeunload = function () {
-        var confirmClose = confirm();
+        RemoveUseSanad("Kala", kalaCode);
+        /*listKalaUse = localStorage.getItem("listKalaUse");
+        listKalaUse = listKalaUse.replace(',' + kalaCode, '');
+        localStorage.setItem("listKalaUse", listKalaUse);*/
+
+        /*var confirmClose = confirm();
         if (confirmClose == false) {
             listForms = localStorage.getItem("listForms");
             if (listForms != null) {
                 listForms = listForms.replace('!!form_BaseKala', '');
                 localStorage.setItem("listForms", listForms);
             }
-        }
+        }*/
     };
 
 };

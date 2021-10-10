@@ -4617,6 +4617,9 @@
         }
     });
 
+    window.onbeforeunload = function () {
+        RemoveUseSanad("Factor", sessionStorage.SerialNumber);
+    };
 
 };
 

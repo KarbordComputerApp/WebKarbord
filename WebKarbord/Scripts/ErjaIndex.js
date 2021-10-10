@@ -89,6 +89,8 @@
 
     var bandNo = 0;
     var serialNumber = 0;
+    var SpecialCommTrs;
+    var specialComm = '';
 
     $('#btnp_DocDate').click(function() {
         $('#p_DocDate').change();
@@ -1076,6 +1078,12 @@
 
         doc_KhdtCode = self.KhdtCode();
 
+        if ($("#p_SpecialComm").css('font-style') == 'italic')
+            special = specialComm;
+        else
+            special = $("#p_SpecialComm").val();
+
+
         Web_ErjSaveDoc_HObject = {
             ModeCode: 0,
             DocNo: docNo == "" ? 0 : docNo,
@@ -1096,7 +1104,7 @@
             EghdamComm: $("#p_EghdamComm").val(),
             DocDesc: $("#p_DocDesc").val(),
             FinalComm: $("#p_FinalComm").val(),
-            SpecialComm: $("#p_SpecialComm").val(),
+            SpecialComm: special,
             RelatedDocs: $("#p_RelatedDocs").val(),
             Mahramaneh: $("#p_Mahramaneh").val(),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
@@ -2612,6 +2620,20 @@
         ViewCustName(Band.CustName)
     }
 
+
+    $('#p_SpecialComm').click(function () {
+        if (SpecialCommTrs == 1) {
+            if ($("#p_SpecialComm").css('font-style') == 'italic') {
+                $("#p_SpecialComm").attr('readonly', false);
+                TextHighlightDel("#p_SpecialComm");
+                $("#p_SpecialComm").val(specialComm);
+            }
+        }
+        else
+            showNotification('دسترسی ندارید', 0);
+    })
+
+
     $('#ShowEghdamComm').click(function() {
         $('#titleComm').text('اقدام');
         $('#modal-Comm').modal('show');
@@ -2624,10 +2646,22 @@
         $('#comm').val($('#p_DocDesc').val());
     });
 
-    $('#ShowSpecialComm').click(function() {
+    $('#ShowSpecialComm').click(function () {
+        if (SpecialCommTrs == 1) {
+            if ($("#p_SpecialComm").css('font-style') == 'italic') {
+                $("#p_SpecialComm").attr('readonly', false);
+                TextHighlightDel("#p_SpecialComm");
+                $("#p_SpecialComm").val(specialComm);
+            }
+            $('#titleComm').text('مدیران');
+            $('#modal-Comm').modal('show');
+            $('#comm').attr("style", "");
+            $('#comm').val($('#p_SpecialComm').val());
+        }
+        /*
         $('#titleComm').text('مدیران');
         $('#modal-Comm').modal('show');
-        $('#comm').val($('#p_SpecialComm').val());
+        $('#comm').val($('#p_SpecialComm').val());*/
     });
 
     $('#ShowFinalComm').click(function() {
@@ -2865,10 +2899,16 @@
             $('#p_EghdamComm').attr('readonly', true); 
 
         $('#p_DocDesc').val(item.DocDesc);
-        $('#p_SpecialComm').val(item.SpecialComm);
+        //$('#p_SpecialComm').val(item.SpecialComm);
         $('#p_FinalComm').val(item.FinalComm);
         $('#p_Mahramaneh').val(item.Mahramaneh);
         $('#p_Status').val(item.Status);
+
+        specialComm = item.SpecialComm;
+        SpecialCommTrs = item.SpecialCommTrs;
+        $("#p_SpecialComm").val('برای نمایش کلیک کنید');
+        $("#p_SpecialComm").attr('readonly', true);
+        TextHighlight("#p_SpecialComm");
 
         sessionStorage.F01 = item.F01;
         sessionStorage.F02 = item.F02;
