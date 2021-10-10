@@ -1273,37 +1273,41 @@
     });
 
     self.DeleteIDocH = function (SanadBand) {
+        if (TestUseSanad("SanadAnbar", SanadBand.SerialNumber) == true) {
+            showNotification('در تب دیگری وجود دارد', 0)
+        }
+        else {
+            Swal.fire({
+                title: 'تایید حذف ؟',
+                text: "آیا سند انتخابی حذف شود",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
 
-        Swal.fire({
-            title: 'تایید حذف ؟',
-            text: "آیا سند انتخابی حذف شود",
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
+                    serial = SanadBand.SerialNumber;
+                    var TestIDoc_DeleteObject = {
+                        SerialNumber: serial
+                    };
 
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                serial = SanadBand.SerialNumber;
-                var TestIDoc_DeleteObject = {
-                    SerialNumber: serial
-                };
-
-                ajaxFunction(IDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_DeleteObject).done(function (data) {
-                    var obj = JSON.parse(data);
-                    self.TestIDoc_DeleteList(obj);
-                    if (data.length > 2) {
-                        $('#modal-TestDelete').modal('show');
-                        SetDataTestDocB();
-                    }
-                    else {
-                        DeleteSanadAnbar();
-                    }
-                });
-            }
-        })
+                    ajaxFunction(IDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_DeleteObject).done(function (data) {
+                        var obj = JSON.parse(data);
+                        self.TestIDoc_DeleteList(obj);
+                        if (data.length > 2) {
+                            $('#modal-TestDelete').modal('show');
+                            SetDataTestDocB();
+                        }
+                        else {
+                            DeleteSanadAnbar();
+                        }
+                    });
+                }
+            })
+        }
     };
 
 
@@ -1792,6 +1796,7 @@
                 sessionStorage.DocNo = item.DocNo;
                 sessionStorage.DocDate = item.DocDate;
                 sessionStorage.ThvlCode = item.ThvlCode;
+                sessionStorage.ThvlCode = item.ThvlCode;
                 sessionStorage.ThvlName = item.ThvlName == null ? '' : item.ThvlName;
                 sessionStorage.InvCode = item.InvCode;
                 sessionStorage.InvName = item.InvName;
@@ -1845,32 +1850,36 @@
         }
     });
 
-
-
-
+    
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        var closedDate = false;
-        var TestIDoc_EditObject = {
-            Serialnumber: serial
+        if (TestUseSanad("SanadAnbar", serial) == true) {
+            showNotification('در تب دیگری وجود دارد', 0)
         }
+        else {
 
-        ajaxFunction(TestIDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_EditObject, false).done(function (data) {
-            list = JSON.parse(data);
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].TestName == "YTrs") {
-                    closedDate = true;
-                    return showNotification(list[i].TestCap, 0);
-                }
+            var closedDate = false;
+            var TestIDoc_EditObject = {
+                Serialnumber: serial
             }
-        });
 
-        if (closedDate == false) {
-            sessionStorage.Status = item.Status;
-            self.StatusSanad(item.Status);
-            $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' به ');
-            $('#modal-ChangeStatusSanad').modal();
+            ajaxFunction(TestIDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_EditObject, false).done(function (data) {
+                list = JSON.parse(data);
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].TestName == "YTrs") {
+                        closedDate = true;
+                        return showNotification(list[i].TestCap, 0);
+                    }
+                }
+            });
+
+            if (closedDate == false) {
+                sessionStorage.Status = item.Status;
+                self.StatusSanad(item.Status);
+                $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' به ');
+                $('#modal-ChangeStatusSanad').modal();
+            }
         }
     }
 

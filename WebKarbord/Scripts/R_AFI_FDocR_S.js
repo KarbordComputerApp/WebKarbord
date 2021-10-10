@@ -2238,9 +2238,15 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
     self.ShowAFIFactor = function (Band) {
-        localStorage.setItem("DocNoAFIFactor", Band.DocNo);
-        localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
-        window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+        serialNumber = Band.SerialNumber;
+        if (TestUseSanad("Factor", serialNumber) == true) {
+            showNotification('در تب دیگری وجود دارد', 0)
+        }
+        else {
+            localStorage.setItem("DocNoAFIFactor", Band.DocNo);
+            localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
+            window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+        }
     }
 
 

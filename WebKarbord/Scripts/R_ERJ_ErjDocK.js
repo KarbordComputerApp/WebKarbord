@@ -956,8 +956,14 @@
 
 
     self.ShowErjDocH = function (Band) {
-        localStorage.setItem("DocNoErjReport", Band.DocNo);
-        window.open(sessionStorage.urlErjaIndex, '_blank');
+        serialNumber = Band.SerialNumber;
+        if (TestUseSanad("ErjDocH", serialNumber) == true) {
+            showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        }
+        else {
+            localStorage.setItem("DocNoErjReport", Band.DocNo);
+            window.open(sessionStorage.urlErjaIndex, '_blank');
+        }
     }
 
 

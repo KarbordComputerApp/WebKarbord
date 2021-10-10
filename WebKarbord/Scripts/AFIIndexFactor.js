@@ -1069,28 +1069,32 @@
 
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
-
-        var closedDate = false;
-
-        var TestFDoc_EditObject = {
-            Serialnumber: serial
+        if (TestUseSanad("Factor", serial) == true) {
+            showNotification('در تب دیگری وجود دارد', 0)
         }
+        else {
 
-        ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
-            list = JSON.parse(data);
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].TestName == "YTrs") {
-                    closedDate = true;
-                    return showNotification(list[i].TestCap, 0);
-                }
+            var closedDate = false;
+
+            var TestFDoc_EditObject = {
+                Serialnumber: serial
             }
-        });
+            ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
+                list = JSON.parse(data);
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].TestName == "YTrs") {
+                        closedDate = true;
+                        return showNotification(list[i].TestCap, 0);
+                    }
+                }
+            });
 
-        if (closedDate == false) {
-            sessionStorage.Status = item.Status;
-            self.StatusFactor(item.Status);
-            $('#titleChangeStatus').text(' تغییر وضعیت ' + TitleListFactor + ' ' + item.DocNo + ' به ');
-            $('#modal-ChangeStatusFactor').modal();
+            if (closedDate == false) {
+                sessionStorage.Status = item.Status;
+                self.StatusFactor(item.Status);
+                $('#titleChangeStatus').text(' تغییر وضعیت ' + TitleListFactor + ' ' + item.DocNo + ' به ');
+                $('#modal-ChangeStatusFactor').modal();
+            }
         }
     }
 
@@ -1974,37 +1978,44 @@
 
 
     self.DeleteFactor = function (factorBand) {
-        Swal.fire({
-            title: 'تایید حذف',
-            text: "آیا " + TitleListFactor + " انتخابی حذف شود ؟",
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
 
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                serial = factorBand.SerialNumber;
-                var TestFDoc_DeleteObject = {
-                    SerialNumber: serial
-                };
+        if (TestUseSanad("Factor", factorBand.SerialNumber) == true) {
+            showNotification('در تب دیگری وجود دارد', 0)
+        }
+        else {
 
-                ajaxFunction(FDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_DeleteObject).done(function (data) {
-                    var obj = JSON.parse(data);
-                    self.TestFDoc_DeleteList(obj);
-                    if (data.length > 2) {
-                        $('#modal-TestDelete').modal('show');
-                        SetDataTestDocB();
-                    }
-                    else {
-                        DeleteFactor();
-                    }
-                });
+            Swal.fire({
+                title: 'تایید حذف',
+                text: "آیا " + TitleListFactor + " انتخابی حذف شود ؟",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
 
-            }
-        })
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
+                    serial = factorBand.SerialNumber;
+                    var TestFDoc_DeleteObject = {
+                        SerialNumber: serial
+                    };
+
+                    ajaxFunction(FDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_DeleteObject).done(function (data) {
+                        var obj = JSON.parse(data);
+                        self.TestFDoc_DeleteList(obj);
+                        if (data.length > 2) {
+                            $('#modal-TestDelete').modal('show');
+                            SetDataTestDocB();
+                        }
+                        else {
+                            DeleteFactor();
+                        }
+                    });
+
+                }
+            })
+        }
     };
 
 

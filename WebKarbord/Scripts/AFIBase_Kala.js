@@ -1000,37 +1000,42 @@
 
 
     self.DeleteKala = function (item) {
+        kalaCode = item.Code;
+        if (TestUseSanad("Kala", kalaCode) == true) {
+            showNotification('کالا در تب دیگری در حال ویرایش است', 0)
+        }
+        else {
+            Swal.fire({
+                title: 'تایید حذف ؟',
+                text: "آیا کالای انتخابی حذف شود",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
+                    code = item.Code;
+                    var TestKala_DeleteObject = {
+                        Code: code
+                    };
 
-        Swal.fire({
-            title: 'تایید حذف ؟',
-            text: "آیا کالای انتخابی حذف شود",
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                code = item.Code;
-                var TestKala_DeleteObject = {
-                    Code: code
-                };
-
-                ajaxFunction(Kala_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestKala_DeleteObject).done(function (data) {
-                    var obj = JSON.parse(data);
-                    self.TestKala_DeleteList(obj);
-                    if (data.length > 2) {
-                        $('#modal-TestDelete').modal('show');
-                        SetDataTestKala();
-                    }
-                    else {
-                        DeleteKala(code);
-                    }
-                });
-            }
-        })
+                    ajaxFunction(Kala_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestKala_DeleteObject).done(function (data) {
+                        var obj = JSON.parse(data);
+                        self.TestKala_DeleteList(obj);
+                        if (data.length > 2) {
+                            $('#modal-TestDelete').modal('show');
+                            SetDataTestKala();
+                        }
+                        else {
+                            DeleteKala(code);
+                        }
+                    });
+                }
+            })
+        }
     };
 
 

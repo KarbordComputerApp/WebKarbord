@@ -1753,8 +1753,15 @@
 
 
     self.ShowAFISanad = function (Band) {
-        localStorage.setItem("DocNoAFISanad", Band.DocNo);
-        window.open(sessionStorage.urlAFISanadIndex, '_blank');
+        serial = Band.SerialNumber;
+
+        if (TestUseSanad("SanadHesab", serial) == true) {
+            showNotification('سند در تب دیگری وجود دارد', 0)
+        }
+        else {
+            localStorage.setItem("DocNoAFISanad", Band.DocNo);
+            window.open(sessionStorage.urlAFISanadIndex, '_blank');
+        }
     }
 
 

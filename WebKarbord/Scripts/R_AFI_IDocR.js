@@ -2476,11 +2476,16 @@
 
 
     self.ShowAFISanadAnbar = function(Band) {
-        localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
-        localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
-        localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
-        localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
-        window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+        if (TestUseSanad("SanadAnbar", Band.SerialNumber) == true) {
+            showNotification('در تب دیگری وجود دارد', 0)
+        }
+        else {
+            localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
+            localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
+            localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+            localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
+            window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+        }
     }
 
     IsReport = localStorage.getItem("IsReport");

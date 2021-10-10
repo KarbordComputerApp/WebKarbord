@@ -1079,6 +1079,7 @@ $("#SaveParam").click(function () {
         localStorage.setItem("listSanadHesabUse", "0")
         localStorage.setItem("listFactorUse", "0")
         localStorage.setItem("listSanadAnbarUse", "0")
+        localStorage.setItem("listErjDocHUse", "0")
 
         $('#loadingsite').css('display', 'none');
         $('#loadingsite').attr('class', 'page-loader-wrapper');

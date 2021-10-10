@@ -937,36 +937,43 @@
 
     self.DeleteCust = function (item) {
 
-        Swal.fire({
-            title: 'تایید حذف ؟',
-            text: "آیا خریداران/فروشندگان انتخابی حذف شود",
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
-                code = item.Code;
-                var TestCust_DeleteObject = {
-                    Code: code
-                };
+        custCode = item.Code;
+        if (TestUseSanad("Cust", custCode) == true) {
+            showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
+        }
+        else {
 
-                ajaxFunction(Cust_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestCust_DeleteObject).done(function (data) {
-                    var obj = JSON.parse(data);
-                    self.TestCust_DeleteList(obj);
-                    if (data.length > 2) {
-                        $('#modal-TestDelete').modal('show');
-                        SetDataTestCust();
-                    }
-                    else {
-                        DeleteCust(code);
-                    }
-                });
-            }
-        })
+            Swal.fire({
+                title: 'تایید حذف ؟',
+                text: "آیا خریداران/فروشندگان انتخابی حذف شود",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
+                    code = item.Code;
+                    var TestCust_DeleteObject = {
+                        Code: code
+                    };
+
+                    ajaxFunction(Cust_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestCust_DeleteObject).done(function (data) {
+                        var obj = JSON.parse(data);
+                        self.TestCust_DeleteList(obj);
+                        if (data.length > 2) {
+                            $('#modal-TestDelete').modal('show');
+                            SetDataTestCust();
+                        }
+                        else {
+                            DeleteCust(code);
+                        }
+                    });
+                }
+            })
+        }
     };
 
     function SetDataTestCust() {

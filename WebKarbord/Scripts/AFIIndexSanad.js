@@ -327,30 +327,38 @@
         }
 
     });
+
+
+
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        var closedDate = false;
-
-        var TestADoc_EditObject = {
-            Serialnumber: serial
+        if (TestUseSanad("SanadHesab", serial ) == true) {
+            showNotification('سند در تب دیگری وجود دارد', 0)
         }
+        else {
+            var closedDate = false;
 
-        ajaxFunction(TestADoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_EditObject, false).done(function (data) {
-            list = JSON.parse(data);
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].TestName == "YTrs") {
-                    closedDate = true;
-                    return showNotification(list[i].TestCap, 0);
-                }
+            var TestADoc_EditObject = {
+                Serialnumber: serial
             }
-        });
 
-        if (closedDate == false) {
-            sessionStorage.Status = item.Status;
-            self.StatusSanad(item.Status);
-            $('#titleChangeStatus').text(' تغییر وضعیت سند ' + item.DocNo + ' به ');
-            $('#modal-ChangeStatusSanad').modal();
+            ajaxFunction(TestADoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_EditObject, false).done(function (data) {
+                list = JSON.parse(data);
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].TestName == "YTrs") {
+                        closedDate = true;
+                        return showNotification(list[i].TestCap, 0);
+                    }
+                }
+            });
+
+            if (closedDate == false) {
+                sessionStorage.Status = item.Status;
+                self.StatusSanad(item.Status);
+                $('#titleChangeStatus').text(' تغییر وضعیت سند ' + item.DocNo + ' به ');
+                $('#modal-ChangeStatusSanad').modal();
+            }
         }
     }
 
@@ -811,37 +819,42 @@
 
 
     self.DeleteSanad = function (SanadBand) {
-        Swal.fire({
-            title: 'تایید حذف ؟',
-            text: "آیا سند انتخابی حذف شود",
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+        if (TestUseSanad("SanadHesab", SanadBand.SerialNumber) == true) {
+            showNotification('سند در تب دیگری وجود دارد', 0)
+        }
+        else {
+            Swal.fire({
+                title: 'تایید حذف ؟',
+                text: "آیا سند انتخابی حذف شود",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'خیر',
 
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
-        }).then((result) => {
-            if (result.value) {
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'بله'
+            }).then((result) => {
+                if (result.value) {
 
-                serial = SanadBand.SerialNumber;
-                var TestADoc_DeleteObject = {
-                    SerialNumber: serial
-                };
+                    serial = SanadBand.SerialNumber;
+                    var TestADoc_DeleteObject = {
+                        SerialNumber: serial
+                    };
 
-                ajaxFunction(ADoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_DeleteObject).done(function (data) {
-                    var obj = JSON.parse(data);
-                    self.TestADoc_DeleteList(obj);
-                    if (data.length > 2) {
-                        $('#modal-TestDelete').modal('show');
-                        SetDataTestDocB();
-                    }
-                    else {
-                        DeleteSanad();
-                    }
-                });
-            }
-        })
+                    ajaxFunction(ADoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_DeleteObject).done(function (data) {
+                        var obj = JSON.parse(data);
+                        self.TestADoc_DeleteList(obj);
+                        if (data.length > 2) {
+                            $('#modal-TestDelete').modal('show');
+                            SetDataTestDocB();
+                        }
+                        else {
+                            DeleteSanad();
+                        }
+                    });
+                }
+            })
+        }
     };
 
 
