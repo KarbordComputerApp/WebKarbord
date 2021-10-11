@@ -3678,7 +3678,10 @@
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("SanadAnbar", sessionStorage.SerialNumber);
+       // a = window.performance.navigation;
+       // if (a.type == 0) {
+            RemoveUseSanad("SanadAnbar", sessionStorage.SerialNumber);
+       // }
     };
 
 };

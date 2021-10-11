@@ -905,7 +905,7 @@
 
     self.DeleteErjDocH = function (ErjDocHBand) {
         serialNumber = ErjDocHBand.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber) == true) {
+        if (TestUseSanad("ErjDocH", serialNumber,false) == true) {
             showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -2875,7 +2875,7 @@
     self.UpdateErjDocH = function (item) {
 
         serialNumber = item.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber) == true) {
+        if (TestUseSanad("ErjDocH", serialNumber,true) == true) {
             showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -3014,6 +3014,9 @@
     };
 
 
+    //window.addEventListener("beforeunload", function (event) {
+    //    a = 111;
+    //});
 
 
     function getErjDocErja(serialNumber) {

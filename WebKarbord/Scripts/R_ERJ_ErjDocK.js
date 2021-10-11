@@ -957,7 +957,7 @@
 
     self.ShowErjDocH = function (Band) {
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber) == true) {
+        if (TestUseSanad("ErjDocH", serialNumber, true) == true) {
             showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {

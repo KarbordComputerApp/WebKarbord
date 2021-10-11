@@ -1273,7 +1273,7 @@
     });
 
     self.DeleteIDocH = function (SanadBand) {
-        if (TestUseSanad("SanadAnbar", SanadBand.SerialNumber) == true) {
+        if (TestUseSanad("SanadAnbar", SanadBand.SerialNumber,false) == true) {
             showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1390,7 +1390,7 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad("SanadAnbar", item.SerialNumber) == true) {
+        if (TestUseSanad("SanadAnbar", item.SerialNumber,true) == true) {
             showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1854,7 +1854,7 @@
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad("SanadAnbar", serial) == true) {
+        if (TestUseSanad("SanadAnbar", serial,true) == true) {
             showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1882,6 +1882,16 @@
             }
         }
     }
+
+
+    $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
+        RemoveUseSanad("SanadAnbar", serial);
+    });
+
+    window.onbeforeunload = function () {
+        RemoveUseSanad("SanadAnbar", serial);
+    };
+
 
 
     $('#ChangeStatus').click(function () {

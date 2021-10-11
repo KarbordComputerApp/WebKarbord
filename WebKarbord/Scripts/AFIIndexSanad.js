@@ -333,7 +333,7 @@
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad("SanadHesab", serial ) == true) {
+        if (TestUseSanad("SanadHesab", serial,true) == true) {
             showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
@@ -361,6 +361,14 @@
             }
         }
     }
+
+    $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
+        RemoveUseSanad("SanadHesab", serial);
+    });
+
+    window.onbeforeunload = function () {
+        RemoveUseSanad("SanadHesab", serial);
+    };
 
 
     $('#ChangeStatus').click(function () {
@@ -819,7 +827,7 @@
 
 
     self.DeleteSanad = function (SanadBand) {
-        if (TestUseSanad("SanadHesab", SanadBand.SerialNumber) == true) {
+        if (TestUseSanad("SanadHesab", SanadBand.SerialNumber,false) == true) {
             showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
@@ -955,7 +963,7 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad("SanadHesab", item.SerialNumber) == true) {
+        if (TestUseSanad("SanadHesab", item.SerialNumber,true) == true) {
             showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {

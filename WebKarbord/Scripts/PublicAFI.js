@@ -4406,7 +4406,7 @@ $("#AccessRefresh").click(function () {
 });
 
 
-function TestUseSanad(FormName, Id) {
+function TestUseSanad(FormName, Id, Insert) {
     var listUse = localStorage.getItem("list" + FormName + "Use");
     if (listUse == null) {
         localStorage.setItem("list" + FormName + "Use", "0");
@@ -4426,7 +4426,9 @@ function TestUseSanad(FormName, Id) {
         //showNotification('در حال استفاده', 0)
     }
     else {
-        localStorage.setItem("list" + FormName + "Use", list + data);
+        if (Insert == true) {
+            localStorage.setItem("list" + FormName + "Use", list + data);
+        }
         return false;
     }
 }
