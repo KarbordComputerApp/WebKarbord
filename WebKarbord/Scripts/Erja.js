@@ -87,6 +87,17 @@
     var lastUserErjName = '';
 
 
+    var flag_IsChange = false;
+    var flag_Save = false;
+    var old_Spec = '';
+    var old_StatusParvandeh = '';
+    var old_StatusErja = '';
+    var old_EghdamComm = '';
+    var old_DocDesc = '';
+    var old_FinalComm = '';
+    var old_SpecialComm = '';
+
+
 
     function AddDocBMode() {
         select = document.getElementById('DocBMode');
@@ -1601,6 +1612,9 @@
         ajaxFunction(DocKUri + aceErj + '/' + salErj + '/' + group, 'POST', DocKObject).done(function (response) {
             self.DocKList(response);
             item = response[0];
+
+
+
             $("#m_docno").val(item.DocNo);
 
             $("#m_DocDate").val(item.DocDate);
@@ -1653,6 +1667,14 @@
             sessionStorage.F18 = item.F18;
             sessionStorage.F19 = item.F19;
             sessionStorage.F20 = item.F20;
+
+
+            flag_Save = false;
+            old_Spec = item.Spec;
+            old_EghdamComm = $("#eghdamComm").val();
+            old_DocDesc = $("#docDesc").val();
+            old_FinalComm = $("#finalComm").val();
+            old_SpecialComm = item.SpecialComm;
 
             $("#ExtraFields1").val(sessionStorage.F01);
             $("#ExtraFields2").val(sessionStorage.F02);
@@ -1724,6 +1746,10 @@
 
         $('#m_StatusParvandeh').val(Band.Status);
         $('#m_StatusErja').val(Band.RjStatus);
+
+        old_StatusParvandeh = Band.Status;
+        old_StatusErja = Band.RjStatus;
+
 
 
         $('#erja').removeAttr('hidden', '');
@@ -1822,7 +1848,7 @@
         self.FarayandCode(Band.FarayandCode);
 
 
-        $('#nameErjBe').val(result.FromUserName);
+        $('#nameErjBe').val('(' + result.ToUserCode + ') ' + result.ToUserName);
         self.ErjUsersCode(result.ToUserCode);
 
         if (countUsers == 0)
@@ -1912,6 +1938,82 @@
         getDocB_Last();
         self.sortTableDocB_Last();
     });
+
+
+
+    $("#Colse_ModalErjDocErja").click(function (e) {
+        if (flag_Save == false) {
+            if ($("#specialComm").css('font-style') == 'italic')
+                special = specialComm;
+            else
+                special = $("#specialComm").val();
+
+            flag_IsChange1 = ($("#m_Spec").val() != old_Spec);
+            flag_IsChange2 = ($("#m_StatusParvandeh").val() != old_StatusParvandeh);
+            flag_IsChange3 = ($("#m_StatusErja").val() != old_StatusErja);
+            flag_IsChange4 = ($("#eghdamComm").val() != old_EghdamComm);
+            flag_IsChange5 = (special != old_SpecialComm);
+            flag_IsChange6 = ($("#docDesc").val() != old_DocDesc);
+            flag_IsChange7 = ($("#finalComm").val() != old_FinalComm);
+            flag_IsChange8 = (($("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val()) != sessionStorage.F01);
+            flag_IsChange9 = (($("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val()) != sessionStorage.F02);
+            flag_IsChange10 = (($("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val()) != sessionStorage.F03);
+            flag_IsChange11 = (($("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val()) != sessionStorage.F04);
+            flag_IsChange12 = (($("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val()) != sessionStorage.F05);
+            flag_IsChange13 = (($("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val()) != sessionStorage.F06);
+            flag_IsChange14 = (($("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val()) != sessionStorage.F07);
+            flag_IsChange15 = (($("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val()) != sessionStorage.F08);
+            flag_IsChange16 = (($("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val()) != sessionStorage.F09);
+            flag_IsChange17 = (($("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val()) != sessionStorage.F10);
+            flag_IsChange18 = (($("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val()) != sessionStorage.F11);
+            flag_IsChange19 = (($("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val()) != sessionStorage.F12);
+            flag_IsChange20 = (($("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val()) != sessionStorage.F13);
+            flag_IsChange21 = (($("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val()) != sessionStorage.F14);
+            flag_IsChange22 = (($("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val()) != sessionStorage.F15);
+            flag_IsChange23 = (($("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val()) != sessionStorage.F16);
+            flag_IsChange24 = (($("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val()) != sessionStorage.F17);
+            flag_IsChange25 = (($("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val()) != sessionStorage.F18);
+            flag_IsChange26 = (($("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val()) != sessionStorage.F19);
+            flag_IsChange27 = (($("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()) != sessionStorage.F20);
+
+
+
+            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
+                flag_IsChange7 || flag_IsChange8 || flag_IsChange9 || flag_IsChange10 || flag_IsChange11 ||
+                flag_IsChange12 || flag_IsChange13 || flag_IsChange14 || flag_IsChange15 || flag_IsChange16 ||
+                flag_IsChange17 || flag_IsChange18 || flag_IsChange19 || flag_IsChange20 || flag_IsChange21 ||
+                flag_IsChange22 || flag_IsChange23 || flag_IsChange24 || flag_IsChange25 || flag_IsChange26 ||
+                flag_IsChange27) {
+                Swal.fire({
+                    title: 'ثبت تغییرات',
+                    text: "پرونده تغییر کرده است آیا ذخیره شود ؟",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#3085d6',
+                    cancelButtonText: 'خیر',
+
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'بله'
+                }).then((result) => {
+                    if (result.value) {
+                        SaveParvandeh();
+                        $('#modal-ErjDocErja').modal('hide');
+                    } else {
+                        $('#modal-ErjDocErja').modal('hide');
+                    }
+                })
+            }
+            else {
+                $('#modal-ErjDocErja').modal('hide');
+            }
+        } else {
+            $('#modal-ErjDocErja').modal('hide');
+        }
+
+
+    });
+
+
 
     $('#ShowHideInformation').click(function () {
         if (showHideInformation) {
@@ -2166,9 +2268,26 @@
 
 
 
+    function SaveParvandeh() {
+        flagSave = true;
+        if (docBMode == 1) { // رونوشت
+            trs = localStorage.getItem("userModeErj");
+            if (trs == 'ADMIN') {
+                SaveDoch();
+            }
+
+            ErjSaveDoc_CD(bandNo);
+            ErjSaveDoc_CSave(bandNo, true);
+        }
+        else {
+            ErjSaveDoc_BSave(bandNo);
+        }
+    }
+
 
     $('#saveParvandeh').click(function () {
-        // $('html').css('cursor', 'wait');
+        SaveParvandeh();
+        /*// $('html').css('cursor', 'wait');
         flagSave = true;
         if (docBMode == 1) { // رونوشت
             // ErjSaveDoc_BSave(bandNo);
@@ -2185,7 +2304,7 @@
             //$('#modal-ErjDocErja').modal('hide');
             ErjSaveDoc_BSave(bandNo);
         }
-        // $('html').css('cursor', 'default');
+        // $('html').css('cursor', 'default');*/
     })
 
 
@@ -2232,7 +2351,7 @@
         };
 
         ajaxFunction(Web_ErjSaveDoc_HUUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_HUObject).done(function (response) {
-
+            flag_Save = true;
         });
     }
 

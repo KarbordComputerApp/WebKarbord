@@ -94,6 +94,25 @@
 
 
 
+    var flag_IsChange = false;
+    var flag_Save = false;
+    var old_DocDate = '';
+    var old_MhltDate = '';
+    var old_AmalDate = '';
+    var old_EndDate = '';
+    var old_Spec = '';
+    var old_CustCode = '';
+    var old_KhdtCode = '';
+    var old_RelatedDocs = '';
+    var old_Mahramaneh = '';
+    var old_Status = '';
+    var old_EghdamComm = '';
+    var old_DocDesc = '';
+    var old_FinalComm = '';
+    var old_SpecialComm = '';
+
+
+
     $('#btnp_DocDate').click(function () {
         $('#p_DocDate').change();
     });
@@ -905,7 +924,7 @@
 
     self.DeleteErjDocH = function (ErjDocHBand) {
         serialNumber = ErjDocHBand.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber,false) == true) {
+        if (TestUseSanad("ErjDocH", serialNumber, false) == true) {
             showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1157,6 +1176,7 @@
             else {
                 showNotification('پرونده ' + response + ' ذخیره شد', 1);
             }
+            flag_Save = true;
         });
     };
 
@@ -2870,16 +2890,50 @@
     }
 
 
-
-
     self.UpdateErjDocH = function (item) {
 
         serialNumber = item.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber,true) == true) {
+        if (TestUseSanad("ErjDocH", serialNumber, true) == true) {
             showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
             item.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
+
+            flag_Save = false;
+            old_DocDate = item.DocDate;
+            old_MhltDate = item.MhltDate;
+            old_AmalDate = item.AmalDate;
+            old_EndDate = item.EndDate;
+            old_Spec = item.Spec;
+            old_CustCode = item.CustCode;
+            old_CustCode = item.CustCode;
+            old_KhdtCode = item.KhdtCode;
+            old_RelatedDocs = item.RelatedDocs;
+            old_Mahramaneh = item.Mahramaneh;
+            old_Status = item.Status;
+            sessionStorage.F01 = item.F01;
+            sessionStorage.F02 = item.F02;
+            sessionStorage.F03 = item.F03;
+            sessionStorage.F04 = item.F04;
+            sessionStorage.F05 = item.F05;
+            sessionStorage.F06 = item.F06;
+            sessionStorage.F07 = item.F07;
+            sessionStorage.F08 = item.F08;
+            sessionStorage.F09 = item.F09;
+            sessionStorage.F10 = item.F10;
+            sessionStorage.F11 = item.F11;
+            sessionStorage.F12 = item.F12;
+            sessionStorage.F13 = item.F13;
+            sessionStorage.F14 = item.F14;
+            sessionStorage.F15 = item.F15;
+            sessionStorage.F16 = item.F16;
+            sessionStorage.F17 = item.F17;
+            sessionStorage.F18 = item.F18;
+            sessionStorage.F19 = item.F19;
+            sessionStorage.F20 = item.F20;
+
+
+
             self.p_DocDate(item.DocDate);
             self.p_MhltDate(item.MhltDate);
             self.p_AmalDate(item.AmalDate);
@@ -2908,6 +2962,7 @@
             $('#nameKhdt').val(item.KhdtName);
 
             $('#p_EghdamComm').val(item.EghdamComm);
+            
             if (item.Eghdam == sessionStorage.userName)
                 $('#p_EghdamComm').attr('readonly', false);
             else
@@ -2925,26 +2980,11 @@
             $("#p_SpecialComm").attr('readonly', true);
             TextHighlight("#p_SpecialComm");
 
-            sessionStorage.F01 = item.F01;
-            sessionStorage.F02 = item.F02;
-            sessionStorage.F03 = item.F03;
-            sessionStorage.F04 = item.F04;
-            sessionStorage.F05 = item.F05;
-            sessionStorage.F06 = item.F06;
-            sessionStorage.F07 = item.F07;
-            sessionStorage.F08 = item.F08;
-            sessionStorage.F09 = item.F09;
-            sessionStorage.F10 = item.F10;
-            sessionStorage.F11 = item.F11;
-            sessionStorage.F12 = item.F12;
-            sessionStorage.F13 = item.F13;
-            sessionStorage.F14 = item.F14;
-            sessionStorage.F15 = item.F15;
-            sessionStorage.F16 = item.F16;
-            sessionStorage.F17 = item.F17;
-            sessionStorage.F18 = item.F18;
-            sessionStorage.F19 = item.F19;
-            sessionStorage.F20 = item.F20;
+            old_EghdamComm = $('#p_EghdamComm').val();
+            old_DocDesc = $('#p_DocDesc').val();
+            old_FinalComm = $('#p_FinalComm').val();
+            old_SpecialComm = item.SpecialComm;
+
 
             $("#ExtraFields1").val(sessionStorage.F01);
             $("#ExtraFields2").val(sessionStorage.F02);
@@ -3187,6 +3227,91 @@
     });
 
 
+
+
+    $("#Colse_ModalErjDocH").click(function (e) {
+
+        if (flag_Save == false) {
+
+
+            if ($("#p_SpecialComm").css('font-style') == 'italic')
+                special = specialComm;
+            else
+                special = $("#p_SpecialComm").val();
+
+            flag_IsChange1 = ($("#p_DocDate").val().toEnglishDigit() != old_DocDate);
+            flag_IsChange2 = ($("#p_MhltDate").val().toEnglishDigit() != old_MhltDate);
+            flag_IsChange3 = ($("#p_AmalDate").val().toEnglishDigit() != old_AmalDate);
+            flag_IsChange4 = ($("#p_EndDate").val().toEnglishDigit() != old_EndDate);
+            flag_IsChange5 = (self.ErjCustCode() != old_CustCode);
+            flag_IsChange6 = (self.KhdtCode() != old_KhdtCode);
+            flag_IsChange7 = ($("#p_Status").val() != old_Status);
+            flag_IsChange8 = (self.p_Spec() != old_Spec);
+            flag_IsChange9 = ($("#p_EghdamComm").val() != old_EghdamComm);
+            flag_IsChange10 = (special != old_SpecialComm);
+            flag_IsChange11 = ($("#p_DocDesc").val() != old_DocDesc);
+            flag_IsChange12 = ($("#p_FinalComm").val() != old_FinalComm);
+            flag_IsChange13 = ($("#p_RelatedDocs").val() != old_RelatedDocs);
+            flag_IsChange14 = ($("#p_Mahramaneh").val() != old_Mahramaneh);
+            flag_IsChange15 = (($("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val()) != sessionStorage.F01);
+            flag_IsChange16 = (($("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val()) != sessionStorage.F02);
+            flag_IsChange17 = (($("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val()) != sessionStorage.F03);
+            flag_IsChange18 = (($("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val())  != sessionStorage.F04);
+            flag_IsChange19 = (($("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val())  != sessionStorage.F05);
+            flag_IsChange20 = (($("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val())  != sessionStorage.F06);
+            flag_IsChange21 = (($("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val())  != sessionStorage.F07);
+            flag_IsChange22 = (($("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val())  != sessionStorage.F08);
+            flag_IsChange23 = (($("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val())  != sessionStorage.F09);
+            flag_IsChange24 = (($("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val())  != sessionStorage.F10);
+            flag_IsChange25 = (($("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val())  != sessionStorage.F11);
+            flag_IsChange26 = (($("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val())  != sessionStorage.F12);
+            flag_IsChange27 = (($("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val())  != sessionStorage.F13);
+            flag_IsChange28 = (($("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val())  != sessionStorage.F14);
+            flag_IsChange29 = (($("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val())  != sessionStorage.F15);
+            flag_IsChange30 = (($("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val())  != sessionStorage.F16);
+            flag_IsChange31 = (($("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val())  != sessionStorage.F17);
+            flag_IsChange32 = (($("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val())  != sessionStorage.F18);
+            flag_IsChange33 = (($("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val())  != sessionStorage.F19);
+            flag_IsChange34 = (($("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()) != sessionStorage.F20);
+
+            
+
+            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
+                flag_IsChange7 || flag_IsChange8 || flag_IsChange9 || flag_IsChange10 || flag_IsChange11 ||
+                flag_IsChange12 || flag_IsChange13 || flag_IsChange14 || flag_IsChange15 || flag_IsChange16 ||
+                flag_IsChange17 || flag_IsChange18 || flag_IsChange19 || flag_IsChange20 || flag_IsChange21 ||
+                flag_IsChange22 || flag_IsChange23 || flag_IsChange24 || flag_IsChange25 || flag_IsChange26 ||
+                flag_IsChange27 || flag_IsChange28 || flag_IsChange29 || flag_IsChange30 || flag_IsChange31 ||
+                flag_IsChange32 || flag_IsChange33 || flag_IsChange34) {
+                Swal.fire({
+                    title: 'ثبت تغییرات',
+                    text: "پرونده تغییر کرده است آیا ذخیره شود ؟",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#3085d6',
+                    cancelButtonText: 'خیر',
+
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'بله'
+                }).then((result) => {
+                    if (result.value) {
+                        ErjSaveDoc_HI();
+                        $('#modal-ErjDocH').modal('hide');
+                    } else {
+                        $('#modal-ErjDocH').modal('hide');
+                    }
+                })
+            }
+            else {
+                $('#modal-ErjDocH').modal('hide');
+            }
+        } else {
+            $('#modal-ErjDocH').modal('hide');
+        }
+
+
+    });
+
     $("#modal-ErjDocH").on('hide.bs.modal', function () {
 
         RemoveUseSanad("ErjDocH", serialNumber);
@@ -3194,6 +3319,7 @@
         if (DocNoReport != "null" && DocNoReport != null) {
             close();
         }
+
     });
 
 
