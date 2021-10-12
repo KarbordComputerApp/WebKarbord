@@ -4406,7 +4406,6 @@ $("#AccessRefresh").click(function () {
 });
 
 
-[Route("api/Web_Data/DocInUse")]
 
 function TestUseSanad(FormName, Id, Insert) {
     var listUse = localStorage.getItem("list" + FormName + "Use");

@@ -749,6 +749,7 @@
     <Content Include="Content\fonts\Vazir-FD-WOL.eot" />
     <Content Include="Content\fonts\Vazir-FD-WOL.ttf" />
     <Content Include="Content\fonts\Vazir-FD-WOL.woff" />
+    <Content Include="Scripts\AFIBase_Acc.js" />
     <Content Include="Scripts\AFIBase_Cust.js" />
     <Content Include="Scripts\AFIBase_Kala.js" />
     <Content Include="Scripts\AFIIndexSanad.js" />
@@ -939,6 +940,7 @@
     <Content Include="Views\Home\Box.cshtml" />
     <Content Include="Views\AFIBase\Kala.cshtml" />
     <Content Include="Views\AFIBase\Cust.cshtml" />
+    <Content Include="Views\AFIBase\Acc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

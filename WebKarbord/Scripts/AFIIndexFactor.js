@@ -1910,7 +1910,6 @@
     };
 
     $('#refreshFDocH').click(function () {
-
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست " + $('#TitleListFactor').text() + " به روز رسانی شود ؟",

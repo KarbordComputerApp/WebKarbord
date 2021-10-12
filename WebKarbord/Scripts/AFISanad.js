@@ -670,6 +670,94 @@
 
 
 
+
+    self.filterBandNo = ko.observable("");
+    self.filterAccFullCode = ko.observable("");
+    self.filterAccFullName = ko.observable("");
+    self.filterComm = ko.observable("");
+    self.filterBede = ko.observable("");
+    self.filterBest = ko.observable("");
+    self.filterCheckNo = ko.observable("");
+    self.filterCheckDate = ko.observable("");
+    self.filterBank = ko.observable("");
+    self.filterShobe = ko.observable("");
+    self.filterJari = ko.observable("");
+    self.filterTrafFullCode = ko.observable("");
+    self.filterTrafFullName = ko.observable("");
+    self.filterMkzCode = ko.observable("");
+    self.filterMkzName = ko.observable("");
+    self.filterOprCode = ko.observable("");
+    self.filterOprName = ko.observable("");
+    self.filterBandSpec = ko.observable("");
+    self.filterArzCode = ko.observable("");
+    self.filterArzValue = ko.observable("");
+    self.filterArzRate = ko.observable("");
+    self.filterArzName = ko.observable("");
+
+
+    self.filterADocBList = ko.computed(function () {
+        var filterBandNo = self.filterBandNo();
+        var filterAccFullCode = self.filterAccFullCode();
+        var filterAccFullName = self.filterAccFullName();
+        var filterComm = self.filterComm();
+        var filterBede = self.filterBede();
+        var filterBest = self.filterBest();
+        var filterCheckNo = self.filterCheckNo();
+        var filterCheckDate = self.filterCheckDate();
+        var filterBank = self.filterBank();
+        var filterShobe = self.filterShobe();
+        var filterJari = self.filterJari();
+        var filterTrafFullCode = self.filterTrafFullCode();
+        var filterTrafFullName = self.filterTrafFullName();
+        var filterMkzCode = self.filterMkzCode();
+        var filterMkzName = self.filterMkzName();
+        var filterOprCode = self.filterOprCode();
+        var filterOprName = self.filterOprName();
+        var filterBandSpec = self.filterBandSpec();
+        var filterArzCode = self.filterArzCode();
+        var filterArzValue = self.filterArzValue();
+        var filterArzRate = self.filterArzRate();
+        var filterArzName = self.filterArzName();
+
+
+        tempData = ko.utils.arrayFilter(self.ADocBList(), function (item) {
+            result =
+
+                (item.BandNo == null ? '' : item.BandNo.toString().search(filterBandNo) >= 0) &&
+                ko.utils.stringStartsWith(item.AccFullCode.toString().toLowerCase(), filterAccFullCode) &&
+                ko.utils.stringStartsWith(item.AccFullName.toString().toLowerCase(), filterAccFullName) &&
+                ko.utils.stringStartsWith(item.Comm.toString().toLowerCase(), filterComm) &&
+                (item.Bede == null ? '' : item.Bede.toString().search(filterBede) >= 0) &&
+                (item.Best == null ? '' : item.Best.toString().search(filterBest) >= 0) &&
+                (item.CheckNo == null ? '' : item.CheckNo.toString().search(filterCheckNo) >= 0) &&
+                ko.utils.stringStartsWith(item.CheckDate.toString().toLowerCase(), filterCheckDate) &&
+                ko.utils.stringStartsWith(item.Bank.toString().toLowerCase(), filterBank) &&
+                ko.utils.stringStartsWith(item.Shobe.toString().toLowerCase(), filterShobe) &&
+                ko.utils.stringStartsWith(item.Jari.toString().toLowerCase(), filterJari) &&
+                ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
+                ko.utils.stringStartsWith(item.TrafFullName.toString().toLowerCase(), filterTrafFullName) &&
+                ko.utils.stringStartsWith(item.MkzCode.toString().toLowerCase(), filterMkzCode) &&
+                ko.utils.stringStartsWith(item.MkzName.toString().toLowerCase(), filterMkzName) &&
+                ko.utils.stringStartsWith(item.OprCode.toString().toLowerCase(), filterOprCode) &&
+                ko.utils.stringStartsWith(item.OprName.toString().toLowerCase(), filterOprName) &&
+                ko.utils.stringStartsWith(item.BandSpec.toString().toLowerCase(), filterBandSpec) &&
+                ko.utils.stringStartsWith(item.ArzCode.toString().toLowerCase(), filterArzCode) &&
+                (item.ArzValue == null ? '' : item.ArzValue.toString().search(filterArzValue) >= 0) &&
+                (item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) &&
+                ko.utils.stringStartsWith(item.ArzName.toString().toLowerCase(), filterArzName)
+            return result;
+        })
+        // calcsum(tempData);
+        return tempData;
+
+    });
+
+
+
+
+
+
+
     self.currentColumn = ko.observable("");
     self.iconTypeCode = ko.observable("");
     self.iconTypeName = ko.observable("");
@@ -2570,7 +2658,7 @@
     }
 
 
-    function TestADoc_New(serialNumber,tarikh, docNo) {
+    function TestADoc_New(serialNumber, tarikh, docNo) {
         var TestADoc_NewObject = {
             DocDate: tarikh,
             ModeCode: sessionStorage.ModeCode,
@@ -2763,7 +2851,7 @@
 
 
         var docNo = $("#docnoout").text();
-        TestADoc_New(Serial ,tarikh, docNo);
+        TestADoc_New(Serial, tarikh, docNo);
         if (resTestNew == false) {
             return null;
         }
@@ -3384,7 +3472,7 @@
             '<th id="action_headersanad">عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind="foreach: ADocBList" data-dismiss="modal" style="cursor: default;">' +
+            ' <tbody data-bind="foreach: filterADocBList" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="click: $parent.selectSanad">' +
             '<td data-bind="text: $index()+1"></td>' +
             CreateTableTd('BandNo', 0, 0, data) +
@@ -3458,6 +3546,35 @@
             CreateTableTdSum('ArzValue', 2, data) +
             '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
+
+            '  <tr style="background-color: #efb68399;">' +
+            '<td></td>' +
+            CreateTableTdSearch('BandNo', data) +
+            CreateTableTdSearch('AccFullCode', data) +
+            CreateTableTdSearch('AccFullName', data) +
+            CreateTableTdSearch('Comm', data) +
+            CreateTableTdSearch('Bede', data) +
+            CreateTableTdSearch('Best', data) +
+            CreateTableTdSearch('CheckNo', data) +
+            CreateTableTdSearch('CheckDate', data) +
+            CreateTableTdSearch('Bank', data) +
+            CreateTableTdSearch('Shobe', data) +
+            CreateTableTdSearch('Jari', data) +
+            CreateTableTdSearch('TrafFullCode', data) +
+            CreateTableTdSearch('TrafFullName', data) +
+            CreateTableTdSearch('MkzCode', data) +
+            CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('OprCode', data) +
+            CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('BandSpec', data) +
+            CreateTableTdSearch('ArzCode', data) +
+            CreateTableTdSearch('ArzName', data) +
+            CreateTableTdSearch('ArzRate', data) +
+            CreateTableTdSearch('ArzValue', data) +
+            '<td style="background-color: #efb683;"></td>' +
+            '      </tr>' +
+
+
             '  </tfoot>' +
             '</table >'
         );
@@ -3523,6 +3640,20 @@
         }
         return text;
     }
+
+    function CreateTableTdSearch(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        type = FindTypeField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
+        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
+        return text;
+    }
+
 
 
     self.radif = function (index) {

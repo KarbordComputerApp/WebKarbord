@@ -2962,7 +2962,7 @@
             $('#nameKhdt').val(item.KhdtName);
 
             $('#p_EghdamComm').val(item.EghdamComm);
-            
+
             if (item.Eghdam == sessionStorage.userName)
                 $('#p_EghdamComm').attr('readonly', false);
             else
@@ -3256,25 +3256,25 @@
             flag_IsChange15 = (($("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val()) != sessionStorage.F01);
             flag_IsChange16 = (($("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val()) != sessionStorage.F02);
             flag_IsChange17 = (($("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val()) != sessionStorage.F03);
-            flag_IsChange18 = (($("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val())  != sessionStorage.F04);
-            flag_IsChange19 = (($("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val())  != sessionStorage.F05);
-            flag_IsChange20 = (($("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val())  != sessionStorage.F06);
-            flag_IsChange21 = (($("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val())  != sessionStorage.F07);
-            flag_IsChange22 = (($("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val())  != sessionStorage.F08);
-            flag_IsChange23 = (($("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val())  != sessionStorage.F09);
-            flag_IsChange24 = (($("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val())  != sessionStorage.F10);
-            flag_IsChange25 = (($("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val())  != sessionStorage.F11);
-            flag_IsChange26 = (($("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val())  != sessionStorage.F12);
-            flag_IsChange27 = (($("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val())  != sessionStorage.F13);
-            flag_IsChange28 = (($("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val())  != sessionStorage.F14);
-            flag_IsChange29 = (($("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val())  != sessionStorage.F15);
-            flag_IsChange30 = (($("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val())  != sessionStorage.F16);
-            flag_IsChange31 = (($("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val())  != sessionStorage.F17);
-            flag_IsChange32 = (($("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val())  != sessionStorage.F18);
-            flag_IsChange33 = (($("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val())  != sessionStorage.F19);
+            flag_IsChange18 = (($("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val()) != sessionStorage.F04);
+            flag_IsChange19 = (($("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val()) != sessionStorage.F05);
+            flag_IsChange20 = (($("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val()) != sessionStorage.F06);
+            flag_IsChange21 = (($("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val()) != sessionStorage.F07);
+            flag_IsChange22 = (($("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val()) != sessionStorage.F08);
+            flag_IsChange23 = (($("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val()) != sessionStorage.F09);
+            flag_IsChange24 = (($("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val()) != sessionStorage.F10);
+            flag_IsChange25 = (($("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val()) != sessionStorage.F11);
+            flag_IsChange26 = (($("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val()) != sessionStorage.F12);
+            flag_IsChange27 = (($("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val()) != sessionStorage.F13);
+            flag_IsChange28 = (($("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val()) != sessionStorage.F14);
+            flag_IsChange29 = (($("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val()) != sessionStorage.F15);
+            flag_IsChange30 = (($("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val()) != sessionStorage.F16);
+            flag_IsChange31 = (($("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val()) != sessionStorage.F17);
+            flag_IsChange32 = (($("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val()) != sessionStorage.F18);
+            flag_IsChange33 = (($("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val()) != sessionStorage.F19);
             flag_IsChange34 = (($("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()) != sessionStorage.F20);
 
-            
+
 
             if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
                 flag_IsChange7 || flag_IsChange8 || flag_IsChange9 || flag_IsChange10 || flag_IsChange11 ||
@@ -3283,24 +3283,33 @@
                 flag_IsChange22 || flag_IsChange23 || flag_IsChange24 || flag_IsChange25 || flag_IsChange26 ||
                 flag_IsChange27 || flag_IsChange28 || flag_IsChange29 || flag_IsChange30 || flag_IsChange31 ||
                 flag_IsChange32 || flag_IsChange33 || flag_IsChange34) {
+
+
                 Swal.fire({
                     title: 'ثبت تغییرات',
                     text: "پرونده تغییر کرده است آیا ذخیره شود ؟",
                     type: 'warning',
+
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
                     cancelButtonText: 'خیر',
-
+                    showCloseButton: true,
+                    focusConfirm: false,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'بله'
+                    confirmButtonText: 'بله',
+                    showDenyButton: true,
+                    showCancelButton: true
                 }).then((result) => {
-                    if (result.value) {
+                    if (result.value == true) {
                         ErjSaveDoc_HI();
                         $('#modal-ErjDocH').modal('hide');
-                    } else {
+                    } else if (result.dismiss == "cancel")  {
                         $('#modal-ErjDocH').modal('hide');
                     }
                 })
+
+
+
             }
             else {
                 $('#modal-ErjDocH').modal('hide');

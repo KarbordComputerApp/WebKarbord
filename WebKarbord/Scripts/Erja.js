@@ -1984,6 +1984,8 @@
                 flag_IsChange17 || flag_IsChange18 || flag_IsChange19 || flag_IsChange20 || flag_IsChange21 ||
                 flag_IsChange22 || flag_IsChange23 || flag_IsChange24 || flag_IsChange25 || flag_IsChange26 ||
                 flag_IsChange27) {
+
+
                 Swal.fire({
                     title: 'ثبت تغییرات',
                     text: "پرونده تغییر کرده است آیا ذخیره شود ؟",
@@ -1991,14 +1993,17 @@
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
                     cancelButtonText: 'خیر',
-
+                    showCloseButton: true,
+                    focusConfirm: false,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'بله'
+                    confirmButtonText: 'بله',
+                    showDenyButton: true,
+                    showCancelButton: true
                 }).then((result) => {
-                    if (result.value) {
+                    if (result.value == true) {
                         SaveParvandeh();
                         $('#modal-ErjDocErja').modal('hide');
-                    } else {
+                    } else if(result.dismiss == "cancel") {
                         $('#modal-ErjDocErja').modal('hide');
                     }
                 })
