@@ -4406,6 +4406,8 @@ $("#AccessRefresh").click(function () {
 });
 
 
+[Route("api/Web_Data/DocInUse")]
+
 function TestUseSanad(FormName, Id, Insert) {
     var listUse = localStorage.getItem("list" + FormName + "Use");
     if (listUse == null) {
@@ -4421,15 +4423,42 @@ function TestUseSanad(FormName, Id, Insert) {
         }
     }
 
-    if (find == true) {
+
+    useWindows = false;
+    var userUse = "";
+    if ((FormName != "Kala" || FormName != "Cust") && find == false) {
+        DocInUseUri = server + '/api/Web_Data/DocInUse/';
+        var DocInUseObject = {
+            Prog: ace,
+            DMode: '0',
+            GroupNo: group,
+            Year: sal,
+            SerialNumber: Id
+        };
+        ajaxFunction(DocInUseUri , 'POST', DocInUseObject,false).done(function (response) {
+            userUse = response[0];
+            if (response[0] != "") {
+                useWindows = true;
+            }
+        });
+    }
+
+
+    if (useWindows == true) {
+        showNotification('توسط ' + userUse + ' درحال استفاده است', 0);
         return true;
-        //showNotification('در حال استفاده', 0)
     }
     else {
-        if (Insert == true) {
-            localStorage.setItem("list" + FormName + "Use", list + data);
+        if (find == true) {
+            return true;
+            //showNotification('در حال استفاده', 0)
         }
-        return false;
+        else {
+            if (Insert == true) {
+                localStorage.setItem("list" + FormName + "Use", list + data);
+            }
+            return false;
+        }
     }
 }
 
