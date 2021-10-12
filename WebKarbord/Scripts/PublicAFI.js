@@ -4424,13 +4424,31 @@ function TestUseSanad(FormName, Id, Insert) {
     }
 
 
+
+    dMode = 0;
+    switch (FormName) {
+        case "SanadHesab":
+            dMode = 1;
+            break;
+        case "Factor":
+            dMode = 2;
+            break;
+        case "SanadAnbar":
+            dMode = 3;
+            break;
+        case "ErjDocH":
+            dMode = 8;
+            break;
+    } 
+
+
     useWindows = false;
     var userUse = "";
     if ((FormName != "Kala" || FormName != "Cust") && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
             Prog: ace,
-            DMode: '0',
+            DMode: dMode,
             GroupNo: group,
             Year: sal,
             SerialNumber: Id
