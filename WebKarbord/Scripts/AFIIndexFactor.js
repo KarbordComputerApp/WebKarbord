@@ -19,7 +19,7 @@
         sessionStorage.InOut = localStorage.getItem("InOut");
         sessionStorage.newFactor = localStorage.getItem("newFactor");
         sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor");
-       // sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
+        // sessionStorage.AccessSanad = localStorage.getItem("AccessSanad");
         sessionStorage.moveFactor = localStorage.getItem("moveFactor");
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
         sessionStorage.CHG = localStorage.setItem("CHG", "true")
@@ -53,8 +53,8 @@
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
 
             //validation = CheckAccess('OTHERUSER_VIEW_SFORD');
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-           // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SFORD");
 
             validation = CheckAccess('SHOWPRICE_SFORD');// AccessPrice
@@ -107,11 +107,11 @@
             validation == true ? sessionStorage.DEL_SPDOC = true : sessionStorage.DEL_SPDOC = false
             validation == true ? localStorage.setItem("DEL_SPDOC", "true") : localStorage.setItem("DEL_SPDOC", "false")
 
-           // validation = CheckAccess('VIEW_SPDOC'); // VIEW SPDOC 
-           // validation == true ? localStorage.setItem("VIEW_SPDOC", "true") : localStorage.setItem("VIEW_SPDOC", "false")
+            // validation = CheckAccess('VIEW_SPDOC'); // VIEW SPDOC 
+            // validation == true ? localStorage.setItem("VIEW_SPDOC", "true") : localStorage.setItem("VIEW_SPDOC", "false")
 
             //validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SPDOC");
 
@@ -173,7 +173,7 @@
             validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
             validation == true ? localStorage.setItem("DEL_SDOC", "true") : localStorage.setItem("DEL_SDOC", "false")
 
-           // validation = CheckAccess('VIEW_SFDOC'); // VIEW SFDOC 
+            // validation = CheckAccess('VIEW_SFDOC'); // VIEW SFDOC 
             //validation == true ? localStorage.setItem("VIEW_SFDOC", "true") : localStorage.setItem("VIEW_SFDOC", "false")
 
 
@@ -181,7 +181,7 @@
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
 
-           // validation = CheckAccess('OTHERUSER_VIEW_SFDOC');// AccessSanad
+            // validation = CheckAccess('OTHERUSER_VIEW_SFDOC');// AccessSanad
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             //sessionStorage.AccessSanad = true;
@@ -237,8 +237,8 @@
             validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
             validation == true ? localStorage.setItem("DEL_SRDOC", "true") : localStorage.setItem("DEL_SRDOC", "false")
 
-           // validation = CheckAccess('VIEW_SRDOC'); // VIEW SRDOC 
-           // validation == true ? localStorage.setItem("VIEW_SRDOC", "true") : localStorage.setItem("VIEW_SRDOC", "false")
+            // validation = CheckAccess('VIEW_SRDOC'); // VIEW SRDOC 
+            // validation == true ? localStorage.setItem("VIEW_SRDOC", "true") : localStorage.setItem("VIEW_SRDOC", "false")
 
 
             validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
@@ -365,7 +365,7 @@
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
 
-           // validation = CheckAccess('OTHERUSER_VIEW_SEXT');
+            // validation = CheckAccess('OTHERUSER_VIEW_SEXT');
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_SEXT");
@@ -423,7 +423,7 @@
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
 
-           // validation = CheckAccess('OTHERUSER_VIEW_PFORD');
+            // validation = CheckAccess('OTHERUSER_VIEW_PFORD');
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PFORD");
@@ -488,9 +488,9 @@
             //validation = CheckAccess('OTHERUSER_PPDOC');// AccessSanad
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
 
-           // validation = CheckAccess('OTHERUSER_VIEW_PPDOC');// AccessSanad
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-           // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            // validation = CheckAccess('OTHERUSER_VIEW_PPDOC');// AccessSanad
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PPDOC");
 
             validation = CheckAccess('SHOWPRICE_PPDOC');// AccessPrice
@@ -550,9 +550,9 @@
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
 
-           // validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-           // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            // validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PFDOC");
 
             validation = CheckAccess('SHOWPRICE_PFDOC');// AccessPrice
@@ -613,9 +613,9 @@
             validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
             validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
 
-           // validation = CheckAccess('OTHERUSER_VIEW_PRDOC');// AccessSanad
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-           // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            // validation = CheckAccess('OTHERUSER_VIEW_PRDOC');// AccessSanad
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_PRDOC");
 
             validation = CheckAccess('SHOWPRICE_PRDOC');// AccessPrice
@@ -1069,7 +1069,7 @@
 
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
-        if (TestUseSanad("Factor", serial,true) == true) {
+        if (TestUseSanad("Factor", serial, true) == true) {
             showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1985,7 +1985,7 @@
 
     self.DeleteFactor = function (factorBand) {
 
-        if (TestUseSanad("Factor", factorBand.SerialNumber,false) == true) {
+        if (TestUseSanad("Factor", factorBand.SerialNumber, false) == true) {
             showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -2413,8 +2413,8 @@
 
 
     self.UpdateHeader = function (item) {
-        
-        if (TestUseSanad("Factor", item.SerialNumber,true) == true) {
+
+        if (TestUseSanad("Factor", item.SerialNumber, true) == true) {
             showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -2538,9 +2538,6 @@
 
 
     function ShowDataUpdate(docNo) {
-
-
-
         var FDocHMinObject = {
             ModeCode: sessionStorage.ModeCode,
             select: 3,
@@ -2617,96 +2614,102 @@
 
             var data = response[0];
 
-            sessionStorage.flagupdateHeader = 1;
+            if (TestUseSanad("Factor", data.SerialNumber, true) == true) {
+                showNotification('در تب دیگری وجود دارد', 0)
+            }
+            else {
+                sessionStorage.flagupdateHeader = 1;
 
 
-            sessionStorage.SerialNumber = data.SerialNumber;
-            sessionStorage.DocNo = data.DocNo;
-            sessionStorage.DocDate = data.DocDate;
-            sessionStorage.CustCode = data.CustCode;
-            sessionStorage.CustName = data.CustName;
-            sessionStorage.Spec = data.Spec;
-            sessionStorage.PriceCode = data.KalaPriceCode;
-            sessionStorage.InvCode = data.InvCode;
-            sessionStorage.Eghdam = data.Eghdam;
-            sessionStorage.TaeedF = data.Taeed;
+                sessionStorage.SerialNumber = data.SerialNumber;
+                sessionStorage.DocNo = data.DocNo;
+                sessionStorage.DocDate = data.DocDate;
+                sessionStorage.CustCode = data.CustCode;
+                sessionStorage.CustName = data.CustName;
+                sessionStorage.Spec = data.Spec;
+                sessionStorage.PriceCode = data.KalaPriceCode;
+                sessionStorage.InvCode = data.InvCode;
+                sessionStorage.Eghdam = data.Eghdam;
+                sessionStorage.TaeedF = data.Taeed;
 
-            sessionStorage.OprCode = data.OprCode;
-            sessionStorage.OprName = data.OprName;
+                sessionStorage.OprCode = data.OprCode;
+                sessionStorage.OprName = data.OprName;
 
-            sessionStorage.MkzCode = data.MkzCode;
-            sessionStorage.MkzName = data.MkzName;
+                sessionStorage.MkzCode = data.MkzCode;
+                sessionStorage.MkzName = data.MkzName;
 
-            sessionStorage.AddMinSpec1 = data.AddMinSpec1//== "" ? null : data.AddMinSpec1;
-            sessionStorage.AddMinSpec2 = data.AddMinSpec2// == "" ? null : data.AddMinSpec2;
-            sessionStorage.AddMinSpec3 = data.AddMinSpec3// == "" ? null : data.AddMinSpec3;
-            sessionStorage.AddMinSpec4 = data.AddMinSpec4// == "" ? null : data.AddMinSpec4;
-            sessionStorage.AddMinSpec5 = data.AddMinSpec5// == "" ? null : data.AddMinSpec5;
-            sessionStorage.AddMinSpec6 = data.AddMinSpec6// == "" ? null : data.AddMinSpec6;
-            sessionStorage.AddMinSpec7 = data.AddMinSpec7// == "" ? null : data.AddMinSpec7;
-            sessionStorage.AddMinSpec8 = data.AddMinSpec8// == "" ? null : data.AddMinSpec8;
-            sessionStorage.AddMinSpec9 = data.AddMinSpec9// == "" ? null : data.AddMinSpec9;
-            sessionStorage.AddMinSpec10 = data.AddMinSpec10 //== "" ? null : data.AddMinSpec10;
+                sessionStorage.AddMinSpec1 = data.AddMinSpec1//== "" ? null : data.AddMinSpec1;
+                sessionStorage.AddMinSpec2 = data.AddMinSpec2// == "" ? null : data.AddMinSpec2;
+                sessionStorage.AddMinSpec3 = data.AddMinSpec3// == "" ? null : data.AddMinSpec3;
+                sessionStorage.AddMinSpec4 = data.AddMinSpec4// == "" ? null : data.AddMinSpec4;
+                sessionStorage.AddMinSpec5 = data.AddMinSpec5// == "" ? null : data.AddMinSpec5;
+                sessionStorage.AddMinSpec6 = data.AddMinSpec6// == "" ? null : data.AddMinSpec6;
+                sessionStorage.AddMinSpec7 = data.AddMinSpec7// == "" ? null : data.AddMinSpec7;
+                sessionStorage.AddMinSpec8 = data.AddMinSpec8// == "" ? null : data.AddMinSpec8;
+                sessionStorage.AddMinSpec9 = data.AddMinSpec9// == "" ? null : data.AddMinSpec9;
+                sessionStorage.AddMinSpec10 = data.AddMinSpec10 //== "" ? null : data.AddMinSpec10;
 
-            sessionStorage.AddMin1 = data.AddMinPrice1 == null ? 0 : data.AddMinPrice1;
-            sessionStorage.AddMin2 = data.AddMinPrice2 == null ? 0 : data.AddMinPrice2;
-            sessionStorage.AddMin3 = data.AddMinPrice3 == null ? 0 : data.AddMinPrice3;
-            sessionStorage.AddMin4 = data.AddMinPrice4 == null ? 0 : data.AddMinPrice4;
-            sessionStorage.AddMin5 = data.AddMinPrice5 == null ? 0 : data.AddMinPrice5;
-            sessionStorage.AddMin6 = data.AddMinPrice6 == null ? 0 : data.AddMinPrice6;
-            sessionStorage.AddMin7 = data.AddMinPrice7 == null ? 0 : data.AddMinPrice7;
-            sessionStorage.AddMin8 = data.AddMinPrice8 == null ? 0 : data.AddMinPrice8;
-            sessionStorage.AddMin9 = data.AddMinPrice9 == null ? 0 : data.AddMinPrice9;
-            sessionStorage.AddMin10 = data.AddMinPrice10 == null ? 0 : data.AddMinPrice10;
+                sessionStorage.AddMin1 = data.AddMinPrice1 == null ? 0 : data.AddMinPrice1;
+                sessionStorage.AddMin2 = data.AddMinPrice2 == null ? 0 : data.AddMinPrice2;
+                sessionStorage.AddMin3 = data.AddMinPrice3 == null ? 0 : data.AddMinPrice3;
+                sessionStorage.AddMin4 = data.AddMinPrice4 == null ? 0 : data.AddMinPrice4;
+                sessionStorage.AddMin5 = data.AddMinPrice5 == null ? 0 : data.AddMinPrice5;
+                sessionStorage.AddMin6 = data.AddMinPrice6 == null ? 0 : data.AddMinPrice6;
+                sessionStorage.AddMin7 = data.AddMinPrice7 == null ? 0 : data.AddMinPrice7;
+                sessionStorage.AddMin8 = data.AddMinPrice8 == null ? 0 : data.AddMinPrice8;
+                sessionStorage.AddMin9 = data.AddMinPrice9 == null ? 0 : data.AddMinPrice9;
+                sessionStorage.AddMin10 = data.AddMinPrice10 == null ? 0 : data.AddMinPrice10;
 
-            sessionStorage.F01 = data.F01;
-            sessionStorage.F02 = data.F02;
-            sessionStorage.F03 = data.F03;
-            sessionStorage.F04 = data.F04;
-            sessionStorage.F05 = data.F05;
-            sessionStorage.F06 = data.F06;
-            sessionStorage.F07 = data.F07;
-            sessionStorage.F08 = data.F08;
-            sessionStorage.F09 = data.F09;
-            sessionStorage.F10 = data.F10;
-            sessionStorage.F11 = data.F11;
-            sessionStorage.F12 = data.F12;
-            sessionStorage.F13 = data.F13;
-            sessionStorage.F14 = data.F14;
-            sessionStorage.F15 = data.F15;
-            sessionStorage.F16 = data.F16;
-            sessionStorage.F17 = data.F17;
-            sessionStorage.F18 = data.F18;
-            sessionStorage.F19 = data.F19;
-            sessionStorage.F20 = data.F20;
-            sessionStorage.CustEcoCode = data.CustEcoCode;
-            sessionStorage.CustMelliCode = data.CustMelliCode;
-            sessionStorage.CustTel = data.CustTel;
-            sessionStorage.CustFax = data.CustFax;
-            sessionStorage.CustMobile = data.CustMobile;
-            sessionStorage.CustEmail = data.CustEmail;
-            sessionStorage.CustCity = data.CustCity;
-            sessionStorage.CustStreet = data.CustStreet;
-            sessionStorage.CustAlley = data.CustAlley;
-            sessionStorage.CustPlack = data.CustPlack;
-            sessionStorage.CustZipCode = data.CustZipCode;
-            sessionStorage.CustAddress = data.CustAddress;
-            sessionStorage.CustOstan = data.CustOstan;
-            sessionStorage.CustShahrestan = data.CustShahrestan;
-            sessionStorage.CustRegion = data.CustRegion;
+                sessionStorage.F01 = data.F01;
+                sessionStorage.F02 = data.F02;
+                sessionStorage.F03 = data.F03;
+                sessionStorage.F04 = data.F04;
+                sessionStorage.F05 = data.F05;
+                sessionStorage.F06 = data.F06;
+                sessionStorage.F07 = data.F07;
+                sessionStorage.F08 = data.F08;
+                sessionStorage.F09 = data.F09;
+                sessionStorage.F10 = data.F10;
+                sessionStorage.F11 = data.F11;
+                sessionStorage.F12 = data.F12;
+                sessionStorage.F13 = data.F13;
+                sessionStorage.F14 = data.F14;
+                sessionStorage.F15 = data.F15;
+                sessionStorage.F16 = data.F16;
+                sessionStorage.F17 = data.F17;
+                sessionStorage.F18 = data.F18;
+                sessionStorage.F19 = data.F19;
+                sessionStorage.F20 = data.F20;
+                sessionStorage.CustEcoCode = data.CustEcoCode;
+                sessionStorage.CustMelliCode = data.CustMelliCode;
+                sessionStorage.CustTel = data.CustTel;
+                sessionStorage.CustFax = data.CustFax;
+                sessionStorage.CustMobile = data.CustMobile;
+                sessionStorage.CustEmail = data.CustEmail;
+                sessionStorage.CustCity = data.CustCity;
+                sessionStorage.CustStreet = data.CustStreet;
+                sessionStorage.CustAlley = data.CustAlley;
+                sessionStorage.CustPlack = data.CustPlack;
+                sessionStorage.CustZipCode = data.CustZipCode;
+                sessionStorage.CustAddress = data.CustAddress;
+                sessionStorage.CustOstan = data.CustOstan;
+                sessionStorage.CustShahrestan = data.CustShahrestan;
+                sessionStorage.CustRegion = data.CustRegion;
 
-            localStorage.setItem("ModeCode", data.ModeCode);
-            sessionStorage.ModeCode = data.ModeCode;
+                localStorage.setItem("ModeCode", data.ModeCode);
+                sessionStorage.ModeCode = data.ModeCode;
 
-            sessionStorage.Status = data.Status;
-            sessionStorage.PaymentType = data.PaymentType;
-            sessionStorage.Footer = data.Footer;
+                sessionStorage.Status = data.Status;
+                sessionStorage.PaymentType = data.PaymentType;
+                sessionStorage.Footer = data.Footer;
 
-            sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
+                sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
 
-            window.location.href = sessionStorage.urlAddFDocH;
+                window.location.href = sessionStorage.urlAddFDocH;
+            }
         });
     }
+
 
 
 
@@ -3078,8 +3081,8 @@
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-        '       <tr data-bind="click: sortTableFDocH">' +
-        '<th>ردیف</th>' +
+            '       <tr data-bind="click: sortTableFDocH">' +
+            '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('CustName', data);
@@ -3140,8 +3143,8 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}  " >' +
-        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-        CreateTableTd('DocNo', 0, 0, data) +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+            CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data)
 
@@ -3247,8 +3250,8 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-        '  <tr>' +
-        '<td style="background-color: #efb683;"></td>' +
+            '  <tr>' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('CustName', data)
@@ -3303,8 +3306,8 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
-            '<td style="background-color: #efb683;"></td>'+
-        '      </tr>' +
+            '<td style="background-color: #efb683;"></td>' +
+            '      </tr>' +
             '  </tfoot>' +
             '</table >'
         $('#TableList').append(dataTable);

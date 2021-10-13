@@ -2759,132 +2759,139 @@
 
             var data = response[0];
 
-            if (data.ShowDocTrs == 0) {
-                return showNotification('شما به این پرونده دسترسی ندارید', 0);
-            }
-
-            data.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
-
-            self.p_DocDate(data["DocDate"]);
-            self.p_MhltDate(data["MhltDate"]);
-            self.p_AmalDate(data["AmalDate"]);
-            self.p_EndDate(data["EndDate"]);
-
-            self.p_Eghdam(data["Eghdam"]);
-            self.p_Tanzim(data["Tanzim"]);
-
-            self.p_EghdamName(data["EghdamName"]);
-            self.p_TanzimName(data["TanzimName"]);
-            self.p_Spec(data["Spec"]);
-            self.ErjCustCode(data["CustCode"]);
-            self.KhdtCode(data["KhdtCode"]);
-
-            if (data["RelatedDocs"] == "0") {
-                $('#p_RelatedDocs').val('');
-                self.p_RelatedDocs("");
+            if (TestUseSanad("ErjDocH", data["SerialNumber"], true) == true) {
+                showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
             }
             else {
-                $('#p_RelatedDocs').val(data["RelatedDocs"]);
-                self.p_RelatedDocs(data["RelatedDocs"]);
+
+                if (data.ShowDocTrs == 0) {
+                    return showNotification('شما به این پرونده دسترسی ندارید', 0);
+                }
+
+
+                data.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
+
+                self.p_DocDate(data["DocDate"]);
+                self.p_MhltDate(data["MhltDate"]);
+                self.p_AmalDate(data["AmalDate"]);
+                self.p_EndDate(data["EndDate"]);
+
+                self.p_Eghdam(data["Eghdam"]);
+                self.p_Tanzim(data["Tanzim"]);
+
+                self.p_EghdamName(data["EghdamName"]);
+                self.p_TanzimName(data["TanzimName"]);
+                self.p_Spec(data["Spec"]);
+                self.ErjCustCode(data["CustCode"]);
+                self.KhdtCode(data["KhdtCode"]);
+
+                if (data["RelatedDocs"] == "0") {
+                    $('#p_RelatedDocs').val('');
+                    self.p_RelatedDocs("");
+                }
+                else {
+                    $('#p_RelatedDocs').val(data["RelatedDocs"]);
+                    self.p_RelatedDocs(data["RelatedDocs"]);
+                }
+
+                $('#p_docno').val(data["DocNo"]);
+                $('#nameErjCust').val(data["CustName"]);
+                $('#nameKhdt').val(data["KhdtName"]);
+
+                $('#p_EghdamComm').val(data["EghdamComm"]);
+
+                if (data["EghdamName"] == sessionStorage.userName)
+                    $('#p_EghdamComm').attr('readonly', false);
+                else
+                    $('#p_EghdamComm').attr('readonly', true);
+
+                $('#p_DocDesc').val(data["DocDesc"]);
+                $('#p_SpecialComm').val(data["SpecialComm"]);
+                $('#p_FinalComm').val(data["FinalComm"]);
+                $('#p_Mahramaneh').val(data["Mahramaneh"]);
+                $('#p_Status').val(data["Status"]);
+
+                sessionStorage.F01 = data["F01"];
+                sessionStorage.F02 = data["F02"];
+                sessionStorage.F03 = data["F03"];
+                sessionStorage.F04 = data["F04"];
+                sessionStorage.F05 = data["F05"];
+                sessionStorage.F06 = data["F06"];
+                sessionStorage.F07 = data["F07"];
+                sessionStorage.F08 = data["F08"];
+                sessionStorage.F09 = data["F09"];
+                sessionStorage.F10 = data["F10"];
+                sessionStorage.F11 = data["F11"];
+                sessionStorage.F12 = data["F12"];
+                sessionStorage.F13 = data["F13"];
+                sessionStorage.F14 = data["F14"];
+                sessionStorage.F15 = data["F15"];
+                sessionStorage.F16 = data["F16"];
+                sessionStorage.F17 = data["F17"];
+                sessionStorage.F18 = data["F18"];
+                sessionStorage.F19 = data["F19"];
+                sessionStorage.F20 = data["F20"];
+
+                $("#ExtraFields1").val(sessionStorage.F01);
+                $("#ExtraFields2").val(sessionStorage.F02);
+                $("#ExtraFields3").val(sessionStorage.F03);
+                $("#ExtraFields4").val(sessionStorage.F04);
+                $("#ExtraFields5").val(sessionStorage.F05);
+                $("#ExtraFields6").val(sessionStorage.F06);
+                $("#ExtraFields7").val(sessionStorage.F07);
+                $("#ExtraFields8").val(sessionStorage.F08);
+                $("#ExtraFields9").val(sessionStorage.F09);
+                $("#ExtraFields10").val(sessionStorage.F10);
+                $("#ExtraFields11").val(sessionStorage.F11);
+                $("#ExtraFields12").val(sessionStorage.F12);
+                $("#ExtraFields13").val(sessionStorage.F13);
+                $("#ExtraFields14").val(sessionStorage.F14);
+                $("#ExtraFields15").val(sessionStorage.F15);
+                $("#ExtraFields16").val(sessionStorage.F16);
+                $("#ExtraFields17").val(sessionStorage.F17);
+                $("#ExtraFields18").val(sessionStorage.F18);
+                $("#ExtraFields19").val(sessionStorage.F19);
+                $("#ExtraFields20").val(sessionStorage.F20);
+
+                $("#ExtraFields1").val(data["F01"]);
+                $("#ExtraFields2").val(data["F02"]);
+                $("#ExtraFields3").val(data["F03"]);
+                $("#ExtraFields4").val(data["F04"]);
+                $("#ExtraFields5").val(data["F05"]);
+                $("#ExtraFields6").val(data["F06"]);
+                $("#ExtraFields7").val(data["F07"]);
+                $("#ExtraFields8").val(data["F08"]);
+                $("#ExtraFields9").val(data["F09"]);
+                $("#ExtraFields10").val(data["F10"]);
+                $("#ExtraFields11").val(data["F11"]);
+                $("#ExtraFields12").val(data["F12"]);
+                $("#ExtraFields13").val(data["F13"]);
+                $("#ExtraFields14").val(data["F14"]);
+                $("#ExtraFields15").val(data["F15"]);
+                $("#ExtraFields16").val(data["F16"]);
+                $("#ExtraFields17").val(data["F17"]);
+                $("#ExtraFields18").val(data["F18"]);
+                $("#ExtraFields19").val(data["F19"]);
+                $("#ExtraFields20").val(data["F20"]);
+
+                docBMode = data["DocBMode"];
+                serialNumber = data["SerialNumber"];
+                getErjResultList(serialNumber, null, null)
+                getErjDocErja(serialNumber);
+
+
+                if (self.ErjDocErja().length == 0) {
+                    $('#ErjDocErja').removeAttr('hidden', '');
+
+                    //$('#ErjDocErja').prop('disabled', false);
+                }
+                else {
+                    $('#ErjDocErja').attr('hidden', '');
+                    //$('#ErjDocErja').prop('disabled', true);
+                }
+
+                $('#modal-ErjDocH').modal('show');
             }
-
-            $('#p_docno').val(data["DocNo"]);
-            $('#nameErjCust').val(data["CustName"]);
-            $('#nameKhdt').val(data["KhdtName"]);
-
-            $('#p_EghdamComm').val(data["EghdamComm"]);
-
-            if (data["EghdamName"] == sessionStorage.userName)
-                $('#p_EghdamComm').attr('readonly', false);
-            else
-                $('#p_EghdamComm').attr('readonly', true);
-
-            $('#p_DocDesc').val(data["DocDesc"]);
-            $('#p_SpecialComm').val(data["SpecialComm"]);
-            $('#p_FinalComm').val(data["FinalComm"]);
-            $('#p_Mahramaneh').val(data["Mahramaneh"]);
-            $('#p_Status').val(data["Status"]);
-
-            sessionStorage.F01 = data["F01"];
-            sessionStorage.F02 = data["F02"];
-            sessionStorage.F03 = data["F03"];
-            sessionStorage.F04 = data["F04"];
-            sessionStorage.F05 = data["F05"];
-            sessionStorage.F06 = data["F06"];
-            sessionStorage.F07 = data["F07"];
-            sessionStorage.F08 = data["F08"];
-            sessionStorage.F09 = data["F09"];
-            sessionStorage.F10 = data["F10"];
-            sessionStorage.F11 = data["F11"];
-            sessionStorage.F12 = data["F12"];
-            sessionStorage.F13 = data["F13"];
-            sessionStorage.F14 = data["F14"];
-            sessionStorage.F15 = data["F15"];
-            sessionStorage.F16 = data["F16"];
-            sessionStorage.F17 = data["F17"];
-            sessionStorage.F18 = data["F18"];
-            sessionStorage.F19 = data["F19"];
-            sessionStorage.F20 = data["F20"];
-
-            $("#ExtraFields1").val(sessionStorage.F01);
-            $("#ExtraFields2").val(sessionStorage.F02);
-            $("#ExtraFields3").val(sessionStorage.F03);
-            $("#ExtraFields4").val(sessionStorage.F04);
-            $("#ExtraFields5").val(sessionStorage.F05);
-            $("#ExtraFields6").val(sessionStorage.F06);
-            $("#ExtraFields7").val(sessionStorage.F07);
-            $("#ExtraFields8").val(sessionStorage.F08);
-            $("#ExtraFields9").val(sessionStorage.F09);
-            $("#ExtraFields10").val(sessionStorage.F10);
-            $("#ExtraFields11").val(sessionStorage.F11);
-            $("#ExtraFields12").val(sessionStorage.F12);
-            $("#ExtraFields13").val(sessionStorage.F13);
-            $("#ExtraFields14").val(sessionStorage.F14);
-            $("#ExtraFields15").val(sessionStorage.F15);
-            $("#ExtraFields16").val(sessionStorage.F16);
-            $("#ExtraFields17").val(sessionStorage.F17);
-            $("#ExtraFields18").val(sessionStorage.F18);
-            $("#ExtraFields19").val(sessionStorage.F19);
-            $("#ExtraFields20").val(sessionStorage.F20);
-
-            $("#ExtraFields1").val(data["F01"]);
-            $("#ExtraFields2").val(data["F02"]);
-            $("#ExtraFields3").val(data["F03"]);
-            $("#ExtraFields4").val(data["F04"]);
-            $("#ExtraFields5").val(data["F05"]);
-            $("#ExtraFields6").val(data["F06"]);
-            $("#ExtraFields7").val(data["F07"]);
-            $("#ExtraFields8").val(data["F08"]);
-            $("#ExtraFields9").val(data["F09"]);
-            $("#ExtraFields10").val(data["F10"]);
-            $("#ExtraFields11").val(data["F11"]);
-            $("#ExtraFields12").val(data["F12"]);
-            $("#ExtraFields13").val(data["F13"]);
-            $("#ExtraFields14").val(data["F14"]);
-            $("#ExtraFields15").val(data["F15"]);
-            $("#ExtraFields16").val(data["F16"]);
-            $("#ExtraFields17").val(data["F17"]);
-            $("#ExtraFields18").val(data["F18"]);
-            $("#ExtraFields19").val(data["F19"]);
-            $("#ExtraFields20").val(data["F20"]);
-
-            docBMode = data["DocBMode"];
-            serialNumber = data["SerialNumber"];
-            getErjResultList(serialNumber, null, null)
-            getErjDocErja(serialNumber);
-
-
-            if (self.ErjDocErja().length == 0) {
-                $('#ErjDocErja').removeAttr('hidden', '');
-
-                //$('#ErjDocErja').prop('disabled', false);
-            }
-            else {
-                $('#ErjDocErja').attr('hidden', '');
-                //$('#ErjDocErja').prop('disabled', true);
-            }
-
-            $('#modal-ErjDocH').modal('show');
 
         });
     }

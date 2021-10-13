@@ -1512,55 +1512,61 @@
             }
 
             var data = response[0];
-            sessionStorage.flagupdateHeader = 1;
 
-            sessionStorage.SerialNumber = data.SerialNumber;
-            sessionStorage.DocNo = data.DocNo;
-            sessionStorage.DocDate = data.DocDate;
-            sessionStorage.ThvlCode = data.ThvlCode;
+            if (TestUseSanad("SanadAnbar", data.SerialNumber, true) == true) {
+                showNotification('در تب دیگری وجود دارد', 0)
+            }
+            else {
+                sessionStorage.flagupdateHeader = 1;
 
-            sessionStorage.ThvlName = data.ThvlName == null ? '' : data.ThvlName;
-            sessionStorage.InvCode = data.InvCode;
-            sessionStorage.InvName = data.InvName;
-            sessionStorage.Spec = data.Spec;
-            sessionStorage.PriceCode = data.KalaPriceCode;
-            sessionStorage.ModeCodeValue = data.ModeCode;
-            sessionStorage.ModeName = data.ModeName;
-            sessionStorage.Status = data.Status;
-            sessionStorage.PaymentType = data.PaymentType;
-            sessionStorage.Footer = data.Footer;
-            sessionStorage.Eghdam = data.Eghdam;
-            sessionStorage.TaeedI = data.Taeed;
-            sessionStorage.F01 = data.F01;
-            sessionStorage.F02 = data.F02;
-            sessionStorage.F03 = data.F03;
-            sessionStorage.F04 = data.F04;
-            sessionStorage.F05 = data.F05;
-            sessionStorage.F06 = data.F06;
-            sessionStorage.F07 = data.F07;
-            sessionStorage.F08 = data.F08;
-            sessionStorage.F09 = data.F09;
-            sessionStorage.F10 = data.F10;
-            sessionStorage.F11 = data.F11;
-            sessionStorage.F12 = data.F12;
-            sessionStorage.F13 = data.F13;
-            sessionStorage.F14 = data.F14;
-            sessionStorage.F15 = data.F15;
-            sessionStorage.F16 = data.F16;
-            sessionStorage.F17 = data.F17;
-            sessionStorage.F18 = data.F18;
-            sessionStorage.F19 = data.F19;
-            sessionStorage.F20 = data.F20;
+                sessionStorage.SerialNumber = data.SerialNumber;
+                sessionStorage.DocNo = data.DocNo;
+                sessionStorage.DocDate = data.DocDate;
+                sessionStorage.ThvlCode = data.ThvlCode;
 
-            sessionStorage.OprCode = data.OprCode;
-            sessionStorage.OprName = data.OprName;
+                sessionStorage.ThvlName = data.ThvlName == null ? '' : data.ThvlName;
+                sessionStorage.InvCode = data.InvCode;
+                sessionStorage.InvName = data.InvName;
+                sessionStorage.Spec = data.Spec;
+                sessionStorage.PriceCode = data.KalaPriceCode;
+                sessionStorage.ModeCodeValue = data.ModeCode;
+                sessionStorage.ModeName = data.ModeName;
+                sessionStorage.Status = data.Status;
+                sessionStorage.PaymentType = data.PaymentType;
+                sessionStorage.Footer = data.Footer;
+                sessionStorage.Eghdam = data.Eghdam;
+                sessionStorage.TaeedI = data.Taeed;
+                sessionStorage.F01 = data.F01;
+                sessionStorage.F02 = data.F02;
+                sessionStorage.F03 = data.F03;
+                sessionStorage.F04 = data.F04;
+                sessionStorage.F05 = data.F05;
+                sessionStorage.F06 = data.F06;
+                sessionStorage.F07 = data.F07;
+                sessionStorage.F08 = data.F08;
+                sessionStorage.F09 = data.F09;
+                sessionStorage.F10 = data.F10;
+                sessionStorage.F11 = data.F11;
+                sessionStorage.F12 = data.F12;
+                sessionStorage.F13 = data.F13;
+                sessionStorage.F14 = data.F14;
+                sessionStorage.F15 = data.F15;
+                sessionStorage.F16 = data.F16;
+                sessionStorage.F17 = data.F17;
+                sessionStorage.F18 = data.F18;
+                sessionStorage.F19 = data.F19;
+                sessionStorage.F20 = data.F20;
 
-            sessionStorage.MkzCode = data.MkzCode;
-            sessionStorage.MkzName = data.MkzName;
+                sessionStorage.OprCode = data.OprCode;
+                sessionStorage.OprName = data.OprName;
 
-            sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
+                sessionStorage.MkzCode = data.MkzCode;
+                sessionStorage.MkzName = data.MkzName;
 
-            window.location.href = sessionStorage.urlAddIDocH;
+                sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
+
+                window.location.href = sessionStorage.urlAddIDocH;
+            }
 
         });
     }

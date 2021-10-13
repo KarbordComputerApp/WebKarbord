@@ -4,13 +4,13 @@
     self.AccList = ko.observableArray([]); // ليست حساب ها 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
-    self.CGruList = ko.observableArray([]); // ليست گروه حساب ها
+    self.AGruList = ko.observableArray([]); // ليست گروه حساب ها
     self.TestAcc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
-    var CGruUri = server + '/api/Web_Data/CGru/'; // آدرس گروه حساب ها
+    var AGruUri = server + '/api/Web_Data/AGru/'; // آدرس گروه حساب ها
     var SaveAccUri = server + '/api/Web_Data/AFI_SaveAcc/'; // آدرس ذخیره حساب ها
     var DelAccUri = server + '/api/Web_Data/AFI_DelAcc/'; // آدرس حذف حساب ها
     var Acc_DeleteUri = server + '/api/Web_Data/TestAcc_Delete/'; // آدرس تست حذف 
@@ -39,7 +39,7 @@
 
 
 
-    var cGruCode = '';
+    var aGruCode = '';
     var AccCode = '';
 
     var isUpdate = false;
@@ -79,7 +79,9 @@
         'AccF17',
         'AccF18',
         'AccF19',
-        'AccF20'
+        'AccF20',
+        'AGruCode',
+        'AGruName'
     ];
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -176,21 +178,21 @@
 
     getAccList();
 
-    //Get  CGru List
-    function getCGruList() {
-        var CGruObject = {
+    //Get  AGru List
+    function getAGruList() {
+        var AGruObject = {
             Mode: 0,
             ModeGru: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(CGruUri + ace + '/' + sal + '/' + group, 'POST', CGruObject, true).done(function (data) {
-            self.CGruList(data);
+        ajaxFunction(AGruUri + ace + '/' + sal + '/' + group, 'POST', AGruObject, true).done(function (data) {
+            self.AGruList(data);
         });
     }
 
-    $('#btnCGru').click(function () {
-        if (self.CGruList().length == 0) {
-            getCGruList();
+    $('#btnAGru').click(function () {
+        if (self.AGruList().length == 0) {
+            getAGruList();
         }
     });
 
@@ -244,6 +246,10 @@
     self.filterAccF18 = ko.observable("");
     self.filterAccF19 = ko.observable("");
     self.filterAccF20 = ko.observable("");
+    self.filterAGruCode = ko.observable("");
+    self.filterAGruName = ko.observable("");
+
+
 
     listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
     if (listFilter != null) {
@@ -259,26 +265,28 @@
         self.filterArzName(listFilter[9]);
         self.filterArzRate(listFilter[10]);
 
-        /*self.filterAccF01(listFilter[4]);
-        self.filterAccF02(listFilter[5]);
-        self.filterAccF03(listFilter[6]);
-        self.filterAccF04(listFilter[7]);
-        self.filterAccF05(listFilter[8]);
-        self.filterAccF06(listFilter[9]);
-        self.filterAccF07(listFilter[10]);
-        self.filterAccF08(listFilter[11]);
-        self.filterAccF09(listFilter[12]);
-        self.filterAccF10(listFilter[13]);
-        self.filterAccF11(listFilter[14]);
-        self.filterAccF12(listFilter[15]);
-        self.filterAccF13(listFilter[16]);
-        self.filterAccF14(listFilter[17]);
-        self.filterAccF15(listFilter[18]);
-        self.filterAccF16(listFilter[19]);
-        self.filterAccF17(listFilter[20]);
-        self.filterAccF18(listFilter[21]);
-        self.filterAccF19(listFilter[22]);
-        self.filterAccF20(listFilter[23]);*/
+        self.filterAccF01(listFilter[12]);
+        self.filterAccF02(listFilter[13]);
+        self.filterAccF03(listFilter[14]);
+        self.filterAccF04(listFilter[15]);
+        self.filterAccF05(listFilter[16]);
+        self.filterAccF06(listFilter[17]);
+        self.filterAccF07(listFilter[18]);
+        self.filterAccF08(listFilter[19]);
+        self.filterAccF09(listFilter[20]);
+        self.filterAccF10(listFilter[21]);
+        self.filterAccF11(listFilter[22]);
+        self.filterAccF12(listFilter[23]);
+        self.filterAccF13(listFilter[24]);
+        self.filterAccF14(listFilter[25]);
+        self.filterAccF15(listFilter[26]);
+        self.filterAccF16(listFilter[27]);
+        self.filterAccF17(listFilter[28]);
+        self.filterAccF18(listFilter[29]);
+        self.filterAccF19(listFilter[30]);
+        self.filterAccF20(listFilter[31]);
+        self.filterAGruCode(listFilter[32]);
+        self.filterAGruName(listFilter[32]);
     }
     self.filterAccList = ko.computed(function () {
         self.currentPageIndexAcc(0);
@@ -315,6 +323,8 @@
         var filterAccF18 = self.filterAccF18();
         var filterAccF19 = self.filterAccF19();
         var filterAccF20 = self.filterAccF20();
+        var filterAGruCode = self.filterAGruCode();
+        var filterAGruName = self.filterAGruName();
 
         //filterEghdam = filterEghdam.replace("/", ".");
 
@@ -328,7 +338,11 @@
             !filterArzName &&
             !filterArzRate &&
             !filterAccF01 && !filterAccF02 && !filterAccF03 && !filterAccF04 && !filterAccF05 && !filterAccF06 && !filterAccF07 && !filterAccF08 && !filterAccF09 && !filterAccF10 &&
-            !filterAccF11 && !filterAccF12 && !filterAccF13 && !filterAccF14 && !filterAccF15 && !filterAccF16 && !filterAccF17 && !filterAccF18 && !filterAccF19 && !filterAccF20) {
+            !filterAccF11 && !filterAccF12 && !filterAccF13 && !filterAccF14 && !filterAccF15 && !filterAccF16 && !filterAccF17 && !filterAccF18 && !filterAccF19 && !filterAccF20
+            && !filterAGruCode && !filterAGruName
+        ) {
+
+
             $("#CountRecord").text(self.AccList().length);
             sessionStorage.setItem('listFilter', null);
             return self.AccList();
@@ -365,22 +379,26 @@
                 filterAccF17,
                 filterAccF18,
                 filterAccF19,
-                filterAccF20
+                filterAccF20,
+                filterAGruCode,
+                filterAGruName
             ];
+
+
             sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filterName) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
-                (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
-                (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
-                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
-                (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
-                (item.ArzName == null ? '' : item.ArzName.toString().search(filterArzName) >= 0) &&
-                (item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) /*&&
+                    (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
+                    (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
+                    (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                    (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
+                    (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                    (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
+                    (item.ArzName == null ? '' : item.ArzName.toString().search(filterArzName) >= 0) &&
+                    (item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) &&
 
                     (item.AccF01 == null ? '' : item.AccF01.toString().search(filterAccF01) >= 0) &&
                     (item.AccF02 == null ? '' : item.AccF02.toString().search(filterAccF02) >= 0) &&
@@ -401,7 +419,9 @@
                     (item.AccF17 == null ? '' : item.AccF17.toString().search(filterAccF17) >= 0) &&
                     (item.AccF18 == null ? '' : item.AccF18.toString().search(filterAccF18) >= 0) &&
                     (item.AccF19 == null ? '' : item.AccF19.toString().search(filterAccF19) >= 0) &&
-                    (item.AccF20 == null ? '' : item.AccF20.toString().search(filterAccF20) >= 0)*/
+                    (item.AccF20 == null ? '' : item.AccF20.toString().search(filterAccF20) >= 0) &&
+                    (item.AGruCode == null ? '' : item.AGruCode.toString().search(filterAGruCode) >= 0) &&
+                    (item.AGruName == null ? '' : item.AGruName.toString().search(filterAGruName) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -501,6 +521,9 @@
     self.iconTypeAccF18 = ko.observable("");
     self.iconTypeAccF19 = ko.observable("");
     self.iconTypeAccF20 = ko.observable("");
+    self.iconTypeAGruCode = ko.observable("");
+    self.iconTypeAGruName = ko.observable("");
+
 
 
     self.sortTableAcc = function (viewModel, e) {
@@ -569,6 +592,8 @@
         self.iconTypeAccF18('');
         self.iconTypeAccF19('');
         self.iconTypeAccF20('');
+        self.iconTypeAGruCode('');
+        self.iconTypeAGruName('');
 
         if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -602,6 +627,9 @@
         if (orderProp == 'AccF18') self.iconTypeAccF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccF19') self.iconTypeAccF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccF20') self.iconTypeAccF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AGruCode') self.iconTypeAGruCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AGruName') self.iconTypeAGruName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
     };
 
 
@@ -635,26 +663,26 @@
 
 
 
-    self.currentPageCGru = ko.observable();
-    pageSizeCGru = localStorage.getItem('pageSizeCGru') == null ? 10 : localStorage.getItem('pageSizeCGru');
-    self.pageSizeCGru = ko.observable(pageSizeCGru);
-    self.currentPageIndexCGru = ko.observable(0);
+    self.currentPageAGru = ko.observable();
+    pageSizeAGru = localStorage.getItem('pageSizeAGru') == null ? 10 : localStorage.getItem('pageSizeAGru');
+    self.pageSizeAGru = ko.observable(pageSizeAGru);
+    self.currentPageIndexAGru = ko.observable(0);
 
-    self.filterCGru0 = ko.observable("");
-    self.filterCGru1 = ko.observable("");
-    self.filterCGru2 = ko.observable("");
+    self.filterAGru0 = ko.observable("");
+    self.filterAGru1 = ko.observable("");
+    self.filterAGru2 = ko.observable("");
 
-    self.filterCGruList = ko.computed(function () {
+    self.filterAGruList = ko.computed(function () {
 
-        self.currentPageIndexCGru(0);
-        var filter0 = self.filterCGru0().toUpperCase();
-        var filter1 = self.filterCGru1();
-        var filter2 = self.filterCGru2();
+        self.currentPageIndexAGru(0);
+        var filter0 = self.filterAGru0().toUpperCase();
+        var filter1 = self.filterAGru1();
+        var filter2 = self.filterAGru2();
 
         if (!filter0 && !filter1 && !filter2) {
-            return self.CGruList();
+            return self.AGruList();
         } else {
-            tempData = ko.utils.arrayFilter(self.CGruList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.AGruList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -666,44 +694,44 @@
     });
 
 
-    self.currentPageCGru = ko.computed(function () {
-        var pageSizeCGru = parseInt(self.pageSizeCGru(), 10),
-            startIndex = pageSizeCGru * self.currentPageIndexCGru(),
-            endIndex = startIndex + pageSizeCGru;
-        localStorage.setItem('pageSizeCGru', pageSizeCGru);
-        return self.filterCGruList().slice(startIndex, endIndex);
+    self.currentPageAGru = ko.computed(function () {
+        var pageSizeAGru = parseInt(self.pageSizeAGru(), 10),
+            startIndex = pageSizeAGru * self.currentPageIndexAGru(),
+            endIndex = startIndex + pageSizeAGru;
+        localStorage.setItem('pageSizeAGru', pageSizeAGru);
+        return self.filterAGruList().slice(startIndex, endIndex);
     });
 
-    self.nextPageCGru = function () {
-        if (((self.currentPageIndexCGru() + 1) * self.pageSizeCGru()) < self.filterCGruList().length) {
-            self.currentPageIndexCGru(self.currentPageIndexCGru() + 1);
+    self.nextPageAGru = function () {
+        if (((self.currentPageIndexAGru() + 1) * self.pageSizeAGru()) < self.filterAGruList().length) {
+            self.currentPageIndexAGru(self.currentPageIndexAGru() + 1);
         }
     };
 
-    self.previousPageCGru = function () {
-        if (self.currentPageIndexCGru() > 0) {
-            self.currentPageIndexCGru(self.currentPageIndexCGru() - 1);
+    self.previousPageAGru = function () {
+        if (self.currentPageIndexAGru() > 0) {
+            self.currentPageIndexAGru(self.currentPageIndexAGru() - 1);
         }
     };
 
-    self.firstPageCGru = function () {
-        self.currentPageIndexCGru(0);
+    self.firstPageAGru = function () {
+        self.currentPageIndexAGru(0);
     };
 
-    self.lastPageCGru = function () {
-        countCGru = parseInt(self.filterCGruList().length / self.pageSizeCGru(), 10);
-        if ((self.filterCGruList().length % self.pageSizeCGru()) == 0)
-            self.currentPageIndexCGru(countCGru - 1);
+    self.lastPageAGru = function () {
+        countAGru = parseInt(self.filterAGruList().length / self.pageSizeAGru(), 10);
+        if ((self.filterAGruList().length % self.pageSizeAGru()) == 0)
+            self.currentPageIndexAGru(countAGru - 1);
         else
-            self.currentPageIndexCGru(countCGru);
+            self.currentPageIndexAGru(countAGru);
     };
 
-    self.sortTableCGru = function (viewModel, e) {
+    self.sortTableAGru = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.CGruList.sort(function (left, right) {
+        self.AGruList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -732,7 +760,7 @@
 
 
 
-    $('#refreshCGru').click(function () {
+    $('#refreshAGru').click(function () {
         Swal.fire({
             title: 'تایید به روز رسانی',
             text: "لیست گروه حساب ها به روز رسانی شود ؟",
@@ -745,15 +773,15 @@
             confirmButtonText: 'بله'
         }).then((result) => {
             if (result.value) {
-                getCGruList();
+                getAGruList();
             }
         })
     })
 
 
-    self.selectCGru = function (item) {
-        cGruCode = item.Code;
-        $('#nameCGru').val('(' + item.Code + ') ' + item.Name);
+    self.selectAGru = function (item) {
+        aGruCode = item.Code;
+        $('#nameAGru').val('(' + item.Code + ') ' + item.Name);
     }
 
 
@@ -765,7 +793,7 @@
 
         isUpdate = false;
         /*sessionStorage.NEW_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
-        cGruCode = '';
+        aGruCode = '';
 
         $('#Code').attr('readonly', false);
         $('#Code').val('');
@@ -787,7 +815,7 @@
         $('#EtebarNaghd').val('');
         $('#EtebarCheck').val('');
         $('#Email').val('');
-        $('#nameCGru').val('');
+        $('#nameAGru').val('');
 
         $('#ExtraFields1').val('');
         $('#ExtraFields2').val('');
@@ -822,7 +850,17 @@
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
-       
+        $('#Spec').val(item.Spec);
+        
+
+        $('#nameAGru').val('(' + item.AGruCode + ') ' + item.AGruName );
+        $('#PDMode').val(item.PDMode);
+        $('#Mahiat').val(item.Mahiat);
+        $('#AccStatus').val(item.AccStatus);
+        $('#EMail').val(item.EMail);
+        $('#Mobile').val(item.Mobile);
+        $('#AccComm').val(item.AccComm);
+
         sessionStorage.F01 = item.AccF01;
         sessionStorage.F02 = item.AccF02;
         sessionStorage.F03 = item.AccF03;
@@ -959,7 +997,7 @@
             Fax: $('#Fax').val(),
             EtebarNaghd: $('#EtebarNaghd').val(),
             EtebarCheck: $('#EtebarCheck').val(),
-            CGruCode: cGruCode,
+            AGruCode: aGruCode,
             Email: $('#Email').val(),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
@@ -1123,7 +1161,9 @@
             CreateTableTh('ArzCode', data) +
             CreateTableTh('ArzName', data) +
             CreateTableTh('ArzRate', data) +
-            /*CreateTableTh('AccF01', data) +
+            CreateTableTh('AGruCode', data) +
+            CreateTableTh('AGruName', data) +
+            CreateTableTh('AccF01', data) +
             CreateTableTh('AccF02', data) +
             CreateTableTh('AccF03', data) +
             CreateTableTh('AccF04', data) +
@@ -1142,7 +1182,7 @@
             CreateTableTh('AccF17', data) +
             CreateTableTh('AccF18', data) +
             CreateTableTh('AccF19', data) +
-            CreateTableTh('AccF20', data) +*/
+            CreateTableTh('AccF20', data) +
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -1160,7 +1200,8 @@
             CreateTableTd('ArzCode', 0, 0, data) +
             CreateTableTd('ArzName', 0, 0, data) +
             CreateTableTd('ArzRate', 0, 0, data) +
-            /*
+            CreateTableTd('AGruCode', 0, 0, data) +
+            CreateTableTd('AGruName', 0, 0, data) +
             CreateTableTd('AccF01', 0, 4, data) +
             CreateTableTd('AccF02', 0, 4, data) +
             CreateTableTd('AccF03', 0, 4, data) +
@@ -1180,7 +1221,7 @@
             CreateTableTd('AccF17', 0, 4, data) +
             CreateTableTd('AccF18', 0, 4, data) +
             CreateTableTd('AccF19', 0, 4, data) +
-            CreateTableTd('AccF20', 0, 4, data) +*/
+            CreateTableTd('AccF20', 0, 4, data) +
             '<td>' +
             '   <a id="UpdateAcc" data-bind="click: $root.UpdateAcc">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
@@ -1205,7 +1246,8 @@
             CreateTableTdSearch('ArzCode', data) +
             CreateTableTdSearch('ArzName', data) +
             CreateTableTdSearch('ArzRate', data) +
-            /*
+            CreateTableTdSearch('AGruCode', data) +
+            CreateTableTdSearch('AGruName', data) +
             CreateTableTdSearch('AccF01', data) +
             CreateTableTdSearch('AccF02', data) +
             CreateTableTdSearch('AccF03', data) +
@@ -1225,7 +1267,7 @@
             CreateTableTdSearch('AccF17', data) +
             CreateTableTdSearch('AccF18', data) +
             CreateTableTdSearch('AccF19', data) +
-            CreateTableTdSearch('AccF20', data) +*/
+            CreateTableTdSearch('AccF20', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
@@ -1243,7 +1285,7 @@
 
         switch (field) {
             case "Code":
-                sortField = 'SortCode'; 
+                sortField = 'SortCode';
                 break;
             case "Name":
                 sortField = 'SortName';

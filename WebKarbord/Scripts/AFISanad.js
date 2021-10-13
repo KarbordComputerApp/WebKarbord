@@ -722,29 +722,28 @@
 
         tempData = ko.utils.arrayFilter(self.ADocBList(), function (item) {
             result =
-
-                (item.BandNo == null ? '' : item.BandNo.toString().search(filterBandNo) >= 0) &&
-                ko.utils.stringStartsWith(item.AccFullCode.toString().toLowerCase(), filterAccFullCode) &&
-                ko.utils.stringStartsWith(item.AccFullName.toString().toLowerCase(), filterAccFullName) &&
-                ko.utils.stringStartsWith(item.Comm.toString().toLowerCase(), filterComm) &&
-                (item.Bede == null ? '' : item.Bede.toString().search(filterBede) >= 0) &&
-                (item.Best == null ? '' : item.Best.toString().search(filterBest) >= 0) &&
-                (item.CheckNo == null ? '' : item.CheckNo.toString().search(filterCheckNo) >= 0) &&
-                ko.utils.stringStartsWith(item.CheckDate.toString().toLowerCase(), filterCheckDate) &&
-                ko.utils.stringStartsWith(item.Bank.toString().toLowerCase(), filterBank) &&
-                ko.utils.stringStartsWith(item.Shobe.toString().toLowerCase(), filterShobe) &&
-                ko.utils.stringStartsWith(item.Jari.toString().toLowerCase(), filterJari) &&
-                ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
-                ko.utils.stringStartsWith(item.TrafFullName.toString().toLowerCase(), filterTrafFullName) &&
-                ko.utils.stringStartsWith(item.MkzCode.toString().toLowerCase(), filterMkzCode) &&
-                ko.utils.stringStartsWith(item.MkzName.toString().toLowerCase(), filterMkzName) &&
-                ko.utils.stringStartsWith(item.OprCode.toString().toLowerCase(), filterOprCode) &&
-                ko.utils.stringStartsWith(item.OprName.toString().toLowerCase(), filterOprName) &&
-                ko.utils.stringStartsWith(item.BandSpec.toString().toLowerCase(), filterBandSpec) &&
-                ko.utils.stringStartsWith(item.ArzCode.toString().toLowerCase(), filterArzCode) &&
-                (item.ArzValue == null ? '' : item.ArzValue.toString().search(filterArzValue) >= 0) &&
-                (item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) &&
-                ko.utils.stringStartsWith(item.ArzName.toString().toLowerCase(), filterArzName)
+                ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filterBandNo) &&
+                ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
+                ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
+                ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
+                ko.utils.stringStartsWith(item.ArzValue.toString().toLowerCase(), filterArzValue) &&
+                ko.utils.stringStartsWith(item.ArzRate.toString().toLowerCase(), filterArzRate) &&
+                (item.AccFullCode == null ? '' : item.AccFullCode.toString().search(filterAccFullCode) >= 0) &&
+                (item.AccFullName == null ? '' : item.AccFullName.toString().search(filterAccFullName) >= 0) &&
+                (item.Comm == null ? '' : item.Comm.toString().search(filterComm) >= 0) &&
+                (item.CheckDate == null ? '' : item.CheckDate.toString().search(filterCheckDate) >= 0) &&
+                (item.Bank == null ? '' : item.Bank.toString().search(filterBank) >= 0) &&
+                (item.Shobe == null ? '' : item.Shobe.toString().search(filterShobe) >= 0) &&
+                (item.Jari == null ? '' : item.Jari.toString().search(filterJari) >= 0) &&
+                (item.TrafFullCode == null ? '' : item.TrafFullCode.toString().search(filterTrafFullCode) >= 0) &&
+                (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0) &&
+                (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
+                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                (item.BandSpec == null ? '' : item.BandSpec.toString().search(filterBandSpec) >= 0) &&
+                (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
+                (item.ArzName == null ? '' : item.ArzName.toString().search(filterArzName) >= 0)
             return result;
         })
         // calcsum(tempData);

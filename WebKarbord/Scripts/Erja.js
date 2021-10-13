@@ -96,6 +96,13 @@
     var old_DocDesc = '';
     var old_FinalComm = '';
     var old_SpecialComm = '';
+    var old_RjResult = '';
+    var old_CodeFarayand = '';
+    var old_CodeErjBe = '';
+    var old_CodeRoneveshtBe = '';
+    var old_RjMhltDate = '';
+    var old_RjTime_M = '';
+    var old_RjTime_H = '';
 
 
 
@@ -308,6 +315,7 @@
 
         ajaxFunction(RooneveshtUsersListUri + aceErj + '/' + salErj + '/' + group, 'POST', RooneveshtUsersList_Object).done(function (data) {
             self.RooneveshtUsersList(data);
+            //old_CodeRoneveshtBe = data;
         });
     }
 
@@ -319,6 +327,7 @@
             item = data[0];
             bandNo = item.BandNo;
             $("#Result").val(item.RjResult);
+            old_RjResult = $("#Result").val();
         });
     }
 
@@ -1862,6 +1871,14 @@
         $('#RjTime_H').val(rjTime[0]);
         $('#RjTime_M').val(rjTime[1]);
 
+
+        old_RjResult = $('#e_Result').val();
+        old_CodeFarayand = Band.FarayandCode;
+        old_CodeErjBe = result.ToUserCode;
+        old_CodeRoneveshtBe = list_ErjUsersRoneveshtSelect;
+        old_RjMhltDate = Band.RjMhltDate;
+        old_RjTime_H = rjTime[0];
+        old_RjTime_M = rjTime[1];
     }
 
 
@@ -1941,7 +1958,7 @@
 
 
 
-    $("#Colse_ModalErjDocErja").click(function (e) {
+    $("#Close_ModalErjDocErja").click(function (e) {
         if (flag_Save == false) {
             if ($("#specialComm").css('font-style') == 'italic')
                 special = specialComm;
@@ -1976,6 +1993,8 @@
             flag_IsChange26 = (($("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val()) != sessionStorage.F19);
             flag_IsChange27 = (($("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()) != sessionStorage.F20);
 
+            flag_IsChange28 = ($("#Result").val() != old_RjResult);
+            
 
 
             if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
@@ -1983,7 +2002,7 @@
                 flag_IsChange12 || flag_IsChange13 || flag_IsChange14 || flag_IsChange15 || flag_IsChange16 ||
                 flag_IsChange17 || flag_IsChange18 || flag_IsChange19 || flag_IsChange20 || flag_IsChange21 ||
                 flag_IsChange22 || flag_IsChange23 || flag_IsChange24 || flag_IsChange25 || flag_IsChange26 ||
-                flag_IsChange27) {
+                flag_IsChange27 || flag_IsChange28) {
 
 
                 Swal.fire({
@@ -2187,6 +2206,15 @@
             $('#RjMhltDate').val('');
             $('#RjTime_M').val('');
             $('#RjTime_H').val('');
+
+            old_RjResult = $('#e_Result').val();
+            old_CodeFarayand = self.FarayandCode();
+            old_CodeErjBe = self.ErjUsersCode();
+            old_CodeRoneveshtBe = '';
+            old_RjMhltDate = '';
+            old_RjTime_H = '';
+            old_RjTime_M = '';
+
         }
         getFarayandList(doc_KhdtCode);
         $('.fix').attr('class', 'form-line focused fix');
@@ -2217,8 +2245,59 @@
 
     });
 
-    $('#saveErja').click(function () {
 
+
+
+    $("#Close_ModalErj").click(function (e) {
+        if (flagIsSave == false) {
+            flag_IsChange1 = ($("#e_Result").val() != old_RjResult);
+            flag_IsChange2 = (self.FarayandCode() != old_CodeFarayand);
+            flag_IsChange3 = (self.ErjUsersCode() != old_CodeErjBe);
+            flag_IsChange4 = (list_ErjUsersRoneveshtSelect != old_CodeRoneveshtBe);
+            flag_IsChange5 = ($("#RjMhltDate").val() != old_RjMhltDate);
+            flag_IsChange6 = ($("#RjTime_M").val()  != old_RjTime_M);
+            flag_IsChange7 = ($("#RjTime_H").val()  != old_RjTime_H);
+
+
+                      
+
+            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
+                flag_IsChange7 ) {
+                Swal.fire({
+                    title: 'ثبت تغییرات',
+                    text: "ارجاع تغییر کرده است آیا ذخیره شود ؟",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#3085d6',
+                    cancelButtonText: 'خیر',
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'بله',
+                    showDenyButton: true,
+                    showCancelButton: true
+                }).then((result) => {
+                    if (result.value == true) {
+                        SaveErja();
+                    } else if (result.dismiss == "cancel") {
+                        $('#modal-Erja').modal('hide');
+                    }
+                })
+            }
+            else {
+                $('#modal-Erja').modal('hide');
+            }
+        } else {
+            $('#modal-Erja').modal('hide');
+        }
+
+
+    });
+
+
+
+
+    function SaveErja() {
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
 
@@ -2264,7 +2343,10 @@
         list_ErjUsersRoneveshtSelect = new Array();
         counterErjUsersRonevesht = 0;
         */
+    }
 
+    $('#saveErja').click(function () {
+        SaveErja();
     })
 
 
