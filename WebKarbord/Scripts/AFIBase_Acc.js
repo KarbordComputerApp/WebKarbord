@@ -792,30 +792,26 @@
     self.AddNewAcc = function () {
 
         isUpdate = false;
-        /*sessionStorage.NEW_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
+        sessionStorage.NEW_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         aGruCode = '';
 
         $('#Code').attr('readonly', false);
         $('#Code').val('');
         $('#Name').val('');
         $('#Spec').val('');
-        $('#MelliCode').val('');
-        $('#EcoCode').val('');
-        $('#Ostan').val('');
-        $('#Shahrestan').val('');
-        $('#Region').val('');
-        $('#City').val('');
-        $('#Street').val('');
-        $('#Alley').val('');
-        $('#Plack').val('');
-        $('#ZipCode').val('');
-        $('#Tel').val('');
-        $('#Mobile').val('');
-        $('#Fax').val('');
-        $('#EtebarNaghd').val('');
-        $('#EtebarCheck').val('');
-        $('#Email').val('');
+        $('#LtnName').val('');
         $('#nameAGru').val('');
+        $('#PDMode').val(0);
+        $('#Mahiat').val(0);
+        $('#AccStatus').val(0);
+        $('#EMail').val('');
+        $('#Mobile').val('');
+        $('#AccComm').val('');
+        $('#Mkz').val(0);
+        $('#Opr').val(0);
+        $('#Arzi').val(0);
+        $('#P_Amount').hide();
+        $('#P_ZGru').hide();
 
         $('#ExtraFields1').val('');
         $('#ExtraFields2').val('');
@@ -836,30 +832,45 @@
         $('#ExtraFields17').val('');
         $('#ExtraFields18').val('');
         $('#ExtraFields19').val('');
-        $('#ExtraFields20').val('');*/
-
+        $('#ExtraFields20').val('');
+        $('#P_Amount').hide();
+        $('#P_ZGru').hide();
         $("#Code").focus();
         $('#modal-Acc').modal('show');
     }
 
     self.UpdateAcc = function (item) {
-        // sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
+        sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         isUpdate = true;
 
-        item.EditBaseTrs == true && sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
+        //item.EditBaseTrs == true && sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
         $('#Spec').val(item.Spec);
-        
+        $('#LtnName').val(item.LtnName);
 
-        $('#nameAGru').val('(' + item.AGruCode + ') ' + item.AGruName );
+
+        $('#nameAGru').val(item.AGruCode == '' ? '' : '(' + item.AGruCode + ') ' + item.AGruName);
         $('#PDMode').val(item.PDMode);
         $('#Mahiat').val(item.Mahiat);
         $('#AccStatus').val(item.AccStatus);
         $('#EMail').val(item.EMail);
         $('#Mobile').val(item.Mobile);
         $('#AccComm').val(item.AccComm);
+
+
+        $('#Mkz').val(item.Mkz);
+        $('#Opr').val(item.Opr);
+        $('#Arzi').val(item.Arzi);
+        //$('#Amount').val(item.Amount);
+        $('#P_Amount').hide();
+
+        $('#HasChild').val(item.HasChild);
+        if (item.HasChild == 0)
+            $('#P_ZGru').hide();
+        else
+            $('#P_ZGru').show();
 
         sessionStorage.F01 = item.AccF01;
         sessionStorage.F02 = item.AccF02;
@@ -926,13 +937,34 @@
         $("#Code").focus();
 
         AccCode = item.Code;
-        if (TestUseSanad("Acc", AccCode, true) == true) {
+        if (TestUseSanad("Acc", AccCode, true,'') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {
             $('#modal-Acc').modal('show');
         }
     }
+
+    $('#Amount').change(function () {
+        var Amount = $('#Amount').val();
+        if (Amount == 0) {
+            $('#P_Amount').hide();
+        }
+        else {
+            $('#P_Amount').show();
+        }
+    });
+
+    $('#HasChild').change(function () {
+        var hasChild = $('#HasChild').val();
+        if (hasChild == 0) {
+            $('#P_ZGru').hide();
+        }
+        else {
+            $('#P_ZGru').show();
+        }
+    });
+
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         RemoveUseSanad("Acc", AccCode);
@@ -946,18 +978,6 @@
     $('#saveAcc').click(function () {
         code = $('#Code').val();
         name = $('#Name').val();
-        spec = $('#Spec').val();
-        melliCode = $('#MelliCode').val();
-        ecoCode = $('#EcoCode').val();
-
-
-        if (melliCode != "" && melliCode.length < 10) {
-            return showNotification('طول کد ملی نادرست است', 0)
-        }
-
-        if (ecoCode != "" && ecoCode.length < 11) {
-            return showNotification('طول کد اقتصادی نادرست است', 0)
-        }
 
         if (code == "") {
             return showNotification('کد حساب را وارد کنید', 0)
@@ -979,26 +999,27 @@
         var SaveAcc_Object = {
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Code: $('#Code').val(),
-            Name: $('#Name').val(),
+            Code: code,
+            Name: name,
             Spec: $('#Spec').val(),
-            MelliCode: melliCode,
-            EcoCode: ecoCode,
-            Ostan: $('#Ostan').val(),
-            Shahrestan: $('#Shahrestan').val(),
-            Region: $('#Region').val(),
-            City: $('#City').val(),
-            Street: $('#Street').val(),
-            Alley: $('#Alley').val(),
-            Plack: $('#Plack').val(),
-            ZipCode: $('#ZipCode').val(),
-            Tel: $('#Tel').val(),
-            Mobile: $('#Mobile').val(),
-            Fax: $('#Fax').val(),
-            EtebarNaghd: $('#EtebarNaghd').val(),
-            EtebarCheck: $('#EtebarCheck').val(),
+            LtnName: $('#LtnName').val(),
             AGruCode: aGruCode,
-            Email: $('#Email').val(),
+
+            PDMode: $('#PDMode').val(),
+            Mahiat: $('#Mahiat').val(),
+            AccStatus: $('#AccStatus').val(),
+            EMail: $('#EMail').val(),
+            Mobile: $('#Mobile').val(),
+            HasChild: $('#HasChild').val(),
+            //ZGru: $('#HasChild').val(),
+            Arzi: $('#Arzi').val(),
+            Mkz: $('#Mkz').val(),
+            Opr: $('#Opr').val(),
+            Amount: $('#Amount').val(),
+            Vahed: $('#Vahed').val(),
+            Deghat: $('#Deghat').val(),
+            AccComm: $('#AccComm').val(),
+
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
@@ -1033,14 +1054,14 @@
     self.DeleteAcc = function (item) {
 
         AccCode = item.Code;
-        if (TestUseSanad("Acc", AccCode, false) == true) {
+        if (TestUseSanad("Acc", AccCode, false,'') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {
 
             Swal.fire({
                 title: 'تایید حذف ؟',
-                text: "آیا حساب ها انتخابی حذف شود",
+                text: "آیا حساب انتخابی حذف شود",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1051,7 +1072,7 @@
             }).then((result) => {
                 if (result.value) {
                     code = item.Code;
-                    var TestAcc_DeleteObject = {
+                    /*var TestAcc_DeleteObject = {
                         Code: code
                     };
 
@@ -1063,9 +1084,10 @@
                             SetDataTestAcc();
                         }
                         else {
-                            DeleteAcc(code);
+                           
                         }
-                    });
+                    });*/
+                    DeleteAcc(code);
                 }
             })
         }

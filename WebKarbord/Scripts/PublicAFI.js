@@ -3811,6 +3811,8 @@ function LogOut() {
     }
     ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
         //SaveStatementsDatabase();
+
+        RemoveUseSanad('', 0);
         sessionStorage.userName = '';
         sessionStorage.pass = '';
         localStorage.setItem("userName", '');
@@ -4407,7 +4409,7 @@ $("#AccessRefresh").click(function () {
 
 
 
-function TestUseSanad(FormName, Id, Insert) {
+function TestUseSanad(FormName, Id, Insert, docNo) {
     var listUse = localStorage.getItem("list" + FormName + "Use");
     if (listUse == null) {
         localStorage.setItem("list" + FormName + "Use", "0");
@@ -4438,7 +4440,7 @@ function TestUseSanad(FormName, Id, Insert) {
         case "ErjDocH":
             dMode = 8;
             break;
-    } 
+    }
 
 
     useWindows = false;
@@ -4452,7 +4454,7 @@ function TestUseSanad(FormName, Id, Insert) {
             Year: sal,
             SerialNumber: Id
         };
-        ajaxFunction(DocInUseUri , 'POST', DocInUseObject,false).done(function (response) {
+        ajaxFunction(DocInUseUri, 'POST', DocInUseObject, false).done(function (response) {
             userUse = response[0];
             if (response[0] != "") {
                 useWindows = true;
@@ -4467,12 +4469,42 @@ function TestUseSanad(FormName, Id, Insert) {
     }
     else {
         if (find == true) {
+            switch (FormName) {
+                case "SanadHesab":
+                    showNotification('سند در تب دیگری وجود دارد', 0)
+                    break;
+                case "Factor":
+                    showNotification('فاکتور در تب دیگری وجود دارد', 0)
+                    break;
+                case "SanadAnbar":
+                    showNotification('سند انبار در تب دیگری وجود دارد', 0)
+                    break;
+                case "ErjDocH":
+                    showNotification('پرونده در تب دیگری وجود دارد', 0)
+                    break;
+            }
             return true;
             //showNotification('در حال استفاده', 0)
         }
         else {
             if (Insert == true) {
                 localStorage.setItem("list" + FormName + "Use", list + data);
+
+
+                // ذخیره سند باز شده در ویندوز
+                SaveDocInUseUri = server + '/api/Web_Data/SaveDocInUse/';
+                var SaveDocInUseObject = {
+                    Prog: ace,
+                    DMode: dMode,
+                    GroupNo: group,
+                    Year: sal,
+                    SerialNumber: Id,
+                    DocNo: docNo
+                };
+                ajaxFunction(SaveDocInUseUri, 'POST', SaveDocInUseObject, false).done(function (response) {
+                });
+
+
             }
             return false;
         }
@@ -4480,15 +4512,50 @@ function TestUseSanad(FormName, Id, Insert) {
 }
 
 function RemoveUseSanad(FormName, Id) {
-    listUse = localStorage.getItem("list" + FormName + "Use");
+    if (Id != null) {
 
-    if (listUse == null) {
-        localStorage.setItem("list" + FormName + "Use", "0");
+
         listUse = localStorage.getItem("list" + FormName + "Use");
+
+        if (listUse == null) {
+            localStorage.setItem("list" + FormName + "Use", "0");
+            listUse = localStorage.getItem("list" + FormName + "Use");
+        }
+
+        listUse = listUse.replace(',' + Id, '');
+        localStorage.setItem("list" + FormName + "Use", listUse);
+
+
+        dMode = 0;
+        switch (FormName) {
+            case "SanadHesab":
+                dMode = 1;
+                break;
+            case "Factor":
+                dMode = 2;
+                break;
+            case "SanadAnbar":
+                dMode = 3;
+                break;
+            case "ErjDocH":
+                dMode = 8;
+                break;
+        }
+
+        // حذف سند باز شده توسط وب در ویندوز
+        DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+        var DeleteDocInUseObject = {
+            Prog: ace,
+            DMode: dMode,
+            GroupNo: group,
+            Year: sal,
+            SerialNumber: Id,
+        };
+        ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
+        });
     }
 
-    listUse = listUse.replace(',' + Id, '');
-    localStorage.setItem("list" + FormName + "Use", listUse);
+
 }
 
 

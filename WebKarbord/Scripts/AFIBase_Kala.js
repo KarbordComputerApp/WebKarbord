@@ -863,7 +863,7 @@
             $('#modal-Kala').modal('show');
         }*/
         kalaCode = item.Code;
-        if (TestUseSanad("Kala", kalaCode,true) == true) {
+        if (TestUseSanad("Kala", kalaCode,true,'') == true) {
             showNotification('کالا در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1001,7 +1001,7 @@
 
     self.DeleteKala = function (item) {
         kalaCode = item.Code;
-        if (TestUseSanad("Kala", kalaCode,false) == true) {
+        if (TestUseSanad("Kala", kalaCode,false,'') == true) {
             showNotification('کالا در تب دیگری در حال ویرایش است', 0)
         }
         else {

@@ -924,8 +924,8 @@
 
     self.DeleteErjDocH = function (ErjDocHBand) {
         serialNumber = ErjDocHBand.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber, false) == true) {
-            showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        if (TestUseSanad("ErjDocH", serialNumber, false, ErjDocHBand.DocNo) == true) {
+           // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
 
@@ -2759,8 +2759,8 @@
 
             var data = response[0];
 
-            if (TestUseSanad("ErjDocH", data["SerialNumber"], true) == true) {
-                showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+            if (TestUseSanad("ErjDocH", data["SerialNumber"], true, data["DocNo"]) == true) {
+               // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
             }
             else {
 
@@ -2900,8 +2900,8 @@
     self.UpdateErjDocH = function (item) {
 
         serialNumber = item.SerialNumber;
-        if (TestUseSanad("ErjDocH", serialNumber, true) == true) {
-            showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        if (TestUseSanad("ErjDocH", serialNumber, true, item.DocNo) == true) {
+           // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
             item.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();

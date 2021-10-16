@@ -1755,8 +1755,8 @@
     self.ShowAFISanad = function (Band) {
         serial = Band.SerialNumber;
 
-        if (TestUseSanad("SanadHesab", serial, true) == true) {
-            showNotification('سند در تب دیگری وجود دارد', 0)
+        if (TestUseSanad("SanadHesab", serial, true) == true, Band.DocNo) {
+           // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
             localStorage.setItem("DocNoAFISanad", Band.DocNo);

@@ -1273,8 +1273,8 @@
     });
 
     self.DeleteIDocH = function (SanadBand) {
-        if (TestUseSanad("SanadAnbar", SanadBand.SerialNumber,false) == true) {
-            showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad("SanadAnbar", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
+            //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
             Swal.fire({
@@ -1390,8 +1390,8 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad("SanadAnbar", item.SerialNumber,true) == true) {
-            showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad("SanadAnbar", item.SerialNumber, true, item.DocNo) == true) {
+            //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
             sessionStorage.flagupdateHeader = 1;
@@ -1513,8 +1513,8 @@
 
             var data = response[0];
 
-            if (TestUseSanad("SanadAnbar", data.SerialNumber, true) == true) {
-                showNotification('در تب دیگری وجود دارد', 0)
+            if (TestUseSanad("SanadAnbar", data.SerialNumber, true, data.DocNo) == true) {
+              //  showNotification('در تب دیگری وجود دارد', 0)
             }
             else {
                 sessionStorage.flagupdateHeader = 1;
@@ -1860,8 +1860,8 @@
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad("SanadAnbar", serial,true) == true) {
-            showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad("SanadAnbar", serial, true, item.DocNo) == true) {
+           // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
 

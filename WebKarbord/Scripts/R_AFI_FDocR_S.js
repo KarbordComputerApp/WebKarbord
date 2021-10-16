@@ -2239,8 +2239,8 @@
 
     self.ShowAFIFactor = function (Band) {
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad("Factor", serialNumber, true) == true) {
-            showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad("Factor", serialNumber, true) == true, Band.DocNo) {
+           // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
             localStorage.setItem("DocNoAFIFactor", Band.DocNo);

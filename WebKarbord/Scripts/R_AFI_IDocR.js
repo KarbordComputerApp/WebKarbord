@@ -2476,8 +2476,8 @@
 
 
     self.ShowAFISanadAnbar = function(Band) {
-        if (TestUseSanad("SanadAnbar", Band.SerialNumber, true) == true) {
-            showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad("SanadAnbar", Band.SerialNumber, true, Band.DocNo) == true) {
+           // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
             localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);

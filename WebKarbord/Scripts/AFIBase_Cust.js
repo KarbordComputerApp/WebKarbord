@@ -831,7 +831,7 @@
         $("#Code").focus();
 
         custCode = item.Code;
-        if (TestUseSanad("Cust", custCode,true) == true) {
+        if (TestUseSanad("Cust", custCode,true,'') == true) {
             showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -938,7 +938,7 @@
     self.DeleteCust = function (item) {
 
         custCode = item.Code;
-        if (TestUseSanad("Cust", custCode,false) == true) {
+        if (TestUseSanad("Cust", custCode,false,'') == true) {
             showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
         }
         else {
