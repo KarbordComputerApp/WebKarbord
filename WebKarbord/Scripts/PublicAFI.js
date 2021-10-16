@@ -4445,7 +4445,7 @@ function TestUseSanad(FormName, Id, Insert, docNo) {
 
     useWindows = false;
     var userUse = "";
-    if ((FormName != "Kala" || FormName != "Cust") && find == false) {
+    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
             Prog: ace,
@@ -4490,20 +4490,20 @@ function TestUseSanad(FormName, Id, Insert, docNo) {
             if (Insert == true) {
                 localStorage.setItem("list" + FormName + "Use", list + data);
 
-
-                // ذخیره سند باز شده در ویندوز
-                SaveDocInUseUri = server + '/api/Web_Data/SaveDocInUse/';
-                var SaveDocInUseObject = {
-                    Prog: ace,
-                    DMode: dMode,
-                    GroupNo: group,
-                    Year: sal,
-                    SerialNumber: Id,
-                    DocNo: docNo
-                };
-                ajaxFunction(SaveDocInUseUri, 'POST', SaveDocInUseObject, false).done(function (response) {
-                });
-
+                if (docNo != null && docNo != "") {
+                    // ذخیره سند باز شده در ویندوز
+                    SaveDocInUseUri = server + '/api/Web_Data/SaveDocInUse/';
+                    var SaveDocInUseObject = {
+                        Prog: ace,
+                        DMode: dMode,
+                        GroupNo: group,
+                        Year: sal,
+                        SerialNumber: Id,
+                        DocNo: docNo
+                    };
+                    ajaxFunction(SaveDocInUseUri, 'POST', SaveDocInUseObject, false).done(function (response) {
+                    });
+                }
 
             }
             return false;
@@ -4526,33 +4526,35 @@ function RemoveUseSanad(FormName, Id) {
         localStorage.setItem("list" + FormName + "Use", listUse);
 
 
-        dMode = 0;
-        switch (FormName) {
-            case "SanadHesab":
-                dMode = 1;
-                break;
-            case "Factor":
-                dMode = 2;
-                break;
-            case "SanadAnbar":
-                dMode = 3;
-                break;
-            case "ErjDocH":
-                dMode = 8;
-                break;
-        }
+        if ((FormName != "Kala" && FormName != "Cust" && FormName != "Acc")) {
+            dMode = 0;
+            switch (FormName) {
+                case "SanadHesab":
+                    dMode = 1;
+                    break;
+                case "Factor":
+                    dMode = 2;
+                    break;
+                case "SanadAnbar":
+                    dMode = 3;
+                    break;
+                case "ErjDocH":
+                    dMode = 8;
+                    break;
+            }
 
-        // حذف سند باز شده توسط وب در ویندوز
-        DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
-        var DeleteDocInUseObject = {
-            Prog: ace,
-            DMode: dMode,
-            GroupNo: group,
-            Year: sal,
-            SerialNumber: Id,
-        };
-        ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
-        });
+            // حذف سند باز شده توسط وب در ویندوز
+            DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+            var DeleteDocInUseObject = {
+                Prog: ace,
+                DMode: dMode,
+                GroupNo: group,
+                Year: sal,
+                SerialNumber: Id,
+            };
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
+            });
+        }
     }
 
 

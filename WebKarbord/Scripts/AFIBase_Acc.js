@@ -810,6 +810,10 @@
         $('#Mkz').val(0);
         $('#Opr').val(0);
         $('#Arzi').val(0);
+        $('#Amount').val(0);
+        $('#Vahed').val('');
+        $('#Deghat').val('');
+
         $('#P_Amount').hide();
         $('#P_ZGru').hide();
 
@@ -863,11 +867,17 @@
         $('#Mkz').val(item.Mkz);
         $('#Opr').val(item.Opr);
         $('#Arzi').val(item.Arzi);
-        //$('#Amount').val(item.Amount);
-        $('#P_Amount').hide();
+        $('#Amount').val(item.Amount);
+        $('#Vahed').val(item.Vahed);
+        $('#Deghat').val(item.Deghat);
+        if (item.Amount == 0) 
+            $('#P_Amount').hide();
+        else
+            $('#P_Amount').show();
+       
 
-        $('#HasChild').val(item.HasChild);
-        if (item.HasChild == 0)
+        $('#NextLevelFromZAcc').val(item.NextLevelFromZAcc);
+        if (item.NextLevelFromZAcc == 0)
             $('#P_ZGru').hide();
         else
             $('#P_ZGru').show();
@@ -955,9 +965,9 @@
         }
     });
 
-    $('#HasChild').change(function () {
-        var hasChild = $('#HasChild').val();
-        if (hasChild == 0) {
+    $('#NextLevelFromZAcc').change(function () {
+        var nextLevelFromZAcc = $('#NextLevelFromZAcc').val();
+        if (nextLevelFromZAcc == 0) {
             $('#P_ZGru').hide();
         }
         else {
@@ -1010,7 +1020,7 @@
             AccStatus: $('#AccStatus').val(),
             EMail: $('#EMail').val(),
             Mobile: $('#Mobile').val(),
-            HasChild: $('#HasChild').val(),
+            NextLevelFromZAcc: $('#NextLevelFromZAcc').val(),
             //ZGru: $('#HasChild').val(),
             Arzi: $('#Arzi').val(),
             Mkz: $('#Mkz').val(),
