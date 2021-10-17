@@ -50,7 +50,32 @@
     var list_ZGruSelect = new Array();
     var list_ZGruNameSelect = new Array();
 
+
     var isUpdate = false;
+
+
+    var flag_Save = false;
+
+
+    var old_Code = '';
+    var old_Name = '';
+    var old_LtnName = '';
+    var old_Spec = '';
+    var old_AGruCode = '';
+    var old_PDMode = '';
+    var old_Mahiat = '';
+    var old_AccStatus = '';
+    var old_EMail = '';
+    var old_Mobile = '';
+    var old_ZGru = '';
+    var old_Mkz = '';
+    var old_Opr = '';
+    var old_Arzi = '';
+    var old_Amount = '';
+    var old_Vahed = '';
+    var old_Deghat = '';
+    var old_AccComm = '';
+
 
 
     var rprtId = 'Acc';
@@ -1058,6 +1083,47 @@
         $('#NextLevelFromZAcc').val(0);
         $('#P_ZGru').hide();
 
+        old_Code = '';
+        old_Name = '';
+        old_LtnName = '';
+        old_Spec = '';
+        old_AGruCode = '';
+        old_PDMode = '0';
+        old_Mahiat = '0';
+        old_AccStatus = '0';
+        old_EMail = '';
+        old_Mobile = '';
+        old_ZGru = '';
+        old_Mkz = '0';
+        old_Opr = '0';
+        old_Arzi = '0';
+        old_Amount = '0';
+        old_Vahed = '';
+        old_Deghat = '';
+        old_AccComm = '';
+
+        sessionStorage.F01 = '';
+        sessionStorage.F02 = '';
+        sessionStorage.F03 = '';
+        sessionStorage.F04 = '';
+        sessionStorage.F05 = '';
+        sessionStorage.F06 = '';
+        sessionStorage.F07 = '';
+        sessionStorage.F08 = '';
+        sessionStorage.F09 = '';
+        sessionStorage.F10 = '';
+        sessionStorage.F11 = '';
+        sessionStorage.F12 = '';
+        sessionStorage.F13 = '';
+        sessionStorage.F14 = '';
+        sessionStorage.F15 = '';
+        sessionStorage.F16 = '';
+        sessionStorage.F17 = '';
+        sessionStorage.F18 = '';
+        sessionStorage.F19 = '';
+        sessionStorage.F20 = '';
+
+
         $('#ExtraFields1').val('');
         $('#ExtraFields2').val('');
         $('#ExtraFields3').val('');
@@ -1087,6 +1153,7 @@
     self.UpdateAcc = function (item) {
         sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         isUpdate = true;
+        flag_Save = false;
 
         //item.EditBaseTrs == true && sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         $('#Code').val(item.Code);
@@ -1103,8 +1170,6 @@
         $('#EMail').val(item.EMail);
         $('#Mobile').val(item.Mobile);
         $('#AccComm').val(item.AccComm);
-
-
         $('#Mkz').val(item.Mkz);
         $('#Opr').val(item.Opr);
         $('#Arzi').val(item.Arzi);
@@ -1140,6 +1205,29 @@
             }
             $('#P_ZGru').show();
         }
+
+        aGruCode = item.AGruCode;
+
+        old_Code = item.Code;
+        old_Name = item.Name;
+        old_LtnName = item.LtnName;
+        old_Spec = item.Spec;
+        old_AGruCode = item.AGruCode;
+        old_PDMode = item.PDMode;
+        old_Mahiat = item.Mahiat;
+        old_AccStatus = item.AccStatus;
+        old_EMail = item.EMail;
+        old_Mobile = item.Mobile;
+        old_ZGru = item.ZGru;
+        old_Mkz = item.Mkz;
+        old_Opr = item.Opr;
+        old_Arzi = item.Arzi;
+        old_Amount = item.Amount;
+        old_Vahed = item.Vahed;
+        old_Deghat = item.Deghat;
+        old_AccComm = $('#AccComm').val();
+
+
 
         sessionStorage.F01 = item.AccF01;
         sessionStorage.F02 = item.AccF02;
@@ -1244,7 +1332,7 @@
     };
 
 
-    $('#saveAcc').click(function () {
+    function SaveParvandeh() {
         code = $('#Code').val();
         name = $('#Name').val();
 
@@ -1338,10 +1426,15 @@
                 ajaxFunction(SaveAccUri + ace + '/' + sal + '/' + group, 'POST', SaveAcc_Object).done(function (data) {
                     getAccList();
                     $('#modal-Acc').modal('hide');
+                    flag_Save = true;
                     showNotification('ذخيره شد ', 1);
                 });
             }
         });
+    }
+
+    $('#saveAcc').click(function () {
+        SaveParvandeh();
     });
 
 
@@ -1449,6 +1542,137 @@
             showNotification('حذف شد ', 1);
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#Close_ModalAcc").click(function (e) {
+        if (flag_Save == false) {
+
+
+            flag_IsChange1 = ($("#Code").val() != old_Code);
+            flag_IsChange2 = ($("#Name").val() != old_Name);
+            flag_IsChange3 = ($("#LtnName").val() != old_LtnName);
+            flag_IsChange4 = ($("#Spec").val() != old_Spec);
+            flag_IsChange5 = (aGruCode != old_AGruCode);
+            flag_IsChange6 = ($("#PDMode").val() != old_PDMode);
+            flag_IsChange7 = ($("#Mahiat").val() != old_Mahiat);
+            flag_IsChange8 = ($("#AccStatus").val() != old_AccStatus);
+            flag_IsChange9 = ($("#EMail").val() != old_EMail);
+            flag_IsChange10 = ($("#Mobile").val() != old_Mobile);
+            flag_IsChange11 = false;//(ZGruCode != old_ZGru);
+            flag_IsChange12 = ($("#Mkz").val() != old_Mkz);
+            flag_IsChange13 = ($("#Opr").val() != old_Opr);
+            flag_IsChange14 = ($("#Arzi").val() != old_Arzi);
+            flag_IsChange15 = ($("#Amount").val() != old_Amount);
+            flag_IsChange16 = ($("#Vahed").val() != old_Vahed);
+            flag_IsChange17 = ($("#Deghat").val() != old_Deghat);
+            flag_IsChange18 = ($("#AccComm").val() != old_AccComm);
+
+
+            flag_IsChange19 = (($("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val()) != sessionStorage.F01);
+            flag_IsChange20 = (($("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val()) != sessionStorage.F02);
+            flag_IsChange21 = (($("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val()) != sessionStorage.F03);
+            flag_IsChange22 = (($("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val()) != sessionStorage.F04);
+            flag_IsChange23 = (($("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val()) != sessionStorage.F05);
+            flag_IsChange24 = (($("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val()) != sessionStorage.F06);
+            flag_IsChange25 = (($("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val()) != sessionStorage.F07);
+            flag_IsChange26 = (($("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val()) != sessionStorage.F08);
+            flag_IsChange27 = (($("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val()) != sessionStorage.F09);
+            flag_IsChange28 = (($("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val()) != sessionStorage.F10);
+            flag_IsChange29 = (($("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val()) != sessionStorage.F11);
+            flag_IsChange30 = (($("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val()) != sessionStorage.F12);
+            flag_IsChange31 = (($("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val()) != sessionStorage.F13);
+            flag_IsChange32 = (($("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val()) != sessionStorage.F14);
+            flag_IsChange33 = (($("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val()) != sessionStorage.F15);
+            flag_IsChange34 = (($("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val()) != sessionStorage.F16);
+            flag_IsChange35 = (($("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val()) != sessionStorage.F17);
+            flag_IsChange36 = (($("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val()) != sessionStorage.F18);
+            flag_IsChange37 = (($("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val()) != sessionStorage.F19);
+            flag_IsChange38 = (($("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()) != sessionStorage.F20);
+
+
+
+            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
+                flag_IsChange7 || flag_IsChange8 || flag_IsChange9 || flag_IsChange10 || flag_IsChange11 ||
+                flag_IsChange12 || flag_IsChange13 || flag_IsChange14 || flag_IsChange15 || flag_IsChange16 ||
+                flag_IsChange17 || flag_IsChange18 || flag_IsChange19 || flag_IsChange20 || flag_IsChange21 ||
+                flag_IsChange22 || flag_IsChange23 || flag_IsChange24 || flag_IsChange25 || flag_IsChange26 ||
+                flag_IsChange27 || flag_IsChange28 || flag_IsChange29 || flag_IsChange30 || flag_IsChange31 ||
+                flag_IsChange32 || flag_IsChange33 || flag_IsChange34 || flag_IsChange35 || flag_IsChange36 ||
+                flag_IsChange37 || flag_IsChange38
+            ) {
+
+
+                Swal.fire({
+                    title: 'ثبت تغییرات',
+                    text: "حساب تغییر کرده است آیا ذخیره شود ؟",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#3085d6',
+                    cancelButtonText: 'خیر',
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'بله',
+                    showDenyButton: true,
+                    showCancelButton: true
+                }).then((result) => {
+                    if (result.value == true) {
+                        SaveParvandeh();
+                        $('#modal-Acc').modal('hide');
+                    } else if (result.dismiss == "cancel") {
+                        $('#modal-Acc').modal('hide');
+                    }
+                })
+            }
+            else {
+                $('#modal-Acc').modal('hide');
+            }
+        } else {
+            $('#modal-Acc').modal('hide');
+        }
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
