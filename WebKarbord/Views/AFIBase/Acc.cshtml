@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
@@ -53,7 +53,7 @@
 
 
 
-                    <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                    <div class="col-md-3  col-sm-6" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageAcc">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
@@ -70,7 +70,7 @@
 
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-5  col-sm-6">
                         <div class="form-inline pull-left">
                             <label>تعداد کل رکورد ها</label>
                             <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
@@ -155,7 +155,7 @@
                 <div class="box box-info">
                     <form>
                         <div class="row form-line">
-                            <div class="col-sm-2">
+                            <div class="col-md-2 col-sm-12">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Code" class="form-control" />
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-md-4 col-sm-12">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="LtnName" class="form-control" />
@@ -193,7 +193,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-md-4 col-sm-12">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <a id="btnAGru" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-AGru">
@@ -213,9 +213,9 @@
 
 
                         <div class="row form-line">
-                            <div class="form-line col-sm-3">
+                            <div class="form-line col-md-3 col-sm-12">
                                 <span class="col-md">سررسید نامه</span>
-                                <select id="PDMode" class="col-md-8">
+                                <select id="PDMode" class="col-md-8 col-sm-9">
                                     <option value="0">هیچکدام</option>
                                     <option value="1">اسناد پرداختنی</option>
                                     <option value="2">اسناد دریافتنی</option>
@@ -224,18 +224,18 @@
 
 
 
-                            <div class="form-line col-sm-2">
+                            <div class="form-line col-md-2 col-sm-12">
                                 <span class="col-md">ماهیت</span>
-                                <select id="Mahiat" class="col-md-8">
+                                <select id="Mahiat" class="col-md-8 col-sm-10">
                                     <option value="0">هیچکدام</option>
                                     <option value="1">بدهکار</option>
                                     <option value="2">بستانکار</option>
                                 </select>
                             </div>
 
-                            <div class="form-line col-sm-2">
+                            <div class="form-line col-md-2 col-sm-12">
                                 <span class="col-md">وضعیت</span>
-                                <select id="AccStatus" class="col-md-8">
+                                <select id="AccStatus" class="col-md-8 col-sm-10">
                                     <option value="0">فعال</option>
                                     <option value="1">غیر فعال</option>
                                 </select>
@@ -251,7 +251,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-2">
+                            <div class="col-md-2 col-sm-12">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Mobile" class="form-control autocomplete" />
@@ -262,7 +262,7 @@
                         </div>
 
                         <div class="row form-line">
-                            <div class="form-line col-sm-4">
+                            <div class="form-line col-md-4 col-sm-12">
                                 <select id="NextLevelFromZAcc" style="margin-bottom: 23px;">
                                     <option value="0">بدون سطح بعدی هنگام ثبت سند</option>
                                     <option value="1">دارای سطح بعدی هنگام ثبت سند</option>
@@ -270,7 +270,7 @@
                             </div>
 
 
-                            <div class="col-sm-8" id="P_ZGru">
+                            <div class="col-md-8 col-sm-12" id="P_ZGru">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <a id="btnZGru" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-ZGru">
@@ -291,7 +291,7 @@
                         </div>
 
                         <div class="row form-line">
-                            <div class="form-line col-sm-2">
+                            <div class="form-line col-md-2 col-sm-12">
                                 <select id="Arzi">
                                     <option value="0">بدون ارز</option>
                                     <option value="1">دارای ارز</option>
@@ -299,7 +299,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-line col-sm-2">
+                            <div class="form-line col-md-2 col-sm-12">
                                 <select id="Mkz">
                                     <option value="0">بدون مرکز هزینه</option>
                                     <option value="1">دارای مرکز هزینه</option>
@@ -307,7 +307,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-line col-sm-2">
+                            <div class="form-line col-md-2 col-sm-12">
                                 <select id="Opr">
                                     <option value="0">بدون پروژه</option>
                                     <option value="1">دارای پروژه</option>
@@ -315,16 +315,16 @@
                                 </select>
                             </div>
 
-                            <div class="form-line col-sm-2" style="margin-bottom:1px">
+                            <div class="form-line col-md-2 col-sm-12" style="margin-bottom:1px">
                                 <select id="Amount">
                                     <option value="0">بدون مقدار</option>
                                     <option value="1">دارای مقدار</option>
                                 </select>
                             </div>
 
-                            <div class="form-line col-sm-4" id="P_Amount">
+                            <div class="form-line col-md-4 col-sm-12" id="P_Amount">
                                 <div class="row form-line">
-                                    <div class="col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group form-float" style="margin-bottom:0px">
                                             <div class="form-line focused fix">
                                                 <input type="text" id="Vahed" class="form-control autocomplete" />
@@ -333,7 +333,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group form-float" style="margin-bottom:0px">
                                             <div class="form-line focused fix">
                                                 <input type="text" id="Deghat" class="form-control autocomplete" />
@@ -434,7 +434,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-inline">
                             <label>نمایش</label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
@@ -454,7 +454,7 @@
                             <label>رکورد در هر صفحه</label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 col-sm-8" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageAGru">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
@@ -607,7 +607,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-7 col-sm-6">
                         <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
@@ -650,10 +650,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-sm-6">
 
                         <div class="row">
-                            <div class="col-md-1">
+                            <div class="col-md-1 col-sm-2">
                                 <div class="row centered">
                                     <div style="height:160px; width:20px"></div>
                                     <a data-bind="click: AddAllZGru" style="height:18px;padding-right: 3px;">
@@ -665,7 +665,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-11">
+                            <div class="col-md-11 col-sm-10">
                                 <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedZGru">
                                         <thead style="cursor: pointer;">
@@ -683,9 +683,9 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-7 col-sm-12">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-6">
                                 <div class="form-inline">
                                     <label>نمایش</label>
                                     <div class="form-group" style="text-align: center; width: 50px;">
@@ -705,7 +705,7 @@
                                     <label>رکورد</label>
                                 </div>
                             </div>
-                            <div class="col-md-8" style="text-align: left;">
+                            <div class="col-md-8 col-sm-6" style="text-align: left;">
 
                                 <a data-bind="click: firstPageZGru">
                                     <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />

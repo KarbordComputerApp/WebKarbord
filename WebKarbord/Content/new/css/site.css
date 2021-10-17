@@ -1776,130 +1776,149 @@ input[type="checkbox"] {
     box-shadow: 0px 0px 20px 5px #4048524f;
 }
 
-    .page-proccess-wrapper p {
-        font-size: 13px;
-        margin-top: 10px;
-        font-weight: bold;
-        color: #444;
-    }
 
-    .page-proccess-wrapper .loader {
-        position: relative;
-        top: calc(50% - 30px);
-    }
-
-@keyframes blinker {
-    50% {
-        opacity: 0;
-    }
-}
-
-.blink {
-    animation: blinker 1s step-start infinite;
-}
-
-.notification {
-}
-
-    .notification .badge {
+@media (max-width:767px) {
+    .page-proccess-wrapper {
+        z-index: 99999999;
         position: absolute;
-        top: -3px;
-        right: -10px;
-        border-radius: 50%;
-        background: red;
-        color: white;
+        top: 30%;
+        left: 25%;
+        width: 50%;
+        height: 20%;
+        background: #edeef3;
+        overflow: hidden;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px 5px #4048524f;
+    }
+}
+
+        .page-proccess-wrapper p {
+            font-size: 13px;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .page-proccess-wrapper .loader {
+            position: relative;
+            top: calc(50% - 30px);
+        }
+
+
+
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .blink {
+        animation: blinker 1s step-start infinite;
+    }
+
+    .notification {
+    }
+
+        .notification .badge {
+            position: absolute;
+            top: -3px;
+            right: -10px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+
+
+
+
+    .tableFix th {
+        background-color: #d9d9d9;
+    }
+
+        .tableFix td:first-child, .tableFix th:first-child {
+            position: sticky;
+            right: 0;
+            z-index: 1;
+            background-color: #d9d9d9;
+        }
+
+
+        .tableFix td:last-child, .tableFix th:last-child {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background-color: white;
+        }
+
+    .tableFix thead tr th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .tableFix tfoot tr td {
+        position: sticky;
+        bottom: 0;
+        background-color: #efb683 !important;
     }
 
 
-
-
-.tableFix th {
-    background-color: #d9d9d9;
-}
-
-    .tableFix td:first-child, .tableFix th:first-child {
-        position: sticky;
-        right: 0;
-        z-index: 1;
+    .tableFix th:first-child, .tableFix th:last-child {
+        z-index: 2;
         background-color: #d9d9d9;
     }
 
 
-    .tableFix td:last-child, .tableFix th:last-child {
-        position: sticky;
-        left: 0;
-        z-index: 1;
-        background-color: white;
+
+
+
+
+
+    .tableFixList th {
+        background-color: #d9d9d9;
     }
 
-.tableFix thead tr th {
-    position: sticky;
-    top: 0;
-    z-index : 1;
-}
-
-.tableFix tfoot tr td {
-    position: sticky;
-    bottom: 0;
-    background-color: #efb683 !important;
-}
-
-
-.tableFix th:first-child, .tableFix th:last-child {
-    z-index: 2;
-    background-color: #d9d9d9;
-}
-
-
-
-
-
-
-
-.tableFixList th {
-    background-color: #d9d9d9;
-}
-
-    .tableFixList td:first-child, .tableFixList th:first-child {
-        /*position: sticky;
+        .tableFixList td:first-child, .tableFixList th:first-child {
+            /*position: sticky;
         right: 0;
         z-index: 1;
         background-color: #d9d9d9;*/
-    }
+        }
 
-    .tableFixList td:last-child, .tableFixList th:last-child {
-        /* position: sticky;
+        .tableFixList td:last-child, .tableFixList th:last-child {
+            /* position: sticky;
         left: 0;
         z-index: 1;
         background-color: white;*/
+        }
+
+    .tableFixList thead tr th {
+        position: sticky;
+        top: 0;
     }
 
-.tableFixList thead tr th {
-    position: sticky;
-    top: 0;
-}
-
-.tableFixList tfoot tr td {
-    position: sticky;
-    bottom: 0;
-    background-color: #efb683 !important;
-}
+    .tableFixList tfoot tr td {
+        position: sticky;
+        bottom: 0;
+        background-color: #efb683 !important;
+    }
 
 
-.tableFixList th:first-child, .tableFixList th:last-child {
-    z-index: 2;
-    background-color: #d9d9d9;
-}
+    .tableFixList th:first-child, .tableFixList th:last-child {
+        z-index: 2;
+        background-color: #d9d9d9;
+    }
 
 
 
-.ui-autocomplete {
-    font-family: Vazir;
-    font-size: 11px
-}
+    .ui-autocomplete {
+        font-family: Vazir;
+        font-size: 11px
+    }
 
 
-/*
+    /*
 
 .tableFix {
     overflow-y: auto;
@@ -1933,9 +1952,9 @@ th {
 
 
 
-input[type="checkbox"] {
-    mix-blend-mode: exclusion;
-}
+    input[type="checkbox"] {
+        mix-blend-mode: exclusion;
+    }
 
 
 
