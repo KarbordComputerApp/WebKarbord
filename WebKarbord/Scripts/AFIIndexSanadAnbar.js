@@ -1273,7 +1273,7 @@
     });
 
     self.DeleteIDocH = function (SanadBand) {
-        if (TestUseSanad("SanadAnbar", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadAnbar", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1390,7 +1390,7 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad("SanadAnbar", item.SerialNumber, true, item.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadAnbar", item.SerialNumber, true, item.DocNo) == true) {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1513,7 +1513,7 @@
 
             var data = response[0];
 
-            if (TestUseSanad("SanadAnbar", data.SerialNumber, true, data.DocNo) == true) {
+            if (TestUseSanad(ace, sal,"SanadAnbar", data.SerialNumber, true, data.DocNo) == true) {
               //  showNotification('در تب دیگری وجود دارد', 0)
             }
             else {
@@ -1860,7 +1860,7 @@
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad("SanadAnbar", serial, true, item.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadAnbar", serial, true, item.DocNo) == true) {
            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {

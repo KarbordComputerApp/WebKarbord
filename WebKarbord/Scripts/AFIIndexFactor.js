@@ -1069,7 +1069,7 @@
 
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
-        if (TestUseSanad("Factor", serial, true,item.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"Factor", serial, true,item.DocNo) == true) {
            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1985,7 +1985,7 @@
 
     self.DeleteFactor = function (factorBand) {
 
-        if (TestUseSanad("Factor", factorBand.SerialNumber, false, factorBand.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"Factor", factorBand.SerialNumber, false, factorBand.DocNo) == true) {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -2414,7 +2414,7 @@
 
     self.UpdateHeader = function (item) {
 
-        if (TestUseSanad("Factor", item.SerialNumber, true, item.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"Factor", item.SerialNumber, true, item.DocNo) == true) {
            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -2614,7 +2614,7 @@
 
             var data = response[0];
 
-            if (TestUseSanad("Factor", data.SerialNumber, true, data.DocNo) == true) {
+            if (TestUseSanad(ace, sal,"Factor", data.SerialNumber, true, data.DocNo) == true) {
                // showNotification('در تب دیگری وجود دارد', 0)
             }
             else {

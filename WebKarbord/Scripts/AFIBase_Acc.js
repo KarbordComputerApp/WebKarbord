@@ -1294,7 +1294,7 @@
         $("#Code").focus();
 
         AccCode = item.Code;
-        if (TestUseSanad("Acc", AccCode, true, '') == true) {
+        if (TestUseSanad(ace, sal, "Acc", AccCode, true, '') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1441,7 +1441,7 @@
     self.DeleteAcc = function (item) {
 
         AccCode = item.Code;
-        if (TestUseSanad("Acc", AccCode, false, '') == true) {
+        if (TestUseSanad(ace, sal,"Acc", AccCode, false, '') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {

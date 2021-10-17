@@ -4415,7 +4415,7 @@ $("#AccessRefresh").click(function () {
 
 
 
-function TestUseSanad(FormName, Id, Insert, docNo) {
+function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
     var listUse = localStorage.getItem("list" + FormName + "Use");
     if (listUse == null) {
         localStorage.setItem("list" + FormName + "Use", "0");
@@ -4500,10 +4500,10 @@ function TestUseSanad(FormName, Id, Insert, docNo) {
                     // ذخیره سند باز شده در ویندوز
                     SaveDocInUseUri = server + '/api/Web_Data/SaveDocInUse/';
                     var SaveDocInUseObject = {
-                        Prog: ace,
+                        Prog: prog,
                         DMode: dMode,
                         GroupNo: group,
-                        Year: sal,
+                        Year: year,
                         SerialNumber: Id,
                         DocNo: docNo
                     };

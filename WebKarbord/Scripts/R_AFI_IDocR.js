@@ -2476,7 +2476,7 @@
 
 
     self.ShowAFISanadAnbar = function(Band) {
-        if (TestUseSanad("SanadAnbar", Band.SerialNumber, true, Band.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadAnbar", Band.SerialNumber, true, Band.DocNo) == true) {
            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {

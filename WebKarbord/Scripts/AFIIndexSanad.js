@@ -333,7 +333,7 @@
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad("SanadHesab", serial, true, item.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadHesab", serial, true, item.DocNo) == true) {
            // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
@@ -827,7 +827,7 @@
 
 
     self.DeleteSanad = function (SanadBand) {
-        if (TestUseSanad("SanadHesab", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadHesab", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
            // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
@@ -963,7 +963,7 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad("SanadHesab", item.SerialNumber, true, item.DocNo) == true) {
+        if (TestUseSanad(ace, sal,"SanadHesab", item.SerialNumber, true, item.DocNo) == true) {
            // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1069,7 +1069,7 @@
 
             var data = response[0];
 
-            if (TestUseSanad("SanadHesab", data.SerialNumber, true, data.DocNo) == true) {
+            if (TestUseSanad(ace, sal,"SanadHesab", data.SerialNumber, true, data.DocNo) == true) {
                // showNotification('سند در تب دیگری وجود دارد', 0)
             }
             else {
