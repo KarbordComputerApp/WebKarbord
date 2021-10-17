@@ -635,7 +635,7 @@ afiaccess = [false, false, false, false, false, false, false, false, false, fals
     false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
 
-for (var i = 0; i <= 28; i++) {
+for (var i = 0; i <= 29; i++) {
     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -666,6 +666,7 @@ for (var i = 0; i <= 28; i++) {
     afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
     afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
     afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
+    afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
 }
 
 function CheckGroupErj(GroupName) {
@@ -1605,7 +1606,7 @@ function getAccessList(GoHome) {
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 28; i++) {
+                for (var i = 0; i <= 29; i++) {
                     afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                     afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                     afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -1636,6 +1637,7 @@ function getAccessList(GoHome) {
                     afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
                     afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
                     afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
+                    afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
                 }
 
                 erjaccess = [false, false]
@@ -1838,9 +1840,12 @@ function SetValidation() {
 
     validation = CheckAccess('KALA');
     ShowMenu[31] = validation;  // کالاها
+
     validation = CheckAccess('CUST');
     ShowMenu[32] = validation;  // خریداران / فروشندگان
 
+    validation = CheckAccess('ACC');
+    ShowMenu[33] = validation;  // حساب ها
 
     //localStorage.setItem("", );
     localStorage.setItem("FDoc_REP_PRICE", CheckAccessReport('FDoc_REP_PRICE')); // خرید و فروش دسترسی مبلغ در گزارشات
@@ -2726,11 +2731,12 @@ function SetValidation() {
 
 
 
-    if (afiaccess[27] == true || afiaccess[28] == true) {
-        if (ShowMenu[31] || ShowMenu[32]) {
+    if (afiaccess[27] == true || afiaccess[28] == true || afiaccess[29] == true) {
+        if (ShowMenu[31] || ShowMenu[32] || ShowMenu[33]) {
             $("#Base_Menu").show();
             (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
             (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
+            (ShowMenu[33] == true) && (afiaccess[29] == true) ? $("#BaseAcc").show() : $("#BaseAcc").hide();
         }
         else {
             $("#Base_Menu").hide();

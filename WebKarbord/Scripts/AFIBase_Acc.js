@@ -5,7 +5,8 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.AGruList = ko.observableArray([]); // ليست گروه حساب ها
-    self.TestAcc_DeleteList = ko.observableArray([]); // لیست تست حذف 
+    self.TestAccList = ko.observableArray([]); // لیست تست  
+    self.ZGruList = ko.observableArray([]); // ليست زیر حساب ها ها
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها 
@@ -13,21 +14,23 @@
     var AGruUri = server + '/api/Web_Data/AGru/'; // آدرس گروه حساب ها
     var SaveAccUri = server + '/api/Web_Data/AFI_SaveAcc/'; // آدرس ذخیره حساب ها
     var DelAccUri = server + '/api/Web_Data/AFI_DelAcc/'; // آدرس حذف حساب ها
-    var Acc_DeleteUri = server + '/api/Web_Data/TestAcc_Delete/'; // آدرس تست حذف 
+    var TestAcc_DeleteUri = server + '/api/Web_Data/TestAcc_Delete/'; // آدرس تست حذف 
+    var TestAccUri = server + '/api/Web_Data/TestAcc/'; // آدرس تست  
+    var ZGruUri = server + '/api/Web_Data/ZGru/'; // آدرس گروه زیر حساب ها 
 
 
     TestUser();
 
 
 
-    validation = CheckAccess('NEW_Acc');// New Acc
+    validation = CheckAccess('NEW_ACC');// New Acc
     sessionStorage.NEW_Acc = validation;
     validation == true ? $("#AddNewAcc").show() : $("#AddNewAcc").hide()
 
-    validation = CheckAccess('CHG_Acc');// edit Acc
+    validation = CheckAccess('CHG_ACC');// edit Acc
     sessionStorage.CHG_Acc = validation;
 
-    validation = CheckAccess('DEL_Acc'); // delete Acc
+    validation = CheckAccess('DEL_ACC'); // delete Acc
     sessionStorage.DEL_Acc = validation;
 
     self.ShowAction = function (Code) {
@@ -41,6 +44,11 @@
 
     var aGruCode = '';
     var AccCode = '';
+
+    var ZGruCode = '';
+    var counterZGru = 0;
+    var list_ZGruSelect = new Array();
+    var list_ZGruNameSelect = new Array();
 
     var isUpdate = false;
 
@@ -130,6 +138,17 @@
             self.ExtraFieldsList(data);
         });
     }
+
+    //Get ZGru List
+    function getZGruList() {
+        ajaxFunction(ZGruUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+            self.ZGruList(data);
+        });
+    }
+
+    getZGruList();
+
+
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Acc", columns, self.SettingColumnList());
@@ -789,11 +808,231 @@
 
 
 
+
+
+
+    self.currentPageZGru = ko.observable();
+    pageSizeZGru = localStorage.getItem('pageSizeZGru') == null ? 10 : localStorage.getItem('pageSizeZGru');
+    self.pageSizeZGru = ko.observable(pageSizeZGru);
+    self.currentPageIndexZGru = ko.observable(0);
+
+    self.filterZGru0 = ko.observable("");
+    self.filterZGru1 = ko.observable("");
+    self.filterZGru2 = ko.observable("");
+
+    self.filterZGruList = ko.computed(function () {
+
+        self.currentPageIndexZGru(0);
+        var filter0 = self.filterZGru0().toUpperCase();
+        var filter1 = self.filterZGru1();
+        var filter2 = self.filterZGru2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ZGruList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ZGruList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageZGru = ko.computed(function () {
+        var pageSizeZGru = parseInt(self.pageSizeZGru(), 10),
+            startIndex = pageSizeZGru * self.currentPageIndexZGru(),
+            endIndex = startIndex + pageSizeZGru;
+        localStorage.setItem('pageSizeZGru', pageSizeZGru);
+        return self.filterZGruList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageZGru = function () {
+        if (((self.currentPageIndexZGru() + 1) * self.pageSizeZGru()) < self.filterZGruList().length) {
+            self.currentPageIndexZGru(self.currentPageIndexZGru() + 1);
+        }
+    };
+
+    self.previousPageZGru = function () {
+        if (self.currentPageIndexZGru() > 0) {
+            self.currentPageIndexZGru(self.currentPageIndexZGru() - 1);
+        }
+    };
+
+    self.firstPageZGru = function () {
+        self.currentPageIndexZGru(0);
+    };
+
+    self.lastPageZGru = function () {
+        countZGru = parseInt(self.filterZGruList().length / self.pageSizeZGru(), 10);
+        if ((self.filterZGruList().length % self.pageSizeZGru()) == 0)
+            self.currentPageIndexZGru(countZGru - 1);
+        else
+            self.currentPageIndexZGru(countZGru);
+    };
+
+    self.sortTableZGru = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ZGruList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshZGru').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست گروه زیر حساب ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                getZGruList();
+            }
+        })
+    })
+
+
+    self.AddZGru = function (item) {
+
+        ZGruCode = item.Code;
+        find = false;
+        list_ZGruSelect.forEach(function (item, key) {
+            if (item == ZGruCode) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListZGru').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Code">' + item.Code + '</td > '
+                + ' <td data-bind="text: Name">' + item.Name + '</td > '
+                + '</tr>'
+            );
+            list_ZGruSelect[counterZGru] = item.Code;
+            list_ZGruNameSelect[counterZGru] = item.Name;
+            counterZGru = counterZGru + 1;
+        }
+    };
+
+
+    self.AddAllZGru = function () {
+        list_ZGruSelect = new Array();
+        list_ZGruNameSelect = new Array();
+        list = self.ZGruList();
+        $("#TableBodyListZGru").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListZGru').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
+                + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
+                + '</tr>'
+            );
+            list_ZGruSelect[i] = list[i].Code;
+            list_ZGruNameSelect[i] = list[i].Name;
+            counterZGru = i + 1;
+        }
+    };
+
+
+    self.DelAllZGru = function () {
+        list_ZGruSelect = new Array();
+        list_ZGruNameSelect = new Array();
+        counterZGru = 0;
+        $("#TableBodyListZGru").empty();
+    };
+
+
+    $('#modal-ZGru').on('hide.bs.modal', function () {
+        if (counterZGru > 0)
+            $('#nameZGru').val(counterZGru + ' مورد انتخاب شده ')
+        else
+            $('#nameZGru').val('');
+    });
+
+    $('#modal-ZGru').on('shown.bs.modal', function () {
+        $("#TableBodyListZGru").empty();
+
+        if (ZGruCode != '') {
+            list_ZGruSelect = ZGruCode.split(",");
+            counterZGru = list_ZGruSelect.length;
+
+
+            for (var i = 0; i < counterZGru; i++) {
+                if (list_ZGruSelect[i] != "") {
+
+                    value = ko.utils.arrayFirst(self.ZGruList(), function (item) {
+                        return item.Code == list_ZGruSelect[i];
+                    });
+
+                    $('#TableBodyListZGru').append(
+                        '<tr data-bind="">'
+                        + ' <td data-bind="text: Code">' + list_ZGruSelect[i] + '</td > '
+                        + ' <td data-bind="text: Name">' + value.Name + '</td > '
+                        + '</tr>'
+                    );
+                }
+                else {
+                    counterZGru = 0;
+                    list_ZGruSelect = [];
+                }
+
+            }
+        }
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
     self.AddNewAcc = function () {
 
         isUpdate = false;
         sessionStorage.NEW_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         aGruCode = '';
+        ZGruCode = '';
+        counterZGru = 0;
+        list_ZGruSelect = new Array();
 
         $('#Code').attr('readonly', false);
         $('#Code').val('');
@@ -813,8 +1052,10 @@
         $('#Amount').val(0);
         $('#Vahed').val('');
         $('#Deghat').val('');
-
         $('#P_Amount').hide();
+
+        $('#nameZGru').val('');
+        $('#NextLevelFromZAcc').val(0);
         $('#P_ZGru').hide();
 
         $('#ExtraFields1').val('');
@@ -870,17 +1111,35 @@
         $('#Amount').val(item.Amount);
         $('#Vahed').val(item.Vahed);
         $('#Deghat').val(item.Deghat);
-        if (item.Amount == 0) 
+        if (item.Amount == 0) {
+            $('#Vahed').val('');
+            $('#Deghat').val(0);
             $('#P_Amount').hide();
-        else
+        }
+        else {
             $('#P_Amount').show();
-       
+        }
+
+        $('#nameZGru').val('');
+
+        ZGruCode = '';
+        counterZGru = 0;
+        list_ZGruSelect = new Array();
 
         $('#NextLevelFromZAcc').val(item.NextLevelFromZAcc);
-        if (item.NextLevelFromZAcc == 0)
+        if (item.NextLevelFromZAcc == 0) {
             $('#P_ZGru').hide();
-        else
+        }
+        else {
+
+            ZGruCode = item.ZGru;
+            if (ZGruCode != '') {
+                list_ZGruSelect = ZGruCode.split(",");
+                counterZGru = list_ZGruSelect.length;
+                $('#nameZGru').val(counterZGru + ' مورد انتخاب شده ')
+            }
             $('#P_ZGru').show();
+        }
 
         sessionStorage.F01 = item.AccF01;
         sessionStorage.F02 = item.AccF02;
@@ -947,7 +1206,7 @@
         $("#Code").focus();
 
         AccCode = item.Code;
-        if (TestUseSanad("Acc", AccCode, true,'') == true) {
+        if (TestUseSanad("Acc", AccCode, true, '') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1006,65 +1265,90 @@
             }
         }
 
-        var SaveAcc_Object = {
-            BranchCode: 0,
-            UserCode: sessionStorage.userName,
-            Code: code,
-            Name: name,
-            Spec: $('#Spec').val(),
-            LtnName: $('#LtnName').val(),
-            AGruCode: aGruCode,
+        zgrucode = '';
+        for (var i = 0; i <= counterZGru - 1; i++) {
+            if (i < counterZGru - 1)
+                zgrucode += list_ZGruSelect[i] + ',';
+            else
+                zgrucode += list_ZGruSelect[i];
+        }
 
-            PDMode: $('#PDMode').val(),
-            Mahiat: $('#Mahiat').val(),
-            AccStatus: $('#AccStatus').val(),
-            EMail: $('#EMail').val(),
-            Mobile: $('#Mobile').val(),
-            NextLevelFromZAcc: $('#NextLevelFromZAcc').val(),
-            //ZGru: $('#HasChild').val(),
-            Arzi: $('#Arzi').val(),
-            Mkz: $('#Mkz').val(),
-            Opr: $('#Opr').val(),
-            Amount: $('#Amount').val(),
-            Vahed: $('#Vahed').val(),
-            Deghat: $('#Deghat').val(),
-            AccComm: $('#AccComm').val(),
 
-            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
-            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
-            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
-            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
-            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
-            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
-            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
-            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
-            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
-            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
-            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+
+        var TestAcc_Object = {
+            Code: code
         };
 
-        ajaxFunction(SaveAccUri + ace + '/' + sal + '/' + group, 'POST', SaveAcc_Object).done(function (data) {
-            getAccList();
-            $('#modal-Acc').modal('hide');
-            showNotification('ذخيره شد ', 1);
-        });
+        ajaxFunction(TestAccUri + ace + '/' + sal + '/' + group, 'POST', TestAcc_Object).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestAccList(obj);
+            if (data.length > 2) {
+                $('#modal-Test').modal('show');
+                SetDataTestAcc(false);
+            }
+            else {
 
+
+                var SaveAcc_Object = {
+                    BranchCode: 0,
+                    UserCode: sessionStorage.userName,
+                    Code: code,
+                    Name: name,
+                    Spec: $('#Spec').val(),
+                    LtnName: $('#LtnName').val(),
+                    AGruCode: aGruCode,
+
+                    PDMode: $('#PDMode').val(),
+                    Mahiat: $('#Mahiat').val(),
+                    AccStatus: $('#AccStatus').val(),
+                    EMail: $('#EMail').val(),
+                    Mobile: $('#Mobile').val(),
+                    NextLevelFromZAcc: $('#NextLevelFromZAcc').val(),
+                    ZGru: zgrucode,
+                    Arzi: $('#Arzi').val(),
+                    Mkz: $('#Mkz').val(),
+                    Opr: $('#Opr').val(),
+                    Amount: $('#Amount').val(),
+                    Vahed: $('#Vahed').val(),
+                    Deghat: $('#Deghat').val(),
+                    AccComm: $('#AccComm').val(),
+
+                    F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+                    F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+                    F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+                    F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+                    F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+                    F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+                    F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+                    F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+                    F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+                    F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+                    F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+                    F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+                    F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+                    F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+                    F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+                    F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+                    F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+                    F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+                    F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+                    F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+                };
+
+                ajaxFunction(SaveAccUri + ace + '/' + sal + '/' + group, 'POST', SaveAcc_Object).done(function (data) {
+                    getAccList();
+                    $('#modal-Acc').modal('hide');
+                    showNotification('ذخيره شد ', 1);
+                });
+            }
+        });
     });
 
 
     self.DeleteAcc = function (item) {
 
         AccCode = item.Code;
-        if (TestUseSanad("Acc", AccCode, false,'') == true) {
+        if (TestUseSanad("Acc", AccCode, false, '') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1082,33 +1366,34 @@
             }).then((result) => {
                 if (result.value) {
                     code = item.Code;
-                    /*var TestAcc_DeleteObject = {
+                    var TestAcc_DeleteObject = {
                         Code: code
                     };
 
-                    ajaxFunction(Acc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestAcc_DeleteObject).done(function (data) {
+                    ajaxFunction(TestAcc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestAcc_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
-                        self.TestAcc_DeleteList(obj);
+                        self.TestAccList(obj);
                         if (data.length > 2) {
-                            $('#modal-TestDelete').modal('show');
-                            SetDataTestAcc();
+                            $('#modal-Test').modal('show');
+                            SetDataTestAcc(true);
                         }
                         else {
-                           
+                            DeleteAcc(code);
                         }
-                    });*/
-                    DeleteAcc(code);
+                    });
                 }
             })
         }
     };
 
-    function SetDataTestAcc() {
-        $("#BodyTestAcc_Delete").empty();
+    function SetDataTestAcc(deleteAcc) {
+
+        $("#BodyTestAcc").empty();
+        deleteAcc == true ? $("#titleTestAcc").text('حذف حساب') : $("#titleTestAcc").text('ذخیره حساب');
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestAcc_DeleteList();
+        list = self.TestAccList();
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +
@@ -1132,7 +1417,7 @@
                 '</div>';
         }
 
-        $('#BodyTestAcc_Delete').append(textBody);
+        $('#BodyTestAcc').append(textBody);
 
         $('#CountWarning').text(countWarning);
         $('#CountError').text(countError);
