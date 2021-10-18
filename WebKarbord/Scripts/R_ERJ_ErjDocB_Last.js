@@ -228,13 +228,21 @@
     }
 
     //Get ErjResult List
-    function getErjResultList(serialNumber, bMode, toUser) {
-        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber + '/' + bMode + '/' + toUser, 'GET').done(function (data) {
+    function getErjResultList(serialNumber, bMode, toUser, band) {
+        var ErjResultObject = {
+            SerialNumber: serialNumber,
+            BandNo: band,
+            DocBMode: bMode,
+            ToUserCode: toUser,
+        }
+
+        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
             if (bMode == null)
                 self.ErjResultList(data);
             item = data[0];
-            bandNo = item.BandNo;
-            $("#Result").val(item.RjResult);
+                bandNo = item.BandNo;
+                $("#Result").val(item.RjResult);
+           
         });
     }
 
@@ -1715,7 +1723,7 @@
             
 
             //getErjResultList(serialnumber, docBMode, self.ToUserCode());
-            getErjResultList(serialnumber, null, null)
+            getErjResultList(serialnumber, null, null,null)
 
         });
     }

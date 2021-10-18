@@ -1150,12 +1150,8 @@
         $('#modal-Acc').modal('show');
     }
 
-    self.UpdateAcc = function (item) {
-        sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
-        isUpdate = true;
-        flag_Save = false;
 
-        //item.EditBaseTrs == true && sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
+    function SetDataAcc(item) {
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -1294,6 +1290,155 @@
         $("#Code").focus();
 
         AccCode = item.Code;
+    }
+
+    self.UpdateAcc = function (item) {
+        sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
+        isUpdate = true;
+        flag_Save = false;
+
+        //item.EditBaseTrs == true && sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
+        /* $('#Code').val(item.Code);
+         $('#Code').attr('readonly', true);
+         $('#Name').val(item.Name);
+         $('#Spec').val(item.Spec);
+         $('#LtnName').val(item.LtnName);
+ 
+ 
+         $('#nameAGru').val(item.AGruCode == '' ? '' : '(' + item.AGruCode + ') ' + item.AGruName);
+         $('#PDMode').val(item.PDMode);
+         $('#Mahiat').val(item.Mahiat);
+         $('#AccStatus').val(item.AccStatus);
+         $('#EMail').val(item.EMail);
+         $('#Mobile').val(item.Mobile);
+         $('#AccComm').val(item.AccComm);
+         $('#Mkz').val(item.Mkz);
+         $('#Opr').val(item.Opr);
+         $('#Arzi').val(item.Arzi);
+         $('#Amount').val(item.Amount);
+         $('#Vahed').val(item.Vahed);
+         $('#Deghat').val(item.Deghat);
+         if (item.Amount == 0) {
+             $('#Vahed').val('');
+             $('#Deghat').val(0);
+             $('#P_Amount').hide();
+         }
+         else {
+             $('#P_Amount').show();
+         }
+ 
+         $('#nameZGru').val('');
+ 
+         ZGruCode = '';
+         counterZGru = 0;
+         list_ZGruSelect = new Array();
+ 
+         $('#NextLevelFromZAcc').val(item.NextLevelFromZAcc);
+         if (item.NextLevelFromZAcc == 0) {
+             $('#P_ZGru').hide();
+         }
+         else {
+ 
+             ZGruCode = item.ZGru;
+             if (ZGruCode != '') {
+                 list_ZGruSelect = ZGruCode.split(",");
+                 counterZGru = list_ZGruSelect.length;
+                 $('#nameZGru').val(counterZGru + ' مورد انتخاب شده ')
+             }
+             $('#P_ZGru').show();
+         }
+ 
+         aGruCode = item.AGruCode;
+ 
+         old_Code = item.Code;
+         old_Name = item.Name;
+         old_LtnName = item.LtnName;
+         old_Spec = item.Spec;
+         old_AGruCode = item.AGruCode;
+         old_PDMode = item.PDMode;
+         old_Mahiat = item.Mahiat;
+         old_AccStatus = item.AccStatus;
+         old_EMail = item.EMail;
+         old_Mobile = item.Mobile;
+         old_ZGru = item.ZGru;
+         old_Mkz = item.Mkz;
+         old_Opr = item.Opr;
+         old_Arzi = item.Arzi;
+         old_Amount = item.Amount;
+         old_Vahed = item.Vahed;
+         old_Deghat = item.Deghat;
+         old_AccComm = $('#AccComm').val();
+ 
+ 
+ 
+         sessionStorage.F01 = item.AccF01;
+         sessionStorage.F02 = item.AccF02;
+         sessionStorage.F03 = item.AccF03;
+         sessionStorage.F04 = item.AccF04;
+         sessionStorage.F05 = item.AccF05;
+         sessionStorage.F06 = item.AccF06;
+         sessionStorage.F07 = item.AccF07;
+         sessionStorage.F08 = item.AccF08;
+         sessionStorage.F09 = item.AccF09;
+         sessionStorage.F10 = item.AccF10;
+         sessionStorage.F11 = item.AccF11;
+         sessionStorage.F12 = item.AccF12;
+         sessionStorage.F13 = item.AccF13;
+         sessionStorage.F14 = item.AccF14;
+         sessionStorage.F15 = item.AccF15;
+         sessionStorage.F16 = item.AccF16;
+         sessionStorage.F17 = item.AccF17;
+         sessionStorage.F18 = item.AccF18;
+         sessionStorage.F19 = item.AccF19;
+         sessionStorage.F20 = item.AccF20;
+ 
+         $("#ExtraFields1").val(sessionStorage.AccF01);
+         $("#ExtraFields2").val(sessionStorage.AccF02);
+         $("#ExtraFields3").val(sessionStorage.AccF03);
+         $("#ExtraFields4").val(sessionStorage.AccF04);
+         $("#ExtraFields5").val(sessionStorage.AccF05);
+         $("#ExtraFields6").val(sessionStorage.AccF06);
+         $("#ExtraFields7").val(sessionStorage.AccF07);
+         $("#ExtraFields8").val(sessionStorage.AccF08);
+         $("#ExtraFields9").val(sessionStorage.AccF09);
+         $("#ExtraFields10").val(sessionStorage.AccF10);
+         $("#ExtraFields11").val(sessionStorage.AccF11);
+         $("#ExtraFields12").val(sessionStorage.AccF12);
+         $("#ExtraFields13").val(sessionStorage.AccF13);
+         $("#ExtraFields14").val(sessionStorage.AccF14);
+         $("#ExtraFields15").val(sessionStorage.AccF15);
+         $("#ExtraFields16").val(sessionStorage.AccF16);
+         $("#ExtraFields17").val(sessionStorage.AccF17);
+         $("#ExtraFields18").val(sessionStorage.AccF18);
+         $("#ExtraFields19").val(sessionStorage.AccF19);
+         $("#ExtraFields20").val(sessionStorage.AccF20);
+ 
+         $("#ExtraFields1").val(item.AccF01);
+         $("#ExtraFields2").val(item.AccF02);
+         $("#ExtraFields3").val(item.AccF03);
+         $("#ExtraFields4").val(item.AccF04);
+         $("#ExtraFields5").val(item.AccF05);
+         $("#ExtraFields6").val(item.AccF06);
+         $("#ExtraFields7").val(item.AccF07);
+         $("#ExtraFields8").val(item.AccF08);
+         $("#ExtraFields9").val(item.AccF09);
+         $("#ExtraFields10").val(item.AccF10);
+         $("#ExtraFields11").val(item.AccF11);
+         $("#ExtraFields12").val(item.AccF12);
+         $("#ExtraFields13").val(item.AccF13);
+         $("#ExtraFields14").val(item.AccF14);
+         $("#ExtraFields15").val(item.AccF15);
+         $("#ExtraFields16").val(item.AccF16);
+         $("#ExtraFields17").val(item.AccF17);
+         $("#ExtraFields18").val(item.AccF18);
+         $("#ExtraFields19").val(item.AccF19);
+         $("#ExtraFields20").val(item.AccF20);
+         $("#Code").focus();
+ 
+ 
+         AccCode = item.Code;*/
+
+        SetDataAcc(item);
         if (TestUseSanad(ace, sal, "Acc", AccCode, true, '') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
@@ -1332,7 +1477,7 @@
     };
 
 
-    function SaveParvandeh() {
+    function SaveAcc() {
         code = $('#Code').val();
         name = $('#Name').val();
 
@@ -1343,15 +1488,6 @@
             return showNotification('نام حساب را وارد کنید', 0)
         }
 
-        if (isUpdate == false) {
-            listCode = ko.utils.arrayFilter(self.AccList(), function (item) {
-                return item.Code == code;
-            });
-
-            if (listCode.length == 1) {
-                return showNotification('کد حساب تکراری', 0)
-            }
-        }
 
         zgrucode = '';
         for (var i = 0; i <= counterZGru - 1; i++) {
@@ -1434,14 +1570,14 @@
     }
 
     $('#saveAcc').click(function () {
-        SaveParvandeh();
+        SaveAcc();
     });
 
 
     self.DeleteAcc = function (item) {
 
         AccCode = item.Code;
-        if (TestUseSanad(ace, sal,"Acc", AccCode, false, '') == true) {
+        if (TestUseSanad(ace, sal, "Acc", AccCode, false, '') == true) {
             showNotification('حساب در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1642,7 +1778,7 @@
                     showCancelButton: true
                 }).then((result) => {
                     if (result.value == true) {
-                        SaveParvandeh();
+                        SaveAcc();
                         $('#modal-Acc').modal('hide');
                     } else if (result.dismiss == "cancel") {
                         $('#modal-Acc').modal('hide');
@@ -1665,6 +1801,24 @@
 
 
 
+
+
+    $("#Code").focusout(function () {
+        code = $("#Code").val();
+
+        if ($(this).attr('readonly') != 'readonly' && code != '') {
+
+            listCode = ko.utils.arrayFilter(self.AccList(), function (item) {
+                return item.Code == code;
+            });
+
+            if (listCode.length == 1) {
+                SetDataAcc(listCode[0]);
+                $("#Name").focus();
+            }
+        }
+
+    });
 
 
 

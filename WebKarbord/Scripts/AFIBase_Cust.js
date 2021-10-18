@@ -5,7 +5,7 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.CGruList = ko.observableArray([]); // ليست گروه خریداران/فروشندگان
-    self.TestCust_DeleteList = ko.observableArray([]); // لیست تست حذف 
+    self.TestCustList = ko.observableArray([]); // لیست تست حذف 
 
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس خریداران/فروشندگان 
@@ -13,7 +13,8 @@
     var CGruUri = server + '/api/Web_Data/CGru/'; // آدرس گروه خریداران/فروشندگان
     var SaveCustUri = server + '/api/Web_Data/AFI_SaveCust/'; // آدرس ذخیره خریداران/فروشندگان
     var DelCustUri = server + '/api/Web_Data/AFI_DelCust/'; // آدرس حذف خریداران/فروشندگان
-    var Cust_DeleteUri = server + '/api/Web_Data/TestCust_Delete/'; // آدرس تست حذف 
+    var TestCust_DeleteUri = server + '/api/Web_Data/TestCust_Delete/'; // آدرس تست حذف 
+    var TestCustUri = server + '/api/Web_Data/TestCust/'; // آدرس تست 
 
 
     TestUser();
@@ -735,11 +736,7 @@
         $('#modal-Cust').modal('show');
     }
 
-    self.UpdateCust = function (item) {
-       // sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
-        isUpdate = true;
-
-        item.EditBaseTrs == true && sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
+    function SetDataCust(item) {
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -828,10 +825,18 @@
         $("#ExtraFields18").val(item.CustF18);
         $("#ExtraFields19").val(item.CustF19);
         $("#ExtraFields20").val(item.CustF20);
-        $("#Code").focus();
+        //$("#Code").focus();
+    }
 
+    self.UpdateCust = function (item) {
+        // sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
+        isUpdate = true;
+
+        item.EditBaseTrs == true && sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
+
+        SetDataCust(item);
         custCode = item.Code;
-        if (TestUseSanad(ace, sal,"Cust", custCode,true,'') == true) {
+        if (TestUseSanad(ace, sal, "Cust", custCode, true, '') == true) {
             showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -848,7 +853,8 @@
     };
 
 
-    $('#saveCust').click(function () {
+    function SaveCust() {
+
         code = $('#Code').val();
         name = $('#Name').val();
         spec = $('#Spec').val();
@@ -871,7 +877,7 @@
             return showNotification('نام خریدار/فروشنده را وارد کنید', 0)
         }
 
-        if (isUpdate == false) {
+        /*if (isUpdate == false) {
             listCode = ko.utils.arrayFilter(self.CustList(), function (item) {
                 return item.Code == code;
             });
@@ -879,66 +885,86 @@
             if (listCode.length == 1)  {
                 return showNotification('کد خریدار/فروشنده تکراری', 0)
             }
-        }
+        }*/
 
-        var SaveCust_Object = {
-            BranchCode: 0,
-            UserCode: sessionStorage.userName,
-            Code: $('#Code').val(),
-            Name: $('#Name').val(),
-            Spec: $('#Spec').val(),
-            MelliCode: melliCode,
-            EcoCode: ecoCode,
-            Ostan: $('#Ostan').val(),
-            Shahrestan: $('#Shahrestan').val(),
-            Region: $('#Region').val(),
-            City: $('#City').val(),
-            Street: $('#Street').val(),
-            Alley: $('#Alley').val(),
-            Plack: $('#Plack').val(),
-            ZipCode: $('#ZipCode').val(),
-            Tel: $('#Tel').val(),
-            Mobile: $('#Mobile').val(),
-            Fax: $('#Fax').val(),
-            EtebarNaghd: $('#EtebarNaghd').val(),
-            EtebarCheck: $('#EtebarCheck').val(),
-            CGruCode: cGruCode,
-            Email: $('#Email').val(),
-            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
-            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
-            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
-            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
-            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
-            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
-            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
-            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
-            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
-            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
-            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+        var TestCust_Object = {
+            Code: code
         };
 
-        ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
-            getCustList();
-            $('#modal-Cust').modal('hide');
-            showNotification('ذخيره شد ', 1);
+
+        ajaxFunction(TestCustUri + ace + '/' + sal + '/' + group, 'POST', TestCust_Object).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestCustList(obj);
+            if (data.length > 2) {
+                $('#modal-Test').modal('show');
+                SetDataTestCust(false);
+            }
+            else {
+
+                var SaveCust_Object = {
+                    BranchCode: 0,
+                    UserCode: sessionStorage.userName,
+                    Code: $('#Code').val(),
+                    Name: $('#Name').val(),
+                    Spec: $('#Spec').val(),
+                    MelliCode: melliCode,
+                    EcoCode: ecoCode,
+                    Ostan: $('#Ostan').val(),
+                    Shahrestan: $('#Shahrestan').val(),
+                    Region: $('#Region').val(),
+                    City: $('#City').val(),
+                    Street: $('#Street').val(),
+                    Alley: $('#Alley').val(),
+                    Plack: $('#Plack').val(),
+                    ZipCode: $('#ZipCode').val(),
+                    Tel: $('#Tel').val(),
+                    Mobile: $('#Mobile').val(),
+                    Fax: $('#Fax').val(),
+                    EtebarNaghd: $('#EtebarNaghd').val(),
+                    EtebarCheck: $('#EtebarCheck').val(),
+                    CGruCode: cGruCode,
+                    Email: $('#Email').val(),
+                    F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+                    F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+                    F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+                    F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+                    F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+                    F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+                    F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+                    F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+                    F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+                    F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+                    F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+                    F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+                    F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+                    F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+                    F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+                    F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+                    F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+                    F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+                    F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+                    F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+                };
+
+                ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
+                    getCustList();
+                    $('#modal-Cust').modal('hide');
+                    showNotification('ذخيره شد ', 1);
+                });
+            }
         });
 
-    });
+    };
 
+
+    $('#saveCust').click(function () {
+        SaveCust();
+    });
 
     self.DeleteCust = function (item) {
 
         custCode = item.Code;
-        if (TestUseSanad(ace, sal,"Cust", custCode,false,'') == true) {
+        if (TestUseSanad(ace, sal, "Cust", custCode, false, '') == true) {
             showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -960,12 +986,12 @@
                         Code: code
                     };
 
-                    ajaxFunction(Cust_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestCust_DeleteObject).done(function (data) {
+                    ajaxFunction(TestCust_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestCust_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
-                        self.TestCust_DeleteList(obj);
+                        self.TestCustList(obj);
                         if (data.length > 2) {
-                            $('#modal-TestDelete').modal('show');
-                            SetDataTestCust();
+                            $('#modal-Test').modal('show');
+                            SetDataTestCust(true);
                         }
                         else {
                             DeleteCust(code);
@@ -976,12 +1002,13 @@
         }
     };
 
-    function SetDataTestCust() {
-        $("#BodyTestCust_Delete").empty();
+    function SetDataTestCust(deleteCust) {
+        $("#BodyTestCust").empty();
+        deleteCust == true ? $("#titleTestCust").text('حذف خریدار/فروشنده') : $("#titleTestCust").text('ذخیره خریدار/فروشنده');
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestCust_DeleteList();
+        list = self.TestCustList();
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +
@@ -1005,7 +1032,7 @@
                 '</div>';
         }
 
-        $('#BodyTestCust_Delete').append(textBody);
+        $('#BodyTestCust').append(textBody);
 
         $('#CountWarning').text(countWarning);
         $('#CountError').text(countError);
@@ -1040,6 +1067,26 @@
 
 
 
+    $("#Code").focusout(function () {
+        code = $("#Code").val();
+
+        if ($(this).attr('readonly') != 'readonly' && code != '') {
+
+            listCode = ko.utils.arrayFilter(self.CustList(), function (item) {
+                return item.Code == code;
+            });
+
+            if (listCode.length == 1) {
+                SetDataCust(listCode[0]);
+                $("#Name").focus();
+            }
+        }
+
+    });
+
+
+
+
 
     self.radif = function (index) {
         countShow = self.pageSizeCust();
@@ -1053,13 +1100,13 @@
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-        '       <tr data-bind="click: sortTableCust">' +
-        '<th>ردیف</th>' +
+            '       <tr data-bind="click: sortTableCust">' +
+            '<th>ردیف</th>' +
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('Eghdam', data) +
-           CreateTableTh('CustF01', data) +
+            CreateTableTh('CustF01', data) +
             CreateTableTh('CustF02', data) +
             CreateTableTh('CustF03', data) +
             CreateTableTh('CustF04', data) +
@@ -1084,7 +1131,7 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() } "  >' +
-        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
@@ -1121,7 +1168,7 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-        '<td style="background-color: #efb683;"></td>' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('Code', data) +
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
@@ -1145,8 +1192,8 @@
             CreateTableTdSearch('CustF17', data) +
             CreateTableTdSearch('CustF18', data) +
             CreateTableTdSearch('CustF19', data) +
-        CreateTableTdSearch('CustF20', data) +
-        '<td style="background-color: #efb683;"></td>' +
+            CreateTableTdSearch('CustF20', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -1160,7 +1207,7 @@
 
         //sortField = field == 'Code' ? 'SortCode' : field;// == 'Name' ? 'SortName' : field;
         sortField = field == 'Name' ? 'SortName' : field;// == 'Name' ? 'SortName' : field;
-         
+
 
         if (TextField == 0)
             text += 'Hidden ';

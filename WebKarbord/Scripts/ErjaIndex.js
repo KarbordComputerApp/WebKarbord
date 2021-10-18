@@ -308,15 +308,22 @@
     getErjUsersList(false);
 
     //Get ErjResult List
-    function getErjResultList(serialNumber, bMode, toUser) {
-        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/' + serialNumber + '/' + bMode + '/' + toUser, 'GET').done(function (data) {
+    function getErjResultList(serialNumber, bMode, toUser, band) {
+        var ErjResultObject = {
+            SerialNumber: serialNumber,
+            BandNo: band,
+            DocBMode: bMode,
+            ToUserCode: toUser,
+        }
+
+        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
             if (bMode == null)
                 self.ErjResultList(data);
 
             item = data[0];
-            if (item != null) {
+            
                 bandNo = item.BandNo;
-            }
+     
             // $("#Result").val(item.RjResult);
         });
     }
@@ -2876,7 +2883,7 @@
 
                 docBMode = data["DocBMode"];
                 serialNumber = data["SerialNumber"];
-                getErjResultList(serialNumber, null, null)
+                getErjResultList(serialNumber, null, null,null)
                 getErjDocErja(serialNumber);
 
 
@@ -3037,7 +3044,7 @@
 
             docBMode = item.DocBMode;
             serialNumber = item.SerialNumber;
-            getErjResultList(serialNumber, null, null)
+            getErjResultList(serialNumber, null, null,null)
             getErjDocErja(serialNumber);
 
 

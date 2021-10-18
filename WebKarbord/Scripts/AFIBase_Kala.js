@@ -5,7 +5,7 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.KGruList = ko.observableArray([]); // ليست گروه کالاها
-    self.TestKala_DeleteList = ko.observableArray([]); // لیست تست حذف 
+    self.TestKalaList = ko.observableArray([]); // لیست تست حذف 
 
 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
@@ -13,8 +13,8 @@
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var SaveKalaUri = server + '/api/Web_Data/AFI_SaveKala/'; // آدرس ذخیره کالا
     var DelKalaUri = server + '/api/Web_Data/AFI_DelKala/'; // آدرس حذف کالا
-    var Kala_DeleteUri = server + '/api/Web_Data/TestKala_Delete/'; // آدرس تست حذف 
-
+    var TestKala_DeleteUri = server + '/api/Web_Data/TestKala_Delete/'; // آدرس تست حذف 
+    var TestKalaUri = server + '/api/Web_Data/TestKala/'; // آدرس تست 
     TestUser();
 
 
@@ -735,9 +735,8 @@
         $('#modal-Kala').modal('show');
     }
 
-    self.UpdateKala = function (item) {
-        isUpdate = true;
-        sessionStorage.CHG_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
+
+    function SetDataKala(item) {
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -841,7 +840,16 @@
         $("#ExtraFields19").val(item.KalaF19);
         $("#ExtraFields20").val(item.KalaF20);
 
-        $("#Code").focus();
+    }
+
+    self.UpdateKala = function (item) {
+        isUpdate = true;
+        sessionStorage.CHG_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
+
+
+        SetDataKala(item);
+
+        // $("#Code").focus();
 
         /*var listKalaUse = localStorage.getItem("listKalaUse");
         kalaCode = item.Code;
@@ -863,7 +871,7 @@
             $('#modal-Kala').modal('show');
         }*/
         kalaCode = item.Code;
-        if (TestUseSanad(ace, sal,"Kala", kalaCode,true,'') == true) {
+        if (TestUseSanad(ace, sal, "Kala", kalaCode, true, '') == true) {
             showNotification('کالا در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -887,7 +895,7 @@
     });
 
 
-   
+
 
 
 
@@ -911,8 +919,7 @@
     })
 
 
-
-    $('#saveKala').click(function () {
+    function SaveKala() {
         code = $('#Code').val();
         name = $('#Name').val();
 
@@ -923,85 +930,103 @@
             return showNotification('نام کالا را وارد کنید', 0)
         }
 
-        if (isUpdate == false) {
-            listCode = ko.utils.arrayFilter(self.KalaList(), function (item) {
-                return item.Code == code;
-            });
-
-            if (listCode.length == 1) {
-                return showNotification('کد کالا تکراری', 0)
-            }
-        }
+        /* if (isUpdate == false) {
+             listCode = ko.utils.arrayFilter(self.KalaList(), function (item) {
+                 return item.Code == code;
+             });
+ 
+             if (listCode.length == 1) {
+                 return showNotification('کد کالا تکراری', 0)
+             }
+         }*/
 
         if ($('#DefaultUnit1').css('display') == 'block') defaultUnit = 1;
         else if ($('#DefaultUnit2').css('display') == 'block') defaultUnit = 2;
         else if ($('#DefaultUnit3').css('display') == 'block') defaultUnit = 3;
 
 
-        var SaveKala_Object = {
-            BranchCode: 0,
-            UserCode: sessionStorage.userName,
-            Code: code,
-            Name: name,
-            FanniNo: $('#FanniNo').val(),
-            Spec: $('#Spec').val(),
-            KGruCode: kGruCode,
-            DefaultUnit: defaultUnit,
-            UnitName1: $('#UnitName1').val(),
-            UnitName2: $('#UnitName2').val(),
-            UnitName3: $('#UnitName3').val(),
-            /*Weight1: 1,
-            Weight2: 1,
-            Weight3: 1,
-            SPrice1: 1,
-            SPrice2: 1,
-            SPrice3: 1,
-            PPrice1: 1,
-            PPrice2: 1,
-            PPrice3: 1,*/
-            Zarib1: 1,//$('#zarib1').val(),
-            Zarib2: $('#zarib2').val(),
-            Zarib3: $('#zarib3').val(),
-            DeghatM1: $('#DeghatM1').val(),
-            DeghatM2: $('#DeghatM2').val(),
-            DeghatM3: $('#DeghatM3').val(),
-            DeghatR1: $('#DeghatR1').val(),
-            DeghatR2: $('#DeghatR2').val(),
-            DeghatR3: $('#DeghatR3').val(),
-            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
-            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
-            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
-            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
-            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
-            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
-            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
-            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
-            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
-            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
-            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
-            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+        var TestKala_Object = {
+            Code: code
         };
 
-        ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
-            getKalaList();
-            $('#modal-Kala').modal('hide');
-            showNotification('ذخيره شد ', 1);
-        });
+        ajaxFunction(TestKalaUri + ace + '/' + sal + '/' + group, 'POST', TestKala_Object).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestKalaList(obj);
+            if (data.length > 2) {
+                $('#modal-Test').modal('show');
+                SetDataTestKala(false);
+            }
+            else {
 
+                var SaveKala_Object = {
+                    BranchCode: 0,
+                    UserCode: sessionStorage.userName,
+                    Code: code,
+                    Name: name,
+                    FanniNo: $('#FanniNo').val(),
+                    Spec: $('#Spec').val(),
+                    KGruCode: kGruCode,
+                    DefaultUnit: defaultUnit,
+                    UnitName1: $('#UnitName1').val(),
+                    UnitName2: $('#UnitName2').val(),
+                    UnitName3: $('#UnitName3').val(),
+                    /*Weight1: 1,
+                    Weight2: 1,
+                    Weight3: 1,
+                    SPrice1: 1,
+                    SPrice2: 1,
+                    SPrice3: 1,
+                    PPrice1: 1,
+                    PPrice2: 1,
+                    PPrice3: 1,*/
+                    Zarib1: 1,//$('#zarib1').val(),
+                    Zarib2: $('#zarib2').val(),
+                    Zarib3: $('#zarib3').val(),
+                    DeghatM1: $('#DeghatM1').val(),
+                    DeghatM2: $('#DeghatM2').val(),
+                    DeghatM3: $('#DeghatM3').val(),
+                    DeghatR1: $('#DeghatR1').val(),
+                    DeghatR2: $('#DeghatR2').val(),
+                    DeghatR3: $('#DeghatR3').val(),
+                    F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+                    F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+                    F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+                    F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+                    F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+                    F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+                    F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+                    F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+                    F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+                    F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+                    F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+                    F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+                    F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+                    F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+                    F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+                    F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+                    F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+                    F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+                    F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+                    F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+                };
+
+                ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
+                    getKalaList();
+                    $('#modal-Kala').modal('hide');
+                    showNotification('ذخيره شد ', 1);
+                });
+            }
+        });
+    }
+
+    $('#saveKala').click(function () {
+        SaveKala();
     });
 
 
     self.DeleteKala = function (item) {
         kalaCode = item.Code;
-        if (TestUseSanad(ace, sal,"Kala", kalaCode,false,'') == true) {
+        if (TestUseSanad(ace, sal, "Kala", kalaCode, false, '') == true) {
             showNotification('کالا در تب دیگری در حال ویرایش است', 0)
         }
         else {
@@ -1022,12 +1047,12 @@
                         Code: code
                     };
 
-                    ajaxFunction(Kala_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestKala_DeleteObject).done(function (data) {
+                    ajaxFunction(TestKala_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestKala_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
-                        self.TestKala_DeleteList(obj);
+                        self.TestKalaList(obj);
                         if (data.length > 2) {
-                            $('#modal-TestDelete').modal('show');
-                            SetDataTestKala();
+                            $('#modal-Test').modal('show');
+                            SetDataTestKala(true);
                         }
                         else {
                             DeleteKala(code);
@@ -1039,12 +1064,13 @@
     };
 
 
-    function SetDataTestKala() {
-        $("#BodyTestKala_Delete").empty();
+    function SetDataTestKala(deleteKala) {
+        $("#BodyTestKala").empty();
+        deleteKala == true ? $("#titleTestKala").text('حذف کالا') : $("#titleTestKala").text('ذخیره کالا');
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestKala_DeleteList();
+        list = self.TestKalaList();
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +
@@ -1068,7 +1094,7 @@
                 '</div>';
         }
 
-        $('#BodyTestKala_Delete').append(textBody);
+        $('#BodyTestKala').append(textBody);
 
         $('#CountWarning').text(countWarning);
         $('#CountError').text(countError);
@@ -1103,6 +1129,25 @@
 
 
 
+
+
+
+    $("#Code").focusout(function () {
+        code = $("#Code").val();
+
+        if ($(this).attr('readonly') != 'readonly' && code != '') {
+
+            listCode = ko.utils.arrayFilter(self.KalaList(), function (item) {
+                return item.Code == code;
+            });
+
+            if (listCode.length == 1) {
+                SetDataKala(listCode[0]);
+                $("#Name").focus();
+            }
+        }
+
+    });
 
 
 
