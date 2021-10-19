@@ -333,11 +333,11 @@
             if (bMode == null)
                 self.ErjResultList(data);
             item = data[0];
-            
-                bandNo = item.BandNo;
-                $("#Result").val(item.RjResult);
-                old_RjResult = $("#Result").val();
-   
+
+            bandNo = item.BandNo;
+            $("#Result").val(item.RjResult);
+            old_RjResult = $("#Result").val();
+
         });
     }
 
@@ -1739,7 +1739,7 @@
 
 
             //getErjResultList(serialnumber, docBMode, self.ToUserCode());
-            getErjResultList(serialnumber, null, null,null)
+            getErjResultList(serialnumber, null, null, null)
 
         });
     }
@@ -1872,16 +1872,42 @@
         }
 
         ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
-            if (data[0].RjResult != '') {
-                $('#p_Result').css('display', 'block');
-                $('#e_Result2').val(data[0].RjResult);
-               
+            $("#p_Result").empty();
+            counter = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].RjResult != '') {
+                    counter++;
+                    html =
+                        '<div class="header" style="background-color: #f5d3b4;">' +
+                        '    <div class="row form-inline modal-header" style="padding:0px;">' +
+                        '        <h6>';
+                    if (data[i].DocBMode == 1) {
+                        html += ' نتیجه رونوشت از ' + data[i].ToUserName;
+                    }
+                    else {
+                        html += ' نتیجه ارجاع از ' + data[i].ToUserName
+                    }
+                    html +=
+                        '</h6>' +
+                        '    </div>' +
+                        '</div>' +
+                        '<div class="body" style="padding:5px;">' +
+                        '    <div class="form-group" style="margin-bottom: 0.5rem;">' +
+                        '        <div class="form-line">' +
+                        '            <textarea class="form-control no-resize auto-growth string" style="border-bottom-width:0px;" readonly>' + data[i].RjResult + '</textarea>' +
+                        '        </div>' +
+                        '    </div>' +
+                        '</div>'
+                    $('#p_Result').append(html);
+                }
             }
-           
+            if (counter > 0) {
+                $('#p_Result').css('display', 'block');
+            }
         });
 
 
-                
+
 
 
         $('#e_Result').val(result.RjComm);
@@ -2027,7 +2053,7 @@
             flag_IsChange27 = (($("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val()) != sessionStorage.F20);
 
             flag_IsChange28 = ($("#Result").val() != old_RjResult);
-            
+
 
 
             if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
@@ -2055,7 +2081,7 @@
                     if (result.value == true) {
                         SaveParvandeh();
                         $('#modal-ErjDocErja').modal('hide');
-                    } else if(result.dismiss == "cancel") {
+                    } else if (result.dismiss == "cancel") {
                         $('#modal-ErjDocErja').modal('hide');
                     }
                 })
@@ -2288,14 +2314,14 @@
             flag_IsChange3 = (self.ErjUsersCode() != old_CodeErjBe);
             flag_IsChange4 = (list_ErjUsersRoneveshtSelect != old_CodeRoneveshtBe);
             flag_IsChange5 = ($("#RjMhltDate").val() != old_RjMhltDate);
-            flag_IsChange6 = ($("#RjTime_M").val()  != old_RjTime_M);
-            flag_IsChange7 = ($("#RjTime_H").val()  != old_RjTime_H);
+            flag_IsChange6 = ($("#RjTime_M").val() != old_RjTime_M);
+            flag_IsChange7 = ($("#RjTime_H").val() != old_RjTime_H);
 
 
-                      
+
 
             if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
-                flag_IsChange7 ) {
+                flag_IsChange7) {
                 Swal.fire({
                     title: 'ثبت تغییرات',
                     text: "ارجاع تغییر کرده است آیا ذخیره شود ؟",

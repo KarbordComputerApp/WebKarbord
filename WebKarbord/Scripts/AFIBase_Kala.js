@@ -923,9 +923,9 @@
         code = $('#Code').val();
         name = $('#Name').val();
 
-        if (code == "") {
-            return showNotification('کد کالا را وارد کنید', 0)
-        }
+        //if (code == "") {
+        //    return showNotification('کد کالا را وارد کنید', 0)
+       // }
         if (name == "") {
             return showNotification('نام کالا را وارد کنید', 0)
         }

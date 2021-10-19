@@ -870,9 +870,9 @@
             return showNotification('طول کد اقتصادی نادرست است', 0)
         }
 
-        if (code == "") {
-            return showNotification('کد خریدار/فروشنده را وارد کنید', 0)
-        }
+        //if (code == "") {
+        //    return showNotification('کد خریدار/فروشنده را وارد کنید', 0)
+        //}
         if (name == "") {
             return showNotification('نام خریدار/فروشنده را وارد کنید', 0)
         }

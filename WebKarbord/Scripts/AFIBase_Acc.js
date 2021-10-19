@@ -1481,9 +1481,9 @@
         code = $('#Code').val();
         name = $('#Name').val();
 
-        if (code == "") {
-            return showNotification('کد حساب را وارد کنید', 0)
-        }
+        //if (code == "") {
+        //    return showNotification('کد حساب را وارد کنید', 0)
+        //}
         if (name == "") {
             return showNotification('نام حساب را وارد کنید', 0)
         }
