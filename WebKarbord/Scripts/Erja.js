@@ -1757,9 +1757,13 @@
     })
 
 
+    $('#erja').click(function () {
+         $('#p_Result').css('display', 'none');
+        $('#modal-Erja').modal('show');
+        
+    });
+
     self.ViewErjDocErja = function (Band) {
-
-
         serialNumber = Band.SerialNumber;
         if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo) == true) {
             // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
@@ -1923,7 +1927,7 @@
                 if (counter > 0) {
                     $('#p_Result').css('display', 'block');
                 }
-
+                $('#modal-Erja').modal('show');
             });
 
 
@@ -2034,7 +2038,8 @@
         $("#comm").prop("readonly", true);
         getDocB_Last();
         self.sortTableDocB_Last();
-        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
+        
+            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
     });
 
 
@@ -2268,7 +2273,7 @@
 
 
     $('#modal-Erja').on('shown.bs.modal', function () {
-
+        //$('#p_Result').css('display', 'none');
         flagIsSave = false;
         $('#e_Result').css("height", "409px");
         if (sessionStorage.ModeCodeErja == "1") {
@@ -2323,8 +2328,9 @@
             list_ErjUsersRoneveshtSelect = new Array();
             counterErjUsersRonevesht = 0;
         }
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
-
+        if (sessionStorage.ModeCodeErja == "2") {
+            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+        }
     });
 
 
@@ -2950,7 +2956,8 @@
                 '    </a >';
         else // ارسالی
             html +=
-                '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
+                //'<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
+                '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" >' +
                 '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">' +
                 '</a >' +
                 //'<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +
