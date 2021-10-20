@@ -845,11 +845,11 @@
     }
 
     $('#modal-Cust').on('hide.bs.modal', function () {
-        RemoveUseSanad("Cust", custCode);
+        RemoveUseSanad(ace, sal,"Cust", custCode);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("Cust", custCode);
+        RemoveUseSanad(ace, sal,"Cust", custCode);
     };
 
 

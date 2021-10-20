@@ -3064,7 +3064,7 @@
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
     };
 
 
@@ -3337,7 +3337,7 @@
 
     $("#modal-ErjDocH").on('hide.bs.modal', function () {
 
-        RemoveUseSanad("ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
 
         if (DocNoReport != "null" && DocNoReport != null) {
             close();

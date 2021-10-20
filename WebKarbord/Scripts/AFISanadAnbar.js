@@ -3680,7 +3680,7 @@
     window.onbeforeunload = function () {
        // a = window.performance.navigation;
        // if (a.type == 0) {
-            RemoveUseSanad("SanadAnbar", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal,"SanadAnbar", sessionStorage.SerialNumber);
        // }
     };
 

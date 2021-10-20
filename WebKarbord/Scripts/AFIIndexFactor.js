@@ -1099,11 +1099,11 @@
     }
 
     $('#modal-ChangeStatusFactor').on('hide.bs.modal', function () {
-        RemoveUseSanad("Factor", serial);
+        RemoveUseSanad(ace, sal,"Factor", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("Factor", serial);
+        RemoveUseSanad(ace, sal,"Factor", serial);
     };
 
     $('#ChangeStatus').click(function () {

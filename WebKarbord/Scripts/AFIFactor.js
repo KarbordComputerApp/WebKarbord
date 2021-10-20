@@ -4618,7 +4618,7 @@
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("Factor", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal,"Factor", sessionStorage.SerialNumber);
     };
 
 };

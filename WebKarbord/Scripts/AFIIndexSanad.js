@@ -363,11 +363,11 @@
     }
 
     $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
-        RemoveUseSanad("SanadHesab", serial);
+        RemoveUseSanad(ace, sal,"SanadHesab", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("SanadHesab", serial);
+        RemoveUseSanad(ace, sal,"SanadHesab", serial);
     };
 
 

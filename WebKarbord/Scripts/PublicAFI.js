@@ -3818,7 +3818,8 @@ function LogOut() {
     ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
         //SaveStatementsDatabase();
 
-        RemoveUseSanad('', 0);
+        RemoveUseSanad(ace, sal, '', 0);
+        RemoveUseSanad(aceErj, salErj, '', 0);
         sessionStorage.userName = '';
         sessionStorage.pass = '';
         localStorage.setItem("userName", '');
@@ -4351,7 +4352,8 @@ function ViewCustName(CustName) {
 AlertErja();
 setInterval(AlertErja, 60000);
 function AlertErja() {
-    if (accessErj != null) {
+     
+    if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null ) {
 
         var aceErj = 'Web2';
         var salErj = '0000';
@@ -4454,10 +4456,10 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
     if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
-            Prog: ace,
+            Prog: prog,
             DMode: dMode,
             GroupNo: group,
-            Year: sal,
+            Year: year,
             SerialNumber: Id
         };
         ajaxFunction(DocInUseUri, 'POST', DocInUseObject, false).done(function (response) {
@@ -4469,7 +4471,7 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
     }
 
 
-    if (useWindows == true) {
+    if (useWindows == true && userUse != sessionStorage.userName) {
         showNotification('توسط ' + userUse + ' درحال استفاده است', 0);
         return true;
     }
@@ -4517,7 +4519,7 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
     }
 }
 
-function RemoveUseSanad(FormName, Id) {
+function RemoveUseSanad(prog,year,FormName, Id) {
     if (Id != null) {
 
 
@@ -4552,10 +4554,10 @@ function RemoveUseSanad(FormName, Id) {
             // حذف سند باز شده توسط وب در ویندوز
             DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
             var DeleteDocInUseObject = {
-                Prog: ace,
+                Prog: prog,
                 DMode: dMode,
                 GroupNo: group,
-                Year: sal,
+                Year: year,
                 SerialNumber: Id,
             };
             ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {

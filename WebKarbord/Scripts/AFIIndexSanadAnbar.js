@@ -1891,11 +1891,11 @@
 
 
     $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
-        RemoveUseSanad("SanadAnbar", serial);
+        RemoveUseSanad(ace, sal,"SanadAnbar", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("SanadAnbar", serial);
+        RemoveUseSanad(ace, sal,"SanadAnbar", serial);
     };
 
 

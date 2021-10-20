@@ -1758,186 +1758,207 @@
 
 
     self.ViewErjDocErja = function (Band) {
-        docBMode = Band.DocBMode;
+
+
         serialNumber = Band.SerialNumber;
-        getDocK(serialNumber)
-        getErjDocErja(serialNumber);
-
-        $('#m_StatusParvandeh').val(Band.Status);
-        $('#m_StatusErja').val(Band.RjStatus);
-
-        old_StatusParvandeh = Band.Status;
-        old_StatusErja = Band.RjStatus;
-
-
-
-        $('#erja').removeAttr('hidden', '');
-        $('#saveParvandeh').removeAttr('hidden', '');
-        $('#panel_Result').removeAttr('hidden', '');
-        $('#m_StatusParvandeh').prop('disabled', false);
-        $('#m_StatusErja').prop('disabled', false);
-
-        if (docBMode == 1) { // رونوشت
-            $('#panelFooterParvandeh').attr('hidden', '');
-            $('#panelFooterRonevesht').removeAttr('hidden', '');
-            $('#erja').attr('hidden', '');
-
-            $('#p_SaptDate').val(DateNow);
-            $('#p_RjTime_M').val('');
-            $('#p_RjTime_H').val('');
-
-
-            if (Band.RjTime > 0) {
-                $('#p_SaptDate').val(Band.RjDate);
-                rjtimeRonevesht = Band.RjTimeSt.split(":");
-                $('#p_RjTime_H').val(rjtimeRonevesht[0]);
-                $('#p_RjTime_M').val(rjtimeRonevesht[1]);
-            }
-
+        if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo) == true) {
+            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
-            $('#panelFooterParvandeh').removeAttr('hidden', '');
-            $('#panelFooterRonevesht').attr('hidden', '');
+            docBMode = Band.DocBMode;
+            serialNumber = Band.SerialNumber;
+            getDocK(serialNumber)
+            getErjDocErja(serialNumber);
+
+            $('#m_StatusParvandeh').val(Band.Status);
+            $('#m_StatusErja').val(Band.RjStatus);
+
+            old_StatusParvandeh = Band.Status;
+            old_StatusErja = Band.RjStatus;
+
+
+
             $('#erja').removeAttr('hidden', '');
-        }
+            $('#saveParvandeh').removeAttr('hidden', '');
+            $('#panel_Result').removeAttr('hidden', '');
+            $('#m_StatusParvandeh').prop('disabled', false);
+            $('#m_StatusErja').prop('disabled', false);
 
-        if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2") {
-            $('#erja').attr('hidden', '');
-            $('#panel_Result').attr('hidden', '');
-            $('#saveParvandeh').attr('hidden', '');
-            $('#m_StatusParvandeh').prop('disabled', true);
-            $('#m_StatusErja').prop('disabled', true);
-        }
+            if (docBMode == 1) { // رونوشت
+                $('#panelFooterParvandeh').attr('hidden', '');
+                $('#panelFooterRonevesht').removeAttr('hidden', '');
+                $('#erja').attr('hidden', '');
+
+                $('#p_SaptDate').val(DateNow);
+                $('#p_RjTime_M').val('');
+                $('#p_RjTime_H').val('');
 
 
-        if (Band.RjReadSt == 'T' && sessionStorage.ModeCodeErja == "1") {
-            ErjSaveDoc_RjRead_Object = {
-                DocBMode: Band.DocBMode,
-                SerialNumber: Band.SerialNumber,
-                BandNo: Band.BandNo,
-                RjReadSt: 'F'
-            };
+                if (Band.RjTime > 0) {
+                    $('#p_SaptDate').val(Band.RjDate);
+                    rjtimeRonevesht = Band.RjTimeSt.split(":");
+                    $('#p_RjTime_H').val(rjtimeRonevesht[0]);
+                    $('#p_RjTime_M').val(rjtimeRonevesht[1]);
+                }
 
-            ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
-                AlertErja();
-            });
+            }
+            else {
+                $('#panelFooterParvandeh').removeAttr('hidden', '');
+                $('#panelFooterRonevesht').attr('hidden', '');
+                $('#erja').removeAttr('hidden', '');
+            }
+
+            if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2") {
+                flag_Save = true;
+                $('#erja').attr('hidden', '');
+                $('#panel_Result').attr('hidden', '');
+                $('#saveParvandeh').attr('hidden', '');
+                $('#m_StatusParvandeh').prop('disabled', true);
+                $('#m_StatusErja').prop('disabled', true);
+            }
+
+
+            if (Band.RjReadSt == 'T' && sessionStorage.ModeCodeErja == "1") {
+                ErjSaveDoc_RjRead_Object = {
+                    DocBMode: Band.DocBMode,
+                    SerialNumber: Band.SerialNumber,
+                    BandNo: Band.BandNo,
+                    RjReadSt: 'F'
+                };
+
+                ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
+                    AlertErja();
+                });
+            }
+            $('#modal-ErjDocErja').modal('show');
         }
     }
 
+
+    window.onbeforeunload = function () {
+        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
+    };
 
 
     self.UpdateErjDocErja = function (Band) {
         $('#p_Result').css('display', 'none');
 
         serialNumber = Band.SerialNumber;
-        getErjDocErja(serialNumber);
-
-        list = self.ErjDocErja();
-        var result = ko.utils.arrayFirst(list, function (product) {
-            return product.DocBMode == 0 && product.BandNo === Math.max.apply(null, ko.utils.arrayMap(list, function (e) {
-                return e.BandNo;
-            }));
-        });
-
-
-        bandNo = result.BandNo;
-
-        getRooneveshtUsersList(serialNumber, bandNo);
-        listUsers = self.RooneveshtUsersList();
-        countUsers = listUsers.length;
-
-        list_ErjUsersRoneveshtSelect = new Array();
-        counterErjUsersRonevesht = countUsers;
-
-        $("#TableBodyListErjUsersRonevesht").empty();
-        for (var i = 0; i < countUsers; i++) {
-            list_ErjUsersRoneveshtSelect[i] = listUsers[i].ToUserCode;
-
-            $('#TableBodyListErjUsersRonevesht').append(
-                '<tr data-bind="">'
-                + ' <td data-bind="text: Code">' + listUsers[i].ToUserCode + '</td > '
-                + ' <td data-bind="text: Name">' + listUsers[i].ToUserName + '</td > '
-                //+ ' <td data-bind="text: Spec"> </td >'
-                + '</tr>'
-            );
+        if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo) == true) {
+            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
+        else {
+
+            getErjDocErja(serialNumber);
+
+            list = self.ErjDocErja();
+            var result = ko.utils.arrayFirst(list, function (product) {
+                return product.DocBMode == 0 && product.BandNo === Math.max.apply(null, ko.utils.arrayMap(list, function (e) {
+                    return e.BandNo;
+                }));
+            });
+
+
+            bandNo = result.BandNo;
+
+            getRooneveshtUsersList(serialNumber, bandNo);
+            listUsers = self.RooneveshtUsersList();
+            countUsers = listUsers.length;
+
+            list_ErjUsersRoneveshtSelect = new Array();
+            counterErjUsersRonevesht = countUsers;
+
+            $("#TableBodyListErjUsersRonevesht").empty();
+            for (var i = 0; i < countUsers; i++) {
+                list_ErjUsersRoneveshtSelect[i] = listUsers[i].ToUserCode;
+
+                $('#TableBodyListErjUsersRonevesht').append(
+                    '<tr data-bind="">'
+                    + ' <td data-bind="text: Code">' + listUsers[i].ToUserCode + '</td > '
+                    + ' <td data-bind="text: Name">' + listUsers[i].ToUserName + '</td > '
+                    //+ ' <td data-bind="text: Spec"> </td >'
+                    + '</tr>'
+                );
+            }
 
 
 
-        var ErjResultObject = {
-            SerialNumber: serialNumber,
-            BandNo: bandNo,
-            DocBMode: null,
-            ToUserCode: result.ToUserCode,
-        }
+            var ErjResultObject = {
+                SerialNumber: serialNumber,
+                BandNo: bandNo,
+                DocBMode: null,
+                ToUserCode: result.ToUserCode,
+            }
 
-        ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
-            $("#p_Result").empty();
-            counter = 0;
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].RjResult != '') {
-                    counter++;
-                    html =
-                        '<div class="header" style="background-color: #f5d3b4;">' +
-                        '    <div class="row form-inline modal-header" style="padding:0px;">' +
-                        '        <h6>';
-                    if (data[i].DocBMode == 1) {
-                        html += ' نتیجه رونوشت از ' + data[i].ToUserName;
+            ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
+                $("#p_Result").empty();
+                counter = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].RjResult != '') {
+                        counter++;
+                        html =
+                            '<div class="header" style="background-color: #f5d3b4;">' +
+                            '    <div class="row form-inline modal-header" style="padding:0px;">' +
+                            '        <h6>';
+                        if (data[i].DocBMode == 1) {
+                            html += ' نتیجه رونوشت از ' + data[i].ToUserName;
+                        }
+                        else {
+                            html += ' نتیجه ارجاع از ' + data[i].ToUserName
+                        }
+                        html +=
+                            '</h6>' +
+                            '    </div>' +
+                            '</div>' +
+                            '<div class="body" style="padding:5px;">' +
+                            '    <div class="form-group" style="margin-bottom: 0.5rem;">' +
+                            '        <div class="form-line">' +
+                            '            <textarea class="form-control no-resize auto-growth string" style="border-bottom-width:0px;" readonly>' + data[i].RjResult + '</textarea>' +
+                            '        </div>' +
+                            '    </div>' +
+                            '</div>'
+                        $('#p_Result').append(html);
                     }
-                    else {
-                        html += ' نتیجه ارجاع از ' + data[i].ToUserName
-                    }
-                    html +=
-                        '</h6>' +
-                        '    </div>' +
-                        '</div>' +
-                        '<div class="body" style="padding:5px;">' +
-                        '    <div class="form-group" style="margin-bottom: 0.5rem;">' +
-                        '        <div class="form-line">' +
-                        '            <textarea class="form-control no-resize auto-growth string" style="border-bottom-width:0px;" readonly>' + data[i].RjResult + '</textarea>' +
-                        '        </div>' +
-                        '    </div>' +
-                        '</div>'
-                    $('#p_Result').append(html);
                 }
-            }
-            if (counter > 0) {
-                $('#p_Result').css('display', 'block');
-            }
-        });
+                if (counter > 0) {
+                    $('#p_Result').css('display', 'block');
+                }
+
+            });
 
 
 
 
 
-        $('#e_Result').val(result.RjComm);
+            $('#e_Result').val(result.RjComm);
 
-        $('#nameFarayand').val(Band.FarayandName);
-        self.FarayandCode(Band.FarayandCode);
-
-
-        $('#nameErjBe').val('(' + result.ToUserCode + ') ' + result.ToUserName);
-        self.ErjUsersCode(result.ToUserCode);
-
-        if (countUsers == 0)
-            $('#nameRoneveshtBe').val('هیچکس');
-        else
-            $('#nameRoneveshtBe').val(countUsers + ' مورد انتخاب شده ');
-
-        $('#RjMhltDate').val(Band.RjMhltDate);
-
-        rjTime = result.RjTimeSt.split(":");
-        $('#RjTime_H').val(rjTime[0]);
-        $('#RjTime_M').val(rjTime[1]);
+            $('#nameFarayand').val(Band.FarayandName);
+            self.FarayandCode(Band.FarayandCode);
 
 
-        old_RjResult = $('#e_Result').val();
-        old_CodeFarayand = Band.FarayandCode;
-        old_CodeErjBe = result.ToUserCode;
-        old_CodeRoneveshtBe = list_ErjUsersRoneveshtSelect;
-        old_RjMhltDate = Band.RjMhltDate;
-        old_RjTime_H = rjTime[0];
-        old_RjTime_M = rjTime[1];
+            $('#nameErjBe').val('(' + result.ToUserCode + ') ' + result.ToUserName);
+            self.ErjUsersCode(result.ToUserCode);
+
+            if (countUsers == 0)
+                $('#nameRoneveshtBe').val('هیچکس');
+            else
+                $('#nameRoneveshtBe').val(countUsers + ' مورد انتخاب شده ');
+
+            $('#RjMhltDate').val(Band.RjMhltDate);
+
+            rjTime = result.RjTimeSt.split(":");
+            $('#RjTime_H').val(rjTime[0]);
+            $('#RjTime_M').val(rjTime[1]);
+
+
+            old_RjResult = $('#e_Result').val();
+            old_CodeFarayand = Band.FarayandCode;
+            old_CodeErjBe = result.ToUserCode;
+            old_CodeRoneveshtBe = list_ErjUsersRoneveshtSelect;
+            old_RjMhltDate = Band.RjMhltDate;
+            old_RjTime_H = rjTime[0];
+            old_RjTime_M = rjTime[1];
+        }
     }
 
 
@@ -2013,6 +2034,7 @@
         $("#comm").prop("readonly", true);
         getDocB_Last();
         self.sortTableDocB_Last();
+        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
     });
 
 
@@ -2301,6 +2323,7 @@
             list_ErjUsersRoneveshtSelect = new Array();
             counterErjUsersRonevesht = 0;
         }
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
 
     });
 
@@ -2921,7 +2944,8 @@
                 '        </a>' +
                 '    </li>' +
                 '</ul>' +
-                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false" style=" margin-left: 10px;">' +
+                //'<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false" style=" margin-left: 10px;">' +
+                '<a data-bind="click: $root.ViewErjDocErja" data-backdrop="static" data-keyboard="false" style=" margin-left: 10px;">' +
                 '    <i class="far fa-share" style="font-size: 12px;"></i>  ' +
                 '    </a >';
         else // ارسالی
@@ -2929,7 +2953,8 @@
                 '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
                 '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">' +
                 '</a >' +
-                '<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +
+                //'<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +
+                '<a data-bind="click: $root.ViewErjDocErja" data-backdrop="static" data-keyboard="false">' +
                 '      <img src="/Content/img/view.svg" width = "18" height = "18" style = "margin-left:10px"/>   ' +
                 '</a >';
 

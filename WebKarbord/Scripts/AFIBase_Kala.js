@@ -888,7 +888,7 @@
     });
 
     $('#modal-Kala').on('hide.bs.modal', function () {
-        RemoveUseSanad("Kala", kalaCode);
+        RemoveUseSanad(ace, sal,"Kala", kalaCode);
         /*listKalaUse = localStorage.getItem("listKalaUse");
         listKalaUse = listKalaUse.replace(',' + kalaCode, '');
         localStorage.setItem("listKalaUse", listKalaUse);*/
@@ -1335,7 +1335,7 @@
     self.sortTableKala();
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("Kala", kalaCode);
+        RemoveUseSanad(ace, sal,"Kala", kalaCode);
         /*listKalaUse = localStorage.getItem("listKalaUse");
         listKalaUse = listKalaUse.replace(',' + kalaCode, '');
         localStorage.setItem("listKalaUse", listKalaUse);*/

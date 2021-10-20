@@ -4121,7 +4121,7 @@
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("SanadHesab", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal,"SanadHesab", sessionStorage.SerialNumber);
     };
 
 };

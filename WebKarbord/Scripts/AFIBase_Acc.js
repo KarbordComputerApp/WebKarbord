@@ -1469,11 +1469,11 @@
 
 
     $('#modal-Acc').on('hide.bs.modal', function () {
-        RemoveUseSanad("Acc", AccCode);
+        RemoveUseSanad(ace, sal, "Acc", AccCode);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad("Acc", AccCode);
+        RemoveUseSanad(ace, sal,"Acc", AccCode);
     };
 
 
