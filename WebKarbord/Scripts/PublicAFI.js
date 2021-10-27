@@ -4453,6 +4453,7 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
 
     useWindows = false;
     var userUse = "";
+    var userUseName = "";
     if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
@@ -4463,16 +4464,17 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
             SerialNumber: Id
         };
         ajaxFunction(DocInUseUri, 'POST', DocInUseObject, false).done(function (response) {
-            userUse = response[0];
-            if (response[0] != "") {
+            userUse = response[0].UserCode ;
+            userUseName = response[0].UserName ;
+            if (userUse != "") {
                 useWindows = true;
             }
         });
     }
 
 
-    if (useWindows == true && userUse != sessionStorage.userNameFa) {
-        showNotification('توسط ' + userUse + ' درحال استفاده است', 0);
+    if (useWindows == true && userUse != sessionStorage.userName) {
+        showNotification('توسط ' + userUseName + ' درحال استفاده است', 0);
         return true;
     }
     else {

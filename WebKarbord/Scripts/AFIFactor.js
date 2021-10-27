@@ -45,6 +45,7 @@
     var codeCust = '';
     var codeOpr = '';
     var codeMkz = '';
+    var codeVstr = '';
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -120,6 +121,7 @@
 
     self.OprCode = ko.observable();
     self.MkzCode = ko.observable();
+    self.VstrCode = ko.observable();
 
     self.PriceCode = ko.observable();
     self.InvCode = ko.observable();
@@ -150,6 +152,7 @@
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.VstrList = ko.observableArray([]); // ليست ویزیتور
 
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestFDocList = ko.observableArray([]); // لیست تست 
@@ -286,6 +289,7 @@
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
+    var VstrUri = server + '/api/Web_Data/Vstr/'; // آدرس ویزیتور 
 
     var SaveFDoc_HZUri = server + '/api/FDocData/SaveFDoc_HZ/'; // آدرس ویرایس ستون تنظیم
 
@@ -418,6 +422,20 @@
     $('#btnMkz').click(function () {
         if (self.MkzList().length == 0) {
             getMkzList();
+        }
+    });
+
+
+    //Get  Vstr List
+    function getVstrList() {
+        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            self.VstrList(data);
+        });
+    }
+
+    $('#btnVstr').click(function () {
+        if (self.VstrList().length == 0) {
+            getVstrList();
         }
     });
 
@@ -615,6 +633,7 @@
             $("#AddMinSharh2").val(),
             $("#AddMinSharh3").val(),
             $("#AddMinSharh4").val(),
+            $("#AddMinSharh4").val(),
             $("#AddMinSharh5").val(),
             $("#AddMinSharh6").val(),
             $("#AddMinSharh7").val(),
@@ -719,8 +738,10 @@
         self.InvCode('');
         self.OprCode('');
         self.MkzCode('');
+        self.VstrCode('');
         codeOpr = '';
         codeMkz = '';
+        codeVstr = '';
     };
 
 
@@ -1174,6 +1195,7 @@
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: flaglog,
+            VstrCode: codeVstr,
         };
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             //$('#DatileFactor').show();
@@ -1326,6 +1348,7 @@
             flagLog: flaglog,
             OprCode: codeOpr,
             MkzCode: codeMkz,
+            VstrCode: codeVstr,
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
@@ -2708,6 +2731,145 @@
 
 
 
+    self.currentPageVstr = ko.observable();
+    pageSizeVstr = localStorage.getItem('pageSizeVstr') == null ? 10 : localStorage.getItem('pageSizeVstr');
+    self.pageSizeVstr = ko.observable(pageSizeVstr);
+    self.currentPageIndexVstr = ko.observable(0);
+
+    self.filterVstr0 = ko.observable("");
+    self.filterVstr1 = ko.observable("");
+    self.filterVstr2 = ko.observable("");
+
+    self.filterVstrList = ko.computed(function () {
+
+        self.currentPageIndexVstr(0);
+        var filter0 = self.filterVstr0().toUpperCase();
+        var filter1 = self.filterVstr1();
+        var filter2 = self.filterVstr2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.VstrList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.VstrList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageVstr = ko.computed(function () {
+        var pageSizeVstr = parseInt(self.pageSizeVstr(), 10),
+            startIndex = pageSizeVstr * self.currentPageIndexVstr(),
+            endIndex = startIndex + pageSizeVstr;
+        localStorage.setItem('pageSizeVstr', pageSizeVstr);
+        return self.filterVstrList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageVstr = function () {
+        if (((self.currentPageIndexVstr() + 1) * self.pageSizeVstr()) < self.filterVstrList().length) {
+            self.currentPageIndexVstr(self.currentPageIndexVstr() + 1);
+        }
+    };
+
+    self.previousPageVstr = function () {
+        if (self.currentPageIndexVstr() > 0) {
+            self.currentPageIndexVstr(self.currentPageIndexVstr() - 1);
+        }
+    };
+
+    self.firstPageVstr = function () {
+        self.currentPageIndexVstr(0);
+    };
+
+    self.lastPageVstr = function () {
+        countVstr = parseInt(self.filterVstrList().length / self.pageSizeVstr(), 10);
+        if ((self.filterVstrList().length % self.pageSizeVstr()) == 0)
+            self.currentPageIndexVstr(countVstr - 1);
+        else
+            self.currentPageIndexVstr(countVstr);
+    };
+
+    self.sortTableVstr = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.VstrList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshVstr').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی',
+            text: "لیست ویزیتورها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getVstrList();
+                $("div.loadingZone").hide();
+                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
+            }
+        })
+    })
+
+
+
+    self.selectVstr = function (item) {
+        codeVstr = item.Code;
+        $('#nameVstr').val('(' + item.Code + ') ' + item.Name)
+        self.VstrCode(item.Code)
+    };
+
+    $('#modal-Vstr').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
 
 
 
@@ -3284,19 +3446,20 @@
                 self.Discount();
                 self.MainUnit();
                 self.Comm();
-                self.OprCode('');
-                self.MkzCode('');
+                self.OprCode("");
+                self.MkzCode("");
+                self.VstrCode("");
                 codeOpr = '';
                 codeMkz = '';
+                codeVstrMkz = '';
                 flaglog = "Y";
                 if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                 //$("#inv").val(sessionStorage.InvDefult);
                 $("#gGhimat").val(sessionStorage.GPriceDefult);
 
-                self.OprCode("");
-                self.MkzCode("");
                 $('#nameOpr').val("");
                 $('#nameMkz').val("");
+                $('#nameVstr').val("");
 
                 sessionStorage.F01 = "";
                 sessionStorage.F02 = "";
@@ -3381,6 +3544,7 @@
     $('#Barcode').attr('style', 'display: none');
     $('#btnCust').attr('style', 'display: none');
     $('#btnMkz').attr('style', 'display: none');
+    $('#btnVstr').attr('style', 'display: none');
     $('#btnOpr').attr('style', 'display: none');
     $('#gGhimat').attr('disabled', true);
     $('#inv').attr('disabled', true);
@@ -3591,6 +3755,7 @@
             $('#insertband').removeAttr('style');
             $('#Barcode').removeAttr('style');
             $('#btnMkz').removeAttr('style');
+            $('#btnVstr').removeAttr('style');
             $('#btnOpr').removeAttr('style');
             $('#gGhimat').attr('disabled', false);
             $('#inv').attr('disabled', false);
@@ -3684,9 +3849,12 @@
         self.MkzCode(sessionStorage.MkzCode);
         codeMkz = sessionStorage.MkzCode;
 
+        self.VstrCode(sessionStorage.VstrCode);
+        codeVstr = sessionStorage.VstrCode;
 
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
+        $('#nameVstr').val(sessionStorage.VstrCode == '' ? '' : '(' + sessionStorage.VstrCode + ') ' + sessionStorage.VstrName);
 
 
         getFDocH(Serial);
@@ -4614,6 +4782,14 @@
             $("#nameMkz").val('');
             codeMkz = '';
             self.MkzCode("");
+        }
+    });
+
+    $("#nameVstr").keydown(function (e) {
+        if (e.keyCode == 46) {
+            $("#nameVstr").val('');
+            codeVstr = '';
+            self.VstrCode("");
         }
     });
 

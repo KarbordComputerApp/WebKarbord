@@ -2239,7 +2239,7 @@
 
     self.ShowAFIFactor = function (Band) {
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad(ace, sal,"Factor", serialNumber, true) == true, Band.DocNo) {
+        if (TestUseSanad(ace, sal,"Factor", serialNumber, false) == true, Band.DocNo) {
            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
