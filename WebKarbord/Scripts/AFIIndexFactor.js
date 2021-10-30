@@ -1969,6 +1969,8 @@
         sessionStorage.CustOstan = "";
         sessionStorage.CustShahrestan = "";
         sessionStorage.CustRegion = "";
+        sessionStorage.VstrCode = "";
+        sessionStorage.VstrName = "";
 
         //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         //    $('#modal-SelectFactor').modal('show');
@@ -2424,6 +2426,10 @@
             sessionStorage.DocDate = item.DocDate;
             sessionStorage.CustCode = item.CustCode;
             sessionStorage.CustName = item.CustName;
+
+            sessionStorage.VstrCode = item.VstrCode;
+            sessionStorage.VstrName = item.VstrName;
+
             sessionStorage.Spec = item.Spec;
             sessionStorage.PriceCode = item.KalaPriceCode;
             sessionStorage.InvCode = item.InvCode;
