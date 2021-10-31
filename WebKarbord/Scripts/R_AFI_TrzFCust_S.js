@@ -134,7 +134,10 @@
         'AddMinPrice9',
         'AddMinPrice10',
         'OnlyDiscountPrice',
-        'FinalPrice'
+        'FinalPrice',
+        'AccBede',
+        'AccBest',
+        'AccMon',
     ];
 
 
@@ -550,6 +553,9 @@
         totalFinalPrice = 0;
         totalTotalPrice = 0;
 
+        totalAccBede = 0;
+        totalAccBest = 0;
+
         for (var i = 0; i < list.length; ++i) {
             TrzFCust_SData = list[i];
             totalAmount1 += TrzFCust_SData.Amount1;
@@ -572,6 +578,9 @@
             totalFinalPrice += TrzFCust_SData.FinalPrice;
             totalTotalPrice += TrzFCust_SData.TotalPrice;
 
+            totalAccBede += TrzFCust_SData.AccBede;
+            totalAccBest += TrzFCust_SData.AccBest;
+
         }
 
         //$("#textTotal").text('جمع');
@@ -592,6 +601,9 @@
         $("#totalOnlyDiscountPrice").text(NumberToNumberString(totalOnlyDiscountPrice.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalFinalPrice").text(NumberToNumberString(totalFinalPrice.toFixed(parseInt(sessionStorage.Deghat))));
         $("#totalTotalPrice").text(NumberToNumberString(totalTotalPrice.toFixed(parseInt(sessionStorage.Deghat))));
+
+        $("#totalAccBede").text(NumberToNumberString(totalAccBede.toFixed(parseInt(sessionStorage.Deghat))));
+        $("#totalAccBest").text(NumberToNumberString(totalAccBest.toFixed(parseInt(sessionStorage.Deghat))));
 
     }
 
@@ -664,6 +676,9 @@
     self.filterOnlyDiscountPrice = ko.observable("");
     self.filterFinalPrice = ko.observable("");
     self.filterTotalPrice = ko.observable("");
+    self.filterAccBede = ko.observable("");
+    self.filterAccBest = ko.observable("");
+    self.filterAccMon = ko.observable("");
 
     self.filterTrzFCust_SList = ko.computed(function() {
         self.currentPageIndexTrzFCust_S(0);
@@ -706,6 +721,9 @@
         var filterOnlyDiscountPrice = self.filterOnlyDiscountPrice();
         var filterFinalPrice = self.filterFinalPrice();
         var filterTotalPrice = self.filterTotalPrice();
+        var filterAccBede = self.filterAccBede();
+        var filterAccBest = self.filterAccBest();
+        var filterAccMon = self.filterAccMon();
 
         filterAmount1 = filterAmount1.replace("/", ".");
         filterAmount2 = filterAmount2.replace("/", ".");
@@ -724,6 +742,9 @@
         filterOnlyDiscountPrice = filterOnlyDiscountPrice.replace("/", ".");
         filterFinalPrice = filterFinalPrice.replace("/", ".");
         filterTotalPrice = filterTotalPrice.replace("/", ".");
+        filterAccBede = filterAccBede.replace("/", ".");
+        filterAccBest = filterAccBest.replace("/", ".");
+        filterAccMon = filterAccMon.replace("/", ".");
 
         tempData = ko.utils.arrayFilter(self.TrzFCust_SList(), function(item) {
             result =
@@ -765,7 +786,10 @@
                 ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
                 ko.utils.stringStartsWith(item.OnlyDiscountPrice.toString().toLowerCase(), filterOnlyDiscountPrice) &&
                 ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
-                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice)
+                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
+                ko.utils.stringStartsWith(item.AccBede.toString().toLowerCase(), filterAccBede) &&
+            ko.utils.stringStartsWith(item.AccBest.toString().toLowerCase(), filterAccBest)&&
+            ko.utils.stringStartsWith(item.AccMon.toString().toLowerCase(), filterAccMon)
             return result;
         })
         calcsum(tempData);
@@ -873,6 +897,9 @@
     self.iconTypeOnlyDiscountPrice = ko.observable("");
     self.iconTypeFinalPrice = ko.observable("");
     self.iconTypeTotalPrice = ko.observable("");
+    self.iconTypeAccBede = ko.observable("");
+    self.iconTypeAccBest = ko.observable("");
+    self.iconTypeAccMon = ko.observable("");
 
     self.sortTableTrzFCust_S = function(viewModel, e) {
         if (e != null)
@@ -942,6 +969,9 @@
         self.iconTypeOnlyDiscountPrice('');
         self.iconTypeFinalPrice('');
         self.iconTypeTotalPrice('');
+        self.iconTypeAccBede('');
+        self.iconTypeAccBest('');
+        self.iconTypeAccMon('');
 
         if (orderProp == 'CustCode') self.iconTypeCustCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -982,6 +1012,9 @@
         if (orderProp == 'OnlyDiscountPrice') self.iconTypeOnlyDiscountPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FinalPrice') self.iconTypeFinalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccBede') self.iconTypeAccBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccBest') self.iconTypeAccBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccMon') self.iconTypeAccMon((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     }
 
 
@@ -2552,6 +2585,9 @@
             CreateTableTh('AddMinPrice10', data) +
             CreateTableTh('OnlyDiscountPrice', data) +
             CreateTableTh('FinalPrice', data) +
+            CreateTableTh('AccBede', data) +
+            CreateTableTh('AccBest', data) +
+            CreateTableTh('AccMon', data) +
             '<th>عملیات</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -2597,6 +2633,9 @@
             CreateTableTd('AddMinPrice10', sessionStorage.Deghat, 2, data) +
             CreateTableTd('OnlyDiscountPrice', sessionStorage.Deghat, 2, data) +
             CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AccBede', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AccBest', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('AccMon', sessionStorage.Deghat, 2, data) +
             ' <td>' +
             ' <a  data-bind="visible: $root.AccessAction(\'FDocR_S\') == true" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
@@ -2651,6 +2690,9 @@
             CreateTableTdSum('AddMinPrice10', 2, data) +
             CreateTableTdSum('OnlyDiscountPrice', 2, data) +
             CreateTableTdSum('FinalPrice', 2, data) +
+            CreateTableTdSum('AccBede', 2, data) +
+            CreateTableTdSum('AccBest', 2, data) +
+            CreateTableTdSum('AccMon', 2, data) +
             '<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
@@ -2694,6 +2736,9 @@
             CreateTableTdSearch('AddMinPrice10', data) +
             CreateTableTdSearch('OnlyDiscountPrice', data) +
             CreateTableTdSearch('FinalPrice', data) +
+            CreateTableTdSearch('AccBede', data) +
+            CreateTableTdSearch('AccBest', data) +
+            CreateTableTdSearch('AccMon', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
