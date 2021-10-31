@@ -633,7 +633,6 @@
             $("#AddMinSharh2").val(),
             $("#AddMinSharh3").val(),
             $("#AddMinSharh4").val(),
-            $("#AddMinSharh4").val(),
             $("#AddMinSharh5").val(),
             $("#AddMinSharh6").val(),
             $("#AddMinSharh7").val(),
