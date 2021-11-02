@@ -1525,9 +1525,9 @@
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
 
-        if (flag == 0) {
+        /*if (flag == 0) {
             unitprice = totalPrice / amount;
-        }
+        }*/
 
         comm = $("#comm").val();
 
@@ -1655,9 +1655,9 @@
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
 
-        if (flag == 0) {
+        /*if (flag == 0) {
             unitprice = totalPrice / amount;
-        }
+        }*/
 
         comm = $("#comm").val();
 
