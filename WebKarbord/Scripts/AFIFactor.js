@@ -1416,8 +1416,12 @@
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
 
+
         if (flag == 0) {
             unitprice = totalPrice / amount;
+            degat = uKala == 1 ? DeghatR1 : uKala == 2 ? DeghatR2 : DeghatR3;
+            if (degat > 0)
+                unitprice = unitprice.toFixed(degat);
         }
 
         discountprice = SlashToDot($("#discountprice").val());
@@ -1606,7 +1610,7 @@
             Amount1: Amount1,//SlashToDot($('#amount2').text()),//self.Amount2(),
             Amount2: Amount2,//SlashToDot($('#amount2').text()),//self.Amount2(),
             Amount3: Amount3,//SlashToDot($('#amount3').text()),//self.Amount3(),
-            UnitPrice: unitprice.toFixed(uKala == 1 ? DeghatR1 : uKala == 2 ? DeghatR2 : DeghatR3 ),
+            UnitPrice: unitprice,
             TotalPrice: totalPrice + '',//self.TotalPrice(),
             Discount: discountprice,//self.Discount(),
             MainUnit: uKala,//self.MainUnit(),
@@ -1671,6 +1675,9 @@
 
         if (flag == 0) {
             unitprice = totalPrice / amount;
+            degat = uKala == 1 ? DeghatR1 : uKala == 2 ? DeghatR2 : DeghatR3;
+            if (degat > 0)
+                unitprice = unitprice.toFixed(degat);
         }
 
         discountprice = SlashToDot($("#discountprice").val());
@@ -1846,6 +1853,8 @@
             }
         }
 
+
+
         var FDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumberedit,
@@ -1853,7 +1862,7 @@
             Amount1: Amount1,//SlashToDot($('#amount1').text()),// self.Amount1(),
             Amount2: Amount2,//SlashToDot($('#amount2').text()),//self.Amount2(),
             Amount3: Amount3,//SlashToDot($('#amount3').text()),//self.Amount3(),
-            UnitPrice: unitprice.toFixed(uKala == 1 ? DeghatR1 : uKala == 2 ? DeghatR2 : DeghatR3),
+            UnitPrice: unitprice,
             TotalPrice: totalPrice,//self.TotalPrice(),
             Discount: discountprice,//self.Discount(),
             MainUnit: uKala,//self.MainUnit(),

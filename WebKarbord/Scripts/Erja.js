@@ -2945,7 +2945,7 @@
                 '    </li>' +*/
                 '    <li data-bind="style: {\'display\': RjReadSt == \'T\'  ? \'none\' : \'unset\'}">' +
                 '        <a id="UnRaedErja" data-bind="click: $root.UnRaedErja" style="font-size: 11px;text-align: right;">' +
-                '        <i  class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px;padding-right:10px;">notifications_none</i>' +
+                '        <i  class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px">notifications_none</i>' +
                 '            خوانده نشده' +
                 '        </a>' +
                 '    </li>' +
