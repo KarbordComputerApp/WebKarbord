@@ -1417,12 +1417,12 @@
         totalPrice = SlashToDot($("#totalPrice").val());
 
 
-        if (flag == 0) {
+        /*if (flag == 0) {
             unitprice = totalPrice / amount;
             degat = uKala == 1 ? DeghatR1 : uKala == 2 ? DeghatR2 : DeghatR3;
             if (degat > 0)
                 unitprice = unitprice.toFixed(degat);
-        }
+        }*/
 
         discountprice = SlashToDot($("#discountprice").val());
         comm = $("#comm").val();
@@ -1673,12 +1673,12 @@
         var unitprice = SlashToDot($("#unitPrice").val());
         totalPrice = SlashToDot($("#totalPrice").val());
 
-        if (flag == 0) {
+        /*if (flag == 0) {
             unitprice = totalPrice / amount;
             degat = uKala == 1 ? DeghatR1 : uKala == 2 ? DeghatR2 : DeghatR3;
             if (degat > 0)
                 unitprice = unitprice.toFixed(degat);
-        }
+        }*/
 
         discountprice = SlashToDot($("#discountprice").val());
         comm = $("#comm").val();

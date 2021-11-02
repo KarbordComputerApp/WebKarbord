@@ -2778,6 +2778,19 @@
 
                 data.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
 
+                flag_Save = false;
+                old_DocDate = data["DocDate"];
+                old_MhltDate = data["MhltDate"];
+                old_AmalDate = data["AmalDate"];
+                old_EndDate = data["EndDate"];
+                old_Spec = data["Spec"];
+                old_CustCode = data["CustCode"];
+                old_CustCode = data["CustCode"];
+                old_KhdtCode = data["KhdtCode"];
+                old_RelatedDocs = data["RelatedDocs"];
+                old_Mahramaneh = data["Mahramaneh"];
+                old_Status = data["Status"];
+
                 self.p_DocDate(data["DocDate"]);
                 self.p_MhltDate(data["MhltDate"]);
                 self.p_AmalDate(data["AmalDate"]);
@@ -2817,6 +2830,17 @@
                 $('#p_FinalComm').val(data["FinalComm"]);
                 $('#p_Mahramaneh').val(data["Mahramaneh"]);
                 $('#p_Status').val(data["Status"]);
+
+                specialComm = data["SpecialComm"];
+                SpecialCommTrs = data["SpecialCommTrs"];
+                $("#p_SpecialComm").val('برای نمایش کلیک کنید');
+                $("#p_SpecialComm").attr('readonly', true);
+                TextHighlight("#p_SpecialComm");
+
+                old_EghdamComm = $('#p_EghdamComm').val();
+                old_DocDesc = $('#p_DocDesc').val();
+                old_FinalComm = $('#p_FinalComm').val();
+                old_SpecialComm = data["SpecialComm"];
 
                 sessionStorage.F01 = data["F01"];
                 sessionStorage.F02 = data["F02"];
