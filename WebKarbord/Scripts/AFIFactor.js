@@ -733,6 +733,7 @@
         self.Spec('');
         self.CustCode('');
         $('#nameHesab').val('');
+        $('#nameVstr').val('');
         self.PriceCode('');
         self.InvCode('');
         self.OprCode('');

@@ -2632,6 +2632,10 @@
                 sessionStorage.DocDate = data.DocDate;
                 sessionStorage.CustCode = data.CustCode;
                 sessionStorage.CustName = data.CustName;
+
+                sessionStorage.VstrCode = data.VstrCode;
+                sessionStorage.VstrName = data.VstrName;
+
                 sessionStorage.Spec = data.Spec;
                 sessionStorage.PriceCode = data.KalaPriceCode;
                 sessionStorage.InvCode = data.InvCode;
@@ -2939,7 +2943,17 @@
                 item = response;
                 item = item[0];
 
-                localStorage.setItem("ModeCode", modeCodeMove);
+                serialNumber = item.SerialNumber;
+                if (TestUseSanad(ace, sal, "Factor", serialNumber, false, item.DocNo)) {
+                }
+                else {
+                    localStorage.setItem("DocNoAFIFactor", item.DocNo);
+                    localStorage.setItem("ModeCodeAFIFactor", item.ModeCode);
+                    window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+                }
+
+
+                /* localStorage.setItem("ModeCode", modeCodeMove);
                 sessionStorage.ModeCode = modeCodeMove;
 
                 switch (modeCodeMove.toString()) {
@@ -3057,7 +3071,7 @@
                 sessionStorage.Footer = item.Footer;
                 sessionStorage.BeforeMoveFactor = true;
 
-                window.location.href = sessionStorage.urlAddFDocH;
+                window.location.href = sessionStorage.urlAddFDocH;*/
             });
         }
     });
