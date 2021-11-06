@@ -829,6 +829,7 @@
         'DocNo',
         'DocDate',
         'CustName',
+        'VstrName',
         'FinalPrice',
         'Spec',
         'Status',
@@ -1069,8 +1070,8 @@
 
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
-        if (TestUseSanad(ace, sal,"Factor", serial, true,item.DocNo) == true) {
-           // showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "Factor", serial, true, item.DocNo) == true) {
+            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
 
@@ -1099,11 +1100,11 @@
     }
 
     $('#modal-ChangeStatusFactor').on('hide.bs.modal', function () {
-        RemoveUseSanad(ace, sal,"Factor", serial);
+        RemoveUseSanad(ace, sal, "Factor", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"Factor", serial);
+        RemoveUseSanad(ace, sal, "Factor", serial);
     };
 
     $('#ChangeStatus').click(function () {
@@ -1265,6 +1266,7 @@
     self.filterDocNo = ko.observable("");
     self.filterDocDate = ko.observable("");
     self.filterCustName = ko.observable("");
+    self.filterVstrName = ko.observable("");
     self.filterFinalPrice = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterStatus = ko.observable("");
@@ -1367,7 +1369,7 @@
         self.filterCustOstan(listFilter[47]);
         self.filterCustShahrestan(listFilter[48]);
         self.filterCustRegion(listFilter[49]);
-
+        self.filterVatrName(listFilter[50]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -1421,13 +1423,14 @@
         var filterCustOstan = self.filterCustOstan();
         var filterCustShahrestan = self.filterCustShahrestan();
         var filterCustRegion = self.filterCustRegion();
+        var filterVstrName = self.filterVstrName();
 
 
 
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
 
-        if (!filterDocNo && !filterDocDate && !filterCustName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
+        if (!filterDocNo && !filterDocDate && !filterCustName && !filterVstrName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
             !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 &&
@@ -1444,6 +1447,7 @@
                 filterDocNo,
                 filterDocDate,
                 filterCustName,
+                filterVstrName,
                 filterFinalPrice,
                 filterSpec,
                 filterStatus,
@@ -1499,6 +1503,7 @@
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&
                     ko.utils.stringStartsWith(item.DocDate.toString().toLowerCase(), filterDocDate) &&
                     (item.CustName == null ? '' : item.CustName.toString().search(filterCustName) >= 0) &&
+                    (item.VstrName == null ? '' : item.VstrName.toString().search(filterVstrName) >= 0) &&
                     ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                     (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
@@ -1618,6 +1623,7 @@
     self.iconTypeDocNo = ko.observable("");
     self.iconTypeDocDate = ko.observable("");
     self.iconTypeCustName = ko.observable("");
+    self.iconTypeVstrName = ko.observable("");
     self.iconTypeFinalPrice = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeStatus = ko.observable("");
@@ -1710,6 +1716,7 @@
         self.iconTypeDocNo('');
         self.iconTypeDocDate('');
         self.iconTypeCustName('');
+        self.iconTypeVstrName('');
         self.iconTypeFinalPrice('');
         self.iconTypeSpec('');
         self.iconTypeStatus('');
@@ -1762,6 +1769,7 @@
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustName') self.iconTypeCustName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'VstrName') self.iconTypeVstrName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FinalPrice') self.iconTypeFinalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1987,7 +1995,7 @@
 
     self.DeleteFactor = function (factorBand) {
 
-        if (TestUseSanad(ace, sal,"Factor", factorBand.SerialNumber, false, factorBand.DocNo) == true) {
+        if (TestUseSanad(ace, sal, "Factor", factorBand.SerialNumber, false, factorBand.DocNo) == true) {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -2416,8 +2424,8 @@
 
     self.UpdateHeader = function (item) {
 
-        if (TestUseSanad(ace, sal,"Factor", item.SerialNumber, true, item.DocNo) == true) {
-           // showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "Factor", item.SerialNumber, true, item.DocNo) == true) {
+            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
             sessionStorage.flagupdateHeader = 1;
@@ -2620,8 +2628,8 @@
 
             var data = response[0];
 
-            if (TestUseSanad(ace, sal,"Factor", data.SerialNumber, true, data.DocNo) == true) {
-               // showNotification('در تب دیگری وجود دارد', 0)
+            if (TestUseSanad(ace, sal, "Factor", data.SerialNumber, true, data.DocNo) == true) {
+                // showNotification('در تب دیگری وجود دارد', 0)
             }
             else {
                 sessionStorage.flagupdateHeader = 1;
@@ -3105,7 +3113,8 @@
             '<th>ردیف</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
-            CreateTableTh('CustName', data);
+            CreateTableTh('CustName', data) +
+            CreateTableTh('VstrName', data);
 
         if (showFinalPrice)
             dataTable += CreateTableTh('FinalPrice', data);
@@ -3166,7 +3175,8 @@
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
-            CreateTableTd('CustName', 0, 0, data)
+            CreateTableTd('CustName', 0, 0, data) +
+            CreateTableTd('VstrName', 0, 0, data);
 
         if (showFinalPrice)
             dataTable += CreateTableTd('FinalPrice', sessionStorage.Deghat, 2, data)
@@ -3274,7 +3284,8 @@
             '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
-            CreateTableTdSearch('CustName', data)
+            CreateTableTdSearch('CustName', data) +
+            CreateTableTdSearch('VstrName', data);
 
         if (showFinalPrice)
             dataTable += CreateTableTdSearch('FinalPrice', data)
