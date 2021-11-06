@@ -1797,7 +1797,20 @@
 
                 sessionStorage.searchIDocH = item.SerialNumber;
 
-                sessionStorage.flagupdateHeader = 1;
+                serialNumber = item.SerialNumber;
+
+                if (TestUseSanad(ace, sal, "SanadAnbar", item.SerialNumber, false, item.DocNo) == true) {
+                    // showNotification('در تب دیگری وجود دارد', 0)
+                }
+                else {
+                    localStorage.setItem("InvCodeAFISanadAnbar", item.InvCode);
+                    localStorage.setItem("InOutAFISanadAnbar", item.InOut);
+                    localStorage.setItem("ModeCodeAFISanadAnbar", item.ModeCode);
+                    localStorage.setItem("DocNoAFISanadAnbar", item.DocNo);
+                    window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+                }
+
+                /*sessionStorage.flagupdateHeader = 1;
                 sessionStorage.SerialNumber = item.SerialNumber;
                 sessionStorage.DocNo = item.DocNo;
                 sessionStorage.DocDate = item.DocDate;
@@ -1851,7 +1864,7 @@
                 sessionStorage.Footer = item.Footer;
                 sessionStorage.BeforeMoveSanadAnbar = true;
 
-                window.location.href = sessionStorage.urlAddIDocH;
+                window.location.href = sessionStorage.urlAddIDocH;*/
             });
         }
     });

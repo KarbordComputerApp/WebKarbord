@@ -1668,7 +1668,16 @@
                 item = response;
                 item = item[0];
 
-                sessionStorage.flagupdateHeader = 1;
+                serial = item.SerialNumber;
+                if (TestUseSanad(ace, sal, "SanadHesab", serial, false, item.DocNo)) {
+                    //  showNotification('سند در تب دیگری وجود دارد', 0)
+                }
+                else {
+                    localStorage.setItem("DocNoAFISanad", item.DocNo);
+                    window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                }
+
+                /*sessionStorage.flagupdateHeader = 1;
                 sessionStorage.SerialNumber = item.SerialNumber;
                 sessionStorage.DocNo = item.DocNo;
                 sessionStorage.DocDate = item.DocDate;
@@ -1703,7 +1712,7 @@
                 sessionStorage.F20 = item.F20;
                 sessionStorage.BeforeMoveSanad = true;
 
-                window.location.href = sessionStorage.urlAddADocH;
+                window.location.href = sessionStorage.urlAddADocH;*/
             });
         }
 
