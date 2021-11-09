@@ -4416,6 +4416,15 @@ $("#AccessRefresh").click(function () {
 });
 
 
+$("#btn_Tiket").click(function () {
+    window.open('http://localhost:903/', '_blank');
+
+   
+
+ 
+});
+
+
 
 function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
     var listUse = localStorage.getItem("list" + FormName + "Use");
