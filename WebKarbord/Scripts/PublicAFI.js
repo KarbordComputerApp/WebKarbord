@@ -13,6 +13,8 @@ if (sessionStorage.versionTitle == "ورژن تست : ") {
     $("#AccessRefresh").show();
 }
 
+var tiketUrl = 'http://localhost:51091/';
+
 sessionStorage.userNameFa = localStorage.getItem('userNameFa');
 sessionStorage.CoName = localStorage.getItem('CoName');
 sessionStorage.aceName = localStorage.getItem('aceName');
@@ -4417,11 +4419,7 @@ $("#AccessRefresh").click(function () {
 
 
 $("#btn_Tiket").click(function () {
-    window.open('http://localhost:903/', '_blank');
-
-   
-
- 
+    window.open(tiketUrl + '?' + lockNumber, '_blank');
 });
 
 
