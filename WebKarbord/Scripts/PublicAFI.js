@@ -4419,7 +4419,7 @@ $("#AccessRefresh").click(function () {
 
 
 $("#btn_Tiket").click(function () {
-    window.open(tiketUrl + '?' + lockNumber, '_blank');
+    window.open(tiketUrl + '?' + (lockNumber * 114820000008), '_blank');
 });
 
 
