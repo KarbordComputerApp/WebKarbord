@@ -2914,53 +2914,62 @@ function SetValidationErj() {
     validation = CheckAccessErj('ErjDoc');
     ShowMenuErj[2] = validation;  // پرونده ها
 
-    if (erjaccess[0] == true || erjaccess[1] == true) {
-        $("#EReport_Menu").show();
-        erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
-        erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+    validation = CheckAccessErj('AllDoc');
+    ShowMenuErj[3] = validation;  // اسناد اتوماسیون
 
-        if (ShowMenuErj[0] == false && ShowMenuErj[1] == false)
+    if (ShowMenuErj[3] == true) {
+        if (erjaccess[0] == true || erjaccess[1] == true) {
+            $("#EReport_Menu").show();
+            erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+            erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+
+            if (ShowMenuErj[0] == false && ShowMenuErj[1] == false)
+                $("#EReport_Menu").hide();
+        }
+        else {
             $("#EReport_Menu").hide();
+        }
+
+
+
+        if (erjaccess[2] == true || erjaccess[3] == true || erjaccess[4] == true) {
+            $("#ErjaDOC_Menu").show();
+            erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();
+            erjaccess[3] == true ? $("#Erja_Resive").show() : $("#Erja_Resive").hide();
+            erjaccess[3] == true ? $("#P_NotificationErja").show() : $("#P_NotificationErja").hide();
+            erjaccess[4] == true ? $("#Erja_Send").show() : $("#Erja_Send").hide();
+            //erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+            //erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+        }
+        else {
+            $("#ErjaDOC_Menu").hide();
+            $("#P_NotificationErja").hide();
+        }
+
+
+
+        validation = CheckAccessErj('NEW_ErjDOC');// new parvandeh
+        validation == true ? $("#AddNewErjDocH").show() : $("#AddNewErjDocH").hide()
+
+        validation = CheckAccessErj('CHG_ErjDOC');// edit parvandeh
+        //validation == true ? $("#UpdateErjDocH").show() : $("#UpdateErjDocH").hide()
+        validation == true ? sessionStorage.CHG_ErjDOC = true : sessionStorage.CHG_ErjDOC = false
+        validation == true ? localStorage.setItem("CHG_ErjDOC", "true") : localStorage.setItem("CHG_ErjDOC", "false")
+
+        validation = CheckAccessErj('DEL_ErjDOC'); // delete parvandeh
+        //validation == true ? $("#DeleteErjDocH").show() : $("#DeleteErjDocH").hide()
+        validation == true ? sessionStorage.DEL_ErjDOC = true : sessionStorage.DEL_ErjDOC = false
+        validation == true ? localStorage.setItem("DEL_ErjDOC", "true") : localStorage.setItem("DEL_ErjDOC", "false")
+
+        validation = CheckAccessErj('OTHERUSER_ErjDOC');
+        validation == true ? sessionStorage.AccessSanadErj = true : sessionStorage.AccessSanadErj = false
+        validation == true ? localStorage.setItem("AccessSanadErj", "true") : localStorage.setItem("AccessSanadErj", "false")
     }
     else {
         $("#EReport_Menu").hide();
-    }
-
-
-
-    if (erjaccess[2] == true || erjaccess[3] == true || erjaccess[4] == true) {
-        $("#ErjaDOC_Menu").show();
-        erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();
-        erjaccess[3] == true ? $("#Erja_Resive").show() : $("#Erja_Resive").hide();
-        erjaccess[3] == true ? $("#P_NotificationErja").show() : $("#P_NotificationErja").hide();
-        erjaccess[4] == true ? $("#Erja_Send").show() : $("#Erja_Send").hide();
-        //erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
-        //erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
-    }
-    else {
         $("#ErjaDOC_Menu").hide();
         $("#P_NotificationErja").hide();
     }
-
-
-
-    validation = CheckAccessErj('NEW_ErjDOC');// new parvandeh
-    validation == true ? $("#AddNewErjDocH").show() : $("#AddNewErjDocH").hide()
-
-    validation = CheckAccessErj('CHG_ErjDOC');// edit parvandeh
-    //validation == true ? $("#UpdateErjDocH").show() : $("#UpdateErjDocH").hide()
-    validation == true ? sessionStorage.CHG_ErjDOC = true : sessionStorage.CHG_ErjDOC = false
-    validation == true ? localStorage.setItem("CHG_ErjDOC", "true") : localStorage.setItem("CHG_ErjDOC", "false")
-
-    validation = CheckAccessErj('DEL_ErjDOC'); // delete parvandeh
-    //validation == true ? $("#DeleteErjDocH").show() : $("#DeleteErjDocH").hide()
-    validation == true ? sessionStorage.DEL_ErjDOC = true : sessionStorage.DEL_ErjDOC = false
-    validation == true ? localStorage.setItem("DEL_ErjDOC", "true") : localStorage.setItem("DEL_ErjDOC", "false")
-
-    validation = CheckAccessErj('OTHERUSER_ErjDOC');
-    validation == true ? sessionStorage.AccessSanadErj = true : sessionStorage.AccessSanadErj = false
-    validation == true ? localStorage.setItem("AccessSanadErj", "true") : localStorage.setItem("AccessSanadErj", "false")
-
 }
 
 
@@ -3959,9 +3968,20 @@ function createViewer() {
     options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
     options.toolbar.zoom = 100;
     options.toolbar.showCloseButton = true;
+    options.toolbar.showSendEmailButton = true;
 
 
+    viewer.onEmailReport = function (args) {
+        sendMail();
+        // args.settings -  send email form
+        // args.settings.email  -  email adress
+        // args.settings.subject  -  email subject
+        // args.settings.message  -  email message
+        // args.format  -  export format - PDF, HTML, HTML 5, Excel2007, Word2007, CSV
+        // args.fileName - report file name (name of attachement)
+        // args.data  -  byte array with exported report file
 
+    }
 
 
     report = new Stimulsoft.Report.StiReport();
@@ -3983,6 +4003,18 @@ function createViewer() {
     userButtonCell.className = "stiJsViewerClearAllStyles";
     userButtonCell.appendChild(userButton);
 }
+
+
+function sendMail() {
+    var link = "mailto:partopc1@yahoo.com"
+        + "?cc=partopc@yahoo.com"
+        + "&subject=" + encodeURIComponent("This is my subject")
+        + "&body=" + encodeURIComponent("body")
+        ;
+
+    window.location.href = link;
+}
+
 
 var DataReport;
 function createDesigner() {

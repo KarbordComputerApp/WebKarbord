@@ -10,6 +10,7 @@
     self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
     self.OprList = ko.observableArray([]); // ليست پروژه ها
     self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
+    self.StatusList = ko.observableArray([]); // ليست نوع سند ها
 
 
     self.FDocR_SList = ko.observableArray([]); // لیست گزارش  
@@ -24,6 +25,7 @@
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     var FDocR_SUri = server + '/api/ReportFct/FDocR/'; // آدرس گزارش 
+    var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);
@@ -37,6 +39,20 @@
 
     self.InvCode = ko.observable();
     var allSearchKala = true;
+
+    var StatusCode = '';
+    var counterStatus = 0;
+    var list_StatusSelect = new Array();
+
+    if (ace == Web8) {
+        counterStatus = 3;
+        list_StatusSelect = ["موقت", "تایید", "تصویب"];
+    }
+    else {
+        counterStatus = 2;
+        list_StatusSelect = ["موقت", "تایید"];
+    }
+
 
     var KalaCode = '';
     var counterKala = 0;
@@ -232,7 +248,23 @@
         });
     }
 
+    //Get Status List
+    function getStatusList() {
+        list = localStorage.getItem('FctStatus');
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('FctStatus'));
+            self.StatusList(list)
+        }
+        else {
+            progName = getProgName('S');
+            ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
+                self.StatusList(data);
+                localStorage.setItem("FctStatus", JSON.stringify(data));
+            });
+        }
+    }
 
+    getStatusList();
 
     //Get kala List
     function getKalaList() {
@@ -335,6 +367,14 @@
         if (modeCode.length == 1)
             modeCode2 = '';
 
+        statusCode = '';
+        for (var i = 0; i <= counterStatus - 1; i++) {
+            if (i < counterStatus - 1)
+                statusCode += list_StatusSelect[i] + '*';
+            else
+                statusCode += list_StatusSelect[i];
+        }
+
         var invcode = '';
         for (var i = 0; i <= counterInv - 1; i++) {
             if (i < counterInv - 1)
@@ -395,6 +435,7 @@
             CustCode: Custcode,
             MkzCode: mkzcode,
             OprCode: oprcode,
+            StatusCode: statusCode,
         };
         ajaxFunction(FDocR_SUri + ace + '/' + sal + '/' + group, 'POST', FDocR_SObject, true).done(function (response) {
             self.FDocR_SList(response);
@@ -494,6 +535,7 @@
     $('#nameCust').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
+    $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
 
     //------------------------------------------------------
     self.currentPageFDocR_S = ko.observable();
@@ -1248,6 +1290,193 @@
         $('.fix').attr('class', 'form-line focused fix');
 
     });
+
+
+
+
+
+    self.iconTypeStatus = ko.observable("");
+
+    self.currentPageStatus = ko.observable();
+    pageSizeStatus = localStorage.getItem('pageSizeStatus') == null ? 10 : localStorage.getItem('pageSizeStatus');
+    self.pageSizeStatus = ko.observable(pageSizeStatus);
+    self.currentPageIndexStatus = ko.observable(0);
+
+    self.filterStatus0 = ko.observable("");
+
+    self.filterStatusList = ko.computed(function () {
+
+        self.currentPageIndexStatus(0);
+        var filter0 = self.filterStatus0();
+
+        if (!filter0) {
+            return self.StatusList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.StatusList(), function (item) {
+                result =
+                    item.Status == null ? '' : item.Status.toString().search(filter0) >= 0
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageStatus = ko.computed(function () {
+        var pageSizeStatus = parseInt(self.pageSizeStatus(), 10),
+            startIndex = pageSizeStatus * self.currentPageIndexStatus(),
+            endIndex = startIndex + pageSizeStatus;
+        localStorage.setItem('pageSizeStatus', pageSizeStatus);
+        return self.filterStatusList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageStatus = function () {
+        if (((self.currentPageIndexStatus() + 1) * self.pageSizeStatus()) < self.filterStatusList().length) {
+            self.currentPageIndexStatus(self.currentPageIndexStatus() + 1);
+        }
+    };
+
+    self.previousPageStatus = function () {
+        if (self.currentPageIndexStatus() > 0) {
+            self.currentPageIndexStatus(self.currentPageIndexStatus() - 1);
+        }
+    };
+
+    self.firstPageStatus = function () {
+        self.currentPageIndexStatus(0);
+    };
+
+    self.lastPageStatus = function () {
+        countStatus = parseInt(self.filterStatusList().length / self.pageSizeStatus(), 10);
+        if ((self.filterStatusList().length % self.pageSizeStatus()) == 0)
+            self.currentPageIndexStatus(countStatus - 1);
+        else
+            self.currentPageIndexStatus(countStatus);
+    };
+
+    self.sortTableStatus = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.StatusList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeStatus('');
+
+
+        if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+        getIDocH(select, invSelect);
+    }
+
+
+
+    $('#refreshStatus').click(function () {
+        Swal.fire({
+            title: 'تایید به روز رسانی ',
+            text: "لیست وضعیت ها به روز رسانی شود ؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                $("div.loadingZone").show();
+                getStatusList();
+                $("div.loadingZone").hide();
+            }
+        })
+    })
+
+
+    contentListStatus =
+        '<tr>' +
+        '    <td>موقت</td>' +
+        '</tr>' +
+        '<tr>' +
+        '    <td>تایید</td>' +
+        '</tr>';
+
+    contentListStatus += ace == Web8 ? '<tr><td>تصویب</td></tr>' : ''
+
+    $('#TableBodyListStatus').append(contentListStatus);
+
+    self.AddStatus = function (item) {
+        Status = item.Status;
+        find = false;
+        list_StatusSelect.forEach(function (item, key) {
+            if (item == Status) {
+                find = true;
+            }
+        });
+
+        if (find == false) {
+            $('#TableBodyListStatus').append(
+                '<tr data-bind="">'
+                + ' <td data-bind="text: Status">' + item.Status + '</td > '
+                + '</tr>'
+            );
+            list_StatusSelect[counterStatus] = item.Status;
+            counterStatus = counterStatus + 1;
+        }
+    };
+
+
+    self.AddAllStatus = function () {
+        list_StatusSelect = new Array();
+        list = self.StatusList();
+        $("#TableBodyListStatus").empty();
+        for (var i = 0; i < list.length; i++) {
+            $('#TableBodyListStatus').append(
+                '  <tr data-bind="">'
+                + ' <td data-bind="text: Status">' + list[i].Status + '</td > '
+                + '</tr>'
+            );
+            list_StatusSelect[i] = list[i].Status;
+            counterStatus = i + 1;
+        }
+    };
+
+
+    self.DelAllStatus = function () {
+        list_StatusSelect = new Array();
+        counterStatus = 0;
+        $("#TableBodyListStatus").empty();
+    };
+
+
+    $('#modal-Status').on('hide.bs.modal', function () {
+        if (counterStatus > 0)
+            $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ')
+        else
+            $('#nameStatus').val('همه موارد');
+    });
+
+    $('#modal-Status').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
 
 
     self.currentPageKGru = ko.observable();

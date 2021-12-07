@@ -53,6 +53,15 @@
     var counterStatus = 0;
     var list_StatusSelect = new Array();
 
+    if (ace == Web8) {
+        counterStatus = 3;
+        list_StatusSelect = ["موقت", "تایید", "تصویب"];
+    }
+    else {
+        counterStatus = 2;
+        list_StatusSelect = ["موقت", "تایید"];
+    }
+
     var KalaCode = '';
     var counterKala = 0;
     var list_KalaSelect = new Array();
@@ -295,7 +304,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject,true).done(function (data) {
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function (data) {
             self.KGruList(data);
         });
     }
@@ -531,7 +540,7 @@
             KGruCode: kGrucode,
             KalaCode: kalacode,
         };
-        ajaxFunction(TrzFCust_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFCust_PObject,true).done(function (response) {
+        ajaxFunction(TrzFCust_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFCust_PObject, true).done(function (response) {
             self.TrzFCust_PList(response);
         });
     }
@@ -630,7 +639,7 @@
     $('#nameCGru').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
-    $('#nameStatus').val('همه موارد');
+    $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
 
     self.currentPageTrzFCust_P = ko.observable();
     pageSizeTrzFCust_P = localStorage.getItem('pageSizeTrzFCust_P') == null ? 10 : localStorage.getItem('pageSizeTrzFCust_P');
@@ -792,10 +801,10 @@
                 ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filterDiscount) &&
                 ko.utils.stringStartsWith(item.OnlyDiscountPrice.toString().toLowerCase(), filterOnlyDiscountPrice) &&
                 ko.utils.stringStartsWith(item.FinalPrice.toString().toLowerCase(), filterFinalPrice) &&
-                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice)&&
-            ko.utils.stringStartsWith(item.AccBede.toString().toLowerCase(), filterAccBede)&&
-            ko.utils.stringStartsWith(item.AccBest.toString().toLowerCase(), filterAccBest)&&
-            ko.utils.stringStartsWith(item.AccMon.toString().toLowerCase(), filterAccMon)
+                ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filterTotalPrice) &&
+                ko.utils.stringStartsWith(item.AccBede.toString().toLowerCase(), filterAccBede) &&
+                ko.utils.stringStartsWith(item.AccBest.toString().toLowerCase(), filterAccBest) &&
+                ko.utils.stringStartsWith(item.AccMon.toString().toLowerCase(), filterAccMon)
             return result;
         })
         calcsum(tempData);
@@ -835,7 +844,7 @@
             startIndex = pageSizeTrzFCust_P * self.currentPageIndexTrzFCust_P(),
             endIndex = startIndex + pageSizeTrzFCust_P;
         localStorage.setItem('pageSizeTrzFCust_P', pageSizeTrzFCust_P);
-  return self.filterTrzFCust_PList().slice(startIndex, endIndex);
+        return self.filterTrzFCust_PList().slice(startIndex, endIndex);
     });
 
     self.nextPageTrzFCust_P = function () {
@@ -908,7 +917,7 @@
     self.iconTypeAccBest = ko.observable("");
     self.iconTypeAccMon = ko.observable("");
 
-  
+
     self.sortTableTrzFCust_P = function (viewModel, e) {
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
@@ -1025,7 +1034,7 @@
         if (orderProp == 'AccBest') self.iconTypeAccBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccMon') self.iconTypeAccMon((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
-   
+
 
     }
 
@@ -1075,7 +1084,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-   return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -1154,6 +1163,17 @@
         })
     })
 
+
+    contentListStatus =
+        '<tr>' +
+        '    <td>موقت</td>' +
+        '</tr>' +
+        '<tr>' +
+        '    <td>تایید</td>' +
+        '</tr>';
+
+    contentListStatus += ace == Web8 ? '<tr><td>تصویب</td></tr>' : ''
+    $('#TableBodyListStatus').append(contentListStatus);
 
     self.AddStatus = function (item) {
         Status = item.Status;
@@ -1243,7 +1263,7 @@
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-    return self.filterInvList().slice(startIndex, endIndex);
+        return self.filterInvList().slice(startIndex, endIndex);
     });
 
     self.nextPageInv = function () {
@@ -1429,7 +1449,7 @@
             startIndex = pageSizeKGru * self.currentPageIndexKGru(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-    return self.filterKGruList().slice(startIndex, endIndex);
+        return self.filterKGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageKGru = function () {
@@ -1617,7 +1637,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-    return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -1717,7 +1737,7 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
-              //  + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
+                //  + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[counterKala] = item.Code;
@@ -1737,7 +1757,7 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-              //  + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
+                //  + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[i] = list[i].Code;
@@ -1805,7 +1825,7 @@
             startIndex = pageSizeCGru * self.currentPageIndexCGru(),
             endIndex = startIndex + pageSizeCGru;
         localStorage.setItem('pageSizeCGru', pageSizeCGru);
-    return self.filterCGruList().slice(startIndex, endIndex);
+        return self.filterCGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageCGru = function () {
@@ -1989,7 +2009,7 @@
             startIndex = pageSizeCust * self.currentPageIndexCust(),
             endIndex = startIndex + pageSizeCust;
         localStorage.setItem('pageSizeCust', pageSizeCust);
-   return self.filterCustList().slice(startIndex, endIndex);
+        return self.filterCustList().slice(startIndex, endIndex);
     });
 
     self.nextPageCust = function () {
@@ -2172,7 +2192,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-   return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -2356,7 +2376,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-   return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -2515,7 +2535,7 @@
         localStorage.setItem("IsReport", "true");
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("ModeCodeReport",  $("#modeCode").val());
+        localStorage.setItem("ModeCodeReport", $("#modeCode").val());
         localStorage.setItem("ModeCode1Report", modeCode1);
         localStorage.setItem("ModeCode2Report", modeCode2);
         localStorage.setItem("InvCodeReport", invcode);
@@ -2643,7 +2663,7 @@
             CreateTableTd('AccBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AccBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('AccMon', sessionStorage.Deghat, 2, data) +
-      
+
             ' <td>' +
             ' <a  data-bind="visible: $root.AccessAction(\'FDocR_P\') == true" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
@@ -3044,7 +3064,7 @@
         $('#modal-Print').modal('hide');
     });
 
-  
+
 };
 
 ko.applyBindings(new ViewModel());

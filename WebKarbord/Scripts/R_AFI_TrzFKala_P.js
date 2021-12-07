@@ -51,6 +51,14 @@
     var counterStatus = 0;
     var list_StatusSelect = new Array();
 
+    if (ace == Web8) {
+        counterStatus = 3;
+        list_StatusSelect = ["موقت", "تایید", "تصویب"];
+    }
+    else {
+        counterStatus = 2;
+        list_StatusSelect = ["موقت", "تایید"];
+    }
 
     var KalaCode = '';
     var counterKala = 0;
@@ -278,7 +286,7 @@
     });
     //Get Inv List 
     function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName , 'GET').done(function (data) {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/0/' + sessionStorage.userName, 'GET').done(function (data) {
             self.InvList(data);
         });
     }
@@ -289,7 +297,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject,true).done(function (data) {
+        ajaxFunction(KGruUri + ace + '/' + sal + '/' + group, 'POST', KGruObject, true).done(function (data) {
             self.KGruList(data);
         });
     }
@@ -606,7 +614,7 @@
             KGruCode: kGrucode,
             KalaCode: kalacode,
         };
-        ajaxFunction(TrzFKala_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_PObject,true).done(function (response) {
+        ajaxFunction(TrzFKala_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_PObject, true).done(function (response) {
             self.TrzFKala_PList(response);
         });
     }
@@ -724,7 +732,7 @@
     $('#nameCGru').val('همه موارد');
     $('#nameOpr').val('همه موارد');
     $('#nameMkz').val('همه موارد');
-    $('#nameStatus').val('همه موارد');
+    $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
 
     self.currentPageTrzFKala_P = ko.observable();
     pageSizeTrzFKala_P = localStorage.getItem('pageSizeTrzFKala_P') == null ? 10 : localStorage.getItem('pageSizeTrzFKala_P');
@@ -827,26 +835,26 @@
         var filterTotalPrice = self.filterTotalPrice();
 
 
-         filterAmount1 = filterAmount1.replace("/", ".");
-         filterAmount2 = filterAmount2.replace("/", ".");
-         filterAmount3 = filterAmount3.replace("/", ".");
-         filterAddMinPrice1 = filterAddMinPrice1.replace("/", ".");
-         filterAddMinPrice2 = filterAddMinPrice2.replace("/", ".");
-         filterAddMinPrice3 = filterAddMinPrice3.replace("/", ".");
-         filterAddMinPrice4 = filterAddMinPrice4.replace("/", ".");
-         filterAddMinPrice5 = filterAddMinPrice5.replace("/", ".");
-         filterAddMinPrice6 = filterAddMinPrice6.replace("/", ".");
-         filterAddMinPrice7 = filterAddMinPrice7.replace("/", ".");
-         filterAddMinPrice8 = filterAddMinPrice8.replace("/", ".");
-         filterAddMinPrice9 = filterAddMinPrice9.replace("/", ".");
-         filterAddMinPrice10 = filterAddMinPrice10.replace("/", ".");
-         filterUnitPrice1 = filterUnitPrice1.replace("/", ".");
-         filterUnitPrice2 = filterUnitPrice2.replace("/", ".");
-         filterUnitPrice3 = filterUnitPrice3.replace("/", ".");
-         filterDiscount = filterDiscount.replace("/", ".");
-         filterOnlyDiscountPrice = filterOnlyDiscountPrice.replace("/", ".");
-         filterFinalPrice = filterFinalPrice.replace("/", ".");
-         filterTotalPrice = filterTotalPrice.replace("/", ".");
+        filterAmount1 = filterAmount1.replace("/", ".");
+        filterAmount2 = filterAmount2.replace("/", ".");
+        filterAmount3 = filterAmount3.replace("/", ".");
+        filterAddMinPrice1 = filterAddMinPrice1.replace("/", ".");
+        filterAddMinPrice2 = filterAddMinPrice2.replace("/", ".");
+        filterAddMinPrice3 = filterAddMinPrice3.replace("/", ".");
+        filterAddMinPrice4 = filterAddMinPrice4.replace("/", ".");
+        filterAddMinPrice5 = filterAddMinPrice5.replace("/", ".");
+        filterAddMinPrice6 = filterAddMinPrice6.replace("/", ".");
+        filterAddMinPrice7 = filterAddMinPrice7.replace("/", ".");
+        filterAddMinPrice8 = filterAddMinPrice8.replace("/", ".");
+        filterAddMinPrice9 = filterAddMinPrice9.replace("/", ".");
+        filterAddMinPrice10 = filterAddMinPrice10.replace("/", ".");
+        filterUnitPrice1 = filterUnitPrice1.replace("/", ".");
+        filterUnitPrice2 = filterUnitPrice2.replace("/", ".");
+        filterUnitPrice3 = filterUnitPrice3.replace("/", ".");
+        filterDiscount = filterDiscount.replace("/", ".");
+        filterOnlyDiscountPrice = filterOnlyDiscountPrice.replace("/", ".");
+        filterFinalPrice = filterFinalPrice.replace("/", ".");
+        filterTotalPrice = filterTotalPrice.replace("/", ".");
 
         tempData = ko.utils.arrayFilter(self.TrzFKala_PList(), function (item) {
             result =
@@ -934,7 +942,7 @@
             startIndex = pageSizeTrzFKala_P * self.currentPageIndexTrzFKala_P(),
             endIndex = startIndex + pageSizeTrzFKala_P;
         localStorage.setItem('pageSizeTrzFKala_P', pageSizeTrzFKala_P);
-  return self.filterTrzFKala_PList().slice(startIndex, endIndex);
+        return self.filterTrzFKala_PList().slice(startIndex, endIndex);
     });
 
     self.nextPageTrzFKala_P = function () {
@@ -1177,7 +1185,7 @@
             startIndex = pageSizeStatus * self.currentPageIndexStatus(),
             endIndex = startIndex + pageSizeStatus;
         localStorage.setItem('pageSizeStatus', pageSizeStatus);
-  return self.filterStatusList().slice(startIndex, endIndex);
+        return self.filterStatusList().slice(startIndex, endIndex);
     });
 
     self.nextPageStatus = function () {
@@ -1256,6 +1264,17 @@
         })
     })
 
+    contentListStatus =
+        '<tr>' +
+        '    <td>موقت</td>' +
+        '</tr>' +
+        '<tr>' +
+        '    <td>تایید</td>' +
+        '</tr>';
+
+    contentListStatus += ace == Web8 ? '<tr><td>تصویب</td></tr>' : ''
+
+    $('#TableBodyListStatus').append(contentListStatus);
 
     self.AddStatus = function (item) {
 
@@ -1346,7 +1365,7 @@
             startIndex = pageSizeInv * self.currentPageIndexInv(),
             endIndex = startIndex + pageSizeInv;
         localStorage.setItem('pageSizeInv', pageSizeInv);
-  return self.filterInvList().slice(startIndex, endIndex);
+        return self.filterInvList().slice(startIndex, endIndex);
     });
 
     self.nextPageInv = function () {
@@ -1532,7 +1551,7 @@
             startIndex = pageSizeKGru * self.currentPageIndexKGru(),
             endIndex = startIndex + pageSizeKGru;
         localStorage.setItem('pageSizeKGru', pageSizeKGru);
-  return self.filterKGruList().slice(startIndex, endIndex);
+        return self.filterKGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageKGru = function () {
@@ -1720,7 +1739,7 @@
             startIndex = pageSizeKala * self.currentPageIndexKala(),
             endIndex = startIndex + pageSizeKala;
         localStorage.setItem('pageSizeKala', pageSizeKala);
-  return self.filterKalaList().slice(startIndex, endIndex);
+        return self.filterKalaList().slice(startIndex, endIndex);
     });
 
     self.nextPageKala = function () {
@@ -1908,7 +1927,7 @@
             startIndex = pageSizeCGru * self.currentPageIndexCGru(),
             endIndex = startIndex + pageSizeCGru;
         localStorage.setItem('pageSizeCGru', pageSizeCGru);
-  return self.filterCGruList().slice(startIndex, endIndex);
+        return self.filterCGruList().slice(startIndex, endIndex);
     });
 
     self.nextPageCGru = function () {
@@ -2099,7 +2118,7 @@
             startIndex = pageSizeCust * self.currentPageIndexCust(),
             endIndex = startIndex + pageSizeCust;
         localStorage.setItem('pageSizeCust', pageSizeCust);
-  return self.filterCustList().slice(startIndex, endIndex);
+        return self.filterCustList().slice(startIndex, endIndex);
     });
 
     self.nextPageCust = function () {
@@ -2282,7 +2301,7 @@
             startIndex = pageSizeOpr * self.currentPageIndexOpr(),
             endIndex = startIndex + pageSizeOpr;
         localStorage.setItem('pageSizeOpr', pageSizeOpr);
-  return self.filterOprList().slice(startIndex, endIndex);
+        return self.filterOprList().slice(startIndex, endIndex);
     });
 
     self.nextPageOpr = function () {
@@ -2466,7 +2485,7 @@
             startIndex = pageSizeMkz * self.currentPageIndexMkz(),
             endIndex = startIndex + pageSizeMkz;
         localStorage.setItem('pageSizeMkz', pageSizeMkz);
-  return self.filterMkzList().slice(startIndex, endIndex);
+        return self.filterMkzList().slice(startIndex, endIndex);
     });
 
     self.nextPageMkz = function () {
@@ -2643,7 +2662,7 @@
         window.open(sessionStorage.urlFDocR_P, '_blank');
     }
 
-   // $("#FDocR_P").hide();
+    // $("#FDocR_P").hide();
     self.AccessAction = function (nameRprt) {
         if (nameRprt == "FDocR_P")
             return $("#FDocR_P").css("display") != "none"
@@ -2805,7 +2824,7 @@
             CreateTableTdSum('UnitPrice2', 2, data) +
             CreateTableTdSum('KalaUnitName3', 1, data) +
             CreateTableTdSum('Amount3', 2, data) +
-            CreateTableTdSum('UnitPrice3', 2, data)+ 
+            CreateTableTdSum('UnitPrice3', 2, data) +
             CreateTableTdSum('TotalPrice', 2, data) +
             CreateTableTdSum('Discount', 2, data) +
             CreateTableTdSum('AddMinPrice1', 2, data) +
@@ -3143,7 +3162,7 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+
 };
 
 ko.applyBindings(new ViewModel());
