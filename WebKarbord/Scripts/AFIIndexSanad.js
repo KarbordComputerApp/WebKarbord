@@ -1663,7 +1663,6 @@
 
             $('#modal-Move').modal('hide');
             showNotification('در حال ایجاد لطفا منتظر بمانید', 1);
-
             ajaxFunction(AMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
                 item = response;
                 item = item[0];
@@ -1675,6 +1674,8 @@
                 else {
                     localStorage.setItem("DocNoAFISanad", item.DocNo);
                     window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                    getADocH($('#pageCountSelector').val(), false);
+                    self.sortTableADocH();
                 }
 
                 /*sessionStorage.flagupdateHeader = 1;
@@ -1715,7 +1716,6 @@
                 window.location.href = sessionStorage.urlAddADocH;*/
             });
         }
-
     });
 
     self.currentPageIndexADocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));

@@ -1808,6 +1808,7 @@
                     localStorage.setItem("ModeCodeAFISanadAnbar", item.ModeCode);
                     localStorage.setItem("DocNoAFISanadAnbar", item.DocNo);
                     window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+                    getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
                 }
 
                 /*sessionStorage.flagupdateHeader = 1;
@@ -1867,6 +1868,7 @@
                 window.location.href = sessionStorage.urlAddIDocH;*/
             });
         }
+
     });
 
     

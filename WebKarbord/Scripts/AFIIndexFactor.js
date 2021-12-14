@@ -2958,6 +2958,7 @@
                     localStorage.setItem("DocNoAFIFactor", item.DocNo);
                     localStorage.setItem("ModeCodeAFIFactor", item.ModeCode);
                     window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+                    getFDocH($('#pageCountSelector').val(), false);
                 }
 
 
