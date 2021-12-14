@@ -2917,21 +2917,20 @@ function SetValidationErj() {
     validation = CheckAccessErj('AllDoc');
     ShowMenuErj[3] = validation;  // اسناد اتوماسیون
 
-    if (ShowMenuErj[3] == true) {
-        if (erjaccess[0] == true || erjaccess[1] == true) {
-            $("#EReport_Menu").show();
-            erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
-            erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
+    if (erjaccess[0] == true || erjaccess[1] == true) {
+        $("#EReport_Menu").show();
+        erjaccess[0] == true && ShowMenuErj[0] == true ? $("#ErjDocK").show() : $("#ErjDocK").hide();
+        erjaccess[1] == true && ShowMenuErj[1] == true ? $("#ErjDocB_Last").show() : $("#ErjDocB_Last").hide();
 
-            if (ShowMenuErj[0] == false && ShowMenuErj[1] == false)
-                $("#EReport_Menu").hide();
-        }
-        else {
+        if (ShowMenuErj[0] == false && ShowMenuErj[1] == false)
             $("#EReport_Menu").hide();
-        }
+    }
+    else {
+        $("#EReport_Menu").hide();
+    }
 
-
-
+    if (ShowMenuErj[3] == true) {
+       
         if (erjaccess[2] == true || erjaccess[3] == true || erjaccess[4] == true) {
             $("#ErjaDOC_Menu").show();
             erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();

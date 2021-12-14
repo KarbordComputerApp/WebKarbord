@@ -2665,7 +2665,7 @@
                 $("#p_SpecialComm").val(specialComm);
             }
         }
-        else
+        else if (access[0].TrsName != 'ADMIN')
             showNotification('دسترسی ندارید', 0);
     })
 
