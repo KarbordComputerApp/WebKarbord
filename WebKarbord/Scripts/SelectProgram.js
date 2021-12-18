@@ -32,8 +32,8 @@
 
             sessionStorage.ace = 'Web8';
             localStorage.setItem("ace", 'Web8');
-            localStorage.setItem("aceName", 'نرم افزار سیستم جامع');
-            sessionStorage.aceName = 'نرم افزار سیستم جامع';
+            localStorage.setItem("aceName", translate('نرم افزار سیستم جامع'));
+            sessionStorage.aceName = translate('نرم افزار سیستم جامع');
             $('#DropAce').text(sessionStorage.aceName);
             $('#ace_TitleMenu').text(sessionStorage.aceName);
 
@@ -44,8 +44,8 @@
 
             sessionStorage.ace = 'Web1';
             localStorage.setItem("ace", 'Web1');
-            localStorage.setItem("aceName", 'نرم افزار مالی بازرگانی');
-            sessionStorage.aceName = 'نرم افزار مالی بازرگانی';
+            localStorage.setItem("aceName", translate('نرم افزار مالی بازرگانی'));
+            sessionStorage.aceName = translate('نرم افزار مالی بازرگانی');
             $('#DropAce').text(sessionStorage.aceName)
             $('#ace_TitleMenu').text(sessionStorage.aceName);
         }

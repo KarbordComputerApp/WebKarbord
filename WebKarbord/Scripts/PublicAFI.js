@@ -14,6 +14,7 @@ if (sessionStorage.versionTitle == "ورژن تست : ") {
 }
 
 var tiketUrl = 'http://localhost:51091/';
+//var tiketUrl = 'http://192.168.0.114:903/';
 
 sessionStorage.userNameFa = localStorage.getItem('userNameFa');
 sessionStorage.CoName = localStorage.getItem('CoName');
@@ -23,6 +24,27 @@ sessionStorage.pass = pass;
 var serverAccount = localStorage.getItem('serverAccount');
 
 //sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+
+var dict = {
+    en: {
+        'تنظیمات نرم افزار': 'ProgramSetting',
+        'نرم افزار سیستم جامع': 'web8',
+        'نرم افزار مالی بازرگانی': 'web1'
+    },
+   /* fa: {
+        'تنظیمات نرم افزار': 'تنظیمات نرم افزار',
+    }, */
+}
+
+var lang = 'fa';
+
+function translate(text) {
+    if (lang == 'fa')
+        return text
+    else
+        return dict[lang][text];
+}
+
 
 
 //localStorage.setItem("NewTab", "ShowNewTab");
@@ -2930,7 +2952,7 @@ function SetValidationErj() {
     }
 
     if (ShowMenuErj[3] == true) {
-       
+
         if (erjaccess[2] == true || erjaccess[3] == true || erjaccess[4] == true) {
             $("#ErjaDOC_Menu").show();
             erjaccess[2] == true && ShowMenuErj[2] == true ? $("#ErjaDOC").show() : $("#ErjaDOC").hide();
@@ -2965,7 +2987,7 @@ function SetValidationErj() {
         validation == true ? localStorage.setItem("AccessSanadErj", "true") : localStorage.setItem("AccessSanadErj", "false")
     }
     else {
-        $("#EReport_Menu").hide();
+        //$("#EReport_Menu").hide();
         $("#ErjaDOC_Menu").hide();
         $("#P_NotificationErja").hide();
     }
@@ -4385,8 +4407,8 @@ function ViewCustName(CustName) {
 AlertErja();
 setInterval(AlertErja, 60000);
 function AlertErja() {
-     
-    if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null ) {
+
+    if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null) {
 
         var aceErj = 'Web2';
         var salErj = '0000';
@@ -4455,7 +4477,7 @@ $("#btn_Tiket").click(function () {
 
 
 
-function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
+function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     var listUse = localStorage.getItem("list" + FormName + "Use");
     if (listUse == null) {
         localStorage.setItem("list" + FormName + "Use", "0");
@@ -4502,8 +4524,8 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
             SerialNumber: Id
         };
         ajaxFunction(DocInUseUri, 'POST', DocInUseObject, false).done(function (response) {
-            userUse = response[0].UserCode ;
-            userUseName = response[0].UserName ;
+            userUse = response[0].UserCode;
+            userUseName = response[0].UserName;
             if (userUse != "") {
                 useWindows = true;
             }
@@ -4559,7 +4581,7 @@ function TestUseSanad(prog,year,FormName, Id, Insert, docNo) {
     }
 }
 
-function RemoveUseSanad(prog,year,FormName, Id) {
+function RemoveUseSanad(prog, year, FormName, Id) {
     if (Id != null) {
 
 
@@ -4604,13 +4626,17 @@ function RemoveUseSanad(prog,year,FormName, Id) {
             });
         }
     }
-
-
 }
 
 
 
+/*
+if (navigator.browserLanguage) {
+    lang = navigator.browserLanguage;
+} else {
+    lang = navigator.language;
+}
 
-
-
+lang = lang0.substr(0, 2).toLowerCase();
+*/
 
