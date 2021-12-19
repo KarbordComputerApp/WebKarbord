@@ -517,7 +517,7 @@
                 </button>
 
                 <a id="listOldBand">
-                    <img src="~/Content/img/outline.svg"width="20" height="20" style="margin-left: 10px;" />
+                    <img src="~/Content/img/outline.svg" width="20" height="20" style="margin-left: 10px;" />
                 </a>
 
             </div>
@@ -1349,9 +1349,8 @@
 
 
 
-
-<div class="modal fade" id="modal-OldBand" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="modal-OldBand" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1367,6 +1366,13 @@
                         <thead style="cursor: pointer;">
 
                             <tr data-bind="click: sortTableFDocB">
+                                <th data-column="BandNo">
+                                    شماره بند
+                                    <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeBandNo }"></i>
+                                    </span>
+                                </th>
+
                                 <th data-column="KalaCode">
                                     کد کالا
                                     <span data-bind="attr: { class: currentColumn() == 'KalaCode' ? 'isVisible' : 'isHidden' }">
@@ -1415,10 +1421,10 @@
                                         <i data-bind="attr: { class: iconTypeTotalPrice }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Discount">
-                                    تخفیف بند
-                                    <span data-bind="attr: { class: currentColumn() == 'Discount' ? 'isVisible' : 'isHidden' }">
-                                        <i data-bind="attr: { class: iconTypeDiscount }"></i>
+                                <th data-column="Comm">
+                                    شرح
+                                    <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>
                                 </th>
                             </tr>
@@ -1426,6 +1432,7 @@
 
                         <tbody data-bind="foreach: currentPageFDocB" style="cursor: default;">
                             <tr data-bind="click: $parent.selectFDocB">
+                                <td data-bind="text: BandNo"></td>
                                 <td data-bind="text: KalaCode"></td>
                                 <td data-bind="text: KalaName"></td>
                                 <td data-bind="text: MainUnitName"></td>
@@ -1434,7 +1441,7 @@
                                 <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(KalaDeghatM3)) "></td>
                                 <td id="tdUnitPrice" data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
                                 <td id="tdTotalPrice" data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
-                                <td id="tdDiscount" data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount).toFixed(parseInt(sessionStorage.Deghat)))"></td>
+                                <td data-bind="text: Comm"></td>
                             </tr>
                         </tbody>
 
@@ -1449,6 +1456,7 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocB6, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocB7, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterFDocB8, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterFDocB9, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                             </tr>
                         </tfoot>
                     </table>

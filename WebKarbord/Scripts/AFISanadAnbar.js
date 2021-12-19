@@ -79,7 +79,7 @@
 
     var unitvalue = "";
 
-    var KalaCode = "";
+    var KalaCode = '';
     var kalapricecode = 0;
 
     var bandnumber = 0;
@@ -135,6 +135,7 @@
     self.KalaPriceList = ko.observableArray([]); // ليست گروه قيمت
     self.KalaPriceBList = ko.observableArray([]); // قيمت کالا بر اساس گروه قیمت
     self.IDocBList = ko.observableArray([]); // ليست بند های سند
+    self.IDocB = ko.observableArray([]); // ليست بند های سند
     self.UnitList = ko.observableArray([]); // ليست واحد ها
     self.InvList = ko.observableArray([]); // ليست انبارها
     self.IDocHList = ko.observableArray([]); // اطلاعات  سند  
@@ -554,6 +555,7 @@
     function getIDocB(serialNumber) {
         ajaxFunction(IDocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.IDocBList(data);
+            self.IDocB(data);
         });
     }
 
@@ -1451,6 +1453,7 @@
             if (flagKalaPrice == true) {
                 ajaxFunction(UpdatePriceUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST').done(function (response) {
                     self.IDocBList(response);
+                    self.IDocB(response);
                     getIDocH(Serial);
                     flagFinalSave = false;
                     flagKalaPrice = false;
@@ -1627,6 +1630,7 @@
 
         ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', IDocBObject).done(function (response) {
             self.IDocBList(response);
+            self.IDocB(response);
             getIDocH(Serial);
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumber + ' ذخيره شد ' });
             self.flagupdateband = false;
@@ -1634,6 +1638,7 @@
             self.ClearIDocB();
             flaglog = 'N';
             $('#Save').removeAttr('disabled');
+            KalaCode = '';
             showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
         });
     }
@@ -1733,6 +1738,7 @@
         SendIDocBU(IDocBObject);
         if (acceptUpdate == true) {
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+            KalaCode = '';
         }
     };
 
@@ -1741,6 +1747,7 @@
 
         ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumberedit, 'PUT', IDocBObject).done(function (response) {
             self.IDocBList(response);
+            self.IDocB(response);
             getIDocH(Serial);
             self.flagupdateband = false;
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumberedit + ' ویرایش شد ' });
@@ -2720,6 +2727,7 @@
             if (result.value) {
                 ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + factorBand.BandNo + '/' + sessionStorage.InOut + '/' + flaglog, 'DELETE').done(function (response) {
                     self.IDocBList(response);
+                    self.IDocB(response);
                     getIDocH(Serial);
                     flagFinalSave = false;
                     flaglog = 'N';
@@ -2781,6 +2789,7 @@
     });
 
     $('#insertband').click(function () {
+        KalaCode = '';
         self.flagupdateband = false;
     })
 
@@ -3676,6 +3685,258 @@
             self.MkzCode("");
         }
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#listOldBand').click(function () {
+        self.sortTableIDocB();
+        self.filterIDocB1(KalaCode);
+        $('#modal-OldBand').modal('show');
+
+    })
+
+
+    pageSizeIDocB = localStorage.getItem('pageSizeIDocB') == null ? 100 : localStorage.getItem('pageSizeIDocB');
+    self.pageSizeIDocB = ko.observable(pageSizeIDocB);
+    self.currentPageIndexIDocB = ko.observable(0);
+
+    self.filterIDocB0 = ko.observable("");
+    self.filterIDocB1 = ko.observable("");
+    self.filterIDocB2 = ko.observable("");
+    self.filterIDocB3 = ko.observable("");
+    self.filterIDocB4 = ko.observable("");
+    self.filterIDocB5 = ko.observable("");
+    self.filterIDocB6 = ko.observable("");
+    self.filterIDocB7 = ko.observable("");
+    self.filterIDocB8 = ko.observable("");
+    self.filterIDocB9 = ko.observable("");
+
+    self.filterIDocB = ko.computed(function () {
+
+        self.currentPageIndexIDocB(0);
+
+        var filter0 = self.filterIDocB0();
+        var filter1 = self.filterIDocB1();
+        var filter2 = self.filterIDocB2();
+        var filter3 = self.filterIDocB3();
+        var filter4 = self.filterIDocB4();
+        var filter5 = self.filterIDocB5();
+        var filter6 = self.filterIDocB6();
+        var filter7 = self.filterIDocB7();
+        var filter8 = self.filterIDocB8();
+        var filter9 = self.filterIDocB9();
+
+
+        if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8 && !filter9) {
+            return self.IDocB();
+        } else {
+            tempData = ko.utils.arrayFilter(self.IDocB(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter0) &&
+                    ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filter1) &&
+                    (item.KalaName == null ? '' : item.KalaName.toString().search(filter2) >= 0) &&
+                    (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter3) >= 0) &&
+                    ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter4) &&
+                    ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter5) &&
+                    ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter6) &&
+                    ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filter7) &&
+                    ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter8) &&
+                    (item.Comm == null ? '' : item.Comm.toString().search(filter9) >= 0)
+
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageIDocB = ko.computed(function () {
+        var pageSizeIDocB = parseInt(self.pageSizeIDocB(), 10),
+            startIndex = pageSizeIDocB * self.currentPageIndexIDocB(),
+            endIndex = startIndex + pageSizeIDocB;
+        localStorage.setItem('pageSizeIDocB', pageSizeIDocB);
+        return self.filterIDocB().slice(startIndex, endIndex);
+    });
+
+
+    self.nextPageIDocB = function () {
+        if (((self.currentPageIndexIDocB() + 1) * self.pageSizeIDocB()) < self.filterIDocB().length) {
+            self.currentPageIndexIDocB(self.currentPageIndexIDocB() + 1);
+        }
+    };
+
+    self.previousPageIDocB = function () {
+        if (self.currentPageIndexIDocB() > 0) {
+            self.currentPageIndexIDocB(self.currentPageIndexIDocB() - 1);
+        }
+    };
+
+    self.firstPageIDocB = function () {
+        self.currentPageIndexIDocB(0);
+    };
+
+    self.lastPageIDocB = function () {
+        countIDocB = parseInt(self.filterIDocB().length / self.pageSizeIDocB(), 10);
+        self.currentPageIndexIDocB(countIDocB);
+    };
+
+
+
+
+    self.iconTypeBandNo = ko.observable("");
+    self.iconTypeKalaCode = ko.observable("");
+    self.iconTypeKalaName = ko.observable("");
+    self.iconTypeMainUnitName = ko.observable("");
+    self.iconTypeAmount1 = ko.observable("");
+    self.iconTypeAmount2 = ko.observable("");
+    self.iconTypeAmount3 = ko.observable("");
+    self.iconTypeUnitPrice = ko.observable("");
+    self.iconTypeTotalPrice = ko.observable("");
+    self.iconTypeComm = ko.observable("");
+
+
+
+    self.sortTableIDocB = function (viewModel, e) {
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sortIDocB");
+            self.sortType = localStorage.getItem("sortTypeIDocB");
+        }
+
+        if (orderProp == null)
+            return null
+
+        localStorage.setItem("sortIDocB", orderProp);
+        localStorage.setItem("sortTypeIDocB", self.sortType);
+
+        self.currentColumn(orderProp);
+        self.IDocB.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeBandNo('');
+        self.iconTypeKalaCode('');
+        self.iconTypeKalaName('');
+        self.iconTypeMainUnitName('');
+        self.iconTypeAmount1('');
+        self.iconTypeAmount2('');
+        self.iconTypeAmount3('');
+        self.iconTypeUnitPrice('');
+        self.iconTypeTotalPrice('');
+        self.iconTypeComm('');
+
+        if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MainUnitName') self.iconTypeMainUnitName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Amount1') self.iconTypeAmount1((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Amount2') self.iconTypeAmount2((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Amount3') self.iconTypeAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'UnitPrice') self.iconTypeUnitPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+    };
+
+    self.selectIDocB = function (item) {
+        var amo;
+        bandnumberedit = item.BandNo;
+        getUnit(item.KalaCode);
+
+        KalaCode = item.KalaCode;
+        $('#codeKala').val(item.KalaCode);
+        $('#nameKala').val('(' + item.KalaCode + ') ' + item.KalaName);
+
+        amountTextUpdate = item.MainUnitName;
+        amountValueUpdate = item.MainUnit;
+
+        SearchKalaArry(item.KalaCode, self.KalaList());
+
+        kalapricecode = $("#gGhimat").val();
+        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
+
+        if (item.MainUnit == 1) {
+            amo = item.Amount1.toFixed(item.KalaDeghatM1);
+            Price1 = item.UnitPrice.toFixed(item.KalaDeghatR1);
+            $("#iconzarib1").css("backgroundColor", "#c0bfbf");
+            $("#iconzarib2").css("backgroundColor", "white");
+            $("#iconzarib3").css("backgroundColor", "white");
+        }
+        else if (item.MainUnit == 2) {
+            amo = item.Amount2.toFixed(item.KalaDeghatM2);
+            Price2 = item.UnitPrice.toFixed(item.KalaDeghatR2);
+            $("#iconzarib1").css("backgroundColor", "white");
+            $("#iconzarib2").css("backgroundColor", "#c0bfbf");
+            $("#iconzarib3").css("backgroundColor", "white");
+        }
+        else if (item.MainUnit == 3) {
+            amo = item.Amount3.toFixed(item.KalaDeghatM3);;
+            Price3 = item.UnitPrice.toFixed(item.KalaDeghatR3);
+            $("#iconzarib1").css("backgroundColor", "white");
+            $("#iconzarib2").css("backgroundColor", "white");
+            $("#iconzarib3").css("backgroundColor", "#c0bfbf");
+        }
+
+        amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
+
+        item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice.toFixed(item.DeghatR))) : $('#unitPrice').val('');
+        item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.Deghat)))) : $('#totalPrice').val('');
+        item.Discount != 0 ? $('#discountprice').val(NumberToNumberString(Math.abs(item.Discount))) : $('#discountprice').val('');
+        ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 && item.TotalPrice > 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
+        $('#comm').val(item.Comm);
+
+        flag = item.UP_Flag;
+
+        if (flag == 1) {
+            $("#unitPrice").css("backgroundColor", "white");
+            $("#totalPrice").css("backgroundColor", "yellow");
+        }
+        else if (flag == 0) {
+            $("#totalPrice").css("backgroundColor", "white");
+            $("#unitPrice").css("backgroundColor", "yellow");
+        }
+
+        $('#amount1').text(NumberToNumberString(item.Amount1));
+        $('#amount2').text(NumberToNumberString(item.Amount2));
+        $('#amount3').text(NumberToNumberString(item.Amount3));
+
+        $('#modal-OldBand').modal('hide');
+    }
+
+
+
+
+
+
+
+
 
     window.onbeforeunload = function () {
        // a = window.performance.navigation;

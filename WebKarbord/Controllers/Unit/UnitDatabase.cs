@@ -66,7 +66,7 @@ namespace WebKarbord.Controllers.Unit
                 string userName = UnitPublic.MyIniServer.Read("userName");
                 string password = UnitPublic.MyIniServer.Read("password");
 
-                string connection = String.Format( @"data source = {0};initial catalog = {1};user id = {2}; password = {3}; MultipleActiveResultSets = True; App = EntityFramework",
+                string connection = String.Format(@"data source = {0};initial catalog = {1};user id = {2}; password = {3}; MultipleActiveResultSets = True; App = EntityFramework",
                     serverName, "master", userName, password);
                 return connection;
             }

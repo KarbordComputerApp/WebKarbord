@@ -207,6 +207,7 @@
     self.AccList = ko.observableArray([]); // ليست حساب ها
     self.ZAccList = ko.observableArray([]); // ليست زیر حساب ها
     self.ADocBList = ko.observableArray([]); // ليست بند های سند
+    self.ADocB = ko.observableArray([]); // ليست بند های سند
     self.ADocHList = ko.observableArray([]); // اطلاعات  سند  
     self.AModeList = ko.observableArray([]); // نوع سند  
     self.CheckStatusList = ko.observableArray([]); // ليست نوع چک ها
@@ -461,6 +462,7 @@
     function getADocB(serialNumber) {
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.ADocBList(data);
+            self.ADocB(data);
             calcsum(data);
         });
     }
@@ -649,6 +651,7 @@
                 ClearSearch();
                 self.ClearADocH();
                 self.ADocBList([]);
+                self.ADocB([]);
                 self.ADocHList([]);
                 $('#totalBede').text('');
                 $('#totalBest').text('');
@@ -3169,6 +3172,7 @@
 
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', ADocBObject).done(function (response) {
             self.ADocBList(response);
+            self.ADocB(response);
             //getADocH(Serial);
             calcsum(response);
             ClearSearch();
@@ -3255,6 +3259,7 @@
         };
         ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group, 'PUT', ADocBObject).done(function (response) {
             self.ADocBList(response);
+            self.ADocB(response);
             // getADocH(Serial);
             calcsum(response);
             self.flagupdateband = false;
@@ -3284,6 +3289,7 @@
             if (result.value) {
                 ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + SanadBand.SerialNumber + '/' + SanadBand.BandNo + '/' + flaglog, 'DELETE').done(function (response) {
                     self.ADocBList(response);
+                    self.ADocB(response);
                     calcsum(response);
                     flagFinalSave = false;
                     flaglog = 'N';
@@ -4120,8 +4126,282 @@
         }
     });
 
+
+
+
+    $('#listOldBand').click(function () {
+        self.sortTableADocB();
+        self.filterADocB1(AccCode);
+        $('#modal-OldBand').modal('show');
+
+    })
+
+
+    pageSizeADocB = localStorage.getItem('pageSizeADocB') == null ? 100 : localStorage.getItem('pageSizeADocB');
+    self.pageSizeADocB = ko.observable(pageSizeADocB);
+    self.currentPageIndexADocB = ko.observable(0);
+
+    self.filterADocB0 = ko.observable("");
+    self.filterADocB1 = ko.observable("");
+    self.filterADocB2 = ko.observable("");
+    self.filterADocB3 = ko.observable("");
+    self.filterADocB4 = ko.observable("");
+    self.filterADocB5 = ko.observable("");
+    self.filterADocB6 = ko.observable("");
+    self.filterADocB7 = ko.observable("");
+    self.filterADocB8 = ko.observable("");
+    self.filterADocB9 = ko.observable("");
+    self.filterADocB10 = ko.observable("");
+    self.filterADocB11 = ko.observable("");
+    self.filterADocB12 = ko.observable("");
+
+
+    self.filterADocB = ko.computed(function () {
+
+        self.currentPageIndexADocB(0);
+
+        var filter0 = self.filterADocB0();
+        var filter1 = self.filterADocB1();
+        var filter2 = self.filterADocB2();
+        var filter3 = self.filterADocB3();
+        var filter4 = self.filterADocB4();
+        var filter5 = self.filterADocB5();
+        var filter6 = self.filterADocB6();
+        var filter7 = self.filterADocB7();
+        var filter8 = self.filterADocB8();
+        var filter9 = self.filterADocB9();
+        var filter10 = self.filterADocB10();
+        var filter11 = self.filterADocB11();
+        var filter12 = self.filterADocB12();
+
+        if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8 && !filter9 && !filter10 && !filter11 && !filter12) {
+            return self.ADocB();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ADocB(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter0) &&
+                    (item.AccFullCode == null ? '' : item.AccFullCode.toString().search(filter1) >= 0) &&
+                    (item.AccFullName == null ? '' : item.AccFullName.toString().search(filter2) >= 0) &&
+                    (item.Comm == null ? '' : item.Comm.toString().search(filter3) >= 0) &&
+                    ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filter4) &&
+                    ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filter5) &&
+                    ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filter6) &&
+                    (item.CheckDate == null ? '' : item.CheckDate.toString().search(filter7) >= 0) &&
+                    (item.Bank == null ? '' : item.Bank.toString().search(filter8) >= 0) &&
+                    (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filter9) >= 0) &&
+                    (item.MkzName == null ? '' : item.MkzName.toString().search(filter10) >= 0) &&
+                    (item.OprName == null ? '' : item.OprName.toString().search(filter11) >= 0) &&
+                    (item.BandSpec == null ? '' : item.BandSpec.toString().search(filter12) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+    self.currentPageADocB = ko.computed(function () {
+        var pageSizeADocB = parseInt(self.pageSizeADocB(), 10),
+            startIndex = pageSizeADocB * self.currentPageIndexADocB(),
+            endIndex = startIndex + pageSizeADocB;
+        localStorage.setItem('pageSizeADocB', pageSizeADocB);
+        return self.filterADocB().slice(startIndex, endIndex);
+    });
+
+
+    self.nextPageADocB = function () {
+        if (((self.currentPageIndexADocB() + 1) * self.pageSizeADocB()) < self.filterADocB().length) {
+            self.currentPageIndexADocB(self.currentPageIndexADocB() + 1);
+        }
+    };
+
+    self.previousPageADocB = function () {
+        if (self.currentPageIndexADocB() > 0) {
+            self.currentPageIndexADocB(self.currentPageIndexADocB() - 1);
+        }
+    };
+
+    self.firstPageADocB = function () {
+        self.currentPageIndexADocB(0);
+    };
+
+    self.lastPageADocB = function () {
+        countADocB = parseInt(self.filterADocB().length / self.pageSizeADocB(), 10);
+        self.currentPageIndexADocB(countADocB);
+    };
+
+
+    self.iconTypeBandNo = ko.observable("");
+    self.iconTypeAccFullCode = ko.observable("");
+    self.iconTypeAccFullName = ko.observable("");
+    self.iconTypeComm = ko.observable("");
+    self.iconTypeBede = ko.observable("");
+    self.iconTypeBest = ko.observable("");
+    self.iconTypeCheckNo = ko.observable("");
+    self.iconTypeCheckDate = ko.observable("");
+    self.iconTypeBank = ko.observable("");
+    self.iconTypeTrafFullName = ko.observable("");
+    self.iconTypeMkzName = ko.observable("");
+    self.iconTypeOprName = ko.observable("");
+    self.iconTypeBandSpec = ko.observable("");
+
+    self.sortTableADocB = function (viewModel, e) {
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sortADocB");
+            self.sortType = localStorage.getItem("sortTypeADocB");
+        }
+
+        if (orderProp == null)
+            return null
+
+        localStorage.setItem("sortADocB", orderProp);
+        localStorage.setItem("sortTypeADocB", self.sortType);
+
+        self.currentColumn(orderProp);
+        self.ADocB.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+
+        self.iconTypeBandNo('');
+        self.iconTypeAccFullCode('');
+        self.iconTypeAccFullName('');
+        self.iconTypeComm('');
+        self.iconTypeBede('');
+        self.iconTypeBest('');
+        self.iconTypeCheckNo('');
+        self.iconTypeCheckDate('');
+        self.iconTypeBank('');
+        self.iconTypeTrafFullName('');
+        self.iconTypeMkzName('');
+        self.iconTypeOprName('');
+        self.iconTypeBandSpec('');
+
+        if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccFullCode') self.iconTypeAccFullCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccFullName') self.iconTypeAccFullName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bede') self.iconTypBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bank') self.iconTypeBank((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafFullName') self.iconTypeTrafFullName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'BandSpec') self.iconTypeBandSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectADocB = function (item) {
+        bandnumberedit = item.BandNo;
+        AccCode = item.AccCode;
+        AccZCode = item.AccZCode;
+        ArzCode = item.ArzCode;
+        OprCode = item.OprCode;
+        MkzCode = item.MkzCode;
+        TrafCode = item.TrafCode;
+        TrafZCode = item.TrafZCode;
+        PDModeAcc = item.PDMode;
+
+        if (AccZCode != '') {
+            $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+            $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
+            $('#panelZAcc').removeAttr('hidden', '');
+            getZAccList(item.ZGru == '' ? null : item.ZGru);
+        }
+        else {
+            $('#panelZAcc').attr('hidden', '');
+            $("#panelAcc").removeClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
+            $("#panelAcc").addClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
+        }
+
+        if (PDModeAcc > 0) {
+            getCheckList(PDModeAcc);
+            ShowCheck();
+            PDModeAcc == 1 ? $('#Value').val(NumberToNumberString(item.Best)) : $('#Value').val(NumberToNumberString(item.Bede));
+        }
+        else {
+            HiddenCheck();
+        }
+
+        if (item.Arzi > 0) {
+            $('#panelArz').removeAttr('hidden', '');
+        }
+        else {
+            $('#panelArz').attr('hidden', '');
+            $('#panelArz').val('');
+        }
+
+
+        if (item.Mkz > 0) {
+            $('#panelMkz').removeAttr('hidden', '');
+        }
+        else {
+            $('#panelMkz').attr('hidden', '');
+            $('#nameMkz').val('');
+        }
+
+        if (item.Opr > 0) {
+            $('#panelOpr').removeAttr('hidden', '');
+        }
+        else {
+            $('#panelOpr').attr('hidden', '');
+            $('#panelOpr').val('');
+        }
+
+        $('#nameAcc').val('(' + item.AccCode + ') ' + item.AccName);
+        $('#nameZAcc').val(item.AccZCode == '' ? '' : '(' + item.AccZCode + ') ' + item.AccZName);
+        $('#bede').val(NumberToNumberString(item.Bede));
+        $('#best').val(NumberToNumberString(item.Best));
+        $('#nameArz').val(item.ArzCode == '' ? '' : '(' + item.ArzCode + ') ' + item.ArzName);
+        $('#ArzRate').val(item.ArzRate);
+        $('#ArzValue').val(item.ArzValue);
+        $('#nameOpr').val(item.OprCode == '' ? '' : '(' + item.OprCode + ') ' + item.OprName);
+        $('#nameMkz').val(item.MkzCode == '' ? '' : '(' + item.MkzCode + ') ' + item.MkzName);
+        $('#comm').val(item.Comm);
+        $('#bandSpec').val(item.BandSpec);
+
+        $('#CheckNo').val(item.CheckNo);
+        $('#checkDateBand').val(item.CheckDate);
+        $('#nameBank').val(item.Bank);
+        $('#nameShobe').val(item.Shobe);
+        $('#nameJari').val(item.Jari);
+        $('#BaratNo').val(item.BaratNo);
+        $('#checkStatus').val(item.CheckStatus);
+        $('#nameTraf').val(item.TrafCode == '' ? '' : '(' + item.TrafCode + ') ' + item.TrafName);
+        $('#nameTrafZ').val(item.TrafZCode == '' ? '' : '(' + item.TrafZCode + ') ' + item.TrafZName);
+        $('#CheckRadif').val(item.CheckRadif);
+        $('#checkVosoolDate').val(item.CheckVosoolDate);
+        $('#CheckComm').val(item.CheckComm);
+
+        $('#modal-OldBand').modal('hide');
+    }
+
+
+
+
+
+
+
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"SanadHesab", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
     };
 
 };

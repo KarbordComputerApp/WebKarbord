@@ -88,7 +88,7 @@
 
     var unitvalue = "";
 
-    var KalaCode = "";
+    var KalaCode = '';
     var kalapricecode = 0;
 
     var bandnumber = 0;
@@ -799,7 +799,6 @@
 
     self.ButtonFDocH = function ButtonFDocH(newFDocH) {
         if (flagInsertFdoch == 0) {
-
             var tarikh = $("#tarikh").val().toEnglishDigit();
             var docNo = $("#docnoout").val();
 
@@ -1655,6 +1654,7 @@
             flaglog = 'N';
             self.UpdateFDocH();
             self.ClearFDocB();
+            KalaCode = '';
             showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
         });
     }
@@ -1883,6 +1883,7 @@
         SendFDocBU(FDocBObject);
         if (acceptUpdate == true) {
             showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+            KalaCode = '';
         }
 
     };
@@ -3005,6 +3006,7 @@
     });
 
     $('#insertband').click(function () {
+        KalaCode = '';
         self.flagupdateband = false;
     })
 
@@ -3438,7 +3440,7 @@
                 FDocHDiscount = 0;
                 self.bundNumberImport = 0;
                 unitvalue = "";
-                KalaCode = "";
+                KalaCode = '';
                 kalapricecode = 0;
                 bandnumber = 0;
                 bandnumberedit = 0;
@@ -4815,12 +4817,14 @@
 
 
     $('#listOldBand').click(function () {
+        self.sortTableFDocB();
+        self.filterFDocB1(KalaCode);
         $('#modal-OldBand').modal('show');
 
     })
 
 
-    pageSizeFDocB = localStorage.getItem('pageSizeFDocB') == null ? 10 : localStorage.getItem('pageSizeFDocB');
+    pageSizeFDocB = localStorage.getItem('pageSizeFDocB') == null ? 100 : localStorage.getItem('pageSizeFDocB');
     self.pageSizeFDocB = ko.observable(pageSizeFDocB);
     self.currentPageIndexFDocB = ko.observable(0);
 
@@ -4833,6 +4837,7 @@
     self.filterFDocB6 = ko.observable("");
     self.filterFDocB7 = ko.observable("");
     self.filterFDocB8 = ko.observable("");
+    self.filterFDocB9 = ko.observable("");
 
     self.filterFDocB = ko.computed(function () {
 
@@ -4847,22 +4852,24 @@
         var filter6 = self.filterFDocB6();
         var filter7 = self.filterFDocB7();
         var filter8 = self.filterFDocB8();
+        var filter9 = self.filterFDocB9();
 
 
-        if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8) {
+        if (!filter0 && !filter1 && !filter2 && !filter3 && !filter4 && !filter5 && !filter6 && !filter7 && !filter8 && !filter9) {
             return self.FDocB();
         } else {
             tempData = ko.utils.arrayFilter(self.FDocB(), function (item) {
                 result =
-                    ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filter0) &&
-                    (item.KalaName == null ? '' : item.KalaName.toString().search(filter1) >= 0) &&
-                    (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter2) >= 0) &&
-                    ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter3) &&
-                    ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter4) &&
-                    ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter5) &&
-                    ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filter6) &&
-                    ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter7) &&
-                    ko.utils.stringStartsWith(item.Discount.toString().toLowerCase(), filter8)
+                    ko.utils.stringStartsWith(item.BandNo.toString().toLowerCase(), filter0) &&
+                    ko.utils.stringStartsWith(item.KalaCode.toString().toLowerCase(), filter1) &&
+                    (item.KalaName == null ? '' : item.KalaName.toString().search(filter2) >= 0) &&
+                    (item.MainUnitName == null ? '' : item.MainUnitName.toString().search(filter3) >= 0) &&
+                    ko.utils.stringStartsWith(item.Amount1.toString().toLowerCase(), filter4) &&
+                    ko.utils.stringStartsWith(item.Amount2.toString().toLowerCase(), filter5) &&
+                    ko.utils.stringStartsWith(item.Amount3.toString().toLowerCase(), filter6) &&
+                    ko.utils.stringStartsWith(item.UnitPrice.toString().toLowerCase(), filter7) &&
+                    ko.utils.stringStartsWith(item.TotalPrice.toString().toLowerCase(), filter8) &&
+                    (item.Comm == null ? '' : item.Comm.toString().search(filter9) >= 0)
 
                 return result;
             })
@@ -4904,6 +4911,7 @@
 
 
 
+    self.iconTypeBandNo = ko.observable("");
     self.iconTypeKalaCode = ko.observable("");
     self.iconTypeKalaName = ko.observable("");
     self.iconTypeMainUnitName = ko.observable("");
@@ -4912,20 +4920,28 @@
     self.iconTypeAmount3 = ko.observable("");
     self.iconTypeUnitPrice = ko.observable("");
     self.iconTypeTotalPrice = ko.observable("");
-    self.iconTypeDiscount = ko.observable("");
+    self.iconTypeComm = ko.observable("");
 
 
 
     self.sortTableFDocB = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
+        if (e != null)
+            var orderProp = $(e.target).attr("data-column")
+        else {
+            orderProp = localStorage.getItem("sortFDocB");
+            self.sortType = localStorage.getItem("sortTypeFDocB");
+        }
+
         if (orderProp == null)
             return null
+
+        localStorage.setItem("sortFDocB", orderProp);
+        localStorage.setItem("sortTypeFDocB", self.sortType);
+
         self.currentColumn(orderProp);
         self.FDocB.sort(function (left, right) {
-
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
-
             if (self.sortType == "ascending") {
                 return leftVal < rightVal ? 1 : -1;
             }
@@ -4935,6 +4951,7 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
+        self.iconTypeBandNo('');
         self.iconTypeKalaCode('');
         self.iconTypeKalaName('');
         self.iconTypeMainUnitName('');
@@ -4943,8 +4960,9 @@
         self.iconTypeAmount3('');
         self.iconTypeUnitPrice('');
         self.iconTypeTotalPrice('');
-        self.iconTypeDiscount('');
+        self.iconTypeComm('');
 
+        if (orderProp == 'BandNo') self.iconTypeBandNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaCode') self.iconTypeKalaCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'KalaName') self.iconTypeKalaName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MainUnitName') self.iconTypeMainUnitName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -4953,10 +4971,9 @@
         if (orderProp == 'Amount3') self.iconTypeAmount3((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'UnitPrice') self.iconTypeUnitPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TotalPrice') self.iconTypeTotalPrice((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Discount') self.iconTypeDiscount((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Comm') self.iconTypeComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
     };
-
 
     self.selectFDocB = function (item) {
         var amo;
