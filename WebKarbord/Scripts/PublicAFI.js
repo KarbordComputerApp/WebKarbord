@@ -36,13 +36,52 @@ var dict = {
     }, */
 }
 
-var lang = 'fa';
+var lang = 'en';
 
 function translate(text) {
     if (lang == 'fa')
         return text
     else
         return dict[lang][text];
+}
+
+
+if (lang == 'en') {
+    $("body").addClass("right-to-left");
+    $("body").removeClass("rtlSite");
+
+    $(".sidebar").css({ left: 0 });
+    $(".navbar-header").css({ float: "left" });
+    $(".navbar-header").css({ "border-top-left-radius": 0 });
+    $(".navbar-header").css({ "border-top-right-radius": "50px" });
+
+
+    $("#leftsidebar").css({ "border-bottom-left-radius": "0px" });
+    $("#leftsidebar").css({ "border-bottom-right-radius": "50px" });
+
+
+    $(".sidemenu-collapse").css({ "padding-left": "44px" });
+    $(".sidemenu-collapse").css({ "padding-right": "20px" });
+
+
+    $("#navbar_Buttom").removeClass("pull-right");
+    $("#navbar_Buttom").addClass("pull-left");
+
+    $("#navbar_Menu").removeClass("navbar-right");
+    $("#navbar_Menu").addClass("navbar-left");
+
+    $("#content").removeClass("content");
+    $("#content").addClass("contentltr");
+
+    $(".form-control").addClass("right-to-left");
+
+    $(".form-label").css({ "left": "0px" });
+
+    $(".menu-toggle").addClass("menu-toggleltr");
+
+    $(".useBlank").css({ "padding-left": "50px" });
+    $(".useBlank").css({ "padding-right": "9px" });
+
 }
 
 

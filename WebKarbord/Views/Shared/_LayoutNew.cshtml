@@ -97,7 +97,7 @@
 
 
 
-                <ul class="pull-right" style="padding-right: 0px;">
+                <ul class="pull-right" id="navbar_Buttom" style="padding-right: 0px;">
                     <li>
                         <a href="javascript:void(0);" class="sidemenu-collapse">
                             <i class="material-icons">reorder</i>
@@ -105,7 +105,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" id="navbar_Menu">
 
                     <li class="dropdown user_profile pull-left">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" style="margin-left: 50px;">
@@ -113,10 +113,10 @@
                             <span id="userNameFa"></span>
                             <img src="~/Content/img/streamline-icon-arrow-button-down-2@48x48.png" width="10" height="10" />
                         </a>
-                        <ul class="dropdown-menu pullDown" style="margin-left: 49px; width:400px">
+                        <ul class="dropdown-menu pullDown" style="margin-left: 10px; width:250px">
                             <li class="body">
-                                <ul class="user_dw_menu">
-                                    <li style="width: 110%;">
+                                <ul class="user_dw_menu" style="padding-right:0px">
+                                    <li style="width: 100%;">
                                         <div class="row" style="padding:15px; padding-top:25px">
                                             <div class="col-sm-12">
                                                 <div class="form-group form-float">
@@ -736,7 +736,7 @@
          </aside>-->
 
 
-    <section class="content">
+    <section id ="content" class="content">
         <div class="container-fluid">
             @RenderBody()
             <div id="p_Statement" class="form-inline" style="top: 100px;left: 100px;position: absolute;z-index: 100000;display:none">
