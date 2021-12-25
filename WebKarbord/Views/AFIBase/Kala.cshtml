@@ -10,9 +10,9 @@
             <div class="header">
                 <div class="form-inline focused">
                     <!--<button id="add" class="hidden">add</button>-->
-                    <strong style="margin-left: 5px; margin-right: 5px;">لیست کالاها</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;"  data-bind="text:translate('لیست کالا ها')"></strong>
 
-                    <div class="row header-dropdown m-r--5">
+                    <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                         </a>
@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label  data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeKala">
                                     <option value="10">10</option>
@@ -46,7 +46,7 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
 
@@ -54,7 +54,7 @@
 
 
 
-                    <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                    <div id="buttom-footer-grid-arrow" class="col-md-3" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageKala">
                             <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
@@ -72,8 +72,8 @@
                     </div>
 
                     <div class="col-md-5">
-                        <div class="form-inline pull-left">
-                            <label>تعداد کل رکورد ها</label>
+                        <div id="footer-grid-rowcount" class="form-inline pull-left" >
+                            <label data-bind="text:translate('تعداد کل رکورد ها')"></label>
                             <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
 
                             <!-- <label>نمایش</label>

@@ -27,9 +27,16 @@ var serverAccount = localStorage.getItem('serverAccount');
 
 var dict = {
     en: {
-        'تنظیمات نرم افزار': 'ProgramSetting',
+        'تنظیمات نرم افزار': 'Program Setting',
         'نرم افزار سیستم جامع': 'web8',
-        'نرم افزار مالی بازرگانی': 'web1'
+        'نرم افزار مالی بازرگانی': 'web1',
+        'لطفا منتظر بمانید...': 'Please Wait ...',
+        'خوش آمدید':'Welcome',
+        'نمایش':'the show',
+        'رکورد در هر صفحه':'Record per page',
+        'تعداد کل رکورد ها':'Total number of records',
+        'لیست کالا ها':'List of goods',
+        '':'',
     },
    /* fa: {
         'تنظیمات نرم افزار': 'تنظیمات نرم افزار',
@@ -81,6 +88,18 @@ if (lang == 'en') {
 
     $(".useBlank").css({ "padding-left": "50px" });
     $(".useBlank").css({ "padding-right": "9px" });
+
+    $("#buttom-header-dropdown").css({ "left": "unset", "right": "15px"  });
+    $("#refreshKala img").css({ "margin-right": "10px" });
+    $("#buttom-footer-grid-arrow").css({ "direction": "rtl" });
+
+    $("#footer-grid-rowcount").removeClass("pull-left");
+    $("#footer-grid-rowcount").css({ "float": "right" });
+
+
+    $(".tableFix").addClass("tableFixltr");
+    $(".tableFix").removeClass("tableFix");
+   
 
 }
 

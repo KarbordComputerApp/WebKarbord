@@ -4402,6 +4402,11 @@ section.contentltr {
     float: left !important;
 }
 
+.pull-left-ltr {
+    float: right !important;
+}
+
+
 .pull-right {
     float: right !important;
 }

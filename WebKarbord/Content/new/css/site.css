@@ -1851,6 +1851,8 @@ input[type="checkbox"] {
             background-color: white;
         }
 
+
+
     .tableFix thead tr th {
         position: sticky;
         top: 0;
@@ -1868,6 +1870,63 @@ input[type="checkbox"] {
         z-index: 2;
         background-color: #d9d9d9;
     }
+
+
+
+
+
+
+
+
+
+
+
+.tableFixltr th {
+    background-color: #d9d9d9;
+}
+
+    .tableFixltr td:first-child, .tableFixltr th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: #d9d9d9;
+    }
+
+
+    .tableFixltr td:last-child, .tableFixltr th:last-child {
+        position: sticky;
+        right: 0;
+        z-index: 1;
+        background-color: white;
+    }
+
+
+
+.tableFixltr thead tr th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tableFixltr tfoot tr td {
+    position: sticky;
+    bottom: 0;
+    background-color: #efb683 !important;
+}
+
+
+.tableFixltr th:first-child, .tableFixltr th:last-child {
+    z-index: 2;
+    background-color: #d9d9d9;
+}
+
+
+
+
+
+
+
+
 
 
 
