@@ -36,6 +36,12 @@ var dict = {
         'رکورد در هر صفحه':'Record per page',
         'تعداد کل رکورد ها':'Total number of records',
         'لیست کالا ها':'List of goods',
+        'لیست حساب ها':'List of accounts',
+        '':'',
+        '':'',
+        '':'',
+        '':'',
+        '':'',
         '':'',
     },
    /* fa: {
@@ -44,6 +50,7 @@ var dict = {
 }
 
 var lang = 'en';
+var dir_lang = 'ltr'
 
 function translate(text) {
     if (lang == 'fa')
@@ -88,10 +95,23 @@ if (lang == 'en') {
 
     $(".useBlank").css({ "padding-left": "50px" });
     $(".useBlank").css({ "padding-right": "9px" });
+    $(".useBlank").css({ "font-family": "sans-serif" });
 
     $("#buttom-header-dropdown").css({ "left": "unset", "right": "15px"  });
     $("#refreshKala img").css({ "margin-right": "10px" });
-    $("#buttom-footer-grid-arrow").css({ "direction": "rtl" });
+    $("#refreshAcc img").css({ "margin-right": "10px" });
+    $("#refreshCust img").css({ "margin-right": "10px" });
+    $("#refreshADocH img").css({ "margin-right": "10px" });
+    $("#refreshFDocH img").css({ "margin-right": "10px" });
+    $("#refreshErjDocH img").css({ "margin-right": "10px" });
+    $("#refreshIdocH img").css({ "margin-right": "10px" });
+   // $("#buttom-footer-grid-arrow").css({ "direction": "rtl" });
+
+    $("#nextPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-back.png");
+    $("#previousPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-next.png");
+    $("#lastPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-first.png");
+    $("#firstPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-last.png");
+
 
     $("#footer-grid-rowcount").removeClass("pull-left");
     $("#footer-grid-rowcount").css({ "float": "right" });
@@ -99,8 +119,8 @@ if (lang == 'en') {
 
     $(".tableFix").addClass("tableFixltr");
     $(".tableFix").removeClass("tableFix");
-   
 
+    $("select").css({ "font-family": "sans-serif" });
 }
 
 

@@ -13398,18 +13398,21 @@ fieldset[disabled] .form-control {
                 -o-transition: all 0.3s;
                 -webkit-transition: all 0.3s;
                 transition: all 0.3s;
+               
             }
 
+.menu-toggleltr {
+    font-family: sans-serif !important;
+}
 
-
-            .sidebar .menu .list .menu-toggle:before {
-                content: "+";
-                -moz-transform: scale(1);
-                -ms-transform: scale(1);
-                -o-transform: scale(1);
-                -webkit-transform: scale(1);
-                transform: scale(1);
-            }
+.sidebar .menu .list .menu-toggle:before {
+    content: "+";
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
 
             .sidebar .menu .list .menu-toggle:after {
                 content: '\2013';

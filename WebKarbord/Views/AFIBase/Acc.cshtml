@@ -9,9 +9,9 @@
         <div class="card">
             <div class="header">
                 <div class="form-inline focused">
-                    <strong style="margin-left: 5px; margin-right: 5px;">لیست حساب ها</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;"  data-bind="text:translate('لیست حساب ها')"></strong>
 
-                    <div class="row header-dropdown m-r--5">
+                    <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" data-backdrop="static" data-keyboard="false" />
                         </a>
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeAcc">
                                     <option value="10">10</option>
@@ -45,7 +45,7 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label  data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
 
                     <div class="col-md-5  col-sm-6">
                         <div class="form-inline pull-left">
-                            <label>تعداد کل رکورد ها</label>
+                            <label data-bind="text:translate('تعداد کل رکورد ها')"></label>
                             <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
 
                             <!-- <label>نمایش</label>
@@ -98,7 +98,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">تنظیم ستون ها</h4>
+                <h4 class="modal-title" >تنظیم ستون ها</h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
