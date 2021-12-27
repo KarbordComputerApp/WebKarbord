@@ -472,15 +472,15 @@
 
     $('#refreshErja').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست ارجاعات به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getDocB_Last();
@@ -991,15 +991,15 @@
 
     $('#refreshDocAttach').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "پیوست ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
@@ -1027,10 +1027,10 @@
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
 
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
 
@@ -1065,10 +1065,10 @@
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 var file = document.getElementById("upload");
@@ -1257,15 +1257,15 @@
 
     $('#refreshErjUsers').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست کاربران به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
@@ -1391,15 +1391,15 @@
 
     $('#refreshErjUsersRonevesht').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست کاربران به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
@@ -1577,15 +1577,15 @@
 
     $('#refreshFarayand').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست فرایندها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getFarayandList(doc_KhdtCode);
@@ -2097,11 +2097,11 @@
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
-                    cancelButtonText: 'خیر',
+                    cancelButtonText: text_No,
                     showCloseButton: true,
                     focusConfirm: false,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'بله',
+                    confirmButtonText: text_Yes,
                     showDenyButton: true,
                     showCancelButton: true
                 }).then((result) => {
@@ -2357,11 +2357,11 @@
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
-                    cancelButtonText: 'خیر',
+                    cancelButtonText: text_No,
                     showCloseButton: true,
                     focusConfirm: false,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'بله',
+                    confirmButtonText: text_Yes,
                     showDenyButton: true,
                     showCancelButton: true
                 }).then((result) => {

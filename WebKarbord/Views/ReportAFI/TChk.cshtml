@@ -134,7 +134,7 @@
 
                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                             <div class="pull-left">
-                                <button type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i>گزارش گیری</button>
+                                <button  data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
                             </div>
                         </div>
 
@@ -149,7 +149,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px; margin: 5px;">
                                 <select id="pageSizeSelector" data-bind="value: pageSizeTChk" class="selectorange">
                                     <option value="10">10</option>
@@ -164,7 +164,7 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                             <label id="sumA"></label>
                         </div>
                     </div>
@@ -172,21 +172,21 @@
 
                     <div class="col-md-4" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageTChk">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageTChk">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a> <b data-bind="text: currentPageIndexTChk() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageTChk">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageTChk">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
 
-                    <div class="col-md-4" style="margin-top: 10px; text-align:left;">
-                        <span>تعداد رکورد ها = <span id="CountRecord">0</span></span>
+                    <div class="col-md-4 panel_CountRecord" style="margin-top: 10px; text-align:left;">
+                       <span data-bind="text:translate(' = تعداد کل رکورد ها')"></span><span id="CountRecord">0</span>
                     </div>
                 </div>
             </div>
@@ -260,7 +260,7 @@
                                 <div class="row centered">
                                     <div style="height:160px; width:20px"></div>
                                     <a data-bind="click: AddAllAcc" style="height:18px;padding-right: 3px;">
-                                        <img src="~/Content/img/list/streamline-icon-navigation-last.png" style="width:22px;height:18px;" />
+                                        <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" style="width:22px;height:18px;" />
                                     </a>
                                     <div style="height:80px"></div>
                                     <a data-bind="click: DelAllAcc" style="height:18px;padding-right: 3px;">
@@ -297,7 +297,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-inline">
-                                    <label>نمایش</label>
+                                    <label data-bind="text:translate('نمایش')"></label>
                                     <div class="form-group" style="text-align: center; width: 50px;">
                                         <select id="pageSizeSelector" data-bind="value: pageSizeAcc">
                                             <option value="10">10</option>
@@ -318,17 +318,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageAcc">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageAcc">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexAcc() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageAcc">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageAcc">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -422,7 +422,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-inline">
-                                    <label>نمایش</label>
+                                    <label data-bind="text:translate('نمایش')"></label>
                                     <div class="form-group" style="text-align: center; width: 50px;">
                                         <select id="pageSizeSelector" data-bind="value: pageSizeCheckStatus">
                                             <option value="10">10</option>
@@ -443,17 +443,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageCheckStatus">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageCheckStatus">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexCheckStatus() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageCheckStatus">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageCheckStatus">
-                                    <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -473,7 +473,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">تنظیم ستون ها</h4>
+                <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -481,10 +481,10 @@
                     <table class="table table-addmin">
                         <thead style="cursor: pointer;">
                             <tr>
-                                <td>ردیف</td>
-                                <td style="width:250px;"> نام ستون</td>
+                                <td data-bind="text:translate('ردیف')"></td>
+                                <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
                                 <td style="text-align: left;padding: 0px 10px 0px 10px;">
-                                    <label for="AllSettingColumns">انتخاب همه</label>
+                                    <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
                             </tr>
@@ -496,13 +496,13 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            پیش فرض
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                          
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            تایید
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                            
                         </button>
                     </div>
                 </div>

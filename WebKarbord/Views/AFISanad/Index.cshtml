@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeADocH">
                                     <option value="10">10</option>
@@ -52,34 +52,34 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
 
 
                     <div class="col-md-3" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageADocH">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageADocH">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexADocH() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageADocH">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageADocH">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
 
                     </div>
 
                     <div class="col-md-5">
-                        <div class="form-inline pull-left">
-                            <label>تعداد کل رکورد ها</label>
+                        <div class="form-inline panel_CountRecord_Sanad" style="text-align:left">
+                            <label data-bind="text:translate('تعداد کل رکورد ها')"></label>
                             <label id="CountRecord" style="margin: 5px; margin-left: 20px;"></label>
 
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div>
                                 <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
                                     <option value="0">100 رکورد آخر</option>
@@ -102,7 +102,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">تنظیم ستون ها</h4>
+                <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -110,10 +110,10 @@
                     <table class="table table-addmin">
                         <thead style="cursor: pointer;">
                             <tr>
-                                <td>ردیف</td>
-                                <td style="width:250px;"> نام ستون</td>
+                                <td data-bind="text:translate('ردیف')"></td>
+                                <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
                                 <td style="text-align: left;padding: 0px 10px 0px 10px;">
-                                    <label for="AllSettingColumns">انتخاب همه</label>
+                                    <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
                             </tr>
@@ -125,14 +125,10 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            پیش فرض
-                        </button>
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            تایید
-                        </button>
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>
@@ -162,12 +158,8 @@
             <br />
             <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                <button type="button" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    کپی
-                </button>
-                <button type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    انصراف
-                </button>
+                <button data-bind="text:translate('کپی')" type="button" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
             </div>
 
         </div>
@@ -197,11 +189,11 @@
             <br />
             <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                <button type="button" id="ChangeStatus" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    تایید
+                <button data-bind="text:translate('تایید')" type="button" id="ChangeStatus" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                    
                 </button>
-                <button type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    انصراف
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                    
                 </button>
             </div>
 
@@ -249,11 +241,11 @@
                         </div>
 
                         <div class="col-md-6">
-                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
-                                بازگشت
+                            <button data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                                
                             </button>
-                            <button type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
-                                حذف
+                            <button data-bind="text:translate('حذف')" type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                                
                             </button>
                         </div>
                     </div>

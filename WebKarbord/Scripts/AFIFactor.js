@@ -2180,10 +2180,10 @@
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
                 allowOutsideClick: false,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     codeCust = item.Code;
@@ -2574,15 +2574,15 @@
 
     $('#refreshOpr').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست پروژه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
@@ -2708,15 +2708,15 @@
 
     $('#refreshMkz').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست مرکز هزینه به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
@@ -2849,15 +2849,15 @@
 
     $('#refreshVstr').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست ویزیتورها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
@@ -2911,15 +2911,15 @@
     self.DeleteBand = function (factorBand) {
 
         Swal.fire({
-            title: 'تایید حذف ؟',
+            title: mes_Delete,
             text: "آیا بند انتخابی حذف شود",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + factorBand.SerialNumber + '/' + factorBand.BandNo + '/' + sessionStorage.ModeCode + '/' + flaglog, 'DELETE').done(function (response) {
@@ -3013,15 +3013,15 @@
     $('#refreshcust').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: sessionStorage.InOut == 2 ? 'لیست خریداران به روز رسانی شود ؟' : 'لیست فروشندگان به روز رسانی شود ؟',
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getCustList();
@@ -3033,15 +3033,15 @@
 
     $('#refreshkala').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست کالاها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getKalaList();
@@ -3340,10 +3340,10 @@
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
                 allowOutsideClick: false,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     kalapricecode = $("#gGhimat").val();
@@ -3376,10 +3376,10 @@
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 $('#titlePage').text(textFactor + " جدید ");
@@ -4162,15 +4162,15 @@
 
     self.DeletePrintForms = function (item) {
         Swal.fire({
-            title: 'تایید حذف ؟',
+            title: mes_Delete,
             text: "آیا فرم چاپ انتخابی حذف شود",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 address = item.address;

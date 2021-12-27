@@ -135,39 +135,13 @@
                     </div>
                     <div class="body" style="padding-left: 15px;padding-right: 15px; padding-bottom: 35px;">
                         <div>
-                            <!--<button type="button" id="FinalSave" data-bind="click:UpdateADocH" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"> -->
-                            <button type="button" id="FinalSave" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                                ثبت نهایی
+                            <button  data-bind="text:translate('ثبت نهایی')" type="button" id="FinalSave" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                               
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-            <!--  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                  <div class="card" style="margin-top: 0px;">
-                      <div class="header" style="margin-top: 0px;padding-top: 0px; padding-bottom: 10px;">
-                      </div>
-                      <div class="body" style="padding-left: 15px;padding-right: 15px;padding-bottom: 15px;">
-                         <div class="form-group form-float" style="margin-bottom: 15px;">
-                      <div id="panelTafavot" class="form-line">
-                          <input id="TafavotSanad" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled">
-                          <label class="form-label" style="color: #404852;">تفاوت سند</label>
-                      </div>
-                  </div>
-
-                          <div id="action_Hdoc">
-                              <button type="button" id="FinalSave" data-bind="click:UpdateADocH" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                                  ثبت نهایی
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-              </div>-->
-
-
-
+           </div>
         </div>
     </div>
 </div>
@@ -609,7 +583,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeAcc">
                                     <option value="10">10</option>
@@ -624,22 +598,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexAcc() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -707,7 +681,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeZAcc">
                                     <option value="10">10</option>
@@ -722,22 +696,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageZAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageZAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexZAcc() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageZAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageZAcc">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -805,7 +779,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeTraf">
                                     <option value="10">10</option>
@@ -820,22 +794,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageTraf">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageTraf">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexTraf() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageTraf">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageTraf">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -903,7 +877,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeTrafZ">
                                     <option value="10">10</option>
@@ -918,22 +892,23 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        
                         <a data-bind="click: firstPageTrafZ">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageTrafZ">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexTrafZ() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageTrafZ">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageTrafZ">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1001,7 +976,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeMkz">
                                     <option value="10">10</option>
@@ -1016,22 +991,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageMkz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageMkz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexMkz() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageMkz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageMkz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1099,7 +1074,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeOpr">
                                     <option value="10">10</option>
@@ -1114,22 +1089,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageOpr">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageOpr">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexOpr() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageOpr">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageOpr">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1206,7 +1181,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeArz">
                                     <option value="10">10</option>
@@ -1221,22 +1196,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageArz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageArz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexArz() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageArz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageArz">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1288,7 +1263,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeBank">
                                     <option value="10">10</option>
@@ -1303,22 +1278,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageBank">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageBank">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexBank() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageBank">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageBank">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1370,7 +1345,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeShobe">
                                     <option value="10">10</option>
@@ -1385,22 +1360,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageShobe">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageShobe">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexShobe() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageShobe">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageShobe">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1452,7 +1427,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeJari">
                                     <option value="10">10</option>
@@ -1467,22 +1442,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageJari">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageJari">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexJari() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageJari">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageJari">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1532,7 +1507,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeCheck">
                                     <option value="10">10</option>
@@ -1547,22 +1522,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageCheck">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageCheck">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexCheck() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageCheck">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageCheck">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>
@@ -1624,7 +1599,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" style="color:#ed882e">مشخصات اضافی</h4>
+                <h4 data-bind="text:translate('مشخصات اضافی')" class="modal-title" style="color:#ed882e"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -1655,8 +1630,8 @@
                             </div>
 
                             <div class="col-md-3">
-                                <button type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
-                                    بازگشت
+                                <button  data-bind="text:translate('بازگشت')" type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
+                                    
                                 </button>
                             </div>
                         </div>
@@ -1676,7 +1651,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">تنظیم ستون ها</h4>
+                <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -1684,10 +1659,10 @@
                     <table class="table table-addmin">
                         <thead style="cursor: pointer;">
                             <tr>
-                                <td>ردیف</td>
-                                <td style="width:250px;"> نام ستون</td>
+                                <td data-bind="text:translate('ردیف')"></td>
+                                <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
                                 <td style="text-align: left;padding: 0px 10px 0px 10px;">
-                                    <label for="AllSettingColumns">انتخاب همه</label>
+                                    <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
                             </tr>
@@ -1699,13 +1674,13 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            پیش فرض
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            تایید
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
+                            
                         </button>
                     </div>
                 </div>
@@ -1759,11 +1734,11 @@
                         </div>-->
 
                         <div class="col-md-6">
-                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
-                                بازگشت
+                            <button  data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                                
                             </button>
-                            <button type="button" id="FinalSave-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
-                                ذخیره
+                            <button  data-bind="text:translate('ذخیره')" type="button" id="FinalSave-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                                
                             </button>
                         </div>
                     </div>
@@ -1817,11 +1792,11 @@
                         </div>
 
                         <div class="col-md-6">
-                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
-                                بازگشت
+                            <button  data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
+                                
                             </button>
-                            <button type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
-                                ثبت
+                            <button  data-bind="text:translate('ثبت')" type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
+                                
                             </button>
                         </div>
                     </div>
@@ -1977,7 +1952,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-inline">
-                            <label>نمایش</label>
+                            <label data-bind="text:translate('نمایش')"></label>
                             <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                 <select id="pageSizeSelector" data-bind="value: pageSizeADocB">
                                     <option value="10">10</option>
@@ -1992,22 +1967,22 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>
-                            <label>رکورد در هر صفحه</label>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                         </div>
                     </div>
-                    <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageADocB">
-                            <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageADocB">
-                            <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexADocB() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageADocB">
-                            <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageADocB">
-                            <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
                 </div>

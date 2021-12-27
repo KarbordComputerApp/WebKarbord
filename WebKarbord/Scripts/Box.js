@@ -149,15 +149,15 @@
 
     $('#refreshBox').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست اعلامیه ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getBoxList();
@@ -196,10 +196,10 @@
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
 
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 if (item.namefile != '') {

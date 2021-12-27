@@ -1919,15 +1919,15 @@
 
     $('#refreshFDocH').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست " + $('#TitleListFactor').text() + " به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
 
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getFDocH($('#pageCountSelector').val(), false);
@@ -2006,10 +2006,10 @@
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
 
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     serial = factorBand.SerialNumber;
@@ -3627,15 +3627,15 @@
 
     self.DeletePrintForms = function (item) {
         Swal.fire({
-            title: 'تایید حذف ؟',
+            title: mes_Delete,
             text: "آیا فرم چاپ انتخابی حذف شود",
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 address = item.address;

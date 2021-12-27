@@ -21,23 +21,23 @@
 
     <!--<link rel="manifest" href="/manifest.json">-->
     <!-- Najva Push Notification -->
- <!--   <script type="text/javascript">
-        (function () {
-            var now = new Date();
-            var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate();
-                //"0" + now.getHours();
-            var head = document.getElementsByTagName("head")[0];
-            var link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
-            head.appendChild(link);
-            var script = document.createElement("script");
-            script.type = "text/javascript";
-            script.async = true;
-            script.src = "https://app.najva.com/static/js/scripts/174-website-27295-a0b970d7-1466-49f3-bf2b-1cfa6674e8e9.js" + "?v=" + version;
-            head.appendChild(script);
-        })()
-    </script>-->
+    <!--   <script type="text/javascript">
+           (function () {
+               var now = new Date();
+               var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate();
+                   //"0" + now.getHours();
+               var head = document.getElementsByTagName("head")[0];
+               var link = document.createElement("link");
+               link.rel = "stylesheet";
+               link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
+               head.appendChild(link);
+               var script = document.createElement("script");
+               script.type = "text/javascript";
+               script.async = true;
+               script.src = "https://app.najva.com/static/js/scripts/174-website-27295-a0b970d7-1466-49f3-bf2b-1cfa6674e8e9.js" + "?v=" + version;
+               head.appendChild(script);
+           })()
+       </script>-->
     <!-- END NAJVA PUSH NOTIFICATION -->
 
 </head>
@@ -155,7 +155,7 @@
                                             </div>
 
                                             <div class="col-sm-12">
-                                                <button type="button" id="LogOut" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">خروج</button>
+                                                <button data-bind="text:translate('خروج')" type="button" id="LogOut" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                                             </div>
 
                                         </div>
@@ -825,7 +825,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-inline">
-                                <label>نمایش</label>
+                                <label data-bind="text:translate('نمایش')"></label>
                                 <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
                                     <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizePrintForms">
                                         <option value="10">10</option>
@@ -840,22 +840,22 @@
                                         <option value="100">100</option>
                                     </select>
                                 </div>
-                                <label>رکورد در هر صفحه</label>
+                                <label data-bind="text:translate('رکورد در هر صفحه')"></label>
                             </div>
                         </div>
-                        <div class="col-md-6" style="text-align: left; margin-top: 10px;">
+                        <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                             <a data-bind="click: firstPagePrintForms">
-                                <img src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                             </a>
                             <a data-bind="click: previousPagePrintForms">
-                                <img src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                             </a>
                             <b data-bind="text: currentPageIndexPrintForms() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                             <a data-bind="click: nextPagePrintForms">
-                                <img src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                             </a>
                             <a data-bind="click: lastPagePrintForms">
-                                <img src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                             </a>
                         </div>
                     </div>
@@ -905,12 +905,8 @@
                 <br>
                 <br>
                 <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                    <button type="button" id="AcceptPrint" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                        چاپ
-                    </button>
-                    <button type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                        انصراف
-                    </button>
+                    <button data-bind="text:translate('چاپ')" type="button" id="AcceptPrint" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                 </div>
 
             </div>

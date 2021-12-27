@@ -533,15 +533,15 @@
     $('#refreshCust').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست خریداران/فروشندگان  به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
 
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getCustList();
@@ -657,15 +657,15 @@
 
     $('#refreshCGru').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست گروه خریداران/فروشندگان به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getCGruList();
@@ -970,15 +970,15 @@
         else {
 
             Swal.fire({
-                title: 'تایید حذف ؟',
+                title: mes_Delete,
                 text: "آیا خریداران/فروشندگان انتخابی حذف شود",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
                 allowOutsideClick: false,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     code = item.Code;

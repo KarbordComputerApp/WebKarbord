@@ -682,15 +682,15 @@
     $('#refreshAcc').click(function () {
 
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست حساب ها  به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
 
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getAccList();
@@ -806,15 +806,15 @@
 
     $('#refreshAGru').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست گروه حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getAGruList();
@@ -938,15 +938,15 @@
 
     $('#refreshZGru').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی',
+            title: mes_Refresh,
             text: "لیست گروه زیر حساب ها به روز رسانی شود ؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
-            cancelButtonText: 'خیر',
+            cancelButtonText: text_No,
             allowOutsideClick: false,
             confirmButtonColor: '#d33',
-            confirmButtonText: 'بله'
+            confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
                 getZGruList();
@@ -1583,15 +1583,15 @@
         else {
 
             Swal.fire({
-                title: 'تایید حذف ؟',
+                title: mes_Delete,
                 text: "آیا حساب انتخابی حذف شود",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
                 allowOutsideClick: false,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     code = item.Code;
@@ -1769,11 +1769,11 @@
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
-                    cancelButtonText: 'خیر',
+                    cancelButtonText: text_No,
                     showCloseButton: true,
                     focusConfirm: false,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'بله',
+                    confirmButtonText: text_Yes,
                     showDenyButton: true,
                     showCancelButton: true
                 }).then((result) => {

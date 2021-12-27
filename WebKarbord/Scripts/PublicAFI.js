@@ -31,26 +31,69 @@ var dict = {
         'نرم افزار سیستم جامع': 'web8',
         'نرم افزار مالی بازرگانی': 'web1',
         'لطفا منتظر بمانید...': 'Please Wait ...',
-        'خوش آمدید':'Welcome',
-        'نمایش':'the show',
-        'رکورد در هر صفحه':'Record per page',
-        'تعداد کل رکورد ها':'Total number of records',
-        'لیست کالا ها':'List of goods',
-        'لیست حساب ها':'List of accounts',
-        '':'',
-        '':'',
-        '':'',
-        '':'',
-        '':'',
-        '':'',
+        'خوش آمدید': 'Welcome',
+        'نمایش': 'the show',
+        'رکورد در هر صفحه': 'Record per page',
+        'تعداد کل رکورد ها': 'Total number of records',
+        ' = تعداد کل رکورد ها': 'Total number of records = ',
+        'لیست کالا ها': 'List of Product',
+        'لیست حساب ها': 'List of accounts',
+        'تنظیم ستون ها': 'Adjust columns',
+        'ردیف': 'Row',
+        'نام ستون': 'Column name',
+        'انتخاب همه': 'Select all',
+        'پیش فرض': 'Assumption',
+        'تایید': 'Confirmation',
+        'کالا': 'Product',
+        'کد': 'Code',
+        'نام': 'Name',
+        'شماره فنی': 'Technical number',
+        'ملاحظات': 'considerations',
+        'گروه کالا': 'Product group',
+        'واحد': 'unit',
+        'دقت اعشار': 'Decimal accuracy',
+        'مقدار بر حسب واحد اصلی': 'Value in terms of main unit',
+        'مقدار': 'amount',
+        'ریال': 'Rials',
+        'ذخیره': 'Save',
+        'لیست گروه کالا': 'Commodity group list',
+        'مشخصات اضافی': 'Additional specifications',
+        'بازگشت': 'back',
+        'حذف کالا': 'Remove Product',
+        'هشدار :': 'Warning :',
+        'خطا :': 'Error :',
+        'حذف': 'Delete',
+        'مورد': 'Item',
+        'تایید به روز رسانی': 'Confirm update',
+        'بله': 'Yes',
+        'خیر': 'No',
+        'تایید حذف': 'Confirm deletion',
+        'لیست خریداران/فروشندگان': 'List of buyers/sellers',
+        'ارجاع': 'Reference',
+        '': '',
+        '': '',
+        '': '',
+        '': '',
+        '': '',
+        '': '',
+        '': '',
+        '': '',
+        '': 'ترجمه نشده',
     },
-   /* fa: {
-        'تنظیمات نرم افزار': 'تنظیمات نرم افزار',
-    }, */
+    /* fa: {
+         'تنظیمات نرم افزار': 'تنظیمات نرم افزار',
+     }, */
 }
 
 var lang = 'en';
 var dir_lang = 'ltr'
+
+
+var mes_Refresh = translate('تایید به روز رسانی');
+var mes_Delete = translate('تایید حذف');
+var text_Yes = translate('بله');
+var text_No = translate('خیر');
+
 
 function translate(text) {
     if (lang == 'fa')
@@ -96,8 +139,14 @@ if (lang == 'en') {
     $(".useBlank").css({ "padding-left": "50px" });
     $(".useBlank").css({ "padding-right": "9px" });
     $(".useBlank").css({ "font-family": "sans-serif" });
+    $("button").css({ "font-family": "sans-serif" });
 
-    $("#buttom-header-dropdown").css({ "left": "unset", "right": "15px"  });
+
+    $("button").removeClass("pull-left");
+    $("button").addClass("pull-right");
+
+
+    $("#buttom-header-dropdown").css({ "left": "unset", "right": "15px" });
     $("#refreshKala img").css({ "margin-right": "10px" });
     $("#refreshAcc img").css({ "margin-right": "10px" });
     $("#refreshCust img").css({ "margin-right": "10px" });
@@ -105,16 +154,39 @@ if (lang == 'en') {
     $("#refreshFDocH img").css({ "margin-right": "10px" });
     $("#refreshErjDocH img").css({ "margin-right": "10px" });
     $("#refreshIdocH img").css({ "margin-right": "10px" });
-   // $("#buttom-footer-grid-arrow").css({ "direction": "rtl" });
+    // $("#buttom-footer-grid-arrow").css({ "direction": "rtl" });
 
-    $("#nextPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-back.png");
-    $("#previousPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-next.png");
-    $("#lastPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-first.png");
-    $("#firstPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-last.png");
+    $(".nextPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-back.png");
+    $(".previousPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-next.png");
+    $(".lastPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-first.png");
+    $(".firstPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-last.png");
+
+    /* if ($('img[src="/Content/img/list/streamline-icon-navigation-first.png"]').length > 0) {
+        $('img[src="/Content/img/list/streamline-icon-navigation-first.png"]').attr("src", "temp1001");
+    }
+
+    if ($('img[src="/Content/img/list/streamline-icon-navigation-last.png"]').length > 0) {
+        $('img[src="/Content/img/list/streamline-icon-navigation-last.png"]').attr("src", "temp1002");
+    }
+
+    if ($('img[src="/Content/img/list/streamline-icon-navigation-back.png"]').length > 0) {
+        $('img[src="/Content/img/list/streamline-icon-navigation-back.png"]').attr("src", "temp1003");
+    }
+    if ($('img[src="/Content/img/list/streamline-icon-navigation-next.png"]').length > 0) {
+        $('img[src="/Content/img/list/streamline-icon-navigation-next.png"]').attr("src", "temp1004");
+    }
+    */
+
 
 
     $("#footer-grid-rowcount").removeClass("pull-left");
     $("#footer-grid-rowcount").css({ "float": "right" });
+
+    
+    $(".panel_Arrow").css({ "text-align": "right" });
+    $(".panel_CountRecord").css({ "text-align": "right" });
+
+    $(".panel_CountRecord_Sanad").addClass("pull-right");
 
 
     $(".tableFix").addClass("tableFixltr");
@@ -1228,10 +1300,10 @@ $("#repairDatabase").click(function () {
         type: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',
-        cancelButtonText: 'خیر',
+        cancelButtonText: text_No,
         allowOutsideClick: false,
         confirmButtonColor: '#d33',
-        confirmButtonText: 'بله'
+        confirmButtonText: text_Yes
     }).then((result) => {
         if (result.value) {
 
@@ -1241,10 +1313,10 @@ $("#repairDatabase").click(function () {
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
                 allowOutsideClick: false,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) {
@@ -1288,10 +1360,10 @@ $("#repairDatabaseConfig").click(function () {
         type: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',
-        cancelButtonText: 'خیر',
+        cancelButtonText: text_No,
         allowOutsideClick: false,
         confirmButtonColor: '#d33',
-        confirmButtonText: 'بله'
+        confirmButtonText: text_Yes
     }).then((result) => {
         if (result.value) {
 
@@ -1301,10 +1373,10 @@ $("#repairDatabaseConfig").click(function () {
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
-                cancelButtonText: 'خیر',
+                cancelButtonText: text_No,
                 allowOutsideClick: false,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'بله'
+                confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
                     ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber, 'GET', null, true).done(function (data) {
@@ -3719,10 +3791,10 @@ function CreateTableColumn(data) {
         ' <table class="table table-addmin">' +
         '   <thead style="cursor: pointer;">' +
         '       <tr>' +
-        '           <td>ردیف</td>' +
-        '           <td style="width:250px;"> نام ستون</td>' +
+        '           <td data-bind="text:translate('ردیف')"></td>' +
+        '           <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>' +
         '           <td style="text-align: left;padding: 0px 10px 0px 10px;"> ' +
-        '                <label for="AllSettingColumns">انتخاب همه</label> ' +
+        '                <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label> ' +
         '                <input id="AllSettingColumns" type="checkbox" /> ' +
         '           </td> ' +
         '      </tr>' +
@@ -4274,15 +4346,15 @@ function GetPrintForms(Mode) {
 
 $('#refreshPrintForms').click(function () {
     Swal.fire({
-        title: 'تایید به روز رسانی',
+        title: mes_Refresh,
         text: "فرم های چاپ به روز رسانی شود ؟",
         type: 'info',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',
-        cancelButtonText: 'خیر',
+        cancelButtonText: text_No,
         allowOutsideClick: false,
         confirmButtonColor: '#d33',
-        confirmButtonText: 'بله'
+        confirmButtonText: text_Yes
     }).then((result) => {
         if (result.value) {
             $("div.loadingZone").show();
