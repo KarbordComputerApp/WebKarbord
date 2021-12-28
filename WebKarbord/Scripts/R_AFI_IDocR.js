@@ -454,14 +454,14 @@
     //getKGruList();
     getStatusList();
 
-    $('#nameKala').val('همه موارد');
-    $('#nameInv').val('همه موارد');
-    $('#nameKGru').val('همه موارد');
-    $('#nameThvl').val('همه موارد');
-    $('#nameOpr').val('همه موارد');
-    $('#nameMkz').val('همه موارد');
+    $('#nameKala').val(translate('همه موارد'));
+    $('#nameInv').val(translate('همه موارد'));
+    $('#nameKGru').val(translate('همه موارد'));
+    $('#nameThvl').val(translate('همه موارد'));
+    $('#nameOpr').val(translate('همه موارد'));
+    $('#nameMkz').val(translate('همه موارد'));
     $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
-    $('#nameIMode').val('همه موارد');
+    $('#nameIMode').val(translate('همه موارد'));
 
     //------------------------------------------------------
     self.currentPageIDocR = ko.observable();
@@ -1034,7 +1034,7 @@
         if (counterInv > 0)
             $('#nameInv').val(counterInv + ' مورد انتخاب شده ')
         else
-            $('#nameInv').val('همه موارد');
+            $('#nameInv').val(translate('همه موارد'));
     });
 
     $('#modal-Inv').on('shown.bs.modal', function() {
@@ -1231,7 +1231,7 @@
         if (counterKGru > 0)
             $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ')
         else
-            $('#nameKGru').val('همه موارد');
+            $('#nameKGru').val(translate('همه موارد'));
     });
 
     $('#modal-KGru').on('shown.bs.modal', function() {
@@ -1434,7 +1434,7 @@
         if (counterKala > 0)
             $('#nameKala').val(counterKala + ' مورد انتخاب شده ')
         else
-            $('#nameKala').val('همه موارد');
+            $('#nameKala').val(translate('همه موارد'));
     });
 
     $('#modal-kala').on('shown.bs.modal', function() {
@@ -1630,7 +1630,7 @@
         if (counterThvl > 0)
             $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ')
         else
-            $('#nameThvl').val('همه موارد');
+            $('#nameThvl').val(translate('همه موارد'));
     });
 
     $('#modal-Thvl').on('shown.bs.modal', function() {
@@ -1826,7 +1826,7 @@
         if (counterMkz > 0)
             $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ')
         else
-            $('#nameMkz').val('همه موارد');
+            $('#nameMkz').val(translate('همه موارد'));
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function() {
@@ -2020,7 +2020,7 @@
         if (counterOpr > 0)
             $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
         else
-            $('#nameOpr').val('همه موارد');
+            $('#nameOpr').val(translate('همه موارد'));
     });
 
     $('#modal-Opr').on('shown.bs.modal', function() {
@@ -2045,7 +2045,7 @@
              opt = document.createElement('option');
              if (i == 0) {
                  opt.value = 0;
-                 opt.innerHTML = 'همه موارد';
+                 opt.innerHTML = translate('همه موارد');
                  opt.selected = true;
              }
              if (i == 1) {
@@ -2232,7 +2232,7 @@
         if (counterStatus > 0)
             $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ')
         else
-            $('#nameStatus').val('همه موارد');
+            $('#nameStatus').val(translate('همه موارد'));
     });
 
     $('#modal-Status').on('shown.bs.modal', function() {
@@ -2448,7 +2448,7 @@
         if (counterIMode > 0)
             $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ')
         else
-            $('#nameIMode').val('همه موارد');
+            $('#nameIMode').val(translate('همه موارد'));
     });
 
     $('#modal-IMode').on('shown.bs.modal', function() {
@@ -2509,7 +2509,7 @@
             $('#nameInv').val(counterInv + ' مورد انتخاب شده ');
         }
         else
-            $('#nameInv').val('همه موارد');
+            $('#nameInv').val(translate('همه موارد'));
 
 
         KGruCode = localStorage.getItem("KGruCodeReport");
@@ -2521,7 +2521,7 @@
             $('#nameKGru').val(counterKGru + ' مورد انتخاب شده ');
         }
         else
-            $('#nameKGru').val('همه موارد');
+            $('#nameKGru').val(translate('همه موارد'));
 
 
 
@@ -2534,7 +2534,7 @@
             $('#nameKala').val(counterKala + ' مورد انتخاب شده ');
         }
         else
-            $('#nameKala').val('همه موارد')
+            $('#nameKala').val(translate('همه موارد'))
 
 
         ThvlCode = localStorage.getItem("ThvlCodeReport");
@@ -2546,7 +2546,7 @@
             $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ');
         }
         else
-            $('#nameThvl').val('همه موارد');
+            $('#nameThvl').val(translate('همه موارد'));
 
 
         StatusCode = localStorage.getItem("StatusCodeReport");
@@ -2556,7 +2556,7 @@
             $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
         }
         else
-            $('#nameStatus').val('همه موارد');
+            $('#nameStatus').val(translate('همه موارد'));
 
 
         ImodeCode = localStorage.getItem("IModeCodeReport");
@@ -2568,7 +2568,7 @@
             $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ');
         }
         else
-            $('#nameIMode').val('همه موارد');
+            $('#nameIMode').val(translate('همه موارد'));
 
 
         mkzCode = localStorage.getItem("MkzCodeReport");
@@ -2580,7 +2580,7 @@
             $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
         }
         else
-            $('#nameMkz').val('همه موارد');
+            $('#nameMkz').val(translate('همه موارد'));
 
         oprCode = localStorage.getItem("OprCodeReport");
         if (oprCode != "") {
@@ -2591,7 +2591,7 @@
             $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
         }
         else
-            $('#nameOpr').val('همه موارد');
+            $('#nameOpr').val(translate('همه موارد'));
 
 
         getIDocR();

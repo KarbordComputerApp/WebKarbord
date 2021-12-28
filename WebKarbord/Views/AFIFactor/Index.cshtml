@@ -171,7 +171,7 @@
                                     <th data-column="CustName">
                                         <span id="TitleCustName1"></span>  <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeCustName }"></i> </span>
                                     </th>
-                                    <th data-column="Spec">
+                                     <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                         ملاحضات <span data-bind="attr: { class: currentColumn1() == 'Spec' ? 'isVisible' : 'isHidden' }"> <i data-bind="attr: { class: iconTypeSpec }"></i> </span>
                                     </th>
                                     <th data-column="Tanzim">
@@ -320,7 +320,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -363,7 +363,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>

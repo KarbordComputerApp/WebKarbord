@@ -41,7 +41,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused fix">
                                             <input id="aztarikh" data-bind="value:AzDate" class="form-control date" type="text" maxlength="10">
-                                            <label class="form-label" for="">از تاریخ</label>
+                                            <label class="form-label" data-bind="text:translate('از تاریخ')"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused fix">
                                             <input id="tatarikh" data-bind="value:TaDate" class="form-control date" type="text" maxlength="10">
-                                            <label class="form-label" for="">تا تاریخ</label>
+                                            <label class="form-label" data-bind="text:translate('تا تاریخ')"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameOpr" class="form-control" readonly />
-                                        <label class="form-label"> پروژه</label>
+                                        <label class="form-label" data-bind="text:translate('پروژه')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameMkz" class="form-control" readonly />
-                                        <label class="form-label"> مرکز هزینه</label>
+                                        <label class="form-label"  data-bind="text:translate('مرکز هزینه')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameStatus" class="form-control" readonly />
-                                        <label class="form-label">وضعیت</label>
+                                        <label class="form-label" data-bind="text:translate('وضعیت')"></label>
                                     </div>
                                 </div>
 
@@ -267,7 +267,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست وضعیت سند</h4>
+                 <h4 class="modal-title" data-bind="text:translate('لیست وضعیت سند')"></h4>
                 <a id="refreshStatus">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -279,8 +279,8 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableStatus">
-                                        <th data-column="Status">
-                                            نام
+                                        <th data-column="Status"><span data-column="Status" data-bind="text:translate('نام')"></span>
+                                            
                                             <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeStatus }"></i>
                                             </span>
@@ -321,7 +321,7 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedStatus">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th>نام</th>
+                                                <th data-bind="text:translate('نام')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListStatus" style="cursor: default;"></tbody>
@@ -352,7 +352,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -400,18 +400,18 @@
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableInv">
                                         <th data-column="Code">
-                                            کد انبار
+                                            <span data-column="Code" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             نام انبار
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
@@ -491,7 +491,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -540,12 +540,12 @@
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableKala">
                                         <th data-column="Code">
-                                            کد کالا
+                                            <span data-column="Code" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             نام کالا
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
@@ -557,7 +557,7 @@
                                                 <i data-bind="attr: { class: iconTypeFanniNo }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
@@ -639,7 +639,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -685,19 +685,19 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableKGru">
-                                        <th data-column="SortCode">
+                                        <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                             کد
                                             <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             نام
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
@@ -743,8 +743,8 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedKGru">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th>کد</th>
-                                                <th>نام</th>
+                                                <th data-bind="text:translate('کد')"></th>
+                                                <th data-bind="text:translate('نام')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListKGru" style="cursor: default;"></tbody>
@@ -776,7 +776,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -823,18 +823,18 @@
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableCust">
                                         <th data-column="Code">
-                                            کد
+                                            <span data-column="Code" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             نام
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
@@ -880,8 +880,8 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedCust">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th>کد</th>
-                                                <th>نام</th>
+                                                <th data-bind="text:translate('کد')"></th>
+                                                <th data-bind="text:translate('نام')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListCust" style="cursor: default;"></tbody>
@@ -913,7 +913,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -953,7 +953,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست پروژه</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست پروژه')"></h4>
                 <a id="refreshOpr">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -966,18 +966,18 @@
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableOpr">
                                         <th data-column="Code">
-                                            کد
+                                            <span data-column="Code" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             نام
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
@@ -1023,8 +1023,8 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedOpr">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th>کد</th>
-                                                <th>نام</th>
+                                                <th data-bind="text:translate('کد')"></th>
+                                                <th data-bind="text:translate('نام')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListOpr" style="cursor: default;"></tbody>
@@ -1055,7 +1055,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -1089,7 +1089,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست مرکز هزینه</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست مرکز هزینه')"></h4>
                 <a id="refreshMkz">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -1101,19 +1101,19 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableMkz">
-                                        <th data-column="SortCode">
+                                        <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                             کد
                                             <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             نام
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
@@ -1159,8 +1159,8 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedMkz">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th>کد</th>
-                                                <th>نام</th>
+                                                <th data-bind="text:translate('کد')"></th>
+                                                <th data-bind="text:translate('نام')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListMkz" style="cursor: default;"></tbody>
@@ -1192,7 +1192,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                   <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -1238,7 +1238,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>

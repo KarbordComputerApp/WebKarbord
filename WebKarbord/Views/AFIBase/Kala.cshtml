@@ -94,7 +94,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -286,20 +286,17 @@
                     <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableKGru">
-                                <th data-column="SortCode" data-bind="text:translate('کد')">
-
+                                <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
-                                <th data-column="SortName" data-bind="text:translate('نام')">
-
+                                <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Spec" data-bind="text:translate('ملاحظات')">
-
+                                <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>

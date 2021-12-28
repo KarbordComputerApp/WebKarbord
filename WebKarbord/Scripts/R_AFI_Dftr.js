@@ -361,10 +361,10 @@
     getJamRooz();
 
 
-    $('#nameAcc').val('همه موارد');
-    $('#nameOpr').val('همه موارد');
-    $('#nameMkz').val('همه موارد');
-    $('#nameAMode').val('همه موارد');
+    $('#nameAcc').val(translate('همه موارد'));
+    $('#nameOpr').val(translate('همه موارد'));
+    $('#nameMkz').val(translate('همه موارد'));
+    $('#nameAMode').val(translate('همه موارد'));
 
 
     self.iconTypeCode = ko.observable("");
@@ -689,7 +689,7 @@
         if (counterMkz > 0)
             $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ')
         else
-            $('#nameMkz').val('همه موارد');
+            $('#nameMkz').val(translate('همه موارد'));
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
@@ -887,7 +887,7 @@
         if (counterOpr > 0)
             $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
         else
-            $('#nameOpr').val('همه موارد');
+            $('#nameOpr').val(translate('همه موارد'));
     });
 
     $('#modal-Opr').on('shown.bs.modal', function () {
@@ -1083,7 +1083,7 @@
         if (counterAMode > 0)
             $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ')
         else
-            $('#nameAMode').val('همه موارد');
+            $('#nameAMode').val(translate('همه موارد'));
     });
 
     $('#modal-AMode').on('shown.bs.modal', function () {
@@ -1275,7 +1275,7 @@
         if (counterStatus > 0)
             $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ')
         else
-            $('#nameStatus').val('همه موارد');
+            $('#nameStatus').val(translate('همه موارد'));
     });
 
     $('#modal-Status').on('shown.bs.modal', function () {
@@ -1788,7 +1788,7 @@
             $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
         }
         else
-            $('#nameAMode').val('همه موارد');
+            $('#nameAMode').val(translate('همه موارد'));
 
 
         mkzCode = localStorage.getItem("MkzCodeReport");
@@ -1801,7 +1801,7 @@
             $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
         }
         else
-            $('#nameMkz').val('همه موارد')
+            $('#nameMkz').val(translate('همه موارد'))
 
 
         oprCode = localStorage.getItem("OprCodeReport");
@@ -1814,7 +1814,7 @@
             $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
         }
         else
-            $('#nameOpr').val('همه موارد');
+            $('#nameOpr').val(translate('همه موارد'));
 
         getDftr();
     }

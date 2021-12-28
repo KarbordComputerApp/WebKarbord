@@ -93,7 +93,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -129,7 +129,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">خریدار/فروشنده</h4>
+                <h4 class="modal-title" data-bind="text:translate('خریدار/فروشنده')"></h4>
                 <div>
                     <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-OtherField" style="margin-left: 10px;">
                         <img src="/Content/img/sanad/paper-write.png" width="20" height="20">
@@ -169,7 +169,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused fix">
                                             <input id="nameCGru" class="form-control" readonly />
-                                            <label class="form-label"> گروه خریداران/فروشندگان</label>
+                                            <label class="form-label" data-bind="text:translate('گروه خریداران/فروشندگان')"> </label>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="MelliCode" class="form-control int" maxlength="11" />
-                                        <label class="form-label">کد ملی</label>
+                                        <label class="form-label" data-bind="text:translate('کد ملی')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="EcoCode" class="form-control int" maxlength="12"/>
-                                        <label class="form-label">کد اقتصادی</label>
+                                        <label class="form-label" data-bind="text:translate('کد اقتصادی')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="EtebarNaghd" class="form-control float" />
-                                        <label class="form-label">اعتبار سالانه</label>
+                                        <label class="form-label" data-bind="text:translate('اعتبار سالانه')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="EtebarCheck" class="form-control float" />
-                                        <label class="form-label">اعتبار چکی</label>
+                                        <label class="form-label" data-bind="text:translate('اعتبار چکی')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Ostan" class="form-control" />
-                                        <label class="form-label">استان</label>
+                                        <label class="form-label" data-bind="text:translate('استان')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Shahrestan" class="form-control" />
-                                        <label class="form-label">شهرستان</label>
+                                        <label class="form-label" data-bind="text:translate('شهرستان')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Region" class="form-control" />
-                                        <label class="form-label">منطقه</label>
+                                        <label class="form-label" data-bind="text:translate('منطقه')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="City" class="form-control" />
-                                        <label class="form-label">شهر</label>
+                                        <label class="form-label" data-bind="text:translate('شهر')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Street" class="form-control" />
-                                        <label class="form-label">خیابان</label>
+                                        <label class="form-label" data-bind="text:translate('خیابان')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Alley" class="form-control" />
-                                        <label class="form-label">کوچه</label>
+                                        <label class="form-label" data-bind="text:translate('کوچه')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +288,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Plack" class="form-control" />
-                                        <label class="form-label">پلاک</label>
+                                        <label class="form-label" data-bind="text:translate('پلاک')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -296,7 +296,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="ZipCode" class="form-control" />
-                                        <label class="form-label">کد پستی</label>
+                                        <label class="form-label" data-bind="text:translate('کد پستی')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Tel" class="form-control" />
-                                        <label class="form-label">تلفن</label>
+                                        <label class="form-label" data-bind="text:translate('تلفن')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -317,7 +317,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Fax" class="form-control" />
-                                        <label class="form-label">فاکس</label>
+                                        <label class="form-label" data-bind="text:translate('فاکس')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +326,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Mobile" class="form-control" />
-                                        <label class="form-label">موبایل</label>
+                                        <label class="form-label" data-bind="text:translate('موبایل')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +334,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Email" class="form-control" />
-                                        <label class="form-label">پست الکترونیکی</label>
+                                        <label class="form-label" data-bind="text:translate('پست الکترونیکی')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +367,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست گروه خریداران/فروشندگان</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست گروه خریداران/فروشندگان')"></h4>
                 <a id="refreshCGru">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -379,19 +379,17 @@
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableCGru">
                                 <th data-column="SortCode">
-                                    کد
+                                    <span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
-                                <th data-column="SortName">
-                                    نام
+                                <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Spec">
-                                    ملاحظات
+                                 <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>

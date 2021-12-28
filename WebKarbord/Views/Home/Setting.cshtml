@@ -70,14 +70,14 @@
                 <div class="row">
 
                     <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-right: 8px;">
-                        <button id="SaveParam" class="btn btn-primary btn-block " style="background-color: #eb8121 !important; padding-left: 0px; padding-right: 0px">
-                            ورود
+                        <button id="SaveParam"  data-bind="text:translate('ورود')" class="btn btn-primary btn-block " style="background-color: #eb8121 !important; padding-left: 0px; padding-right: 0px">
+                            
                         </button>
                     </div>
 
                     <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <button id="LogOutSetting" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;  padding-left: 0px; padding-right: 0px">
-                            خروج
+                        <button id="LogOutSetting"  data-bind="text:translate('خروج')" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;  padding-left: 0px; padding-right: 0px">
+                            
                         </button>
                     </div>
                 </div>
@@ -162,8 +162,8 @@
             <div class="row form-line focused">
                 <div class="col-md">
                     <select id="NewTab" class="form-control" style="text-indent: 20px;direction: rtl;">
-                        <option value="0">باز شدن صفحات در برگ نشان (Tab) فعلی</option>
-                        <option value="1">باز شدن صفحات در برگ نشان (Tab) جدید</option>
+                        <option value="0"  data-bind="text:translate('باز شدن صفحات در برگ نشان (Tab) فعلی')"></option>
+                        <option value="1" data-bind="text:translate('باز شدن صفحات در برگ نشان (Tab) جدید')"></option>
                     </select>
                     <img class="form-label" src="~/Content/img/tab-plus.png" width="20" height="20" style="top: 0px;" />
                 </div>

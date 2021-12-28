@@ -242,8 +242,8 @@
     //getErjCustList();
     //getKhdtList();
 
-    $('#nameErjCust').val('همه موارد');
-    $('#nameKhdt').val('همه موارد');
+    $('#nameErjCust').val(translate('همه موارد'));
+    $('#nameKhdt').val(translate('همه موارد'));
 
 
     self.currentPageDocK = ko.observable();
@@ -747,7 +747,7 @@
         if (counterErjCust > 0)
             $('#nameErjCust').val(counterErjCust + ' مورد انتخاب شده ')
         else
-            $('#nameErjCust').val('همه موارد');
+            $('#nameErjCust').val(translate('همه موارد'));
     });
 
     $('#modal-ErjCust').on('shown.bs.modal', function () {
@@ -917,7 +917,7 @@
         if (counterKhdt > 0)
             $('#nameKhdt').val(counterKhdt + ' مورد انتخاب شده ')
         else
-            $('#nameKhdt').val('همه موارد');
+            $('#nameKhdt').val(translate('همه موارد'));
     });
 
     $('#modal-Khdt').on('shown.bs.modal', function () {

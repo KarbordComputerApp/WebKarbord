@@ -28,8 +28,8 @@ var serverAccount = localStorage.getItem('serverAccount');
 var dict = {
     en: {
         'تنظیمات نرم افزار': 'Program Setting',
-        'نرم افزار سیستم جامع': 'web8',
-        'نرم افزار مالی بازرگانی': 'web1',
+        'نرم افزار سیستم جامع': 'Comprehensive system software',
+        'نرم افزار مالی بازرگانی': 'Commercial financial software',
         'لطفا منتظر بمانید...': 'Please Wait ...',
         'خوش آمدید': 'Welcome',
         'نمایش': 'the show',
@@ -70,8 +70,143 @@ var dict = {
         'تایید حذف': 'Confirm deletion',
         'لیست خریداران/فروشندگان': 'List of buyers/sellers',
         'ارجاع': 'Reference',
-        '': '',
-        '': '',
+        'گروه را انتخاب کنید': 'Select a group',
+        'سال را انتخاب کنید': 'Select the year',
+        'باز شدن صفحات در برگ نشان (Tab) فعلی': 'Opening pages in the current badge tab',
+        'باز شدن صفحات در برگ نشان (Tab) جدید': 'Opening pages in the new badge tab',
+        'ورود': 'log in',
+        'خروج': 'Exit',
+        'ثبت نهایی': 'Final registration',
+        'ثبت': 'Record',
+        'انصراف': 'Cancel',
+        'ثبت ارجاع': 'Referral registration',
+        'همان افراد قبل': 'The same people as before',
+        'ارسال': 'submit',
+        'گزارش گیری': 'reporting',
+        'پیوست': 'the attachment',
+        'شرکت': 'Company',
+        'نرم افزار': 'software',
+        'گروه': 'group',
+        'سال': 'Year',
+        'بازسازی بانک اطلاعاتی': 'Database reconstruction',
+        'تایید نهایی': 'Final approval',
+        'در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟': 'Other users will be disrupted while rebuilding. Will the reconstruction be done?',
+        'بازسازی اطلاعات سیستم': 'System information reconstruction',
+        'آیا اطلاعات بازسازی شود ؟': 'Will the information be reconstructed?',
+        'اطلاعات پایه': 'Basic Information',
+        'کالاها': 'Products',
+        'خریداران/فروشندگان': 'buyers/sellers',
+        'حساب ها': 'accounts',
+        'حساب': 'account',
+        'اسناد حسابداری': 'accounting documents',
+        'سند حسابداری': 'Accounting document',
+        'اسناد خرید و فروش': 'Sales documents',
+        'سفارش فروش': 'Sales order',
+        'پیش فاکتور فروش': 'Pre-sales invoice',
+        'فاکتور فروش': 'Sales Invoice',
+        'برگشت از فروش': 'Return on sales',
+        'حواله فروش': 'Remittance sale',
+        'برگه خروج': 'Exit tab',
+        'سفارش خرید': 'Purchase order',
+        'پیش فاکتور خرید': 'Pre-purchase invoice',
+        'فاکتور خرید': 'Purchase Invoice',
+        'برگشت از خرید': 'Return from purchase',
+        'اسناد انبار': 'Warehouse documents',
+        'اسناد وارده به انبار': 'Documents received in the warehouse',
+        'اسناد صادره از انبار': 'Documents issued from the warehouse',
+        'اسناد اتوماسیون': 'Automation documents',
+        'پرونده': 'File',
+        'ارجاعات پرونده دریافتی': 'Received file references',
+        'ارجاعات پرونده ارسالی': 'Submitted file references',
+        'گزارشات حسابداری': 'Accounting Reports',
+        'تراز حساب': 'Account balance',
+        'دفتر حساب': 'Accounting book',
+        'دفتر روزنامه': 'Newspaper Office',
+        'صورت خلاصه چک ها': 'Summary form of checks',
+        'گزارشات خرید و فروش': 'Sales reports',
+        'تراز فروش کالاها': 'Commodity sales balance',
+        'تراز خرید کالاها': 'Balance of goods purchases',
+        'تراز فروش به خریداران': 'Sales balance to buyers',
+        'تراز خرید از فروشندگان': 'Purchase balance from sellers',
+        'ريز گردش اسناد فروش': 'Circulation of sales documents',
+        'ريز گردش اسناد خرید': 'Circulation of purchase documents',
+        'گزارشات انبار': 'Warehouse reports',
+        'کاردکس کالا': 'Cardex Commodity',
+        'موجودی کالا': 'Inventory',
+        'موجودی کالا به تفکیک ویژگی': 'Inventory by feature',
+        'ريز گردش اسناد انبارداری': 'Micro-circulation of warehousing documents',
+        'گزارشات اتوماسیون اداری': 'Office Automation Reports',
+        'فهرست پرونده ها': 'List of files',
+        'ليست ارجاعات پرونده ها': 'List of file references',
+        'از تاریخ': 'From Date',
+        'تا تاریخ': 'To Date',
+        'از شماره': 'From number',
+        'تا شماره': 'To number',
+        'نوع سند': 'type of Document',
+        'وضعیت سند': 'Document status',
+        'پروژه': 'Project',
+        'مرکز هزینه': 'cost center',
+        'جستجو برای': 'looking for',
+        'مشتری': 'Customer',
+        'وضعیت': 'status',
+        'همه موارد': 'all items',
+        'چاپ': 'Print',
+        'نرخ': 'rate',
+
+
+        'نام لاتین': 'Latin name',
+        'گروه حساب ها': 'Account group',
+        'تنظیم ستون ها': 'Adjust columns',
+        'سررسید نامه': 'Letter maturity',
+        'هیچکدام': 'None',
+        'اسناد پرداختنی': 'Payable documents',
+        'اسناد دریافتنی': 'Receivable documents',
+        'ماهیت': 'Nature',
+        'بدهکار': 'Debtor',
+        'بستانکار': 'Creditor',
+        'فعال': 'active',
+        'غیر فعال': 'Inactive',
+        'پست الکترونیکی': 'Email',
+        'موبایل': 'Mobile',
+        'بدون سطح بعدی هنگام ثبت سند': 'No next level when registering a document',
+        'دارای سطح بعدی هنگام ثبت سند': 'Has the next level when registering the document',
+        'گروه زیر حساب ها': 'Subgroups of accounts',
+        'بدون ارز': 'No currency',
+        'بدون مرکز هزینه': 'No cost center',
+        'دارای مرکز هزینه': 'Has a cost center',
+        'بدون پروژه': 'No project',
+        'دارای پروژه': 'Has a project',
+        'بدون مقدار': 'No amount',
+        'دارای مقدار': 'Has a value',
+        'دقت اعشار': 'Decimal accuracy',
+        'لیست گروه حساب ها': 'List of group accounts',
+        'لیست گروه زیر حساب ها': 'List of sub-accounts',
+        'حذف حساب': 'Delete account',
+
+        'رکورد': 'Record',
+        'خریدار/فروشنده': 'Buyer / seller',
+        'گروه خریداران/فروشندگان': 'Buyers / Sellers Group',
+        'کد ملی': 'National Code',
+        'کد اقتصادی': 'Economic code',
+        'اعتبار سالانه': 'Annual credit',
+        'اعتبار چکی': 'Czech credit',
+        'استان': 'State',
+        'شهرستان': 'City',
+        'منطقه': 'Region',
+        'شهر': 'City',
+        'خیابان': 'Street',
+        'کوچه': 'Alley',
+        'پلاک': 'Plaque',
+        'کد پستی': 'Postal code',
+        'تلفن': 'Phone',
+        'فاکس': 'fax',
+        'موبایل': 'Mobile',
+
+        'لیست پروژه': 'Project list',
+        'لیست مرکز هزینه': 'Cost center list',
+        'لیست نوع سند': 'Document type list',
+        'لیست وضعیت سند': 'Document status list',
+        'نمایش بند ها': 'Show paragraphs',
         '': '',
         '': '',
         '': '',
@@ -145,6 +280,8 @@ if (lang == 'en') {
     $("button").removeClass("pull-left");
     $("button").addClass("pull-right");
 
+    $(".panel_AllSettingColumns").css({ "direction": "rtl" });
+    
 
     $("#buttom-header-dropdown").css({ "left": "unset", "right": "15px" });
     $("#refreshKala img").css({ "margin-right": "10px" });
@@ -182,7 +319,7 @@ if (lang == 'en') {
     $("#footer-grid-rowcount").removeClass("pull-left");
     $("#footer-grid-rowcount").css({ "float": "right" });
 
-    
+
     $(".panel_Arrow").css({ "text-align": "right" });
     $(".panel_CountRecord").css({ "text-align": "right" });
 
@@ -1289,13 +1426,13 @@ $("#repairDatabase").click(function () {
     sal = $("#DropSal").val();
 
     if (group == '0' || group == null)
-        return showNotification('گروه را انتخاب کنید', 0);
+        return showNotification(translate('گروه را انتخاب کنید'), 0);
 
     if (sal == '0' || sal == null)
-        return showNotification('سال را انتخاب کنید', 0);
+        return showNotification(translate('سال را انتخاب کنید'), 0);
 
     Swal.fire({
-        title: 'بازسازی بانک اطلاعاتی',
+        title: translate('بازسازی بانک اطلاعاتی'),
         text: "آیا اطلاعات گروه  " + group + " سال " + sal + " بازسازی شود ؟",
         type: 'warning',
         showCancelButton: true,
@@ -1308,8 +1445,8 @@ $("#repairDatabase").click(function () {
         if (result.value) {
 
             Swal.fire({
-                title: 'تایید نهایی',
-                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟",
+                title: translate('تایید نهایی'),
+                text: translate("در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1355,8 +1492,8 @@ $("#repairDatabase").click(function () {
 
 $("#repairDatabaseConfig").click(function () {
     Swal.fire({
-        title: 'بازسازی اطلاعات سیستم',
-        text: "آیا اطلاعات بازسازی شود ؟",
+        title: translate('بازسازی اطلاعات سیستم'),
+        text: translate("آیا اطلاعات بازسازی شود ؟"),
         type: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',
@@ -1368,8 +1505,8 @@ $("#repairDatabaseConfig").click(function () {
         if (result.value) {
 
             Swal.fire({
-                title: 'تایید نهایی',
-                text: "در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟",
+                title: translate('تایید نهایی'),
+                text: translate("در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -3793,7 +3930,7 @@ function CreateTableColumn(data) {
         '       <tr>' +
         '           <td data-bind="text:translate('ردیف')"></td>' +
         '           <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>' +
-        '           <td style="text-align: left;padding: 0px 10px 0px 10px;"> ' +
+        '            <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;"> ' +
         '                <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label> ' +
         '                <input id="AllSettingColumns" type="checkbox" /> ' +
         '           </td> ' +

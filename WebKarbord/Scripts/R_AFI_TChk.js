@@ -215,8 +215,8 @@
     getPDMode();
     getCheckStatusList(1);
 
-    $('#nameAcc').val('همه موارد');
-    $('#nameCheckStatus').val('همه موارد');
+    $('#nameAcc').val(translate('همه موارد'));
+    $('#nameCheckStatus').val(translate('همه موارد'));
 
     self.currentPageCheckStatus = ko.observable();
     pageSizeCheckStatus = localStorage.getItem('pageSizeCheckStatus') == null ? 10 : localStorage.getItem('pageSizeCheckStatus');
@@ -369,7 +369,7 @@
     self.DelAllCheckStatus = function () {
         list_CheckStatusSelect = new Array();
         counterCheckStatus = 0;
-        $('#nameCheckStatus').val('همه موارد');
+        $('#nameCheckStatus').val(translate('همه موارد'));
         $("#TableBodyListCheckStatus").empty();
     };
 
@@ -378,7 +378,7 @@
         if (counterCheckStatus > 0)
             $('#nameCheckStatus').val(counterCheckStatus + ' مورد انتخاب شده ')
         else
-            $('#nameCheckStatus').val('همه موارد');
+            $('#nameCheckStatus').val(translate('همه موارد'));
     });
 
     $('#modal-CheckStatus').on('shown.bs.modal', function () {
@@ -565,7 +565,7 @@
         if (counterAcc > 0)
             $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ')
         else
-            $('#nameAcc').val('همه موارد');
+            $('#nameAcc').val(translate('همه موارد'));
     });
 
     $('#modal-Acc').on('shown.bs.modal', function () {

@@ -68,7 +68,7 @@
         var programSelect = sessionStorage.ace;
         $("#DropGroup").empty();
         $("#DropSal").empty();
-        $("#DropGroup").append('<option value="0">گروه را انتخاب کنید</option>');
+        $("#DropGroup").append('<option value="0">' + translate('گروه را انتخاب کنید')+'</option>');
         $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
         if (programSelect != 0) {
 
@@ -86,7 +86,7 @@
 
         var GroupSelect = $("#DropGroup").val();
         $("#DropSal").empty();
-        $("#DropSal").append('<option value="0">سال را انتخاب کنید</option>');
+        $("#DropSal").append('<option value="0">' + translate('سال را انتخاب کنید') +'</option>');
         if (programSelect != 0 && GroupSelect != 0 && GroupSelect != null) {
 
             var DatabseSalObject = {

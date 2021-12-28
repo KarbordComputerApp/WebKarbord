@@ -122,7 +122,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line date fix">
                                                         <input type="text" id="coName_TitleMenu" class="form-control float" readonly>
-                                                        <label class="form-label">شرکت</label>
+                                                        <label class="form-label" data-bind="text:translate('شرکت')"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +131,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line date fix">
                                                         <input type="text" id="ace_TitleMenu" class="form-control float" readonly>
-                                                        <label class="form-label">نرم افزار</label>
+                                                        <label class="form-label" data-bind="text:translate('نرم افزار')"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,7 +140,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line date fix">
                                                         <input type="text" id="group_TitleMenu" class="form-control float" readonly>
-                                                        <label class="form-label">گروه</label>
+                                                        <label class="form-label" data-bind="text:translate('گروه')"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,7 +149,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line date fix">
                                                         <input type="text" id="sal_TitleMenu" class="form-control float" readonly>
-                                                        <label class="form-label">سال</label>
+                                                        <label class="form-label" data-bind="text:translate('سال')"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,25 +281,27 @@
                 </li>-->
 
 
+
+
                 <li id="Base_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
                             <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
-                        <span>اطلاعات پایه</span>
+                        <span data-bind="text:translate('اطلاعات پایه')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="BaseKala" class="rightClick">
                             <!--@Html.ActionLink("کالا", "Kala", "AFIBase")-->
-                            <a class="useBlank" target="_blank" href=@Url.Action("Kala","AFIBase")> کالاها</a>
+                            <a data-bind="text:translate('کالاها')" class="useBlank" target="_blank" href=@Url.Action("Kala","AFIBase")></a>
                             <!--<a id="form_BaseKala" class="useBlank" addr=@Url.Action("Kala","AFIBase")> کالاها</a>-->
                         </li>
                         <li id="BaseCust" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Cust","AFIBase")> خریداران/فروشندگان</a>
+                            <a data-bind="text:translate('خریداران/فروشندگان')" class="useBlank" target="_blank" href=@Url.Action("Cust","AFIBase")></a>
                         </li>
 
                         <li id="BaseAcc" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Acc","AFIBase")> حساب ها</a>
+                            <a data-bind="text:translate('حساب ها')" class="useBlank" target="_blank" href=@Url.Action("Acc","AFIBase")> </a>
                         </li>
                     </ul>
                 </li>
@@ -309,11 +311,11 @@
                         <i>
                             <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
-                        <span>اسناد حسابداری</span>
+                        <span data-bind="text:translate('اسناد حسابداری')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="ADOC" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFISanad")>سند حسابداری</a>
+                            <a data-bind="text:translate('سند حسابداری')" class="useBlank" target="_blank" href=@Url.Action("Index","AFISanad")></a>
                         </li>
                     </ul>
                 </li>
@@ -324,40 +326,40 @@
                             <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                             <!--<img src="~/Content/img/docsels.png" width="24" /> -->
                         </i>
-                        <span>اسناد خرید و فروش</span>
+                        <span data-bind="text:translate('اسناد خرید و فروش')"></span>
                     </a>
 
                     <ul class="ml-menu">
                         <li id="FDOC_SO" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")> سفارش فروش</a>
+                            <a data-bind="text:translate('سفارش فروش')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")> </a>
                         </li>
                         <li id="FDOC_SP" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>پیش فاکتور فروش</a>
+                            <a data-bind="text:translate('پیش فاکتور فروش')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
 
                         <li id="FDOC_S" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>فاکتور فروش</a>
+                            <a data-bind="text:translate('فاکتور فروش')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_SR" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>برگشت از فروش</a>
+                            <a data-bind="text:translate('برگشت از فروش')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_SH" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>حواله فروش</a>
+                            <a data-bind="text:translate('حواله فروش')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_SE" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>برگه خروج</a>
+                            <a data-bind="text:translate('برگه خروج')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_PO" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>سفارش خرید</a>
+                            <a data-bind="text:translate('سفارش خرید')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_PP" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>پیش فاکتور خرید</a>
+                            <a data-bind="text:translate('پیش فاکتور خرید')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_P" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>فاکتور خرید</a>
+                            <a data-bind="text:translate('فاکتور خرید')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
                         <li id="FDOC_PR" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")>برگشت از خرید</a>
+                            <a data-bind="text:translate('برگشت از خرید')" class="useBlank" target="_blank" href=@Url.Action("Index","AFIFactor")></a>
                         </li>
 
                         <!--<li id="FDOC_SO">@Html.ActionLink("سفارش فروش", "Index", "AFIFactor")</li>
@@ -377,17 +379,18 @@
                 <li id="IDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
+
                             <!-- <img src="~/Content/img/SanadAnbar.png" width="24" />-->
                             <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
-                        <span>اسناد انبار</span>
+                        <span data-bind="text:translate('اسناد انبار')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="IDOC_I" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFISanadAnbar")>اسناد وارده به انبار</a>
+                            <a data-bind="text:translate('اسناد وارده به انبار')" class="useBlank" target="_blank" href=@Url.Action("Index","AFISanadAnbar")></a>
                         </li>
                         <li id="IDOC_O" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","AFISanadAnbar")>اسناد صادره از انبار</a>
+                            <a data-bind="text:translate('اسناد صادره از انبار')" class="useBlank" target="_blank" href=@Url.Action("Index","AFISanadAnbar")></a>
                         </li>
 
                         <!--<li id="IDOC_I">@Html.ActionLink("اسناد وارده به انبار", "Index", "AFISanadAnbar")</li>
@@ -406,23 +409,24 @@
                     </ul>
                 </li>-->
 
+
                 <li id="ErjaDOC_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i>
                             <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
-                        <span>اسناد اتوماسیون</span>
+                        <span data-bind="text:translate('اسناد اتوماسیون')"></span>
                     </a>
                     <ul class="ml-menu">
 
                         <li id="ErjaDOC" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Index","ERJ")>پرونده</a>
+                            <a data-bind="text:translate('پرونده')" class="useBlank" target="_blank" href=@Url.Action("Index","ERJ")></a>
                         </li>
                         <li id="Erja_Resive" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")>ارجاعات پرونده دریافتی</a>
+                            <a data-bind="text:translate('ارجاعات پرونده دریافتی')"class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")></a>
                         </li>
                         <li id="Erja_Send" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")>ارجاعات پرونده ارسالی</a>
+                            <a data-bind="text:translate('ارجاعات پرونده ارسالی')" class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")></a>
                         </li>
                         <!--
                         <li id="ErjaDOC">@Html.ActionLink("پرونده", "Index", "ERJ")</li>
@@ -436,20 +440,20 @@
                 <li id="AReport_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="fa fa-tachometer"></i>
-                        <span>گزارشات حسابداری</span>
+                        <span data-bind="text:translate('گزارشات حسابداری')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="TrzAcc" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzAcc","ReportAFI")>تراز حساب</a>
+                            <a data-bind="text:translate('تراز حساب')" class="useBlank" target="_blank" href=@Url.Action("TrzAcc","ReportAFI")></a>
                         </li>
                         <li id="Dftr" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Dftr","ReportAFI")>دفتر حساب</a>
+                            <a data-bind="text:translate('دفتر حساب')" class="useBlank" target="_blank" href=@Url.Action("Dftr","ReportAFI")></a>
                         </li>
                         <li id="ADocR" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("ADocR","ReportAFI")>دفتر روزنامه</a>
+                            <a data-bind="text:translate('دفتر روزنامه')" class="useBlank" target="_blank" href=@Url.Action("ADocR","ReportAFI")></a>
                         </li>
                         <li id="TChk" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TChk","ReportAFI")>صورت خلاصه چک ها</a>
+                            <a data-bind="text:translate('صورت خلاصه چک ها')" class="useBlank" target="_blank" href=@Url.Action("TChk","ReportAFI")></a>
                         </li>
 
                         <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
@@ -462,26 +466,26 @@
                 <li id="FReport_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="fa fa-tachometer"></i>
-                        <span>گزارشات خرید و فروش</span>
+                        <span data-bind="text:translate('گزارشات خرید و فروش')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="TrzFKala_S" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFKala_S","ReportAFI")>تراز فروش کالاها</a>
+                            <a data-bind="text:translate('تراز فروش کالاها')" class="useBlank" target="_blank" href=@Url.Action("TrzFKala_S","ReportAFI")></a>
                         </li>
                         <li id="TrzFKala_P" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFKala_P","ReportAFI")>تراز خرید کالاها</a>
+                            <a data-bind="text:translate('تراز خرید کالاها')" class="useBlank" target="_blank" href=@Url.Action("TrzFKala_P","ReportAFI")></a>
                         </li>
                         <li id="TrzFCust_S" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFCust_S","ReportAFI")>تراز فروش به خریداران</a>
+                            <a data-bind="text:translate('تراز فروش به خریداران')" class="useBlank" target="_blank" href=@Url.Action("TrzFCust_S","ReportAFI")></a>
                         </li>
                         <li id="TrzFCust_P" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzFCust_P","ReportAFI")>تراز خرید از فروشندگان</a>
+                            <a data-bind="text:translate('تراز خرید از فروشندگان')" class="useBlank" target="_blank" href=@Url.Action("TrzFCust_P","ReportAFI")></a>
                         </li>
                         <li id="FDocR_S" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("FDocR_S","ReportAFI")>ريز گردش اسناد فروش</a>
+                            <a data-bind="text:translate('ريز گردش اسناد فروش')" class="useBlank" target="_blank" href=@Url.Action("FDocR_S","ReportAFI")></a>
                         </li>
                         <li id="FDocR_P" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("FDocR_P","ReportAFI")>ريز گردش اسناد خرید</a>
+                            <a data-bind="text:translate('ريز گردش اسناد خرید')" class="useBlank" target="_blank" href=@Url.Action("FDocR_P","ReportAFI")></a>
                         </li>
                         <!--<li id="FDocR_S">@Html.ActionLink("ريز گردش اسناد فروش", "FDocR_S", "ReportAFI")</li>
                         <li id="FDocR_P">@Html.ActionLink("ريز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
@@ -495,20 +499,20 @@
                 <li id="IReport_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="fa fa-tachometer"></i>
-                        <span>گزارشات انبار</span>
+                        <span data-bind="text:translate('گزارشات انبار')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="Krdx" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("Krdx","ReportAFI")>کاردکس کالا</a>
+                            <a data-bind="text:translate('کاردکس کالا')" class="useBlank" target="_blank" href=@Url.Action("Krdx","ReportAFI")></a>
                         </li>
                         <li id="TrzIKala" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzIKala","ReportAFI")>موجودی کالا</a>
+                            <a data-bind="text:translate('موجودی کالا')" class="useBlank" target="_blank" href=@Url.Action("TrzIKala","ReportAFI")></a>
                         </li>
                         <li id="TrzIKalaExf" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("TrzIKalaExf","ReportAFI")>موجودی کالا به تفکیک ویژگی</a>
+                            <a data-bind="text:translate('موجودی کالا به تفکیک ویژگی')" class="useBlank" target="_blank" href=@Url.Action("TrzIKalaExf","ReportAFI")></a>
                         </li>
                         <li id="IDocR" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("IDocR","ReportAFI")>ريز گردش اسناد انبارداری</a>
+                            <a data-bind="text:translate('ريز گردش اسناد انبارداری')" class="useBlank" target="_blank" href=@Url.Action("IDocR","ReportAFI")></a>
                         </li>
 
                         <!--<li id="Krdx">@Html.ActionLink("کاردکس کالا", "Krdx", "ReportAFI")</li>
@@ -521,14 +525,14 @@
                 <li id="EReport_Menu" class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="fa fa-tachometer"></i>
-                        <span>گزارشات اتوماسیون اداری</span>
+                        <span data-bind="text:translate('گزارشات اتوماسیون اداری')"></span>
                     </a>
                     <ul class="ml-menu">
                         <li id="ErjDocK" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("ErjDocK","ReportERJ")>فهرست پرونده ها</a>
+                            <a data-bind="text:translate('فهرست پرونده ها')" class="useBlank" target="_blank" href=@Url.Action("ErjDocK","ReportERJ")></a>
                         </li>
                         <li id="ErjDocB_Last" class="rightClick">
-                            <a class="useBlank" target="_blank" href=@Url.Action("ErjDocB_Last","ReportERJ")>ليست ارجاعات پرونده ها</a>
+                            <a data-bind="text:translate('ليست ارجاعات پرونده ها')" class="useBlank" target="_blank" href=@Url.Action("ErjDocB_Last","ReportERJ")></a>
                         </li>
 
                         <!--<li id="ErjDocK">@Html.ActionLink("فهرست پرونده ها", "ErjDocK", "ReportERJ")</li>

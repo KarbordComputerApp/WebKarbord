@@ -83,7 +83,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" >تنظیم ستون ها</h4>
+                <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')" ></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -93,7 +93,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                <td style="text-align: left;padding: 0px 10px 0px 10px;">
+                                <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -129,7 +129,7 @@
                 <a id="Close_ModalAcc">
                     <span aria-hidden="true" style="font-size:20px">&times;</span>
                 </a>
-                <h4 class="modal-title">حساب</h4>
+                <h4 class="modal-title" data-bind="text:translate('حساب')"></h4>
                 <div>
                     <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-OtherField" style="margin-left: 10px;">
                         <img src="/Content/img/sanad/paper-write.png" width="20" height="20">
@@ -162,7 +162,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="LtnName" class="form-control" />
-                                        <label class="form-label">نام لاتین</label>
+                                        <label class="form-label" data-bind="text:translate('نام لاتین')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused fix">
                                             <input id="nameAGru" class="form-control" readonly />
-                                            <label class="form-label"> گروه حساب ها</label>
+                                            <label class="form-label"  data-bind="text:translate('گروه حساب ها')"> </label>
                                         </div>
                                     </div>
                                 </div>
@@ -199,30 +199,30 @@
 
                         <div class="row form-line">
                             <div class="form-line col-md-3 col-sm-12">
-                                <span class="col-md">سررسید نامه</span>
+                                <span class="col-md"  data-bind="text:translate('سررسید نامه')"></span>
                                 <select id="PDMode" class="col-md-8 col-sm-9">
-                                    <option value="0">هیچکدام</option>
-                                    <option value="1">اسناد پرداختنی</option>
-                                    <option value="2">اسناد دریافتنی</option>
+                                    <option value="0"  data-bind="text:translate('هیچکدام')"></option>
+                                    <option value="1"  data-bind="text:translate('اسناد پرداختنی')"></option>
+                                    <option value="2"  data-bind="text:translate('اسناد دریافتنی')"></option>
                                 </select>
                             </div>
 
 
 
                             <div class="form-line col-md-2 col-sm-12">
-                                <span class="col-md">ماهیت</span>
+                                <span class="col-md" data-bind="text:translate('ماهیت')"></span>
                                 <select id="Mahiat" class="col-md-8 col-sm-10">
-                                    <option value="0">هیچکدام</option>
-                                    <option value="1">بدهکار</option>
-                                    <option value="2">بستانکار</option>
+                                    <option value="0"  data-bind="text:translate('هیچکدام')"></option>
+                                    <option value="1"  data-bind="text:translate('بدهکار')"></option>
+                                    <option value="2" data-bind="text:translate('بستانکار')"></option>
                                 </select>
                             </div>
 
                             <div class="form-line col-md-2 col-sm-12">
-                                <span class="col-md">وضعیت</span>
+                                <span class="col-md" data-bind="text:translate('وضعیت')"></span>
                                 <select id="AccStatus" class="col-md-8 col-sm-10">
-                                    <option value="0">فعال</option>
-                                    <option value="1">غیر فعال</option>
+                                    <option value="0" data-bind="text:translate('فعال')"></option>
+                                    <option value="1" data-bind="text:translate('غیر فعال')"></option>
                                 </select>
                             </div>
 
@@ -231,7 +231,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="EMail" class="form-control autocomplete" />
-                                        <label class="form-label">پست الکترونیکی</label>
+                                        <label class="form-label" data-bind="text:translate('پست الکترونیکی')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="Mobile" class="form-control autocomplete" />
-                                        <label class="form-label">موبایل</label>
+                                        <label class="form-label" data-bind="text:translate('موبایل')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -249,8 +249,8 @@
                         <div class="row form-line">
                             <div class="form-line col-md-4 col-sm-12">
                                 <select id="NextLevelFromZAcc" style="margin-bottom: 23px;">
-                                    <option value="0">بدون سطح بعدی هنگام ثبت سند</option>
-                                    <option value="1">دارای سطح بعدی هنگام ثبت سند</option>
+                                    <option value="0" data-bind="text:translate('بدون سطح بعدی هنگام ثبت سند')"></option>
+                                    <option value="1" data-bind="text:translate('دارای سطح بعدی هنگام ثبت سند')"></option>
                                 </select>
                             </div>
 
@@ -266,7 +266,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused fix">
                                             <input id="nameZGru" class="form-control" readonly />
-                                            <label class="form-label"> گروه زیر حساب ها</label>
+                                            <label class="form-label" data-bind="text:translate('گروه زیر حساب ها')"> </label>
                                         </div>
                                     </div>
                                 </div>
@@ -278,32 +278,32 @@
                         <div class="row form-line">
                             <div class="form-line col-md-2 col-sm-12">
                                 <select id="Arzi">
-                                    <option value="0">بدون ارز</option>
-                                    <option value="1">دارای ارز</option>
+                                    <option value="0" data-bind="text:translate('بدون ارز')"></option>
+                                    <option value="1" data-bind="text:translate('دارای ارز')"></option>
 
                                 </select>
                             </div>
 
                             <div class="form-line col-md-2 col-sm-12">
                                 <select id="Mkz">
-                                    <option value="0">بدون مرکز هزینه</option>
-                                    <option value="1">دارای مرکز هزینه</option>
+                                    <option value="0" data-bind="text:translate('بدون مرکز هزینه')"></option>
+                                    <option value="1" data-bind="text:translate('دارای مرکز هزینه')"></option>
 
                                 </select>
                             </div>
 
                             <div class="form-line col-md-2 col-sm-12">
                                 <select id="Opr">
-                                    <option value="0">بدون پروژه</option>
-                                    <option value="1">دارای پروژه</option>
+                                    <option value="0" data-bind="text:translate('بدون پروژه')"></option>
+                                    <option value="1" data-bind="text:translate('دارای پروژه')"></option>
 
                                 </select>
                             </div>
 
                             <div class="form-line col-md-2 col-sm-12" style="margin-bottom:1px">
                                 <select id="Amount">
-                                    <option value="0">بدون مقدار</option>
-                                    <option value="1">دارای مقدار</option>
+                                    <option value="0" data-bind="text:translate('بدون مقدار')"></option>
+                                    <option value="1" data-bind="text:translate('دارای مقدار')"></option>
                                 </select>
                             </div>
 
@@ -313,7 +313,7 @@
                                         <div class="form-group form-float" style="margin-bottom:0px">
                                             <div class="form-line focused fix">
                                                 <input type="text" id="Vahed" class="form-control autocomplete" />
-                                                <label class="form-label">واحد</label>
+                                                <label class="form-label" data-bind="text:translate('واحد')"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -322,7 +322,7 @@
                                         <div class="form-group form-float" style="margin-bottom:0px">
                                             <div class="form-line focused fix">
                                                 <input type="text" id="Deghat" class="form-control autocomplete" />
-                                                <label class="form-label">دقت اعشار</label>
+                                                <label class="form-label" data-bind="text:translate('دقت اعشار')"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -370,7 +370,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست گروه حساب ها</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست گروه حساب ها')"></h4>
                 <a id="refreshAGru">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -382,19 +382,18 @@
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableAGru">
                                 <th data-column="SortCode">
-                                    کد
+                                    <span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
                                 <th data-column="SortName">
-                                    نام
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Spec">
-                                    ملاحظات
+                                <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>
@@ -585,7 +584,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست گروه زیر حساب ها</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست گروه زیر حساب ها')"></h4>
                 <a id="refreshZGru">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -597,20 +596,17 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableZGru">
-                                        <th data-column="Code">
-                                            کد
+                                        <th data-column="Code"><span data-column="Code" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName">
-                                            نام
+                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="Spec">
-                                            ملاحظات
+                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -655,8 +651,8 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableSelectedZGru">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th>کد</th>
-                                                <th>نام</th>
+                                                <th data-bind="text:translate('کد')"></th>
+                                                <th data-bind="text:translate('نام')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListZGru" style="cursor: default;"></tbody>
@@ -687,7 +683,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                    <label>رکورد</label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8 col-sm-6" style="text-align: left;">
@@ -730,19 +726,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleTestAcc">حذف حساب</h4>
+                <h4 id="titleTestAcc" data-bind="text:translate('حذف حساب')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
                 <div id="BodyTestAcc" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
-                    <div class="body" style="padding:7px;">
-                        <div class="form-inline">
-                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
-                            <p style="margin-left: 3px;">هشدار :</p>
-                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
-                        </div>
-                    </div>
+                   
 
                 </div>
                 <br />
@@ -751,11 +741,11 @@
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
                                 <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار') :"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') :"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>
