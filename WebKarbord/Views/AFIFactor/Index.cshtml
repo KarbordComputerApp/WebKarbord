@@ -438,38 +438,25 @@
             </div>
             <div class="modal-body">
                 <div id="BodyTestDoc_Delete" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
-
-                    <div class="body" style="padding:7px;">
-                        <div class="form-inline">
-                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
-                            <p style="margin-left: 3px;">هشدار :</p>
-                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
-                        </div>
-                    </div>
-
                 </div>
                 <br />
                 <div>
                     <div class="row  form-inline ">
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
-                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;" data-bind="text:translate('مورد')">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار :')"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <button  data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;">
-                                
-                            </button>
-                            <button  data-bind="text:translate('حذف')" type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;">
-                                
-                            </button>
+                            <button data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;"></button>
+                            <button data-bind="text:translate('حذف')" type="button" id="Delete-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;"></button>
                         </div>
                     </div>
                 </div>

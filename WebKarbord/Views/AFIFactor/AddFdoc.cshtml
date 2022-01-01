@@ -534,7 +534,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameKala" class="form-control" readonly />
-                                        <label class="form-label"> کالا</label>
+                                         <label class="form-label" data-bind="text:translate('کالا')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -658,7 +658,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست کالاها</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست کالاها')"></h4>
                 <a id="refreshkala">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -682,7 +682,7 @@
                                         <i data-bind="attr: { class: iconTypeNameKala }"></i>
                                     </span>
                                 </th>
-                                <th data-column="FanniNo">
+                                <th data-column="FanniNo"><span data-column="FanniNo" data-bind="text:translate('شماره فنی')"></span>
                                     <span data-column="FanniNo" data-bind="text:translate('شماره فنی')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'FanniNo' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeFanniNoKala }"></i>
@@ -889,37 +889,28 @@
             </div>
             <div class="modal-body">
                 <div id="BodyTestDocB" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
-
-                    <div class="body" style="padding:7px;">
-                        <div class="form-inline">
-                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
-                            <p style="margin-left: 3px;">هشدار :</p>
-                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
-                        </div>
-                    </div>
-
                 </div>
                 <br />
                 <div>
                     <div class="row  form-inline ">
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
-                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning">1</span> <span>مورد</span> </p>
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;" data-bind="text:translate('مورد')">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار :')"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError">0</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- <div class="col-md-6 ">
-                            <div>
-                                <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
-                                <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
-                            </div>
-                        </div>-->
+        <div>
+            <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
+            <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
+        </div>
+    </div>-->
 
                         <div class="col-md-6">
                             <button data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;"></button>
@@ -1293,19 +1284,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleSave">ثبت جدید</h4>
+                <h4 id="titleSave" data-bind="text:translate('')">ثبت جدید</h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
                 <div id="BodyTest_New" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
 
-                    <div class="body" style="padding:7px;">
-                        <div class="form-inline">
-                            <img src="~/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />
-                            <p style="margin-left: 3px;">هشدار :</p>
-                            <p>بند شماره 1 مرکز هزینه مشخص نشده است</p>
-                        </div>
-                    </div>
 
                 </div>
                 <br />
@@ -1314,11 +1298,11 @@
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
                                 <div id="ShowCountWarning_New" class="row" style="padding-bottom:5px;">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span>هشدار :</span> <span id="CountWarning_New">1</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار :')"></span> <span id="CountWarning_New">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError_New" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span>خطا :</span> <span id="CountError_New">0</span> <span>مورد</span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError_New">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>
@@ -1347,7 +1331,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست بندها</h4>
+                <h4 class="modal-title" data-bind="text:translate('')">لیست بندها</h4>
                 <h></h>
             </div>
             <div class="modal-body">

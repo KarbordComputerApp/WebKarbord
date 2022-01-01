@@ -1920,7 +1920,8 @@
     $('#refreshFDocH').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست " + $('#TitleListFactor').text() + " به روز رسانی شود ؟",
+            //text: "لیست " + $('#TitleListFactor').text() + " به روز رسانی شود ؟",
+            text: translate("لیست") + " " + translate($('#TitleListFactor').text()) + " "+ translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

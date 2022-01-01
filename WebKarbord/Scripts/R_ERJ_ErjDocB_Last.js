@@ -917,7 +917,7 @@
     $('#refreshErjCust').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست مشتری ها به روز رسانی شود ؟",
+            text: translate("لیست مشتری ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1038,7 +1038,7 @@
     $('#refreshDocAttach').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "پیوست ها به روز رسانی شود ؟",
+            text: translate("لیست پیوست ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1321,7 +1321,7 @@
     $('#refreshKhdt').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "نوع کار ها به روز رسانی شود ؟",
+            text: translate("لیست نوع کار ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1464,7 +1464,7 @@
     $('#refreshErjUsers').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کاربران به روز رسانی شود ؟",
+            text: translate("لیست کاربران") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1598,7 +1598,7 @@
     $('#refreshErjUsersRonevesht').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کاربران به روز رسانی شود ؟",
+            text: translate("لیست کاربران") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

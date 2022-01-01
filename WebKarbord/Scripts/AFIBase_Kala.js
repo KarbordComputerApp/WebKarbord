@@ -526,7 +526,8 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کالاها به روز رسانی شود ؟",
+            text: translate("لیست کالاها") + " " + translate("به روز رسانی شود ؟"),
+
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -657,7 +658,7 @@
     $('#refreshKGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست گروه کالا به روز رسانی شود ؟",
+            text: translate("لیست گروه کالا") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

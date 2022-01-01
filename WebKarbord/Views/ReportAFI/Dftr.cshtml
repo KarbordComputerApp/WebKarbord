@@ -8,7 +8,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card" style="margin-top:0px;">
             <div class="header">
-                <h2><strong>دفتر حساب</strong></h2>
+                <h2><strong  data-bind="text:translate('دفتر حساب')"></strong></h2>
                 <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                     <a id="SettingColumn" class="">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
@@ -85,8 +85,8 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
                                 <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                    <span class="col-md-5">
-                                        نمایش بند ها
+                                    <span class="col-md-5"  data-bind="text:translate('نمایش بند ها')">
+  
                                     </span>
                                     <div class="form-group col-md-7">
                                         <select id="DispBands"></select>
@@ -96,8 +96,7 @@
 
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                    <span class="col-md-4">نقل از قبل</span>
-
+                                    <span class="col-md-4"  data-bind="text:translate('نقل از قبل')"></span>
                                     <div class="form-group  col-md-8">
                                         <select id="naghl"></select>
                                     </div>
@@ -106,8 +105,7 @@
 
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" Hidden>
                                 <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                    <span class="col-md-5">
-                                        نوع نمایش
+                                    <span class="col-md-5"  data-bind="text:translate('نوع نمایش')">
                                     </span>
                                     <div class="form-group col-md-7">
                                         <select id="JamRooz"></select>
@@ -265,7 +263,7 @@
                     </div>
 
                     <div class="col-md-4 panel_CountRecord" style="margin-top: 10px; text-align:left;">
-                       <span data-bind="text:translate(' = تعداد کل رکورد ها')"></span><span id="CountRecord">0</span>
+                       <span data-bind="text:translate('تعداد کل رکورد ها') + ' = ' "></span><span id="CountRecord">0</span>
                     </div>
                 </div>
             </div>
@@ -280,7 +278,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست حساب ها</h4>
+                <h4 class="modal-title"  data-bind="text:translate('لیست حساب ها')"></h4>
                 <a id="refreshAcc">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -292,19 +290,16 @@
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableAcc">
                                 <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
-                                    کد
                                     <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
                                 <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
-                                    نام
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
                                  <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
-                                    ملاحظات
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>
@@ -400,13 +395,11 @@
                                             </span>
                                         </th>
                                         <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
-                                            نام
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
                                          <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
-                                            ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -530,19 +523,16 @@
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableMkz">
                                         <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
-                                            کد
                                             <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
                                         <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
-                                            نام
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
                                          <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
-                                            ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>

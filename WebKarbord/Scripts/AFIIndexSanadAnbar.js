@@ -1254,7 +1254,7 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: 'لیست اسناد به روز رسانی شود ؟',
+            text: translate("لیست اسناد") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

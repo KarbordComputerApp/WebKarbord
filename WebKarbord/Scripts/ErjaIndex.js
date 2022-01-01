@@ -321,9 +321,9 @@
                 self.ErjResultList(data);
 
             item = data[0];
-            
-                bandNo = item.BandNo;
-     
+
+            bandNo = item.BandNo;
+
             // $("#Result").val(item.RjResult);
         });
     }
@@ -508,7 +508,7 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست پرونده ها به روز رسانی شود ؟",
+            text: translate("لیست پرونده ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -932,7 +932,7 @@
     self.DeleteErjDocH = function (ErjDocHBand) {
         serialNumber = ErjDocHBand.SerialNumber;
         if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, false, ErjDocHBand.DocNo) == true) {
-           // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
 
@@ -1312,12 +1312,10 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-
     $('#refreshErjCust').click(function () {
-
         Swal.fire({
             title: mes_Refresh,
-            text: 'لیست مشتریان به روز رسانی شود ؟',
+            text: translate("لیست مشتریان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1458,7 +1456,7 @@
     $('#refreshKhdt').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "نوع کار ها به روز رسانی شود ؟",
+            text: translate("لیست نوع کار ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1722,7 +1720,7 @@
     $('#refreshRelatedDocs').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "پرونده ها به روز رسانی شود ؟",
+            text: translate("لیست پرونده ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1846,7 +1844,7 @@
     $('#refreshErjUsers').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کاربران به روز رسانی شود ؟",
+            text: translate("لیست کاربران") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1974,7 +1972,8 @@
     $('#refreshErjUsersRonevesht').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کاربران به روز رسانی شود ؟",
+            text: translate("لیست کاربران") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست کاربران") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2165,7 +2164,7 @@
     $('#refreshFarayand').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست فرایندها به روز رسانی شود ؟",
+            text: translate("لیست فرایندها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2285,7 +2284,7 @@
     $('#refreshDocAttach').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "پیوست ها به روز رسانی شود ؟",
+            text: translate("لیست پیوست ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2766,8 +2765,8 @@
 
             var data = response[0];
 
-            if (TestUseSanad(aceErj, salErj,"ErjDocH", data["SerialNumber"], true, data["DocNo"]) == true) {
-               // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+            if (TestUseSanad(aceErj, salErj, "ErjDocH", data["SerialNumber"], true, data["DocNo"]) == true) {
+                // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
             }
             else {
 
@@ -2907,7 +2906,7 @@
 
                 docBMode = data["DocBMode"];
                 serialNumber = data["SerialNumber"];
-                getErjResultList(serialNumber, null, null,null)
+                getErjResultList(serialNumber, null, null, null)
                 getErjDocErja(serialNumber);
 
 
@@ -2931,8 +2930,8 @@
     self.UpdateErjDocH = function (item) {
 
         serialNumber = item.SerialNumber;
-        if (TestUseSanad(aceErj, salErj,"ErjDocH", serialNumber, true, item.DocNo) == true) {
-           // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, item.DocNo) == true) {
+            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
             item.EditDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
@@ -3068,7 +3067,7 @@
 
             docBMode = item.DocBMode;
             serialNumber = item.SerialNumber;
-            getErjResultList(serialNumber, null, null,null)
+            getErjResultList(serialNumber, null, null, null)
             getErjDocErja(serialNumber);
 
 
@@ -3088,7 +3087,7 @@
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
     };
 
 
@@ -3341,7 +3340,7 @@
                     if (result.value == true) {
                         ErjSaveDoc_HI();
                         $('#modal-ErjDocH').modal('hide');
-                    } else if (result.dismiss == "cancel")  {
+                    } else if (result.dismiss == "cancel") {
                         $('#modal-ErjDocH').modal('hide');
                     }
                 })
@@ -3361,7 +3360,7 @@
 
     $("#modal-ErjDocH").on('hide.bs.modal', function () {
 
-        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
 
         if (DocNoReport != "null" && DocNoReport != null) {
             close();

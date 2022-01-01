@@ -2457,7 +2457,7 @@
     $('#refreshOpr').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست پروژه به روز رسانی شود ؟",
+            text: translate("لیست پروژه ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2590,7 +2590,7 @@
     $('#refreshMkz').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست مرکز هزینه به روز رسانی شود ؟",
+            text: translate("لیست مراکز هزینه ") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2797,7 +2797,9 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: sessionStorage.InOut == 1 ? 'لیست تحویل دهندگان به روز رسانی شود ؟' : 'لیست تحویل گیرندگان به روز رسانی شود ؟',
+            //text: sessionStorage.InOut == 1 ? 'لیست تحویل دهندگان به روز رسانی شود ؟' : 'لیست تحویل گیرندگان به روز رسانی شود ؟',
+            text: translate("لیست") + " " + (sessionStorage.InOut == 1 ? translate('تحویل دهندگان') : translate('تحویل گیرندگان')) + " " +
+                + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2818,7 +2820,7 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کالاها به روز رسانی شود ؟",
+            text: translate("لیست کالاها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3939,10 +3941,10 @@
 
 
     window.onbeforeunload = function () {
-       // a = window.performance.navigation;
-       // if (a.type == 0) {
-        RemoveUseSanad(ace, sal,"SanadAnbar", sessionStorage.SerialNumber);
-       // }
+        // a = window.performance.navigation;
+        // if (a.type == 0) {
+        RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber);
+        // }
     };
 
 };

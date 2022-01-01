@@ -1134,7 +1134,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست وضعیت به روز رسانی شود ؟",
+                        text: translate("لیست وضعیت") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1318,7 +1318,7 @@
     $('#refreshInv').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست انبارها به روز رسانی شود ؟",
+            text: translate("لیست انبارها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1501,7 +1501,7 @@
     $('#refreshKGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست گروه کالا به روز رسانی شود ؟",
+            text: translate("لیست گروه کالا") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1691,7 +1691,7 @@
     $('#refreshkala').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست کالاها به روز رسانی شود ؟",
+            text: translate("لیست کالاها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1878,7 +1878,7 @@
     $('#refreshCGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست تحویل دهنده / گیرنده به روز رسانی شود ؟",
+            text: translate("لیست تحویل دهنده/گیرنده") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2062,7 +2062,7 @@
     $('#refreshCust').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست تحویل دهنده / گیرنده به روز رسانی شود ؟",
+            text: translate("لیست تحویل دهنده/گیرنده") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2245,7 +2245,7 @@
     $('#refreshOpr').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست پروژه به روز رسانی شود ؟",
+            text: translate("لیست پروژه ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2429,7 +2429,7 @@
     $('#refreshMkz').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست مرکز هزینه به روز رسانی شود ؟",
+            text: translate("لیست مراکز هزینه ") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

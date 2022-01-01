@@ -310,7 +310,7 @@
     $('#refreshCheckStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست وضعیت چک به روز رسانی شود ؟",
+            text: translate("لیست وضعیت چک") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -496,7 +496,7 @@
     $('#refreshAcc').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست حساب ها به روز رسانی شود ؟",
+            text: translate("لیست حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

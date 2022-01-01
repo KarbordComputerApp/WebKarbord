@@ -874,7 +874,7 @@
     $('#refreshAcc').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست حساب ها به روز رسانی شود ؟",
+            text: translate("لیست حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1114,7 +1114,7 @@
     $('#refreshZAcc').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست زیر حساب ها به روز رسانی شود ؟",
+            text: translate("لیست زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1259,7 +1259,7 @@
     $('#refreshTraf').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست طرف حساب ها به روز رسانی شود ؟",
+            text: translate("لیست طرف حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1417,7 +1417,7 @@
     $('#refreshTrafZ').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست زیر حساب ها به روز رسانی شود ؟",
+            text: translate("لیست زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1550,7 +1550,7 @@
     $('#refreshOpr').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست پروژه به روز رسانی شود ؟",
+            text: translate("لیست پروژه ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1688,7 +1688,7 @@
     $('#refreshMkz').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست مرکز هزینه به روز رسانی شود ؟",
+            text: translate("لیست مراکز هزینه ") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1838,7 +1838,7 @@
     $('#refreshArz').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست ارز به روز رسانی شود ؟",
+            text: translate("لیست ارز") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1968,7 +1968,7 @@
     $('#refreshBank').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست بانک به روز رسانی شود ؟",
+            text: translate("لیست بانک") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2094,7 +2094,7 @@
     $('#refreshShobe').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست شعبه به روز رسانی شود ؟",
+            text: translate("لیست شعبه") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2227,7 +2227,7 @@
     $('#refreshJari').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست جاری به روز رسانی شود ؟",
+            text: translate("لیست جاری") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2429,7 +2429,7 @@
     $('#refreshCheck').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست چک ها به روز رسانی شود ؟",
+            text: translate("لیست چک ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2694,12 +2694,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') +'</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') +'</p>'
             }
 
             if (list[i].TestCap != "")
@@ -3330,10 +3330,10 @@
     $('#FinalSave').click(function () {
 
         if (Serial == "" || self.ADocBList().length == 0)
-            return showNotification('سند دارای بند قابل ذخیره نیست', 0);
+            return showNotification(translate('سند خالی قابل ذخیره نیست'), 0);
 
 
-        $('#titleFinalSave').text('ذخیره سند حسابداری');
+        $('#titleFinalSave').text(translate('ذخیره سند حسابداری'));
 
         if (self.UpdateADocH() != "OK") {
             return null;
@@ -3369,36 +3369,37 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :')+'</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') +'</p>'
             }
 
+            tBand = translate('بند شماره') + ' ';
             if (list[i].TestName == "Opr")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
             else if (list[i].TestName == "Mkz")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
             else if (list[i].TestName == "Arz")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
             else if (list[i].TestName == "Mahiat")
                 //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
 
             else if (list[i].TestName == "Balance")
                 textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
 
             else if (list[i].TestName == "ZeroBand")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
 
 
             else if (list[i].TestName == "Traf")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
 
             else if (list[i].TestName == "Check")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
 
             else if (list[i].TestCap != "")
                 textBody += '<p>' + list[i].TestCap + '</p>';

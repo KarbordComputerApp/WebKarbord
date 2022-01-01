@@ -150,7 +150,7 @@
     $('#refreshBox').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست اعلامیه ها به روز رسانی شود ؟",
+            text: translate("لیست اعلامیه ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

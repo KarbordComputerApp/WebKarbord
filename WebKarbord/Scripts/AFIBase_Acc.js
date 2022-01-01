@@ -683,7 +683,7 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست حساب ها  به روز رسانی شود ؟",
+            text: translate("لیست حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -807,7 +807,7 @@
     $('#refreshAGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست گروه حساب ها به روز رسانی شود ؟",
+            text: translate("لیست گروه حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -939,7 +939,7 @@
     $('#refreshZGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست گروه زیر حساب ها به روز رسانی شود ؟",
+            text: translate("لیست گروه زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

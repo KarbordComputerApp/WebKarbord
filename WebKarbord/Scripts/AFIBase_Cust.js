@@ -534,7 +534,7 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست خریداران/فروشندگان  به روز رسانی شود ؟",
+            text: translate("لیست خریداران/فروشندگان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -658,7 +658,7 @@
     $('#refreshCGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: "لیست گروه خریداران/فروشندگان به روز رسانی شود ؟",
+            text: translate("لیست گروه خریداران/فروشندگان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -845,11 +845,11 @@
     }
 
     $('#modal-Cust').on('hide.bs.modal', function () {
-        RemoveUseSanad(ace, sal,"Cust", custCode);
+        RemoveUseSanad(ace, sal, "Cust", custCode);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"Cust", custCode);
+        RemoveUseSanad(ace, sal, "Cust", custCode);
     };
 
 

@@ -1145,8 +1145,8 @@
 
     $('#refreshStatus').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست وضعیت ها به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست وضعیت ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1331,8 +1331,8 @@
 
     $('#refreshInv').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست انبارها به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست انبارها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1514,8 +1514,8 @@
 
     $('#refreshKGru').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست گروه کالاها به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست گروه های کالا") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1703,8 +1703,8 @@
 
     $('#refreshkala').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست کالاها به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست کالاها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1890,8 +1890,8 @@
 
     $('#refreshCGru').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست گروه فروشندگان به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست گروه فروشندگان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2074,8 +2074,8 @@
 
     $('#refreshCust').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست فروشندگان به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست فروشندگان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2257,8 +2257,8 @@
 
     $('#refreshOpr').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست پروژه ها به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست پروژه ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2441,8 +2441,8 @@
 
     $('#refreshMkz').click(function () {
         Swal.fire({
-            title: 'تایید به روز رسانی ',
-            text: "لیست مراکز هزینه به روز رسانی شود ؟",
+            title: mes_Refresh,
+            text: translate("لیست مراکز هزینه ") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
