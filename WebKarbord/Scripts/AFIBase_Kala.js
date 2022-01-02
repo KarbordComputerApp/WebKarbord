@@ -80,6 +80,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             // ListColumns = data;
             if (FlagSetting) {
@@ -103,6 +104,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -873,7 +875,7 @@
         }*/
         kalaCode = item.Code;
         if (TestUseSanad(ace, sal, "Kala", kalaCode, true, '') == true) {
-            showNotification('کالا در تب دیگری در حال ویرایش است', 0)
+            showNotification(translate('کالا') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
             $('#modal-Kala').modal('show');
@@ -928,7 +930,7 @@
         //    return showNotification('کد کالا را وارد کنید', 0)
        // }
         if (name == "") {
-            return showNotification('نام کالا را وارد کنید', 0)
+            return showNotification(translate('نام کالا را وارد کنید'), 0)
         }
 
         /* if (isUpdate == false) {
@@ -1014,7 +1016,7 @@
                 ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
                     getKalaList();
                     $('#modal-Kala').modal('hide');
-                    showNotification('ذخيره شد ', 1);
+                    showNotification(translate('ذخيره شد'), 1);
                 });
             }
         });
@@ -1028,12 +1030,12 @@
     self.DeleteKala = function (item) {
         kalaCode = item.Code;
         if (TestUseSanad(ace, sal, "Kala", kalaCode, false, '') == true) {
-            showNotification('کالا در تب دیگری در حال ویرایش است', 0)
+            showNotification(translate('کالا') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
             Swal.fire({
                 title: mes_Delete,
-                text: "آیا کالای انتخابی حذف شود",
+                text: translate("آیا کالای انتخابی حذف شود"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1079,12 +1081,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestCap != "")
@@ -1124,7 +1126,7 @@
             currentPage = self.currentPageIndexKala();
             getKalaList();
             self.currentPageIndexKala(currentPage);
-            showNotification('حذف شد ', 1);
+            showNotification(translate('حذف شد'), 1);
         });
     }
 
@@ -1167,7 +1169,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableKala">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
@@ -1192,7 +1194,7 @@
             CreateTableTh('KalaF18', data) +
             CreateTableTh('KalaF19', data) +
             CreateTableTh('KalaF20', data) +
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageKala" data-dismiss="modal" style="cursor: default;">' +

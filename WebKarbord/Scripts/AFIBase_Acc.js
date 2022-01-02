@@ -125,6 +125,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             // ListColumns = data;
             if (FlagSetting) {
@@ -148,6 +149,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -1008,7 +1010,7 @@
 
     $('#modal-ZGru').on('hide.bs.modal', function () {
         if (counterZGru > 0)
-            $('#nameZGru').val(counterZGru + ' مورد انتخاب شده ')
+            $('#nameZGru').val(counterZGru + ' ' + translate('مورد انتخاب شده') )  
         else
             $('#nameZGru').val('');
     });
@@ -1197,7 +1199,7 @@
             if (ZGruCode != '') {
                 list_ZGruSelect = ZGruCode.split(",");
                 counterZGru = list_ZGruSelect.length;
-                $('#nameZGru').val(counterZGru + ' مورد انتخاب شده ')
+                $('#nameZGru').val(counterZGru +  ' ' + translate('مورد انتخاب شده'))
             }
             $('#P_ZGru').show();
         }
@@ -1343,7 +1345,7 @@
              if (ZGruCode != '') {
                  list_ZGruSelect = ZGruCode.split(",");
                  counterZGru = list_ZGruSelect.length;
-                 $('#nameZGru').val(counterZGru + ' مورد انتخاب شده ')
+                 $('#nameZGru').val(counterZGru +  ' ' + translate('مورد انتخاب شده'))
              }
              $('#P_ZGru').show();
          }
@@ -1440,7 +1442,7 @@
 
         SetDataAcc(item);
         if (TestUseSanad(ace, sal, "Acc", AccCode, true, '') == true) {
-            showNotification('حساب در تب دیگری در حال ویرایش است', 0)
+            showNotification(translate('حساب') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
             $('#modal-Acc').modal('show');
@@ -1473,7 +1475,7 @@
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"Acc", AccCode);
+        RemoveUseSanad(ace, sal, "Acc", AccCode);
     };
 
 
@@ -1485,7 +1487,7 @@
         //    return showNotification('کد حساب را وارد کنید', 0)
         //}
         if (name == "") {
-            return showNotification('نام حساب را وارد کنید', 0)
+            return showNotification(translate('نام حساب را وارد کنید'), 0)
         }
 
 
@@ -1563,7 +1565,7 @@
                     getAccList();
                     $('#modal-Acc').modal('hide');
                     flag_Save = true;
-                    showNotification('ذخيره شد ', 1);
+                    showNotification(translate('ذخيره شد'), 1);
                 });
             }
         });
@@ -1578,13 +1580,13 @@
 
         AccCode = item.Code;
         if (TestUseSanad(ace, sal, "Acc", AccCode, false, '') == true) {
-            showNotification('حساب در تب دیگری در حال ویرایش است', 0)
+            showNotification(translate('حساب') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
 
             Swal.fire({
                 title: mes_Delete,
-                text: "آیا حساب انتخابی حذف شود",
+                text: translate("آیا حساب انتخابی حذف شود"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1618,7 +1620,7 @@
     function SetDataTestAcc(deleteAcc) {
 
         $("#BodyTestAcc").empty();
-        deleteAcc == true ? $("#titleTestAcc").text('حذف حساب') : $("#titleTestAcc").text('ذخیره حساب');
+        deleteAcc == true ? $("#titleTestAcc").text(translate('حذف حساب')) : $("#titleTestAcc").text(translate('ذخیره حساب'));
         textBody = '';
         countWarning = 0;
         countError = 0;
@@ -1630,12 +1632,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestCap != "")
@@ -1675,7 +1677,7 @@
             currentPage = self.currentPageIndexAcc();
             getAccList();
             self.currentPageIndexAcc(currentPage);
-            showNotification('حذف شد ', 1);
+            showNotification(translate('حذف شد'), 1);
         });
     }
 
@@ -1764,8 +1766,8 @@
 
 
                 Swal.fire({
-                    title: 'ثبت تغییرات',
-                    text: "حساب تغییر کرده است آیا ذخیره شود ؟",
+                    title: translate('ثبت تغییرات'),
+                    text: translate('حساب تغییر کرده است آیا ذخیره شود ؟'),
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
@@ -1844,7 +1846,8 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableAcc">' +
-            '<th>ردیف</th>' +
+        '<th>' + translate('ردیف') + '</th>' +
+        
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
@@ -1878,7 +1881,7 @@
             CreateTableTh('AccF18', data) +
             CreateTableTh('AccF19', data) +
             CreateTableTh('AccF20', data) +
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageAcc" data-dismiss="modal" style="cursor: default;">' +

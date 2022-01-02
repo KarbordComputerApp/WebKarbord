@@ -111,6 +111,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -129,6 +130,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -411,6 +413,7 @@
     //Get SanadCols List
     function getColsSanadList() {
         ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             CreateTableSanad(data);
         });
@@ -3277,7 +3280,7 @@
 
         Swal.fire({
             title: mes_Delete,
-            text: "آیا بند انتخابی حذف شود",
+            text: translate("آیا بند انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3452,7 +3455,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr>' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('BandNo', data) +
             CreateTableTh('AccFullCode', data) +
             CreateTableTh('AccFullName', data) +
@@ -3675,7 +3678,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableCheck">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableThCheck('CheckNo', data) +
             CreateTableThCheck('CheckDate', data) +
             CreateTableThCheck('Value', data) +
@@ -4006,7 +4009,7 @@
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: mes_Delete,
-            text: "آیا فرم چاپ انتخابی حذف شود",
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

@@ -193,6 +193,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -211,6 +212,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -1023,7 +1025,7 @@
     self.DeleteDocAttach = function (Band) {
         Swal.fire({
             title: 'تایید حذف',
-            text: "آیا پیوست انتخابی حذف شود ؟",
+            text: translate("آیا پیوست انتخابی حذف شود ؟"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1459,7 +1461,7 @@
 
     $('#modal-ErjUsersRonevesht').on('hide.bs.modal', function () {
         if (counterErjUsersRonevesht > 0)
-            $('#nameRoneveshtBe').val(counterErjUsersRonevesht + ' مورد انتخاب شده ')
+            $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameRoneveshtBe').val('هیچکس');
     });
@@ -1946,7 +1948,7 @@
             if (countUsers == 0)
                 $('#nameRoneveshtBe').val('هیچکس');
             else
-                $('#nameRoneveshtBe').val(countUsers + ' مورد انتخاب شده ');
+                $('#nameRoneveshtBe').val(countUsers +  ' ' + translate('مورد انتخاب شده'));
 
             $('#RjMhltDate').val(Band.RjMhltDate);
 
@@ -2092,8 +2094,8 @@
 
 
                 Swal.fire({
-                    title: 'ثبت تغییرات',
-                    text: "پرونده تغییر کرده است آیا ذخیره شود ؟",
+                    title: translate('ثبت تغییرات'),
+                    text: translate("پرونده تغییر کرده است آیا ذخیره شود ؟"),
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
@@ -2352,8 +2354,8 @@
             if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
                 flag_IsChange7) {
                 Swal.fire({
-                    title: 'ثبت تغییرات',
-                    text: "ارجاع تغییر کرده است آیا ذخیره شود ؟",
+                    title: translate('ثبت تغییرات'),
+                    text: translate("ارجاع تغییر کرده است آیا ذخیره شود ؟"),
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonColor: '#3085d6',
@@ -2899,7 +2901,7 @@
             CreateTableTh('FarayandCode', data) +
             CreateTableTh('FarayandName', data) +
 
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
 

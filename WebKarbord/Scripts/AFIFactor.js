@@ -29,9 +29,9 @@
         $('#docnoout').attr('class', 'form-control ShomarehSanad');
     }
 
-    $("#aceTest").text('نام نرم افزار' + ace);
+    /*$("#aceTest").text('نام نرم افزار' + ace);
     $("#groupTest").text('نام گروه' + group);
-    $("#salTest").text('سال مالی' + sal);
+    $("#salTest").text('سال مالی' + sal);*/
 
     //var server = $("#server").text();
     //sessionStorage.searchFDocH = "";
@@ -160,16 +160,16 @@
     self.TestFDoc_NewList = ko.observableArray([]); // لیست تست جدید
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
-    FDOC_SO_Text = "سفارش فروش";
-    FDOC_SP_Text = "پیش فاکتور فروش";
-    FDOC_S_Text = "فاکتور فروش";
-    FDOC_SR_Text = "برگشت از فروش";
-    FDOC_SH_Text = "حواله فروش";
-    FDOC_SE_Text = "برگه خروج";
-    FDOC_PO_Text = "سفارش خرید";
-    FDOC_PP_Text = "پیش فاکتور خرید";
-    FDOC_P_Text = "فاکتور خرید";
-    FDOC_PR_Text = "برگشت از خرید";
+    FDOC_SO_Text = translate("سفارش فروش");
+    FDOC_SP_Text = translate("پیش فاکتور فروش");
+    FDOC_S_Text = translate("فاکتور فروش");
+    FDOC_SR_Text = translate("برگشت از فروش");
+    FDOC_SH_Text = translate("حواله فروش");
+    FDOC_SE_Text = translate("برگه خروج");
+    FDOC_PO_Text = translate("سفارش خرید");
+    FDOC_PP_Text = translate("پیش فاکتور خرید");
+    FDOC_P_Text = translate("فاکتور خرید");
+    FDOC_PR_Text = translate("برگشت از خرید");
 
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
@@ -229,7 +229,7 @@
     $('#TitleHeaderFactor').text(textFactor + " ");
     $('#TitleBodyFactor').text(textFactor + " ");
     $('#TitleFooterFactor').text(textFactor + " ");
-    $('#titlePage').text(textFactor + " جدید ");
+    $('#titlePage').text(textFactor + " " + translate("جدید"));
 
     $("#Panel_Barcode_Amount").attr('hidden', '');
 
@@ -242,24 +242,24 @@
 
     if (sessionStorage.InOut == 2) {
 
-        $('#LableCustCode').text('خریدار ');
-        $('#LableHesabCode').text('نام خریدار');
+        $('#LableCustCode').text(translate('خریدار'));
+        $('#LableHesabCode').text(translate('نام خریدار'));
         //$('#codeHesab').attr('placeholder', 'کد خریدار');
         //$('#nameHesab').attr('placeholder', 'نام خریدار');
         //$('#LableCustCode').attr('placeholder', 'نام خریدار');
-        $('#TitleModalCust').text('لیست خریداران ');
-        $('#TitleCodeTableModalCust').text('کد خریدار ');
-        $('#TitleNameTableModalCust').text('نام خریدار ');
+        $('#TitleModalCust').text(translate('لیست خریداران'));
+        $('#TitleCodeTableModalCust').text(translate('کد خریدار'));
+        $('#TitleNameTableModalCust').text(translate('نام خریدار'));
         sessionStorage.sels = "true";
     } else {
-        $('#LableCustCode').text('فروشنده ');
-        $('#LableHesabCode').text('نام فروشنده');
+        $('#LableCustCode').text(translate('فروشنده'));
+        $('#LableHesabCode').text(translate('نام فروشنده'));
         //$('#codeHesab').attr('placeholder', 'کد فروشنده ');
         //$('#nameHesab').attr('placeholder', 'نام فروشنده');
         //$('#LableCustCode').attr('placeholder', 'نام فروشنده ');
-        $('#TitleModalCust').text('لیست فروشندگان');
-        $('#TitleCodeTableModalCust').text('کد فروشنده ');
-        $('#TitleNameTableModalCust').text('نام فروشنده ');
+        $('#TitleModalCust').text(translate('لیست فروشندگان'));
+        $('#TitleCodeTableModalCust').text(translate('کد فروشنده'));
+        $('#TitleNameTableModalCust').text(translate('نام فروشنده'));
         sessionStorage.sels = "false";
     }
 
@@ -299,7 +299,9 @@
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
     function getRprtColsList(FlagSetting, username) {
+
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
         });
@@ -447,24 +449,24 @@
 
     $("#status").change(function () {
         selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == 'تایید') {
+        if (accessTaeed == false && selectStatus == translate('تایید')) {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی تایید ندارید', 0);
+            return showNotification(translate('دسترسی تایید ندارید'), 0);
         }
 
-        if (accessCancel == false && selectStatus == 'باطل') {
+        if (accessCancel == false && selectStatus == translate('باطل')) {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی باطل ندارید', 0);
+            return showNotification(translate('دسترسی باطل ندارید'), 0);
         }
 
-        if (accessTasvib == false && selectStatus == 'تصویب') {
+        if (accessTasvib == false && selectStatus == translate('تصویب')) {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی تصویب ندارید', 0);
+            return showNotification(translate('دسترسی تصویب ندارید'), 0);
         }
 
-        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+        if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
             $("#status").val(lastStatus);
-            return showNotification('فقط فاکتور های تایید شده امکان تصویب دارند', 0);
+            return showNotification(translate('فقط فاکتور های تایید شده امکان تصویب دارند'), 0);
         }
     });
 
@@ -593,7 +595,7 @@
                 dataFDocH.TotalPrice != null ? FDocHTotalPrice = dataFDocH.TotalPrice : FDocHTotalPrice = 0;
                 dataFDocH.Discount != null ? FDocHDiscount = dataFDocH.Discount : FDocHDiscount = 0;
                 dataFDocH.FinalPrice != null ? FDocHFinalPrice = dataFDocH.FinalPrice : FDocHFinalPrice = 0;
-                FDocHAmount1 == 0 ? $('#foottextsum').text('') : $('#foottextsum').text('جمع');
+                FDocHAmount1 == 0 ? $('#foottextsum').text('') : $('#foottextsum').text(translate('جمع'));
                 FDocHAmount1 == 0 ? $('#foottextamount1').text('') : $('#foottextamount1').text(NumberToNumberString(FDocHAmount1.valueOf()));
                 FDocHAmount2 == 0 ? $('#foottextamount2').text('') : $('#foottextamount2').text(NumberToNumberString(FDocHAmount2.valueOf()));
                 FDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(FDocHAmount3.valueOf()));
@@ -762,11 +764,11 @@
         self.MainUnit('');
         self.Comm('');
 
-        $('#txtzarib1').text('مقدار 1');
-        $('#txtzarib2').text('مقدار 2');
-        $('#txtzarib3').text('مقدار 3');
+        $('#txtzarib1').text(translate('مقدار 1'));
+        $('#txtzarib2').text(translate('مقدار 2'));
+        $('#txtzarib3').text(translate('مقدار 3'));
 
-        $('#amounttext').text('مقدار');
+        $('#amounttext').text(translate('مقدار'));
 
 
         $('#viewunit').hide();
@@ -803,14 +805,14 @@
             var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
-                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
 
             if (tarikh == '')
-                return showNotification('تاريخ را وارد کنيد', 0);
+                return showNotification(translate('تاريخ را وارد کنيد'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
 
             TestFDoc_New(Serial, tarikh, docNo);
             if (resTestNew == true) {
@@ -879,12 +881,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestCap != "")
@@ -926,14 +928,14 @@
             var tarikh = $("#tarikh").val().toEnglishDigit();
 
             if (tarikh.length != 10)
-                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
 
             if (tarikh == '')
-                return showNotification('تاريخ را وارد کنيد', 0);
+                return showNotification(translate('تاريخ را وارد کنيد'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
 
             var TestFDoc_NewObject = {
                 DocDate: tarikh,
@@ -972,23 +974,23 @@
         docno = $("#docnoout").val();
 
         if (docno.length > 10) {
-            return showNotification('شماره نباید بیشتر از ده رقم باشد', 0);
+            return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
         }
 
         if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
         }
 
         if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
+            return showNotification(translate('تاريخ را وارد کنيد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
         }
 
@@ -997,68 +999,68 @@
             switch (sessionStorage.ModeCode.toString()) {
                 case sessionStorage.MODECODE_FDOC_SO:
                     if (sessionStorage.FDOCSO_TestCust == "1")
-                        showNotification('خریدار انتخاب نشده است', 2);
+                        showNotification(translate('خریدار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSO_TestCust == "2")
-                        return showNotification('خریدار انتخاب نشده است', 0);
+                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_SP:
                     if (sessionStorage.FDOCSP_TestCust == "1")
-                        showNotification('خریدار انتخاب نشده است', 2);
+                        showNotification(translate('خریدار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSP_TestCust == "2")
-                        return showNotification('خریدار انتخاب نشده است', 0);
+                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_S:
                     if (sessionStorage.FDOCS_TestCust == "1")
-                        showNotification('خریدار انتخاب نشده است', 2);
+                        showNotification(translate('خریدار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCS_TestCust == "2")
-                        return showNotification('خریدار انتخاب نشده است', 0);
+                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_SR:
                     if (sessionStorage.FDOCSR_TestCust == "1")
-                        showNotification('خریدار انتخاب نشده است', 2);
+                        showNotification(translate('خریدار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSR_TestCust == "2")
-                        return showNotification('خریدار انتخاب نشده است', 0);
+                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
                     break;
 
                 case sessionStorage.MODECODE_FDOC_SH:
                     if (sessionStorage.FDOCSH_TestCust == "1")
-                        showNotification('خریدار انتخاب نشده است', 2);
+                        showNotification(translate('خریدار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSH_TestCust == "2")
-                        return showNotification('خریدار انتخاب نشده است', 0);
+                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
                     break;
 
                 case sessionStorage.MODECODE_FDOC_SE:
                     if (sessionStorage.FDOCSE_TestCust == "1")
-                        showNotification('خریدار انتخاب نشده است', 2);
+                        showNotification(translate('خریدار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSE_TestCust == "2")
-                        return showNotification('خریدار انتخاب نشده است', 0);
+                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
                     break;
 
 
 
                 case sessionStorage.MODECODE_FDOC_PO:
                     if (sessionStorage.FDOCPO_TestCust == "1")
-                        showNotification('فروشنده انتخاب نشده است', 2);
+                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCPO_TestCust == "2")
-                        return showNotification('فروشنده انتخاب نشده است', 0);
+                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_PP:
                     if (sessionStorage.FDOCPP_TestCust == "1")
-                        showNotification('فروشنده انتخاب نشده است', 2);
+                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCPP_TestCust == "2")
-                        return showNotification('فروشنده انتخاب نشده است', 0);
+                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_P:
                     if (sessionStorage.FDOCP_TestCust == "1")
-                        showNotification('فروشنده انتخاب نشده است', 2);
+                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCP_TestCust == "2")
-                        return showNotification('فروشنده انتخاب نشده است', 0);
+                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_PR:
                     if (sessionStorage.FDOCPR_TestCust == "1")
-                        showNotification('فروشنده انتخاب نشده است', 2);
+                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCPR_TestCust == "2")
-                        return showNotification('فروشنده انتخاب نشده است', 0);
+                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
                     break;
             }
         }
@@ -1068,64 +1070,64 @@
             switch (sessionStorage.ModeCode.toString()) {
                 case sessionStorage.MODECODE_FDOC_SO:
                     if (sessionStorage.FDOCSO_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSO_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_SP:
                     if (sessionStorage.FDOCSP_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSP_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotificationtranslate(('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_S:
                     if (sessionStorage.FDOCS_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCS_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_SR:
                     if (sessionStorage.FDOCSR_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSR_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_SH:
                     if (sessionStorage.FDOCSH_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSH_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_SE:
                     if (sessionStorage.FDOCSE_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCSE_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
 
                 case sessionStorage.MODECODE_FDOC_PO:
                     if (sessionStorage.FDOCPO_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCPO_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_PP:
                     if (sessionStorage.FDOCPP_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCPP_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_P:
                     if (sessionStorage.FDOCP_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCP_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
                 case sessionStorage.MODECODE_FDOC_PR:
                     if (sessionStorage.FDOCPR_TestInv == "1")
-                        showNotification('انبار انتخاب نشده است', 2);
+                        showNotification(translate('انبار انتخاب نشده است'), 2);
                     else if (sessionStorage.FDOCPR_TestInv == "2")
-                        return showNotification('انبار انتخاب نشده است', 0);
+                        return showNotification(translate('انبار انتخاب نشده است'), 0);
                     break;
             }
         }
@@ -1234,33 +1236,33 @@
         docno = $("#docnoout").val();
 
         if (docno.length > 10) {
-            return showNotification('شماره نباید بیشتر از ده رقم باشد', 0);
+            return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
         }
 
 
         if (Serial == "" || self.FDocBList().length == 0)
-            return showNotification('فاکتور دارای بند قابل ذخیره نیست', 0);
+            return showNotification(translate('فاکتور دارای بند قابل ذخیره نیست'), 0);
 
 
         if (self.DocNoOut == '') {
-            return showNotification(' شماره فاکتور را وارد کنيد', 0);
+            return showNotification(translate('شماره فاکتور را وارد کنيد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره فاکتور را وارد کنيد ' });
         }
 
         if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
         }
 
         if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
+            return showNotification(translate('تاريخ را وارد کنيد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
             // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
         }
 
@@ -1322,8 +1324,8 @@
             InvCode: inv,
             Status: status,
             //Taeed: status == "تایید" ? sessionStorage.userName : '',
-            Taeed: sessionStorage.TaeedF == '' ? status == "تایید" ? sessionStorage.userName : '' : sessionStorage.TaeedF,
-            Tasvib: status == "تصویب" ? sessionStorage.userName : '',
+            Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
+            Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
             deghat: parseInt(sessionStorage.Deghat),
@@ -1368,7 +1370,7 @@
                         flagFinalSave = false;
                         flagKalaPrice = false;
                         //Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'تغییرات با موفقیت انجام شد' });
-                        showNotification('تغییرات با موفقیت انجام شد', 1)
+                        showNotification(translate('تغییرات با موفقیت انجام شد'), 1)
                     });
                 } else {
                     getFDocH(Serial);
@@ -1387,7 +1389,7 @@
 
                 }
                 else {
-                    showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);
+                    showNotification($('#TitleHeaderFactor').text() + ' ' + translate('ذخيره شد'), 1);
                 }
             }
             else {
@@ -1407,7 +1409,7 @@
         GetBandNumber();
         bandnumber = bandnumber;
         if (Serial == '') {
-            return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است'), 0);
             //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه فاکتور ثبت نشده است ' });
         }
         //var cKala = $('#codeKala').val();
@@ -1432,7 +1434,7 @@
         comm = $("#comm").val();
 
         if (KalaCode == '' || nKala == '' || uKala == '') {
-            return showNotification('کالا را وارد کنید', 0);
+            return showNotification(translate('کالا را وارد کنید'), 0);
         }
 
         if (amount == '') {
@@ -1463,7 +1465,7 @@
         if (uKala == null)
             uKala = 1;
 
-        textZeroAmount = 'مقدار صفر است'
+        textZeroAmount = translate('مقدار صفر است')
 
         if (Amount3 == 0)
             if (Amount2 == 0)
@@ -1535,7 +1537,7 @@
                     }
                 }
 
-        textZeroPrice = 'مبلغ صفر است'
+        textZeroPrice = translate('مبلغ صفر است')
 
         if (totalPrice == 0) {
             switch (sessionStorage.ModeCode.toString()) {
@@ -1655,7 +1657,7 @@
             self.UpdateFDocH();
             self.ClearFDocB();
             KalaCode = '';
-            showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
+            showNotification(translate('بند شماره') + " " + bandnumber + " " + translate('ذخيره شد'), 1);
         });
     }
 
@@ -1668,7 +1670,7 @@
         //KalaCode = $("#codeKala").val();
         //        bandnumber = bandnumber + 1;
         if (Serial == '') {
-            return showNotification(' اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است'), 0);
             //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه فاکتور ثبت نشده است ' });
         }
         var cKala = $('#codeKala').val();
@@ -1690,7 +1692,7 @@
         comm = $("#comm").val();
 
         if (cKala == '' || nKala == '' || uKala == '') {
-            return showNotification('کالا را وارد کنيد', 0);
+            return showNotification(translate('کالا را وارد کنيد'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
         }
 
@@ -1720,7 +1722,7 @@
         if (uKala == null)
             uKala = 1;
 
-        textZeroAmount = 'مقدار صفر است'
+        textZeroAmount = translate('مقدار صفر است')
 
         if (Amount3 == 0)
             if (Amount2 == 0)
@@ -1790,7 +1792,7 @@
                     }
                 }
 
-        textZeroPrice = 'مبلغ صفر است'
+        textZeroPrice = translate('مبلغ صفر است')
 
         if (totalPrice == 0) {
             switch (sessionStorage.ModeCode.toString()) {
@@ -1882,7 +1884,7 @@
         acceptUpdate = false;
         SendFDocBU(FDocBObject);
         if (acceptUpdate == true) {
-            showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+            showNotification(translate('بند شماره') + " " + bandnumberedit + " " + translate('ویرایش شد'), 1);
             KalaCode = '';
         }
 
@@ -2175,8 +2177,8 @@
 
         if (Serial != '') {
             Swal.fire({
-                title: 'تایید و ثبت نهایی تغییرات ؟',
-                text: 'در صورت تغییر' + (sessionStorage.InOut == 2 ? ' خریدار ' : ' فروشنده ') + ' تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟',
+                title: translate('تایید و ثبت نهایی تغییرات ؟'),
+                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -2575,8 +2577,8 @@
     $('#refreshOpr').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست پروژه ها") + " " + translate("به روز رسانی شود ؟"), 
-            
+            text: translate("لیست پروژه ها") + " " + translate("به روز رسانی شود ؟"),
+
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2913,7 +2915,7 @@
 
         Swal.fire({
             title: mes_Delete,
-            text: "آیا بند انتخابی حذف شود",
+            text: translate("آیا بند انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2931,7 +2933,7 @@
                     CalcDiscontCol(self.CustCode());
                     flagFinalSave = false;
                     //self.UpdateFDocH();
-                    showNotification(' بند شماره ' + factorBand.BandNo + ' حذف شد ', 1);
+                    showNotification(translate('بند شماره') + " " + factorBand.BandNo + " " + translate('حذف شد'), 1);
                     //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + factorBand.BandNo + ' حذف شد ' });
                 });
             }
@@ -3247,7 +3249,11 @@
     });
 
     self.OptionsCaptionAnbar = ko.computed(function () {
-        return self.InvList().length > 0 ? 'انبار را انتخاب کنید' : 'انبار تعریف نشده است';
+        return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
+    });
+
+    self.OptionsCaptionKalaPrice = ko.computed(function () {
+        return translate('قیمت اطلاعات پایه');
     });
 
     /*  $("#allSearchHesab").click(function () {
@@ -3336,8 +3342,8 @@
         if ($("#sumfactor").val() != '' && viewAction == true && firstUpdateShow == 0) {
 
             Swal.fire({
-                title: 'تایید و ثبت نهایی تغییرات ؟',
-                text: "قیمت تمام کالاها با قیمت های ثبت شده در گروه قیمت کالای انتخاب شده پر می شوند آیا مطمئن هستید ؟",
+                title: translate('تایید و ثبت نهایی تغییرات ؟'),
+                text: translate("قیمت تمام کالاها با قیمت های ثبت شده در گروه قیمت کالای انتخاب شده پر می شوند آیا مطمئن هستید ؟"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -3373,7 +3379,7 @@
 
         Swal.fire({
             title: '',
-            text: $('#TitleHeaderFactor').text() + " جدید ایجاد می شود . آیا مطمئن هستید ؟",
+            text: $('#TitleHeaderFactor').text() + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3383,7 +3389,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                $('#titlePage').text(textFactor + " جدید ");
+                $('#titlePage').text(textFactor + " " + translate("جدید"));
                 getAddMinList(sessionStorage.sels, -1, '', 0,
                     $("#AddMinSharh1").val(),
                     $("#AddMinSharh2").val(),
@@ -3416,8 +3422,8 @@
                 $('#textnumberfactor').hide();
                 $('#docnoout').val('');
                 sessionStorage.searchFDocH = "";
-                $("#status").val('موقت');
-                sessionStorage.Status = 'موقت';
+                $("#status").val(translate('موقت'));
+                sessionStorage.Status = translate('موقت');
                 $("#paymenttype").val(0);
                 sessionStorage.Eghdam = sessionStorage.userName;
                 zarib1 = 0;
@@ -3534,12 +3540,12 @@
 
     $("#allSearchHesab").click(function () {
         if ($("#allSearchHesab").is(':checked')) {
-            $('#allSearchHesabText').text('جستجو بر اساس همه موارد');
+            $('#allSearchHesabText').text(translate('جستجو بر اساس همه موارد'));
             allSearchHesab = true;
         }
 
         else {
-            $('#allSearchHesabText').text(sessionStorage.InOut == 2 ? 'جستجو بر اساس کد خریدار' : 'جستجو بر اساس کد فروشنده');
+            $('#allSearchHesabText').text(sessionStorage.InOut == 2 ? translate('جستجو بر اساس کد خریدار') : translate('جستجو بر اساس کد فروشنده'));
             allSearchHesab = false;
         }
     });
@@ -3547,11 +3553,11 @@
 
     $("#allSearchKala").click(function () {
         if ($("#allSearchKala").is(':checked')) {
-            $('#allSearchKalaText').text('جستجو بر اساس همه موارد');
+            $('#allSearchKalaText').text(translate('جستجو بر اساس همه موارد'));
             allSearchKala = true;
         }
         else {
-            $('#allSearchKalaText').text('جستجو بر اساس کد کالا');
+            $('#allSearchKalaText').text(translate('جستجو بر اساس کد کالا'));
             allSearchKala = false;
         }
     });
@@ -3757,13 +3763,13 @@
             sessionStorage.BeforeMoveFactor = false;
         }
 
-        if (accessTaeed == false && sessionStorage.Status == 'تایید')
+        if (accessTaeed == false && sessionStorage.Status == translate('تایید'))
             viewAction = false;
 
-        if (accessTasvib == false && sessionStorage.Status == 'تصویب')
+        if (accessTasvib == false && sessionStorage.Status == translate('تصویب'))
             viewAction = false;
 
-        if (accessCancel == false && sessionStorage.Status == 'باطل')
+        if (accessCancel == false && sessionStorage.Status == translate('باطل'))
             viewAction = false;
 
 
@@ -4164,7 +4170,7 @@
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: mes_Delete,
-            text: "آیا فرم چاپ انتخابی حذف شود",
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -4633,7 +4639,7 @@
      });
      */
 
-    $('#titleFinalSave').text(' ذخیره ' + $('#TitleHeaderFactor').text());
+    $('#titleFinalSave').text(translate('ذخیره') + " " + $('#TitleHeaderFactor').text());
 
 
 
@@ -4660,7 +4666,7 @@
                 }
             }
             else {
-                showNotification($('#TitleHeaderFactor').text() + ' ذخيره شد ', 1);
+                showNotification($('#TitleHeaderFactor').text() + " " + translate('ذخيره شد'), 1);
                 //showNotification('سند ذخیره شد ', 1);
             }
         });
@@ -4715,38 +4721,38 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
 
             if (list[i].TestName == "Opr")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('پروژه مشخص نشده است') + ' </p>';
 
             else if (list[i].TestName == "Mkz")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مرکز هزینه مشخص نشده است') + ' </p>';
 
             else if (list[i].TestName == 'Arz')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('ارز معرفی نشده است') + ' </p>';
 
 
             else if (list[i].TestName == 'ZeroAmount')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مقدار صفر است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مقدار صفر است') + ' </p>';
 
 
             else if (list[i].TestName == 'ZeroPrice')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مبلغ صفر است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مبلغ صفر است') + ' </p>';
 
 
             else if (list[i].TestName == 'Cust')
-                textBody += '<p>' + $('#LableHesabCode').text() + ' انتخاب نشده است ' + ' </p>';
+                textBody += '<p>' + $('#LableHesabCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestName == 'Inv')
-                textBody += '<p>' + ' انبار انتخاب نشده است ' + ' </p>';
+                textBody += '<p>' + translate('انبار انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestCap != "")
                 textBody += '<p>' + list[i].TestCap + '</p>';

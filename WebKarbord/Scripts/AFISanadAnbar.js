@@ -274,6 +274,7 @@
 
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
         });
@@ -735,12 +736,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestCap != "")
@@ -2715,7 +2716,7 @@
 
         Swal.fire({
             title: mes_Delete,
-            text: "آیا بند انتخابی حذف شود",
+            text: translate("آیا بند انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3425,7 +3426,7 @@
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: mes_Delete,
-            text: "آیا فرم چاپ انتخابی حذف شود",
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3608,12 +3609,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestName == "Opr")

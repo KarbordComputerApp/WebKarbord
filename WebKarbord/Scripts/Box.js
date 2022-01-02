@@ -192,7 +192,7 @@
     self.DeleteBox = function (item) {
         Swal.fire({
             title: 'تایید حذف',
-            text: "آیا اعلامیه انتخابی حذف شود ؟",
+            text: translate("آیا اعلامیه انتخابی حذف شود ؟"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

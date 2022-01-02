@@ -84,6 +84,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             // ListColumns = data;
             if (FlagSetting) {
@@ -107,6 +108,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -837,7 +839,7 @@
         SetDataCust(item);
         custCode = item.Code;
         if (TestUseSanad(ace, sal, "Cust", custCode, true, '') == true) {
-            showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
+            showNotification(translate('خریدار/فروشنده') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
             $('#modal-Cust').modal('show');
@@ -949,7 +951,7 @@
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
                     getCustList();
                     $('#modal-Cust').modal('hide');
-                    showNotification('ذخيره شد ', 1);
+                    showNotification(translate('ذخيره شد'), 1);
                 });
             }
         });
@@ -965,13 +967,13 @@
 
         custCode = item.Code;
         if (TestUseSanad(ace, sal, "Cust", custCode, false, '') == true) {
-            showNotification('خریدار/فروشنده در تب دیگری در حال ویرایش است', 0)
+            showNotification(translate('خریدار/فروشنده') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
 
             Swal.fire({
                 title: mes_Delete,
-                text: "آیا خریداران/فروشندگان انتخابی حذف شود",
+                text: translate("آیا خریداران/فروشندگان انتخابی حذف شود"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1004,7 +1006,7 @@
 
     function SetDataTestCust(deleteCust) {
         $("#BodyTestCust").empty();
-        deleteCust == true ? $("#titleTestCust").text('حذف خریدار/فروشنده') : $("#titleTestCust").text('ذخیره خریدار/فروشنده');
+        deleteCust == true ? $("#titleTestCust").text(translate('حذف خریدار/فروشنده')) : $("#titleTestCust").text(translate('ذخیره خریدار/فروشنده'));
         textBody = '';
         countWarning = 0;
         countError = 0;
@@ -1016,12 +1018,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestCap != "")
@@ -1061,7 +1063,7 @@
             currentPage = self.currentPageIndexCust();
             getCustList();
             self.currentPageIndexCust(currentPage);
-            showNotification('حذف شد ', 1);
+            showNotification(translate('حذف شد'), 1);
         });
     }
 
@@ -1101,7 +1103,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableCust">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
@@ -1126,7 +1128,8 @@
             CreateTableTh('CustF18', data) +
             CreateTableTh('CustF19', data) +
             CreateTableTh('CustF20', data) +
-            '<th>عملیات</th>' +
+        '<th>' + translate('عملیات') + '</th>' +
+        
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">' +

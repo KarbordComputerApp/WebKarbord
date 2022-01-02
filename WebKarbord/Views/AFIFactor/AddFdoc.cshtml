@@ -15,7 +15,7 @@
                 <div class="form-inline">
                     <strong id="TitleHeaderFactor" style="margin-left: 5px; margin-right: 5px;"></strong>
                     <!--<strong id="textnumberfactor" style="margin-left: 5px; margin-right: 5px;">به شماره</strong>-->
-                    <strong style="margin-left: 5px; margin-right: 5px;">به شماره</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;" data-bind="text:translate('به شماره')"></strong>
                     <input data-bind=" event:{ keydown : $root.docNoKeyDown}" id="docnoout" class="form-control" style="width: 70px;text-align: center;" maxlength="10" />
 
                     <div class="input-group" style="margin-right: 10px;">
@@ -27,12 +27,12 @@
 
                         <div class="form-group form-float">
                             <div class="form-line">
-                                <input id="tarikh" data-bind="value:DocDate" class="form-control date focused fix" type="text" maxlength="10" style="text-indent: 5px;width: 100px;text-align: center;" placeholder="تاریخ">
+                                <input id="tarikh" data-bind="value:DocDate ,attr:{placeholder:translate('تاریخ')}" class="form-control date focused fix" type="text" maxlength="10" style="text-indent: 5px;width: 100px;text-align: center;">
                             </div>
                         </div>
                     </div>
 
-                    <lable id="finalSave_Title" style="margin: auto; width: 50%; color: coral;">(( برای ثبت تغییرات کلید ثبت نهایی را بزنید ))</lable>
+                    <lable id="finalSave_Title" style="margin: auto; width: 50%; color: coral;" data-bind="text:translate('(( برای ثبت تغییرات کلید ثبت نهایی را بزنید ))')"></lable>
 
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
 
@@ -86,7 +86,7 @@
                             <div class="form-group form-float" style="margin-bottom: 5px;">
                                 <div class="form-line focused fix">
                                     <input id="nameVstr" class="form-control" readonly />
-                                    <label class="form-label"> ویزیتور</label>
+                                    <label class="form-label" data-bind="text:translate('ویزیتور')"> </label>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                    optionsText: function(item) {return item.Name},
                                    optionsValue: 'Code',
                                    value: PriceCode,
-                                   optionsCaption: 'قیمت اطلاعات پایه' "></select>
+                                   optionsCaption: OptionsCaptionKalaPrice()"></select>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                             <div class="form-group form-float" style="margin-bottom: 5px;">
                                 <div class="form-line">
                                     <input id="Spec" class="form-control string autocomplete" data-bind="value:Spec" />
-                                    <label class="form-label active">ملاحظات</label>
+                                    <label class="form-label active" data-bind="text:translate('ملاحظات')"></label>
                                 </div>
                             </div>
                         </div>
@@ -166,40 +166,29 @@
                         <table class="table table-hover table-striped tableFix">
                             <thead style="cursor: pointer;">
                                 <tr>
-                                    <th>
-                                        ردیف
+                                    <th data-bind="text:translate('ردیف')">
                                     </th>
-                                    <th>
-                                        کد کالا
+                                    <th data-bind="text:translate('کد کالا')" >
                                     </th>
-                                    <th>
-                                        نام کالا
+                                    <th data-bind="text:translate('نام کالا')">
                                     </th>
-                                    <th>
-                                        واحد
+                                    <th data-bind="text:translate('واحد')">
                                     </th>
-                                    <th>
-                                        مقدار 1
+                                    <th data-bind="text:translate('مقدار 1')">
                                     </th>
-                                    <th>
-                                        مقدار 2
+                                    <th data-bind="text:translate('مقدار 2')">
                                     </th>
-                                    <th>
-                                        مقدار 3
+                                    <th data-bind="text:translate('مقدار 3')">
                                     </th>
-                                    <th id="thUnitPrice">
-                                        قیمت واحد
+                                    <th  data-bind="text:translate('قیمت واحد')" id="thUnitPrice">
                                     </th>
-                                    <th id="thTotalPrice">
-                                        قیمت کل
+                                    <th  data-bind="text:translate('قیمت کل')" id="thTotalPrice">
                                     </th>
-                                    <th id="thDiscount">
-                                        تخفیف بند
+                                    <th  data-bind="text:translate('تخفیف بند')" id="thDiscount">
                                     </th>
-                                    <th style="width: 160px">
-                                        شرح
+                                    <th  data-bind="text:translate('شرح')" style="width: 160px">
                                     </th>
-                                    <th id="action_headerfactor">عملیات</th>
+                                    <th  data-bind="text:translate('عملیات')" id="action_headerfactor"></th>
                                 </tr>
                             </thead>
 
@@ -253,13 +242,13 @@
                 </div>
                 <a class="col-md-12" id="insertband" data-bind="click:ButtonFDocH" style="color: #fdfdfd;">
                     <img src="~/Content/img/sanad/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
-                    <label>سطر جدید</label>
+                    <label data-bind="text:translate('سطر جدید')"></label>
                 </a>
 
 
                 <a id="Barcode" data-bind="click:ButtonFDocHBarcode" style="color: #fdfdfd;margin-right: 10px;">
                     <img src="~/Content/img/barcode.png" width="24" height="24" />
-                    <label>بارکد</label>
+                    <label data-bind="text:translate('بارکد')"></label>
                 </a>
             </div>
         </div>
@@ -280,15 +269,15 @@
                                             <table class="table table-addmin">
                                                 <thead>
                                                     <tr>
-                                                        <th style="background-color:#d9d9d9; color: black;padding: .3rem; width: 200px;">
-                                                            شرح
+                                                        <th style="background-color:#d9d9d9; color: black;padding: .3rem; width: 200px;" data-bind="text:translate('شرح')">
+                                                            
                                                         </th>
-                                                        <th style="background-color:#d9d9d9; color: black;padding: .3rem;">
-                                                            مبلغ
+                                                        <th style="background-color:#d9d9d9; color: black;padding: .3rem;" data-bind="text:translate('مبلغ')">
+                                                            
                                                         </th>
                                                         <th style="background-color:#d9d9d9; color: black;padding: .3rem;"></th>
-                                                        <th style="background-color:#d9d9d9; color: black;padding: .3rem;">
-                                                            مبلغ موثر
+                                                        <th style="background-color:#d9d9d9; color: black;padding: .3rem;" data-bind="text:translate('مبلغ موثر')">
+                                                           
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -298,7 +287,7 @@
                                                         <td style="padding: 0px 10px;"><input data-bind="value: Name ,enable: !Auto ,  attr: {'id': 'AddMinSharh' + Code}" type="text" class="form-control" style="cursor: default; height: 2.4rem;" /> </td>
                                                         <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(parseFloat(Math.abs(AddMinPrice)).toFixed(parseInt(sessionStorage.Deghat))) ,  enable: !Auto , event:{ change: $root.ChangeAddMinMablagh , focus: $root.FocusAddMinMablagh ,keydown : $root.mablaghAddminKeyDown  } , attr: {'id': 'AddMinMablagh' + Code }" type="text" class="form-control float" placeholder="مبلغ را وارد کنید" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /></td>
                                                         <td style="padding: 0px 10px;" data-bind="text: Mode == 1 ? '-' : '+' ,attr: {'id': 'iconAddMin' + Code}"></td>
-                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(NumberToNumberString(parseFloat(MablaghMoaser).toFixed(parseInt(sessionStorage.Deghat)))) , enable: false , attr: {'id': 'AddMinMablaghMoaser' + Code}" type="text" class="form-control float" placeholder="مبلغ را وارد کنید" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /> </td>
+                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(NumberToNumberString(parseFloat(MablaghMoaser).toFixed(parseInt(sessionStorage.Deghat)))) , enable: false , attr: {'id': 'AddMinMablaghMoaser' + Code , placeholder:translate('مبلغ را وارد کنید')}" type="text" class="form-control float"  style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /> </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -330,7 +319,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder="زیر نویس"></textarea>
+                                        <textarea  data-bind="attr:{placeholder:translate('زیر نویس')}" rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder=""></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -349,21 +338,21 @@
                             <div class="form-group form-float" style="margin-bottom: 15px;">
                                 <div class="form-line">
                                     <input id="sumfactor" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled" />
-                                    <label class="form-label" style="color: #404852;">جمع بند ها</label>
+                                    <label class="form-label" style="color: #404852;" data-bind="text:translate('جمع بند ها')"></label>
                                 </div>
                             </div>
 
                             <div class="form-group form-float" style="margin-bottom: 15px;">
                                 <div class="form-line">
                                     <input id="discountCol" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled" />
-                                    <label class="form-label " style="color: #404852;">عوارض و تخفیفات</label>
+                                    <label class="form-label " style="color: #404852;" data-bind="text:translate('عوارض و تخفیفات')"></label>
                                 </div>
                             </div>
 
                             <div class="form-group form-float" style="margin-bottom: 15px;">
                                 <div class="form-line">
                                     <input id="ghabelpardakht" type="text" class="form-control" style="direction: ltr;color: #404852;border-bottom: 1px #404852 solid;" disabled="disabled" />
-                                    <label class="form-label" style="color: #404852;">قابل پرداخت</label>
+                                    <label class="form-label" style="color: #404852;" data-bind="text:translate('قابل پرداخت')"></label>
                                 </div>
                             </div>
                         </div>
@@ -554,7 +543,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line focused fix">
                                     <input type="text" id="amount" class="form-control float" />
-                                    <label class="form-label" id="amounttext">مقدار</label>
+                                    <label class="form-label" id="amounttext" data-bind="text:translate('مقدار')"></label>
                                 </div>
                             </div>
                         </div>
@@ -563,7 +552,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line focused fix">
                                     <input type="text" id="unitPrice" class="form-control float" />
-                                    <label class="form-label">قیمت واحد</label>
+                                    <label class="form-label" data-bind="text:translate('قیمت واحد')"></label>
                                 </div>
                             </div>
                         </div>
@@ -572,7 +561,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line focused fix">
                                     <input type="text" id="totalPrice" class="form-control float" />
-                                    <label class="form-label">قیمت کل</label>
+                                    <label class="form-label" data-bind="text:translate('قیمت کل')"></label>
                                 </div>
                             </div>
                         </div>
@@ -582,7 +571,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="discountprice" class="form-control float" />
-                                        <label class="form-label">تخفیف</label>
+                                        <label class="form-label" data-bind="text:translate('تخفیف')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -590,7 +579,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input type="text" id="discountdarsad" class="form-control float" />
-                                        <label class="form-label">درصد تخفیف بند</label>
+                                        <label class="form-label" data-bind="text:translate('درصد تخفیف بند')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -599,7 +588,7 @@
                         <div class="col-sm-12">
                             <div class="form-group form-float">
                                 <div class="form-line focused">
-                                    <textarea rows="2" id="comm" class="form-control no-resize auto-growth string autocomplete" placeholder="شرح"></textarea>
+                                    <textarea data-bind="attr:{placeholder:translate('شرح')}" rows="2" id="comm" class="form-control no-resize auto-growth string autocomplete" ></textarea>
                                 </div>
                             </div>
                         </div>
@@ -619,31 +608,30 @@
                             </table>
                         </div> -->
 
-                        <div class="row" id="" style="border: 1px solid #c0bfbf;height: 45px;border-radius: 15px;">
+                        <div class="row" id="" style="border: 1px solid #c0bfbf;height: 45px;border-radius: 15px;direction: rtl;">
                             <div class="col-md-4" style="border-left: 1px solid #c0bfbf; border-top-right-radius: 15px; border-bottom-right-radius: 15px;" id="iconzarib1">
                                 <div class="form-inline" style="padding-top: 12px; padding-right: 20px;">
                                     <label id="amount1" style="margin-left: 10px;"></label>
-                                    <label id="txtzarib1">مقدار 1</label>
+                                    <label id="txtzarib1" data-bind="text:translate('مقدار 1')"></label>
                                 </div>
                             </div>
                             <div class="col-md-4" style="border-left: 1px solid #c0bfbf;" id="iconzarib2">
                                 <div class="form-inline" style="padding-top: 12px; padding-right: 20px;">
                                     <label id="amount2" style="margin-left: 10px;"></label>
-                                    <label id="txtzarib2">مقدار 2</label>
+                                    <label id="txtzarib2" data-bind="text:translate('مقدار 2')"></label>
                                 </div>
                             </div>
                             <div class="col-md-4" id="iconzarib3" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">
                                 <div class="form-inline" style="padding-top: 12px; padding-right: 20px;">
                                     <label id="amount3" style="margin-left: 10px;"></label>
-                                    <label id="txtzarib3">مقدار 3</label>
+                                    <label id="txtzarib3" data-bind="text:translate('مقدار 3')"></label>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                    <button type="button" data-bind="click: flagupdateband == 1 ? UpdateFDocB : AddFDocB" id="Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                        ثبت
+                    <button type="button" data-bind="click: flagupdateband == 1 ? UpdateFDocB : AddFDocB , text:translate('ثبت')" id="Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
                     </button>
                 </div>
             </div>
@@ -863,13 +851,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">آیا بند حذف شود</h4>
+                <h4 class="modal-title" data-bind="text:translate('آیا بند حذف شود')"></h4>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info">انتخاب</button>
+                <button type="button" class="btn btn-info" data-bind="text:translate('انتخاب')"></button>
             </div>
         </div>
     </div>
@@ -884,7 +872,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleFinalSave">ذخیره فاکتور</h4>
+                <h4 id="titleFinalSave" data-bind="text:translate('ذخیره فاکتور')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -1128,7 +1116,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">لیست ویزیتورها</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست ویزیتورها')"></h4>
                 <a id="refreshVstr">
                     <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -1228,7 +1216,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">بارکد </h4>
+                <h4 class="modal-title" data-bind="text:translate('بارکد')"> </h4>
                 <div>
                     <a></a>
                 </div>
@@ -1244,7 +1232,7 @@
                         <div class="form-group form-float">
                             <div class="form-line  date fix">
                                 <input type="text" id="Barcode_Value" class="form-control">
-                                <label class="form-label active">بارکد </label>
+                                <label class="form-label active" data-bind="text:translate('بارکد')"> </label>
                             </div>
                         </div>
                     </div>
@@ -1252,7 +1240,7 @@
                         <div class="form-group form-float">
                             <div class="form-line  date fix">
                                 <input type="text" id="Barcode_Amount" class="form-control">
-                                <label class="form-label active">مقدار </label>
+                                <label class="form-label active" data-bind="text:translate('مقدار')"> </label>
                             </div>
                         </div>
                     </div>
@@ -1284,7 +1272,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleSave" data-bind="text:translate('')">ثبت جدید</h4>
+                <h4 id="titleSave" data-bind="text:translate('ثبت جدید')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -1331,7 +1319,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" data-bind="text:translate('')">لیست بندها</h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست بندها')"></h4>
                 <h></h>
             </div>
             <div class="modal-body">
@@ -1342,62 +1330,63 @@
 
                             <tr data-bind="click: sortTableFDocB">
                                 <th data-column="BandNo">
-                                    شماره بند
+                                    <span data-column="BandNo" data-bind="text:translate('شماره بند')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeBandNo }"></i>
                                     </span>
                                 </th>
 
                                 <th data-column="KalaCode">
-                                    کد کالا
+                                    <span data-column="KalaCode" data-bind="text:translate('کد کالا')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'KalaCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeKalaCode }"></i>
                                     </span>
                                 </th>
                                 <th data-column="KalaName">
-                                    نام کالا
+                                    <span data-column="KalaName" data-bind="text:translate('نام کالا')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'KalaName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeKalaName }"></i>
                                     </span>
                                 </th>
                                 <th data-column="MainUnitName">
-                                    واحد
+                                    <span data-column="MainUnitName" data-bind="text:translate('واحد')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'MainUnitName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeMainUnitName }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Amount1">
-                                    مقدار 1
+                                    <span data-column="Amount1" data-bind="text:translate('مقدار 1')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Amount1' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeAmount1 }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Amount2">
-                                    مقدار 2
+                                    <span data-column="Amount2" data-bind="text:translate('مقدار 2')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Amount2' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeAmount2 }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Amount3">
-                                    مقدار 3
+                                    <span data-column="Amount3" data-bind="text:translate('مقدار 3')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Amount3' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeAmount3 }"></i>
                                     </span>
                                 </th>
                                 <th data-column="UnitPrice">
-                                    قیمت واحد
+                                    <span data-column="UnitPrice" data-bind="text:translate('قیمت واحد')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'UnitPrice' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeUnitPrice }"></i>
                                     </span>
                                 </th>
                                 <th data-column="TotalPrice">
-                                    قیمت کل
+                                    <span data-column="TotalPrice" data-bind="text:translate('قیمت کل')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'TotalPrice' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeTotalPrice }"></i>
                                     </span>
                                 </th>
                                 <th data-column="Comm">
-                                    شرح
+                                    <span data-column="Comm" data-bind="text:translate('شرح')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>

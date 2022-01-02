@@ -79,6 +79,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -97,6 +98,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -695,7 +697,7 @@
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         if (counterAcc > 0)
-            $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ')
+            $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAcc').val(translate('همه موارد'));
     });
@@ -897,7 +899,7 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ')
+            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
@@ -1091,7 +1093,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
+            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -1292,7 +1294,7 @@
 
     $('#modal-AMode').on('hide.bs.modal', function () {
         if (counterAMode > 0)
-            $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ')
+            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAMode').val(translate('همه موارد'));
     });
@@ -1374,7 +1376,7 @@
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
         list_AccNameSelect[0] = AccNameReport;
-        $('#nameAcc').val(counterAcc + ' مورد انتخاب شده ');
+        $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'));
 
 
 
@@ -1394,7 +1396,7 @@
             list_AModeSelect = aModeCode.split("*");
             list_AModeNameSelect = aModeName.split("*");
             counterAMode = list_AModeSelect.length;
-            $('#nameAMode').val(counterAMode + ' مورد انتخاب شده ');
+            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameAMode').val(translate('همه موارد'));
@@ -1407,7 +1409,7 @@
             list_MkzNameSelect = mkzName.split("*");
 
             counterMkz = list_MkzSelect.length;
-            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameMkz').val(translate('همه موارد'))
@@ -1420,7 +1422,7 @@
             list_OprNameSelect = oprName.split("*");
 
             counterOpr = list_OprSelect.length;
-            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameOpr').val(translate('همه موارد'));
@@ -1462,7 +1464,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableTrzAcc">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('AccCode', data) +
             CreateTableTh('AccName', data) +
             CreateTableTh('Bede', data) +
@@ -1470,7 +1472,7 @@
             CreateTableTh('MonBede', data) +
             CreateTableTh('MonBest', data) +
             CreateTableTh('MonTotal', data) +
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">';
@@ -1837,7 +1839,7 @@
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: mes_Delete,
-            text: "آیا فرم چاپ انتخابی حذف شود",
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

@@ -100,6 +100,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -118,6 +119,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -904,7 +906,7 @@
 
     $('#modal-ErjCust').on('hide.bs.modal', function () {
         if (counterErjCust > 0)
-            $('#nameErjCust').val(counterErjCust + ' مورد انتخاب شده ')
+            $('#nameErjCust').val(counterErjCust +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameErjCust').val(translate('همه موارد'));
     });
@@ -1304,7 +1306,7 @@
 
     $('#modal-Khdt').on('hide.bs.modal', function () {
         if (counterKhdt > 0)
-            $('#nameKhdt').val(counterKhdt + ' مورد انتخاب شده ')
+            $('#nameKhdt').val(counterKhdt +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameKhdt').val(translate('همه موارد'));
     });
@@ -1665,7 +1667,7 @@
 
     $('#modal-ErjUsersRonevesht').on('hide.bs.modal', function () {
         if (counterErjUsersRonevesht > 0)
-            $('#nameRoneveshtBe').val(counterErjUsersRonevesht + ' مورد انتخاب شده ')
+            $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameRoneveshtBe').val('هیچکس');
     });
@@ -2188,7 +2190,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('RjStatus', data) +
             CreateTableTh('RjDate', data) +
             CreateTableTh('RjMhltDate', data) +
@@ -2200,7 +2202,7 @@
             CreateTableTh('Status', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('MhltDate', data) +
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
@@ -2509,7 +2511,7 @@
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: mes_Delete,
-            text: "آیا فرم چاپ انتخابی حذف شود",
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

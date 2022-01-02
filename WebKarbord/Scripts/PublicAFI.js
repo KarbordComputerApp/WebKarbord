@@ -33,7 +33,7 @@ var dict = localStorage.getItem('dict');
 if (dict != null)
     dict = JSON.parse(dict);
 else {
-    ajaxFunction(DictionaryUri + ace + '/' + sal + '/' + group, 'GET', false).done(function (data) {
+    ajaxFunction(DictionaryUri, 'GET', false).done(function (data) {
         a = '{\"en\":{';
         for (var i = 0; i < data.length; i++) {
             a += '"' + data[i].Fa + '": "' + data[i].En + '",';
@@ -49,6 +49,8 @@ else {
         dict = JSON.parse(a);
     });
 }
+
+
 
 /*
 var dict =
@@ -259,8 +261,29 @@ var text_No = translate('خیر');
 function translate(text) {
     if (lang == 'fa')
         return text
-    else
-        return dict[lang][text];
+    else {
+        dic = dict[lang][text];
+        if (dic == null)
+            return '! ' + text + ' !';
+        else
+            return dic;
+    }
+}
+
+function TranslateData(data) {
+    if (lang == 'fa')
+        return data
+    else {
+        var tempData = data;
+        for (var i = 0; i < data.length; i++) {
+            trans = dict[lang][tempData[i].Name];
+            if (trans != null)
+                tempData[i].Name = trans;
+            else
+                tempData[i].Name = '!! ' + tempData[i].Name + ' !!';
+        }
+        return tempData;
+    }
 }
 
 

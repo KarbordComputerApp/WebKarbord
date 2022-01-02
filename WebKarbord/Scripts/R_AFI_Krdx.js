@@ -188,6 +188,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -206,6 +207,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -497,7 +499,7 @@
     $('#nameOpr').val(translate('همه موارد'));
     $('#nameMkz').val(translate('همه موارد'));
     $('#nameIMode').val(translate('همه موارد'));
-    $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
+    $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'));
 
     //------------------------------------------------------
     self.currentPageKrdx = ko.observable();
@@ -1691,7 +1693,7 @@
 
     $('#modal-Thvl').on('hide.bs.modal', function () {
         if (counterThvl > 0)
-            $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ')
+            $('#nameThvl').val(counterThvl +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameThvl').val(translate('همه موارد'));
     });
@@ -1886,7 +1888,7 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ')
+            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
@@ -2081,7 +2083,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ')
+            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -2314,7 +2316,7 @@
 
     $('#modal-Status').on('hide.bs.modal', function () {
         if (counterStatus > 0)
-            $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ')
+            $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameStatus').val(translate('همه موارد'));
     });
@@ -2525,7 +2527,7 @@
 
     $('#modal-IMode').on('hide.bs.modal', function () {
         if (counterIMode > 0)
-            $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ')
+            $('#nameIMode').val(counterIMode +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameIMode').val(translate('همه موارد'));
     });
@@ -2596,7 +2598,7 @@
             list_ThvlSelect = ThvlCode.split("*");
             list_ThvlNameSelect = ThvlName.split("*");
             counterThvl = list_ThvlSelect.length;
-            $('#nameThvl').val(counterThvl + ' مورد انتخاب شده ');
+            $('#nameThvl').val(counterThvl +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameThvl').val(translate('همه موارد'));
@@ -2606,7 +2608,7 @@
         if (StatusCode != "") {
             list_StatusSelect = StatusCode.split("*");
             counterStatus = list_StatusSelect.length;
-            $('#nameStatus').val(counterStatus + ' مورد انتخاب شده ');
+            $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameStatus').val(translate('همه موارد'));
@@ -2618,7 +2620,7 @@
             list_IModeSelect = ImodeCode.split("*");
             list_IModeNameSelect = ImodeName.split("*");
             counterIMode = list_IModeSelect.length;
-            $('#nameIMode').val(counterIMode + ' مورد انتخاب شده ');
+            $('#nameIMode').val(counterIMode +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameIMode').val(translate('همه موارد'));
@@ -2630,7 +2632,7 @@
             list_MkzSelect = mkzCode.split("*");
             list_MkzNameSelect = mkzName.split("*");
             counterMkz = list_MkzSelect.length;
-            $('#nameMkz').val(counterMkz + ' مورد انتخاب شده ');
+            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameMkz').val(translate('همه موارد'));
@@ -2641,7 +2643,7 @@
             list_OprSelect = oprCode.split("*");
             list_OprNameSelect = oprName.split("*");
             counterOpr = list_OprSelect.length;
-            $('#nameOpr').val(counterOpr + ' مورد انتخاب شده ');
+            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameOpr').val(translate('همه موارد'));
@@ -2717,7 +2719,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableKrdx">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('DocDate', data) +
             //CreateTableTh('InvName', data) +
             CreateTableTh('ModeName', data) +
@@ -2817,7 +2819,7 @@
              CreateTableTh('Kalaf18', data) +
              CreateTableTh('Kalaf19', data) +
              CreateTableTh('Kalaf20', data) +*/
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKrdx}" style="cursor: default;">' +
@@ -3382,7 +3384,7 @@
     self.DeletePrintForms = function (item) {
         Swal.fire({
             title: mes_Delete,
-            text: "آیا فرم چاپ انتخابی حذف شود",
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

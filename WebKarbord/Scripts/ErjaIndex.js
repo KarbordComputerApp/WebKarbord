@@ -183,6 +183,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
         ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -201,6 +202,7 @@
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
         ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+            data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -938,7 +940,7 @@
 
             Swal.fire({
                 title: 'تایید حذف',
-                text: "آیا پرونده انتخابی حذف شود ؟",
+                text: translate("آیا پرونده انتخابی حذف شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -985,12 +987,12 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">هشدار :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">خطا :</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestName == "DocR")
@@ -2045,7 +2047,7 @@
 
     $('#modal-ErjUsersRonevesht').on('hide.bs.modal', function () {
         if (counterErjUsersRonevesht > 0)
-            $('#nameRoneveshtBe').val(counterErjUsersRonevesht + ' مورد انتخاب شده ')
+            $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameRoneveshtBe').val('هیچکس');
     });
@@ -2332,7 +2334,7 @@
     self.DeleteDocAttach = function (Band) {
         Swal.fire({
             title: 'تایید حذف',
-            text: "آیا پیوست انتخابی حذف شود ؟",
+            text: translate("آیا پیوست انتخابی حذف شود ؟"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3323,8 +3325,8 @@
 
 
                 Swal.fire({
-                    title: 'ثبت تغییرات',
-                    text: "پرونده تغییر کرده است آیا ذخیره شود ؟",
+                    title: translate('ثبت تغییرات'),
+                    text: translate("پرونده تغییر کرده است آیا ذخیره شود ؟"),
                     type: 'warning',
 
                     showCancelButton: true,
@@ -3404,7 +3406,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableErjDocH">' +
-            '<th>ردیف</th>' +
+            '<th>' + translate('ردیف') + '</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('MahramanehName', data) +
@@ -3439,7 +3441,7 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
-            '<th>عملیات</th>' +
+            '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageErjDocH" data-dismiss="modal" style="cursor: default;">' +
