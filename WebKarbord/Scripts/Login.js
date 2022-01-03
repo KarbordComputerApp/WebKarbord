@@ -96,6 +96,7 @@
             }
             else {
 
+                sessionStorage.onlyGroupErj = '';
                 var progCaption;
                 if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
                     localStorage.setItem("ace", 'Web8');
