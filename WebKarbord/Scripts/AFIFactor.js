@@ -29,6 +29,10 @@
         $('#docnoout').attr('class', 'form-control ShomarehSanad');
     }
 
+    if (lang == 'en') {
+        $("#docnoout").addClass("right-to-left");
+    }
+
     /*$("#aceTest").text('نام نرم افزار' + ace);
     $("#groupTest").text('نام گروه' + group);
     $("#salTest").text('سال مالی' + sal);*/
@@ -1229,7 +1233,7 @@
         inv = $("#inv").val();
 
         //if (inv == '' || inv == null) {
-        //     return showNotification('انبار را انتخاب کنيد', 0);
+        //     return showNotification(translate('انبار را انتخاب کنيد', 0);
         //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
         //}
 
@@ -1393,7 +1397,7 @@
                 }
             }
             else {
-                return showNotification('خطا : ' + response, 0);
+                return showNotification(translate('خطا : ') + response, 0);
             }
 
 
@@ -2934,7 +2938,6 @@
                     flagFinalSave = false;
                     //self.UpdateFDocH();
                     showNotification(translate('بند شماره') + " " + factorBand.BandNo + " " + translate('حذف شد'), 1);
-                    //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + factorBand.BandNo + ' حذف شد ' });
                 });
             }
         })
@@ -4189,7 +4192,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.FDocPList(), '', printVariable);
     });
@@ -4197,10 +4200,10 @@
 
     $('#Print_Factor').click(function () {
         if (Serial == '')
-            return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
+            return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
-            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست'), 0);
         textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice;
         printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
@@ -4417,10 +4420,10 @@
     function SetDataBarCode(kala, amountB) {
         GetBandNumber();
         if (Serial == '') {
-            return showNotification('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است '), 0);
         }
         if (DataKalaBarcode == null) {
-            return showNotification('کالایی یافت نشد', 0);
+            return showNotification(translate('کالایی یافت نشد'), 0);
         }
 
         defaultUnit = kala.DefaultUnit;
@@ -4530,7 +4533,7 @@
      
      DataReport = self.FDocPList();
          if (DataReport.length == 0 || DataReport == null || DataReport == "") {
-             return showNotification('ابتدا گزارش گیری کنید', 0);
+             return showNotification(translate('ابتدا گزارش گیری کنید', 0);
          }
      
          var dStart = new Date();

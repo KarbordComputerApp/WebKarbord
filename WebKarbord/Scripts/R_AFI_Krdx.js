@@ -343,11 +343,11 @@
         invCode = self.InvCode();
 
         if (invCode == null) {
-            return showNotification('انبار را انتخاب کنید', 0);
+            return showNotification(translate('انبار را انتخاب کنید'), 0);
         }
 
         if (kalaCode == null) {
-            return showNotification('کالا را انتخاب کنید', 0);
+            return showNotification(translate('کالا را انتخاب کنید'), 0);
         }
 
 
@@ -3403,7 +3403,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.KrdxList(), '', printVariable);
     });

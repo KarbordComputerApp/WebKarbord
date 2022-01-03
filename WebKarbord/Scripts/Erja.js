@@ -1755,7 +1755,7 @@
             }
         }
         else
-            showNotification('دسترسی ندارید', 0);
+            showNotification(translate('دسترسی ندارید'), 0);
     })
 
 
@@ -2392,17 +2392,17 @@
         rjTime_M = $("#RjTime_M").val();
 
         if (self.ErjUsersCode() == null) {
-            return showNotification('ارجاع شونده را انتخاب کنید', 0);
+            return showNotification(translate('ارجاع شونده را انتخاب کنید'), 0);
         }
 
         if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
-            return showNotification('زمان صرف شده را وارد کنید', 0);
+            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
         natijeh = $("#e_Result").val();
 
         if (natijeh == '') {
-            return showNotification('متن ارجاع را وارد کنید', 0);
+            return showNotification(translate('متن ارجاع را وارد کنید'), 0);
         }
 
         flagSave = false;
@@ -2543,7 +2543,7 @@
 
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
-            //   return showNotification('ارجاع شونده را انتخاب کنید', 0);
+            //   return showNotification(translate('ارجاع شونده را انتخاب کنید', 0);
         }
 
         toUserCode = self.ErjUsersCode();
@@ -2570,7 +2570,7 @@
                 rjTime = rjTime_H + rjTime_M;
             }
             else {
-                //  return showNotification('زمان صرف شده را وارد کنید', 0);
+                //  return showNotification(translate('زمان صرف شده را وارد کنید', 0);
             }
         }
 
@@ -2579,7 +2579,7 @@
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
-                //   return showNotification('متن ارجاع را وارد کنید', 0);
+                //   return showNotification(translate('متن ارجاع را وارد کنید', 0);
             }
 
 
@@ -2745,7 +2745,7 @@
             rjTime_M = $("#p_RjTime_M").val();
 
             if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
-                return showNotification('زمان صرف شده را وارد کنید', 0);
+                return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
             }
 
             if (rjTime_H != '' || rjTime_M != '') {
@@ -2771,7 +2771,7 @@
 
 
             if (natijeh == '') {
-                return showNotification('متن نتیجه را وارد کنید', 0);
+                return showNotification(translate('متن نتیجه را وارد کنید'), 0);
             }
 
 

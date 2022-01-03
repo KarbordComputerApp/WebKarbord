@@ -89,8 +89,15 @@
         $("#DropSal").append('<option value="0">' + translate('سال را انتخاب کنید') +'</option>');
         if (programSelect != 0 && GroupSelect != 0 && GroupSelect != null) {
 
+            onlyGroupErj = sessionStorage.onlyGroupErj.split('-');
+
+            if (onlyGroupErj.includes(GroupSelect) == true)
+                progName = 'erj1';
+            else
+                progName = sessionStorage.progName;
+
             var DatabseSalObject = {
-                ProgName: sessionStorage.progName,
+                ProgName: progName,
                 Group: GroupSelect,
                 UserCode: sessionStorage.userName
             }

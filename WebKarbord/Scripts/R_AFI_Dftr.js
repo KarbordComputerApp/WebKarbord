@@ -256,7 +256,7 @@
         codeAcc = self.AccCode();
 
         if (codeAcc == null) {
-            return showNotification('حساب را انتخاب کنید', 0);
+            return showNotification(translate('حساب را انتخاب کنید'), 0);
         }
 
 
@@ -2325,7 +2325,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.DftrList(), '', printVariable);
     });

@@ -994,7 +994,7 @@
             $('#comm').val(Band.SpecialComm);
         }
         else {
-            showNotification('دسترسی ندارید', 0);
+            showNotification(translate('دسترسی ندارید'), 0);
         }
     }
 
@@ -1481,7 +1481,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.FDocPList(), '', printVariable);
     });
@@ -1489,10 +1489,10 @@
 
     $('#Print').click(function () {
         if (Serial == '')
-            return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
+            return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
-            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست'), 0);
         textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice;
         printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';

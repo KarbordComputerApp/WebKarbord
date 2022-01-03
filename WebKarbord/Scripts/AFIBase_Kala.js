@@ -682,7 +682,7 @@
     }
 
 
-    $('#zarib1').val("واحد اصلی");
+    $('#zarib1').val(translate("واحد اصلی"));
 
 
     self.AddNewKala = function () {
@@ -867,7 +867,7 @@
         }
 
         if (find == true) {
-            return showNotification('در حال استفاده', 0)
+            return showNotification(translate('در حال استفاده', 0)
         }
         else {
             localStorage.setItem("listKalaUse", list + data);
@@ -927,7 +927,7 @@
         name = $('#Name').val();
 
         //if (code == "") {
-        //    return showNotification('کد کالا را وارد کنید', 0)
+        //    return showNotification(translate('کد کالا را وارد کنید', 0)
        // }
         if (name == "") {
             return showNotification(translate('نام کالا را وارد کنید'), 0)
@@ -939,7 +939,7 @@
              });
  
              if (listCode.length == 1) {
-                 return showNotification('کد کالا تکراری', 0)
+                 return showNotification(translate('کد کالا تکراری', 0)
              }
          }*/
 

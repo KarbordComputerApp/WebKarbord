@@ -718,36 +718,36 @@
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             {
-                TitleListFactor = 'سفارش فروش';
-                $('#TitleListFactor').text('سفارشات فروش');
-                $('#titlePage').text('سفارشات فروش');
+                TitleListFactor = translate('سفارش فروش');
+                $('#TitleListFactor').text(translate('سفارشات فروش'));
+                $('#titlePage').text(translate('سفارشات فروش'));
                 defultMove = sessionStorage.Move_SORD;
                 inOut = 2;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_SP:
             {
-                TitleListFactor = 'پیش فاکتور فروش';
-                $('#TitleListFactor').text('پیش فاکتور های فروش');
-                $('#titlePage').text('پیش فاکتور های فروش');
+                TitleListFactor = translate('پیش فاکتور فروش');
+                $('#TitleListFactor').text(translate('پیش فاکتور های فروش'));
+                $('#titlePage').text(translate('پیش فاکتور های فروش'));
                 defultMove = sessionStorage.Move_SPFCT;
                 inOut = 2;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_S:
             {
-                TitleListFactor = 'فاکتور فروش';
-                $('#TitleListFactor').text('فاکتور های فروش');
-                $('#titlePage').text('فاکتور های فروش');
+                TitleListFactor = translate('فاکتور فروش');
+                $('#TitleListFactor').text(translate('فاکتور های فروش'));
+                $('#titlePage').text(translate('فاکتور های فروش'));
                 defultMove = sessionStorage.Move_SFCT;
                 inOut = 2;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_SR:
             {
-                TitleListFactor = 'برگشت از فروش';
-                $('#TitleListFactor').text('برگشتی های فروش');
-                $('#titlePage').text('برگشتی های فروش');
+                TitleListFactor = translate('برگشت از فروش');
+                $('#TitleListFactor').text(translate('برگشتی های فروش'));
+                $('#titlePage').text(translate('برگشتی های فروش'));
                 defultMove = '';//sessionStorage.Move_SRFCT;
                 $("#menu1").attr('hidden', '');
                 $("#TabMove").attr('hidden', '');
@@ -757,9 +757,9 @@
 
         case sessionStorage.MODECODE_FDOC_SH:
             {
-                TitleListFactor = 'حواله فروش';
-                $('#TitleListFactor').text('حواله های فروش');
-                $('#titlePage').text('حواله های فروش');
+                TitleListFactor = translate('حواله فروش');
+                $('#TitleListFactor').text(translate('حواله های فروش'));
+                $('#titlePage').text(translate('حواله های فروش'));
                 defultMove = sessionStorage.Move_SHVL;
                 inOut = 2;
                 //if (sessionStorage. == "-1") $("#Barcode").attr('hidden', '');
@@ -768,9 +768,9 @@
 
         case sessionStorage.MODECODE_FDOC_SE:
             {
-                TitleListFactor = 'برگه خروج';
-                $('#TitleListFactor').text('برگه های خروج');
-                $('#titlePage').text('برگه های خروج');
+                TitleListFactor = translate('برگه خروج');
+                $('#TitleListFactor').text(translate('برگه های خروج'));
+                $('#titlePage').text(translate('برگه های خروج'));
                 defultMove = sessionStorage.Move_SEXT;
                 inOut = 2;
                 //if (sessionStorage. == "-1") $("#Barcode").attr('hidden', '');
@@ -779,9 +779,9 @@
 
         case sessionStorage.MODECODE_FDOC_PO:
             {
-                TitleListFactor = 'سفارش خرید';
-                $('#TitleListFactor').text('سفارشات خرید');
-                $('#titlePage').text('سفارشات خرید');
+                TitleListFactor = translate('سفارش خرید');
+                $('#TitleListFactor').text(translate('سفارشات خرید'));
+                $('#titlePage').text(translate('سفارشات خرید'));
                 defultMove = sessionStorage.Move_PORD;
                 inOut = 1;
                 break;
@@ -789,9 +789,9 @@
 
         case sessionStorage.MODECODE_FDOC_PP:
             {
-                TitleListFactor = 'پیش فاکتور خرید';
-                $('#TitleListFactor').text('پیش فاکتور های خرید');
-                $('#titlePage').text('پیش فاکتور های خرید');
+                TitleListFactor = translate('پیش فاکتور خرید');
+                $('#TitleListFactor').text(translate('پیش فاکتور های خرید'));
+                $('#titlePage').text(translate('پیش فاکتور های خرید'));
                 defultMove = sessionStorage.Move_PPFCT;
                 inOut = 1;
                 break;
@@ -799,9 +799,9 @@
 
         case sessionStorage.MODECODE_FDOC_P:
             {
-                TitleListFactor = 'فاکتور خرید';
-                $('#TitleListFactor').text('فاکتور های خرید');
-                $('#titlePage').text('فاکتور های خرید');
+                TitleListFactor = translate('فاکتور خرید');
+                $('#TitleListFactor').text(translate('فاکتور های خرید'));
+                $('#titlePage').text(translate('فاکتور های خرید'));
                 defultMove = sessionStorage.Move_PFCT;
                 inOut = 1;
                 break;
@@ -809,9 +809,9 @@
 
         case sessionStorage.MODECODE_FDOC_PR:
             {
-                TitleListFactor = 'برگشت از خرید';
-                $('#TitleListFactor').text('برگشتی های خرید');
-                $('#titlePage').text('برگشتی های خرید');
+                TitleListFactor = translate('برگشت از خرید');
+                $('#TitleListFactor').text(translate('برگشتی های خرید'));
+                $('#titlePage').text(translate('برگشتی های خرید'));
                 $("#menu1").attr('hidden', '');
                 $("#TabMove").attr('hidden', '');
                 defultMove = '';//sessionStorage.Move_PRFCT;
@@ -1047,24 +1047,24 @@
 
     $("#status").change(function () {
         selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == 'تایید') {
+        if (accessTaeed == false && selectStatus == translate('تایید')) {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی تایید ندارید', 0);
+            return showNotification(translate('دسترسی تایید ندارید'), 0);
         }
 
-        if (accessTasvib == false && selectStatus == 'تصویب') {
+        if (accessTasvib == false && selectStatus == translate('تصویب')) {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی تصویب ندارید', 0);
+            return showNotification(translate('دسترسی تصویب ندارید'), 0);
         }
 
-        if (accessCancel == false && selectStatus == 'باطل') {
+        if (accessCancel == false && selectStatus == translate('باطل')) {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی باطل ندارید', 0);
+            return showNotification(translate('دسترسی باطل ندارید'), 0);
         }
 
-        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+        if (  sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')  ) {
             $("#status").val(lastStatus);
-            return showNotification('فقط فاکتور های تایید شده امکان تصویب دارند', 0);
+            return showNotification(translate('فقط فاکتور های تایید شده امکان تصویب دارند'), 0);
         }
 
     });
@@ -1095,7 +1095,7 @@
             if (closedDate == false) {
                 sessionStorage.Status = item.Status;
                 self.StatusFactor(item.Status);
-                $('#titleChangeStatus').text(' تغییر وضعیت ' + TitleListFactor + ' ' + item.DocNo + ' به ');
+                $('#titleChangeStatus').text(translate('تغییر وضعیت') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('به'));
                 $('#modal-ChangeStatusFactor').modal();
             }
         }
@@ -1118,7 +1118,7 @@
             ModeCode: sessionStorage.ModeCode,
         };
         $('#modal-ChangeStatusFactor').modal('hide');
-        showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
+        showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
 
         ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
@@ -1183,15 +1183,15 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        textSort = '100 رکورد  آخر به ترتیب ';
+                        textSort = ' '+translate('100 رکورد  آخر به ترتیب');
                     else
-                        textSort = '100 رکورد اول به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد اول به ترتیب');
 
                     opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
                 }
                 if (i == 2) {
                     opt.value = 3;
-                    opt.innerHTML = 'تمام رکوردها';
+                    opt.innerHTML = translate('تمام رکوردها');
                 }
                 select.appendChild(opt);
             }
@@ -1944,7 +1944,7 @@
     $('#AddNewFactor').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
-        sessionStorage.Status = 'موقت';
+        sessionStorage.Status = translate('موقت');
         sessionStorage.F01 = "";
         sessionStorage.F02 = "";
         sessionStorage.F03 = "";
@@ -2004,7 +2004,7 @@
         else {
 
             Swal.fire({
-                title: 'تایید حذف',
+                title: translate('تایید حذف'),
                 text: translate("آیا") + " " + translate(TitleListFactor) +" "+ translate("انتخابی حذف شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
@@ -2061,10 +2061,10 @@
             }
 
             if (list[i].TestName == "AccReg")
-                textBody += '<p>این ' + TitleListFactor + ' ثبت حسابداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>' + translate('این') + ' ' + TitleListFactor +' '+ translate('ثبت حسابداری شده است و قابل حذف نیست')+'</p>';
 
             else if (list[i].TestName == "InvReg")
-                textBody += '<p>این ' + TitleListFactor + ' ثبت انبارداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت انبارداری شده است و قابل حذف نیست') + '</p>';
 
             else if (list[i].TestCap != "")
                 textBody += '<p>' + list[i].TestCap + '</p>';
@@ -2105,7 +2105,7 @@
             currentPage = self.currentPageIndexFDocH();
             getFDocH($('#pageCountSelector').val(), false);
             self.currentPageIndexFDocH(currentPage);
-            showNotification(TitleListFactor + ' حذف شد ', 1);
+            showNotification(TitleListFactor + ' ' + translate('حذف شد'), 1);
         });
     }
 
@@ -2130,21 +2130,21 @@
 
     $("#allSearchFDocH").click(function () {
         if ($("#allSearchFDocH").is(':checked')) {
-            $('#allSearchFDocHText').text('جستجو بر اساس همه موارد');
+            $('#allSearchFDocHText').text(translate('جستجو بر اساس همه موارد'));
             allSearchFDocH = true;
         }
         else {
-            $('#allSearchFDocHText').text('جستجو بر اساس شماره سند');
+            $('#allSearchFDocHText').text(translate('جستجو بر اساس شماره سند'));
             allSearchFDocH = false;
         }
     });
 
     if (sessionStorage.InOut == 2) {
         sessionStorage.sels = true;
-        $('#TitleCustName').text('نام خریدار');
+        $('#TitleCustName').text(translate('نام خریدار'));
     } else {
         sessionStorage.sels = false;
-        $('#TitleCustName').text('نام فروشنده');
+        $('#TitleCustName').text(translate('نام فروشنده'));
     }
 
 
@@ -2156,9 +2156,9 @@
 
     $('#modal-Factor').on('shown.bs.modal', function () {
         if (sessionStorage.sels == "true")
-            $('#TitleCustName1').text('نام خریدار');
+            $('#TitleCustName1').text(translate('نام خریدار'));
         else
-            $('#TitleCustName1').text('نام فروشنده');
+            $('#TitleCustName1').text(translate('نام فروشنده'));
         $('#searchFDocH1').val('');
         self.filterFDocH1('');
         self.filterFDocH1List();
@@ -2167,10 +2167,10 @@
 
     $("#allSearchFDocH1").click(function () {
         if ($("#allSearchFDocH1").is(':checked')) {
-            $('#searchFDocH1').attr('placeholder', 'جستجو بر اساس همه موارد');
+            $('#searchFDocH1').attr('placeholder', translate('جستجو بر اساس همه موارد'));
         }
         else {
-            $('#searchFDocH1').attr('placeholder', 'جستجو بر اساس شماره سند');
+            $('#searchFDocH1').attr('placeholder', translate('جستجو بر اساس شماره سند'));
         }
     });
 
@@ -2532,7 +2532,7 @@
         if (e.keyCode == 13) {
             docnoSearch = $("#DocNoSearch").val();
             if (docnoSearch == '') {
-                return showNotification('شماره ' + TitleListFactor + ' را وارد کنید', 2);
+                return showNotification(translate('شماره') + ' ' + TitleListFactor +' '+ translate('را وارد کنید'), 2);
             }
             ShowDataUpdate(docnoSearch);
         }
@@ -2541,7 +2541,7 @@
     $("#btn_DocNoSearch").click(function (e) {
         docnoSearch = $("#DocNoSearch").val();
         if (docnoSearch == '') {
-            return showNotification('شماره ' + TitleListFactor + '  را وارد کنید', 2);
+            return showNotification(translate('شماره') + ' ' + TitleListFactor +' '+ translate('را وارد کنید'), 2);
         }
         ShowDataUpdate(docnoSearch);
     });
@@ -2569,11 +2569,11 @@
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject, true).done(function (response) {
 
             if (response.length == 0) {
-                return showNotification(TitleListFactor + ' یافت نشد ', 0);
+                return showNotification(TitleListFactor +' '+ translate('یافت نشد'), 0);
             }
 
             if (response.length > 1) {
-                return showNotification('بیش از یک ' + TitleListFactor + '  وجود دارد', 0);
+                return showNotification(translate('بیش از یک') + ' ' + TitleListFactor + ' '+translate('وجود دارد'), 0);
             }
 
 
@@ -2581,51 +2581,51 @@
 
             if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
                 if (localStorage.getItem("VIEW_SFORD") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate(translate('دسترسی ندارید')), 0);
             }
 
             if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
                 if (localStorage.getItem("VIEW_SPDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
             else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
                 if (localStorage.getItem("VIEW_SFDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
                 if (localStorage.getItem("VIEW_SRDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
                 if (localStorage.getItem("VIEW_SHVL") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
                 if (localStorage.getItem("VIEW_SEXT") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
                 if (localStorage.getItem("VIEW_PFORD") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
                 if (localStorage.getItem("VIEW_PPDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
                 if (localStorage.getItem("VIEW_PFDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
                 if (localStorage.getItem("VIEW_PRDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
 
@@ -2742,8 +2742,8 @@
         $('#modeCodeMove').val(defultMove);
         $('#modeCodePor').val(sessionStorage.ModeCode);
 
-        $('#titleMove').text(' انتقال ' + TitleListFactor + ' ' + item.DocNo + ' به ');
-        $('#titlePor').text(' کپی ' + TitleListFactor + ' ' + item.DocNo + ' در ');
+        $('#titleMove').text(translate('انتقال') + ' ' + TitleListFactor + ' ' + item.DocNo + ' '+ translate('به'));
+        $('#titlePor').text(translate('کپی') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('در'));
         $('#modal-Move').modal();
     }
 
@@ -2910,10 +2910,10 @@
                 darsadMove = SlashToDot($('#darsadMove').val());
 
                 if (darsadMove == '' || darsadMove == '0')
-                    return showNotification('درصد را وارد کنید', 0);
+                    return showNotification(translate('درصد را وارد کنید'), 0);
 
                 if (parseFloat(darsadMove) > 100)
-                    return showNotification('بیشتر از 100 درصد', 0);
+                    return showNotification(translate('بیشتر از 100 درصد'), 0);
 
                 ajaxFunction(FTestMoveFactorUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + modeCodeMove, 'POST').done(function (response) {
                     if (response == '')
@@ -2948,7 +2948,7 @@
             $('#modal-Move').modal('hide');
 
 
-            showNotification('در حال انتقال لطفا منتظر بمانید', 1);
+            showNotification(translate('در حال انتقال لطفا منتظر بمانید'), 1);
 
             ajaxFunction(FMoveFactorUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
                 item = response;
@@ -3245,14 +3245,14 @@
             '    <li>' +
             '        <a id="MoveFactor" data-bind="click: $root.MoveFactor  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            کپی' +
+        translate('کپی') +
             '        </a>' +
             '    </li>' +
 
             '    <li>' +
             '        <a id="ChangeStatusFactor" data-bind="click: $root.ChangeStatusFactor" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            تغییر وضعیت' +
+        translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
 
@@ -3261,7 +3261,7 @@
                 '    <li>' +
                 '        <a id="PrintFactor" data-bind="click: $root.PrintFactor" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-                '            چاپ ' +
+            translate('چاپ') +
                 '        </a>' +
                 '    </li>';
         }
@@ -3436,14 +3436,14 @@
 
         getFDocP(serial);
         if (self.FDocPList().length == 0)
-            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
 
         textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
 
         printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
 
-        textAccess = 'دسترسی ندارید';
+        textAccess = translate('دسترسی ندارید');
         switch (sessionStorage.ModeCode.toString()) {
             case sessionStorage.MODECODE_FDOC_SO:
                 if (sessionStorage.Access_SHOWPRICE_SFORD == 'true')
@@ -3650,7 +3650,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate(translate('فرم جدید'));
         printPublic = false;
         setReport(self.FDocPList(), '', printVariable);
     });
@@ -3661,7 +3661,7 @@
         docDate = item.DocDate;
         getFDocP(serial);
         if (self.FDocPList().length == 0)
-            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست'), 0);
 
         textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
 

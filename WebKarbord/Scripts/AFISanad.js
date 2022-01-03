@@ -489,18 +489,18 @@
         selectStatus = $("#status").val();
         if (accessTaeed == false && selectStatus == 'تایید') {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی تایید ندارید', 0);
+            return showNotification(translate('دسترسی تایید ندارید'), 0);
         }
 
         if (accessDaem == false && selectStatus == 'دائم') {
             $("#status").val(lastStatus);
-            return showNotification('دسترسی دائم ندارید', 0);
+            return showNotification(translate('دسترسی دائم ندارید'), 0);
         }
 
         /*
         if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
             $("#status").val(lastStatus);
-            return showNotification('فقط اسناد تایید شده امکان تصویب دارند', 0);
+            return showNotification(translate('فقط اسناد تایید شده امکان تصویب دارند', 0);
         }
         */
 
@@ -997,7 +997,7 @@
             $('#modal-Acc').modal('toggle');
         }
         else
-            return showNotification('این حساب قابل انتخاب نیست', 0);
+            return showNotification(translate('این حساب قابل انتخاب نیست'), 0);
     }
 
 
@@ -1300,7 +1300,7 @@
             $('#modal-Traf').modal('toggle');
         }
         else
-            return showNotification('این طرف حساب قابل انتخاب نیست', 0);
+            return showNotification(translate('این طرف حساب قابل انتخاب نیست'), 0);
     }
 
 
@@ -2640,14 +2640,14 @@
             var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
-                return showNotification('تاريخ را صحيح وارد کنيد', 0);
+                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
 
             if (tarikh == '')
-                return showNotification('تاريخ را وارد کنيد', 0);
+                return showNotification(translate('تاريخ را وارد کنيد'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
 
 
             TestADoc_New(Serial, tarikh, docNo);
@@ -2746,25 +2746,25 @@
         status = $("#status").val();
 
         if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
+            return showNotification(translate('تاريخ را وارد کنيد'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
         }
 
         if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
+            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
 
         if (self.DocNoOut == '') {
-            return showNotification('شماره سند را وارد کنيد', 0);
+            return showNotification(translate('شماره سند را وارد کنيد'), 0);
         }
 
         var ADocObject = {
@@ -2829,29 +2829,29 @@
         status = $("#status").val();
 
         if (tarikh.length != 10) {
-            return showNotification('تاریخ را صحيح وارد کنيد', 0);
+            return showNotification(translate('تاریخ را صحيح وارد کنيد'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification('تاریخ را وارد کنيد', 0);
+            return showNotification(translate('تاریخ را وارد کنيد'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاریخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification(translate('تاریخ وارد شده با سال انتخابي همخواني ندارد'), 0);
         }
 
         if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
+            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
 
         if (self.DocNoOut == '') {
-            return showNotification('شماره سند را وارد کنيد', 0);
+            return showNotification(translate('شماره سند را وارد کنيد'), 0);
         }
 
         if ($('#docnoout').text() == '0') {
-            return showNotification('ابتدا بند ها وارد کنید', 0);
+            return showNotification(translate('ابتدا بند ها وارد کنید'), 0);
         }
 
 
@@ -3080,29 +3080,29 @@
         GetBandNumber();
         bandnumber = bandnumber;
         if (Serial == '') {
-            return showNotification('اطلاعات اوليه سند ثبت نشده است', 0);
+            return showNotification(translate('اطلاعات اوليه سند ثبت نشده است'), 0);
         }
 
         if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
+            return showNotification(translate('تاريخ را وارد کنيد'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
         }
 
         if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
+            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
 
         if (AccCode == '') {
-            return showNotification('حساب را انتخاب کنید', 0);
+            return showNotification(translate('حساب را انتخاب کنید'), 0);
         }
 
         bede = SlashToDot($("#bede").val()) == "" ? "0" : SlashToDot($("#bede").val());
@@ -3111,9 +3111,9 @@
         if (best == "0" && bede == "0") {
             if (best == "0" && bede == "0") {
                 if (sessionStorage.ADOC_TestZeroPrice == "1")
-                    showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 2);
+                    showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 2);
                 else if (sessionStorage.ADOC_TestZeroPrice == "2")
-                    return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
+                    return showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 0);
             }
         }
 
@@ -3122,16 +3122,16 @@
 
             if ($("#CheckNo").val() == "") {
                 if (sessionStorage.ADOC_TestCheck == "1")
-                    showNotification('اطلاعات چک انتخاب نشده است', 2);
+                    showNotification(translate('اطلاعات چک انتخاب نشده است'), 2);
                 else if (sessionStorage.ADOC_TestCheck == "2")
-                    return showNotification('اطلاعات چک انتخاب نشده است', 0)
+                    return showNotification(translate('اطلاعات چک انتخاب نشده است'), 0)
             }
 
             if (TrafCode == "") {
                 if (sessionStorage.ADOC_TestTraf == "1")
-                    showNotification('طرف حساب انتخاب نشده است', 2);
+                    showNotification(translate('طرف حساب انتخاب نشده است'), 2);
                 else if (sessionStorage.ADOC_TestTraf == "2")
-                    return showNotification('طرف حساب انتخاب نشده است', 0)
+                    return showNotification(translate('طرف حساب انتخاب نشده است'), 0)
             }
 
 
@@ -3195,29 +3195,29 @@
         tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
         if (Serial == '') {
-            return showNotification('اطلاعات اوليه سند ثبت نشده است', 0);
+            return showNotification(translate('اطلاعات اوليه سند ثبت نشده است'), 0);
         }
 
         if (tarikh.length != 10) {
-            return showNotification('تاريخ را صحيح وارد کنيد', 0);
+            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification('تاريخ را وارد کنيد', 0);
+            return showNotification(translate('تاريخ را وارد کنيد'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification('تاريخ وارد شده با سال انتخابي همخواني ندارد', 0);
+            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
         }
 
         if (modeCode == '') {
-            return showNotification('نوع سند را انتخاب کنید', 0);
+            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
 
         if (AccCode == '') {
-            return showNotification('حساب را انتخاب کنید', 0);
+            return showNotification(translate('حساب را انتخاب کنید'), 0);
         }
 
         bede = SlashToDot($("#bede").val()) == "" ? "0" : SlashToDot($("#bede").val());
@@ -3227,9 +3227,9 @@
 
         if (best == "0" && bede == "0") {
             if (sessionStorage.ADOC_TestZeroPrice == "1")
-                showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 2);
+                showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 2);
             else if (sessionStorage.ADOC_TestZeroPrice == "2")
-                return showNotification('مبلغ بدهکار یا بستانکار را وارد کنید', 0);
+            return showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 0);
         }
 
         var ADocBObject = {
@@ -3296,8 +3296,7 @@
                     calcsum(response);
                     flagFinalSave = false;
                     flaglog = 'N';
-                    showNotification(' بند شماره ' + SanadBand.BandNo + ' حذف شد ', 1);
-                    //Swal.fire({ type: 'success', title: 'حذف موفق', text: ' بند شماره ' + SanadBand.BandNo + ' حذف شد ' });
+                    showNotification(translate('بند شماره')+' ' + SanadBand.BandNo + ' ' + translate('حذف شد'), 1);
                 });
             }
         })
@@ -4028,7 +4027,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.ADocPList(), '', printVariable);
     });
@@ -4037,11 +4036,11 @@
     $('#Print_SanadHesab').click(function () {
 
         if (Serial == '')
-            return showNotification('ابتدا سند را ذخیره کنید', 0);
+            return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
         getADocP(Serial);
 
         if (self.ADocPList().length == 0)
-            return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
 
         printVariable = '"ReportDate":"' + DateNow + '",';
 

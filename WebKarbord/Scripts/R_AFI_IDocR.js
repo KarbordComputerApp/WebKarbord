@@ -3137,7 +3137,7 @@
     };
 
     $('#AddNewPrintForms').click(function() {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.IDocRList(), '', printVariable);
     });

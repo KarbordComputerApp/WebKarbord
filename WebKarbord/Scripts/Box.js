@@ -261,7 +261,7 @@
             fileType = '.' + fileData[1];
 
             if (fileData[1] == 'exe') {
-                return showNotification('ابتدا فایل را فشرده کنید سپس ارسال کنید', 2);
+                return showNotification(translate('ابتدا فایل را فشرده کنید سپس ارسال کنید'), 2);
             }
 
             var formData = new FormData();

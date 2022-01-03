@@ -64,27 +64,27 @@
         ajaxFunction(LoginUri, 'POST', LoginObject, true).done(function (data) {
 
             if (data == "error") {
-                return showNotification('اشکال در اتصال به سرور', 0);
+                return showNotification(translate('اشکال در اتصال به سرور'), 0);
             }
 
             if (data == "Disable Account") {
-                return showNotification('حساب شما مسدود شده است', 0);
+                return showNotification(translate('حساب شما مسدود شده است'), 0);
             }
 
             if (data == "Expire Account") {
-                return showNotification('زمان استفاده شما از نرم افزار به پایان رسیده است', 0);
+                return showNotification(translate('زمان استفاده شما از نرم افزار به پایان رسیده است'), 0);
             }
 
             if (data == null || data == 0)
                 //return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
-                return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
+                return showNotification(translate('نام کاربری یا کلمه عبور اشتباه است'), 0);
 
             var res = data.split("-");
             userValid = res[0];
 
 
             if (userValid === 0) {
-                return showNotification(' نام کاربری یا کلمه عبور اشتباه است ', 0);
+                return showNotification(translate('نام کاربری یا کلمه عبور اشتباه است'), 0);
                 // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
                 sessionStorage.userName = '';
                 sessionStorage.pass = '';
@@ -100,8 +100,31 @@
                 if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
                     localStorage.setItem("ace", 'Web8');
                     sessionStorage.ace = 'Web8';
-                    progCaption = ' وب : سیستم جامع';
+                    progCaption = translate('وب : سیستم جامع');
+
                     groups = localStorage.getItem('afi8List');
+                    onlyGroupErj = '';
+
+                    erj = localStorage.getItem('erjList');
+                    afi = localStorage.getItem('afi8List');
+
+                    if ((erj != null || erj != '') && erj != afi) {
+                        erj = erj.split("-");
+                        afi = afi.split("-");
+
+                        for (var i = 0; i < erj.length; i++) {
+                            if (afi.includes(erj[i]) == false) {
+                                groups += '-' + erj[i];
+                                onlyGroupErj += erj[i] + '-'
+                            }
+                        }
+
+                        if (onlyGroupErj != '') {
+                            onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
+                            sessionStorage.onlyGroupErj = onlyGroupErj;
+                        }
+                    }
+
 
                     tempAccess = localStorage.getItem('afi8Access');
 
@@ -147,8 +170,33 @@
                     localStorage.setItem("ace", 'Web1');
                     sessionStorage.ace = 'Web1';
                     progCaption = ' وب : مالی بازرگانی';
+
                     groups = localStorage.getItem('afi1List');
+
+                    onlyGroupErj = '';
+
+                    erj = localStorage.getItem('erjList');
+                    afi = localStorage.getItem('afi1List');
+
+                    if ((erj != null || erj != '') && erj != afi) {
+                        erj = erj.split("-");
+                        afi = afi.split("-");
+
+                        for (var i = 0; i < erj.length; i++) {
+                            if (afi.includes(erj[i]) == false) {
+                                groups += '-' + erj[i];
+                                onlyGroupErj += erj[i] + '-'
+                            }
+                        }
+
+                        if (onlyGroupErj != '') {
+                            onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
+                            sessionStorage.onlyGroupErj = onlyGroupErj;
+                        }
+                    }
+
                     progName = "afi1"
+
                 }
                 else {
                     localStorage.setItem("ace", 'Web2');
@@ -172,7 +220,7 @@
                 ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
 
                     if (datalogin == "MaxCount") {
-                        return showNotification('محدودیت ورود تعداد کاربران', 0);
+                        return showNotification(translate('محدودیت ورود تعداد کاربران'), 0);
                     }
 
                     res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
@@ -238,7 +286,7 @@
         ajaxFunctionAccount(AccountUri + userAccount + '/' + passAccount, 'GET').done(function (data) {
             if (data === 0) {
 
-                return showNotification(' نام مجوز ورود یا کلمه عبور اشتباه است ', 0);
+                return showNotification(translate('نام مجوز ورود یا کلمه عبور اشتباه است'), 0);
             }
             else {
                 serverAddress = data.AddressApi;
@@ -269,7 +317,7 @@
                 $('#modal-service').modal('hide');
                 // $('#modal-service').hide();
 
-                return showNotification('اتصال برقرار شد', 1);
+                return showNotification(translate('اتصال برقرار شد'), 1);
 
                 //Swal.fire({ type: 'info', title: 'عملیات موفق', text: 'اتصال برقرار شد' });
             }
@@ -280,13 +328,13 @@
     self.LoginUser = function LoginUser() {
         server = localStorage.getItem("ApiAddress");
         if (server === null || server === "") {
-            return showNotification('تنظیمات اتصال به وب را وارد کنید', 0);
+            return showNotification(translate('تنظیمات اتصال به وب را وارد کنید'), 0);
             //return Swal.fire({ type: 'info', title: 'خطا در ورود', text: 'مشخصات سرویس را وارد کنید' });
         }
         user = $("#user").val();
         pass = $("#pass").val();
         if (user === "" || user === null) {
-            return showNotification(' نام کاربری را وارد کنید ', 0);
+            return showNotification(translate('نام کاربری را وارد کنید'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
         }
         //if (pass == "" || pass == null) {
@@ -314,11 +362,11 @@
         passAccount = $("#passAccount").val();
 
         if (userAccount === "" || userAccount === null) {
-            return showNotification(' نام کاربری را وارد کنید ', 0);
+            return showNotification(translate('نام کاربری را وارد کنید'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' نام کاربری را وارد کنید ' });
         }
         if (passAccount === "" || passAccount === null) {
-            return showNotification(' کلمه عبور را وارد کنید ', 0);
+            return showNotification(translate('کلمه عبور را وارد کنید'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' کلمه عبور را وارد کنید ' });
         }
 

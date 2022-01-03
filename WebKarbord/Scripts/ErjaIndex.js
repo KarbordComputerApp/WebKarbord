@@ -1105,13 +1105,13 @@
         khdtCode = self.KhdtCode();
 
         if (p_DocDate == '')
-            return showNotification('تاریخ پرونده انتخاب نشده است', 0);
+            return showNotification(translate('تاریخ پرونده انتخاب نشده است'), 0);
 
         if (custCode == '')
-            return showNotification('مشتری انتخاب نشده است', 0);
+            return showNotification(translate('مشتری انتخاب نشده است'), 0);
 
         if (khdtCode == '')
-            return showNotification('نوع کار انتخاب نشده است', 0);
+            return showNotification(translate('نوع کار انتخاب نشده است'), 0);
 
         doc_KhdtCode = self.KhdtCode();
 
@@ -2510,17 +2510,17 @@
         rjTime_M = $("#RjTime_M").val();
 
         if (self.ErjUsersCode() == null) {
-            return showNotification('ارجاع شونده را انتخاب کنید', 0);
+            return showNotification(translate('ارجاع شونده را انتخاب کنید'), 0);
         }
 
         if (rjTime_H == '' && rjTime_M == '') {
-            return showNotification('زمان صرف شده را وارد کنید', 0);
+            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
         natijeh = $("#e_Result").val();
 
         if (natijeh == '') {
-            return showNotification('متن ارجاع را وارد کنید', 0);
+            return showNotification(translate('متن ارجاع را وارد کنید'), 0);
         }
 
         ErjSaveDoc_BSave(0);
@@ -2582,7 +2582,7 @@
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
-                return showNotification('متن ارجاع را وارد کنید', 0);
+                return showNotification(translate('متن ارجاع را وارد کنید', 0);
             }
 
             ErjSaveDoc_BSaveObject = {
@@ -2667,7 +2667,7 @@
             }
         }
         else if (access[0].TrsName != 'ADMIN')
-            showNotification('دسترسی ندارید', 0);
+            showNotification(translate('دسترسی ندارید'), 0);
     })
 
 
@@ -2726,7 +2726,7 @@
         if (e.keyCode == 13) {
             docnoSearch = $("#DocNoSearch").val();
             if (docnoSearch == '') {
-                return showNotification('شماره پرونده را وارد کنید', 2);
+                return showNotification(translate('شماره پرونده را وارد کنید'), 2);
             }
             ShowDataUpdate(docnoSearch);
         }
@@ -2735,7 +2735,7 @@
     $("#btn_DocNoSearch").click(function (e) {
         docnoSearch = $("#DocNoSearch").val();
         if (docnoSearch == '') {
-            return showNotification('شماره پرونده را وارد کنید', 2);
+            return showNotification(translate('شماره پرونده را وارد کنید'), 2);
         }
         ShowDataUpdate(docnoSearch);
     });
@@ -2758,11 +2758,11 @@
 
         ajaxFunction(ErjDocHUri + aceErj + '/' + salErj + '/' + group, 'POST', ErjDocHObject, true).done(function (response) {
             if (response.length == 0) {
-                return showNotification('پرونده یافت نشد', 0);
+                return showNotification(translate('پرونده یافت نشد'), 0);
             }
 
             if (response.length > 1) {
-                return showNotification('بیش از یک پرونده وجود دارد', 0);
+                return showNotification(translate('بیش از یک پرونده وجود دارد'), 0);
             }
 
             var data = response[0];
@@ -2773,7 +2773,7 @@
             else {
 
                 if (data.ShowDocTrs == 0) {
-                    return showNotification('شما به این پرونده دسترسی ندارید', 0);
+                    return showNotification(translate('شما به این پرونده دسترسی ندارید'), 0);
                 }
 
 

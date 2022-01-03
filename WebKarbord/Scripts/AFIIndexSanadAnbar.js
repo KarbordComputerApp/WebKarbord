@@ -311,17 +311,17 @@
 
             if (localStorage.getItem("Access_TAEED_IIDOC") == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
-                return showNotification('دسترسی تایید ندارید', 0);
+                return showNotification(translate('دسترسی تایید ندارید'), 0);
             }
 
             if (localStorage.getItem("Access_TASVIB_IIDOC") == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
-                return showNotification('دسترسی تصویب ندارید', 0);
+                return showNotification(translate('دسترسی تصویب ندارید'), 0);
             }
 
             if (localStorage.getItem("Access_CANCEL_IIDOC") == 'false' && selectStatus == 'باطل') {
                 $("#status").val(lastStatus);
-                return showNotification('نیاز به دسترسی باطل', 0);
+                return showNotification(translate('نیاز به دسترسی باطل'), 0);
             }
 
         }
@@ -329,17 +329,17 @@
         if (sessionStorage.InOut == 2) {
             if (localStorage.getItem("Access_TAEED_IODOC") == 'false' && selectStatus == 'تایید') {
                 $("#status").val(lastStatus);
-                return showNotification('نیاز به دسترسی تایید', 0);
+                return showNotification(translate('نیاز به دسترسی تایید'), 0);
             }
 
             if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == 'تصویب') {
                 $("#status").val(lastStatus);
-                return showNotification('نیاز به دسترسی تصویب', 0);
+                return showNotification(translate('نیاز به دسترسی تصویب'), 0);
             }
 
             if (localStorage.getItem("Access_CANCEL_IODOC") == 'false' && selectStatus == 'باطل') {
                 $("#status").val(lastStatus);
-                return showNotification('نیاز به دسترسی باطل', 0);
+                return showNotification(translate('نیاز به دسترسی باطل'), 0);
             }
 
         }
@@ -347,7 +347,7 @@
 
         if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
             $("#status").val(lastStatus);
-            return showNotification('فقط اسناد تایید شده امکان تصویب دارند', 0);
+            return showNotification(translate('فقط اسناد تایید شده امکان تصویب دارند'), 0);
         }
 
     });
@@ -1242,7 +1242,7 @@
         sessionStorage.F20 = "";
         //if (invCode == '' || invCode == null) 
         //{
-        //    return showNotification('انبار را انتخاب کنيد');
+        //    return showNotification(translate('انبار را انتخاب کنيد');
         //} 
         //else
         //{
@@ -1452,7 +1452,7 @@
         if (e.keyCode == 13) {
             docnoSearch = $("#DocNoSearch").val();
             if (docnoSearch == '') {
-                return showNotification('شماره سند' + TitleListAnbarSearch + 'را وارد کنید', 2);
+                return showNotification(translate('شماره سند') + " " + TitleListAnbarSearch + " "+ translate('را وارد کنید'), 2);
             }
             ShowDataUpdate(docnoSearch, $("#invSelect").val(), $("#IMode").val());
         }
@@ -1461,7 +1461,7 @@
     $("#btn_DocNoSearch").click(function (e) {
         docnoSearch = $("#DocNoSearch").val();
         if (docnoSearch == '') {
-            return showNotification('شماره سند' + TitleListAnbarSearch + 'را وارد کنید', 2);
+            return showNotification(translate('شماره سند') + TitleListAnbarSearch + " "+ translate('را وارد کنید'), 2);
         }
         ShowDataUpdate(docnoSearch, $("#invSelect").val(), $("#IMode").val());
     });
@@ -1497,20 +1497,20 @@
 
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject, true).done(function (response) {
             if (response.length == 0) {
-                return showNotification('سند' + TitleListAnbarSearch + 'یافت نشد', 0);
+                return showNotification(translate('سند') + TitleListAnbarSearch + translate('یافت نشد'), 0);
             }
 
             if (response.length > 1) {
-                return showNotification('بیش از یک سند' + TitleListAnbarSearch + 'وجود دارد', 0);
+                return showNotification(translate('بیش از یک سند') + TitleListAnbarSearch + translate('وجود دارد'), 0);
             }
 
             if (sessionStorage.InOut == 1) {
                 if (localStorage.getItem("VIEW_IIDOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
             else if (sessionStorage.InOut == 2) {
                 if (localStorage.getItem("VIEW_IODOC") == 'false')
-                    return showNotification('دسترسی ندارید', 0);
+                    return showNotification(translate('دسترسی ندارید'), 0);
             }
 
             var data = response[0];
@@ -1724,8 +1724,8 @@
 
         $('#modeCodePor').val(item.ModeCode);
 
-        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' به ');
-        $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' در ');
+        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName)+ ' ' + translate('به'));
+        $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('در'));
 
         if (invSelected == '') {
             temp = localStorage.getItem('InvSelectSanadAnbarMove')
@@ -1900,7 +1900,7 @@
             if (closedDate == false) {
                 sessionStorage.Status = item.Status;
                 self.StatusSanad(item.Status);
-                $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' به ');
+                $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('به'));
                 $('#modal-ChangeStatusSanad').modal();
             }
         }
@@ -2267,7 +2267,7 @@
 
         getIDocP(serial);
         if (self.IDocPList().length == 0)
-            return showNotification('برای چاپ سند حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
 
         textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
 
@@ -2441,7 +2441,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.IDocPList(), '', printVariable);
     });

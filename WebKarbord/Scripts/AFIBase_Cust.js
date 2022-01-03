@@ -865,29 +865,17 @@
 
 
         if (melliCode != "" && melliCode.length < 10) {
-            return showNotification('طول کد ملی نادرست است', 0)
+            return showNotification(translate('طول کد ملی نادرست است'), 0)
         }
 
         if (ecoCode != "" && ecoCode.length < 11) {
-            return showNotification('طول کد اقتصادی نادرست است', 0)
+            return showNotification(translate('طول کد اقتصادی نادرست است'), 0)
         }
 
-        //if (code == "") {
-        //    return showNotification('کد خریدار/فروشنده را وارد کنید', 0)
-        //}
         if (name == "") {
-            return showNotification('نام خریدار/فروشنده را وارد کنید', 0)
+            return showNotification(translate('نام خریدار/فروشنده را وارد کنید'), 0)
         }
 
-        /*if (isUpdate == false) {
-            listCode = ko.utils.arrayFilter(self.CustList(), function (item) {
-                return item.Code == code;
-            });
-
-            if (listCode.length == 1)  {
-                return showNotification('کد خریدار/فروشنده تکراری', 0)
-            }
-        }*/
 
         var TestCust_Object = {
             Code: code

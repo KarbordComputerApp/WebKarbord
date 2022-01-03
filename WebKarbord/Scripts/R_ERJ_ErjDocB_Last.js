@@ -1736,7 +1736,7 @@
             $("#specialComm").val(specialComm);
         }
         else
-            showNotification('دسترسی ندارید', 0);
+            showNotification(translate('دسترسی ندارید'), 0);
     })
 
 
@@ -1953,17 +1953,17 @@
         rjTime_M = $("#RjTime_M").val();
 
         if (self.ErjUsersCode() == null) {
-          return showNotification('ارجاع شونده را انتخاب کنید', 0);
+            return showNotification(translate('ارجاع شونده را انتخاب کنید'), 0);
         }
 
         if (rjTime_H == '' && rjTime_M == '') {
-           return showNotification('زمان صرف شده را وارد کنید', 0);
+            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
         natijeh = $("#e_Result").val();
 
         if (natijeh == '') {
-           return showNotification('متن ارجاع را وارد کنید', 0);
+            return showNotification(translate('متن ارجاع را وارد کنید'), 0);
         }
 
         flagSave = false;
@@ -2005,7 +2005,7 @@
         if (fromUserCode == " ") fromUserCode = sessionStorage.userName;
 
         if (self.ErjUsersCode() == null && bandNoImput == 0) {
-         //   return showNotification('ارجاع شونده را انتخاب کنید', 0);
+         //   return showNotification(translate('ارجاع شونده را انتخاب کنید', 0);
         }
 
         toUserCode = self.ErjUsersCode();
@@ -2032,7 +2032,7 @@
                 rjTime = rjTime_H + rjTime_M;
             }
             else {
-              //  return showNotification('زمان صرف شده را وارد کنید', 0);
+              //  return showNotification(translate('زمان صرف شده را وارد کنید', 0);
             }
         }
 
@@ -2041,7 +2041,7 @@
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
-             //   return showNotification('متن ارجاع را وارد کنید', 0);
+             //   return showNotification(translate('متن ارجاع را وارد کنید', 0);
             }
 
 
@@ -2060,7 +2060,7 @@
         {
             natijeh = $("#Result").val();
             //if (natijeh == '') {
-            //    return showNotification('متن ارجاع را وارد کنید', 0);
+            //    return showNotification(translate('متن ارجاع را وارد کنید', 0);
             //}
             ErjSaveDoc_BSaveObject = {
                 SerialNumber: serialNumber,
@@ -2142,7 +2142,7 @@
         {
             natijeh = $("#Result").val();
             if (natijeh == '') {
-                return showNotification('متن نتیجه را وارد کنید', 0);
+                return showNotification(translate('متن نتیجه را وارد کنید'), 0);
             }
             //if (list_ErjUsersRoneveshtSelect[i - 1] != toUser) {
                 tmp = {
@@ -2530,7 +2530,7 @@
     };
 
     $('#AddNewPrintForms').click(function () {
-        printName = 'فرم جدید';
+        printName = translate('فرم جدید');
         printPublic = false;
         setReport(self.FDocPList(), '', printVariable);
     });
@@ -2538,10 +2538,10 @@
 
     $('#Print').click(function () {
         if (Serial == '')
-            return showNotification('ابتدا فاکتور را ذخیره کنید', 0);
+            return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
-            return showNotification('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
+            return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست'), 0);
         textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice;
         printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
