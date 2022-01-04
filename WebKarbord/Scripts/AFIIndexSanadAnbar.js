@@ -309,17 +309,17 @@
         selectStatus = $("#status").val();
         if (sessionStorage.InOut == 1) {
 
-            if (localStorage.getItem("Access_TAEED_IIDOC") == 'false' && selectStatus == 'تایید') {
+            if (localStorage.getItem("Access_TAEED_IIDOC") == 'false' && selectStatus == translate('تایید')) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('دسترسی تایید ندارید'), 0);
             }
 
-            if (localStorage.getItem("Access_TASVIB_IIDOC") == 'false' && selectStatus == 'تصویب') {
+            if (localStorage.getItem("Access_TASVIB_IIDOC") == 'false' && selectStatus == translate('تصویب')) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('دسترسی تصویب ندارید'), 0);
             }
 
-            if (localStorage.getItem("Access_CANCEL_IIDOC") == 'false' && selectStatus == 'باطل') {
+            if (localStorage.getItem("Access_CANCEL_IIDOC") == 'false' && selectStatus == translate('باطل')) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('نیاز به دسترسی باطل'), 0);
             }
@@ -327,17 +327,17 @@
         }
 
         if (sessionStorage.InOut == 2) {
-            if (localStorage.getItem("Access_TAEED_IODOC") == 'false' && selectStatus == 'تایید') {
+            if (localStorage.getItem("Access_TAEED_IODOC") == 'false' && selectStatus == translate('تایید')) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('نیاز به دسترسی تایید'), 0);
             }
 
-            if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == 'تصویب') {
+            if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == translate('تصویب') ){
                 $("#status").val(lastStatus);
                 return showNotification(translate('نیاز به دسترسی تصویب'), 0);
             }
 
-            if (localStorage.getItem("Access_CANCEL_IODOC") == 'false' && selectStatus == 'باطل') {
+            if (localStorage.getItem("Access_CANCEL_IODOC") == 'false' && selectStatus == translate('باطل')) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('نیاز به دسترسی باطل'), 0);
             }
@@ -345,7 +345,7 @@
         }
 
 
-        if (sessionStorage.Status != 'تایید' && selectStatus == 'تصویب') {
+        if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
             $("#status").val(lastStatus);
             return showNotification(translate('فقط اسناد تایید شده امکان تصویب دارند'), 0);
         }
@@ -589,15 +589,15 @@
             modeCodeSelected = modeCode;
 
             if (sessionStorage.InOut == 1)
-                textNoSanad = ' وارده ';
+                textNoSanad = ' ' + translate('وارده') + ' ';
             else
-                textNoSanad = ' صادره ';
+                textNoSanad = ' ' + translate('صادره') + ' ';
 
 
             if (invCode == "")
-                $('#titlePage').text('اسناد' + textNoSanad + ' همه انبارها');
+                $('#titlePage').text(translate('اسناد') + ' ' + textNoSanad + ' ' + translate('همه انبارها'));
             else
-                $('#titlePage').text('اسناد' + textNoSanad + AppendAnbar(invName));
+                $('#titlePage').text(translate('اسناد') + ' ' + textNoSanad + AppendAnbar(invName));
 
         });
 
@@ -620,15 +620,15 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        textSort = '100 رکورد  آخر به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد آخر به ترتیب');
                     else
-                        textSort = '100 رکورد اول به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد اول به ترتیب');
 
                     opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
                 }
                 if (i == 2) {
                     opt.value = 3;
-                    opt.innerHTML = 'تمام رکوردها';
+                    opt.innerHTML = translate('تمام رکوردها');
                 }
                 select.appendChild(opt);
             }
@@ -1377,7 +1377,7 @@
             currentPage = self.currentPageIndexIDocH();
             getIDocH(0, invSelected, modeCodeSelected, false);
             self.currentPageIndexIDocH(currentPage);
-            showNotification('سند حذف شد ', 1);
+            showNotification(translate('سند حذف شد'), 1);
         });
     }
 
@@ -1577,11 +1577,11 @@
 
     $("#allSearchIDocH").click(function () {
         if ($("#allSearchIDocH").is(':checked')) {
-            $('#allSearchIDocHText').text('جستجو بر اساس همه موارد');
+            $('#allSearchIDocHText').text(translate('جستجو بر اساس همه موارد'));
             allSearchIDocH = true;
         }
         else {
-            $('#allSearchIDocHText').text('جستجو بر اساس شماره سند');
+            $('#allSearchIDocHText').text(translate('جستجو بر اساس شماره سند'));
             allSearchIDocH = false;
         }
     });
@@ -1591,17 +1591,17 @@
     if (sessionStorage.InOut == 1) {
 
         sessionStorage.sels = true;
-        $('#TitleThvlName').text('نام تحویل دهنده');
-        $('#TitleListAnbar').text('اسناد وارده به انبار');
-        TitleListAnbarSearch = ' وارده '
+        $('#TitleThvlName').text(translate('نام تحویل دهنده'));
+        $('#TitleListAnbar').text(translate('اسناد وارده به انبار'));
+        TitleListAnbarSearch = ' ' + translate('وارده') + ' ';
 
         // $('#titlePage').text('اسناد وارده');
 
     } else {
         sessionStorage.sels = false;
-        $('#TitleThvlName').text('نام تحویل گیرنده');
-        $('#TitleListAnbar').text('اسناد صادره از انبار');
-        TitleListAnbarSearch = ' صادره ';
+        $('#TitleThvlName').text(translate('نام تحویل گیرنده'));
+        $('#TitleListAnbar').text(translate('اسناد صادره از انبار'));
+        TitleListAnbarSearch = ' ' +translate('صادره') + ' ';
         // $('#titlePage').text('اسناد صادره');
     }
 
@@ -1614,9 +1614,9 @@
 
     $('#modal-Factor').on('shown.bs.modal', function () {
         if (sessionStorage.sels == "true")
-            $('#TitleThvlName1').text('نام خریدار');
+            $('#TitleThvlName1').text(translate('نام خریدار'));
         else
-            $('#TitleThvlName1').text('نام فروشنده');
+            $('#TitleThvlName1').text(translate('نام فروشنده'));
         $('#searchIDocH1').val('');
         self.filterIDocH1('');
         self.filterIDocH1List();
@@ -1625,10 +1625,10 @@
 
     $("#allSearchIDocH1").click(function () {
         if ($("#allSearchIDocH1").is(':checked')) {
-            $('#searchIDocH1').attr('placeholder', 'جستجو بر اساس همه موارد');
+            $('#searchIDocH1').attr('placeholder', translate('جستجو بر اساس همه موارد'));
         }
         else {
-            $('#searchIDocH1').attr('placeholder', 'جستجو بر اساس شماره سند');
+            $('#searchIDocH1').attr('placeholder', translate('جستجو بر اساس شماره سند'));
         }
     });
 
@@ -1724,8 +1724,8 @@
 
         $('#modeCodePor').val(item.ModeCode);
 
-        $('#titleMove').text(' انتقال ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName)+ ' ' + translate('به'));
-        $('#titlePor').text(' کپی ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('در'));
+        $('#titleMove').text(translate('انتقال') + ' ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName)+ ' ' + translate('به'));
+        $('#titlePor').text(translate('کپی') + ' ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('در'));
 
         if (invSelected == '') {
             temp = localStorage.getItem('InvSelectSanadAnbarMove')
@@ -1791,7 +1791,7 @@
                 MoveMode: 0,
             };
             $('#modal-Move').modal('hide');
-            showNotification('در حال انتقال لطفا منتظر بمانید', 1);
+            showNotification(translate('در حال انتقال لطفا منتظر بمانید'), 1);
 
             ajaxFunction(IMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
                 item = response;
@@ -1900,7 +1900,7 @@
             if (closedDate == false) {
                 sessionStorage.Status = item.Status;
                 self.StatusSanad(item.Status);
-                $('#titleChangeStatus').text(' تغییر وضعیت ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('به'));
+                $('#titleChangeStatus').text(translate('تغییر وضعیت') + ' ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('به'));
                 $('#modal-ChangeStatusSanad').modal();
             }
         }
@@ -1926,7 +1926,7 @@
             InOut: sessionStorage.InOut
         };
         $('#modal-ChangeStatusSanad').modal('hide');
-        showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
+        showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
 
         ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;

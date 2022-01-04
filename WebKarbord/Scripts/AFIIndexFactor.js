@@ -1183,7 +1183,7 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        textSort = ' '+translate('100 رکورد  آخر به ترتیب');
+                        textSort = ' '+translate('100 رکورد آخر به ترتیب');
                     else
                         textSort = ' ' + translate('100 رکورد اول به ترتیب');
 

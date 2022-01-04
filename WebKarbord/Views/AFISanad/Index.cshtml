@@ -10,8 +10,8 @@
         <div class="card">
             <div class="header" style="padding-bottom: 5px;">
                 <div class="form-inline focused">
-                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست اسناد حسابداری </strong>
-                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;">جستجوی سند شماره</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;" data-bind="text:translate('لیست اسناد حسابداری')"> </strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;"data-bind="text:translate('جستجوی سند شماره')"></strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
                     <a id="btn_DocNoSearch">
                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
@@ -82,8 +82,8 @@
                             <label data-bind="text:translate('نمایش')"></label>
                             <div>
                                 <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-                                    <option value="0">100 رکورد آخر</option>
-                                    <option value="3">تمام رکوردها</option>
+                                    <option value="0" data-bind="text:translate('100 رکورد')"></option>
+                                    <option value="3" data-bind="text:translate('تمام رکوردها')"></option>
                                 </select>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <select id="modeCodeMove"><option value="0" selected>سند حسابداری</option></select>
+                    <select id="modeCodeMove"><option value="0" selected data-bind="text:translate('سند حسابداری')"></option></select>
                 </div>
             </div>
 
@@ -210,7 +210,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleFinalSave">حذف سند حسابداری</h4>
+                <h4 id="titleFinalSave" data-bind="text:translate('حذف سند حسابداری')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">

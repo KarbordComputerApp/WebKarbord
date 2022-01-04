@@ -150,8 +150,8 @@
                             <label data-bind="text:translate('نمایش')"></label>
                             <div>
                                 <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-                                    <option value="0">100 رکورد آخر</option>
-                                    <option value="3">تمام رکوردها</option>
+                                    <option value="0" data-bind="text:translate('100 رکورد')"></option>
+                                    <option value="3" data-bind="text:translate('تمام رکوردها')"></option>
                                 </select>
                             </div>
                         </div>

@@ -260,15 +260,15 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        textSort = '100 رکورد  آخر به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد آخر به ترتیب');
                     else
-                        textSort = '100 رکورد اول به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد اول به ترتیب');
 
                     opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
                 }
                 if (i == 2) {
                     opt.value = 3;
-                    opt.innerHTML = 'تمام رکوردها';
+                    opt.innerHTML = translate('تمام رکوردها');
                 }
                 select.appendChild(opt);
             }
@@ -318,12 +318,12 @@
     $("#status").change(function () {
 
         selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == 'تایید') {
+        if (accessTaeed == false && selectStatus == translate('تایید')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی تایید ندارید'), 0);
         }
 
-        if (accessDaem == false && selectStatus == 'دائم') {
+        if (accessDaem == false && selectStatus == translate('دائم')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی دائم ندارید'), 0);
         }
@@ -335,8 +335,8 @@
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad(ace, sal,"SanadHesab", serial, true, item.DocNo) == true) {
-           // showNotification('سند در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "SanadHesab", serial, true, item.DocNo) == true) {
+            // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
             var closedDate = false;
@@ -365,11 +365,11 @@
     }
 
     $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
-        RemoveUseSanad(ace, sal,"SanadHesab", serial);
+        RemoveUseSanad(ace, sal, "SanadHesab", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"SanadHesab", serial);
+        RemoveUseSanad(ace, sal, "SanadHesab", serial);
     };
 
 
@@ -381,7 +381,7 @@
             Status: self.StatusSanad(),
         };
         $('#modal-ChangeStatusSanad').modal('hide');
-        showNotification('در حال تغییر وضعیت لطفا منتظر بمانید', 1);
+        showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
 
         ajaxFunction(AChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
@@ -803,7 +803,7 @@
     $('#AddNewSanad').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = localStorage.getItem("userName");
-        sessionStorage.Status = 'موقت';
+        sessionStorage.Status = translate('موقت');
         sessionStorage.F01 = "";
         sessionStorage.F02 = "";
         sessionStorage.F03 = "";
@@ -829,8 +829,8 @@
 
 
     self.DeleteSanad = function (SanadBand) {
-        if (TestUseSanad(ace, sal,"SanadHesab", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
-           // showNotification('سند در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "SanadHesab", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
+            // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
             Swal.fire({
@@ -952,7 +952,7 @@
             currentPage = self.currentPageIndexADocH();
             getADocH($('#pageCountSelector').val(), false);
             self.currentPageIndexADocH(currentPage);
-            showNotification('سند حذف شد ', 1);
+            showNotification(translate('سند حذف شد'), 1);
         });
     }
 
@@ -965,8 +965,8 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad(ace, sal,"SanadHesab", item.SerialNumber, true, item.DocNo) == true) {
-           // showNotification('سند در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "SanadHesab", item.SerialNumber, true, item.DocNo) == true) {
+            // showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
             sessionStorage.flagupdateHeader = 1;
@@ -1007,7 +1007,7 @@
         }
     }
 
-   // localStorage.setItem("listSanadHesabUse", "0");
+    // localStorage.setItem("listSanadHesabUse", "0");
 
 
 
@@ -1071,8 +1071,8 @@
 
             var data = response[0];
 
-            if (TestUseSanad(ace, sal,"SanadHesab", data.SerialNumber, true, data.DocNo) == true) {
-               // showNotification('سند در تب دیگری وجود دارد', 0)
+            if (TestUseSanad(ace, sal, "SanadHesab", data.SerialNumber, true, data.DocNo) == true) {
+                // showNotification('سند در تب دیگری وجود دارد', 0)
             }
             else {
                 sessionStorage.flagupdateHeader = 1;
@@ -1276,14 +1276,14 @@
             '    <li>' +
             '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            کپی' +
+            translate('کپی') +
             '        </a>' +
             '    </li>' +
 
             '    <li>' +
             '        <a id="ChangeStatusSanad" data-bind="click: $root.ChangeStatusSanad" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            تغییر وضعیت' +
+            translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
 
@@ -1292,7 +1292,7 @@
                 '    <li>' +
                 '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-                '            چاپ ' +
+                translate('چاپ') +
                 '        </a>' +
                 '    </li>';
         }
@@ -1622,7 +1622,7 @@
     self.MoveSanad = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-        $('#titleMove').text(' کپی سند حسابداری ' + item.DocNo + ' در ');
+        $('#titleMove').text(translate('کپی سند حسابداری') + ' ' + item.DocNo + ' ' + translate('در'));
         $('#modal-Move').modal();
     }
 
@@ -1664,7 +1664,7 @@
             };
 
             $('#modal-Move').modal('hide');
-            showNotification('در حال ایجاد لطفا منتظر بمانید', 1);
+            showNotification(translate('در حال ایجاد لطفا منتظر بمانید'), 1);
             ajaxFunction(AMoveSanadUri + ace + '/' + sal + '/' + group, 'POST', MoveObject).done(function (response) {
                 item = response;
                 item = item[0];

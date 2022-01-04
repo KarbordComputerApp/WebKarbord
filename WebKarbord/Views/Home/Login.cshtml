@@ -11,11 +11,10 @@
             </div>
 
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                <img src="~/Content/img/Login/LogoLogin.png" style="padding: 35% 20% 0% 20%; max-width:100%" />
+                <img id="LogoLogin" src="~/Content/img/Login/LogoLogin.png" style="padding: 35% 20% 0% 20%; max-width:100%" />
                 <div style="padding: 35% 20% 0% 20%;">
-                    <p style="color: #fefefe;">
-                        کلیه حقوق این نرم افزار متعلق به شرکت مهندسی کاربرد
-                        کامپیوتر بوده و هر گونه نسخه برداری پیگرد قانونی دارد
+                    <p style="color: #fefefe;" data-bind="text:translate('کلیه حقوق این نرم افزار متعلق به شرکت مهندسی کاربرد کامپیوتر بوده و هر گونه نسخه برداری پیگرد قانونی دارد')" >
+                        
                     </p>
                 </div>
             </div>
@@ -35,7 +34,7 @@
                     <div class="col-sm-12">
                         <div class="form-group form-float ">
                             <div class="form-line focused fix">
-                                <input type="text" id="user" class="form-control" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl; color: #f3f4f3;" placeholder="نام کاربری" />
+                                <input type="text" id="user" class="form-control" data-bind="attr:{placeholder:translate('نام کاربری')}" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl; color: #f3f4f3;" />
                                 <img class="form-label" src="~/Content/img/Login/streamline-icon-single-man@48x48.png" width="16" height="16" />
                             </div>
                         </div>
@@ -44,7 +43,7 @@
                     <div class="col-sm-12">
                         <div class="form-group form-float">
                             <div class="form-line focused fix">
-                                <input type="password" id="pass" class="form-control" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl; color: #f3f4f3;" placeholder="کلمه عبور" />
+                                <input type="password" id="pass" class="form-control" data-bind="attr:{placeholder:translate('کلمه عبور')}" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl; color: #f3f4f3;"  />
                                 <img class="form-label" src="~/Content/img/Login/streamline-icon-lock-5@48x48.png" width="16" height="16" />
                             </div>
                         </div>
@@ -54,7 +53,7 @@
                     <br />
 
                     <div class="form-group btn-container">
-                        <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginUser" id="Login" style="background-color: #eb8121 !important;">ورود</button>
+                        <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginUser , text:translate('ورود')" id="Login" style="background-color: #eb8121 !important;"></button>
                     </div>
 
                     <div class="form-group" style="padding-top:100px;text-align: center;">
@@ -62,7 +61,7 @@
                         <a class="col-md-12" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-service" style="color: #fdfdfd;">
 
                             <img src="~/Content/img/Login/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
-                            تنظیمات اتصال به وب
+                           <span data-bind="text:translate('تنظیمات اتصال به وب')"></span> 
                         </a>
                     </div>
                 </div>
@@ -81,7 +80,7 @@
             <div class="modal-body">
 
                 <div>
-                    <h5 class="" style="text-align: center; padding: 25px;">تنظیمات اتصال به وب</h5>
+                    <h5 class="" style="text-align: center; padding: 25px;" data-bind="text:translate('تنظیمات اتصال به وب')"></h5>
                 </div>
                 <br />
                 <br />
@@ -92,7 +91,7 @@
                                                                 background-color: white;
                                                                 box-shadow: 5px 5px 20px 1px #4048524f;">
                         <div class="form-line">
-                            <input type="text" id="userAccount" class="form-control login" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl;" placeholder="نام مجوز ورود" />
+                            <input type="text" id="userAccount" class="form-control login" data-bind="attr:{placeholder:translate('نام مجوز ورود')}" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl;" />
                             <img class="form-label" src="~/Content/img/Login/streamline-icon-single-man@48x48.png" width="16" height="16" />
                         </div>
                     </div>
@@ -105,7 +104,7 @@
                                                                 background-color: white;
                                                                 box-shadow: 5px 5px 20px 1px #4048524f;">
                         <div class="form-line">
-                            <input type="password" id="passAccount" class="form-control login" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl;" placeholder="کلمه عبور" />
+                            <input type="password" id="passAccount" data-bind="attr:{placeholder:translate('کلمه عبور')}" class="form-control login" style="border-bottom: 1px solid #ec8121;text-indent: 20px;direction: rtl;" placeholder="" />
                             <img class="form-label" src="~/Content/img/Login/streamline-icon-lock-5@48x48.png" width="16" height="16" />
                         </div>
                     </div>
@@ -114,7 +113,7 @@
 
             <div class="modal-footer">
                 <div class="form-group btn-container" style="padding: 20px;">
-                    <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginAccount" id="ConnectAccount" style="background-color: #eb8121 !important; margin-left:0px;">اتصال</button>
+                    <button type="button" class="btn btn-primary btn-block" data-bind="click:LoginAccount,text:translate('اتصال')" id="ConnectAccount" style="background-color: #eb8121 !important; margin-left:0px;"></button>
                 </div>
             </div>
         </div>
@@ -143,23 +142,23 @@
                     <table class="table" style="text-align: start;">
                         <tbody>
                             <tr>
-                                <th style="width:50%">ای پی</th>
+                                <th style="width:50%"data-bind="text:translate('ای پی')"></th>
                                 <td id="param_ipw" style="direction:ltr"></td>
                             </tr>
                             <tr>
-                                <th>تاریخ ورود</th>
+                                <th data-bind="text:translate('تاریخ ورود')" ></th>
                                 <td id="param_date" style="direction:ltr"></td>
                             </tr>
                             <tr>
-                                <th>ساعت ورود</th>
+                                <th data-bind="text:translate('ساعت ورود')"></th>
                                 <td id="param_time" style="direction:ltr"></td>
                             </tr>
                             <tr>
-                                <th>نام نرم افزار</th>
+                                <th data-bind="text:translate('نام نرم افزار')"></th>
                                 <td id="param_prog"></td>
                             </tr>
                             <tr>
-                                <th>نسخه نرم افزار</th>
+                                <th data-bind="text:translate('نسخه نرم افزار')"></th>
                                 <td id="param_ver" style="direction:ltr"></td>
                             </tr>
                             <!-- <tr>

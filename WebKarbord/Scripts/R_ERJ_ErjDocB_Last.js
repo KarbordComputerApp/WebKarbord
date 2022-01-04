@@ -2270,7 +2270,7 @@
             CreateTableTdSum('MhltDate', 1, data) +
             ' </tr>' +*/
             '  <tr style="background-color: #efb68399;">' +
-            '<td>جستجو</td>' +
+            '<td>' + translate('جستجو')+'</td>' +
             CreateTableTdSearch('RjStatus', data) +
             CreateTableTdSearch('RjDate', data) +
             CreateTableTdSearch('RjMhltDate', data) +

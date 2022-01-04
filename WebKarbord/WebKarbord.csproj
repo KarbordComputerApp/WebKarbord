@@ -195,6 +195,8 @@
     <Content Include="Content\img\list\download.png" />
     <Content Include="Content\img\Loading.png" />
     <Content Include="Content\img\loading.svg" />
+    <Content Include="Content\img\Login\LogoLogin_En.png" />
+    <Content Include="Content\img\Logo_En.jpg" />
     <Content Include="Content\img\mail.png" />
     <Content Include="Content\img\notificationErja.png" />
     <Content Include="Content\img\outline.svg" />

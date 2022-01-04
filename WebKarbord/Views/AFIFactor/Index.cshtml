@@ -85,8 +85,8 @@
                             <label data-bind="text:translate('نمایش')"></label>
                             <div>
                                 <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-                                    <option value="0">100 رکورد</option>
-                                    <option value="3">تمام رکوردها</option>
+                                    <option value="0" data-bind="text:translate('100 رکورد')"></option>
+                                    <option value="3" data-bind="text:translate('تمام رکوردها')"></option>
                                 </select>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <div class="input-group">
-                                        <input type="text" class="form-control int" id="docnumber" placeholder="شماره فاکتور" readonly> <span class="input-group-btn">
+                                        <input type="text" class="form-control int" id="docnumber"  data-bind="attr:{placeholder:translate('شماره فاکتور')}" readonly> <span class="input-group-btn">
                                             <button type="button" class="btn btn-info" id="btnfactor" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Factor">
                                                 <span class="glyphicon glyphicon-list-alt"></span>
                                             </button>
@@ -149,7 +149,7 @@
                     <a class="glyphicon glyphicon-refresh pull-left" id="refreshfactor"></a>
                 </div>
                 <div class="modal-body">
-                    <input data-bind="value: filterFDocH1, valueUpdate: 'afterkeydown'" id="searchFDocH1" class="form-control" placeholder="جستجو بر اساس همه موارد" />
+                    <input data-bind="value: filterFDocH1, valueUpdate: 'afterkeydown' , attr:{placeholder:translate('جستجو بر اساس همه موارد')}" id="searchFDocH1" class="form-control" />
                     <div class="col-sm-12">
                         <div class="checkbox">
                             <label>

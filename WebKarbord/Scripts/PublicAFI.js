@@ -44,7 +44,7 @@ else {
         localStorage.setItem('dict', a);
 
 
-       // a = '"{"en":{"تنظیمات نرم افزار": "Program Setting","نرم افزار سیستم جامع": "Comprehensive system software","نرم افزار مالی بازرگانی": "Commercial financial software","لطفا منتظر بمانید...": "Please Wait ...","خوش آمدید": "Welcome","نمایش": "the show","رکورد در هر صفحه": "Record per page","تعداد کل رکورد ها": "Total number of records"," = تعداد کل رکورد ها": "Total number of records = ","لیست کالا ها": "List of Product","لیست حساب ها": "List of accounts","تنظیم ستون ها": "Adjust columns","ردیف": "Row","نام ستون": "Column name","انتخاب همه": "Select all","پیش فرض": "Assumption","تایید": "Confirmation","کالا": "Product","کد": "Code","نام": "Name","شماره فنی": "Technical number","ملاحظات": "considerations","گروه کالا": "Product group","واحد": "unit","دقت اعشار": "Decimal accuracy","مقدار بر حسب واحد اصلی": "Value in terms of main unit","مقدار": "amount","ریال": "Rials","ذخیره": "Save","لیست گروه کالا": "Commodity group list","مشخصات اضافی": "Additional specifications","بازگشت": "back","حذف کالا": "Remove Product","هشدار :": "Warning :","خطا :": "Error :","حذف": "Delete","مورد": "Item","تایید به روز رسانی": "Confirm update","بله": "Yes","خیر": "No","تایید حذف": "Confirm deletion","لیست خریداران/فروشندگان": "List of buyers/sellers","ارجاع": "Reference","گروه را انتخاب کنید": "Select a group","سال را انتخاب کنید": "Select the year","باز شدن صفحات در برگ نشان (Tab) فعلی": "Opening pages in the current badge tab","باز شدن صفحات در برگ نشان (Tab) جدید": "Opening pages in the new badge tab","ورود": "log in","خروج": "Exit","ثبت نهایی": "Final registration","ثبت": "Record","انصراف": "Cancel","ثبت ارجاع": "Referral registration","همان افراد قبل": "The same people as before","ارسال": "submit","گزارش گیری": "reporting","پیوست": "the attachment","شرکت": "Company","نرم افزار": "software","گروه": "group","سال": "Year","بازسازی بانک اطلاعاتی": "Database reconstruction","تایید نهایی": "Final approval","در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟": "Other users will be disrupted while rebuilding. Will the reconstruction be doneی","بازسازی اطلاعات سیستم": "System information reconstruction","آیا اطلاعات بازسازی شود ؟": "Will the information be reconstructedی","اطلاعات پایه": "Basic Information","کالاها": "Products","خریداران/فروشندگان": "buyers/sellers","حساب ها": "accounts","حساب": "account","اسناد حسابداری": "accounting documents","سند حسابداری": "Accounting document","اسناد خرید و فروش": "Sales documents","سفارش فروش": "Sales order","پیش فاکتور فروش": "Pre-sales invoice","فاکتور فروش": "Sales Invoice","برگشت از فروش": "Return on sales","حواله فروش": "Remittance sale","برگه خروج": "Exit tab","سفارش خرید": "Purchase order","پیش فاکتور خرید": "Pre-purchase invoice","فاکتور خرید": "Purchase Invoice","برگشت از خرید": "Return from purchase","اسناد انبار": "Warehouse documents","اسناد وارده به انبار": "Documents received in the warehouse","اسناد صادره از انبار": "Documents issued from the warehouse","اسناد اتوماسیون": "Automation documents","پرونده": "File","ارجاعات پرونده دریافتی": "Received file references","ارجاعات پرونده ارسالی": "Submitted file references","گزارشات حسابداری": "Accounting Reports","تراز حساب": "Account balance","دفتر حساب": "Accounting book","دفتر روزنامه": "Newspaper Office","صورت خلاصه چک ها": "Summary form of checks","گزارشات خرید و فروش": "Sales reports","تراز فروش کالاها": "Commodity sales balance","تراز خرید کالاها": "Balance of goods purchases","تراز فروش به خریداران": "Sales balance to buyers","تراز خرید از فروشندگان": "Purchase balance from sellers","ریز گردش اسناد فروش": "Circulation of sales documents","ریز گردش اسناد خرید": "Circulation of purchase documents","گزارشات انبار": "Warehouse reports","کاردکس کالا": "Cardex Commodity","موجودی کالا": "Inventory","موجودی کالا به تفکیک ویژگی": "Inventory by feature","ریز گردش اسناد انبارداری": "Micro-circulation of warehousing documents","گزارشات اتوماسیون اداری": "Office Automation Reports","فهرست پرونده ها": "List of files","لیست ارجاعات پرونده ها": "List of file references","از تاریخ": "From Date","تا تاریخ": "To Date","از شماره": "From number","تا شماره": "To number","نوع سند": "type of Document","وضعیت سند": "Document status","پروژه": "Project","مرکز هزینه": "cost center","جستجو برای": "looking for","مشتری": "Customer","وضعیت": "status","همه موارد": "all items","چاپ": "Print","نرخ": "rate","نام لاتین": "Latin name","گروه حساب ها": "Account group","سررسید نامه": "Letter maturity","هیچکدام": "None","اسناد پرداختنی": "Payable documents","اسناد دریافتنی": "Receivable documents","ماهیت": "Nature","بدهکار": "Debtor","بستانکار": "Creditor","فعال": "active","غیر فعال": "Inactive","پست الکترونیکی": "Email","موبایل": "Mobile","بدون سطح بعدی هنگام ثبت سند": "No next level when registering a document","دارای سطح بعدی هنگام ثبت سند": "Has the next level when registering the document","گروه زیر حساب ها": "Subgroups of accounts","بدون ارز": "No currency","بدون مرکز هزینه": "No cost center","دارای مرکز هزینه": "Has a cost center","بدون پروژه": "No project","دارای پروژه": "Has a project","بدون مقدار": "No amount","دارای مقدار": "Has a value","لیست گروه حساب ها": "List of group accounts","لیست گروه زیر حساب ها": "List of sub-accounts","حذف حساب": "Delete account","رکورد": "Record","خریدار/فروشنده": "Buyer / seller","گروه خریداران/فروشندگان": "Buyers / Sellers Group","کد ملی": "National Code","کد اقتصادی": "Economic code","اعتبار سالانه": "Annual credit","اعتبار چکی": "Czech credit","استان": "State","شهرستان": "City","منطقه": "Region","شهر": "City","خیابان": "Street","کوچه": "Alley","پلاک": "Plaque","کد پستی": "Postal code","تلفن": "Phone","فاکس": "fax","لیست پروژه": "Project list","لیست مرکز هزینه": "Cost center list","لیست نوع سند": "Document type list","لیست وضعیت سند": "Document status list","نمایش بند ها": "Show paragraphs","نقل از قبل": "Show paragraphs","نوع نمایش": "Show type","لیست انبارها": "List of warehouses","لیست کالاها": "List of Products","لیست تحویل دهنده/گیرنده": "Supplier / Recipient List","ویژگی کالا": "Product characteristics","به روز رسانی شود ؟": "Update ?","لیست": "list","لیست گروه خریداران/فروشندگان": "List of buyers / sellers","لیست پروژه ها ": "List of projects","لیست مراکز هزینه ": "List of cost centers","لیست ویزیتورها ": "List of visitors","لیست خریداران": "List of buyers","لیست فروشندگان": "List of sellers","لیست اسناد": "List of documents","لیست طرف حساب ها": "List of side accounts","لیست ارز": "Currency list","لیست بانک": "Bank list","لیست شعبه": "Branch list","لیست جاری": "Current list","لیست چک ها": "Checklist","لیست اعلامیه ها": "List of announcements","لیست ارجاعات": "Reference list","لیست پیوست ها": "List of attachments","لیست کاربران": "List of users","لیست فرایندها": "List of processes","لیست نوع کار ها": "To -do list","لیست وضعیت": "Status list","لیست انواع سند": "List of document types","لیست وضعیت چک": "Check status list","لیست گروه فروشندگان": "List of vendors","لیست بندها": "List of clauses","سند به شماره": "Document to number","((برای ثبت تغییرات کلید ثبت نهایی را بزنید))": "((Press the final registration key to record changes)) ","سطر جدید": "New line","تفاوت بدهکار / بستانکار": "Debtor / creditor difference","زیر حساب": "Sub - account","ارز": "currency","شماره چک": "check number","شعبه": "Branch","بانک": "Bank","جاری": "Current","مبلغ": "مبلغ","وضعیت چک": "Check status","طرف حساب": "Account side","ردیف چک": "Row check","توضیحات چک": "Description of the check","تاریخ وصول چک": "Date of receipt of the check","آیا بند حذف شود": "Do not delete the paragraph","انتخاب": "Selection","لیست چک": "Checklist","ذخیره حسابداری": "Save accounting","ثبت جدید": "New registration","":""},"ar": { }}"';
+        // a = '"{"en":{"تنظیمات نرم افزار": "Program Setting","نرم افزار سیستم جامع": "Comprehensive system software","نرم افزار مالی بازرگانی": "Commercial financial software","لطفا منتظر بمانید...": "Please Wait ...","خوش آمدید": "Welcome","نمایش": "the show","رکورد در هر صفحه": "Record per page","تعداد کل رکورد ها": "Total number of records"," = تعداد کل رکورد ها": "Total number of records = ","لیست کالا ها": "List of Product","لیست حساب ها": "List of accounts","تنظیم ستون ها": "Adjust columns","ردیف": "Row","نام ستون": "Column name","انتخاب همه": "Select all","پیش فرض": "Assumption","تایید": "Confirmation","کالا": "Product","کد": "Code","نام": "Name","شماره فنی": "Technical number","ملاحظات": "considerations","گروه کالا": "Product group","واحد": "unit","دقت اعشار": "Decimal accuracy","مقدار بر حسب واحد اصلی": "Value in terms of main unit","مقدار": "amount","ریال": "Rials","ذخیره": "Save","لیست گروه کالا": "Commodity group list","مشخصات اضافی": "Additional specifications","بازگشت": "back","حذف کالا": "Remove Product","هشدار :": "Warning :","خطا :": "Error :","حذف": "Delete","مورد": "Item","تایید به روز رسانی": "Confirm update","بله": "Yes","خیر": "No","تایید حذف": "Confirm deletion","لیست خریداران/فروشندگان": "List of buyers/sellers","ارجاع": "Reference","گروه را انتخاب کنید": "Select a group","سال را انتخاب کنید": "Select the year","باز شدن صفحات در برگ نشان (Tab) فعلی": "Opening pages in the current badge tab","باز شدن صفحات در برگ نشان (Tab) جدید": "Opening pages in the new badge tab","ورود": "log in","خروج": "Exit","ثبت نهایی": "Final registration","ثبت": "Record","انصراف": "Cancel","ثبت ارجاع": "Referral registration","همان افراد قبل": "The same people as before","ارسال": "submit","گزارش گیری": "reporting","پیوست": "the attachment","شرکت": "Company","نرم افزار": "software","گروه": "group","سال": "Year","بازسازی بانک اطلاعاتی": "Database reconstruction","تایید نهایی": "Final approval","در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟": "Other users will be disrupted while rebuilding. Will the reconstruction be doneی","بازسازی اطلاعات سیستم": "System information reconstruction","آیا اطلاعات بازسازی شود ؟": "Will the information be reconstructedی","اطلاعات پایه": "Basic Information","کالاها": "Products","خریداران/فروشندگان": "buyers/sellers","حساب ها": "accounts","حساب": "account","اسناد حسابداری": "accounting documents","سند حسابداری": "Accounting document","اسناد خرید و فروش": "Sales documents","سفارش فروش": "Sales order","پیش فاکتور فروش": "Pre-sales invoice","فاکتور فروش": "Sales Invoice","برگشت از فروش": "Return on sales","حواله فروش": "Remittance sale","برگه خروج": "Exit tab","سفارش خرید": "Purchase order","پیش فاکتور خرید": "Pre-purchase invoice","فاکتور خرید": "Purchase Invoice","برگشت از خرید": "Return from purchase","اسناد انبار": "Warehouse documents","اسناد وارده به انبار": "Documents received in the warehouse","اسناد صادره از انبار": "Documents issued from the warehouse","اسناد اتوماسیون": "Automation documents","پرونده": "File","ارجاعات پرونده دریافتی": "Received file references","ارجاعات پرونده ارسالی": "Submitted file references","گزارشات حسابداری": "Accounting Reports","تراز حساب": "Account balance","دفتر حساب": "Accounting book","دفتر روزنامه": "Newspaper Office","صورت خلاصه چک ها": "Summary form of checks","گزارشات خرید و فروش": "Sales reports","تراز فروش کالاها": "Commodity sales balance","تراز خرید کالاها": "Balance of goods purchases","تراز فروش به خریداران": "Sales balance to buyers","تراز خرید از فروشندگان": "Purchase balance from sellers","ریز گردش اسناد فروش": "Circulation of sales documents","ریز گردش اسناد خرید": "Circulation of purchase documents","گزارشات انبار": "Warehouse reports","کاردکس کالا": "Cardex Commodity","موجودی کالا": "Inventory","موجودی کالا به تفکیک ویژگی": "Inventory by feature","ریز گردش اسناد انبارداری": "Micro-circulation of warehousing documents","گزارشات اتوماسیون اداری": "Office Automation Reports","فهرست پرونده ها": "List of files","لیست ارجاعات پرونده ها": "List of file references","از تاریخ": "From Date","تا تاریخ": "To Date","از شماره": "From number","تا شماره": "To number","نوع سند": "type of Document","وضعیت سند": "Document status","پروژه": "Project","مرکز هزینه": "cost center","جستجو برای": "looking for","مشتری": "Customer","وضعیت": "status","همه موارد": "all items","چاپ": "Print","نرخ": "rate","نام لاتین": "Latin name","گروه حساب ها": "Account group","سررسید نامه": "Letter maturity","هیچکدام": "None","اسناد پرداختنی": "Payable documents","اسناد دریافتنی": "Receivable documents","ماهیت": "Nature","بدهکار": "Debtor","بستانکار": "Creditor","فعال": "active","غیر فعال": "Inactive","پست الکترونیکی": "Email","موبایل": "Mobile","بدون سطح بعدی هنگام ثبت سند": "No next level when registering a document","دارای سطح بعدی هنگام ثبت سند": "Has the next level when registering the document","گروه زیر حساب ها": "Subgroups of accounts","بدون ارز": "No currency","بدون مرکز هزینه": "No cost center","دارای مرکز هزینه": "Has a cost center","بدون پروژه": "No project","دارای پروژه": "Has a project","بدون مقدار": "No amount","دارای مقدار": "Has a value","لیست گروه حساب ها": "List of group accounts","لیست گروه زیر حساب ها": "List of sub-accounts","حذف حساب": "Delete account","رکورد": "Record","خریدار/فروشنده": "Buyer / seller","گروه خریداران/فروشندگان": "Buyers / Sellers Group","کد ملی": "National Code","کد اقتصادی": "Economic code","اعتبار سالانه": "Annual credit","اعتبار چکی": "Czech credit","استان": "State","شهرستان": "City","منطقه": "Region","شهر": "City","خیابان": "Street","کوچه": "Alley","پلاک": "Plaque","کد پستی": "Postal code","تلفن": "Phone","فاکس": "fax","لیست پروژه": "Project list","لیست مرکز هزینه": "Cost center list","لیست نوع سند": "Document type list","لیست وضعیت سند": "Document status list","نمایش بند ها": "Show paragraphs","نقل از قبل": "Show paragraphs","نوع نمایش": "Show type","لیست انبارها": "List of warehouses","لیست کالاها": "List of Products","لیست تحویل دهنده/گیرنده": "Supplier / Recipient List","ویژگی کالا": "Product characteristics","به روز رسانی شود ؟": "Update ?","لیست": "list","لیست گروه خریداران/فروشندگان": "List of buyers / sellers","لیست پروژه ها ": "List of projects","لیست مراکز هزینه ": "List of cost centers","لیست ویزیتورها ": "List of visitors","لیست خریداران": "List of buyers","لیست فروشندگان": "List of sellers","لیست اسناد": "List of documents","لیست طرف حساب ها": "List of side accounts","لیست ارز": "Currency list","لیست بانک": "Bank list","لیست شعبه": "Branch list","لیست جاری": "Current list","لیست چک ها": "Checklist","لیست اعلامیه ها": "List of announcements","لیست ارجاعات": "Reference list","لیست پیوست ها": "List of attachments","لیست کاربران": "List of users","لیست فرایندها": "List of processes","لیست نوع کار ها": "To -do list","لیست وضعیت": "Status list","لیست انواع سند": "List of document types","لیست وضعیت چک": "Check status list","لیست گروه فروشندگان": "List of vendors","لیست بندها": "List of clauses","سند به شماره": "Document to number","((برای ثبت تغییرات کلید ثبت نهایی را بزنید))": "((Press the final registration key to record changes)) ","سطر جدید": "New line","تفاوت بدهکار / بستانکار": "Debtor / creditor difference","زیر حساب": "Sub - account","ارز": "currency","شماره چک": "check number","شعبه": "Branch","بانک": "Bank","جاری": "Current","مبلغ": "مبلغ","وضعیت چک": "Check status","طرف حساب": "Account side","ردیف چک": "Row check","توضیحات چک": "Description of the check","تاریخ وصول چک": "Date of receipt of the check","آیا بند حذف شود": "Do not delete the paragraph","انتخاب": "Selection","لیست چک": "Checklist","ذخیره حسابداری": "Save accounting","ثبت جدید": "New registration","":""},"ar": { }}"';
 
         dict = JSON.parse(a);
     });
@@ -70,6 +70,9 @@ var dict =
 var lang = 'en';
 var dir_lang = 'ltr'
 
+//lang = 'fa';
+
+//dir_lang = 'rtl';
 
 var mes_Refresh = translate('تایید به روز رسانی');
 var mes_Delete = translate('تایید حذف');
@@ -167,7 +170,11 @@ if (lang == 'en') {
     $(".nextPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-back.png");
     $(".previousPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-next.png");
     $(".lastPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-first.png");
+
     $(".firstPage-img").attr("src", "/Content/img/list/streamline-icon-navigation-last.png");
+
+    $("#logoMenu").attr("src", "/Content/img/Logo_En.jpg");
+    $("#LogoLogin").attr("src", "/Content/img/Login/LogoLogin_En.png");
 
     /* if ($('img[src="/Content/img/list/streamline-icon-navigation-first.png"]').length > 0) {
         $('img[src="/Content/img/list/streamline-icon-navigation-first.png"]').attr("src", "temp1001");
@@ -201,6 +208,10 @@ if (lang == 'en') {
     $(".tableFix").removeClass("tableFix");
 
     $("select").css({ "font-family": "sans-serif" });
+    
+    $("#titleVerNumber").css({ "font-family": "sans-serif" });
+    $("#titleVer").css({ "font-family": "sans-serif" });
+
 }
 
 
@@ -589,7 +600,7 @@ $("#refreshStatement").on("click", function () {
     //}
     //localStorage.removeItem('Statement_ListNew');
     $("#p_Statement").hide();
-    showNotification('برای اعمال تغییرات مرورگر را رفرش کنید', 1)
+    showNotification(translate('برای اعمال تغییرات مرورگر را رفرش کنید'), 1)
 });
 
 
@@ -798,14 +809,55 @@ var erjAccessApi;
 var erjGroupApi;
 
 
+afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-//access = JSON.parse(localStorage.getItem("Access"));
+
+
 tempAccess = localStorage.getItem("afi1Access");
-if (tempAccess == "null" || tempAccess == "" || tempAccess == null) {
-    afiAccessApi = localStorage.getItem('afi8Access').split("*")
-}
-else {
-    afiAccessApi = localStorage.getItem('afi1Access').split("*")
+if (ace != 'Web2') {
+    if (tempAccess == "null" || tempAccess == "" || tempAccess == null) {
+        afiAccessApi = localStorage.getItem('afi8Access').split("*")
+    }
+    else {
+        afiAccessApi = localStorage.getItem('afi1Access').split("*")
+    }
+
+
+    for (var i = 0; i <= 29; i++) {
+        afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
+        afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
+        afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
+        afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
+        afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
+        afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
+
+        afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
+        afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
+        afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
+        afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
+        afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
+        afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
+        afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
+        afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
+        afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
+        afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
+        afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
+        afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
+        afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
+        afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
+        afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
+        afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
+        afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
+        afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
+        afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
+        afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
+        afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
+        afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
+        afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
+        afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+    }
+
 }
 
 
@@ -816,43 +868,6 @@ if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess
 
 
 
-afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-
-
-for (var i = 0; i <= 29; i++) {
-    afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
-    afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
-    afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
-    afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
-    afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
-    afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
-
-    afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
-    afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-    afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
-    afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
-    afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-    afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
-    afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
-    afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
-    afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
-    afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
-    afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
-    afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
-    afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
-    afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
-    afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-    afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-    afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
-    afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
-    afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-    afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-    afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
-    afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
-    afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
-    afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
-}
 
 function CheckGroupErj(GroupName) {
     if (GroupName == '') {
@@ -1001,7 +1016,7 @@ function ajaxFunctionAccount(uri, method, sync, data) {
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
+        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
     });
 }
 
@@ -1054,7 +1069,7 @@ function ajaxFunction(uri, method, data, sync) {
         data: data ? JSON.stringify(data) : null
         //data: data ? data : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
+        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
         // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
     });
 }
@@ -1071,7 +1086,7 @@ function ajaxFunctionOther(uri, method, data) {
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        showNotification('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید' + '</br>' + textStatus + ' : ' + errorThrown, 3);
+        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
     });
 }
 
@@ -1190,23 +1205,23 @@ function SetSelectProgram() {
     //group = group.length == 1 ? "0" + group : group;
 
     if (server == '' || server == null) {
-        showNotification('دوباره لاگین کنید', 0);
+        showNotification(translate('دوباره لاگین کنید'), 0);
         //Swal.fire({ type: 'info', title: 'خطا در ورود به نرم افزار', text: 'دوباره لاگین کنید' });
         return false;
     }
 
     if (ace == '0' || ace == null) {
-        showNotification('نرم افزار را انتخاب کنید', 0);
+        showNotification(translate('نرم افزار را انتخاب کنید'), 0);
         //Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'نرم افزار را انتخاب کنید' });
         return false;
     }
     if (group == '0' || group == null) {
-        showNotification('گروه را انتخاب کنید', 0);
+        showNotification(translate('گروه را انتخاب کنید'), 0);
         //Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'گروه را انتخاب کنید' });
         return false;
     }
     if (sal == '0' || sal == null) {
-        showNotification('سال را انتخاب کنید', 0);
+        showNotification(translate('سال را انتخاب کنید'), 0);
         //Swal.fire({ type: 'info', title: 'خطا در ورود اطلاعات', text: 'سال را انتخاب کنید' });
         return false;
     }
@@ -1229,7 +1244,7 @@ function SetSelectProgram() {
         return true;
     } catch (e) {
         $('#SaveParam').removeAttr('disabled');
-        showNotification(' خطای ورود ' + e, 0);
+        showNotification(translate('خطای ورود') + ' ' + e, 0);
         //Swal.fire({ type: 'danger', title: 'خطای ورود', text: e });
         return false;
     }
@@ -1242,6 +1257,16 @@ function SetSelectProgram() {
 $("#SaveParam").click(function () {
     group = $("#DropGroup").val();
     sal = $("#DropSal").val();
+
+
+    if (sal == '0000')
+        ace = 'Web2'
+    else {
+        if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null')
+            ace = 'Web8';
+        else
+            ace = 'Web1'
+    }
 
     localStorage.setItem('ace', ace);
     localStorage.setItem('group', group);
@@ -1281,7 +1306,7 @@ $("#SaveParam").click(function () {
             }
             else {
                 if (ace == 'Web8') {
-                    return showNotification(translate('اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی') + ' ' + sal + ' ' + translate('برای تمام سیستم ها ایجاد کرده اید') +' ' + " <br /> <br />" + data, 0);
+                    return showNotification(translate('اشکال در ایجاد بانک اطلاعاتی . مطمئن باشید که سال مالی') + ' ' + sal + ' ' + translate('برای تمام سیستم ها ایجاد کرده اید') + ' ' + " <br /> <br />" + data, 0);
                 } else {
                     return showNotification(translate('اشکال در ایجاد بانک اطلاعاتی') + data, 0);
                 }
@@ -1619,7 +1644,7 @@ async function getParamList() {
                 sessionStorage.Move_PRFCT = SearchArry("MoveTo", "PRFCT", self.ParamList());
                 localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
             }
-            else {
+            else if (ace == 'Web1') {
                 sessionStorage.Move_SPFCT = SearchArry("MoveTo", "51", self.ParamList());
                 localStorage.setItem("Move_SPFCT", sessionStorage.Move_SPFCT);
                 sessionStorage.Move_SFCT = SearchArry("MoveTo", "52", self.ParamList());
@@ -1780,50 +1805,53 @@ function getAccessList(GoHome) {
 
 
 
-
-
-                if (ace == 'Web1') {
-                    afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = ''
-                }
-                else {
-                    afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = ''
-                }
-
                 afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-                for (var i = 0; i <= 29; i++) {
-                    afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
-                    afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
-                    afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
-                    afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
+                if (ace == 'Web2') {
+                    afiAccessApi = '';
+                }
+                else {
+                    if (ace == 'Web1') {
+                        afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = ''
+                    }
+                    else if (ace == 'Web8') {
+                        afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = ''
+                    }
 
-                    afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
-                    afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
-                    afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
-                    afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-                    afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
-                    afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
-                    afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-                    afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
-                    afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
-                    afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
-                    afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
-                    afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
-                    afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
-                    afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
-                    afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
-                    afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
-                    afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-                    afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-                    afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
-                    afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
-                    afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-                    afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-                    afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
-                    afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
-                    afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
-                    afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+                    for (var i = 0; i <= 29; i++) {
+                        afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
+                        afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
+                        afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
+                        afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
+
+                        afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
+                        afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
+                        afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
+                        afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
+                        afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
+                        afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
+                        afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
+                        afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
+                        afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
+                        afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
+                        afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
+                        afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
+                        afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
+                        afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
+                        afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
+                        afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
+                        afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
+                        afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
+                        afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
+                        afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
+                        afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
+                        afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
+                        afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
+                        afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
+                        afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
+                        afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+                    }
                 }
 
                 erjaccess = [false, false]
@@ -1943,13 +1971,13 @@ function SetValidation() {
     if (access[0].TrsName == 'ADMIN') {
         sessionStorage.UserAdmin = true;
         if (sessionStorage.userName == 'ACE')
-            $('#TextNoUser').text('مدیر سیستم');
+            $('#TextNoUser').text(translate('مدیر سیستم'));
         else
-            $('#TextNoUser').text('مدیر');
+            $('#TextNoUser').text(translate('مدیر'));
     }
     else {
         sessionStorage.UserAdmin = false;
-        $('#TextNoUser').text('کاربر');
+        $('#TextNoUser').text(translate('کاربر'));
     }
 
     $('#persionUserName').text(sessionStorage.userName);
@@ -3975,7 +4003,7 @@ function SetColumn(code, indexId, data, mode) {
     }
     else {
         $('#PanelColumns' + indexId).attr('hidden', '');
-        $('#TextColumns' + indexId).text('تعریف نشده');
+        $('#TextColumns' + indexId).text(translate('تعریف نشده'));
         $('#SettingColumns' + indexId).prop('checked', false);
         $('#RowColumns' + indexId).text(-1);
     }
@@ -3996,7 +4024,7 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
     }
 
     $('#modal-SettingColumn').modal('hide');
-    showNotification('در حال ذخیره تنظیمات ستون ها ...', 1);
+    showNotification(translate('در حال ذخیره تنظیمات ستون ها ...'), 1);
     ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
     });
     window.location.href = route;
@@ -4223,7 +4251,7 @@ function createDesigner() {
             SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
         }
         else {
-            alert('فرم های چاپ عمومی امکان تغییر را ندارند');
+            alert(translate('فرم های چاپ عمومی امکان تغییر را ندارند'));
         }
     }
 
@@ -4235,7 +4263,7 @@ function createDesigner() {
         TestSavePrintForm(sessionStorage.ModePrint, e.fileName);
 
         if (resTestSavePrintForm == "FindFile") {
-            alert("نام گزارش تکراری است و امکان ذخیره وجود ندارد");
+            alert(translate("نام گزارش تکراری است و امکان ذخیره وجود ندارد"));
         }
         else {
             SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
@@ -4442,7 +4470,7 @@ function SelectedAccessGhimatPrintForm(address, isPublic) {
     };
     ajaxFunction(SelectedAccessGhimatPrintFormUri + ace, 'POST', SelectedAccessGhimatPrintForm_Object).done(function (data) {
         if (data == "FindFile") {
-            showNotification('فایلی با نام مشابه وجود دارد و امکان تغییر نیست', 0);
+            showNotification(translate('فایلی با نام مشابه وجود دارد و امکان تغییر نیست'), 0);
         }
     });
 }
@@ -4552,7 +4580,7 @@ function fixedSize_JS(value, size) {
 
 function ViewSpec(Spec) {
     if (Spec.length > 15) {
-        $('#titleComm').text('ملاحظات');
+        $('#titleComm').text(translate('ملاحظات'));
         $('#modal-Comm').modal('show');
         $('#comm').val(Spec);
     }
@@ -4560,7 +4588,7 @@ function ViewSpec(Spec) {
 
 function ViewCustName(CustName) {
     if (CustName.length > 15) {
-        $('#titleComm').text('نام مشتری');
+        $('#titleComm').text(translate('نام مشتری'));
         $('#modal-Comm').modal('show');
         $('#comm').val(CustName);
     }
@@ -4569,40 +4597,41 @@ function ViewCustName(CustName) {
 AlertErja();
 setInterval(AlertErja, 60000);
 function AlertErja() {
+    if (erjGroupApi.includes(group) == true) {
+        if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null) {
 
-    if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null) {
+            var aceErj = 'Web2';
+            var salErj = '0000';
 
-        var aceErj = 'Web2';
-        var salErj = '0000';
+            var CountErjDocB_LastUri = server + '/api/Web_Data/Web_CountErjDocB_Last/';
 
-        var CountErjDocB_LastUri = server + '/api/Web_Data/Web_CountErjDocB_Last/';
-
-        var DocB_LastObject = {
-            erjaMode: '1',
-            docBMode: '5',
-            fromUserCode: '',
-            toUserCode: sessionStorage.userName,
-            azDocDate: '',
-            taDocDate: '',
-            azRjDate: '',
-            taRjDate: '',
-            azMhltDate: '',
-            taMhltDate: '',
-            status: 'فعال',
-            custCode: '',
-            khdtCode: '',
-            srchSt: '',
-        };
-        ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
-            count = parseInt(response);
-            if (count > 0) {
-                $("#notificationCount").text(count);
-                // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
-            }
-            else {
-                $("#notificationCount").text('');
-            }
-        });
+            var DocB_LastObject = {
+                erjaMode: '1',
+                docBMode: '5',
+                fromUserCode: '',
+                toUserCode: sessionStorage.userName,
+                azDocDate: '',
+                taDocDate: '',
+                azRjDate: '',
+                taRjDate: '',
+                azMhltDate: '',
+                taMhltDate: '',
+                status: 'فعال',
+                custCode: '',
+                khdtCode: '',
+                srchSt: '',
+            };
+            ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
+                count = parseInt(response);
+                if (count > 0) {
+                    $("#notificationCount").text(count);
+                    // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
+                }
+                else {
+                    $("#notificationCount").text('');
+                }
+            });
+        }
     }
 }
 
@@ -4696,23 +4725,23 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
 
 
     if (useWindows == true && userUse != sessionStorage.userName) {
-        showNotification('توسط ' + userUseName + ' درحال استفاده است', 0);
+        showNotification(translate('توسط') + ' ' + userUseName + ' ' + translate('درحال استفاده است'), 0);
         return true;
     }
     else {
         if (find == true) {
             switch (FormName) {
                 case "SanadHesab":
-                    showNotification('سند در تب دیگری وجود دارد', 0)
+                    showNotification(translate('سند در تب دیگری وجود دارد'), 0)
                     break;
                 case "Factor":
-                    showNotification('فاکتور در تب دیگری وجود دارد', 0)
+                    showNotification(translate('فاکتور در تب دیگری وجود دارد'), 0)
                     break;
                 case "SanadAnbar":
-                    showNotification('سند انبار در تب دیگری وجود دارد', 0)
+                    showNotification(translate('سند انبار در تب دیگری وجود دارد'), 0)
                     break;
                 case "ErjDocH":
-                    showNotification('پرونده در تب دیگری وجود دارد', 0)
+                    showNotification(translate('پرونده در تب دیگری وجود دارد'), 0)
                     break;
             }
             return true;

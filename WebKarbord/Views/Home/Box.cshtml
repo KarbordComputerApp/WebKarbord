@@ -95,7 +95,7 @@
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
-                                <td>جستجو</td>
+                                <td data-bind="text:translate('جستجو')"></td>
                                 <td></td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterBox0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterBox1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
@@ -153,8 +153,8 @@
                             <label data-bind="text:translate('نمایش')"></label>
                             <div>
                                 <select id="pageCountSelector" class="selectorange" data-bind="event:{ change: $root.PageCountView}">
-                                    <option value="0">100 رکورد آخر</option>
-                                    <option value="3">تمام رکوردها</option>
+                                    <option value="0" data-bind="text:translate('100 رکورد')"></option>
+                                    <option value="3" data-bind="text:translate('تمام رکوردها')"></option>
                                 </select>
                             </div>
                         </div>

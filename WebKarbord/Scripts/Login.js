@@ -170,7 +170,7 @@
                 } else if (localStorage.getItem('afi1List') != 'null' && localStorage.getItem('afi8List') == 'null') {
                     localStorage.setItem("ace", 'Web1');
                     sessionStorage.ace = 'Web1';
-                    progCaption = ' وب : مالی بازرگانی';
+                    progCaption = translate('وب : مالی بازرگانی');
 
                     groups = localStorage.getItem('afi1List');
 
@@ -202,7 +202,7 @@
                 else {
                     localStorage.setItem("ace", 'Web2');
                     sessionStorage.ace = 'Web2';
-                    progCaption = ' وب : اتوماسیون';
+                    progCaption = translate('وب : اتوماسیون');
                     groups = localStorage.getItem('erjList');
                     progName = "ERJ1"
                 }
@@ -267,7 +267,7 @@
                     else {
 
                         var ipW = datalogin.CompName.split("-");
-                        $('#title_dataUser').text('کاربر ' + sessionStorage.userNameFa + ' قبلا وارد سیستم شده است');
+                        $('#title_dataUser').text(translate('کاربر') + ' ' + sessionStorage.userNameFa + translate('قبلا وارد سیستم شده است'));
                         $('#param_ipw').text(ipW[1]);
                         $('#param_date').text(datalogin.LoginDate);
                         $('#param_time').text(datalogin.LoginTime);

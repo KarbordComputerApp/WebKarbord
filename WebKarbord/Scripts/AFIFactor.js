@@ -3962,7 +3962,7 @@
         }
 
         if (codeOpr == "!!!" || codeMkz == "!!!") {
-            showNotification($('#TitleHeaderFactor').text() + ' دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد', 0);
+            showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد'), 0);
         }
     }
 
@@ -4290,12 +4290,12 @@
 
                     if (amountAfterBarCode == '0') {
                         SetDataBarCode(DataKalaBarcode, 1);
-                        $('#TitleBarcode').text('بند جدید ایجاد شد');
+                        $('#TitleBarcode').text(translate('بند جدید ایجاد شد'));
                     }
                     else if (amountAfterBarCode == '1') {
                         $('#Barcode_Amount').val('');
                         $('#Barcode_Amount').focus();
-                        $('#TitleBarcode').text('مقدار را وارد کنید');
+                        $('#TitleBarcode').text(translate('مقدار را وارد کنید'));
                     }
                     else if (amountAfterBarCode == '2') {
 
@@ -4305,7 +4305,7 @@
                         });
                         if (tempData.length == 0) { // بند کالا وجود نداشت
                             SetDataBarCode(DataKalaBarcode, 1);
-                            $('#TitleBarcode').text('بند جدید ایجاد شد');
+                            $('#TitleBarcode').text(translate('بند جدید ایجاد شد'));
                         }
                         else {
                             dataBandKala = tempData[0];
@@ -4381,7 +4381,7 @@
                             };
                             SendFDocBU(FDocBObject);
                             if (acceptUpdate == true) {
-                                $('#TitleBarcode').text(' بند شماره ' + dataBandKala.BandNo + ' ویرایش شد ');
+                                $('#TitleBarcode').text(translate('بند شماره') + ' ' + dataBandKala.BandNo + ' ' + translate('ویرایش شد'));
                                 $('#Barcode_Value').val('');
                                 $('#Barcode_Value').focus();
                             }
@@ -4398,7 +4398,7 @@
             if (e.keyCode == 13) {
                 SetDataBarCode(DataKalaBarcode, parseFloat(amountB));
                 if (DataKalaBarcode != null) {
-                    $('#TitleBarcode').text('بند جدید ایجاد شد');
+                    $('#TitleBarcode').text(translate('بند جدید ایجاد شد'));
                 }
                 DataKalaBarcode = null;
                 $('#Barcode_Amount').val('');

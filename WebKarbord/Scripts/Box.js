@@ -209,7 +209,7 @@
 
                 ajaxFunction(DeleteBoxUri + '/' + lockNumber + '/' + item.id, 'GET', true).done(function (data) {
                     getBoxList();
-                    showNotification('اعلامیه حذف شد', 1);
+                    showNotification(translate('اعلامیه حذف شد'), 1);
                 });
             }
 
@@ -287,7 +287,7 @@
         ajaxFunction(AddBoxUri, 'POST', InsertBoxObject).done(function (data) {
             $('#modal-Box').modal('hide');
             getBoxList();
-            showNotification('اعلامیه ارسال شد', 1);
+            showNotification(translate('اعلامیه ارسال شد'), 1);
         });
 
 

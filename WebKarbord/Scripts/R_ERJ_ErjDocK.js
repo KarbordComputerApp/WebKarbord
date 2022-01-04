@@ -970,31 +970,31 @@
 
 
     self.ViewDocDesc = function (Band) {
-        $('#titleComm').text('توضیحات عمومی');
+        $('#titleComm').text(translate('توضیحات عمومی'));
         $('#modal-Comm').modal('show');
         $('#comm').val(Band.DocDesc);
     }
 
     self.ViewEghdamComm = function (Band) {
-        $('#titleComm').text('توضیحات اقدام کننده');
+        $('#titleComm').text(translate('توضیحات اقدام کننده'));
         $('#modal-Comm').modal('show');
         $('#comm').val(Band.EghdamComm);
     }
 
     self.ViewFinalComm = function (Band) {
-        $('#titleComm').text('توضیحات نهایی');
+        $('#titleComm').text(translate('توضیحات نهایی'));
         $('#modal-Comm').modal('show');
         $('#comm').val(Band.FinalComm);
     }
 
     self.ViewSpecialComm = function (Band) {
         if (Band.SpecialCommTrs == 1) {
-            $('#titleComm').text('توضیحات مدیران');
+            $('#titleComm').text(translate('توضیحات مدیران'));
             $('#modal-Comm').modal('show');
             $('#comm').val(Band.SpecialComm);
         }
         else {
-            showNotification(translate('دسترسی ندارید'), 0);
+            showNotification(translate('دسترسی ندارید')), 0);
         }
     }
 

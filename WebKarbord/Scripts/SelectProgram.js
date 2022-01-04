@@ -78,6 +78,17 @@
                     + value + '">'
                     + afiList[i].Code + " - " + afiList[i].Name + '</option>');
             }
+
+            if (sessionStorage.onlyGroupErj != '') {
+                onlyGroupErj = sessionStorage.onlyGroupErj.split('-');
+
+                for (var i = 0; i < onlyGroupErj.length; i++) {
+                    $("#DropGroup").append('<option value="'
+                        + onlyGroupErj[i] + '">'
+                        + onlyGroupErj[i] + " - " + "اتوماسیون" + '</option>');
+                }
+            }
+
         }
     }
 

@@ -75,7 +75,7 @@
 
     ClearSearch();
 
-    $('#titlePage').text("سند حسابداری جدید");
+    $('#titlePage').text(translate("سند حسابداری جدید"));
 
     $('#finalSave_Title').attr('hidden', '');
 
@@ -422,6 +422,7 @@
     //Get CheckCols List
     function getColsCheckList() {
         ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/CheckList/' + sessionStorage.userName, 'GET').done(function (data) {
+            data = TranslateData(data);
             CreateTableCheck(data);
         });
     }
@@ -487,12 +488,12 @@
     $("#status").change(function () {
 
         selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == 'تایید') {
+        if (accessTaeed == false && selectStatus == translate('تایید')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی تایید ندارید'), 0);
         }
 
-        if (accessDaem == false && selectStatus == 'دائم') {
+        if (accessDaem == false && selectStatus == translate('دائم')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی دائم ندارید'), 0);
         }
@@ -552,7 +553,7 @@
         flagOtherFieldShow = true;
 
 
-        $('#titlePage').text("سند حسابداری شماره " + sessionStorage.DocNo.toPersianDigit());
+        $('#titlePage').text(translate("سند حسابداری شماره") + ' ' + sessionStorage.DocNo.toPersianDigit());
 
         var TestADoc_EditObject = {
             Serialnumber: Serial
@@ -592,7 +593,7 @@
             totalArzValue += ADocBData.ArzValue;
         }
 
-        $("#textTotal").text('جمع');
+        $("#textTotal").text(translate('جمع'));
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
         $("#totalArzValue").text(NumberToNumberString(totalArzValue));
@@ -615,7 +616,7 @@
 
         Swal.fire({
             title: '',
-            text: " سند جدید ایجاد می شود . آیا مطمئن هستید ؟",
+            text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -625,7 +626,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                $('#titlePage').text("سند حسابداری جدید");
+                $('#titlePage').text(translate("سند حسابداری جدید"));
                 closedDate = false;
                 sessionStorage.flagupdateHeader = 0;
                 AccCode = "";
@@ -660,11 +661,11 @@
                 $('#totalBest').text('');
                 $('#textTotal').text('');
                 $('#TafavotSanad').val('');
-                $('#docnoout').text('جدید');
+                $('#docnoout').text(translate('جدید'));
                 sessionStorage.searchADocH = "";
-                self.StatusSanad('موقت');
-                $("#status").val('موقت');
-                sessionStorage.Status = 'موقت';
+                self.StatusSanad(translate('موقت'));
+                $("#status").val(translate('موقت'));
+                sessionStorage.Status = translate('موقت');
 
                 sessionStorage.Eghdam = sessionStorage.userName;
                 self.bundNumberImport = 0;
@@ -3184,7 +3185,7 @@
             self.ClearADocB();
             flaglog = 'N';
             $('#Save').removeAttr('disabled');
-            showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
+            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' +translate('ذخيره شد'), 1);
         });
         $('#Save').removeAttr('disabled');
     };
@@ -3271,7 +3272,7 @@
             $('#modal-Band').modal('hide');
             self.ClearADocB();
             flaglog = 'N';
-            showNotification(' بند شماره ' + bandnumberedit + ' ویرایش شد ', 1);
+            showNotification(translate('بند شماره') + ' ' + bandnumberedit + ' ' + translate('ویرایش شد'), 1);
         });
     };
 
@@ -3322,7 +3323,7 @@
                 }
             }
             else {
-                showNotification('سند ذخیره شد ', 1);
+                showNotification(translate('سند ذخیره شد'), 1);
             }
         });
     }
@@ -3477,7 +3478,7 @@
             CreateTableTh('ArzName', data) +
             CreateTableTh('ArzRate', data) +
             CreateTableTh('ArzValue', data) +
-            '<th id="action_headersanad">عملیات</th>' +
+            '<th id="action_headersanad">' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: filterADocBList" data-dismiss="modal" style="cursor: default;">' +

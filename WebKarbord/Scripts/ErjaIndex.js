@@ -485,15 +485,15 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        textSort = '100 رکورد  آخر به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد آخر به ترتیب');
                     else
-                        textSort = '100 رکورد اول به ترتیب ';
+                        textSort = ' ' + translate('100 رکورد اول به ترتیب');
 
                     opt.innerHTML = ' ' + textSort + '"' + TextField + '"';
                 }
                 if (i == 2) {
                     opt.value = 3;
-                    opt.innerHTML = 'تمام رکوردها';
+                    opt.innerHTML = translate('تمام رکوردها');
                 }
                 select.appendChild(opt);
             }
@@ -1036,7 +1036,7 @@
             getErjDocH($('#pageCountSelector').val(), currentPage, self.StatusParvandehSelect(), self.DocYearsSelect(), '', false);
             self.sortTableErjDocH();
             self.currentPageIndexErjDocH(currentPage);
-            showNotification('پرونده حذف شد', 1);
+            showNotification(translate('پرونده حذف شد'), 1);
         });
     }
 
@@ -1180,10 +1180,12 @@
             if (lastDoc == "") {
                 $('#ErjDocErja').prop('disabled', false);
                 $("#p_docno").val(response);
-                showNotification('پرونده ' + response + ' ایجاد شد', 1);
+                showNotification(translate('پرونده') + ' ' + response + ' ' + translate('ایجاد شد'), 1);
+
             }
             else {
-                showNotification('پرونده ' + response + ' ذخیره شد', 1);
+                showNotification(translate('پرونده') + ' ' + response + ' ' + translate('ذخیره شد'), 1);
+
             }
             flag_Save = true;
         });
@@ -2314,7 +2316,7 @@
             getDocAttachList(serialNumber);
         }
         else
-            showNotification('ابتدا پرونده را ذخیره کنید', 2);
+            showNotification(translate('ابتدا پرونده را ذخیره کنید'), 2);
     });
 
     self.selectDocAttach = function (item) {
@@ -2354,7 +2356,7 @@
 
                 ajaxFunction(ErjDocAttach_DelUri + aceErj + '/' + salErj + '/' + group, 'POST', Web_DocAttach_Save).done(function (response) {
                     getDocAttachList(serialNumber);
-                    showNotification('پیوست حذف شد', 1);
+                    showNotification(translate('پیوست حذف شد'), 1);
                 });
             }
         })
@@ -2582,7 +2584,7 @@
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
-                return showNotification(translate('متن ارجاع را وارد کنید', 0);
+                return showNotification(translate('متن ارجاع را وارد کنید'), 0);
             }
 
             ErjSaveDoc_BSaveObject = {
@@ -2672,13 +2674,13 @@
 
 
     $('#ShowEghdamComm').click(function () {
-        $('#titleComm').text('اقدام');
+        $('#titleComm').text(translate('اقدام'));
         $('#modal-Comm').modal('show');
         $('#comm').val($('#p_EghdamComm').val());
     });
 
     $('#ShowDocDesc').click(function () {
-        $('#titleComm').text('عمومی');
+        $('#titleComm').text(translate('عمومی'));
         $('#modal-Comm').modal('show');
         $('#comm').val($('#p_DocDesc').val());
     });
@@ -2690,7 +2692,7 @@
                 TextHighlightDel("#p_SpecialComm");
                 $("#p_SpecialComm").val(specialComm);
             }
-            $('#titleComm').text('مدیران');
+            $('#titleComm').text(translate('مدیران'));
             $('#modal-Comm').modal('show');
             $('#comm').attr("style", "");
             $('#comm').val($('#p_SpecialComm').val());
@@ -2702,7 +2704,7 @@
     });
 
     $('#ShowFinalComm').click(function () {
-        $('#titleComm').text('نهایی');
+        $('#titleComm').text(translate('نهایی'));
         $('#modal-Comm').modal('show');
         $('#comm').val($('#p_FinalComm').val());
     });

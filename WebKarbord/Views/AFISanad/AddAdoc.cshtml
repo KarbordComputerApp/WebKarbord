@@ -22,7 +22,7 @@
 
                         <div class="form-group form-float">
                             <div class="form-line">
-                                <input id="tarikh" data-bind="value:DocDate" class="form-control date focused fix" type="text" maxlength="10" style="text-indent: 5px;width: 100px;text-align: center;" placeholder="تاریخ">
+                                <input id="tarikh" data-bind="value:DocDate,attr:{placeholder:translate('تاریخ')}" class="form-control date focused fix" type="text" maxlength="10" style="text-indent: 5px;width: 100px;text-align: center;"  >
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                             <div class="col-md-8" hidden>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder="زیر نویس" style="overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
+                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete"  data-bind="attr:{placeholder:translate('زیر نویس')}"  style="overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +294,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group form-float">
                                         <div class="form-line focused">
-                                            <textarea rows="12" id="comm" class="form-control no-resize auto-growth autocomplete" placeholder="شرح" style="margin-top: 10px;"></textarea>
+                                            <textarea rows="12" id="comm" class="form-control no-resize auto-growth autocomplete"  data-bind="attr:{placeholder:translate('شرح')}" style="margin-top: 10px;"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -302,7 +302,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused">
                                             <!--<textarea rows="1" id="bandSpec" class="form-control no-resize auto-growth" placeholder="ملاحظات بند"></textarea>-->
-                                            <input id="bandSpec" class="form-control autocomplete" type="text" placeholder="ملاحظات بند">
+                                            <input id="bandSpec" class="form-control autocomplete" type="text"  data-bind="attr:{placeholder:translate('ملاحظات بند')}">
                                         </div>
                                     </div>
                                 </div>

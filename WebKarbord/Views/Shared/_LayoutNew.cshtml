@@ -51,7 +51,7 @@
             <div class="m-t-30">
                 <img class="loading-img-spin" src="~/Content/loading1.png" width="20" height="20" alt="admin">
             </div>
-            <p data-bind="text:translate('لطفا منتظر بمانید...')"></p>
+            <p data-bind="text:translate('لطفا منتظر بمانید')"></p>
         </div>
     </div>
 
@@ -257,18 +257,18 @@
             <ul class="list">
                 <li class="sidebar-user-panel active">
                     <div class="center">
-                        <img src="~/Content/img/Logo.jpg" style="width: 250px;" />
+                        <img id="logoMenu"src="~/Content/img/Logo.jpg" style="width: 250px;" />
                         <img src="~/Content/img/new item/line.png" style="padding :5px 0px; max-width:100%" />
                     </div>
                     <div class="profile-usertitle">
                         <!--<div class="sidebar-userpic-name" id="TextUserName"></div>
                         <div class="profile-usertitle-job " id="TextNoUser"></div>-->
                         <div class="profile-usertitle-job ">
-                            <span id="titleVer">@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)</span>
+                            <span id="titleVer" data-bind="text:translate('@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)') + ' : '" ></span>
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
                             <br />
                             <!--<span id="titleVer">ورژن سرویس : 516</span>-->
-                            <span id="titleVer">ورژن سرویس : 1023</span>
+                            <span id="titleVer" data-bind="text:translate('ورژن سرویس')  + ' : ' +    '1023'   " ></span>
                             <span id="titleVerNumber" style="padding-right:5px"></span>
                         </div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1007</div> -->
@@ -760,7 +760,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">لیست فرم های چاپ</h4>
+                    <h4 class="modal-title" data-bind="text:translate('فرم های چاپ')"></h4>
                     <div>
                         <a id="refreshPrintForms">
                             <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
@@ -816,7 +816,7 @@
                             </tbody>
                             <tfoot>
                                 <tr style="background-color: #efb68399">
-                                    <td>جستجو</td>
+                                    <td data-bind="text:translate('جستجو')"></td>
                                     <td></td>
                                     <td style="padding: 0px 3px;"><input data-bind="value: filterPrintForms0, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
                                     <td></td>
@@ -881,7 +881,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title">فرم های چاپ </h4>
+                    <h4 class="modal-title" data-bind="text:translate('فرم های چاپ')"> </h4>
 
                     <div>
                         <a id="DesignPrint">
