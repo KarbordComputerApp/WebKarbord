@@ -42,10 +42,6 @@ else {
         a += "},"
         a += '\"ar\": { }}';
         localStorage.setItem('dict', a);
-
-
-        // a = '"{"en":{"تنظیمات نرم افزار": "Program Setting","نرم افزار سیستم جامع": "Comprehensive system software","نرم افزار مالی بازرگانی": "Commercial financial software","لطفا منتظر بمانید...": "Please Wait ...","خوش آمدید": "Welcome","نمایش": "the show","رکورد در هر صفحه": "Record per page","تعداد کل رکورد ها": "Total number of records"," = تعداد کل رکورد ها": "Total number of records = ","لیست کالا ها": "List of Product","لیست حساب ها": "List of accounts","تنظیم ستون ها": "Adjust columns","ردیف": "Row","نام ستون": "Column name","انتخاب همه": "Select all","پیش فرض": "Assumption","تایید": "Confirmation","کالا": "Product","کد": "Code","نام": "Name","شماره فنی": "Technical number","ملاحظات": "considerations","گروه کالا": "Product group","واحد": "unit","دقت اعشار": "Decimal accuracy","مقدار بر حسب واحد اصلی": "Value in terms of main unit","مقدار": "amount","ریال": "Rials","ذخیره": "Save","لیست گروه کالا": "Commodity group list","مشخصات اضافی": "Additional specifications","بازگشت": "back","حذف کالا": "Remove Product","هشدار :": "Warning :","خطا :": "Error :","حذف": "Delete","مورد": "Item","تایید به روز رسانی": "Confirm update","بله": "Yes","خیر": "No","تایید حذف": "Confirm deletion","لیست خریداران/فروشندگان": "List of buyers/sellers","ارجاع": "Reference","گروه را انتخاب کنید": "Select a group","سال را انتخاب کنید": "Select the year","باز شدن صفحات در برگ نشان (Tab) فعلی": "Opening pages in the current badge tab","باز شدن صفحات در برگ نشان (Tab) جدید": "Opening pages in the new badge tab","ورود": "log in","خروج": "Exit","ثبت نهایی": "Final registration","ثبت": "Record","انصراف": "Cancel","ثبت ارجاع": "Referral registration","همان افراد قبل": "The same people as before","ارسال": "submit","گزارش گیری": "reporting","پیوست": "the attachment","شرکت": "Company","نرم افزار": "software","گروه": "group","سال": "Year","بازسازی بانک اطلاعاتی": "Database reconstruction","تایید نهایی": "Final approval","در زمان بازسازی کاربران دیگر دچار اختلال می شوند . آیا بازسازی انجام شود ؟": "Other users will be disrupted while rebuilding. Will the reconstruction be doneی","بازسازی اطلاعات سیستم": "System information reconstruction","آیا اطلاعات بازسازی شود ؟": "Will the information be reconstructedی","اطلاعات پایه": "Basic Information","کالاها": "Products","خریداران/فروشندگان": "buyers/sellers","حساب ها": "accounts","حساب": "account","اسناد حسابداری": "accounting documents","سند حسابداری": "Accounting document","اسناد خرید و فروش": "Sales documents","سفارش فروش": "Sales order","پیش فاکتور فروش": "Pre-sales invoice","فاکتور فروش": "Sales Invoice","برگشت از فروش": "Return on sales","حواله فروش": "Remittance sale","برگه خروج": "Exit tab","سفارش خرید": "Purchase order","پیش فاکتور خرید": "Pre-purchase invoice","فاکتور خرید": "Purchase Invoice","برگشت از خرید": "Return from purchase","اسناد انبار": "Warehouse documents","اسناد وارده به انبار": "Documents received in the warehouse","اسناد صادره از انبار": "Documents issued from the warehouse","اسناد اتوماسیون": "Automation documents","پرونده": "File","ارجاعات پرونده دریافتی": "Received file references","ارجاعات پرونده ارسالی": "Submitted file references","گزارشات حسابداری": "Accounting Reports","تراز حساب": "Account balance","دفتر حساب": "Accounting book","دفتر روزنامه": "Newspaper Office","صورت خلاصه چک ها": "Summary form of checks","گزارشات خرید و فروش": "Sales reports","تراز فروش کالاها": "Commodity sales balance","تراز خرید کالاها": "Balance of goods purchases","تراز فروش به خریداران": "Sales balance to buyers","تراز خرید از فروشندگان": "Purchase balance from sellers","ریز گردش اسناد فروش": "Circulation of sales documents","ریز گردش اسناد خرید": "Circulation of purchase documents","گزارشات انبار": "Warehouse reports","کاردکس کالا": "Cardex Commodity","موجودی کالا": "Inventory","موجودی کالا به تفکیک ویژگی": "Inventory by feature","ریز گردش اسناد انبارداری": "Micro-circulation of warehousing documents","گزارشات اتوماسیون اداری": "Office Automation Reports","فهرست پرونده ها": "List of files","لیست ارجاعات پرونده ها": "List of file references","از تاریخ": "From Date","تا تاریخ": "To Date","از شماره": "From number","تا شماره": "To number","نوع سند": "type of Document","وضعیت سند": "Document status","پروژه": "Project","مرکز هزینه": "cost center","جستجو برای": "looking for","مشتری": "Customer","وضعیت": "status","همه موارد": "all items","چاپ": "Print","نرخ": "rate","نام لاتین": "Latin name","گروه حساب ها": "Account group","سررسید نامه": "Letter maturity","هیچکدام": "None","اسناد پرداختنی": "Payable documents","اسناد دریافتنی": "Receivable documents","ماهیت": "Nature","بدهکار": "Debtor","بستانکار": "Creditor","فعال": "active","غیر فعال": "Inactive","پست الکترونیکی": "Email","موبایل": "Mobile","بدون سطح بعدی هنگام ثبت سند": "No next level when registering a document","دارای سطح بعدی هنگام ثبت سند": "Has the next level when registering the document","گروه زیر حساب ها": "Subgroups of accounts","بدون ارز": "No currency","بدون مرکز هزینه": "No cost center","دارای مرکز هزینه": "Has a cost center","بدون پروژه": "No project","دارای پروژه": "Has a project","بدون مقدار": "No amount","دارای مقدار": "Has a value","لیست گروه حساب ها": "List of group accounts","لیست گروه زیر حساب ها": "List of sub-accounts","حذف حساب": "Delete account","رکورد": "Record","خریدار/فروشنده": "Buyer / seller","گروه خریداران/فروشندگان": "Buyers / Sellers Group","کد ملی": "National Code","کد اقتصادی": "Economic code","اعتبار سالانه": "Annual credit","اعتبار چکی": "Czech credit","استان": "State","شهرستان": "City","منطقه": "Region","شهر": "City","خیابان": "Street","کوچه": "Alley","پلاک": "Plaque","کد پستی": "Postal code","تلفن": "Phone","فاکس": "fax","لیست پروژه": "Project list","لیست مرکز هزینه": "Cost center list","لیست نوع سند": "Document type list","لیست وضعیت سند": "Document status list","نمایش بند ها": "Show paragraphs","نقل از قبل": "Show paragraphs","نوع نمایش": "Show type","لیست انبارها": "List of warehouses","لیست کالاها": "List of Products","لیست تحویل دهنده/گیرنده": "Supplier / Recipient List","ویژگی کالا": "Product characteristics","به روز رسانی شود ؟": "Update ?","لیست": "list","لیست گروه خریداران/فروشندگان": "List of buyers / sellers","لیست پروژه ها ": "List of projects","لیست مراکز هزینه ": "List of cost centers","لیست ویزیتورها ": "List of visitors","لیست خریداران": "List of buyers","لیست فروشندگان": "List of sellers","لیست اسناد": "List of documents","لیست طرف حساب ها": "List of side accounts","لیست ارز": "Currency list","لیست بانک": "Bank list","لیست شعبه": "Branch list","لیست جاری": "Current list","لیست چک ها": "Checklist","لیست اعلامیه ها": "List of announcements","لیست ارجاعات": "Reference list","لیست پیوست ها": "List of attachments","لیست کاربران": "List of users","لیست فرایندها": "List of processes","لیست نوع کار ها": "To -do list","لیست وضعیت": "Status list","لیست انواع سند": "List of document types","لیست وضعیت چک": "Check status list","لیست گروه فروشندگان": "List of vendors","لیست بندها": "List of clauses","سند به شماره": "Document to number","((برای ثبت تغییرات کلید ثبت نهایی را بزنید))": "((Press the final registration key to record changes)) ","سطر جدید": "New line","تفاوت بدهکار / بستانکار": "Debtor / creditor difference","زیر حساب": "Sub - account","ارز": "currency","شماره چک": "check number","شعبه": "Branch","بانک": "Bank","جاری": "Current","مبلغ": "مبلغ","وضعیت چک": "Check status","طرف حساب": "Account side","ردیف چک": "Row check","توضیحات چک": "Description of the check","تاریخ وصول چک": "Date of receipt of the check","آیا بند حذف شود": "Do not delete the paragraph","انتخاب": "Selection","لیست چک": "Checklist","ذخیره حسابداری": "Save accounting","ثبت جدید": "New registration","":""},"ar": { }}"';
-
         dict = JSON.parse(a);
     });
 }
@@ -74,19 +70,14 @@ var dir_lang = 'ltr'
 
 //dir_lang = 'rtl';
 
-var mes_Refresh = translate('تایید به روز رسانی');
-var mes_Delete = translate('تایید حذف');
-var text_Yes = translate('بله');
-var text_No = translate('خیر');
-
-
 function translate(text) {
     if (lang == 'fa')
         return text
     else {
         dic = dict[lang][text];
-        if (dic == null)
+        if (dic == null) {
             return '! ' + text + ' !';
+        }
         else
             return dic;
     }
@@ -109,6 +100,12 @@ function TranslateData(data) {
         return tempData;
     }
 }
+
+var mes_Refresh = translate('تایید به روز رسانی');
+var mes_Delete = translate('تایید حذف');
+var text_Yes = translate('بله');
+var text_No = translate('خیر');
+
 
 
 if (lang == 'en') {
@@ -747,8 +744,8 @@ $('#userNameHome').text(sessionStorage.userNameFa + ' ');
 
 $('#coName_TitleMenu').val(sessionStorage.CoName);
 $('#ace_TitleMenu').val(sessionStorage.aceName);
-$('#group_TitleMenu').val(group == "0" ? 'انتخاب نشده' : group);
-$('#sal_TitleMenu').val(sal == "0" ? 'انتخاب نشده' : sal);
+$('#group_TitleMenu').val(group == "0" ? translate('انتخاب نشده') : group);
+$('#sal_TitleMenu').val(sal == "0" ? translate('انتخاب نشده') : sal);
 
 
 
@@ -1333,7 +1330,7 @@ $("#repairDatabase").click(function () {
 
     Swal.fire({
         title: translate('بازسازی بانک اطلاعاتی'),
-        text: "آیا اطلاعات گروه  " + group + " سال " + sal + " بازسازی شود ؟",
+        text: translate("آیا اطلاعات گروه") + ' ' + group + ' ' + translate("سال") + ' ' + sal + translate("بازسازی شود ؟"),
         type: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#3085d6',

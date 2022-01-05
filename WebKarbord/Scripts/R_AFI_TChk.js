@@ -873,7 +873,7 @@
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
             
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('CheckNo', 0, data) +
             CreateTableTdSum('CheckDate', 1, data) +
             CreateTableTdSum('AccCode', 1, data) +

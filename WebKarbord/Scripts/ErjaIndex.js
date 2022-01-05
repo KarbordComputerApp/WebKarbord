@@ -939,7 +939,7 @@
         else {
 
             Swal.fire({
-                title: 'تایید حذف',
+                title: translate('تایید حذف'),
                 text: translate("آیا پرونده انتخابی حذف شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
@@ -999,7 +999,7 @@
                 textBody += '<p>این پرونده دارای پرونده مرتبط است و قابل حذف نیست</p>';
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -2051,7 +2051,7 @@
         if (counterErjUsersRonevesht > 0)
             $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
         else
-            $('#nameRoneveshtBe').val('هیچکس');
+            $('#nameRoneveshtBe').val(translate('هیچکس'));
     });
 
     $('#modal-ErjUsersRonevesht').on('shown.bs.modal', function () {
@@ -2335,7 +2335,7 @@
 
     self.DeleteDocAttach = function (Band) {
         Swal.fire({
-            title: 'تایید حذف',
+            title: translate('تایید حذف'),
             text: translate("آیا پیوست انتخابی حذف شود ؟"),
             type: 'warning',
             showCancelButton: true,
@@ -2373,8 +2373,8 @@
         var name = file.name;
         var size = file.size;
         Swal.fire({
-            title: 'تایید آپلود ؟',
-            text: "آیا " + name + " به پیوست افزوده شود",
+            title: translate('تایید آپلود ؟'),
+            text: translate("آیا") + ' ' + name + ' ' + translate("به پیوست افزوده شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2411,7 +2411,7 @@
                     formData.append("ModeCode", 1);
                     formData.append("BandNo", 0);
                     formData.append("Code", "");
-                    formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
+                    formData.append("Comm", translate("مدرک پیوست") + ' - ' + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
@@ -2495,8 +2495,8 @@
     $('#modal-Erja').on('shown.bs.modal', function () {
         $('#e_Result').css("height", "409px");
         $('#e_Result').val($('#Result').val());
-        $('#nameErjBe').val('انتخاب نشده');
-        $('#nameRoneveshtBe').val('هیچکس');
+        $('#nameErjBe').val(translate('انتخاب نشده'));
+        $('#nameRoneveshtBe').val(translate('هیچکس'));
         $('#RjMhltDate').val('');
         $('#RjTime_M').val('');
         $('#RjTime_H').val('');
@@ -2836,7 +2836,7 @@
 
                 specialComm = data["SpecialComm"];
                 SpecialCommTrs = data["SpecialCommTrs"];
-                $("#p_SpecialComm").val('برای نمایش کلیک کنید');
+                $("#p_SpecialComm").val((translate('برای نمایش کلیک کنید'));
                 $("#p_SpecialComm").attr('readonly', true);
                 TextHighlight("#p_SpecialComm");
 
@@ -3017,7 +3017,7 @@
 
             specialComm = item.SpecialComm;
             SpecialCommTrs = item.SpecialCommTrs;
-            $("#p_SpecialComm").val('برای نمایش کلیک کنید');
+            $("#p_SpecialComm").val((translate('برای نمایش کلیک کنید'));
             $("#p_SpecialComm").attr('readonly', true);
             TextHighlight("#p_SpecialComm");
 
@@ -3145,12 +3145,12 @@
                 if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
                     textLastBand +=
                         '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
+                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه ثبت شده توسط :') + '</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
                 }
                 else if (listLastBand[j].DocBMode == 1) {
                     textLastBand +=
                         '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
+                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate( + 'رونوشت به :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
                 }
 
@@ -3185,7 +3185,7 @@
                 for (var j = 1; j < countRonevesht; j++) {
                     text +=
                         '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                        + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه رونوشت از :</h6> <h6>' + listBand[j].FromUserName + '</h6>'
+                        + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه رونوشت از :') + '</h6> <h6>' + listBand[j].FromUserName + '</h6>'
                         + '   </div>'
                         + '</div > '
                     if (listBand[j].RjComm == '')
@@ -3203,7 +3203,7 @@
 
                     text += ''//'</br>'
                         + '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
-                        + '   <div class=" form-inline" > <h6> رونوشت به : '
+                        + '   <div class=" form-inline" > <h6>' + translate(' رونوشت به : ')
                         + listBand[0].RooneveshtUsers
                         + '</h6>'
                         + '</div > '
@@ -3233,7 +3233,7 @@
                 if (listBand[0].FarayandName != "") {
                     textBody += '<div class="form-inline" style = "margin-top: 5px;"> '
                         + '     <div class= "col-md-12 form-inline" > '
-                        + '         <h6> فرایند : ' + listBand[0].FarayandName + '</h6>'
+                        + '         <h6>' + translate('فرایند : ') + listBand[0].FarayandName + '</h6>'
                         + '     </div>'
                         + '</div>';
                 }

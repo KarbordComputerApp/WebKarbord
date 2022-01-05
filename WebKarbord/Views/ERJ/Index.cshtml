@@ -951,7 +951,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">پیوست</h4>
+                <h4 class="modal-title" data-bind="text:translate('پیوست')"></h4>
 
                 <div>
                     <a id="refreshDocAttach">
@@ -979,9 +979,9 @@
                     <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableDocAttach">
-                                <th style="width: 10px;">ردیف</th>
+                                <th style="width: 10px;" data-bind="text:translate('ردیف')"></th>
                                 <th data-column="Comm" style="text-align: center;">
-                                    شرح
+                                    <span data-bind="text:translate('شرح')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>
@@ -1598,11 +1598,11 @@
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
                                 <div id="ShowCountWarning" class="row" style="padding-bottom:5px;" data-bind="text:translate('مورد')">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار :')"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار') + ' : '"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') + ' : '"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>

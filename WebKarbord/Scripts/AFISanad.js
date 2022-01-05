@@ -564,7 +564,7 @@
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
                     closedDate = true;
-                    showNotification(list[i].TestCap, 0);
+                    showNotification(translate(list[i].TestCap), 0);
                 }
             }
 
@@ -2698,16 +2698,16 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">' + translate('هشدار :') +'</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">' + translate('خطا :') +'</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -3185,7 +3185,7 @@
             self.ClearADocB();
             flaglog = 'N';
             $('#Save').removeAttr('disabled');
-            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' +translate('ذخيره شد'), 1);
+            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' + translate('ذخيره شد'), 1);
         });
         $('#Save').removeAttr('disabled');
     };
@@ -3230,7 +3230,7 @@
             if (sessionStorage.ADOC_TestZeroPrice == "1")
                 showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 2);
             else if (sessionStorage.ADOC_TestZeroPrice == "2")
-            return showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 0);
+                return showNotification(translate('مبلغ بدهکار یا بستانکار را وارد کنید'), 0);
         }
 
         var ADocBObject = {
@@ -3297,7 +3297,7 @@
                     calcsum(response);
                     flagFinalSave = false;
                     flaglog = 'N';
-                    showNotification(translate('بند شماره')+' ' + SanadBand.BandNo + ' ' + translate('حذف شد'), 1);
+                    showNotification(translate('بند شماره') + ' ' + SanadBand.BandNo + ' ' + translate('حذف شد'), 1);
                 });
             }
         })
@@ -3372,40 +3372,40 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">' + translate('هشدار :')+'</p>'
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">' + translate('خطا :') +'</p>'
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
             tBand = translate('بند شماره') + ' ';
             if (list[i].TestName == "Opr")
-                textBody += '<p>' + tBand + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </p>';
             else if (list[i].TestName == "Mkz")
-                textBody += '<p>' + tBand + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </p>';
             else if (list[i].TestName == "Arz")
-                textBody += '<p>' + tBand + list[i].BandNo + ' دارای حساب ارزی می باشد ولی ارز آن مشخص نیست ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </p>';
             else if (list[i].TestName == "Mahiat")
                 //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
-                textBody += '<p>' + tBand + list[i].BandNo + ' مانده حساب  </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p> مغایر با ماهیت آن می شود </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
 
             else if (list[i].TestName == "Balance")
-                textBody += '<p> سند بالانس نیست . بدهکار : ' + totalBede + ' ' + ' بستانکار : ' + totalBest + ' </p>';
+                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + totalBede + ' ' +  translate('بستانکار') + ' : ' + totalBest + ' </p>';
 
             else if (list[i].TestName == "ZeroBand")
-                textBody += '<p>' + tBand + list[i].BandNo + ' مبلغ بدهکار و بستانکار صفر است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo +' '+ translate('مبلغ بدهکار و بستانکار صفر است') + ' </p>';
 
 
             else if (list[i].TestName == "Traf")
-                textBody += '<p>' + tBand + list[i].BandNo + ' طرف حساب انتخاب نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('طرف حساب انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestName == "Check")
-                textBody += '<p>' + tBand + list[i].BandNo + ' اطلاعات چک وارد نشده است ' + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('اطلاعات چک وارد نشده است') + ' </p>';
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -3530,7 +3530,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('BandNo', 1, data) +
             CreateTableTdSum('AccFullCode', 1, data) +
             CreateTableTdSum('AccFullName', 1, data) +

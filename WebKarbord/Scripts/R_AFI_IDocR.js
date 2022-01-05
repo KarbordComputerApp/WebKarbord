@@ -2655,7 +2655,7 @@
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableIDocR">' +
 
-            '<th style="position: sticky;right: 0px;">ردیف</th>' +
+            '<th style="position: sticky;right: 0px;">' + translate('ردیف') + '</th>' +
             //'<th style="position: sticky;right: 0px;width:100px"><div class= "row" style="width: 100px;"> <div class="col-md-6">ردیف</div><div class="col-md-6">عملیات</div></div></th> ' +
             CreateTableTh('DocDate', data) +
             CreateTableTh('DocNo', data) +
@@ -2787,7 +2787,7 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '      <a data-bind="click: $root.ShowAFISanadAnbar" style="font-size: 11px;">' +
-            '          <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
+            '          <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' + translate('نمایش سند') +
             '      </a >' +
             '    </li>' +
             ' </ul>' +
@@ -2796,7 +2796,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('DocDate', 0, data) +
             CreateTableTdSum('DocNo', 1, data) +
             CreateTableTdSum('ModeName', 1, data) +

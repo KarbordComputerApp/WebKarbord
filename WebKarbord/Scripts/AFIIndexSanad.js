@@ -350,7 +350,7 @@
                 for (var i = 0; i < list.length; i++) {
                     if (list[i].TestName == "YTrs") {
                         closedDate = true;
-                        return showNotification(list[i].TestCap, 0);
+                        return showNotification(translate(list[i].TestCap), 0);
                     }
                 }
             });
@@ -892,7 +892,7 @@
             }
 
             if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             /*if (list[i].TestName == "Opr")
                 textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
@@ -1641,7 +1641,7 @@
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
                     closedDate = true;
-                    showNotification(list[i].TestCap, 0);
+                    showNotification(translate(list[i].TestCap), 0);
                 }
             }
         });

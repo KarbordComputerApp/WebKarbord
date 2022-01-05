@@ -1669,7 +1669,7 @@
         if (counterErjUsersRonevesht > 0)
             $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
         else
-            $('#nameRoneveshtBe').val('هیچکس');
+            $('#nameRoneveshtBe').val(translate('هیچکس'));
     });
 
     $('#modal-ErjUsersRonevesht').on('shown.bs.modal', function () {
@@ -1717,7 +1717,7 @@
             $("#docDesc").val(item.DocDesc);
 
             specialComm = item.SpecialComm;
-            $("#specialComm").val('برای نمایش کلیک کنید');
+            $("#specialComm").val((translate('برای نمایش کلیک کنید'));
             TextHighlight("#specialComm");
             specialCommTrs = item.SpecialCommTrs;
 
@@ -1939,8 +1939,8 @@
         ErjSaveDoc_BSave(bandNo);
         $('#e_Result').css("height", "409px");
         $('#e_Result').val($('#Result').val());
-        $('#nameErjBe').val('انتخاب نشده');
-        $('#nameRoneveshtBe').val('هیچکس');
+        $('#nameErjBe').val(translate('انتخاب نشده'));
+        $('#nameRoneveshtBe').val(translate('هیچکس'));
         $('#RjMhltDate').val('');
         $('#RjTime_M').val('');
         $('#RjTime_H').val('');

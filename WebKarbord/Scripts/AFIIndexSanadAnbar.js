@@ -532,7 +532,7 @@
 
         if (invName == '') {
             invCode = "";
-            invName = 'همه انبارها'
+            invName = translate('همه انبارها')
         }
 
 
@@ -549,7 +549,7 @@
 
         if (modeName == '') {
             modeCode = "";
-            modeName = sessionStorage.InOut == 1 ? 'همه انواع سند وارده' : 'همه انواع سند صادره';
+            modeName = sessionStorage.InOut == 1 ? translate('همه انواع سند وارده') : translate('همه انواع سند صادره');
         }
 
 
@@ -638,14 +638,15 @@
 
     self.OptionsCaptionAnbar = ko.computed(function () {
         //        return self.InvList().length > 1 ? 'همه انبارها' : 'انبار تعریف نشده است';
-        return 'همه انبارها';
+        return translate('همه انبارها');
     });
+
 
     self.OptionsCaptionIMode = ko.computed(function () {
         if (sessionStorage.InOut == 1)
-            return 'همه انواع سند وارده';
+            return translate('همه انواع سند وارده');
         else
-            return 'همه انواع سند صادره';
+            return translate('همه انواع سند صادره');
     });
 
 
@@ -1335,13 +1336,13 @@
             }
 
             if (list[i].TestName == "AccReg")
-                textBody += '<p>این سند انبار ثبت حسابداری شده است و قابل حذف نیست</p>';
+                textBody += '<p>' + translate('این سند انبار ثبت حسابداری شده است و قابل حذف نیست')+'</p>';
 
             else if (list[i].TestName == "FctReg")
-                textBody += '<p>این سند انبار ثبت خرید و فروش شده است و قابل حذف نیست</p>';
+                textBody += '<p>' + translate('این سند انبار ثبت خرید و فروش شده است و قابل حذف نیست')+'</p>';
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -1765,7 +1766,7 @@
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
                     closedDate = true;
-                    showNotification(list[i].TestCap, 0);
+                    showNotification(translate(list[i].TestCap), 0);
                 }
             }
         });
@@ -1892,7 +1893,7 @@
                 for (var i = 0; i < list.length; i++) {
                     if (list[i].TestName == "YTrs") {
                         closedDate = true;
-                        return showNotification(list[i].TestCap, 0);
+                        return showNotification(translate(list[i].TestCap), 0);
                     }
                 }
             });
@@ -2076,14 +2077,14 @@
             '    <li>' +
             '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            کپی' +
+            translate('کپی') +
             '        </a>' +
             '    </li>' +
 
             '    <li>' +
             '        <a id="ChangeStatusSanad" data-bind="click: $root.ChangeStatusSanad" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            '            تغییر وضعیت' +
+        translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
         if (sessionStorage.AccessPrint_SanadAnbar == "true") {
@@ -2092,7 +2093,7 @@
                 '    <li>' +
                 '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-                '            چاپ ' +
+            translate( 'چاپ') +
                 '        </a>' +
                 '    </li>';
         }

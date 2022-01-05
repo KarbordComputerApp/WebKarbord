@@ -2947,7 +2947,7 @@
             '    <li>' +
             '        <a  data-bind="click: $root.ShowIDocR , visible: $root.AccessAction(\'IDocR\') == true" style="font-size: 11px;text-align: right;">' +
             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '             ریز گردش اسناد انبارداری' +
+            translate('ریز گردش اسناد انبارداری') + 
             '        </a>' +
             '    </li>' +
             '</td >' +
@@ -2955,7 +2955,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('KalaCode', 0, data) +
             CreateTableTdSum('KalaName', 1, data) +
             CreateTableTdSum('KalaUnitName1', 1, data) +

@@ -894,7 +894,7 @@
             }
 
             if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -3939,7 +3939,7 @@
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
                     closedDate = true;
-                    showNotification(list[i].TestCap, 0);
+                    showNotification(translate(list[i].TestCap), 0);
                 }
             }
 
@@ -4758,7 +4758,7 @@
                 textBody += '<p>' + translate('انبار انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +

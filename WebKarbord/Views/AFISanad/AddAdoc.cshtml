@@ -1706,11 +1706,11 @@
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
                                 <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span  data-bind="text:translate('هشدار :')"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span  data-bind="text:translate('هشدار') + ' : '"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') + ' : '"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>
@@ -1770,11 +1770,11 @@
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
                                 <div id="ShowCountWarning_New" class="row" style="padding-bottom:5px;">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار :')"></span> <span id="CountWarning_New">1</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار') + ' : '"></span> <span id="CountWarning_New">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError_New" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError_New">0</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') + ' : '"></span> <span id="CountError_New">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>
@@ -1812,81 +1812,80 @@
                         <thead style="cursor: pointer;">
 
                             <tr data-bind="click: sortTableADocB">
-                                <th data-column="BandNo">
-                                    شماره بند
+                                <th data-column="BandNo"> <span data-column="BandNo" data-bind="text:translate('شماره بند')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'BandNo' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeBandNo }"></i>
                                     </span>
                                 </th>
 
-                                <th data-column="AccFullCode">
-                                    کد حساب
+                                <th data-column="AccFullCode"><span data-column="AccFullCode" data-bind="text:translate('کد حساب')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'AccFullCode' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeAccFullCode }"></i>
                                     </span>
                                 </th>
-                                <th data-column="AccFullName">
-                                    نام حساب
+                                <th data-column="AccFullName"><span data-column="AccFullName" data-bind="text:translate('نام حساب')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'AccFullName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeAccFullName }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Comm">
-                                    شرح
+                                <th data-column="Comm"><span data-column="Comm" data-bind="text:translate('شرح')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Bede">
-                                    بدهکار
+                                <th data-column="Bede"><span data-column="Bede" data-bind="text:translate('بدهکار')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'Bede' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeBede }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Best">
-                                    بستانکار
+                                <th data-column="Best"><span data-column="Best" data-bind="text:translate('بستانکار')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'Best' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeBest }"></i>
                                     </span>
                                 </th>
-                                <th data-column="CheckNo">
-                                    شماره چک
+                                <th data-column="CheckNo"><span data-column="CheckNo" data-bind="text:translate('شماره چک')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'CheckNo' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCheckNo }"></i>
                                     </span>
                                 </th>
-                                <th data-column="CheckDate">
-                                    تاریخ چک
+                                <th data-column="CheckDate"><span data-column="CheckDate" data-bind="text:translate('تاریخ چک')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'CheckDate' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeCheckDate }"></i>
                                     </span>
                                 </th>
-                                <th data-column="Bank">
-                                    بانک
+                                <th data-column="Bank"><span data-column="Bank" data-bind="text:translate('بانک')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'Bank' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeBank }"></i>
                                     </span>
                                 </th>
-                                <th data-column="TrafFullName">
-                                    نام طرف چک
+                                <th data-column="TrafFullName"><span data-column="TrafFullName" data-bind="text:translate('نام طرف چک')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'TrafFullName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeTrafFullName}"></i>
                                     </span>
                                 </th>
-                                <th data-column="MkzName">
-                                    نام مرکز هزینه
+                                <th data-column="MkzName"><span data-column="MkzName" data-bind="text:translate('نام مرکز هزینه')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'MkzName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeMkzName}"></i>
                                     </span>
                                 </th>
-                                <th data-column="OprName">
-                                    نام پروژه
+                                <th data-column="OprName"><span data-column="OprName" data-bind="text:translate('نام پروژه')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'OprName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeOprName}"></i>
                                     </span>
                                 </th>
-                                <th data-column="BandSpec">
-                                    ملاحظات بند
+                                <th data-column="BandSpec"><span data-column="BandSpec" data-bind="text:translate('ملاحظات بند')"></span>
+                                    
                                     <span data-bind="attr: { class: currentColumn() == 'BandSpec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeBandSpec}"></i>
                                     </span>

@@ -13,7 +13,10 @@
             <div class="header" style="padding-bottom: 5px;">
                 <div class="form-inline focused">
 
-                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست <b id="TitleListAnbar"></b></strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;"> 
+                    <b data-bind="text:translate('لیست')"></b>
+                    <b id="TitleListAnbar"></b>
+                    </strong>
 
                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;"></strong>
                     <div class="col-md-2 ">
@@ -39,7 +42,7 @@
                         </div>
                     </div>
                    
-                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 5px;">جستجوی سند شماره</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 5px;"  data-bind="text:translate('جستجوی سند شماره')"></strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;margin-bottom: 1px;margin-left: 5px;margin-right: 5px;" />
 
 
@@ -268,10 +271,10 @@
 
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a class="active show" data-toggle="tab" href="#home" style="padding-left: 20px;padding-right: 20px;">کپی</a>
+                        <a class="active show" data-toggle="tab" href="#home" style="padding-left: 20px;padding-right: 20px;"data-bind="text:translate('کپی')"></a>
                     </li>
                     <li id="TabMove" hidden>
-                        <a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;">انتقال</a>
+                        <a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;"data-bind="text:translate('انتقال')"></a>
                     </li>
                 </ul>
 
@@ -372,7 +375,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleFinalSave">حذف سند انبار</h4>
+                <h4 id="titleFinalSave"  data-bind="text:translate('حذف سند انبار')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">
@@ -384,11 +387,11 @@
                         <div class="col-md-6 row">
                             <div style="margin-right: 0px;margin-left: 0px;">
                                 <div id="ShowCountWarning" class="row" style="padding-bottom:5px;" data-bind="text:translate('مورد')">
-                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار :')"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار') + ' : '"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
 
                                 <div id="ShowCountError" class="row">
-                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا :')"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') + ' : '"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
                                 </div>
                             </div>
                         </div>

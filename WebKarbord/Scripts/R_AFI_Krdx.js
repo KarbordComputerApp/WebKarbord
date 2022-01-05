@@ -2931,7 +2931,7 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowAFISanadAnbar" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' + translate('نمایش سند') +
             '    </a >' +
             ' </td >' +
             '</tr>' +
@@ -2939,7 +2939,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('DocDate', 0, data) +
             //CreateTableTdSum('InvName', 1, data) +
             CreateTableTdSum('ModeName', 1, data) +

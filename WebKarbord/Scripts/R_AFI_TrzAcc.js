@@ -1521,7 +1521,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+        '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +

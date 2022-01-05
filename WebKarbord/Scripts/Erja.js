@@ -112,16 +112,16 @@
             opt = document.createElement('option');
             if (i == 1) {
                 opt.value = 4;
-                opt.innerHTML = 'کلیه ارجاعات';
+                opt.innerHTML = translate('کلیه ارجاعات');
             }
             if (i == 2) {
                 opt.value = 5;
-                opt.innerHTML = 'فقط ارجاعات اصلی';
+                opt.innerHTML = translate('فقط ارجاعات اصلی');
                 opt.selected = true;
             }
             if (i == 3) {
                 opt.value = 6;
-                opt.innerHTML = 'فقط رونوشت ها';
+                opt.innerHTML = translate('فقط رونوشت ها');
             }
             select.appendChild(opt);
         }
@@ -536,14 +536,14 @@
             if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
                 textLastBand +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه ثبت شده توسط :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
             }
             else if (listLastBand[j].DocBMode == 1) {
                 lastBand = listLastBand[j].BandNo;
                 //lastRonevesht += listLastBand[j].ToUserCode + ',';
                 textLastBand +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">رونوشت به :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('رونوشت به :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
                 if (listLastBand[j].ToUserCode == sessionStorage.userName) {
                     $('#Result').val(listLastBand[j].RjResult);
@@ -587,7 +587,7 @@
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه رونوشت از :</h6> <h6>' + listBand[j].FromUserName + '</h6>'
+                + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه رونوشت از :')+'</h6> <h6>' + listBand[j].FromUserName + '</h6>'
                     + '   </div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
@@ -605,7 +605,7 @@
 
                 text += '</br>'
                     + '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #d9d9d9 !important;color: #555555;border-radius: 10px;">'
-                    + '   <div class=" form-inline" > <h6> رونوشت به : '
+                    + '   <div class=" form-inline" > <h6> ' + translate('رونوشت به : ')
                     + listBand[0].RooneveshtUsers
                     + '</h6>'
                     + '</div > '
@@ -634,7 +634,7 @@
             if (listBand[0].FarayandName != "") {
                 textBody += '<div class="form-inline" style = "margin-top: 5px;"> '
                     + '     <div class= "col-md-12 form-inline" > '
-                    + '         <h6> فرایند : ' + listBand[0].FarayandName + '</h6>'
+                    + '         <h6>' + translate('فرایند : ')+ listBand[0].FarayandName + '</h6>'
                     + '     </div>'
                     + '</div>';
             }
@@ -1024,7 +1024,7 @@
 
     self.DeleteDocAttach = function (Band) {
         Swal.fire({
-            title: 'تایید حذف',
+            title: translate('تایید حذف'),
             text: translate("آیا پیوست انتخابی حذف شود ؟"),
             type: 'warning',
             showCancelButton: true,
@@ -1062,8 +1062,8 @@
         var name = file.name;
         var size = file.size;
         Swal.fire({
-            title: 'تایید آپلود ؟',
-            text: "آیا " + name + " به پیوست افزوده شود",
+            title: translate('تایید آپلود ؟'),
+            text: translate("آیا") + ' ' + name +' '+ translate("به پیوست افزوده شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1100,7 +1100,7 @@
                     formData.append("ModeCode", 1);
                     formData.append("BandNo", 0);
                     formData.append("Code", "");
-                    formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
+                    formData.append("Comm", translate("مدرک پیوست")+ ' - ' + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
@@ -1463,7 +1463,7 @@
         if (counterErjUsersRonevesht > 0)
             $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
         else
-            $('#nameRoneveshtBe').val('هیچکس');
+            $('#nameRoneveshtBe').val(translate('هیچکس'));
     });
 
     $('#modal-ErjUsersRonevesht').on('shown.bs.modal', function () {
@@ -1661,7 +1661,7 @@
 
             specialComm = item.SpecialComm;
             SpecialCommTrs = item.SpecialCommTrs;
-            $("#specialComm").val('برای نمایش کلیک کنید');
+            $("#specialComm").val(translate('برای نمایش کلیک کنید'));
             $("#specialComm").attr('readonly', true);
 
             TextHighlight("#specialComm");
@@ -1907,10 +1907,10 @@
                             '    <div class="row form-inline modal-header" style="padding:0px;">' +
                             '        <h6>';
                         if (data[i].DocBMode == 1) {
-                            html += ' نتیجه رونوشت از ' + data[i].ToUserName;
+                            html += ' ' + translate('نتیجه رونوشت از') + ' ' +  data[i].ToUserName;
                         }
                         else {
-                            html += ' نتیجه ارجاع از ' + data[i].ToUserName
+                            html += ' ' + translate('نتیجه ارجاع از') + ' ' +  data[i].ToUserName
                         }
                         html +=
                             '</h6>' +
@@ -1946,7 +1946,7 @@
             self.ErjUsersCode(result.ToUserCode);
 
             if (countUsers == 0)
-                $('#nameRoneveshtBe').val('هیچکس');
+                $('#nameRoneveshtBe').val(translate('هیچکس'));
             else
                 $('#nameRoneveshtBe').val(countUsers +  ' ' + translate('مورد انتخاب شده'));
 
@@ -2287,10 +2287,10 @@
                 self.ErjUsersCode(lastUserErjCode);
             }
             else {
-                $('#nameErjBe').val('انتخاب نشده');
+                $('#nameErjBe').val(translate('انتخاب نشده'));
             }
             $('#nameFarayand').val('');
-            $('#nameRoneveshtBe').val('هیچکس');
+            $('#nameRoneveshtBe').val(translate('هیچکس'));
             $('#RjMhltDate').val('');
             $('#RjTime_M').val('');
             $('#RjTime_H').val('');
@@ -2882,7 +2882,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
-            '<th>ردیف</th>';
+        '<th>' + translate('ردیف') + '</th>';
 
         if (sessionStorage.ModeCodeErja == '1') {
             html += CreateTableTh('RjStatus', data);
@@ -2949,7 +2949,7 @@
                 '    <li data-bind="style: {\'display\': RjReadSt == \'T\'  ? \'none\' : \'unset\'}">' +
                 '        <a id="UnRaedErja" data-bind="click: $root.UnRaedErja" style="font-size: 11px;text-align: right;">' +
                 '        <i  class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px">notifications_none</i>' +
-                '            خوانده نشده' +
+            translate('خوانده نشده') +
                 '        </a>' +
                 '    </li>' +
                 '</ul>' +

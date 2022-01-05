@@ -461,7 +461,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">پیوست</h4>
+                <h4 class="modal-title"  data-bind="text:translate('پیوست')"></h4>
 
                 <div>
                     <a id="refreshDocAttach">
@@ -481,9 +481,9 @@
                     <table class="table table-hover table-striped tableFixList">
                         <thead style="cursor: pointer;">
                             <tr data-bind="click: sortTableDocAttach">
-                                <th style="width: 10px;">ردیف</th>
+                                <th style="width: 10px;" data-bind="text:translate('ردیف')"></th>
                                 <th data-column="Comm" style="text-align: center;">
-                                    شرح
+                                    <span data-bind="text:translate('شرح')" ></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>

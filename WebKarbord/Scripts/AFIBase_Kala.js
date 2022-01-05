@@ -1090,7 +1090,7 @@
             }
 
             if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +

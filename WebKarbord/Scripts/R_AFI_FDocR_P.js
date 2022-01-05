@@ -539,7 +539,7 @@
     $('#nameCust').val(translate('همه موارد'));
     $('#nameOpr').val(translate('همه موارد'));
     $('#nameMkz').val(translate('همه موارد'));
-    $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'));
+    $('#nameStatus').val(counterStatus + ' ' + translate('مورد انتخاب شده'));
 
     //------------------------------------------------------
     self.currentPageFDocR_P = ko.observable();
@@ -1207,7 +1207,7 @@
         Swal.fire({
             title: mes_Refresh,
             text: translate("لیست انبارها") + " " + translate("به روز رسانی شود ؟"),
-            
+
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1278,7 +1278,7 @@
 
     $('#modal-Inv').on('hide.bs.modal', function () {
         if (counterInv > 0)
-            $('#nameInv').val(counterInv +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameInv').val(counterInv + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameInv').val(translate('همه موارد'));
     });
@@ -1399,7 +1399,7 @@
 
     $('#refreshStatus').click(function () {
         Swal.fire({
-            title: mes_Refresh, mes_Refresh
+            title: mes_Refresh,
             text: translate("لیست وضعیت") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
@@ -1476,7 +1476,7 @@
 
     $('#modal-Status').on('hide.bs.modal', function () {
         if (counterStatus > 0)
-            $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameStatus').val(counterStatus + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameStatus').val(translate('همه موارد'));
     });
@@ -1662,7 +1662,7 @@
 
     $('#modal-KGru').on('hide.bs.modal', function () {
         if (counterKGru > 0)
-            $('#nameKGru').val(counterKGru +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameKGru').val(counterKGru + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameKGru').val(translate('همه موارد'));
     });
@@ -1825,7 +1825,7 @@
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
-               // + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
+                // + ' <td data-bind="text: FanniNo">' + item.FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[counterKala] = item.Code;
@@ -1845,7 +1845,7 @@
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
-               // + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
+                // + ' <td data-bind="text: FanniNo">' + list[i].FanniNo + '</td > '
                 + '</tr>'
             );
             list_KalaSelect[i] = list[i].Code;
@@ -1865,7 +1865,7 @@
 
     $('#modal-kala').on('hide.bs.modal', function () {
         if (counterKala > 0)
-            $('#nameKala').val(counterKala +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameKala').val(counterKala + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameKala').val(translate('همه موارد'));
     });
@@ -2060,7 +2060,7 @@
 
     $('#modal-Cust').on('hide.bs.modal', function () {
         if (counterCust > 0)
-            $('#nameCust').val(counterCust +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameCust').val(counterCust + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameCust').val(translate('همه موارد'));
     });
@@ -2254,7 +2254,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -2450,7 +2450,7 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
@@ -2479,8 +2479,8 @@
 
     self.ShowAFIFactor = function (Band) {
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad(ace, sal,"Factor", serialNumber, false, Band.DocNo)) {
-          //  showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "Factor", serialNumber, false, Band.DocNo)) {
+            //  showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
             localStorage.setItem("DocNoAFIFactor", Band.DocNo);
@@ -2506,7 +2506,7 @@
         taTarikh = localStorage.getItem("TaTarikhReport");
         self.TaDate(taTarikh);
 
-        modeCode = localStorage.getItem("ModeCodeReport"); 
+        modeCode = localStorage.getItem("ModeCodeReport");
         $("#modeCode").val(modeCode);
 
         KalaCode = localStorage.getItem("KalaCodeReport");
@@ -2515,7 +2515,7 @@
             list_KalaSelect = KalaCode.split("*");
             list_KalaNameSelect = KalaName.split("*");
             counterKala = list_KalaSelect.length;
-            $('#nameKala').val(counterKala +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameKala').val(counterKala + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameKala').val(translate('همه موارد'))
@@ -2527,7 +2527,7 @@
             list_CustSelect = CustCode.split("*");
             list_CustNameSelect = CustName.split("*");
             counterCust = list_CustSelect.length;
-            $('#nameCust').val(counterCust +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameCust').val(counterCust + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameCust').val(translate('همه موارد'))
@@ -2539,7 +2539,7 @@
             list_InvSelect = InvCode.split("*");
             list_InvNameSelect = InvName.split("*");
             counterInv = list_InvSelect.length;
-            $('#nameInv').val(counterInv +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameInv').val(counterInv + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameInv').val(translate('همه موارد'));
@@ -2552,7 +2552,7 @@
             list_KGruSelect = KGruCode.split("*");
             list_KGruNameSelect = KGruName.split("*");
             counterKGru = list_KGruSelect.length;
-            $('#nameKGru').val(counterKGru +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameKGru').val(counterKGru + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameKGru').val(translate('همه موارد'));
@@ -2564,7 +2564,7 @@
             list_MkzSelect = mkzCode.split("*");
             list_MkzNameSelect = mkzName.split("*");
             counterMkz = list_MkzSelect.length;
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameMkz').val(translate('همه موارد'));
@@ -2575,7 +2575,7 @@
             list_OprSelect = oprCode.split("*");
             list_OprNameSelect = oprName.split("*");
             counterOpr = list_OprSelect.length;
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameOpr').val(translate('همه موارد'));
@@ -2586,16 +2586,16 @@
 
 
 
-   // $("#FDOC_SO").hide(); //  سفارش فروش
+    // $("#FDOC_SO").hide(); //  سفارش فروش
     //$("#FDOC_SP").hide();//پیش فاکتور فروش
-   // $("#FDOC_S").hide();//فاکتور فروش
+    // $("#FDOC_S").hide();//فاکتور فروش
     //$("#FDOC_SR").hide();//برگشت از فروش
-   // $("#FDOC_SH").hide();//حواله فروش
-   // $("#FDOC_SE").hide();//برگه خروج
-   // $("#FDOC_PO").hide();//سفارش خرید
-   // $("#FDOC_PP").hide();//پیش فاکتور خرید
-   // $("#FDOC_P").hide();//فاکتور خرید
-   // $("#FDOC_PR").hide(); //برگشت از خرید
+    // $("#FDOC_SH").hide();//حواله فروش
+    // $("#FDOC_SE").hide();//برگه خروج
+    // $("#FDOC_PO").hide();//سفارش خرید
+    // $("#FDOC_PP").hide();//پیش فاکتور خرید
+    // $("#FDOC_P").hide();//فاکتور خرید
+    // $("#FDOC_PR").hide(); //برگشت از خرید
 
     self.AccessAction = function (ModeCode, Eghdam) {
 
@@ -2879,14 +2879,14 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowAFIFactor" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/><span>نمایش</span> <span data-bind="text:ModeName"></span>' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/><span>' + translate('نمایش') + '</span> <span data-bind="text:ModeName"></span>' +
             '    </a >' +
             ' </td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('DocNo', 0, data) +
             CreateTableTdSum('DocDate', 1, data) +
             CreateTableTdSum('ModeName', 1, data) +

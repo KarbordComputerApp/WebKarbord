@@ -547,7 +547,7 @@
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         if (counterAcc > 0)
-            $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAcc').val(translate('همه موارد'));
     });
@@ -772,7 +772,7 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
@@ -969,7 +969,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -1170,7 +1170,7 @@
 
     $('#modal-AMode').on('hide.bs.modal', function () {
         if (counterAMode > 0)
-            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameAMode').val(counterAMode + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAMode').val(translate('همه موارد'));
     });
@@ -1302,7 +1302,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-                        text: translate("لیست وضعیت") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست وضعیت") + ' ' + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1367,7 +1367,7 @@
 
     $('#modal-Status').on('hide.bs.modal', function () {
         if (counterStatus > 0)
-            $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameStatus').val(counterStatus + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameStatus').val(translate('همه موارد'));
     });
@@ -1808,8 +1808,8 @@
     self.ShowAFISanad = function (Band) {
         serial = Band.SerialNumber;
 
-        if (TestUseSanad(ace, sal,"SanadHesab", serial, false, Band.DocNo)) {
-          //  showNotification('سند در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "SanadHesab", serial, false, Band.DocNo)) {
+            //  showNotification('سند در تب دیگری وجود دارد', 0)
         }
         else {
             localStorage.setItem("DocNoAFISanad", Band.DocNo);
@@ -1827,7 +1827,7 @@
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
         list_AccNameSelect[0] = AccNameReport;
-        $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'));
+        $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'));
 
         azTarikh = localStorage.getItem("AzTarikhReport");
         self.AzDate(azTarikh);
@@ -1841,7 +1841,7 @@
             list_AModeSelect = aModeCode.split("*");
             list_AModeNameSelect = aModeName.split("*");
             counterAMode = list_AModeSelect.length;
-            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameAMode').val(counterAMode + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameAMode').val(translate('همه موارد'));
@@ -1855,7 +1855,7 @@
             list_MkzNameSelect = mkzName.split("*");
 
             counterMkz = list_MkzSelect.length;
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameMkz').val(translate('همه موارد'))
@@ -1868,7 +1868,7 @@
             list_OprNameSelect = oprName.split("*");
 
             counterOpr = list_OprSelect.length;
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameOpr').val(translate('همه موارد'));
@@ -2003,14 +2003,14 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowAFISanad" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> نمایش سند' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' + translate('نمایش سند') +
             '    </a >' +
             ' </td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('DocNo', 0, data) +
             CreateTableTdSum('DocDate', 1, data) +
             CreateTableTdSum('AccCode', 1, data) +

@@ -750,7 +750,7 @@
     $('#nameCGru').val(translate('همه موارد'));
     $('#nameOpr').val(translate('همه موارد'));
     $('#nameMkz').val(translate('همه موارد'));
-    $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'));
+    $('#nameStatus').val(counterStatus + ' ' + translate('مورد انتخاب شده'));
 
     self.currentPageTrzFKala_S = ko.observable();
     pageSizeTrzFKala_S = localStorage.getItem('pageSizeTrzFKala_S') == null ? 10 : localStorage.getItem('pageSizeTrzFKala_S');
@@ -1264,7 +1264,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-                        text: translate("لیست وضعیت") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست وضعیت") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1340,7 +1340,7 @@
 
     $('#modal-Status').on('hide.bs.modal', function () {
         if (counterStatus > 0)
-            $('#nameStatus').val(counterStatus +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameStatus').val(counterStatus + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameStatus').val(translate('همه موارد'));
     });
@@ -1522,7 +1522,7 @@
 
     $('#modal-Inv').on('hide.bs.modal', function () {
         if (counterInv > 0)
-            $('#nameInv').val(counterInv +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameInv').val(counterInv + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameInv').val(translate('همه موارد'));
     });
@@ -1705,7 +1705,7 @@
 
     $('#modal-KGru').on('hide.bs.modal', function () {
         if (counterKGru > 0)
-            $('#nameKGru').val(counterKGru +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameKGru').val(counterKGru + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameKGru').val(translate('همه موارد'));
     });
@@ -1895,7 +1895,7 @@
 
     $('#modal-kala').on('hide.bs.modal', function () {
         if (counterKala > 0)
-            $('#nameKala').val(counterKala +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameKala').val(counterKala + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameKala').val(translate('همه موارد'));
     });
@@ -2080,7 +2080,7 @@
 
     $('#modal-CGru').on('hide.bs.modal', function () {
         if (counterCGru > 0)
-            $('#nameCGru').val(counterCGru +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameCGru').val(counterCGru + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameCGru').val(translate('همه موارد'));
     });
@@ -2272,7 +2272,7 @@
 
     $('#modal-Cust').on('hide.bs.modal', function () {
         if (counterCust > 0)
-            $('#nameCust').val(counterCust +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameCust').val(counterCust + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameCust').val(translate('همه موارد'));
     });
@@ -2455,7 +2455,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -2640,7 +2640,7 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
@@ -2802,7 +2802,7 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowFDocR_S" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> ريز گردش اسناد فروش' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> ' + translate('ريز گردش اسناد فروش') +
             '    </a >' +
             ' </td >' +
 
@@ -2811,7 +2811,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('KalaCode', 0, data) +
             CreateTableTdSum('KalaName', 1, data) +
             CreateTableTdSum('KalaF01', 1, data) +

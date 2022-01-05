@@ -2673,14 +2673,14 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowFDocR_P" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> ريز گردش اسناد خرید' +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" /> ' + translate('ريز گردش اسناد خرید') +
             '    </a >' +
             ' </td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-            '<td style="background-color: #e37d228f !important;">جمع</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('CustCode', 0, data) +
             CreateTableTdSum('CustName', 1, data) +
             CreateTableTdSum('CustF01', 1, data) +

@@ -161,7 +161,7 @@
 
 
     if (sessionStorage.InOut == 1) {
-        $('#TitleHeaderAnbar').text(translate('سند وارده به انبار '));
+        $('#TitleHeaderAnbar').text(translate('سند وارده به انبار'));
         $('#titlePage').text(translate('سند وارده به انبار جدید'));
         $('#LableThvlCode').text(translate('نام تحویل دهنده'));
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل دهنده');
@@ -202,7 +202,7 @@
 
     } else {
         $('#TitleHeaderAnbar').text(translate('سند صادره از انبار'));
-        $('#titlePage').text(translate(' سند صادره از انبار جدید'));
+        $('#titlePage').text(translate('سند صادره از انبار جدید'));
         $('#LableThvlCode').text(translate('تحویل گیرنده'));
         //$('#LableThvlCode').attr('placeholder', 'نام تحویل گیرنده ');
         $('#TitleModalThvl').text(translate('لیست تحویل گیرند گان'));
@@ -540,7 +540,7 @@
                 dataIDocH.Amount3 != null ? IDocHAmount3 = dataIDocH.Amount3 : IDocHAmount3 = 0;
                 dataIDocH.TotalPrice != null ? IDocHTotalPrice = dataIDocH.TotalPrice : IDocHTotalPrice = 0;
                 dataIDocH.FinalPrice != null ? IDocHFinalPrice = dataIDocH.FinalPrice : IDocHFinalPrice = 0;
-                IDocHAmount1 == 0 ? $('#foottextsum').text('') : $('#foottextsum').text('جمع');
+                IDocHAmount1 == 0 ? $('#foottextsum').text('') : $('#foottextsum').text(translate('جمع'));
                 IDocHAmount1 == 0 ? $('#foottextamount1').text('') : $('#foottextamount1').text(NumberToNumberString(IDocHAmount1.valueOf()));
                 IDocHAmount2 == 0 ? $('#foottextamount2').text('') : $('#foottextamount2').text(NumberToNumberString(IDocHAmount2.valueOf()));
                 IDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(IDocHAmount3.valueOf()));
@@ -722,6 +722,9 @@
         });
     }
 
+    self.OptionsCaptionKalaPrice = ko.computed(function () {
+        return translate('قیمت اطلاعات پایه');
+    });
 
     function SetDataTest_New() {
         $("#BodyTest_New").empty();
@@ -745,7 +748,7 @@
             }
 
             if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -1566,7 +1569,7 @@
         if (uKala == null)
             uKala = 1;
 
-        textZeroAmount = 'مقدار صفر است'
+        textZeroAmount = translate('مقدار صفر است')
         if (Amount3 == 0)
             if (Amount2 == 0)
                 if (Amount1 == 0) {
@@ -1696,7 +1699,7 @@
         if (uKala == null)
             uKala = 1;
 
-        textZeroAmount = 'مقدار صفر است'
+        textZeroAmount = translate('مقدار صفر است')
         if (Amount3 == 0)
             if (Amount2 == 0)
                 if (Amount1 == 0) {
@@ -1942,7 +1945,7 @@
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
                     closedDate = true;
-                    showNotification(list[i].TestCap, 0);
+                    showNotification(translate(list[i].TestCap), 0);
                 }
             }
 
@@ -3617,23 +3620,27 @@
                     ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
+
+
             if (list[i].TestName == "Opr")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' پروژه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('پروژه مشخص نشده است') + ' </p>';
 
             else if (list[i].TestName == "Mkz")
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مرکز هزینه مشخص نشده است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مرکز هزینه مشخص نشده است') + ' </p>';
 
             else if (list[i].TestName == 'Arz')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' ارز معرفی نشده است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('ارز معرفی نشده است') + ' </p>';
+
 
             else if (list[i].TestName == 'ZeroAmount')
-                textBody += '<p>بند شماره ' + list[i].BandNo + ' مقدار صفر است ' + ' </p>';
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مقدار صفر است') + ' </p>';
 
             else if (list[i].TestName == 'Thvl')
-                textBody += '<p>' + $('#LableThvlCode').text() + ' انتخاب نشده است ' + ' </p>';
+                textBody += '<p>' + $('#LableThvlCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
+
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +

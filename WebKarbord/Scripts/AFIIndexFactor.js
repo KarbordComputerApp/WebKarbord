@@ -1087,7 +1087,7 @@
                 for (var i = 0; i < list.length; i++) {
                     if (list[i].TestName == "YTrs") {
                         closedDate = true;
-                        return showNotification(list[i].TestCap, 0);
+                        return showNotification(translate(list[i].TestCap), 0);
                     }
                 }
             });
@@ -2005,7 +2005,7 @@
 
             Swal.fire({
                 title: translate('تایید حذف'),
-                text: translate("آیا") + " " + translate(TitleListFactor) +" "+ translate("انتخابی حذف شود ؟"),
+                text: translate("آیا") + " " + TitleListFactor +" "+ translate("انتخابی حذف شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -2067,7 +2067,7 @@
                 textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت انبارداری شده است و قابل حذف نیست') + '</p>';
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + list[i].TestCap + '</p>';
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
 
             textBody +=
                 '    </div>' +
@@ -2895,7 +2895,7 @@
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
                     closedDate = true;
-                    showNotification(list[i].TestCap, 0);
+                    showNotification(translate(list[i].TestCap), 0);
                 }
             }
         });
@@ -2925,7 +2925,7 @@
                 });
             }
             if (moveMode == 1 && testmove == false)
-                return showNotification(Texttestmove, 0);
+                return showNotification(translate(Texttestmove), 0);
 
             var MoveObject = {
                 SerialNumber: serial,
