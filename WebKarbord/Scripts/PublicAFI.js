@@ -144,8 +144,8 @@ if (lang == 'en') {
 
     $(".useBlank").css({ "padding-left": "50px" });
     $(".useBlank").css({ "padding-right": "9px" });
-    $(".useBlank").css({ "font-family": "sans-serif" });
-    $("button").css({ "font-family": "sans-serif" });
+    $(".useBlank").css({ "font-family": "Merriweather-Light" });
+    $("button").css({ "font-family": "Merriweather-Light" });
 
 
     $("button").removeClass("pull-left");
@@ -204,11 +204,10 @@ if (lang == 'en') {
     $(".tableFix").addClass("tableFixltr");
     $(".tableFix").removeClass("tableFix");
 
-    $("select").css({ "font-family": "sans-serif" });
+    $("select").css({ "font-family": "Merriweather-Light" });
     
-    $("#titleVerNumber").css({ "font-family": "sans-serif" });
-    $("#titleVer").css({ "font-family": "sans-serif" });
-
+    $("#titleVerNumber").css({ "font-family": "Merriweather-Light" });
+    $("#titleVer").css({ "font-family": "Merriweather-Light" });
 }
 
 

@@ -911,6 +911,7 @@
     <Content Include="Content\Report\Report_FDocR_P .mrt" />
     <Content Include="Content\Report\Report_FTrz_Kala_P.mrt" />
     <Content Include="Content\Report\Report_FTrz_Kala_S.mrt" />
+    <Content Include="Content\fonts\Merriweather-Light.ttf" />
     <None Include="packages.config" />
     <Content Include="Views\AFIFactor\AddFdoc.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />

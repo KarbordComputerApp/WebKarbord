@@ -3,6 +3,11 @@
     src: url('../fonts/Vazir-Bold-FD-WOL.eot?#') format('eot'), url('../fonts/Vazir-Bold-FD-WOL.woff') format('woff'), url('../fonts/Vazir-Bold-FD-WOL.ttf') format('truetype')
 }
 
+@font-face {
+    font-family: 'Merriweather-Light';
+    src: url('../fonts/Merriweather-Light.ttf') format('truetype');
+}
+
 .material-half-bg {
     height: 100vh;
     background-color: #e7e7e7;
