@@ -2112,12 +2112,12 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'با ویژگی کالا';
+                opt.innerHTML = translate('با ویژگی کالا');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 1;
-                opt.innerHTML = 'بدون ویژگی کالا';
+                opt.innerHTML = translate('بدون ویژگی کالا');
 
             }
             select.appendChild(opt);
@@ -2130,12 +2130,12 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'محاسبه نشود';
+                opt.innerHTML = translate('محاسبه نشود');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 1;
-                opt.innerHTML = 'محاسبه شود';
+                opt.innerHTML = translate('محاسبه شود');
 
             }
             select.appendChild(opt);

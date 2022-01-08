@@ -240,8 +240,8 @@
             }
 
             opt = document.createElement('option');
-            opt.value = SearchMode('فاکتور خرید', self.FModeList()) + '*' + SearchMode('برگشت از خرید', self.FModeList());
-            opt.innerHTML = 'فاکتور خرید با احتساب برگشتی';
+            opt.value = SearchMode(translate('فاکتور خرید'), self.FModeList()) + '*' + SearchMode(translate('برگشت از خرید'), self.FModeList());
+            opt.innerHTML = translate('فاکتور خرید با احتساب برگشتی');
             opt.selected = true;
             select.appendChild(opt);
         });

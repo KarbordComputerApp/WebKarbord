@@ -2209,27 +2209,6 @@
     });
 
 
-    /* function getNoSanad() {
-         select = document.getElementById('noSanadAnbar');
-         for (var i = 0; i <= 2; i++) {
-             opt = document.createElement('option');
-             if (i == 0) {
-                 opt.value = 0;
-                 opt.innerHTML = translate('همه موارد');
-                 opt.selected = true;
-             }
-             if (i == 1) {
-                 opt.value = 1;
-                 opt.innerHTML = 'وارده به انبار';
- 
-             }
-             if (i == 2) {
-                 opt.value = 2;
-                 opt.innerHTML = 'صادره از انبار';
-             }
-             select.appendChild(opt);
-         }
-     };*/
 
     self.currentPageStatus = ko.observable();
     pageSizeStatus = localStorage.getItem('pageSizeStatus') == null ? 10 : localStorage.getItem('pageSizeStatus');

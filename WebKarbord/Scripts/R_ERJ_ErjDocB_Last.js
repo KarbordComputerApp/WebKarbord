@@ -290,12 +290,12 @@
             opt = document.createElement('option');
             if (i == 1) {
                 opt.value = i;
-                opt.innerHTML = 'دریافتی';
+                opt.innerHTML = translate('دریافتی');
                 opt.selected = true;
             }
             if (i == 2) {
                 opt.value = i;
-                opt.innerHTML = 'ارسالی';
+                opt.innerHTML = translate('ارسالی');
             }
             select.appendChild(opt);
         }
@@ -307,28 +307,28 @@
             opt = document.createElement('option');
             if (i == 1) {
                 opt.value = i;
-                opt.innerHTML = 'کليه ارجاعات و رونوشتها';
+                opt.innerHTML = translate('کليه ارجاعات و رونوشتها');
             }
             if (i == 2) {
                 opt.value = i;
-                opt.innerHTML = 'کليه ارجاعات اصلی';
+                opt.innerHTML = translate('کليه ارجاعات اصلی');
             }
             if (i == 3) {
                 opt.value = i;
-                opt.innerHTML = 'کليه رونوشتها';
+                opt.innerHTML = translate('کليه رونوشتها');
             }
             if (i == 4) {
                 opt.value = i;
-                opt.innerHTML = 'آخرين ارجاعات و رونوشتها';
+                opt.innerHTML = translate('آخرين ارجاعات و رونوشتها');
                 opt.selected = true;
             }
             if (i == 5) {
                 opt.value = i;
-                opt.innerHTML = 'آخرين ارجاعات اصلی';
+                opt.innerHTML = translate('آخرين ارجاعات اصلی');
             }
             if (i == 6) {
                 opt.value = i;
-                opt.innerHTML = 'آخرين رونوشتها';
+                opt.innerHTML = translate('آخرين رونوشتها');
             }
             select.appendChild(opt);
         }

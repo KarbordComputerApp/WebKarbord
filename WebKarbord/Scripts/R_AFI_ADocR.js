@@ -1397,12 +1397,12 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'ریز حساب ها';
+                opt.innerHTML = translate('ریز حساب ها');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 1;
-                opt.innerHTML = 'حساب های کل';
+                opt.innerHTML = translate('حساب های کل');
             }
 
             select.appendChild(opt);
@@ -1415,12 +1415,12 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 0;
-                opt.innerHTML = 'بدون جمع روزانه';
+                opt.innerHTML = translate('بدون جمع روزانه');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 1;
-                opt.innerHTML = 'با جمع روزانه';
+                opt.innerHTML = translate('با جمع روزانه');
             }
 
             select.appendChild(opt);

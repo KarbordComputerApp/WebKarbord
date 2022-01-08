@@ -583,12 +583,12 @@
             opt = document.createElement('option');
             if (i == 1) {
                 opt.value = 1;
-                opt.innerHTML = 'پرداختنی';
+                opt.innerHTML = translate('پرداختنی');
                 opt.selected = true;
             }
             if (i == 2) {
                 opt.value = 2;
-                opt.innerHTML = 'دریافتنی';
+                opt.innerHTML = translate('دریافتنی');
             }
             select.appendChild(opt);
         }

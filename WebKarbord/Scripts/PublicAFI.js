@@ -1318,6 +1318,9 @@ $("#SaveParam").click(function () {
 
         localStorage.setItem("listKalaUse", "0");
         localStorage.setItem("listCustUse", "0");
+        localStorage.setItem("listAccUse", "0");
+        localStorage.setItem("listOprUse", "0");
+        localStorage.setItem("listMkzUse", "0");
         localStorage.setItem("listSanadHesabUse", "0")
         localStorage.setItem("listFactorUse", "0")
         localStorage.setItem("listSanadAnbarUse", "0")
@@ -4735,7 +4738,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     useWindows = false;
     var userUse = "";
     var userUseName = "";
-    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && find == false) {
+    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
             Prog: prog,
@@ -4817,7 +4820,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
         localStorage.setItem("list" + FormName + "Use", listUse);
 
 
-        if ((FormName != "Kala" && FormName != "Cust" && FormName != "Acc")) {
+        if ((FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz")) {
             dMode = 0;
             switch (FormName) {
                 case "SanadHesab":

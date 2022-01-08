@@ -24,5 +24,15 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult Opr()
+        {
+            return View();
+        }
+
+        public ActionResult Mkz()
+        {
+            return View();
+        }
+
     }
 }

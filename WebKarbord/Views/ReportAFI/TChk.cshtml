@@ -10,7 +10,7 @@
         <div class="card" style="margin-top:0px;">
             <div class="header">
 
-                <h2><strong>صورت خلاصه چک ها</strong></h2>
+                <h2><strong data-bind="text:translate('صورت خلاصه چک ها')"></strong></h2>
                 <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                     <a id="SettingColumn" class="">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
@@ -106,8 +106,8 @@
 
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <span class="col-md-3">
-                                    نوع چک
+                                <span class="col-md-3" data-bind="text:translate('نوع چک')">
+                                    
                                 </span>
                                 <div class="form-group col-md-9">
                                     <select id="PDMode"></select>
@@ -125,7 +125,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameCheckStatus" class="form-control" readonly />
-                                        <label class="form-label">وضعیت چک</label>
+                                        <label class="form-label" data-bind="text:translate('وضعیت چک')" ></label>
                                     </div>
                                 </div>
 

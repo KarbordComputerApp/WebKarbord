@@ -1653,12 +1653,12 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 1;
-                opt.innerHTML = 'تراز در سطح';
+                opt.innerHTML = translate('تراز در سطح');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 2;
-                opt.innerHTML = 'تراز تا سطح';
+                opt.innerHTML = translate('تراز تا سطح');
             }
             select.appendChild(opt);
         }
@@ -1671,24 +1671,24 @@
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 1;
-                opt.innerHTML = 'کل';
+                opt.innerHTML = translate('کل');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 2;
-                opt.innerHTML = 'معین';
+                opt.innerHTML = translate('معین');
             }
             if (i == 2) {
                 opt.value = 3;
-                opt.innerHTML = 'تفصیلی 1';
+                opt.innerHTML = translate('تفصیلی 1');
             }
             if (i == 3) {
                 opt.value = 4;
-                opt.innerHTML = 'تفصیلی 2';
+                opt.innerHTML = translate('تفصیلی 2');
             }
             if (i == 4) {
                 opt.value = 5;
-                opt.innerHTML = 'تفصیلی 3';
+                opt.innerHTML = translate('تفصیلی 3');
             }
             select.appendChild(opt);
         }

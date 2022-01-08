@@ -252,8 +252,8 @@
 
             opt = document.createElement('option');
             //opt.value = data[1].Code + '*' + data[2].Code;
-            opt.value = SearchMode('فاکتور فروش', self.FModeList()) + '*' + SearchMode('برگشت از فروش', self.FModeList());
-            opt.innerHTML = 'فاکتور فروش با احتساب برگشتی';
+            opt.value = SearchMode(translate('فاکتور فروش'), self.FModeList()) + '*' + SearchMode(translate('برگشت از فروش'), self.FModeList());
+            opt.innerHTML = translate('فاکتور فروش با احتساب برگشتی');
             opt.selected = true;
             select.appendChild(opt);
         });
@@ -266,13 +266,13 @@
 
         opt = document.createElement('option');
         opt.value = '0';
-        opt.innerHTML = 'نمایش مانده های صفر';
+        opt.innerHTML = translate('نمایش مانده های صفر');
         opt.selected = true;
         select.appendChild(opt);
 
         opt = document.createElement('option');
         opt.value = '1';
-        opt.innerHTML = 'عدم نمایش مانده های صفر';
+        opt.innerHTML = translate('عدم نمایش مانده های صفر');
         select.appendChild(opt);
     }
 

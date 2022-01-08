@@ -2836,7 +2836,7 @@
 
                 specialComm = data["SpecialComm"];
                 SpecialCommTrs = data["SpecialCommTrs"];
-                $("#p_SpecialComm").val((translate('برای نمایش کلیک کنید'));
+                $("#p_SpecialComm").val(translate('برای نمایش کلیک کنید'));
                 $("#p_SpecialComm").attr('readonly', true);
                 TextHighlight("#p_SpecialComm");
 
@@ -3017,7 +3017,7 @@
 
             specialComm = item.SpecialComm;
             SpecialCommTrs = item.SpecialCommTrs;
-            $("#p_SpecialComm").val((translate('برای نمایش کلیک کنید'));
+            $("#p_SpecialComm").val(translate('برای نمایش کلیک کنید'));
             $("#p_SpecialComm").attr('readonly', true);
             TextHighlight("#p_SpecialComm");
 
