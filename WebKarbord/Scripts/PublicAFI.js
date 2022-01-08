@@ -66,6 +66,37 @@ var dict =
 var lang = 'en';
 var dir_lang = 'ltr'
 
+
+
+
+
+var DefultLang = localStorage.getItem('DefultLang');
+
+if (DefultLang == "en") {
+    $("#SelectLang").val(1);
+    lang = 'en';
+    dir_lang = 'ltr';
+}
+else {
+    $("#SelectLang").val(0);
+    lang = 'fa';
+    dir_lang = 'rtl';
+}
+
+
+$("#SelectLang").change(function () {
+
+    if ($('#SelectLang').val() == 1) {
+        localStorage.setItem("DefultLang", "en");
+    }
+    else {
+        localStorage.setItem("DefultLang", "fa");
+    }
+    location.reload();
+});
+
+
+
 //lang = 'fa';
 
 //dir_lang = 'rtl';
@@ -205,9 +236,12 @@ if (lang == 'en') {
     $(".tableFix").removeClass("tableFix");
 
     $("select").css({ "font-family": "Merriweather-Light" });
-    
+
     $("#titleVerNumber").css({ "font-family": "Merriweather-Light" });
     $("#titleVer").css({ "font-family": "Merriweather-Light" });
+}
+else {
+    $(".panel_CountRecord_Sanad").addClass("pull-left");
 }
 
 
