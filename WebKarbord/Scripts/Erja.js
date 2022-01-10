@@ -28,7 +28,7 @@
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
 
-    self.DocAttachList = ko.observableArray([]); // ليست پیوست
+    self.DocAttachList = ko.observableArray([]); // لیست پیوست
 
     TestUser();
 
@@ -404,28 +404,28 @@
             opt = document.createElement('option');
             if (i == 1) {
                 opt.value = i;
-                opt.innerHTML = 'کليه ارجاعات و رونوشتها';
+                opt.innerHTML = 'کلیه ارجاعات و رونوشتها';
             }
             if (i == 2) {
                 opt.value = i;
-                opt.innerHTML = 'کليه ارجاعات اصلی';
+                opt.innerHTML = 'کلیه ارجاعات اصلی';
             }
             if (i == 3) {
                 opt.value = i;
-                opt.innerHTML = 'کليه رونوشتها';
+                opt.innerHTML = 'کلیه رونوشتها';
             }
             if (i == 4) {
                 opt.value = i;
-                opt.innerHTML = 'آخرين ارجاعات و رونوشتها';
+                opt.innerHTML = 'آخرین ارجاعات و رونوشتها';
                 opt.selected = true;
             }
             if (i == 5) {
                 opt.value = i;
-                opt.innerHTML = 'آخرين ارجاعات اصلی';
+                opt.innerHTML = 'آخرین ارجاعات اصلی';
             }
             if (i == 6) {
                 opt.value = i;
-                opt.innerHTML = 'آخرين رونوشتها';
+                opt.innerHTML = 'آخرین رونوشتها';
             }
             select.appendChild(opt);
         }

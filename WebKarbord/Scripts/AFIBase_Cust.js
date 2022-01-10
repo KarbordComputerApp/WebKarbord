@@ -1,10 +1,10 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.CustList = ko.observableArray([]); // ليست خریداران/فروشندگان 
+    self.CustList = ko.observableArray([]); // لیست خریداران/فروشندگان 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
-    self.CGruList = ko.observableArray([]); // ليست گروه خریداران/فروشندگان
+    self.CGruList = ko.observableArray([]); // لیست گروه خریداران/فروشندگان
     self.TestCustList = ko.observableArray([]); // لیست تست حذف 
 
 
@@ -939,7 +939,7 @@
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
                     getCustList();
                     $('#modal-Cust').modal('hide');
-                    showNotification(translate('ذخيره شد'), 1);
+                    showNotification(translate('ذخیره شد'), 1);
                 });
             }
         });

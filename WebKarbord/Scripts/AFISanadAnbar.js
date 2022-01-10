@@ -130,22 +130,22 @@
     self.MainUnit = ko.observable();
     self.Comm = ko.observable();
 
-    self.ThvlList = ko.observableArray([]); // ليست حساب ها
-    self.KalaList = ko.observableArray([]); // ليست کالاها
-    self.KalaPriceList = ko.observableArray([]); // ليست گروه قيمت
-    self.KalaPriceBList = ko.observableArray([]); // قيمت کالا بر اساس گروه قیمت
-    self.IDocBList = ko.observableArray([]); // ليست بند های سند
-    self.IDocB = ko.observableArray([]); // ليست بند های سند
-    self.UnitList = ko.observableArray([]); // ليست واحد ها
-    self.InvList = ko.observableArray([]); // ليست انبارها
+    self.ThvlList = ko.observableArray([]); // لیست حساب ها
+    self.KalaList = ko.observableArray([]); // لیست کالاها
+    self.KalaPriceList = ko.observableArray([]); // لیست گروه قیمت
+    self.KalaPriceBList = ko.observableArray([]); // قیمت کالا بر اساس گروه قیمت
+    self.IDocBList = ko.observableArray([]); // لیست بند های سند
+    self.IDocB = ko.observableArray([]); // لیست بند های سند
+    self.UnitList = ko.observableArray([]); // لیست واحد ها
+    self.InvList = ko.observableArray([]); // لیست انبارها
     self.IDocHList = ko.observableArray([]); // اطلاعات  سند  
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IModeList = ko.observableArray([]); // نوع سند 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestIDocList = ko.observableArray([]); // لیست تست 
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
 
@@ -238,8 +238,8 @@
 
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس حساب
-    var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قيمت کالا بر اساس گروه قیمت
-    var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قيمت
+    var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قیمت کالا بر اساس گروه قیمت
+    var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قیمت
     var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس هدر سند 
     var IDocBiUri = server + '/api/AFI_IDocBi/'; // آدرس بند سند 
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
@@ -666,14 +666,14 @@
             var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
-                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
 
             if (tarikh == '')
-                return showNotification(translate('تاريخ را وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را وارد کنید'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+                return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
 
             TestIDoc_New(Serial, tarikh, docNo);
@@ -799,7 +799,7 @@
  
                      GetBandNumber();
                      if (Serial == '') {
-                         return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است ', 0);
+                         return showNotification(translate('اطلاعات اولیه فاکتور ثبت نشده است ', 0);
                      }
  
                      defaultUnit = kala.DefaultUnit;
@@ -894,14 +894,14 @@
             var tarikh = $("#tarikh").val().toEnglishDigit();
 
             if (tarikh.length != 10)
-                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
 
             if (tarikh == '')
-                return showNotification(translate('تاريخ را وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را وارد کنید'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+                return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
             var TestIDoc_NewObject = {
                 DocDate: tarikh,
@@ -1106,7 +1106,7 @@
     function SetDataBarCode(kala, amountB) {
         GetBandNumber();
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است'), 0);
+            return showNotification(translate('اطلاعات اولیه فاکتور ثبت نشده است'), 0);
         }
 
         if (DataKalaBarcode == null) {
@@ -1214,30 +1214,30 @@
         }
 
         if (tarikh.length != 10) {
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را صحیح وارد کنید' });
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ وارد شده با سال انتخابی همخوانی ندارد' });
         }
 
         if (inv == '' || inv == null) {
-            return showNotification(translate('انبار را انتخاب کنيد'), 0);
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
+            return showNotification(translate('انبار را انتخاب کنید'), 0);
+            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنید' });
         }
 
         if (modeCode == '') {
             return showNotification(translate('نوع سند را انتخاب کنید'), 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
 
@@ -1314,7 +1314,7 @@
             DocNoOut = res[1];
             $('#docnoout').val(DocNoOut);
             sessionStorage.searchIDocH = Serial;
-            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخيره شد ' });
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخیره شد ' });
 
             $('#inv').prop('disabled', true);
 
@@ -1338,35 +1338,35 @@
         modeCode = $("#modeCode").val();
 
         if (tarikh.length != 10) {
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را صحیح وارد کنید' });
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ وارد شده با سال انتخابی همخوانی ندارد' });
         }
 
         if (inv == '' || inv == null) {
-            return showNotification(translate('انبار را انتخاب کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
+            return showNotification(translate('انبار را انتخاب کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنید' });
         }
 
         if (modeCode == '') {
             return showNotification(translate('نوع سند را انتخاب کنید'), 0);
-            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+            //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
         if (self.DocNoOut == '') {
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنيد ' });
-            return showNotification(translate('شماره سند را وارد کنيد'), 0);
+            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره سند را وارد کنید ' });
+            return showNotification(translate('شماره سند را وارد کنید'), 0);
         }
 
         //if (codeThvl == '') {
@@ -1375,7 +1375,7 @@
 
         if ($('#docnoout').val() == '') {
             //return showNotification(translate('ابتدا بند ها وارد کنید', 0);
-            return showNotification(translate('شماره سند را وارد کنيد'), 0);
+            return showNotification(translate('شماره سند را وارد کنید'), 0);
         }
 
         TestIDoc_New(Serial, tarikh, $('#docnoout').val());
@@ -1481,7 +1481,7 @@
             }
             else {
                 showNotification('سند ذخیره شد', 1);
-                // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخيره شد ' });
+                // Swal.fire({ type: 'success', title: 'ثبت موفق', text: 'سند' + ' ذخیره شد ' });
             }
 
 
@@ -1500,25 +1500,25 @@
         GetBandNumber();
         bandnumber = bandnumber;
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه سند ثبت نشده است'), 0);
+            return showNotification(translate('اطلاعات اولیه سند ثبت نشده است'), 0);
         }
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
         }
 
         if (inv == '' || inv == null) {
-            return showNotification(translate('انبار را انتخاب کنيد'), 0);
+            return showNotification(translate('انبار را انتخاب کنید'), 0);
         }
 
         if (modeCode == '') {
@@ -1618,13 +1618,13 @@
         /*ajaxFunction(IDocBiUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', IDocBObject).done(function (response) {
             self.IDocBList(response);
             getIDocH(Serial);
-            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumber + ' ذخيره شد ' });
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumber + ' ذخیره شد ' });
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             self.ClearIDocB();
             flaglog = 'N';
             $('#Save').removeAttr('disabled');
-            showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
+            showNotification(' بند شماره ' + bandnumber + ' ذخیره شد ', 1);
         });
         $('#Save').removeAttr('disabled');*/
 
@@ -1636,14 +1636,14 @@
             self.IDocBList(response);
             self.IDocB(response);
             getIDocH(Serial);
-            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumber + ' ذخيره شد ' });
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند شماره ' + bandnumber + ' ذخیره شد ' });
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             self.ClearIDocB();
             flaglog = 'N';
             $('#Save').removeAttr('disabled');
             KalaCode = '';
-            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' + translate('ذخيره شد'), 1);
+            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' + translate('ذخیره شد'), 1);
         });
     }
 
@@ -1653,8 +1653,8 @@
         //KalaCode = $("#codeKala").val();
         //        bandnumber = bandnumber + 1;
         if (Serial == '') {
-            return showNotification(translate('بند شمارهاطلاعات اوليه سند ثبت نشده است'), 0);
-            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه سند ثبت نشده است ' });
+            return showNotification(translate('بند شمارهاطلاعات اولیه سند ثبت نشده است'), 0);
+            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اولیه سند ثبت نشده است ' });
         }
         var cKala = $('#codeKala').val();
         var nKala = $('#nameKala').val();
@@ -1671,8 +1671,8 @@
         comm = $("#comm").val();
 
         if (cKala == '' || nKala == '' || uKala == '') {
-            return showNotification(translate('کالا را وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
+            return showNotification(translate('کالا را وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنید' });
         }
 
 

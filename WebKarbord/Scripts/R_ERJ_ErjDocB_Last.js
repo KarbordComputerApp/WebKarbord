@@ -8,7 +8,7 @@
 
     var specialCommTrs;
 
-    self.ErjCustList = ko.observableArray([]); // ليست مشتریان
+    self.ErjCustList = ko.observableArray([]); // لیست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.ErjUsersList = ko.observableArray([]); // لیست ارجاع شونده / دهنده 
@@ -22,7 +22,7 @@
     self.ErjDocErja = ko.observableArray([]); // لیست پرونده  
     self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
 
-    self.DocAttachList = ko.observableArray([]); // ليست پیوست
+    self.DocAttachList = ko.observableArray([]); // لیست پیوست
 
     TestUser();
 
@@ -307,28 +307,28 @@
             opt = document.createElement('option');
             if (i == 1) {
                 opt.value = i;
-                opt.innerHTML = translate('کليه ارجاعات و رونوشتها');
+                opt.innerHTML = translate('کلیه ارجاعات و رونوشتها');
             }
             if (i == 2) {
                 opt.value = i;
-                opt.innerHTML = translate('کليه ارجاعات اصلی');
+                opt.innerHTML = translate('کلیه ارجاعات اصلی');
             }
             if (i == 3) {
                 opt.value = i;
-                opt.innerHTML = translate('کليه رونوشتها');
+                opt.innerHTML = translate('کلیه رونوشتها');
             }
             if (i == 4) {
                 opt.value = i;
-                opt.innerHTML = translate('آخرين ارجاعات و رونوشتها');
+                opt.innerHTML = translate('آخرین ارجاعات و رونوشتها');
                 opt.selected = true;
             }
             if (i == 5) {
                 opt.value = i;
-                opt.innerHTML = translate('آخرين ارجاعات اصلی');
+                opt.innerHTML = translate('آخرین ارجاعات اصلی');
             }
             if (i == 6) {
                 opt.value = i;
-                opt.innerHTML = translate('آخرين رونوشتها');
+                opt.innerHTML = translate('آخرین رونوشتها');
             }
             select.appendChild(opt);
         }
@@ -1717,7 +1717,7 @@
             $("#docDesc").val(item.DocDesc);
 
             specialComm = item.SpecialComm;
-            $("#specialComm").val((translate('برای نمایش کلیک کنید'));
+            $("#specialComm").val(translate('برای نمایش کلیک کنید'));
             TextHighlight("#specialComm");
             specialCommTrs = item.SpecialCommTrs;
 

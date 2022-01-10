@@ -1,15 +1,15 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.InvList = ko.observableArray([]); // ليست انبارها
-    self.KalaList = ko.observableArray([]); // ليست کالاها
-    self.CustList = ko.observableArray([]); // ليست مشتریان 
-    self.CGruList = ko.observableArray([]); // ليست  گروه مشتریان 
-    self.KGruList = ko.observableArray([]); // ليست گروه کالاها
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.InvList = ko.observableArray([]); // لیست انبارها
+    self.KalaList = ko.observableArray([]); // لیست کالاها
+    self.CustList = ko.observableArray([]); // لیست مشتریان 
+    self.CGruList = ko.observableArray([]); // لیست  گروه مشتریان 
+    self.KGruList = ko.observableArray([]); // لیست گروه کالاها
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
-    self.StatusList = ko.observableArray([]); // ليست نوع سند ها
+    self.StatusList = ko.observableArray([]); // لیست نوع سند ها
 
 
     self.TrzFCust_SList = ko.observableArray([]); // لیست گزارش  
@@ -2664,7 +2664,7 @@
             ' <ul class="dropdown-menu">' +
             '    <li>' +
             '    <a data-bind="click: $root.ShowFDocR_S" style="font-size: 11px;">' +
-            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' + translate('ريز گردش اسناد فروش') +
+            '        <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px" />' + translate('ریز گردش اسناد فروش') +
             '    </a >' +
             ' </td >' +
             '</tr>' +

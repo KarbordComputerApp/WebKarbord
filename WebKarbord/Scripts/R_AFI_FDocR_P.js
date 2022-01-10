@@ -1,14 +1,14 @@
 ﻿var ViewModel = function () {
     var self = this;
     var flagupdateHeader = 0;
-    self.InvList = ko.observableArray([]); // ليست انبارها
-    self.KalaList = ko.observableArray([]); // ليست کالاها
-    self.CustList = ko.observableArray([]); // ليست وارده صادره 
-    self.KGruList = ko.observableArray([]); // ليست گروه کالاها
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
+    self.InvList = ko.observableArray([]); // لیست انبارها
+    self.KalaList = ko.observableArray([]); // لیست کالاها
+    self.CustList = ko.observableArray([]); // لیست وارده صادره 
+    self.KGruList = ko.observableArray([]); // لیست گروه کالاها
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.FModeList = ko.observableArray([]); // لیست نوع فاکتور ها
-    self.StatusList = ko.observableArray([]); // ليست نوع سند ها
+    self.StatusList = ko.observableArray([]); // لیست نوع سند ها
 
 
 

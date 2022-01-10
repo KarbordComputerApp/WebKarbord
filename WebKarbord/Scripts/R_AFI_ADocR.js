@@ -1,11 +1,11 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.AccList = ko.observableArray([]); // ليست حساب ها
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
-    self.AModeList = ko.observableArray([]); // ليست نوع سند ها
-    self.StatusList = ko.observableArray([]); // ليست نوع سند ها
+    self.AccList = ko.observableArray([]); // لیست حساب ها
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
+    self.AModeList = ko.observableArray([]); // لیست نوع سند ها
+    self.StatusList = ko.observableArray([]); // لیست نوع سند ها
 
     self.ADocRList = ko.observableArray([]); // لیست گزارش 
 

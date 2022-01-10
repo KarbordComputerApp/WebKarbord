@@ -36,13 +36,15 @@
     var old_Code = '';
     var old_Name = '';
     var old_Spec = '';
+    var old_ActiveSt = '';
 
     var rprtId = 'Mkz';
 
     var columns = [
         'Code',
         'Name',
-        'Spec'
+        'Spec',
+        'ActiveSt',
     ];
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -127,6 +129,7 @@
     self.filterCode = ko.observable("");
     self.filterName = ko.observable("");
     self.filterSpec = ko.observable("");
+    self.filterActiveSt = ko.observable("");
 
 
     listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
@@ -134,14 +137,16 @@
         self.filterCode(listFilter[0]);
         self.filterName(listFilter[1]);
         self.filterSpec(listFilter[2]);
+        self.filterActiveSt(listFilter[3]);
     }
     self.filterMkzList = ko.computed(function () {
         self.currentPageIndexMkz(0);
         var filterCode = self.filterCode();
         var filterName = self.filterName();
         var filterSpec = self.filterSpec();
+        var filterActiveSt = self.filterActiveSt();
 
-        if (!filterCode && !filterName && !filterSpec) {
+        if (!filterCode && !filterName && !filterSpec && !filterActiveSt) {
             $("#CountRecord").text(self.MkzList().length);
             sessionStorage.setItem('listFilter', null);
             return self.MkzList();
@@ -149,7 +154,8 @@
             listFilter = [
                 filterCode,
                 filterName,
-                filterSpec
+                filterSpec,
+                filterActiveSt
             ];
 
             sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
@@ -157,7 +163,8 @@
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filterName) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0)
+                    (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
+                    (item.ActiveSt == null ? '' : item.ActiveSt.toString().search(filterActiveSt) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -225,6 +232,7 @@
     self.iconTypeCode = ko.observable("");
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
+    self.iconTypeActiveSt = ko.observable("");
 
     self.sortTableMkz = function (viewModel, e) {
         if (e != null)
@@ -258,10 +266,12 @@
         self.iconTypeCode('');
         self.iconTypeName('');
         self.iconTypeSpec('');
+        self.iconTypeActiveSt('');
 
         if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ActiveSt') self.iconTypeActiveSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -296,10 +306,12 @@
         $('#Code').val('');
         $('#Name').val('');
         $('#Spec').val('');
+        $('#status').val(0);
 
         old_Code = '';
         old_Name = '';
         old_Spec = '';
+        old_ActiveSt = '';
 
         $("#Code").focus();
         $('#modal-Mkz').modal('show');
@@ -312,9 +324,14 @@
         $('#Name').val(item.Name);
         $('#Spec').val(item.Spec);
 
+        
+        status = item.ActiveSt == 'فعال' ? 0 : 1;
+        $('#status').val(status);
+
         old_Code = item.Code;
         old_Name = item.Name;
         old_Spec = item.Spec;
+        old_ActiveSt = item.ActiveSt;
         $("#Code").focus();
         MkzCode = item.Code;
     }
@@ -337,6 +354,7 @@
     function SaveMkz() {
         code = $('#Code').val();
         name = $('#Name').val();
+        status = $('#status').val();
 
         if (name == "") {
             return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
@@ -362,13 +380,14 @@
                     Code: code,
                     Name: name,
                     Spec: $('#Spec').val(),
+                    Mode: status,
                 };
 
                 ajaxFunction(SaveMkzUri + ace + '/' + sal + '/' + group, 'POST', SaveMkz_Object).done(function (data) {
                     getMkzList();
                     $('#modal-Mkz').modal('hide');
                     flag_Save = true;
-                    showNotification(translate('ذخيره شد'), 1);
+                    showNotification(translate('ذخیره شد'), 1);
                 });
             }
         });
@@ -567,15 +586,17 @@
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
+            CreateTableTh('ActiveSt', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr>' +
+        '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
+            CreateTableTd('ActiveSt', 0, 0, data) +
             '<td>' +
             '   <a id="UpdateMkz" data-bind="click: $root.UpdateMkz">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
@@ -592,6 +613,7 @@
             CreateTableTdSearch('Code', data) +
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
+            CreateTableTdSearch('ActiveSt', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +

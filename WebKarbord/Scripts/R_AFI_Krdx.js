@@ -3,14 +3,14 @@
 
     var flagupdateHeader = 0;
 
-    self.InvList = ko.observableArray([]); // ليست انبارها
-    self.KalaList = ko.observableArray([]); // ليست کالاها
-    self.ThvlList = ko.observableArray([]); // ليست وارده صادره 
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه   
+    self.InvList = ko.observableArray([]); // لیست انبارها
+    self.KalaList = ko.observableArray([]); // لیست کالاها
+    self.ThvlList = ko.observableArray([]); // لیست وارده صادره 
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه   
 
-    self.IModeList = ko.observableArray([]); // ليست نوع سند
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
-    self.StatusList = ko.observableArray([]); // ليست نوع سند ها
+    self.IModeList = ko.observableArray([]); // لیست نوع سند
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
+    self.StatusList = ko.observableArray([]); // لیست نوع سند ها
     self.KrdxList = ko.observableArray([]); // لیست گزارش  
 
 

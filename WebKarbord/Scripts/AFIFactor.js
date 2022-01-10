@@ -143,21 +143,21 @@
     self.MainUnit = ko.observable();
     self.Comm = ko.observable();
 
-    self.CustList = ko.observableArray([]); // ليست حساب ها
-    self.KalaList = ko.observableArray([]); // ليست کالاها
-    self.KalaPriceList = ko.observableArray([]); // ليست گروه قيمت
-    self.KalaPriceBList = ko.observableArray([]); // قيمت کالا بر اساس گروه قیمت
-    self.FDocBList = ko.observableArray([]); // ليست فاکتور
-    self.FDocB = ko.observableArray([]); // ليست فاکتور
-    self.UnitList = ko.observableArray([]); // ليست واحد ها
-    self.InvList = ko.observableArray([]); // ليست انبارها
-    self.AddMinList = ko.observableArray([]); // ليست کسورات و افزایشات 
+    self.CustList = ko.observableArray([]); // لیست حساب ها
+    self.KalaList = ko.observableArray([]); // لیست کالاها
+    self.KalaPriceList = ko.observableArray([]); // لیست گروه قیمت
+    self.KalaPriceBList = ko.observableArray([]); // قیمت کالا بر اساس گروه قیمت
+    self.FDocBList = ko.observableArray([]); // لیست فاکتور
+    self.FDocB = ko.observableArray([]); // لیست فاکتور
+    self.UnitList = ko.observableArray([]); // لیست واحد ها
+    self.InvList = ko.observableArray([]); // لیست انبارها
+    self.AddMinList = ko.observableArray([]); // لیست کسورات و افزایشات 
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
-    self.PaymentList = ko.observableArray([]); // ليست نحوه پرداخت 
+    self.PaymentList = ko.observableArray([]); // لیست نحوه پرداخت 
     self.StatusList = ko.observableArray([]); // لیست وضعیت پرداخت 
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
-    self.VstrList = ko.observableArray([]); // ليست ویزیتور
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
+    self.VstrList = ko.observableArray([]); // لیست ویزیتور
 
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestFDocList = ko.observableArray([]); // لیست تست 
@@ -277,8 +277,8 @@
 
     var CustUri = server + '/api/Web_Data/Cust/'; // آدرس حساب
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
-    var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قيمت
-    var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قيمت کالا بر اساس گروه قیمت
+    var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قیمت
+    var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قیمت کالا بر اساس گروه قیمت
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var AddMinUri = server + '/api/Web_Data/AddMin/'; // آدرس کسورات و افزایشات 
@@ -809,14 +809,14 @@
             var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
-                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
 
             if (tarikh == '')
-                return showNotification(translate('تاريخ را وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را وارد کنید'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+                return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
             TestFDoc_New(Serial, tarikh, docNo);
             if (resTestNew == true) {
@@ -932,14 +932,14 @@
             var tarikh = $("#tarikh").val().toEnglishDigit();
 
             if (tarikh.length != 10)
-                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
 
             if (tarikh == '')
-                return showNotification(translate('تاريخ را وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را وارد کنید'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+                return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
             var TestFDoc_NewObject = {
                 DocDate: tarikh,
@@ -982,20 +982,20 @@
         }
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را صحیح وارد کنید' });
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ وارد شده با سال انتخابی همخوانی ندارد' });
         }
 
 
@@ -1219,7 +1219,7 @@
                 sessionStorage.searchFDocH = DocNoOut;
                 $('#textnumberfactor').show();
                 $('#docnoout').val(DocNoOut);
-                // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخيره شد ' });
+                // Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات فاکتور به شماره ' + DocNoOut + ' ذخیره شد ' });
                 flaglog = 'N';
                 flagInsertFdoch = 1;
             }
@@ -1233,8 +1233,8 @@
         inv = $("#inv").val();
 
         //if (inv == '' || inv == null) {
-        //     return showNotification(translate('انبار را انتخاب کنيد', 0);
-        //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنيد' });
+        //     return showNotification(translate('انبار را انتخاب کنید', 0);
+        //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'انبار را انتخاب کنید' });
         //}
 
         docno = $("#docnoout").val();
@@ -1249,25 +1249,25 @@
 
 
         if (self.DocNoOut == '') {
-            return showNotification(translate('شماره فاکتور را وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره فاکتور را وارد کنيد ' });
+            return showNotification(translate('شماره فاکتور را وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: ' شماره فاکتور را وارد کنید ' });
         }
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را صحيح وارد کنيد' });
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را صحیح وارد کنید' });
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ را وارد کنيد' });
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
-            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاريخ وارد شده با سال انتخابي همخواني ندارد' });
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
+            // return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ وارد شده با سال انتخابی همخوانی ندارد' });
         }
 
         TestFDoc_New(Serial, tarikh, docno);
@@ -1277,8 +1277,8 @@
 
         //if (codeCust == '') {
         //codeCust = ' ';
-        //     return showNotification(sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد', 0);
-        //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنيد' : 'فروشنده را انتخاب کنيد' });
+        //     return showNotification(sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنید' : 'فروشنده را انتخاب کنید', 0);
+        //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: sessionStorage.InOut == 1 ? 'خریدار را انتخاب کنید' : 'فروشنده را انتخاب کنید' });
         // }
 
 
@@ -1393,7 +1393,7 @@
 
                 }
                 else {
-                    showNotification($('#TitleHeaderFactor').text() + ' ' + translate('ذخيره شد'), 1);
+                    showNotification($('#TitleHeaderFactor').text() + ' ' + translate('ذخیره شد'), 1);
                 }
             }
             else {
@@ -1413,8 +1413,8 @@
         GetBandNumber();
         bandnumber = bandnumber;
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است'), 0);
-            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه فاکتور ثبت نشده است ' });
+            return showNotification(translate('اطلاعات اولیه فاکتور ثبت نشده است'), 0);
+            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اولیه فاکتور ثبت نشده است ' });
         }
         //var cKala = $('#codeKala').val();
         var nKala = $('#nameKala').val();
@@ -1443,7 +1443,7 @@
 
         if (amount == '') {
             amount = 0;
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'مقدار را وارد کنيد' });
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'مقدار را وارد کنید' });
         }
 
         if (unitprice == '') {
@@ -1638,14 +1638,14 @@
         SendFDocBI(FDocBObject)
         /*ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', FDocBObject).done(function (response) {
             self.FDocBList(response);
-            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند به شماره ' + bandnumber + ' ذخيره شد ' });
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند به شماره ' + bandnumber + ' ذخیره شد ' });
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             CalcDiscontCol(self.CustCode());
             flaglog = 'N';
             self.UpdateFDocH();
             self.ClearFDocB();
-            showNotification(' بند شماره ' + bandnumber + ' ذخيره شد ', 1);
+            showNotification(' بند شماره ' + bandnumber + ' ذخیره شد ', 1);
         });*/
     };
 
@@ -1653,7 +1653,7 @@
         ajaxFunction(FDocBUri + ace + '/' + sal + '/' + group + '/' + bandnumber, 'POST', FDocBObject).done(function (response) {
             self.FDocBList(response);
             self.FDocB(response);
-            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند به شماره ' + bandnumber + ' ذخيره شد ' });
+            //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' بند به شماره ' + bandnumber + ' ذخیره شد ' });
             self.flagupdateband = false;
             self.bundNumberImport = 0;
             CalcDiscontCol(self.CustCode());
@@ -1661,7 +1661,7 @@
             self.UpdateFDocH();
             self.ClearFDocB();
             KalaCode = '';
-            showNotification(translate('بند شماره') + " " + bandnumber + " " + translate('ذخيره شد'), 1);
+            showNotification(translate('بند شماره') + " " + bandnumber + " " + translate('ذخیره شد'), 1);
         });
     }
 
@@ -1674,8 +1674,8 @@
         //KalaCode = $("#codeKala").val();
         //        bandnumber = bandnumber + 1;
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است'), 0);
-            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اوليه فاکتور ثبت نشده است ' });
+            return showNotification(translate('اطلاعات اولیه فاکتور ثبت نشده است'), 0);
+            //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اولیه فاکتور ثبت نشده است ' });
         }
         var cKala = $('#codeKala').val();
         var nKala = $('#nameKala').val();
@@ -1696,8 +1696,8 @@
         comm = $("#comm").val();
 
         if (cKala == '' || nKala == '' || uKala == '') {
-            return showNotification(translate('کالا را وارد کنيد'), 0);
-            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنيد' });
+            return showNotification(translate('کالا را وارد کنید'), 0);
+            //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنید' });
         }
 
         if (amount == '') {
@@ -3408,10 +3408,10 @@
                 codeCust = '';
                 sessionStorage.flagupdateHeader = 0;
                 self.ClearFDocH();
-                self.FDocBList([]); // ليست فاکتور
-                self.FDocB([]); // ليست فاکتور
+                self.FDocBList([]); // لیست فاکتور
+                self.FDocB([]); // لیست فاکتور
 
-                // self.AddMinList([]); // ليست کسورات و افزایشات 
+                // self.AddMinList([]); // لیست کسورات و افزایشات 
                 self.FDocHList([]); // لیست اطلاعات تکمیلی فاکتور فروش 
                 $('#foottextsum').text('');
                 $('#foottextamount1').text('');
@@ -4420,7 +4420,7 @@
     function SetDataBarCode(kala, amountB) {
         GetBandNumber();
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه فاکتور ثبت نشده است '), 0);
+            return showNotification(translate('اطلاعات اولیه فاکتور ثبت نشده است '), 0);
         }
         if (DataKalaBarcode == null) {
             return showNotification(translate('کالایی یافت نشد'), 0);
@@ -4552,7 +4552,7 @@
          report.regData(dataSet.dataSetName, "", dataSet);
      
          variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
-         //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کيلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
+         //"{"Data":[{"CoName":"","Amount1":11,"Amount2":0,"Amount3":0,"BandNo":1,"BandSpec":"","Comm":"232132\n21312","KalaCode":"16001","MainUnit":1,"MkzCode":"","OprCode":"","PrdCode":"","SerialNumber":129,"TotalPrice":0,"UnitPrice":0,"UP_Flag":true,"KalaName":"شکر","KalaZarib1":1,"KalaZarib2":1000,"KalaZarib3":1000000,"KalaUnitName1":"گرم","KalaUnitName2":"کیلو گرم","KalaUnitName3":"تن","KalaFanniNo":"","DeghatM1":2,"DeghatM2":2,"DeghatM3":2,"DeghatR1":2,"DeghatR2":2,"DeghatR3":2,"KGruCode":"101","MainUnitName":"گرم","DeghatR":2,"DocNo":"26","DocDate":"1384/03/30","Spec":"","InOut":2,"ThvlCode":"","ThvlName":"","InvCode":"1","InvName":"انبار مواد اولیه","ModeCode":"102","ModeName":"حواله خروج انبار","Footer":"","UnitName":"گرم","Amount":11,"EghdamName":"سوپروایزر","TanzimName":"سوپروایزر","TaeedName":"سوپروایزر","TasvibName":""}]}"
      variablesReport = '{"variables":[{' + printVariable + '}]}';
          variablesDataSet.readJson(variablesReport);
          report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
@@ -4669,7 +4669,7 @@
                 }
             }
             else {
-                showNotification($('#TitleHeaderFactor').text() + " " + translate('ذخيره شد'), 1);
+                showNotification($('#TitleHeaderFactor').text() + " " + translate('ذخیره شد'), 1);
                 //showNotification('سند ذخیره شد ', 1);
             }
         });

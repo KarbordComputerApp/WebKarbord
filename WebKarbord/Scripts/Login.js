@@ -48,6 +48,10 @@
         $('#passAccount').val(passAccount);
     });
 
+
+
+    var lastMachineId;
+
     function getLoginData() {
 
         pass === '' ? pass = 'null' : pass = pass;
@@ -225,6 +229,21 @@
                     }
 
                     res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
+
+                    lastMachineId = datalogin;
+                    /*   if (datalogin.ID > -1) {
+
+                        m_id = datalogin.CompName.split('-')
+                        var LogOutObject = {
+                            MachineId: m_id[0],
+                            UserCode: user.toUpperCase(),
+                            ProgName: ace
+                        }
+                        ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+                            return getLoginData();
+                        });
+                    }*/
+
                     if (datalogin.ID == -1) {
                         res[1] == "" || res[1] == null ? sessionStorage.userNameFa = user.toUpperCase() : sessionStorage.userNameFa = res[1];
 
@@ -265,9 +284,8 @@
                         window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
                     else {
-
                         var ipW = datalogin.CompName.split("-");
-                        $('#title_dataUser').text(translate('کاربر') + ' ' + sessionStorage.userNameFa + translate('قبلا وارد سیستم شده است'));
+                        $('#title_dataUser').text(translate('کاربر') + ' ' + sessionStorage.userNameFa + ' ' + translate('قبلا وارد سیستم شده است'));
                         $('#param_ipw').text(ipW[1]);
                         $('#param_date').text(datalogin.LoginDate);
                         $('#param_time').text(datalogin.LoginTime);
@@ -281,6 +299,21 @@
             }
         });
     }
+
+
+    $("#Login_LogOutUser").click(function () {
+        m_id = lastMachineId.CompName.split('-');
+        user = $("#user").val();
+        var LogOutObject = {
+            MachineId: m_id[0],
+            UserCode: user.toUpperCase(),
+            ProgName: ace
+        }
+        ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+            return getLoginData();
+        });
+
+    });
 
     function getAccountData() {
         //window.localStorage.clear();
@@ -300,6 +333,7 @@
                 erjAccess = data.ERJ_Access;
 
                 lockNumber = data.lockNumber;
+                multilang = data.multilang;
 
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);
@@ -314,6 +348,7 @@
                 localStorage.setItem('afi1Access', afi1Access);
                 localStorage.setItem('afi8Access', afi8Access);
                 localStorage.setItem('erjAccess', erjAccess);
+                localStorage.setItem('multilang', multilang);
 
                 $('#modal-service').modal('hide');
                 // $('#modal-service').hide();
@@ -356,6 +391,12 @@
         sessionStorage.Login = "OK";
         getLoginData();
     }
+
+
+
+
+
+
 
     self.LoginAccount = function LoginAccount() {
 

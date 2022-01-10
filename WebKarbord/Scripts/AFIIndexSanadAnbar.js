@@ -164,7 +164,7 @@
     self.IModeList = ko.observableArray([]); // لیست نوع اسناد انبار
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.IDocHList = ko.observableArray([]); // لیست اطلاعات انبار 
-    self.InvList = ko.observableArray([]); // ليست انبارها
+    self.InvList = ko.observableArray([]); // لیست انبارها
     self.TestIDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
     self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
@@ -1243,7 +1243,7 @@
         sessionStorage.F20 = "";
         //if (invCode == '' || invCode == null) 
         //{
-        //    return showNotification(translate('انبار را انتخاب کنيد');
+        //    return showNotification(translate('انبار را انتخاب کنید');
         //} 
         //else
         //{
@@ -2073,7 +2073,14 @@
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
-            '<ul class="dropdown-menu">' +
+            '<ul class="';
+
+        if (lang == 'en')
+            dataTable += 'dropdown-menu dropdown-menultr'
+        else
+            dataTable += 'dropdown-menu'
+
+        dataTable += '">' +
             '    <li>' +
             '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +

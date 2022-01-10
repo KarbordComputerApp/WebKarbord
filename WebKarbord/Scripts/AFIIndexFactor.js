@@ -3241,7 +3241,15 @@
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
-            '<ul class="dropdown-menu">' +
+            '<ul class="';
+
+        if (lang == 'en')
+            dataTable += 'dropdown-menu dropdown-menultr'
+        else
+            dataTable += 'dropdown-menu'
+
+        dataTable += '">' +
+
             '    <li>' +
             '        <a id="MoveFactor" data-bind="click: $root.MoveFactor  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +

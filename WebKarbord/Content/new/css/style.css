@@ -12660,6 +12660,10 @@ fieldset[disabled] .form-control {
     left: 40px !important;
 }
 
+.show > .dropdown-menultr {
+    display: block;
+    left: -80px !important;
+}
 .spinner .input-group-addon {
     /*position: relative;*/
     position: absolute;

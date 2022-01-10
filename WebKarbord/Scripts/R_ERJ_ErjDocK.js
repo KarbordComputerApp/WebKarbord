@@ -1,7 +1,7 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.ErjCustList = ko.observableArray([]); // ليست مشتریان
+    self.ErjCustList = ko.observableArray([]); // لیست مشتریان
     self.KhdtList = ko.observableArray([]); // لیست نوع کار ها
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.DocKList = ko.observableArray([]); // لیست گزارش  
@@ -994,7 +994,7 @@
             $('#comm').val(Band.SpecialComm);
         }
         else {
-            showNotification(translate('دسترسی ندارید')), 0);
+            showNotification(translate('دسترسی ندارید'), 0);
         }
     }
 

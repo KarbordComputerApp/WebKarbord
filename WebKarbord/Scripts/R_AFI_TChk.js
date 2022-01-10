@@ -1,8 +1,8 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.AccList = ko.observableArray([]); // ليست حساب ها
-    self.CheckStatusList = ko.observableArray([]); // ليست نوع چک ها
+    self.AccList = ko.observableArray([]); // لیست حساب ها
+    self.CheckStatusList = ko.observableArray([]); // لیست نوع چک ها
 
     self.TChkList = ko.observableArray([]); // لیست گزارش 
 

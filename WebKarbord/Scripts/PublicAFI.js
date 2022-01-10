@@ -83,8 +83,14 @@ else {
     dir_lang = 'rtl';
 }
 
-
+var lastSelectLang = $('#SelectLang').val();
 $("#SelectLang").change(function () {
+
+    multilang = localStorage.getItem('multilang');
+    if (multilang != 'true') {
+        $('#SelectLang').val(lastSelectLang);
+        return showNotification('دسترسی ندارید', 0);
+    }
 
     if ($('#SelectLang').val() == 1) {
         localStorage.setItem("DefultLang", "en");
@@ -239,6 +245,12 @@ if (lang == 'en') {
 
     $("#titleVerNumber").css({ "font-family": "Merriweather-Light" });
     $("#titleVer").css({ "font-family": "Merriweather-Light" });
+    $("span").css({ "font-family": "Merriweather-Light" });
+
+    $(".dropdown-menu").addClass("dropdown-menultr");
+   // $(".dropdown-menu").removeClass("dropdown-menu");
+
+
 }
 else {
     $(".panel_CountRecord_Sanad").addClass("pull-left");
@@ -559,9 +571,9 @@ $(".autocomplete").select(function () {
     // var parentOffset = $("#" + id_Autocomplete).parent().offset();
 
     $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
-    $("#p_Statement").show();
+   // $("#p_Statement").show();
 
-
+   
 
     //var offset = $("#" + id_Autocomplete).position();
     //$("#saveStatement").css({ top: offset.top, left: offset.left });
@@ -854,7 +866,7 @@ if (ace != 'Web2') {
     }
 
 
-    for (var i = 0; i <= 29; i++) {
+    for (var i = 0; i <= 31; i++) {
         afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
         afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
         afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -886,6 +898,8 @@ if (ace != 'Web2') {
         afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
         afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
         afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+        afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
+        afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
     }
 
 }
@@ -1852,7 +1866,7 @@ function getAccessList(GoHome) {
                         afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = ''
                     }
 
-                    for (var i = 0; i <= 29; i++) {
+                    for (var i = 0; i <= 31; i++) {
                         afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                         afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                         afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -1884,6 +1898,8 @@ function getAccessList(GoHome) {
                         afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
                         afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
                         afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+                        afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
+                        afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
                     }
                 }
 
@@ -2093,6 +2109,13 @@ function SetValidation() {
 
     validation = CheckAccess('ACC');
     ShowMenu[33] = validation;  // حساب ها
+
+    validation = CheckAccess('Mkz');
+    ShowMenu[34] = validation;  // مرکز هزینه
+
+    validation = CheckAccess('Opr');
+    ShowMenu[35] = validation;  // پروژه
+
 
     //localStorage.setItem("", );
     localStorage.setItem("FDoc_REP_PRICE", CheckAccessReport('FDoc_REP_PRICE')); // خرید و فروش دسترسی مبلغ در گزارشات
@@ -2978,12 +3001,14 @@ function SetValidation() {
 
 
 
-    if (afiaccess[27] == true || afiaccess[28] == true || afiaccess[29] == true) {
-        if (ShowMenu[31] || ShowMenu[32] || ShowMenu[33]) {
+    if (afiaccess[27] == true || afiaccess[28] == true || afiaccess[29] == true || afiaccess[30] == true || afiaccess[31] == true) {
+        if (ShowMenu[31] || ShowMenu[32] || ShowMenu[33] || ShowMenu[34] || ShowMenu[35]) {
             $("#Base_Menu").show();
             (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
             (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
             (ShowMenu[33] == true) && (afiaccess[29] == true) ? $("#BaseAcc").show() : $("#BaseAcc").hide();
+            (ShowMenu[34] == true) && (afiaccess[30] == true) ? $("#BaseMkz").show() : $("#BaseMkz").hide();
+            (ShowMenu[35] == true) && (afiaccess[31] == true) ? $("#BaseOpr").show() : $("#BaseOpr").hide();
         }
         else {
             $("#Base_Menu").hide();
@@ -4064,24 +4089,25 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
 }
 
 
+setInterval(LogOut, 900000);
 function LogOut() {
-    var LogOutObject = {
-        MachineId: MachineId,
-        UserCode: sessionStorage.userName,
-        ProgName: ace
+    if (sessionStorage.userName != '' && sessionStorage.userName != null) {
+        var LogOutObject = {
+            MachineId: MachineId,
+            UserCode: sessionStorage.userName,
+            ProgName: ace
+        }
+        ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+            RemoveUseSanad(ace, sal, '', 0);
+            RemoveUseSanad(aceErj, salErj, '', 0);
+            sessionStorage.userName = '';
+            sessionStorage.pass = '';
+            localStorage.setItem("userName", '');
+            localStorage.setItem('password', '');
+            localStorage.removeItem("listForms");
+            window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
+        });
     }
-    ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
-        //SaveStatementsDatabase();
-
-        RemoveUseSanad(ace, sal, '', 0);
-        RemoveUseSanad(aceErj, salErj, '', 0);
-        sessionStorage.userName = '';
-        sessionStorage.pass = '';
-        localStorage.setItem("userName", '');
-        localStorage.setItem('password', '');
-        localStorage.removeItem("listForms");
-        window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
-    });
 }
 
 $('#LogOut').click(function () {
@@ -4667,6 +4693,9 @@ function AlertErja() {
         }
     }
 }
+
+
+
 
 $("#P_Box").hide();
 

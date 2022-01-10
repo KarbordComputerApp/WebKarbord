@@ -206,20 +206,20 @@
     self.CheckComm = ko.observable();
 
 
-    self.AccList = ko.observableArray([]); // ليست حساب ها
-    self.ZAccList = ko.observableArray([]); // ليست زیر حساب ها
-    self.ADocBList = ko.observableArray([]); // ليست بند های سند
-    self.ADocB = ko.observableArray([]); // ليست بند های سند
+    self.AccList = ko.observableArray([]); // لیست حساب ها
+    self.ZAccList = ko.observableArray([]); // لیست زیر حساب ها
+    self.ADocBList = ko.observableArray([]); // لیست بند های سند
+    self.ADocB = ko.observableArray([]); // لیست بند های سند
     self.ADocHList = ko.observableArray([]); // اطلاعات  سند  
     self.AModeList = ko.observableArray([]); // نوع سند  
-    self.CheckStatusList = ko.observableArray([]); // ليست نوع چک ها
-    self.MkzList = ko.observableArray([]); // ليست مرکز هزینه
-    self.OprList = ko.observableArray([]); // ليست پروژه ها
-    self.ArzList = ko.observableArray([]); // ليست ارز ها
-    self.CheckList = ko.observableArray([]); // ليست چک ها
-    self.BankList = ko.observableArray([]); // ليست چک ها
-    self.ShobeList = ko.observableArray([]); // ليست چک ها
-    self.JariList = ko.observableArray([]); // ليست چک ها
+    self.CheckStatusList = ko.observableArray([]); // لیست نوع چک ها
+    self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
+    self.OprList = ko.observableArray([]); // لیست پروژه ها
+    self.ArzList = ko.observableArray([]); // لیست ارز ها
+    self.CheckList = ko.observableArray([]); // لیست چک ها
+    self.BankList = ko.observableArray([]); // لیست چک ها
+    self.ShobeList = ko.observableArray([]); // لیست چک ها
+    self.JariList = ko.observableArray([]); // لیست چک ها
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها 
@@ -2641,14 +2641,14 @@
             var docNo = $("#docnoout").val();
 
             if (tarikh.length != 10)
-                return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
 
             if (tarikh == '')
-                return showNotification(translate('تاريخ را وارد کنيد'), 0);
+                return showNotification(translate('تاریخ را وارد کنید'), 0);
 
             if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
             else
-                return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+                return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
 
             TestADoc_New(Serial, tarikh, docNo);
@@ -2747,17 +2747,17 @@
         status = $("#status").val();
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
         }
 
         if (modeCode == '') {
@@ -2765,7 +2765,7 @@
         }
 
         if (self.DocNoOut == '') {
-            return showNotification(translate('شماره سند را وارد کنيد'), 0);
+            return showNotification(translate('شماره سند را وارد کنید'), 0);
         }
 
         var ADocObject = {
@@ -2830,17 +2830,17 @@
         status = $("#status").val();
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاریخ را صحيح وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاریخ را وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاریخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
         }
 
         if (modeCode == '') {
@@ -2848,7 +2848,7 @@
         }
 
         if (self.DocNoOut == '') {
-            return showNotification(translate('شماره سند را وارد کنيد'), 0);
+            return showNotification(translate('شماره سند را وارد کنید'), 0);
         }
 
         if ($('#docnoout').text() == '0') {
@@ -3081,21 +3081,21 @@
         GetBandNumber();
         bandnumber = bandnumber;
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه سند ثبت نشده است'), 0);
+            return showNotification(translate('اطلاعات اولیه سند ثبت نشده است'), 0);
         }
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
         }
 
         if (modeCode == '') {
@@ -3185,7 +3185,7 @@
             self.ClearADocB();
             flaglog = 'N';
             $('#Save').removeAttr('disabled');
-            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' + translate('ذخيره شد'), 1);
+            showNotification(translate('بند شماره') + ' ' + bandnumber + ' ' + translate('ذخیره شد'), 1);
         });
         $('#Save').removeAttr('disabled');
     };
@@ -3196,21 +3196,21 @@
         tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
         if (Serial == '') {
-            return showNotification(translate('اطلاعات اوليه سند ثبت نشده است'), 0);
+            return showNotification(translate('اطلاعات اولیه سند ثبت نشده است'), 0);
         }
 
         if (tarikh.length != 10) {
-            return showNotification(translate('تاريخ را صحيح وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
         }
 
         if (tarikh == '') {
-            return showNotification(translate('تاريخ را وارد کنيد'), 0);
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
         if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
         }
         else {
-            return showNotification(translate('تاريخ وارد شده با سال انتخابي همخواني ندارد'), 0);
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
         }
 
         if (modeCode == '') {

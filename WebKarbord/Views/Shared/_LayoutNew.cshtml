@@ -268,7 +268,7 @@
                             <span id="titleVerNumber" style="padding-right:5px">@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)</span>
                             <br />
                             <!--<span id="titleVer">ورژن سرویس : 516</span>-->
-                            <span id="titleVer" data-bind="text:translate('ورژن سرویس')  + ' : ' +    '1023'   " ></span>
+                            <span id="titleVer" data-bind="text:translate('ورژن سرویس')"></span><span data-bind="text:' : ' +    '1023'" > </span>
                             <span id="titleVerNumber" style="padding-right:5px"></span>
                         </div>
                         <!-- <div class="profile-usertitle-job ">ورژن :1007</div> -->
@@ -304,11 +304,11 @@
                             <a data-bind="text:translate('حساب ها')" class="useBlank" target="_blank" href=@Url.Action("Acc","AFIBase")> </a>
                         </li>
 
-                        <li id="BaseAcc" class="rightClick">
+                        <li id="BaseMkz" class="rightClick">
                             <a data-bind="text:translate('مرکز هزینه')" class="useBlank" target="_blank" href=@Url.Action("Mkz","AFIBase")> </a>
                         </li>
 
-                        <li id="BaseAcc" class="rightClick">
+                        <li id="BaseOpr" class="rightClick">
                             <a data-bind="text:translate('پروژه')" class="useBlank" target="_blank" href=@Url.Action("Opr","AFIBase")> </a>
                         </li>
 
@@ -491,13 +491,13 @@
                             <a data-bind="text:translate('تراز خرید از فروشندگان')" class="useBlank" target="_blank" href=@Url.Action("TrzFCust_P","ReportAFI")></a>
                         </li>
                         <li id="FDocR_S" class="rightClick">
-                            <a data-bind="text:translate('ريز گردش اسناد فروش')" class="useBlank" target="_blank" href=@Url.Action("FDocR_S","ReportAFI")></a>
+                            <a data-bind="text:translate('ریز گردش اسناد فروش')" class="useBlank" target="_blank" href=@Url.Action("FDocR_S","ReportAFI")></a>
                         </li>
                         <li id="FDocR_P" class="rightClick">
-                            <a data-bind="text:translate('ريز گردش اسناد خرید')" class="useBlank" target="_blank" href=@Url.Action("FDocR_P","ReportAFI")></a>
+                            <a data-bind="text:translate('ریز گردش اسناد خرید')" class="useBlank" target="_blank" href=@Url.Action("FDocR_P","ReportAFI")></a>
                         </li>
-                        <!--<li id="FDocR_S">@Html.ActionLink("ريز گردش اسناد فروش", "FDocR_S", "ReportAFI")</li>
-                        <li id="FDocR_P">@Html.ActionLink("ريز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
+                        <!--<li id="FDocR_S">@Html.ActionLink("ریز گردش اسناد فروش", "FDocR_S", "ReportAFI")</li>
+                        <li id="FDocR_P">@Html.ActionLink("ریز گردش اسناد خرید", "FDocR_P", "ReportAFI")</li>
                         <li id="TrzFKala_S">@Html.ActionLink("تراز فروش کالاها", "TrzFKala_S", "ReportAFI")</li>
                         <li id="TrzFKala_P">@Html.ActionLink("تراز خرید کالاها", "TrzFKala_P", "ReportAFI")</li>
                         <li id="TrzFCust_S">@Html.ActionLink("تراز فروش به خریداران", "TrzFCust_S", "ReportAFI")</li>
@@ -521,13 +521,13 @@
                             <a data-bind="text:translate('موجودی کالا به تفکیک ویژگی')" class="useBlank" target="_blank" href=@Url.Action("TrzIKalaExf","ReportAFI")></a>
                         </li>
                         <li id="IDocR" class="rightClick">
-                            <a data-bind="text:translate('ريز گردش اسناد انبارداری')" class="useBlank" target="_blank" href=@Url.Action("IDocR","ReportAFI")></a>
+                            <a data-bind="text:translate('ریز گردش اسناد انبارداری')" class="useBlank" target="_blank" href=@Url.Action("IDocR","ReportAFI")></a>
                         </li>
 
                         <!--<li id="Krdx">@Html.ActionLink("کاردکس کالا", "Krdx", "ReportAFI")</li>
                         <li id="TrzIKala">@Html.ActionLink("موجودی کالا", "TrzIKala", "ReportAFI")</li>
                         <li id="TrzIKalaExf">@Html.ActionLink("موجودی کالا به تفکیک ویژگی", "TrzIKalaExf", "ReportAFI")</li>
-                        <li id="IDocR">@Html.ActionLink("ريز گردش اسناد انبارداری", "IDocR", "ReportAFI")</li>-->
+                        <li id="IDocR">@Html.ActionLink("ریز گردش اسناد انبارداری", "IDocR", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
