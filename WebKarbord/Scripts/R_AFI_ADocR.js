@@ -1099,7 +1099,7 @@
     $('#refreshAMode').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست انوع سند") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست انواع سند") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1302,7 +1302,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست وضعیت") + ' ' + translate("به روز رسانی شود ؟"),
+            text: translate("لیست وضعیت سند") + ' ' + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

@@ -1148,7 +1148,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست وضعیت ها") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست وضعیت سند") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

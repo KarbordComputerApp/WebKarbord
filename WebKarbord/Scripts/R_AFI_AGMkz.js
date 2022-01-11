@@ -7,15 +7,15 @@
     self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.AModeList = ko.observableArray([]); // لیست نوع سند ها
 
-    self.TrzAccList = ko.observableArray([]); // لیست گزارش 
+    self.AGMkzList = ko.observableArray([]); // لیست گزارش 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند  
 
-    var TrzAccUri = server + '/api/ReportAcc/TrzAcc/'; // آدرس گزارش 
-    var TrzAccCountUri = server + '/api/ReportAcc/TrzAccCount/'; // تعداد رکورد های گزارش 
+    var AGMkzUri = server + '/api/ReportAcc/AGMkz/'; // آدرس گزارش 
+    var AGMkzCountUri = server + '/api/ReportAcc/AGMkzCount/'; // تعداد رکورد های گزارش 
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.sortType = "ascending";
@@ -65,8 +65,10 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'TrzAcc';
+    var rprtId = 'AGMkz';
     var columns = [
+        'MkzCode',
+        'MkzName',
         'AccCode',
         'AccName',
         'Bede',
@@ -108,7 +110,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/TrzAcc", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/AGMkz", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -126,7 +128,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/TrzAcc", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/AGMkz", columns, self.SettingColumnList());
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -184,7 +186,6 @@
 
     getAModeList();
     getLevel();
-    getSathTaraz();
 
 
     $('#nameAcc').val(translate('همه موارد'));
@@ -196,7 +197,6 @@
 
     var azTarikh;
     var taTarikh;
-    var sath;
     var level;
     var accCode;
     var accName;
@@ -211,7 +211,6 @@
         azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
         taTarikh = self.TaDate().toEnglishDigit();// $("#tatarikh").val().toEnglishDigit();
 
-        sath = $("#SathTaraz").val();
         level = $("#Level").val();
 
         accCode = '';
@@ -271,23 +270,22 @@
 
 
 
-    //Get TrzAcc
-    function getTrzAcc() {
+    //Get AGMkz
+    function getAGMkz() {
         SetFilter();
-        var TrzAccObject = {
+        var AGMkzObject = {
             azTarikh: azTarikh,
             taTarikh: taTarikh,
             AModeCode: aModeCode,
             AccCode: accCode,
             MkzCode: mkzcode,
             OprCode: oprcode,
-            Level: level,
-            Sath: sath,
+            Level: level
         };
 
-        ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject, true).done(function (response) {
-            self.TrzAccList(response);
-            //calcsum(self.TrzAccList());
+        ajaxFunction(AGMkzUri + ace + '/' + sal + '/' + group, 'POST', AGMkzObject, true).done(function (response) {
+            self.AGMkzList(response);
+            //calcsum(self.AGMkzList());
         });
     }
 
@@ -298,24 +296,22 @@
         totalMonBest = 0;
         totalMonTotal = 0;
 
-        sathTaraz = $('#SathTaraz').val();
-
         for (var i = 0; i < list.length; ++i) {
-            TrzAccData = list[i];
+            AGMkzData = list[i];
 
-            if (sathTaraz == 2 && TrzAccData.Level == 1) {
-                totalBede += TrzAccData.Bede;
-                totalBest += TrzAccData.Best;
-                totalMonBede += TrzAccData.MonBede;
-                totalMonBest += TrzAccData.MonBest;
-                totalMonTotal += TrzAccData.MonTotal;
+            if (AGMkzData.Level == 1) {
+                totalBede += AGMkzData.Bede;
+                totalBest += AGMkzData.Best;
+                totalMonBede += AGMkzData.MonBede;
+                totalMonBest += AGMkzData.MonBest;
+                totalMonTotal += AGMkzData.MonTotal;
             }
-            else if (sathTaraz == 1) {
-                totalBede += TrzAccData.Bede;
-                totalBest += TrzAccData.Best;
-                totalMonBede += TrzAccData.MonBede;
-                totalMonBest += TrzAccData.MonBest;
-                totalMonTotal += TrzAccData.MonTotal;
+            else {
+                totalBede += AGMkzData.Bede;
+                totalBest += AGMkzData.Best;
+                totalMonBede += AGMkzData.MonBede;
+                totalMonBest += AGMkzData.MonBest;
+                totalMonTotal += AGMkzData.MonTotal;
             }
         }
 
@@ -328,8 +324,8 @@
     }
 
     $("#CreateReport").click(function () {
-        getTrzAcc();
-        self.sortTableTrzAcc();
+        getAGMkz();
+        self.sortTableAGMkz();
     });
 
 
@@ -344,12 +340,14 @@
 
 
     //------------------------------------------------------
-    self.currentPageTrzAcc = ko.observable();
-    pageSizeTrzAcc = localStorage.getItem('pageSizeTrzAcc') == null ? 10 : localStorage.getItem('pageSizeTrzAcc');
-    self.pageSizeTrzAcc = ko.observable(pageSizeTrzAcc);
-    self.currentPageIndexTrzAcc = ko.observable(0);
+    self.currentPageAGMkz = ko.observable();
+    pageSizeAGMkz = localStorage.getItem('pageSizeAGMkz') == null ? 10 : localStorage.getItem('pageSizeAGMkz');
+    self.pageSizeAGMkz = ko.observable(pageSizeAGMkz);
+    self.currentPageIndexAGMkz = ko.observable(0);
     self.iconType = ko.observable("");
 
+    self.iconTypeMkzCode = ko.observable("");
+    self.iconTypeMkzName = ko.observable("");
     self.iconTypeAccCode = ko.observable("");
     self.iconTypeAccName = ko.observable("");
     self.iconTypeBede = ko.observable("");
@@ -366,6 +364,8 @@
     // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
     // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
 
+    self.filterMkzCode = ko.observable("");
+    self.filterMkzName = ko.observable("");
     self.filterAccCode = ko.observable("");
     self.filterAccName = ko.observable("");
     self.filterBede = ko.observable("");
@@ -374,9 +374,11 @@
     self.filterMonBest = ko.observable("");
     self.filterMonTotal = ko.observable("");
 
-    self.filterTrzAccList = ko.computed(function () {
+    self.filterAGMkzList = ko.computed(function () {
 
-        self.currentPageIndexTrzAcc(0);
+        self.currentPageIndexAGMkz(0);
+        var filterMkzCode = self.filterMkzCode();
+        var filterMkzName = self.filterMkzName();
         var filterAccCode = self.filterAccCode();
         var filterAccName = self.filterAccName();
         var filterBede = self.filterBede();
@@ -392,11 +394,10 @@
         filterMonTotal = filterMonTotal.replace("/", ".");
 
 
-        // , AccName, Bede, Best, MonBede, MonBest, MonTotal
-        // AccCode, AccName, Bede, Best, MonBede, MonBest, MonTotal
-
-        tempData = ko.utils.arrayFilter(self.TrzAccList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.AGMkzList(), function (item) {
             result =
+                ko.utils.stringStartsWith(item.MkzCode.toString().toLowerCase(), filterMkzCode) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
                 ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filterAccCode) &&
                 (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
                 ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
@@ -413,64 +414,64 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchTrzAcc);
+    self.search(sessionStorage.searchAGMkz);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexTrzAcc = 0;
-        sessionStorage.searchTrzAcc = "";
+        var indexAGMkz = 0;
+        sessionStorage.searchAGMkz = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexTrzAcc(0);
+            self.currentPageIndexAGMkz(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.TrzAccList(), function (item) {
-                indexTrzAcc += 1;
+            value = ko.utils.arrayFirst(self.AGMkzList(), function (item) {
+                indexAGMkz += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexTrzAcc < self.pageSizeTrzAcc())
-                self.currentPageIndexTrzAcc(0);
+            if (indexAGMkz < self.pageSizeAGMkz())
+                self.currentPageIndexAGMkz(0);
             else {
-                var a = Math.round((indexTrzAcc / self.pageSizeTrzAcc()), 0);
-                if (a < (indexTrzAcc / self.pageSizeTrzAcc())) a += 1;
-                self.currentPageIndexTrzAcc(a - 1);
+                var a = Math.round((indexAGMkz / self.pageSizeAGMkz()), 0);
+                if (a < (indexAGMkz / self.pageSizeAGMkz())) a += 1;
+                self.currentPageIndexAGMkz(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageTrzAcc = ko.computed(function () {
-        var pageSizeTrzAcc = parseInt(self.pageSizeTrzAcc(), 10),
-            startIndex = pageSizeTrzAcc * self.currentPageIndexTrzAcc(),
-            endIndex = startIndex + pageSizeTrzAcc;
-        localStorage.setItem('pageSizeTrzAcc', pageSizeTrzAcc);
-        return self.filterTrzAccList().slice(startIndex, endIndex);
+    self.currentPageAGMkz = ko.computed(function () {
+        var pageSizeAGMkz = parseInt(self.pageSizeAGMkz(), 10),
+            startIndex = pageSizeAGMkz * self.currentPageIndexAGMkz(),
+            endIndex = startIndex + pageSizeAGMkz;
+        localStorage.setItem('pageSizeAGMkz', pageSizeAGMkz);
+        return self.filterAGMkzList().slice(startIndex, endIndex);
     });
 
-    self.nextPageTrzAcc = function () {
-        if (((self.currentPageIndexTrzAcc() + 1) * self.pageSizeTrzAcc()) < self.filterTrzAccList().length) {
-            self.currentPageIndexTrzAcc(self.currentPageIndexTrzAcc() + 1);
+    self.nextPageAGMkz = function () {
+        if (((self.currentPageIndexAGMkz() + 1) * self.pageSizeAGMkz()) < self.filterAGMkzList().length) {
+            self.currentPageIndexAGMkz(self.currentPageIndexAGMkz() + 1);
         }
     };
 
-    self.previousPageTrzAcc = function () {
-        if (self.currentPageIndexTrzAcc() > 0) {
-            self.currentPageIndexTrzAcc(self.currentPageIndexTrzAcc() - 1);
+    self.previousPageAGMkz = function () {
+        if (self.currentPageIndexAGMkz() > 0) {
+            self.currentPageIndexAGMkz(self.currentPageIndexAGMkz() - 1);
         }
     };
 
-    self.firstPageTrzAcc = function () {
-        self.currentPageIndexTrzAcc(0);
+    self.firstPageAGMkz = function () {
+        self.currentPageIndexAGMkz(0);
     };
 
-    self.lastPageTrzAcc = function () {
-        tempCountTrzAcc = parseInt(self.filterTrzAccList().length / self.pageSizeTrzAcc(), 10);
-        if ((self.filterTrzAccList().length % self.pageSizeTrzAcc()) == 0)
-            self.currentPageIndexTrzAcc(tempCountTrzAcc - 1);
+    self.lastPageAGMkz = function () {
+        tempCountAGMkz = parseInt(self.filterAGMkzList().length / self.pageSizeAGMkz(), 10);
+        if ((self.filterAGMkzList().length % self.pageSizeAGMkz()) == 0)
+            self.currentPageIndexAGMkz(tempCountAGMkz - 1);
         else
-            self.currentPageIndexTrzAcc(tempCountTrzAcc);
+            self.currentPageIndexAGMkz(tempCountAGMkz);
     };
 
-    self.sortTableTrzAcc = function (viewModel, e) {
+    self.sortTableAGMkz = function (viewModel, e) {
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
@@ -486,7 +487,7 @@
 
 
         self.currentColumn(orderProp);
-        self.TrzAccList.sort(function (left, right) {
+        self.AGMkzList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -500,6 +501,8 @@
 
 
 
+        self.iconTypeMkzCode('');
+        self.iconTypeMkzName('');
         self.iconTypeAccCode('');
         self.iconTypeAccName('');
         self.iconTypeBede('');
@@ -508,7 +511,9 @@
         self.iconTypeMonBest('');
         self.iconTypeMonTotal('');
 
-        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortMkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+       if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -548,7 +553,7 @@
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                    filter3 != '' ?  item.Level <= filter3 : ''
+                    ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
                 return result;
             })
             return tempData;
@@ -697,7 +702,7 @@
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         if (counterAcc > 0)
-            $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAcc').val(translate('همه موارد'));
     });
@@ -705,8 +710,7 @@
     $('#modal-Acc').on('shown.bs.modal', function () {
 
         level = $("#Level").val();
-        //level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
-        self.filterAcc3(level);
+        level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
 
         $("#TableBodyListAcc").empty();
         for (var i = 0; i < counterAcc; i++) {
@@ -734,6 +738,7 @@
     self.filterMkz0 = ko.observable("");
     self.filterMkz1 = ko.observable("");
     self.filterMkz2 = ko.observable("");
+    self.filterMkz3 = ko.observable("");
 
     self.filterMkzList = ko.computed(function () {
 
@@ -741,15 +746,17 @@
         var filter0 = self.filterMkz0().toUpperCase();
         var filter1 = self.filterMkz1();
         var filter2 = self.filterMkz2();
+        var filter3 = self.filterMkz3();
 
-        if (!filter0 && !filter1 && !filter2) {
+        if (!filter0 && !filter1 && !filter2 && !filter3) {
             return self.MkzList();
         } else {
             tempData = ko.utils.arrayFilter(self.MkzList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    filter3 != '' ? item.Level <= filter3 : ''
                 return result;
             })
             return tempData;
@@ -900,12 +907,16 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+
+        level = $("#Level").val();
+        self.filterMkz3(level);
+
         $("#TableBodyListMkz").empty();
         for (var i = 0; i < counterMkz; i++) {
             if (list_MkzSelect[i] != "") {
@@ -1094,7 +1105,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -1295,7 +1306,7 @@
 
     $('#modal-AMode').on('hide.bs.modal', function () {
         if (counterAMode > 0)
-            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameAMode').val(counterAMode + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAMode').val(translate('همه موارد'));
     });
@@ -1319,7 +1330,7 @@
 
 
 
-    self.ShowTrzAcc_Riz = function (Band) {
+    self.ShowAGMkz_Riz = function (Band) {
         SetFilter();
         localStorage.setItem("AccCodeReport", Band.AccCode);
         localStorage.setItem("AccNameReport", Band.AccName);
@@ -1333,7 +1344,7 @@
         localStorage.setItem("OprNameReport", oprname);
         localStorage.setItem("LevelReport", level);
         localStorage.setItem("SathReport", sath);
-        window.open(sessionStorage.urlTrzAcc, '_blank');
+        window.open(sessionStorage.urlAGMkz, '_blank');
     }
 
     self.ShowDftr = function (Band) {
@@ -1377,7 +1388,7 @@
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
         list_AccNameSelect[0] = AccNameReport;
-        $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'));
+        $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'));
 
 
 
@@ -1397,7 +1408,7 @@
             list_AModeSelect = aModeCode.split("*");
             list_AModeNameSelect = aModeName.split("*");
             counterAMode = list_AModeSelect.length;
-            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameAMode').val(counterAMode + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameAMode').val(translate('همه موارد'));
@@ -1410,7 +1421,7 @@
             list_MkzNameSelect = mkzName.split("*");
 
             counterMkz = list_MkzSelect.length;
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameMkz').val(translate('همه موارد'))
@@ -1423,12 +1434,12 @@
             list_OprNameSelect = oprName.split("*");
 
             counterOpr = list_OprSelect.length;
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameOpr').val(translate('همه موارد'));
 
-        getTrzAcc();
+        getAGMkz();
     }
 
 
@@ -1437,8 +1448,8 @@
 
 
     self.radif = function (index) {
-        countShow = self.pageSizeTrzAcc();
-        page = self.currentPageIndexTrzAcc();
+        countShow = self.pageSizeAGMkz();
+        page = self.currentPageIndexAGMkz();
         calc = (countShow * page) + 1;
         return index + calc;
     }
@@ -1464,8 +1475,10 @@
         createTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableTrzAcc">' +
+            '       <tr data-bind="click: sortTableAGMkz">' +
             '<th>' + translate('ردیف') + '</th>' +
+        CreateTableTh('MkzCode', data) +
+        CreateTableTh('MkzName', data) +
             CreateTableTh('AccCode', data) +
             CreateTableTh('AccName', data) +
             CreateTableTh('Bede', data) +
@@ -1476,7 +1489,7 @@
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageTrzAcc}" style="cursor: default;">';
+            ' <tbody data-bind=" {foreach: currentPageAGMkz}" style="cursor: default;">';
         if (level == 1)
             createTable +=
                 '     <tr>'
@@ -1487,6 +1500,8 @@
 
         createTable +=
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+        CreateTableTd('MkzCode', 0, 0, data) +
+        CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
@@ -1495,7 +1510,7 @@
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
             '<td>' +
-            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+            /*'<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
             '<ul class="dropdown-menu">' +
@@ -1506,7 +1521,7 @@
             '        </a>' +
             '    </li>' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowTrzAcc_Riz , visible: HasChild == 1" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowAGMkz_Riz" style="font-size: 11px;text-align: right;">' +
             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '             تراز زیر حساب ها' +
             '        </a>' +
@@ -1517,12 +1532,14 @@
             '            دفتر حساب ' +
             '        </a>' +
             '    </li>' +
-            '</td >' +
+            '</td >' +*/
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-        '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
+        CreateTableTdSum('MkzCode', 0, data) +
+        CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
@@ -1534,6 +1551,8 @@
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
+        CreateTableTdSearch('MkzCode', data) +
+        CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('AccCode', data) +
             CreateTableTdSearch('AccName', data) +
             CreateTableTdSearch('Bede', data) +
@@ -1646,50 +1665,22 @@
 
 
 
-
-
-    function getSathTaraz() {
-        select = document.getElementById('SathTaraz');
-        for (var i = 0; i <= 1; i++) {
-            opt = document.createElement('option');
-            if (i == 0) {
-                opt.value = 1;
-                opt.innerHTML = translate('تراز در سطح');
-                opt.selected = true;
-            }
-            if (i == 1) {
-                opt.value = 2;
-                opt.innerHTML = translate('تراز تا سطح');
-            }
-            select.appendChild(opt);
-        }
-    };
-
-
     function getLevel() {
         select = document.getElementById('Level');
-        for (var i = 0; i <= 4; i++) {
+        for (var i = 0; i <= 2; i++) {
             opt = document.createElement('option');
             if (i == 0) {
                 opt.value = 1;
-                opt.innerHTML = translate('کل');
+                opt.innerHTML = translate('سطح 1');
                 opt.selected = true;
             }
             if (i == 1) {
                 opt.value = 2;
-                opt.innerHTML = translate('معین');
+                opt.innerHTML = translate('سطح 2');
             }
             if (i == 2) {
                 opt.value = 3;
-                opt.innerHTML = translate('تفصیلی 1');
-            }
-            if (i == 3) {
-                opt.value = 4;
-                opt.innerHTML = translate('تفصیلی 2');
-            }
-            if (i == 4) {
-                opt.value = 5;
-                opt.innerHTML = translate('تفصیلی 3');
+                opt.innerHTML = translate('سطح 3');
             }
             select.appendChild(opt);
         }
@@ -1701,17 +1692,6 @@
     $('.fix').attr('class', 'form-line date focused fix');
 
     createViewer();
-
-    /*$('#Print').click(function () {
-        FromDate = $("#aztarikh").val().toEnglishDigit();
-        ToDate = $("#tatarikh").val().toEnglishDigit();
-
-        printVariable = '"ReportDate":"' + DateNow + '",';
-        printVariable += '"FromDate":"' + FromDate + '",';
-        printVariable += '"ToDate":"' + ToDate + '",';
-
-        setReport(self.filterTrzAccList(), 'Report_TrzAcc', printVariable);
-    });*/
 
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
     self.pageSizePrintForms = ko.observable(pageSizePrintForms);
@@ -1821,7 +1801,7 @@
         address = item.address;
         data = item.Data;
         printPublic = item.isPublic == 1 ? true : false;
-        setReport(self.TrzAccList(), data, printVariable);
+        setReport(self.AGMkzList(), data, printVariable);
     };
 
 
@@ -1861,7 +1841,7 @@
     $('#AddNewPrintForms').click(function () {
         printName = translate('فرم جدید');
         printPublic = false;
-        setReport(self.TrzAccList(), '', printVariable);
+        setReport(self.AGMkzList(), '', printVariable);
     });
 
 
@@ -1875,7 +1855,7 @@
         printVariable += '"ToDate":"' + ToDate + '",';
 
         printName = null;
-        sessionStorage.ModePrint = "ReportTrzAcc";
+        sessionStorage.ModePrint = "ReportAGMkz";
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
     });
@@ -1895,7 +1875,7 @@
                 data = list[i].Data;
             }
         }
-        setReport(self.TrzAccList(), data, printVariable);
+        setReport(self.AGMkzList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
 

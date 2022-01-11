@@ -1249,7 +1249,7 @@
     $('#refreshStatus').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست وضعیت") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست وضعیت سند") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1995,7 +1995,7 @@
     $('#refreshCGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست تحویل دهنده/گیرنده") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست گروه خریداران/فروشندگان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

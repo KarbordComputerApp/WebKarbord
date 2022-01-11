@@ -465,10 +465,19 @@
                             <a data-bind="text:translate('صورت خلاصه چک ها')" class="useBlank" target="_blank" href=@Url.Action("TChk","ReportAFI")></a>
                         </li>
 
+                        <li id="AGMkz" class="rightClick">
+                            <a data-bind="text:translate('گردش مرکز هزینه')" class="useBlank" target="_blank" href=@Url.Action("AGMkz","ReportAFI")></a>
+                        </li>
+
+                        <li id="AGOpr" class="rightClick">
+                            <a data-bind="text:translate('گردش پروژه')" class="useBlank" target="_blank" href=@Url.Action("AGOpr","ReportAFI")></a>
+                        </li>
+
+
                         <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
-                         <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
-                         <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
-                         <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
+    <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
+    <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
+    <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -786,10 +795,9 @@
                         <table class="table table-hover table-striped tableFix">
                             <thead style="cursor: pointer;">
                                 <tr data-bind="click: sortTablePrintForms">
-                                    <th style="width: 10px;">وضعیت</th>
-                                    <th style="width: 10px;">بدون قیمت</th>
-                                    <th data-column="namefa" style="text-align: center;">
-                                        نام
+                                    <th style="width: 10px;" data-bind="text:translate('وضعیت')"></th>
+                                    <th style="width: 10px;" data-bind="text:translate('بدون قیمت')"></th>
+                                    <th data-column="namefa" style="text-align: center;" data-bind="text:translate('نام')">
                                         <span data-bind="attr: { class: currentColumn() == 'namefa' ? 'isVisible' : 'isHidden' }">
                                             <i data-bind="attr: { class: iconTypenamefa }"></i>
                                         </span>

@@ -773,7 +773,9 @@
     <Content Include="Scripts\Lang\En.js" />
     <Content Include="Scripts\Lang\Fa.js" />
     <Content Include="Scripts\R_AFI_ADocR.js" />
+    <Content Include="Scripts\R_AFI_AGOpr.js" />
     <Content Include="Scripts\R_AFI_Krdx.js" />
+    <Content Include="Scripts\R_AFI_AGMkz.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_P.js" />
     <Content Include="Scripts\R_AFI_TrzFKala_P.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_S.js" />
@@ -952,6 +954,8 @@
     <Content Include="Views\AFIBase\Acc.cshtml" />
     <Content Include="Views\AFIBase\Opr.cshtml" />
     <Content Include="Views\AFIBase\Mkz.cshtml" />
+    <Content Include="Views\ReportAFI\AGMkz.cshtml" />
+    <Content Include="Views\ReportAFI\AGOpr.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

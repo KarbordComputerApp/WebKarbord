@@ -32,6 +32,15 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult AGMkz()
+        {
+            return View();
+        }
+
+        public ActionResult AGOpr()
+        {
+            return View();
+        }
 
 
         // انبار داری ------------------------------------------
