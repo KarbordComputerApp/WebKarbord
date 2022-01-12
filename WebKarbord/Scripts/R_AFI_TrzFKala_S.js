@@ -2201,7 +2201,7 @@
     $('#refreshCust').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست تحویل دهنده/گیرنده") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست خریداران/فروشندگان") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

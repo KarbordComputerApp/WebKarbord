@@ -1290,36 +1290,6 @@
 
 
 
-    self.ShowAGOpr_Riz = function (Band) {
-        SetFilter();
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        localStorage.setItem("SathReport", sath);
-        window.open(sessionStorage.urlAGOpr, '_blank');
-    }
-
-    self.ShowDftr = function (Band) {
-        SetFilter();
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlDftr, '_blank');
-    }
 
     self.ShowADocR = function (Band) {
         SetFilter();
@@ -1331,8 +1301,8 @@
         localStorage.setItem("AModeNameReport", aModeName);
         localStorage.setItem("MkzCodeReport", mkzcode);
         localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
+        localStorage.setItem("OprCodeReport", Band.OprCode);
+        localStorage.setItem("OprNameReport", Band.OprName);
         window.open(sessionStorage.urlADocR, '_blank');
     }
 
@@ -1440,11 +1410,8 @@
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageAGOpr}" style="cursor: default;">';
-
-        '<tr>';
-        
-        createTable +=
+            ' <tbody data-bind=" {foreach: currentPageAGOpr}" style="cursor: default;">' +
+            '     <tr data-bind="style: { \'background-color\': Tag == 0 ? \'#f5efeb\' : \'\' }" >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
@@ -1456,29 +1423,18 @@
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
             '<td>' +
-            /*'<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+
+            '<a data-bind="visible: $root.AccessAction(\'ADocR\') == true && AccCode != \'\' " class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowADocR" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '            دفتر روزنامه' +
             '        </a>' +
             '    </li>' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowAGOpr_Riz" style="font-size: 11px;text-align: right;">' +
-            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '             تراز زیر حساب ها' +
-            '        </a>' +
-            '    </li>' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
-            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر حساب ' +
-            '        </a>' +
-            '    </li>' +
-            '</td >' +*/
+            '</td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +

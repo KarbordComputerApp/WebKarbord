@@ -334,6 +334,10 @@
 
                 lockNumber = data.lockNumber;
                 multilang = data.multilang;
+                logoutmin = data.logoutmin;
+
+                Master_ProgName = data.ProgName;
+                Fct_or_Inv = data.Fct_or_Inv;
 
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);
@@ -349,6 +353,10 @@
                 localStorage.setItem('afi8Access', afi8Access);
                 localStorage.setItem('erjAccess', erjAccess);
                 localStorage.setItem('multilang', multilang);
+                localStorage.setItem('logoutmin', logoutmin);
+
+                localStorage.setItem('Master_ProgName', Master_ProgName);
+                localStorage.setItem('Fct_or_Inv', Fct_or_Inv);
 
                 $('#modal-service').modal('hide');
                 // $('#modal-service').hide();

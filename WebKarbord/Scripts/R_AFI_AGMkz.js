@@ -513,7 +513,7 @@
 
         if (orderProp == 'SortMkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-       if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -754,9 +754,9 @@
             tempData = ko.utils.arrayFilter(self.MkzList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                    filter3 != '' ? item.Level <= filter3 : ''
+                        (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                        (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                        filter3 != '' ? item.Level <= filter3 : ''
                 return result;
             })
             return tempData;
@@ -1328,40 +1328,6 @@
     });
 
 
-
-
-    self.ShowAGMkz_Riz = function (Band) {
-        SetFilter();
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        localStorage.setItem("LevelReport", level);
-        localStorage.setItem("SathReport", sath);
-        window.open(sessionStorage.urlAGMkz, '_blank');
-    }
-
-    self.ShowDftr = function (Band) {
-        SetFilter();
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlDftr, '_blank');
-    }
-
     self.ShowADocR = function (Band) {
         SetFilter();
         localStorage.setItem("AzTarikhReport", azTarikh);
@@ -1370,8 +1336,8 @@
         localStorage.setItem("AccNameReport", Band.AccName);
         localStorage.setItem("AModeCodeReport", aModeCode);
         localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
+        localStorage.setItem("MkzCodeReport", Band.MkzCode);
+        localStorage.setItem("MkzNameReport", Band.MkzName);
         localStorage.setItem("OprCodeReport", oprcode);
         localStorage.setItem("OprNameReport", oprname);
         window.open(sessionStorage.urlADocR, '_blank');
@@ -1470,15 +1436,13 @@
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
-        level = $("#Level").val();
-
         createTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableAGMkz">' +
             '<th>' + translate('ردیف') + '</th>' +
-        CreateTableTh('MkzCode', data) +
-        CreateTableTh('MkzName', data) +
+            CreateTableTh('MkzCode', data) +
+            CreateTableTh('MkzName', data) +
             CreateTableTh('AccCode', data) +
             CreateTableTh('AccName', data) +
             CreateTableTh('Bede', data) +
@@ -1489,19 +1453,12 @@
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageAGMkz}" style="cursor: default;">';
-        if (level == 1)
-            createTable +=
-                '     <tr>'
-        else
-            createTable +=
-                '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
+            ' <tbody data-bind=" {foreach: currentPageAGMkz}" style="cursor: default;">' +
+            '     <tr data-bind="style: { \'background-color\': Tag == 0 ? \'#f5efeb\' : \'\' }" >' +
 
-
-        createTable +=
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-        CreateTableTd('MkzCode', 0, 0, data) +
-        CreateTableTd('MkzName', 0, 0, data) +
+            CreateTableTd('MkzCode', 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
@@ -1510,36 +1467,24 @@
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
             '<td>' +
-            /*'<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+           '<a data-bind="visible: $root.AccessAction(\'ADocR\') == true && AccCode != \'\' " class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowADocR" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '            دفتر روزنامه' +
             '        </a>' +
             '    </li>' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowAGMkz_Riz" style="font-size: 11px;text-align: right;">' +
-            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '             تراز زیر حساب ها' +
-            '        </a>' +
-            '    </li>' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
-            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر حساب ' +
-            '        </a>' +
-            '    </li>' +
-            '</td >' +*/
+            '</td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
             '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
-        CreateTableTdSum('MkzCode', 0, data) +
-        CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('MkzCode', 0, data) +
+            CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
@@ -1551,8 +1496,8 @@
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
-        CreateTableTdSearch('MkzCode', data) +
-        CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('MkzCode', data) +
+            CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('AccCode', data) +
             CreateTableTdSearch('AccName', data) +
             CreateTableTdSearch('Bede', data) +

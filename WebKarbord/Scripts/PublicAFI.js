@@ -5,8 +5,12 @@ var group = localStorage.getItem('group');
 var aceErj = 'Web2';
 var salErj = '0000';
 
-var userName = localStorage.getItem('userName', '');
-var pass = localStorage.getItem('password', '');
+var userName = localStorage.getItem('userName');
+var pass = localStorage.getItem('password');
+
+Master_ProgName = localStorage.getItem('Master_ProgName');
+Fct_or_Inv = localStorage.getItem('Fct_or_Inv');
+
 $("#AccessRefresh").hide();
 
 if (sessionStorage.versionTitle == "ورژن تست : ") {
@@ -248,7 +252,7 @@ if (lang == 'en') {
     $("span").css({ "font-family": "Merriweather-Light" });
 
     $(".dropdown-menu").addClass("dropdown-menultr");
-   // $(".dropdown-menu").removeClass("dropdown-menu");
+    // $(".dropdown-menu").removeClass("dropdown-menu");
 
 
 }
@@ -571,9 +575,9 @@ $(".autocomplete").select(function () {
     // var parentOffset = $("#" + id_Autocomplete).parent().offset();
 
     $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
-   // $("#p_Statement").show();
+    // $("#p_Statement").show();
 
-   
+
 
     //var offset = $("#" + id_Autocomplete).position();
     //$("#saveStatement").css({ top: offset.top, left: offset.left });
@@ -851,8 +855,12 @@ var erjAccessApi;
 var erjGroupApi;
 
 
-afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+afiaccess = [false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false]
 
 
 
@@ -866,7 +874,7 @@ if (ace != 'Web2') {
     }
 
 
-    for (var i = 0; i <= 31; i++) {
+    for (var i = 0; i <= 33; i++) {
         afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
         afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
         afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -900,6 +908,8 @@ if (ace != 'Web2') {
         afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
         afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
         afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
+        afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
+        afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
     }
 
 }
@@ -1728,14 +1738,29 @@ async function getParamList() {
 }
 
 function CheckAccess(TrsName) {
+
     //access = JSON.parse(localStorage.getItem("Access"));//localStorage.getItem("Access");
     if (access[0].TrsName == 'ADMIN') {
         return true;
     }
     else {
-        for (var i = 0; i < access.length; i++) {
-            if (access[i].TrsName == TrsName)
-                return true;
+        if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0 ) {
+            for (var i = 0; i < access.length; i++) {
+                if (access[i].TrsName == TrsName && access[i].OrgProgName == Fct_or_Inv)
+                    return true;
+            }
+        }
+        else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0) {
+            for (var i = 0; i < access.length; i++) {
+                if (access[i].TrsName == TrsName || access[i].OrgProgName == Master_ProgName)
+                    return true;
+            }
+        }
+        else {
+            for (var i = 0; i < access.length; i++) {
+                if (access[i].TrsName == TrsName)
+                    return true;
+            }
         }
     }
     return false
@@ -1852,8 +1877,12 @@ function getAccessList(GoHome) {
 
 
 
-                afiaccess = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-                    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+                afiaccess = [false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false]
 
                 if (ace == 'Web2') {
                     afiAccessApi = '';
@@ -1866,7 +1895,7 @@ function getAccessList(GoHome) {
                         afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = ''
                     }
 
-                    for (var i = 0; i <= 31; i++) {
+                    for (var i = 0; i <= 33; i++) {
                         afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                         afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                         afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -1900,6 +1929,8 @@ function getAccessList(GoHome) {
                         afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
                         afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
                         afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
+                        afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
+                        afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
                     }
                 }
 
@@ -2012,7 +2043,8 @@ function SetValidation() {
     var ShowMenu = [false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false];
+        false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false];
     if (access == null) return false;
     if (access.length == 0) return false;
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
@@ -2110,11 +2142,19 @@ function SetValidation() {
     validation = CheckAccess('ACC');
     ShowMenu[33] = validation;  // حساب ها
 
-    validation = CheckAccess('Mkz');
+    validation = CheckAccess('MKZ');
     ShowMenu[34] = validation;  // مرکز هزینه
 
-    validation = CheckAccess('Opr');
+    validation = CheckAccess('OPR');
     ShowMenu[35] = validation;  // پروژه
+
+    validation = CheckAccessReport('AGMkz');
+    ShowMenu[36] = validation;  // گردش مراکز هزینه
+
+    validation = CheckAccessReport('AGOpr');
+    ShowMenu[37] = validation;  // گردش پروژه ها
+
+
 
 
     //localStorage.setItem("", );
@@ -3114,12 +3154,15 @@ function SetValidation() {
             $("#FReport_Menu").hide();
         }
 
-        if (afiaccess[13] || afiaccess[14] || afiaccess[15] || afiaccess[16]) {
+        if (afiaccess[13] || afiaccess[14] || afiaccess[15] || afiaccess[16] || afiaccess[32] || afiaccess[33]) {
             $("#AReport_Menu").show();
             afiaccess[13] && ShowMenu[17] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
             afiaccess[14] && ShowMenu[18] == true ? $("#Dftr").show() : $("#Dftr").hide();
             afiaccess[15] && ShowMenu[19] == true ? $("#ADocR").show() : $("#ADocR").hide();
             afiaccess[16] && ShowMenu[20] == true ? $("#TChk").show() : $("#TChk").hide();
+
+            afiaccess[32] && ShowMenu[36] == true ? $("#AGMkz").show() : $("#AGMkz").hide();
+            afiaccess[33] && ShowMenu[37] == true ? $("#AGOpr").show() : $("#AGOpr").hide();
 
             if (ShowMenu[17] == false && ShowMenu[18] == false && ShowMenu[19] == false) {
                 $("#AReport_Menu").hide();
@@ -4089,7 +4132,12 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
 }
 
 
-setInterval(LogOut, 900000);
+logoutmin = localStorage.getItem('logoutmin');
+if (logoutmin != null && logoutmin != 'null' && logoutmin != '0' && logoutmin != '') {
+    logoutmin = logoutmin * 60000
+    setInterval(LogOut, logoutmin);
+}
+
 function LogOut() {
     if (sessionStorage.userName != '' && sessionStorage.userName != null) {
         var LogOutObject = {

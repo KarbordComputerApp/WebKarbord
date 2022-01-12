@@ -13,14 +13,14 @@
 
     TestUser();
 
-    validation = CheckAccess('NEW_Mkz');// New Mkz
+    validation = CheckAccess('NEW_MKZ');// New Mkz
     sessionStorage.NEW_Mkz = validation;
     validation == true ? $("#AddNewMkz").show() : $("#AddNewMkz").hide()
 
-    validation = CheckAccess('CHG_Mkz');// edit Mkz
+    validation = CheckAccess('CHG_MKZ');// edit Mkz
     sessionStorage.CHG_Mkz = validation;
 
-    validation = CheckAccess('DEL_Mkz'); // delete Mkz
+    validation = CheckAccess('DEL_MKZ'); // delete Mkz
     sessionStorage.DEL_Mkz = validation;
 
     self.ShowAction = function (Code) {
