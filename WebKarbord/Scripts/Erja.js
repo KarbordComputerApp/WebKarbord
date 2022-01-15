@@ -332,14 +332,14 @@
         }
 
         ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
-            if (bMode == null)
-                self.ErjResultList(data);
-            item = data[0];
+          
+                if (bMode == null)
+                    self.ErjResultList(data);
+                item = data[0];
 
-            bandNo = item.BandNo;
-            $("#Result").val(item.RjResult);
-            old_RjResult = $("#Result").val();
-
+                bandNo = item.BandNo;
+                $("#Result").val(item.RjResult);
+                old_RjResult = $("#Result").val();
         });
     }
 

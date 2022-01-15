@@ -319,13 +319,14 @@
         }
 
         ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
-            if (bMode == null)
-                self.ErjResultList(data);
+            if (data.length > 0) {
+                if (bMode == null)
+                    self.ErjResultList(data);
 
-            item = data[0];
+                item = data[0];
 
-            bandNo = item.BandNo;
-
+                bandNo = item.BandNo;
+            }
             // $("#Result").val(item.RjResult);
         });
     }

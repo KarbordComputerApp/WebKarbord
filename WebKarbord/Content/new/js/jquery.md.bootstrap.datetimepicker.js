@@ -1,8 +1,18 @@
 ﻿(function ($) {
 
     // #region jalali calendar
+    // Lang = 'fa'
+    //isGregorian = true;
+
 
     function toJalaali(gy, gm, gd) {
+        /*        if (Lang == 'en')
+                    return {
+                        jy: gy,
+                        jm: gm,
+                        jd: gd
+                    }
+                else*/
         return d2j(g2d(gy, gm, gd));
     }
 
@@ -163,6 +173,7 @@
     var mdDatePickerFlag = 'data-mdpersiandatetimepicker',
         mdDatePickerFlagSelector = '[' + mdDatePickerFlag + ']',
         mdDatePickerGroupIdAttribute = 'data-mdpersiandatetimepicker-group',
+        //mdDatePickerPopoverFlag = lang == 'en' ? 'data-mdpersiandatetimepicker-popover' : 'data-mdpersiandatetimepicker-popover-ltr' ,
         mdDatePickerPopoverFlag = 'data-mdpersiandatetimepicker-popover',
         mdDatePickerPopoverSelector = '[' + mdDatePickerPopoverFlag + ']',
         mdDatePickerContainerFlag = 'data-mdpersiandatetimepicker-container',
@@ -170,13 +181,27 @@
         mdPluginName = 'MdPersianDateTimePicker',
         triggerStart = false;
 
-    var popverHtmlTemplate = `
-<div class="popover mds-bootstrap-persian-datetime-picker-popover" role="tooltip" ${mdDatePickerPopoverFlag}>    
-    <div class="arrow"></div>    
-    <h3 class="popover-header text-center" data-name="mds-datetimepicker-title"></h3>    
-    <div class="popover-body p-0" data-name="mds-datetimepicker-popoverbody"></div>
-</div>
-    `;
+    var popverHtmlTemplate =
+        lang == 'en' ? '<div class="popover mds-bootstrap-persian-datetime-picker-popover-ltr" role="tooltip"' + mdDatePickerPopoverFlag + '>' +
+            '    <div class="arrow"></div>' +
+            '    <h3 class="popover-header text-center" data-name="mds-datetimepicker-title"></h3> ' +
+            '    <div class="popover-body p-0" data-name="mds-datetimepicker-popoverbody"></div>' +
+            '</div>'
+            :
+            '<div class="popover mds-bootstrap-persian-datetime-picker-popover" role="tooltip"' + mdDatePickerPopoverFlag + '>' +
+            '    <div class="arrow"></div>' +
+            '    <h3 class="popover-header text-center" data-name="mds-datetimepicker-title"></h3> ' +
+            '    <div class="popover-body p-0" data-name="mds-datetimepicker-popoverbody"></div>' +
+            '</div>'
+        ;
+    /*
+        var popverHtmlTemplate = `
+    <div class="popover mds-bootstrap-persian-datetime-picker-popover" role="tooltip" ${mdDatePickerPopoverFlag}>    
+        <div class="arrow"></div>    
+        <h3 class="popover-header text-center" data-name="mds-datetimepicker-title"></h3>    
+        <div class="popover-body p-0" data-name="mds-datetimepicker-popoverbody"></div>
+    </div>
+        `;*/
 
     var popoverHeaderSelectYearHtmlTemplate = `
 <table class="table table-sm table-borderless text-center p-0 m-0 {{rtlCssClass}}">
@@ -483,8 +508,8 @@
     function updateCalendarHtml1($element, setting) {
         var calendarHtml = getDateTimePickerHtml(setting),
             $container = setting.inLine ?
-            $element.parents(mdDatePickerFlagSelector + ':first') :
-            $element.parents('[data-name="mds-datetimepicker-popoverbody"]:first');
+                $element.parents(mdDatePickerFlagSelector + ':first') :
+                $element.parents('[data-name="mds-datetimepicker-popoverbody"]:first');
         setPopoverHeaderHtml($element, setting.inLine, $(calendarHtml).find('[data-selecteddatestring]').text().trim());
         $container.html(calendarHtml);
     }
@@ -642,10 +667,10 @@
             else
                 amPm = 'ب.ظ';
         } else
-        if (isGregorian)
-            amPm = 'AM';
-        else
-            amPm = 'ق.ظ';
+            if (isGregorian)
+                amPm = 'AM';
+            else
+                amPm = 'ق.ظ';
         return amPm;
     }
 
@@ -665,7 +690,7 @@
     function hidePopover($element) {
         if (!$element) return;
         $element.popover('hide');
-        $('.fix').attr('class', 'form-line focused date fix'); 
+        $('.fix').attr('class', 'form-line focused date fix');
     }
 
     function convertToNumber1(dateTimeJson) {

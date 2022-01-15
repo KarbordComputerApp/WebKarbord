@@ -299,14 +299,7 @@
         for (var i = 0; i < list.length; ++i) {
             AGMkzData = list[i];
 
-            if (AGMkzData.Level == 1) {
-                totalBede += AGMkzData.Bede;
-                totalBest += AGMkzData.Best;
-                totalMonBede += AGMkzData.MonBede;
-                totalMonBest += AGMkzData.MonBest;
-                totalMonTotal += AGMkzData.MonTotal;
-            }
-            else {
+            if (AGMkzData.Tag == 1) {
                 totalBede += AGMkzData.Bede;
                 totalBest += AGMkzData.Best;
                 totalMonBede += AGMkzData.MonBede;
@@ -1328,7 +1321,7 @@
     });
 
 
-    self.ShowADocR = function (Band) {
+   /* self.ShowADocR = function (Band) {
         SetFilter();
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
@@ -1341,8 +1334,22 @@
         localStorage.setItem("OprCodeReport", oprcode);
         localStorage.setItem("OprNameReport", oprname);
         window.open(sessionStorage.urlADocR, '_blank');
-    }
+    }*/
 
+    self.ShowDftr = function (Band) {
+        SetFilter();
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("AccNameReport", Band.AccName);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
+        localStorage.setItem("MkzCodeReport", Band.MkzCode);
+        localStorage.setItem("MkzNameReport", Band.MkzName);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
+        window.open(sessionStorage.urlDftr, '_blank');
+    }
 
 
 
@@ -1472,9 +1479,9 @@
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowADocR" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowDftr" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر روزنامه' +
+            '            دفتر حساب' +
             '        </a>' +
             '    </li>' +
             '</td >' +

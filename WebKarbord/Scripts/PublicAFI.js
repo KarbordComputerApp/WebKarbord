@@ -250,9 +250,9 @@ if (lang == 'en') {
     $("#titleVerNumber").css({ "font-family": "Merriweather-Light" });
     $("#titleVer").css({ "font-family": "Merriweather-Light" });
     $("span").css({ "font-family": "Merriweather-Light" });
-
     $(".dropdown-menu").addClass("dropdown-menultr");
     // $(".dropdown-menu").removeClass("dropdown-menu");
+    $(".popover mds-bootstrap-persian-datetime-picker-popover fade show bs-popover-top").css({ "font-family": "Merriweather-Light" });
 
 
 }
@@ -1752,7 +1752,7 @@ function CheckAccess(TrsName) {
         }
         else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0) {
             for (var i = 0; i < access.length; i++) {
-                if (access[i].TrsName == TrsName || access[i].OrgProgName == Master_ProgName)
+                if (access[i].TrsName == TrsName && access[i].OrgProgName == Master_ProgName)
                     return true;
             }
         }

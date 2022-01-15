@@ -168,7 +168,7 @@
                                 <tr>
                                     <th data-bind="text:translate('ردیف')">
                                     </th>
-                                    <th data-bind="text:translate('کد کالا')" >
+                                    <th data-bind="text:translate('کد کالا')">
                                     </th>
                                     <th data-bind="text:translate('نام کالا')">
                                     </th>
@@ -180,15 +180,15 @@
                                     </th>
                                     <th data-bind="text:translate('مقدار 3')">
                                     </th>
-                                    <th  data-bind="text:translate('قیمت واحد')" id="thUnitPrice">
+                                    <th data-bind="text:translate('قیمت واحد')" id="thUnitPrice">
                                     </th>
-                                    <th  data-bind="text:translate('قیمت کل')" id="thTotalPrice">
+                                    <th data-bind="text:translate('قیمت کل')" id="thTotalPrice">
                                     </th>
-                                    <th  data-bind="text:translate('تخفیف بند')" id="thDiscount">
+                                    <th data-bind="text:translate('تخفیف بند')" id="thDiscount">
                                     </th>
-                                    <th  data-bind="text:translate('شرح')" style="width: 160px">
+                                    <th data-bind="text:translate('شرح')" style="width: 160px">
                                     </th>
-                                    <th  data-bind="text:translate('عملیات')" id="action_headerfactor"></th>
+                                    <th data-bind="text:translate('عملیات')" id="action_headerfactor"></th>
                                 </tr>
                             </thead>
 
@@ -270,14 +270,14 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="background-color:#d9d9d9; color: black;padding: .3rem; width: 200px;" data-bind="text:translate('شرح')">
-                                                            
+
                                                         </th>
                                                         <th style="background-color:#d9d9d9; color: black;padding: .3rem;" data-bind="text:translate('مبلغ')">
-                                                            
+
                                                         </th>
                                                         <th style="background-color:#d9d9d9; color: black;padding: .3rem;"></th>
                                                         <th style="background-color:#d9d9d9; color: black;padding: .3rem;" data-bind="text:translate('مبلغ موثر')">
-                                                           
+
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -285,9 +285,9 @@
                                                 <tbody data-bind="foreach: AddMinList">
                                                     <tr>
                                                         <td style="padding: 0px 10px;"><input data-bind="value: Name ,enable: !Auto ,  attr: {'id': 'AddMinSharh' + Code}" type="text" class="form-control" style="cursor: default; height: 2.4rem;" /> </td>
-                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(parseFloat(Math.abs(AddMinPrice)).toFixed(parseInt(sessionStorage.Deghat))) ,  enable: !Auto , event:{ change: $root.ChangeAddMinMablagh , focus: $root.FocusAddMinMablagh ,keydown : $root.mablaghAddminKeyDown  } , attr: {'id': 'AddMinMablagh' + Code , placeholder:translate('مبلغ را وارد کنید') }" type="text" class="form-control float"  style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /></td>
+                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(parseFloat(Math.abs(AddMinPrice)).toFixed(parseInt(sessionStorage.Deghat))) ,  enable: !Auto , event:{ change: $root.ChangeAddMinMablagh , focus: $root.FocusAddMinMablagh ,keydown : $root.mablaghAddminKeyDown  } , attr: {'id': 'AddMinMablagh' + Code , placeholder:translate('مبلغ را وارد کنید') }" type="text" class="form-control float" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /></td>
                                                         <td style="padding: 0px 10px;" data-bind="text: Mode == 1 ? '-' : '+' ,attr: {'id': 'iconAddMin' + Code}"></td>
-                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(NumberToNumberString(parseFloat(MablaghMoaser).toFixed(parseInt(sessionStorage.Deghat)))) , enable: false , attr: {'id': 'AddMinMablaghMoaser' + Code , placeholder:translate('مبلغ را وارد کنید')}" type="text" class="form-control float"  style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /> </td>
+                                                        <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(NumberToNumberString(parseFloat(MablaghMoaser).toFixed(parseInt(sessionStorage.Deghat)))) , enable: false , attr: {'id': 'AddMinMablaghMoaser' + Code , placeholder:translate('مبلغ را وارد کنید')}" type="text" class="form-control float" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /> </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -319,7 +319,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea  data-bind="attr:{placeholder:translate('زیر نویس')}" rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder=""></textarea>
+                                        <textarea data-bind="attr:{placeholder:translate('زیر نویس')}" rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder=""></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -523,7 +523,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameKala" class="form-control" readonly />
-                                         <label class="form-label" data-bind="text:translate('کالا')"></label>
+                                        <label class="form-label" data-bind="text:translate('کالا')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -588,7 +588,7 @@
                         <div class="col-sm-12">
                             <div class="form-group form-float">
                                 <div class="form-line focused">
-                                    <textarea data-bind="attr:{placeholder:translate('شرح')}" rows="2" id="comm" class="form-control no-resize auto-growth string autocomplete" ></textarea>
+                                    <textarea data-bind="attr:{placeholder:translate('شرح')}" rows="2" id="comm" class="form-control no-resize auto-growth string autocomplete"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -631,8 +631,7 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                    <button type="button" data-bind="click: flagupdateband == 1 ? UpdateFDocB : AddFDocB , text:translate('ثبت')" id="Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    </button>
+                    <button type="button" data-bind="click: flagupdateband == 1 ? UpdateFDocB : AddFDocB , text:translate('ثبت')" id="Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                 </div>
             </div>
         </div>
@@ -670,7 +669,8 @@
                                         <i data-bind="attr: { class: iconTypeNameKala }"></i>
                                     </span>
                                 </th>
-                                <th data-column="FanniNo"><span data-column="FanniNo" data-bind="text:translate('شماره فنی')"></span>
+                                <th data-column="FanniNo">
+                                    <span data-column="FanniNo" data-bind="text:translate('شماره فنی')"></span>
                                     <span data-column="FanniNo" data-bind="text:translate('شماره فنی')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'FanniNo' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeFanniNoKala }"></i>
@@ -894,11 +894,11 @@
                         </div>
 
                         <!-- <div class="col-md-6 ">
-        <div>
-            <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
-            <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
-        </div>
-    </div>-->
+                            <div>
+                                <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
+                                <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
+                            </div>
+                        </div>-->
 
                         <div class="col-md-6">
                             <button data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;"></button>
@@ -1350,7 +1350,7 @@
                                 </th>
                                 <th data-column="MainUnitName">
                                     <span data-column="MainUnitName" data-bind="text:translate('واحد')"></span>
-                                    
+
                                     <span data-bind="attr: { class: currentColumn() == 'MainUnitName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeMainUnitName }"></i>
                                     </span>
@@ -1485,6 +1485,8 @@
             GroupId: '', // default is empty,
             ToDate: false, // default is false,
             FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
         });
 
         //'use strict';
