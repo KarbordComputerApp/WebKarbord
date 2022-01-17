@@ -591,7 +591,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageOpr" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr>' +
+            '     <tr oncontextmenu="window.alert(\'test\');return false;">' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +

@@ -828,6 +828,12 @@
     });
 
 
+    $('#AddNewSanad_New').click(function () {
+        sessionStorage.flagupdateHeader = 0;
+        window.location.href = sessionStorage.urlAddADocH_New;
+    });
+
+
     self.DeleteSanad = function (SanadBand) {
         if (TestUseSanad(ace, sal, "SanadHesab", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
             // showNotification('سند در تب دیگری وجود دارد', 0)

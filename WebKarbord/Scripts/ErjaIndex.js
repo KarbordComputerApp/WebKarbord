@@ -307,7 +307,7 @@
         }
     }
 
-    getErjUsersList(false);
+    getErjUsersList(true);
 
     //Get ErjResult List
     function getErjResultList(serialNumber, bMode, toUser, band) {

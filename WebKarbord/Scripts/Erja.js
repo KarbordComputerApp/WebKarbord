@@ -391,7 +391,7 @@
 
     getErjStatusList();
     //getFarayandList(false);
-    getErjUsersList(false);
+    getErjUsersList(true);
     //getRepToUsersList();
     //getRepFromUsersList();
     getMahramanehList();

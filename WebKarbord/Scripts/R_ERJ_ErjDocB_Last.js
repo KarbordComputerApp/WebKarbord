@@ -279,7 +279,7 @@
     getErjStatusList();
     //getErjCustList();
     //getKhdtList();
-    getErjUsersList(false);
+    getErjUsersList(true);
     getRepToUsersList();
     getRepFromUsersList();
     getMahramanehList();

@@ -281,7 +281,7 @@
         });
     }
 
-    function calcsum(list) {
+   
         totalBede = 0;
         totalBest = 0;
         totalMonBede = 0;
@@ -293,11 +293,12 @@
             if (AGOprData.Tag == 1) {
                 totalBede += AGOprData.Bede;
                 totalBest += AGOprData.Best;
-                totalMonBede += AGOprData.MonBede;
-                totalMonBest += AGOprData.MonBest;
-                totalMonTotal += AGOprData.MonTotal;
             }
         }
+
+    totalMonBede = totalBede > totalBest ? totalBede - totalBest : 0;
+    totalMonBest = totalBede < totalBest ? totalBest - totalBede : 0;
+    totalMonTotal = totalMonBede > 0 ? totalMonBede : totalMonBest;
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));

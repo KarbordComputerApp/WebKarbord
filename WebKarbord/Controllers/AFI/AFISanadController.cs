@@ -21,5 +21,12 @@ namespace WebKarbord.Controllers.AFI
             ViewBag.apiAddress = UnitPublic.apiAddress;
             return View();
         }
+
+        public ActionResult AddAdoc_New()
+        {
+            ViewBag.apiAddress = UnitPublic.apiAddress;
+            return View();
+        }
+
     }
 }

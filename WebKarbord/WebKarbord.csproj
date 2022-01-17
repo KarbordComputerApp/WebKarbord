@@ -640,6 +640,7 @@
     <Content Include="Content\new\css\all-themes.css" />
     <Content Include="Content\new\css\bootstrap-colorpicker.css" />
     <Content Include="Content\new\css\bootstrap.css" />
+    <Content Include="Content\new\css\dx.light.css" />
     <Content Include="Content\new\css\extra_pages.css" />
     <Content Include="Content\new\css\font-awesome.min.css" />
     <Content Include="Content\new\css\form.min.css" />
@@ -672,6 +673,7 @@
     <Content Include="Content\new\js\chart.min.js" />
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
+    <Content Include="Content\new\js\dx.all.js" />
     <Content Include="Content\new\js\farsiInput.js" />
     <Content Include="Content\new\js\jquery ui\jquery-ui.min.css" />
     <Content Include="Content\new\js\jquery ui\jquery-ui.min.js" />
@@ -760,6 +762,7 @@
     <Content Include="Scripts\AFIBase_Kala.js" />
     <Content Include="Scripts\AFIIndexSanad.js" />
     <Content Include="Scripts\AFIIndexSanadAnbar.js" />
+    <Content Include="Scripts\AFISanad_New.js" />
     <Content Include="Scripts\AFISanad.js" />
     <Content Include="Scripts\AFISanadAnbar.js" />
     <Content Include="Scripts\AFIFactor.js" />
@@ -916,6 +919,9 @@
     <Content Include="Content\Report\Report_FTrz_Kala_P.mrt" />
     <Content Include="Content\Report\Report_FTrz_Kala_S.mrt" />
     <Content Include="Content\fonts\Merriweather-Light.ttf" />
+    <Content Include="Content\fonts\dxicons.ttf" />
+    <Content Include="Content\fonts\dxicons.woff" />
+    <Content Include="Content\fonts\dxicons.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\AFIFactor\AddFdoc.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
@@ -956,6 +962,7 @@
     <Content Include="Views\AFIBase\Mkz.cshtml" />
     <Content Include="Views\ReportAFI\AGMkz.cshtml" />
     <Content Include="Views\ReportAFI\AGOpr.cshtml" />
+    <Content Include="Views\AFISanad\AddAdoc_New.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

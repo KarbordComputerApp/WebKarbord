@@ -26,6 +26,10 @@
                         <a id="AddNewSanad" class="">
                             <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
                         </a>
+
+                        <a id="AddNewSanad_New" class="">
+                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="25" height="25" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -248,7 +252,8 @@
 
 @section scripts{
     <script type="text/javascript">
-            sessionStorage.urlAddADocH='@Url.Action("AddAdoc", "AFISanad")';
+        sessionStorage.urlAddADocH = '@Url.Action("AddAdoc", "AFISanad")';
+           sessionStorage.urlAddADocH_New='@Url.Action("AddAdoc_New", "AFISanad")';
     </script>
     <script type="text/javascript"></script>
     <script src="~/Scripts/AFIIndexSanad.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>

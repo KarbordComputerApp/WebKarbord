@@ -12,9 +12,12 @@ Master_ProgName = localStorage.getItem('Master_ProgName');
 Fct_or_Inv = localStorage.getItem('Fct_or_Inv');
 
 $("#AccessRefresh").hide();
+$("#AddNewSanad_New").hide();
 
-if (sessionStorage.versionTitle == "ورژن تست : ") {
+if (sessionStorage.versionTitle == "ورژن تست") {
     $("#AccessRefresh").show();
+    $("#AddNewSanad_New").show();
+
 }
 
 var tiketUrl = 'http://localhost:51091/';

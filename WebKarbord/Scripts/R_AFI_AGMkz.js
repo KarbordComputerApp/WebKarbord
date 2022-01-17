@@ -302,11 +302,12 @@
             if (AGMkzData.Tag == 1) {
                 totalBede += AGMkzData.Bede;
                 totalBest += AGMkzData.Best;
-                totalMonBede += AGMkzData.MonBede;
-                totalMonBest += AGMkzData.MonBest;
-                totalMonTotal += AGMkzData.MonTotal;
             }
         }
+
+        totalMonBede = totalBede > totalBest ? totalBede - totalBest : 0;
+        totalMonBest = totalBede < totalBest ? totalBest - totalBede : 0;
+        totalMonTotal = totalMonBede > 0 ? totalMonBede : totalMonBest;
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
