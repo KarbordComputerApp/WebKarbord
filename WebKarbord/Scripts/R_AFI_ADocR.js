@@ -2191,9 +2191,6 @@
         text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
     }
-    createViewer();
-
-
 
 
 
@@ -2376,6 +2373,7 @@
     });
 
     $('#AcceptPrint').click(function () {
+        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

@@ -2939,10 +2939,6 @@
         }
     }
 
-    createViewer();
-
-
-
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
     self.pageSizePrintForms = ko.observable(pageSizePrintForms);
     self.currentPageIndexKhdt = ko.observable(0);
@@ -3116,6 +3112,7 @@
     });
 
     $('#AcceptPrint').click(function () {
+        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

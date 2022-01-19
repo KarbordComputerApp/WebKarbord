@@ -35,7 +35,7 @@ var serverAccount = localStorage.getItem('serverAccount');
 
 var DictionaryUri = server + '/api/Web_Data/Web_Dictionary/'; // آدرس  دیکشنری
 
-localStorage.removeItem('dict');
+//localStorage.removeItem('dict');
 var dict = localStorage.getItem('dict');
 if (dict != null)
     dict = JSON.parse(dict);
@@ -115,7 +115,7 @@ $("#SelectLang").change(function () {
 //dir_lang = 'rtl';
 
 function translate(text) {
-    if (lang == 'fa')
+    if (lang == 'fa' || lang == null || dict == null)
         return text
     else {
         dic = dict[lang][text];
@@ -546,7 +546,7 @@ $(function () {
 
 var Statements = localStorage.getItem('StatementsList');
 
-if (Statements != '') {
+if (Statements != '' && Statements != null) {
     Statements = Statements.split(',');
 }
 
@@ -741,7 +741,7 @@ selectMessage = function (item) {
 }
 
 
-
+/*
 var DateNow;
 var SalNow;
 //Get Date List
@@ -749,33 +749,17 @@ function getDateServer() {
     var date;
     if (server != null) {
 
-        ajaxFunction(DateUri, 'GET').done(function (data) {
+        ajaxFunction(DateUri, 'GET', true, true).done(function (data) {
             listDate = data[0].split("/");
             DateNow = data[0];
             SalNow = listDate[0];
-
-
-
-            // data = "2021/09/06";
-            /*listDate = data.split("/");
-            if (parseInt(listDate[0]) > 1300 && parseInt(listDate[0]) < 2000) {
-                DateNow = data;
-                SalNow = listDate[0];
-            }
-            else {
-                date = toJalaali(parseInt(listDate[0]), parseInt(listDate[1]), parseInt(listDate[2]), 'Short');
-                date.jm <= 9 ? mah = '0' + date.jm : mah = date.jm;
-                date.jd <= 9 ? day = '0' + date.jd : day = date.jd;
-                temp = date.jy + '/' + mah + '/' + day;
-                SalNow = date.jy;
-                DateNow = temp;
-            }*/
         });
     }
 }
 
-//
 getDateServer();
+
+*/
 
 //Get kala List
 /*function getKalaList() {
@@ -1298,6 +1282,9 @@ function SetSelectProgram() {
         localStorage.setItem("ModeCode", '');
         sessionStorage.ModeCode = '';
 
+
+        //getRprtCols();
+
         return true;
     } catch (e) {
         $('#SaveParam').removeAttr('disabled');
@@ -1747,7 +1734,7 @@ function CheckAccess(TrsName) {
         return true;
     }
     else {
-        if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0 ) {
+        if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
             for (var i = 0; i < access.length; i++) {
                 if (access[i].TrsName == TrsName && access[i].OrgProgName == Fct_or_Inv)
                     return true;
@@ -2018,29 +2005,107 @@ function getAccessList(GoHome) {
 SetValidation();
 SetValidationErj();
 
+var DateNow;
+var SalNow;
+
+if (sessionStorage.userName != '' && sessionStorage.userName != null)
+setInterval(TestUser, 60000);
 function TestUser() {
+    if (sessionStorage.userName != "" && sessionStorage.userName != null) {
 
-    var LoginTestObject = {
-        MachineId: MachineId,
-        IPWan: '',
-        Country: '',
-        City: '',
-        UserCode: sessionStorage.userName,
-        ProgName: ace,
-        ProgVer: '',
-        ProgCaption: '',
-        FlagTest: 1
-    }
-
-    ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
-        if (datalogin.ID >= 0) {
-            //showNotification('لطفا دوباره وارد شوید', 0);
-            //sleep(10000);
-            window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
+        groupNo = '';
+        if (erjGroupApi.includes(group) == true) {
+            if (accessErj != null) {
+                groupNo = group
+            }
         }
-    });
+        var LoginTestObject = {
+            MachineId: MachineId,
+            IPWan: '',
+            Country: '',
+            City: '',
+            UserCode: sessionStorage.userName,
+            ProgName: ace,
+            ProgVer: '',
+            ProgCaption: '',
+            FlagTest: 1,
+            GroupNo: groupNo
+        }
 
+        ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+            if (datalogin.ID >= 0) {
+                //showNotification('لطفا دوباره وارد شوید', 0);
+                //sleep(10000);
+                window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
+            }
+            else {
+                DateNow = datalogin.SrvDate;
+                listDate = DateNow.split("/");
+                SalNow = listDate[0];
+
+                count = datalogin.CountErja;
+                if (count > 0) {
+                    $("#notificationCount").text(count);
+                    // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
+                }
+                else {
+                    $("#notificationCount").text('');
+                }
+
+            }
+        });
+    }
 };
+
+
+/*
+
+AlertErja();
+
+setInterval(AlertErja, 60000);
+function AlertErja() {
+    if (erjGroupApi.includes(group) == true) {
+        if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null) {
+
+            var aceErj = 'Web2';
+            var salErj = '0000';
+
+            var CountErjDocB_LastUri = server + '/api/Web_Data/Web_CountErjDocB_Last/';
+
+            var DocB_LastObject = {
+                erjaMode: '1',
+                docBMode: '5',
+                fromUserCode: '',
+                toUserCode: sessionStorage.userName,
+                azDocDate: '',
+                taDocDate: '',
+                azRjDate: '',
+                taRjDate: '',
+                azMhltDate: '',
+                taMhltDate: '',
+                status: 'فعال',
+                custCode: '',
+                khdtCode: '',
+                srchSt: '',
+            };
+            ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
+                count = parseInt(response);
+                if (count > 0) {
+                    $("#notificationCount").text(count);
+                    // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
+                }
+                else {
+                    $("#notificationCount").text('');
+                }
+            });
+        }
+    }
+}
+
+*/
+
+
+
 
 function SetValidation() {
     var ShowMenu = [false, false, false, false, false, false, false, false,
@@ -4130,7 +4195,9 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
     $('#modal-SettingColumn').modal('hide');
     showNotification(translate('در حال ذخیره تنظیمات ستون ها ...'), 1);
     ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
+        getRprtColsAfi();
     });
+
     window.location.href = route;
 }
 
@@ -4179,150 +4246,152 @@ var report = null;
 var dataSet = null;
 
 function createViewer() {
-    // var Stimulsoft = require('stimulsoft-reports-js');
-    Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("/Content/Report/Lang/fa.xml", true, "persion (fa)");
-    //Stimulsoft.Base.StiFontCollection(Stimulsoft.Base.StiFontCollection.getFontFamilies());
+    if (options == null) {
+        // var Stimulsoft = require('stimulsoft-reports-js');
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("/Content/Report/Lang/fa.xml", true, "persion (fa)");
+        //Stimulsoft.Base.StiFontCollection(Stimulsoft.Base.StiFontCollection.getFontFamilies());
 
-    /*Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARABICS.ttf", "Karbord_ARABICS");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BArash.ttf", "Karbord_Arash");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BAria.ttf", "Karbord_Aria");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARSHIA.ttf", "Karbord_ARSHIA");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BBadkonk.ttf", "Karbord_Badkonk");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BBADR.ttf", "Karbord_BADR");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BBADRBD.ttf", "Karbord_BADRBD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BChini.ttf", "Karbord_Chini");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BChshmeh.ttf", "Karbord_Chshmeh");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BChshmhB.ttf", "Karbord_ChshmhB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BCOMPSET.ttf", "Karbord_COMPSET");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BCOMSETB.ttf", "Karbord_COMSETB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BDAVAT.ttf", "Karbord_DAVAT");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BELHAM.ttf", "Karbord_ELHAM");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BESFHNBD.ttf", "Karbord_ESFHNBD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BFANTEZY.ttf", "Karbord_FANTEZY");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BFARNAZ.ttf", "Karbord_FARNAZ");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BFERDOSI.ttf", "Karbord_FERDOSI");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BHaleh.ttf", "Karbord_Haleh");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BHalehBd.ttf", "Karbord_HalehBd");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BHOMA.ttf", "Karbord_HOMA");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJADIDBD.ttf", "Karbord_JADIDBD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJalal.ttf", "Karbord_Jalal");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJalalBd.ttf", "Karbord_JalalBd");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJohar.ttf", "Karbord_Johar");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKAMRAN.ttf", "Karbord_KAMRAN");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKAMRANB.ttf", "Karbord_KAMRANB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKAMRANO.ttf", "Karbord_KAMRANO");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKaveh.ttf", "Karbord_Kaveh");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKOODAKO.ttf", "Karbord_KOODAKO");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKOODB.ttf", "Karbord_KOODB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKourosh.ttf", "Karbord_Kourosh");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BLOTUS.ttf", "Karbord_LOTUS");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BLOTUSB.ttf", "Karbord_LOTUSB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMahsa.ttf", "Karbord_Mahsa");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMAJIDSH.ttf", "Karbord_MAJIDSH");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMasjed.ttf", "Karbord_Masjed");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMedad.ttf", "Karbord_Medad");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMITRA.ttf", "Karbord_MITRA");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMITRABD.ttf", "Karbord_MITRABD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMoj.ttf", "Karbord_Moj");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMorvard.ttf", "Karbord_Morvard");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNarm.ttf", "Karbord_Narm");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNASIMB.ttf", "Karbord_NASIMB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNAZANB.ttf", "Karbord_NAZANB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BPaatcBd.ttf", "Karbord_PaatcBd");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BPaatch.ttf", "Karbord_Paatch");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BROYA.ttf", "Karbord_ROYA");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BROYABD.ttf", "Karbord_ROYABD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSahra.ttf", "Karbord_Sahra");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSiavash.ttf", "Karbord_Siavash");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSINABD.ttf", "Karbord_SINABD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSooreh.ttf", "Karbord_Sooreh");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSoorehB.ttf", "Karbord_SoorehB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSorkhpu.ttf", "Karbord_Sorkhpu");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTABASSO.ttf", "Karbord_TABASSO");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTAWFIGO.ttf", "Karbord_TAWFIGO");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTRAFB.ttf", "Karbord_TRAFB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTRAFFIC.ttf", "Karbord_TRAFFIC");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BVahidBd.ttf", "Karbord_VahidBd");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BVosta.ttf", "Karbord_Vosta");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BVostaI.ttf", "Karbord_VostaI");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYAGB.ttf", "Karbord_YAGB");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYAGUT.ttf", "Karbord_YAGUT");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYas.ttf", "Karbord_Yas");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYasBd.ttf", "Karbord_YasBd");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTir.ttf", "Karbord_Tir");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZARBOLD.ttf", "Karbord_ZARBOLD");*/
+        /*Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARABICS.ttf", "Karbord_ARABICS");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BArash.ttf", "Karbord_Arash");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BAria.ttf", "Karbord_Aria");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BARSHIA.ttf", "Karbord_ARSHIA");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BBadkonk.ttf", "Karbord_Badkonk");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BBADR.ttf", "Karbord_BADR");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BBADRBD.ttf", "Karbord_BADRBD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BChini.ttf", "Karbord_Chini");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BChshmeh.ttf", "Karbord_Chshmeh");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BChshmhB.ttf", "Karbord_ChshmhB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BCOMPSET.ttf", "Karbord_COMPSET");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BCOMSETB.ttf", "Karbord_COMSETB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BDAVAT.ttf", "Karbord_DAVAT");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BELHAM.ttf", "Karbord_ELHAM");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BESFHNBD.ttf", "Karbord_ESFHNBD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BFANTEZY.ttf", "Karbord_FANTEZY");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BFARNAZ.ttf", "Karbord_FARNAZ");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BFERDOSI.ttf", "Karbord_FERDOSI");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BHaleh.ttf", "Karbord_Haleh");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BHalehBd.ttf", "Karbord_HalehBd");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BHOMA.ttf", "Karbord_HOMA");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJADIDBD.ttf", "Karbord_JADIDBD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJalal.ttf", "Karbord_Jalal");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJalalBd.ttf", "Karbord_JalalBd");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BJohar.ttf", "Karbord_Johar");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKAMRAN.ttf", "Karbord_KAMRAN");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKAMRANB.ttf", "Karbord_KAMRANB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKAMRANO.ttf", "Karbord_KAMRANO");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKaveh.ttf", "Karbord_Kaveh");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKOODAKO.ttf", "Karbord_KOODAKO");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKOODB.ttf", "Karbord_KOODB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BKourosh.ttf", "Karbord_Kourosh");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BLOTUS.ttf", "Karbord_LOTUS");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BLOTUSB.ttf", "Karbord_LOTUSB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMahsa.ttf", "Karbord_Mahsa");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMAJIDSH.ttf", "Karbord_MAJIDSH");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMasjed.ttf", "Karbord_Masjed");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMedad.ttf", "Karbord_Medad");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMITRA.ttf", "Karbord_MITRA");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMITRABD.ttf", "Karbord_MITRABD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMoj.ttf", "Karbord_Moj");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BMorvard.ttf", "Karbord_Morvard");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNarm.ttf", "Karbord_Narm");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNASIMB.ttf", "Karbord_NASIMB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNAZANB.ttf", "Karbord_NAZANB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BPaatcBd.ttf", "Karbord_PaatcBd");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BPaatch.ttf", "Karbord_Paatch");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BROYA.ttf", "Karbord_ROYA");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BROYABD.ttf", "Karbord_ROYABD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSahra.ttf", "Karbord_Sahra");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSiavash.ttf", "Karbord_Siavash");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSINABD.ttf", "Karbord_SINABD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSooreh.ttf", "Karbord_Sooreh");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSoorehB.ttf", "Karbord_SoorehB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BSorkhpu.ttf", "Karbord_Sorkhpu");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTABASSO.ttf", "Karbord_TABASSO");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTAWFIGO.ttf", "Karbord_TAWFIGO");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTRAFB.ttf", "Karbord_TRAFB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTRAFFIC.ttf", "Karbord_TRAFFIC");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BVahidBd.ttf", "Karbord_VahidBd");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BVosta.ttf", "Karbord_Vosta");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BVostaI.ttf", "Karbord_VostaI");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYAGB.ttf", "Karbord_YAGB");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYAGUT.ttf", "Karbord_YAGUT");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYas.ttf", "Karbord_Yas");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYasBd.ttf", "Karbord_YasBd");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTir.ttf", "Karbord_Tir");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZARBOLD.ttf", "Karbord_ZARBOLD");*/
 
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZiba.ttf", "Karbord_Ziba");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZAR.ttf", "Karbord_ZAR");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYEKAN.ttf", "Karbord_YEKAN");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTITRBD.ttf", "Karbord_TITRBD");
-    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNAZANIN.ttf", "Karbord_NAZANIN");
-    //Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("Vazir-FD-WOL.ttf", "Vazir-FD-WOL");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZiba.ttf", "Karbord_Ziba");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZAR.ttf", "Karbord_ZAR");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYEKAN.ttf", "Karbord_YEKAN");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTITRBD.ttf", "Karbord_TITRBD");
+        Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNAZANIN.ttf", "Karbord_NAZANIN");
+        //Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("Vazir-FD-WOL.ttf", "Vazir-FD-WOL");
 
-    options = new Stimulsoft.Viewer.StiViewerOptions();
-    viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
-
-
-
-    options.appearance.showSystemFonts = false;
-    options.height = "100%";
-    options.appearance.fullScreenMode = true;
-    options.appearance.scrollbarsMode = true;
-    options.toolbar.showSaveButton = true;
-
-
-    //options.toolbar.showDesignButton = false;
-    options.toolbar.showDesignButton = sessionStorage.UserAdmin == 'true';
-
-    if (sessionStorage.UserAdmin == 'true') {
-        $('#DesignPrint').attr('style', 'display: unset');
-    } else {
-        $('#DesignPrint').attr('style', 'display: none');
-    }
+        options = new Stimulsoft.Viewer.StiViewerOptions();
+        viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
 
 
 
-
-    options.toolbar.showFullScreenButton = false;
-
-    options.toolbar.printDestination = Stimulsoft.Viewer.StiPrintDestination.Direct;
-    options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
-    options.toolbar.zoom = 100;
-    options.toolbar.showCloseButton = true;
-    options.toolbar.showSendEmailButton = true;
+        options.appearance.showSystemFonts = false;
+        options.height = "100%";
+        options.appearance.fullScreenMode = true;
+        options.appearance.scrollbarsMode = true;
+        options.toolbar.showSaveButton = true;
 
 
-    viewer.onEmailReport = function (args) {
-        sendMail();
-        // args.settings -  send email form
-        // args.settings.email  -  email adress
-        // args.settings.subject  -  email subject
-        // args.settings.message  -  email message
-        // args.format  -  export format - PDF, HTML, HTML 5, Excel2007, Word2007, CSV
-        // args.fileName - report file name (name of attachement)
-        // args.data  -  byte array with exported report file
+        //options.toolbar.showDesignButton = false;
+        options.toolbar.showDesignButton = sessionStorage.UserAdmin == 'true';
 
-    }
+        if (sessionStorage.UserAdmin == 'true') {
+            $('#DesignPrint').attr('style', 'display: unset');
+        } else {
+            $('#DesignPrint').attr('style', 'display: none');
+        }
 
 
-    report = new Stimulsoft.Report.StiReport();
-    viewer.onDesignReport = function (e) {
 
-        createDesigner();
-    };
-    viewer.renderHtml("viewerContent");
 
-    var userButton = viewer.jsObject.SmallButton("userButton", "خروج");
+        options.toolbar.showFullScreenButton = false;
 
-    userButton.action = function () {
-        $("#modal-Report").modal('hide');
-    }
+        options.toolbar.printDestination = Stimulsoft.Viewer.StiPrintDestination.Direct;
+        options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+        options.toolbar.zoom = 100;
+        options.toolbar.showCloseButton = true;
+        options.toolbar.showSendEmailButton = true;
 
-    var toolbarTable = viewer.jsObject.controls.toolbar.firstChild.firstChild;
-    var buttonsTable = toolbarTable.rows[0].firstChild.firstChild;
-    var userButtonCell = buttonsTable.rows[0].insertCell(0);
-    userButtonCell.className = "stiJsViewerClearAllStyles";
-    userButtonCell.appendChild(userButton);
+
+        viewer.onEmailReport = function (args) {
+            sendMail();
+            // args.settings -  send email form
+            // args.settings.email  -  email adress
+            // args.settings.subject  -  email subject
+            // args.settings.message  -  email message
+            // args.format  -  export format - PDF, HTML, HTML 5, Excel2007, Word2007, CSV
+            // args.fileName - report file name (name of attachement)
+            // args.data  -  byte array with exported report file
+
+        }
+
+
+        report = new Stimulsoft.Report.StiReport();
+        viewer.onDesignReport = function (e) {
+
+            createDesigner();
+        };
+        viewer.renderHtml("viewerContent");
+
+        var userButton = viewer.jsObject.SmallButton("userButton", "خروج");
+
+        userButton.action = function () {
+            $("#modal-Report").modal('hide');
+        }
+
+        var toolbarTable = viewer.jsObject.controls.toolbar.firstChild.firstChild;
+        var buttonsTable = toolbarTable.rows[0].firstChild.firstChild;
+        var userButtonCell = buttonsTable.rows[0].insertCell(0);
+        userButtonCell.className = "stiJsViewerClearAllStyles";
+        userButtonCell.appendChild(userButton);
+    } 
 }
 
 
@@ -4704,48 +4773,6 @@ function ViewCustName(CustName) {
     }
 }
 
-AlertErja();
-setInterval(AlertErja, 60000);
-function AlertErja() {
-    if (erjGroupApi.includes(group) == true) {
-        if (accessErj != null && sessionStorage.userName != "" && sessionStorage.userName != null) {
-
-            var aceErj = 'Web2';
-            var salErj = '0000';
-
-            var CountErjDocB_LastUri = server + '/api/Web_Data/Web_CountErjDocB_Last/';
-
-            var DocB_LastObject = {
-                erjaMode: '1',
-                docBMode: '5',
-                fromUserCode: '',
-                toUserCode: sessionStorage.userName,
-                azDocDate: '',
-                taDocDate: '',
-                azRjDate: '',
-                taRjDate: '',
-                azMhltDate: '',
-                taMhltDate: '',
-                status: 'فعال',
-                custCode: '',
-                khdtCode: '',
-                srchSt: '',
-            };
-            ajaxFunction(CountErjDocB_LastUri + aceErj + '/' + salErj + '/' + group, 'POST', DocB_LastObject, false).done(function (response) {
-                count = parseInt(response);
-                if (count > 0) {
-                    $("#notificationCount").text(count);
-                    // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
-                }
-                else {
-                    $("#notificationCount").text('');
-                }
-            });
-        }
-    }
-}
-
-
 
 
 $("#P_Box").hide();
@@ -4933,6 +4960,41 @@ function RemoveUseSanad(prog, year, FormName, Id) {
 }
 
 
+function getRprtCols() {
+    ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/all/' + sessionStorage.userName, 'GET').done(function (data) {
+        data = TranslateData(data);
+        localStorage.removeItem('RprtCols');
+        localStorage.setItem('RprtCols', JSON.stringify(data))
+        // a = JSON.parse(localStorage.getItem('RprtCols'));
+    });
+
+
+    if (CheckGroupErj(group)) {
+        ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/all/' + sessionStorage.userName, 'GET').done(function (data) {
+            data = TranslateData(data);
+            localStorage.removeItem('RprtColsErj');
+            localStorage.setItem('RprtColsErj', JSON.stringify(data))
+        });
+    }
+}
+
+
+
+function getRprtCols(rprtId, username) {
+    data = JSON.parse(localStorage.getItem('RprtCols'));
+    result = data.filter(s => s.RprtId == rprtId && s.UserCode == username);
+    if (result.length == 0)
+        result = data.filter(s => s.RprtId == rprtId && s.UserCode == "*Default*");
+    return result;
+}
+
+function getRprtColsErj(rprtId, username) {
+    data = JSON.parse(localStorage.getItem('RprtColsErj'));
+    result = data.filter(s => s.RprtId == rprtId && s.UserCode == username);
+    if (result.length == 0)
+        result = data.filter(s => s.RprtId == rprtId && s.UserCode == "*Default*");
+    return result;
+}
 
 /*
 if (navigator.browserLanguage) {

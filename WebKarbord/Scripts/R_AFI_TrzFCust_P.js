@@ -2855,18 +2855,6 @@
         return text;
     }
 
-    createViewer();
-
-    /*$('#Print').click(function () {
-        FromDate = $("#aztarikh").val().toEnglishDigit();
-        ToDate = $("#tatarikh").val().toEnglishDigit();
-
-        printVariable = '"ReportDate":"' + DateNow + '",';
-        printVariable += '"FromDate":"' + FromDate + '",';
-        printVariable += '"ToDate":"' + ToDate + '",';
-
-        setReport(self.filterTrzFCust_PList(), 'Report_TrzFCust_P', printVariable);
-    });*/
 
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
     self.pageSizePrintForms = ko.observable(pageSizePrintForms);
@@ -3054,6 +3042,7 @@
     });
 
     $('#AcceptPrint').click(function () {
+        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

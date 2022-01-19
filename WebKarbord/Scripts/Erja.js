@@ -192,6 +192,18 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
+        /* cols = getRprtColsErj(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableReport(data)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, data);
+            }
+        }*/
+
         ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
@@ -211,7 +223,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+       ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
@@ -258,9 +270,13 @@
 
 
     //Get ErjUsers List
-    function getErjUsersList(Reload) {
+    function getErjUsersList() {
 
-        list = localStorage.getItem('ErjUsers');
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.ErjUsersList(data);
+        });
+
+        /*list = localStorage.getItem('ErjUsers');
         if (list != null && Reload == false) {
             list = JSON.parse(localStorage.getItem('ErjUsers'));
             self.ErjUsersList(list)
@@ -270,8 +286,22 @@
                 self.ErjUsersList(data);
                 localStorage.setItem("ErjUsers", JSON.stringify(data));
             });
-        }
+        }*/
     }
+
+    $('#btnErjBe').click(function () {
+        if (self.ErjUsersList().length == 0) {
+            getErjUsersList();
+        }
+    });
+
+
+    $('#btnRoneveshtBe').click(function () {
+        if (self.ErjUsersList().length == 0) {
+            getErjUsersList();
+        }
+    });
+
 
     //Get RepToUsers List
     function getRepToUsersList() {
@@ -343,6 +373,7 @@
         });
     }
 
+
     //Get ErjStatus List
     function getErjStatusList() {
 
@@ -391,7 +422,6 @@
 
     getErjStatusList();
     //getFarayandList(false);
-    getErjUsersList(true);
     //getRepToUsersList();
     //getRepFromUsersList();
     getMahramanehList();
@@ -1270,9 +1300,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
-                getErjUsersList(true);
-                $("div.loadingZone").hide();
+                getErjUsersList();
             }
         })
     })
@@ -1404,9 +1432,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
-                getErjUsersList(true);
-                $("div.loadingZone").hide();
+                getErjUsersList();
             }
         })
     })
@@ -3091,8 +3117,6 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
         text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>'; return text;
     }
-
-    //createViewer();
 
 
 

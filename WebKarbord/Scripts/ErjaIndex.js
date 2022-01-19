@@ -282,16 +282,26 @@
     getErjDocYearsList();
 
 
-    //Get ErjUsers List
-    /*    function getErjUsersList() {
-            ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-                self.ErjUsersList(data);
-                //$('#ToUser').val(sessionStorage.userName);
-                //$('#FromUser').val(' ');
-            });
-        }*/
+    function getErjUsersList() {
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+            self.ErjUsersList(data);
+        });
+    }
 
-    //Get ErjUsers List
+    $('#btnErjBe').click(function () {
+        if (self.ErjUsersList().length == 0) {
+            getErjUsersList();
+        }
+    });
+
+
+    $('#btnRoneveshtBe').click(function () {
+        if (self.ErjUsersList().length == 0) {
+            getErjUsersList();
+        }
+    });
+
+   /*//Get ErjUsers List
     function getErjUsersList(Reload) {
 
         list = localStorage.getItem('ErjUsers');
@@ -308,6 +318,9 @@
     }
 
     getErjUsersList(true);
+    */
+
+
 
     //Get ErjResult List
     function getErjResultList(serialNumber, bMode, toUser, band) {
@@ -1859,9 +1872,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                $("div.loadingZone").show();
-                getErjUsersList(true);
-                $("div.loadingZone").hide();
+                getErjUsersList();
             }
         })
     })
@@ -1988,8 +1999,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-
-                getErjUsersList(true);
+                getErjUsersList();
             }
         })
     })

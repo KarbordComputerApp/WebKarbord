@@ -2160,24 +2160,6 @@
         prtContent.innerHTML = strOldOne;
     }
 
-    createViewer();
-
-    /*$('#Print').click(function () {
-        FromDate = $("#aztarikh").val().toEnglishDigit();
-        ToDate = $("#tatarikh").val().toEnglishDigit();
-
-        FromShomarh = $("#azshomarh").val();
-        ToShomarh = $("#tashomarh").val();
-
-        printVariable = '"ReportDate":"' + DateNow + '",';
-        printVariable += '"FromDate":"' + FromDate + '",';
-        printVariable += '"ToDate":"' + ToDate + '",';
-
-        printVariable += '"FromDocNo":"' + FromShomarh + '",';
-        printVariable += '"ToDocNo":"' + ToShomarh + '",';
-
-        setReport(self.filterDftrList(), 'Report_Dftr', printVariable);
-    });*/
 
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
     self.pageSizePrintForms = ko.observable(pageSizePrintForms);
@@ -2358,6 +2340,7 @@
     });
 
     $('#AcceptPrint').click(function () {
+        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

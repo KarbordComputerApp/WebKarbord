@@ -143,6 +143,22 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting, username) {
+     /*   cols = getRprtCols(rprtId, sessionStorage.userName); 
+
+        if (FlagSetting) {
+            CreateTableReport(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+
+        cols = getRprtCols('ADocP', sessionStorage.userName); 
+        ListColumns = cols;*/
+
+
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
@@ -1449,10 +1465,6 @@
         return text;
     }
 
-    createViewer();
-
-
-
     /*$('#Print').click(function () {
         printVariable = '"ReportDate":"' + DateNow + '",';
         setReport(self.filterADocHList(), 'ADoc', printVariable);
@@ -1618,6 +1630,7 @@
     });
 
     $('#AcceptPrint').click(function () {
+        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {
@@ -1899,32 +1912,6 @@
 
     };
 
-    $('#AddNewPrintForms').click(function () {
-        printName = translate('فرم جدید');
-        printPublic = false;
-        setReport(self.ADocPList(), '', printVariable);
-    });
-
-
-    $('#DesignPrint').click(function () {
-        self.filterPrintForms1("");
-        $('#modal-Print').modal('hide');
-        $('#modal-PrintForms').modal('show');
-    });
-
-    $('#AcceptPrint').click(function () {
-        codeSelect = self.CodePrint();
-        list = PrintFormsList();
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].code == codeSelect) {
-                name = list[i].namefa;
-                data = list[i].Data;
-            }
-        }
-        setReport(self.ADocPList(), data, printVariable);
-        $('#modal-Print').modal('hide');
-    });
-
 
     self.ViewSpec = function (Band) {
         ViewSpec(Band.Spec)
@@ -1932,7 +1919,6 @@
 
 
     self.sortTableADocH();
-
 };
 
 ko.applyBindings(new ViewModel());

@@ -220,7 +220,8 @@
                     ProgName: sessionStorage.ace,
                     ProgVer: sessionStorage.ver,
                     ProgCaption: progCaption,
-                    FlagTest: 0
+                    FlagTest: 0,
+                    GroupNo: '',
                 }
                 ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
 
