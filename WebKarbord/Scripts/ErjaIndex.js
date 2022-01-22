@@ -181,8 +181,19 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtColsErj(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableReport(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+        /*  ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
@@ -195,7 +206,7 @@
                     SetColumn(columns[i - 1], i, data);
                 }
             }
-        });
+        });*/
 
     }
 
@@ -395,7 +406,7 @@
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
         counterColumn = 0;
-        getRprtColsList(false, sessionStorage.userName);
+        getRprtColsList(false);
     });
 
     $('#AllSettingColumns').change(function () {
@@ -415,7 +426,7 @@
 
 
     if (DocNoReport == "null") {
-        getRprtColsList(true, sessionStorage.userName);
+        getRprtColsList(true);
     }
 
 

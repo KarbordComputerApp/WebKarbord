@@ -272,12 +272,14 @@
     var rprtId = 'IDocP';
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtCols('IDocP', sessionStorage.userName);
+        ListColumns = cols;
+        /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
-        });
+        });*/
     }
     getRprtColsList(false, sessionStorage.userName);
 
@@ -3459,7 +3461,7 @@
         if (Serial == '')
             return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
         getIDocP(Serial);
-
+        createViewer();
         if (self.IDocPList().length == 0)
             return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
         textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice;
@@ -3490,7 +3492,6 @@
     });
 
     $('#AcceptPrint').click(function () {
-        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

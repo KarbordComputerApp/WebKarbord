@@ -222,6 +222,7 @@
                     ProgCaption: progCaption,
                     FlagTest: 0,
                     GroupNo: '',
+                    Year: '',
                 }
                 ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
 

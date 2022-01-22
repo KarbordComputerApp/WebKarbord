@@ -109,8 +109,19 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtCols(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableSanad(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+        /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
@@ -123,7 +134,7 @@
                     SetColumn(columns[i - 1], i, data);
                 }
             }
-        });
+        });*/
 
     }
 
@@ -3392,10 +3403,10 @@
                 textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
 
             else if (list[i].TestName == "Balance")
-                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + totalBede + ' ' +  translate('بستانکار') + ' : ' + totalBest + ' </p>';
+                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + totalBede + ' ' + translate('بستانکار') + ' : ' + totalBest + ' </p>';
 
             else if (list[i].TestName == "ZeroBand")
-                textBody += '<p>' + tBand + list[i].BandNo +' '+ translate('مبلغ بدهکار و بستانکار صفر است') + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مبلغ بدهکار و بستانکار صفر است') + ' </p>';
 
 
             else if (list[i].TestName == "Traf")
@@ -4037,7 +4048,7 @@
         if (Serial == '')
             return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
         getADocP(Serial);
-
+        createViewer();
         if (self.ADocPList().length == 0)
             return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
 
@@ -4057,7 +4068,6 @@
     });
 
     $('#AcceptPrint').click(function () {
-        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

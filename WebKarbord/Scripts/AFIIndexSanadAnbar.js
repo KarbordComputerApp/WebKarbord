@@ -247,8 +247,22 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtCols(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableReport(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+
+        cols = getRprtCols('IDocP', sessionStorage.userName);
+        ListColumns = cols;
+        /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             //ListColumns = data;
@@ -266,7 +280,7 @@
                 ListColumns = data;
             });
 
-        });
+        });*/
 
     }
 
@@ -2274,6 +2288,7 @@
         if (self.IDocPList().length == 0)
             return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
 
+        createViewer();
         textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
 
         printVariable = '"ReportDate":"' + DateNow + '",' +
@@ -2459,7 +2474,6 @@
     });
 
     $('#AcceptPrint').click(function () {
-        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

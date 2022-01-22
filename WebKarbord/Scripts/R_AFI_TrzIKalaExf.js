@@ -149,8 +149,19 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtCols(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableReport(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+        /*  ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
@@ -163,7 +174,7 @@
                     SetColumn(columns[i - 1], i, data);
                 }
             }
-        });
+        });*/
 
     }
 
@@ -3290,6 +3301,7 @@
 
 
     $('#Print').click(function () {
+        createViewer();
         FromDate = $("#aztarikh").val().toEnglishDigit();
         ToDate = $("#tatarikh").val().toEnglishDigit();
 
@@ -3310,7 +3322,6 @@
     });
 
     $('#AcceptPrint').click(function () {
-        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

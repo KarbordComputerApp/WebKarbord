@@ -191,8 +191,8 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        /* cols = getRprtColsErj(rprtId, sessionStorage.userName);
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtColsErj(rprtId, sessionStorage.userName);
 
         if (FlagSetting) {
             CreateTableReport(data)
@@ -202,8 +202,8 @@
             for (var i = 1; i <= columns.length; i++) {
                 SetColumn(columns[i - 1], i, data);
             }
-        }*/
-
+        }
+        /*
         ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
@@ -218,6 +218,7 @@
                 }
             }
         });
+        */
 
     }
 

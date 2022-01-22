@@ -142,8 +142,8 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-     /*   cols = getRprtCols(rprtId, sessionStorage.userName); 
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtCols(rprtId, sessionStorage.userName); 
 
         if (FlagSetting) {
             CreateTableReport(cols)
@@ -156,10 +156,10 @@
         }
 
         cols = getRprtCols('ADocP', sessionStorage.userName); 
-        ListColumns = cols;*/
+        ListColumns = cols;
 
 
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+       /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             //ListColumns = data;
@@ -178,7 +178,7 @@
                 ListColumns = data;
             });
 
-        });
+        });*/
 
     }
 
@@ -210,7 +210,7 @@
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
         counterColumn = 0;
-        getRprtColsList(false, localStorage.getItem("userName"));
+        getRprtColsList(false);
     });
 
 
@@ -230,7 +230,7 @@
     });
 
     if (DocNoReport == "null") {
-        getRprtColsList(true, localStorage.getItem("userName"));
+        getRprtColsList(true);
     }
 
 
@@ -1465,10 +1465,6 @@
         return text;
     }
 
-    /*$('#Print').click(function () {
-        printVariable = '"ReportDate":"' + DateNow + '",';
-        setReport(self.filterADocHList(), 'ADoc', printVariable);
-    });*/
 
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
     self.pageSizePrintForms = ko.observable(pageSizePrintForms);
@@ -1630,7 +1626,6 @@
     });
 
     $('#AcceptPrint').click(function () {
-        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {
@@ -1758,6 +1753,7 @@
         if (self.ADocPList().length == 0)
             return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
 
+        createViewer();
 
         printVariable = '"ReportDate":"' + DateNow + '",';
         printName = null;

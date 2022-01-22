@@ -1283,7 +1283,7 @@ function SetSelectProgram() {
         sessionStorage.ModeCode = '';
 
 
-        //getRprtCols();
+        getRprtAllCols();
 
         return true;
     } catch (e) {
@@ -2029,7 +2029,8 @@ function TestUser() {
             ProgVer: '',
             ProgCaption: '',
             FlagTest: 1,
-            GroupNo: groupNo
+            GroupNo: groupNo,
+            Year: sal,
         }
 
         ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
@@ -2044,6 +2045,18 @@ function TestUser() {
                 SalNow = listDate[0];
 
                 count = datalogin.CountErja;
+
+                updateDateCols = datalogin.UpdateDate;
+
+                lastUpdateDateCols = localStorage.getItem('UpdateDateCols');
+
+                if (lastUpdateDateCols != null && updateDateCols != null && lastUpdateDateCols < updateDateCols)
+                    getRprtAllCols();
+
+
+                if (updateDateCols != null)
+                    localStorage.setItem('UpdateDateCols', updateDateCols);
+
                 if (count > 0) {
                     $("#notificationCount").text(count);
                     // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
@@ -4195,7 +4208,7 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
     $('#modal-SettingColumn').modal('hide');
     showNotification(translate('در حال ذخیره تنظیمات ستون ها ...'), 1);
     ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
-        getRprtColsAfi();
+        getRprtAllCols();
     });
 
     window.location.href = route;
@@ -4960,7 +4973,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
 }
 
 
-function getRprtCols() {
+function getRprtAllCols() {
     ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/all/' + sessionStorage.userName, 'GET').done(function (data) {
         data = TranslateData(data);
         localStorage.removeItem('RprtCols');

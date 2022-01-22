@@ -91,8 +91,19 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtColsErj(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableReport(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+        /*  ajaxFunction(RprtColsUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
@@ -105,7 +116,7 @@
                     SetColumn(columns[i - 1], i, data);
                 }
             }
-        });
+        });*/
 
     }
 
@@ -1490,6 +1501,7 @@
     $('#Print').click(function () {
         if (Serial == '')
             return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
+        createViewer();
         getFDocP(Serial);
         if (self.FDocPList().length == 0)
             return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست'), 0);
@@ -1509,7 +1521,6 @@
     });
 
     $('#AcceptPrint').click(function () {
-        createViewer();
         codeSelect = self.CodePrint();
         list = PrintFormsList();
         for (var i = 0; i < list.length; i++) {

@@ -123,7 +123,19 @@
 
 
     //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
+    function getRprtColsList(FlagSetting) {
+        cols = getRprtCols(rprtId, sessionStorage.userName);
+
+        if (FlagSetting) {
+            CreateTableReport(cols)
+        }
+        else {
+            CreateTableColumn(columns);
+            for (var i = 1; i <= columns.length; i++) {
+                SetColumn(columns[i - 1], i, cols);
+            }
+        }
+        /*
         ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
@@ -142,7 +154,7 @@
                 ListColumns = data;
             });
 
-        });
+        });*/
 
     }
 
@@ -184,7 +196,7 @@
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
         counterColumn = 0;
-        getRprtColsList(false, sessionStorage.userName);
+        getRprtColsList(false);
     });
 
 
@@ -203,7 +215,7 @@
         sessionStorage.setItem('listFilter', null);
     });
 
-    getRprtColsList(true, sessionStorage.userName);
+    getRprtColsList(true);
 
 
 
