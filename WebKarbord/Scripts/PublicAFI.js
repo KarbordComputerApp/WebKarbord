@@ -5001,6 +5001,8 @@ function getRprtCols(rprtId, username) {
     return result;
 }
 
+
+
 function getRprtColsErj(rprtId, username) {
     data = JSON.parse(localStorage.getItem('RprtColsErj'));
     result = data.filter(s => s.RprtId == rprtId && s.UserCode == username);

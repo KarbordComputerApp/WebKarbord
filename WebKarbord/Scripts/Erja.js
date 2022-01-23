@@ -193,7 +193,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtColsErj(rprtId, sessionStorage.userName);
-
+        ListColumns = cols;
         if (FlagSetting) {
             CreateTableReport(data)
         }
@@ -267,6 +267,17 @@
             self.ExtraFieldsList(data);
         });
     }
+
+    /*function getExtraFieldsList() {
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                ko.utils.stringStartsWith(item.Code, 'KalaF') &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
+    }*/
+
     getExtraFieldsList();
 
 

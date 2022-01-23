@@ -9,9 +9,14 @@
                 <div class="form-inline">
                     <strong id="TitleHeaderAnbar"></strong>
                     <strong style="margin-left: 5px; margin-right: 5px;" data-bind="text:translate('به شماره')"></strong>
-                    <!--<lable id="docnoout">جدید</lable>-->
-                    <input data-bind=" event:{ keydown : $root.docNoKeyDown}" id="docnoout" class="form-control" style="width: 70px;text-align: center;" maxlength="10" />
-
+                    
+                    <div class="form-inline">
+                        <div class="form-group form-float" style="margin-bottom: 0px;">
+                            <div class="form-line focused">
+                                <input data-bind=" event:{ keydown : $root.docNoKeyDown}" id="docnoout" class="form-control" style="width: 70px;text-align: center;" maxlength="10" />
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="input-group" style="margin-right: 10px;">
                         <div class="input-group-addon">
@@ -50,6 +55,7 @@
             <div class="body">
                 <form class="clearfix">
                     <div class="row ">
+
                         <div class="col-sm-5 row">
                             <div class="col-sm-6">
                                 <div style="margin-left: 5px; margin-right: 5px;">
@@ -131,7 +137,7 @@
                             <div class="form-group form-float" style="margin-bottom: 5px;">
                                 <div class="form-line focused fix">
                                     <input id="nameMkz" class="form-control" readonly />
-                                    <label class="form-label"  data-bind="text:translate('مرکز هزینه')"></label>
+                                    <label class="form-label" data-bind="text:translate('مرکز هزینه')"></label>
                                 </div>
                             </div>
                         </div>
@@ -140,12 +146,13 @@
                             <div class="form-group form-float" style="margin-bottom: 0px;">
                                 <div class="form-line focused">
                                     <input id="Spec" class="form-control autocomplete" data-bind="value:Spec" />
-                                    <label class="form-label active"data-bind="text:translate('ملاحظات')"></label>
+                                    <label class="form-label active" data-bind="text:translate('ملاحظات')"></label>
                                 </div>
                             </div>
                         </div>
 
                     </div>
+                   
                 </form>
 
                 <div style="height:320px;overflow:auto;">
@@ -154,37 +161,37 @@
                             <thead style="cursor: pointer;">
                                 <tr>
                                     <th data-bind="text:translate('ردیف')">
-                                        
+
                                     </th>
                                     <th data-bind="text:translate('کد کالا')">
-                                        
+
                                     </th>
                                     <th data-bind="text:translate('نام کالا')">
-                                        
+
                                     </th>
                                     <th data-bind="text:translate('واحد')">
-                                        
+
                                     </th>
                                     <th data-bind="text:translate('مقدار 1')">
-                                        
+
                                     </th>
                                     <th data-bind="text:translate('مقدار 2')">
-                                        
+
                                     </th>
                                     <th data-bind="text:translate('مقدار 3')">
-                                        
+
                                     </th>
-                                    <th  data-bind="text:translate('قیمت واحد')" id="unitpriceshowgridtitle">
-                                        
+                                    <th data-bind="text:translate('قیمت واحد')" id="unitpriceshowgridtitle">
+
                                     </th>
-                                    <th  data-bind="text:translate('قیمت کل')" id="totalpriceshowgridtitle">
-                                        
+                                    <th data-bind="text:translate('قیمت کل')" id="totalpriceshowgridtitle">
+
                                     </th>
 
-                                    <th style="width: 160px"  data-bind="text:translate('شرح')">
-                                        
+                                    <th style="width: 160px" data-bind="text:translate('شرح')">
+
                                     </th>
-                                    <th id="action_header"  data-bind="text:translate('عملیات')"></th>
+                                    <th id="action_header" data-bind="text:translate('عملیات')"></th>
                                 </tr>
                             </thead>
 
@@ -230,29 +237,29 @@
 
 
                                 <!-- <tr id="footertext" style="background-color:#e37d228f;">
-                                     <td style="background-color: #e37d228f !important;" id="foottextsum"> </td>
-                                     <td style="background-color: #e37d228f !important;"></td>
-                                     <td style="background-color: #e37d228f !important;"></td>
-                                     <td style="background-color: #e37d228f !important;"></td>
-                                     <td id="foottextamount1" style="background-color: #e37d228f !important;"> </td>
-                                     <td id="foottextamount2" style="background-color: #e37d228f !important;"> </td>
-                                     <td id="foottextamount3" style="background-color: #e37d228f !important;"> </td>
-                                     <td id="foottextunitprice" style="background-color: #e37d228f !important;"></td>
-                                     <td id="foottexttotalprice" style="background-color: #e37d228f !important;"></td>
-                                     <td style="background-color: #e37d228f !important;"></td>
-                                     <td id="action_footer" style="background-color: #e37d228f !important;"></td>
-                                 </tr>-->
+                         <td style="background-color: #e37d228f !important;" id="foottextsum"> </td>
+                         <td style="background-color: #e37d228f !important;"></td>
+                         <td style="background-color: #e37d228f !important;"></td>
+                         <td style="background-color: #e37d228f !important;"></td>
+                         <td id="foottextamount1" style="background-color: #e37d228f !important;"> </td>
+                         <td id="foottextamount2" style="background-color: #e37d228f !important;"> </td>
+                         <td id="foottextamount3" style="background-color: #e37d228f !important;"> </td>
+                         <td id="foottextunitprice" style="background-color: #e37d228f !important;"></td>
+                         <td id="foottexttotalprice" style="background-color: #e37d228f !important;"></td>
+                         <td style="background-color: #e37d228f !important;"></td>
+                         <td id="action_footer" style="background-color: #e37d228f !important;"></td>
+                     </tr>-->
                             </tfoot>
                         </table>
                     </div>
                 </div>
                 <a class="col-md-12" id="insertband" data-bind="click:ButtonIDocH" style="color: #fdfdfd;">
                     <img src="~/Content/img/sanad/streamline-icon-add-circle-bold@48x48.png" width="16" height="16" />
-                    <label  data-bind="text:translate('سطر جدید')"></label>
+                    <label data-bind="text:translate('سطر جدید')"></label>
                 </a>
                 <a id="Barcode" data-bind="click:ButtonIDocHBarcode" style="color: #fdfdfd;margin-right: 10px;">
                     <img src="~/Content/img/barcode.png" width="24" height="24" />
-                    <label  data-bind="text:translate('بارکد')"></label>
+                    <label data-bind="text:translate('بارکد')"></label>
                 </a>
             </div>
         </div>
@@ -683,51 +690,6 @@
     <!-- /.modal-dialog -->
 </div>
 
-<!--
-<div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog" style="max-width:800px;">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: solid 10px #f5d3b4;padding-bottom: 5px;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title">مشخصات اضافی</h4>
-                <a id=""></a>
-            </div>
-            <div class="modal-body">
-                <div style="height:500px;overflow:auto">
-                    <div class="table-responsive">
-                        <table class="table table-addmin">
-                            <tbody data-bind="foreach: ExtraFieldsList">
-                                <tr>
-                                    <td data-bind="text: Name" style="background-color: #d4d4d4; width:250px;border-top: 1px solid #fff; border-bottom: 1px solid #fff;">مشخصه وارده</td>
-                                    <td style="padding: 0px 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;"><input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" style="border-bottom: 1px solid #d4d4d4;" id="ExtraFields1"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div style="border-top: solid 1px black;padding-top: 5px;">
-                <div class="row  form-inline ">
-                    <div class="col-md-9 row">
-
-                    </div>
-
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
-                            بازگشت
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
--->
-
 <div class="modal fade" id="modal-OtherField" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="max-width:750px;">
         <div class="modal-content">
@@ -748,7 +710,7 @@
                                         <td style="padding: 10px;border-top: 1px solid #fff;border-bottom: 1px solid #fff;">
                                             <div class="form-group " style="margin-bottom: 10px">
                                                 <div class="form-line focused fix">
-                                                    <input data-bind="attr: {'id': 'ExtraFields' + BandNo }" type="text" class="form-control" id="ExtraFields1">
+                                                    <input data-bind="attr: {'id': 'ExtraFields' + ($index()+1) }" type="text" class="form-control">
                                                     <label class="form-label active" data-bind="text: Name"></label>
                                                 </div>
                                             </div>

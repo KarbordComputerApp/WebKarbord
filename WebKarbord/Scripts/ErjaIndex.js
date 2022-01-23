@@ -183,7 +183,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtColsErj(rprtId, sessionStorage.userName);
-
+        ListColumns = cols;
         if (FlagSetting) {
             CreateTableReport(cols)
         }
@@ -395,7 +395,20 @@
             self.ExtraFieldsList(data);
         });
     }
-    getExtraFieldsList();
+
+    /*function getExtraFieldsList() {
+        //cols = getRprtColsErj('DOC', sessionStorage.userName);
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                (ko.utils.stringStartsWith(item.Code, 'F0') ||
+                    ko.utils.stringStartsWith(item.Code, 'F1') ||
+                    ko.utils.stringStartsWith(item.Code, 'F2')) &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
+    }*/
+    
 
 
 
@@ -427,6 +440,7 @@
 
     if (DocNoReport == "null") {
         getRprtColsList(true);
+        getExtraFieldsList();
     }
 
 

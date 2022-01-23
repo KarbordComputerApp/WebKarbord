@@ -76,11 +76,11 @@
 
 
 
-
+    var cols;
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtCols(rprtId, sessionStorage.userName);
-
+        ListColumns = cols;
         if (FlagSetting) {
             CreateTableReport(cols)
         }
@@ -125,11 +125,21 @@
     }
 
 
-    //Get ExtraFields List
+   /* //Get ExtraFields List
     function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
+    }*/
+
+    function getExtraFieldsList() {
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                ko.utils.stringStartsWith(item.Code, 'KalaF') &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
     }
 
     $('#SaveColumns').click(function () {

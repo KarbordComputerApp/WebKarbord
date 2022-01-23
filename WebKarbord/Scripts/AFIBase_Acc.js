@@ -125,7 +125,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtCols(rprtId, sessionStorage.userName);
-
+        ListColumns = cols;
         if (FlagSetting) {
             CreateTableReport(cols)
         }
@@ -172,10 +172,20 @@
 
 
     //Get ExtraFields List
-    function getExtraFieldsList() {
+   /* function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
+    }*/
+
+    function getExtraFieldsList() {
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                ko.utils.stringStartsWith(item.Code, 'AccF') &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
     }
 
     //Get ZGru List

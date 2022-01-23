@@ -299,26 +299,41 @@
     var SaveFDoc_HZUri = server + '/api/FDocData/SaveFDoc_HZ/'; // آدرس ویرایس ستون تنظیم
 
 
-    var rprtId = 'FDocP';
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    function getRprtColsList(FlagSetting) {
+    function getRprtColsList() {
         cols = getRprtCols('FDocP', sessionStorage.userName);
         ListColumns = cols;
-        /*   ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+        /*     var rprtId = 'FDocP';
+             ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             ListColumns = data;
         });*/
     }
-    getRprtColsList(false, sessionStorage.userName);
+    getRprtColsList();
 
     //Get ExtraFields List
-    function getExtraFieldsList() {
+    /*function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
+    }*/
+
+    function getExtraFieldsList() {
+        var rprtId = sessionStorage.InOut == 1 ? 'FDocH_P' : 'FDocH_S';
+        cols = getRprtCols(rprtId, sessionStorage.userName);
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                (ko.utils.stringStartsWith(item.Code, 'F0') ||
+                    ko.utils.stringStartsWith(item.Code, 'F1') ||
+                    ko.utils.stringStartsWith(item.Code, 'F2')) &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
     }
+
 
     //Get Cust List
     function getCustList() {

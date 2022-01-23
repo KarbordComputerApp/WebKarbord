@@ -111,7 +111,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtCols(rprtId, sessionStorage.userName);
-
+        ListColumns = cols;
         if (FlagSetting) {
             CreateTableSanad(cols)
         }
@@ -268,11 +268,11 @@
 
 
     //Get ExtraFields List
-    function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/adoc', 'GET').done(function (data) {
-            self.ExtraFieldsList(data);
-        });
-    }
+    /*function getExtraFieldsList() {
+         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/adoc', 'GET').done(function (data) {
+             self.ExtraFieldsList(data);
+         });
+     }*/
 
 
     //Get Status List
@@ -423,19 +423,41 @@
 
     //Get SanadCols List
     function getColsSanadList() {
-        ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
+        cols = getRprtCols('ADocB', sessionStorage.userName);
+        CreateTableSanad(cols)
+
+        cols = getRprtCols('ADocP', sessionStorage.userName);
+        ListColumns = cols;
+
+        /* ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/ADocB/' + sessionStorage.userName, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             CreateTableSanad(data);
-        });
+        });*/
     }
 
     //Get CheckCols List
     function getColsCheckList() {
-        ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/CheckList/' + sessionStorage.userName, 'GET').done(function (data) {
+        colsCheck = getRprtCols('CheckList', sessionStorage.userName);
+        CreateTableCheck(colsCheck)
+        /* ajaxFunction(ColsUri + ace + '/' + sal + '/' + group + '/CheckList/' + sessionStorage.userName, 'GET').done(function (data) {
             data = TranslateData(data);
             CreateTableCheck(data);
-        });
+        });*/
+
+    }
+
+    function getExtraFieldsList() {
+        cols = getRprtCols('ADocH', sessionStorage.userName);
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                (ko.utils.stringStartsWith(item.Code, 'F0') ||
+                ko.utils.stringStartsWith(item.Code, 'F1') ||
+                ko.utils.stringStartsWith(item.Code, 'F2')) &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
     }
 
     function getADocHLastDate() {
@@ -445,6 +467,7 @@
                 $('#tarikh').change();
             });
         });
+
     }
 
 

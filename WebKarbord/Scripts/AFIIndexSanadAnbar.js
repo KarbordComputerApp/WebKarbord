@@ -249,7 +249,6 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtCols(rprtId, sessionStorage.userName);
-
         if (FlagSetting) {
             CreateTableReport(cols)
         }

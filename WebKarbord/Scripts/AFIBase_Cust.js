@@ -84,7 +84,7 @@
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
         cols = getRprtCols(rprtId, sessionStorage.userName);
-
+        ListColumns = cols;
         if (FlagSetting) {
             CreateTableReport(cols)
         }
@@ -132,10 +132,20 @@
 
 
     //Get ExtraFields List
-    function getExtraFieldsList() {
+    /*function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
+    }*/
+
+    function getExtraFieldsList() {
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                ko.utils.stringStartsWith(item.Code, 'CustF') &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
     }
 
     $('#SaveColumns').click(function () {
@@ -1129,8 +1139,8 @@
             CreateTableTh('CustF18', data) +
             CreateTableTh('CustF19', data) +
             CreateTableTh('CustF20', data) +
-        '<th>' + translate('عملیات') + '</th>' +
-        
+            '<th>' + translate('عملیات') + '</th>' +
+
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">' +

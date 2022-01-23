@@ -272,7 +272,7 @@
     var rprtId = 'IDocP';
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    function getRprtColsList(FlagSetting) {
+    function getRprtColsList() {
         cols = getRprtCols('IDocP', sessionStorage.userName);
         ListColumns = cols;
         /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
@@ -320,11 +320,21 @@
     });
 
     //Get ExtraFields List
-    function getExtraFieldsList() {
+   function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
     }
+
+   /* function getExtraFieldsList() {
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                ko.utils.stringStartsWith(item.Code, 'KalaF') &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
+    }*/
 
 
 
