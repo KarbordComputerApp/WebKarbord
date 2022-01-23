@@ -320,21 +320,25 @@
     });
 
     //Get ExtraFields List
-   function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
-            self.ExtraFieldsList(data);
-        });
-    }
+    /*function getExtraFieldsList() {
+         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + ModeCodeExtraFields, 'GET').done(function (data) {
+             self.ExtraFieldsList(data);
+         });
+     }*/
 
-   /* function getExtraFieldsList() {
+    function getExtraFieldsList() {
+        rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
+        cols = getRprtCols(rprtId, sessionStorage.userName);
         result = ko.utils.arrayFilter(cols, function (item) {
             result =
-                ko.utils.stringStartsWith(item.Code, 'KalaF') &&
+                (ko.utils.stringStartsWith(item.Code, 'F0') ||
+                    ko.utils.stringStartsWith(item.Code, 'F1') ||
+                    ko.utils.stringStartsWith(item.Code, 'F2')) &&
                 item.Name != ''
             return result;
         })
         self.ExtraFieldsList(result);
-    }*/
+    }
 
 
 

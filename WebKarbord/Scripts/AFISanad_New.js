@@ -1,4 +1,4 @@
-﻿
+﻿/*
 const employees = [{
     ID: 1,
     FirstName: 'John',
@@ -20,6 +20,19 @@ const employees = [{
     HireDate: '2012/05/14',
     Notes: 'Olivia loves to sell. She has been selling DevAV products since 2012. \r\n\r\nOlivia was homecoming queen in high school. She is expecting her first child in 6 months. Good Luck Olivia.',
     Address: '807 W Paseo Del Mar',
+    StateID: 5,
+}];*/
+
+const employees = [{
+    ID: 1,
+    FirstName: 'John',
+    LastName: 'Heart',
+    Prefix: 'Mr.',
+    Position: 'CEO',
+    BirthDate: '1964/03/16',
+    HireDate: '1995/01/15',
+    Notes: 'John has been in the Audio/Video industry since 1990. He has led DevAv as its CEO since 2003.\r\n\r\nWhen not working hard as the CEO, John loves to golf and bowl. He once bowled a perfect game of 300.',
+    Address: '351 S Hill St.',
     StateID: 5,
 }];
 
@@ -43,13 +56,30 @@ function GetRprtCols_NewList() {
         a = JSON.stringify(data)
 
         f = '['
-       for (var i = 0; i < data.length; i++) {
-            f += '{"dataField":"' + data[i].Code + '",' 
-            f += '"caption":"' + data[i].Name + '"}';
-            if (i < data.length-1)
-            f += ','
+        for (var i = 0; i < data.length; i++) {
+            f += '{"dataField":"' + data[i].Code + '",'
+            //f += '"caption":"' + data[i].Name + '"}';
+            f += '"caption":"' + data[i].Name + '",';
+            f += '"visible":' + (data[i].Visible == 0 ? false : true);
+            if (data[i].Type == 4) {
+                f += ',"dataType":"number"';
+            }
+           /*else if (data[i].Type == 5) {
+                f += ',"dataType":"number",';
+                f += 'format:"currency",';
+                f += 'editorOptions: {format: "currency",showClearButton: true,},';
+
+            }*/
+
+            f += '}';
+            if (i < data.length - 1)
+                f += ','
         }
         f += ']'
+
+       // f = '[{"dataField":"ArzRate","caption":"نرخ ارز","visible":false,"dataType":"number",format:"currency",editorOptions: {format: "currency",showClearButton: true}}]';
+      //  f = '[{"dataField":"ArzRate","caption":"نرخ ارز","visible":false,"dataType":"number"}]';
+            //, { "dataField": "ArzValue", "caption": "مبلغ ارزی", "visible": false, "dataType": "number", format: "currency", editorOptions: { format: "currency", showClearButton: true, }, }, { "dataField": "BandNo", "caption": "شماره بند", "visible": true, "dataType": "number" }, { "dataField": "BandSpec", "caption": "ملاحظات بند", "visible": true }, { "dataField": "Bank", "caption": "بانک", "visible": true }, { "dataField": "Bede", "caption": "بدهکار", "visible": true, "dataType": "number", format: "currency", editorOptions: { format: "currency", showClearButton: true, }, }, { "dataField": "Best", "caption": "بستانکار", "visible": true, "dataType": "number", format: "currency", editorOptions: { format: "currency", showClearButton: true, }, }, { "dataField": "CheckDate", "caption": "تاریخ چک", "visible": true }, { "dataField": "CheckNo", "caption": "شماره چک", "visible": true }, { "dataField": "Comm", "caption": "شرح", "visible": true }, { "dataField": "Jari", "caption": "جاری", "visible": false }, { "dataField": "MkzCode", "caption": "کد مرکز هزینه", "visible": false }, { "dataField": "MkzName", "caption": "نام مرکز هزینه", "visible": true }, { "dataField": "OprCode", "caption": "کد پروژه", "visible": false }, { "dataField": "OprName", "caption": "نام پروژه", "visible": true }, { "dataField": "Shobe", "caption": "شعبه", "visible": false }, { "dataField": "TrafFullCode", "caption": "کد طرف چک", "visible": false }, { "dataField": "TrafFullName", "caption": "نام طرف چک", "visible": true }]"'
 
         a = JSON.parse(f)
         CreateTableColumn(JSON.parse(f));
@@ -69,6 +99,10 @@ function CreateTableColumn(data) {
         dataSource: employees,
         keyExpr: 'ID',
         showBorders: true,
+        allowColumnReordering: true,
+        allowColumnResizing: true,
+        columnAutoWidth: false,
+
         paging: {
             enabled: true,
         },
@@ -80,6 +114,12 @@ function CreateTableColumn(data) {
             selectTextOnEditStart: true,
             startEditAction: 'click',
         },
+        columnChooser: {
+            enabled: true,
+        },
+        columnFixing: {
+            enabled: true,
+        },
         columns: data,
 
         //    "[{dataField: "AccFullCode",caption: "کد حساب"},{dataField: "AccFullName",caption: "نام حساب"},{dataField: "ArzCode",caption: "کد ارز"},{dataField: "ArzName",caption: "نام ارز"},{dataField: "ArzRate",caption: "نرخ ارز"},{dataField: "ArzValue",caption: "مبلغ ارزی"},{dataField: "BandNo",caption: "شماره بند"},{dataField: "BandSpec",caption: "ملاحظات بند"},{dataField: "Bank",caption: "بانک"},{dataField: "Bede",caption: "بدهکار"},{dataField: "Best",caption: "بستانکار"},{dataField: "CheckDate",caption: "تاریخ چک"},{dataField: "CheckNo",caption: "شماره چک"},{dataField: "Comm",caption: "شرح"},{dataField: "Jari",caption: "جاری"},{dataField: "MkzCode",caption: "کد مرکز هزینه"},{dataField: "MkzName",caption: "نام مرکز هزینه"},{dataField: "OprCode",caption: "کد پروژه"},{dataField: "OprName",caption: "نام پروژه"},{dataField: "Shobe",caption: "شعبه"},{dataField: "TrafFullCode",caption: "کد طرف چک"},{dataField: "TrafFullName",caption: "نام طرف چک"}]"
@@ -88,34 +128,34 @@ function CreateTableColumn(data) {
 
 
 
-           
-            //'[{"DataField":"AccFullCode","Caption":"کد حساب","Width":100,"Type":6},{"DataField":"AccFullName","Caption":"نام حساب","Width":100,"Type":1},{"DataField":"BandNo","Caption":"شماره بند","Width":100,"Type":4},{"DataField":"BandSpec","Caption":"ملاحظات بند","Width":100,"Type":1},{"DataField":"Bank","Caption":"بانک","Width":100,"Type":1},{"DataField":"Bede","Caption":"بدهکار","Width":100,"Type":5},{"DataField":"Best","Caption":"بستانکار","Width":100,"Type":5},{"DataField":"CheckDate","Caption":"تاریخ چک","Width":100,"Type":3},{"DataField":"CheckNo","Caption":"شماره چک","Width":100,"Type":6},{"DataField":"Comm","Caption":"شرح","Width":100,"Type":1},{"DataField":"MkzName","Caption":"نام مرکز هزینه","Width":100,"Type":1},{"DataField":"OprName","Caption":"نام پروژه","Width":100,"Type":1},{"DataField":"TrafFullName","Caption":"نام طرف چک","Width":100,"Type":1}]',
 
-            //data,
-            /*[
-            {
-                dataField: 'Prefix',
-                caption: FindTextField('BandNo', data),
-               // width: 70,
+        //'[{"DataField":"AccFullCode","Caption":"کد حساب","Width":100,"Type":6},{"DataField":"AccFullName","Caption":"نام حساب","Width":100,"Type":1},{"DataField":"BandNo","Caption":"شماره بند","Width":100,"Type":4},{"DataField":"BandSpec","Caption":"ملاحظات بند","Width":100,"Type":1},{"DataField":"Bank","Caption":"بانک","Width":100,"Type":1},{"DataField":"Bede","Caption":"بدهکار","Width":100,"Type":5},{"DataField":"Best","Caption":"بستانکار","Width":100,"Type":5},{"DataField":"CheckDate","Caption":"تاریخ چک","Width":100,"Type":3},{"DataField":"CheckNo","Caption":"شماره چک","Width":100,"Type":6},{"DataField":"Comm","Caption":"شرح","Width":100,"Type":1},{"DataField":"MkzName","Caption":"نام مرکز هزینه","Width":100,"Type":1},{"DataField":"OprName","Caption":"نام پروژه","Width":100,"Type":1},{"DataField":"TrafFullName","Caption":"نام طرف چک","Width":100,"Type":1}]',
+
+        //data,
+        /*[
+        {
+            dataField: 'Prefix',
+            caption: FindTextField('BandNo', data),
+           // width: 70,
+        },
+        'FirstName',
+        'LastName', {
+            dataField: 'Position',
+            width: 170,
+        }, {
+            dataField: 'StateID',
+            caption: 'State',
+            width: 125,
+            lookup: {
+                dataSource: states,
+                displayExpr: 'Name',
+                valueExpr: 'ID',
             },
-            'FirstName',
-            'LastName', {
-                dataField: 'Position',
-                width: 170,
-            }, {
-                dataField: 'StateID',
-                caption: 'State',
-                width: 125,
-                lookup: {
-                    dataSource: states,
-                    displayExpr: 'Name',
-                    valueExpr: 'ID',
-                },
-            }, {
-                dataField: 'BirthDate',
-                dataType: 'date',
-            },
-        ],*/
+        }, {
+            dataField: 'BirthDate',
+            dataType: 'date',
+        },
+    ],*/
     }).dxDataGrid('instance');
 }
 
