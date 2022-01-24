@@ -3186,7 +3186,7 @@
                 else if (listLastBand[j].DocBMode == 1) {
                     textLastBand +=
                         '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate( + 'رونوشت به :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
+                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('رونوشت به :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
                 }
 

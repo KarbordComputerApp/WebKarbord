@@ -116,10 +116,11 @@
                             </div>
                         </div>
 
-                        <div class="pull-left">
-                            <button data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i> </button>
+                        <div class="col-sm-2">
+                            <div class="pull-left">
+                                <button data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i> </button>
+                            </div>
                         </div>
-
                     </div>
                 </form>
                 <hr />
@@ -202,12 +203,14 @@
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                        <th data-column="SortName">
+                                            <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                        <th data-column="Spec">
+                                            <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -284,7 +287,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -336,12 +339,14 @@
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                        <th data-column="SortName">
+                                            <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                        <th data-column="Spec">
+                                            <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -416,7 +421,7 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
@@ -460,7 +465,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
+                                <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>

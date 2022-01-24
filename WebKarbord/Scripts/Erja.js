@@ -1871,7 +1871,7 @@
                 };
 
                 ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
-                    AlertErja();
+                    //AlertErja();
                 });
             }
             $('#modal-ErjDocErja').modal('show');
@@ -2716,7 +2716,7 @@
             else if (flagSave == false) {
                 //$('#modal-Erja').modal('hide');
                 // $('#modal-ErjDocErja').modal('hide');
-                AlertErja();
+               // AlertErja();
             }
 
             // list_ErjUsersRoneveshtSelect = new Array();
@@ -2898,7 +2898,7 @@
         };
 
         ajaxFunction(ErjSaveDoc_RjRead_Uri + aceErj + '/' + salErj + '/' + group, 'POST', ErjSaveDoc_RjRead_Object).done(function (response) {
-            AlertErja();
+            //AlertErja();
             getDocB_Last();
             self.sortTableDocB_Last();
         });

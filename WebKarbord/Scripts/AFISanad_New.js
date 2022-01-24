@@ -1,5 +1,5 @@
-﻿/*
-const employees = [{
+﻿
+/*const  ADocB = [{
     ID: 1,
     FirstName: 'John',
     LastName: 'Heart',
@@ -21,9 +21,38 @@ const employees = [{
     Notes: 'Olivia loves to sell. She has been selling DevAV products since 2012. \r\n\r\nOlivia was homecoming queen in high school. She is expecting her first child in 6 months. Good Luck Olivia.',
     Address: '807 W Paseo Del Mar',
     StateID: 5,
-}];*/
+    }];*/
 
-const employees = [{
+var Acc;
+var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
+
+function getAccList() {
+    var AccObject = {
+        Mode: 1,
+        UserCode: sessionStorage.userName,
+    }
+
+    ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {
+        Acc = data;
+    });
+}
+getAccList();
+
+
+var ADocB;
+var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
+function getADocB(serialNumber) {
+    ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+        ADocB = data;
+    });
+}
+
+getADocB(167);
+
+
+
+/*
+const  ADocB = [{
     ID: 1,
     FirstName: 'John',
     LastName: 'Heart',
@@ -35,6 +64,7 @@ const employees = [{
     Address: '351 S Hill St.',
     StateID: 5,
 }];
+*/
 
 const states = [{
     ID: 1,
@@ -51,60 +81,74 @@ var RprtCols = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ست
 
 //Get getRprtCols_NewList List
 function GetRprtCols_NewList() {
-    ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + sessionStorage.userName, 'GET').done(function (data) {
-        data = TranslateData(data);
-        a = JSON.stringify(data)
 
-        f = '['
-        for (var i = 0; i < data.length; i++) {
-            f += '{"dataField":"' + data[i].Code + '",'
-            //f += '"caption":"' + data[i].Name + '"}';
-            f += '"caption":"' + data[i].Name + '",';
-            f += '"visible":' + (data[i].Visible == 0 ? false : true);
-            if (data[i].Type == 4) {
-                f += ',"dataType":"number"';
-            }
-           /*else if (data[i].Type == 5) {
-                f += ',"dataType":"number",';
-                f += 'format:"currency",';
-                f += 'editorOptions: {format: "currency",showClearButton: true,},';
+    cols = getRprtCols(rprtId, sessionStorage.userName);
+    data = cols;
+    f = '['
+    for (var i = 0; i < data.length; i++) {
 
-            }*/
-
-            f += '}';
-            if (i < data.length - 1)
-                f += ','
+        f += '{"dataField":"' + data[i].Code + '",'
+        //f += '"caption":"' + data[i].Name + '"}';
+        f += '"caption":"' + data[i].Name + '",';
+        f += '"visible":' + (data[i].Visible == 0 ? false : true);
+        if (data[i].Code == "AccFullCode") {
+            f +=
+                ',"lookup": {"dataSource": "Acc", "valueExpr": "Code", "displayExpr": "Code"},' +
+                '"validationRules": [{ "type": "required" }],' +
+                '"editCellTemplate": "dropDownBoxEditorTemplate"'
         }
-        f += ']'
+        if (data[i].Type == 4) {
+            f += ',"dataType":"number"';
+        }
+        else if (data[i].Type == 5) {
+            f += ',"dataType":"number",';
+            f += '"format":"fixedPoint",';
+            f += '"editorOptions": {"format": "currency","showClearButton": true}';
+        }
+        f += '}';
+        if (i < data.length - 1)
+            f += ','
+    }
 
-       // f = '[{"dataField":"ArzRate","caption":"نرخ ارز","visible":false,"dataType":"number",format:"currency",editorOptions: {format: "currency",showClearButton: true}}]';
-      //  f = '[{"dataField":"ArzRate","caption":"نرخ ارز","visible":false,"dataType":"number"}]';
-            //, { "dataField": "ArzValue", "caption": "مبلغ ارزی", "visible": false, "dataType": "number", format: "currency", editorOptions: { format: "currency", showClearButton: true, }, }, { "dataField": "BandNo", "caption": "شماره بند", "visible": true, "dataType": "number" }, { "dataField": "BandSpec", "caption": "ملاحظات بند", "visible": true }, { "dataField": "Bank", "caption": "بانک", "visible": true }, { "dataField": "Bede", "caption": "بدهکار", "visible": true, "dataType": "number", format: "currency", editorOptions: { format: "currency", showClearButton: true, }, }, { "dataField": "Best", "caption": "بستانکار", "visible": true, "dataType": "number", format: "currency", editorOptions: { format: "currency", showClearButton: true, }, }, { "dataField": "CheckDate", "caption": "تاریخ چک", "visible": true }, { "dataField": "CheckNo", "caption": "شماره چک", "visible": true }, { "dataField": "Comm", "caption": "شرح", "visible": true }, { "dataField": "Jari", "caption": "جاری", "visible": false }, { "dataField": "MkzCode", "caption": "کد مرکز هزینه", "visible": false }, { "dataField": "MkzName", "caption": "نام مرکز هزینه", "visible": true }, { "dataField": "OprCode", "caption": "کد پروژه", "visible": false }, { "dataField": "OprName", "caption": "نام پروژه", "visible": true }, { "dataField": "Shobe", "caption": "شعبه", "visible": false }, { "dataField": "TrafFullCode", "caption": "کد طرف چک", "visible": false }, { "dataField": "TrafFullName", "caption": "نام طرف چک", "visible": true }]"'
+    f += ']'
 
-        a = JSON.parse(f)
-        CreateTableColumn(JSON.parse(f));
+    cols = JSON.parse(f)
+    for (var i = 0; i < cols.length; i++) {
+        if (cols[i].dataField == 'AccFullCode') {
+            cols[i].editCellTemplate = dropDownBoxEditorTemplate;
+        }
+    }
 
-        //"[{"RprtId":"ADocB","UserCode":"ACE","Code":"AccFullCode","Type":6,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"کد حساب"},{"RprtId":"ADocB","UserCode":"ACE","Code":"AccFullName","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"نام حساب"},{"RprtId":"ADocB","UserCode":"ACE","Code":"ArzCode","Type":2,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"کد ارز"},{"RprtId":"ADocB","UserCode":"ACE","Code":"ArzName","Type":1,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"نام ارز"},{"RprtId":"ADocB","UserCode":"ACE","Code":"ArzRate","Type":5,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"نرخ ارز"},{"RprtId":"ADocB","UserCode":"ACE","Code":"ArzValue","Type":5,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"مبلغ ارزی"},{"RprtId":"ADocB","UserCode":"ACE","Code":"BandNo","Type":4,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"شماره بند"},{"RprtId":"ADocB","UserCode":"ACE","Code":"BandSpec","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"ملاحظات بند"},{"RprtId":"ADocB","UserCode":"ACE","Code":"Bank","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"بانک"},{"RprtId":"ADocB","UserCode":"ACE","Code":"Bede","Type":5,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"بدهکار"},{"RprtId":"ADocB","UserCode":"ACE","Code":"Best","Type":5,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"بستانکار"},{"RprtId":"ADocB","UserCode":"ACE","Code":"CheckDate","Type":3,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"تاریخ چک"},{"RprtId":"ADocB","UserCode":"ACE","Code":"CheckNo","Type":6,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"شماره چک"},{"RprtId":"ADocB","UserCode":"ACE","Code":"Comm","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"شرح"},{"RprtId":"ADocB","UserCode":"ACE","Code":"Jari","Type":1,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"جاری"},{"RprtId":"ADocB","UserCode":"ACE","Code":"MkzCode","Type":6,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"کد مرکز هزینه"},{"RprtId":"ADocB","UserCode":"ACE","Code":"MkzName","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"نام مرکز هزینه"},{"RprtId":"ADocB","UserCode":"ACE","Code":"OprCode","Type":6,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"کد پروژه"},{"RprtId":"ADocB","UserCode":"ACE","Code":"OprName","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"نام پروژه"},{"RprtId":"ADocB","UserCode":"ACE","Code":"Shobe","Type":1,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"شعبه"},{"RprtId":"ADocB","UserCode":"ACE","Code":"TrafFullCode","Type":6,"Visible":0,"Translate":1,"Prog":"Afi1","Name":"کد طرف چک"},{"RprtId":"ADocB","UserCode":"ACE","Code":"TrafFullName","Type":1,"Visible":1,"Translate":1,"Prog":"Afi1","Name":"نام طرف چک"}]"
-        //"[{dataField: "AccFullCode",caption: "کد حساب"},{dataField: "AccFullName",caption: "نام حساب"},{dataField: "ArzCode",caption: "کد ارز"}]"
-    })
+    CreateTableColumn(cols);
 }
 
 GetRprtCols_NewList()
 
 function CreateTableColumn(data) {
-
-
-
-    $('#gridContainer').dxDataGrid({
-        dataSource: employees,
-        keyExpr: 'ID',
+    const dataGrid = $('#gridContainer').dxDataGrid({
+        dataSource:  ADocB,
+        keyExpr: 'BandNo',
         showBorders: true,
+        showRowLines: true,
         allowColumnReordering: true,
         allowColumnResizing: true,
         columnAutoWidth: false,
 
-        paging: {
+        columnChooser: {
             enabled: true,
+        },
+        columnFixing: {
+            //     enabled: true,
+        },
+
+        keyboardNavigation: {
+            enterKeyAction: 'moveFocus',
+            enterKeyDirection: 'row',
+            editOnKeyPress: true,
+        },
+
+        paging: {
+            //    enabled: true,
         },
         editing: {
             mode: 'batch',
@@ -114,50 +158,46 @@ function CreateTableColumn(data) {
             selectTextOnEditStart: true,
             startEditAction: 'click',
         },
-        columnChooser: {
-            enabled: true,
-        },
-        columnFixing: {
-            enabled: true,
-        },
-        columns: data,
+        columns: data
 
-        //    "[{dataField: "AccFullCode",caption: "کد حساب"},{dataField: "AccFullName",caption: "نام حساب"},{dataField: "ArzCode",caption: "کد ارز"},{dataField: "ArzName",caption: "نام ارز"},{dataField: "ArzRate",caption: "نرخ ارز"},{dataField: "ArzValue",caption: "مبلغ ارزی"},{dataField: "BandNo",caption: "شماره بند"},{dataField: "BandSpec",caption: "ملاحظات بند"},{dataField: "Bank",caption: "بانک"},{dataField: "Bede",caption: "بدهکار"},{dataField: "Best",caption: "بستانکار"},{dataField: "CheckDate",caption: "تاریخ چک"},{dataField: "CheckNo",caption: "شماره چک"},{dataField: "Comm",caption: "شرح"},{dataField: "Jari",caption: "جاری"},{dataField: "MkzCode",caption: "کد مرکز هزینه"},{dataField: "MkzName",caption: "نام مرکز هزینه"},{dataField: "OprCode",caption: "کد پروژه"},{dataField: "OprName",caption: "نام پروژه"},{dataField: "Shobe",caption: "شعبه"},{dataField: "TrafFullCode",caption: "کد طرف چک"},{dataField: "TrafFullName",caption: "نام طرف چک"}]"
-        //    [{"dataField":"AccFullCode","caption":"کد حساب","width":null,"Type":6},{"dataField":"AccFullName","caption":"نام حساب","width":null,"Type":1},{"dataField":"BandNo","caption":"شماره بند","width":null,"Type":4},{"dataField":"BandSpec","caption":"ملاحظات بند","width":null,"Type":1},{"dataField":"Bank","caption":"بانک","width":null,"Type":1},{"dataField":"Bede","caption":"بدهکار","width":null,"Type":5},{"dataField":"Best","caption":"بستانکار","width":null,"Type":5},{"dataField":"CheckDate","caption":"تاریخ چک","width":null,"Type":3},{"dataField":"CheckNo","caption":"شماره چک","width":null,"Type":6},{"dataField":"Comm","caption":"شرح","width":null,"Type":1},{"dataField":"MkzName","caption":"نام مرکز هزینه","width":null,"Type":1},{"dataField":"OprName","caption":"نام پروژه","width":null,"Type":1},{"dataField":"TrafFullName","caption":"نام طرف چک","width":null,"Type":1}],
-        // [{ "dataField": "AccFullCode", "caption": "کد حساب", "width": 1000, "Type": 6 }]
-
-
-
-
-        //'[{"DataField":"AccFullCode","Caption":"کد حساب","Width":100,"Type":6},{"DataField":"AccFullName","Caption":"نام حساب","Width":100,"Type":1},{"DataField":"BandNo","Caption":"شماره بند","Width":100,"Type":4},{"DataField":"BandSpec","Caption":"ملاحظات بند","Width":100,"Type":1},{"DataField":"Bank","Caption":"بانک","Width":100,"Type":1},{"DataField":"Bede","Caption":"بدهکار","Width":100,"Type":5},{"DataField":"Best","Caption":"بستانکار","Width":100,"Type":5},{"DataField":"CheckDate","Caption":"تاریخ چک","Width":100,"Type":3},{"DataField":"CheckNo","Caption":"شماره چک","Width":100,"Type":6},{"DataField":"Comm","Caption":"شرح","Width":100,"Type":1},{"DataField":"MkzName","Caption":"نام مرکز هزینه","Width":100,"Type":1},{"DataField":"OprName","Caption":"نام پروژه","Width":100,"Type":1},{"DataField":"TrafFullName","Caption":"نام طرف چک","Width":100,"Type":1}]',
-
-        //data,
-        /*[
-        {
-            dataField: 'Prefix',
-            caption: FindTextField('BandNo', data),
-           // width: 70,
-        },
-        'FirstName',
-        'LastName', {
-            dataField: 'Position',
-            width: 170,
-        }, {
-            dataField: 'StateID',
-            caption: 'State',
-            width: 125,
-            lookup: {
-                dataSource: states,
-                displayExpr: 'Name',
-                valueExpr: 'ID',
-            },
-        }, {
-            dataField: 'BirthDate',
-            dataType: 'date',
-        },
-    ],*/
     }).dxDataGrid('instance');
+    dataGrid.option('rtlEnabled', true);
 }
+
+
+function dropDownBoxEditorTemplate(cellElement, cellInfo) {
+    return $('<div>').dxDropDownBox({
+        dropDownOptions: { width: 500 },
+        dataSource: Acc,
+        value: cellInfo.value,
+        valueExpr: 'Code',
+        displayExpr: 'Code',
+        contentTemplate(e) {
+            return $('<div>').dxDataGrid({
+                dataSource: Acc,
+                remoteOperations: true,
+                columns: ['SortCode', 'Code', 'Name'],
+                hoverStateEnabled: true,
+                scrolling: { mode: 'virtual' },
+                height: 250,
+                selection: { mode: 'single' },
+                selectedRowKeys: [cellInfo.value],
+                focusedRowEnabled: true,
+                focusedRowKey: cellInfo.value,
+                onSelectionChanged(selectionChangedArgs) {
+                    e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                    if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                        e.component.close();
+                    }
+                },
+            });
+        },
+    });
+}
+
+
+
 
 
 
