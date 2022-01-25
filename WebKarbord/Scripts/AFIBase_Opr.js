@@ -366,6 +366,9 @@
         name = $('#Name').val();
         status = $('#status').val();
 
+        if (code == "" && ace == 'Web1') {
+            return showNotification(translate('کد پروژه را وارد کنید'), 0)
+        }
 
         if (name == "") {
             return showNotification(translate('نام پروژه را وارد کنید'), 0)

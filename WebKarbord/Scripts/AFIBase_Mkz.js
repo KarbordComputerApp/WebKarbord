@@ -367,6 +367,10 @@
         name = $('#Name').val();
         status = $('#status').val();
 
+        if (code == "") {
+            return showNotification(translate('کد مرکزهزینه را وارد کنید'), 0)
+        }
+
         if (name == "") {
             return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
         }
