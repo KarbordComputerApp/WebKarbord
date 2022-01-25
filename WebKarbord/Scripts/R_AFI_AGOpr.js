@@ -13,7 +13,7 @@
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند  
     var AGOprUri = server + '/api/ReportAcc/AGOpr/'; // آدرس گزارش 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+   // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");

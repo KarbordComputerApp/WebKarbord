@@ -45,7 +45,7 @@
     var FarayandUri = server + '/api/Web_Data/Farayand/'; // آدرس فرایند 
     var DocB_LastUri = server + '/api/Web_Data/Web_ErjDocB_Last/'; // آدرس گزارش
     var ErjDocErjaUri = server + '/api/Web_Data/Web_ErjDocErja/'; // آدرس  پرونده
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش پرونده
     var ErjSaveDoc_BSaveUri = server + '/api/Web_Data/ErjSaveDoc_BSave/'; // آدرس ذخیره ارجاع
     var ErjSaveDoc_HStatusUri = server + '/api/Web_Data/ErjSaveDoc_HStatus/'; // آدرس ذخیره وضعیت
@@ -261,22 +261,27 @@
     getRprtColsList(true, sessionStorage.userName);
 
 
-    //Get ExtraFields List
+   /* //Get ExtraFields List
     function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
-    }
+    }*/
 
-    /*function getExtraFieldsList() {
+    function getExtraFieldsList() {
+        
+        cols = getRprtColsErj('ErjDocH', sessionStorage.userName);
+
         result = ko.utils.arrayFilter(cols, function (item) {
             result =
-                ko.utils.stringStartsWith(item.Code, 'KalaF') &&
+                (ko.utils.stringStartsWith(item.Code, 'F0') ||
+                    ko.utils.stringStartsWith(item.Code, 'F1') ||
+                    ko.utils.stringStartsWith(item.Code, 'F2')) &&
                 item.Name != ''
             return result;
         })
         self.ExtraFieldsList(result);
-    }*/
+    }
 
     getExtraFieldsList();
 

@@ -7,7 +7,7 @@
     self.TChkList = ko.observableArray([]); // لیست گزارش 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+   // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     var TChkUri = server + '/api/ReportAcc/TChk/'; // آدرس گزارش 
     var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت  

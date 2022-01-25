@@ -23,7 +23,7 @@
     self.DocAttachList = ko.observableArray([]); // ليست پیوست
     self.TestDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var FarayandUri = server + '/api/Web_Data/Farayand/'; // آدرس فرایند 
     var ErjDocHUri = server + '/api/Web_Data/ErjDocH/'; // آدرس گزارش
     var MahramanehUri = server + '/api/Web_Data/Web_Mahramaneh/'; // آدرس محرمانه
@@ -390,13 +390,13 @@
 
 
     //Get ExtraFields List
-    function getExtraFieldsList() {
+   /* function getExtraFieldsList() {
         ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
             self.ExtraFieldsList(data);
         });
-    }
+    }*/
 
-    /*function getExtraFieldsList() {
+    function getExtraFieldsList() {
         //cols = getRprtColsErj('DOC', sessionStorage.userName);
         result = ko.utils.arrayFilter(cols, function (item) {
             result =
@@ -407,7 +407,7 @@
             return result;
         })
         self.ExtraFieldsList(result);
-    }*/
+    }
     
 
 

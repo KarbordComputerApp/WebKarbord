@@ -20,7 +20,7 @@
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع اسناد 
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var KrdxUri = server + '/api/ReportInv/Krdx/'; // آدرس گزارش 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 

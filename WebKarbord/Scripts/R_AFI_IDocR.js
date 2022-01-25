@@ -20,7 +20,7 @@
     var KGruUri = server + '/api/Web_Data/KGru/'; // آدرس گروه کالا
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+   // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var IDocRUri = server + '/api/ReportInv/IDocR/'; // آدرس گزارش 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 

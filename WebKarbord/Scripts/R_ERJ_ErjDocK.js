@@ -10,7 +10,7 @@
     var ErjCustUri = server + '/api/Web_Data/ErjCust/'; // آدرس مشتریان
     var KhdtUri = server + '/api/Web_Data/Khdt/'; // آدرس نوع کار ها 
     var ErjStatusUri = server + '/api/Web_Data/ErjStatus/'; // آدرس وضعیت 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     var DocKUri = server + '/api/Web_Data/ErjDocK/'; // آدرس گزارش
     //var DocKCountUri = server + '/api/Web_Data/ErjDocKCount/'; // تعداد رکورد های گزارش

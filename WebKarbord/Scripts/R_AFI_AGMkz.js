@@ -16,7 +16,7 @@
 
     var AGMkzUri = server + '/api/ReportAcc/AGMkz/'; // آدرس گزارش 
     var AGMkzCountUri = server + '/api/ReportAcc/AGMkzCount/'; // تعداد رکورد های گزارش 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+   // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");

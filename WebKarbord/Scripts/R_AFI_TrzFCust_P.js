@@ -23,7 +23,7 @@
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var FModeUri = server + '/api/FDocData/FMode/'; // آدرس نوع فاکتور ها 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
     var TrzFCust_PUri = server + '/api/ReportFct/TrzFCust/'; // آدرس گزارش 

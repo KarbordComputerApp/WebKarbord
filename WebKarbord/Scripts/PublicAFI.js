@@ -2050,12 +2050,15 @@ function TestUser() {
 
                 lastUpdateDateCols = localStorage.getItem('UpdateDateCols');
 
-                if (lastUpdateDateCols != null && updateDateCols != null && lastUpdateDateCols < updateDateCols)
+                //if (lastUpdateDateCols != null && updateDateCols != null && lastUpdateDateCols < updateDateCols)
+                if (lastUpdateDateCols != updateDateCols && lastUpdateDateCols != 'null') {
                     getRprtAllCols();
-
-
-                if (updateDateCols != null)
                     localStorage.setItem('UpdateDateCols', updateDateCols);
+                }
+
+
+               // if (updateDateCols != null)
+                  //  localStorage.setItem('UpdateDateCols', updateDateCols);
 
                 if (count > 0) {
                     $("#notificationCount").text(count);

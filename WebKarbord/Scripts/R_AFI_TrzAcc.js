@@ -16,7 +16,7 @@
 
     var TrzAccUri = server + '/api/ReportAcc/TrzAcc/'; // آدرس گزارش 
     var TrzAccCountUri = server + '/api/ReportAcc/TrzAccCount/'; // تعداد رکورد های گزارش 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+   // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");

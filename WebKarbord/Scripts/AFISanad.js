@@ -246,7 +246,7 @@
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند
-    var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+   // var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 

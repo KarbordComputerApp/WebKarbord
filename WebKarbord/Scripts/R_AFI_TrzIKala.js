@@ -27,7 +27,7 @@
 
     var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس گزارش 
     var TrzICountUri = server + '/api/Web_Data/TrzICount/'; // تعداد رکورد های گزارش 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.AzDate = ko.observable(sessionStorage.BeginDate);
     self.TaDate = ko.observable(sessionStorage.EndDate);

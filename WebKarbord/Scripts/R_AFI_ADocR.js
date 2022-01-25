@@ -14,7 +14,7 @@
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند  
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت  
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     var ADocRUri = server + '/api/ReportAcc/ADocR/'; // آدرس گزارش 
 

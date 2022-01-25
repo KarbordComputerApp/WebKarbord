@@ -77,7 +77,7 @@ const states = [{
 
 var rprtId = 'ADocB';
 
-var RprtCols = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
+//var RprtCols = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
 
 //Get getRprtCols_NewList List
 function GetRprtCols_NewList() {
