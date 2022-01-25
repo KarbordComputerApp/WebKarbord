@@ -173,7 +173,7 @@ function dropDownBoxEditorTemplate(cellElement, cellInfo) {
         valueExpr: 'Code',
         displayExpr: 'Code',
         contentTemplate(e) {
-            return $('<div>').dxDataGrid({
+            const accgrid = $('<div>').dxDataGrid({
                 dataSource: Acc,
                 remoteOperations: true,
                 columns: ['SortCode', 'Code', 'Name'],
@@ -192,6 +192,8 @@ function dropDownBoxEditorTemplate(cellElement, cellInfo) {
                     }
                 },
             });
+            accgrid.option('rtlEnabled', true);
+            return accgrid;
         },
     });
 }
