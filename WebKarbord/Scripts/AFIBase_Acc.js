@@ -1505,9 +1505,13 @@
         code = $('#Code').val();
         name = $('#Name').val();
 
-        if (name == "") {
-            return showNotification(translate('نام حساب را وارد کنید'), 0)
+        if (code == "") {
+            return showNotification(translate('کد حساب را وارد کنید'), 0)
         }
+
+       /* if (name == "") {
+            return showNotification(translate('نام حساب را وارد کنید'), 0)
+        }*/
 
 
         zgrucode = '';

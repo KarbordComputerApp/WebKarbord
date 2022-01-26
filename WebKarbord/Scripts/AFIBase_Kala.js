@@ -125,12 +125,12 @@
     }
 
 
-   /* //Get ExtraFields List
-    function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
-            self.ExtraFieldsList(data);
-        });
-    }*/
+    /* //Get ExtraFields List
+     function getExtraFieldsList() {
+         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+             self.ExtraFieldsList(data);
+         });
+     }*/
 
     function getExtraFieldsList() {
         result = ko.utils.arrayFilter(cols, function (item) {
@@ -912,7 +912,7 @@
     });
 
     $('#modal-Kala').on('hide.bs.modal', function () {
-        RemoveUseSanad(ace, sal,"Kala", kalaCode);
+        RemoveUseSanad(ace, sal, "Kala", kalaCode);
         /*listKalaUse = localStorage.getItem("listKalaUse");
         listKalaUse = listKalaUse.replace(',' + kalaCode, '');
         localStorage.setItem("listKalaUse", listKalaUse);*/
@@ -947,11 +947,12 @@
         code = $('#Code').val();
         name = $('#Name').val();
 
-        //if (code == "") {
-        //    return showNotification(translate('کد کالا را وارد کنید', 0)
-       // }
+        if (code == "") {
+            return showNotification(translate('کد حساب را وارد کنید'), 0)
+        }
+
         if (name == "") {
-            return showNotification(translate('نام کالا را وارد کنید'), 0)
+            return showNotification(translate('نام حساب را وارد کنید'), 0)
         }
 
         /* if (isUpdate == false) {
@@ -1359,7 +1360,7 @@
     self.sortTableKala();
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"Kala", kalaCode);
+        RemoveUseSanad(ace, sal, "Kala", kalaCode);
         /*listKalaUse = localStorage.getItem("listKalaUse");
         listKalaUse = listKalaUse.replace(',' + kalaCode, '');
         localStorage.setItem("listKalaUse", listKalaUse);*/

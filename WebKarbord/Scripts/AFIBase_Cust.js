@@ -886,6 +886,14 @@
         melliCode = $('#MelliCode').val();
         ecoCode = $('#EcoCode').val();
 
+        if (code == "" ) {
+            return showNotification(translate('کد را وارد کنید'), 0)
+        }
+
+        if (name == "") {
+            return showNotification(translate('نام خریدار/فروشنده را وارد کنید'), 0)
+        }
+
 
         if (melliCode != "" && melliCode.length < 10) {
             return showNotification(translate('طول کد ملی نادرست است'), 0)
@@ -893,10 +901,6 @@
 
         if (ecoCode != "" && ecoCode.length < 11) {
             return showNotification(translate('طول کد اقتصادی نادرست است'), 0)
-        }
-
-        if (name == "") {
-            return showNotification(translate('نام خریدار/فروشنده را وارد کنید'), 0)
         }
 
 

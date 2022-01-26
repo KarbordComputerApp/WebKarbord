@@ -166,6 +166,9 @@ function CreateTableColumn(data) {
 
 
 function dropDownBoxEditorTemplate(cellElement, cellInfo) {
+
+
+
     return $('<div>').dxDropDownBox({
         dropDownOptions: { width: 500 },
         dataSource: Acc,
@@ -173,10 +176,15 @@ function dropDownBoxEditorTemplate(cellElement, cellInfo) {
         valueExpr: 'Code',
         displayExpr: 'Code',
         contentTemplate(e) {
-            const accgrid = $('<div>').dxDataGrid({
+            return $('<div>').dxDataGrid({
                 dataSource: Acc,
                 remoteOperations: true,
-                columns: ['SortCode', 'Code', 'Name'],
+                rtlEnabled: true,
+                filterRow: {
+                    visible: true,
+                    applyFilter: 'auto',
+                },
+                columns: ['Code', 'Name','Spec'],
                 hoverStateEnabled: true,
                 scrolling: { mode: 'virtual' },
                 height: 250,
@@ -192,11 +200,13 @@ function dropDownBoxEditorTemplate(cellElement, cellInfo) {
                     }
                 },
             });
-            accgrid.option('rtlEnabled', true);
-            return accgrid;
         },
     });
 }
+
+
+
+
 
 
 

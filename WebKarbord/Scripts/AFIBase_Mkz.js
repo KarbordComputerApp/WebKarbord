@@ -371,9 +371,9 @@
             return showNotification(translate('کد مرکزهزینه را وارد کنید'), 0)
         }
 
-        if (name == "") {
+       /* if (name == "") {
             return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
-        }
+        }*/
 
         var TestMkz_Object = {
             Code: code
