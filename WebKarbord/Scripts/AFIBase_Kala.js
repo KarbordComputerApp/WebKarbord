@@ -948,11 +948,11 @@
         name = $('#Name').val();
 
         if (code == "") {
-            return showNotification(translate('کد حساب را وارد کنید'), 0)
+            return showNotification(translate('کد کالا را وارد کنید'), 0)
         }
 
         if (name == "") {
-            return showNotification(translate('نام حساب را وارد کنید'), 0)
+            return showNotification(translate('نام کالا را وارد کنید'), 0)
         }
 
         /* if (isUpdate == false) {

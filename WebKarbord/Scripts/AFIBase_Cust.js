@@ -887,7 +887,7 @@
         ecoCode = $('#EcoCode').val();
 
         if (code == "" ) {
-            return showNotification(translate('کد را وارد کنید'), 0)
+            return showNotification(translate('کد خریدار/فروشنده را وارد کنید'), 0)
         }
 
         if (name == "") {
