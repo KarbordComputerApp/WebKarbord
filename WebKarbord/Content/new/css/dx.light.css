@@ -12802,10 +12802,12 @@
 .dx-datagrid-container .dx-icon-filter-operation-between::before {
   content: "\f06a";
 }
+
 .dx-datagrid {
-  color: #333;
-  background-color: #fff;
-  line-height: inherit;
+    color: #333;
+    background-color: #fff;
+    line-height: inherit;
+    font: 11px vazir;
 }
 .dx-datagrid .dx-row-alt > td,
 .dx-datagrid .dx-row-alt > tr > td {
@@ -15001,7 +15003,10 @@ input.dx-hidden {
 }
 .dx-editor-cell .dx-texteditor,
 .dx-editor-cell .dx-texteditor .dx-texteditor-input {
-  background: #fff;
+    background: #fff;
+    font: 11px vazir;
+    margin-bottom: 0px;
+    border: none;
 }
 .dx-editor-cell .dx-dropdowneditor {
   background-color: #fff;
