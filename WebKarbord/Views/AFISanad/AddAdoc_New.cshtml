@@ -5,10 +5,137 @@
 }
 
 
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="form-inline">
+                    <strong id="TitleHeaderSanad" style="margin-left: 5px; margin-right: 5px;"></strong>
+                    <strong data-bind="text:translate('سند به شماره')" id="textnumberSanad" style="margin-left: 5px; margin-right: 5px;"></strong>
+                    <lable id="docnoout"></lable>
 
-<div class="demo-container">
-    <div id="data-grid">
-        <div id="gridContainer"></div>
+                    <div class="input-group" style="margin-right: 10px;">
+                        <div class="input-group-addon">
+                            <span class="input-group-btn">
+                                <a id="btntarikh"><img src="~/Content/img/list/calendar.png" width="16" height="16" /></a>
+                            </span>
+                        </div>
+
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="tarikh" data-bind="value:DocDate,attr:{placeholder:translate('تاریخ')}" class="form-control date focused fix" type="text" maxlength="10" style="text-indent: 5px;width: 100px;text-align: center;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
+                        <a id="Print_SanadHesab" style="margin-left: 10px;">
+                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
+                        </a>
+
+
+
+                        <a id="OtherField" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-OtherField" style="margin-left: 10px;">
+                            <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
+                        </a>
+                        <a id="AddNewSanad">
+                            <img src="~/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png" width="20" height="20" />
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="body">
+                <form class="clearfix">
+                    <div class="row ">
+                        <div class="col-sm-3" id="ViewAMode">
+                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                <span class="col-md-3" data-bind="text:translate('نوع سند')">
+
+                                </span>
+                                <div class="form-group  col-md-9">
+                                    <select id="modeCode" data-bind="options: AModeList,
+                                   optionsText: function(item) {return item.Name},
+                                   optionsValue: 'Code',
+                                   value: AModeCode"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-9" id="ViewSpec">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input id="Spec" class="form-control string autocomplete" data-bind="value:Spec" />
+                                    <label class="form-label active" data-bind="text:translate('ملاحظات')"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+
+
+                <div id="data-grid">
+                    <div id="gridContainer"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                <div class="card" style="margin-top: 0px; margin-left: 0px;">
+                    <div class="header">
+                    </div>
+                    <div class="body" style="padding-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-md-8" hidden>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <textarea rows="1" id="footer" class="form-control no-resize auto-growth string autocomplete" data-bind="attr:{placeholder:translate('زیر نویس')}" style="overflow: hidden; overflow-wrap: break-word; height: 30px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-float" style="margin-bottom: 15px;">
+                                    <div id="panelTafavot" class="form-line focused">
+                                        <input id="TafavotSanad" type="text" class="form-control" style="direction: ltr;border-bottom: 1px #404852 solid;" disabled="disabled">
+                                        <label class="form-label" style="color: #404852;" data-bind="text:translate('تفاوت بدهکار/بستانکار')"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                    <div class="form-group">
+                                        <select id="status" class="form-control" data-bind="options: StatusList,
+                                         optionsText: 'Status',
+                                         optionsValue: 'Status',
+                                         value: StatusSanad"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="action_Adoc" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="card" style="margin-top: 0px;">
+                    <div class="header">
+                    </div>
+                    <div class="body" style="padding-left: 15px;padding-right: 15px; padding-bottom: 35px;">
+                        <div>
+                            <button data-bind="text:translate('ثبت نهایی')" type="button" id="FinalSave" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -17,6 +144,37 @@
 
 
 
+
 @section scripts{
+    <script type="text/javascript">
+        sessionStorage.urlADocH = '@Url.Action("Index", "AFISanad")';
+
+        $('#btntarikh').MdPersianDateTimePicker({
+            targetTextSelector: '#tarikh',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
+
+        });
+
+        //'use strict';
+        $(function () {
+            $('.dd').nestable();
+            $('.dd').on('change', function () {
+                var $this = $(this);
+                var serializedData = window.JSON.stringify($($this).nestable('serialize'));
+                $this.parents('div.body').find('textarea').val(serializedData);
+            });
+        });
+    </script>
+
     <script src="~/Scripts/AFISanad_New.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
 }
+
