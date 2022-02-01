@@ -39,6 +39,7 @@
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
+    var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس زیر حساب ها
 
     var AccList;
     self.AModeList = ko.observableArray([]); // نوع سند 
@@ -46,6 +47,7 @@
     var OprList; // لیست پروژه ها
     var MkzList; // لیست مرکز هزینه
     var ArzList; // لیست ارز ها
+    var ZAccList; // لیست زیر حساب ها
 
 
     function getAModeList() {
@@ -89,7 +91,7 @@
     //Get Opr List
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-           OprList = data;
+            OprList = data;
         });
     }
     getOprList();
@@ -102,7 +104,7 @@
     }
 
     getMkzList();
-    
+
     //Get Arz List
     function getArzList() {
         ajaxFunction(ArzUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
@@ -111,7 +113,12 @@
     }
     getArzList();
 
-
+    function getZAccList() {
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + null, 'GET').done(function (data) {
+            ZAccList = data;
+        });
+    }
+    getZAccList();
 
     var ADocB;
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
@@ -179,10 +186,10 @@
             else if (data[i].Code == "Best") {
                 f += ',"setCellValue": "EditorBest"'
             }
-            
-            if ( data[i].Code == "BandNo") {
-               f += ',"allowEditing": false'
-           }
+
+            if (data[i].Code == "BandNo") {
+                f += ',"allowEditing": false'
+            }
 
             if (data[i].Type == 4) {
                 f += ',"dataType":"number"';
@@ -199,7 +206,7 @@
 
         allowEditing: false,
 
-        f += ']'
+            f += ']'
 
         cols = JSON.parse(f)
         for (var i = 0; i < cols.length; i++) {
@@ -268,8 +275,8 @@
                 //    enabled: true,
             },
             editing: {
-               mode: 'batch',
-              //  mode: 'cell',
+                mode: 'batch',
+                //  mode: 'cell',
                 allowUpdating: true,
                 allowAdding: true,
                 allowDeleting: true,
@@ -278,35 +285,35 @@
             },
             columns: data,
             onEditingStart() {
-                a = 1; 
+                a = 1;
             },
             //onInitNewRow() {
-             //   a = 1; 
+            //   a = 1; 
             //},
             onInitNewRow: function (e) {
                 e.data.Hire_Date = new Date();
             },
             onRowInserting() {
-                a = 1; 
+                a = 1;
             },
             onRowInserted() {
-                a = 1; 
+                a = 1;
             },
             onRowUpdating() {
-                a = 1; 
+                a = 1;
             },
             onRowUpdated() {
-                a = 1; 
+                a = 1;
             },
             onRowRemoving() {
-                a = 1; 
+                a = 1;
             },
             onRowRemoved() {
-                a = 1; 
+                a = 1;
             },
             onSaving(e) {
 
-              
+
 
 
 
@@ -314,20 +321,20 @@
                 ro = e.changes[0].key;
                 //fieldname = e.changes[0].key; 
 
-               // a = dataGrid.cellValue(ro, "AccFullName", selectionChangedArgs.selectedRowsData[0].Name);
+                // a = dataGrid.cellValue(ro, "AccFullName", selectionChangedArgs.selectedRowsData[0].Name);
             },
             onSaved() {
-                a = 1; 
+                a = 1;
             },
             onEditCanceling() {
-                a = 1; 
+                a = 1;
             },
             onEditCanceled() {
-                a = 1; 
+                a = 1;
             },
 
 
-           
+
             getRowIndexByKey() {
                 a = 1;
             },
@@ -345,6 +352,7 @@
 
     function dropDownBoxEditorCode(cellElement, cellInfo) {
         return $('<div>').dxDropDownBox({
+            //dropDownOptions: { width: 500, height: 1500},
             dropDownOptions: { width: 500 },
             dataSource: AccList,
             value: cellInfo.value,
@@ -367,7 +375,7 @@
                     ],
                     hoverStateEnabled: true,
                     scrolling: { mode: 'virtual' },
-                    height: 250,
+                    height: 450,
                     selection: { mode: 'single' },
                     selectedRowKeys: [cellInfo.value],
                     focusedRowEnabled: true,
@@ -381,7 +389,7 @@
 
                             var dataGrid = $("#gridContainer").dxDataGrid("instance");
 
-                            ro = cellInfo.key-1;
+                            ro = cellInfo.key - 1;
 
                             // dataGrid.cellValue(0, 1, selectionChangedArgs.selectedRowsData[0].Name);
                             //dataGrid.saveEditData();
@@ -413,6 +421,26 @@
 
                             e.component.close();
                         }
+                    },
+
+                    masterDetail: {
+                        enabled: true,
+                        template(container, options) {
+                            const currentEmployeeData = options.data;
+                            $('<div>')
+                                .dxDataGrid({
+                                    columnAutoWidth: true,
+                                    showBorders: true,
+                                    columns: ['Code', 'Name', 'Spec'],
+                                    dataSource: new DevExpress.data.DataSource({
+                                        store: new DevExpress.data.ArrayStore({
+                                            key: 'Code',
+                                            data: ZAccList,
+                                        }),
+                                       // filter: ['ZGruCode', '=', options.data.ZGru],
+                                    }),
+                                }).appendTo(container);
+                        },
                     },
                 });
             },
