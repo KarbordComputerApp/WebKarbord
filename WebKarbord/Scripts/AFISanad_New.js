@@ -22,6 +22,8 @@
     self.Spec = ko.observable();
     self.StatusSanad = ko.observable();
 
+    self.TestADocList = ko.observableArray([]); // لیست تست 
+
 
 
 
@@ -36,6 +38,9 @@
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس زیر حساب ها
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
+    var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
+    var ADocBSaveAllUri = server + '/api/AFI_ADocBi/SaveAllDocB/'; // آدرس ذخیره یند سند 
+    var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
 
     var AccList;
     self.AModeList = ko.observableArray([]); // نوع سند 
@@ -135,9 +140,21 @@
 
 
     var ADocB;
+    var dataAcc = [];
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     function getADocB(serialNumber) {
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            for (var i = 0; i < data.length; i++) {
+                // dataAcc[i] = [];
+                AccData = AccList.filter(s => s.Code == data[i].AccCode);
+                if (AccData.length > 0) {
+                    dataAcc[i] = AccData;
+                    //dataAcc[i].NextLevelFromZAcc = AccData[0].NextLevelFromZAcc;
+                    //dataAcc[i].Mkz = AccData[0].Mkz;
+                    //dataAcc[i].Opr = AccData[0].Opr;
+                    // dataAcc[i].Arzi = AccData[0].Arzi;
+                }
+            }
             ADocB = data;
             GetRprtCols_NewList();
         });
@@ -182,19 +199,19 @@
             f += '{"dataField":"' + data[i].Code + '",'
             //f += '"caption":"' + data[i].Name + '"}';
             f += '"caption":"' + data[i].Name + '",';
-           // f += '"alignment": "center",';
+            // f += '"alignment": "center",';
             f += '"visible":' + (data[i].Visible == 0 ? false : true);
             if (data[i].Code == "AccCode") {
                 f +=
                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
-                    '"validationRules": [{ "type": "required" }],' +
+                    //'"validationRules": [{ "type": "required" }],' +
                     '"editCellTemplate": "dropDownBoxEditorCode"'
             }
 
             else if (data[i].Code == "AccName") {
                 f +=
                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    '"validationRules": [{ "type": "required" }],' +
+                    //'"validationRules": [{ "type": "required" }],' +
                     '"editCellTemplate": "dropDownBoxEditorName"'
             }
 
@@ -348,7 +365,13 @@
         CreateTableColumn(cols);
     }
 
+    var co = 0;
+    var ro = 0;
+    var fieldName = '';
+
     var dataGrid;
+
+
 
     function CreateTableColumn(data) {
         dataGrid = $('#gridContainer').dxDataGrid({
@@ -362,6 +385,8 @@
 
             columnResizingMode: 'widget',
             columnMinWidth: 150,
+            focusedRowIndex: 0,
+            focusedColumnIndex: 0,
 
             columnChooser: {
                 enabled: true,
@@ -416,16 +441,39 @@
                 ],
             },
 
+            onCellClick: function (e) {
+                co = e.columnIndex;
+                ro = e.rowIndex;
+                fieldName = e.column.dataField;
+            },
 
+            onKeyDown: function (e) {
+                const keyCode = e.event.key;
+            },
+
+            /* onEditorPreparing(e) {
+                 if (e.parentType === 'dataRow' && e.dataField === 'CityID') {
+                     e.editorOptions.disabled = (typeof e.row.data.StateID !== 'number');
+                 }
+             },*/
 
             onEditingStart() {
                 a = 1;
             },
-            //onInitNewRow() {
-            //   a = 1; 
-            //},
+
             onInitNewRow: function (e) {
-                e.data.Hire_Date = new Date();
+
+                len = ADocB.length;
+                //ADocB[len] = e.data;
+                // ADocB[len].BandNo = len+1;
+            },
+
+
+            onRowRemoving() {
+                logEvent('RowRemoving');
+            },
+            onRowRemoved() {
+                logEvent('RowRemoved');
             },
             onRowInserting() {
                 a = 1;
@@ -446,13 +494,14 @@
                 a = 1;
             },
             onSaving(e) {
-                // ro = e.changes[0].key;
+                ro = ro;
                 //fieldname = e.changes[0].key; 
 
                 // a = dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
             },
             onSaved() {
-                SaveSanad(ADocB);
+                ControlSave();
+                //SaveSanad(ADocB);
             },
             onEditCanceling() {
                 a = 1;
@@ -519,74 +568,51 @@
                         e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                         cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                         if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                            //ADocB[1].AccName = selectionChangedArgs.selectedRowsData[0].Name;
                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
 
                             var dataGrid = $("#gridContainer").dxDataGrid("instance");
 
-                            ro = cellInfo.rowIndex;
+                            newRec = false;
+                            if (dataAcc[ro] == null) {
+                                //  newRec = true;
+                                dataAcc[ro] = [];
+                            }
+                            dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
 
-
-                            // dataGrid.cellValue(0, 1, selectionChangedArgs.selectedRowsData[0].Name);
-                            ////dataGrid.saveEditData();
-
-                            /* for (i = 0; i < dataGrid.totalCount(); i++) {
-                                 var cell = dataGrid.cellValue(i, "MyFieldName");
-                                 console.log("cell: ", cell);
-                             }*/
-
-                            //var myGrid = $("#gridContainer").dxDataGrid("instance");
-                            //console.log("gridContainer:", myGrid);
-                            // a = myGrid.isRowSelected;
-
-
-                            /*var rowCount = myGrid.totalCount();  // Gets the total row count. 
-                            for (i = 0; i < rowCount; i++) {
-                                var cell = myGrid.cellValue(i, "AccCode");
-                                console.log("cell: ", cell);
-                            }*/
-
+                            /* dataAcc[ro].NextLevelFromZAcc = selectionChangedArgs.selectedRowsData[0].NextLevelFromZAcc;
+                             dataAcc[ro].Mkz = selectionChangedArgs.selectedRowsData[0].Mkz;
+                             dataAcc[ro].Opr = selectionChangedArgs.selectedRowsData[0].Opr;
+                             dataAcc[ro].Arzi = selectionChangedArgs.selectedRowsData[0].Arzi;*/
 
                             dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
-                            ////dataGrid.saveEditData();
 
-                            //var dataSource = dataGrid.getDataSource();
-                            //dataSource.store().insert(data).then(function () {
-                            //    dataSource.reload();
-                            //})
+                            if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
+                                dataGrid.cellValue(ro, "AccZCode", '');
+                                dataGrid.cellValue(ro, "AccZName", '');
+                            }
+
+                            if (newRec == false && dataAcc[ro].Mkz == 0) {
+                                dataGrid.cellValue(ro, "MkzCode", '');
+                                dataGrid.cellValue(ro, "MkzName", '');
+                            }
+
+                            if (newRec == false && dataAcc[ro].Opr == 0) {
+                                dataGrid.cellValue(ro, "OprCode", '');
+                                dataGrid.cellValue(ro, "OprName", '');
+                            }
+
+                            if (newRec == false && dataAcc[ro].Arzi == 0) {
+                                dataGrid.cellValue(ro, "ArzCode", '');
+                                dataGrid.cellValue(ro, "ArzName", '');
+                            }
+
 
                             e.component.close();
+
+                            dataGrid.focus(dataGrid.getCellElement(ro, 5));
                         }
                     },
 
-                    /*masterDetail: {
-                        enabled: a,
-                        template(container, options) {
-                            a = !a
-                            const currentEmployeeData = options.data;
-                            $('<div>')
-                                .dxDataGrid({
-                                    columnAutoWidth: true,
-                                    showBorders: true,
-                                    rtlEnabled: true,
-                                    columns:
-                                        [{ dataField: 'Code', caption: "کد" },
-                                        { dataField: 'Name', caption: "نام" },
-                                        { dataField: 'Spec', caption: "ملاحظات" }],
-                                    dataSource: new DevExpress.data.DataSource({
-                                        store: new DevExpress.data.ArrayStore({
-                                            key: 'Code',
-                                            data: ZAccList,
-                                        }),
-
-                                        filter: filtered(options.data.ZGru)
-                                          
-
-
-                                    }),
-                                }).appendTo(container);
-                        },
-                    },*/
                 });
             },
         });
@@ -626,10 +652,34 @@
                         cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                         if (selectionChangedArgs.selectedRowKeys.length > 0) {
                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                            ro = cellInfo.rowIndex;
+
+                            newRec = false;
+                            if (dataAcc[ro] == null) {
+                                dataAcc[ro] = [];
+                            }
+                            dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
+
                             dataGrid.cellValue(ro, "AccCode", selectionChangedArgs.selectedRowsData[0].Code);
-                            ////dataGrid.saveEditData();
+
+                            if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
+                                dataGrid.cellValue(ro, "AccZCode", '');
+                                dataGrid.cellValue(ro, "AccZName", '');
+                            }
+
+                            if (newRec == false && dataAcc[ro].Mkz == 0) {
+                                dataGrid.cellValue(ro, "MkzCode", '');
+                                dataGrid.cellValue(ro, "MkzName", '');
+                            }
+
+                            if (newRec == false && dataAcc[ro].Opr == 0) {
+                                dataGrid.cellValue(ro, "OprCode", '');
+                                dataGrid.cellValue(ro, "OprName", '');
+                            }
+
+                            if (newRec == false && dataAcc[ro].Arzi == 0) {
+                                dataGrid.cellValue(ro, "ArzCode", '');
+                                dataGrid.cellValue(ro, "ArzName", '');
+                            }
                             e.component.close();
                         }
                     },
@@ -645,9 +695,7 @@
     }
 
     function dropDownBoxEditorAccZCode(cellElement, cellInfo) {
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].NextLevelFromZAcc == 1) {
+        if (dataAcc[ro].NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ZAccList,
@@ -709,10 +757,7 @@
     }
 
     function dropDownBoxEditorAccZName(cellElement, cellInfo) {
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].NextLevelFromZAcc == 1) {
+        if (dataAcc[ro].NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ZAccList,
@@ -765,10 +810,7 @@
     }
 
     function dropDownBoxEditorMkzCode(cellElement, cellInfo) {
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].Mkz > 0) {
+        if (dataAcc[ro].Mkz > 0) {
 
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -818,10 +860,7 @@
     }
 
     function dropDownBoxEditorMkzName(cellElement, cellInfo) {
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].Mkz > 0) {
+        if (dataAcc[ro].Mkz > 0) {
 
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -871,11 +910,7 @@
     }
 
     function dropDownBoxEditorOprCode(cellElement, cellInfo) {
-
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].Opr > 0) {
+        if (dataAcc[ro].Opr > 0) {
 
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -925,11 +960,7 @@
     }
 
     function dropDownBoxEditorOprName(cellElement, cellInfo) {
-
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].Opr > 0) {
+        if (dataAcc[ro].Opr > 0) {
 
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -979,10 +1010,7 @@
     }
 
     function dropDownBoxEditorArzCode(cellElement, cellInfo) {
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].Arzi == 1) {
+        if (dataAcc[ro].Arzi == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ArzList,
@@ -1032,10 +1060,7 @@
     }
 
     function dropDownBoxEditorArzName(cellElement, cellInfo) {
-        ro = cellInfo.rowIndex;
-        code = cellInfo.data.AccCode;
-        AccData = AccList.filter(s => s.Code == code);
-        if (AccData[0].Arzi == 1) {
+        if (dataAcc[ro].Arzi == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ArzList,
@@ -1161,6 +1186,17 @@
             getADocHLastDate();
         }
         getADocB(0);
+        dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+        //for (var i = 0; i < 10; i++) {
+        //     dataGrid.addRow();
+        // }
+
+
+        //dataGrid.option("focusedRowKey", 100);
+        //dataGrid.navigateToRow(1);
+
+
     }
 
 
@@ -1172,36 +1208,16 @@
         flaglog = "N";
 
 
-    function SaveSanad(DataBand) {
+    function DeleteBand() {
+        ajaxFunction(ADocBiUri + ace + '/' + sal + '/' + group + '/' + Serial + '/0/Y', 'DELETE').done(function (response) {
 
+        });
+    }
 
-        var tarikh = $("#tarikh").val().toEnglishDigit();
+    function SaveSanad() {
+        tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
-        bandnumber = 0;
         status = $("#status").val();
-
-        if (tarikh.length != 10) {
-            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
-        }
-
-        if (tarikh == '') {
-            return showNotification(translate('تاریخ را وارد کنید'), 0);
-        }
-
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
-        }
-        else {
-            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
-        }
-
-        if (modeCode == '') {
-            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
-        }
-
-        if (self.DocNoOut == '') {
-            return showNotification(translate('شماره سند را وارد کنید'), 0);
-        }
-
         if (Serial == 0) {
             var ADocObject = {
                 DocNoMode: 1,
@@ -1300,17 +1316,268 @@
             ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
                 sessionStorage.searchADocH = Serial;
                 flaglog = 'N';
+                DeleteBand();
             });
         }
 
+        var obj = [];
+        for (i = 0; i <= ADocB.length - 1; i++) {
+            item = data[i];
+            tmp = {
+                AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
+                AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
+                Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
+                Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
+                Comm: '',
+                BandSpec: '',
+                CheckNo: '',
+                CheckDate: '',
+                Bank: '',
+                Shobe: '',
+                Jari: '',
+                BaratNo: '',
+                TrafCode: '',
+                TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
+                CheckRadif: '',
+                CheckComm: '',
+                CheckStatus: '',
+                CheckVosoolDate: '',
+                OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
+                MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
+                ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
+                ArzRate: '',
+                arzValue: '',
+                flagLog: 'Y',
+            };
+            obj.push(tmp);
+        }
 
+        ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj).done(function (response) {
+
+        });
+    }
+
+
+
+
+
+    function ControlSave() {
+
+        tarikh = $("#tarikh").val().toEnglishDigit();
+        modeCode = $("#modeCode").val();
+        status = $("#status").val();
+
+        if (tarikh.length != 10) {
+            return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
+        }
+
+        if (tarikh == '') {
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
+        }
+
+        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        }
+        else {
+            return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
+        }
+
+        if (modeCode == '') {
+            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
+        }
+
+
+        var ADocObject = {
+            DocNoMode: 1,
+            InsertMode: 0,
+            ModeCode: modeCode,
+            DocNo: 0,
+            StartNo: 0,
+            EndNo: 0,
+            SerialNumber: 0,
+            DocDate: tarikh,
+            BranchCode: 0,
+            UserCode: sessionStorage.userName,
+            Tanzim: '*' + sessionStorage.userName + '*',
+            Taeed: status == "تایید" ? sessionStorage.userName : '',
+            Tasvib: '',
+            TahieShode: ace,
+            Eghdam: sessionStorage.userName,
+            Status: status,
+            Spec: self.Spec(),
+            Footer: '',//$("#footer").val(),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+            flagLog: 'N',
+            flagTest: 'Y',
+        };
+
+        ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
+            var res = response.split("-");
+            Serial_Test = res[0];
+        });
+
+
+        var obj = [];
+        for (i = 0; i <= ADocB.length - 1; i++) {
+            item = data[i];
+            tmp = {
+                AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
+                AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
+                Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
+                Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
+                Comm: '',
+                BandSpec: '',
+                CheckNo: '',
+                CheckDate: '',
+                Bank: '',
+                Shobe: '',
+                Jari: '',
+                BaratNo: '',
+                TrafCode: '',
+                TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
+                CheckRadif: '',
+                CheckComm: '',
+                CheckStatus: '',
+                CheckVosoolDate: '',
+                OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
+                MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
+                ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
+                ArzRate: '',
+                arzValue: '',
+                flagLog: 'N',
+                flagTest: 'Y',
+            };
+            obj.push(tmp);
+        }
+
+        ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj).done(function (response) {
+
+        });
+
+
+        var TestADocObject = {
+            SerialNumber: Serial_Test,
+            flagTest: 'Y'
+        };
+
+        ajaxFunction(TestADocUri + ace + '/' + sal + '/' + group, 'POST', TestADocObject).done(function (data) {
+            var obj = JSON.parse(data);
+            self.TestADocList(obj);
+            if (data.length > 2) {
+                $('#modal-FinalSave').modal('show');
+                SetDataTestDocB();
+            } else {
+                SaveSanad();
+            }
+        });
+    }
+
+    $('#FinalSave-Modal').click(function () {
+        $('#modal-FinalSave').modal('hide');
+        SaveSanad();
+    });
+
+
+    function SetDataTestDocB() {
+        $("#BodyTestDocB").empty();
+        textBody = '';
+        countWarning = 0;
+        countError = 0;
+        list = self.TestADocList();
+        for (var i = 0; i < list.length; i++) {
+            textBody +=
+                '<div class="body" style="padding:7px;">' +
+                '    <div class="form-inline">';
+            if (list[i].Test == 1) {
+                countWarning += 1;
+                textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
+            }
+            else {
+                countError += 1;
+                textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
+            }
+
+            tBand = translate('بند شماره') + ' ';
+            if (list[i].TestName == "Opr")
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </p>';
+            else if (list[i].TestName == "Mkz")
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </p>';
+            else if (list[i].TestName == "Arz")
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </p>';
+            else if (list[i].TestName == "Mahiat")
+                //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
+
+            else if (list[i].TestName == "Balance")
+                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + '0' + ' ' + translate('بستانکار') + ' : ' + '0' + ' </p>';
+
+            else if (list[i].TestName == "ZeroBand")
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مبلغ بدهکار و بستانکار صفر است') + ' </p>';
+
+
+            else if (list[i].TestName == "Traf")
+                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('طرف حساب انتخاب نشده است') + ' </p>';
+
+            else if (list[i].TestName == "Check")
+                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('اطلاعات چک وارد نشده است') + ' </p>';
+
+            else if (list[i].TestCap != "")
+                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
+
+            textBody +=
+                '    </div>' +
+                '</div>';
+        }
+
+        $('#BodyTestDocB').append(textBody);
+
+        $('#CountWarning').text(countWarning);
+        $('#CountError').text(countError);
+
+        if (countError > 0) {
+            $('#FinalSave-Modal').attr('hidden', '');
+            $('#ShowCountError').removeAttr('hidden', '');
+        }
+        else {
+            $('#FinalSave-Modal').removeAttr('hidden', '')
+            $('#ShowCountError').attr('hidden', '');
+        }
+
+        if (countWarning > 0) {
+            $('#ShowCountWarning').removeAttr('hidden', '');
+        }
+        else {
+            $('#ShowCountWarning').attr('hidden', '');
+        }
 
 
     }
 
+
     window.onbeforeunload = function () {
         RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
     };
+
 
 };
 

@@ -41,7 +41,7 @@
                     <div>
                         <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                             <div class="form-group col-md">
-                                <select id="status"  data-bind="options: StatusList,
+                                <select id="status" data-bind="options: StatusList,
                                          optionsText: 'Status',
                                          optionsValue: 'Status',
                                          value: StatusSanad"></select>
@@ -94,6 +94,56 @@
 
 
 
+
+<div class="modal fade" id="modal-FinalSave" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="titleFinalSave"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div id="BodyTestDocB" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+
+
+                </div>
+                <br />
+                <div>
+                    <div class="row  form-inline ">
+                        <div class="col-md-6 row">
+                            <div style="margin-right: 0px;margin-left: 0px;">
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار') + ' : '"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                </div>
+
+                                <div id="ShowCountError" class="row">
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') + ' : '"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6 ">
+                            <div>
+                                <p style="text-align: center;">سند دارای هشدار است ! میتوانید سند را ذخیره کنید</p>
+                                <p style="text-align: center;">یا با زدن کلید بازگشت هشدارها را اصلاح کنید</p>
+                            </div>
+                        </div>-->
+
+                        <div class="col-md-6">
+                            <button data-bind="text:translate('بازگشت')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;"></button>
+                            <button data-bind="text:translate('ذخیره')" type="button" id="FinalSave-Modal" class="btn btn-primary pull-left" style="background-color: #eb8121 !important;width:100px;"></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
