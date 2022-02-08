@@ -10,8 +10,10 @@
 
 
 
-    $('#titlePage').text(translate("سند حسابداری جدید"));
+    $('#data-error').hide();
+    $('#data-grid').addClass('col-md');
 
+    $('#titlePage').text(translate("سند حسابداری جدید"));
     $('#finalSave_Title').attr('hidden', '');
 
 
@@ -148,7 +150,7 @@
                 // dataAcc[i] = [];
                 AccData = AccList.filter(s => s.Code == data[i].AccCode);
                 if (AccData.length > 0) {
-                    dataAcc[i] = AccData;
+                    dataAcc[i] = AccData[0];
                     //dataAcc[i].NextLevelFromZAcc = AccData[0].NextLevelFromZAcc;
                     //dataAcc[i].Mkz = AccData[0].Mkz;
                     //dataAcc[i].Opr = AccData[0].Opr;
@@ -204,14 +206,14 @@
             if (data[i].Code == "AccCode") {
                 f +=
                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
-                    //'"validationRules": [{ "type": "required" }],' +
+                    '"validationRules": [{ "type": "required" }],' +
                     '"editCellTemplate": "dropDownBoxEditorCode"'
             }
 
             else if (data[i].Code == "AccName") {
                 f +=
                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    //'"validationRules": [{ "type": "required" }],' +
+                    '"validationRules": [{ "type": "required" }],' +
                     '"editCellTemplate": "dropDownBoxEditorName"'
             }
 
@@ -418,33 +420,38 @@
             columnHidingEnabled: true,
             columns: data,
 
-            summary: {
-                recalculateWhileEditing: true,
-                totalItems: [{
-                    column: 'AccCode',
-                    summaryType: 'count',
-                    displayFormat: "{0}  رکورد",
-                }, {
-                    column: 'Bede',
-                    summaryType: 'sum',
-                    valueFormat: 'currency',
-                    displayFormat: "{0}",
-                },
-                {
-                    column: 'Best',
-                    summaryType: 'sum',
-                    valueFormat: 'currency',
-                    //showInColumn: "AccName",
-                    displayFormat: "{0}",
-                    //alignment: "center"
-                }
-                ],
-            },
+            /* summary: {
+                 recalculateWhileEditing: ,
+                 totalItems: [{
+                     column: 'AccCode',
+                     summaryType: 'count',
+                     displayFormat: "{0}  رکورد",
+                     showInGroupFooter: false,
+                 }, {
+                     column: 'Bede',
+                     summaryType: 'sum',
+                     valueFormat: 'currency',
+                     displayFormat: "{0}",
+                     showInGroupFooter: false,
+                 },
+                 {
+                     column: 'Best',
+                     summaryType: 'sum',
+                     valueFormat: 'currency',
+                     //showInColumn: "AccName",
+                     displayFormat: "{0}",
+                     showInGroupFooter: false,
+                     //alignment: "center"
+                 }
+                 ],
+             },*/
 
             onCellClick: function (e) {
                 co = e.columnIndex;
                 ro = e.rowIndex;
                 fieldName = e.column.dataField;
+                var summaryValue = dataGrid.getTotalSummaryValue(fieldName);
+                calcSanad();
             },
 
             onKeyDown: function (e) {
@@ -1230,7 +1237,7 @@
                 DocDate: tarikh,
                 BranchCode: 0,
                 UserCode: sessionStorage.userName,
-                Tanzim: '*' + sessionStorage.userName + '*',
+                Tanzim: sessionStorage.userName,
                 Taeed: status == "تایید" ? sessionStorage.userName : '',
                 Tasvib: '',
                 TahieShode: ace,
@@ -1283,7 +1290,7 @@
                 DocDate: tarikh,
                 BranchCode: 0,
                 UserCode: sessionStorage.userName,
-                Tanzim: '*' + sessionStorage.userName + '*',
+                Tanzim: sessionStorage.userName,
                 Taeed: status == "تایید" ? sessionStorage.userName : '',
                 Tasvib: '',
                 TahieShode: ace,
@@ -1397,7 +1404,7 @@
             DocDate: tarikh,
             BranchCode: 0,
             UserCode: sessionStorage.userName,
-            Tanzim: '*' + sessionStorage.userName + '*',
+            Tanzim: sessionStorage.userName,
             Taeed: status == "تایید" ? sessionStorage.userName : '',
             Tasvib: '',
             TahieShode: ace,
@@ -1482,7 +1489,12 @@
             var obj = JSON.parse(data);
             self.TestADocList(obj);
             if (data.length > 2) {
-                $('#modal-FinalSave').modal('show');
+
+                $('#data-error').show();
+                $('#data-grid').addClass('col-md-8');
+
+
+                //$('#modal-FinalSave').modal('show');
                 SetDataTestDocB();
             } else {
                 SaveSanad();
@@ -1491,9 +1503,18 @@
     }
 
     $('#FinalSave-Modal').click(function () {
-        $('#modal-FinalSave').modal('hide');
+        //$('#modal-FinalSave').modal('hide');
+
+        $('#data-error').hide();
+        $('#data-grid').removeClass('col-md-8');
         SaveSanad();
     });
+
+
+    self.UpdateCust = function (item) {
+        a = 10;
+    }
+
 
 
     function SetDataTestDocB() {
@@ -1509,7 +1530,7 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
+                    ' <a style="margin-left: 3px;" data-bind="click: $root.UpdateCust"> ' + translate('هشدار :') + '</a>'
             }
             else {
                 countError += 1;
@@ -1529,7 +1550,7 @@
                 textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
 
             else if (list[i].TestName == "Balance")
-                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + '0' + ' ' + translate('بستانکار') + ' : ' + '0' + ' </p>';
+                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </p>';
 
             else if (list[i].TestName == "ZeroBand")
                 textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مبلغ بدهکار و بستانکار صفر است') + ' </p>';
@@ -1574,9 +1595,62 @@
     }
 
 
+    function calcSanad() {
+
+        var rowsCount = $("#gridContainer").find("tr.dx-row.dx-data-row").length;
+
+        sumBede = 0
+        sumBest = 0;
+        for (var i = 0; i < rowsCount; i++) {
+            bed = dataGrid.cellValue(i, "Bede") == null ? 0 : dataGrid.cellValue(i, "Bede");
+            bes = dataGrid.cellValue(i, "Best") == null ? 0 : dataGrid.cellValue(i, "Best");
+
+            sumBede = sumBede + bed;
+            sumBest = sumBest + bes;
+        }
+
+        $("#SumBedehkar").val(sumBede);
+        $("#SumBestankar").val(sumBest);
+        $("#TafavotSanad").val(sumBede - sumBest);
+    }
+
     window.onbeforeunload = function () {
         RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
     };
+
+
+    $("#closeError").click(function () {
+        $('#data-error').hide();
+        $('#data-grid').removeClass('col-md-8');
+    });
+
+    $("#backError").click(function () {
+        $('#data-error').hide();
+        $('#data-grid').removeClass('col-md-8');
+    });
+    
+
+    /*const formatCurrency = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format;
+
+    $('#listWidget').dxList({
+        dataSource: self.TestADocList(),
+        height: '100%',
+        itemTemplate(data) {
+            const result = $('<div>').addClass('product');
+
+            $('<img>').attr('src', data.ImageSrc).appendTo(result);
+            $('<div>').text(data.Name).appendTo(result);
+            $('<div>').addClass('price')
+                .html(formatCurrency(data.Price)).appendTo(result);
+
+            return result;
+        },
+    }).dxList('instance');*/
 
 
 };
