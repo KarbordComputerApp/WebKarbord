@@ -176,7 +176,7 @@ var ViewModel = function () {
         data = cols;
 
 
-        /*for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             if (data[i].Code == 'AccCode' ||
 
                 data[i].Code == 'AccName' ||
@@ -187,13 +187,15 @@ var ViewModel = function () {
                 data[i].Code == 'OprCode' ||
                 data[i].Code == 'OprName' ||
                 data[i].Code == 'Bede' ||
-                data[i].Code == 'Best'
+                data[i].Code == 'Best' ||
+                data[i].Code == 'Bank' ||
+                data[i].Code == 'BaratNo' 
             ) {
 
             }
             else
                 data[i].Visible = 0
-        }*/
+        }
 
         f = '['
         //f += '{"dataField":"Row","caption": "ردیف","cellTemplate":"rowNumber","allowEditing": false}, ';
@@ -1673,7 +1675,7 @@ function FocusRowGrid(band) {
              index = i;
      }*/
 
-    const col = dataGrid.columns.find(c => c.dataField === 'ProcedureName');
+   // const col = dataGrid.columns.find(c => c.dataField === 'ProcedureName');
 
 
     dataGrid.focus(dataGrid.getCellElement(data.BandNo - 1, 0));

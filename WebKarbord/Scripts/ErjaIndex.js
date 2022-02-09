@@ -110,7 +110,7 @@
     var old_DocDesc = '';
     var old_FinalComm = '';
     var old_SpecialComm = '';
-    var editDocTrs = false;
+    var editDoc = false;
 
 
 
