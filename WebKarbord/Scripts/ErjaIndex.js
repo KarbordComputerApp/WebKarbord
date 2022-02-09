@@ -110,7 +110,7 @@
     var old_DocDesc = '';
     var old_FinalComm = '';
     var old_SpecialComm = '';
-    var editDocTrs = 0;
+    var editDocTrs = false;
 
 
 
@@ -2815,8 +2815,8 @@
                     return showNotification(translate('شما به این پرونده دسترسی ندارید'), 0);
                 }
 
-                editDocTrs = data.EditDocTrs
-                editDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
+                editDoc = data.EditDocTrs && localStorage.getItem("CHG_ErjDOC")
+                editDoc == true ? $("#P_Action").show() : $("#P_Action").hide();
 
                 flag_Save = false;
                 old_DocDate = data["DocDate"];
@@ -2976,8 +2976,9 @@
             // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
-            editDocTrs = item.EditDocTrs
-            editDocTrs == 1 && localStorage.getItem("CHG_ErjDOC") == 'true' ? $("#P_Action").show() : $("#P_Action").hide();
+
+            editDoc = item.EditDocTrs && localStorage.getItem("CHG_ErjDOC")
+            editDoc == true ? $("#P_Action").show() : $("#P_Action").hide();
 
             flag_Save = false;
             old_DocDate = item.DocDate;
@@ -3311,7 +3312,7 @@
 
     $("#Colse_ModalErjDocH").click(function (e) {
 
-        if (flag_Save == false && editDocTrs == 1) {
+        if (flag_Save == false && editDoc == true ) {
 
 
             if ($("#p_SpecialComm").css('font-style') == 'italic')
