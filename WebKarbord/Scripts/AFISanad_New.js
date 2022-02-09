@@ -1,4 +1,7 @@
-﻿var ViewModel = function () {
+﻿var TestADocList; //لیست خطا ها
+var cols;
+
+var ViewModel = function () {
 
     TestUser();
     var viewAction = false;
@@ -24,7 +27,6 @@
     self.Spec = ko.observable();
     self.StatusSanad = ko.observable();
 
-    self.TestADocList = ko.observableArray([]); // لیست تست 
 
 
 
@@ -174,7 +176,7 @@
         data = cols;
 
 
-        for (var i = 0; i < data.length; i++) {
+        /*for (var i = 0; i < data.length; i++) {
             if (data[i].Code == 'AccCode' ||
 
                 data[i].Code == 'AccName' ||
@@ -191,7 +193,7 @@
             }
             else
                 data[i].Visible = 0
-        }
+        }*/
 
         f = '['
         //f += '{"dataField":"Row","caption": "ردیف","cellTemplate":"rowNumber","allowEditing": false}, ';
@@ -362,6 +364,11 @@
             if (cols[i].dataField == 'Best') {
                 cols[i].setCellValue = EditorBest;
             }
+
+            if (cols[i].dataField == "Bank" || cols[i].dataField == "BaratNo") {
+
+                cols[i].hidingPriority = 0;
+            }
         }
 
         CreateTableColumn(cols);
@@ -385,8 +392,8 @@
             allowColumnResizing: true,
             columnAutoWidth: false,
 
-            columnResizingMode: 'widget',
-            columnMinWidth: 150,
+            //columnResizingMode: 'widget',
+            columnMinWidth: 100,
             focusedRowIndex: 0,
             focusedColumnIndex: 0,
 
@@ -417,7 +424,7 @@
                 newRowPosition: 'last',
 
             },
-            columnHidingEnabled: true,
+            //columnHidingEnabled: true,
             columns: data,
 
             /* summary: {
@@ -450,7 +457,7 @@
                 co = e.columnIndex;
                 ro = e.rowIndex;
                 fieldName = e.column.dataField;
-                var summaryValue = dataGrid.getTotalSummaryValue(fieldName);
+                //var summaryValue = dataGrid.getTotalSummaryValue(fieldName);
                 calcSanad();
             },
 
@@ -464,6 +471,10 @@
                  }
              },*/
 
+            onEditorPrepared: function (e) { // تغییر ادیت
+
+
+            },
             onEditingStart() {
                 a = 1;
             },
@@ -1487,7 +1498,7 @@
 
         ajaxFunction(TestADocUri + ace + '/' + sal + '/' + group, 'POST', TestADocObject).done(function (data) {
             var obj = JSON.parse(data);
-            self.TestADocList(obj);
+            TestADocList = obj;
             if (data.length > 2) {
 
                 $('#data-error').show();
@@ -1510,19 +1521,12 @@
         SaveSanad();
     });
 
-
-    self.UpdateCust = function (item) {
-        a = 10;
-    }
-
-
-
     function SetDataTestDocB() {
         $("#BodyTestDocB").empty();
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = self.TestADocList();
+        list = TestADocList;
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +
@@ -1530,40 +1534,40 @@
             if (list[i].Test == 1) {
                 countWarning += 1;
                 textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <a style="margin-left: 3px;" data-bind="click: $root.UpdateCust"> ' + translate('هشدار :') + '</a>'
+                    ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');"> ' + translate('هشدار :') + '</a>'
             }
             else {
                 countError += 1;
                 textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                    ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
+                    ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');">' + translate('خطا :') + '</a>'
             }
 
             tBand = translate('بند شماره') + ' ';
             if (list[i].TestName == "Opr")
-                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </a>';
             else if (list[i].TestName == "Mkz")
-                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </a>';
             else if (list[i].TestName == "Arz")
-                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </a>';
             else if (list[i].TestName == "Mahiat")
                 //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
-                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </p>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
 
             else if (list[i].TestName == "Balance")
-                textBody += '<p>' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </a>';
 
             else if (list[i].TestName == "ZeroBand")
-                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('مبلغ بدهکار و بستانکار صفر است') + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مبلغ بدهکار و بستانکار صفر است') + ' </a>';
 
 
             else if (list[i].TestName == "Traf")
-                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('طرف حساب انتخاب نشده است') + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + +' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
 
             else if (list[i].TestName == "Check")
-                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('اطلاعات چک وارد نشده است') + ' </p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + +' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
 
             else if (list[i].TestCap != "")
-                textBody += '<p>' + translate(list[i].TestCap) + '</p>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
 
             textBody +=
                 '    </div>' +
@@ -1628,7 +1632,7 @@
         $('#data-error').hide();
         $('#data-grid').removeClass('col-md-8');
     });
-    
+
 
     /*const formatCurrency = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -1660,8 +1664,17 @@ ko.applyBindings(new ViewModel());
 
 
 
+function FocusRowGrid(band) {
+    data = TestADocList[band];
+    dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+    /* for (var i = 0; i < cols.length; i++) {
+         if (cols[i].dataField == data.TestName + 'Code')
+             index = i;
+     }*/
+
+    const col = dataGrid.columns.find(c => c.dataField === 'ProcedureName');
 
 
-
-
-
+    dataGrid.focus(dataGrid.getCellElement(data.BandNo - 1, 0));
+}

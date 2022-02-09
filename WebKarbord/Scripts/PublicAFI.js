@@ -1330,6 +1330,10 @@ $("#SaveParam").click(function () {
         localStorage.removeItem('ErjDocYears');
 
 
+        localStorage.removeItem('Mahramaneh');
+        localStorage.removeItem('ErjStatus');
+
+
         localStorage.setItem("listKalaUse", "0");
         localStorage.setItem("listCustUse", "0");
         localStorage.setItem("listAccUse", "0");
