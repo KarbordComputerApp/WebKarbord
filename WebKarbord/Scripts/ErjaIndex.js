@@ -225,7 +225,12 @@
 
     //Get ErjCust List
     function getErjCustList() {
-        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group, 'GET', true, true).done(function (data) {
+        var ErjCustObject = {
+            userCode: sessionStorage.userName,
+            mode: 1,
+        }
+
+        ajaxFunction(ErjCustUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjCustObject).done(function (data) {
             self.ErjCustList(data);
         });
     }

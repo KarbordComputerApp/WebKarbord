@@ -189,12 +189,12 @@ var ViewModel = function () {
                 data[i].Code == 'Bede' ||
                 data[i].Code == 'Best' ||
                 data[i].Code == 'Bank' ||
-                data[i].Code == 'BaratNo' 
+                data[i].Code == 'BaratNo'
             ) {
 
             }
-            else
-                data[i].Visible = 0
+            //else
+            //  data[i].Visible = 0
         }
 
         f = '['
@@ -306,6 +306,8 @@ var ViewModel = function () {
         f += ']'
 
         cols = JSON.parse(f)
+
+        conutHide = 0;
         for (var i = 0; i < cols.length; i++) {
 
             /* if (cols[i].dataField == 'Row') {
@@ -367,9 +369,29 @@ var ViewModel = function () {
                 cols[i].setCellValue = EditorBest;
             }
 
-            if (cols[i].dataField == "Bank" || cols[i].dataField == "BaratNo") {
+            if (cols[i].dataField == "Bank" ||
+                cols[i].dataField == "CheckNo" ||
+                cols[i].dataField == "CheckDate" ||
+                cols[i].dataField == "Bank" ||
+                cols[i].dataField == "Shobe" ||
+                cols[i].dataField == "Jari" ||
+                cols[i].dataField == "BaratNo" ||
+                cols[i].dataField == "CheckComm" ||
+                cols[i].dataField == "CheckMode" ||
+                cols[i].dataField == "CheckRadif" ||
+                cols[i].dataField == "CheckVosoolDate" ||
+                cols[i].dataField == "CheckStatus" ||
+                cols[i].dataField == "TrafZCode" ||
+                cols[i].dataField == "TrafZName" ||
+                cols[i].dataField == "TrafCode" ||
+                cols[i].dataField == "TrafName"
 
-                cols[i].hidingPriority = 0;
+            ) {
+                cols[i].hidingPriority = conutHide;
+                cols[i].width = 70;
+                cols[i].editorOptions = 0;
+                cols[i].editorOptions.height = 100;
+                conutHide++;
             }
         }
 
@@ -415,6 +437,7 @@ var ViewModel = function () {
             },
             editing: {
                 mode: 'batch',
+               // mode: 'form',
                 //  mode: 'cell',
                 allowUpdating: true,
                 allowAdding: true,
@@ -1563,10 +1586,10 @@ var ViewModel = function () {
 
 
             else if (list[i].TestName == "Traf")
-                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + +' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
 
             else if (list[i].TestName == "Check")
-                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + +' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
 
             else if (list[i].TestCap != "")
                 textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
@@ -1675,7 +1698,7 @@ function FocusRowGrid(band) {
              index = i;
      }*/
 
-   // const col = dataGrid.columns.find(c => c.dataField === 'ProcedureName');
+    // const col = dataGrid.columns.find(c => c.dataField === 'ProcedureName');
 
 
     dataGrid.focus(dataGrid.getCellElement(data.BandNo - 1, 0));

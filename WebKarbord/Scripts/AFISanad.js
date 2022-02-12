@@ -3433,10 +3433,10 @@
 
 
             else if (list[i].TestName == "Traf")
-                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('طرف حساب انتخاب نشده است') + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestName == "Check")
-                textBody += '<p>' + tBand + list[i].BandNo + +' ' + translate('اطلاعات چک وارد نشده است') + ' </p>';
+                textBody += '<p>' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </p>';
 
             else if (list[i].TestCap != "")
                 textBody += '<p>' + translate(list[i].TestCap) + '</p>';
