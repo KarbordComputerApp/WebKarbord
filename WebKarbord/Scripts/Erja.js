@@ -286,7 +286,7 @@
     getExtraFieldsList();
 
 
-    //Get ErjUsers List
+   /* //Get ErjUsers List
     function getErjUsersList() {
 
         ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
@@ -304,19 +304,30 @@
                 localStorage.setItem("ErjUsers", JSON.stringify(data));
             });
         }*/
+   // }
+
+    function getErjUsersList(serial) {
+        var ErjUsersObject = {
+            userCode: sessionStorage.userName,
+            SerialNumber: serial,
+        }
+
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjUsersObject).done(function (data) {
+            self.ErjUsersList(data);
+        });
     }
 
     $('#btnErjBe').click(function () {
-        if (self.ErjUsersList().length == 0) {
+        //if (self.ErjUsersList().length == 0) {
             getErjUsersList();
-        }
+        //}
     });
 
 
     $('#btnRoneveshtBe').click(function () {
-        if (self.ErjUsersList().length == 0) {
+        //if (self.ErjUsersList().length == 0) {
             getErjUsersList();
-        }
+        //}
     });
 
 
@@ -1317,7 +1328,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getErjUsersList();
+                getErjUsersList(serialNumber);
             }
         })
     })
@@ -1449,7 +1460,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getErjUsersList();
+                getErjUsersList(serialNumber);
             }
         })
     })

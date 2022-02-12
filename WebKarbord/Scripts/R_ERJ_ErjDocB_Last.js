@@ -192,9 +192,16 @@
         }
     });
 
-    function getErjUsersList(Reload) {
+    function getErjUsersList() {
+        var ErjUsersObject = {
+            userCode: sessionStorage.userName,
+            SerialNumber: 0,
+        }
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjUsersObject).done(function (data) {
+            self.ErjUsersList(data);
+        });
 
-        list = localStorage.getItem('ErjUsers');
+       /* list = localStorage.getItem('ErjUsers');
         if (list != null && Reload == false) {
             list = JSON.parse(localStorage.getItem('ErjUsers'));
             self.ErjUsersList(list)
@@ -204,7 +211,7 @@
                 self.ErjUsersList(data);
                 localStorage.setItem("ErjUsers", JSON.stringify(data));
             });
-        }
+        }*/
     }
 
     //Get RepToUsers List
@@ -290,7 +297,7 @@
     getErjStatusList();
     //getErjCustList();
     //getKhdtList();
-    getErjUsersList(true);
+    getErjUsersList();
     getRepToUsersList();
     getRepFromUsersList();
     getMahramanehList();
@@ -1488,7 +1495,7 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getErjUsersList(true);
+                getErjUsersList();
                 $("div.loadingZone").hide();
             }
         })

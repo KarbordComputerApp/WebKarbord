@@ -294,43 +294,48 @@
     getErjDocYearsList();
 
 
-    function getErjUsersList() {
-        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+    function getErjUsersList(serial) {
+        var ErjUsersObject = {
+            userCode: sessionStorage.userName,
+            SerialNumber: serial,
+        }
+
+        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjUsersObject).done(function (data) {
             self.ErjUsersList(data);
         });
     }
 
     $('#btnErjBe').click(function () {
-        if (self.ErjUsersList().length == 0) {
-            getErjUsersList();
-        }
+        //if (self.ErjUsersList().length == 0) {
+        getErjUsersList(serialNumber);
+        //}
     });
 
 
     $('#btnRoneveshtBe').click(function () {
-        if (self.ErjUsersList().length == 0) {
-            getErjUsersList();
-        }
+        //if (self.ErjUsersList().length == 0) {
+        getErjUsersList(serialNumber);
+        //}
     });
 
-   /*//Get ErjUsers List
-    function getErjUsersList(Reload) {
-
-        list = localStorage.getItem('ErjUsers');
-        if (list != null && Reload == false) {
-            list = JSON.parse(localStorage.getItem('ErjUsers'));
-            self.ErjUsersList(list)
-        }
-        else {
-            ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-                self.ErjUsersList(data);
-                localStorage.setItem("ErjUsers", JSON.stringify(data));
-            });
-        }
-    }
-
-    getErjUsersList(true);
-    */
+    /*//Get ErjUsers List
+     function getErjUsersList(Reload) {
+ 
+         list = localStorage.getItem('ErjUsers');
+         if (list != null && Reload == false) {
+             list = JSON.parse(localStorage.getItem('ErjUsers'));
+             self.ErjUsersList(list)
+         }
+         else {
+             ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                 self.ErjUsersList(data);
+                 localStorage.setItem("ErjUsers", JSON.stringify(data));
+             });
+         }
+     }
+ 
+     getErjUsersList(true);
+     */
 
 
 
@@ -391,11 +396,11 @@
 
 
     //Get ExtraFields List
-   /* function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
-            self.ExtraFieldsList(data);
-        });
-    }*/
+    /* function getExtraFieldsList() {
+         ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
+             self.ExtraFieldsList(data);
+         });
+     }*/
 
     function getExtraFieldsList() {
         //cols = getRprtColsErj('DOC', sessionStorage.userName);
@@ -409,7 +414,7 @@
         })
         self.ExtraFieldsList(result);
     }
-    
+
 
 
 
@@ -1898,7 +1903,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getErjUsersList();
+                getErjUsersList(serialNumber);
             }
         })
     })
@@ -2025,7 +2030,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getErjUsersList();
+                getErjUsersList(serialNumber);
             }
         })
     })
@@ -2086,7 +2091,7 @@
 
     $('#modal-ErjUsersRonevesht').on('hide.bs.modal', function () {
         if (counterErjUsersRonevesht > 0)
-            $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameRoneveshtBe').val(counterErjUsersRonevesht + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameRoneveshtBe').val(translate('هیچکس'));
     });
@@ -2816,7 +2821,7 @@
                 }
 
                 editDoc = data.EditDocTrs && localStorage.getItem("CHG_ErjDOC")
-                editDoc == true ? $("#P_Action").show() : $("#P_Action").hide();
+                editDoc == true || editDoc == "true" ? $("#P_Action").show() : $("#P_Action").hide();
 
                 flag_Save = false;
                 old_DocDate = data["DocDate"];
@@ -2830,7 +2835,7 @@
                 old_RelatedDocs = data["RelatedDocs"];
                 old_Mahramaneh = data["Mahramaneh"];
                 old_Status = data["Status"];
-               
+
 
                 self.p_DocDate(data["DocDate"]);
                 self.p_MhltDate(data["MhltDate"]);
@@ -2978,7 +2983,7 @@
         else {
 
             editDoc = item.EditDocTrs && localStorage.getItem("CHG_ErjDOC")
-            editDoc == true ? $("#P_Action").show() : $("#P_Action").hide();
+            editDoc == true || editDoc == "true" ? $("#P_Action").show() : $("#P_Action").hide();
 
             flag_Save = false;
             old_DocDate = item.DocDate;
@@ -3190,7 +3195,7 @@
                 else if (listLastBand[j].DocBMode == 1) {
                     textLastBand +=
                         '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('رونوشت به :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
+                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('رونوشت به :') + '</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
                 }
 
@@ -3312,7 +3317,7 @@
 
     $("#Colse_ModalErjDocH").click(function (e) {
 
-        if (flag_Save == false && editDoc == true ) {
+        if (flag_Save == false && (editDoc == true || editDoc == "true")) {
 
 
             if ($("#p_SpecialComm").css('font-style') == 'italic')
