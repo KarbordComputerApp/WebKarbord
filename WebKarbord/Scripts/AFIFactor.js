@@ -1693,7 +1693,7 @@
             return showNotification(translate('اطلاعات اولیه فاکتور ثبت نشده است'), 0);
             //return Swal.fire({ type: 'danger', title: 'اطلاعات ناقص', text: ' اطلاعات اولیه فاکتور ثبت نشده است ' });
         }
-        var cKala = $('#codeKala').val();
+        //var cKala = $('#codeKala').val();
         var nKala = $('#nameKala').val();
         var uKala = $("#unitName option:selected").val();
 
@@ -1711,7 +1711,7 @@
         discountprice = SlashToDot($("#discountprice").val());
         comm = $("#comm").val();
 
-        if (cKala == '' || nKala == '' || uKala == '') {
+        if (nKala == '' || uKala == '') {
             return showNotification(translate('کالا را وارد کنید'), 0);
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'کالا را وارد کنید' });
         }
@@ -4990,7 +4990,7 @@
 
     self.selectFDocB = function (item) {
         var amo;
-        bandnumberedit = item.BandNo;
+        //bandnumberedit = item.BandNo;
         getUnit(item.KalaCode);
 
         KalaCode = item.KalaCode;

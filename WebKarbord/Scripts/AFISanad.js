@@ -4346,7 +4346,7 @@
     };
 
     self.selectADocB = function (item) {
-        bandnumberedit = item.BandNo;
+       // bandnumberedit = item.BandNo;
         AccCode = item.AccCode;
         AccZCode = item.AccZCode;
         ArzCode = item.ArzCode;

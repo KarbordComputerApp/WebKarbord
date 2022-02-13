@@ -319,14 +319,14 @@
 
     $('#btnErjBe').click(function () {
         //if (self.ErjUsersList().length == 0) {
-            getErjUsersList();
+        getErjUsersList(serialNumber);
         //}
     });
 
 
     $('#btnRoneveshtBe').click(function () {
         //if (self.ErjUsersList().length == 0) {
-            getErjUsersList();
+        getErjUsersList(serialNumber);
         //}
     });
 

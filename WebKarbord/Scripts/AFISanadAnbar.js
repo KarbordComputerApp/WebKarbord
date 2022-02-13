@@ -3891,7 +3891,7 @@
 
     self.selectIDocB = function (item) {
         var amo;
-        bandnumberedit = item.BandNo;
+        //bandnumberedit = item.BandNo;
         getUnit(item.KalaCode);
 
         KalaCode = item.KalaCode;
