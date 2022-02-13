@@ -46,6 +46,20 @@ var ViewModel = function () {
     var ADocBSaveAllUri = server + '/api/AFI_ADocBi/SaveAllDocB/'; // آدرس ذخیره یند سند 
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
 
+    var CheckUri = server + '/api/ADocData/CheckList/'; // آدرس لیست چک  
+    var BankUri = server + '/api/ADocData/Bank/'; // آدرس لیست بانک  
+    var ShobeUri = server + '/api/ADocData/Shobe/'; // آدرس لیست شعبه  
+    var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری 
+    var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت چک
+    var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
+    var TestADoc_NewUri = server + '/api/ADocData/TestADoc_New/'; // آدرس تست ایجاد  
+    var TestADoc_EditUri = server + '/api/ADocData/TestADoc_Edit/'; // آدرس تست ویرایش 
+    var SaveADoc_HZUri = server + '/api/ADocData/SaveADoc_HZ/'; // آدرس ویرایس ستون تنظیم 
+
+
+
+
+
     var AccList;
     self.AModeList = ko.observableArray([]); // نوع سند 
     self.StatusList = ko.observableArray([]); // وضعیت  
@@ -53,6 +67,12 @@ var ViewModel = function () {
     var MkzList; // لیست مرکز هزینه
     var ArzList; // لیست ارز ها
     var ZAccList; // لیست زیر حساب ها
+
+    var CheckList; // لیست چک
+    var BankList;// لیست بانک
+    var ShobeList;// لیست شعبه
+    var JariList;// لیست جاری
+    var CheckStatusList;// لیست وضعیت چک
 
 
     function getAModeList() {
@@ -81,20 +101,19 @@ var ViewModel = function () {
 
 
     function getAccList() {
-        var AccObject = {
-            Mode: 1,
-            UserCode: sessionStorage.userName,
+        if (AccList == null) {
+            var AccObject = {
+                Mode: 1,
+                UserCode: sessionStorage.userName,
+            }
+
+            ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, false).done(function (data) {
+                AccList = data.filter(s => s.AutoCreate == 0);
+            });
         }
-
-        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, false).done(function (data) {
-
-            AccList = data.filter(s => s.AutoCreate == 0);
-
-
-
-        });
     }
     getAccList();
+
 
 
     //Get Opr List
@@ -131,6 +150,53 @@ var ViewModel = function () {
 
 
 
+
+
+
+    //Get CheckList List
+    function getCheckList(PDMode) {
+        ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
+            CheckList = data;
+        });
+    }
+    getCheckList(0);
+
+    //Get BankList List
+    function getBankList() {
+        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            BankList = data;
+        });
+    }
+    getBankList();
+
+    //Get ShobeList List
+    function getShobeList() {
+        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            ShobeList = data;
+        });
+    }
+    getShobeList();
+
+    //Get JariList List
+    function getJariList() {
+        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            JariList = data;
+        });
+    }
+    getJariList();
+
+    //Get CheckStatus List
+    function getCheckStatusList(PDMode) {
+        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
+            CheckStatusList = data;
+            localStorage.setItem('CheckStatus' + PDMode, JSON.stringify(data));
+        });
+    }
+    getCheckStatusList(0);
+
+
+
+
     function getADocHLastDate() {
         ajaxFunction(ADocHLastDateUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
             self.DocDate(data);
@@ -149,14 +215,9 @@ var ViewModel = function () {
     function getADocB(serialNumber) {
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             for (var i = 0; i < data.length; i++) {
-                // dataAcc[i] = [];
                 AccData = AccList.filter(s => s.Code == data[i].AccCode);
                 if (AccData.length > 0) {
                     dataAcc[i] = AccData[0];
-                    //dataAcc[i].NextLevelFromZAcc = AccData[0].NextLevelFromZAcc;
-                    //dataAcc[i].Mkz = AccData[0].Mkz;
-                    //dataAcc[i].Opr = AccData[0].Opr;
-                    // dataAcc[i].Arzi = AccData[0].Arzi;
                 }
             }
             ADocB = data;
@@ -189,12 +250,13 @@ var ViewModel = function () {
                 data[i].Code == 'Bede' ||
                 data[i].Code == 'Best' ||
                 data[i].Code == 'Bank' ||
+                data[i].Code == 'CheckNo' ||
                 data[i].Code == 'BaratNo'
             ) {
 
             }
-            //else
-            //  data[i].Visible = 0
+            else
+              data[i].Visible = 0
         }
 
         f = '['
@@ -270,6 +332,13 @@ var ViewModel = function () {
                 f +=
                     ',"lookup": {"dataSource": "ArzList", "valueExpr": "Name", "displayExpr": "Name"},' +
                     '"editCellTemplate": "dropDownBoxEditorArzName"'
+            }
+
+
+            else if (data[i].Code == "CheckNo") {
+                f +=
+                    ',"lookup": {"dataSource": "CheckList", "valueExpr": "CheckNo", "displayExpr": "CheckNo"},' +
+                    '"editCellTemplate": "dropDownBoxEditorCheckNo"'
             }
 
 
@@ -362,6 +431,11 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = ArzList;
             }
 
+            if (cols[i].dataField == 'CheckNo') {
+                cols[i].editCellTemplate = dropDownBoxEditorCheckNo;
+                cols[i].lookup.dataSource = CheckList;
+            }
+
             if (cols[i].dataField == 'Bede') {
                 cols[i].setCellValue = EditorBede;
             }
@@ -437,7 +511,7 @@ var ViewModel = function () {
             },
             editing: {
                 mode: 'batch',
-               // mode: 'form',
+                // mode: 'form',
                 //  mode: 'cell',
                 allowUpdating: true,
                 allowAdding: true,
@@ -577,7 +651,6 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorAccCode(cellElement, cellInfo) {
-        var a = ADocB;
         return $('<div>').dxDropDownBox({
             //dropDownOptions: { width: 500, height: 1500},
             dropDownOptions: { width: 500 },
@@ -648,6 +721,12 @@ var ViewModel = function () {
                                 dataGrid.cellValue(ro, "ArzCode", '');
                                 dataGrid.cellValue(ro, "ArzName", '');
                             }
+
+                            if (dataAcc[ro].PDMode > 0) {
+                                getCheckList(dataAcc[ro].PDMode);
+                            }
+
+                           
 
 
                             e.component.close();
@@ -1150,6 +1229,60 @@ var ViewModel = function () {
         } else
             return ''
     }
+
+
+
+    function dropDownBoxEditorCheckNo(cellElement, cellInfo) {
+        //CheckNo
+        //ro = cellInfo.rowIndex;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: CheckList,
+                value: cellInfo.value,
+                valueExpr: 'CheckNo',
+                displayExpr: 'CheckNo',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: CheckList,
+                        keyExpr: 'CheckNo',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'CheckNo', caption: "شماره چک" },
+                            { dataField: 'CheckDate', caption: "تاریخ چک" },
+                            { dataField: 'Value', caption: "مبلغ" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
 
     function EditorBede(newData, value, currentRowData) {
         newData.Count = value;
