@@ -263,7 +263,6 @@ var ViewModel = function () {
                 data[i].Code == 'TrafZCode' ||
                 data[i].Code == 'TrafZName' 
             ) {
-
             }
             else
               data[i].Visible = 0
@@ -526,7 +525,7 @@ var ViewModel = function () {
                 cols[i].setCellValue = EditorBest;
             }
 
-            /*if (cols[i].dataField == "Bank" ||
+           /* if (cols[i].dataField == "Bank" ||
                 cols[i].dataField == "CheckNo" ||
                 cols[i].dataField == "CheckDate" ||
                 cols[i].dataField == "Shobe" ||
@@ -588,8 +587,8 @@ var ViewModel = function () {
             showBorders: true,
             showRowLines: true,
             allowColumnReordering: true,
-            allowColumnResizing: true,
-            columnAutoWidth: true,
+            allowColumnResizing: false,
+            columnAutoWidth: false,
 
             columnResizingMode: 'widget',
             columnMinWidth: 100,
@@ -624,7 +623,7 @@ var ViewModel = function () {
                 //newRowPosition: 'last',
 
             },
-            //columnHidingEnabled: true,
+           // columnHidingEnabled: true,
             columns: data,
 
             /* summary: {
