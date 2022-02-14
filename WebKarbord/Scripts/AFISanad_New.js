@@ -159,11 +159,11 @@ var ViewModel = function () {
             CheckList = data;
         });
     }
-    getCheckList(0);
+    getCheckList(2);
 
     //Get BankList List
     function getBankList() {
-        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
             BankList = data;
         });
     }
@@ -171,7 +171,7 @@ var ViewModel = function () {
 
     //Get ShobeList List
     function getShobeList() {
-        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
             ShobeList = data;
         });
     }
@@ -179,7 +179,7 @@ var ViewModel = function () {
 
     //Get JariList List
     function getJariList() {
-        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
             JariList = data;
         });
     }
@@ -236,7 +236,6 @@ var ViewModel = function () {
         );
         data = cols;
 
-
         for (var i = 0; i < data.length; i++) {
             if (data[i].Code == 'AccCode' ||
 
@@ -249,9 +248,20 @@ var ViewModel = function () {
                 data[i].Code == 'OprName' ||
                 data[i].Code == 'Bede' ||
                 data[i].Code == 'Best' ||
+                data[i].Code == 'Comm' ||
+                data[i].Code == 'BandSpec' ||
                 data[i].Code == 'Bank' ||
                 data[i].Code == 'CheckNo' ||
-                data[i].Code == 'BaratNo'
+                data[i].Code == 'Shobe' ||
+                data[i].Code == 'Jari' ||
+                data[i].Code == 'BaratNo' ||
+                data[i].Code == 'CheckStatusSt' ||
+                data[i].Code == 'CheckRadif' ||
+                data[i].Code == 'CheckComm' ||
+                data[i].Code == 'TrafCode' ||
+                data[i].Code == 'TrafName' ||
+                data[i].Code == 'TrafZCode' ||
+                data[i].Code == 'TrafZName' 
             ) {
 
             }
@@ -340,6 +350,46 @@ var ViewModel = function () {
                     ',"lookup": {"dataSource": "CheckList", "valueExpr": "CheckNo", "displayExpr": "CheckNo"},' +
                     '"editCellTemplate": "dropDownBoxEditorCheckNo"'
             }
+
+
+            else if (data[i].Code == "Bank") {
+                f +=
+                    ',"lookup": {"dataSource": "BankList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                    '"editCellTemplate": "dropDownBoxEditorBank"'
+            }
+            else if (data[i].Code == "Shobe") {
+                f +=
+                    ',"lookup": {"dataSource": "ShobeList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                    '"editCellTemplate": "dropDownBoxEditorShobe"'
+            }
+            else if (data[i].Code == "Jari") {
+                f +=
+                    ',"lookup": {"dataSource": "JariList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                    '"editCellTemplate": "dropDownBoxEditorJari"'
+            }
+
+
+            else if (data[i].Code == "TrafZCode") {
+                f +=
+                    ',"lookup": {"dataSource": "ZAccList", "valueExpr": "Code", "displayExpr": "Code"},' +
+                    '"editCellTemplate": "dropDownBoxEditorTrafZCode"'
+            }
+            else if (data[i].Code == "TrafZName") {
+                f +=
+                    ',"lookup": {"dataSource": "ZAccList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                    '"editCellTemplate": "dropDownBoxEditorTrafZName"'
+            }
+            else if (data[i].Code == "TrafCode") {
+                f +=
+                    ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
+                    '"editCellTemplate": "dropDownBoxEditorTrafCode"'
+            }
+            else if (data[i].Code == "TrafName") {
+                f +=
+                    ',"lookup": {"dataSource": "AccList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                    '"editCellTemplate": "dropDownBoxEditorTrafName"'
+            }
+
 
 
             else if (data[i].Code == "Bede") {
@@ -436,6 +486,39 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = CheckList;
             }
 
+
+            if (cols[i].dataField == 'Bank') {
+                cols[i].editCellTemplate = dropDownBoxEditorBank;
+                cols[i].lookup.dataSource = BankList;
+            }
+
+            if (cols[i].dataField == 'Shobe') {
+                cols[i].editCellTemplate = dropDownBoxEditorShobe;
+                cols[i].lookup.dataSource = ShobeList;
+            }
+
+            if (cols[i].dataField == 'Jari') {
+                cols[i].editCellTemplate = dropDownBoxEditorJari;
+                cols[i].lookup.dataSource = JariList;
+            }
+
+            if (cols[i].dataField == 'TrafZCode') {
+                cols[i].editCellTemplate = dropDownBoxEditorTrafZCode;
+                cols[i].lookup.dataSource = ZAccList;
+            }
+            if (cols[i].dataField == 'TrafZName') {
+                cols[i].editCellTemplate = dropDownBoxEditorTrafZName;
+                 cols[i].lookup.dataSource = ZAccList;
+            }
+            if (cols[i].dataField == 'TrafCode') {
+                cols[i].editCellTemplate = dropDownBoxEditorTrafCode;
+                cols[i].lookup.dataSource = AccList;
+            }
+            if (cols[i].dataField == 'TrafName') {
+                cols[i].editCellTemplate = dropDownBoxEditorTrafName;
+                cols[i].lookup.dataSource = AccList;
+            }
+
             if (cols[i].dataField == 'Bede') {
                 cols[i].setCellValue = EditorBede;
             }
@@ -443,10 +526,9 @@ var ViewModel = function () {
                 cols[i].setCellValue = EditorBest;
             }
 
-            if (cols[i].dataField == "Bank" ||
+            /*if (cols[i].dataField == "Bank" ||
                 cols[i].dataField == "CheckNo" ||
                 cols[i].dataField == "CheckDate" ||
-                cols[i].dataField == "Bank" ||
                 cols[i].dataField == "Shobe" ||
                 cols[i].dataField == "Jari" ||
                 cols[i].dataField == "BaratNo" ||
@@ -466,7 +548,26 @@ var ViewModel = function () {
                 cols[i].editorOptions = 0;
                 cols[i].editorOptions.height = 100;
                 conutHide++;
-            }
+            }*/
+
+            if (cols[i].dataField == "CheckNo") cols[i].hidingPriority = 0;
+            if (cols[i].dataField == "CheckDate") cols[i].hidingPriority = 1;
+            if (cols[i].dataField == "Bank") cols[i].hidingPriority = 2;
+            if (cols[i].dataField == "Shobe") cols[i].hidingPriority = 3;
+            if (cols[i].dataField == "Jari") cols[i].hidingPriority = 4;
+            if (cols[i].dataField == "CheckStatus") cols[i].hidingPriority = 5;
+            if (cols[i].dataField == "TrafCode") cols[i].hidingPriority = 6;
+            if (cols[i].dataField == "TrafName") cols[i].hidingPriority = 7;
+            if (cols[i].dataField == "TrafZCode") cols[i].hidingPriority = 8;
+            if (cols[i].dataField == "TrafZName") cols[i].hidingPriority = 9;
+            if (cols[i].dataField == "CheckRadif") cols[i].hidingPriority = 10;
+            if (cols[i].dataField == "BaratNo") cols[i].hidingPriority = 11;
+            if (cols[i].dataField == "CheckVosoolDate") cols[i].hidingPriority = 12;
+            if (cols[i].dataField == "CheckComm") cols[i].hidingPriority = 13;
+           // if (cols[i].dataField == "CheckMode") cols[i].hidingPriority = 0;
+
+
+
         }
 
         CreateTableColumn(cols);
@@ -488,9 +589,9 @@ var ViewModel = function () {
             showRowLines: true,
             allowColumnReordering: true,
             allowColumnResizing: true,
-            columnAutoWidth: false,
+            columnAutoWidth: true,
 
-            //columnResizingMode: 'widget',
+            columnResizingMode: 'widget',
             columnMinWidth: 100,
             focusedRowIndex: 0,
             focusedColumnIndex: 0,
@@ -520,7 +621,7 @@ var ViewModel = function () {
                 startEditAction: 'click',
                 confirmDelete: false,
                 useIcons: true,
-                newRowPosition: 'last',
+                //newRowPosition: 'last',
 
             },
             //columnHidingEnabled: true,
@@ -1033,7 +1134,6 @@ var ViewModel = function () {
 
     function dropDownBoxEditorOprCode(cellElement, cellInfo) {
         if (dataAcc[ro].Opr > 0) {
-
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: OprList,
@@ -1233,8 +1333,8 @@ var ViewModel = function () {
 
 
     function dropDownBoxEditorCheckNo(cellElement, cellInfo) {
-        //CheckNo
-        //ro = cellInfo.rowIndex;
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
         if (dataAcc[ro].PDMode > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -1256,6 +1356,16 @@ var ViewModel = function () {
                             { dataField: 'CheckNo', caption: "شماره چک" },
                             { dataField: 'CheckDate', caption: "تاریخ چک" },
                             { dataField: 'Value', caption: "مبلغ" },
+                            { dataField: 'Bank', caption: "بانک" },
+                            { dataField: 'Shobe', caption: "شعبه", hidingPriority: 0 },
+                            { dataField: 'Jari', caption: "جاری", hidingPriority: 1 },
+                            { dataField: 'BaratNo', caption: "برات", hidingPriority : 2 },
+                            { dataField: 'CheckStatusSt', caption: "وضعیت چک" },
+                            { dataField: 'CheckRadif', caption: "ردیف چک", hidingPriority: 3 },
+                            { dataField: 'CheckComm', caption: "توضیحات چک", hidingPriority : 4 },
+                            { dataField: 'TrafFullCode', caption: "کد طرف چک", hidingPriority : 5 },
+                            { dataField: 'TrafFullName', caption: "نام طرف چک", hidingPriority :6 },
+                            { dataField: 'CheckVosoolDate', caption: "تاریخ وصول چک", hidingPriority :7 },
                         ],
                         hoverStateEnabled: true,
                         scrolling: { mode: 'virtual' },
@@ -1271,7 +1381,29 @@ var ViewModel = function () {
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
-                                dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                dataGrid.cellValue(ro, "CheckDate", selectionChangedArgs.selectedRowsData[0].CheckDate);
+                                dataGrid.cellValue(ro, "Bank", selectionChangedArgs.selectedRowsData[0].Bank);
+                                dataGrid.cellValue(ro, "Shobe", selectionChangedArgs.selectedRowsData[0].Shobe);
+                                dataGrid.cellValue(ro, "Jari", selectionChangedArgs.selectedRowsData[0].Jari);
+                                dataGrid.cellValue(ro, "BaratNo", selectionChangedArgs.selectedRowsData[0].BaratNo);
+                                dataGrid.cellValue(ro, "CheckStatusSt", selectionChangedArgs.selectedRowsData[0].CheckStatusSt);
+                                dataGrid.cellValue(ro, "CheckRadif", selectionChangedArgs.selectedRowsData[0].CheckRadif);
+                                dataGrid.cellValue(ro, "CheckComm", selectionChangedArgs.selectedRowsData[0].CheckComm);
+                                dataGrid.cellValue(ro, "TrafCode", selectionChangedArgs.selectedRowsData[0].TrafCode);
+                                dataGrid.cellValue(ro, "TrafName", selectionChangedArgs.selectedRowsData[0].TrafName);
+                                dataGrid.cellValue(ro, "TrafZCode", selectionChangedArgs.selectedRowsData[0].TrafZCode);
+                                dataGrid.cellValue(ro, "TrafZName", selectionChangedArgs.selectedRowsData[0].TrafZName);
+
+                                dataGrid.cellValue(ro, "Best", 0);
+                                dataGrid.cellValue(ro, "Bede", 0);
+                                if (dataAcc[ro].PDMode == 1) {
+                                    dataGrid.cellValue(ro, "Best", selectionChangedArgs.selectedRowsData[0].Value);
+                                }
+                                else if(dataAcc[ro].PDMode == 2) {
+                                    dataGrid.cellValue(ro, "Bede", selectionChangedArgs.selectedRowsData[0].Value);
+                                }
+
+
                                 //dataGrid.saveEditData();
                                 e.component.close();
                             }
@@ -1282,6 +1414,387 @@ var ViewModel = function () {
         } else
             return ''
     }
+
+
+
+
+
+
+
+
+
+
+
+    function dropDownBoxEditorBank(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: BankList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: BankList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "نام" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                               // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+
+
+
+
+    function dropDownBoxEditorShobe(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: ShobeList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: ShobeList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "نام" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+
+    function dropDownBoxEditorJari(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: JariList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: JariList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "نام" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+
+    function dropDownBoxEditorTrafZName(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: ZAccList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: ZAccList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Code', caption: "کد" },
+                            { dataField: 'Name', caption: "نام" },
+                            { dataField: 'Spec', caption: "ملاحظات" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+    function dropDownBoxEditorTrafZCode(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: ZAccList,
+                value: cellInfo.value,
+                valueExpr: 'Code',
+                displayExpr: 'Code',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: ZAccList,
+                        keyExpr: 'Code',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Code', caption: "کد" },
+                            { dataField: 'Name', caption: "نام" },
+                            { dataField: 'Spec', caption: "ملاحظات" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+
+
+    function dropDownBoxEditorTrafName(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: AccList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: AccList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Code', caption: "کد" },
+                            { dataField: 'Name', caption: "نام" },
+                            { dataField: 'Spec', caption: "ملاحظات" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+    function dropDownBoxEditorTrafCode(cellElement, cellInfo) {
+        if (cellInfo.isOnForm == true)
+            ro = cellInfo.rowIndex - 1;
+        if (dataAcc[ro].PDMode > 0) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: AccList,
+                value: cellInfo.value,
+                valueExpr: 'Code',
+                displayExpr: 'Code',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: AccList,
+                        keyExpr: 'Code',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Code', caption: "کد" },
+                            { dataField: 'Name', caption: "نام" },
+                            { dataField: 'Spec', caption: "ملاحظات" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                ro = cellInfo.rowIndex;
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                //dataGrid.saveEditData();
+                                e.component.close();
+                            }
+                        },
+                    });
+                },
+            });
+        } else
+            return ''
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     function EditorBede(newData, value, currentRowData) {
@@ -1504,25 +2017,25 @@ var ViewModel = function () {
                 AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
                 Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
                 Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
-                Comm: '',
-                BandSpec: '',
-                CheckNo: '',
-                CheckDate: '',
-                Bank: '',
-                Shobe: '',
-                Jari: '',
-                BaratNo: '',
-                TrafCode: '',
+                Comm: ADocB[i].Comm,
+                BandSpec: ADocB[i].BandSpec,
+                CheckNo: ADocB[i].CheckNo,
+                CheckDate: ADocB[i].CheckDate,
+                Bank: ADocB[i].Bank,
+                Shobe: ADocB[i].Shobe,
+                Jari: ADocB[i].Jari,
+                BaratNo: ADocB[i].BaratNo,
+                TrafCode: ADocB[i].TrafCode,
                 TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
-                CheckRadif: '',
-                CheckComm: '',
-                CheckStatus: '',
-                CheckVosoolDate: '',
+                CheckRadif: ADocB[i].CheckRadif,
+                CheckComm: ADocB[i].CheckComm,
+                CheckStatus: ADocB[i].CheckStatus,
+                CheckVosoolDate: ADocB[i].CheckVosoolDate,
                 OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
-                ArzRate: '',
-                arzValue: '',
+                ArzRate: ADocB[i].ArzRate,
+                arzValue: ADocB[i].arzValue,
                 flagLog: 'Y',
             };
             obj.push(tmp);
