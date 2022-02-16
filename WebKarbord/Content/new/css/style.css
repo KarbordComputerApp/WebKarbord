@@ -12528,6 +12528,7 @@ table .checkbox [type="checkbox"] + label {
         -ms-border-radius: 0;
         border-radius: 0;
         padding-right: 0;
+        padding-left: 0;
         font-size:11px
     }
 

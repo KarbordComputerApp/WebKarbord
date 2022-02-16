@@ -261,16 +261,17 @@ var ViewModel = function () {
                 data[i].Code == 'TrafCode' ||
                 data[i].Code == 'TrafName' ||
                 data[i].Code == 'TrafZCode' ||
-                data[i].Code == 'TrafZName' 
+                data[i].Code == 'TrafZName'
             ) {
             }
             else
-              data[i].Visible = 0
+                data[i].Visible = 0
         }
 
         f = '['
         //f += '{"dataField":"Row","caption": "ردیف","cellTemplate":"rowNumber","allowEditing": false}, ';
 
+        
         for (var i = 0; i < data.length; i++) {
 
             f += '{"dataField":"' + data[i].Code + '",'
@@ -416,6 +417,7 @@ var ViewModel = function () {
                 f += ','
         }
 
+        f += ',{"type": "buttons","buttons": ["edit", "delete"]}';
 
 
 
@@ -431,6 +433,40 @@ var ViewModel = function () {
             /* if (cols[i].dataField == 'Row') {
                  cols[i].cellTemplate = rowNumber;
              }*/
+
+            if (cols[i].type == 'buttons') {
+                //cols[i].fixed = true;
+               
+                //cols[i].fixedPosition= "left";
+
+                cols[i].buttons[2] = '';
+                cols[i].buttons[2] =
+                    {
+                        hint: 'Clone',
+                        icon: 'copy',
+                        onClick(e) {
+                            ShowCheck(e);
+                        }
+                        /* visible(e) {
+                         //   return !e.row.isEditing;
+                        },
+                        disabled(e) {
+                         //   return isChief(e.row.data.Position);
+                        },
+                        onClick(e) {
+                         //   const clonedItem = $.extend({}, e.row.data, { ID: maxID += 1 });
+
+                          //  employees.splice(e.row.rowIndex, 0, clonedItem);
+                          //  e.component.refresh(true);
+                          //  e.event.preventDefault();
+                        },*/
+                    };
+
+
+
+
+
+            }
 
             if (cols[i].dataField == 'AccCode') {
                 cols[i].editCellTemplate = dropDownBoxEditorAccCode;
@@ -507,7 +543,7 @@ var ViewModel = function () {
             }
             if (cols[i].dataField == 'TrafZName') {
                 cols[i].editCellTemplate = dropDownBoxEditorTrafZName;
-                 cols[i].lookup.dataSource = ZAccList;
+                cols[i].lookup.dataSource = ZAccList;
             }
             if (cols[i].dataField == 'TrafCode') {
                 cols[i].editCellTemplate = dropDownBoxEditorTrafCode;
@@ -525,29 +561,29 @@ var ViewModel = function () {
                 cols[i].setCellValue = EditorBest;
             }
 
-           /* if (cols[i].dataField == "Bank" ||
-                cols[i].dataField == "CheckNo" ||
-                cols[i].dataField == "CheckDate" ||
-                cols[i].dataField == "Shobe" ||
-                cols[i].dataField == "Jari" ||
-                cols[i].dataField == "BaratNo" ||
-                cols[i].dataField == "CheckComm" ||
-                cols[i].dataField == "CheckMode" ||
-                cols[i].dataField == "CheckRadif" ||
-                cols[i].dataField == "CheckVosoolDate" ||
-                cols[i].dataField == "CheckStatus" ||
-                cols[i].dataField == "TrafZCode" ||
-                cols[i].dataField == "TrafZName" ||
-                cols[i].dataField == "TrafCode" ||
-                cols[i].dataField == "TrafName"
-
-            ) {
-                cols[i].hidingPriority = conutHide;
-                cols[i].width = 70;
-                cols[i].editorOptions = 0;
-                cols[i].editorOptions.height = 100;
-                conutHide++;
-            }*/
+            /* if (cols[i].dataField == "Bank" ||
+                 cols[i].dataField == "CheckNo" ||
+                 cols[i].dataField == "CheckDate" ||
+                 cols[i].dataField == "Shobe" ||
+                 cols[i].dataField == "Jari" ||
+                 cols[i].dataField == "BaratNo" ||
+                 cols[i].dataField == "CheckComm" ||
+                 cols[i].dataField == "CheckMode" ||
+                 cols[i].dataField == "CheckRadif" ||
+                 cols[i].dataField == "CheckVosoolDate" ||
+                 cols[i].dataField == "CheckStatus" ||
+                 cols[i].dataField == "TrafZCode" ||
+                 cols[i].dataField == "TrafZName" ||
+                 cols[i].dataField == "TrafCode" ||
+                 cols[i].dataField == "TrafName"
+ 
+             ) {
+                 cols[i].hidingPriority = conutHide;
+                 cols[i].width = 70;
+                 cols[i].editorOptions = 0;
+                 cols[i].editorOptions.height = 100;
+                 conutHide++;
+             }
 
             if (cols[i].dataField == "CheckNo") cols[i].hidingPriority = 0;
             if (cols[i].dataField == "CheckDate") cols[i].hidingPriority = 1;
@@ -563,8 +599,8 @@ var ViewModel = function () {
             if (cols[i].dataField == "BaratNo") cols[i].hidingPriority = 11;
             if (cols[i].dataField == "CheckVosoolDate") cols[i].hidingPriority = 12;
             if (cols[i].dataField == "CheckComm") cols[i].hidingPriority = 13;
-           // if (cols[i].dataField == "CheckMode") cols[i].hidingPriority = 0;
-
+            // if (cols[i].dataField == "CheckMode") cols[i].hidingPriority = 0;
+            */
 
 
         }
@@ -623,8 +659,12 @@ var ViewModel = function () {
                 //newRowPosition: 'last',
 
             },
-           // columnHidingEnabled: true,
+            // columnHidingEnabled: true,
+            //columnFixing: {
+             //   enabled: true
+            //},
             columns: data,
+
 
             /* summary: {
                  recalculateWhileEditing: ,
@@ -826,7 +866,7 @@ var ViewModel = function () {
                                 getCheckList(dataAcc[ro].PDMode);
                             }
 
-                           
+
 
 
                             e.component.close();
@@ -1358,13 +1398,13 @@ var ViewModel = function () {
                             { dataField: 'Bank', caption: "بانک" },
                             { dataField: 'Shobe', caption: "شعبه", hidingPriority: 0 },
                             { dataField: 'Jari', caption: "جاری", hidingPriority: 1 },
-                            { dataField: 'BaratNo', caption: "برات", hidingPriority : 2 },
+                            { dataField: 'BaratNo', caption: "برات", hidingPriority: 2 },
                             { dataField: 'CheckStatusSt', caption: "وضعیت چک" },
                             { dataField: 'CheckRadif', caption: "ردیف چک", hidingPriority: 3 },
-                            { dataField: 'CheckComm', caption: "توضیحات چک", hidingPriority : 4 },
-                            { dataField: 'TrafFullCode', caption: "کد طرف چک", hidingPriority : 5 },
-                            { dataField: 'TrafFullName', caption: "نام طرف چک", hidingPriority :6 },
-                            { dataField: 'CheckVosoolDate', caption: "تاریخ وصول چک", hidingPriority :7 },
+                            { dataField: 'CheckComm', caption: "توضیحات چک", hidingPriority: 4 },
+                            { dataField: 'TrafFullCode', caption: "کد طرف چک", hidingPriority: 5 },
+                            { dataField: 'TrafFullName', caption: "نام طرف چک", hidingPriority: 6 },
+                            { dataField: 'CheckVosoolDate', caption: "تاریخ وصول چک", hidingPriority: 7 },
                         ],
                         hoverStateEnabled: true,
                         scrolling: { mode: 'virtual' },
@@ -1398,7 +1438,7 @@ var ViewModel = function () {
                                 if (dataAcc[ro].PDMode == 1) {
                                     dataGrid.cellValue(ro, "Best", selectionChangedArgs.selectedRowsData[0].Value);
                                 }
-                                else if(dataAcc[ro].PDMode == 2) {
+                                else if (dataAcc[ro].PDMode == 2) {
                                     dataGrid.cellValue(ro, "Bede", selectionChangedArgs.selectedRowsData[0].Value);
                                 }
 
@@ -1413,16 +1453,6 @@ var ViewModel = function () {
         } else
             return ''
     }
-
-
-
-
-
-
-
-
-
-
 
     function dropDownBoxEditorBank(cellElement, cellInfo) {
         if (cellInfo.isOnForm == true)
@@ -1461,7 +1491,7 @@ var ViewModel = function () {
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
-                               // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
                                 //dataGrid.saveEditData();
                                 e.component.close();
                             }
@@ -1472,10 +1502,6 @@ var ViewModel = function () {
         } else
             return ''
     }
-
-
-
-
 
     function dropDownBoxEditorShobe(cellElement, cellInfo) {
         if (cellInfo.isOnForm == true)
@@ -1813,6 +1839,9 @@ var ViewModel = function () {
 
 
 
+        function ShowCheck(e) {
+            a = e;
+        }
 
 
 

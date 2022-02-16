@@ -79,7 +79,7 @@
                     + afiList[i].Code + " - " + afiList[i].Name + '</option>');
             }
 
-            if (sessionStorage.onlyGroupErj != '') {
+            if (sessionStorage.onlyGroupErj != '' && sessionStorage.onlyGroupErj != 'null') {
                 onlyGroupErj = sessionStorage.onlyGroupErj.split('-');
 
                 for (var i = 0; i < onlyGroupErj.length; i++) {
