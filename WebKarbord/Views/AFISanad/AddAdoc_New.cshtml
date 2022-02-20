@@ -72,10 +72,15 @@
             </div>
             <div class="body">
                 <div class="row">
-                    <div id="data-error" class="col-md-4">
+
+
+                    <div id="data-grid">
+                        <div id="gridContainer"></div>
+                    </div>
+                    <div id="data-error" class="col-md-6">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <div id="BodyTestDocB" style="height:350px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+                                <div id="BodyTestDocB" style="height:250px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
                                 </div>
                                 <br />
                                 <div>
@@ -97,18 +102,11 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
 
 
                     </div>
-
-                    <div id="data-grid">
-                        <div id="gridContainer"></div>
-                    </div>
-
                 </div>
 
             </div>
@@ -208,6 +206,762 @@
 
 
 
+<div class="modal fade" id="modal-DataCheck" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="max-width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="box box-info">
+                    <div class="row">
+                        <div class="row form-inline  col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 20px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width:32px;">
+                                        <a id="btncheck" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Check">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="CheckNo" class="form-control" />
+                                            <label class="form-label" data-bind="text:translate('شماره چک')"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width:32px;">
+                                        <span class="input-group-btn">
+                                            <a id="btnCheckDateBand">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="checkDateBand" data-bind="value:CheckDateBand" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" data-bind="text:translate('تاریخ چک')"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-inline col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding-bottom: 20px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width:32px;">
+                                        <a id="btnBank" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Bank">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="nameBank" class="form-control" />
+                                            <label class="form-label" data-bind="text:translate('بانک')"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width:32px;">
+                                        <a id="btnShobe" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Shobe">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="nameShobe" class="form-control" />
+                                            <label class="form-label" data-bind="text:translate('شعبه')"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-inline   col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding-bottom: 20px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width:32px;">
+                                        <a id="btnJari" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Jari">
+                                            <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="nameJari" class="form-control" />
+                                            <label class="form-label" data-bind="text:translate('جاری')"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input id="Value" class="form-control float" />
+                                        <label class="form-label" data-bind="text:translate('مبلغ')"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-inline  col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding-bottom: 20px">
+                            <!--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group form-float" hidden>
+                                    <div class="form-line focused fix">
+                                        <input id="BaratNo" class="form-control" />
+                                        <label class="form-label" for="">برات</label>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <span class="col-md-3" data-bind="text:translate('وضعیت چک')">
+                            </span>
+
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" id="ViewCheckStatus">
+                                <select id="checkStatus" data-bind="options: CheckStatusList,
+                                   optionsText: function(item) {return item.Name},
+                                   optionsValue: 'Name',
+                                   value: CheckStatusCode,
+                                   optionsCaption: '' "></select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="width:32px;">
+                                    <a id="btnTraf" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Traf">
+                                        <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                    </a>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input id="nameTraf" class="form-control" readonly />
+                                        <label class="form-label" data-bind="text:translate('طرف حساب')"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="width:32px;">
+                                    <a id="btnTrafZ" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-TrafZ">
+                                        <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                    </a>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input id="nameTrafZ" class="form-control" readonly />
+                                        <label class="form-label" data-bind="text:translate('زیر حساب')"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-inline   col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding-bottom: 20px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input id="CheckRadif" class="form-control" />
+                                        <label class="form-label" data-bind="text:translate('ردیف چک')"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width:32px;">
+                                        <span class="input-group-btn">
+                                            <a id="btnCheckVosoolDate">
+                                                <img src="~/Content/img/list/calendar.png" class="icon" height="20" width="20" />
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line focused fix">
+                                            <input id="checkVosoolDate" data-bind="value:CheckVosoolDate" class="form-control date" type="text" maxlength="10">
+                                            <label class="form-label" data-bind="text:translate('تاریخ وصول چک')"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <div class="form-line focused fix">
+                                    <input id="CheckComm" class="form-control autocomplete" />
+                                    <label class="form-label" data-bind="text:translate('توضیحات چک')"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+               <!-- <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                      <button data-bind="text:translate('ثبت'), click: flagupdateband == 1 ? UpdateADocB : AddADocB" type="button" id="Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;max-width:330px;"></button>
+                   
+                </div> -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="modal-Traf" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست طرف حساب ها')"></h4>
+                <a id="refreshTraf">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFixList">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableTraf">
+                                <th data-column="Code" style="width: 200px;">
+                                    <span data-column="Code" data-bind="text:translate('کد')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeCode }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="SortName" style="width: 500px;">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Spec" style="width: 300px;">
+                                    <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageTraf" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectTraf  , style: {color: Level == 1 ? '#009688': '#212529'}">
+                                <td data-bind="text: Code"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Spec"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTraf0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTraf1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTraf2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeTraf">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageTraf">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageTraf">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexTraf() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageTraf">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageTraf">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-TrafZ" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست زیر حساب')"></h4>
+                <a id="refreshTrafZ">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFixList">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableTrafZ">
+                                <th data-column="Code" style="width: 200px;">
+                                    <span data-column="Code" data-bind="text:translate('کد')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeCode }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="SortName" style="width: 500px;">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Spec" style="width: 300px;">
+                                    <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageTrafZ" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectTrafZ">
+                                <td data-bind="text: Code"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Spec"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrafZ0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrafZ1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTrafZ2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeTrafZ">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+
+                        <a data-bind="click: firstPageTrafZ">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageTrafZ">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexTrafZ() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageTrafZ">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageTrafZ">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Bank" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست بانک')"></h4>
+                <a id="refreshBank">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFixList">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableBank">
+                                <th data-column="SortName" style="width: 500px;">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageBank" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectBank">
+                                <td data-bind="text: Name"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterBank0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeBank">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageBank">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageBank">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexBank() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageBank">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageBank">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Shobe" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست شعبه')"></h4>
+                <a id="refreshShobe">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFixList">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableShobe">
+                                <th data-column="SortName" style="width: 500px;">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageShobe" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectShobe">
+                                <td data-bind="text: Name"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterShobe0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeShobe">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageShobe">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageShobe">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexShobe() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageShobe">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageShobe">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Jari" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست جاری')"></h4>
+                <a id="refreshJari">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFixList">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableJari">
+                                <th data-column="SortName" style="width: 500px;">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageJari" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectJari">
+                                <td data-bind="text: Name"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterJari0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeJari">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageJari">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageJari">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexJari() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageJari">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageJari">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-Check" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست چک')"></h4>
+                <a id="refreshCheck">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div id="TableCheck" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeCheck">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageCheck">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageCheck">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexCheck() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageCheck">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageCheck">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @section scripts{
     <script type="text/javascript">
         sessionStorage.urlADocH = '@Url.Action("Index", "AFISanad")';
@@ -227,6 +981,35 @@
 
         });
 
+        $('#btnCheckDateBand').MdPersianDateTimePicker({
+            targetTextSelector: '#checkDateBand',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
+        });
+
+        $('#btnCheckVosoolDate').MdPersianDateTimePicker({
+            targetTextSelector: '#checkVosoolDate',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
+        });
+
+
         //'use strict';
         $(function () {
             $('.dd').nestable();
@@ -240,3 +1023,7 @@
 
     <script src="~/Scripts/AFISanad_New.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
 }
+
+
+
+

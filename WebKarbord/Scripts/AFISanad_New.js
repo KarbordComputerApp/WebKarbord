@@ -2,7 +2,7 @@
 var cols;
 
 var ViewModel = function () {
-
+    var self = this;
     TestUser();
     var viewAction = false;
     var resTestNew = false;
@@ -28,6 +28,38 @@ var ViewModel = function () {
     self.StatusSanad = ko.observable();
 
 
+    self.currentColumn = ko.observable("");
+    self.iconTypeCode = ko.observable("");
+    self.iconTypeName = ko.observable("");
+    self.iconTypeSpec = ko.observable("");
+
+    self.CheckNo = ko.observable();
+    self.CheckDateBand = ko.observable();
+    self.Bank = ko.observable();
+    self.Shobe = ko.observable();
+    self.Jari = ko.observable();
+    self.Value = ko.observable();
+    self.BaratNo = ko.observable();
+    self.CheckStatusCode = ko.observable();
+    self.TrafCode = ko.observable();
+    self.TrafZCode = ko.observable();
+    self.CheckRadif = ko.observable();
+    self.CheckVosoolDate = ko.observable();
+    self.CheckComm = ko.observable();
+
+
+
+
+
+    self.AccList = ko.observableArray([]); // لیست حساب ها
+    self.ZAccList = ko.observableArray([]); // لیست زیر حساب ها
+
+    self.CheckStatusList = ko.observableArray([]); // لیست نوع چک ها
+    self.CheckList = ko.observableArray([]); // لیست چک ها
+    self.BankList = ko.observableArray([]); // لیست چک ها
+    self.ShobeList = ko.observableArray([]); // لیست چک ها
+    self.JariList = ko.observableArray([]); // لیست چک ها
+    self.StatusList = ko.observableArray([]); // وضعیت  
 
 
 
@@ -51,6 +83,7 @@ var ViewModel = function () {
     var ShobeUri = server + '/api/ADocData/Shobe/'; // آدرس لیست شعبه  
     var JariUri = server + '/api/ADocData/Jari/'; // آدرس لیست جاری 
     var CheckStatusUri = server + '/api/ADocData/CheckStatus/'; // آدرس وضعیت چک
+
     var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
     var TestADoc_NewUri = server + '/api/ADocData/TestADoc_New/'; // آدرس تست ایجاد  
     var TestADoc_EditUri = server + '/api/ADocData/TestADoc_Edit/'; // آدرس تست ویرایش 
@@ -68,11 +101,19 @@ var ViewModel = function () {
     var ArzList; // لیست ارز ها
     var ZAccList; // لیست زیر حساب ها
 
-    var CheckList; // لیست چک
-    var BankList;// لیست بانک
-    var ShobeList;// لیست شعبه
-    var JariList;// لیست جاری
-    var CheckStatusList;// لیست وضعیت چک
+    // var CheckList; // لیست چک
+    // var BankList;// لیست بانک
+    //  var ShobeList;// لیست شعبه
+    //  var JariList;// لیست جاری
+    //  var CheckStatusList;// لیست وضعیت چک
+
+
+    function getColsCheckList() {
+        colsCheck = getRprtCols('CheckList', sessionStorage.userName);
+        CreateTableCheck(colsCheck);
+    }
+
+    getColsCheckList();
 
 
     function getAModeList() {
@@ -108,6 +149,7 @@ var ViewModel = function () {
             }
 
             ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, false).done(function (data) {
+                self.AccList(data)
                 AccList = data.filter(s => s.AutoCreate == 0);
             });
         }
@@ -144,6 +186,7 @@ var ViewModel = function () {
     function getZAccList() {
         ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + null, 'GET').done(function (data) {
             ZAccList = data;
+            self.ZAccList(data);
         });
     }
     getZAccList();
@@ -152,49 +195,112 @@ var ViewModel = function () {
 
 
 
-
     //Get CheckList List
     function getCheckList(PDMode) {
         ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
-            CheckList = data;
+            self.CheckList(data);
         });
     }
-    getCheckList(2);
 
     //Get BankList List
     function getBankList() {
-        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            BankList = data;
+        ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            self.BankList(data);
         });
     }
-    getBankList();
+
+    $('#btnBank').click(function () {
+        if (self.BankList().length == 0) {
+            getBankList();
+        }
+    });
 
     //Get ShobeList List
     function getShobeList() {
-        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            ShobeList = data;
+        ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            self.ShobeList(data);
         });
     }
-    getShobeList();
+
+    $('#btnShobe').click(function () {
+        if (self.ShobeList().length == 0) {
+            getShobeList();
+        }
+    });
 
     //Get JariList List
     function getJariList() {
-        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            JariList = data;
+        ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            self.JariList(data);
         });
     }
-    getJariList();
+
+    $('#btnJari').click(function () {
+        if (self.JariList().length == 0) {
+            getJariList();
+        }
+    });
+
 
     //Get CheckStatus List
     function getCheckStatusList(PDMode) {
-        ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
-            CheckStatusList = data;
-            localStorage.setItem('CheckStatus' + PDMode, JSON.stringify(data));
-        });
+        list = localStorage.getItem('CheckStatus' + PDMode);
+        if (list != null) {
+            list = JSON.parse(localStorage.getItem('CheckStatus' + PDMode));
+            self.CheckStatusList(list)
+        }
+        else {
+            ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
+                self.CheckStatusList(data);
+                localStorage.setItem('CheckStatus' + PDMode, JSON.stringify(data));
+            });
+        }
     }
-    getCheckStatusList(0);
 
+    getCheckStatusList(1)
 
+    /*   //Get CheckList List
+       function getCheckList(PDMode) {
+           ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
+               CheckList = data;
+           });
+       }
+       getCheckList(2);
+   
+       //Get BankList List
+       function getBankList() {
+           ajaxFunction(BankUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+               BankList = data;
+           });
+       }
+       getBankList();
+   
+       //Get ShobeList List
+       function getShobeList() {
+           ajaxFunction(ShobeUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+               ShobeList = data;
+           });
+       }
+       getShobeList();
+   
+       //Get JariList List
+       function getJariList() {
+           ajaxFunction(JariUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+               JariList = data;
+           });
+       }
+       getJariList();
+   
+       //Get CheckStatus List
+       function getCheckStatusList(PDMode) {
+           ajaxFunction(CheckStatusUri + ace + '/' + sal + '/' + group + '/' + PDMode + '/0', 'GET').done(function (data) {
+               CheckStatusList = data;
+               localStorage.setItem('CheckStatus' + PDMode, JSON.stringify(data));
+           });
+       }
+       getCheckStatusList(0);
+   
+   */
 
 
     function getADocHLastDate() {
@@ -249,19 +355,19 @@ var ViewModel = function () {
                 data[i].Code == 'Bede' ||
                 data[i].Code == 'Best' ||
                 data[i].Code == 'Comm' ||
-                data[i].Code == 'BandSpec' ||
-                data[i].Code == 'Bank' ||
-                data[i].Code == 'CheckNo' ||
-                data[i].Code == 'Shobe' ||
-                data[i].Code == 'Jari' ||
-                data[i].Code == 'BaratNo' ||
-                data[i].Code == 'CheckStatusSt' ||
-                data[i].Code == 'CheckRadif' ||
-                data[i].Code == 'CheckComm' ||
-                data[i].Code == 'TrafCode' ||
-                data[i].Code == 'TrafName' ||
-                data[i].Code == 'TrafZCode' ||
-                data[i].Code == 'TrafZName'
+                data[i].Code == 'BandSpec'
+                //data[i].Code == 'Bank' ||
+                //data[i].Code == 'CheckNo' ||
+                // data[i].Code == 'Shobe' ||
+                //data[i].Code == 'Jari' ||
+                // data[i].Code == 'BaratNo' ||
+                // data[i].Code == 'CheckStatusSt' ||
+                // data[i].Code == 'CheckRadif' ||
+                // data[i].Code == 'CheckComm' ||
+                // data[i].Code == 'TrafCode' ||
+                // data[i].Code == 'TrafName' ||
+                //data[i].Code == 'TrafZCode' ||
+                // data[i].Code == 'TrafZName'
             ) {
             }
             else
@@ -271,7 +377,7 @@ var ViewModel = function () {
         f = '['
         //f += '{"dataField":"Row","caption": "ردیف","cellTemplate":"rowNumber","allowEditing": false}, ';
 
-        
+
         for (var i = 0; i < data.length; i++) {
 
             f += '{"dataField":"' + data[i].Code + '",'
@@ -345,51 +451,51 @@ var ViewModel = function () {
             }
 
 
-            else if (data[i].Code == "CheckNo") {
-                f +=
-                    ',"lookup": {"dataSource": "CheckList", "valueExpr": "CheckNo", "displayExpr": "CheckNo"},' +
-                    '"editCellTemplate": "dropDownBoxEditorCheckNo"'
-            }
-
-
-            else if (data[i].Code == "Bank") {
-                f +=
-                    ',"lookup": {"dataSource": "BankList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    '"editCellTemplate": "dropDownBoxEditorBank"'
-            }
-            else if (data[i].Code == "Shobe") {
-                f +=
-                    ',"lookup": {"dataSource": "ShobeList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    '"editCellTemplate": "dropDownBoxEditorShobe"'
-            }
-            else if (data[i].Code == "Jari") {
-                f +=
-                    ',"lookup": {"dataSource": "JariList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    '"editCellTemplate": "dropDownBoxEditorJari"'
-            }
-
-
-            else if (data[i].Code == "TrafZCode") {
-                f +=
-                    ',"lookup": {"dataSource": "ZAccList", "valueExpr": "Code", "displayExpr": "Code"},' +
-                    '"editCellTemplate": "dropDownBoxEditorTrafZCode"'
-            }
-            else if (data[i].Code == "TrafZName") {
-                f +=
-                    ',"lookup": {"dataSource": "ZAccList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    '"editCellTemplate": "dropDownBoxEditorTrafZName"'
-            }
-            else if (data[i].Code == "TrafCode") {
-                f +=
-                    ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
-                    '"editCellTemplate": "dropDownBoxEditorTrafCode"'
-            }
-            else if (data[i].Code == "TrafName") {
-                f +=
-                    ',"lookup": {"dataSource": "AccList", "valueExpr": "Name", "displayExpr": "Name"},' +
-                    '"editCellTemplate": "dropDownBoxEditorTrafName"'
-            }
-
+            /* else if (data[i].Code == "CheckNo") {
+                 f +=
+                     ',"lookup": {"dataSource": "CheckList", "valueExpr": "CheckNo", "displayExpr": "CheckNo"},' +
+                     '"editCellTemplate": "dropDownBoxEditorCheckNo"'
+             }
+ 
+ 
+             else if (data[i].Code == "Bank") {
+                 f +=
+                     ',"lookup": {"dataSource": "BankList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                     '"editCellTemplate": "dropDownBoxEditorBank"'
+             }
+             else if (data[i].Code == "Shobe") {
+                 f +=
+                     ',"lookup": {"dataSource": "ShobeList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                     '"editCellTemplate": "dropDownBoxEditorShobe"'
+             }
+             else if (data[i].Code == "Jari") {
+                 f +=
+                     ',"lookup": {"dataSource": "JariList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                     '"editCellTemplate": "dropDownBoxEditorJari"'
+             }
+ 
+ 
+             else if (data[i].Code == "TrafZCode") {
+                 f +=
+                     ',"lookup": {"dataSource": "ZAccList", "valueExpr": "Code", "displayExpr": "Code"},' +
+                     '"editCellTemplate": "dropDownBoxEditorTrafZCode"'
+             }
+             else if (data[i].Code == "TrafZName") {
+                 f +=
+                     ',"lookup": {"dataSource": "ZAccList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                     '"editCellTemplate": "dropDownBoxEditorTrafZName"'
+             }
+             else if (data[i].Code == "TrafCode") {
+                 f +=
+                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
+                     '"editCellTemplate": "dropDownBoxEditorTrafCode"'
+             }
+             else if (data[i].Code == "TrafName") {
+                 f +=
+                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                     '"editCellTemplate": "dropDownBoxEditorTrafName"'
+             }
+             */
 
 
             else if (data[i].Code == "Bede") {
@@ -436,26 +542,35 @@ var ViewModel = function () {
 
             if (cols[i].type == 'buttons') {
                 //cols[i].fixed = true;
-               
+
                 //cols[i].fixedPosition= "left";
 
                 cols[i].buttons[2] = '';
                 cols[i].buttons[2] =
                     {
-                        hint: 'Clone',
-                        icon: 'copy',
+                        hint: 'اطلاعات چک',
+                        icon: 'file',
                         onClick(e) {
+                            ro = e.row.rowIndex;
                             ShowCheck(e);
+                        },
+
+                        disabled(e) {
+                            if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
+                                return dataAcc[e.row.rowIndex].PDMode == 0;
+                            else
+                                return false;
+
                         }
                         /* visible(e) {
-                         //   return !e.row.isEditing;
+                            return !e.row.isEditing;
                         },
                         disabled(e) {
                          //   return isChief(e.row.data.Position);
                         },
                         onClick(e) {
                          //   const clonedItem = $.extend({}, e.row.data, { ID: maxID += 1 });
-
+         
                           //  employees.splice(e.row.rowIndex, 0, clonedItem);
                           //  e.component.refresh(true);
                           //  e.event.preventDefault();
@@ -516,43 +631,43 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = ArzList;
             }
 
-            if (cols[i].dataField == 'CheckNo') {
-                cols[i].editCellTemplate = dropDownBoxEditorCheckNo;
-                cols[i].lookup.dataSource = CheckList;
-            }
-
-
-            if (cols[i].dataField == 'Bank') {
-                cols[i].editCellTemplate = dropDownBoxEditorBank;
-                cols[i].lookup.dataSource = BankList;
-            }
-
-            if (cols[i].dataField == 'Shobe') {
-                cols[i].editCellTemplate = dropDownBoxEditorShobe;
-                cols[i].lookup.dataSource = ShobeList;
-            }
-
-            if (cols[i].dataField == 'Jari') {
-                cols[i].editCellTemplate = dropDownBoxEditorJari;
-                cols[i].lookup.dataSource = JariList;
-            }
-
-            if (cols[i].dataField == 'TrafZCode') {
-                cols[i].editCellTemplate = dropDownBoxEditorTrafZCode;
-                cols[i].lookup.dataSource = ZAccList;
-            }
-            if (cols[i].dataField == 'TrafZName') {
-                cols[i].editCellTemplate = dropDownBoxEditorTrafZName;
-                cols[i].lookup.dataSource = ZAccList;
-            }
-            if (cols[i].dataField == 'TrafCode') {
-                cols[i].editCellTemplate = dropDownBoxEditorTrafCode;
-                cols[i].lookup.dataSource = AccList;
-            }
-            if (cols[i].dataField == 'TrafName') {
-                cols[i].editCellTemplate = dropDownBoxEditorTrafName;
-                cols[i].lookup.dataSource = AccList;
-            }
+            /* if (cols[i].dataField == 'CheckNo') {
+                 cols[i].editCellTemplate = dropDownBoxEditorCheckNo;
+                 cols[i].lookup.dataSource = CheckList;
+             }
+     
+     
+             if (cols[i].dataField == 'Bank') {
+                 cols[i].editCellTemplate = dropDownBoxEditorBank;
+                 cols[i].lookup.dataSource = BankList;
+             }
+     
+             if (cols[i].dataField == 'Shobe') {
+                 cols[i].editCellTemplate = dropDownBoxEditorShobe;
+                 cols[i].lookup.dataSource = ShobeList;
+             }
+     
+             if (cols[i].dataField == 'Jari') {
+                 cols[i].editCellTemplate = dropDownBoxEditorJari;
+                 cols[i].lookup.dataSource = JariList;
+             }
+     
+             if (cols[i].dataField == 'TrafZCode') {
+                 cols[i].editCellTemplate = dropDownBoxEditorTrafZCode;
+                 cols[i].lookup.dataSource = ZAccList;
+             }
+             if (cols[i].dataField == 'TrafZName') {
+                 cols[i].editCellTemplate = dropDownBoxEditorTrafZName;
+                 cols[i].lookup.dataSource = ZAccList;
+             }
+             if (cols[i].dataField == 'TrafCode') {
+                 cols[i].editCellTemplate = dropDownBoxEditorTrafCode;
+                 cols[i].lookup.dataSource = AccList;
+             }
+             if (cols[i].dataField == 'TrafName') {
+                 cols[i].editCellTemplate = dropDownBoxEditorTrafName;
+                 cols[i].lookup.dataSource = AccList;
+             }*/
 
             if (cols[i].dataField == 'Bede') {
                 cols[i].setCellValue = EditorBede;
@@ -560,48 +675,6 @@ var ViewModel = function () {
             if (cols[i].dataField == 'Best') {
                 cols[i].setCellValue = EditorBest;
             }
-
-            /* if (cols[i].dataField == "Bank" ||
-                 cols[i].dataField == "CheckNo" ||
-                 cols[i].dataField == "CheckDate" ||
-                 cols[i].dataField == "Shobe" ||
-                 cols[i].dataField == "Jari" ||
-                 cols[i].dataField == "BaratNo" ||
-                 cols[i].dataField == "CheckComm" ||
-                 cols[i].dataField == "CheckMode" ||
-                 cols[i].dataField == "CheckRadif" ||
-                 cols[i].dataField == "CheckVosoolDate" ||
-                 cols[i].dataField == "CheckStatus" ||
-                 cols[i].dataField == "TrafZCode" ||
-                 cols[i].dataField == "TrafZName" ||
-                 cols[i].dataField == "TrafCode" ||
-                 cols[i].dataField == "TrafName"
- 
-             ) {
-                 cols[i].hidingPriority = conutHide;
-                 cols[i].width = 70;
-                 cols[i].editorOptions = 0;
-                 cols[i].editorOptions.height = 100;
-                 conutHide++;
-             }
-
-            if (cols[i].dataField == "CheckNo") cols[i].hidingPriority = 0;
-            if (cols[i].dataField == "CheckDate") cols[i].hidingPriority = 1;
-            if (cols[i].dataField == "Bank") cols[i].hidingPriority = 2;
-            if (cols[i].dataField == "Shobe") cols[i].hidingPriority = 3;
-            if (cols[i].dataField == "Jari") cols[i].hidingPriority = 4;
-            if (cols[i].dataField == "CheckStatus") cols[i].hidingPriority = 5;
-            if (cols[i].dataField == "TrafCode") cols[i].hidingPriority = 6;
-            if (cols[i].dataField == "TrafName") cols[i].hidingPriority = 7;
-            if (cols[i].dataField == "TrafZCode") cols[i].hidingPriority = 8;
-            if (cols[i].dataField == "TrafZName") cols[i].hidingPriority = 9;
-            if (cols[i].dataField == "CheckRadif") cols[i].hidingPriority = 10;
-            if (cols[i].dataField == "BaratNo") cols[i].hidingPriority = 11;
-            if (cols[i].dataField == "CheckVosoolDate") cols[i].hidingPriority = 12;
-            if (cols[i].dataField == "CheckComm") cols[i].hidingPriority = 13;
-            // if (cols[i].dataField == "CheckMode") cols[i].hidingPriority = 0;
-            */
-
 
         }
 
@@ -661,7 +734,7 @@ var ViewModel = function () {
             },
             // columnHidingEnabled: true,
             //columnFixing: {
-             //   enabled: true
+            //   enabled: true
             //},
             columns: data,
 
@@ -842,6 +915,9 @@ var ViewModel = function () {
 
                             dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
 
+
+
+
                             if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
                                 dataGrid.cellValue(ro, "AccZCode", '');
                                 dataGrid.cellValue(ro, "AccZName", '');
@@ -942,6 +1018,11 @@ var ViewModel = function () {
                                 dataGrid.cellValue(ro, "ArzCode", '');
                                 dataGrid.cellValue(ro, "ArzName", '');
                             }
+
+                            if (dataAcc[ro].PDMode > 0) {
+                                getCheckList(dataAcc[ro].PDMode);
+                            }
+
                             e.component.close();
                         }
                     },
@@ -957,6 +1038,9 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorAccZCode(cellElement, cellInfo) {
+        if (dataAcc.length == 0)
+            return '';
+
         if (dataAcc[ro].NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -1019,6 +1103,9 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorAccZName(cellElement, cellInfo) {
+        if (dataAcc.length == 0)
+            return '';
+
         if (dataAcc[ro].NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -1072,8 +1159,10 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorMkzCode(cellElement, cellInfo) {
-        if (dataAcc[ro].Mkz > 0) {
+        if (dataAcc.length == 0)
+            return '';
 
+        if (dataAcc[ro].Mkz > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: MkzList,
@@ -1122,8 +1211,10 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorMkzName(cellElement, cellInfo) {
-        if (dataAcc[ro].Mkz > 0) {
+        if (dataAcc.length == 0)
+            return '';
 
+        if (dataAcc[ro].Mkz > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: MkzList,
@@ -1172,6 +1263,9 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorOprCode(cellElement, cellInfo) {
+        if (dataAcc.length == 0)
+            return '';
+
         if (dataAcc[ro].Opr > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -1221,8 +1315,10 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorOprName(cellElement, cellInfo) {
-        if (dataAcc[ro].Opr > 0) {
+        if (dataAcc.length == 0)
+            return '';
 
+        if (dataAcc[ro].Opr > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: OprList,
@@ -1271,6 +1367,9 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorArzCode(cellElement, cellInfo) {
+        if (dataAcc.length == 0)
+            return '';
+
         if (dataAcc[ro].Arzi == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -1321,6 +1420,9 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorArzName(cellElement, cellInfo) {
+        if (dataAcc.length == 0)
+            return '';
+
         if (dataAcc[ro].Arzi == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -1369,447 +1471,447 @@ var ViewModel = function () {
             return ''
     }
 
-
-
-    function dropDownBoxEditorCheckNo(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: CheckList,
-                value: cellInfo.value,
-                valueExpr: 'CheckNo',
-                displayExpr: 'CheckNo',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: CheckList,
-                        keyExpr: 'CheckNo',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'CheckNo', caption: "شماره چک" },
-                            { dataField: 'CheckDate', caption: "تاریخ چک" },
-                            { dataField: 'Value', caption: "مبلغ" },
-                            { dataField: 'Bank', caption: "بانک" },
-                            { dataField: 'Shobe', caption: "شعبه", hidingPriority: 0 },
-                            { dataField: 'Jari', caption: "جاری", hidingPriority: 1 },
-                            { dataField: 'BaratNo', caption: "برات", hidingPriority: 2 },
-                            { dataField: 'CheckStatusSt', caption: "وضعیت چک" },
-                            { dataField: 'CheckRadif', caption: "ردیف چک", hidingPriority: 3 },
-                            { dataField: 'CheckComm', caption: "توضیحات چک", hidingPriority: 4 },
-                            { dataField: 'TrafFullCode', caption: "کد طرف چک", hidingPriority: 5 },
-                            { dataField: 'TrafFullName', caption: "نام طرف چک", hidingPriority: 6 },
-                            { dataField: 'CheckVosoolDate', caption: "تاریخ وصول چک", hidingPriority: 7 },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                dataGrid.cellValue(ro, "CheckDate", selectionChangedArgs.selectedRowsData[0].CheckDate);
-                                dataGrid.cellValue(ro, "Bank", selectionChangedArgs.selectedRowsData[0].Bank);
-                                dataGrid.cellValue(ro, "Shobe", selectionChangedArgs.selectedRowsData[0].Shobe);
-                                dataGrid.cellValue(ro, "Jari", selectionChangedArgs.selectedRowsData[0].Jari);
-                                dataGrid.cellValue(ro, "BaratNo", selectionChangedArgs.selectedRowsData[0].BaratNo);
-                                dataGrid.cellValue(ro, "CheckStatusSt", selectionChangedArgs.selectedRowsData[0].CheckStatusSt);
-                                dataGrid.cellValue(ro, "CheckRadif", selectionChangedArgs.selectedRowsData[0].CheckRadif);
-                                dataGrid.cellValue(ro, "CheckComm", selectionChangedArgs.selectedRowsData[0].CheckComm);
-                                dataGrid.cellValue(ro, "TrafCode", selectionChangedArgs.selectedRowsData[0].TrafCode);
-                                dataGrid.cellValue(ro, "TrafName", selectionChangedArgs.selectedRowsData[0].TrafName);
-                                dataGrid.cellValue(ro, "TrafZCode", selectionChangedArgs.selectedRowsData[0].TrafZCode);
-                                dataGrid.cellValue(ro, "TrafZName", selectionChangedArgs.selectedRowsData[0].TrafZName);
-
-                                dataGrid.cellValue(ro, "Best", 0);
-                                dataGrid.cellValue(ro, "Bede", 0);
-                                if (dataAcc[ro].PDMode == 1) {
-                                    dataGrid.cellValue(ro, "Best", selectionChangedArgs.selectedRowsData[0].Value);
-                                }
-                                else if (dataAcc[ro].PDMode == 2) {
-                                    dataGrid.cellValue(ro, "Bede", selectionChangedArgs.selectedRowsData[0].Value);
-                                }
-
-
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-    function dropDownBoxEditorBank(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: BankList,
-                value: cellInfo.value,
-                valueExpr: 'Name',
-                displayExpr: 'Name',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: BankList,
-                        keyExpr: 'Name',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Name', caption: "نام" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-    function dropDownBoxEditorShobe(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: ShobeList,
-                value: cellInfo.value,
-                valueExpr: 'Name',
-                displayExpr: 'Name',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: ShobeList,
-                        keyExpr: 'Name',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Name', caption: "نام" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-
-    function dropDownBoxEditorJari(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: JariList,
-                value: cellInfo.value,
-                valueExpr: 'Name',
-                displayExpr: 'Name',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: JariList,
-                        keyExpr: 'Name',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Name', caption: "نام" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-
-    function dropDownBoxEditorTrafZName(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: ZAccList,
-                value: cellInfo.value,
-                valueExpr: 'Name',
-                displayExpr: 'Name',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: ZAccList,
-                        keyExpr: 'Name',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Code', caption: "کد" },
-                            { dataField: 'Name', caption: "نام" },
-                            { dataField: 'Spec', caption: "ملاحظات" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-    function dropDownBoxEditorTrafZCode(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: ZAccList,
-                value: cellInfo.value,
-                valueExpr: 'Code',
-                displayExpr: 'Code',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: ZAccList,
-                        keyExpr: 'Code',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Code', caption: "کد" },
-                            { dataField: 'Name', caption: "نام" },
-                            { dataField: 'Spec', caption: "ملاحظات" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-
-
-    function dropDownBoxEditorTrafName(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: AccList,
-                value: cellInfo.value,
-                valueExpr: 'Name',
-                displayExpr: 'Name',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: AccList,
-                        keyExpr: 'Name',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Code', caption: "کد" },
-                            { dataField: 'Name', caption: "نام" },
-                            { dataField: 'Spec', caption: "ملاحظات" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-    function dropDownBoxEditorTrafCode(cellElement, cellInfo) {
-        if (cellInfo.isOnForm == true)
-            ro = cellInfo.rowIndex - 1;
-        if (dataAcc[ro].PDMode > 0) {
-            return $('<div>').dxDropDownBox({
-                dropDownOptions: { width: 500 },
-                dataSource: AccList,
-                value: cellInfo.value,
-                valueExpr: 'Code',
-                displayExpr: 'Code',
-                contentTemplate(e) {
-                    return $('<div>').dxDataGrid({
-                        dataSource: AccList,
-                        keyExpr: 'Code',
-                        remoteOperations: true,
-                        rtlEnabled: true,
-                        filterRow: {
-                            visible: true,
-                            applyFilter: 'auto',
-                        },
-                        columns: [
-                            { dataField: 'Code', caption: "کد" },
-                            { dataField: 'Name', caption: "نام" },
-                            { dataField: 'Spec', caption: "ملاحظات" },
-                        ],
-                        hoverStateEnabled: true,
-                        scrolling: { mode: 'virtual' },
-                        height: 250,
-                        selection: { mode: 'single' },
-                        selectedRowKeys: [cellInfo.value],
-                        focusedRowEnabled: true,
-                        focusedRowKey: cellInfo.value,
-                        onSelectionChanged(selectionChangedArgs) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                ro = cellInfo.rowIndex;
-                                // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
-                                e.component.close();
-                            }
-                        },
-                    });
-                },
-            });
-        } else
-            return ''
-    }
-
-
+    /*
+     
+     function dropDownBoxEditorCheckNo(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: CheckList,
+                 value: cellInfo.value,
+                 valueExpr: 'CheckNo',
+                 displayExpr: 'CheckNo',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: CheckList,
+                         keyExpr: 'CheckNo',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'CheckNo', caption: "شماره چک" },
+                             { dataField: 'CheckDate', caption: "تاریخ چک" },
+                             { dataField: 'Value', caption: "مبلغ" },
+                             { dataField: 'Bank', caption: "بانک" },
+                             { dataField: 'Shobe', caption: "شعبه", hidingPriority: 0 },
+                             { dataField: 'Jari', caption: "جاری", hidingPriority: 1 },
+                             { dataField: 'BaratNo', caption: "برات", hidingPriority: 2 },
+                             { dataField: 'CheckStatusSt', caption: "وضعیت چک" },
+                             { dataField: 'CheckRadif', caption: "ردیف چک", hidingPriority: 3 },
+                             { dataField: 'CheckComm', caption: "توضیحات چک", hidingPriority: 4 },
+                             { dataField: 'TrafFullCode', caption: "کد طرف چک", hidingPriority: 5 },
+                             { dataField: 'TrafFullName', caption: "نام طرف چک", hidingPriority: 6 },
+                             { dataField: 'CheckVosoolDate', caption: "تاریخ وصول چک", hidingPriority: 7 },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 dataGrid.cellValue(ro, "CheckDate", selectionChangedArgs.selectedRowsData[0].CheckDate);
+                                 dataGrid.cellValue(ro, "Bank", selectionChangedArgs.selectedRowsData[0].Bank);
+                                 dataGrid.cellValue(ro, "Shobe", selectionChangedArgs.selectedRowsData[0].Shobe);
+                                 dataGrid.cellValue(ro, "Jari", selectionChangedArgs.selectedRowsData[0].Jari);
+                                 dataGrid.cellValue(ro, "BaratNo", selectionChangedArgs.selectedRowsData[0].BaratNo);
+                                 dataGrid.cellValue(ro, "CheckStatusSt", selectionChangedArgs.selectedRowsData[0].CheckStatusSt);
+                                 dataGrid.cellValue(ro, "CheckRadif", selectionChangedArgs.selectedRowsData[0].CheckRadif);
+                                 dataGrid.cellValue(ro, "CheckComm", selectionChangedArgs.selectedRowsData[0].CheckComm);
+                                 dataGrid.cellValue(ro, "TrafCode", selectionChangedArgs.selectedRowsData[0].TrafCode);
+                                 dataGrid.cellValue(ro, "TrafName", selectionChangedArgs.selectedRowsData[0].TrafName);
+                                 dataGrid.cellValue(ro, "TrafZCode", selectionChangedArgs.selectedRowsData[0].TrafZCode);
+                                 dataGrid.cellValue(ro, "TrafZName", selectionChangedArgs.selectedRowsData[0].TrafZName);
+     
+                                 dataGrid.cellValue(ro, "Best", 0);
+                                 dataGrid.cellValue(ro, "Bede", 0);
+                                 if (dataAcc[ro].PDMode == 1) {
+                                     dataGrid.cellValue(ro, "Best", selectionChangedArgs.selectedRowsData[0].Value);
+                                 }
+                                 else if (dataAcc[ro].PDMode == 2) {
+                                     dataGrid.cellValue(ro, "Bede", selectionChangedArgs.selectedRowsData[0].Value);
+                                 }
+     
+     
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     function dropDownBoxEditorBank(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: BankList,
+                 value: cellInfo.value,
+                 valueExpr: 'Name',
+                 displayExpr: 'Name',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: BankList,
+                         keyExpr: 'Name',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Name', caption: "نام" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     function dropDownBoxEditorShobe(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: ShobeList,
+                 value: cellInfo.value,
+                 valueExpr: 'Name',
+                 displayExpr: 'Name',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: ShobeList,
+                         keyExpr: 'Name',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Name', caption: "نام" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     
+     function dropDownBoxEditorJari(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: JariList,
+                 value: cellInfo.value,
+                 valueExpr: 'Name',
+                 displayExpr: 'Name',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: JariList,
+                         keyExpr: 'Name',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Name', caption: "نام" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     
+     function dropDownBoxEditorTrafZName(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: ZAccList,
+                 value: cellInfo.value,
+                 valueExpr: 'Name',
+                 displayExpr: 'Name',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: ZAccList,
+                         keyExpr: 'Name',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Code', caption: "کد" },
+                             { dataField: 'Name', caption: "نام" },
+                             { dataField: 'Spec', caption: "ملاحظات" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     function dropDownBoxEditorTrafZCode(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: ZAccList,
+                 value: cellInfo.value,
+                 valueExpr: 'Code',
+                 displayExpr: 'Code',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: ZAccList,
+                         keyExpr: 'Code',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Code', caption: "کد" },
+                             { dataField: 'Name', caption: "نام" },
+                             { dataField: 'Spec', caption: "ملاحظات" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     
+     
+     function dropDownBoxEditorTrafName(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: AccList,
+                 value: cellInfo.value,
+                 valueExpr: 'Name',
+                 displayExpr: 'Name',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: AccList,
+                         keyExpr: 'Name',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Code', caption: "کد" },
+                             { dataField: 'Name', caption: "نام" },
+                             { dataField: 'Spec', caption: "ملاحظات" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     function dropDownBoxEditorTrafCode(cellElement, cellInfo) {
+         if (cellInfo.isOnForm == true)
+             ro = cellInfo.rowIndex - 1;
+         if (dataAcc[ro].PDMode > 0) {
+             return $('<div>').dxDropDownBox({
+                 dropDownOptions: { width: 500 },
+                 dataSource: AccList,
+                 value: cellInfo.value,
+                 valueExpr: 'Code',
+                 displayExpr: 'Code',
+                 contentTemplate(e) {
+                     return $('<div>').dxDataGrid({
+                         dataSource: AccList,
+                         keyExpr: 'Code',
+                         remoteOperations: true,
+                         rtlEnabled: true,
+                         filterRow: {
+                             visible: true,
+                             applyFilter: 'auto',
+                         },
+                         columns: [
+                             { dataField: 'Code', caption: "کد" },
+                             { dataField: 'Name', caption: "نام" },
+                             { dataField: 'Spec', caption: "ملاحظات" },
+                         ],
+                         hoverStateEnabled: true,
+                         scrolling: { mode: 'virtual' },
+                         height: 250,
+                         selection: { mode: 'single' },
+                         selectedRowKeys: [cellInfo.value],
+                         focusedRowEnabled: true,
+                         focusedRowKey: cellInfo.value,
+                         onSelectionChanged(selectionChangedArgs) {
+                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                 ro = cellInfo.rowIndex;
+                                 // dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                 //dataGrid.saveEditData();
+                                 e.component.close();
+                             }
+                         },
+                     });
+                 },
+             });
+         } else
+             return ''
+     }
+     
+     */
 
 
 
@@ -1829,7 +1931,6 @@ var ViewModel = function () {
     }
 
     function EditorBest(newData, value, currentRowData) {
-        a = a;
         newData.Count = value;
         newData.Bede = 0;
         newData.Best = value;
@@ -1837,11 +1938,104 @@ var ViewModel = function () {
 
 
 
+    var trafCode = "";
+    var trafName = "";
+
+    var trafZCode = "";
+    var trafZName = "";
+
+    var rowCheck;
+    function ShowCheck(e) {
+        data = e.row.data;
+
+        $('#CheckNo').val('');
+        $('#checkDateBand').val('');
+        $('#Value').val('');
+        $('#nameBank').val('');
+        $('#nameShobe').val('');
+        $('#nameJari').val('');
+        $('#BaratNo').val('');
+        $('#CheckRadif').val('');
+        $('#checkVosoolDate').val('');
+        $('#nameTraf').val('');
+        $('#nameTrafZ').val('');
+        $('#CheckComm').val('');
 
 
-        function ShowCheck(e) {
-            a = e;
+        if (data.CheckNo != null) {
+            $('#CheckNo').val(data.CheckNo);
+            $('#checkDateBand').val(data.CheckDate);
+
+
+           // if (dataAcc[ro].PDMode > 0) {
+           //     dataAcc[ro].PDMode == 1 ? $('#Value').val(NumberToNumberString(data.Best)) : $('#Value').val(NumberToNumberString(data.Bede));
+           // }
+            $('#Value').val(NumberToNumberString(data.Best > 0 ? data.Best : data.Bede)); 
+
+            $('#nameBank').val(data.Bank);
+            $('#nameShobe').val(data.Shobe);
+            $('#nameJari').val(data.Jari);
+            $('#BaratNo').val(data.BaratNo);
+            $('#CheckRadif').val(data.CheckRadif);
+            $('#checkVosoolDate').val(data.CheckVosoolDate);
+            CheckStatus = data.CheckStatus;
+            $('#checkStatus').val(data.CheckStatus);
+
+            trafCode = data.TrafCode;
+            trafName = data.TrafName;
+
+            trafZCode = data.TrafZCode;
+            trafZName = data.TrafZName;
+
+            if (data.TrafCode != '') {
+                $('#nameTraf').val('(' + trafCode + ') ' + trafName);
+            }
+            else {
+                $('#nameTraf').val('');
+            }
+
+            if (data.TrafZCode != '') {
+                $('#nameTrafZ').val('(' + trafZCode + ') ' + trafZName);
+            }
+            else {
+                $('#nameTrafZ').val('');
+            }
+            $('#CheckComm').val(data.CheckComm);
         }
+
+        $("#modal-DataCheck").modal('show');
+    }
+
+    $('#btncheck').click(function () {
+        getCheckList(dataAcc[ro].PDMode);
+    })
+
+    $('#modal-DataCheck').on('hide.bs.modal', function () {
+        var dataGrid = $("#gridContainer").dxDataGrid("instance");
+        a = $('#checkStatus').val();
+        dataGrid.cellValue(ro, "CheckNo", $('#CheckNo').val());
+        dataGrid.cellValue(ro, "CheckDate", $('#checkDateBand').val());
+        dataGrid.cellValue(ro, "Bank", $('#Bank').val());
+        dataGrid.cellValue(ro, "Shobe", $('#Shobe').val());
+        dataGrid.cellValue(ro, "Jari", $('#Jari').val());
+        dataGrid.cellValue(ro, "BaratNo", $('#BaratNo').val());
+        dataGrid.cellValue(ro, "CheckRadif", $('#CheckRadif').val());
+        dataGrid.cellValue(ro, "CheckStatus", $('#checkStatus').val());
+        dataGrid.cellValue(ro, "CheckVosoolDate", $('#checkVosoolDate').val());
+        dataGrid.cellValue(ro, "TrafCode", trafCode);
+        dataGrid.cellValue(ro, "TrafName", trafName);
+        dataGrid.cellValue(ro, "TrafZCode", trafZCode);
+        dataGrid.cellValue(ro, "TrafZName", trafZName);
+        dataGrid.cellValue(ro, "CheckComm", $('#CheckComm').val());
+
+        if (dataAcc[ro].PDMode == 1) {
+            dataGrid.cellValue(ro, "Best", $('#Value').val());
+            //dataGrid.cellValue(ro, "Bede",'0');
+        } else {
+            //dataGrid.cellValue(ro, "Best", '0');
+             dataGrid.cellValue(ro, "Bede", $('#Value').val());
+        }
+    });
 
 
 
@@ -1905,9 +2099,9 @@ var ViewModel = function () {
         getADocB(0);
         dataGrid = $("#gridContainer").dxDataGrid("instance");
 
-        //for (var i = 0; i < 10; i++) {
-        //     dataGrid.addRow();
-        // }
+        for (var i = 0; i < 1; i++) {
+            dataGrid.addRow();
+        }
 
 
         //dataGrid.option("focusedRowKey", 100);
@@ -2201,7 +2395,7 @@ var ViewModel = function () {
             if (data.length > 2) {
 
                 $('#data-error').show();
-                $('#data-grid').addClass('col-md-8');
+                $('#data-grid').addClass('col-md-6');
 
 
                 //$('#modal-FinalSave').modal('show');
@@ -2324,12 +2518,12 @@ var ViewModel = function () {
 
     $("#closeError").click(function () {
         $('#data-error').hide();
-        $('#data-grid').removeClass('col-md-8');
+        $('#data-grid').removeClass('col-md-6');
     });
 
     $("#backError").click(function () {
         $('#data-error').hide();
-        $('#data-grid').removeClass('col-md-8');
+        $('#data-grid').removeClass('col-md-6');
     });
 
 
@@ -2339,21 +2533,1135 @@ var ViewModel = function () {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format;
-
+    
     $('#listWidget').dxList({
         dataSource: self.TestADocList(),
         height: '100%',
         itemTemplate(data) {
             const result = $('<div>').addClass('product');
-
+    
             $('<img>').attr('src', data.ImageSrc).appendTo(result);
             $('<div>').text(data.Name).appendTo(result);
             $('<div>').addClass('price')
                 .html(formatCurrency(data.Price)).appendTo(result);
-
+    
             return result;
         },
     }).dxList('instance');*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageCheck = ko.observable();
+    pageSizeCheck = localStorage.getItem('pageSizeCheck') == null ? 10 : localStorage.getItem('pageSizeCheck');
+    self.pageSizeCheck = ko.observable(pageSizeCheck);
+    self.currentPageIndexCheck = ko.observable(0);
+
+    self.filterCheckNo = ko.observable("");
+    self.filterCheckDate = ko.observable("");
+    self.filterValue = ko.observable("");
+    self.filterBank = ko.observable("");
+    self.filterShobe = ko.observable("");
+    self.filterJari = ko.observable("");
+    self.filterBaratNo = ko.observable("");
+    self.filterCheckStatus = ko.observable("");
+    self.filterCheckStatusSt = ko.observable("");
+    self.filterCheckRadif = ko.observable("");
+    self.filterCheckComm = ko.observable("");
+
+    self.filterTrafFullCode = ko.observable("");
+    self.filterTrafFullName = ko.observable("");
+    self.filterCheckVosoolDate = ko.observable("");
+
+    self.filterCheckList = ko.computed(function () {
+
+        self.currentPageIndexCheck(0);
+        var filterCheckNo = self.filterCheckNo();
+        var filterCheckDate = self.filterCheckDate();
+        var filterValue = self.filterValue();
+        var filterBank = self.filterBank();
+        var filterShobe = self.filterShobe();
+        var filterJari = self.filterJari();
+        var filterBaratNo = self.filterBaratNo();
+        var filterCheckStatus = self.filterCheckStatus();
+        var filterCheckStatusSt = self.filterCheckStatusSt();
+        var filterCheckRadif = self.filterCheckRadif();
+        var filterCheckComm = self.filterCheckComm();
+        var filterTrafFullCode = self.filterTrafFullCode();
+        var filterTrafFullName = self.filterTrafFullName();
+        var filterCheckVosoolDate = self.filterCheckVosoolDate();
+
+        if (!filterCheckNo && !filterCheckDate && !filterValue && !filterBank && !filterShobe && !filterJari && !filterBaratNo
+            && !filterCheckStatus && !filterCheckStatusSt && !filterCheckRadif && !filterCheckComm && !filterTrafFullCode && !filterTrafFullName && !filterCheckVosoolDate) {
+            return self.CheckList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.CheckList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.CheckNo.toString().toLowerCase(), filterCheckNo) &&
+                    (item.CheckDate == null ? '' : item.CheckDate.toString().search(filterCheckDate) >= 0) &&
+                    ko.utils.stringStartsWith(item.Value.toString().toLowerCase(), filterValue) &&
+                    (item.Bank == null ? '' : item.Bank.toString().search(filterBank) >= 0) &&
+                    (item.Shobe == null ? '' : item.Shobe.toString().search(filterShobe) >= 0) &&
+                    (item.Jari == null ? '' : item.Jari.toString().search(filterJari) >= 0) &&
+                    ko.utils.stringStartsWith(item.BaratNo.toString().toLowerCase(), filterBaratNo) &&
+                    (item.CheckStatus == null ? '' : item.CheckStatus.toString().search(filterCheckStatus) >= 0) &&
+                    (item.CheckStatusSt == null ? '' : item.CheckStatusSt.toString().search(filterCheckStatusSt) >= 0) &&
+                    ko.utils.stringStartsWith(item.CheckRadif.toString().toLowerCase(), filterCheckRadif) &&
+                    (item.CheckComm == null ? '' : item.CheckComm.toString().search(filterCheckComm) >= 0) &&
+                    ko.utils.stringStartsWith(item.TrafFullCode.toString().toLowerCase(), filterTrafFullCode) &&
+                    (item.TrafFullName == null ? '' : item.TrafFullName.toString().search(filterTrafFullName) >= 0)// &&
+                //(item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toString().search(filterCheckVosoolDate) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageCheck = ko.computed(function () {
+        var pageSizeCheck = parseInt(self.pageSizeCheck(), 10),
+            startIndex = pageSizeCheck * self.currentPageIndexCheck(),
+            endIndex = startIndex + pageSizeCheck;
+        localStorage.setItem('pageSizeCheck', pageSizeCheck);
+        return self.filterCheckList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageCheck = function () {
+        if (((self.currentPageIndexCheck() + 1) * self.pageSizeCheck()) < self.filterCheckList().length) {
+            self.currentPageIndexCheck(self.currentPageIndexCheck() + 1);
+        }
+    };
+
+    self.previousPageCheck = function () {
+        if (self.currentPageIndexCheck() > 0) {
+            self.currentPageIndexCheck(self.currentPageIndexCheck() - 1);
+        }
+    };
+
+    self.firstPageCheck = function () {
+        self.currentPageIndexCheck(0);
+    };
+
+    self.lastPageCheck = function () {
+        countCheck = parseInt(self.filterCheckList().length / self.pageSizeCheck(), 10);
+        if ((self.filterCheckList().length % self.pageSizeCheck()) == 0)
+            self.currentPageIndexCheck(countCheck - 1);
+        else
+            self.currentPageIndexCheck(countCheck);
+    };
+
+    self.iconTypeCode = ko.observable("");
+
+    self.iconTypeCheckNo = ko.observable("");
+    self.iconTypeCheckDate = ko.observable("");
+    self.iconTypeValue = ko.observable("");
+    self.iconTypeBank = ko.observable("");
+    self.iconTypeShobe = ko.observable("");
+    self.iconTypeJari = ko.observable("");
+    self.iconTypeBaratNo = ko.observable("");
+    self.iconTypeCheckStatus = ko.observable("");
+    self.iconTypeCheckStatusSt = ko.observable("");
+    self.iconTypeCheckRadif = ko.observable("");
+    self.iconTypeCheckComm = ko.observable("");
+    self.iconTypeTrafFullCode = ko.observable("");
+    self.iconTypeTrafFullName = ko.observable("");
+    self.iconTypeCheckVosoolDate = ko.observable("");
+    self.sortTableCheck = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.CheckList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCheckNo('');
+        self.iconTypeCheckDate('');
+        self.iconTypeValue('');
+        self.iconTypeBank('');
+        self.iconTypeShobe('');
+        self.iconTypeJari('');
+        self.iconTypeBaratNo('');
+        self.iconTypeCheckStatus('');
+        self.iconTypeCheckStatusSt('');
+        self.iconTypeCheckRadif('');
+        self.iconTypeCheckComm('');
+        self.iconTypeTrafFullCode('');
+        self.iconTypeTrafFullName('');
+        self.iconTypeCheckVosoolDate('');
+
+        if (orderProp == 'CheckNo') self.iconTypeCheckNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckDate') self.iconTypeCheckDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Value') self.iconTypeValue((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Bank') self.iconTypeBank((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Shobe') self.iconTypeShobe((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Jari') self.iconTypeJari((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'BaratNo') self.iconTypeBaratNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckStatus') self.iconTypeCheckStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckStatusSt') self.iconTypeCheckStatusSt((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckRadif') self.iconTypeCheckRadif((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckComm') self.iconTypeCheckComm((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafFullCode') self.iconTypeTrafFullCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'TrafFullName') self.iconTypeTrafFullName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'CheckVosoolDate') self.iconTypeCheckVosoolDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshCheck').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست چک ها") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getCheckList(dataAcc[ro].PDMode);
+            }
+        })
+    })
+
+
+    self.selectCheck = function (item) {
+        trafCode = item.TrafCode;
+        trafZCode = item.TrafZCode;
+        $('#CheckNo').val(item.CheckNo);
+        $('#checkDateBand').val(item.CheckDate);
+        $('#Value').val(NumberToNumberString(item.Value));
+        $('#nameBank').val(item.Bank);
+        $('#nameShobe').val(item.Shobe);
+        $('#nameJari').val(item.Jari);
+        $('#BaratNo').val(item.BaratNo);
+        $('#CheckRadif').val(item.CheckRadif);
+        $('#checkVosoolDate').val(item.CheckVosoolDate);
+        if (item.TrafCode != '') {
+            $('#nameTraf').val('(' + item.TrafCode + ') ' + item.TrafName);
+        }
+        else {
+            $('#nameTraf').val('');
+        }
+
+        if (item.TrafZCode != '') {
+            $('#nameTrafZ').val('(' + item.TrafZCode + ') ' + item.TrafZName);
+        }
+        else {
+            $('#nameTrafZ').val('');
+        }
+        $('#CheckComm').val(item.CheckComm);
+
+        // CalcValue(0);
+
+        $('#modal-Check').modal('toggle');
+    }
+
+
+    $('#modal-DataCheck').on('shown.bs.modal', function () {
+        //if (flagSearchCheck == 0 && self.flagupdateband == false) {
+        self.filterCheckNo("");
+        self.filterCheckDate("");
+        self.filterValue("");
+        self.filterBank("");
+        self.filterShobe("");
+        self.filterJari("");
+        self.filterBaratNo("");
+        self.filterCheckStatus("");
+        self.filterCheckStatusSt("");
+        self.filterCheckRadif("");
+        self.filterCheckComm("");
+        self.currentPageIndexCheck(0);
+        // flagSearchCheck = 1;
+        /* } else if (flagSearchCheck == 0 && self.flagupdateband == true) {
+             a = $('#CheckNo').val();
+             self.filterCheckNo(a);
+             self.filterCheckDate("");
+             self.filterValue("");
+             self.filterBank("");
+             self.filterShobe("");
+             self.filterJari("");
+             self.filterBaratNo("");
+             self.filterCheckStatus("");
+             self.filterCheckStatusSt("");
+             self.filterCheckRadif("");
+             self.filterCheckComm("");
+             self.currentPageIndexCheck(0);
+         }*/
+
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+    self.radif = function (index) {
+        countShow = self.pageSizeCheck();
+        page = self.currentPageIndexCheck();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
+    function CreateTableCheck(data) {
+        $("#TableCheck").empty();
+        $('#TableCheck').append(
+            ' <table class="table table-hover">' +
+            '   <thead style="cursor: pointer;">' +
+            '       <tr data-bind="click: sortTableCheck">' +
+            //'<th>' + translate('ردیف') + '</th>' +
+            CreateTableThCheck('CheckNo', data) +
+            CreateTableThCheck('CheckDate', data) +
+            CreateTableThCheck('Value', data) +
+            CreateTableThCheck('Bank', data) +
+            CreateTableThCheck('Shobe', data) +
+            CreateTableThCheck('Jari', data) +
+            CreateTableThCheck('BaratNo', data) +
+            CreateTableThCheck('CheckStatus', data) +
+            CreateTableThCheck('CheckStatusSt', data) +
+            CreateTableThCheck('CheckRadif', data) +
+            CreateTableThCheck('CheckComm', data) +
+            CreateTableThCheck('TrafFullCode', data) +
+            CreateTableThCheck('TrafFullName', data) +
+            CreateTableThCheck('CheckVosoolDate', data) +
+            '<th></th>' +
+            '      </tr>' +
+            '   </thead >' +
+            ' <tbody data-bind="foreach: currentPageCheck" data-dismiss="modal" style="cursor: default;">' +
+            '     <tr data-bind="click: $parent.selectCheck">' +
+            //'<td data-bind="text: $root.radif($index())"></td>' +
+            CreateTableTdCheck('CheckNo', 0, 0, data) +
+            CreateTableTdCheck('CheckDate', 0, 0, data) +
+            CreateTableTdCheck('Value', 0, 2, data) +
+            CreateTableTdCheck('Bank', 0, 0, data) +
+            CreateTableTdCheck('Shobe', 0, 0, data) +
+            CreateTableTdCheck('Jari', 0, 0, data) +
+            CreateTableTdCheck('BaratNo', 0, 0, data) +
+            CreateTableTdCheck('CheckStatus', 0, 0, data) +
+            CreateTableTdCheck('CheckStatusSt', 0, 0, data) +
+            CreateTableTdCheck('CheckRadif', 0, 0, data) +
+            CreateTableTdCheck('CheckComm', 0, 0, data) +
+            CreateTableTdCheck('TrafFullCode', 0, 0, data) +
+            CreateTableTdCheck('TrafFullName', 0, 0, data) +
+            CreateTableTdCheck('CheckVosoolDate', 0, 0, data) +
+            '<td></td>' +
+            '        </tr>' +
+            '</tbody>' +
+            ' <tfoot>' +
+            '  <tr style="background-color: #efb68399;">' +
+            // '<td style="background-color: #efb683;"></td>' +
+            CreateTableTdSearchCheck('CheckNo', data) +
+            CreateTableTdSearchCheck('CheckDate', data) +
+            CreateTableTdSearchCheck('Value', data) +
+            CreateTableTdSearchCheck('Bank', data) +
+            CreateTableTdSearchCheck('Shobe', data) +
+            CreateTableTdSearchCheck('Jari', data) +
+            CreateTableTdSearchCheck('BaratNo', data) +
+            CreateTableTdSearchCheck('CheckStatus', data) +
+            CreateTableTdSearchCheck('CheckStatusSt', data) +
+            CreateTableTdSearchCheck('CheckRadif', data) +
+            CreateTableTdSearchCheck('CheckComm', data) +
+            CreateTableTdSearchCheck('TrafFullCode', data) +
+            CreateTableTdSearchCheck('TrafFullName', data) +
+            CreateTableTdSearchCheck('CheckVosoolDate', data) +
+            '  <td style="background-color: #efb683;">' +
+            '      </tr>' +
+            '  </tfoot>' +
+            '</table >'
+        );
+    }
+
+
+    function CreateTableThCheck(field, data) {
+
+        text = '<th ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'data-column="' + field + '">' +
+            '<span data-column="' + field + '">' + TextField + '</span>' +
+            '<span data-bind="attr: { class: currentColumn() == \'' + field + '\' ? \'isVisible\' : \'isHidden\' }">' +
+            '    <i data-bind="attr: { class: iconType' + field + ' }" ></i> </span> ' +
+            '</th>';
+        return text;
+    }
+
+    function CreateTableTdCheck(field, Deghat, no, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        switch (no) {
+            case 0:
+                text += 'data-bind="text: ' + field + ', style: { color: ' + field + ' == \'نامشخص\' ? \'red\' : ' + field + ' == \'پاس شده\' || ' + field + ' == \'وصول شده\'  ? \'green\' : ' + field + ' == \'برگشتی\' || ' + field + ' == \'عودت\' || ' + field + ' == \'واگذار شده\'  ? \'#ec8121\' :  \'black\' }"></td>';
+                // text += 'data-bind="text: ' + field + '"></td>';
+                break;
+            case 1:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
+                break;
+            case 2:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
+                break;
+            case 3:
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
+                break;
+        }
+        return text;
+    }
+
+    function CreateTableTdSearchCheck(field, data) {
+        text = '<td ';
+
+        TextField = FindTextField(field, data);
+        if (TextField == 0)
+            text += 'Hidden ';
+
+        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\'" type="text" class="form-control" style="height: 2.4rem;" /> </td>';
+        return text;
+    }
+
+
+
+
+
+
+
+
+    self.currentPageBank = ko.observable();
+    pageSizeBank = localStorage.getItem('pageSizeBank') == null ? 10 : localStorage.getItem('pageSizeBank');
+    self.pageSizeBank = ko.observable(pageSizeBank);
+    self.currentPageIndexBank = ko.observable(0);
+
+    self.filterBank0 = ko.observable("");
+
+    self.filterBankList = ko.computed(function () {
+
+        self.currentPageIndexBank(0);
+        var filter0 = self.filterBank0();
+
+        if (!filter0) {
+            return self.BankList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.BankList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageBank = ko.computed(function () {
+        var pageSizeBank = parseInt(self.pageSizeBank(), 10),
+            startIndex = pageSizeBank * self.currentPageIndexBank(),
+            endIndex = startIndex + pageSizeBank;
+        localStorage.setItem('pageSizeBank', pageSizeBank);
+        return self.filterBankList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageBank = function () {
+        if (((self.currentPageIndexBank() + 1) * self.pageSizeBank()) < self.filterBankList().length) {
+            self.currentPageIndexBank(self.currentPageIndexBank() + 1);
+        }
+    };
+
+    self.previousPageBank = function () {
+        if (self.currentPageIndexBank() > 0) {
+            self.currentPageIndexBank(self.currentPageIndexBank() - 1);
+        }
+    };
+
+    self.firstPageBank = function () {
+        self.currentPageIndexBank(0);
+    };
+
+    self.lastPageBank = function () {
+        countBank = parseInt(self.filterBankList().length / self.pageSizeBank(), 10);
+        if ((self.filterBankList().length % self.pageSizeBank()) == 0)
+            self.currentPageIndexBank(countBank - 1);
+        else
+            self.currentPageIndexBank(countBank);
+    };
+
+    self.sortTableBank = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.BankList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshBank').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست بانک") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getBankList();
+            }
+        })
+    })
+
+
+    self.selectBank = function (item) {
+        $('#nameBank').val(item.Name);
+    }
+
+
+    $('#modal-Bank').on('shown.bs.modal', function () {
+        //if (flagSearchBank == 0 && self.flagupdateband == false) {
+        //   filterBank0("");
+        self.currentPageIndexBank(0);
+        //   flagSearchBank = 1;
+        //} else if (flagSearchBank == 0 && self.flagupdateband == true) {
+        //    self.filterBank0($('#nameBank').val());
+        //}
+        $('.fix').attr('class', 'form-line focused fix');
+
+    });
+
+
+
+
+
+
+
+
+
+
+    self.currentPageShobe = ko.observable();
+    pageSizeShobe = localStorage.getItem('pageSizeShobe') == null ? 10 : localStorage.getItem('pageSizeShobe');
+    self.pageSizeShobe = ko.observable(pageSizeShobe);
+    self.currentPageIndexShobe = ko.observable(0);
+
+    self.filterShobe0 = ko.observable("");
+
+    self.filterShobeList = ko.computed(function () {
+
+        self.currentPageIndexShobe(0);
+        var filter0 = self.filterShobe0();
+
+        if (!filter0) {
+            return self.ShobeList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ShobeList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageShobe = ko.computed(function () {
+        var pageSizeShobe = parseInt(self.pageSizeShobe(), 10),
+            startIndex = pageSizeShobe * self.currentPageIndexShobe(),
+            endIndex = startIndex + pageSizeShobe;
+        localStorage.setItem('pageSizeShobe', pageSizeShobe);
+        return self.filterShobeList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageShobe = function () {
+        if (((self.currentPageIndexShobe() + 1) * self.pageSizeShobe()) < self.filterShobeList().length) {
+            self.currentPageIndexShobe(self.currentPageIndexShobe() + 1);
+        }
+    };
+
+    self.previousPageShobe = function () {
+        if (self.currentPageIndexShobe() > 0) {
+            self.currentPageIndexShobe(self.currentPageIndexShobe() - 1);
+        }
+    };
+
+    self.firstPageShobe = function () {
+        self.currentPageIndexShobe(0);
+    };
+
+    self.lastPageShobe = function () {
+        countShobe = parseInt(self.filterShobeList().length / self.pageSizeShobe(), 10);
+        if ((self.filterShobeList().length % self.pageSizeShobe()) == 0)
+            self.currentPageIndexShobe(countShobe - 1);
+        else
+            self.currentPageIndexShobe(countShobe);
+    };
+
+    self.sortTableShobe = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ShobeList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshShobe').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست شعبه") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getShobeList();
+            }
+        })
+    })
+
+
+
+    self.selectShobe = function (item) {
+        $('#nameShobe').val(item.Name);
+    }
+
+
+    $('#modal-Shobe').on('shown.bs.modal', function () {
+        /*  if (flagSearchShobe == 0 && self.flagupdateband == false) {
+              filterShobe0("");
+              self.currentPageIndexShobe(0);
+              flagSearchShobe = 1;
+          } else if (flagSearchShobe == 0 && self.flagupdateband == true) {
+              self.filterShobe0($('#nameShobe').val());
+          }*/
+
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageJari = ko.observable();
+    pageSizeJari = localStorage.getItem('pageSizeJari') == null ? 10 : localStorage.getItem('pageSizeJari');
+    self.pageSizeJari = ko.observable(pageSizeJari);
+    self.currentPageIndexJari = ko.observable(0);
+
+    self.filterJari0 = ko.observable("");
+
+    self.filterJariList = ko.computed(function () {
+
+        self.currentPageIndexJari(0);
+        var filter0 = self.filterJari0();
+
+
+        if (!filter0) {
+            return self.JariList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.JariList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageJari = ko.computed(function () {
+        var pageSizeJari = parseInt(self.pageSizeJari(), 10),
+            startIndex = pageSizeJari * self.currentPageIndexJari(),
+            endIndex = startIndex + pageSizeJari;
+        localStorage.setItem('pageSizeJari', pageSizeJari);
+        return self.filterJariList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageJari = function () {
+        if (((self.currentPageIndexJari() + 1) * self.pageSizeJari()) < self.filterJariList().length) {
+            self.currentPageIndexJari(self.currentPageIndexJari() + 1);
+        }
+    };
+
+    self.previousPageJari = function () {
+        if (self.currentPageIndexJari() > 0) {
+            self.currentPageIndexJari(self.currentPageIndexJari() - 1);
+        }
+    };
+
+    self.firstPageJari = function () {
+        self.currentPageIndexJari(0);
+    };
+
+    self.lastPageJari = function () {
+        countJari = parseInt(self.filterJariList().length / self.pageSizeJari(), 10);
+        if ((self.filterJariList().length % self.pageSizeJari()) == 0)
+            self.currentPageIndexJari(countJari - 1);
+        else
+            self.currentPageIndexJari(countJari);
+    };
+
+    self.sortTableJari = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.JariList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshJari').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست جاری") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getJariList();
+            }
+        })
+    })
+
+
+    self.selectJari = function (item) {
+        $('#nameJari').val(item.Name);
+    }
+
+
+    $('#modal-Jari').on('shown.bs.modal', function () {
+        // if (flagSearchJari == 0 && self.flagupdateband == false) {
+        //    filterJari0("");
+        //   self.currentPageIndexJari(0);
+        //    flagSearchJari = 1;
+        //} else if (flagSearchJari == 0 && self.flagupdateband == true) {
+        //    self.filterJari0($('#nameJari').val());
+        //}
+
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+    self.currentPageTraf = ko.observable();
+
+    pageSizeTraf = localStorage.getItem('pageSizeTraf') == null ? 10 : localStorage.getItem('pageSizeTraf');
+    self.pageSizeTraf = ko.observable(pageSizeTraf);
+    self.currentPageIndexTraf = ko.observable(0);
+
+    self.filterTraf0 = ko.observable("");
+    self.filterTraf1 = ko.observable("");
+    self.filterTraf2 = ko.observable("");
+
+    self.filterTrafList = ko.computed(function () {
+
+        self.currentPageIndexTraf(0);
+        var filter0 = self.filterTraf0().toUpperCase();
+        var filter1 = self.filterTraf1();
+        var filter2 = self.filterTraf2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
+                result =
+                    item.AutoCreate == 0
+                return result;
+            })
+            return tempData;
+        } else {
+            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    item.AutoCreate == 0
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageTraf = ko.computed(function () {
+        var pageSizeTraf = parseInt(self.pageSizeTraf(), 10),
+            startIndex = pageSizeTraf * self.currentPageIndexTraf(),
+            endIndex = startIndex + pageSizeTraf;
+        localStorage.setItem('pageSizeTraf', pageSizeTraf);
+        return self.filterTrafList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageTraf = function () {
+        if (((self.currentPageIndexTraf() + 1) * self.pageSizeTraf()) < self.filterTrafList().length) {
+            self.currentPageIndexTraf(self.currentPageIndexTraf() + 1);
+        }
+    };
+
+    self.previousPageTraf = function () {
+        if (self.currentPageIndexTraf() > 0) {
+            self.currentPageIndexTraf(self.currentPageIndexTraf() - 1);
+        }
+    };
+
+    self.firstPageTraf = function () {
+        self.currentPageIndexTraf(0);
+    };
+
+    self.lastPageTraf = function () {
+        countTraf = parseInt(self.filterTrafList().length / self.pageSizeTraf(), 10);
+        if ((self.filterTrafList().length % self.pageSizeTraf()) == 0)
+            self.currentPageIndexTraf(countTraf - 1);
+        else
+            self.currentPageIndexTraf(countTraf);
+    };
+
+    self.sortTableTraf = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.AccList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshTraf').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست طرف حساب ها") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+
+                getAccList();
+
+            }
+        })
+    })
+
+
+    self.selectTraf = function (item) {
+        zGruTraf = "";
+        $('#nameZAcc').val('');
+        if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
+            if (item.NextLevelFromZAcc == 1) {
+                $('#btnTrafZ').removeAttr('hidden', '');
+                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                $('#modal-TrafZ').modal('show');
+            }
+            else {
+                $('#btnTrafZ').attr('hidden', '');
+                trafZCode = '';
+                trafZName = '';
+            }
+
+
+            $('#nameTraf').val('(' + item.Code + ') ' + item.Name);
+            trafCode = item.Code;
+            trafName = item.Name;
+            $('#modal-Traf').modal('toggle');
+        }
+        else
+            return showNotification(translate('این طرف حساب قابل انتخاب نیست'), 0);
+    }
+
+
+    $('#modal-Traf').on('shown.bs.modal', function () {
+        /*  if (flagSearchTraf == 0 && self.flagupdateband == false) {
+                self.filterTraf0("");
+                self.filterTraf1("");
+                self.filterTraf2("");
+                self.currentPageIndexTraf(0);
+                flagSearchTraf = 1;
+            } else if (flagSearchTraf == 0 && self.flagupdateband == true) {
+                self.filterTraf0(TrafCode);
+                self.filterTraf1("");
+                self.filterTraf2("");
+            }*/
+
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+    self.currentPageTrafZ = ko.observable();
+
+    pageSizeTrafZ = localStorage.getItem('pageSizeTrafZ') == null ? 10 : localStorage.getItem('pageSizeTrafZ');
+    self.pageSizeTrafZ = ko.observable(pageSizeTrafZ);
+    self.currentPageIndexTrafZ = ko.observable(0);
+
+    self.filterTrafZ0 = ko.observable("");
+    self.filterTrafZ1 = ko.observable("");
+    self.filterTrafZ2 = ko.observable("");
+
+    self.filterTrafZList = ko.computed(function () {
+
+        self.currentPageIndexTrafZ(0);
+        var filter0 = self.filterTrafZ0().toUpperCase();
+        var filter1 = self.filterTrafZ1();
+        var filter2 = self.filterTrafZ2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ZAccList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ZAccList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageTrafZ = ko.computed(function () {
+        var pageSizeTrafZ = parseInt(self.pageSizeTrafZ(), 10),
+            startIndex = pageSizeTrafZ * self.currentPageIndexTrafZ(),
+            endIndex = startIndex + pageSizeTrafZ;
+        localStorage.setItem('pageSizeTrafZ', pageSizeTrafZ);
+        return self.filterTrafZList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageTrafZ = function () {
+        if (((self.currentPageIndexTrafZ() + 1) * self.pageSizeTrafZ()) < self.filterTrafZList().length) {
+            self.currentPageIndexTrafZ(self.currentPageIndexTrafZ() + 1);
+        }
+    };
+
+    self.previousPageTrafZ = function () {
+        if (self.currentPageIndexTrafZ() > 0) {
+            self.currentPageIndexTrafZ(self.currentPageIndexTrafZ() - 1);
+        }
+    };
+
+    self.firstPageTrafZ = function () {
+        self.currentPageIndexTrafZ(0);
+    };
+
+    self.lastPageTrafZ = function () {
+        countTrafZ = parseInt(self.filterTrafZList().length / self.pageSizeTrafZ(), 10);
+        if ((self.filterTrafZList().length % self.pageSizeTrafZ()) == 0)
+            self.currentPageIndexTrafZ(countTrafZ - 1);
+        else
+            self.currentPageIndexTrafZ(countTrafZ);
+    };
+
+    self.sortTableTrafZ = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ZAccList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshTrafZ').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getZAccList();
+            }
+        })
+    })
+
+
+    self.selectTrafZ = function (item) {
+        $('#nameTrafZ').val('(' + item.Code + ') ' + item.Name);
+        trafZCode = item.Code;
+        trafZName = item.Name;
+        $('#modal-TrafZ').modal('toggle');
+    }
+
+
+    $('#modal-TrafZ').on('shown.bs.modal', function () {
+        /* if (flagSearchTrafZ == 0 && self.flagupdateband == false) {
+             self.filterTrafZ0("");
+             self.filterTrafZ1("");
+             self.filterTrafZ2("");
+             self.currentPageIndexTrafZ(0);
+             flagSearchTrafZ = 1;
+         } else if (flagSearchTrafZ == 0 && self.flagupdateband == true) {
+             self.filterTrafZ0(TrafZCode);
+             self.filterTrafZ1("");
+             self.filterTrafZ2("");
+         }*/
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 };

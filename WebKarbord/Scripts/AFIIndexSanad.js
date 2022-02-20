@@ -1025,8 +1025,8 @@
             sessionStorage.F19 = item.F19;
             sessionStorage.F20 = item.F20;
             sessionStorage.lastPageSelect = self.currentPageIndexADocH();
-            window.location.href = sessionStorage.urlAddADocH;
-            //window.location.href = sessionStorage.urlAddADocH_New;
+           //window.location.href = sessionStorage.urlAddADocH;
+            window.location.href = sessionStorage.urlAddADocH_New;
         }
     }
 

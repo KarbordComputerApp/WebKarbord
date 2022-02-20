@@ -318,14 +318,14 @@
 
         totalMonBede = totalBede > totalBest ? totalBede - totalBest : 0;
         totalMonBest = totalBede < totalBest ? totalBest - totalBede : 0;
-        totalMonTotal = totalMonBede > 0 ? totalMonBede : totalMonBest;
+        totalMonTotal = totalMonBede > 0 ? totalMonBede : totalMonBest * -1;
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
         $("#totalMonBede").text(NumberToNumberString(totalMonBede));
         $("#totalMonBest").text(NumberToNumberString(totalMonBest));
-        $("#totalMonTotal").text(NumberToNumberString(totalMonTotal));
+        $("#totalMonTotal").text(totalMonTotal >= 0 ? NumberToNumberString(totalMonTotal) : '(' + NumberToNumberString(Math.abs(totalMonTotal)) + ')');
     }
 
     $("#CreateReport").click(function () {
