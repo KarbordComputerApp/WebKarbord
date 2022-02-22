@@ -527,7 +527,7 @@
             sort = "DocNo"
         }
         if (changeSelector == false) {
-            TextField = FindTextField(sort, self.SettingColumnList());
+            TextField = FindTextField(sort, ListColumns);
             $('#pageCountSelector').empty();
             select = document.getElementById('pageCountSelector');
             for (var i = 1; i <= 2; i++) {
@@ -2563,7 +2563,9 @@
         }
 
         if (rjTime_H == '' && rjTime_M == '') {
-            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
+           // rjTime_H == '0';
+           // rjTime_M == '0';
+            // return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
         natijeh = $("#e_Result").val();
@@ -2603,7 +2605,7 @@
         fromUserCode = sessionStorage.userName;
         toUserCode = self.ErjUsersCode();
 
-
+        rjTime = 0;
         if (rjTime_H != '' || rjTime_M != '') {
 
             if (rjTime_M != '') {

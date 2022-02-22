@@ -1966,9 +1966,20 @@ function getAccessList(GoHome) {
                         //if (sessionStorage.userName == 'ACE') {
                         //    localStorage.setItem('Access', 1);
                         //} else {
-                        access = JSON.parse(localStorage.getItem("Access"));
+
+
                         //}
 
+
+                        access = localStorage.getItem("Access");
+
+                        sessionStorage.OrgProgName = '';
+                        if (access.includes('Erj1')) sessionStorage.OrgProgName = 'Erj1';
+                        if (access.includes('Inv5')) sessionStorage.OrgProgName = 'Inv5';
+                        if (access.includes('Fct5')) sessionStorage.OrgProgName = 'Fct5';
+                        if (access.includes('Acc5')) sessionStorage.OrgProgName = 'Acc5';
+
+                        access = JSON.parse(localStorage.getItem("Access"));
 
                         ajaxFunction(AccessReportUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                             self.AccessListReport(data);
@@ -2013,7 +2024,7 @@ var DateNow;
 var SalNow;
 
 if (sessionStorage.userName != '' && sessionStorage.userName != null)
-setInterval(TestUser, 60000);
+    setInterval(TestUser, 60000);
 function TestUser() {
     if (sessionStorage.userName != "" && sessionStorage.userName != null) {
 
@@ -2041,6 +2052,7 @@ function TestUser() {
             if (datalogin.ID >= 0) {
                 //showNotification('لطفا دوباره وارد شوید', 0);
                 //sleep(10000);
+                sessionStorage.userName = '';
                 window.location.href = localStorage.getItem("urlLogin");//sessionStorage.urlLogin;
             }
             else {
@@ -2061,8 +2073,8 @@ function TestUser() {
                 }
 
 
-               // if (updateDateCols != null)
-                  //  localStorage.setItem('UpdateDateCols', updateDateCols);
+                // if (updateDateCols != null)
+                //  localStorage.setItem('UpdateDateCols', updateDateCols);
 
                 if (count > 0) {
                     $("#notificationCount").text(count);
@@ -4411,7 +4423,7 @@ function createViewer() {
         var userButtonCell = buttonsTable.rows[0].insertCell(0);
         userButtonCell.className = "stiJsViewerClearAllStyles";
         userButtonCell.appendChild(userButton);
-    } 
+    }
 }
 
 

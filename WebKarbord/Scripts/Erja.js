@@ -2450,7 +2450,9 @@
         }
 
         if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
-            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
+           // rjTime_H = '';
+           // rjTime_M = '';
+            //return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
         natijeh = $("#e_Result").val();
@@ -2601,7 +2603,7 @@
         }
 
         toUserCode = self.ErjUsersCode();
-
+        rjTime = 0;
         if (bandNoImput == 0 || sessionStorage.ModeCodeErja == "2") {
             if (rjTime_H != '' || rjTime_M != '') {
 
@@ -2799,9 +2801,12 @@
             rjTime_M = $("#p_RjTime_M").val();
 
             if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
-                return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
-            }
 
+                rjTime_H = '';
+                rjTime_M = '';
+                // return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
+            }
+            rjTime = 0;
             if (rjTime_H != '' || rjTime_M != '') {
 
                 if (rjTime_M != '') {

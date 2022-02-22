@@ -260,7 +260,7 @@
                         sessionStorage.progName = progName;
 
                         var GroupsObject = {
-                            ProgName: progName,
+                            ProgName: sessionStorage.OrgProgName ,
                             User: sessionStorage.userName,
                             Groups: groups.replaceAll('-', ',')
                         }

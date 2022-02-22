@@ -729,7 +729,7 @@ var ViewModel = function () {
                 startEditAction: 'click',
                 confirmDelete: false,
                 useIcons: true,
-                //newRowPosition: 'last',
+                newRowPosition: 'last',
 
             },
             // columnHidingEnabled: true,
@@ -2028,12 +2028,16 @@ var ViewModel = function () {
         dataGrid.cellValue(ro, "TrafZName", trafZName);
         dataGrid.cellValue(ro, "CheckComm", $('#CheckComm').val());
 
+        value = $('#Value').val();
+        value = value.replaceAll(',', '');
+
         if (dataAcc[ro].PDMode == 1) {
-            dataGrid.cellValue(ro, "Best", $('#Value').val());
+
+            dataGrid.cellValue(ro, "Best", value );
             //dataGrid.cellValue(ro, "Bede",'0');
         } else {
             //dataGrid.cellValue(ro, "Best", '0');
-             dataGrid.cellValue(ro, "Bede", $('#Value').val());
+            dataGrid.cellValue(ro, "Bede", value);
         }
     });
 
@@ -2410,7 +2414,7 @@ var ViewModel = function () {
         //$('#modal-FinalSave').modal('hide');
 
         $('#data-error').hide();
-        $('#data-grid').removeClass('col-md-8');
+        $('#data-grid').removeClass('col-md-6');
         SaveSanad();
     });
 

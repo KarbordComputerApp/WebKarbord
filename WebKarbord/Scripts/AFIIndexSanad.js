@@ -268,7 +268,7 @@
         }
 
         if (changeSelector == false) {
-            TextField = FindTextField(sort, self.SettingColumnList());
+            TextField = FindTextField(sort, ListColumns);
             $('#pageCountSelector').empty();
             select = document.getElementById('pageCountSelector');
             for (var i = 1; i <= 2; i++) {
