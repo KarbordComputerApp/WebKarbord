@@ -2361,6 +2361,7 @@
         if (serialNumber > 0) {
             $('#modal-DocAttach').modal('show');
             getDocAttachList(serialNumber);
+
         }
         else
             showNotification(translate('ابتدا پرونده را ذخیره کنید'), 2);
@@ -3442,6 +3443,18 @@
             return false;
     }
 
+
+
+
+
+    self.ShowDeleteDocAttach = function () {
+        if (self.p_Eghdam() == sessionStorage.userName)
+            return true;
+        else
+            return false;
+    }
+
+    
 
 
 

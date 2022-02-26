@@ -71,9 +71,10 @@
     self.AzMhltDate = ko.observable('');
     self.TaMhltDate = ko.observable('');
     self.e_MhltErja = ko.observable('');
-    self.ErjUsersCode = ko.observable();
-    self.ToUserCode = ko.observable();
-    self.FarayandCode = ko.observable();
+    self.ErjUsersCode = ko.observable('');
+    self.ToUserCode = ko.observable('');
+    self.FarayandCode = ko.observable('');
+    self.p_Eghdam = ko.observable('');
 
     self.Status = ko.observable();
 
@@ -1072,12 +1073,25 @@
 
     self.ViewDocAttach = function (Band) {
         serialNumber = Band.SerialNumber;
+        self.p_Eghdam('');
         getDocAttachList(Band.SerialNumber);
+
     }
 
     $('#attachFile').click(function () {
         getDocAttachList(serialNumber);
     });
+
+
+
+
+    self.ShowDeleteDocAttach = function () {
+        if (self.p_Eghdam() == sessionStorage.userName)
+            return true;
+        else
+            return false;
+    }
+
 
 
     self.DeleteDocAttach = function (Band) {
@@ -1705,6 +1719,8 @@
 
 
             $("#eghdamComm").val(item.EghdamComm);
+
+            self.p_Eghdam(item.Eghdam);
 
             if (item.Eghdam == sessionStorage.userName)
                 $('#eghdamComm').attr('readonly', false);
