@@ -1973,11 +1973,11 @@ function getAccessList(GoHome) {
 
                         access = localStorage.getItem("Access");
 
-                        sessionStorage.OrgProgName = '';
+                       /* sessionStorage.OrgProgName = '';
                         if (access.includes('Erj1')) sessionStorage.OrgProgName = 'Erj1';
                         if (access.includes('Inv5')) sessionStorage.OrgProgName = 'Inv5';
                         if (access.includes('Fct5')) sessionStorage.OrgProgName = 'Fct5';
-                        if (access.includes('Acc5')) sessionStorage.OrgProgName = 'Acc5';
+                        if (access.includes('Acc5')) sessionStorage.OrgProgName = 'Acc5';*/
 
                         access = JSON.parse(localStorage.getItem("Access"));
 

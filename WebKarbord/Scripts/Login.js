@@ -17,8 +17,8 @@
 
 
 
-    var serverAccount = 'http://192.168.0.114:902/api/';
-    //var serverAccount = 'http://127.0.0.1:902/api/';
+    //var serverAccount = 'http://192.168.0.114:902/api/';
+    var serverAccount = 'http://127.0.0.1:902/api/';
 
     localStorage.setItem("serverAccount", serverAccount);
 
@@ -134,7 +134,7 @@
                     tempAccess = localStorage.getItem('afi8Access');
 
 
-                    if (tempAccess.search("ADOC") > 0 ||
+                   /* if (tempAccess.search("ADOC") > 0 ||
                         tempAccess.search("TrzAcc") > 0 ||
                         tempAccess.search("Dftr") > 0 ||
                         tempAccess.search("TChk") > 0 ||
@@ -167,7 +167,7 @@
                         tempAccess.search("Krdx") > 0 ||
                         tempAccess.search("IDocR") > 0)
                         progName = "INV5"
-
+                        */
                     //progName = "ERJ1"
 
 
@@ -200,7 +200,7 @@
                         }
                     }
 
-                    progName = "afi1"
+                    //progName = "afi1"
 
                 }
                 else {
@@ -208,7 +208,7 @@
                     sessionStorage.ace = 'Web2';
                     progCaption = translate('وب : اتوماسیون');
                     groups = localStorage.getItem('erjList');
-                    progName = "ERJ1"
+                    //progName = "ERJ1"
                 }
 
                 var LoginTestObject = {
@@ -257,18 +257,27 @@
                         localStorage.setItem("userName", user.toUpperCase());
                         localStorage.setItem('password', pass);
 
-                        sessionStorage.progName = progName;
+                        //sessionStorage.progName = progName;
+
+                        server = localStorage.getItem("ApiAddress");
+
+                        var ProgTrsObject = {
+                            User: sessionStorage.userName,
+                        }
+                       
+                        ajaxFunction(server + '/api/Web_Data/ProgTrs', 'POST', ProgTrsObject).done(function (data) {
+                            sessionStorage.OrgProgName = data[0].prog;
+                        });
 
                         var GroupsObject = {
-                            ProgName: sessionStorage.OrgProgName ,
+                            ProgName: sessionStorage.OrgProgName,
                             User: sessionStorage.userName,
                             Groups: groups.replaceAll('-', ',')
                         }
 
-                        server = localStorage.getItem("ApiAddress");
                         ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
                             localStorage.setItem('afiList', JSON.stringify(data));
-                            a = localStorage.getItem('afiList');
+                            //a = localStorage.getItem('afiList');
                         });
 
                         var Statements = "";
