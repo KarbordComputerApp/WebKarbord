@@ -1733,16 +1733,14 @@ async function getParamList() {
 
 
 function CheckAccess(TrsName, Prog) {
-
-    if (Prog.includes('Acc5') && localStorage.getItem('admin_Acc5') == '1')
+    if (localStorage.getItem('admin_Afi1') == '1' && ace == 'Web1')
         return true;
-    else if (Prog.includes('Fct5') && localStorage.getItem('admin_Fct5') == '1')
+    else if (Prog.includes('Acc5') && localStorage.getItem('admin_Acc5') == '1' && ace == 'Web8')
         return true;
-    else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1')
+    else if (Prog.includes('Fct5') && localStorage.getItem('admin_Fct5') == '1' && ace == 'Web8')
         return true;
-    else if (Prog.includes('Afi1') && localStorage.getItem('admin_Afi1') == '1')
+    else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1' && ace == 'Web8')
         return true;
- 
 
     /*if (access[0].TrsName == 'ADMIN') {
         if (ace == 'afi1') {
@@ -2115,11 +2113,11 @@ function getAccessList(GoHome) {
                             if (admin[i].OrgProgName == 'Erj1') admin_Erj1 = 1;
                         }
 
-                        localStorage.setItem('admin_Acc5', admin_Acc5);                                        
-                        localStorage.setItem('admin_Fct5', admin_Fct5);                                        
-                        localStorage.setItem('admin_Inv5', admin_Inv5);                                        
-                        localStorage.setItem('admin_Afi1', admin_Afi1);                                        
-                        localStorage.setItem('admin_Erj1', admin_Erj1);                                        
+                        localStorage.setItem('admin_Acc5', admin_Acc5);
+                        localStorage.setItem('admin_Fct5', admin_Fct5);
+                        localStorage.setItem('admin_Inv5', admin_Inv5);
+                        localStorage.setItem('admin_Afi1', admin_Afi1);
+                        localStorage.setItem('admin_Erj1', admin_Erj1);
 
 
                         localStorage.setItem('Access', JSON.stringify(data));
