@@ -1732,7 +1732,6 @@ async function getParamList() {
 }
 
 function CheckAccess(TrsName) {
-
     //access = JSON.parse(localStorage.getItem("Access"));//localStorage.getItem("Access");
     if (access[0].TrsName == 'ADMIN') {
         return true;

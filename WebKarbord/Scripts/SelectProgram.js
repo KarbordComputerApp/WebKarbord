@@ -105,7 +105,7 @@
             if (onlyGroupErj.includes(GroupSelect) == true)
                 progName = 'erj1';
             else
-                progName = sessionStorage.progName;
+                progName = sessionStorage.OrgProgName;
 
             var DatabseSalObject = {
                 ProgName: progName,
