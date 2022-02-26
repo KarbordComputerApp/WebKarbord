@@ -21,14 +21,14 @@
 
 
 
-    validation = CheckAccess('NEW_CUST');// New CUST
+    validation = CheckAccess('NEW_CUST', 'Fct5');// New CUST
     sessionStorage.NEW_CUST = validation;
     validation == true ? $("#AddNewCust").show() : $("#AddNewCust").hide()
 
-    validation = CheckAccess('CHG_CUST');// edit CUST
+    validation = CheckAccess('CHG_CUST', 'Fct5');// edit CUST
     sessionStorage.CHG_CUST = validation;
 
-    validation = CheckAccess('DEL_CUST'); // delete CUST
+    validation = CheckAccess('DEL_CUST', 'Fct5'); // delete CUST
     sessionStorage.DEL_CUST = validation;
 
     self.ShowAction = function (Code) {

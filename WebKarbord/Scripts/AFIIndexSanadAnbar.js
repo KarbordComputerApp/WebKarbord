@@ -27,7 +27,7 @@
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
 
         if (sessionStorage.InOut == 1) {
-            validation = CheckAccess('NEW_IIDOC');// new varedae anbar
+            validation = CheckAccess('NEW_IIDOC','Inv5');// new varedae anbar
             sessionStorage.newSanadAnbar = validation;
             validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
             validation == true ? sessionStorage.NEW_IIDOC = true : sessionStorage.NEW_IIDOC = false;
@@ -36,12 +36,12 @@
             sessionStorage.moveSanadAnbar = validation;
             localStorage.setItem("moveSanadAnbar", validation);
 
-            validation = CheckAccess('CHG_IIDOC');// edit varedae anbar
+            validation = CheckAccess('CHG_IIDOC', 'Inv5');// edit varedae anbar
             validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
             validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
             validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
-            validation = CheckAccess('DEL_IIDOC'); // delete varedae anbar
+            validation = CheckAccess('DEL_IIDOC', 'Inv5'); // delete varedae anbar
             validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
             validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
             validation == true ? localStorage.setItem("DEL_IIDOC", "true") : localStorage.setItem("DEL_IIDOC", "false")
@@ -51,24 +51,24 @@
             //validation == true ? localStorage.setItem("VIEW_IIDOC", "true") : localStorage.setItem("VIEW_IIDOC", "false")
 
 
-            validation = CheckAccess('PRN_IIDOC'); // Print
+            validation = CheckAccess('PRN_IIDOC', 'Inv5'); // Print
             validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
             validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
 
 
-            validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
+            validation = CheckAccess('SHOWPRICE_IIDOC', 'Inv5');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_IIDOC = true : sessionStorage.Access_SHOWPRICE_IIDOC = false
             validation == true ? localStorage.setItem("Access_SHOWPRICE_IIDOC", "true") : localStorage.setItem("Access_SHOWPRICE_IIDOC", "false")
 
-            validation = CheckAccess('TAEED_IIDOC');// AccessTaeed
+            validation = CheckAccess('TAEED_IIDOC', 'Inv5');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_IIDOC = true : sessionStorage.Access_TAEED_IIDOC = false
             validation == true ? localStorage.setItem("Access_TAEED_IIDOC", "true") : localStorage.setItem("Access_TAEED_IIDOC", "false")
 
-            validation = CheckAccess('CANCEL_IIDOC');// AccessCANCEL  باطل
+            validation = CheckAccess('CANCEL_IIDOC', 'Inv5');// AccessCANCEL  باطل
             validation == true ? sessionStorage.Access_CANCEL_IIDOC = true : sessionStorage.Access_CANCEL_IIDOC = false
             validation == true ? localStorage.setItem("Access_CANCEL_IIDOC", "true") : localStorage.setItem("Access_CANCEL_IIDOC", "false")
 
-            validation = CheckAccess('TASVIB_IIDOC');// AccessTasvib
+            validation = CheckAccess('TASVIB_IIDOC', 'Inv5');// AccessTasvib
             validation == true ? sessionStorage.Access_TASVIB_IIDOC = true : sessionStorage.Access_TASVIB_IIDOC = false
             validation == true ? localStorage.setItem("Access_TASVIB_IIDOC", "true") : localStorage.setItem("Access_TASVIB_IIDOC", "false")
 
@@ -78,7 +78,7 @@
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_IIDOC");
 
-            validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
+            validation = CheckAccess('OTHERUSER_CHG_IIDOC', 'Inv5');// AccessViewSanad
             if (validation == true) {
                 sessionStorage.AccessViewSanadAnbarVarede = true;
                 localStorage.setItem("AccessViewSanadAnbarVarede", "true")
@@ -90,7 +90,7 @@
         }
 
         if (sessionStorage.InOut == 2) {
-            validation = CheckAccess('NEW_IODOC');// new sadere anbar
+            validation = CheckAccess('NEW_IODOC', 'Inv5');// new sadere anbar
             validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
             validation == true ? sessionStorage.NEW_IODOC = true : sessionStorage.NEW_IODOC = false;
 
@@ -98,12 +98,12 @@
             localStorage.setItem("moveSanadAnbar", validation);
 
 
-            validation = CheckAccess('CHG_IODOC');// edit sadere anbar
+            validation = CheckAccess('CHG_IODOC', 'Inv5');// edit sadere anbar
             validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
             validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
             validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
 
-            validation = CheckAccess('DEL_IODOC'); // delete sadere anbar
+            validation = CheckAccess('DEL_IODOC', 'Inv5'); // delete sadere anbar
             validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
             validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
             validation == true ? localStorage.setItem("DEL_IODOC", "true") : localStorage.setItem("DEL_IODOC", "false")
@@ -111,24 +111,24 @@
             //validation = CheckAccess('VIEW_IODOC'); // VIEW IODOC 
             //validation == true ? localStorage.setItem("VIEW_IODOC", "true") : localStorage.setItem("VIEW_IODOC", "false")
 
-            validation = CheckAccess('PRN_IODOC'); // Print
+            validation = CheckAccess('PRN_IODOC', 'Inv5'); // Print
             validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
             validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
 
 
-            validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
+            validation = CheckAccess('SHOWPRICE_IODOC', 'Inv5');// AccessPrice
             validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false
             validation == true ? localStorage.setItem("Access_SHOWPRICE_IODOC", "true") : localStorage.setItem("Access_SHOWPRICE_IODOC", "false")
 
-            validation = CheckAccess('TAEED_IODOC');// AccessTaeed
+            validation = CheckAccess('TAEED_IODOC', 'Inv5');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_IODOC = true : sessionStorage.Access_TAEED_IODOC = false
             validation == true ? localStorage.setItem("Access_TAEED_IODOC", "true") : localStorage.setItem("Access_TAEED_IODOC", "false")
 
-            validation = CheckAccess('CANCEL_IODOC');// AccessCANCEL  باطل
+            validation = CheckAccess('CANCEL_IODOC', 'Inv5');// AccessCANCEL  باطل
             validation == true ? sessionStorage.Access_CANCEL_IODOC = true : sessionStorage.Access_CANCEL_IODOC = false
             validation == true ? localStorage.setItem("Access_CANCEL_IODOC", "true") : localStorage.setItem("Access_CANCEL_IODOC", "false")
 
-            validation = CheckAccess('TASVIB_IODOC');// AccessTasvib
+            validation = CheckAccess('TASVIB_IODOC', 'Inv5');// AccessTasvib
             validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
             validation == true ? localStorage.setItem("Access_TASVIB_IODOC", "true") : localStorage.setItem("Access_TASVIB_IODOC", "false")
 
@@ -137,7 +137,7 @@
            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_IODOC");
 
-            validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
+            validation = CheckAccess('OTHERUSER_CHG_IODOC', 'Inv5');// AccessViewSanad
             if (validation == true) {
                 sessionStorage.AccessViewSanadAnbarSadere = true;
                 localStorage.setItem("AccessViewSanadAnbarSadere", "true")
@@ -482,8 +482,8 @@
             for (var i = 0; i < data.length; i++) {
 
                 if (
-                    (CheckAccess('NEW_IIDOC') && data[i].InOut == 1) ||
-                    (CheckAccess('NEW_IODOC') && data[i].InOut == 2)
+                    (CheckAccess('NEW_IIDOC', 'Inv5') && data[i].InOut == 1) ||
+                    (CheckAccess('NEW_IODOC', 'Inv5') && data[i].InOut == 2)
                 ) {
 
                     textExc += '<option value="' + data[i].Code + '"';

@@ -13,14 +13,14 @@
 
     TestUser();
 
-    validation = CheckAccess('NEW_MKZ');// New Mkz
+    validation = CheckAccess('NEW_MKZ', localStorage.getItem('ProgAccess'));// New Mkz
     sessionStorage.NEW_Mkz = validation;
     validation == true ? $("#AddNewMkz").show() : $("#AddNewMkz").hide()
 
-    validation = CheckAccess('CHG_MKZ');// edit Mkz
+    validation = CheckAccess('CHG_MKZ', localStorage.getItem('ProgAccess'));// edit Mkz
     sessionStorage.CHG_Mkz = validation;
 
-    validation = CheckAccess('DEL_MKZ'); // delete Mkz
+    validation = CheckAccess('DEL_MKZ', localStorage.getItem('ProgAccess')); // delete Mkz
     sessionStorage.DEL_Mkz = validation;
 
     self.ShowAction = function (Code) {

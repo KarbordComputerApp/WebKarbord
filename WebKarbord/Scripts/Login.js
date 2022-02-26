@@ -266,6 +266,15 @@
                         }
                        
                         ajaxFunction(server + '/api/Web_Data/ProgTrs', 'POST', ProgTrsObject).done(function (data) {
+                            
+
+                            p = '';
+                            for (var i = 0; i < data.length; i++) {
+                                p += data[i].prog + '-';
+                            }
+                            localStorage.setItem('ProgAccess', p);
+                            
+
                             sessionStorage.OrgProgName = data[0].prog;
                         });
 

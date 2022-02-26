@@ -13,14 +13,14 @@
 
     TestUser();
 
-    validation = CheckAccess('NEW_OPR');// New Opr
+    validation = CheckAccess('NEW_OPR', localStorage.getItem('ProgAccess'));// New Opr
     sessionStorage.NEW_Opr = validation;
     validation == true ? $("#AddNewOpr").show() : $("#AddNewOpr").hide()
 
-    validation = CheckAccess('CHG_OPR');// edit Opr
+    validation = CheckAccess('CHG_OPR', localStorage.getItem('ProgAccess'));// edit Opr
     sessionStorage.CHG_Opr = validation;
 
-    validation = CheckAccess('DEL_OPR'); // delete Opr
+    validation = CheckAccess('DEL_OPR', localStorage.getItem('ProgAccess')); // delete Opr
     sessionStorage.DEL_Opr = validation;
 
     self.ShowAction = function (Code) {

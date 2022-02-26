@@ -23,14 +23,14 @@
 
 
 
-    validation = CheckAccess('NEW_ACC');// New Acc
+    validation = CheckAccess('NEW_ACC', 'Acc5');// New Acc
     sessionStorage.NEW_Acc = validation;
     validation == true ? $("#AddNewAcc").show() : $("#AddNewAcc").hide()
 
-    validation = CheckAccess('CHG_ACC');// edit Acc
+    validation = CheckAccess('CHG_ACC', 'Acc5');// edit Acc
     sessionStorage.CHG_Acc = validation;
 
-    validation = CheckAccess('DEL_ACC'); // delete Acc
+    validation = CheckAccess('DEL_ACC', 'Acc5'); // delete Acc
     sessionStorage.DEL_Acc = validation;
 
     self.ShowAction = function (Code) {

@@ -18,14 +18,14 @@
     TestUser();
 
 
-    validation = CheckAccess('NEW_KALA');// New Kala
+    validation = CheckAccess('NEW_KALA', Fct_or_Inv);// New Kala
     sessionStorage.NEW_KALA = validation;
     validation == true ? $("#AddNewKala").show() : $("#AddNewKala").hide()
 
-    validation = CheckAccess('CHG_KALA');// edit Kala
+    validation = CheckAccess('CHG_KALA', Fct_or_Inv);// edit Kala
     sessionStorage.CHG_KALA = validation;
 
-    validation = CheckAccess('DEL_KALA'); // delete Kala
+    validation = CheckAccess('DEL_KALA', Fct_or_Inv); // delete Kala
     sessionStorage.DEL_KALA = validation;
 
     self.ShowAction = function (Code) {

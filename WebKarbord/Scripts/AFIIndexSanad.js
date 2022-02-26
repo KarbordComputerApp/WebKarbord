@@ -21,19 +21,19 @@
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 
         if (sessionStorage.ModeCode == 'ADOC') {
-            validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
+            validation = CheckAccess('NEW_ADOC','Acc5');// new Sanad Hesab
             //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
             validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
 
             localStorage.setItem("moveSanad", validation);
             sessionStorage.moveSanad = validation;
 
-            validation = CheckAccess('CHG_ADOC');// edit Sanad Hesab
+            validation = CheckAccess('CHG_ADOC', 'Acc5');// edit Sanad Hesab
             validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
             validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
             validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
 
-            validation = CheckAccess('DEL_ADOC'); // delete Sanad Hesab
+            validation = CheckAccess('DEL_ADOC', 'Acc5'); // delete Sanad Hesab
             //validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
 
             validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
@@ -43,11 +43,11 @@
             //validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
             //validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
 
-            validation = CheckAccess('TAEED_ADOC');// AccessTaeed
+            validation = CheckAccess('TAEED_ADOC', 'Acc5');// AccessTaeed
             validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
             validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
 
-            validation = CheckAccess('DAEM_ADOC');// AccessDaem
+            validation = CheckAccess('DAEM_ADOC', 'Acc5');// AccessDaem
             validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
             validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
 
@@ -56,12 +56,12 @@
             //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_ADOC");
 
-            validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
+            validation = CheckAccess('PRN_ADOC', 'Acc5'); // Print Sanad Hesab
             validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
             validation == true ? localStorage.setItem("AccessPrint_SanadHesab", "true") : localStorage.setItem("AccessPrint_SanadHesab", "false")
 
 
-            validation = CheckAccess('OTHERUSER_CHG_ADOC');// AccessViewADoc
+            validation = CheckAccess('OTHERUSER_CHG_ADOC', 'Acc5');// AccessViewADoc
             if (validation == true) {
                 sessionStorage.AccessViewSanad = true;
                 localStorage.setItem("AccessViewSanad", "true");

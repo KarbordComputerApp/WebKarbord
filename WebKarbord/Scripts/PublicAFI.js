@@ -459,7 +459,7 @@ else {
 
 
 $('#TextUserName').text(sessionStorage.userName);
-var access = JSON.parse(localStorage.getItem("Access"));
+var access = JSON.parse(localStorage.getItem('Access'));
 var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
 
 var accessErj = JSON.parse(localStorage.getItem("AccessErj"));
@@ -1731,11 +1731,41 @@ async function getParamList() {
     });
 }
 
-function CheckAccess(TrsName) {
-    //access = JSON.parse(localStorage.getItem("Access"));//localStorage.getItem("Access");
-    if (access[0].TrsName == 'ADMIN') {
+
+function CheckAccess(TrsName, Prog) {
+
+    if (Prog.includes('Acc5') && localStorage.getItem('admin_Acc5') == '1')
         return true;
-    }
+    else if (Prog.includes('Fct5') && localStorage.getItem('admin_Fct5') == '1')
+        return true;
+    else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1')
+        return true;
+    else if (Prog.includes('Afi1') && localStorage.getItem('admin_Afi1') == '1')
+        return true;
+ 
+
+    /*if (access[0].TrsName == 'ADMIN') {
+        if (ace == 'afi1') {
+            return true;
+        }
+        else {
+            if (Prog == null)
+                alert(TrsName)
+               // Prog = 'Acc5';
+
+            if (Prog.length > 4) {
+                Prog = Prog.split('-');
+                for (var i = 0; i < Prog.length; i++) {
+                    if (access[0].OrgProgName == Prog[i]) {
+                        return true;
+                    }
+                }
+            }
+            else if (access[0].OrgProgName == Prog) {
+                return true;
+            }
+        }
+    }*/
     else {
         if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
             for (var i = 0; i < access.length; i++) {
@@ -1759,11 +1789,115 @@ function CheckAccess(TrsName) {
     return false
 }
 
-
-function CheckAccessReport(Code) {
-    if (access[0].TrsName == 'ADMIN') {
+/*
+function CheckAccessAcc(TrsName) {
+    if (accessAcc[0].TrsName == 'ADMIN') {
         return true;
     }
+    else {
+        if (TrsName == "OPR" || TrsName == "MKZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0) {
+            for (var i = 0; i < accessAcc.length; i++) {
+                if (accessAcc[i].TrsName == TrsName && accessAcc[i].OrgProgName == Master_ProgName)
+                    return true;
+            }
+        }
+        else {
+            for (var i = 0; i < accessAcc.length; i++) {
+                if (accessAcc[i].TrsName == TrsName)
+                    return true;
+            }
+        }
+    }
+    return false
+}
+
+function CheckAccessFct(TrsName) {
+    if (accessFct[0].TrsName == 'ADMIN') {
+        return true;
+    }
+    else {
+        if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
+            for (var i = 0; i < accessFct.length; i++) {
+                if (accessFct[i].TrsName == TrsName && accessFct[i].OrgProgName == Fct_or_Inv)
+                    return true;
+            }
+        }
+        else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0) {
+            for (var i = 0; i < accessFct.length; i++) {
+                if (accessFct[i].TrsName == TrsName && accessFct[i].OrgProgName == Master_ProgName)
+                    return true;
+            }
+        }
+        else {
+            for (var i = 0; i < accessFct.length; i++) {
+                if (accessFct[i].TrsName == TrsName)
+                    return true;
+            }
+        }
+    }
+    return false
+}
+
+function CheckAccessInv(TrsName) {
+    if (accessInv[0].TrsName == 'ADMIN') {
+        return true;
+    }
+    else {
+        if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
+            for (var i = 0; i < accessInv.length; i++) {
+                if (accessInv[i].TrsName == TrsName && accessInv[i].OrgProgName == Fct_or_Inv)
+                    return true;
+            }
+        }
+        else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0) {
+            for (var i = 0; i < accessInv.length; i++) {
+                if (accessInv[i].TrsName == TrsName && accessInv[i].OrgProgName == Master_ProgName)
+                    return true;
+            }
+        }
+        else {
+            for (var i = 0; i < accessInv.length; i++) {
+                if (accessInv[i].TrsName == TrsName)
+                    return true;
+            }
+        }
+    }
+    return false
+}*/
+
+
+function CheckAccessReport(Code, Prog) {
+
+
+    /*if (access[0].TrsName == 'ADMIN') {
+        if (ace == 'afi1') {
+            return true;
+        }
+        else {
+            if (Prog == null)
+                alert(Code)
+
+            if (Prog.length > 4) {
+                Prog = Prog.split('-');
+                for (var i = 0; i < Prog.length; i++) {
+                    if (access[0].OrgProgName == Prog[i]) {
+                        return true;
+                    }
+                }
+            }
+            else if (access[0].OrgProgName == Prog) {
+                return true;
+            }
+        }
+    }*/
+    if (Prog.includes('Acc5') && localStorage.getItem('admin_Acc5') == '1')
+        return true;
+    else if (Prog.includes('Fct5') && localStorage.getItem('admin_Fct5') == '1')
+        return true;
+    else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1')
+        return true;
+    else if (Prog.includes('Afi1') && localStorage.getItem('admin_Afi1') == '1')
+        return true;
     else {
         for (var i = 0; i < accessReport.length; i++) {
             if (accessReport[i].Code == Code)
@@ -1775,9 +1909,11 @@ function CheckAccessReport(Code) {
 
 
 function CheckAccessErj(TrsName) {
-    if (accessErj[0].TrsName == 'ADMIN') {
+    /*if (accessErj[0].TrsName == 'ADMIN') {
         return true;
-    }
+    }*/
+    if (localStorage.getItem('admin_Erj1') == '1')
+        return true;
     else {
         for (var i = 0; i < accessErj.length; i++) {
             if (accessErj[i].TrsName == TrsName)
@@ -1788,9 +1924,11 @@ function CheckAccessErj(TrsName) {
 }
 
 function CheckAccessReportErj(Code) {
-    if (accessErj[0].TrsName == 'ADMIN') {
+    /*if (accessErj[0].TrsName == 'ADMIN') {
         return true;
-    }
+    }*/
+    if (localStorage.getItem('admin_Erj1') == '1')
+        return true;
     else {
         for (var i = 0; i < accessReportErj.length; i++) {
             if (accessReportErj[i].Code == Code)
@@ -1961,6 +2099,29 @@ function getAccessList(GoHome) {
                 ajaxFunction(AccessUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                     self.AccessList(data);
                     if (self.AccessList().length > 0) {
+                        admin = data.filter(s => s.TrsName == 'ADMIN');
+
+                        admin_Acc5 = 0;
+                        admin_Fct5 = 0;
+                        admin_Inv5 = 0;
+                        admin_Afi1 = 0;
+                        admin_Erj1 = 0;
+
+                        for (var i = 0; i < admin.length; i++) {
+                            if (admin[i].OrgProgName == 'Acc5') admin_Acc5 = 1;
+                            if (admin[i].OrgProgName == 'Fct5') admin_Fct5 = 1;
+                            if (admin[i].OrgProgName == 'Inv5') admin_Inv5 = 1;
+                            if (admin[i].OrgProgName == 'Afi1') admin_Afi1 = 1;
+                            if (admin[i].OrgProgName == 'Erj1') admin_Erj1 = 1;
+                        }
+
+                        localStorage.setItem('admin_Acc5', admin_Acc5);                                        
+                        localStorage.setItem('admin_Fct5', admin_Fct5);                                        
+                        localStorage.setItem('admin_Inv5', admin_Inv5);                                        
+                        localStorage.setItem('admin_Afi1', admin_Afi1);                                        
+                        localStorage.setItem('admin_Erj1', admin_Erj1);                                        
+
+
                         localStorage.setItem('Access', JSON.stringify(data));
                         //if (sessionStorage.userName == 'ACE') {
                         //    localStorage.setItem('Access', 1);
@@ -1970,15 +2131,15 @@ function getAccessList(GoHome) {
                         //}
 
 
-                        access = localStorage.getItem("Access");
+                        access = localStorage.getItem('Access');
 
-                       /* sessionStorage.OrgProgName = '';
-                        if (access.includes('Erj1')) sessionStorage.OrgProgName = 'Erj1';
-                        if (access.includes('Inv5')) sessionStorage.OrgProgName = 'Inv5';
-                        if (access.includes('Fct5')) sessionStorage.OrgProgName = 'Fct5';
-                        if (access.includes('Acc5')) sessionStorage.OrgProgName = 'Acc5';*/
+                        /* sessionStorage.OrgProgName = '';
+                         if (access.includes('Erj1')) sessionStorage.OrgProgName = 'Erj1';
+                         if (access.includes('Inv5')) sessionStorage.OrgProgName = 'Inv5';
+                         if (access.includes('Fct5')) sessionStorage.OrgProgName = 'Fct5';
+                         if (access.includes('Acc5')) sessionStorage.OrgProgName = 'Acc5';*/
 
-                        access = JSON.parse(localStorage.getItem("Access"));
+                        access = JSON.parse(localStorage.getItem('Access'));
 
                         ajaxFunction(AccessReportUri + ace + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {
                             self.AccessListReport(data);
@@ -2175,109 +2336,109 @@ function SetValidation() {
     else
         $("#IDOC_Menu").show();*/
 
-    validation = CheckAccess('DOC'); //ثبت اسناد
+    validation = CheckAccess('DOC', localStorage.getItem('ProgAccess')); //ثبت اسناد
     ShowMenu[0] = validation;
 
-    validation = CheckAccess('ADOC'); //اسناد حسابداری
+    validation = CheckAccess('ADOC', 'Acc5'); //اسناد حسابداری
     ShowMenu[25] = validation;
 
-    validation = CheckAccess('FSDOC'); //اسناد فروش
+    validation = CheckAccess('FSDOC', 'Fct5'); //اسناد فروش
     ShowMenu[1] = validation;
 
-    validation = CheckAccess('FPDOC'); // اسناد خرید
+    validation = CheckAccess('FPDOC', 'Fct5'); // اسناد خرید
     ShowMenu[2] = validation;
 
-    validation = CheckAccess('RPRT'); // گزارشات
+    validation = CheckAccess('RPRT', localStorage.getItem('ProgAccess')); // گزارشات
     ShowMenu[11] = validation;
 
-    validation = CheckAccessReport('TrzIKala');
+    validation = CheckAccessReport('TrzIKala', 'Inv5');
     ShowMenu[12] = validation;  // گزارش موجودی کالا
 
-    validation = CheckAccessReport('TrzIKalaExf');
+    validation = CheckAccessReport('TrzIKalaExf', 'Inv5');
     ShowMenu[13] = validation;  // گزارش موجودی کالا به تفکیک ویژگیها
 
-    validation = CheckAccessReport('IDocR');
+    validation = CheckAccessReport('IDocR', 'Inv5');
     ShowMenu[14] = validation;  // گزارش ريز گردش اسناد انبارداری 
 
-    validation = CheckAccessReport('FDocR_S');
+    validation = CheckAccessReport('FDocR_S', 'Fct5');
     ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
 
-    validation = CheckAccessReport('FDocR_P');
+    validation = CheckAccessReport('FDocR_P', 'Fct5');
     ShowMenu[16] = validation;  // گزارش ريز گردش خرید و فروش
 
-    validation = CheckAccessReport('TrzAcc');
+    validation = CheckAccessReport('TrzAcc', 'Acc5');
     ShowMenu[17] = validation;  // تراز دفاتر حسابداری
 
-    validation = CheckAccessReport('Dftr');
+    validation = CheckAccessReport('Dftr', 'Acc5');
     ShowMenu[18] = validation;  // دفتر حساب حسابداری 
 
-    validation = CheckAccessReport('ADocR');
+    validation = CheckAccessReport('ADocR', 'Acc5');
     ShowMenu[19] = validation;  // دفتر حساب روزنامه
 
-    validation = CheckAccessReport('TChk');
+    validation = CheckAccessReport('TChk', 'Acc5');
     ShowMenu[20] = validation;  // صورت ریز چک  
 
-    validation = CheckAccessReport('TrzFKala_S');
+    validation = CheckAccessReport('TrzFKala_S', 'Fct5');
     ShowMenu[21] = validation;  // صورت ریز چک   
 
-    validation = CheckAccessReport('TrzFKala_P');
+    validation = CheckAccessReport('TrzFKala_P', 'Fct5');
     ShowMenu[22] = validation;  // صورت ریز چک 
 
-    validation = CheckAccessReport('TrzFCust_S');
+    validation = CheckAccessReport('TrzFCust_S', 'Fct5');
     ShowMenu[23] = validation;  // تراز فروش به خریداران 
 
-    validation = CheckAccessReport('TrzFCust_P');
+    validation = CheckAccessReport('TrzFCust_P', 'Fct5');
     ShowMenu[24] = validation;  // تراز خرید از فروشندگان
 
-    validation = CheckAccessReport('Krdx');
+    validation = CheckAccessReport('Krdx', 'Inv5');
     ShowMenu[30] = validation;  // گزارش کاردکس
 
-    validation = CheckAccess('KALA');
+    validation = CheckAccess('KALA', Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '');
     ShowMenu[31] = validation;  // کالاها
 
-    validation = CheckAccess('CUST');
+    validation = CheckAccess('CUST', 'Fct5');
     ShowMenu[32] = validation;  // خریداران / فروشندگان
 
-    validation = CheckAccess('ACC');
+    validation = CheckAccess('ACC', 'Acc5');
     ShowMenu[33] = validation;  // حساب ها
 
-    validation = CheckAccess('MKZ');
+    validation = CheckAccess('MKZ', localStorage.getItem('ProgAccess'));
     ShowMenu[34] = validation;  // مرکز هزینه
 
-    validation = CheckAccess('OPR');
+    validation = CheckAccess('OPR', localStorage.getItem('ProgAccess'));
     ShowMenu[35] = validation;  // پروژه
 
-    validation = CheckAccessReport('AGMkz');
+    validation = CheckAccessReport('AGMkz', 'Acc5');
     ShowMenu[36] = validation;  // گردش مراکز هزینه
 
-    validation = CheckAccessReport('AGOpr');
+    validation = CheckAccessReport('AGOpr', 'Acc5');
     ShowMenu[37] = validation;  // گردش پروژه ها
 
 
 
 
     //localStorage.setItem("", );
-    localStorage.setItem("FDoc_REP_PRICE", CheckAccessReport('FDoc_REP_PRICE')); // خرید و فروش دسترسی مبلغ در گزارشات
-    localStorage.setItem("IDoc_REP_PRICE", CheckAccessReport('IDoc_REP_PRICE')); // دسترسی مبلغ در گزارشات انبار
+    localStorage.setItem("FDoc_REP_PRICE", CheckAccessReport('FDoc_REP_PRICE', 'Fct5')); // خرید و فروش دسترسی مبلغ در گزارشات
+    localStorage.setItem("IDoc_REP_PRICE", CheckAccessReport('IDoc_REP_PRICE', 'Inv5')); // دسترسی مبلغ در گزارشات انبار
     //sessionStorage.FDoc_REP_PRICE = CheckAccessReport('FDoc_REP_PRICE');
     //sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');
 
 
-    localStorage.setItem("VIEW_ADOC", ace == "Web1" ? true : CheckAccess('VIEW_ADOC'));
+    localStorage.setItem("VIEW_ADOC", ace == "Web1" ? true : CheckAccess('VIEW_ADOC', 'Acc5'));
 
-    localStorage.setItem("VIEW_SFORD", ace == "Web1" ? true : CheckAccess('VIEW_SFORD'));
-    localStorage.setItem("VIEW_SPDOC", ace == "Web1" ? true : CheckAccess('VIEW_SPDOC'));
-    localStorage.setItem("VIEW_SFDOC", ace == "Web1" ? true : CheckAccess('VIEW_SFDOC'));
-    localStorage.setItem("VIEW_SRDOC", ace == "Web1" ? true : CheckAccess('VIEW_SRDOC'));
-    localStorage.setItem("VIEW_SHVL", ace == "Web1" ? true : CheckAccess('VIEW_SHVL'));
-    localStorage.setItem("VIEW_SEXT", ace == "Web1" ? true : CheckAccess('VIEW_SEXT'));
-    localStorage.setItem("VIEW_PFORD", ace == "Web1" ? true : CheckAccess('VIEW_PFORD'));
-    localStorage.setItem("VIEW_PPDOC", ace == "Web1" ? true : CheckAccess('VIEW_PPDOC'));
-    localStorage.setItem("VIEW_PFDOC", ace == "Web1" ? true : CheckAccess('VIEW_PFDOC')); //VIEW_PDOC
-    localStorage.setItem("VIEW_PRDOC", ace == "Web1" ? true : CheckAccess('VIEW_PRDOC'));
+    localStorage.setItem("VIEW_SFORD", ace == "Web1" ? true : CheckAccess('VIEW_SFORD', 'Fct5'));
+    localStorage.setItem("VIEW_SPDOC", ace == "Web1" ? true : CheckAccess('VIEW_SPDOC', 'Fct5'));
+    localStorage.setItem("VIEW_SFDOC", ace == "Web1" ? true : CheckAccess('VIEW_SFDOC', 'Fct5'));
+    localStorage.setItem("VIEW_SRDOC", ace == "Web1" ? true : CheckAccess('VIEW_SRDOC', 'Fct5'));
+    localStorage.setItem("VIEW_SHVL", ace == "Web1" ? true : CheckAccess('VIEW_SHVL', 'Fct5'));
+    localStorage.setItem("VIEW_SEXT", ace == "Web1" ? true : CheckAccess('VIEW_SEXT', 'Fct5'));
+    localStorage.setItem("VIEW_PFORD", ace == "Web1" ? true : CheckAccess('VIEW_PFORD', 'Fct5'));
+    localStorage.setItem("VIEW_PPDOC", ace == "Web1" ? true : CheckAccess('VIEW_PPDOC', 'Fct5'));
+    localStorage.setItem("VIEW_PFDOC", ace == "Web1" ? true : CheckAccess('VIEW_PFDOC', 'Fct5')); //VIEW_PDOC
+    localStorage.setItem("VIEW_PRDOC", ace == "Web1" ? true : CheckAccess('VIEW_PRDOC', 'Fct5'));
 
-    localStorage.setItem("VIEW_IIDOC", ace == "Web1" ? true : CheckAccess('VIEW_IIDOC'));
-    localStorage.setItem("VIEW_IODOC", ace == "Web1" ? true : CheckAccess('VIEW_IODOC'));
+    localStorage.setItem("VIEW_IIDOC", ace == "Web1" ? true : CheckAccess('VIEW_IIDOC', 'Inv5'));
+    localStorage.setItem("VIEW_IODOC", ace == "Web1" ? true : CheckAccess('VIEW_IODOC', 'Inv5'));
 
 
     /*
@@ -2298,21 +2459,21 @@ function SetValidation() {
     localStorage.setItem("AccessViewSanadAnbarSadere", CheckAccess('OTHERUSER_CHG_IODOC')) 
     */
 
-    localStorage.setItem("AccessSanad_ADOC", CheckAccess('OTHERUSER_VIEW_ADOC'))
+    localStorage.setItem("AccessSanad_ADOC", CheckAccess('OTHERUSER_VIEW_ADOC', 'Acc5'))
 
-    localStorage.setItem("AccessSanad_SFORD", CheckAccess('OTHERUSER_VIEW_SFORD'))
-    localStorage.setItem("AccessSanad_SPDOC", CheckAccess('OTHERUSER_VIEW_SPDOC'))
-    localStorage.setItem("AccessSanad_SFDOC", CheckAccess('OTHERUSER_VIEW_SFDOC'))
-    localStorage.setItem("AccessSanad_SRDOC", CheckAccess('OTHERUSER_VIEW_SRDOC'))
-    localStorage.setItem("AccessSanad_SHVL", CheckAccess('OTHERUSER_VIEW_SHVL'))
-    localStorage.setItem("AccessSanad_SEXT", CheckAccess('OTHERUSER_VIEW_SEXT'))
-    localStorage.setItem("AccessSanad_PFORD", CheckAccess('OTHERUSER_VIEW_PFORD'))
-    localStorage.setItem("AccessSanad_PPDOC", CheckAccess('OTHERUSER_VIEW_PPDOC'))
-    localStorage.setItem("AccessSanad_PFDOC", CheckAccess('OTHERUSER_VIEW_PFDOC'))
-    localStorage.setItem("AccessSanad_PRDOC", CheckAccess('OTHERUSER_VIEW_PRDOC'))
+    localStorage.setItem("AccessSanad_SFORD", CheckAccess('OTHERUSER_VIEW_SFORD', 'Fct5'))
+    localStorage.setItem("AccessSanad_SPDOC", CheckAccess('OTHERUSER_VIEW_SPDOC', 'Fct5'))
+    localStorage.setItem("AccessSanad_SFDOC", CheckAccess('OTHERUSER_VIEW_SFDOC', 'Fct5'))
+    localStorage.setItem("AccessSanad_SRDOC", CheckAccess('OTHERUSER_VIEW_SRDOC', 'Fct5'))
+    localStorage.setItem("AccessSanad_SHVL", CheckAccess('OTHERUSER_VIEW_SHVL', 'Fct5'))
+    localStorage.setItem("AccessSanad_SEXT", CheckAccess('OTHERUSER_VIEW_SEXT', 'Fct5'))
+    localStorage.setItem("AccessSanad_PFORD", CheckAccess('OTHERUSER_VIEW_PFORD', 'Fct5'))
+    localStorage.setItem("AccessSanad_PPDOC", CheckAccess('OTHERUSER_VIEW_PPDOC', 'Fct5'))
+    localStorage.setItem("AccessSanad_PFDOC", CheckAccess('OTHERUSER_VIEW_PFDOC', 'Fct5'))
+    localStorage.setItem("AccessSanad_PRDOC", CheckAccess('OTHERUSER_VIEW_PRDOC', 'Fct5'))
 
-    localStorage.setItem("AccessSanad_IIDOC", CheckAccess('OTHERUSER_VIEW_IIDOC'))
-    localStorage.setItem("AccessSanad_IODOC", CheckAccess('OTHERUSER_VIEW_IODOC'))
+    localStorage.setItem("AccessSanad_IIDOC", CheckAccess('OTHERUSER_VIEW_IIDOC', 'Inv5'))
+    localStorage.setItem("AccessSanad_IODOC", CheckAccess('OTHERUSER_VIEW_IODOC', 'Inv5'))
 
 
 
@@ -2383,7 +2544,7 @@ function SetValidation() {
       */
 
 
-    validation = CheckAccess('SFORD');
+    validation = CheckAccess('SFORD', 'Fct5');
     ShowMenu[26] = validation;  // سفارش فروش
 
     /*$("#AddNewFactor").hide();
@@ -2455,7 +2616,7 @@ function SetValidation() {
 
 
 
-    validation = CheckAccess('SPDOC');
+    validation = CheckAccess('SPDOC', 'Fct5');
     ShowMenu[3] = validation;  // پیش فاکتور قروش
     //sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
 
@@ -2522,7 +2683,7 @@ function SetValidation() {
 
     // OTHERUSER_SDOC
 
-    validation = CheckAccess('SFDOC');
+    validation = CheckAccess('SFDOC', 'Fct5');
     ShowMenu[4] = validation;  //  فاکتور قروش
 
     /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
@@ -2585,7 +2746,7 @@ function SetValidation() {
          localStorage.setItem("moveFactor", validation);
      }*/
 
-    validation = CheckAccess('SRDOC');
+    validation = CheckAccess('SRDOC', 'Fct5');
     ShowMenu[5] = validation;  // برگشت فاکتور قروش
 
     /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
@@ -2647,7 +2808,7 @@ function SetValidation() {
      }*/
 
 
-    validation = CheckAccess('SHVL');
+    validation = CheckAccess('SHVL', 'Fct5');
     ShowMenu[27] = validation;  // حواله فروش
 
     /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
@@ -2705,7 +2866,7 @@ function SetValidation() {
      }*/
 
 
-    validation = CheckAccess('SEXT');
+    validation = CheckAccess('SEXT', 'Fct5');
     ShowMenu[28] = validation;  //برگه خروج 
 
     /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
@@ -2763,7 +2924,7 @@ function SetValidation() {
     }*/
 
 
-    validation = CheckAccess('PFORD');
+    validation = CheckAccess('PFORD', 'Fct5');
     ShowMenu[29] = validation;  // سفارش خرید
 
     /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
@@ -2826,7 +2987,7 @@ function SetValidation() {
 
 
 
-    validation = CheckAccess('PPDOC');
+    validation = CheckAccess('PPDOC', 'Fct5');
     ShowMenu[6] = validation;  // پیش فاکتور خرید
 
     /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
@@ -2889,7 +3050,7 @@ function SetValidation() {
         localStorage.setItem("moveFactor", validation);
     }*/
 
-    validation = CheckAccess('PFDOC');
+    validation = CheckAccess('PFDOC', 'Fct5');
     ShowMenu[7] = validation;  //  فاکتور خرید
 
     /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
@@ -2950,7 +3111,7 @@ function SetValidation() {
     }*/
 
 
-    validation = CheckAccess('PRDOC');
+    validation = CheckAccess('PRDOC', 'Fct5');
     ShowMenu[8] = validation;  // برگشت فاکتور خرید
 
     /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
@@ -3018,7 +3179,7 @@ function SetValidation() {
 
 
 
-    validation = CheckAccess('IIDOC');
+    validation = CheckAccess('IIDOC', 'Inv5');
     ShowMenu[9] = validation;  // وارده انبار
 
     /*   if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
@@ -3074,7 +3235,7 @@ function SetValidation() {
            }
        }*/
 
-    validation = CheckAccess('IODOC');
+    validation = CheckAccess('IODOC', 'Inv5');
     ShowMenu[10] = validation;  // صادره انبار
 
     /*  if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
