@@ -74,6 +74,8 @@ var ViewModel = function () {
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس زیر حساب ها
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
+
+
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
     var ADocBSaveAllUri = server + '/api/AFI_ADocBi/SaveAllDocB/'; // آدرس ذخیره یند سند 
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
@@ -317,15 +319,38 @@ var ViewModel = function () {
 
     var ADocB;
     var dataAcc = [];
+    var darChecks = '';
+    var parChecks = '';
+
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     function getADocB(serialNumber) {
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+
+
             for (var i = 0; i < data.length; i++) {
                 AccData = AccList.filter(s => s.Code == data[i].AccCode);
                 if (AccData.length > 0) {
                     dataAcc[i] = AccData[0];
                 }
+
+
+                if (data[i].PDMode == 1) {
+                    darChecks += data[i].CheckNo + ','
+                }
+
+                if (data[i].PDMode == 2) {
+                    parChecks += data[i].CheckNo + ','
+                }
             }
+
+            if (darChecks.length > 0) {
+                darChecks = darChecks.slice(0, -1)
+            }
+
+            if (parChecks.length > 0) {
+                parChecks = parChecks.slice(0, -1)
+            }
+
             ADocB = data;
             GetRprtCols_NewList();
         });
@@ -1967,10 +1992,10 @@ var ViewModel = function () {
             $('#checkDateBand').val(data.CheckDate);
 
 
-           // if (dataAcc[ro].PDMode > 0) {
-           //     dataAcc[ro].PDMode == 1 ? $('#Value').val(NumberToNumberString(data.Best)) : $('#Value').val(NumberToNumberString(data.Bede));
-           // }
-            $('#Value').val(NumberToNumberString(data.Best > 0 ? data.Best : data.Bede)); 
+            // if (dataAcc[ro].PDMode > 0) {
+            //     dataAcc[ro].PDMode == 1 ? $('#Value').val(NumberToNumberString(data.Best)) : $('#Value').val(NumberToNumberString(data.Bede));
+            // }
+            $('#Value').val(NumberToNumberString(data.Best > 0 ? data.Best : data.Bede));
 
             $('#nameBank').val(data.Bank);
             $('#nameShobe').val(data.Shobe);
@@ -2033,7 +2058,7 @@ var ViewModel = function () {
 
         if (dataAcc[ro].PDMode == 1) {
 
-            dataGrid.cellValue(ro, "Best", value );
+            dataGrid.cellValue(ro, "Best", value);
             //dataGrid.cellValue(ro, "Bede",'0');
         } else {
             //dataGrid.cellValue(ro, "Best", '0');
@@ -2174,6 +2199,8 @@ var ViewModel = function () {
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
                 flagLog: flaglog,
+                DarChecks: darChecks,
+                ParChecks: parChecks,
             };
 
             ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
@@ -2226,6 +2253,8 @@ var ViewModel = function () {
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
                 flagLog: flaglog,
+                DarChecks: darChecks,
+                ParChecks: parChecks,
             };
 
             ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
@@ -2274,10 +2303,9 @@ var ViewModel = function () {
 
 
 
-
+    var Serial_Test = 0;
 
     function ControlSave() {
-
         tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
         status = $("#status").val();
@@ -2299,6 +2327,17 @@ var ViewModel = function () {
         if (modeCode == '') {
             return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
+
+
+
+        var V_Del_ADocObject = {
+            SerialNumber: Serial_Test
+        };
+
+        ajaxFunction(V_Del_ADocUri + ace + '/' + sal + '/' + group, 'POST', V_Del_ADocObject).done(function (response) {
+
+        });
+
 
 
         var ADocObject = {
@@ -2346,7 +2385,7 @@ var ViewModel = function () {
 
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
             var res = response.split("-");
-            Serial_Test = res[0];
+            Serial_Test = res[1];
         });
 
 

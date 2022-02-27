@@ -2355,7 +2355,8 @@
 
 
 
-
+    localStorage.getItem("ATTACH") == "true" ? $('#attachFile').show() : $('#attachFile').hide() 
+    localStorage.getItem("NEW_ATTACH") == "true" ? $('#AddNewDocAttach').show() : $('#AddNewDocAttach').hide() 
 
     $('#attachFile').click(function () {
         if (serialNumber > 0) {
@@ -3444,12 +3445,22 @@
     }
 
 
-
-
-
     self.ShowDeleteDocAttach = function () {
-        if (self.p_Eghdam() == sessionStorage.userName)
+        if (self.p_Eghdam() == sessionStorage.userName) {
+            if (localStorage.getItem("DEL_ATTACH") == "true") {
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    self.ShowViewDocAttach = function () {
+        if (localStorage.getItem("VIEW_ATTACH") == "true") {
             return true;
+        }
         else
             return false;
     }

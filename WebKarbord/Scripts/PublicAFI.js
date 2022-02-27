@@ -9,6 +9,14 @@ var userName = localStorage.getItem('userName');
 var pass = localStorage.getItem('password');
 
 Master_ProgName = localStorage.getItem('Master_ProgName');
+
+//if (Master_ProgName == 'AFI1') Master_ProgName = 'Afi1';
+//if (Master_ProgName == 'ACC5') Master_ProgName = 'Acc5';
+//if (Master_ProgName == 'FCT5') Master_ProgName = 'Fct5';
+//if (Master_ProgName == 'INV5') Master_ProgName = 'Inv5';
+//if (Master_ProgName == 'ERJ1') Master_ProgName = 'Erj1';
+
+
 Fct_or_Inv = localStorage.getItem('Fct_or_Inv');
 
 $("#AccessRefresh").hide();
@@ -19,6 +27,9 @@ if (sessionStorage.versionTitle == "ورژن تست") {
     $("#AddNewSanad_New").show();
 
 }
+
+$("#VerDllCheck").text(localStorage.getItem('VerDllCheck'));
+
 
 var tiketUrl = 'http://localhost:51091/';
 //var tiketUrl = 'http://192.168.0.114:903/';
@@ -522,6 +533,8 @@ var MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
 var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
 
 var StatementsSaveUri = server + '/api/Web_Data/SaveStatements'; // آدرس  ذخیره عبارات تعریف شده
+
+var V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
 
 
 
@@ -3534,6 +3547,20 @@ function SetValidationErj() {
         validation = CheckAccessErj('OTHERUSER_ErjDOC');
         validation == true ? sessionStorage.AccessSanadErj = true : sessionStorage.AccessSanadErj = false
         validation == true ? localStorage.setItem("AccessSanadErj", "true") : localStorage.setItem("AccessSanadErj", "false")
+
+        validation = CheckAccessErj('ATTACH');
+        validation == true ? localStorage.setItem("ATTACH", "true") : localStorage.setItem("ATTACH", "false")
+
+        validation = CheckAccessErj('NEW_ATTACH');
+        validation == true ? localStorage.setItem("NEW_ATTACH", "true") : localStorage.setItem("NEW_ATTACH", "false")
+
+        validation = CheckAccessErj('DEL_ATTACH');
+        validation == true ? localStorage.setItem("DEL_ATTACH", "true") : localStorage.setItem("DEL_ATTACH", "false")
+
+        validation = CheckAccessErj('VIEW_ATTACH');
+        validation == true ? localStorage.setItem("VIEW_ATTACH", "true") : localStorage.setItem("VIEW_ATTACH", "false")
+
+
     }
     else {
         //$("#EReport_Menu").hide();

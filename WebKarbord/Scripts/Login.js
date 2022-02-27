@@ -301,6 +301,13 @@
                         localStorage.setItem('StatementsList', Statements);
 
                         localStorage.removeItem("listForms");
+                       
+
+
+                        ajaxFunction(server + '/api/Web_Data/GetVerDll', 'Get').done(function (data) {
+                            localStorage.setItem('VerDllCheck', data);
+                        });
+
                         window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
                     else {

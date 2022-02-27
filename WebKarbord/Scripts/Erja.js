@@ -225,7 +225,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-       ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + aceErj + '/' + salErj + '/' + group + '/' + rprtId, 'GET').done(function (data) {
             data = TranslateData(data);
             self.SettingColumnList(data);
             counterColumn = 0;
@@ -262,15 +262,15 @@
     getRprtColsList(true, sessionStorage.userName);
 
 
-   /* //Get ExtraFields List
-    function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
-            self.ExtraFieldsList(data);
-        });
-    }*/
+    /* //Get ExtraFields List
+     function getExtraFieldsList() {
+         ajaxFunction(ExtraFieldsUri + aceErj + '/' + salErj + '/' + group + '/DOC', 'GET').done(function (data) {
+             self.ExtraFieldsList(data);
+         });
+     }*/
 
     function getExtraFieldsList() {
-        
+
         cols = getRprtColsErj('ErjDocH', sessionStorage.userName);
 
         result = ko.utils.arrayFilter(cols, function (item) {
@@ -287,25 +287,25 @@
     getExtraFieldsList();
 
 
-   /* //Get ErjUsers List
-    function getErjUsersList() {
-
-        ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-            self.ErjUsersList(data);
-        });
-
-        /*list = localStorage.getItem('ErjUsers');
-        if (list != null && Reload == false) {
-            list = JSON.parse(localStorage.getItem('ErjUsers'));
-            self.ErjUsersList(list)
-        }
-        else {
-            ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
-                self.ErjUsersList(data);
-                localStorage.setItem("ErjUsers", JSON.stringify(data));
-            });
-        }*/
-   // }
+    /* //Get ErjUsers List
+     function getErjUsersList() {
+ 
+         ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+             self.ErjUsersList(data);
+         });
+ 
+         /*list = localStorage.getItem('ErjUsers');
+         if (list != null && Reload == false) {
+             list = JSON.parse(localStorage.getItem('ErjUsers'));
+             self.ErjUsersList(list)
+         }
+         else {
+             ajaxFunction(ErjUsersUri + aceErj + '/' + salErj + '/' + group + '/' + sessionStorage.userName, 'GET').done(function (data) {
+                 self.ErjUsersList(data);
+                 localStorage.setItem("ErjUsers", JSON.stringify(data));
+             });
+         }*/
+    // }
 
     function getErjUsersList(serial) {
         var ErjUsersObject = {
@@ -391,14 +391,14 @@
         }
 
         ajaxFunction(ErjResultUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', ErjResultObject).done(function (data) {
-          
-                if (bMode == null)
-                    self.ErjResultList(data);
-                item = data[0];
 
-                bandNo = item.BandNo;
-                $("#Result").val(item.RjResult);
-                old_RjResult = $("#Result").val();
+            if (bMode == null)
+                self.ErjResultList(data);
+            item = data[0];
+
+            bandNo = item.BandNo;
+            $("#Result").val(item.RjResult);
+            old_RjResult = $("#Result").val();
         });
     }
 
@@ -595,17 +595,18 @@
             if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
                 textLastBand +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه ثبت شده توسط :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه ثبت شده توسط :') + '</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
             }
             else if (listLastBand[j].DocBMode == 1) {
                 lastBand = listLastBand[j].BandNo;
                 //lastRonevesht += listLastBand[j].ToUserCode + ',';
                 textLastBand +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('رونوشت به :')+'</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('رونوشت به :') + '</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div >'
 
                 if (listLastBand[j].ToUserCode == sessionStorage.userName) {
                     $('#Result').val(listLastBand[j].RjResult);
+                    old_RjResult = $("#Result").val();
                 }
 
             }
@@ -646,7 +647,7 @@
             for (var j = 1; j < countRonevesht; j++) {
                 text +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه رونوشت از :')+'</h6> <h6>' + listBand[j].FromUserName + '</h6>'
+                    + '   <div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه رونوشت از :') + '</h6> <h6>' + listBand[j].FromUserName + '</h6>'
                     + '   </div>'
                     + '</div > '
                 if (listBand[j].RjComm == '')
@@ -693,7 +694,7 @@
             if (listBand[0].FarayandName != "") {
                 textBody += '<div class="form-inline" style = "margin-top: 5px;"> '
                     + '     <div class= "col-md-12 form-inline" > '
-                    + '         <h6>' + translate('فرایند : ')+ listBand[0].FarayandName + '</h6>'
+                    + '         <h6>' + translate('فرایند : ') + listBand[0].FarayandName + '</h6>'
                     + '     </div>'
                     + '</div>';
             }
@@ -1078,6 +1079,9 @@
 
     }
 
+    localStorage.getItem("ATTACH") == "true" ? $('#attachFile').show() : $('#attachFile').hide()
+    localStorage.getItem("NEW_ATTACH") == "true" ? $('#AddNewDocAttach').show() : $('#AddNewDocAttach').hide()
+
     $('#attachFile').click(function () {
         getDocAttachList(serialNumber);
     });
@@ -1086,11 +1090,35 @@
 
 
     self.ShowDeleteDocAttach = function () {
-        if (self.p_Eghdam() == sessionStorage.userName)
-            return true;
+        if (self.p_Eghdam() == sessionStorage.userName) {
+            if (localStorage.getItem("DEL_ATTACH") == "true") {
+                return true;
+            }
+            else
+                return false;
+        }
         else
             return false;
     }
+
+    self.ShowViewDocAttach = function () {
+        if (localStorage.getItem("VIEW_ATTACH") == "true") {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    self.ShowDocAttach = function (DocAttachExists) {
+
+        if (DocAttachExists == 1 && localStorage.getItem("ATTACH") == "true") {
+            return true;
+        }
+        else
+            return false;
+    }
+
+
 
 
 
@@ -1135,7 +1163,7 @@
         var size = file.size;
         Swal.fire({
             title: translate('تایید آپلود ؟'),
-            text: translate("آیا") + ' ' + name +' '+ translate("به پیوست افزوده شود"),
+            text: translate("آیا") + ' ' + name + ' ' + translate("به پیوست افزوده شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1172,7 +1200,7 @@
                     formData.append("ModeCode", 1);
                     formData.append("BandNo", 0);
                     formData.append("Code", "");
-                    formData.append("Comm", translate("مدرک پیوست")+ ' - ' + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
+                    formData.append("Comm", translate("مدرک پیوست") + ' - ' + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
@@ -1529,7 +1557,7 @@
 
     $('#modal-ErjUsersRonevesht').on('hide.bs.modal', function () {
         if (counterErjUsersRonevesht > 0)
-            $('#nameRoneveshtBe').val(counterErjUsersRonevesht +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameRoneveshtBe').val(counterErjUsersRonevesht + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameRoneveshtBe').val(translate('هیچکس'));
     });
@@ -1830,9 +1858,9 @@
 
 
     $('#erja').click(function () {
-         $('#p_Result').css('display', 'none');
+        $('#p_Result').css('display', 'none');
         $('#modal-Erja').modal('show');
-        
+
     });
 
     self.ViewErjDocErja = function (Band) {
@@ -1912,7 +1940,7 @@
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(aceErj, salErj,"ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
     };
 
 
@@ -1977,10 +2005,10 @@
                             '    <div class="row form-inline modal-header" style="padding:0px;">' +
                             '        <h6>';
                         if (data[i].DocBMode == 1) {
-                            html += ' ' + translate('نتیجه رونوشت از') + ' ' +  data[i].ToUserName;
+                            html += ' ' + translate('نتیجه رونوشت از') + ' ' + data[i].ToUserName;
                         }
                         else {
-                            html += ' ' + translate('نتیجه ارجاع از') + ' ' +  data[i].ToUserName
+                            html += ' ' + translate('نتیجه ارجاع از') + ' ' + data[i].ToUserName
                         }
                         html +=
                             '</h6>' +
@@ -2018,7 +2046,7 @@
             if (countUsers == 0)
                 $('#nameRoneveshtBe').val(translate('هیچکس'));
             else
-                $('#nameRoneveshtBe').val(countUsers +  ' ' + translate('مورد انتخاب شده'));
+                $('#nameRoneveshtBe').val(countUsers + ' ' + translate('مورد انتخاب شده'));
 
             $('#RjMhltDate').val(Band.RjMhltDate);
 
@@ -2110,8 +2138,8 @@
         $("#comm").prop("readonly", true);
         getDocB_Last();
         self.sortTableDocB_Last();
-        
-            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
     });
 
 
@@ -2466,8 +2494,8 @@
         }
 
         if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
-           // rjTime_H = '';
-           // rjTime_M = '';
+            // rjTime_H = '';
+            // rjTime_M = '';
             //return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
@@ -2750,7 +2778,7 @@
             else if (flagSave == false) {
                 //$('#modal-Erja').modal('hide');
                 // $('#modal-ErjDocErja').modal('hide');
-               // AlertErja();
+                // AlertErja();
             }
 
             // list_ErjUsersRoneveshtSelect = new Array();
@@ -2957,7 +2985,7 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableDocB_Last">' +
-        '<th>' + translate('ردیف') + '</th>';
+            '<th>' + translate('ردیف') + '</th>';
 
         if (sessionStorage.ModeCodeErja == '1') {
             html += CreateTableTh('RjStatus', data);
@@ -3024,7 +3052,7 @@
                 '    <li data-bind="style: {\'display\': RjReadSt == \'T\'  ? \'none\' : \'unset\'}">' +
                 '        <a id="UnRaedErja" data-bind="click: $root.UnRaedErja" style="font-size: 11px;text-align: right;">' +
                 '        <i  class="material-icons" style="color: #3f4d58;height: 16px;font-size:16px">notifications_none</i>' +
-            translate('خوانده نشده') +
+                translate('خوانده نشده') +
                 '        </a>' +
                 '    </li>' +
                 '</ul>' +
@@ -3045,7 +3073,7 @@
 
 
         html +=
-            '    <a data-bind="click: $root.ViewDocAttach , visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" data-backdrop="static" data-keyboard="false" >' +
+            '    <a data-bind="click: $root.ViewDocAttach , visible: $root.ShowDocAttach(DocAttachExists)" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" data-backdrop="static" data-keyboard="false" >' +
             '        <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px" />' +
             '    </a >' +
             '</td >' +
@@ -3053,7 +3081,7 @@
             '</tbody>' +
 
             ' <tfoot>' +
-        '<td style="background-color: #efb683;">' + translate('جستجو') + '</td>';
+            '<td style="background-color: #efb683;">' + translate('جستجو') + '</td>';
         if (sessionStorage.ModeCodeErja == '1') {
             html += CreateTableTdSearch('RjStatus', data);
         }
@@ -3087,7 +3115,7 @@
         sortField = field == 'RjStatus' ? 'SortRjStatus' :
 
 
-            field == 'RjDate' ? 'SortRjDate' :  field
+            field == 'RjDate' ? 'SortRjDate' : field
 
         //sortField = field;
         if (TextField == 0)
