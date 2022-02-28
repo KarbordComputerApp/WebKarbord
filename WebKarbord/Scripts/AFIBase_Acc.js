@@ -76,7 +76,23 @@
     var old_Deghat = '';
     var old_AccComm = '';
 
+    $('#LtnName').val('');
+    $('#EMail').val('');
+    $('#Mobile').val('')
+    $('#AccStatus').val(0);
 
+
+    $('#LtnName').attr('disabled', 'disabled');
+    $('#EMail').attr('disabled', 'disabled');
+    $('#Mobile').attr('disabled', 'disabled');
+    $('#AccStatus').attr('disabled', 'disabled');
+
+    if (ace == 'Web8') {
+        $('#LtnName').removeAttr('disabled');
+        $('#EMail').removeAttr('disabled');
+        $('#Mobile').removeAttr('disabled');
+        $('#AccStatus').removeAttr('disabled');
+    }
 
     var rprtId = 'Acc';
 
@@ -1068,6 +1084,7 @@
         }
         $('.fix').attr('class', 'form-line focused fix');
     });
+
 
 
 

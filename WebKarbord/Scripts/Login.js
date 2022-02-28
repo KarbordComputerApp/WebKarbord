@@ -264,9 +264,13 @@
                         var ProgTrsObject = {
                             User: sessionStorage.userName,
                         }
-                       
-                        ajaxFunction(server + '/api/Web_Data/ProgTrs', 'POST', ProgTrsObject).done(function (data) {
-                            
+
+                        ace = localStorage.getItem("ace");
+                        ajaxFunction(server + '/api/Web_Data/ProgTrs/' + ace , 'POST', ProgTrsObject).done(function (data) {
+
+                            //if (localStorage.getItem("ace") == 'Web8') {
+                             //   data = data.filter(s => s.prog != 'Afi1');
+                           // }
 
                             p = '';
                             for (var i = 0; i < data.length; i++) {

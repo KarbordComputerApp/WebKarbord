@@ -39,6 +39,13 @@
     }
 
 
+    $('#EtebarCheck').attr('disabled', 'disabled');
+
+    if (ace == 'Web8') {
+        $('#EtebarCheck').removeAttr('disabled');
+    }
+
+
 
     var cGruCode = '';
     var custCode = '';
