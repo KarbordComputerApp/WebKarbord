@@ -685,7 +685,7 @@
                 Serial = '';
                 PDModeAcc = 0;
                 self.flagupdateband = false;
-                flagOtherFieldShow;
+                flagOtherFieldShow = false;
                 ClearSearch();
                 self.ClearADocH();
                 self.ADocBList([]);

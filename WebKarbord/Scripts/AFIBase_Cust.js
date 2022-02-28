@@ -893,7 +893,7 @@
         melliCode = $('#MelliCode').val();
         ecoCode = $('#EcoCode').val();
 
-        if (code == "" ) {
+        if (code == "") {
             return showNotification(translate('کد خریدار/فروشنده را وارد کنید'), 0)
         }
 
@@ -1291,6 +1291,27 @@
         return text;
     }
 
+
+
+    self.docNoKeyDown = function (AddMinList, e) {
+        if (e.shiftKey) {
+            return
+        }
+        else {
+            var key = e.charCode || e.keyCode || 0;
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 109 ||
+                key == 191 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105)
+            );
+        }
+    }
 
 
 

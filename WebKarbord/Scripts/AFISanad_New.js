@@ -60,6 +60,8 @@ var ViewModel = function () {
     self.ShobeList = ko.observableArray([]); // لیست چک ها
     self.JariList = ko.observableArray([]); // لیست چک ها
     self.StatusList = ko.observableArray([]); // وضعیت  
+    self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
+    self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
 
 
@@ -91,9 +93,12 @@ var ViewModel = function () {
     var TestADoc_EditUri = server + '/api/ADocData/TestADoc_Edit/'; // آدرس تست ویرایش 
     var SaveADoc_HZUri = server + '/api/ADocData/SaveADoc_HZ/'; // آدرس ویرایس ستون تنظیم 
 
+    var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
 
 
 
+
+    var flagOtherFieldShow;
 
     var AccList;
     self.AModeList = ko.observableArray([]); // نوع سند 
@@ -259,7 +264,83 @@ var ViewModel = function () {
         }
     }
 
-    getCheckStatusList(1)
+    getCheckStatusList(1);
+
+
+
+
+    //Get ADocP List
+    function getADocP(serialNumber) {
+        ajaxFunction(ADocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.ADocPList(data);
+        });
+    }
+
+
+
+
+
+
+
+
+    function getExtraFieldsList() {
+        cols = getRprtCols('ADocH', sessionStorage.userName);
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                (ko.utils.stringStartsWith(item.Code, 'F0') ||
+                    ko.utils.stringStartsWith(item.Code, 'F1') ||
+                    ko.utils.stringStartsWith(item.Code, 'F2')) &&
+                item.Name != ''
+            return result;
+        })
+        self.ExtraFieldsList(result);
+    }
+
+    getExtraFieldsList();
+
+
+
+
+    $.fn.CheckAccess = function () {
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
+        accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
+        accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
+
+        if (localStorage.getItem("AccessViewSanad") == 'true') {
+            viewAction = true;
+        }
+        else {
+            if (sessionStorage.Eghdam == sessionStorage.userName) {
+                viewAction = true;
+            }
+        }
+
+        if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
+            viewAction = false;
+        } else {
+            sessionStorage.BeforeMoveSanad = false;
+        }
+
+
+        if (accessTaeed == false && sessionStorage.Status == 'تایید')
+            viewAction = false;
+
+        if (accessDaem == false && sessionStorage.Status == 'دائم')
+            viewAction = false;
+
+       /* if (viewAction) {
+            $('#action_headersanad').removeAttr('style');
+            $('#action_bodysanad').removeAttr('style');
+            $('#action_Adoc').removeAttr('style');
+            $('#insertband').removeAttr('style');
+        }*/
+    }
+
+    $(this).CheckAccess();
+
 
     /*   //Get CheckList List
        function getCheckList(PDMode) {
@@ -319,13 +400,15 @@ var ViewModel = function () {
 
     var ADocB;
     var dataAcc = [];
-    var darChecks = '';
-    var parChecks = '';
+    //var darChecks = '';
+   // var parChecks = '';
 
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     function getADocB(serialNumber) {
         ajaxFunction(ADocBUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
 
+            sumBede = 0
+            sumBest = 0;
 
             for (var i = 0; i < data.length; i++) {
                 AccData = AccList.filter(s => s.Code == data[i].AccCode);
@@ -334,22 +417,32 @@ var ViewModel = function () {
                 }
 
 
-                if (data[i].PDMode == 1) {
+                /*if (data[i].PDMode == 1) {
                     darChecks += data[i].CheckNo + ','
                 }
 
                 if (data[i].PDMode == 2) {
                     parChecks += data[i].CheckNo + ','
-                }
+                }*/
+
+                
+
+                sumBede += data[i].Bede;
+                sumBest += data[i].Best;
+
             }
 
-            if (darChecks.length > 0) {
+            /*if (darChecks.length > 0) {
                 darChecks = darChecks.slice(0, -1)
             }
 
             if (parChecks.length > 0) {
                 parChecks = parChecks.slice(0, -1)
-            }
+            }*/
+
+            $("#SumBedehkar").val(NumberToNumberString(sumBede));
+            $("#SumBestankar").val(NumberToNumberString(sumBest));
+            $("#TafavotSanad").val(NumberToNumberString(sumBede - sumBest));
 
             ADocB = data;
             GetRprtCols_NewList();
@@ -366,7 +459,7 @@ var ViewModel = function () {
             s.Code != "AccFullName"
         );
         data = cols;
-
+        ListColumns = cols;
         for (var i = 0; i < data.length; i++) {
             if (data[i].Code == 'AccCode' ||
 
@@ -800,6 +893,7 @@ var ViewModel = function () {
 
             onKeyDown: function (e) {
                 const keyCode = e.event.key;
+                calcSanad();
             },
 
             /* onEditorPreparing(e) {
@@ -879,6 +973,7 @@ var ViewModel = function () {
 
         }).dxDataGrid('instance');
         dataGrid.option('rtlEnabled', true);
+
     }
 
     // $("#gridContainer").dxDataGrid("columnOption", "ArzName", "visible", false);
@@ -1990,11 +2085,6 @@ var ViewModel = function () {
         if (data.CheckNo != null) {
             $('#CheckNo').val(data.CheckNo);
             $('#checkDateBand').val(data.CheckDate);
-
-
-            // if (dataAcc[ro].PDMode > 0) {
-            //     dataAcc[ro].PDMode == 1 ? $('#Value').val(NumberToNumberString(data.Best)) : $('#Value').val(NumberToNumberString(data.Bede));
-            // }
             $('#Value').val(NumberToNumberString(data.Best > 0 ? data.Best : data.Bede));
 
             $('#nameBank').val(data.Bank);
@@ -2037,15 +2127,15 @@ var ViewModel = function () {
 
     $('#modal-DataCheck').on('hide.bs.modal', function () {
         var dataGrid = $("#gridContainer").dxDataGrid("instance");
-        a = $('#checkStatus').val();
+        a = self.CheckStatusCode();
         dataGrid.cellValue(ro, "CheckNo", $('#CheckNo').val());
         dataGrid.cellValue(ro, "CheckDate", $('#checkDateBand').val());
-        dataGrid.cellValue(ro, "Bank", $('#Bank').val());
-        dataGrid.cellValue(ro, "Shobe", $('#Shobe').val());
-        dataGrid.cellValue(ro, "Jari", $('#Jari').val());
+        dataGrid.cellValue(ro, "Bank", $('#nameBank').val());
+        dataGrid.cellValue(ro, "Shobe", $('#nameShobe').val());
+        dataGrid.cellValue(ro, "Jari", $('#nameJari').val());
         dataGrid.cellValue(ro, "BaratNo", $('#BaratNo').val());
         dataGrid.cellValue(ro, "CheckRadif", $('#CheckRadif').val());
-        dataGrid.cellValue(ro, "CheckStatus", $('#checkStatus').val());
+        dataGrid.cellValue(ro, "CheckStatus", self.CheckStatusCode());
         dataGrid.cellValue(ro, "CheckVosoolDate", $('#checkVosoolDate').val());
         dataGrid.cellValue(ro, "TrafCode", trafCode);
         dataGrid.cellValue(ro, "TrafName", trafName);
@@ -2091,6 +2181,25 @@ var ViewModel = function () {
                 sessionStorage.Status = translate('موقت');
                 sessionStorage.Eghdam = sessionStorage.userName;
                 flaglog = "Y";
+
+                $("#SumBedehkar").val(0);
+                $("#SumBestankar").val(0);
+                $("#TafavotSanad").val(0);
+
+                flagOtherFieldShow = false;
+                flagInsertADocH = 0;
+                if (parseInt(sal) < SalNow) {
+                    getADocHLastDate();
+                }
+                getADocB(0);
+
+                for (var i = 0; i < 1; i++) {
+                    dataGrid.addRow();
+                }
+
+                Serial = 0;
+
+
                 //$(this).CheckAccess();
             }
         })
@@ -2119,6 +2228,7 @@ var ViewModel = function () {
         flagOtherFieldShow = true;
         $('#titlePage').text(translate("سند حسابداری شماره") + ' ' + sessionStorage.DocNo.toPersianDigit());
         getADocB(Serial);
+        
     }
     else {
         flagInsertADocH = 0;
@@ -2199,8 +2309,8 @@ var ViewModel = function () {
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
                 flagLog: flaglog,
-                DarChecks: darChecks,
-                ParChecks: parChecks,
+                //DarChecks: darChecks,
+                //ParChecks: parChecks,
             };
 
             ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
@@ -2253,8 +2363,8 @@ var ViewModel = function () {
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
                 flagLog: flaglog,
-                DarChecks: darChecks,
-                ParChecks: parChecks,
+                //DarChecks: darChecks,
+               // ParChecks: parChecks,
             };
 
             ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
@@ -2275,7 +2385,7 @@ var ViewModel = function () {
                 Comm: ADocB[i].Comm,
                 BandSpec: ADocB[i].BandSpec,
                 CheckNo: ADocB[i].CheckNo,
-                CheckDate: ADocB[i].CheckDate,
+                CheckDate: ADocB[i].CheckDate,//.toEnglishDigit(),          
                 Bank: ADocB[i].Bank,
                 Shobe: ADocB[i].Shobe,
                 Jari: ADocB[i].Jari,
@@ -2285,7 +2395,7 @@ var ViewModel = function () {
                 CheckRadif: ADocB[i].CheckRadif,
                 CheckComm: ADocB[i].CheckComm,
                 CheckStatus: ADocB[i].CheckStatus,
-                CheckVosoolDate: ADocB[i].CheckVosoolDate,
+                CheckVosoolDate: ADocB[i].CheckVosoolDate,//.toEnglishDigit(),              
                 OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
@@ -2549,9 +2659,9 @@ var ViewModel = function () {
             sumBest = sumBest + bes;
         }
 
-        $("#SumBedehkar").val(sumBede);
-        $("#SumBestankar").val(sumBest);
-        $("#TafavotSanad").val(sumBede - sumBest);
+        $("#SumBedehkar").val(NumberToNumberString(sumBede));
+        $("#SumBestankar").val(NumberToNumberString(sumBest));
+        $("#TafavotSanad").val(NumberToNumberString(sumBede - sumBest));
     }
 
     window.onbeforeunload = function () {
@@ -3695,6 +3805,234 @@ var ViewModel = function () {
 
 
 
+    pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
+    self.pageSizePrintForms = ko.observable(pageSizePrintForms);
+    self.currentPageIndexKhdt = ko.observable(0);
+
+    self.currentPageIndexPrintForms = ko.observable(0);
+    self.filterPrintForms0 = ko.observable("");
+    self.filterPrintForms1 = ko.observable("");
+
+    self.filterPrintFormsList = ko.computed(function () {
+
+        self.currentPageIndexPrintForms(0);
+        var filter0 = self.filterPrintForms0();
+        var filter1 = self.filterPrintForms1();
+
+        if (!filter0 && !filter1) {
+            return PrintFormsList();
+        } else {
+            tempData = ko.utils.arrayFilter(PrintFormsList(), function (item) {
+                result =
+                    (item.namefa == null ? '' : item.namefa.toString().search(filter0) >= 0) &&
+                    (item.Selected == null ? '' : item.Selected.toString().search(filter1) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+
+    self.currentPagePrintForms = ko.computed(function () {
+        var pageSizePrintForms = parseInt(self.pageSizePrintForms(), 10),
+            startIndex = pageSizePrintForms * self.currentPageIndexPrintForms(),
+            endIndex = startIndex + pageSizePrintForms;
+        localStorage.setItem('pageSizePrintForms', pageSizePrintForms);
+        return self.filterPrintFormsList().slice(startIndex, endIndex);
+    });
+
+    self.nextPagePrintForms = function () {
+        if (((self.currentPageIndexPrintForms() + 1) * self.pageSizePrintForms()) < self.filterPrintFormsList().length) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() + 1);
+        }
+    };
+
+    self.previousPagePrintForms = function () {
+        if (self.currentPageIndexPrintForms() > 0) {
+            self.currentPageIndexPrintForms(self.currentPageIndexPrintForms() - 1);
+        }
+    };
+
+    self.firstPagePrintForms = function () {
+        self.currentPageIndexPrintForms(0);
+    };
+
+
+    self.lastPagePrintForms = function () {
+        countPrintForms = parseInt(self.filterPrintFormsList().length / self.pageSizePrintForms(), 10);
+        if ((self.filterPrintFormsList().length % self.pageSizePrintForms()) == 0)
+            self.currentPageIndexPrintForms(countPrintForms - 1);
+        else
+            self.currentPageIndexPrintForms(countPrintForms);
+    };
+
+
+    self.iconTypenamefa = ko.observable("");
+
+    self.sortTablePrintForms = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        PrintFormsList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        if (orderProp == 'namefa') self.iconTypenamefa((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    self.CodePrint = ko.observable();
+
+    self.radifPrint = function (index) {
+        countShow = self.pageSizePrintForms();
+        page = self.currentPageIndexPrintForms();
+        calc = (countShow * page) + 1;
+        return index + calc;
+    }
+
+
+    self.ShowActionPrint = function (isPublic) {
+        return isPublic == 1 ? false : true;
+    }
+
+
+    self.ShowPrintForms = function (item) {
+        printName = item.namefa;
+        address = item.address;
+        data = item.Data;
+        printPublic = item.isPublic == 1 ? true : false;
+        setReport(self.ADocPList(), data, printVariable);
+    };
+
+
+    self.SelectedPrintForms = function (item) {
+        SelectedPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
+
+
+    self.SelectedAccessGhimat = function (item) {
+        SelectedAccessGhimatPrintForm(item.address, item.isPublic);
+        GetPrintForms(sessionStorage.ModePrint);
+        return true;
+    };
+
+    self.DeletePrintForms = function (item) {
+        Swal.fire({
+            title: mes_Delete,
+            text: translate("آیا فرم چاپ انتخابی حذف شود"),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                address = item.address;
+                DeletePrintForm(address);
+                GetPrintForms(sessionStorage.ModePrint);
+            }
+        })
+
+    };
+
+    $('#AddNewPrintForms').click(function () {
+        printName = translate('فرم جدید');
+        printPublic = false;
+        setReport(self.ADocPList(), '', printVariable);
+    });
+
+
+    $('#Print_SanadHesab').click(function () {
+
+        if (Serial == '')
+            return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
+        getADocP(Serial);
+        createViewer();
+        if (self.ADocPList().length == 0)
+            return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
+
+        printVariable = '"ReportDate":"' + DateNow + '",';
+
+        printName = null;
+        sessionStorage.ModePrint = "ADoc";
+        GetPrintForms(sessionStorage.ModePrint);
+        self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
+    });
+
+    $('#DesignPrint').click(function () {
+        self.filterPrintForms1("");
+        $('#modal-Print').modal('hide');
+        $('#modal-PrintForms').modal('show');
+    });
+
+    $('#AcceptPrint').click(function () {
+        codeSelect = self.CodePrint();
+        list = PrintFormsList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].code == codeSelect) {
+                name = list[i].namefa;
+                data = list[i].Data;
+            }
+        }
+        setReport(self.ADocPList(), data, printVariable);
+        $('#modal-Print').modal('hide');
+    });
+
+
+
+
+
+
+
+
+    $('#modal-OtherField').on('shown.bs.modal', function () {
+        if (flagOtherFieldShow == true) {
+            $("#ExtraFields1").val(sessionStorage.F01);
+            $("#ExtraFields2").val(sessionStorage.F02);
+            $("#ExtraFields3").val(sessionStorage.F03);
+            $("#ExtraFields4").val(sessionStorage.F04);
+            $("#ExtraFields5").val(sessionStorage.F05);
+            $("#ExtraFields6").val(sessionStorage.F06);
+            $("#ExtraFields7").val(sessionStorage.F07);
+            $("#ExtraFields8").val(sessionStorage.F08);
+            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields10").val(sessionStorage.F10);
+            $("#ExtraFields11").val(sessionStorage.F11);
+            $("#ExtraFields12").val(sessionStorage.F12);
+            $("#ExtraFields13").val(sessionStorage.F13);
+            $("#ExtraFields14").val(sessionStorage.F14);
+            $("#ExtraFields15").val(sessionStorage.F15);
+            $("#ExtraFields16").val(sessionStorage.F16);
+            $("#ExtraFields17").val(sessionStorage.F17);
+            $("#ExtraFields18").val(sessionStorage.F18);
+            $("#ExtraFields19").val(sessionStorage.F19);
+            $("#ExtraFields20").val(sessionStorage.F20);
+            flagOtherFieldShow = false;
+        }
+    });
+
+
+
+    $('#modal-OtherField').on('hide.bs.modal', function () {
+        $('#finalSave_Title').removeAttr('hidden', '');
+    });
 
 
 
