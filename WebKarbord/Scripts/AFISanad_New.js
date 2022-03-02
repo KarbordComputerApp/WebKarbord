@@ -2503,7 +2503,33 @@ var ViewModel = function () {
         for (i = 0; i <= ADocB.length - 1; i++) {
             item = data[i];
             tmp = {
+
                 AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
+                AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
+                Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
+                Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
+                Comm: ADocB[i].Comm,
+                BandSpec: ADocB[i].BandSpec,
+                CheckNo: ADocB[i].CheckNo,
+                CheckDate: ADocB[i].CheckDate,//.toEnglishDigit(),          
+                Bank: ADocB[i].Bank,
+                Shobe: ADocB[i].Shobe,
+                Jari: ADocB[i].Jari,
+                BaratNo: ADocB[i].BaratNo,
+                TrafCode: ADocB[i].TrafCode,
+                TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
+                CheckRadif: ADocB[i].CheckRadif,
+                CheckComm: ADocB[i].CheckComm,
+                CheckStatus: ADocB[i].CheckStatus,
+                CheckVosoolDate: ADocB[i].CheckVosoolDate,//.toEnglishDigit(),              
+                OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
+                MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
+                ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
+                ArzRate: ADocB[i].ArzRate,
+                arzValue: ADocB[i].arzValue,
+
+
+               /* AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
                 AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
                 Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
                 Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
@@ -2525,7 +2551,7 @@ var ViewModel = function () {
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
                 ArzRate: '',
-                arzValue: '',
+                arzValue: '',*/
                 flagLog: 'N',
                 flagTest: 'Y',
             };
