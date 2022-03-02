@@ -306,6 +306,10 @@ var ViewModel = function () {
             $('#Print_SanadHesab').attr('style', 'display: none')
         }
 
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
         accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
         accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
 
@@ -2159,6 +2163,7 @@ var ViewModel = function () {
     });
 
 
+    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
 
     $('#AddNewSanad').click(function () {
         Swal.fire({
