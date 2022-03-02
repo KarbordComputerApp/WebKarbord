@@ -676,6 +676,8 @@ var ViewModel = function () {
                         disabled(e) {
                             if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
                                 return dataAcc[e.row.rowIndex].PDMode == 0;
+                            else if(dataAcc.length == 0 &&  dataAcc.length == 0)
+                                return true;
                             else
                                 return false;
 
