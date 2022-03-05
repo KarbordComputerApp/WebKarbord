@@ -335,12 +335,12 @@ var ViewModel = function () {
         if (accessDaem == false && sessionStorage.Status == 'دائم')
             viewAction = false;
 
-       /* if (viewAction) {
-            $('#action_headersanad').removeAttr('style');
-            $('#action_bodysanad').removeAttr('style');
-            $('#action_Adoc').removeAttr('style');
-            $('#insertband').removeAttr('style');
-        }*/
+        /* if (viewAction) {
+             $('#action_headersanad').removeAttr('style');
+             $('#action_bodysanad').removeAttr('style');
+             $('#action_Adoc').removeAttr('style');
+             $('#insertband').removeAttr('style');
+         }*/
     }
 
     $(this).CheckAccess();
@@ -405,7 +405,7 @@ var ViewModel = function () {
     var ADocB;
     var dataAcc = [];
     //var darChecks = '';
-   // var parChecks = '';
+    // var parChecks = '';
 
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     function getADocB(serialNumber) {
@@ -429,7 +429,7 @@ var ViewModel = function () {
                     parChecks += data[i].CheckNo + ','
                 }*/
 
-                
+
 
                 sumBede += data[i].Bede;
                 sumBest += data[i].Best;
@@ -680,7 +680,7 @@ var ViewModel = function () {
                         disabled(e) {
                             if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
                                 return dataAcc[e.row.rowIndex].PDMode == 0;
-                            else if(dataAcc.length == 0 &&  dataAcc.length == 0)
+                            else if (dataAcc.length == 0 && dataAcc.length == 0)
                                 return true;
                             else
                                 return false;
@@ -1020,60 +1020,74 @@ var ViewModel = function () {
                     focusedRowEnabled: true,
                     focusedRowKey: cellInfo.value,
                     onSelectionChanged(selectionChangedArgs) {
+                        dAcc = selectionChangedArgs.selectedRowsData[0];
+                        if (dAcc.HasChild == 0 || dAcc.NextLevelFromZAcc == 1) {
+
                         e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                         cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                         if (selectionChangedArgs.selectedRowKeys.length > 0) {
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
 
-                            var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                           
 
-                            newRec = false;
-                            if (dataAcc[ro] == null) {
-                                //  newRec = true;
-                                dataAcc[ro] = [];
+
+
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+
+
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+                                newRec = false;
+                                if (dataAcc[ro] == null) {
+                                    //  newRec = true;
+                                    dataAcc[ro] = [];
+                                }
+                                dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
+
+                                /* dataAcc[ro].NextLevelFromZAcc = selectionChangedArgs.selectedRowsData[0].NextLevelFromZAcc;
+                                 dataAcc[ro].Mkz = selectionChangedArgs.selectedRowsData[0].Mkz;
+                                 dataAcc[ro].Opr = selectionChangedArgs.selectedRowsData[0].Opr;
+                                 dataAcc[ro].Arzi = selectionChangedArgs.selectedRowsData[0].Arzi;*/
+
+                                dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
+
+
+
+
+                                if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
+                                    dataGrid.cellValue(ro, "AccZCode", '');
+                                    dataGrid.cellValue(ro, "AccZName", '');
+                                }
+
+                                if (newRec == false && dataAcc[ro].Mkz == 0) {
+                                    dataGrid.cellValue(ro, "MkzCode", '');
+                                    dataGrid.cellValue(ro, "MkzName", '');
+                                }
+
+                                if (newRec == false && dataAcc[ro].Opr == 0) {
+                                    dataGrid.cellValue(ro, "OprCode", '');
+                                    dataGrid.cellValue(ro, "OprName", '');
+                                }
+
+                                if (newRec == false && dataAcc[ro].Arzi == 0) {
+                                    dataGrid.cellValue(ro, "ArzCode", '');
+                                    dataGrid.cellValue(ro, "ArzName", '');
+                                }
+
+                                if (dataAcc[ro].PDMode > 0) {
+                                    getCheckList(dataAcc[ro].PDMode);
+                                }
+
+
+
+
+                                e.component.close();
+
+                                dataGrid.focus(dataGrid.getCellElement(ro, 5));
                             }
-                            dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
 
-                            /* dataAcc[ro].NextLevelFromZAcc = selectionChangedArgs.selectedRowsData[0].NextLevelFromZAcc;
-                             dataAcc[ro].Mkz = selectionChangedArgs.selectedRowsData[0].Mkz;
-                             dataAcc[ro].Opr = selectionChangedArgs.selectedRowsData[0].Opr;
-                             dataAcc[ro].Arzi = selectionChangedArgs.selectedRowsData[0].Arzi;*/
-
-                            dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
-
-
-
-
-                            if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
-                                dataGrid.cellValue(ro, "AccZCode", '');
-                                dataGrid.cellValue(ro, "AccZName", '');
-                            }
-
-                            if (newRec == false && dataAcc[ro].Mkz == 0) {
-                                dataGrid.cellValue(ro, "MkzCode", '');
-                                dataGrid.cellValue(ro, "MkzName", '');
-                            }
-
-                            if (newRec == false && dataAcc[ro].Opr == 0) {
-                                dataGrid.cellValue(ro, "OprCode", '');
-                                dataGrid.cellValue(ro, "OprName", '');
-                            }
-
-                            if (newRec == false && dataAcc[ro].Arzi == 0) {
-                                dataGrid.cellValue(ro, "ArzCode", '');
-                                dataGrid.cellValue(ro, "ArzName", '');
-                            }
-
-                            if (dataAcc[ro].PDMode > 0) {
-                                getCheckList(dataAcc[ro].PDMode);
-                            }
-
-
-
-
-                            e.component.close();
-
-                            dataGrid.focus(dataGrid.getCellElement(ro, 5));
+                        }
+                        else {
+                            showNotification(translate('این حساب قابل انتخاب نیست'), 0);
                         }
                     },
 
@@ -2088,7 +2102,7 @@ var ViewModel = function () {
         $('#CheckComm').val('');
 
 
-        if (data.CheckNo != null) {
+        if (data.CheckNo != null && data.CheckNo != "") {
             $('#CheckNo').val(data.CheckNo);
             $('#checkDateBand').val(data.CheckDate);
             $('#Value').val(NumberToNumberString(data.Best > 0 ? data.Best : data.Bede));
@@ -2236,7 +2250,7 @@ var ViewModel = function () {
                 $("#ExtraFields18").val('');
                 $("#ExtraFields19").val('');
                 $("#ExtraFields20").val('');
-               
+
 
                 flagInsertADocH = 0;
                 if (parseInt(sal) < SalNow) {
@@ -2279,7 +2293,7 @@ var ViewModel = function () {
         flagOtherFieldShow = true;
         $('#titlePage').text(translate("سند حسابداری شماره") + ' ' + sessionStorage.DocNo.toPersianDigit());
         getADocB(Serial);
-        
+
     }
     else {
         flagInsertADocH = 0;
@@ -2415,7 +2429,7 @@ var ViewModel = function () {
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
                 flagLog: flaglog,
                 //DarChecks: darChecks,
-               // ParChecks: parChecks,
+                // ParChecks: parChecks,
             };
 
             ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'PUT', ADocObject).done(function (response) {
@@ -2436,7 +2450,7 @@ var ViewModel = function () {
                 Comm: ADocB[i].Comm,
                 BandSpec: ADocB[i].BandSpec,
                 CheckNo: ADocB[i].CheckNo,
-                CheckDate: ADocB[i].CheckDate == null ? '' : ADocB[i].CheckDate.toEnglishDigit(),          
+                CheckDate: ADocB[i].CheckDate == null ? '' : ADocB[i].CheckDate.toEnglishDigit(),
                 Bank: ADocB[i].Bank,
                 Shobe: ADocB[i].Shobe,
                 Jari: ADocB[i].Jari,
@@ -2446,7 +2460,7 @@ var ViewModel = function () {
                 CheckRadif: ADocB[i].CheckRadif,
                 CheckComm: ADocB[i].CheckComm,
                 CheckStatus: ADocB[i].CheckStatus,
-                CheckVosoolDate: ADocB[i].CheckVosoolDate == null ? '' : ADocB[i].CheckVosoolDate.toEnglishDigit(),              
+                CheckVosoolDate: ADocB[i].CheckVosoolDate == null ? '' : ADocB[i].CheckVosoolDate.toEnglishDigit(),
                 OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
@@ -2458,7 +2472,7 @@ var ViewModel = function () {
         }
 
         ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj).done(function (response) {
-
+            showNotification(translate('سند ذخیره شد'), 1);
         });
     }
 
@@ -2562,7 +2576,7 @@ var ViewModel = function () {
                 Comm: ADocB[i].Comm,
                 BandSpec: ADocB[i].BandSpec,
                 CheckNo: ADocB[i].CheckNo,
-                CheckDate: ADocB[i].CheckDate == null ? '' : ADocB[i].CheckDate.toEnglishDigit(),          
+                CheckDate: ADocB[i].CheckDate == null ? '' : ADocB[i].CheckDate.toEnglishDigit(),
                 Bank: ADocB[i].Bank,
                 Shobe: ADocB[i].Shobe,
                 Jari: ADocB[i].Jari,
@@ -2572,7 +2586,7 @@ var ViewModel = function () {
                 CheckRadif: ADocB[i].CheckRadif,
                 CheckComm: ADocB[i].CheckComm,
                 CheckStatus: ADocB[i].CheckStatus,
-                CheckVosoolDate: ADocB[i].CheckVosoolDate == null ? '' : ADocB[i].CheckVosoolDate.toEnglishDigit(),              
+                CheckVosoolDate: ADocB[i].CheckVosoolDate == null ? '' : ADocB[i].CheckVosoolDate.toEnglishDigit(),
                 OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
@@ -2580,29 +2594,29 @@ var ViewModel = function () {
                 arzValue: ADocB[i].arzValue,
 
 
-               /* AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
-                AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
-                Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
-                Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
-                Comm: '',
-                BandSpec: '',
-                CheckNo: '',
-                CheckDate: '',
-                Bank: '',
-                Shobe: '',
-                Jari: '',
-                BaratNo: '',
-                TrafCode: '',
-                TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
-                CheckRadif: '',
-                CheckComm: '',
-                CheckStatus: '',
-                CheckVosoolDate: '',
-                OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
-                MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
-                ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
-                ArzRate: '',
-                arzValue: '',*/
+                /* AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
+                 AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
+                 Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
+                 Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
+                 Comm: '',
+                 BandSpec: '',
+                 CheckNo: '',
+                 CheckDate: '',
+                 Bank: '',
+                 Shobe: '',
+                 Jari: '',
+                 BaratNo: '',
+                 TrafCode: '',
+                 TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
+                 CheckRadif: '',
+                 CheckComm: '',
+                 CheckStatus: '',
+                 CheckVosoolDate: '',
+                 OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
+                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
+                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
+                 ArzRate: '',
+                 arzValue: '',*/
                 flagLog: 'N',
                 flagTest: 'Y',
             };
@@ -2977,7 +2991,9 @@ var ViewModel = function () {
 
     self.selectCheck = function (item) {
         trafCode = item.TrafCode;
+        trafName = item.TrafName;
         trafZCode = item.TrafZCode;
+        trafZName = item.TrafZName;
         $('#CheckNo').val(item.CheckNo);
         $('#checkDateBand').val(item.CheckDate);
         $('#Value').val(NumberToNumberString(item.Value));
@@ -3697,6 +3713,7 @@ var ViewModel = function () {
             }
             else {
                 $('#btnTrafZ').attr('hidden', '');
+                $('#nameTrafZ').val('');
                 trafZCode = '';
                 trafZName = '';
             }
