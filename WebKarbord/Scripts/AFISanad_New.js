@@ -1023,11 +1023,11 @@ var ViewModel = function () {
                         dAcc = selectionChangedArgs.selectedRowsData[0];
                         if (dAcc.HasChild == 0 || dAcc.NextLevelFromZAcc == 1) {
 
-                        e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                        cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                        if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
 
-                           
+
 
 
 
@@ -1126,44 +1126,50 @@ var ViewModel = function () {
                     focusedRowEnabled: true,
                     focusedRowKey: cellInfo.value,
                     onSelectionChanged(selectionChangedArgs) {
-                        e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                        cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                        if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                        dAcc = selectionChangedArgs.selectedRowsData[0];
+                        if (dAcc.HasChild == 0 || dAcc.NextLevelFromZAcc == 1) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
 
-                            newRec = false;
-                            if (dataAcc[ro] == null) {
-                                dataAcc[ro] = [];
+                                newRec = false;
+                                if (dataAcc[ro] == null) {
+                                    dataAcc[ro] = [];
+                                }
+                                dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
+
+                                dataGrid.cellValue(ro, "AccCode", selectionChangedArgs.selectedRowsData[0].Code);
+
+                                if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
+                                    dataGrid.cellValue(ro, "AccZCode", '');
+                                    dataGrid.cellValue(ro, "AccZName", '');
+                                }
+
+                                if (newRec == false && dataAcc[ro].Mkz == 0) {
+                                    dataGrid.cellValue(ro, "MkzCode", '');
+                                    dataGrid.cellValue(ro, "MkzName", '');
+                                }
+
+                                if (newRec == false && dataAcc[ro].Opr == 0) {
+                                    dataGrid.cellValue(ro, "OprCode", '');
+                                    dataGrid.cellValue(ro, "OprName", '');
+                                }
+
+                                if (newRec == false && dataAcc[ro].Arzi == 0) {
+                                    dataGrid.cellValue(ro, "ArzCode", '');
+                                    dataGrid.cellValue(ro, "ArzName", '');
+                                }
+
+                                if (dataAcc[ro].PDMode > 0) {
+                                    getCheckList(dataAcc[ro].PDMode);
+                                }
+
+                                e.component.close();
                             }
-                            dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
-
-                            dataGrid.cellValue(ro, "AccCode", selectionChangedArgs.selectedRowsData[0].Code);
-
-                            if (newRec == false && dataAcc[ro].NextLevelFromZAcc == 0) {
-                                dataGrid.cellValue(ro, "AccZCode", '');
-                                dataGrid.cellValue(ro, "AccZName", '');
-                            }
-
-                            if (newRec == false && dataAcc[ro].Mkz == 0) {
-                                dataGrid.cellValue(ro, "MkzCode", '');
-                                dataGrid.cellValue(ro, "MkzName", '');
-                            }
-
-                            if (newRec == false && dataAcc[ro].Opr == 0) {
-                                dataGrid.cellValue(ro, "OprCode", '');
-                                dataGrid.cellValue(ro, "OprName", '');
-                            }
-
-                            if (newRec == false && dataAcc[ro].Arzi == 0) {
-                                dataGrid.cellValue(ro, "ArzCode", '');
-                                dataGrid.cellValue(ro, "ArzName", '');
-                            }
-
-                            if (dataAcc[ro].PDMode > 0) {
-                                getCheckList(dataAcc[ro].PDMode);
-                            }
-
-                            e.component.close();
+                        }
+                        else {
+                            showNotification(translate('این حساب قابل انتخاب نیست'), 0);
                         }
                     },
                 });
@@ -2195,6 +2201,7 @@ var ViewModel = function () {
                 $('#titlePage').text(translate("سند حسابداری جدید"));
                 dataGrid.option('dataSource', []);
                 ADocB = [];
+                dataAcc = [];
                 dataGrid.option('dataSource', ADocB);
                 $('#docnoout').text(translate('جدید'));
                 self.StatusSanad(translate('موقت'));
