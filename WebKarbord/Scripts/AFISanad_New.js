@@ -1,6 +1,10 @@
 ﻿var TestADocList; //لیست خطا ها
 var cols;
 
+//اطلاعات سلول
+//var dataGrid = $("#gridContainer").dxDataGrid("instance");
+//cellValue = dataGrid.cellValue(ro, 'AccCode');
+
 var ViewModel = function () {
     var self = this;
     TestUser();
@@ -483,6 +487,7 @@ var ViewModel = function () {
             s.Code == 'OprCode' ||
             s.Code == 'OprName' ||
             s.Code == 'BandSpec' ||
+            s.Code == 'Amount' ||
             s.Code == 'ArzCode' ||
             s.Code == 'ArzValue' ||
             s.Code == 'ArzRate' ||
@@ -492,14 +497,14 @@ var ViewModel = function () {
         if (cols[0].UserCode == '*Default*') {
             for (var i = 0; i < cols.length; i++) {
                 if (
-                    cols[i].Code == 'AccCode' || 
-                    cols[i].Code == 'AccName' || 
-                    cols[i].Code == 'AccZCode' || 
-                    cols[i].Code == 'AccZName' || 
-                    cols[i].Code == 'Comm' || 
-                    cols[i].Code == 'Bede' || 
+                    cols[i].Code == 'AccCode' ||
+                    cols[i].Code == 'AccName' ||
+                    cols[i].Code == 'AccZCode' ||
+                    cols[i].Code == 'AccZName' ||
+                    cols[i].Code == 'Comm' ||
+                    cols[i].Code == 'Bede' ||
                     cols[i].Code == 'Best'
-                    )
+                )
                     cols[i].Visible = 1
                 else
                     cols[i].Visible = 0
@@ -691,6 +696,17 @@ var ViewModel = function () {
                 f += ',"setCellValue": "EditorBest"'
             }
 
+            else if (data[i].Code == "Amount") {
+                f += ',"setCellValue": "EditorAmount"'
+            }
+
+            else if (data[i].Code == "ArzValue") {
+                f += ',"setCellValue": "EditorArzValue"'
+            }
+
+            else if (data[i].Code == "ArzRate") {
+                f += ',"setCellValue": "EditorArzRate"'
+            }
 
             if (
                 data[i].Code == "BandNo" ||
@@ -873,9 +889,25 @@ var ViewModel = function () {
             if (cols[i].dataField == 'Bede') {
                 cols[i].setCellValue = EditorBede;
             }
+
             if (cols[i].dataField == 'Best') {
                 cols[i].setCellValue = EditorBest;
             }
+
+            if (cols[i].dataField == 'Amount') {
+                cols[i].setCellValue = EditorAmount;
+            }
+
+            if (cols[i].dataField == 'ArzValue') {
+                cols[i].setCellValue = EditorArzValue;
+            }
+
+            if (cols[i].dataField == 'ArzRate') {
+                cols[i].setCellValue = EditorArzRate;
+            }
+
+
+     
 
         }
 
@@ -915,7 +947,7 @@ var ViewModel = function () {
 
                 //var dataGrid = $("#gridContainer").dxDataGrid("instance");
                 //columnCount = dataGrid.columnCount();
-               // c = dataGrid.option("columns");
+                // c = dataGrid.option("columns");
                 //a = e.component.option("columns");
                 if (e.fullName.includes("column")) {
                     columnCount = e.component.columnCount();
@@ -940,35 +972,35 @@ var ViewModel = function () {
                 }
 
                 //function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
-               /*     var obj = [];
-                for (i = 1; i <= cols.length; i++) {
-                        item = data[i];
-                        $('#SettingColumns' + (i)).is(':checked') == true ? Visible = 1 : Visible = 0;
-                        tmp = {
-                            'UserCode': sessionStorage.userName,
-                            'RprtId': rprtId,
-                            'Code': columns[i - 1],
-                            'Visible': Visible,
-                        };
-                        obj.push(tmp);
-                    }
-
-                    $('#modal-SettingColumn').modal('hide');
-                    showNotification(translate('در حال ذخیره تنظیمات ستون ها ...'), 1);
-                    ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
-                        getRprtAllCols();
-                    });
-
-                  //  window.location.href = route;
-               // }
-
-                /*e.element.click(function (args) {
-                    if ($(args.target).hasClass("dx-icon-column-chooser") ||
-                        $(args.target).find(".dx-icon-column-chooser").length)
-                        return;
-                    e.component.hideColumnChooser();
-                });*/
-            }, 
+                /*     var obj = [];
+                 for (i = 1; i <= cols.length; i++) {
+                         item = data[i];
+                         $('#SettingColumns' + (i)).is(':checked') == true ? Visible = 1 : Visible = 0;
+                         tmp = {
+                             'UserCode': sessionStorage.userName,
+                             'RprtId': rprtId,
+                             'Code': columns[i - 1],
+                             'Visible': Visible,
+                         };
+                         obj.push(tmp);
+                     }
+ 
+                     $('#modal-SettingColumn').modal('hide');
+                     showNotification(translate('در حال ذخیره تنظیمات ستون ها ...'), 1);
+                     ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
+                         getRprtAllCols();
+                     });
+ 
+                   //  window.location.href = route;
+                // }
+ 
+                 /*e.element.click(function (args) {
+                     if ($(args.target).hasClass("dx-icon-column-chooser") ||
+                         $(args.target).find(".dx-icon-column-chooser").length)
+                         return;
+                     e.component.hideColumnChooser();
+                 });*/
+            },
 
 
             keyboardNavigation: {
@@ -1214,14 +1246,20 @@ var ViewModel = function () {
                                     if (newRec == false && dataAcc[ro].Arzi == 0) {
                                         dataGrid.cellValue(ro, "ArzCode", '');
                                         dataGrid.cellValue(ro, "ArzName", '');
+                                        dataGrid.cellValue(ro, "ArzValue", '0');
+                                        dataGrid.cellValue(ro, "ArzRate", '0');
                                     }
+
+                                    // $("#gridContainer").dxDataGrid("columnOption", "Amount", "allowEditing", true);
+                                    if (newRec == false && dataAcc[ro].Amount == 0) {
+                                        dataGrid.cellValue(ro, "Amount", '0');
+                                    }
+
+                                   
 
                                     if (dataAcc[ro].PDMode > 0) {
                                         getCheckList(dataAcc[ro].PDMode);
                                     }
-
-
-
 
                                     e.component.close();
 
@@ -2235,6 +2273,27 @@ var ViewModel = function () {
         newData.Bede = 0;
         newData.Best = value;
     }
+
+    function EditorAmount(newData, value, currentRowData) {
+        newData.Amount = 0;
+        if (dataAcc[ro].Amount == 1)
+            newData.Amount = value;
+    }
+
+    function EditorArzValue(newData, value, currentRowData) {
+        newData.ArzValue = 0;
+        if (dataAcc[ro].Arzi == 1 && currentRowData.ArzCode != '')
+            newData.ArzValue = value;
+    }
+
+    function EditorArzRate(newData, value, currentRowData) {
+        newData.ArzRate = 0;
+        if (dataAcc[ro].Arzi == 1 && currentRowData.ArzCode != '')
+            newData.ArzRate = value;
+    }
+
+   
+
 
 
 
