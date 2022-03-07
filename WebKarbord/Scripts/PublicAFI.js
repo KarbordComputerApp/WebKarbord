@@ -4405,6 +4405,8 @@ function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
             'RprtId': rprtId,
             'Code': columns[i - 1],
             'Visible': Visible,
+            'Position': i,
+            'Width': 100
         };
         obj.push(tmp);
     }

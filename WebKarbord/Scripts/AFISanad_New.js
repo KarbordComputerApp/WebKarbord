@@ -13,6 +13,7 @@ var ViewModel = function () {
     var flagFinalSave = false;
 
     var flagupdateHeader;
+    var changeColumn = false;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
 
@@ -511,6 +512,16 @@ var ViewModel = function () {
             }
         }
 
+        orderProp = 'Position';     
+        cols.sort(function (left, right) {
+               leftVal = left[orderProp];
+               rightVal = right[orderProp];
+               return leftVal > rightVal ? 1 : -1;
+            });
+         
+
+
+
         data = cols;
 
         ListColumns = cols;
@@ -571,6 +582,10 @@ var ViewModel = function () {
         for (var i = 0; i < data.length; i++) {
 
             f += '{"dataField":"' + data[i].Code + '",'
+            f += '"width":' + data[i].Width + ','
+
+
+
             //f += '"caption":"' + data[i].Name + '"}';
             f += '"caption":"' + data[i].Name + '",';
             // f += '"alignment": "center",';
@@ -579,7 +594,8 @@ var ViewModel = function () {
                 f +=
                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
                     '"validationRules": [{ "type": "required" }],' +
-                    '"editCellTemplate": "dropDownBoxEditorCode"'
+                    '"editCellTemplate": "dropDownBoxEditorCode"'//+ 
+                //', "fixed": true , "fixedPosition": "right" , "width": 230'
             }
 
             else if (data[i].Code == "AccName") {
@@ -718,6 +734,8 @@ var ViewModel = function () {
                 data[i].Code == "TrafCode" ||
                 data[i].Code == "TrafName" ||
                 data[i].Code == "TrafZCode" ||
+                data[i].Code == "CheckStatus" ||
+                data[i].Code == "ArzValue" ||
                 data[i].Code == "TrafZName"
             ) {
                 f += ',"allowEditing": false'
@@ -756,9 +774,9 @@ var ViewModel = function () {
              }*/
 
             if (cols[i].type == 'buttons') {
-                //cols[i].fixed = true;
+                cols[i].fixed = true;
 
-                //cols[i].fixedPosition= "left";
+                cols[i].fixedPosition = "left";
 
                 cols[i].buttons[2] = '';
                 cols[i].buttons[2] =
@@ -771,12 +789,18 @@ var ViewModel = function () {
                         },
 
                         disabled(e) {
-                            if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
+
+                            if (dataAcc[e.row.rowIndex] != null)
+                                return dataAcc[e.row.rowIndex].PDMode == 0;
+                            else
+                                return true;
+
+                           /* if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
                                 return dataAcc[e.row.rowIndex].PDMode == 0;
                             else if (dataAcc.length == 0 && dataAcc.length == 0)
                                 return true;
                             else
-                                return false;
+                                return false;*/
 
                         }
                         /* visible(e) {
@@ -907,7 +931,7 @@ var ViewModel = function () {
             }
 
 
-     
+
 
         }
 
@@ -931,18 +955,23 @@ var ViewModel = function () {
             showBorders: true,
             showRowLines: true,
             allowColumnReordering: true,
-            allowColumnResizing: false,
+            allowColumnResizing: true,
             columnAutoWidth: false,
 
             columnResizingMode: 'widget',
             columnMinWidth: 100,
             focusedRowIndex: 0,
             focusedColumnIndex: 0,
-
+            rtlEnabled: true,
             columnChooser: {
                 enabled: true,
                 // mode: 'select',
             },
+
+            // columnFixing: {
+            //     enabled: true
+            // },
+
             onOptionChanged: function (e) {
 
                 //var dataGrid = $("#gridContainer").dxDataGrid("instance");
@@ -950,25 +979,8 @@ var ViewModel = function () {
                 // c = dataGrid.option("columns");
                 //a = e.component.option("columns");
                 if (e.fullName.includes("column")) {
-                    columnCount = e.component.columnCount();
-                    var obj = [];
-                    for (i = 0; i < columnCount; i++) {
-                        var colInfo = e.component.columnOption(i);
-
-                        tmp = {
-                            'UserCode': sessionStorage.userName,
-                            'RprtId': rprtId,
-                            'Code': colInfo.dataField,
-                            'Visible': colInfo.visible,
-                        };
-                        obj.push(tmp);
-
-                        //var colNewObj = { "dataField": colInfo.dataField, "caption": colInfo.caption, "showInColumnChooser": colInfo.showInColumnChooser, "visible": colInfo.visible, "index": colInfo.index };
-                    }
-
-                    ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
-                        getRprtAllCols();
-                    });
+                    changeColumn = true;
+                    //SaveColumn();
                 }
 
                 //function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
@@ -1030,10 +1042,7 @@ var ViewModel = function () {
                 newRowPosition: 'last',
 
             },
-            // columnHidingEnabled: true,
-            //columnFixing: {
-            //   enabled: true
-            //},
+
             columns: data,
 
 
@@ -1129,7 +1138,9 @@ var ViewModel = function () {
                 // a = dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
             },
             onSaved() {
+                SaveColumn();
                 ControlSave();
+
                 //SaveSanad(ADocB);
             },
             onEditCanceling() {
@@ -1152,12 +1163,39 @@ var ViewModel = function () {
             }
 
         }).dxDataGrid('instance');
-        dataGrid.option('rtlEnabled', true);
+        // dataGrid.option('rtlEnabled', true);
 
     }
 
     // $("#gridContainer").dxDataGrid("columnOption", "ArzName", "visible", false);
 
+
+    setInterval(SaveColumn, 30000);
+    function SaveColumn() {
+        if (changeColumn == true) {
+            var dataGrid = $("#gridContainer").dxDataGrid("instance");
+            columnCount = dataGrid.columnCount();
+            var obj = [];
+            for (i = 0; i < columnCount; i++) {
+                var colInfo = dataGrid.columnOption(i);
+
+                tmp = {
+                    'UserCode': sessionStorage.userName,
+                    'RprtId': rprtId,
+                    'Code': colInfo.dataField,
+                    'Visible': colInfo.visible,
+                    'Position': colInfo.visibleIndex,
+                    'Width': colInfo.visibleWidth
+                };
+                obj.push(tmp);
+            }
+            a = RprtColsSaveUri + ace + '/' + sal + '/' + group;
+            ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
+                changeColumn = false;
+                getRprtAllCols();
+            });
+        }
+    }
 
     function rowNumber(cellElement, cellInfo) {
         cellElement.text(cellInfo.row.rowIndex + 1)
@@ -1255,7 +1293,7 @@ var ViewModel = function () {
                                         dataGrid.cellValue(ro, "Amount", '0');
                                     }
 
-                                   
+
 
                                     if (dataAcc[ro].PDMode > 0) {
                                         getCheckList(dataAcc[ro].PDMode);
@@ -1704,6 +1742,9 @@ var ViewModel = function () {
             return ''
     }
 
+
+
+
     function dropDownBoxEditorArzCode(cellElement, cellInfo) {
         if (dataAcc.length == 0)
             return '';
@@ -1745,6 +1786,7 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "ArzName", selectionChangedArgs.selectedRowsData[0].Name);
+                                dataGrid.cellValue(ro, "ArzRate", selectionChangedArgs.selectedRowsData[0].Rate);
                                 //dataGrid.saveEditData();
                                 e.component.close();
                             }
@@ -1798,6 +1840,7 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                dataGrid.cellValue(ro, "ArzRate", selectionChangedArgs.selectedRowsData[0].Rate);
                                 //dataGrid.saveEditData();
                                 e.component.close();
                             }
@@ -2258,6 +2301,17 @@ var ViewModel = function () {
 
 
 
+    function CalcArz(bede, best, ArzRate) {
+        if (best > 0 && ArzRate > 0) {
+            return best / ArzRate;
+        }
+        else if (bede > 0 && ArzRate > 0) {
+            return bede / ArzRate;
+        }
+        else {
+            return 0;
+        }
+    }
 
 
 
@@ -2266,12 +2320,14 @@ var ViewModel = function () {
         newData.Count = value;
         newData.Bede = value;
         newData.Best = 0;
+        newData.ArzValue = CalcArz(value, 0, currentRowData.ArzRate);
     }
 
     function EditorBest(newData, value, currentRowData) {
         newData.Count = value;
         newData.Bede = 0;
         newData.Best = value;
+        newData.ArzValue = CalcArz(0, value, currentRowData.ArzRate);
     }
 
     function EditorAmount(newData, value, currentRowData) {
@@ -2290,9 +2346,11 @@ var ViewModel = function () {
         newData.ArzRate = 0;
         if (dataAcc[ro].Arzi == 1 && currentRowData.ArzCode != '')
             newData.ArzRate = value;
+
+        newData.ArzValue = CalcArz(currentRowData.Bede, currentRowData.Best, value);
     }
 
-   
+
 
 
 
@@ -2686,6 +2744,7 @@ var ViewModel = function () {
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
                 ArzRate: ADocB[i].ArzRate,
                 arzValue: ADocB[i].arzValue,
+                Amount: ADocB[i].Amount,
                 flagLog: 'Y',
             };
             obj.push(tmp);
@@ -2726,7 +2785,8 @@ var ViewModel = function () {
 
 
         var V_Del_ADocObject = {
-            SerialNumber: Serial_Test
+            SerialNumber: Serial_Test,
+           // UserCode: sessionStorage.userName,
         };
 
         ajaxFunction(V_Del_ADocUri + ace + '/' + sal + '/' + group, 'POST', V_Del_ADocObject).done(function (response) {
