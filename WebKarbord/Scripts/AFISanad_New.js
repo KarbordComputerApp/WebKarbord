@@ -762,6 +762,7 @@ var ViewModel = function () {
                 //f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
 
                 f += ',"format": { "style": "decimal",  "useGrouping": true, "minimumSignificantDigits": 1 }';
+                // f += ',"format": "custom"';
             }
             f += '}';
             if (i < data.length - 1)
@@ -769,6 +770,28 @@ var ViewModel = function () {
         }
 
         f += ',{"type": "buttons","buttons": ["edit", "delete"]}';
+
+        //f += '{"icon": "add", "onClick" : "onClickAddRow" },'
+
+        //f += '}';
+
+        /*buttons: [
+         {
+            icon: 'add',
+            onClick(e) {
+                const key = new DevExpress.data.Guid().toString();
+                dataGrid.option('editing.changes', [{
+                    key,
+                    type: 'insert',
+                    insertAfterKey: e.row.key,
+                }]);
+                dataGrid.option('editing.editRowKey', key);
+            },
+            visible({ row }) {
+                return !row.isEditing;
+            },
+        }, 'delete', 'cancel'],*/
+
 
 
 
@@ -831,10 +854,37 @@ var ViewModel = function () {
                     };
 
 
+                cols[i].buttons[3] = '';
+                cols[i].buttons[3] =
+                    {
+                        hint: 'درج',
+                        icon: 'add',
+                        onClick(e) {
+                            const key = new DevExpress.data.Guid().toString();
+                            dataGrid.option('editing.changes', [{
+                                key,
+                                type: 'insert',
+                                insertAfterKey: e.row.key,
+                            }]);
+                            dataGrid.option('editing.editRowKey', key);
+                        },
+                       // visible({ row }) {
+                       //     return !row.isEditing;
+                       // },
+                    };
+
+
+
 
 
 
             }
+
+            /* if (cols[i].format != null) {
+                 if (cols[i].format == "custom") {
+                     cols[i].format = CustomFormat;
+                 }
+             }*/
 
             if (cols[i].dataField == 'AccCode') {
                 cols[i].editCellTemplate = dropDownBoxEditorAccCode;
@@ -952,6 +1002,8 @@ var ViewModel = function () {
 
 
 
+
+
     var co = 0;
     var ro = 0;
     var fieldName = '';
@@ -959,6 +1011,10 @@ var ViewModel = function () {
     var dataGrid;
 
 
+
+    /* function CustomFormat(value) {
+          return value.toFixed(2);
+     }*/
 
     function CreateTableColumn(data) {
         dataGrid = $('#gridContainer').dxDataGrid({
@@ -1029,7 +1085,6 @@ var ViewModel = function () {
                 confirmDelete: false,
                 useIcons: true,
                 newRowPosition: 'last',
-
             },
 
             columns: data,
@@ -1066,12 +1121,14 @@ var ViewModel = function () {
                 ro = e.rowIndex;
                 fieldName = e.column.dataField;
                 //var summaryValue = dataGrid.getTotalSummaryValue(fieldName);
-                calcSanad();
+                //calcSanad();
             },
 
             onKeyDown: function (e) {
                 const keyCode = e.event.key;
-                calcSanad();
+                if (keyCode == 'Enter') {
+                    calcSanad();
+                }
             },
 
             /* onEditorPreparing(e) {
@@ -1088,14 +1145,16 @@ var ViewModel = function () {
 
             onCellPrepared: function (e) {
 
-                if (e.column.command == "edit" && saveButton == null) {
-                    saveButton = e.element.find(".dx-link-save");
-                }
+                /* if (e.column.command == "edit" && saveButton == null) {
+                     saveButton = e.element.find(".dx-link-save");
+                 }
+ 
+ 
+                 if (e.rowType == "detailAdaptive") {
+                     e.cellElement.addClass("adaptiveRowStyle");
+                 }*/
 
 
-                if (e.rowType == "detailAdaptive") {
-                    e.cellElement.addClass("adaptiveRowStyle");
-                }
             },
 
 
@@ -2394,10 +2453,13 @@ var ViewModel = function () {
 
     function EditorBede(newData, value, currentRowData) {
         newData.Count = value;
-        newData.Bede = value;
+        newData.Bede = value.toFixed(sessionStorage.Deghat);
         newData.Best = 0;
         newData.ArzValue = CalcArz(currentRowData.ArzCode, value, 0, currentRowData.ArzRate);
+
+        currentRowData.Bede = value;
     }
+
 
     function EditorBest(newData, value, currentRowData) {
         newData.Count = value;
@@ -3113,7 +3175,10 @@ var ViewModel = function () {
 
     function calcSanad() {
 
-        var rowsCount = $("#gridContainer").find("tr.dx-row.dx-data-row").length;
+        dataGrid = $("#gridContainer").dxDataGrid("instance");
+        a = dataGrid.getVisibleRows();
+        rowsCount = dataGrid.getVisibleRows().length;
+        //var rowsCount = $("#gridContainer").find("tr.dx-row.dx-data-row").length;
 
         sumBede = 0
         sumBest = 0;
