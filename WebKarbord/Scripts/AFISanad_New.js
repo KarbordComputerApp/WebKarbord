@@ -757,13 +757,13 @@ var ViewModel = function () {
                 f += ',"dataType":"number"';
             }
             else if (data[i].Type == 5) {
-                f += ',"dataType":"currency"';
+               // f += ',"dataType":"currency"';
 
-                //f += ',"format":{"type":"decimal"}';
+                //f += ',"format":{"type":"currency"}';
                // f += ',"format":",#0.##"';
                 //f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
 
-                //f += '"format": { "style": "currency", "currency": "EUR", "useGrouping": true, "minimumSignificantDigits": 1 }';
+                f += ',"format": { "style": "decimal",  "useGrouping": true, "minimumSignificantDigits": 1 }';
             }
             f += '}';
             if (i < data.length - 1)
@@ -994,32 +994,9 @@ var ViewModel = function () {
                 //a = e.component.option("columns");
                 if (e.fullName.includes("column")) {
                     changeColumn = true;
-                    //SaveColumn();
+                    //SaveColumnSanad();
                 }
 
-                //function SaveColumn(ace, sal, group, rprtId, route, columns, data) {
-                /*     var obj = [];
-                 for (i = 1; i <= cols.length; i++) {
-                         item = data[i];
-                         $('#SettingColumns' + (i)).is(':checked') == true ? Visible = 1 : Visible = 0;
-                         tmp = {
-                             'UserCode': sessionStorage.userName,
-                             'RprtId': rprtId,
-                             'Code': columns[i - 1],
-                             'Visible': Visible,
-                         };
-                         obj.push(tmp);
-                     }
- 
-                     $('#modal-SettingColumn').modal('hide');
-                     showNotification(translate('در حال ذخیره تنظیمات ستون ها ...'), 1);
-                     ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
-                         getRprtAllCols();
-                     });
- 
-                   //  window.location.href = route;
-                // }
- 
                  /*e.element.click(function (args) {
                      if ($(args.target).hasClass("dx-icon-column-chooser") ||
                          $(args.target).find(".dx-icon-column-chooser").length)
@@ -1152,7 +1129,7 @@ var ViewModel = function () {
                 // a = dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
             },
             onSaved() {
-                SaveColumn();
+                SaveColumnSanad();
                 ControlSave();
 
                 //SaveSanad(ADocB);
@@ -1184,8 +1161,8 @@ var ViewModel = function () {
     // $("#gridContainer").dxDataGrid("columnOption", "ArzName", "visible", false);
 
 
-    setInterval(SaveColumn, 30000);
-    function SaveColumn() {
+    setInterval(SaveColumnSanad, 30000);
+    function SaveColumnSanad() {
         if (changeColumn == true) {
             var dataGrid = $("#gridContainer").dxDataGrid("instance");
             columnCount = dataGrid.columnCount();
@@ -2315,15 +2292,19 @@ var ViewModel = function () {
 
 
 
-    function CalcArz(bede, best, ArzRate) {
-        if (best > 0 && ArzRate > 0) {
-            return best / ArzRate;
-        }
-        else if (bede > 0 && ArzRate > 0) {
-            return bede / ArzRate;
-        }
-        else {
+    function CalcArz(ArzCode,bede, best, ArzRate) {
+        if (ArzCode == "")
             return 0;
+        else {
+            if (best > 0 && ArzRate > 0) {
+                return best / ArzRate;
+            }
+            else if (bede > 0 && ArzRate > 0) {
+                return bede / ArzRate;
+            }
+            else {
+                return 0;
+            }
         }
     }
 
@@ -2334,14 +2315,18 @@ var ViewModel = function () {
         newData.Count = value;
         newData.Bede = value;
         newData.Best = 0;
-        newData.ArzValue = CalcArz(value, 0, currentRowData.ArzRate);
+        newData.ArzValue = CalcArz(currentRowData.ArzCode,value, 0, currentRowData.ArzRate);
     }
 
     function EditorBest(newData, value, currentRowData) {
         newData.Count = value;
         newData.Bede = 0;
         newData.Best = value;
-        newData.ArzValue = CalcArz(0, value, currentRowData.ArzRate);
+        newData.ArzValue = CalcArz(currentRowData.ArzCode,0, value, currentRowData.ArzRate);
+        //currentRowData.Best = value; 
+        //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+        //dataGrid.cellValue(ro, "Best", value);
+        //calcSanad();
     }
 
     function EditorAmount(newData, value, currentRowData) {
@@ -2361,7 +2346,7 @@ var ViewModel = function () {
         if (dataAcc[ro].Arzi == 1 && currentRowData.ArzCode != '')
             newData.ArzRate = value;
 
-        newData.ArzValue = CalcArz(currentRowData.Bede, currentRowData.Best, value);
+        newData.ArzValue = CalcArz(currentRowData.ArzCode,currentRowData.Bede, currentRowData.Best, value);
     }
 
 
@@ -2456,7 +2441,7 @@ var ViewModel = function () {
 
         value = $('#Value').val();
         value = value.replaceAll(',', '');
-
+        value = value.replaceAll('/', '.');
         if (dataAcc[ro].PDMode == 1) {
 
             dataGrid.cellValue(ro, "Best", value);
@@ -2997,6 +2982,13 @@ var ViewModel = function () {
             else if (list[i].TestName == "Check")
                 textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
 
+
+
+            else if (list[i].TestName == "HasZir")
+                textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('زیر حساب انتخاب نشده است') + ' </a>';
+
+
+
             else if (list[i].TestCap != "")
                 textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
 
@@ -3049,9 +3041,7 @@ var ViewModel = function () {
         $("#TafavotSanad").val(NumberToNumberString(sumBede - sumBest));
     }
 
-    window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
-    };
+
 
 
     $("#closeError").click(function () {
@@ -4434,12 +4424,15 @@ var ViewModel = function () {
 
 
 
-
 };
 
 ko.applyBindings(new ViewModel());
 
 
+window.onbeforeunload = function () {
+    RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+    SaveColumnSanad();
+};
 
 
 function FocusRowGrid(band) {
