@@ -25,6 +25,9 @@ var ViewModel = function () {
     $('#finalSave_Title').attr('hidden', '');
 
 
+    var Serial = 0;
+    var saveButton = null;
+
     self.AModeCode = ko.observable();
     self.SerialNumber = ko.observable();
     self.DocNoOut = ko.observable();
@@ -99,6 +102,7 @@ var ViewModel = function () {
     var SaveADoc_HZUri = server + '/api/ADocData/SaveADoc_HZ/'; // آدرس ویرایس ستون تنظیم 
 
     var ADocPUri = server + '/api/ADocData/ADocP/'; // آدرس ویوی چاپ سند 
+    var AChangeStatusUri = server + '/api/ADocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
 
 
 
@@ -281,11 +285,50 @@ var ViewModel = function () {
         });
     }
 
+    var accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
+    var accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
 
 
+    var lastStatus = "";
+    $("#status").click(function () {
+        lastStatus = $("#status").val();
+    });
+
+    $("#status").change(function () {
+        if (lastStatus != "") {
+            if (Serial == 0) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
+            }
 
 
+            selectStatus = $("#status").val();
+            if (accessTaeed == false && selectStatus == translate('تایید')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی تایید ندارید'), 0);
+            }
 
+            if (accessDaem == false && selectStatus == translate('دائم')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی دائم ندارید'), 0);
+            }
+
+            var StatusChangeObject = {
+                DMode: 0,
+                UserCode: sessionStorage.userName,
+                SerialNumber: Serial,
+                Status: selectStatus,
+            };
+
+            ajaxFunction(AChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+                item = response;
+                sessionStorage.Status = selectStatus;
+                lastStatus = "";
+                showNotification(translate('وضعیت سند ' + selectStatus + ' شد'), 1);
+            });
+        }
+
+    });
 
 
     function getExtraFieldsList() {
@@ -304,51 +347,6 @@ var ViewModel = function () {
     getExtraFieldsList();
 
 
-
-
-    $.fn.CheckAccess = function () {
-        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
-            $('#Print_SanadHesab').attr('style', 'display: none')
-        }
-
-        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
-            $('#Print_SanadHesab').attr('style', 'display: none')
-        }
-
-        accessTaeed = localStorage.getItem("Access_TAEED_ADOC") == 'true'
-        accessDaem = localStorage.getItem("Access_DAEM_ADOC") == 'true'
-
-        if (localStorage.getItem("AccessViewSanad") == 'true') {
-            viewAction = true;
-        }
-        else {
-            if (sessionStorage.Eghdam == sessionStorage.userName) {
-                viewAction = true;
-            }
-        }
-
-        if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
-            viewAction = false;
-        } else {
-            sessionStorage.BeforeMoveSanad = false;
-        }
-
-
-        if (accessTaeed == false && sessionStorage.Status == 'تایید')
-            viewAction = false;
-
-        if (accessDaem == false && sessionStorage.Status == 'دائم')
-            viewAction = false;
-
-        /* if (viewAction) {
-             $('#action_headersanad').removeAttr('style');
-             $('#action_bodysanad').removeAttr('style');
-             $('#action_Adoc').removeAttr('style');
-             $('#insertband').removeAttr('style');
-         }*/
-    }
-
-    $(this).CheckAccess();
 
 
     /*   //Get CheckList List
@@ -530,7 +528,7 @@ var ViewModel = function () {
             });
         }
 
-               
+
 
 
 
@@ -756,11 +754,11 @@ var ViewModel = function () {
             if (data[i].Type == 4) {
                 f += ',"dataType":"number"';
             }
-            else if (data[i].Type == 5) {
-               // f += ',"dataType":"currency"';
+            else if (data[i].Type == 5 || data[i].Code == 'Amount') {
+                // f += ',"dataType":"currency"';
 
                 //f += ',"format":{"type":"currency"}';
-               // f += ',"format":",#0.##"';
+                // f += ',"format":",#0.##"';
                 //f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
 
                 f += ',"format": { "style": "decimal",  "useGrouping": true, "minimumSignificantDigits": 1 }';
@@ -809,12 +807,12 @@ var ViewModel = function () {
                             else
                                 return true;
 
-                           /* if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
-                                return dataAcc[e.row.rowIndex].PDMode == 0;
-                            else if (dataAcc.length == 0 && dataAcc.length == 0)
-                                return true;
-                            else
-                                return false;*/
+                            /* if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
+                                 return dataAcc[e.row.rowIndex].PDMode == 0;
+                             else if (dataAcc.length == 0 && dataAcc.length == 0)
+                                 return true;
+                             else
+                                 return false;*/
 
                         }
                         /* visible(e) {
@@ -997,12 +995,12 @@ var ViewModel = function () {
                     //SaveColumnSanad();
                 }
 
-                 /*e.element.click(function (args) {
-                     if ($(args.target).hasClass("dx-icon-column-chooser") ||
-                         $(args.target).find(".dx-icon-column-chooser").length)
-                         return;
-                     e.component.hideColumnChooser();
-                 });*/
+                /*e.element.click(function (args) {
+                    if ($(args.target).hasClass("dx-icon-column-chooser") ||
+                        $(args.target).find(".dx-icon-column-chooser").length)
+                        return;
+                    e.component.hideColumnChooser();
+                });*/
             },
 
 
@@ -1082,11 +1080,34 @@ var ViewModel = function () {
                  }
              },*/
 
-            onEditorPrepared: function (e) { // تغییر ادیت
 
+            onEditorPrepared: function (e) { // تغییر ادیت
+                a = 1;
 
             },
+
+            onCellPrepared: function (e) {
+
+                if (e.column.command == "edit" && saveButton == null) {
+                    saveButton = e.element.find(".dx-link-save");
+                }
+
+
+                if (e.rowType == "detailAdaptive") {
+                    e.cellElement.addClass("adaptiveRowStyle");
+                }
+            },
+
+
             onEditingStart() {
+                a = 1;
+            },
+
+            onEditorPreparing(e) {
+                //e.editorOptions.readOnly = true;
+            },
+
+            onExported() {
                 a = 1;
             },
 
@@ -1155,13 +1176,73 @@ var ViewModel = function () {
 
         }).dxDataGrid('instance');
         // dataGrid.option('rtlEnabled', true);
+        CheckAccess();
 
     }
+
+
+
+    function CheckAccess() {
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
+        if (localStorage.getItem("AccessViewSanad") == 'true') {
+            viewAction = true;
+        }
+        else {
+            if (sessionStorage.Eghdam == sessionStorage.userName) {
+                viewAction = true;
+            }
+        }
+
+        if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
+            viewAction = false;
+        } else {
+            sessionStorage.BeforeMoveSanad = false;
+        }
+
+
+        if (accessTaeed == false && sessionStorage.Status == 'تایید')
+            viewAction = false;
+
+        if (accessDaem == false && sessionStorage.Status == 'دائم')
+            viewAction = false;
+
+        $(".dx-toolbar-after").hide();
+        $('#status').attr('disabled', 'disabled');
+
+        if (viewAction) {
+            $(".dx-toolbar-after").show();
+            $('#status').removeAttr('disabled');
+        }
+
+        //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+        //saveButton = dataGrid.find(".dx-link-save");
+        //saveButton.enabled = false;
+
+        /* if (viewAction) {
+             $('#action_headersanad').removeAttr('style');
+             $('#action_bodysanad').removeAttr('style');
+             $('#action_Adoc').removeAttr('style');
+             $('#insertband').removeAttr('style');
+         }*/
+    }
+
+
+
+
+
+
 
     // $("#gridContainer").dxDataGrid("columnOption", "ArzName", "visible", false);
 
 
-    setInterval(SaveColumnSanad, 30000);
+    setInterval(SaveColumnSanad, 3000);
     function SaveColumnSanad() {
         if (changeColumn == true) {
             var dataGrid = $("#gridContainer").dxDataGrid("instance");
@@ -1397,7 +1478,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorAccZCode(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].NextLevelFromZAcc == 1) {
@@ -1462,7 +1543,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorAccZName(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].NextLevelFromZAcc == 1) {
@@ -1526,7 +1607,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorMkzCode(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].Mkz > 0) {
@@ -1578,7 +1659,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorMkzName(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].Mkz > 0) {
@@ -1630,7 +1711,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorOprCode(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].Opr > 0) {
@@ -1682,7 +1763,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorOprName(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].Opr > 0) {
@@ -1737,7 +1818,7 @@ var ViewModel = function () {
 
 
     function dropDownBoxEditorArzCode(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].Arzi == 1) {
@@ -1791,7 +1872,7 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorArzName(cellElement, cellInfo) {
-        if (dataAcc.length == 0)
+        if (dataAcc[ro] == null)
             return '';
 
         if (dataAcc[ro].Arzi == 1) {
@@ -2292,7 +2373,7 @@ var ViewModel = function () {
 
 
 
-    function CalcArz(ArzCode,bede, best, ArzRate) {
+    function CalcArz(ArzCode, bede, best, ArzRate) {
         if (ArzCode == "")
             return 0;
         else {
@@ -2315,14 +2396,14 @@ var ViewModel = function () {
         newData.Count = value;
         newData.Bede = value;
         newData.Best = 0;
-        newData.ArzValue = CalcArz(currentRowData.ArzCode,value, 0, currentRowData.ArzRate);
+        newData.ArzValue = CalcArz(currentRowData.ArzCode, value, 0, currentRowData.ArzRate);
     }
 
     function EditorBest(newData, value, currentRowData) {
         newData.Count = value;
         newData.Bede = 0;
         newData.Best = value;
-        newData.ArzValue = CalcArz(currentRowData.ArzCode,0, value, currentRowData.ArzRate);
+        newData.ArzValue = CalcArz(currentRowData.ArzCode, 0, value, currentRowData.ArzRate);
         //currentRowData.Best = value; 
         //var dataGrid = $("#gridContainer").dxDataGrid("instance");
         //dataGrid.cellValue(ro, "Best", value);
@@ -2330,23 +2411,34 @@ var ViewModel = function () {
     }
 
     function EditorAmount(newData, value, currentRowData) {
-        newData.Amount = 0;
+        if (dataAcc[ro] == null)
+            return newData.Amount = 0;
+
         if (dataAcc[ro].Amount == 1)
             newData.Amount = value;
+        else
+            newData.Amount = 0;
     }
 
     function EditorArzValue(newData, value, currentRowData) {
-        newData.ArzValue = 0;
+        if (dataAcc[ro] == null)
+            return newData.ArzValue = 0;
+
         if (dataAcc[ro].Arzi == 1 && currentRowData.ArzCode != '')
             newData.ArzValue = value;
+        else
+            newData.ArzValue = 0;
     }
 
     function EditorArzRate(newData, value, currentRowData) {
-        newData.ArzRate = 0;
+        if (dataAcc[ro] == null)
+            return newData.ArzRate = 0;
+
         if (dataAcc[ro].Arzi == 1 && currentRowData.ArzCode != '')
             newData.ArzRate = value;
-
-        newData.ArzValue = CalcArz(currentRowData.ArzCode,currentRowData.Bede, currentRowData.Best, value);
+        else
+            newData.ArzRate = 0;
+        newData.ArzValue = CalcArz(currentRowData.ArzCode, currentRowData.Bede, currentRowData.Best, value);
     }
 
 
@@ -2549,7 +2641,7 @@ var ViewModel = function () {
 
 
 
-    var Serial = 0;
+
 
     if (flagupdateHeader == 1) {
         Serial = sessionStorage.SerialNumber;
@@ -2742,7 +2834,7 @@ var ViewModel = function () {
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
                 ArzRate: ADocB[i].ArzRate,
-                arzValue: ADocB[i].arzValue,
+                arzValue: ADocB[i].ArzValue,
                 Amount: ADocB[i].Amount,
                 flagLog: 'Y',
             };
@@ -2785,7 +2877,7 @@ var ViewModel = function () {
 
         var V_Del_ADocObject = {
             SerialNumber: Serial_Test,
-           // UserCode: sessionStorage.userName,
+            // UserCode: sessionStorage.userName,
         };
 
         ajaxFunction(V_Del_ADocUri + ace + '/' + sal + '/' + group, 'POST', V_Del_ADocObject).done(function (response) {
@@ -2870,7 +2962,7 @@ var ViewModel = function () {
                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
                 ArzRate: ADocB[i].ArzRate,
-                arzValue: ADocB[i].arzValue,
+                arzValue: ADocB[i].ArzValue,
 
 
                 /* AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
@@ -2916,11 +3008,8 @@ var ViewModel = function () {
             var obj = JSON.parse(data);
             TestADocList = obj;
             if (data.length > 2) {
-
                 $('#data-error').show();
                 $('#data-grid').addClass('col-md-6');
-
-
                 //$('#modal-FinalSave').modal('show');
                 SetDataTestDocB();
             } else {
@@ -4417,8 +4506,35 @@ var ViewModel = function () {
 
 
 
+    /*
+    function ajaxFunctionSaveColumn(uri, method, data) {
+        var userNameAccount = localStorage.getItem("userNameAccount");
+        var passAccount = localStorage.getItem("passAccount");
+        return $.ajax({
+            type: method,
+            async: false,
+            encoding: 'UTF-8',
+            url: uri,
+            dataType: 'json',
+            cache: false,
+            timeout: 30000,
+            headers: {
+                'userName': userNameAccount,
+                'password': passAccount,
+                'userKarbord': sessionStorage.userName,
+            },
+            contentType: 'application/json',
+            data: data ? JSON.stringify(data) : null
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
+        });
+    }*/
 
+    window.onbeforeunload = function () {
+        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+        // SaveColumnSanad();
 
+    };
 
 
 
@@ -4428,11 +4544,6 @@ var ViewModel = function () {
 
 ko.applyBindings(new ViewModel());
 
-
-window.onbeforeunload = function () {
-    RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
-    SaveColumnSanad();
-};
 
 
 function FocusRowGrid(band) {
