@@ -492,8 +492,20 @@ var ViewModel = function () {
             s.Code == 'ArzCode' ||
             s.Code == 'ArzValue' ||
             s.Code == 'ArzRate' ||
-            s.Code == 'ArzName'
+            s.Code == 'ArzName' ||
+
+            s.Code == 'CheckRadif' ||
+            s.Code == 'CheckComm' ||
+            s.Code == 'CheckVosoolDate' ||
+            s.Code == 'BaratNo'
         );
+
+        orderProp = 'Position';
+        cols.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            return leftVal > rightVal ? 1 : -1;
+        });
 
         if (cols[0].UserCode == '*Default*') {
             for (var i = 0; i < cols.length; i++) {
@@ -510,15 +522,15 @@ var ViewModel = function () {
                 else
                     cols[i].Visible = 0
             }
+            orderProp = 'Code';
+            cols.sort(function (left, right) {
+                leftVal = left[orderProp];
+                rightVal = right[orderProp];
+                return leftVal > rightVal ? 1 : -1;
+            });
         }
 
-        orderProp = 'Position';     
-        cols.sort(function (left, right) {
-               leftVal = left[orderProp];
-               rightVal = right[orderProp];
-               return leftVal > rightVal ? 1 : -1;
-            });
-         
+               
 
 
 
@@ -745,9 +757,11 @@ var ViewModel = function () {
                 f += ',"dataType":"number"';
             }
             else if (data[i].Type == 5) {
-                f += ',"dataType":"number",';
-                f += '"format":"fixedPoint",';
-                f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
+                f += ',"dataType":"currency"';
+
+                //f += ',"format":{"type":"decimal"}';
+               // f += ',"format":",#0.##"';
+                //f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
 
                 //f += '"format": { "style": "currency", "currency": "EUR", "useGrouping": true, "minimumSignificantDigits": 1 }';
             }
