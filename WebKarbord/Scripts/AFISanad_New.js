@@ -28,6 +28,8 @@ var ViewModel = function () {
     var Serial = 0;
     var saveButton = null;
 
+    var columnName;
+
     self.AModeCode = ko.observable();
     self.SerialNumber = ko.observable();
     self.DocNoOut = ko.observable();
@@ -456,6 +458,61 @@ var ViewModel = function () {
         });
     }
 
+
+    function CheckAccess() {
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
+        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+            $('#Print_SanadHesab').attr('style', 'display: none')
+        }
+
+        if (localStorage.getItem("AccessViewSanad") == 'true') {
+            viewAction = true;
+        }
+        else {
+            if (sessionStorage.Eghdam == sessionStorage.userName) {
+                viewAction = true;
+            }
+        }
+
+        if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
+            viewAction = false;
+        } else {
+            sessionStorage.BeforeMoveSanad = false;
+        }
+
+
+        if (accessTaeed == false && sessionStorage.Status == 'تایید')
+            viewAction = false;
+
+        if (accessDaem == false && sessionStorage.Status == 'دائم')
+            viewAction = false;
+
+        // $(".dx-toolbar-after").hide();
+        $('#status').attr('disabled', 'disabled');
+
+        if (viewAction) {
+            //$(".dx-toolbar-after").show();
+            $('#status').removeAttr('disabled');
+        }
+
+        //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+        //saveButton = dataGrid.find(".dx-link-save");
+        //saveButton.enabled = false;
+
+        /* if (viewAction) {
+             $('#action_headersanad').removeAttr('style');
+             $('#action_bodysanad').removeAttr('style');
+             $('#action_Adoc').removeAttr('style');
+             $('#insertband').removeAttr('style');
+         }*/
+    }
+    CheckAccess();
+
+
+
     var rprtId = 'ADocB_1';
 
 
@@ -603,7 +660,7 @@ var ViewModel = function () {
             if (data[i].Code == "AccCode") {
                 f +=
                     ',"lookup": {"dataSource": "AccList", "valueExpr": "Code", "displayExpr": "Code"},' +
-                    '"validationRules": [{ "type": "required" }],' +
+                    // '"validationRules": [{ "type": "required" }],' +
                     '"editCellTemplate": "dropDownBoxEditorCode"'//+ 
                 //', "fixed": true , "fixedPosition": "right" , "width": 230'
             }
@@ -714,13 +771,13 @@ var ViewModel = function () {
              */
 
 
-            else if (data[i].Code == "Bede") {
-                f += ',"setCellValue": "EditorBede"'
-            }
-
-            else if (data[i].Code == "Best") {
-                f += ',"setCellValue": "EditorBest"'
-            }
+            /* else if (data[i].Code == "Bede") {
+                 f += ',"setCellValue": "EditorBede"'
+             }
+ 
+             else if (data[i].Code == "Best") {
+                 f += ',"setCellValue": "EditorBest"'
+             }*/
 
             else if (data[i].Code == "Amount") {
                 f += ',"setCellValue": "EditorAmount"'
@@ -746,7 +803,8 @@ var ViewModel = function () {
                 data[i].Code == "TrafZCode" ||
                 data[i].Code == "CheckStatus" ||
                 data[i].Code == "ArzValue" ||
-                data[i].Code == "TrafZName"
+                data[i].Code == "TrafZName" //||
+            //data[i].Code == "button"
             ) {
                 f += ',"allowEditing": false'
             }
@@ -755,7 +813,7 @@ var ViewModel = function () {
                 f += ',"dataType":"number"';
             }
             else if (data[i].Type == 5 || data[i].Code == 'Amount') {
-                // f += ',"dataType":"currency"';
+                //f += ',"dataType":"currency"';
 
                 //f += ',"format":{"type":"currency"}';
                 // f += ',"format":",#0.##"';
@@ -769,33 +827,7 @@ var ViewModel = function () {
                 f += ','
         }
 
-        f += ',{"type": "buttons","buttons": ["edit", "delete"]}';
-
-        //f += '{"icon": "add", "onClick" : "onClickAddRow" },'
-
-        //f += '}';
-
-        /*buttons: [
-         {
-            icon: 'add',
-            onClick(e) {
-                const key = new DevExpress.data.Guid().toString();
-                dataGrid.option('editing.changes', [{
-                    key,
-                    type: 'insert',
-                    insertAfterKey: e.row.key,
-                }]);
-                dataGrid.option('editing.editRowKey', key);
-            },
-            visible({ row }) {
-                return !row.isEditing;
-            },
-        }, 'delete', 'cancel'],*/
-
-
-
-
-
+        f += ',{"dataField":"button","caption":"عملیات" ,"type": "buttons","buttons": ["edit", "delete"]}';
 
         f += ']'
 
@@ -810,13 +842,13 @@ var ViewModel = function () {
 
             if (cols[i].type == 'buttons') {
                 cols[i].fixed = true;
-
                 cols[i].fixedPosition = "left";
 
-                cols[i].buttons[2] = '';
-                cols[i].buttons[2] =
+               cols[i].buttons[2] =
                     {
-                        hint: 'اطلاعات چک',
+                   name: "checkData",
+                   cssClass: "my-class",
+                   hint: 'اطلاعات چک',
                         icon: 'file',
                         onClick(e) {
                             ro = e.row.rowIndex;
@@ -824,37 +856,14 @@ var ViewModel = function () {
                         },
 
                         disabled(e) {
-
                             if (dataAcc[e.row.rowIndex] != null)
                                 return dataAcc[e.row.rowIndex].PDMode == 0;
                             else
                                 return true;
-
-                            /* if (dataAcc.length > 0 && e.row.rowIndex < dataAcc.length)
-                                 return dataAcc[e.row.rowIndex].PDMode == 0;
-                             else if (dataAcc.length == 0 && dataAcc.length == 0)
-                                 return true;
-                             else
-                                 return false;*/
-
                         }
-                        /* visible(e) {
-                            return !e.row.isEditing;
-                        },
-                        disabled(e) {
-                         //   return isChief(e.row.data.Position);
-                        },
-                        onClick(e) {
-                         //   const clonedItem = $.extend({}, e.row.data, { ID: maxID += 1 });
-         
-                          //  employees.splice(e.row.rowIndex, 0, clonedItem);
-                          //  e.component.refresh(true);
-                          //  e.event.preventDefault();
-                        },*/
                     };
 
-
-                cols[i].buttons[3] = '';
+               // cols[i].buttons[3] = '';
                 cols[i].buttons[3] =
                     {
                         hint: 'درج',
@@ -868,16 +877,7 @@ var ViewModel = function () {
                             }]);
                             dataGrid.option('editing.editRowKey', key);
                         },
-                       // visible({ row }) {
-                       //     return !row.isEditing;
-                       // },
                     };
-
-
-
-
-
-
             }
 
             /* if (cols[i].format != null) {
@@ -972,13 +972,13 @@ var ViewModel = function () {
                  cols[i].lookup.dataSource = AccList;
              }*/
 
-            if (cols[i].dataField == 'Bede') {
-                cols[i].setCellValue = EditorBede;
-            }
-
-            if (cols[i].dataField == 'Best') {
-                cols[i].setCellValue = EditorBest;
-            }
+            /* if (cols[i].dataField == 'Bede') {
+                 cols[i].setCellValue = EditorBede;
+             }
+ 
+             if (cols[i].dataField == 'Best') {
+                 cols[i].setCellValue = EditorBest;
+             }*/
 
             if (cols[i].dataField == 'Amount') {
                 cols[i].setCellValue = EditorAmount;
@@ -1070,9 +1070,7 @@ var ViewModel = function () {
                 //    enabled: true,
             },
 
-            // onInitialized(e) {
-            //    e.component.option("openOnFieldClick", false);
-            // },
+                      
             editing: {
                 mode: 'batch',
                 // mode: 'form',
@@ -1125,17 +1123,47 @@ var ViewModel = function () {
             },
 
             onKeyDown: function (e) {
+               /* var visibleIndex = e.component.getSelectedRowsData();
+
+                var focusedElement = $(".dx-focused").parent();//[0];
+                if (focusedElement != null)
+                    ro = focusedElement.sectionRowIndex;
+                else
+                    ro = 0;*/
+
                 const keyCode = e.event.key;
+
+
+                
+                if (keyCode == 'Enter' && columnName == 'button') {
+                    rows = dataGrid.getVisibleRows().length;
+                    if (ro == rows - 1) {
+                        a = e.component.getVisibleColumnIndex();
+                        e.component.addRow();
+                    }
+                    //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                    //dataGrid.focus(dataGrid.getCellElement(1, 'AccCode'));
+                };
+
                 if (keyCode == 'Enter') {
-                    calcSanad();
+
                 }
             },
 
-            /* onEditorPreparing(e) {
-                 if (e.parentType === 'dataRow' && e.dataField === 'CityID') {
-                     e.editorOptions.disabled = (typeof e.row.data.StateID !== 'number');
-                 }
-             },*/
+
+            cellPrepared: function (e) {
+                a = 1;
+            },
+
+            onFocusedCellChanged: function (e) {
+               // $("#Spec").val(e.column.dataField)
+                columnName = e.column.dataField;
+                ro = e.rowIndex
+                a = 1;
+            },
+
+
+
 
 
             onEditorPrepared: function (e) { // تغییر ادیت
@@ -1144,6 +1172,19 @@ var ViewModel = function () {
             },
 
             onCellPrepared: function (e) {
+
+
+                if (e.rowType === "data" && (e.column.dataField === "AccZCode" || e.column.dataField === "AccZName")) {
+
+                    zaccCode = dataGrid.cellValue(e.rowIndex, 'AccZCode')
+                    if (dataAcc.length > 0 && dataAcc.length > e.rowIndex) {
+                        if (dataAcc[e.rowIndex].NextLevelFromZAcc == 1 && (zaccCode == '' || zaccCode == null)) {
+                            e.cellElement.css("background-color", '#ffcbcb');
+                        }
+                    }
+                  
+                }
+
 
                 /* if (e.column.command == "edit" && saveButton == null) {
                      saveButton = e.element.find(".dx-link-save");
@@ -1162,9 +1203,6 @@ var ViewModel = function () {
                 a = 1;
             },
 
-            onEditorPreparing(e) {
-                //e.editorOptions.readOnly = true;
-            },
 
             onExported() {
                 a = 1;
@@ -1231,68 +1269,41 @@ var ViewModel = function () {
                 const previousValue = e.previousValue;
                 const newValue = e.value;
                 // Event handling commands go here
+            },
+
+            onToolbarPreparing(e) {
+                var toolbarItems = e.toolbarOptions.items;
+                $.each(toolbarItems, function (_, item) {
+                    if (viewAction == false && (item.name == "saveButton" || item.name == "revertButton" || item.name == "addRowButton")) {
+                        item.visible = false;
+                    }
+                });
+            },
+
+            onEditorPreparing: function (e) {
+                dataField = e.dataField; 
+                if (e.parentType == 'dataRow' && e.dataField == 'Bede') {
+                    e.editorOptions.onValueChanged = function (args) {
+                        Bede = args.value;
+                        dataGrid.cellValue(ro, "Bede", Bede);
+                        dataGrid.cellValue(ro, "Best", 0);
+                        calcSanad();
+                    }
+                }
+
+                if (e.parentType == 'dataRow' && e.dataField == 'Best') {
+                    e.editorOptions.onValueChanged = function (args) {
+                        Best = args.value;
+                        dataGrid.cellValue(ro, "Bede", 0);
+                        dataGrid.cellValue(ro, "Best", Best);
+                        calcSanad();
+                    }
+                }
             }
 
         }).dxDataGrid('instance');
         // dataGrid.option('rtlEnabled', true);
-        CheckAccess();
-
     }
-
-
-
-    function CheckAccess() {
-        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
-            $('#Print_SanadHesab').attr('style', 'display: none')
-        }
-
-        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
-            $('#Print_SanadHesab').attr('style', 'display: none')
-        }
-
-        if (localStorage.getItem("AccessViewSanad") == 'true') {
-            viewAction = true;
-        }
-        else {
-            if (sessionStorage.Eghdam == sessionStorage.userName) {
-                viewAction = true;
-            }
-        }
-
-        if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
-            viewAction = false;
-        } else {
-            sessionStorage.BeforeMoveSanad = false;
-        }
-
-
-        if (accessTaeed == false && sessionStorage.Status == 'تایید')
-            viewAction = false;
-
-        if (accessDaem == false && sessionStorage.Status == 'دائم')
-            viewAction = false;
-
-        $(".dx-toolbar-after").hide();
-        $('#status').attr('disabled', 'disabled');
-
-        if (viewAction) {
-            $(".dx-toolbar-after").show();
-            $('#status').removeAttr('disabled');
-        }
-
-        //var dataGrid = $("#gridContainer").dxDataGrid("instance");
-        //saveButton = dataGrid.find(".dx-link-save");
-        //saveButton.enabled = false;
-
-        /* if (viewAction) {
-             $('#action_headersanad').removeAttr('style');
-             $('#action_bodysanad').removeAttr('style');
-             $('#action_Adoc').removeAttr('style');
-             $('#insertband').removeAttr('style');
-         }*/
-    }
-
-
 
 
 
@@ -2437,10 +2448,10 @@ var ViewModel = function () {
             return 0;
         else {
             if (best > 0 && ArzRate > 0) {
-                return best / ArzRate;
+                return (best / ArzRate).toFixed(2);
             }
             else if (bede > 0 && ArzRate > 0) {
-                return bede / ArzRate;
+                return (bede / ArzRate).toFixed(2);
             }
             else {
                 return 0;
@@ -2451,26 +2462,26 @@ var ViewModel = function () {
 
 
 
-    function EditorBede(newData, value, currentRowData) {
-        newData.Count = value;
-        newData.Bede = value.toFixed(sessionStorage.Deghat);
-        newData.Best = 0;
-        newData.ArzValue = CalcArz(currentRowData.ArzCode, value, 0, currentRowData.ArzRate);
-
-        currentRowData.Bede = value;
-    }
-
-
-    function EditorBest(newData, value, currentRowData) {
-        newData.Count = value;
-        newData.Bede = 0;
-        newData.Best = value;
-        newData.ArzValue = CalcArz(currentRowData.ArzCode, 0, value, currentRowData.ArzRate);
-        //currentRowData.Best = value; 
-        //var dataGrid = $("#gridContainer").dxDataGrid("instance");
-        //dataGrid.cellValue(ro, "Best", value);
-        //calcSanad();
-    }
+    /* function EditorBede(newData, value, currentRowData) {
+         newData.Count = value;
+         newData.Bede = value.toFixed(sessionStorage.Deghat);
+         newData.Best = 0;
+         newData.ArzValue = CalcArz(currentRowData.ArzCode, value, 0, currentRowData.ArzRate);
+ 
+         //currentRowData.Bede = value;
+     }
+ 
+ 
+     function EditorBest(newData, value, currentRowData) {
+         newData.Count = value;
+         newData.Bede = 0;
+         newData.Best = value.toFixed(sessionStorage.Deghat);
+         newData.ArzValue = CalcArz(currentRowData.ArzCode, 0, value, currentRowData.ArzRate);
+         //currentRowData.Best = value; 
+         //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+         //dataGrid.cellValue(ro, "Best", value);
+         //calcSanad();
+     }*/
 
     function EditorAmount(newData, value, currentRowData) {
         if (dataAcc[ro] == null)
@@ -2623,10 +2634,12 @@ var ViewModel = function () {
         }).then((result) => {
             if (result.value) {
                 $('#titlePage').text(translate("سند حسابداری جدید"));
-                dataGrid.option('dataSource', []);
-                ADocB = [];
+
+
+
+                //ADocB = [];
                 dataAcc = [];
-                dataGrid.option('dataSource', ADocB);
+                //dataGrid.option('dataSource', ADocB);
                 $('#docnoout').text(translate('جدید'));
                 self.StatusSanad(translate('موقت'));
                 $("#status").val(translate('موقت'));
@@ -2687,6 +2700,7 @@ var ViewModel = function () {
                 if (parseInt(sal) < SalNow) {
                     getADocHLastDate();
                 }
+                
                 getADocB(0);
 
                 for (var i = 0; i < 1; i++) {
@@ -2694,6 +2708,8 @@ var ViewModel = function () {
                 }
 
                 Serial = 0;
+
+                dataGrid.focus(dataGrid.getCellElement(0, 0));
 
 
                 //$(this).CheckAccess();
@@ -2724,7 +2740,7 @@ var ViewModel = function () {
         flagOtherFieldShow = true;
         $('#titlePage').text(translate("سند حسابداری شماره") + ' ' + sessionStorage.DocNo.toPersianDigit());
         getADocB(Serial);
-
+        dataGrid.focus(dataGrid.getCellElement(0, 4));
     }
     else {
         flagInsertADocH = 0;
@@ -2737,7 +2753,7 @@ var ViewModel = function () {
         for (var i = 0; i < 1; i++) {
             dataGrid.addRow();
         }
-
+        dataGrid.focus(dataGrid.getCellElement(0, 1));
 
         //dataGrid.option("focusedRowKey", 100);
         //dataGrid.navigateToRow(1);
@@ -2935,6 +2951,25 @@ var ViewModel = function () {
             return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
 
+        //rows = dataGrid.getVisibleRows();
+        //rowsCount = dataGrid.getVisibleRows().length;
+        list = ADocB;
+        for (i = 0; i < ADocB.length; i++) {
+            if (ADocB[i].AccCode == null) {
+                //rowIndex = dataGrid.getRowIndexByKey(1); 
+                delete list[i];
+                //list.splice(i, 1);
+                //var index = dataGrid.GetFocusedRowIndex();
+               // dataGrid.deleteRow(i);
+            }
+        }
+        ADocB = list.filter(function (el) {
+            return el != null;
+        });
+
+        if (ADocB.length == 0) {
+            return showNotification(translate('سند فاقد بند قابل ذخیره است'), 0);
+        }
 
 
         var V_Del_ADocObject = {
@@ -2999,9 +3034,7 @@ var ViewModel = function () {
 
         var obj = [];
         for (i = 0; i <= ADocB.length - 1; i++) {
-            item = data[i];
             tmp = {
-
                 AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
                 AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
                 Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
@@ -3183,8 +3216,8 @@ var ViewModel = function () {
         sumBede = 0
         sumBest = 0;
         for (var i = 0; i < rowsCount; i++) {
-            bed = dataGrid.cellValue(i, "Bede") == null ? 0 : dataGrid.cellValue(i, "Bede");
-            bes = dataGrid.cellValue(i, "Best") == null ? 0 : dataGrid.cellValue(i, "Best");
+            bed = dataGrid.cellValue(i, "Bede") == null ? 0 : parseFloat(dataGrid.cellValue(i, "Bede"));
+            bes = dataGrid.cellValue(i, "Best") == null ? 0 : parseFloat(dataGrid.cellValue(i, "Best"));
 
             sumBede = sumBede + bed;
             sumBest = sumBest + bes;
