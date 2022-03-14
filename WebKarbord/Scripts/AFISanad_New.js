@@ -868,7 +868,11 @@ var ViewModel = function () {
                 // f += ',"format":",#0.##"';
                 //f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
 
+               // f += ',"useGrouping":true';
                 f += ',"format": { "style": "decimal",  "useGrouping": true, "minimumSignificantDigits": 1 }';
+
+               // f += ',"format": { "style": "currency", "currency": "EUR", "useGrouping": true, "minimumSignificantDigits": 1 }';
+
                 // f += ',"format": "custom"';
             }
             f += '}';
@@ -923,40 +927,28 @@ var ViewModel = function () {
                         hint: 'Clone',
                         icon: 'copy',
                         onClick(e) {
-                            //ADocB = [];
+                            e.component.saveEditData();
                             const visibleRows = e.component.getVisibleRows();
-                            for (var i = 0; i < visibleRows.length; i++) {
-                                visibleRows[i].data.BandNo = i+1;
-                                dataJson = JSON.stringify(visibleRows[i].data);
-                                ADocB[i] = JSON.parse(dataJson);
-                            }
-
-                            //ADocB
-
                             row = e.row.rowIndex;
-                            
-                            //visibleRows[ro].data.dataAcc = selectionChangedArgs.selectedRowsData[0];
 
-                            const clonedItem = visibleRows[row].data;//  $.extend({}, e.row.data);
+                            clonedItem = visibleRows[row].data;//  $.extend({}, e.row.data);
+                            dataJson = JSON.stringify(clonedItem);
+                            dataJson = JSON.parse(dataJson);
 
-                            ADocB.splice(row, 0, clonedItem);
-                            ADocB[row].BandNo = null
+                            dataJson.BandNo = null;
+                            ADocB.splice(row, 0, dataJson);
 
                             for (var i = 0; i < ADocB.length; i++) {
-                                ADocB[i].BandNo = i+1;
+                                ADocB[i].BandNo = i;
                             }
+
+                            e.component.saveEditData();
                             calcSanad();
                             e.component.refresh(true);
-                           // e.event.preventDefault();
 
-                            //visibleRows.splice(row, 0, clonedItem);
-                            //dataGrid.addRow();
-                            //visibleRows[1].data.Bede = 123;
+                            a = e.component.option("columns");
+                            a = e.component.option("columns");
 
-                            //visibleRows[row].BandNo = '';
-                            //visibleRows[0].data.Bede = 1000;
-                            //e.component.refresh();
-                            //e.event.preventDefault();
                         }
                     },
 
@@ -986,6 +978,7 @@ var ViewModel = function () {
 
 
                         onClick(e) {
+                            e.component.saveEditData();
                             /*const key = new DevExpress.data.Guid().toString();
                             //dataGrid.addRow(1);
                             dataGrid.option('editing.changes', [{
@@ -996,22 +989,44 @@ var ViewModel = function () {
                             dataGrid.option('editing.editRowKey', key);*/
 
                             const visibleRows = e.component.getVisibleRows();
+                            /*
                             for (var i = 0; i < visibleRows.length; i++) {
-                                visibleRows[i].data.BandNo = i;
+                                visibleRows[i].data.BandNo = i + 1;
                                 dataJson = JSON.stringify(visibleRows[i].data);
                                 ADocB[i] = JSON.parse(dataJson);
-                            }
+                            }*/
 
+                            /*clonedItem = {
+                                AccCode: "",
+                                AccName: "",
+                                AccZCode: "",
+                                Amount: 0,
+                                ArzRate: 0,
+                                ArzValue: 0,
+                                BandNo: 0,
+                                BandSpec: "",
+                                Bede: 0,
+                                Best: 0,
+                                Comm: "",
+                                dataAcc: {}
+                            }*/
+                            clonedItem = {};
+                            //clonedItem = bandFree;
+                            //bandFree = {};
+                            ADocB.splice(e.row.rowIndex + 1, 0, clonedItem);
+                            //ADocB[e.row.rowIndex+1].BandNo = 1000
 
-                            const clonedItem = bandFree;
-
-                            ADocB.splice(e.row.rowIndex+1, 0, clonedItem);
-                            ADocB[e.row.rowIndex+1].BandNo = null
+                            //visibleRows[e.row.rowIndex + 1].data.AccCode = '';
+                            //visibleRows[e.row.rowIndex + 1].data.AccName = '';
 
                             for (var i = 0; i < ADocB.length; i++) {
-                                ADocB[i].BandNo = i+1;
+                                ADocB[i].BandNo = i;
                             }
-                            e.component.refresh(true);
+
+                            e.component.repaintRows();
+                            $("#gridContainer").dxDataGrid("instance").refresh();
+                            //e.component.refresh(true);
+
 
                         }
 
@@ -1268,95 +1283,95 @@ var ViewModel = function () {
             rowDragging: {
                 allowReordering: true,
                 onReorder(e) {
-                   /* ADocB = [];
-
-                    const visibleRows = e.component.getVisibleRows();
-                    const fromIndex = e.fromIndex;
-                    const toIndex = e.toIndex
-
-                    dataFrom = visibleRows[fromIndex].data;
-                    dataTo = visibleRows[toIndex].data;
-
-                    dataFrom = JSON.stringify(dataFrom);
-                    dataTo = JSON.stringify(dataTo);
-
-
-
-                    list = [];
-                    
-                    //AccCode_F = dataFrom.AccCode;
-                    //AccCode_T = dataTo.AccCode;
-
-                    f = JSON.parse(dataFrom);
-                    t = JSON.parse(dataTo);
-             
-                    visibleRows[toIndex].data.AccCode = f.AccCode;
-                    visibleRows[toIndex].data.AccName = f.AccName;
-                    visibleRows[toIndex].data.AccZCode = f.AccZCode;
-                    visibleRows[toIndex].data.AccZName = f.AccZName;
-                    visibleRows[toIndex].data.Comm = f.Comm;
-                    visibleRows[toIndex].data.Bede = f.Bede;
-                    visibleRows[toIndex].data.Best = f.Best;
-                    visibleRows[toIndex].data.CheckNo = f.CheckNo;
-                    visibleRows[toIndex].data.CheckStatus = f.CheckStatus;
-                    visibleRows[toIndex].data.CheckDate = f.CheckDate;
-                    visibleRows[toIndex].data.Bank = f.Bank;
-                    visibleRows[toIndex].data.Shobe = f.Shobe;
-                    visibleRows[toIndex].data.Jari = f.Jari;
-                    visibleRows[toIndex].data.TrafCode = f.TrafCode;
-                    visibleRows[toIndex].data.TrafName = f.TrafName;
-                    visibleRows[toIndex].data.TrafZCode = f.TrafZCode;
-                    visibleRows[toIndex].data.TrafZName = f.TrafZName;
-                    visibleRows[toIndex].data.MkzCode = f.MkzCode;
-                    visibleRows[toIndex].data.MkzName = f.MkzName;
-                    visibleRows[toIndex].data.OprCode = f.OprCode;
-                    visibleRows[toIndex].data.OprName = f.OprName;
-                    visibleRows[toIndex].data.BandSpec = f.BandSpec;
-                    visibleRows[toIndex].data.Amount = f.Amount;
-                    visibleRows[toIndex].data.ArzCode = f.ArzCode;
-                    visibleRows[toIndex].data.ArzValue = f.ArzValue;
-                    visibleRows[toIndex].data.ArzRate = f.ArzRate;
-                    visibleRows[toIndex].data.ArzName = f.ArzName;
-                    visibleRows[toIndex].data.CheckRadif = f.CheckRadif;
-                    visibleRows[toIndex].data.CheckComm = f.CheckComm;
-                    visibleRows[toIndex].data.CheckVosoolDate = f.CheckVosoolDate;
-                    visibleRows[toIndex].data.BaratNo = f.BaratNo;
+                    /* ADocB = [];
+ 
+                     const visibleRows = e.component.getVisibleRows();
+                     const fromIndex = e.fromIndex;
+                     const toIndex = e.toIndex
+ 
+                     dataFrom = visibleRows[fromIndex].data;
+                     dataTo = visibleRows[toIndex].data;
+ 
+                     dataFrom = JSON.stringify(dataFrom);
+                     dataTo = JSON.stringify(dataTo);
+ 
+ 
+ 
+                     list = [];
+                     
+                     //AccCode_F = dataFrom.AccCode;
+                     //AccCode_T = dataTo.AccCode;
+ 
+                     f = JSON.parse(dataFrom);
+                     t = JSON.parse(dataTo);
               
-
-
-                    visibleRows[fromIndex].data.AccCode = t.AccCode;
-                    visibleRows[fromIndex].data.AccName = t.AccName;
-                    visibleRows[fromIndex].data.AccZCode = t.AccZCode;
-                    visibleRows[fromIndex].data.AccZName = t.AccZName;
-                    visibleRows[fromIndex].data.Comm = t.Comm;
-                    visibleRows[fromIndex].data.Bede = t.Bede;
-                    visibleRows[fromIndex].data.Best = t.Best;
-                    visibleRows[fromIndex].data.CheckNo = t.CheckNo;
-                    visibleRows[fromIndex].data.CheckStatus = t.CheckStatus;
-                    visibleRows[fromIndex].data.CheckDate = t.CheckDate;
-                    visibleRows[fromIndex].data.Bank = t.Bank;
-                    visibleRows[fromIndex].data.Shobe = t.Shobe;
-                    visibleRows[fromIndex].data.Jari = t.Jari;
-                    visibleRows[fromIndex].data.TrafCode = t.TrafCode;
-                    visibleRows[fromIndex].data.TrafName = t.TrafName;
-                    visibleRows[fromIndex].data.TrafZCode = t.TrafZCode;
-                    visibleRows[fromIndex].data.TrafZName = t.TrafZName;
-                    visibleRows[fromIndex].data.MkzCode = t.MkzCode;
-                    visibleRows[fromIndex].data.MkzName = t.MkzName;
-                    visibleRows[fromIndex].data.OprCode = t.OprCode;
-                    visibleRows[fromIndex].data.OprName = t.OprName;
-                    visibleRows[fromIndex].data.BandSpec = t.BandSpec;
-                    visibleRows[fromIndex].data.Amount = t.Amount;
-                    visibleRows[fromIndex].data.ArzCode = t.ArzCode;
-                    visibleRows[fromIndex].data.ArzValue = t.ArzValue;
-                    visibleRows[fromIndex].data.ArzRate = t.ArzRate;
-                    visibleRows[fromIndex].data.ArzName = t.ArzName;
-                    visibleRows[fromIndex].data.CheckRadif = t.CheckRadif;
-                    visibleRows[fromIndex].data.CheckComm = t.CheckComm;
-                    visibleRows[fromIndex].data.CheckVosoolDate = t.CheckVosoolDate;
-                    visibleRows[fromIndex].data.BaratNo = t.BaratNo;
-                    
-                    e.component.refresh(true);*/
+                     visibleRows[toIndex].data.AccCode = f.AccCode;
+                     visibleRows[toIndex].data.AccName = f.AccName;
+                     visibleRows[toIndex].data.AccZCode = f.AccZCode;
+                     visibleRows[toIndex].data.AccZName = f.AccZName;
+                     visibleRows[toIndex].data.Comm = f.Comm;
+                     visibleRows[toIndex].data.Bede = f.Bede;
+                     visibleRows[toIndex].data.Best = f.Best;
+                     visibleRows[toIndex].data.CheckNo = f.CheckNo;
+                     visibleRows[toIndex].data.CheckStatus = f.CheckStatus;
+                     visibleRows[toIndex].data.CheckDate = f.CheckDate;
+                     visibleRows[toIndex].data.Bank = f.Bank;
+                     visibleRows[toIndex].data.Shobe = f.Shobe;
+                     visibleRows[toIndex].data.Jari = f.Jari;
+                     visibleRows[toIndex].data.TrafCode = f.TrafCode;
+                     visibleRows[toIndex].data.TrafName = f.TrafName;
+                     visibleRows[toIndex].data.TrafZCode = f.TrafZCode;
+                     visibleRows[toIndex].data.TrafZName = f.TrafZName;
+                     visibleRows[toIndex].data.MkzCode = f.MkzCode;
+                     visibleRows[toIndex].data.MkzName = f.MkzName;
+                     visibleRows[toIndex].data.OprCode = f.OprCode;
+                     visibleRows[toIndex].data.OprName = f.OprName;
+                     visibleRows[toIndex].data.BandSpec = f.BandSpec;
+                     visibleRows[toIndex].data.Amount = f.Amount;
+                     visibleRows[toIndex].data.ArzCode = f.ArzCode;
+                     visibleRows[toIndex].data.ArzValue = f.ArzValue;
+                     visibleRows[toIndex].data.ArzRate = f.ArzRate;
+                     visibleRows[toIndex].data.ArzName = f.ArzName;
+                     visibleRows[toIndex].data.CheckRadif = f.CheckRadif;
+                     visibleRows[toIndex].data.CheckComm = f.CheckComm;
+                     visibleRows[toIndex].data.CheckVosoolDate = f.CheckVosoolDate;
+                     visibleRows[toIndex].data.BaratNo = f.BaratNo;
+               
+ 
+ 
+                     visibleRows[fromIndex].data.AccCode = t.AccCode;
+                     visibleRows[fromIndex].data.AccName = t.AccName;
+                     visibleRows[fromIndex].data.AccZCode = t.AccZCode;
+                     visibleRows[fromIndex].data.AccZName = t.AccZName;
+                     visibleRows[fromIndex].data.Comm = t.Comm;
+                     visibleRows[fromIndex].data.Bede = t.Bede;
+                     visibleRows[fromIndex].data.Best = t.Best;
+                     visibleRows[fromIndex].data.CheckNo = t.CheckNo;
+                     visibleRows[fromIndex].data.CheckStatus = t.CheckStatus;
+                     visibleRows[fromIndex].data.CheckDate = t.CheckDate;
+                     visibleRows[fromIndex].data.Bank = t.Bank;
+                     visibleRows[fromIndex].data.Shobe = t.Shobe;
+                     visibleRows[fromIndex].data.Jari = t.Jari;
+                     visibleRows[fromIndex].data.TrafCode = t.TrafCode;
+                     visibleRows[fromIndex].data.TrafName = t.TrafName;
+                     visibleRows[fromIndex].data.TrafZCode = t.TrafZCode;
+                     visibleRows[fromIndex].data.TrafZName = t.TrafZName;
+                     visibleRows[fromIndex].data.MkzCode = t.MkzCode;
+                     visibleRows[fromIndex].data.MkzName = t.MkzName;
+                     visibleRows[fromIndex].data.OprCode = t.OprCode;
+                     visibleRows[fromIndex].data.OprName = t.OprName;
+                     visibleRows[fromIndex].data.BandSpec = t.BandSpec;
+                     visibleRows[fromIndex].data.Amount = t.Amount;
+                     visibleRows[fromIndex].data.ArzCode = t.ArzCode;
+                     visibleRows[fromIndex].data.ArzValue = t.ArzValue;
+                     visibleRows[fromIndex].data.ArzRate = t.ArzRate;
+                     visibleRows[fromIndex].data.ArzName = t.ArzName;
+                     visibleRows[fromIndex].data.CheckRadif = t.CheckRadif;
+                     visibleRows[fromIndex].data.CheckComm = t.CheckComm;
+                     visibleRows[fromIndex].data.CheckVosoolDate = t.CheckVosoolDate;
+                     visibleRows[fromIndex].data.BaratNo = t.BaratNo;
+                     
+                     e.component.refresh(true);*/
 
 
                     const visibleRows = e.component.getVisibleRows();
@@ -1371,9 +1386,9 @@ var ViewModel = function () {
                     ADocB.splice(toIndex, 0, e.itemData);
                     ADocB[toIndex].BandNo = visibleRows[fromIndex].data.BandNo
 
-                   // for (var i = 0; i < ADocB.length; i++) {
-                   //     ADocB[i].BandNo = i;
-                   // }
+                    // for (var i = 0; i < ADocB.length; i++) {
+                    //     ADocB[i].BandNo = i;
+                    // }
 
                     e.component.refresh();
                 },
@@ -1432,19 +1447,18 @@ var ViewModel = function () {
                 if (keyCode == 'Enter' && columnName == 'button') {
                     rows = dataGrid.getVisibleRows().length;
                     if (ro == rows - 1) {
-                        a = e.component.getVisibleColumnIndex();
-                        //e.component.addRow();
 
+                        e.component.saveEditData();
                         const visibleRows = e.component.getVisibleRows();
-                        for (var i = 0; i < visibleRows.length; i++) {
-                            //visibleRows[i].data.BandNo = i;
-                            dataJson = JSON.stringify(visibleRows[i].data);
-                            ADocB[i] = JSON.parse(dataJson);
-                        }
-
+                        /* for (var i = 0; i < visibleRows.length; i++) {
+                             //visibleRows[i].data.BandNo = i;
+                             dataJson = JSON.stringify(visibleRows[i].data);
+                             ADocB[i] = JSON.parse(dataJson);
+                         }
+                         */
                         ADocB.push(bandFree);
                         for (var i = 0; i < ADocB.length; i++) {
-                            ADocB[i].BandNo = i+1;
+                            ADocB[i].BandNo = i;
                         }
                         dataGrid.refresh(true);
 
@@ -1473,61 +1487,6 @@ var ViewModel = function () {
 
 
 
-
-            onEditorPrepared: function (e) { // تغییر ادیت
-                a = 1;
-
-            },
-
-            onCellPrepared: function (e) {
-
-
-                if (e.rowType === "data" && (e.column.dataField === "AccZCode" || e.column.dataField === "AccZName")) {
-
-                    zaccCode = dataGrid.cellValue(e.rowIndex, 'AccZCode')
-                    if (e.data.dataAcc != null) {
-                        if (e.data.dataAcc.NextLevelFromZAcc == 1 && (zaccCode == '' || zaccCode == null)) {
-                            e.cellElement.css("background-color", '#ffcbcb');
-                        }
-                    }
-
-                }
-
-                if (e.rowType === "data" && e.column.dataField === "AccCode") {
-                    const visibleRows = dataGrid.getVisibleRows();
-                    if (visibleRows[e.rowIndex].data.dataAcc == null) {
-                        dataAcc = AccList.filter(s => s.Code == visibleRows[e.rowIndex].data.AccCode);
-                        visibleRows[e.rowIndex].data.dataAcc = dataAcc[0];
-                    }
-                }
-
-
-                /* if (e.column.command == "edit" && saveButton == null) {
-                     saveButton = e.element.find(".dx-link-save");
-                 }
- 
- 
-                 if (e.rowType == "detailAdaptive") {
-                     e.cellElement.addClass("adaptiveRowStyle");
-                 }*/
-               /* if (e.rowType === "data") {
-                    visibleRows = e.component.getVisibleRows();
-                    for (var i = 0; i < visibleRows.length-1; i++) {
-                        visibleRows[i].data.BandNo = i;
-                        dataJson = JSON.stringify(visibleRows[i].data);
-                        ADocB[i] = JSON.parse(dataJson);
-                    }
-                }*/
-
-            },
-
-
-            onEditingStart() {
-                //editRowKey = e.key;
-                a = 1;
-            },
-
-
             onExported() {
                 a = 1;
             },
@@ -1544,7 +1503,7 @@ var ViewModel = function () {
             rowInserting: function (e) {
                 a = 1;
             },
-            
+
             rowPrepared: function (e) {
                 a = 1;
             },
@@ -1606,7 +1565,7 @@ var ViewModel = function () {
                 dataGrid.refresh();
                 //dataGrid.deleteRow(rows);
                 rows = dataGrid.getVisibleRows();
-                
+
                 calcSanad();
             },
 
@@ -1614,17 +1573,20 @@ var ViewModel = function () {
 
             onToolbarPreparing: function (e) {
                 var toolbarItems = e.toolbarOptions.items;
-                $.each(toolbarItems, function (_, item) {
-                    if (viewAction == false && (item.name == "saveButton" || item.name == "revertButton" || item.name == "addRowButton")) {
-                        item.visible = false;
-                    }
-
-                    if (item.name == "addRowButton") {
-                        item.visible = false;
-                    }
-                });
-
                 e.toolbarOptions.items.unshift(
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        options: {
+                            name: 'save',
+                            icon: 'save',
+                            onClick() {
+                                SaveColumnSanad();
+                                ControlSave();
+                            },
+                        },
+                    },
+
                     {
                         location: 'after',
                         widget: 'dxButton',
@@ -1640,43 +1602,42 @@ var ViewModel = function () {
                         location: 'after',
                         widget: 'dxButton',
                         options: {
+                            name: 'addRow',
                             icon: 'add',
                             onClick() {
+                                e.component.saveEditData();
+                                /*
                                 const visibleRows = e.component.getVisibleRows();
+
                                 for (var i = 0; i < visibleRows.length; i++) {
-                                    visibleRows[i].data.BandNo = i;
+                                    visibleRows[i].data.BandNo = i + 1;
                                     dataJson = JSON.stringify(visibleRows[i].data);
                                     ADocB[i] = JSON.parse(dataJson);
-                                }
+                                }*/
 
                                 ADocB.push(bandFree);
                                 for (var i = 0; i < ADocB.length; i++) {
-                                    ADocB[i].BandNo = i+1;
+                                    ADocB[i].BandNo = i;
                                 }
                                 dataGrid.refresh(true);
                             },
                         },
                     },
 
-                    /*  {
-                           location: 'after',
-                           widget: 'dxButton',
-                           options: {
-                               icon: "repeat",
-                               type: 'normal',
-                               hint: 'Duplicate a row',
-                               onClick: function () {
-   
-                                   isClone = true;
-   
-                                   $("#gridContainer").dxDataGrid("addRow");
-                                   calcSanad();
-                               }
-                           }
-   
-                       }*/
 
                 );
+
+                $.each(toolbarItems, function (_, item) {
+                    if (item.name == "addRowButton" || item.name == "saveButton") {
+                        item.visible = false;
+                    }
+
+                    if (viewAction == false && (item.name == "save" || item.name == "revertButton" || item.name == "addRow")) {
+                        item.visible = false;
+                    }
+
+
+                });
 
 
             },
@@ -1695,22 +1656,22 @@ var ViewModel = function () {
             onRowRemoved: function (e) {
                 logEvent('RowRemoved');
             },
-            onRowInserting : function (e) { 
+            onRowInserting: function (e) {
                 a = 1;
             },
-            onRowInserted: function (e){
+            onRowInserted: function (e) {
                 a = 1;
             },
-            onRowUpdating: function (e){
+            onRowUpdating: function (e) {
                 a = 1;
             },
-            onRowUpdated: function (e){
+            onRowUpdated: function (e) {
                 a = 1;
             },
-            onRowRemoving: function (e){
+            onRowRemoving: function (e) {
                 a = 1;
             },
-            onRowRemoved: function (e){
+            onRowRemoved: function (e) {
                 a = 1;
             },
             onSaving(e) {
@@ -1719,20 +1680,20 @@ var ViewModel = function () {
 
                 // a = dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
             },
-            onSaved: function (e){
-                SaveColumnSanad();
-                ControlSave();
+            onSaved: function (e) {
+                // SaveColumnSanad();
+                // ControlSave();
 
                 //SaveSanad(ADocB);
             },
-            onEditCanceling: function (e){
+            onEditCanceling: function (e) {
                 a = 1;
             },
-            onEditCanceled: function (e){
+            onEditCanceled: function (e) {
                 a = 1;
             },
 
-            getRowIndexByKey: function (e){
+            getRowIndexByKey: function (e) {
                 a = 1;
             },
 
@@ -1744,14 +1705,69 @@ var ViewModel = function () {
 
 
 
+
+            onEditorPrepared: function (e) { // تغییر ادیت
+                a = 1;
+            },
+
+            onCellPrepared: function (e) {
+
+
+                if (e.rowType === "data" && (e.column.dataField === "AccZCode" || e.column.dataField === "AccZName")) {
+
+                    zaccCode = dataGrid.cellValue(e.rowIndex, 'AccZCode')
+                    if (e.data.dataAcc != null) {
+                        if (e.data.dataAcc.NextLevelFromZAcc == 1 && (zaccCode == '' || zaccCode == null)) {
+                            e.cellElement.css("background-color", '#ffcbcb');
+                        }
+                    }
+
+                }
+
+
+                if (e.rowType === "data" && e.column.dataField === "AccCode" && Serial > 0) {
+                    const visibleRows = dataGrid.getVisibleRows();
+                    if (visibleRows[e.rowIndex].data.dataAcc == null) {
+                        dataAcc = AccList.filter(s => s.Code == visibleRows[e.rowIndex].data.AccCode);
+                        visibleRows[e.rowIndex].data.dataAcc = visibleRows[e.rowIndex].data.dataAcc;
+                    }
+                }
+
+
+                /* if (e.column.command == "edit" && saveButton == null) {
+                     saveButton = e.element.find(".dx-link-save");
+                 }
+ 
+ 
+                 if (e.rowType == "detailAdaptive") {
+                     e.cellElement.addClass("adaptiveRowStyle");
+                 }*/
+                /* if (e.rowType === "data") {
+                     visibleRows = e.component.getVisibleRows();
+                     for (var i = 0; i < visibleRows.length-1; i++) {
+                         visibleRows[i].data.BandNo = i;
+                         dataJson = JSON.stringify(visibleRows[i].data);
+                         ADocB[i] = JSON.parse(dataJson);
+                     }
+                 }*/
+
+            },
+
+
+            onEditingStart() {
+                //editRowKey = e.key;
+                a = 1;
+            },
+
+
             onEditorPreparing: function (e) {
                 dataField = e.dataField;
                 if (e.parentType == 'dataRow' && e.dataField == 'Bede') {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         Bede = args.value;
-                        dataGrid.cellValue(ro, "Bede", Bede);
-                        dataGrid.cellValue(ro, "Best", 0);
+                        //dataGrid.cellValue(ro, "Bede", Bede);
+                        //dataGrid.cellValue(ro, "Best", 0);
 
                         ADocB[ro].Bede = Bede;
                         ADocB[ro].Best = 0;
@@ -1767,12 +1783,12 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         Best = args.value;
-                        dataGrid.cellValue(ro, "Bede", 0);
-                        dataGrid.cellValue(ro, "Best", Best);
+                        //dataGrid.cellValue(ro, "Bede", 0);
+                        //dataGrid.cellValue(ro, "Best", Best);
                         ADocB[ro].Bede = 0;
                         ADocB[ro].Best = Best;
                         ArzValue = CalcArz(dataGrid.cellValue(ro, "ArzCode"), 0, Best, dataGrid.cellValue(ro, "ArzRate"));
-                        dataGrid.cellValue(ro, "ArzValue", ArzValue);
+                        //dataGrid.cellValue(ro, "ArzValue", ArzValue);
                         ADocB[ro].ArzValue = ArzValue;
                         calcSanad();
                     }
@@ -1781,7 +1797,7 @@ var ViewModel = function () {
 
         }).dxDataGrid('instance');
 
-       
+
         // dataGrid.option('rtlEnabled', true);
     }
 
@@ -1864,42 +1880,44 @@ var ViewModel = function () {
                                     var dataGrid = $("#gridContainer").dxDataGrid("instance");
 
                                     newRec = false;
-                                    /*if (dataAcc[ro] == null) {
-                                        //  newRec = true;
-                                        dataAcc[ro] = [];
-                                    }
-                                    dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
-
-                                    /* dataAcc[ro].NextLevelFromZAcc = selectionChangedArgs.selectedRowsData[0].NextLevelFromZAcc;
-                                     dataAcc[ro].Mkz = selectionChangedArgs.selectedRowsData[0].Mkz;
-                                     dataAcc[ro].Opr = selectionChangedArgs.selectedRowsData[0].Opr;
-                                     dataAcc[ro].Arzi = selectionChangedArgs.selectedRowsData[0].Arzi;*/
 
                                     dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
 
-                                    //ADocB[ro].AccCode = selectionChangedArgs.selectedRowsData[0].Code;
-                                    //ADocB[ro].AccName = selectionChangedArgs.selectedRowsData[0].Name;
-
                                     const visibleRows = dataGrid.getVisibleRows();
                                     visibleRows[ro].data.dataAcc = selectionChangedArgs.selectedRowsData[0];
-                                    //ADocB[ro].dataAcc = selectionChangedArgs.selectedRowsData[0];
+                                    ADocB[ro].dataAcc = selectionChangedArgs.selectedRowsData[0];
+
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 0) {
+                                        //visibleRows[ro].data.AccZCode = '';
+                                        //visibleRows[ro].data.AccZName = '';
+
                                         dataGrid.cellValue(ro, "AccZCode", '');
                                         dataGrid.cellValue(ro, "AccZName", '');
                                     }
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.Mkz == 0) {
+                                        // visibleRows[ro].data.MkzCode = '';
+                                        //visibleRows[ro].data.MkzName = '';
+
                                         dataGrid.cellValue(ro, "MkzCode", '');
                                         dataGrid.cellValue(ro, "MkzName", '');
                                     }
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.Opr == 0) {
+                                        // visibleRows[ro].data.OprCode = '';
+                                        // visibleRows[ro].data.OprName = '';
+
                                         dataGrid.cellValue(ro, "OprCode", '');
                                         dataGrid.cellValue(ro, "OprName", '');
                                     }
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.Arzi == 0) {
+                                        /* visibleRows[ro].data.ArzCode = '';
+                                         visibleRows[ro].data.ArzName = '';
+                                         visibleRows[ro].data.ArzValue = 0;
+                                         visibleRows[ro].data.ArzRate = 0;*/
+
                                         dataGrid.cellValue(ro, "ArzCode", '');
                                         dataGrid.cellValue(ro, "ArzName", '');
                                         dataGrid.cellValue(ro, "ArzValue", '0');
@@ -1908,6 +1926,7 @@ var ViewModel = function () {
 
                                     // $("#gridContainer").dxDataGrid("columnOption", "Amount", "allowEditing", true);
                                     if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {
+                                        //visibleRows[ro].data.Amount = 0;
                                         dataGrid.cellValue(ro, "Amount", '0');
                                     }
 
@@ -1916,10 +1935,9 @@ var ViewModel = function () {
                                     if (visibleRows[ro].data.dataAcc.PDMode > 0) {
                                         getCheckList(visibleRows[ro].data.dataAcc.PDMode);
                                     }
-
                                     e.component.close();
 
-                                    dataGrid.focus(dataGrid.getCellElement(ro, 5));
+                                    //dataGrid.focus(dataGrid.getCellElement(ro, 5));
                                 }
 
                             }
@@ -1982,6 +2000,7 @@ var ViewModel = function () {
 
                                     const visibleRows = dataGrid.getVisibleRows();
                                     visibleRows[ro].data.dataAcc = selectionChangedArgs.selectedRowsData[0];
+                                    ADocB[ro].dataAcc = selectionChangedArgs.selectedRowsData[0];
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 0) {
                                         dataGrid.cellValue(ro, "AccZCode", '');
@@ -2032,8 +2051,10 @@ var ViewModel = function () {
 
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 1) {
+        if (dataAcc.NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ZAccList,
@@ -2049,7 +2070,7 @@ var ViewModel = function () {
                                     data: ZAccList,
                                 }),
 
-                                filter: FilterAccZCode(dataAcc[0].ZGru),
+                                filter: FilterAccZCode(dataAcc.ZGru),
                             }),
                         keyExpr: 'Code',
                         remoteOperations: true,
@@ -2079,7 +2100,6 @@ var ViewModel = function () {
 
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "AccZName", selectionChangedArgs.selectedRowsData[0].Name);
-                                ////dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2100,8 +2120,10 @@ var ViewModel = function () {
 
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 1) {
+        if (dataAcc.NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ZAccList,
@@ -2117,7 +2139,7 @@ var ViewModel = function () {
                                     data: ZAccList,
                                 }),
 
-                                filter: FilterAccZCode(dataAcc[0].ZGru),
+                                filter: FilterAccZCode(dataAcc.ZGru),
                             }),
                         keyExpr: 'Name',
                         remoteOperations: true,
@@ -2146,7 +2168,6 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 //ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "AccZCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2165,8 +2186,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Mkz > 0) {
+        if (dataAcc.Mkz > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: MkzList,
@@ -2203,7 +2226,6 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "MkzName", selectionChangedArgs.selectedRowsData[0].Name);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2218,8 +2240,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Mkz > 0) {
+        if (dataAcc.Mkz > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: MkzList,
@@ -2256,7 +2280,6 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "MkzCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2271,8 +2294,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Opr > 0) {
+        if (dataAcc.Opr > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: OprList,
@@ -2309,7 +2334,6 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "OprName", selectionChangedArgs.selectedRowsData[0].Name);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2324,8 +2348,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Opr > 0) {
+        if (dataAcc.Opr > 0) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: OprList,
@@ -2362,7 +2388,6 @@ var ViewModel = function () {
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "OprCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2380,8 +2405,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Arzi == 1) {
+        if (dataAcc.Arzi == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ArzList,
@@ -2419,7 +2446,6 @@ var ViewModel = function () {
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "ArzName", selectionChangedArgs.selectedRowsData[0].Name);
                                 dataGrid.cellValue(ro, "ArzRate", selectionChangedArgs.selectedRowsData[0].Rate);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2435,8 +2461,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return '';
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Arzi == 1) {
+        if (dataAcc.Arzi == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
                 dataSource: ArzList,
@@ -2474,7 +2502,6 @@ var ViewModel = function () {
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "ArzCode", selectionChangedArgs.selectedRowsData[0].Code);
                                 dataGrid.cellValue(ro, "ArzRate", selectionChangedArgs.selectedRowsData[0].Rate);
-                                //dataGrid.saveEditData();
                                 e.component.close();
                             }
                         },
@@ -2980,8 +3007,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return newData.Amount = 0;
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Amount == 1)
+        if (dataAcc.Amount == 1)
             newData.Amount = value;
         else
             newData.Amount = 0;
@@ -2991,8 +3020,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return newData.ArzValue = 0;
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.ArzCode == 1 && currentRowData.ArzCode != '')
+        if (dataAcc.ArzCode == 1 && currentRowData.ArzCode != '')
             newData.ArzValue = value;
         else
             newData.ArzValue = 0;
@@ -3003,8 +3034,10 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc == null)
             return newData.ArzRate = 0;
+        else
+            dataAcc = visibleRows[ro].data.dataAcc;
 
-        if (visibleRows[ro].data.dataAcc.Arzi == 1 && currentRowData.ArzCode != '')
+        if (dataAcc.Arzi == 1 && currentRowData.ArzCode != '')
             newData.ArzRate = value;
         else
             newData.ArzRate = 0;
@@ -3202,6 +3235,22 @@ var ViewModel = function () {
 
                 getADocB(0);
 
+                for (i = 0; i < 5; i++) {
+                    tmp = {
+                        AccCode: '',
+                        AccZCode: '',
+                        Bede: 0,
+                        Best: 0,
+                        Amount: 0,
+                        ArzRate: 0,
+                        ArzValue: 0,
+                        Comm: '',
+                        BandSpec: '',
+                        BandNo: i
+                    };
+                    ADocB[i] = tmp;
+                }
+
                 //for (var i = 0; i < 1; i++) {
                 //    dataGrid.addRow();
                 //}
@@ -3248,7 +3297,9 @@ var ViewModel = function () {
         }
         getADocB(0);
         dataGrid = $("#gridContainer").dxDataGrid("instance");
-
+        $("#SumBedehkar").val(0);
+        $("#SumBestankar").val(0);
+        $("#TafavotSanad").val(0);
 
 
         //const clonedItem = $.extend({}, e.row.data);
@@ -3264,18 +3315,21 @@ var ViewModel = function () {
             tmp = {
                 AccCode: '',
                 AccZCode: '',
-                Bede: '',
-                Best: '',
+                Bede: 0,
+                Best: 0,
+                Amount: 0,
+                ArzRate: 0,
+                ArzValue: 0,
                 Comm: '',
                 BandSpec: '',
-                BandNo: i+1
+                BandNo: i
             };
             ADocB[i] = tmp;
         }
 
-       // for (var i = 0; i < 5; i++) {
+        // for (var i = 0; i < 5; i++) {
         //    dataGrid.addRow();
-       // }
+        // }
 
 
 
@@ -3415,10 +3469,12 @@ var ViewModel = function () {
 
 
 
-        data = dataGrid.getVisibleRows();
+        // data = dataGrid.getVisibleRows();
+        data = ADocB;
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
-            item = data[i].data;
+            //item = data[i].data;
+            item = data[i];
             tmp = {
                 AccCode: item.AccCode == null ? "" : item.AccCode,
                 AccZCode: item.AccZCode == null ? "" : item.AccZCode,
@@ -3481,32 +3537,22 @@ var ViewModel = function () {
             return showNotification(translate('نوع سند را انتخاب کنید'), 0);
         }
 
-        //rows = dataGrid.getVisibleRows();
-        //rowsCount = dataGrid.getVisibleRows().length;
-        list = ADocB;
-        for (i = 0; i < ADocB.length; i++) {
-            if (ADocB[i].AccCode == null || ADocB[i].AccCode == "") {
-                //rowIndex = dataGrid.getRowIndexByKey(1); 
-                delete list[i];
-                //list.splice(i, 1);
-                //var index = dataGrid.GetFocusedRowIndex();
-                //dataGrid.deleteRow(i);
+        rows = dataGrid.getVisibleRows();
+
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].data.AccCode == '') {
+                dataGrid.deleteRow(i);
             }
         }
-        ADocB = list.filter(function (el) {
-            return el != null;
-        });
 
-        for (var i = 0; i < ADocB.length; i++) {
-            ADocB[i].BandNo = i+1;
+        dataGrid.saveEditData();
+
+        if (ADocB.length == 0) {
+            return showNotification(translate('سند دارای بند قابل ذخیره نیست'), 0);
         }
 
-        dataGrid.refresh(true);
 
 
-       if (ADocB.length == 0) {
-            return showNotification(translate('سند دارای بند قابل ذخیره نیست'), 0);
-       }
 
 
         var V_Del_ADocObject = {
@@ -3569,10 +3615,12 @@ var ViewModel = function () {
         });
 
 
-        data = dataGrid.getVisibleRows();
+        // data = dataGrid.getVisibleRows();
+        data = ADocB;
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
-            item = data[i].data;
+            //item = data[i].data;
+            item = data[i];
             tmp = {
                 AccCode: item.AccCode == null ? "" : item.AccCode,
                 AccZCode: item.AccZCode == null ? "" : item.AccZCode,
@@ -3598,30 +3646,6 @@ var ViewModel = function () {
                 ArzRate: item.ArzRate == null ? "" : item.ArzRate,
                 arzValue: item.ArzValue == null ? "" : item.ArzValue,
 
-
-                /* AccCode: ADocB[i].AccCode == null ? "" : ADocB[i].AccCode,
-                 AccZCode: ADocB[i].AccZCode == null ? "" : ADocB[i].AccZCode,
-                 Bede: ADocB[i].Bede == null ? "0" : ADocB[i].Bede,
-                 Best: ADocB[i].Best == null ? "0" : ADocB[i].Best,
-                 Comm: '',
-                 BandSpec: '',
-                 CheckNo: '',
-                 CheckDate: '',
-                 Bank: '',
-                 Shobe: '',
-                 Jari: '',
-                 BaratNo: '',
-                 TrafCode: '',
-                 TrafZCode: ADocB[i].TrafZCode == null ? "" : ADocB[i].TrafZCode,
-                 CheckRadif: '',
-                 CheckComm: '',
-                 CheckStatus: '',
-                 CheckVosoolDate: '',
-                 OprCode: ADocB[i].OprCode == null ? "" : ADocB[i].OprCode,
-                 MkzCode: ADocB[i].MkzCode == null ? "" : ADocB[i].MkzCode,
-                 ArzCode: ADocB[i].ArzCode == null ? "" : ADocB[i].ArzCode,
-                 ArzRate: '',
-                 arzValue: '',*/
                 flagLog: 'N',
                 flagTest: 'Y',
             };
@@ -3766,9 +3790,9 @@ var ViewModel = function () {
 
     function calcSanad() {
 
-       // dataGrid = $("#gridContainer").dxDataGrid("instance");
-       // a = dataGrid.getVisibleRows();
-       // rowsCount = dataGrid.getVisibleRows().length;
+        // dataGrid = $("#gridContainer").dxDataGrid("instance");
+        // a = dataGrid.getVisibleRows();
+        // rowsCount = dataGrid.getVisibleRows().length;
         //var rowsCount = $("#gridContainer").find("tr.dx-row.dx-data-row").length;
 
         sumBede = 0
