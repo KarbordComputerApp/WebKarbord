@@ -78,7 +78,8 @@
 
     sessionStorage.BeforeMoveSanad = false;
 
-    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
+    //sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
+    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad_New").show() : $("#AddNewSanad_New").hide();
 
     TestUser();
 
@@ -816,7 +817,7 @@
         })
     })
 
-    $('#AddNewSanad').click(function () {
+   /* $('#AddNewSanad').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = localStorage.getItem("userName");
         sessionStorage.Status = translate('موقت');
@@ -841,11 +842,33 @@
         sessionStorage.F19 = "";
         sessionStorage.F20 = "";
         window.location.href = sessionStorage.urlAddADocH;
-    });
+    });*/
 
 
     $('#AddNewSanad_New').click(function () {
         sessionStorage.flagupdateHeader = 0;
+        /*sessionStorage.Eghdam = localStorage.getItem("userName");
+        sessionStorage.Status = translate('موقت');
+        sessionStorage.F01 = "";
+        sessionStorage.F02 = "";
+        sessionStorage.F03 = "";
+        sessionStorage.F04 = "";
+        sessionStorage.F05 = "";
+        sessionStorage.F06 = "";
+        sessionStorage.F07 = "";
+        sessionStorage.F08 = "";
+        sessionStorage.F09 = "";
+        sessionStorage.F10 = "";
+        sessionStorage.F11 = "";
+        sessionStorage.F12 = "";
+        sessionStorage.F13 = "";
+        sessionStorage.F14 = "";
+        sessionStorage.F15 = "";
+        sessionStorage.F16 = "";
+        sessionStorage.F17 = "";
+        sessionStorage.F18 = "";
+        sessionStorage.F19 = "";
+        sessionStorage.F20 = "";*/
         window.location.href = sessionStorage.urlAddADocH_New;
     });
 
@@ -1132,7 +1155,7 @@
                 sessionStorage.F19 = data.F19;
                 sessionStorage.F20 = data.F20;
                 sessionStorage.lastPageSelect = self.currentPageIndexADocH();
-                window.location.href = sessionStorage.urlAddADocH;
+                window.location.href = sessionStorage.urlAddADocH_New;
             }
         });
     }

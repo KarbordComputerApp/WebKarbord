@@ -1596,7 +1596,6 @@ var ViewModel = function () {
                         widget: 'dxButton',
                         name: 'save',
                         options: {
-                           
                             icon: 'save',
                             hint: 'ذخیره',
                             onClick() {
