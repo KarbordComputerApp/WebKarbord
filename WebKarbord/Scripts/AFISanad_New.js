@@ -468,10 +468,10 @@ var ViewModel = function () {
             sumBest = 0;
 
             for (var i = 0; i < data.length; i++) {
-                /* AccData = AccList.filter(s => s.Code == data[i].AccCode);
-                 if (AccData.length > 0) {
-                     dataAcc[i] = AccData[0];
-                 }*/
+                AccData = AccList.filter(s => s.Code == data[i].AccCode);
+                if (AccData.length > 0) {
+                    data[i].dataAcc = AccData[0];
+                }
 
 
                 /*if (data[i].PDMode == 1) {
@@ -509,13 +509,13 @@ var ViewModel = function () {
 
 
     function CheckAccess() {
-        if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
+        /*if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
             $('#Print_SanadHesab').attr('style', 'display: none')
         }
 
         if (localStorage.getItem("AccessPrint_SanadHesab") == "false") {
             $('#Print_SanadHesab').attr('style', 'display: none')
-        }
+        }*/
 
         if (localStorage.getItem("AccessViewSanad") == 'true') {
             viewAction = true;
@@ -868,10 +868,10 @@ var ViewModel = function () {
                 // f += ',"format":",#0.##"';
                 //f += '"editorOptions": {"format": "fixedPoint","showClearButton": false}';
 
-               // f += ',"useGrouping":true';
+                // f += ',"useGrouping":true';
                 f += ',"format": { "style": "decimal",  "useGrouping": true, "minimumSignificantDigits": 1 }';
 
-               // f += ',"format": { "style": "currency", "currency": "EUR", "useGrouping": true, "minimumSignificantDigits": 1 }';
+                // f += ',"format": { "style": "currency", "currency": "EUR", "useGrouping": true, "minimumSignificantDigits": 1 }';
 
                 // f += ',"format": "custom"';
             }
@@ -922,9 +922,27 @@ var ViewModel = function () {
                 buttons = cols[i];
                 buttons.fixed = true;
                 buttons.fixedPosition = "left";
-                buttons.buttons = ["delete",
+                buttons.buttons = ["",
                     {
-                        hint: 'Clone',
+                        hint: 'حذف',
+                        icon: 'trash',
+                        onClick(e) {
+                            e.component.saveEditData();
+                            const visibleRows = e.component.getVisibleRows();
+                            row = e.row.rowIndex;
+
+                            clonedItem = visibleRows[row].data;//  $.extend({}, e.row.data);
+
+                            ADocB.splice(row, 1);
+
+                            e.component.saveEditData();
+                            calcSanad();
+                            e.component.refresh(true);
+                        }
+                    },
+
+                    {
+                        hint: 'کپی',
                         icon: 'copy',
                         onClick(e) {
                             e.component.saveEditData();
@@ -975,8 +993,6 @@ var ViewModel = function () {
                     {
                         hint: 'درج',
                         icon: 'add',
-
-
                         onClick(e) {
                             e.component.saveEditData();
                             /*const key = new DevExpress.data.Guid().toString();
@@ -1013,7 +1029,7 @@ var ViewModel = function () {
                             clonedItem = {};
                             //clonedItem = bandFree;
                             //bandFree = {};
-                            ADocB.splice(e.row.rowIndex + 1, 0, clonedItem);
+                            ADocB.splice(e.row.rowIndex, 0, clonedItem);
                             //ADocB[e.row.rowIndex+1].BandNo = 1000
 
                             //visibleRows[e.row.rowIndex + 1].data.AccCode = '';
@@ -1456,7 +1472,8 @@ var ViewModel = function () {
                              ADocB[i] = JSON.parse(dataJson);
                          }
                          */
-                        ADocB.push(bandFree);
+                        //ADocB.push(bandFree);
+                        ADocB.push({});
                         for (var i = 0; i < ADocB.length; i++) {
                             ADocB[i].BandNo = i;
                         }
@@ -1512,7 +1529,7 @@ var ViewModel = function () {
                 a = 1;
             },
             onInitNewRow: function (e) {
-                b = {
+                /*b = {
                     "AccCode": "",
                     "AccCompleteName": "",
                     "AccFullCode": "",
@@ -1566,7 +1583,7 @@ var ViewModel = function () {
                 //dataGrid.deleteRow(rows);
                 rows = dataGrid.getVisibleRows();
 
-                calcSanad();
+                calcSanad();*/
             },
 
 
@@ -1577,9 +1594,11 @@ var ViewModel = function () {
                     {
                         location: 'after',
                         widget: 'dxButton',
+                        name: 'save',
                         options: {
-                            name: 'save',
+                           
                             icon: 'save',
+                            hint: 'ذخیره',
                             onClick() {
                                 SaveColumnSanad();
                                 ControlSave();
@@ -1587,12 +1606,32 @@ var ViewModel = function () {
                         },
                     },
 
-                    {
+                    /*{
                         location: 'after',
                         widget: 'dxButton',
                         options: {
+                            name: 'refresh',
                             icon: 'refresh',
+                            hint: 'به روز رسانی',
                             onClick() {
+                                dataGrid.refresh(true);
+                            },
+                        },
+                    },*/
+
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        name: 'addRow',
+                        options: {
+                            icon: 'add',
+                            hint: 'بند جدید',
+                            onClick() {
+                                e.component.saveEditData();
+                                ADocB.push({});
+                                for (var i = 0; i < ADocB.length; i++) {
+                                    ADocB[i].BandNo = i;
+                                }
                                 dataGrid.refresh(true);
                             },
                         },
@@ -1601,25 +1640,158 @@ var ViewModel = function () {
                     {
                         location: 'after',
                         widget: 'dxButton',
+                        name: 'print',
                         options: {
-                            name: 'addRow',
-                            icon: 'add',
+                            icon: 'print',
+                            hint: 'چاپ',
                             onClick() {
-                                e.component.saveEditData();
-                                /*
-                                const visibleRows = e.component.getVisibleRows();
+                                if (Serial == '')
+                                    return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
+                                getADocP(Serial);
+                                createViewer();
+                                if (self.ADocPList().length == 0)
+                                    return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
 
-                                for (var i = 0; i < visibleRows.length; i++) {
-                                    visibleRows[i].data.BandNo = i + 1;
-                                    dataJson = JSON.stringify(visibleRows[i].data);
-                                    ADocB[i] = JSON.parse(dataJson);
-                                }*/
+                                printVariable = '"ReportDate":"' + DateNow + '",';
 
-                                ADocB.push(bandFree);
-                                for (var i = 0; i < ADocB.length; i++) {
-                                    ADocB[i].BandNo = i;
-                                }
-                                dataGrid.refresh(true);
+                                printName = null;
+                                sessionStorage.ModePrint = "ADoc";
+                                GetPrintForms(sessionStorage.ModePrint);
+                                self.filterPrintForms1("1");
+                                $('#modal-Print').modal('show');
+                            },
+                        },
+                    },
+
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        name: 'OtherField',
+                        options: {
+                            icon: '/Content/img/sanad/paper-write.png',
+                            hint: 'مشخصات اضافی',
+                            onClick() {
+                                $('#modal-OtherField').modal('show');
+                            },
+                        },
+                    },
+
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        name: 'AddNewSanad',
+                        options: {
+                            icon: '/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png',
+                            hint: 'سند جدید',
+                            onClick() {
+                                Swal.fire({
+                                    title: '',
+                                    text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
+                                    type: 'warning',
+                                    showCancelButton: true,
+                                    cancelButtonColor: '#3085d6',
+                                    cancelButtonText: text_No,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: text_Yes
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $('#titlePage').text(translate("سند حسابداری جدید"));
+
+                                        //ADocB = [];
+                                        dataAcc = [];
+                                        //dataGrid.option('dataSource', ADocB);
+                                        $('#docnoout').text(translate('جدید'));
+                                        self.StatusSanad(translate('موقت'));
+                                        $("#status").val(translate('موقت'));
+                                        sessionStorage.Status = translate('موقت');
+                                        sessionStorage.Eghdam = sessionStorage.userName;
+                                        flaglog = "Y";
+
+                                        $("#SumBedehkar").val(0);
+                                        $("#SumBestankar").val(0);
+                                        $("#TafavotSanad").val(0);
+
+
+
+                                        sessionStorage.F01 = '';
+                                        sessionStorage.F02 = '';
+                                        sessionStorage.F03 = '';
+                                        sessionStorage.F04 = '';
+                                        sessionStorage.F05 = '';
+                                        sessionStorage.F06 = '';
+                                        sessionStorage.F07 = '';
+                                        sessionStorage.F08 = '';
+                                        sessionStorage.F09 = '';
+                                        sessionStorage.F10 = '';
+                                        sessionStorage.F11 = '';
+                                        sessionStorage.F12 = '';
+                                        sessionStorage.F13 = '';
+                                        sessionStorage.F14 = '';
+                                        sessionStorage.F15 = '';
+                                        sessionStorage.F16 = '';
+                                        sessionStorage.F17 = '';
+                                        sessionStorage.F18 = '';
+                                        sessionStorage.F19 = '';
+                                        sessionStorage.F20 = '';
+
+                                        $("#ExtraFields1").val('');
+                                        $("#ExtraFields2").val('');
+                                        $("#ExtraFields3").val('');
+                                        $("#ExtraFields4").val('');
+                                        $("#ExtraFields5").val('');
+                                        $("#ExtraFields6").val('');
+                                        $("#ExtraFields7").val('');
+                                        $("#ExtraFields8").val('');
+                                        $("#ExtraFields9").val('');
+                                        $("#ExtraFields10").val('');
+                                        $("#ExtraFields11").val('');
+                                        $("#ExtraFields12").val('');
+                                        $("#ExtraFields13").val('');
+                                        $("#ExtraFields14").val('');
+                                        $("#ExtraFields15").val('');
+                                        $("#ExtraFields16").val('');
+                                        $("#ExtraFields17").val('');
+                                        $("#ExtraFields18").val('');
+                                        $("#ExtraFields19").val('');
+                                        $("#ExtraFields20").val('');
+
+
+                                        flagInsertADocH = 0;
+                                        if (parseInt(sal) < SalNow) {
+                                            getADocHLastDate();
+                                        }
+
+                                        getADocB(0);
+
+                                        for (i = 0; i < 5; i++) {
+                                            tmp = {
+                                                AccCode: '',
+                                                AccZCode: '',
+                                                Bede: 0,
+                                                Best: 0,
+                                                Amount: 0,
+                                                ArzRate: 0,
+                                                ArzValue: 0,
+                                                Comm: '',
+                                                BandSpec: '',
+                                                BandNo: i
+                                            };
+                                            ADocB[i] = tmp;
+                                        }
+
+                                        //for (var i = 0; i < 1; i++) {
+                                        //    dataGrid.addRow();
+                                        //}
+
+                                        Serial = 0;
+
+                                        dataGrid.focus(dataGrid.getCellElement(0, 0));
+
+
+                                        //$(this).CheckAccess();
+                                    }
+                                })
                             },
                         },
                     },
@@ -1636,6 +1808,14 @@ var ViewModel = function () {
                         item.visible = false;
                     }
 
+
+                    if (sessionStorage.NEW_ADOC == "false" && item.name == "AddNewSanad")
+                        item.visible = false;
+
+
+                    if (localStorage.getItem("AccessPrint_SanadHesab") == "false" && item.name == "print") {
+                        item.visible = false;
+                    }
 
                 });
 
@@ -1764,17 +1944,17 @@ var ViewModel = function () {
                 dataField = e.dataField;
                 if (e.parentType == 'dataRow' && e.dataField == 'Bede') {
                     e.editorOptions.onValueChanged = function (args) {
+                        //dataGrid.saveEditData()
                         ro = e.row.rowIndex;
                         Bede = args.value;
-                        //dataGrid.cellValue(ro, "Bede", Bede);
-                        //dataGrid.cellValue(ro, "Best", 0);
-
                         ADocB[ro].Bede = Bede;
                         ADocB[ro].Best = 0;
-
                         ArzValue = CalcArz(dataGrid.cellValue(ro, "ArzCode"), Bede, 0, dataGrid.cellValue(ro, "ArzRate"));
-                        dataGrid.cellValue(ro, "ArzValue", ArzValue);
+                        if (ADocB[ro].ArzValue == null) {
+                            dataGrid.saveEditData()
+                        }
                         ADocB[ro].ArzValue = ArzValue;
+                        dataGrid.refresh();
                         calcSanad();
                     }
                 }
@@ -1783,13 +1963,14 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         Best = args.value;
-                        //dataGrid.cellValue(ro, "Bede", 0);
-                        //dataGrid.cellValue(ro, "Best", Best);
                         ADocB[ro].Bede = 0;
                         ADocB[ro].Best = Best;
                         ArzValue = CalcArz(dataGrid.cellValue(ro, "ArzCode"), 0, Best, dataGrid.cellValue(ro, "ArzRate"));
-                        //dataGrid.cellValue(ro, "ArzValue", ArzValue);
+                        if (ADocB[ro].ArzValue == null) {
+                            dataGrid.saveEditData()
+                        }
                         ADocB[ro].ArzValue = ArzValue;
+                        dataGrid.refresh();
                         calcSanad();
                     }
                 }
@@ -1937,7 +2118,7 @@ var ViewModel = function () {
                                     }
                                     e.component.close();
 
-                                    //dataGrid.focus(dataGrid.getCellElement(ro, 5));
+                                    dataGrid.focus(dataGrid.getCellElement(ro, 5));
                                 }
 
                             }
@@ -3150,120 +3331,120 @@ var ViewModel = function () {
     });
 
 
-    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
-
-    $('#AddNewSanad').click(function () {
-        Swal.fire({
-            title: '',
-            text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: text_No,
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: text_Yes
-        }).then((result) => {
-            if (result.value) {
-                $('#titlePage').text(translate("سند حسابداری جدید"));
-
-
-
-                //ADocB = [];
-                dataAcc = [];
-                //dataGrid.option('dataSource', ADocB);
-                $('#docnoout').text(translate('جدید'));
-                self.StatusSanad(translate('موقت'));
-                $("#status").val(translate('موقت'));
-                sessionStorage.Status = translate('موقت');
-                sessionStorage.Eghdam = sessionStorage.userName;
-                flaglog = "Y";
-
-                $("#SumBedehkar").val(0);
-                $("#SumBestankar").val(0);
-                $("#TafavotSanad").val(0);
-
-
-
-                sessionStorage.F01 = '';
-                sessionStorage.F02 = '';
-                sessionStorage.F03 = '';
-                sessionStorage.F04 = '';
-                sessionStorage.F05 = '';
-                sessionStorage.F06 = '';
-                sessionStorage.F07 = '';
-                sessionStorage.F08 = '';
-                sessionStorage.F09 = '';
-                sessionStorage.F10 = '';
-                sessionStorage.F11 = '';
-                sessionStorage.F12 = '';
-                sessionStorage.F13 = '';
-                sessionStorage.F14 = '';
-                sessionStorage.F15 = '';
-                sessionStorage.F16 = '';
-                sessionStorage.F17 = '';
-                sessionStorage.F18 = '';
-                sessionStorage.F19 = '';
-                sessionStorage.F20 = '';
-
-                $("#ExtraFields1").val('');
-                $("#ExtraFields2").val('');
-                $("#ExtraFields3").val('');
-                $("#ExtraFields4").val('');
-                $("#ExtraFields5").val('');
-                $("#ExtraFields6").val('');
-                $("#ExtraFields7").val('');
-                $("#ExtraFields8").val('');
-                $("#ExtraFields9").val('');
-                $("#ExtraFields10").val('');
-                $("#ExtraFields11").val('');
-                $("#ExtraFields12").val('');
-                $("#ExtraFields13").val('');
-                $("#ExtraFields14").val('');
-                $("#ExtraFields15").val('');
-                $("#ExtraFields16").val('');
-                $("#ExtraFields17").val('');
-                $("#ExtraFields18").val('');
-                $("#ExtraFields19").val('');
-                $("#ExtraFields20").val('');
-
-
-                flagInsertADocH = 0;
-                if (parseInt(sal) < SalNow) {
-                    getADocHLastDate();
-                }
-
-                getADocB(0);
-
-                for (i = 0; i < 5; i++) {
-                    tmp = {
-                        AccCode: '',
-                        AccZCode: '',
-                        Bede: 0,
-                        Best: 0,
-                        Amount: 0,
-                        ArzRate: 0,
-                        ArzValue: 0,
-                        Comm: '',
-                        BandSpec: '',
-                        BandNo: i
-                    };
-                    ADocB[i] = tmp;
-                }
-
-                //for (var i = 0; i < 1; i++) {
-                //    dataGrid.addRow();
-                //}
-
-                Serial = 0;
-
-                dataGrid.focus(dataGrid.getCellElement(0, 0));
-
-
-                //$(this).CheckAccess();
-            }
-        })
-    });
+    /* sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
+ 
+     $('#AddNewSanad').click(function () {
+         Swal.fire({
+             title: '',
+             text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
+             type: 'warning',
+             showCancelButton: true,
+             cancelButtonColor: '#3085d6',
+             cancelButtonText: text_No,
+             allowOutsideClick: false,
+             confirmButtonColor: '#d33',
+             confirmButtonText: text_Yes
+         }).then((result) => {
+             if (result.value) {
+                 $('#titlePage').text(translate("سند حسابداری جدید"));
+ 
+ 
+ 
+                 //ADocB = [];
+                 dataAcc = [];
+                 //dataGrid.option('dataSource', ADocB);
+                 $('#docnoout').text(translate('جدید'));
+                 self.StatusSanad(translate('موقت'));
+                 $("#status").val(translate('موقت'));
+                 sessionStorage.Status = translate('موقت');
+                 sessionStorage.Eghdam = sessionStorage.userName;
+                 flaglog = "Y";
+ 
+                 $("#SumBedehkar").val(0);
+                 $("#SumBestankar").val(0);
+                 $("#TafavotSanad").val(0);
+ 
+ 
+ 
+                 sessionStorage.F01 = '';
+                 sessionStorage.F02 = '';
+                 sessionStorage.F03 = '';
+                 sessionStorage.F04 = '';
+                 sessionStorage.F05 = '';
+                 sessionStorage.F06 = '';
+                 sessionStorage.F07 = '';
+                 sessionStorage.F08 = '';
+                 sessionStorage.F09 = '';
+                 sessionStorage.F10 = '';
+                 sessionStorage.F11 = '';
+                 sessionStorage.F12 = '';
+                 sessionStorage.F13 = '';
+                 sessionStorage.F14 = '';
+                 sessionStorage.F15 = '';
+                 sessionStorage.F16 = '';
+                 sessionStorage.F17 = '';
+                 sessionStorage.F18 = '';
+                 sessionStorage.F19 = '';
+                 sessionStorage.F20 = '';
+ 
+                 $("#ExtraFields1").val('');
+                 $("#ExtraFields2").val('');
+                 $("#ExtraFields3").val('');
+                 $("#ExtraFields4").val('');
+                 $("#ExtraFields5").val('');
+                 $("#ExtraFields6").val('');
+                 $("#ExtraFields7").val('');
+                 $("#ExtraFields8").val('');
+                 $("#ExtraFields9").val('');
+                 $("#ExtraFields10").val('');
+                 $("#ExtraFields11").val('');
+                 $("#ExtraFields12").val('');
+                 $("#ExtraFields13").val('');
+                 $("#ExtraFields14").val('');
+                 $("#ExtraFields15").val('');
+                 $("#ExtraFields16").val('');
+                 $("#ExtraFields17").val('');
+                 $("#ExtraFields18").val('');
+                 $("#ExtraFields19").val('');
+                 $("#ExtraFields20").val('');
+ 
+ 
+                 flagInsertADocH = 0;
+                 if (parseInt(sal) < SalNow) {
+                     getADocHLastDate();
+                 }
+ 
+                 getADocB(0);
+ 
+                 for (i = 0; i < 5; i++) {
+                     tmp = {
+                         AccCode: '',
+                         AccZCode: '',
+                         Bede: 0,
+                         Best: 0,
+                         Amount: 0,
+                         ArzRate: 0,
+                         ArzValue: 0,
+                         Comm: '',
+                         BandSpec: '',
+                         BandNo: i
+                     };
+                     ADocB[i] = tmp;
+                 }
+ 
+                 //for (var i = 0; i < 1; i++) {
+                 //    dataGrid.addRow();
+                 //}
+ 
+                 Serial = 0;
+ 
+                 dataGrid.focus(dataGrid.getCellElement(0, 0));
+ 
+ 
+                 //$(this).CheckAccess();
+             }
+         })
+     });*/
 
 
 
@@ -5105,23 +5286,23 @@ var ViewModel = function () {
     });
 
 
-    $('#Print_SanadHesab').click(function () {
-
-        if (Serial == '')
-            return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
-        getADocP(Serial);
-        createViewer();
-        if (self.ADocPList().length == 0)
-            return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
-
-        printVariable = '"ReportDate":"' + DateNow + '",';
-
-        printName = null;
-        sessionStorage.ModePrint = "ADoc";
-        GetPrintForms(sessionStorage.ModePrint);
-        self.filterPrintForms1("1");
-        $('#modal-Print').modal('show');
-    });
+    /*  $('#Print_SanadHesab').click(function () {
+  
+          if (Serial == '')
+              return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
+          getADocP(Serial);
+          createViewer();
+          if (self.ADocPList().length == 0)
+              return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
+  
+          printVariable = '"ReportDate":"' + DateNow + '",';
+  
+          printName = null;
+          sessionStorage.ModePrint = "ADoc";
+          GetPrintForms(sessionStorage.ModePrint);
+          self.filterPrintForms1("1");
+          $('#modal-Print').modal('show');
+      });*/
 
     $('#DesignPrint').click(function () {
         self.filterPrintForms1("");
