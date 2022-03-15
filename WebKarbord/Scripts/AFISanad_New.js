@@ -3720,7 +3720,7 @@ var ViewModel = function () {
         rows = dataGrid.getVisibleRows();
 
         for (var i = 0; i < rows.length; i++) {
-            if (rows[i].data.AccCode == '') {
+            if (rows[i].data.AccCode == '' || rows[i].data.AccCode == null) {
                 dataGrid.deleteRow(i);
             }
         }
