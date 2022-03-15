@@ -3727,6 +3727,8 @@ var ViewModel = function () {
 
         dataGrid.saveEditData();
 
+        calcSanad();
+
         if (ADocB.length == 0) {
             return showNotification(translate('سند دارای بند قابل ذخیره نیست'), 0);
         }
