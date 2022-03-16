@@ -769,6 +769,7 @@
     }
 
     function SetDataCust(item) {
+        isUpdate = true;
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -861,11 +862,7 @@
     }
 
     self.UpdateCust = function (item) {
-        // sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
-        isUpdate = true;
-
         item.EditBaseTrs == true && sessionStorage.CHG_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
-
         SetDataCust(item);
         custCode = item.Code;
         if (TestUseSanad(ace, sal, "Cust", custCode, true, '') == true) {
@@ -973,6 +970,7 @@
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
                     getCustList();
                     $('#modal-Cust').modal('hide');
+                    SaveLog('Fct5', isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_CUST, code, 0, 0);
                     showNotification(translate('ذخیره شد'), 1);
                 });
             }
@@ -1085,6 +1083,7 @@
             currentPage = self.currentPageIndexCust();
             getCustList();
             self.currentPageIndexCust(currentPage);
+            SaveLog('Fct5', EditMode_Del, LogMode_CUST, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }

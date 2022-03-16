@@ -761,6 +761,7 @@
 
 
     function SetDataKala(item) {
+        isUpdate = true;
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -867,10 +868,7 @@
     }
 
     self.UpdateKala = function (item) {
-        isUpdate = true;
         sessionStorage.CHG_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
-
-
         SetDataKala(item);
 
         // $("#Code").focus();
@@ -1038,6 +1036,7 @@
                 ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
                     getKalaList();
                     $('#modal-Kala').modal('hide');
+                    SaveLog(Fct_or_Inv, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_KALA, code, 0, 0);
                     showNotification(translate('ذخيره شد'), 1);
                 });
             }
@@ -1148,6 +1147,7 @@
             currentPage = self.currentPageIndexKala();
             getKalaList();
             self.currentPageIndexKala(currentPage);
+            SaveLog(Fct_or_Inv, EditMode_Del, LogMode_KALA, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }

@@ -211,11 +211,18 @@
                     //progName = "ERJ1"
                 }
 
+
+
+                ipw = localStorage.getItem("IPW");
+                country = localStorage.getItem("CountryLogin");
+                city = localStorage.getItem("CityLogin");
+
+
                 var LoginTestObject = {
                     MachineId: MachineId,
-                    IPWan: sessionStorage.IPW,
-                    Country: sessionStorage.CountryLogin,
-                    City: sessionStorage.CityLogin,
+                    IPWan: ipw,
+                    Country: country,
+                    City: city,
                     UserCode: user.toUpperCase(),
                     ProgName: sessionStorage.ace,
                     ProgVer: sessionStorage.ver,
@@ -368,7 +375,9 @@
                 logoutmin = data.logoutmin;
 
                 Master_ProgName = data.ProgName;
-                Fct_or_Inv = data.Fct_or_Inv;
+                Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '';
+
+                
 
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);
@@ -484,6 +493,10 @@
         ajaxFunctionAccount('http://ip-api.com/json/', 'GET').done(function (data) {
             //a = sessionStorage.MacAddress;
             //b = sessionStorage.IP4Address;
+            localStorage.setItem("IPW", data.query);
+            localStorage.setItem("CountryLogin", data.country);
+            localStorage.setItem("CityLogin", data.city);
+
             sessionStorage.IPW = data.query;
             sessionStorage.CountryLogin = data.country
             sessionStorage.CityLogin = data.city

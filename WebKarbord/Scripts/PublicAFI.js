@@ -536,6 +536,8 @@ var StatementsSaveUri = server + '/api/Web_Data/SaveStatements'; // آدرس  ذ
 
 var V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
 
+var LogXUri = server + '/api/Web_Data/LogX/'; //  آدرس لاگ 
+
 
 
 
@@ -2404,7 +2406,7 @@ function SetValidation() {
     validation = CheckAccessReport('Krdx', 'Inv5');
     ShowMenu[30] = validation;  // گزارش کاردکس
 
-    validation = CheckAccess('KALA', Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '');
+    validation = CheckAccess('KALA', Fct_or_Inv);
     ShowMenu[31] = validation;  // کالاها
 
     validation = CheckAccess('CUST', 'Fct5');
@@ -5227,3 +5229,44 @@ if (navigator.browserLanguage) {
 lang = lang0.substr(0, 2).toLowerCase();
 */
 
+
+const EditMode_New = 1;
+const EditMode_Chg = 2;
+const EditMode_Darj = 3;
+const EditMode_Del = 4;
+
+const LogMode_ADoc = 1;
+const LogMode_IDoc = 2;
+const LogMode_FDoc = 3;
+const LogMode_Acc = 4;
+const LogMode_MKZ = 5;
+const LogMode_OPR = 6;
+const LogMode_ARZ = 7;
+const LogMode_KALA = 8;
+const LogMode_CUST = 9;
+
+
+
+function SaveLog(progName,editMode, logMode, code, DocNo, serialNumber) {
+    //mIdKarbord = localStorage.getItem("MachineIdKarbord")
+    ipw = localStorage.getItem("IPW");
+    //country = localStorage.getItem("CountryLogin");
+    //city = localStorage.getItem("CityLogin");
+
+    LogXObject = {
+        'ProgName_': progName,
+        'IP_': ipw,
+        'GroupNo_': group,
+        'Year_': sal,
+        'EditMode_': editMode,
+        'LogMode_': logMode,
+        'Code_': code,
+        'DocNo_': DocNo,
+        'SerialNumber_': serialNumber
+    };
+
+    ajaxFunction(LogXUri, 'POST', LogXObject, true).done(function (response) {
+        a = response;
+        a = response;
+    });
+}
