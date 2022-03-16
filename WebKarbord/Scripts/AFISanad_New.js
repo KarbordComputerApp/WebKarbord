@@ -75,6 +75,7 @@ var ViewModel = function () {
 
     var Serial = 0;
     var saveButton = null;
+    var flagSaveLogWin = false;
 
     var columnName;
 
@@ -1696,7 +1697,7 @@ var ViewModel = function () {
                                 }).then((result) => {
                                     if (result.value) {
                                         $('#titlePage').text(translate("سند حسابداری جدید"));
-
+                                        flagSaveLogWin = false;
                                         //ADocB = [];
                                         dataAcc = [];
                                         //dataGrid.option('dataSource', ADocB);
@@ -3537,6 +3538,7 @@ var ViewModel = function () {
         });
     }
 
+
     function SaveSanad() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
@@ -3591,6 +3593,10 @@ var ViewModel = function () {
                 Serial = res[0];
                 DocNoOut = res[1];
                 $('#docnoout').text(DocNoOut);
+                if (flagSaveLogWin == false) {
+                    SaveLog('Acc5', EditMode_New, LogMode_ADoc, 0, DocNoOut, Serial);
+                    flagSaveLogWin = true;
+                }
                 flaglog = 'N';
             });
         }
@@ -3644,6 +3650,10 @@ var ViewModel = function () {
                 sessionStorage.searchADocH = Serial;
                 flaglog = 'N';
                 DeleteBand();
+                if (flagSaveLogWin == false) {
+                    SaveLog('Acc5', EditMode_Chg, LogMode_ADoc, 0, docNo, Serial);
+                    flagSaveLogWin = true;
+                }
             });
         }
 

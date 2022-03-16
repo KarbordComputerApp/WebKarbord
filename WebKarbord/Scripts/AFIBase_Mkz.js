@@ -37,7 +37,7 @@
     var old_Name = '';
     var old_Spec = '';
     var old_ActiveSt = '';
-
+    var isUpdate = false;
     var rprtId = 'Mkz';
 
     var columns = [
@@ -330,6 +330,7 @@
 
 
     function SetDataMkz(item) {
+        isUpdate = true;
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -349,7 +350,7 @@
 
     self.UpdateMkz = function (item) {
         sessionStorage.CHG_Mkz == 'true' ? $("#saveMkz").show() : $("#saveMkz").hide();
-        isUpdate = true;
+
         flag_Save = false;
 
         SetDataMkz(item);
@@ -402,6 +403,8 @@
                     getMkzList();
                     $('#modal-Mkz').modal('hide');
                     flag_Save = true;
+                    SaveLog(localStorage.getItem('ProgAccess'), isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_MKZ, code, 0, 0);
+
                     showNotification(translate('ذخیره شد'), 1);
                 });
             }
@@ -514,6 +517,7 @@
             currentPage = self.currentPageIndexMkz();
             getMkzList();
             self.currentPageIndexMkz(currentPage);
+            SaveLog(localStorage.getItem('ProgAccess'), EditMode_Del, LogMode_MKZ, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }

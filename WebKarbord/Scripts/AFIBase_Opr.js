@@ -37,6 +37,7 @@
     var old_Name = '';
     var old_Spec = '';
     var old_ActiveSt = '';
+    var isUpdate = false;
 
     var rprtId = 'Opr';
 
@@ -330,6 +331,7 @@
 
 
     function SetDataOpr(item) {
+        isUpdate = true;
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -348,7 +350,6 @@
 
     self.UpdateOpr = function (item) {
         sessionStorage.CHG_Opr == 'true' ? $("#saveOpr").show() : $("#saveOpr").hide();
-        isUpdate = true;
         flag_Save = false;
 
         SetDataOpr(item);
@@ -401,6 +402,8 @@
                     getOprList();
                     $('#modal-Opr').modal('hide');
                     flag_Save = true;
+                    SaveLog(localStorage.getItem('ProgAccess'), isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_OPR, code, 0, 0);
+
                     showNotification(translate('ذخیره شد'), 1);
                 });
             }
@@ -513,6 +516,7 @@
             currentPage = self.currentPageIndexOpr();
             getOprList();
             self.currentPageIndexOpr(currentPage);
+            SaveLog(localStorage.getItem('ProgAccess'), EditMode_Del, LogMode_OPR, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }

@@ -4,6 +4,7 @@
     var forSels = true;
     var flagupdateHeader;
     var flagOtherFieldShow;
+    var flagSaveLogWin = false;
 
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
@@ -1328,6 +1329,12 @@
             var res = response.split("-");
             Serial = res[0];
             DocNoOut = res[1];
+
+            if (flagSaveLogWin == false) {
+                SaveLog('Inv5', EditMode_New, LogMode_IDoc, 0, DocNoOut, Serial);
+                flagSaveLogWin = true;
+            }
+
             $('#docnoout').val(DocNoOut);
             sessionStorage.searchIDocH = Serial;
             //Swal.fire({ type: 'success', title: 'ثبت موفق', text: ' مشخصات سند به شماره ' + DocNoOut + ' ذخیره شد ' });
@@ -1467,6 +1474,11 @@
             //flagInsertIDoch = 0;
             //FinalSave
             flaglog = 'N';
+
+            if (flagSaveLogWin == false) {
+                SaveLog('Inv5', EditMode_Chg, LogMode_IDoc, 0, $("#docnoout").val(), Serial);
+                flagSaveLogWin = true;
+            }
 
             //$('#finalSave_Title').attr('hidden', '');
 
@@ -3140,6 +3152,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
+                flagSaveLogWin = false;
                 closedDate = false;
                 sessionStorage.flagupdateHeader = 0;
                 sessionStorage.Status = 'موقت';

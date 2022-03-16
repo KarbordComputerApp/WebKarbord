@@ -1,6 +1,6 @@
 ﻿var ViewModel = function () {
     var self = this;
-
+    var docnoDelete = 0;
     var flagupdateHeader = 0;
     sessionStorage.BeforeMoveFactor = false;
 
@@ -2029,6 +2029,8 @@
             }).then((result) => {
                 if (result.value) {
                     serial = factorBand.SerialNumber;
+                    docnoDelete = factorBand.DocNo; 
+
                     var TestFDoc_DeleteObject = {
                         SerialNumber: serial
                     };
@@ -2118,6 +2120,7 @@
             currentPage = self.currentPageIndexFDocH();
             getFDocH($('#pageCountSelector').val(), false);
             self.currentPageIndexFDocH(currentPage);
+            SaveLog('Fct5', EditMode_Del, LogMode_FDoc, 0, docnoDelete, serial);
             showNotification(TitleListFactor + ' ' + translate('حذف شد'), 1);
         });
     }

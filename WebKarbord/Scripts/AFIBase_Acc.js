@@ -1092,7 +1092,6 @@
 
 
     self.AddNewAcc = function () {
-
         isUpdate = false;
         sessionStorage.NEW_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
         aGruCode = '';
@@ -1193,6 +1192,7 @@
 
 
     function SetDataAcc(item) {
+        isUpdate = true;
         $('#Code').val(item.Code);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
@@ -1335,7 +1335,6 @@
 
     self.UpdateAcc = function (item) {
         sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
-        isUpdate = true;
         flag_Save = false;
 
         //item.EditBaseTrs == true && sessionStorage.CHG_Acc == 'true' ? $("#saveAcc").show() : $("#saveAcc").hide();
@@ -1605,6 +1604,7 @@
                     getAccList();
                     $('#modal-Acc').modal('hide');
                     flag_Save = true;
+                    SaveLog('Acc5', isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_Acc, code, 0, 0);
                     showNotification(translate('ذخيره شد'), 1);
                 });
             }
@@ -1717,6 +1717,7 @@
             currentPage = self.currentPageIndexAcc();
             getAccList();
             self.currentPageIndexAcc(currentPage);
+            SaveLog('Acc5', EditMode_Del, LogMode_Acc, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }

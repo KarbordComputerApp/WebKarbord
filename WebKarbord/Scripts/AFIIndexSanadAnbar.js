@@ -9,6 +9,7 @@
     var serial;
     var invSelected = 0;
     var modeCodeSelected = 0;
+    var docnoDelete = 0;
 
     DocNoReport = localStorage.getItem("DocNoAFISanadAnbar");
     if (DocNoReport != "null" && DocNoReport != null) {
@@ -1306,6 +1307,7 @@
             }).then((result) => {
                 if (result.value) {
                     serial = SanadBand.SerialNumber;
+                    docnoDelete = SanadBand.DocNo; 
                     var TestIDoc_DeleteObject = {
                         SerialNumber: serial
                     };
@@ -1313,6 +1315,8 @@
                     ajaxFunction(IDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
                         self.TestIDoc_DeleteList(obj);
+                        
+
                         if (data.length > 2) {
                             $('#modal-TestDelete').modal('show');
                             SetDataTestDocB();
@@ -1391,6 +1395,8 @@
             currentPage = self.currentPageIndexIDocH();
             getIDocH(0, invSelected, modeCodeSelected, false);
             self.currentPageIndexIDocH(currentPage);
+            SaveLog('Inv5', EditMode_Del, LogMode_IDoc, 0, docnoDelete, serial);
+
             showNotification(translate('سند حذف شد'), 1);
         });
     }

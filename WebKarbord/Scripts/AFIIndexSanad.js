@@ -2,6 +2,7 @@
     var self = this;
 
     var flagupdateHeader = 0;
+    var docnoDelete = 0;
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
     self.ADocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
@@ -890,8 +891,8 @@
                 confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
-
                     serial = SanadBand.SerialNumber;
+                    docnoDelete = SanadBand.DocNo; 
                     var TestADoc_DeleteObject = {
                         SerialNumber: serial
                     };
@@ -899,6 +900,7 @@
                     ajaxFunction(ADoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
                         self.TestADoc_DeleteList(obj);
+                       
                         if (data.length > 2) {
                             $('#modal-TestDelete').modal('show');
                             SetDataTestDocB();
@@ -997,6 +999,8 @@
             currentPage = self.currentPageIndexADocH();
             getADocH($('#pageCountSelector').val(), false);
             self.currentPageIndexADocH(currentPage);
+            SaveLog('Acc5', EditMode_Del, LogMode_ADoc, 0, docnoDelete, serial);
+
             showNotification(translate('سند حذف شد'), 1);
         });
     }

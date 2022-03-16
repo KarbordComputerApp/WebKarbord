@@ -5,6 +5,7 @@
     var viewAction = false;
     var allSearchHesab = true;
     var allSearchKala = true;
+    var flagSaveLogWin = false;
 
     var flagupdateHeader;
     var flagOtherFieldShow;
@@ -271,7 +272,7 @@
     var FDocHUri = server + '/api/AFI_FDocHi/'; // آدرس هدر فاکتور 
     var FDocBUri = server + '/api/AFI_FDocBi/'; // آدرس بند فاکتور 
     var UpdatePriceUri = server + '/api/FDocData/UpdatePrice/'; // آدرس اعمال گروه قیمت
-    var FDocHListUri = server + '/api/FDocData/FDocH/'; //آدر اطلاعات فاکتور  
+    var FDocHListUri = server + '/api/FDocData/FDocH/'; //آدرس اطلاعات فاکتور  
     var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
     var FDocHLastDateUri = server + '/api/FDocData/FDocH/LastDate/'; // آدرس آخرین تاریخ سند
 
@@ -1227,6 +1228,12 @@
             var res = response.split("@");
             Serial = res[0];
             DocNoOut = res[1];
+
+            if (flagSaveLogWin == false) {
+                SaveLog('Fct5', EditMode_New, LogMode_FDoc, 0, DocNoOut, Serial);
+                flagSaveLogWin = true;
+            }
+
             if (Serial == "0") {
                 flagInsertFdoch == 0;
                 showNotification(DocNoOut, 0);
@@ -1380,6 +1387,11 @@
                 sessionStorage.searchFDocH = $("#docnoout").val();
                 // $('#finalSave_Title').attr('hidden', '');
                 flaglog = 'N';
+
+                if (flagSaveLogWin == false) {
+                    SaveLog('Fct5', EditMode_Chg, LogMode_FDoc, 0, $("#docnoout").val(), Serial);
+                    flagSaveLogWin = true;
+                }
 
                 if (flagKalaPrice == true) {
                     ajaxFunction(UpdatePriceUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST').done(function (response) {
@@ -3408,6 +3420,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
+                flagSaveLogWin = false;
                 $('#titlePage').text(textFactor + " " + translate("جدید"));
                 getAddMinList(sessionStorage.sels, -1, '', 0,
                     $("#AddMinSharh1").val(),
