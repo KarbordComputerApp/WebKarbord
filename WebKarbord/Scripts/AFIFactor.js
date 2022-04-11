@@ -632,7 +632,6 @@
         ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.FDocBList(data);
             self.FDocB(data);
-
         });
     }
 
@@ -1220,8 +1219,9 @@
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: flaglog,
-            VstrCode: codeVstr,
+            VstrCode: codeVstr
         };
+
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             //$('#DatileFactor').show();
             //$('#Save').attr('disabled', true);

@@ -762,6 +762,7 @@
     <Content Include="Scripts\AFIBase_Kala.js" />
     <Content Include="Scripts\AFIIndexSanad.js" />
     <Content Include="Scripts\AFIIndexSanadAnbar.js" />
+    <Content Include="Scripts\AFIFactor_New.js" />
     <Content Include="Scripts\AFISanad_New.js" />
     <Content Include="Scripts\AFISanad.js" />
     <Content Include="Scripts\AFISanadAnbar.js" />
@@ -963,6 +964,7 @@
     <Content Include="Views\ReportAFI\AGMkz.cshtml" />
     <Content Include="Views\ReportAFI\AGOpr.cshtml" />
     <Content Include="Views\AFISanad\AddAdoc_New.cshtml" />
+    <Content Include="Views\AFIFactor\AddFdoc_New.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

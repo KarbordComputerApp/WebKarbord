@@ -1795,7 +1795,7 @@
 
 
 
-            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
+            if ((flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4 || flag_IsChange5 || flag_IsChange6 ||
                 flag_IsChange7 || flag_IsChange8 || flag_IsChange9 || flag_IsChange10 || flag_IsChange11 ||
                 flag_IsChange12 || flag_IsChange13 || flag_IsChange14 || flag_IsChange15 || flag_IsChange16 ||
                 flag_IsChange17 || flag_IsChange18 || flag_IsChange19 || flag_IsChange20 || flag_IsChange21 ||
@@ -1803,7 +1803,7 @@
                 flag_IsChange27 || flag_IsChange28 || flag_IsChange29 || flag_IsChange30 || flag_IsChange31 ||
                 flag_IsChange32 || flag_IsChange33 || flag_IsChange34 || flag_IsChange35 || flag_IsChange36 ||
                 flag_IsChange37 || flag_IsChange38
-            ) {
+            ) && sessionStorage.CHG_Acc == 'true') {
 
 
                 Swal.fire({

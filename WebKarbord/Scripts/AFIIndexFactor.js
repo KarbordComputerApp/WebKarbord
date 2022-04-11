@@ -2009,6 +2009,52 @@
     });
 
 
+
+    $('#AddNewFactor_New').click(function () {
+        sessionStorage.flagupdateHeader = 0;
+        sessionStorage.Eghdam = sessionStorage.userName;
+        sessionStorage.Status = translate('موقت');
+        sessionStorage.F01 = "";
+        sessionStorage.F02 = "";
+        sessionStorage.F03 = "";
+        sessionStorage.F04 = "";
+        sessionStorage.F05 = "";
+        sessionStorage.F06 = "";
+        sessionStorage.F07 = "";
+        sessionStorage.F08 = "";
+        sessionStorage.F09 = "";
+        sessionStorage.F10 = "";
+        sessionStorage.F11 = "";
+        sessionStorage.F12 = "";
+        sessionStorage.F13 = "";
+        sessionStorage.F14 = "";
+        sessionStorage.F15 = "";
+        sessionStorage.F16 = "";
+        sessionStorage.F17 = "";
+        sessionStorage.F18 = "";
+        sessionStorage.F19 = "";
+        sessionStorage.F20 = "";
+        sessionStorage.CustEcoCode = "";
+        sessionStorage.CustMelliCode = "";
+        sessionStorage.CustTel = "";
+        sessionStorage.CustFax = "";
+        sessionStorage.CustMobile = "";
+        sessionStorage.CustEmail = "";
+        sessionStorage.CustCity = "";
+        sessionStorage.CustStreet = "";
+        sessionStorage.CustAlley = "";
+        sessionStorage.CustPlack = "";
+        sessionStorage.CustZipCode = "";
+        sessionStorage.CustAddress = "";
+        sessionStorage.CustOstan = "";
+        sessionStorage.CustShahrestan = "";
+        sessionStorage.CustRegion = "";
+        sessionStorage.VstrCode = "";
+        sessionStorage.VstrName = "";
+        window.location.href = sessionStorage.urlAddFDocH_New;
+    });
+
+
     self.DeleteFactor = function (factorBand) {
 
         if (TestUseSanad(ace, sal, "Factor", factorBand.SerialNumber, false, factorBand.DocNo) == true) {
@@ -2531,7 +2577,10 @@
             sessionStorage.Footer = item.Footer;
 
             sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
-            window.location.href = sessionStorage.urlAddFDocH;
+            //window.location.href = sessionStorage.urlAddFDocH;
+            window.location.href = sessionStorage.urlAddFDocH_New;
+
+
         }
     }
 
