@@ -200,67 +200,19 @@
         <div class="card" style="margin-top: 0px; margin-left: 10px;">
             <div class="body" style="padding-bottom: 10px;">
                 <div class="row">
-
-
-
-
-
-
-
-
-
-                    <div class="col-md" style="padding-top:10px;height:141px;overflow:auto;">
-
-
-                        <div id="gridAddminContainer"></div>
-                        <!--
-                         <div class="col-md-9" id="unitAddmin">
-                             <div style="height:135px;overflow:auto;border: 1px #ddd solid;">
-                                 <div class="table-responsive">
-                                     <table class="table table-addmin">
-                                         <thead>
-                                             <tr>
-                                                 <th style="background-color:#d9d9d9; color: black;padding: .3rem; width: 200px;" data-bind="text:translate('شرح')">
-
-                                                 </th>
-                                                 <th style="background-color:#d9d9d9; color: black;padding: .3rem;" data-bind="text:translate('مبلغ')">
-
-                                                 </th>
-                                                 <th style="background-color:#d9d9d9; color: black;padding: .3rem;"></th>
-                                                 <th style="background-color:#d9d9d9; color: black;padding: .3rem;" data-bind="text:translate('مبلغ موثر')">
-
-                                                 </th>
-                                             </tr>
-                                         </thead>
-
-                                         <tbody data-bind="foreach: AddMinList">
-                                             <tr>
-                                                 <td style="padding: 0px 10px;"><input data-bind="value: Name ,enable: !Auto ,  attr: {'id': 'AddMinSharh' + Code}" type="text" class="form-control" style="cursor: default; height: 2.4rem;" /> </td>
-                                                 <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(parseFloat(Math.abs(AddMinPrice)).toFixed(parseInt(sessionStorage.Deghat))) ,  enable: !Auto , event:{ change: $root.ChangeAddMinMablagh , focus: $root.FocusAddMinMablagh ,keydown : $root.mablaghAddminKeyDown  } , attr: {'id': 'AddMinMablagh' + Code , placeholder:translate('مبلغ را وارد کنید') }" type="text" class="form-control float" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /></td>
-                                                 <td style="padding: 0px 10px;" data-bind="text: Mode == 1 ? '-' : '+' ,attr: {'id': 'iconAddMin' + Code}"></td>
-                                                 <td style="padding: 0px 10px;"><input data-bind="value: NumberToNumberString(NumberToNumberString(parseFloat(MablaghMoaser).toFixed(parseInt(sessionStorage.Deghat)))) , enable: false , attr: {'id': 'AddMinMablaghMoaser' + Code , placeholder:translate('مبلغ را وارد کنید')}" type="text" class="form-control float" style="direction: ltr;text-align: right; cursor: default;  height: 2.4rem;" /> </td>
-                                             </tr>
-                                         </tbody>
-                                     </table>
-                                 </div>
-                             </div>
-                         </div>
-                        -->
-
-                    </div>
-
-
-
-
-
-
                     <a id="CalcAddmin">
-                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" class="icon" height="20" width="20">
+                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" class="icon" height="20" width="20" style="border: 1px solid black;width: 20px;margin-top: 10px;margin-left: 0px;">
                     </a>
 
+                    <div id="p_Addmin" class="col-md" style="margin-top: 10px;height:159px;overflow:auto; border: 1px solid #dddddd ;">
+                        <div id="gridAddminContainer"></div>
+                    </div>
 
+                    <div class="col-md-3">
+                        <textarea data-bind="attr:{placeholder:translate('زیر نویس')}" rows="9" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder="" style="margin-top: 10px"></textarea>
+                    </div>
 
-                    <div class="col-md-3 row">
+                    <div id="p_Sum" class="col-md-3 row">
                         <table style="margin-top: 10px;">
                             <tr style="border: #dddddd 1px solid;">
                                 <td>

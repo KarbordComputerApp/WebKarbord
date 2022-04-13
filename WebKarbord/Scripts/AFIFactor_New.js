@@ -24,7 +24,7 @@ var ViewModel = function () {
 
     if (sessionStorage.CHG == null) {
         sessionStorage.CHG = localStorage.getItem("CHG")
-        sessionStorage.KalaessPrint_Factor = localStorage.getItem("KalaessPrint_Factor")
+        sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
     }
 
     var resTestNew = false;
@@ -113,9 +113,9 @@ var ViewModel = function () {
     var flagdiscount = -1;
     var flagInsertFdoch = 0;
 
-    var KalaessTaeed = false;
-    var KalaessTasvib = false;
-    var KalaessCancel = false;
+    var accessTaeed = false;
+    var accessTasvib = false;
+    var accessCancel = false;
 
     var firstUpdateShow;
     self.flagupdateband = false;
@@ -127,7 +127,7 @@ var ViewModel = function () {
     var KalaList;
     var FDocB;
     var Addmin;
-    var KalaUnitList = [{ 'ID': 1, 'Name': 'a' }, { 'ID': 2, 'Name': 'b' }, { 'ID': 3, 'Name': 'c' }];
+    var KalaUnitList = [];// [{ 'ID': 1, 'Name': 'a' }, { 'ID': 2, 'Name': 'b' }, { 'ID': 3, 'Name': 'c' }];
     //var KalaUnitList = [{}];
     // var KalaUnitList = [{ 'Name': '1'}];
 
@@ -312,6 +312,7 @@ var ViewModel = function () {
 
     var FDocBSaveAllUri = server + '/api/AFI_FDocBi/SaveAllDocB/'; // آدرس ذخیره یند فاکتور 
 
+    var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -366,6 +367,26 @@ var ViewModel = function () {
     getMkzList();
 
 
+
+    //Get  UnitName List
+    function getUnitNameList() {
+        ajaxFunction(UnitNameUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+            KalaUnitList = data;
+        });
+    }
+
+    getUnitNameList();
+
+
+
+    function getUnit(codeKala) {
+        ajaxFunction(UnitUri + ace + '/' + sal + '/' + group + '/' + codeKala, 'GET').done(function (data) {
+            KalaUnitList = data;
+        });
+    }
+
+
+
     //Get  Vstr List
     function getVstrList() {
         ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
@@ -389,6 +410,12 @@ var ViewModel = function () {
             KalaList = data;
         });
     }
+
+
+
+    // usage example:
+    var a = ['a', 1, 'a', 2, '1'];
+
 
     getKalaList();
 
@@ -484,17 +511,17 @@ var ViewModel = function () {
 
     $("#status").change(function () {
         selectStatus = $("#status").val();
-        if (KalaessTaeed == false && selectStatus == translate('تایید')) {
+        if (accessTaeed == false && selectStatus == translate('تایید')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی تایید ندارید'), 0);
         }
 
-        if (KalaessCancel == false && selectStatus == translate('باطل')) {
+        if (accessCancel == false && selectStatus == translate('باطل')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی باطل ندارید'), 0);
         }
 
-        if (KalaessTasvib == false && selectStatus == translate('تصویب')) {
+        if (accessTasvib == false && selectStatus == translate('تصویب')) {
             $("#status").val(lastStatus);
             return showNotification(translate('دسترسی تصویب ندارید'), 0);
         }
@@ -700,6 +727,248 @@ var ViewModel = function () {
 
 
 
+
+
+    function CheckAccess() {
+
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SFORD") == 'true';// sessionStorage.Access_SHOWPRICE_SFORD == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SFORD") == 'true';//sessionStorage.Access_TAEED_SFORD == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SFORD") == 'true';//sessionStorage.Access_TASVIB_SFORD == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SFORD") == 'true';//sessionStorage.Access_CANCEL_SFORD == 'true'
+
+            if (localStorage.getItem("AccessViewSefareshForosh") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SPDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SPDOC") == 'true';//sessionStorage.Access_TAEED_SPDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SPDOC") == 'true';//sessionStorage.Access_TASVIB_SPDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SPDOC") == 'true';//sessionStorage.Access_CANCEL_SPDOC == 'true'
+
+            if (localStorage.getItem("AccessViewPishFactorForosh") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SFDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SFDOC") == 'true';//sessionStorage.Access_TAEED_SFDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SFDOC") == 'true';//sessionStorage.Access_TASVIB_SFDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SFDOC") == 'true';//sessionStorage.Access_CANCEL_SFDOC == 'true'
+
+            if (localStorage.getItem("AccessViewFactorForosh") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_SRDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_SRDOC") == 'true';//sessionStorage.Access_TAEED_SRDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SRDOC") == 'true';//sessionStorage.Access_TASVIB_SRDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SRDOC") == 'true';//sessionStorage.Access_CANCEL_SRDOC == 'true'
+
+            if (localStorage.getItem("AccessViewBackFactorForosh") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
+
+            accessTaeed = localStorage.getItem("Access_TAEED_SHVL") == 'true';//sessionStorage.Access_TAEED_SHVL == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SHVL") == 'true';//sessionStorage.Access_TASVIB_SHVL == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SHVL") == 'true';//sessionStorage.Access_CANCEL_SHVL == 'true'
+
+            if (localStorage.getItem("AccessViewHavaleForosh") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
+
+            accessTaeed = localStorage.getItem("Access_TAEED_SEXT") == 'true';//sessionStorage.Access_TAEED_SEXT == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_SEXT") == 'true';//sessionStorage.Access_TASVIB_SEXT == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_SEXT") == 'true';//sessionStorage.Access_CANCEL_SEXT == 'true'
+
+            if (localStorage.getItem("AccessViewBargeKhoroj") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PFORD") == 'true';//sessionStorage.Access_SHOWPRICE_PFORD == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PFORD") == 'true';//sessionStorage.Access_TAEED_PFORD == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PFORD") == 'true';//sessionStorage.Access_TASVIB_PFORD == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PFORD") == 'true';//sessionStorage.Access_CANCEL_PFORD == 'true'
+
+            if (localStorage.getItem("AccessViewSefareshKharid") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PPDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PPDOC") == 'true';//sessionStorage.Access_TAEED_PPDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PPDOC") == 'true';//sessionStorage.Access_TASVIB_PPDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PPDOC") == 'true';//sessionStorage.Access_CANCEL_PPDOC == 'true'
+
+            if (localStorage.getItem("AccessViewPishFactorKharid") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+
+
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PFDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PFDOC") == 'true';//sessionStorage.Access_TAEED_PFDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PFDOC") == 'true';//sessionStorage.Access_TASVIB_PFDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PFDOC") == 'true';//sessionStorage.Access_CANCEL_PFDOC == 'true'
+
+            if (localStorage.getItem("AccessViewFactorKharid") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+
+            showPrice = localStorage.getItem("Access_SHOWPRICE_PRDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
+            accessTaeed = localStorage.getItem("Access_TAEED_PRDOC") == 'true';//sessionStorage.Access_TAEED_PRDOC == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_PRDOC") == 'true';//sessionStorage.Access_TASVIB_PRDOC == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_PRDOC") == 'true';//sessionStorage.Access_CANCEL_PRDOC == 'true'
+
+            if (localStorage.getItem("AccessViewBackFactorKharid") == 'true') {
+                viewAction = true;
+            }
+            else {
+                if (sessionStorage.Eghdam == sessionStorage.userName) {
+                    viewAction = true;
+                }
+            }
+        }
+
+
+        if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveFactor == "false" && flagupdateHeader == 1) {
+            viewAction = false;
+        } else {
+            sessionStorage.BeforeMoveFactor = false;
+        }
+
+        if (accessTaeed == false && sessionStorage.Status == translate('تایید'))
+            viewAction = false;
+
+        if (accessTasvib == false && sessionStorage.Status == translate('تصویب'))
+            viewAction = false;
+
+        if (accessCancel == false && sessionStorage.Status == translate('باطل'))
+            viewAction = false;
+
+
+        if (viewAction) {
+            $('#action_headerfactor').removeAttr('style');
+            $('#action_bodyfactor').removeAttr('style');
+            $('#action_footerfactor').removeAttr('style');
+            $('#action_Fdoc').removeAttr('style');
+            $('#btnCust').removeAttr('style');
+            $('#insertband').removeAttr('style');
+            $('#Barcode').removeAttr('style');
+            $('#btnMkz').removeAttr('style');
+            $('#btnVstr').removeAttr('style');
+            $('#btnOpr').removeAttr('style');
+            $('#gGhimat').attr('disabled', false);
+            $('#inv').attr('disabled', false);
+        }
+    }
+
+    CheckAccess();
+
+
+    if (showPrice) {
+        $('#unitPriceShow').show();
+        $('#totalPriceShow').show();
+        $('#unitdiscount').show();
+        $('#unitAddmin').show();
+        $('#unitSumPrice').show();
+        $('#ViewGGhimat').show();
+        $('#thUnitPrice').removeAttr('hidden', '');
+        $('#thTotalPrice').removeAttr('hidden', '');
+        $('#thDiscount').removeAttr('hidden', '');
+        $('#tdUnitPrice').removeAttr('hidden', '');
+        $('#tdTotalPrice').removeAttr('hidden', '');
+        $('#tdDiscount').removeAttr('hidden', '');
+        $('#foottextUnitPrice').removeAttr('hidden', '');
+        $('#foottexttotalprice').removeAttr('hidden', '');
+        $('#foottextdiscount').removeAttr('hidden', '');
+    }
+    else {
+        $('#unitPriceShow').hide();
+        $('#totalPriceShow').hide();
+        $('#unitdiscount').hide();
+        $('#unitAddmin').hide();
+        $('#unitSumPrice').hide();
+        $('#ViewGGhimat').hide();
+        $('#thUnitPrice').attr('hidden', '');
+        $('#thTotalPrice').attr('hidden', '');
+        $('#thDiscount').attr('hidden', '');
+        $('#tdUnitPrice').attr('hidden', '');
+        $('#tdTotalPrice').attr('hidden', '');
+        $('#tdDiscount').attr('hidden', '');
+        $('#foottextUnitPrice').attr('hidden', '');
+        $('#foottexttotalprice').attr('hidden', '');
+        $('#foottextdiscount').attr('hidden', '');
+    }
+
+
+
+
     if (flagupdateHeader == 1) {
 
         flagInsertFdoch = 1;
@@ -712,6 +981,8 @@ var ViewModel = function () {
             $('#tarikh').change();
         });
         self.Spec(sessionStorage.Spec);
+        footer
+        $("#footer").val(sessionStorage.Footer);
         codeCust = sessionStorage.CustCode;
         self.CustCode(sessionStorage.CustCode);
         self.PriceCode(sessionStorage.PriceCode);
@@ -821,8 +1092,8 @@ var ViewModel = function () {
         // $("#SumBedehkar").val(0);
         //$("#SumBestankar").val(0);
         //$("#TafavotSanad").val(0);
-
-        getAddMinList(sessionStorage.sels, -1, 0, 0,false,
+        $("#footer").val('');
+        getAddMinList(sessionStorage.sels, -1, 0, 0, false,
             '', '', '', '', '', '', '', '', '', ''
             , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         );
@@ -832,7 +1103,7 @@ var ViewModel = function () {
                 KalaCode: '',
                 KalaName: '',
                 MainUnit: 0,
-                //MainUnitName: '',
+                MainUnitName: '',
                 BandSpec: '',
                 Amount1: 0,
                 Amount2: 0,
@@ -888,23 +1159,43 @@ var ViewModel = function () {
 
 
     function GetRprtCols_NewList() {
-
+        //showPrice = false;
         cols = getRprtCols(rprtId, sessionStorage.userName);
-        cols = cols.filter(s =>
-            s.Code == 'BandNo' ||
-            s.Code == 'KalaCode' ||
-            s.Code == 'KalaName' ||
-            s.Code == 'MainUnit' ||
-            //s.Code == 'MainUnitName' ||
-            s.Code == 'BandSpec' ||
-            s.Code == 'Amount1' ||
-            s.Code == 'Amount2' ||
-            s.Code == 'Amount3' ||
-            s.Code == 'Comm' ||
-            s.Code == 'UnitPrice' ||
-            s.Code == 'TotalPrice' ||
-            s.Code == 'Discount'
-        );
+        if (showPrice) {
+            cols = cols.filter(s =>
+                s.Code == 'BandNo' ||
+                s.Code == 'KalaCode' ||
+                s.Code == 'KalaName' ||
+                //s.Code == 'MainUnit' ||
+                s.Code == 'MainUnitName' ||
+                s.Code == 'BandSpec' ||
+                s.Code == 'Amount1' ||
+                s.Code == 'Amount2' ||
+                s.Code == 'Amount3' ||
+                s.Code == 'Comm' ||
+                s.Code == 'UnitPrice' ||
+                s.Code == 'TotalPrice' ||
+                s.Code == 'Discount'
+            );
+        }
+        else {
+            $("#p_Sum").hide();
+            $("#p_Addmin").hide();
+
+
+            cols = cols.filter(s =>
+                s.Code == 'BandNo' ||
+                s.Code == 'KalaCode' ||
+                s.Code == 'KalaName' ||
+                //s.Code == 'MainUnit' ||
+                s.Code == 'MainUnitName' ||
+                s.Code == 'BandSpec' ||
+                s.Code == 'Amount1' ||
+                s.Code == 'Amount2' ||
+                s.Code == 'Amount3' ||
+                s.Code == 'Comm'
+            );
+        }
 
         orderProp = 'Position';
         cols.sort(function (left, right) {
@@ -918,7 +1209,8 @@ var ViewModel = function () {
                 if (
                     cols[i].Code == 'KalaCode' ||
                     cols[i].Code == 'KalaName' ||
-                    cols[i].Code == 'MainUnit' ||
+                    //cols[i].Code == 'MainUnit' ||
+                    cols[i].Code == 'MainUnitName' ||
                     cols[i].Code == 'Comm' ||
                     cols[i].Code == 'Amount1' ||
                     cols[i].Code == 'UnitPrice' ||
@@ -964,9 +1256,9 @@ var ViewModel = function () {
                     '"editCellTemplate": "dropDownBoxEditorName"'
             }
 
-            else if (data[i].Code == "MainUnit") {
+            else if (data[i].Code == "MainUnitName") {
                 f +=
-                    ',"lookup": {"dataSource": "KalaUnitList", "valueExpr": "ID", "displayExpr": "Name"}';
+                    ',"lookup": {"dataSource": "KalaUnitList", "valueExpr": "Name", "displayExpr": "Name"}';
             }
 
             // else if (data[i].Code == "Amount1") {
@@ -1078,51 +1370,64 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = KalaList;
             }
 
-            if (cols[i].dataField == 'MainUnit') {
-
-
-                //cols[i].editCellTemplate = dropDownBoxEditorUnitName;
-
-                cols[i].setCellValue = SelectedMainUnit;
-
-                cols[i].lookup = {
-                    /* dataSource: {
-                         store: {
-                             type: 'array',
-                             data: [
-                                 { id: 1, name: 'Not Started' },
-                                 { id: 2, name: 'Need Assistance' },
-                                 { id: 3, name: 'In Progress' },
-                                 // ...
-                             ],
-                             key: "id"
-                         },
-                         pageSize: 10,
-                         paginate: true
-                     },
-                     valueExpr: 'id', // contains the same values as the "statusId" field provides
-                     displayExpr: 'name'
-               */
-
-                    dataSource(options) {
-                        //return KalaUnitList 
-                        if (options.data != null) {
-                            if (options.data.dataKala != null)
-                                KalaUnitList = [{ 'ID': 1, 'Name': options.data.dataKala.UnitName1 }, { 'ID': 2, 'Name': options.data.dataKala.UnitName2 }, { 'ID': 3, 'Name': options.data.dataKala.UnitName3 }];
-                            else
-                                KalaUnitList = [{}];
-
-                        }
-                        //  else
-                        //      data = [];
-                        return KalaUnitList;
-                    },
-                    valueExpr: 'ID', // contains the same values as the "statusId" field provides
-                    displayExpr: 'Name',
-                    cacheRawData: false
-                }
-
+            if (cols[i].dataField == 'MainUnitName') {
+                cols[i].editCellTemplate = dropDownBoxEditorUnitName;
+                cols[i].lookup.dataSource = KalaUnitList;
             }
+
+            /* if (cols[i].dataField == 'MainUnit') {
+ 
+ 
+                 //cols[i].editCellTemplate = dropDownBoxEditorUnitName;
+ 
+                 cols[i].setCellValue = SelectedMainUnit;
+ 
+                 cols[i].lookup = {
+                      dataSource: {
+                          store: {
+                              type: 'array',
+                              data: [
+                                  { id: 1, name: 'Not Started' },
+                                  { id: 2, name: 'Need Assistance' },
+                                  { id: 3, name: 'In Progress' },
+                                  // ...
+                              ],
+                              key: "id"
+                          },
+                          pageSize: 10,
+                          paginate: true
+                      },
+                      valueExpr: 'id', // contains the same values as the "statusId" field provides
+                      displayExpr: 'name'
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                     dataSource(options) {
+                         //return KalaUnitList 
+                         if (options.data != null) {
+                             if (options.data.dataKala != null)
+                                 KalaUnitList = [{ 'ID': 1, 'Name': options.data.dataKala.UnitName1 }, { 'ID': 2, 'Name': options.data.dataKala.UnitName2 }, { 'ID': 3, 'Name': options.data.dataKala.UnitName3 }];
+                             else
+                                 KalaUnitList = [{}];
+ 
+                         }
+                         //  else
+                         //      data = [];
+                         return KalaUnitList;
+                     },
+                     valueExpr: 'ID', // contains the same values as the "statusId" field provides
+                     displayExpr: 'Name',
+                     cacheRawData: false
+                 }
+ 
+             }*/
 
 
             if (cols[i].dataField == 'Amount1') {
@@ -1153,14 +1458,7 @@ var ViewModel = function () {
             columnChooser: {
                 enabled: true,
             },
-
-            onOptionChanged: function (e) {
-                if (e.fullName.includes("column")) {
-                    changeColumn = true;
-                }
-            },
-
-
+            
             keyboardNavigation: {
                 enterKeyAction: 'moveFocus',
                 enterKeyDirection: 'row',
@@ -1340,7 +1638,7 @@ var ViewModel = function () {
                                     return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
                                 getFDocP(Serial);
                                 createViewer();
-                                
+
                                 if (self.FDocPList().length == 0)
                                     return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست'), 0);
 
@@ -1394,7 +1692,7 @@ var ViewModel = function () {
                             onClick() {
                                 Swal.fire({
                                     title: '',
-                                    text: textFactor + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"), 
+                                    text: textFactor + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
                                     type: 'warning',
                                     showCancelButton: true,
                                     cancelButtonColor: '#3085d6',
@@ -1427,7 +1725,7 @@ var ViewModel = function () {
                                                 KalaCode: '',
                                                 KalaName: '',
                                                 MainUnit: 0,
-                                                //MainUnitName: '',
+                                                MainUnitName: '',
                                                 BandSpec: '',
                                                 Amount1: 0,
                                                 Amount2: 0,
@@ -1450,7 +1748,7 @@ var ViewModel = function () {
 
 
 
-                                       
+
                                         closedDate = false;
                                         codeCust = '';
                                         sessionStorage.flagupdateHeader = 0;
@@ -1459,12 +1757,13 @@ var ViewModel = function () {
                                         $("#status").val(translate('موقت'));
                                         sessionStorage.Status = translate('موقت');
                                         $("#paymenttype").val(0);
+                                        $("#footer").val('');
                                         sessionStorage.Eghdam = sessionStorage.userName;
                                         discountCol = 0;
-                                       
-                                       
-                                       
-                                       
+
+
+
+
                                         kalapricecode = 0;
                                         flagFinalSave = false;
                                         flag = -1;
@@ -1536,7 +1835,7 @@ var ViewModel = function () {
                                         $("#ExtraFields18").val("");
                                         $("#ExtraFields19").val("");
                                         $("#ExtraFields20").val("");
-                                        //$(this).CheckAccess();
+                                        CheckAccess();
                                     }
                                 })
                             },
@@ -1551,23 +1850,32 @@ var ViewModel = function () {
                         item.visible = false;
                     }
 
-                    /*if (viewAction == false && (item.name == "save" || item.name == "revertButton" || item.name == "addRow")) {
+                    if (viewAction == false && (item.name == "save" || item.name == "revertButton" || item.name == "addRow")) {
                         item.visible = false;
                     }
- 
- 
-                    if (sessionStorage.NEW_FDoc == "false" && item.name == "AddNewSanad")
+
+                    if (sessionStorage.newFactor == "false" && item.name == "AddNewSanad")
                         item.visible = false;
- 
- 
-                    if (localStorage.getItem("KalaessPrint_SanadHesab") == "false" && item.name == "print") {
+
+                    if (sessionStorage.AccessPrint_Factor == "false" && item.name == "print") {
                         item.visible = false;
-                    }*/
+                    }
 
                 });
 
 
             },
+
+            onOptionChanged: function (e) {
+                if (e.fullName.includes("column")) {
+                    changeColumn = true;
+                }
+
+                if (e.fullName.endsWith("ortOrder")) {
+                    alert(e.fullName + ': ' + e.value);
+                }
+            },
+
 
 
 
@@ -1606,7 +1914,7 @@ var ViewModel = function () {
                             FDocB[ro].Amount3 = args.value;
                         dataGrid.saveEditData();
                         dataGrid.refresh();
-                       
+
                         CalcAmount(e.row.rowIndex, e.dataField);
                         CalcFactor();
                     }
@@ -1648,6 +1956,21 @@ var ViewModel = function () {
                 }
 
 
+
+                /*if (e.parentType == 'dataRow' && e.dataField == 'MainUnitName') {
+                    ro = e.row.rowIndex;
+
+                    KalaUnitList = KalaUnitList.filter(s => s.UnitName == FDocB[ro].dataKala.UnitName1);
+                   // dataGrid.refresh();
+                    e.editorOptions.onValueChanged = function (args) {
+                        
+                        CalcFactor();
+                        dataGrid.saveEditData();
+                        dataGrid.refresh();
+                    }
+                }*/
+
+
             }
 
         }).dxDataGrid('instance');
@@ -1667,7 +1990,7 @@ var ViewModel = function () {
             sumDiscount = sumDiscount + discount;
             sumTotalPrice = sumTotalPrice + totalPrice;
         }
-        sumFactor = sumTotalPrice - sumDiscount; 
+        sumFactor = sumTotalPrice - sumDiscount;
         $("#sumFactor").text(NumberToNumberString(sumTotalPrice - sumDiscount));
     }
 
@@ -1790,6 +2113,28 @@ var ViewModel = function () {
             },
 
             onEditorPreparing: function (e) {
+
+
+                if (e.parentType == 'dataRow' && e.dataField == 'Amount1' || e.dataField == 'Amount2' || e.dataField == 'Amount3') {
+                    e.editorOptions.onValueChanged = function (args) {
+                        ro = e.row.rowIndex;
+
+                        if (e.dataField == 'Amount1')
+                            FDocB[ro].Amount1 = args.value;
+                        else if (e.dataField == 'Amount2')
+                            FDocB[ro].Amount2 = args.value;
+                        else if (e.dataField == 'Amount3')
+                            FDocB[ro].Amount3 = args.value;
+                        dataGrid.saveEditData();
+                        dataGrid.refresh();
+
+                        CalcAmount(e.row.rowIndex, e.dataField);
+                        CalcFactor();
+                    }
+                }
+
+
+
                 /* if (e.parentType == 'dataRow' && e.dataField == 'TotalPrice') {
                      e.editorOptions.onValueChanged = function (args) {
                          ro = e.row.rowIndex;
@@ -1908,7 +2253,7 @@ var ViewModel = function () {
             obj.push(tmp);
         }
 
-        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj).done(function (response) {
+        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj, false).done(function (response) {
 
             getAddMinList(sessionStorage.sels, Serial_Test, codeCust, 0, false,
                 FDocHObject.AddMinSpec1,
@@ -2237,27 +2582,27 @@ var ViewModel = function () {
             obj.push(tmp);
         }
 
-        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj).done(function (response) {
+        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj, false).done(function (response) {
 
         });
 
-         var TestFDocObject = {
-             SerialNumber: Serial_Test,
-             flagTest: 'Y'
-         };
- 
-         ajaxFunction(TestFDocUri + ace + '/' + sal + '/' + group, 'POST', TestFDocObject).done(function (data) {
-             var obj = JSON.parse(data);
-             TestFDocList = obj;
-             if (data.length > 2) {
-                 $('#data-error').show();
-                 $('#data-grid').addClass('col-md-6');
-                 //$('#modal-FinalSave').modal('show');
-                 SetDataTestDocB();
-             } else {
-                 SaveSanad();
-             }
-         });
+        var TestFDocObject = {
+            SerialNumber: Serial_Test,
+            flagTest: 'Y'
+        };
+
+        ajaxFunction(TestFDocUri + ace + '/' + sal + '/' + group, 'POST', TestFDocObject).done(function (data) {
+            var obj = JSON.parse(data);
+            TestFDocList = obj;
+            if (data.length > 2) {
+                $('#data-error').show();
+                $('#data-grid').addClass('col-md-6');
+                //$('#modal-FinalSave').modal('show');
+                SetDataTestDocB();
+            } else {
+                SaveSanad();
+            }
+        });
     }
 
 
@@ -2456,7 +2801,7 @@ var ViewModel = function () {
                 var res = response.split("@");
                 Serial = res[0];
                 DocNoOut = res[1];
-                $('#docnoout').text(DocNoOut);
+                $('#docnoout').val(DocNoOut);
                 flaglog = 'N';
                 if (flagSaveLogWin == false) {
                     SaveLog('Fct5', EditMode_New, LogMode_FDoc, 0, DocNoOut, Serial);
@@ -2509,7 +2854,7 @@ var ViewModel = function () {
                 Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
                 Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
                 PaymentType: $("#paymenttype").val(),
-                Footer: "",// $("#footer").val(),
+                Footer: $("#footer").val(),
                 deghat: parseInt(sessionStorage.Deghat),
                 F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
                 F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
@@ -2579,7 +2924,7 @@ var ViewModel = function () {
             obj.push(tmp);
         }
 
-        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj).done(function (response) {
+        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj, false).done(function (response) {
             showNotification(translate('سند ذخیره شد'), 1);
         });
     }
@@ -2719,6 +3064,12 @@ var ViewModel = function () {
 
 
 
+
+
+
+
+
+
     setInterval(SaveColumnSanad, 3000);
     function SaveColumnSanad() {
         if (changeColumn == true) {
@@ -2834,19 +3185,20 @@ var ViewModel = function () {
                                 // KalaUnitList = [{ 'Name': '1'}];
                                 //temp = [];
 
-                                KalaUnitList = [];
-                                if (FDocB[ro].dataKala.UnitName1 != '')
-                                    KalaUnitList.push({ 'ID': 1, 'Name': FDocB[ro].dataKala.UnitName1 });
-
-                                if (FDocB[ro].dataKala.UnitName1 != '')
-                                    KalaUnitList.push({ 'ID': 2, 'Name': FDocB[ro].dataKala.UnitName2 });
-
-                                if (FDocB[ro].dataKala.UnitName1 != '')
-                                    KalaUnitList.push({ 'ID': 3, 'Name': FDocB[ro].dataKala.UnitName3 });
-
+                                /*  KalaUnitList = [];
+                                  if (FDocB[ro].dataKala.UnitName1 != '')
+                                      KalaUnitList.push({ 'ID': 1, 'Name': FDocB[ro].dataKala.UnitName1 });
+  
+                                  if (FDocB[ro].dataKala.UnitName1 != '')
+                                      KalaUnitList.push({ 'ID': 2, 'Name': FDocB[ro].dataKala.UnitName2 });
+  
+                                  if (FDocB[ro].dataKala.UnitName1 != '')
+                                      KalaUnitList.push({ 'ID': 3, 'Name': FDocB[ro].dataKala.UnitName3 });
+                                      */
 
                                 dataKala = selectionChangedArgs.selectedRowsData[0];
-                                dataGrid.cellValue(ro, "MainUnit", dataKala.DefaultUnit);
+                                FDocB[ro].MainUnit = dataKala.DefaultUnit
+                                dataGrid.cellValue(ro, "MainUnitName", dataKala.DefaultUnit == 1 ? FDocB[ro].dataKala.UnitName1 : dataKala.DefaultUnit == 2 ? FDocB[ro].dataKala.UnitName2 : FDocB[ro].dataKala.UnitName3);
 
                                 defaultUnit = dataKala.DefaultUnit;
 
@@ -2950,7 +3302,11 @@ var ViewModel = function () {
     }
 
 
-    /*function dropDownBoxEditorUnitName(cellElement, cellInfo) {
+
+
+
+    function dropDownBoxEditorUnitName(cellElement, cellInfo) {
+        getUnit(FDocB[ro].dataKala.Code);
         return $('<div>').dxDropDownBox({
             dropDownOptions: { width: 500 },
             dataSource: KalaUnitList,
@@ -2968,7 +3324,7 @@ var ViewModel = function () {
                         applyFilter: 'auto',
                     },
                     columns: [
-                        { dataField: 'Name', caption: "نام" },
+                        { dataField: 'Code', caption: "کد", sortOrder: "asc" }, { dataField: 'Name', caption: "واحد" },
                     ],
                     hoverStateEnabled: true,
                     scrolling: { mode: 'virtual' },
@@ -2984,10 +3340,8 @@ var ViewModel = function () {
                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                dataGrid.cellValue(ro, "KalaCode", selectionChangedArgs.selectedRowsData[0].Code);
-                                const visibleRows = dataGrid.getVisibleRows();
-                                visibleRows[ro].data.dataKala = selectionChangedArgs.selectedRowsData[0];
-                                FDocB[ro].dataKala = selectionChangedArgs.selectedRowsData[0];
+                                //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                FDocB[ro].MainUnit = selectionChangedArgs.selectedRowsData[0].Code;
                                 e.component.close();
                             }
                         }
@@ -2996,7 +3350,14 @@ var ViewModel = function () {
             },
         });
     }
-    */
+
+
+    function FilterUnitName(dataKala) {
+        if (dataKala != null) {
+            return ["UnitName", "=", dataKala.UnitName1]
+        }
+    }
+
 
 
 
@@ -3905,6 +4266,8 @@ var ViewModel = function () {
          }
  
      })*/
+
+
 
 
 };

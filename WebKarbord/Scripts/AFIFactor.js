@@ -4021,7 +4021,6 @@
         }
     });
 
-
     if (showPrice) {
         $('#unitPriceShow').show();
         $('#totalPriceShow').show();
