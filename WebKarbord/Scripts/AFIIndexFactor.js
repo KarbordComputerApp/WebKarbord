@@ -1384,7 +1384,7 @@
         self.filterCustOstan(listFilter[47]);
         self.filterCustShahrestan(listFilter[48]);
         self.filterCustRegion(listFilter[49]);
-        self.filterVatrName(listFilter[50]);
+        self.filterVstrName(listFilter[50]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -2791,7 +2791,7 @@
 
                 sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
 
-                window.location.href = sessionStorage.urlAddFDocH;
+                window.location.href = sessionStorage.urlAddFDocH_New;
             }
         });
     }

@@ -289,6 +289,8 @@ var ViewModel = function () {
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
     var AddMinUri = server + '/api/Web_Data/AddMin/'; // آدرس کسورات و افزایشات 
+    var TashimBandUri = server + '/api/Web_Data/TashimBand/'; // آدرس تسهیم بند 
+
     var PaymentUri = server + '/api/Web_Data/Payment/'; // آدرس نحوه پرداخت 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
 
@@ -626,6 +628,42 @@ var ViewModel = function () {
         });
     }
 
+
+
+    //Get TashimBand List
+    function TashimBand() {
+
+
+        var CalcTashimBandObject = {
+            ForSale: sessionStorage.sels,
+            SerialNumber: Serial_Test,
+            Deghat: sessionStorage.Deghat,
+            MP1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
+            MP2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
+            MP3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
+            MP4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
+            MP5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
+            MP6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
+            MP7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
+            MP8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
+            MP9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
+            MP10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
+            /*
+                        MP2: Addmin[1].AddMinPrice == null ? 0 : Addmin[1].AddMinPrice,
+                        MP3: Addmin[2].AddMinPrice == null ? 0 : Addmin[2].AddMinPrice,
+                        MP4: Addmin[3].AddMinPrice == null ? 0 : Addmin[3].AddMinPrice,
+                        MP5: Addmin[4].AddMinPrice == null ? 0 : Addmin[4].AddMinPrice,
+                        MP6: Addmin[5].AddMinPrice == null ? 0 : Addmin[5].AddMinPrice,
+                        MP7: Addmin[6].AddMinPrice == null ? 0 : Addmin[6].AddMinPrice,
+                        MP8: Addmin[7].AddMinPrice == null ? 0 : Addmin[7].AddMinPrice,
+                        MP9: Addmin[8].AddMinPrice == null ? 0 : Addmin[8].AddMinPrice,
+                        MP10: Addmin[9].AddMinPrice == null ? 0 : Addmin[9].AddMinPrice*/
+        };
+
+        ajaxFunction(TashimBandUri + ace + '/' + sal + '/' + group, 'POST', CalcTashimBandObject).done(function (data) {
+
+        });
+    }
 
 
 
@@ -1458,7 +1496,7 @@ var ViewModel = function () {
             columnChooser: {
                 enabled: true,
             },
-            
+
             keyboardNavigation: {
                 enterKeyAction: 'moveFocus',
                 enterKeyDirection: 'row',
@@ -1897,11 +1935,26 @@ var ViewModel = function () {
                         visibleRows[e.rowIndex].data.dataKala = visibleRows[e.rowIndex].data.dataKala;
                     }
                 }
+                
+                if (e.rowType === "data" && e.column.dataField === "TotalPrice" ) {
+                    ro = e.row.rowIndex;
+                    if (FDocB[ro].UP_Flag == true) {
+                        e.cellElement.css("background-color", '#fdf9b0');
+                    }
+                }
+
+                if (e.rowType === "data" && e.column.dataField === "UnitPrice") {
+                    ro = e.row.rowIndex;
+                    if (FDocB[ro].UP_Flag == false) {
+                        e.cellElement.css("background-color", '#fdf9b0');
+                    }
+                }
 
             },
 
             onEditorPreparing: function (e) {
                 dataField = e.dataField;
+
                 if (e.parentType == 'dataRow' && e.dataField == 'Amount1' || e.dataField == 'Amount2' || e.dataField == 'Amount3') {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
@@ -2100,53 +2153,6 @@ var ViewModel = function () {
             onValueChanged: function (e) {
             },
 
-            onCellPrepared: function (e) {
-
-                /* if (e.rowType === "data" && e.column.dataField === "KalaCode" && Serial > 0) {
-                     const visibleRows = dataGrid.getVisibleRows();
-                     if (visibleRows[e.rowIndex].data.dataKala == null) {
-                         dataKala = KalaList.filter(s => s.Code == visibleRows[e.rowIndex].data.KalaCode);
-                         visibleRows[e.rowIndex].data.dataKala = visibleRows[e.rowIndex].data.dataKala;
-                     }
-                 }*/
-
-            },
-
-            onEditorPreparing: function (e) {
-
-
-                if (e.parentType == 'dataRow' && e.dataField == 'Amount1' || e.dataField == 'Amount2' || e.dataField == 'Amount3') {
-                    e.editorOptions.onValueChanged = function (args) {
-                        ro = e.row.rowIndex;
-
-                        if (e.dataField == 'Amount1')
-                            FDocB[ro].Amount1 = args.value;
-                        else if (e.dataField == 'Amount2')
-                            FDocB[ro].Amount2 = args.value;
-                        else if (e.dataField == 'Amount3')
-                            FDocB[ro].Amount3 = args.value;
-                        dataGrid.saveEditData();
-                        dataGrid.refresh();
-
-                        CalcAmount(e.row.rowIndex, e.dataField);
-                        CalcFactor();
-                    }
-                }
-
-
-
-                /* if (e.parentType == 'dataRow' && e.dataField == 'TotalPrice') {
-                     e.editorOptions.onValueChanged = function (args) {
-                         ro = e.row.rowIndex;
-                         FDocB[ro].UP_Flag = false;
-                         FDocB[ro].TotalPrice = args.value;
-                         CalcPrice(ro);
- 
-                         dataGrid.saveEditData();
-                         dataGrid.refresh();
-                     }
-                 }*/
-            }
 
         }).dxDataGrid('instance');
     }
@@ -2278,6 +2284,7 @@ var ViewModel = function () {
                 FDocHObject.AddMinPrice9,
                 FDocHObject.AddMinPrice10
             );
+
         });
     }
 
@@ -2594,6 +2601,7 @@ var ViewModel = function () {
         ajaxFunction(TestFDocUri + ace + '/' + sal + '/' + group, 'POST', TestFDocObject).done(function (data) {
             var obj = JSON.parse(data);
             TestFDocList = obj;
+            TashimBand();
             if (data.length > 2) {
                 $('#data-error').show();
                 $('#data-grid').addClass('col-md-6');
