@@ -313,6 +313,7 @@ var ViewModel = function () {
 
 
     var FDocBSaveAllUri = server + '/api/AFI_FDocBi/SaveAllDocB/'; // آدرس ذخیره یند فاکتور 
+    var FDocBConvertUri = server + '/api/AFI_FDocBi/Convert/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
 
@@ -638,26 +639,16 @@ var ViewModel = function () {
             ForSale: sessionStorage.sels,
             SerialNumber: Serial_Test,
             Deghat: sessionStorage.Deghat,
-            MP1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
-            MP2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
-            MP3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
-            MP4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
-            MP5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
-            MP6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
-            MP7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
-            MP8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
-            MP9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
-            MP10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
-            /*
-                        MP2: Addmin[1].AddMinPrice == null ? 0 : Addmin[1].AddMinPrice,
-                        MP3: Addmin[2].AddMinPrice == null ? 0 : Addmin[2].AddMinPrice,
-                        MP4: Addmin[3].AddMinPrice == null ? 0 : Addmin[3].AddMinPrice,
-                        MP5: Addmin[4].AddMinPrice == null ? 0 : Addmin[4].AddMinPrice,
-                        MP6: Addmin[5].AddMinPrice == null ? 0 : Addmin[5].AddMinPrice,
-                        MP7: Addmin[6].AddMinPrice == null ? 0 : Addmin[6].AddMinPrice,
-                        MP8: Addmin[7].AddMinPrice == null ? 0 : Addmin[7].AddMinPrice,
-                        MP9: Addmin[8].AddMinPrice == null ? 0 : Addmin[8].AddMinPrice,
-                        MP10: Addmin[9].AddMinPrice == null ? 0 : Addmin[9].AddMinPrice*/
+            MP1: Addmin.length >= 1 ? Addmin[0].Mode == '-' ? Addmin[0].AddMinPrice * -1 : Addmin[0].AddMinPrice : 0,
+            MP2: Addmin.length >= 2 ? Addmin[1].Mode == '-' ? Addmin[1].AddMinPrice * -1 : Addmin[1].AddMinPrice : 0,
+            MP3: Addmin.length >= 3 ? Addmin[2].Mode == '-' ? Addmin[2].AddMinPrice * -1 : Addmin[2].AddMinPrice : 0,
+            MP4: Addmin.length >= 4 ? Addmin[3].Mode == '-' ? Addmin[3].AddMinPrice * -1 : Addmin[3].AddMinPrice : 0,
+            MP5: Addmin.length >= 5 ? Addmin[4].Mode == '-' ? Addmin[4].AddMinPrice * -1 : Addmin[4].AddMinPrice : 0,
+            MP6: Addmin.length >= 6 ? Addmin[5].Mode == '-' ? Addmin[5].AddMinPrice * -1 : Addmin[5].AddMinPrice : 0,
+            MP7: Addmin.length >= 7 ? Addmin[6].Mode == '-' ? Addmin[6].AddMinPrice * -1 : Addmin[6].AddMinPrice : 0,
+            MP8: Addmin.length >= 8 ? Addmin[7].Mode == '-' ? Addmin[7].AddMinPrice * -1 : Addmin[7].AddMinPrice : 0,
+            MP9: Addmin.length >= 9 ? Addmin[8].Mode == '-' ? Addmin[8].AddMinPrice * -1 : Addmin[8].AddMinPrice : 0,
+            MP10: Addmin.length >= 10 ? Addmin[9].Mode == '-' ? Addmin[9].AddMinPrice * -1 : Addmin[9].AddMinPrice : 0,
         };
 
         ajaxFunction(TashimBandUri + ace + '/' + sal + '/' + group, 'POST', CalcTashimBandObject).done(function (data) {
@@ -1741,7 +1732,8 @@ var ViewModel = function () {
                                 }).then((result) => {
                                     if (result.value) {
                                         $('#titlePage').text(textFactor + " " + translate("جدید"));
-
+                                        Serial = 0;
+                                        Serial_Test = 0;
                                         flagInsertFDocH = 0;
                                         if (parseInt(sal) < SalNow) {
                                             getFDocHLastDate();
@@ -1935,8 +1927,8 @@ var ViewModel = function () {
                         visibleRows[e.rowIndex].data.dataKala = visibleRows[e.rowIndex].data.dataKala;
                     }
                 }
-                
-                if (e.rowType === "data" && e.column.dataField === "TotalPrice" ) {
+
+                if (e.rowType === "data" && e.column.dataField === "TotalPrice") {
                     ro = e.row.rowIndex;
                     if (FDocB[ro].UP_Flag == true) {
                         e.cellElement.css("background-color", '#fdf9b0');
@@ -2307,6 +2299,8 @@ var ViewModel = function () {
         inv = $("#inv").val();
 
         docno = $("#docnoout").val();
+
+        CalcAddmin();
 
         if (docno.length > 10) {
             return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
@@ -2734,7 +2728,7 @@ var ViewModel = function () {
 
         if (kalapricecode == null) kalapricecode = "";
 
-        CalcAddmin();
+        //CalcAddmin();
 
         if (Serial == 0) {
 
@@ -2888,6 +2882,7 @@ var ViewModel = function () {
                 OprCode: codeOpr,
                 MkzCode: codeMkz,
                 VstrCode: codeVstr,
+                New : 'Y'
             };
 
 
@@ -2904,7 +2899,7 @@ var ViewModel = function () {
             });
         }
 
-        data = FDocB;
+        /*data = FDocB;
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
@@ -2934,7 +2929,22 @@ var ViewModel = function () {
 
         ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj, false).done(function (response) {
             showNotification(translate('سند ذخیره شد'), 1);
+        });*/
+
+
+
+
+
+        var ConvertObject = {
+            SerialNumber: Serial,
+            TempSerialNumber: Serial_Test,
+            ModeCode: sessionStorage.ModeCode,
+        };
+
+        ajaxFunction(FDocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
+            showNotification(translate('سند ذخیره شد'), 1);
         });
+
     }
 
 
@@ -3519,8 +3529,6 @@ var ViewModel = function () {
                     self.CustCode(item.Code)
 
                     flagKalaPrice = true;
-                    //CalcDiscontCol(self.CustCode());
-                    self.UpdateFDocH();
                 }
             })
         }
@@ -3547,6 +3555,7 @@ var ViewModel = function () {
             }
             self.CustCode(item.Code)
         }
+        CalcAddmin();
         $('#nameCust').focus();
     };
 
