@@ -749,7 +749,7 @@ var ViewModel = function () {
                 }
             }
             FDocB = data;
-            GetRprtCols_NewList();
+            GetRprtCols_NewList(sessionStorage.userName);
         });
 
     }
@@ -1150,10 +1150,6 @@ var ViewModel = function () {
 
 
 
-    var viewAction = false;
-    var resTestNew = false;
-    var flagFinalSave = false;
-
     var flagupdateHeader;
     var changeColumn = false;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
@@ -1187,9 +1183,9 @@ var ViewModel = function () {
 
 
 
-    function GetRprtCols_NewList() {
+    function GetRprtCols_NewList(userName) {
         //showPrice = false;
-        cols = getRprtCols(rprtId, sessionStorage.userName);
+        cols = getRprtCols(rprtId, userName);
         if (showPrice) {
             cols = cols.filter(s =>
                 s.Code == 'BandNo' ||
@@ -1247,10 +1243,28 @@ var ViewModel = function () {
                     cols[i].Code == 'Discount'
                 )
                     cols[i].Visible = 1
-                else
-                    cols[i].Visible = 0
+                else {
+                    cols[i].Visible = 0;
+                    cols[i].Position = 100;
+                }
+                cols[i].Code == 'KalaName' ? cols[i].Width = 200 : null
+
+                cols[i].Code == 'KalaCode' ? cols[i].Position = 0 : null
+                cols[i].Code == 'KalaName' ? cols[i].Position = 1 : null
+                cols[i].Code == 'MainUnitName' ? cols[i].Position = 2 : null
+                cols[i].Code == 'Amount1' ? cols[i].Position = 3 : null
+                cols[i].Code == 'UnitPrice' ? cols[i].Position = 4 : null
+                cols[i].Code == 'Discount' ? cols[i].Position = 5 : null
+                cols[i].Code == 'TotalPrice' ? cols[i].Position = 6 : null
+                cols[i].Code == 'Comm' ? cols[i].Position = 7 : null
+
+              
+
+
             }
-            orderProp = 'Code';
+
+            cols.Code == 'KalaCode' 
+            orderProp = 'Position';
             cols.sort(function (left, right) {
                 leftVal = left[orderProp];
                 rightVal = right[orderProp];
@@ -1404,63 +1418,8 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = KalaUnitList;
             }
 
-            /* if (cols[i].dataField == 'MainUnit') {
- 
- 
-                 //cols[i].editCellTemplate = dropDownBoxEditorUnitName;
- 
-                 cols[i].setCellValue = SelectedMainUnit;
- 
-                 cols[i].lookup = {
-                      dataSource: {
-                          store: {
-                              type: 'array',
-                              data: [
-                                  { id: 1, name: 'Not Started' },
-                                  { id: 2, name: 'Need Assistance' },
-                                  { id: 3, name: 'In Progress' },
-                                  // ...
-                              ],
-                              key: "id"
-                          },
-                          pageSize: 10,
-                          paginate: true
-                      },
-                      valueExpr: 'id', // contains the same values as the "statusId" field provides
-                      displayExpr: 'name'
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-                     dataSource(options) {
-                         //return KalaUnitList 
-                         if (options.data != null) {
-                             if (options.data.dataKala != null)
-                                 KalaUnitList = [{ 'ID': 1, 'Name': options.data.dataKala.UnitName1 }, { 'ID': 2, 'Name': options.data.dataKala.UnitName2 }, { 'ID': 3, 'Name': options.data.dataKala.UnitName3 }];
-                             else
-                                 KalaUnitList = [{}];
- 
-                         }
-                         //  else
-                         //      data = [];
-                         return KalaUnitList;
-                     },
-                     valueExpr: 'ID', // contains the same values as the "statusId" field provides
-                     displayExpr: 'Name',
-                     cacheRawData: false
-                 }
- 
-             }*/
-
-
             if (cols[i].dataField == 'Amount1') {
-                // cols[i].setCellValue = EditorAmount1;
+
             }
         }
 
@@ -1480,12 +1439,21 @@ var ViewModel = function () {
             columnAutoWidth: false,
 
             columnResizingMode: 'widget',
-            columnMinWidth: 100,
+            columnMinWidth: 70,
             focusedRowIndex: 0,
             focusedColumnIndex: 0,
             rtlEnabled: true,
             columnChooser: {
                 enabled: true,
+                mode: 'select',
+                width: 250,
+                width: 250,
+                title: 'تنظیم ستون ها',
+                sortOrder: 'asc',
+                //searchTimeout: 500,
+                height: 500,
+
+                //allowSearch : true,
             },
 
             keyboardNavigation: {
@@ -1697,7 +1665,6 @@ var ViewModel = function () {
                             },
                         },
                     },
-
                     {
                         location: 'after',
                         widget: 'dxButton',
@@ -1744,7 +1711,7 @@ var ViewModel = function () {
                                         $('#sumFactor').text(0);
                                         $('#discountCol').text(0);
                                         $('#ghabelPardakht').text(0);
-
+                                        self.Spec('');
                                         getAddMinList(sessionStorage.sels, -1, 0, 0, false,
                                             '', '', '', '', '', '', '', '', '', ''
                                             , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -1872,6 +1839,32 @@ var ViewModel = function () {
                         },
                     },
 
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        name: 'DefultColumn',
+                        options: {
+                            icon: 'columnproperties',
+                            hint: 'پیش فرض',
+                            onClick() {
+                                Swal.fire({
+                                    title: '',
+                                    text: translate("آیا ستون های پیش فرض جایگزین شود ؟"),
+                                    type: 'warning',
+                                    showCancelButton: true,
+                                    cancelButtonColor: '#3085d6',
+                                    cancelButtonText: text_No,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: text_Yes
+                                }).then((result) => {
+
+                                    GetRprtCols_NewList('*Default*');
+                                })
+
+                           },
+                        },
+                    }
 
                 );
 
@@ -1930,7 +1923,7 @@ var ViewModel = function () {
 
                 if (e.rowType === "data" && e.column.dataField === "TotalPrice") {
                     ro = e.row.rowIndex;
-                    if (FDocB[ro].UP_Flag == true) {
+                    if (FDocB[ro].UP_Flag == true || (FDocB[ro].UP_Flag == null && FDocB[ro].dataKala != null)) {
                         e.cellElement.css("background-color", '#fdf9b0');
                     }
                 }
@@ -2126,6 +2119,16 @@ var ViewModel = function () {
                 if (keyCode == 'Enter') {
 
                 }*/
+            },
+
+            onEditorPreparing: function (e) {
+
+
+                if (e.row.data.Auto == true) {
+                    e.editorOptions.disabled = true;
+                   // e.editorOptions.readOnly = true;
+                }
+
             },
 
 
@@ -2882,7 +2885,7 @@ var ViewModel = function () {
                 OprCode: codeOpr,
                 MkzCode: codeMkz,
                 VstrCode: codeVstr,
-                New : 'Y'
+                New: 'Y'
             };
 
 
@@ -3324,49 +3327,54 @@ var ViewModel = function () {
 
 
     function dropDownBoxEditorUnitName(cellElement, cellInfo) {
-        getUnit(FDocB[ro].dataKala.Code);
-        return $('<div>').dxDropDownBox({
-            dropDownOptions: { width: 500 },
-            dataSource: KalaUnitList,
-            value: cellInfo.value,
-            valueExpr: 'Name',
-            displayExpr: 'Name',
-            contentTemplate(e) {
-                return $('<div>').dxDataGrid({
-                    dataSource: KalaUnitList,
-                    keyExpr: 'Name',
-                    remoteOperations: true,
-                    rtlEnabled: true,
-                    filterRow: {
-                        visible: true,
-                        applyFilter: 'auto',
-                    },
-                    columns: [
-                        { dataField: 'Code', caption: "کد", sortOrder: "asc" }, { dataField: 'Name', caption: "واحد" },
-                    ],
-                    hoverStateEnabled: true,
-                    scrolling: { mode: 'virtual' },
-                    height: 250,
-                    selection: { mode: 'single' },
-                    selectedRowKeys: [cellInfo.value],
-                    focusedRowEnabled: true,
-                    focusedRowKey: cellInfo.value,
-                    onSelectionChanged(selectionChangedArgs) {
-                        dKala = selectionChangedArgs.selectedRowsData[0];
-                        if (dKala != null) {
-                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
-                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+
+        ro = cellInfo.rowIndex;
+        if (FDocB[ro].dataKala != null) {
+
+            getUnit(FDocB[ro].dataKala.Code);
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: KalaUnitList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: KalaUnitList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Code', caption: "کد", sortOrder: "asc" }, { dataField: 'Name', caption: "واحد" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
-                                //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
-                                FDocB[ro].MainUnit = selectionChangedArgs.selectedRowsData[0].Code;
-                                e.component.close();
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    FDocB[ro].MainUnit = selectionChangedArgs.selectedRowsData[0].Code;
+                                    e.component.close();
+                                }
                             }
-                        }
-                    },
-                });
-            },
-        });
+                        },
+                    });
+                },
+            });
+        }
     }
 
 

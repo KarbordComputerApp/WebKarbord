@@ -139,6 +139,8 @@ var ViewModel = function () {
 
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
     var ADocBSaveAllUri = server + '/api/AFI_ADocBi/SaveAllDocB/'; // آدرس ذخیره یند سند 
+    var ADocBConvertUri = server + '/api/AFI_ADocBi/Convert/'; // آدرس ذخیره یند سند در جدول اصلی 
+
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
 
     var CheckUri = server + '/api/ADocData/CheckList/'; // آدرس لیست چک  
@@ -2220,9 +2222,25 @@ var ViewModel = function () {
         });
     }
 
+
+
     function FilterAccZCode(ZGru) {
         if (ZGru != '') {
-            return ["ZGruCode", "=", ZGru]
+            a = ZGru.split(',');
+
+            if (a.length == 1)
+                return ["ZGruCode", "=", a[0]];
+            else {
+                var b = "[";
+                for (var i = 0; i < a.length; i++) {
+                    b += '["ZGruCode", "=",' + a[i] + '],"or",'
+                }
+                b = b.substr(0, b.length - 6);
+                b += ']'
+                b = JSON.parse(b);
+                return b;
+
+            }
         }
     }
 
@@ -3660,7 +3678,7 @@ var ViewModel = function () {
 
 
         // data = dataGrid.getVisibleRows();
-        data = ADocB;
+     /*   data = ADocB;
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
             //item = data[i].data;
@@ -3696,6 +3714,15 @@ var ViewModel = function () {
         }
 
         ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj).done(function (response) {
+            showNotification(translate('سند ذخیره شد'), 1);
+        });*/
+
+        var ConvertObject = {
+            SerialNumber: Serial,
+            TempSerialNumber: Serial_Test,
+        };
+
+        ajaxFunction(ADocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
             showNotification(translate('سند ذخیره شد'), 1);
         });
     }
