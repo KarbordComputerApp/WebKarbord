@@ -1248,22 +1248,19 @@ var ViewModel = function () {
                     cols[i].Position = 100;
                 }
                 cols[i].Code == 'KalaName' ? cols[i].Width = 200 : null
+                cols[i].Code == 'Comm' ? cols[i].Width = 200 : null
 
                 cols[i].Code == 'KalaCode' ? cols[i].Position = 0 : null
                 cols[i].Code == 'KalaName' ? cols[i].Position = 1 : null
-                cols[i].Code == 'MainUnitName' ? cols[i].Position = 2 : null
-                cols[i].Code == 'Amount1' ? cols[i].Position = 3 : null
-                cols[i].Code == 'UnitPrice' ? cols[i].Position = 4 : null
-                cols[i].Code == 'Discount' ? cols[i].Position = 5 : null
+                cols[i].Code == 'Comm' ? cols[i].Position = 2 : null
+                cols[i].Code == 'MainUnitName' ? cols[i].Position = 3 : null
+                cols[i].Code == 'Amount1' ? cols[i].Position = 4 : null
+                cols[i].Code == 'UnitPrice' ? cols[i].Position = 5 : null
                 cols[i].Code == 'TotalPrice' ? cols[i].Position = 6 : null
-                cols[i].Code == 'Comm' ? cols[i].Position = 7 : null
-
-              
-
-
+                cols[i].Code == 'Discount' ? cols[i].Position = 7 : null
             }
 
-            cols.Code == 'KalaCode' 
+            cols.Code == 'KalaCode'
             orderProp = 'Position';
             cols.sort(function (left, right) {
                 leftVal = left[orderProp];
@@ -1438,10 +1435,12 @@ var ViewModel = function () {
             allowColumnResizing: true,
             columnAutoWidth: false,
 
+            sorting: { mode: 'none' },
+
             columnResizingMode: 'widget',
             columnMinWidth: 70,
             focusedRowIndex: 0,
-            focusedColumnIndex: 0,
+            //focusedColumnIndex: 0,
             rtlEnabled: true,
             columnChooser: {
                 enabled: true,
@@ -1455,6 +1454,8 @@ var ViewModel = function () {
 
                 //allowSearch : true,
             },
+
+            //AllowSortedDataDragDrop : true,
 
             keyboardNavigation: {
                 enterKeyAction: 'moveFocus',
@@ -1483,6 +1484,7 @@ var ViewModel = function () {
 
             rowDragging: {
                 allowReordering: true,
+                showDragIcons: false,
                 onReorder(e) {
                     const visibleRows = e.component.getVisibleRows();
 
@@ -1862,7 +1864,7 @@ var ViewModel = function () {
                                     GetRprtCols_NewList('*Default*');
                                 })
 
-                           },
+                            },
                         },
                     }
 
@@ -1894,8 +1896,14 @@ var ViewModel = function () {
                     changeColumn = true;
                 }
 
+
                 if (e.fullName.endsWith("ortOrder")) {
+                    a = FDocB;
                     alert(e.fullName + ': ' + e.value);
+                    dataGrid.saveEditData();
+                    const visibleRows = dataGrid.getVisibleRows();
+                    a = FDocB;
+                    a = FDocB;
                 }
             },
 
@@ -2043,6 +2051,7 @@ var ViewModel = function () {
             keyExpr: 'Code',
             showBorders: true,
             showRowLines: true,
+            sorting: { mode: 'none' },
             // allowColumnReordering: true,
             // allowColumnResizing: true,
             // columnAutoWidth: false,
@@ -2087,9 +2096,22 @@ var ViewModel = function () {
 
             columns: [
                 { dataField: 'Name', caption: "شرح" },
-                { dataField: 'AddMinPrice', caption: "مبلغ", format: { style: "decimal", useGrouping: true, minimumSignificantDigits: 1 } },
+                {
+                    dataField: 'AddMinPrice', caption: "مبلغ", format: { style: "decimal", useGrouping: true, minimumSignificantDigits: 1 },
+
+                    cellTemplate: function (element, info) {
+                        element.append("<div>" + info.text + "</div>")
+                            .css("direction", "ltr");
+                    }
+                },
                 { dataField: 'Mode', caption: "", width: "30", allowEditing: false },
-                { dataField: 'MablaghMoaser', caption: "مبلغ موثر", allowEditing: false, format: { style: "decimal", useGrouping: true, minimumSignificantDigits: 1 } },
+                {
+                    dataField: 'MablaghMoaser', caption: "مبلغ موثر", allowEditing: false, format: { style: "decimal", useGrouping: true, minimumSignificantDigits: 1 },
+                    cellTemplate: function (element, info) {
+                        element.append("<div>" + info.text + "</div>")
+                            .css("direction", "ltr");
+                    }
+                },
             ],
 
             onCellClick: function (e) {
@@ -2126,7 +2148,7 @@ var ViewModel = function () {
 
                 if (e.row.data.Auto == true) {
                     e.editorOptions.disabled = true;
-                   // e.editorOptions.readOnly = true;
+                    // e.editorOptions.readOnly = true;
                 }
 
             },
@@ -2462,8 +2484,21 @@ var ViewModel = function () {
         }
 
 
-        rows = dataGrid.getVisibleRows();
 
+        var isFree = true;
+        for (var i = 0; i < FDocB.length; i++) {
+            if (FDocB[i].KalaCode != '') {
+                isFree = false 
+            }
+        }
+
+
+        if (isFree == true) {
+            return showNotification(translate(textFactor + ' دارای بند قابل ذخیره نیست'), 0);
+        }
+
+
+        rows = dataGrid.getVisibleRows();
         for (var i = 0; i < rows.length; i++) {
             if (rows[i].data.KalaCode == '' || rows[i].data.KalaCode == null) {
                 dataGrid.deleteRow(i);
@@ -2471,10 +2506,8 @@ var ViewModel = function () {
         }
 
         dataGrid.saveEditData();
+        //dataGrid.refresh();
 
-        if (FDocB.length == 0) {
-            return showNotification(translate(textFactor + ' دارای بند قابل ذخیره نیست'), 0);
-        }
 
         var V_Del_FDocObject = {
             SerialNumber: Serial_Test,
@@ -2926,10 +2959,10 @@ var ViewModel = function () {
                 flagLog: flaglog,
                 flagTest: 'N'
             };
-
+ 
             obj.push(tmp);
         }
-
+ 
         ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj, false).done(function (response) {
             showNotification(translate('سند ذخیره شد'), 1);
         });*/
