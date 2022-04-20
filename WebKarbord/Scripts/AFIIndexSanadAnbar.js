@@ -1267,6 +1267,45 @@
         //}
     });
 
+
+    $('#AddNewSanadAnbar_New').click(function () {
+        sessionStorage.flagupdateHeader = 0;
+        sessionStorage.Eghdam = sessionStorage.userName;
+        sessionStorage.Status = 'موقت';
+        invCode = $('#invSelect').val();
+        sessionStorage.F01 = "";
+        sessionStorage.F02 = "";
+        sessionStorage.F03 = "";
+        sessionStorage.F04 = "";
+        sessionStorage.F05 = "";
+        sessionStorage.F06 = "";
+        sessionStorage.F07 = "";
+        sessionStorage.F08 = "";
+        sessionStorage.F09 = "";
+        sessionStorage.F10 = "";
+        sessionStorage.F11 = "";
+        sessionStorage.F12 = "";
+        sessionStorage.F13 = "";
+        sessionStorage.F14 = "";
+        sessionStorage.F15 = "";
+        sessionStorage.F16 = "";
+        sessionStorage.F17 = "";
+        sessionStorage.F18 = "";
+        sessionStorage.F19 = "";
+        sessionStorage.F20 = "";
+        //if (invCode == '' || invCode == null) 
+        //{
+        //    return showNotification(translate('انبار را انتخاب کنید');
+        //} 
+        //else
+        //{
+        sessionStorage.InvCode = invCode;
+        window.location.href = sessionStorage.urlAddIDocH_New;
+
+        //}
+    });
+
+
     $('#refreshIdocH').click(function () {
 
         Swal.fire({

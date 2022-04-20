@@ -568,9 +568,9 @@ var ViewModel = function () {
     var rprtId = 'ADocB_1';
 
 
-    function GetRprtCols_NewList() {
+    function GetRprtCols_NewList(userName) {
 
-        cols = getRprtCols(rprtId, sessionStorage.userName);
+        cols = getRprtCols(rprtId, userName);
         cols = cols.filter(s =>
             s.Code == 'BandNo' ||
             s.Code == 'AccCode' ||
@@ -614,6 +614,7 @@ var ViewModel = function () {
             return leftVal > rightVal ? 1 : -1;
         });
 
+
         if (cols[0].UserCode == '*Default*') {
             for (var i = 0; i < cols.length; i++) {
                 if (
@@ -626,10 +627,26 @@ var ViewModel = function () {
                     cols[i].Code == 'Best'
                 )
                     cols[i].Visible = 1
-                else
-                    cols[i].Visible = 0
+                else {
+                    cols[i].Visible = 0;
+                    cols[i].Position = 100;
+                }
+
+
+                cols[i].Code == 'AccName' ? cols[i].Width = 200 : null
+                cols[i].Code == 'AccZName' ? cols[i].Width = 200 : null
+                cols[i].Code == 'Comm' ? cols[i].Width = 200 : null
+
+                cols[i].Code == 'AccCode' ? cols[i].Position = 0 : null
+                cols[i].Code == 'AccName' ? cols[i].Position = 1 : null
+                cols[i].Code == 'AccZCode' ? cols[i].Position = 2 : null
+                cols[i].Code == 'AccZName' ? cols[i].Position = 3 : null
+                cols[i].Code == 'Comm' ? cols[i].Position = 4 : null
+                cols[i].Code == 'Bede' ? cols[i].Position = 5 : null
+                cols[i].Code == 'Best' ? cols[i].Position = 6 : null
+
             }
-            orderProp = 'Code';
+            orderProp = 'Position';
             cols.sort(function (left, right) {
                 leftVal = left[orderProp];
                 rightVal = right[orderProp];
@@ -1245,6 +1262,9 @@ var ViewModel = function () {
             focusedRowIndex: 0,
             focusedColumnIndex: 0,
             rtlEnabled: true,
+
+            sorting: { mode: 'none' },
+
             columnChooser: {
                 enabled: true,
                 // mode: 'select',
@@ -1301,6 +1321,7 @@ var ViewModel = function () {
 
             rowDragging: {
                 allowReordering: true,
+                showDragIcons: false,
                 onReorder(e) {
                     /* ADocB = [];
  
@@ -1798,6 +1819,32 @@ var ViewModel = function () {
                         },
                     },
 
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        name: 'DefultColumn',
+                        options: {
+                            icon: 'columnproperties',
+                            hint: 'پیش فرض',
+                            onClick() {
+                                Swal.fire({
+                                    title: '',
+                                    text: translate("آیا ستون های پیش فرض جایگزین شود ؟"),
+                                    type: 'warning',
+                                    showCancelButton: true,
+                                    cancelButtonColor: '#3085d6',
+                                    cancelButtonText: text_No,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#d33',
+                                    confirmButtonText: text_Yes
+                                }).then((result) => {
+
+                                    GetRprtCols_NewList('*Default*');
+                                })
+
+                            },
+                        },
+                    }
 
                 );
 
@@ -3678,44 +3725,44 @@ var ViewModel = function () {
 
 
         // data = dataGrid.getVisibleRows();
-     /*   data = ADocB;
-        var obj = [];
-        for (i = 0; i <= data.length - 1; i++) {
-            //item = data[i].data;
-            item = data[i];
-            tmp = {
-                AccCode: item.AccCode == null ? "" : item.AccCode,
-                AccZCode: item.AccZCode == null ? "" : item.AccZCode,
-                Bede: item.Bede == null ? "0" : item.Bede,
-                Best: item.Best == null ? "0" : item.Best,
-                Comm: item.Comm == null ? "" : item.Comm,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                CheckNo: item.CheckNo == null ? "" : item.CheckNo,
-                CheckDate: item.CheckDate == null ? '' : item.CheckDate.toEnglishDigit(),
-                Bank: item.Bank == null ? "" : item.Bank,
-                Shobe: item.Shobe == null ? "" : item.Shobe,
-                Jari: item.Jari == null ? "" : item.Jari,
-                BaratNo: item.BaratNo == null ? "" : item.BaratNo,
-                TrafCode: item.TrafCode == null ? "" : item.TrafCode,
-                TrafZCode: item.TrafZCode == null ? "" : item.TrafZCode,
-                CheckRadif: item.CheckRadif == null ? "" : item.CheckRadif,
-                CheckComm: item.CheckComm == null ? "" : item.CheckComm,
-                CheckStatus: item.CheckStatus == null ? "" : item.CheckStatus,
-                CheckVosoolDate: item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toEnglishDigit(),
-                OprCode: item.OprCode == null ? "" : item.OprCode,
-                MkzCode: item.MkzCode == null ? "" : item.MkzCode,
-                ArzCode: item.ArzCode == null ? "" : item.ArzCode,
-                ArzRate: item.ArzRate == null ? "" : item.ArzRate,
-                arzValue: item.ArzValue == null ? "" : item.ArzValue,
-                Amount: item.Amount == null ? "" : item.Amount,
-                flagLog: 'Y',
-            };
-            obj.push(tmp);
-        }
-
-        ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj).done(function (response) {
-            showNotification(translate('سند ذخیره شد'), 1);
-        });*/
+        /*   data = ADocB;
+           var obj = [];
+           for (i = 0; i <= data.length - 1; i++) {
+               //item = data[i].data;
+               item = data[i];
+               tmp = {
+                   AccCode: item.AccCode == null ? "" : item.AccCode,
+                   AccZCode: item.AccZCode == null ? "" : item.AccZCode,
+                   Bede: item.Bede == null ? "0" : item.Bede,
+                   Best: item.Best == null ? "0" : item.Best,
+                   Comm: item.Comm == null ? "" : item.Comm,
+                   BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                   CheckNo: item.CheckNo == null ? "" : item.CheckNo,
+                   CheckDate: item.CheckDate == null ? '' : item.CheckDate.toEnglishDigit(),
+                   Bank: item.Bank == null ? "" : item.Bank,
+                   Shobe: item.Shobe == null ? "" : item.Shobe,
+                   Jari: item.Jari == null ? "" : item.Jari,
+                   BaratNo: item.BaratNo == null ? "" : item.BaratNo,
+                   TrafCode: item.TrafCode == null ? "" : item.TrafCode,
+                   TrafZCode: item.TrafZCode == null ? "" : item.TrafZCode,
+                   CheckRadif: item.CheckRadif == null ? "" : item.CheckRadif,
+                   CheckComm: item.CheckComm == null ? "" : item.CheckComm,
+                   CheckStatus: item.CheckStatus == null ? "" : item.CheckStatus,
+                   CheckVosoolDate: item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toEnglishDigit(),
+                   OprCode: item.OprCode == null ? "" : item.OprCode,
+                   MkzCode: item.MkzCode == null ? "" : item.MkzCode,
+                   ArzCode: item.ArzCode == null ? "" : item.ArzCode,
+                   ArzRate: item.ArzRate == null ? "" : item.ArzRate,
+                   arzValue: item.ArzValue == null ? "" : item.ArzValue,
+                   Amount: item.Amount == null ? "" : item.Amount,
+                   flagLog: 'Y',
+               };
+               obj.push(tmp);
+           }
+   
+           ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj).done(function (response) {
+               showNotification(translate('سند ذخیره شد'), 1);
+           });*/
 
         var ConvertObject = {
             SerialNumber: Serial,

@@ -22,5 +22,10 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult AddIdoc_New()
+        {
+            return View();
+        }
+
     }
 }
