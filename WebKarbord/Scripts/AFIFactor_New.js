@@ -146,17 +146,6 @@ var ViewModel = function () {
     self.StatusFactor = ko.observable();
     self.PaymentFactor = ko.observable();
 
-    self.BandNo = ko.observable();
-    self.KalaCode = ko.observable();
-    self.Amount1 = ko.observable();
-    self.Amount2 = ko.observable();
-    self.Amount3 = ko.observable();
-    self.UnitPrice = ko.observable();
-    self.TotalPrice = ko.observable();
-    self.Discount = ko.observable();
-    self.MainUnit = ko.observable();
-    self.Comm = ko.observable();
-
     self.CustList = ko.observableArray([]); // لیست حساب ها
     self.KalaList = ko.observableArray([]); // لیست کالاها
     self.KalaPriceList = ko.observableArray([]); // لیست گروه قیمت
@@ -453,13 +442,12 @@ var ViewModel = function () {
     getStatusList();
 
 
+
     //Get KalaPrice List
     function getKalaPriceList(insert) {
         ajaxFunction(KalaPriceUri + ace + '/' + sal + '/' + group + '/' + insert, 'GET').done(function (data) {
             self.KalaPriceList(data);
             if (self.KalaPriceList().length > 0) {
-                //$("#gGhimat").val('شکری');
-                //aaaaa = $("#gGhimat").val();
                 if (flagupdateHeader == 1) {
                     firstUpdateShow = 1;
                     sessionStorage.PriceCode != "0" ? $("#gGhimat").val(sessionStorage.PriceCode) : $("#gGhimat").val(sessionStorage.GPriceDefult);
@@ -468,10 +456,8 @@ var ViewModel = function () {
                     firstUpdateShow = 0;
                 if (sessionStorage.sels == "true")
                     sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                // $("#gGhimat").val(sessionStorage.GPriceDefultS);
                 else
                     sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
-                // $("#gGhimat").val(sessionStorage.GPriceDefultP);
             }
         });
     }
@@ -479,7 +465,10 @@ var ViewModel = function () {
     self.OptionsCaptionKalaPrice = ko.computed(function () {
         return translate('قیمت اطلاعات پایه');
     });
-    getKalaPriceList(true);
+
+
+    flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
+
 
 
     //Get Inv List
@@ -504,6 +493,83 @@ var ViewModel = function () {
     getInvList();
 
 
+
+    $("#inv").change(function () {
+        flagFinalSave = false;
+
+        if (firstUpdateShow == 1)
+            firstUpdateShow = 0;
+    })
+
+    $("#gGhimat").change(function () {
+        if ($("#sumFactor").text() != '' && viewAction == true && firstUpdateShow == 0) {
+            Swal.fire({
+                title: translate('تایید تغییرات ؟'),
+                text: translate("قیمت تمام کالاها با قیمت های ثبت شده در گروه قیمت کالای انتخاب شده پر می شوند آیا مطمئن هستید ؟"),
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: text_No,
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: text_Yes
+            }).then((result) => {
+                if (result.value) {
+                    SetKalaPrice(); 
+
+                }
+                else {
+                    kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
+                    $("#gGhimat").val(kalapricecode);
+                    kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
+                }
+            })
+        }
+
+    })
+
+    function SetKalaPrice() {
+        kalapricecode = $("#gGhimat").val();
+
+        flagKalaPrice = true;
+
+        for (var i = 0; i < FDocB.length; i++) {
+            if (FDocB[i].KalaCode != "" && FDocB[i].KalaCode != null) {
+
+
+                if (kalapricecode == null || kalapricecode == "") {
+                    if (sessionStorage.sels == "true") {
+                        Price1 = parseFloat(FDocB[i].dataKala.SPrice1);
+                        Price2 = parseFloat(FDocB[i].dataKala.SPrice2);
+                        Price3 = parseFloat(FDocB[i].dataKala.SPrice3);
+                    } else {
+                        Price1 = parseFloat(FDocB[i].dataKala.PPrice1);
+                        Price2 = parseFloat(FDocB[i].dataKala.PPrice2);
+                        Price3 = parseFloat(FDocB[i].dataKala.PPrice3);
+                    }
+
+                    if (FDocB[i].MainUnit == 1) FDocB[i].UnitPrice = Price1;
+                    else if (FDocB[i].MainUnit == 2) FDocB[i].UnitPrice = Price2;
+                    else if (FDocB[i].MainUnit == 3) FDocB[i].UnitPrice = Price3;
+                }
+                else {
+                    ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + kalapricecode + '/' + FDocB[i].KalaCode, 'GET').done(function (data) {
+                        FDocB[i].UP_Flag = true;
+                        FDocB[i].UnitPrice = 0;
+                        if (data.length > 0) {
+                            if (FDocB[i].MainUnit == 1) FDocB[i].UnitPrice = data[0].Price1;
+                            else if (FDocB[i].MainUnit == 2) FDocB[i].UnitPrice = data[0].Price2;
+                            else if (FDocB[i].MainUnit == 3) FDocB[i].UnitPrice = data[0].Price3;
+                        }
+                    });
+                }
+                CalcPrice(i);
+            }
+        }
+
+        dataGrid.refresh();
+        CalcFactor();
+    }
 
 
 
@@ -555,7 +621,6 @@ var ViewModel = function () {
                 Price1 > 0 ? $("#unitPrice").val(NumberToNumberString(Price1)) : $("#unitPrice").val('');
         });
     }
-
 
 
     //Get FDocP List
@@ -1188,7 +1253,7 @@ var ViewModel = function () {
         cols = getRprtCols(rprtId, userName);
         if (showPrice) {
             cols = cols.filter(s =>
-                s.Code == 'BandNo' ||
+                //s.Code == 'BandNo' ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -1209,7 +1274,7 @@ var ViewModel = function () {
 
 
             cols = cols.filter(s =>
-                s.Code == 'BandNo' ||
+                //s.Code == 'BandNo' ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -1787,8 +1852,6 @@ var ViewModel = function () {
                                         self.CustCode();
                                         self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
                                         self.InvCode = ko.observable(sessionStorage.InvDefult);
-                                        self.BandNo();
-                                        self.KalaCode();
                                         self.OprCode("");
                                         self.MkzCode("");
                                         self.VstrCode("");
@@ -2273,8 +2336,8 @@ var ViewModel = function () {
                 TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
                 Discount: item.Discount == null ? 0 : item.Discount,
                 MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
-                Comm: item.Comm == null ? "" : item.Comm,
                 BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                Comm: item.Comm == null ? "" : item.Comm,
                 Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
                 ModeCode: sessionStorage.ModeCode,
                 InvCode: inv,
@@ -3551,8 +3614,8 @@ var ViewModel = function () {
 
         if (Serial != '') {
             Swal.fire({
-                title: translate('تایید و ثبت نهایی تغییرات ؟'),
-                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
+                title: translate('تایید تغییرات ؟'),
+                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال می شود . آیا عملیات انجام شود؟'),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -3582,7 +3645,9 @@ var ViewModel = function () {
                         $("#gGhimat").val(item.KalaPriceCode_P);
 
 
-                    self.CustCode(item.Code)
+                    self.CustCode(item.Code);
+                    SetKalaPrice();
+
 
                     flagKalaPrice = true;
                 }
@@ -4309,36 +4374,7 @@ var ViewModel = function () {
 
 
 
-    /* $("#gGhimat").change(function () {
-         a = $("#sumfactor").val();
-         if ($("#sumfactor").val() != '' && viewAction == true && firstUpdateShow == 0) {
-             Swal.fire({
-                 title: translate('تایید و ثبت نهایی تغییرات ؟'),
-                 text: translate("قیمت تمام کالاها با قیمت های ثبت شده در گروه قیمت کالای انتخاب شده پر می شوند آیا مطمئن هستید ؟"),
-                 type: 'warning',
-                 showCancelButton: true,
-                 cancelButtonColor: '#3085d6',
-                 cancelButtonText: text_No,
-                 allowOutsideClick: false,
-                 confirmButtonColor: '#d33',
-                 confirmButtonText: text_Yes
-             }).then((result) => {
-                 if (result.value) {
-                     kalapricecode = $("#gGhimat").val();
-                     if (kalapricecode == null) kalapricecode = "";
-                     kalapricecode = $("#gGhimat").val();
-                     flagKalaPrice = true;
-                     self.UpdateFDocH();
-                 }
-                 else {
-                     kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
-                     $("#gGhimat").val(kalapricecode);
-                     kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
-                 }
-             })
-         }
- 
-     })*/
+
 
 
 
