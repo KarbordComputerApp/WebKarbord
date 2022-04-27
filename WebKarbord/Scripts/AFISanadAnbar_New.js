@@ -1303,7 +1303,7 @@ var ViewModel = function () {
             },
 
             paging: {
-                //    enabled: true,
+                    enabled: false,
             },
 
 
