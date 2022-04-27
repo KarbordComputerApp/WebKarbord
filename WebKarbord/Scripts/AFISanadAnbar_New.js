@@ -1,4 +1,4 @@
-﻿var TestFDocList; //لیست خطا ها
+﻿var TestIDocList; //لیست خطا ها
 var cols;
 
 //اطلاعات سلول
@@ -14,7 +14,7 @@ var ViewModel = function () {
     var forSels = true;
 
     var viewAction = false;
-    var allSearchCust = true;
+    var allSearchThvl = true;
     var allSearchKala = true;
     var flagSaveLogWin = false;
 
@@ -24,8 +24,8 @@ var ViewModel = function () {
 
     if (sessionStorage.CHG == null) {
         sessionStorage.CHG = localStorage.getItem("CHG")
-        sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
     }
+
 
     var resTestNew = false;
 
@@ -45,16 +45,15 @@ var ViewModel = function () {
         $("#docnoout").addClass("right-to-left");
     }
 
-    $('#textnumberfactor').hide();
+    $('#textnumberSanad').hide();
     $('#finalSave_Title').attr('hidden', '');
 
     TestUser();
 
 
-    var codeCust = '';
+    var codeThvl = '';
     var codeOpr = '';
     var codeMkz = '';
-    var codeVstr = '';
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -73,8 +72,6 @@ var ViewModel = function () {
     var Price3;
 
     var totalPrice;
-    var discountprice;
-    var discountCol = 0;
 
 
     var amountTextUpdate = "";
@@ -87,8 +84,7 @@ var ViewModel = function () {
     var IDocHAmount3 = 0;
     var IDocHTotalPrice = 0;
     var IDocHFinalPrice = 0;
-    var IDocHDiscount = 0;
-    var sumFactor = 0;
+    var sumSanad = 0;
 
 
     self.bundNumberImport = 0;
@@ -107,7 +103,7 @@ var ViewModel = function () {
     var ModeCodeExtraFields = '';
 
     var flag = -1;
-    var flagdiscount = -1;
+
     var flagInsertIDocH = 0;
 
     var accessTaeed = false;
@@ -131,16 +127,15 @@ var ViewModel = function () {
 
     self.DocDate = ko.observable(DateNow);
     self.Spec = ko.observable();
-    self.CustCode = ko.observable();
+    self.ThvlCode = ko.observable();
 
     self.OprCode = ko.observable();
     self.MkzCode = ko.observable();
-    self.VstrCode = ko.observable();
 
     self.PriceCode = ko.observable();
-    self.InvCode = ko.observable();
-    self.StatusFactor = ko.observable();
-    self.PaymentFactor = ko.observable();
+
+    self.StatusSanad = ko.observable();
+    self.PaymentSanad = ko.observable();
 
     self.BandNo = ko.observable();
     self.KalaCode = ko.observable();
@@ -149,11 +144,10 @@ var ViewModel = function () {
     self.Amount3 = ko.observable();
     self.UnitPrice = ko.observable();
     self.TotalPrice = ko.observable();
-    self.Discount = ko.observable();
     self.MainUnit = ko.observable();
     self.Comm = ko.observable();
 
-    self.CustList = ko.observableArray([]); // لیست حساب ها
+    self.ThvlList = ko.observableArray([]); // لیست تحویل دهنده گیرنده ها
     self.KalaList = ko.observableArray([]); // لیست کالاها
     self.KalaPriceList = ko.observableArray([]); // لیست گروه قیمت
     self.KalaPriceBList = ko.observableArray([]); // قیمت کالا بر اساس گروه قیمت
@@ -163,28 +157,36 @@ var ViewModel = function () {
     self.IDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی انبار فروش  
 
     self.StatusList = ko.observableArray([]); // لیست وضعیت 
+    self.IModeList = ko.observableArray([]); // نوع سند 
     self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
     self.OprList = ko.observableArray([]); // لیست پروژه ها
-    self.VstrList = ko.observableArray([]); // لیست ویزیتور
 
-    self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
-    //self.TestFDocList = ko.observableArray([]); // لیست تست 
-    self.TestFDoc_NewList = ko.observableArray([]); // لیست تست جدید
+    self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
+    //self.TestIDocList = ko.observableArray([]); // لیست تست 
+    self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
 
+
+    var showPrice = localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true';
+    var textSanad;
+
+
     if (sessionStorage.InOut == 1) {
-        $('#TitleHeaderAnbar').text(translate('سند وارده به انبار'));
+        textSanad = translate('سند وارده به انبار')
+        $('#TitleHeaderAnbar').text(textSanad);
         $('#titlePage').text(translate('سند وارده به انبار جدید'));
         $('#LableThvlCode').text(translate('نام تحویل دهنده'));
-        $('#TitleModalThvl').text(translate('لیست تحویل دهند گان'));
+        $('#TitleModalThvl').text(translate('لیست تحویل دهنده گان'));
         $('#TitleCodeTableModalThvl').text(translate('کد تحویل دهنده'));
         $('#TitleNameTableModalThvl').text(translate('نام تحویل دهنده'));
-        $('#ViewSpec').attr('class', 'col-sm-3');
         ModeCodeExtraFields = 'IDOCI';
 
         amountAfterBarCode = sessionStorage.IDOCIAmountAfterBarCode
 
-        if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true') {
+        invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
+        modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_In') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_In');
+
+        if (showPrice) {
             $('#ViewGGhimat').show();
             $('#emptyDivSanad').hide();
             $('#unitPriceShow').show();
@@ -207,21 +209,23 @@ var ViewModel = function () {
             $('#totalpriceshowgridbody').hide();
             $('#foottextunitprice').hide();
             $('#foottexttotalprice').hide();
-            $('#ViewSpec').attr('class', 'col-sm-5');
         }
 
 
     } else {
-        $('#TitleHeaderAnbar').text(translate('سند صادره از انبار'));
+        textSanad = translate('سند صادره از انبار')
+        $('#TitleHeaderAnbar').text(textSanad);
         $('#titlePage').text(translate('سند صادره از انبار جدید'));
         $('#LableThvlCode').text(translate('تحویل گیرنده'));
-        $('#TitleModalThvl').text(translate('لیست تحویل گیرند گان'));
+        $('#TitleModalThvl').text(translate('لیست تحویل گیرندگان'));
         $('#TitleCodeTableModalThvl').text(translate('کد تحویل گیرنده'));
         $('#TitleNameTableModalThvl').text(translate('نام تحویل گیرنده'));
-        $('#ViewSpec').attr('class', 'col-sm-5');
         ModeCodeExtraFields = 'IDOCO';
 
         amountAfterBarCode = sessionStorage.IDOCOAmountAfterBarCode
+
+        invSelected = localStorage.getItem('InvSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_Out');
+        modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_Out');
 
         $('#ViewGGhimat').hide();
         $('#unitPriceShow').hide();
@@ -234,6 +238,9 @@ var ViewModel = function () {
         $('#foottexttotalprice').hide();
     }
 
+    self.InvCode = ko.observable(invSelected);
+    self.modeCode = ko.observable(modeCodeSelected);
+
 
 
     $("#Panel_Barcode_Amount").attr('hidden', '');
@@ -245,57 +252,86 @@ var ViewModel = function () {
     else if (amountAfterBarCode == "1")
         $("#Panel_Barcode_Amount").removeAttr('hidden', '');
 
-    if (sessionStorage.InOut == 2) {
 
-        $('#LableCustCode').text(translate('خریدار'));
-        $('#LableCustCode').text(translate('نام خریدار'));
-        $('#TitleModalCust').text(translate('لیست خریداران'));
-        $('#TitleCodeTableModalCust').text(translate('کد خریدار'));
-        $('#TitleNameTableModalCust').text(translate('نام خریدار'));
+
+    /*if (sessionStorage.InOut == 2) {
+
+        $('#LableThvlCode').text(translate('فروشنده'));
+        $('#LableThvlCode').text(translate('نام فروشنده'));
+        $('#TitleModalThvl').text(translate('لیست فروشندگان'));
+        $('#TitleCodeTableModalThvl').text(translate('کد فروشنده'));
+        $('#TitleNameTableModalThvl').text(translate('نام فروشنده'));
         sessionStorage.sels = "true";
+        sessionStorage.NEW_IODOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
     } else {
-        $('#LableCustCode').text(translate('فروشنده'));
-        $('#LableCustCode').text(translate('نام فروشنده'));
-        $('#TitleModalCust').text(translate('لیست فروشندگان'));
-        $('#TitleCodeTableModalCust').text(translate('کد فروشنده'));
-        $('#TitleNameTableModalCust').text(translate('نام فروشنده'));
+        $('#TitleHeaderAnbar').text(translate('سند وارده به انبار'));
+        $('#titlePage').text(translate('سند وارده به انبار جدید'));
+        $('#LableThvlCode').text(translate('نام تحویل دهنده'));
+        $('#TitleModalThvl').text(translate('لیست تحویل دهند گان'));
+        $('#TitleCodeTableModalThvl').text(translate('کد تحویل دهنده'));
+        $('#TitleNameTableModalThvl').text(translate('نام تحویل دهنده'));
+
         sessionStorage.sels = "false";
+        sessionStorage.NEW_IIDOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
+    }*/
+
+
+    if (ace == "Web8") {
+        if (flagupdateHeader == 1) {
+            $('#inv').prop('disabled', true);
+            $('#modeCode').prop('disabled', true);
+        }
+        else {
+            $('#inv').prop('disabled', false);
+            $('#modeCode').prop('disabled', false);
+        }
     }
+
+    if (ace == "Web1") {
+        if (flagupdateHeader == 1) {
+            $('#inv').prop('disabled', true);
+        }
+        else {
+            $('#inv').prop('disabled', false);
+        }
+    }
+
+
 
 
     var IDocHUri = server + '/api/AFI_IDocHi/'; // آدرس هدر انبار 
     var IDocBUri = server + '/api/AFI_IDocBi/'; // آدرس بند انبار 
-    var UpdatePriceUri = server + '/api/FDocData/UpdatePrice/'; // آدرس اعمال گروه قیمت
-    var IDocHListUri = server + '/api/FDocData/IDocH/'; //آدرس اطلاعات انبار  
-    var IDocBListUri = server + '/api/FDocData/IDocB/'; // آدرس لیست بند های انبار 
-    var IDocHLastDateUri = server + '/api/FDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
+    var UpdatePriceUri = server + '/api/IDocData/UpdatePrice/'; // آدرس اعمال گروه قیمت
+    var IDocHListUri = server + '/api/IDocData/IDocH/'; //آدرس اطلاعات انبار  
+    var IDocBListUri = server + '/api/IDocData/IDocB/'; // آدرس لیست بند های انبار 
+    var IDocHLastDateUri = server + '/api/IDocData/IDocH/LastDate/'; // آدرس آخرین تاریخ سند
 
-    var CustUri = server + '/api/Web_Data/Cust/'; // آدرس حساب
+    var ThvlUri = server + '/api/Web_Data/Thvl/'; // آدرس حساب
     var KalaUri = server + '/api/Web_Data/Kala/'; // آدرس کالاها
     var KalaPriceUri = server + '/api/Web_Data/KalaPrice/'; // آدرس گروه قیمت
     var KalaPriceBUri = server + '/api/Web_Data/KalaPriceB/'; //  آدرس  قیمت کالا بر اساس گروه قیمت
     var UnitUri = server + '/api/Web_Data/Unit/'; // آدرس واحد کالا 
     var InvUri = server + '/api/Web_Data/Inv/'; // آدرس انبار 
 
-    var TashimBandUri = server + '/api/Web_Data/TashimBand/'; // آدرس تسهیم بند 
 
     var PaymentUri = server + '/api/Web_Data/Payment/'; // آدرس نحوه پرداخت 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت پرداخت 
+    var IModeUri = server + '/api/IDocData/IMode/'; // آدرس نوع سند
+
 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
-    var FDocPUri = server + '/api/FDocData/FDocP/'; // آدرس ویوی چاپ سند 
+    var IDocPUri = server + '/api/IDocData/IDocP/'; // آدرس ویوی چاپ سند 
 
-    var TestFDocUri = server + '/api/FDocData/TestFDoc/'; // آدرس تست انبار 
-    var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد انبار 
-    var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
+    var TestIDocUri = server + '/api/IDocData/TestIDoc/'; // آدرس تست انبار 
+    var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد انبار 
+    var TestIDoc_EditUri = server + '/api/IDocData/TestIDoc_Edit/'; // آدرس تست ویرایش 
 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
-    var VstrUri = server + '/api/Web_Data/Vstr/'; // آدرس ویزیتور 
 
-    var V_Del_FDocUri = server + '/api/Web_Data/V_Del_FDoc/'; // آدرس ویزیتور 
+    var V_Del_IDocUri = server + '/api/Web_Data/V_Del_IDoc/'; // آدرس ویزیتور 
 
-    var SaveFDoc_HZUri = server + '/api/FDocData/SaveFDoc_HZ/'; // آدرس ویرایس ستون تنظیم
+    var SaveIDoc_HZUri = server + '/api/IDocData/SaveIDoc_HZ/'; // آدرس ویرایس ستون تنظیم
     var IDocHiUri = server + '/api/AFI_IDocHi/'; // آدرس ذخیره هدر انبار 
     var IDocBUri = server + '/api/AFI_IDocBi/'; // آدرس ذخیره بند انبار 
 
@@ -309,7 +345,7 @@ var ViewModel = function () {
 
 
     function getExtraFieldsList() {
-        var rprtId = sessionStorage.InOut == 1 ? 'IDocH_P' : 'IDocH_S';
+        rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
         cols = getRprtCols(rprtId, sessionStorage.userName);
         result = ko.utils.arrayFilter(cols, function (item) {
             result =
@@ -323,19 +359,22 @@ var ViewModel = function () {
     }
     getExtraFieldsList();
 
-    //Get Cust List
-    function getCustList() {
-        var CustObject = {
-            forSale: sessionStorage.InOut == 2 ? true : false,
-            updatedate: null,
-            Mode: 2,
+    //Get Thvl List
+    function getThvlList() {
+        var ThvlObject = {
+            Mode: 3,
             UserCode: sessionStorage.userName,
         }
-        ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
-            self.CustList(data);
+        ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
+            self.ThvlList(data);
         });
     }
-    getCustList();
+
+    $('#btnThvl').click(function () {
+        if (self.ThvlList().length == 0) {
+            getThvlList();
+        }
+    });
 
 
     //Get Opr List
@@ -345,7 +384,11 @@ var ViewModel = function () {
         });
     }
 
-    getOprList();
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
 
 
     //Get  Mkz List
@@ -355,7 +398,13 @@ var ViewModel = function () {
         });
     }
 
-    getMkzList();
+
+
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
 
 
 
@@ -378,15 +427,8 @@ var ViewModel = function () {
 
 
 
-    //Get  Vstr List
-    function getVstrList() {
-        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.VstrList(data);
-        });
-    }
 
 
-    getVstrList();
 
     //Get kala List
     function getKalaList() {
@@ -404,15 +446,8 @@ var ViewModel = function () {
 
 
 
-    // usage example:
-    var a = ['a', 1, 'a', 2, '1'];
-
-
     getKalaList();
 
-
-
- 
 
     function getStatusList() {
         list = localStorage.getItem('FctStatus');
@@ -432,25 +467,111 @@ var ViewModel = function () {
     getStatusList();
 
 
+
+    //Get IMode List
+    function getIModeList() {
+
+        var IModeObject = {
+            Mode: 3,
+            InOut: sessionStorage.InOut,
+            UserCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(IModeUri + ace + '/' + sal + '/' + group, 'POST', IModeObject).done(function (data) {
+            self.IModeList(data);
+
+        });
+    }
+
+    getIModeList();
+
+
+
+
+    var invSelect = "";
+
+    //Get Inv List
+    function getInvList() {
+        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/2/' + sessionStorage.userName, 'GET').done(function (data) {
+
+            self.InvList(data);
+            if (self.InvList().length > 0) {
+
+                if (flagupdateHeader == 1) {
+                    invSelect = sessionStorage.InvCode;
+                }
+                else {
+                    if (sessionStorage.InvDefult == "null" || sessionStorage.InvDefult == "") {
+                        invSelect = invSelected;
+                    }
+                    else {
+                        invSelect = sessionStorage.InvDefult;
+                    }
+                }
+            }
+
+            $('#docnoout').attr('readonly', false);
+            var list = data;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == invSelect) {
+                    sameNoAllMode = list[i].SameNoAllMode;
+                    if (list[i].AutoDocNo == 1) {
+                        $('#docnoout').attr('readonly', true);
+                    }
+                }
+            }
+        });
+    }
+
+    self.OptionsCaptionAnbar = ko.computed(function () {
+        return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
+    });
+
+    $("#inv").change(function () {
+        if (flagupdateHeader != 1 && invSelect == "") {
+            invSelect = $("#inv").val();
+
+            $('#docnoout').attr('readonly', false);
+
+            var list = self.InvList();
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == invSelect) {
+                    sameNoAllMode = list[i].SameNoAllMode;
+                    if (list[i].AutoDocNo == 1) {
+                        $('#docnoout').val("");
+                        $('#docnoout').attr('readonly', true);
+                    }
+                }
+            }
+        }
+        invSelect = "";
+
+    });
+
+    getInvList();
+
+
+
+
+
+
     //Get KalaPrice List
     function getKalaPriceList(insert) {
         ajaxFunction(KalaPriceUri + ace + '/' + sal + '/' + group + '/' + insert, 'GET').done(function (data) {
+
             self.KalaPriceList(data);
             if (self.KalaPriceList().length > 0) {
-                //$("#gGhimat").val('شکری');
-                //aaaaa = $("#gGhimat").val();
                 if (flagupdateHeader == 1) {
                     firstUpdateShow = 1;
-                    sessionStorage.PriceCode != "0" ? $("#gGhimat").val(sessionStorage.PriceCode) : $("#gGhimat").val(sessionStorage.GPriceDefult);
+                    sessionStorage.PriceCode > 0 ? $("#gGhimat").val(sessionStorage.PriceCode) : null;
                 }
-                else
+                else {
                     firstUpdateShow = 0;
-                if (sessionStorage.sels == "true")
-                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                // $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                else
-                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
-                // $("#gGhimat").val(sessionStorage.GPriceDefultP);
+                    if (sessionStorage.InOut == 1) {
+                        sessionStorage.GPriceDefultI == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultI);
+                    }
+                }
+
             }
         });
     }
@@ -458,29 +579,86 @@ var ViewModel = function () {
     self.OptionsCaptionKalaPrice = ko.computed(function () {
         return translate('قیمت اطلاعات پایه');
     });
-    getKalaPriceList(true);
+
+    flagupdateHeader == 1 ? getKalaPriceList(false) : getKalaPriceList(true);
 
 
-    //Get Inv List
-    function getInvList() {
-        ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/2/' + sessionStorage.userName, 'GET').done(function (data) {
-            $("div.loadingZone").hide();
-            self.InvList(data);
-            if (self.InvList().length > 0) {
-                if (flagupdateHeader == 1) {
-                    $("#inv").val(sessionStorage.InvCode);
-                    self.InvCode(sessionStorage.InvCode);
+    $("#sumSanad").text('');
+    $("#gGhimat").change(function () {
+        //a = $("#sumSanad").text();
+        if ($("#sumSanad").text() != '' && viewAction == true && firstUpdateShow == 0) {
+            Swal.fire({
+                title: translate('تایید تغییرات ؟'),
+                text: translate("قیمت تمام کالاها با قیمت های ثبت شده در گروه قیمت کالای انتخاب شده پر می شوند آیا مطمئن هستید ؟"),
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: text_No,
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: text_Yes
+            }).then((result) => {
+                if (result.value) {
+                    SetKalaPrice();
                 }
                 else {
-                    if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
+                    kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
+                    $("#gGhimat").val(kalapricecode);
+                    kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
                 }
+            })
+        }
+
+        if (firstUpdateShow == 1)
+            firstUpdateShow = 0;
+
+    })
+
+    function SetKalaPrice() {
+        kalapricecode = $("#gGhimat").val();
+
+        flagKalaPrice = true;
+
+        for (var i = 0; i < IDocB.length; i++) {
+            if (IDocB[i].KalaCode != "" && IDocB[i].KalaCode != null) {
+
+
+                if (kalapricecode == null || kalapricecode == "") {
+                    if (sessionStorage.sels == "true") {
+                        Price1 = parseFloat(IDocB[i].dataKala.SPrice1);
+                        Price2 = parseFloat(IDocB[i].dataKala.SPrice2);
+                        Price3 = parseFloat(IDocB[i].dataKala.SPrice3);
+                    } else {
+                        Price1 = parseFloat(IDocB[i].dataKala.PPrice1);
+                        Price2 = parseFloat(IDocB[i].dataKala.PPrice2);
+                        Price3 = parseFloat(IDocB[i].dataKala.PPrice3);
+                    }
+
+                    if (IDocB[i].MainUnit == 1) IDocB[i].UnitPrice = Price1;
+                    else if (IDocB[i].MainUnit == 2) IDocB[i].UnitPrice = Price2;
+                    else if (IDocB[i].MainUnit == 3) IDocB[i].UnitPrice = Price3;
+                }
+                else {
+                    ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + kalapricecode + '/' + IDocB[i].KalaCode, 'GET').done(function (data) {
+                        IDocB[i].UP_Flag = true;
+                        IDocB[i].UnitPrice = 0;
+                        if (data.length > 0) {
+                            if (IDocB[i].MainUnit == 1) IDocB[i].UnitPrice = data[0].Price1;
+                            else if (IDocB[i].MainUnit == 2) IDocB[i].UnitPrice = data[0].Price2;
+                            else if (IDocB[i].MainUnit == 3) IDocB[i].UnitPrice = data[0].Price3;
+                        }
+                    });
+                }
+                CalcPrice(i);
             }
-        });
+        }
+
+        dataGrid.refresh();
+        CalcSanad();
     }
-    self.OptionsCaptionAnbar = ko.computed(function () {
-        return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
-    });
-    getInvList();
+
+
+
 
 
 
@@ -537,10 +715,10 @@ var ViewModel = function () {
 
 
 
-    //Get FDocP List
-    function getFDocP(serialNumber) {
-        ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
-            self.FDocPList(data);
+    //Get IDocP List
+    function getIDocP(serialNumber) {
+        ajaxFunction(IDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+            self.IDocPList(data);
         });
     }
 
@@ -559,24 +737,16 @@ var ViewModel = function () {
                 dataIDocH.Amount2 != null ? IDocHAmount2 = dataIDocH.Amount2 : IDocHAmount2 = 0;
                 dataIDocH.Amount3 != null ? IDocHAmount3 = dataIDocH.Amount3 : IDocHAmount3 = 0;
                 dataIDocH.TotalPrice != null ? IDocHTotalPrice = dataIDocH.TotalPrice : IDocHTotalPrice = 0;
-                dataIDocH.Discount != null ? IDocHDiscount = dataIDocH.Discount : IDocHDiscount = 0;
                 dataIDocH.FinalPrice != null ? IDocHFinalPrice = dataIDocH.FinalPrice : IDocHFinalPrice = 0;
-                // IDocHAmount1 == 0 ? $('#foottextsum').text('') : $('#foottextsum').text(translate('جمع'));
-                //IDocHAmount1 == 0 ? $('#foottextamount1').text('') : $('#foottextamount1').text(NumberToNumberString(IDocHAmount1.valueOf()));
-                // IDocHAmount2 == 0 ? $('#foottextamount2').text('') : $('#foottextamount2').text(NumberToNumberString(IDocHAmount2.valueOf()));
-                // IDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(IDocHAmount3.valueOf()));
-                // IDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
-                // IDocHDiscount == 0 ? $('#foottextdiscount').text('') : $('#foottextdiscount').text(NumberToNumberString(Math.abs(IDocHDiscount)));
-                sumFactor = IDocHTotalPrice + IDocHDiscount;
-                $('#sumFactor').text(NumberToNumberString(parseFloat(sumFactor).toFixed(parseInt(sessionStorage.Deghat))));
-                $('#ghabelPardakht').text(NumberToNumberString(parseFloat(IDocHFinalPrice).toFixed(parseInt(sessionStorage.Deghat))))
+                $('#sumSanad').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
             }
         });
     }
 
 
+
     function getIDocHLastDate() {
-        ajaxFunction(IDocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.ModeCode, 'GET').done(function (data) {
+        ajaxFunction(IDocHLastDateUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.DocDate(data);
             $('#btntarikh').click(function () {
                 $('#tarikh').change();
@@ -602,7 +772,7 @@ var ViewModel = function () {
 
     var firstShowData = true;
 
-    var rprtId = sessionStorage.InOut == 1 ? 'IDocB_P' : 'IDocB_S';
+    var rprtId = sessionStorage.InOut == 1 ? 'IDocB_I' : 'IDocB_O';
 
     function getIDocB(serialNumber) {
         ajaxFunction(IDocBListUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
@@ -624,14 +794,12 @@ var ViewModel = function () {
 
 
     function CheckAccess() {
+        if (sessionStorage.InOut == 1) {
+            accessTaeed = localStorage.getItem("Access_TAEED_IIDOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_IIDOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_IIDOC") == 'true'
 
-        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-            showPrice = localStorage.getItem("Access_SHOWPRICE_SFORD") == 'true';// sessionStorage.Access_SHOWPRICE_SFORD == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_SFORD") == 'true';//sessionStorage.Access_TAEED_SFORD == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_SFORD") == 'true';//sessionStorage.Access_TASVIB_SFORD == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_SFORD") == 'true';//sessionStorage.Access_CANCEL_SFORD == 'true'
-
-            if (localStorage.getItem("AccessViewSefareshForosh") == 'true') {
+            if (localStorage.getItem("AccessViewSanadAnbarVarede") == 'true') {
                 viewAction = true;
             }
             else {
@@ -640,14 +808,12 @@ var ViewModel = function () {
                 }
             }
         }
-        if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
+        else {
+            accessTaeed = localStorage.getItem("Access_TAEED_IODOC") == 'true'
+            accessTasvib = localStorage.getItem("Access_TASVIB_IODOC") == 'true'
+            accessCancel = localStorage.getItem("Access_CANCEL_IODOC") == 'true'
 
-            showPrice = localStorage.getItem("Access_SHOWPRICE_SPDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SPDOC == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_SPDOC") == 'true';//sessionStorage.Access_TAEED_SPDOC == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_SPDOC") == 'true';//sessionStorage.Access_TASVIB_SPDOC == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_SPDOC") == 'true';//sessionStorage.Access_CANCEL_SPDOC == 'true'
-
-            if (localStorage.getItem("AccessViewPishFactorForosh") == 'true') {
+            if (localStorage.getItem("AccessViewSanadAnbarSadere") == 'true') {
                 viewAction = true;
             }
             else {
@@ -655,145 +821,13 @@ var ViewModel = function () {
                     viewAction = true;
                 }
             }
-        }
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
 
-            showPrice = localStorage.getItem("Access_SHOWPRICE_SFDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SFDOC == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_SFDOC") == 'true';//sessionStorage.Access_TAEED_SFDOC == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_SFDOC") == 'true';//sessionStorage.Access_TASVIB_SFDOC == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_SFDOC") == 'true';//sessionStorage.Access_CANCEL_SFDOC == 'true'
-
-            if (localStorage.getItem("AccessViewFactorForosh") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
-
-            showPrice = localStorage.getItem("Access_SHOWPRICE_SRDOC") == 'true';//sessionStorage.Access_SHOWPRICE_SRDOC == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_SRDOC") == 'true';//sessionStorage.Access_TAEED_SRDOC == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_SRDOC") == 'true';//sessionStorage.Access_TASVIB_SRDOC == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_SRDOC") == 'true';//sessionStorage.Access_CANCEL_SRDOC == 'true'
-
-            if (localStorage.getItem("AccessViewBackFactorForosh") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
         }
 
-
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-
-            accessTaeed = localStorage.getItem("Access_TAEED_SHVL") == 'true';//sessionStorage.Access_TAEED_SHVL == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_SHVL") == 'true';//sessionStorage.Access_TASVIB_SHVL == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_SHVL") == 'true';//sessionStorage.Access_CANCEL_SHVL == 'true'
-
-            if (localStorage.getItem("AccessViewHavaleForosh") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
-
-            accessTaeed = localStorage.getItem("Access_TAEED_SEXT") == 'true';//sessionStorage.Access_TAEED_SEXT == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_SEXT") == 'true';//sessionStorage.Access_TASVIB_SEXT == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_SEXT") == 'true';//sessionStorage.Access_CANCEL_SEXT == 'true'
-
-            if (localStorage.getItem("AccessViewBargeKhoroj") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-
-            showPrice = localStorage.getItem("Access_SHOWPRICE_PFORD") == 'true';//sessionStorage.Access_SHOWPRICE_PFORD == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_PFORD") == 'true';//sessionStorage.Access_TAEED_PFORD == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_PFORD") == 'true';//sessionStorage.Access_TASVIB_PFORD == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_PFORD") == 'true';//sessionStorage.Access_CANCEL_PFORD == 'true'
-
-            if (localStorage.getItem("AccessViewSefareshKharid") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-
-
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-
-            showPrice = localStorage.getItem("Access_SHOWPRICE_PPDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PPDOC == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_PPDOC") == 'true';//sessionStorage.Access_TAEED_PPDOC == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_PPDOC") == 'true';//sessionStorage.Access_TASVIB_PPDOC == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_PPDOC") == 'true';//sessionStorage.Access_CANCEL_PPDOC == 'true'
-
-            if (localStorage.getItem("AccessViewPishFactorKharid") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-
-
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-
-            showPrice = localStorage.getItem("Access_SHOWPRICE_PFDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PFDOC == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_PFDOC") == 'true';//sessionStorage.Access_TAEED_PFDOC == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_PFDOC") == 'true';//sessionStorage.Access_TASVIB_PFDOC == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_PFDOC") == 'true';//sessionStorage.Access_CANCEL_PFDOC == 'true'
-
-            if (localStorage.getItem("AccessViewFactorKharid") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-        else if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-
-            showPrice = localStorage.getItem("Access_SHOWPRICE_PRDOC") == 'true';//sessionStorage.Access_SHOWPRICE_PRDOC == 'true'
-            accessTaeed = localStorage.getItem("Access_TAEED_PRDOC") == 'true';//sessionStorage.Access_TAEED_PRDOC == 'true'
-            accessTasvib = localStorage.getItem("Access_TASVIB_PRDOC") == 'true';//sessionStorage.Access_TASVIB_PRDOC == 'true'
-            accessCancel = localStorage.getItem("Access_CANCEL_PRDOC") == 'true';//sessionStorage.Access_CANCEL_PRDOC == 'true'
-
-            if (localStorage.getItem("AccessViewBackFactorKharid") == 'true') {
-                viewAction = true;
-            }
-            else {
-                if (sessionStorage.Eghdam == sessionStorage.userName) {
-                    viewAction = true;
-                }
-            }
-        }
-
-
-        if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveFactor == "false" && flagupdateHeader == 1) {
+        if (sessionStorage.CHG == 'false' && sessionStorage.BeforeMoveSanadAnbar == "false" && flagupdateHeader == 1) {
             viewAction = false;
         } else {
-            sessionStorage.BeforeMoveFactor = false;
+            sessionStorage.BeforeMoveSanadAnbar = false;
         }
 
         if (accessTaeed == false && sessionStorage.Status == translate('تایید'))
@@ -807,25 +841,24 @@ var ViewModel = function () {
 
 
         if (viewAction) {
-            $('#action_headerfactor').removeAttr('style');
-            $('#action_bodyfactor').removeAttr('style');
-            $('#action_footerfactor').removeAttr('style');
-            $('#action_Fdoc').removeAttr('style');
-            $('#btnCust').removeAttr('style');
+            $('#action_header').removeAttr('style');
+            $('#action_body').removeAttr('style');
+            $('#action_footer').removeAttr('style');
+            $('#action_IDoc').removeAttr('style');
+            $('#btnThvl').removeAttr('style');
             $('#insertband').removeAttr('style');
             $('#Barcode').removeAttr('style');
             $('#btnMkz').removeAttr('style');
-            $('#btnVstr').removeAttr('style');
             $('#btnOpr').removeAttr('style');
             $('#gGhimat').attr('disabled', false);
-            $('#inv').attr('disabled', false);
+            //$('#inv').attr('disabled', false);
         }
     }
 
     CheckAccess();
 
 
-  
+
     if (flagupdateHeader == 1) {
 
         flagInsertIDocH = 1;
@@ -838,16 +871,15 @@ var ViewModel = function () {
             $('#tarikh').change();
         });
         self.Spec(sessionStorage.Spec);
-        footer
         $("#footer").val(sessionStorage.Footer);
-        codeCust = sessionStorage.CustCode;
-        self.CustCode(sessionStorage.CustCode);
+        codeThvl = sessionStorage.ThvlCode;
+        self.ThvlCode(sessionStorage.ThvlCode);
         self.PriceCode(sessionStorage.PriceCode);
         kalapricecode = sessionStorage.PriceCode;
 
         $("#docnoout").val(sessionStorage.DocNo);
-        $('#textnumberfactor').show();
-        $('#nameCust').val(sessionStorage.CustCode == '' ? '' : '(' + sessionStorage.CustCode + ') ' + sessionStorage.CustName);
+        $('#textnumberSanad').show();
+        $('#nameThvl').val(sessionStorage.ThvlCode == '' ? '' : '(' + sessionStorage.ThvlCode + ') ' + sessionStorage.ThvlName);
 
         self.OprCode(sessionStorage.OprCode);
         codeOpr = sessionStorage.OprCode;
@@ -855,33 +887,33 @@ var ViewModel = function () {
         self.MkzCode(sessionStorage.MkzCode);
         codeMkz = sessionStorage.MkzCode;
 
-        self.VstrCode(sessionStorage.VstrCode);
-        codeVstr = sessionStorage.VstrCode;
+
 
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
-        $('#nameVstr').val(sessionStorage.VstrCode == '' ? '' : '(' + sessionStorage.VstrCode + ') ' + sessionStorage.VstrName);
 
         getIDocH(Serial);
         getIDocB(Serial);
 
-     
+
         $("#footer").val(sessionStorage.Footer);
         flagOtherFieldShow = true;
-        self.StatusFactor(sessionStorage.Status);
+        self.StatusSanad(sessionStorage.Status);
         $("#status").val(sessionStorage.Status);
 
-        self.PaymentFactor(sessionStorage.PaymentType);
+        self.PaymentSanad(sessionStorage.PaymentType);
         $("#paymenttype").val(sessionStorage.PaymentType);
-        $('#titlePage').text(textFactor + " شماره " + sessionStorage.DocNo.toPersianDigit());
+
+        $('#titlePage').text(sessionStorage.ModeName + " " + sessionStorage.DocNo.toPersianDigit() + " " + AppendAnbar(sessionStorage.InvName));
+
 
         var closedDate = false;
 
-        var TestFDoc_EditObject = {
+        var TestIDoc_EditObject = {
             Serialnumber: Serial
         }
 
-        ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
+        ajaxFunction(TestIDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_EditObject, false).done(function (data) {
             list = JSON.parse(data);
             for (var i = 0; i < list.length; i++) {
                 if (list[i].TestName == "YTrs") {
@@ -895,17 +927,17 @@ var ViewModel = function () {
 
 
         if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true) {
-            $('#action_headerfactor').attr('style', 'display: none');
-            $('#action_bodyfactor').attr('style', 'display: none');
-            $('#action_footerfactor').attr('style', 'display: none');
-            $('#action_Fdoc').attr('style', 'display: none');
+            $('#action_headerSanad').attr('style', 'display: none');
+            $('#action_bodySanad').attr('style', 'display: none');
+            $('#action_footerSanad').attr('style', 'display: none');
+            $('#action_IDoc').attr('style', 'display: none');
             $('#insertband').attr('style', 'display: none');
             $('#Barcode').attr('style', 'display: none');
-            $('#btnCust').attr('style', 'display: none');
+            $('#btnThvl').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
             $('#btnOpr').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);
-            $('#inv').attr('disabled', true);
+            // $('#inv').attr('disabled', true);
         }
 
         if (codeOpr == "!!!" || codeMkz == "!!!") {
@@ -925,7 +957,7 @@ var ViewModel = function () {
         //$("#SumBestankar").val(0);
         //$("#TafavotSanad").val(0);
         $("#footer").val('');
-       
+
         for (i = 0; i < 5; i++) {
             tmp = {
                 KalaCode: '',
@@ -938,7 +970,6 @@ var ViewModel = function () {
                 Amount3: 0,
                 UnitPrice: 0,
                 TotalPrice: 0,
-                Discount: 0,
                 Comm: '',
                 BandNo: i
             };
@@ -987,7 +1018,7 @@ var ViewModel = function () {
         cols = getRprtCols(rprtId, userName);
         if (showPrice) {
             cols = cols.filter(s =>
-                s.Code == 'BandNo' ||
+                // s.Code == 'BandNo' ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -998,17 +1029,16 @@ var ViewModel = function () {
                 s.Code == 'Amount3' ||
                 s.Code == 'Comm' ||
                 s.Code == 'UnitPrice' ||
-                s.Code == 'TotalPrice' ||
-                s.Code == 'Discount'
+                s.Code == 'TotalPrice'
             );
         }
         else {
             $("#p_Sum").hide();
-          
+
 
 
             cols = cols.filter(s =>
-                s.Code == 'BandNo' ||
+                // s.Code == 'BandNo' ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -1038,8 +1068,7 @@ var ViewModel = function () {
                     cols[i].Code == 'Comm' ||
                     cols[i].Code == 'Amount1' ||
                     cols[i].Code == 'UnitPrice' ||
-                    cols[i].Code == 'TotalPrice' ||
-                    cols[i].Code == 'Discount'
+                    cols[i].Code == 'TotalPrice'
                 )
                     cols[i].Visible = 1
                 else {
@@ -1056,7 +1085,6 @@ var ViewModel = function () {
                 cols[i].Code == 'Amount1' ? cols[i].Position = 4 : null
                 cols[i].Code == 'UnitPrice' ? cols[i].Position = 5 : null
                 cols[i].Code == 'TotalPrice' ? cols[i].Position = 6 : null
-                cols[i].Code == 'Discount' ? cols[i].Position = 7 : null
             }
 
             //cols.Code == 'KalaCode'
@@ -1123,6 +1151,7 @@ var ViewModel = function () {
         }
 
         f += ',{"dataField":"button","caption":"عملیات" ,"type": "buttons"}';//,"buttons": ["edit", "delete"]}';
+        f += ',{"caption":"#","allowEditing": false}';
 
         f += ']'
 
@@ -1130,6 +1159,17 @@ var ViewModel = function () {
 
         conutHide = 0;
         for (var i = 0; i < cols.length; i++) {
+
+            if (cols[i].caption == '#') {
+                cols[i].caption = 'ردیف';
+                cols[i].dataField = '#';
+                cols[i].fixed = true;
+                cols[i].fixedPosition = "right";
+                cols[i].width = 70;
+                cols[i].cellTemplate = function (cellElement, cellInfo) {
+                    cellElement.text(cellInfo.row.rowIndex + 1)
+                }
+            }
             if (cols[i].type == 'buttons') {
                 buttons = cols[i];
                 buttons.fixed = true;
@@ -1148,7 +1188,7 @@ var ViewModel = function () {
                             IDocB.splice(row, 1);
 
                             e.component.saveEditData();
-                            CalcFactor();
+                            CalcSanad();
                             e.component.refresh(true);
                         }
                     },
@@ -1173,7 +1213,7 @@ var ViewModel = function () {
                             }
 
                             e.component.saveEditData();
-                            CalcFactor();
+                            CalcSanad();
                             e.component.refresh(true);
 
                         }
@@ -1303,7 +1343,7 @@ var ViewModel = function () {
             summary: {
                 //recalculateWhileEditing: ,
                 totalItems: [{
-                    column: 'KalaCode',
+                    column: '#',
                     summaryType: 'count',
                     displayFormat: "{0}  رکورد",
                     showInGroupFooter: false,
@@ -1327,14 +1367,6 @@ var ViewModel = function () {
                     valueFormat: 'decimal',
                     displayFormat: "{0}",
                     showInGroupFooter: false,
-                },
-                {
-                    column: 'Discount',
-                    summaryType: 'sum',
-                    valueFormat: 'decimal',
-                    displayFormat: "{0}",
-                    showInGroupFooter: false,
-                    //alignment: "center"
                 },
 
                 {
@@ -1434,32 +1466,27 @@ var ViewModel = function () {
 
                                 if (Serial == '')
                                     return showNotification(translate('ابتدا انبار را ذخیره کنید'), 0);
-                                getFDocP(Serial);
+                                getIDocP(Serial);
                                 createViewer();
 
-                                if (self.FDocPList().length == 0)
+                                if (self.IDocPList().length == 0)
                                     return showNotification(translate('برای چاپ انبار حداقل یک بند الزامیست'), 0);
 
-                                textFinalPrice = self.FDocPList()[0].FinalPrice.toPersianLetter() + titlePrice;
+                                textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice;
                                 printVariable = '"ReportDate":"' + DateNow + '",' +
                                     '"TextFinalPrice":"' + textFinalPrice + '",';
                                 printName = null;
 
-                                sessionStorage.ModePrint = sessionStorage.ModeCode;
-                                if (ace == "Web1") {
-                                    if (sessionStorage.ModeCode == 51)
-                                        sessionStorage.ModePrint = 'SPFCT';
-                                    else if (sessionStorage.ModeCode == 52)
-                                        sessionStorage.ModePrint = 'SFCT';
-                                    else if (sessionStorage.ModeCode == 53)
-                                        sessionStorage.ModePrint = 'SRFCT';
-                                    else if (sessionStorage.ModeCode == 54)
-                                        sessionStorage.ModePrint = 'PPFCT';
-                                    else if (sessionStorage.ModeCode == 55)
-                                        sessionStorage.ModePrint = 'PFCT';
-                                    else if (sessionStorage.ModeCode == 56)
-                                        sessionStorage.ModePrint = 'PRFCT';
+                                if (sessionStorage.InOut == 1) {
+                                    if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true')
+                                        sessionStorage.ModePrint = 'IDoc';
+                                    else
+                                        sessionStorage.ModePrint = 'IDoc_NoPrice';
                                 }
+                                else {
+                                    sessionStorage.ModePrint = 'ODoc';
+                                }
+
                                 GetPrintForms(sessionStorage.ModePrint);
                                 self.filterPrintForms1("1");
                                 $('#modal-Print').modal('show');
@@ -1489,7 +1516,7 @@ var ViewModel = function () {
                             onClick() {
                                 Swal.fire({
                                     title: '',
-                                    text: textFactor + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
+                                    text: textSanad + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
                                     type: 'warning',
                                     showCancelButton: true,
                                     cancelButtonColor: '#3085d6',
@@ -1499,7 +1526,7 @@ var ViewModel = function () {
                                     confirmButtonText: text_Yes
                                 }).then((result) => {
                                     if (result.value) {
-                                        $('#titlePage').text(textFactor + " " + translate("جدید"));
+                                        $('#titlePage').text(textSanad + " " + translate("جدید"));
                                         Serial = 0;
                                         Serial_Test = 0;
                                         flagInsertIDocH = 0;
@@ -1508,12 +1535,10 @@ var ViewModel = function () {
                                         }
                                         getIDocB(0);
                                         dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                        sumFactor = 0;
-                                        $('#sumFactor').text(0);
-                                        $('#discountCol').text(0);
-                                        $('#ghabelPardakht').text(0);
+                                        sumSanad = 0;
+                                        $('#sumSanad').text(0);
                                         self.Spec('');
-                                       
+
 
                                         for (i = 0; i < 5; i++) {
                                             tmp = {
@@ -1527,7 +1552,6 @@ var ViewModel = function () {
                                                 Amount3: 0,
                                                 UnitPrice: 0,
                                                 TotalPrice: 0,
-                                                Discount: 0,
                                                 Comm: '',
                                                 BandNo: i
                                             };
@@ -1538,14 +1562,14 @@ var ViewModel = function () {
 
 
 
-                                        codeCust = '';
+                                        codeThvl = '';
 
 
 
 
 
                                         closedDate = false;
-                                        codeCust = '';
+                                        codeThvl = '';
                                         sessionStorage.flagupdateHeader = 0;
                                         $('#docnoout').val('');
                                         sessionStorage.searchIDocH = "";
@@ -1554,7 +1578,6 @@ var ViewModel = function () {
                                         $("#paymenttype").val(0);
                                         $("#footer").val('');
                                         sessionStorage.Eghdam = sessionStorage.userName;
-                                        discountCol = 0;
 
 
 
@@ -1562,32 +1585,32 @@ var ViewModel = function () {
                                         kalapricecode = 0;
                                         flagFinalSave = false;
                                         flag = -1;
-                                        flagdiscount = -1;
                                         flagInsertIDocH = 0;
                                         self.flagupdateband = false;
                                         self.SerialNumber();
                                         self.DocNoOut();
                                         self.DocDate();
                                         self.Spec();
-                                        self.CustCode();
+                                        self.ThvlCode();
+
+                                        $('#inv').prop('disabled', false);
+                                        $('#modeCode').prop('disabled', false);
+
                                         self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
-                                        self.InvCode = ko.observable(sessionStorage.InvDefult);
+                                        self.InvCode = ko.observable(invSelect);
                                         self.BandNo();
                                         self.KalaCode();
                                         self.OprCode("");
                                         self.MkzCode("");
-                                        self.VstrCode("");
                                         codeOpr = '';
                                         codeMkz = '';
-                                        codeVstrMkz = '';
                                         flaglog = "Y";
                                         if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                                         $("#gGhimat").val(sessionStorage.GPriceDefult);
 
-                                        $('#nameCust').val("");
+                                        $('#nameThvl').val("");
                                         $('#nameOpr').val("");
                                         $('#nameMkz').val("");
-                                        $('#nameVstr').val("");
 
                                         sessionStorage.F01 = "";
                                         sessionStorage.F02 = "";
@@ -1675,10 +1698,11 @@ var ViewModel = function () {
                         item.visible = false;
                     }
 
-                    if (sessionStorage.newFactor == "false" && item.name == "AddNewSanad")
+                    if (sessionStorage.newSanad == "false" && item.name == "AddNewSanad")
                         item.visible = false;
 
-                    if (sessionStorage.AccessPrint_Factor == "false" && item.name == "print") {
+
+                    if (sessionStorage.AccessPrint_SanadAnbar == "false" && item.name == "print") {
                         item.visible = false;
                     }
 
@@ -1727,15 +1751,19 @@ var ViewModel = function () {
 
                 if (e.rowType === "data" && e.column.dataField === "TotalPrice") {
                     ro = e.row.rowIndex;
-                    if (IDocB[ro].UP_Flag == true || (IDocB[ro].UP_Flag == null && IDocB[ro].dataKala != null)) {
-                        e.cellElement.css("background-color", '#fdf9b0');
+                    if (IDocB[ro] != null) {
+                        if (IDocB[ro].UP_Flag == true || (IDocB[ro].UP_Flag == null && IDocB[ro].dataKala != null)) {
+                            e.cellElement.css("background-color", '#fdf9b0');
+                        }
                     }
                 }
 
                 if (e.rowType === "data" && e.column.dataField === "UnitPrice") {
                     ro = e.row.rowIndex;
-                    if (IDocB[ro].UP_Flag == false) {
-                        e.cellElement.css("background-color", '#fdf9b0');
+                    if (IDocB[ro] != null) {
+                        if (IDocB[ro].UP_Flag == false) {
+                            e.cellElement.css("background-color", '#fdf9b0');
+                        }
                     }
                 }
 
@@ -1758,7 +1786,7 @@ var ViewModel = function () {
                         dataGrid.refresh();
 
                         CalcAmount(e.row.rowIndex, e.dataField);
-                        CalcFactor();
+                        CalcSanad();
                     }
                 }
 
@@ -1770,7 +1798,7 @@ var ViewModel = function () {
                         CalcPrice(ro);
                         dataGrid.saveEditData();
                         dataGrid.refresh();
-                        CalcFactor();
+                        CalcSanad();
                     }
                 }
 
@@ -1783,35 +1811,9 @@ var ViewModel = function () {
 
                         dataGrid.saveEditData();
                         dataGrid.refresh();
-                        CalcFactor();
+                        CalcSanad();
                     }
                 }
-
-                if (e.parentType == 'dataRow' && e.dataField == 'Discount') {
-                    e.editorOptions.onValueChanged = function (args) {
-                        ro = e.row.rowIndex;
-                        IDocB[ro].Discount = args.value;
-                        CalcFactor();
-                        dataGrid.saveEditData();
-                        dataGrid.refresh();
-                    }
-                }
-
-
-
-                /*if (e.parentType == 'dataRow' && e.dataField == 'MainUnitName') {
-                    ro = e.row.rowIndex;
-
-                    KalaUnitList = KalaUnitList.filter(s => s.UnitName == IDocB[ro].dataKala.UnitName1);
-                   // dataGrid.refresh();
-                    e.editorOptions.onValueChanged = function (args) {
-                        
-                        CalcFactor();
-                        dataGrid.saveEditData();
-                        dataGrid.refresh();
-                    }
-                }*/
-
 
             }
 
@@ -1820,20 +1822,14 @@ var ViewModel = function () {
 
 
 
-    function CalcFactor() {
-        discount = 0
+    function CalcSanad() {
         totalPrice = 0;
-        sumDiscount = 0;
         sumTotalPrice = 0;
         for (var i = 0; i < IDocB.length; i++) {
-            discount = IDocB[i].Discount == null || IDocB[i].Discount == '' ? 0 : parseFloat(IDocB[i].Discount);
             totalPrice = IDocB[i].TotalPrice == null || IDocB[i].TotalPrice == '' ? 0 : parseFloat(IDocB[i].TotalPrice);
-
-            sumDiscount = sumDiscount + discount;
             sumTotalPrice = sumTotalPrice + totalPrice;
         }
-        sumFactor = sumTotalPrice - sumDiscount;
-        $("#sumFactor").text(NumberToNumberString(sumTotalPrice - sumDiscount));
+        $("#sumSanad").text(NumberToNumberString(sumTotalPrice));
     }
 
 
@@ -1841,7 +1837,7 @@ var ViewModel = function () {
 
 
 
-  
+
 
 
 
@@ -1855,8 +1851,8 @@ var ViewModel = function () {
         inv = $("#inv").val();
 
         docno = $("#docnoout").val();
+        modeCode = $("#modeCode").val();
 
-       
 
         if (docno.length > 10) {
             return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
@@ -1876,141 +1872,27 @@ var ViewModel = function () {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
         }
 
-
-        if (codeCust == '') {
-            switch (sessionStorage.ModeCode.toString()) {
-                case sessionStorage.MODECODE_FDOC_SO:
-                    if (sessionStorage.FDOCSO_TestCust == "1")
-                        showNotification(translate('خریدار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSO_TestCust == "2")
-                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_SP:
-                    if (sessionStorage.FDOCSP_TestCust == "1")
-                        showNotification(translate('خریدار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSP_TestCust == "2")
-                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_S:
-                    if (sessionStorage.FDOCS_TestCust == "1")
-                        showNotification(translate('خریدار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCS_TestCust == "2")
-                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_SR:
-                    if (sessionStorage.FDOCSR_TestCust == "1")
-                        showNotification(translate('خریدار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSR_TestCust == "2")
-                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
-                    break;
-
-                case sessionStorage.MODECODE_FDOC_SH:
-                    if (sessionStorage.FDOCSH_TestCust == "1")
-                        showNotification(translate('خریدار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSH_TestCust == "2")
-                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
-                    break;
-
-                case sessionStorage.MODECODE_FDOC_SE:
-                    if (sessionStorage.FDOCSE_TestCust == "1")
-                        showNotification(translate('خریدار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSE_TestCust == "2")
-                        return showNotification(translate('خریدار انتخاب نشده است'), 0);
-                    break;
-
-
-
-                case sessionStorage.MODECODE_FDOC_PO:
-                    if (sessionStorage.FDOCPO_TestCust == "1")
-                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCPO_TestCust == "2")
-                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_PP:
-                    if (sessionStorage.FDOCPP_TestCust == "1")
-                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCPP_TestCust == "2")
-                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_P:
-                    if (sessionStorage.FDOCP_TestCust == "1")
-                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCP_TestCust == "2")
-                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_PR:
-                    if (sessionStorage.FDOCPR_TestCust == "1")
-                        showNotification(translate('فروشنده انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCPR_TestCust == "2")
-                        return showNotification(translate('فروشنده انتخاب نشده است'), 0);
-                    break;
-            }
+        if (inv == '' || inv == null) {
+            return showNotification(translate('انبار را انتخاب کنید'), 0);
         }
 
 
-        if (inv == '') {
-            switch (sessionStorage.ModeCode.toString()) {
-                case sessionStorage.MODECODE_FDOC_SO:
-                    if (sessionStorage.FDOCSO_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSO_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_SP:
-                    if (sessionStorage.FDOCSP_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSP_TestInv == "2")
-                        return showNotificationtranslate(('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_S:
-                    if (sessionStorage.FDOCS_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCS_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_SR:
-                    if (sessionStorage.FDOCSR_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSR_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_SH:
-                    if (sessionStorage.FDOCSH_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSH_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_SE:
-                    if (sessionStorage.FDOCSE_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCSE_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
+        if (modeCode == '') {
+            return showNotification(translate('نوع سند را انتخاب کنید'), 0);
+        }
 
-                case sessionStorage.MODECODE_FDOC_PO:
-                    if (sessionStorage.FDOCPO_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCPO_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_PP:
-                    if (sessionStorage.FDOCPP_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCPP_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_P:
-                    if (sessionStorage.FDOCP_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCP_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
-                case sessionStorage.MODECODE_FDOC_PR:
-                    if (sessionStorage.FDOCPR_TestInv == "1")
-                        showNotification(translate('انبار انتخاب نشده است'), 2);
-                    else if (sessionStorage.FDOCPR_TestInv == "2")
-                        return showNotification(translate('انبار انتخاب نشده است'), 0);
-                    break;
+        if (codeThvl == '') {
+            if (sessionStorage.InOut == 1) {
+                if (sessionStorage.IDOCI_TestThvl == "1")
+                    showNotification(translate('تحویل دهنده انتخاب نشده است'), 2);
+                else if (sessionStorage.IDOCI_TestThvl == "2")
+                    return showNotification(translate('تحویل دهنده انتخاب نشده است'), 0);
+            }
+            else {
+                if (sessionStorage.IDOCO_TestThvl == "1")
+                    showNotification(translate('تحویل گیرنده انتخاب نشده است'), 2);
+                else if (sessionStorage.IDOCO_TestThvl == "2")
+                    return showNotification(translate('تحویل گیرنده انتخاب نشده است'), 0);
             }
         }
 
@@ -2019,13 +1901,13 @@ var ViewModel = function () {
         var isFree = true;
         for (var i = 0; i < IDocB.length; i++) {
             if (IDocB[i].KalaCode != '') {
-                isFree = false 
+                isFree = false
             }
         }
 
 
         if (isFree == true) {
-            return showNotification(translate(textFactor + ' دارای بند قابل ذخیره نیست'), 0);
+            return showNotification(translate(textSanad + ' دارای بند قابل ذخیره نیست'), 0);
         }
 
 
@@ -2040,11 +1922,11 @@ var ViewModel = function () {
         //dataGrid.refresh();
 
 
-        var V_Del_FDocObject = {
+        var V_Del_IDocObject = {
             SerialNumber: Serial_Test,
         };
 
-        ajaxFunction(V_Del_FDocUri + ace + '/' + sal + '/' + group, 'POST', V_Del_FDocObject).done(function (response) {
+        ajaxFunction(V_Del_IDocUri + ace + '/' + sal + '/' + group, 'POST', V_Del_IDocObject).done(function (response) {
 
         });
 
@@ -2053,11 +1935,11 @@ var ViewModel = function () {
             SerialNumber: 0,//self.SerialNumber(),
             DocDate: tarikh,//self.DocDate(),
             Spec: self.Spec(),
-            CustCode: codeCust,//self.CustCode(),
+            ThvlCode: codeThvl,//self.ThvlCode(),
             KalaPriceCode: kalapricecode,
             UserCode: sessionStorage.userName,
             BranchCode: 0,
-            ModeCode: sessionStorage.ModeCode,
+            ModeCode: modeCode,
             DocNoMode: 1,
             InsertMode: 0,
             DocNo: docno,
@@ -2067,7 +1949,7 @@ var ViewModel = function () {
             TahieShode: ace,
             VstrPer: 0,
             PakhshCode: '',
-           
+
             InvCode: inv,
             Eghdam: sessionStorage.userName,
             EghdamDate: 'null',
@@ -2092,12 +1974,12 @@ var ViewModel = function () {
             F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: 'N',
-            VstrCode: codeVstr,
+            VstrCode: 0,
             flagTest: 'Y'
         };
 
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'POST', IDocHObject).done(function (response) {
-            var res = response.split("@");
+            var res = response.split("-");
             Serial_Test = res[1];
         });
 
@@ -2115,12 +1997,11 @@ var ViewModel = function () {
                 Amount3: item.Amount3 == null ? 0 : item.Amount3,
                 UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
                 TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
-                Discount: item.Discount == null ? 0 : item.Discount,
                 MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
                 Comm: item.Comm == null ? "" : item.Comm,
                 BandSpec: item.BandSpec == null ? "" : item.BandSpec,
                 Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
-                ModeCode: sessionStorage.ModeCode,
+                ModeCode: modeCode,
                 InvCode: inv,
                 OprCode: codeOpr,
                 MkzCode: codeMkz,
@@ -2135,15 +2016,15 @@ var ViewModel = function () {
 
         });
 
-        var TestFDocObject = {
+        var TestIDocObject = {
             SerialNumber: Serial_Test,
             flagTest: 'Y'
         };
 
-        ajaxFunction(TestFDocUri + ace + '/' + sal + '/' + group, 'POST', TestFDocObject).done(function (data) {
+        ajaxFunction(TestIDocUri + ace + '/' + sal + '/' + group, 'POST', TestIDocObject).done(function (data) {
             var obj = JSON.parse(data);
-            TestFDocList = obj;
-            TashimBand();
+            TestIDocList = obj;
+
             if (data.length > 2) {
                 $('#data-error').show();
                 $('#data-grid').addClass('col-md-6');
@@ -2165,7 +2046,7 @@ var ViewModel = function () {
         textBody = '';
         countWarning = 0;
         countError = 0;
-        list = TestFDocList;
+        list = TestIDocList;
         for (var i = 0; i < list.length; i++) {
             textBody +=
                 '<div class="body" style="padding:7px;">' +
@@ -2200,7 +2081,7 @@ var ViewModel = function () {
                 textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مبلغ صفر است') + ' </p>';
 
 
-            else if (list[i].TestName == 'Cust')
+            else if (list[i].TestName == 'Thvl')
                 textBody += '<p>' + $('#LableHesabCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestName == 'Inv')
@@ -2259,7 +2140,7 @@ var ViewModel = function () {
 
 
     function DeleteBand() {
-        ajaxFunction(IDocBUri + ace + '/' + sal + '/' + group + '/' + Serial + '/0/' + sessionStorage.ModeCode + '/Y', 'DELETE').done(function (response) {
+        ajaxFunction(IDocBUri + ace + '/' + sal + '/' + group + '/' + Serial + '/0/' + sessionStorage.InOut + '/Y', 'DELETE').done(function (response) {
 
         });
     }
@@ -2273,10 +2154,11 @@ var ViewModel = function () {
         inv = $("#inv").val();
         docno = $("#docnoout").val();
         kalapricecode = $("#gGhimat").val();
+        modeCode = $("#modeCode").val();
 
         if (kalapricecode == null) kalapricecode = "";
 
-      
+
 
         if (Serial == 0) {
 
@@ -2284,11 +2166,11 @@ var ViewModel = function () {
                 SerialNumber: 0,
                 DocDate: tarikh,
                 Spec: self.Spec(),
-                CustCode: codeCust,
+                ThvlCode: codeThvl,
                 KalaPriceCode: kalapricecode,
                 UserCode: sessionStorage.userName,
                 BranchCode: 0,
-                ModeCode: sessionStorage.ModeCode,
+                ModeCode: modeCode,
                 DocNoMode: 1,
                 InsertMode: 0,
                 DocNo: docno,
@@ -2298,12 +2180,12 @@ var ViewModel = function () {
                 TahieShode: ace,
                 VstrPer: 0,
                 PakhshCode: '',
-               
+
                 InvCode: inv,
                 Eghdam: sessionStorage.userName,
                 EghdamDate: 'null',
                 flagLog: flaglog,
-                VstrCode: codeVstr,
+                VstrCode: 0,
                 F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
                 F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
                 F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
@@ -2329,13 +2211,13 @@ var ViewModel = function () {
 
 
             ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHObject).done(function (response) {
-                var res = response.split("@");
+                var res = response.split("-");
                 Serial = res[0];
                 DocNoOut = res[1];
                 $('#docnoout').val(DocNoOut);
                 flaglog = 'N';
                 if (flagSaveLogWin == false) {
-                    SaveLog('Fct5', EditMode_New, LogMode_FDoc, 0, DocNoOut, Serial);
+                    SaveLog('Inv5', EditMode_New, LogMode_IDoc, 0, DocNoOut, Serial);
                     flagSaveLogWin = true;
                 }
             });
@@ -2346,11 +2228,11 @@ var ViewModel = function () {
                 SerialNumber: Serial,
                 DocDate: tarikh,
                 Spec: self.Spec(),
-                CustCode: codeCust,
+                ThvlCode: codeThvl,
                 KalaPriceCode: kalapricecode,
                 UserCode: sessionStorage.userName,
                 BranchCode: 0,
-                ModeCode: sessionStorage.ModeCode,
+                ModeCode: modeCode,
                 DocNoMode: 1,
                 InsertMode: 0,
                 DocNo: docno,
@@ -2360,7 +2242,7 @@ var ViewModel = function () {
                 TahieShode: ace,
                 VstrPer: 0,
                 PakhshCode: '',
-              
+
                 InvCode: inv,
                 Status: status,
                 Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
@@ -2391,7 +2273,7 @@ var ViewModel = function () {
                 flagLog: flaglog,
                 OprCode: codeOpr,
                 MkzCode: codeMkz,
-                VstrCode: codeVstr,
+                VstrCode: 0,
                 New: 'Y'
             };
 
@@ -2402,56 +2284,21 @@ var ViewModel = function () {
                 flaglog = 'N';
                 DeleteBand();
                 if (flagSaveLogWin == false) {
-                    SaveLog('Fct5', EditMode_Chg, LogMode_FDoc, 0, docno, Serial);
+                    SaveLog('Inv5', EditMode_Chg, LogMode_IDoc, 0, docno, Serial);
                     flagSaveLogWin = true;
                 }
-
             });
         }
-
-        /*data = IDocB;
-        var obj = [];
-        for (i = 0; i <= data.length - 1; i++) {
-            item = data[i];
-            tmp = {
-                SerialNumber: Serial,
-                KalaCode: item.KalaCode == null ? "" : item.KalaCode,
-                Amount1: item.Amount1 == null ? 0 : item.Amount1,
-                Amount2: item.Amount2 == null ? 0 : item.Amount2,
-                Amount3: item.Amount3 == null ? 0 : item.Amount3,
-                UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
-                TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
-                Discount: item.Discount == null ? 0 : item.Discount,
-                MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
-                Comm: item.Comm == null ? "" : item.Comm,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
-                ModeCode: sessionStorage.ModeCode,
-                InvCode: inv,
-                OprCode: codeOpr,
-                MkzCode: codeMkz,
-                flagLog: flaglog,
-                flagTest: 'N'
-            };
- 
-            obj.push(tmp);
-        }
- 
-        ajaxFunction(IDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj, false).done(function (response) {
-            showNotification(translate('سند ذخیره شد'), 1);
-        });*/
-
-
-
 
 
         var ConvertObject = {
             SerialNumber: Serial,
             TempSerialNumber: Serial_Test,
-            ModeCode: sessionStorage.ModeCode,
         };
 
-        ajaxFunction(IDocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
+        ajaxFunction(IDocBConvertUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'POST', ConvertObject, false).done(function (response) {
+            $('#inv').prop('disabled', true);
+            $('#modeCode').prop('disabled', true);
             showNotification(translate('سند ذخیره شد'), 1);
         });
 
@@ -2906,12 +2753,12 @@ var ViewModel = function () {
 
     //$(document).ready(function () { });
     //------------------------------------------------------
-    self.currentPageCust = ko.observable();
+    self.currentPageThvl = ko.observable();
 
-    pageSizeCust = localStorage.getItem('pageSizeCust') == null ? 10 : localStorage.getItem('pageSizeCust');
+    pageSizeThvl = localStorage.getItem('pageSizeThvl') == null ? 10 : localStorage.getItem('pageSizeThvl');
 
-    self.pageSizeCust = ko.observable(pageSizeCust);
-    self.currentPageIndexCust = ko.observable(0);
+    self.pageSizeThvl = ko.observable(pageSizeThvl);
+    self.currentPageIndexThvl = ko.observable(0);
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
@@ -2920,22 +2767,22 @@ var ViewModel = function () {
     self.iconTypeSpec = ko.observable("");
 
 
-    self.filterCust0 = ko.observable("");
-    self.filterCust1 = ko.observable("");
-    self.filterCust2 = ko.observable("");
+    self.filterThvl0 = ko.observable("");
+    self.filterThvl1 = ko.observable("");
+    self.filterThvl2 = ko.observable("");
 
 
-    self.filterCustList = ko.computed(function () {
+    self.filterThvlList = ko.computed(function () {
 
-        self.currentPageIndexCust(0);
-        var filter0 = self.filterCust0().toUpperCase();
-        var filter1 = self.filterCust1();
-        var filter2 = self.filterCust2();
+        self.currentPageIndexThvl(0);
+        var filter0 = self.filterThvl0().toUpperCase();
+        var filter1 = self.filterThvl1();
+        var filter2 = self.filterThvl2();
 
         if (!filter0 && !filter1 && !filter2) {
-            return self.CustList();
+            return self.ThvlList();
         } else {
-            tempData = ko.utils.arrayFilter(self.CustList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.ThvlList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
@@ -2947,42 +2794,42 @@ var ViewModel = function () {
     });
 
 
-    self.currentPageCust = ko.computed(function () {
-        var pageSizeCust = parseInt(self.pageSizeCust(), 10),
-            startIndex = pageSizeCust * self.currentPageIndexCust(),
-            endIndex = startIndex + pageSizeCust;
-        localStorage.setItem('pageSizeCust', pageSizeCust);
-        return self.filterCustList().slice(startIndex, endIndex);
+    self.currentPageThvl = ko.computed(function () {
+        var pageSizeThvl = parseInt(self.pageSizeThvl(), 10),
+            startIndex = pageSizeThvl * self.currentPageIndexThvl(),
+            endIndex = startIndex + pageSizeThvl;
+        localStorage.setItem('pageSizeThvl', pageSizeThvl);
+        return self.filterThvlList().slice(startIndex, endIndex);
     });
 
 
-    self.nextPageCust = function () {
-        if (((self.currentPageIndexCust() + 1) * self.pageSizeCust()) < self.filterCustList().length) {
-            self.currentPageIndexCust(self.currentPageIndexCust() + 1);
+    self.nextPageThvl = function () {
+        if (((self.currentPageIndexThvl() + 1) * self.pageSizeThvl()) < self.filterThvlList().length) {
+            self.currentPageIndexThvl(self.currentPageIndexThvl() + 1);
         }
     };
 
-    self.previousPageCust = function () {
-        if (self.currentPageIndexCust() > 0) {
-            self.currentPageIndexCust(self.currentPageIndexCust() - 1);
+    self.previousPageThvl = function () {
+        if (self.currentPageIndexThvl() > 0) {
+            self.currentPageIndexThvl(self.currentPageIndexThvl() - 1);
         }
     };
 
-    self.firstPageCust = function () {
-        self.currentPageIndexCust(0);
+    self.firstPageThvl = function () {
+        self.currentPageIndexThvl(0);
     };
 
-    self.lastPageCust = function () {
-        countCust = parseInt(self.filterCustList().length / self.pageSizeCust(), 10);
-        self.currentPageIndexCust(countCust);
+    self.lastPageThvl = function () {
+        countThvl = parseInt(self.filterThvlList().length / self.pageSizeThvl(), 10);
+        self.currentPageIndexThvl(countThvl);
     };
 
-    self.sortTableCust = function (viewModel, e) {
+    self.sortTableThvl = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.CustList.sort(function (left, right) {
+        self.ThvlList.sort(function (left, right) {
 
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
@@ -3006,12 +2853,12 @@ var ViewModel = function () {
     };
 
 
-    self.selectCust = function (item) {
+    self.selectThvl = function (item) {
 
         if (Serial != '') {
             Swal.fire({
                 title: translate('تایید و ثبت نهایی تغییرات ؟'),
-                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
+                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('تحویل گیرنده') : translate('تحویل دهنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -3021,8 +2868,8 @@ var ViewModel = function () {
                 confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
-                    codeCust = item.Code;
-                    $('#nameCust').val('(' + item.Code + ') ' + item.Name)
+                    codeThvl = item.Code;
+                    $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
 
                     if (sessionStorage.sels == "true")
                         sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
@@ -3041,15 +2888,15 @@ var ViewModel = function () {
                         $("#gGhimat").val(item.KalaPriceCode_P);
 
 
-                    self.CustCode(item.Code)
+                    self.ThvlCode(item.Code)
 
                     flagKalaPrice = true;
                 }
             })
         }
         else {
-            codeCust = item.Code;
-            $('#nameCust').val('(' + item.Code + ') ' + item.Name)
+            codeThvl = item.Code;
+            $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
 
             if ($("#gGhimat").val() == '') {
 
@@ -3068,9 +2915,9 @@ var ViewModel = function () {
                 else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
-            self.CustCode(item.Code)
+            self.ThvlCode(item.Code)
         }
-        $('#nameCust').focus();
+        $('#nameThvl').focus();
     };
 
     self.getById = function (id) {
@@ -3085,18 +2932,18 @@ var ViewModel = function () {
     };
 
 
-    $('#modal-Cust').on('shown.bs.modal', function () {
-        $('#searchCust').val('');
-        self.filterCustList();
-        $('#searchCust').focus();
+    $('#modal-Thvl').on('shown.bs.modal', function () {
+        $('#searchThvl').val('');
+        self.filterThvlList();
+        $('#searchThvl').focus();
     });
 
 
-    $('#refreshcust').click(function () {
+    $('#refreshThvl').click(function () {
 
         Swal.fire({
             title: mes_Refresh,
-            text: (sessionStorage.InOut == 2 ? translate("لیست خریداران ") : translate("لیست فروشندگان ")) + " " + translate("به روز رسانی شود ؟"),
+            text: (sessionStorage.InOut == 2 ? translate("لیست تحویل گیرنده گان ") : translate("لیست تحویل دهنده گان ")) + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3106,7 +2953,7 @@ var ViewModel = function () {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getCustList();
+                getThvlList();
                 $("div.loadingZone").hide();
                 // Swal.fire({ type: 'success', title: 'عملیات موفق', text: sessionStorage.InOut == 1 ? 'لیست خریداران به روز رسانی شد' : 'لیست فروشندگان به روز رسانی شد' });
             }
@@ -3407,140 +3254,6 @@ var ViewModel = function () {
 
 
 
-    self.currentPageVstr = ko.observable();
-    pageSizeVstr = localStorage.getItem('pageSizeVstr') == null ? 10 : localStorage.getItem('pageSizeVstr');
-    self.pageSizeVstr = ko.observable(pageSizeVstr);
-    self.currentPageIndexVstr = ko.observable(0);
-
-    self.filterVstr0 = ko.observable("");
-    self.filterVstr1 = ko.observable("");
-    self.filterVstr2 = ko.observable("");
-
-    self.filterVstrList = ko.computed(function () {
-
-        self.currentPageIndexVstr(0);
-        var filter0 = self.filterVstr0().toUpperCase();
-        var filter1 = self.filterVstr1();
-        var filter2 = self.filterVstr2();
-
-        if (!filter0 && !filter1 && !filter2) {
-            return self.VstrList();
-        } else {
-            tempData = ko.utils.arrayFilter(self.VstrList(), function (item) {
-                result =
-                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
-                return result;
-            })
-            return tempData;
-        }
-    });
-
-
-    self.currentPageVstr = ko.computed(function () {
-        var pageSizeVstr = parseInt(self.pageSizeVstr(), 10),
-            startIndex = pageSizeVstr * self.currentPageIndexVstr(),
-            endIndex = startIndex + pageSizeVstr;
-        localStorage.setItem('pageSizeVstr', pageSizeVstr);
-        return self.filterVstrList().slice(startIndex, endIndex);
-    });
-
-    self.nextPageVstr = function () {
-        if (((self.currentPageIndexVstr() + 1) * self.pageSizeVstr()) < self.filterVstrList().length) {
-            self.currentPageIndexVstr(self.currentPageIndexVstr() + 1);
-        }
-    };
-
-    self.previousPageVstr = function () {
-        if (self.currentPageIndexVstr() > 0) {
-            self.currentPageIndexVstr(self.currentPageIndexVstr() - 1);
-        }
-    };
-
-    self.firstPageVstr = function () {
-        self.currentPageIndexVstr(0);
-    };
-
-    self.lastPageVstr = function () {
-        countVstr = parseInt(self.filterVstrList().length / self.pageSizeVstr(), 10);
-        if ((self.filterVstrList().length % self.pageSizeVstr()) == 0)
-            self.currentPageIndexVstr(countVstr - 1);
-        else
-            self.currentPageIndexVstr(countVstr);
-    };
-
-    self.sortTableVstr = function (viewModel, e) {
-        var orderProp = $(e.target).attr("data-column")
-        if (orderProp == null)
-            return null
-        self.currentColumn(orderProp);
-        self.VstrList.sort(function (left, right) {
-            leftVal = FixSortName(left[orderProp]);
-            rightVal = FixSortName(right[orderProp]);
-
-            if (self.sortType == "ascending") {
-                return leftVal < rightVal ? 1 : -1;
-            }
-            else {
-                return leftVal > rightVal ? 1 : -1;
-            }
-        });
-        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
-
-        self.iconTypeCode('');
-        self.iconTypeName('');
-        self.iconTypeSpec('');
-
-
-        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-    };
-
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-        getIDocH(select, invSelect);
-    }
-
-
-
-    $('#refreshVstr').click(function () {
-        Swal.fire({
-            title: mes_Refresh,
-            text: translate("لیست ویزیتورها ") + " " + translate("به روز رسانی شود ؟"),
-            type: 'info',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: text_No,
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: text_Yes
-        }).then((result) => {
-            if (result.value) {
-                $("div.loadingZone").show();
-                getVstrList();
-                $("div.loadingZone").hide();
-                // Swal.fire({ type: 'success', title: 'عملیات موفق', text: 'لیست کالاها به روز رسانی شد' });
-            }
-        })
-    })
-
-
-
-    self.selectVstr = function (item) {
-        codeVstr = item.Code;
-        $('#nameVstr').val('(' + item.Code + ') ' + item.Name)
-        self.VstrCode(item.Code)
-    };
-
-    $('#modal-Vstr').on('shown.bs.modal', function () {
-        $('.fix').attr('class', 'form-line focused fix');
-    });
-
-
 
 
 
@@ -3654,7 +3367,7 @@ var ViewModel = function () {
         address = item.address;
         data = item.Data;
         printPublic = item.isPublic == 1 ? true : false;
-        setReport(self.FDocPList(), data, printVariable);
+        setReport(self.IDocPList(), data, printVariable);
     };
 
 
@@ -3697,7 +3410,7 @@ var ViewModel = function () {
     $('#AddNewPrintForms').click(function () {
         printName = translate('فرم جدید');
         printPublic = false;
-        setReport(self.FDocPList(), '', printVariable);
+        setReport(self.IDocPList(), '', printVariable);
     });
 
 
@@ -3718,7 +3431,7 @@ var ViewModel = function () {
                 data = list[i].Data;
             }
         }
-        setReport(self.FDocPList(), data, printVariable);
+        setReport(self.IDocPList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
 
@@ -3761,42 +3474,8 @@ var ViewModel = function () {
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "Factor", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber);
     };
-
-
-
-
-    /* $("#gGhimat").change(function () {
-         a = $("#sumfactor").val();
-         if ($("#sumfactor").val() != '' && viewAction == true && firstUpdateShow == 0) {
-             Swal.fire({
-                 title: translate('تایید و ثبت نهایی تغییرات ؟'),
-                 text: translate("قیمت تمام کالاها با قیمت های ثبت شده در گروه قیمت کالای انتخاب شده پر می شوند آیا مطمئن هستید ؟"),
-                 type: 'warning',
-                 showCancelButton: true,
-                 cancelButtonColor: '#3085d6',
-                 cancelButtonText: text_No,
-                 allowOutsideClick: false,
-                 confirmButtonColor: '#d33',
-                 confirmButtonText: text_Yes
-             }).then((result) => {
-                 if (result.value) {
-                     kalapricecode = $("#gGhimat").val();
-                     if (kalapricecode == null) kalapricecode = "";
-                     kalapricecode = $("#gGhimat").val();
-                     flagKalaPrice = true;
-                     self.UpdateIDocH();
-                 }
-                 else {
-                     kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
-                     $("#gGhimat").val(kalapricecode);
-                     kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
-                 }
-             })
-         }
- 
-     })*/
 
 
 

@@ -572,7 +572,7 @@ var ViewModel = function () {
 
         cols = getRprtCols(rprtId, userName);
         cols = cols.filter(s =>
-            s.Code == 'BandNo' ||
+            //s.Code == 'BandNo' ||
             s.Code == 'AccCode' ||
             s.Code == 'AccName' ||
             s.Code == 'AccZCode' ||
@@ -861,7 +861,7 @@ var ViewModel = function () {
             }
 
             if (
-                data[i].Code == "BandNo" ||
+                //data[i].Code == "BandNo" ||
                 data[i].Code == "CheckNo" ||
                 data[i].Code == "CheckDate" ||
                 data[i].Code == "Bank" ||
@@ -901,6 +901,7 @@ var ViewModel = function () {
         }
 
         f += ',{"dataField":"button","caption":"عملیات" ,"type": "buttons"}';//,"buttons": ["edit", "delete"]}';
+        f += ',{"caption":"#","allowEditing": false}';
 
         f += ']'
 
@@ -937,6 +938,17 @@ var ViewModel = function () {
         }],
       },
              */
+
+            if (cols[i].caption == '#') {
+                cols[i].caption = 'ردیف';
+                cols[i].dataField = '#';
+                cols[i].fixed = true;
+                cols[i].fixedPosition = "right";
+                cols[i].width = 70;
+                cols[i].cellTemplate = function (cellElement, cellInfo) {
+                    cellElement.text(cellInfo.row.rowIndex + 1)
+                }
+            }
 
             if (cols[i].type == 'buttons') {
                 buttons = cols[i];
@@ -1258,7 +1270,7 @@ var ViewModel = function () {
             columnAutoWidth: false,
 
             columnResizingMode: 'widget',
-            columnMinWidth: 100,
+            columnMinWidth: 70,
             focusedRowIndex: 0,
             focusedColumnIndex: 0,
             rtlEnabled: true,
@@ -1267,7 +1279,13 @@ var ViewModel = function () {
 
             columnChooser: {
                 enabled: true,
-                // mode: 'select',
+                mode: 'select',
+                width: 250,
+                width: 250,
+                title: 'تنظیم ستون ها',
+                sortOrder: 'asc',
+                //searchTimeout: 500,
+                height: 500,
             },
 
             // columnFixing: {

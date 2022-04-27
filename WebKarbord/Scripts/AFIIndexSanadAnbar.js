@@ -1262,13 +1262,13 @@
         //else
         //{
         sessionStorage.InvCode = invCode;
-        window.location.href = sessionStorage.urlAddIDocH;
+        window.location.href = sessionStorage.urlAddIDocH_New;
 
         //}
     });
 
 
-    $('#AddNewSanadAnbar_New').click(function () {
+    /*$('#AddNewSanadAnbar_New').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = 'موقت';
@@ -1303,7 +1303,7 @@
         window.location.href = sessionStorage.urlAddIDocH_New;
 
         //}
-    });
+    });*/
 
 
     $('#refreshIdocH').click(function () {
@@ -1498,7 +1498,7 @@
             sessionStorage.MkzName = item.MkzName;
 
             sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
-            window.location.href = sessionStorage.urlAddIDocH;
+            window.location.href = sessionStorage.urlAddIDocH_New;
         }
 
     }
@@ -1626,7 +1626,7 @@
 
                 sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
-                window.location.href = sessionStorage.urlAddIDocH;
+                window.location.href = sessionStorage.urlAddIDocH_New;
             }
 
         });

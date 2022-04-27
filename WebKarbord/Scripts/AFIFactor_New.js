@@ -336,7 +336,13 @@ var ViewModel = function () {
             self.CustList(data);
         });
     }
-    getCustList();
+
+    $('#btnCust').click(function () {
+        if (self.CustList().length == 0) {
+            getCustList();
+        }
+    });
+
 
 
     //Get Opr List
@@ -346,7 +352,11 @@ var ViewModel = function () {
         });
     }
 
-    getOprList();
+    $('#btnOpr').click(function () {
+        if (self.OprList().length == 0) {
+            getOprList();
+        }
+    });
 
 
     //Get  Mkz List
@@ -356,8 +366,26 @@ var ViewModel = function () {
         });
     }
 
-    getMkzList();
 
+    $('#btnMkz').click(function () {
+        if (self.MkzList().length == 0) {
+            getMkzList();
+        }
+    });
+
+
+    //Get  Vstr List
+    function getVstrList() {
+        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+            self.VstrList(data);
+        });
+    }
+
+    $('#btnVstr').click(function () {
+        if (self.VstrList().length == 0) {
+            getVstrList();
+        }
+    });
 
 
     //Get  UnitName List
@@ -379,15 +407,7 @@ var ViewModel = function () {
 
 
 
-    //Get  Vstr List
-    function getVstrList() {
-        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.VstrList(data);
-        });
-    }
 
-
-    getVstrList();
 
     //Get kala List
     function getKalaList() {
@@ -500,6 +520,8 @@ var ViewModel = function () {
         if (firstUpdateShow == 1)
             firstUpdateShow = 0;
     })
+
+    $("#sumFactor").text('');
 
     $("#gGhimat").change(function () {
         if ($("#sumFactor").text() != '' && viewAction == true && firstUpdateShow == 0) {
@@ -1206,7 +1228,8 @@ var ViewModel = function () {
                 TotalPrice: 0,
                 Discount: 0,
                 Comm: '',
-                BandNo: i
+                BandNo: i,
+                UP_Flag: true,
             };
             FDocB[i] = tmp;
         }
@@ -1389,7 +1412,7 @@ var ViewModel = function () {
         }
 
         f += ',{"dataField":"button","caption":"عملیات" ,"type": "buttons"}';//,"buttons": ["edit", "delete"]}';
-        f += ',{"caption":"#"}';//,"buttons": ["edit", "delete"]}';
+        f += ',{"caption":"#","allowEditing": false}';//,"buttons": ["edit", "delete"]}';
 
         f += ']'
 
@@ -1398,8 +1421,8 @@ var ViewModel = function () {
         conutHide = 0;
         for (var i = 0; i < cols.length; i++) {
             if (cols[i].caption == '#') {
-
                 cols[i].caption = 'ردیف';
+                cols[i].dataField = '#';
                 cols[i].fixed = true;
                 cols[i].fixedPosition = "right";
                 cols[i].width = 70;
@@ -1580,7 +1603,7 @@ var ViewModel = function () {
             summary: {
                 //recalculateWhileEditing: ,
                 totalItems: [{
-                    column: 'KalaCode',
+                    column: '#',
                     summaryType: 'count',
                     displayFormat: "{0}  رکورد",
                     showInGroupFooter: false,
@@ -1786,9 +1809,9 @@ var ViewModel = function () {
                                         getFDocB(0);
                                         dataGrid = $("#gridContainer").dxDataGrid("instance");
                                         sumFactor = 0;
-                                        $('#sumFactor').text(0);
-                                        $('#discountCol').text(0);
-                                        $('#ghabelPardakht').text(0);
+                                        $('#sumFactor').text('');
+                                        $('#discountCol').text('');
+                                        $('#ghabelPardakht').text('');
                                         self.Spec('');
                                         getAddMinList(sessionStorage.sels, -1, 0, 0, false,
                                             '', '', '', '', '', '', '', '', '', ''
@@ -2005,15 +2028,19 @@ var ViewModel = function () {
 
                 if (e.rowType === "data" && e.column.dataField === "TotalPrice") {
                     ro = e.row.rowIndex;
-                    if (FDocB[ro].UP_Flag == true || (FDocB[ro].UP_Flag == null && FDocB[ro].dataKala != null)) {
-                        e.cellElement.css("background-color", '#fdf9b0');
+                    if (FDocB[ro] != null) {
+                        if (FDocB[ro].UP_Flag == true || (FDocB[ro].UP_Flag == null && FDocB[ro].dataKala != null)) {
+                            e.cellElement.css("background-color", '#fdf9b0');
+                        }
                     }
                 }
 
                 if (e.rowType === "data" && e.column.dataField === "UnitPrice") {
                     ro = e.row.rowIndex;
-                    if (FDocB[ro].UP_Flag == false) {
-                        e.cellElement.css("background-color", '#fdf9b0');
+                    if (FDocB[ro] != null) {
+                        if (FDocB[ro].UP_Flag == false) {
+                            e.cellElement.css("background-color", '#fdf9b0');
+                        }
                     }
                 }
 
