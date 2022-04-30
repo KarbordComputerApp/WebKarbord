@@ -176,7 +176,7 @@ var ViewModel = function () {
         $('#TitleHeaderAnbar').text(textSanad);
         $('#titlePage').text(translate('سند وارده به انبار جدید'));
         $('#LableThvlCode').text(translate('نام تحویل دهنده'));
-        $('#TitleModalThvl').text(translate('لیست تحویل دهنده گان'));
+        $('#TitleModalThvl').text(translate('لیست تحویل دهندگان'));
         $('#TitleCodeTableModalThvl').text(translate('کد تحویل دهنده'));
         $('#TitleNameTableModalThvl').text(translate('نام تحویل دهنده'));
         ModeCodeExtraFields = 'IDOCI';
@@ -2943,7 +2943,7 @@ var ViewModel = function () {
 
         Swal.fire({
             title: mes_Refresh,
-            text: (sessionStorage.InOut == 2 ? translate("لیست تحویل گیرنده گان ") : translate("لیست تحویل دهنده گان ")) + " " + translate("به روز رسانی شود ؟"),
+            text: (sessionStorage.InOut == 2 ? translate("لیست تحویل گیرنده گان ") : translate("لیست تحویل دهندگان ")) + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
