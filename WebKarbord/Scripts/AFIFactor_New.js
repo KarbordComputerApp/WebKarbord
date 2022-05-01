@@ -551,7 +551,9 @@ var ViewModel = function () {
     })
 
     function SetKalaPrice() {
-        kalapricecode = $("#gGhimat").val();
+        //kalapricecode = $("#gGhimat").val();
+
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
 
         flagKalaPrice = true;
 
@@ -625,8 +627,9 @@ var ViewModel = function () {
 
 
     //Get KalaPriceB List
-    function getKalaPriceBList(codeKalaPrice, codeKala) {
-        ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + codeKalaPrice + '/' + codeKala, 'GET').done(function (data) {
+    function getKalaPriceBList(codeKala) {
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
+        ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + kalapricecode + '/' + codeKala, 'GET').done(function (data) {
             self.KalaPriceBList(data);
             if (self.KalaPriceBList().length > 0) { // اگر شامل گروه قیمت بود
                 var dataPrice = self.KalaPriceBList()[0];
@@ -634,7 +637,7 @@ var ViewModel = function () {
                 Price2 = parseFloat(dataPrice.Price2);
                 Price3 = parseFloat(dataPrice.Price3);
             }
-            else if (codeKalaPrice > 0) {// اگر شامل گروه قیمت نبود
+            else if (kalapricecode > 0) {// اگر شامل گروه قیمت نبود
                 Price1 = 0;
                 Price2 = 0;
                 Price3 = 0;
@@ -2794,7 +2797,7 @@ var ViewModel = function () {
 
 
             else if (list[i].TestName == 'Cust')
-                textBody += '<p>' + $('#LableHesabCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
+                textBody += '<p>' + $('#LableCustCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestName == 'Inv')
                 textBody += '<p>' + translate('انبار انتخاب نشده است') + ' </p>';
@@ -2865,9 +2868,11 @@ var ViewModel = function () {
         status = $("#status").val();
         inv = $("#inv").val();
         docno = $("#docnoout").val();
-        kalapricecode = $("#gGhimat").val();
+        //kalapricecode = $("#gGhimat").val();
 
-        if (kalapricecode == null) kalapricecode = "";
+        //if (kalapricecode == null) kalapricecode = "";
+
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
 
         //CalcAddmin();
 
@@ -3281,7 +3286,7 @@ var ViewModel = function () {
             Price3 = parseFloat(FDocB[ro].dataKala.PPrice3);
         }
 
-        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, FDocB[ro].dataKala.Code);
+        getKalaPriceBList(FDocB[ro].dataKala.Code);
 
         if (value == "1") FDocB[ro].UnitPrice = Price1 = 0 ? 0 : Price1.toFixed(deghatR1)
         else if (value == "2") FDocB[ro].UnitPrice = Price2 = 0 ? 0 : Price2.toFixed(deghatR2)
@@ -3340,30 +3345,11 @@ var ViewModel = function () {
                                 FDocB[ro].dataKala = selectionChangedArgs.selectedRowsData[0];
 
 
-                                // KalaUnitList = [{ 'id': 1, 'Name': '1' }, { 'id': 2, 'Name': '2' }, { 'id': 3, 'Name': '3' }];
-                                // KalaUnitList = [{ 'Name': '1'}];
-                                //temp = [];
-
-                                /*  KalaUnitList = [];
-                                  if (FDocB[ro].dataKala.UnitName1 != '')
-                                      KalaUnitList.push({ 'ID': 1, 'Name': FDocB[ro].dataKala.UnitName1 });
-  
-                                  if (FDocB[ro].dataKala.UnitName1 != '')
-                                      KalaUnitList.push({ 'ID': 2, 'Name': FDocB[ro].dataKala.UnitName2 });
-  
-                                  if (FDocB[ro].dataKala.UnitName1 != '')
-                                      KalaUnitList.push({ 'ID': 3, 'Name': FDocB[ro].dataKala.UnitName3 });
-                                      */
-
                                 dataKala = selectionChangedArgs.selectedRowsData[0];
                                 FDocB[ro].MainUnit = dataKala.DefaultUnit
                                 dataGrid.cellValue(ro, "MainUnitName", dataKala.DefaultUnit == 1 ? FDocB[ro].dataKala.UnitName1 : dataKala.DefaultUnit == 2 ? FDocB[ro].dataKala.UnitName2 : FDocB[ro].dataKala.UnitName3);
 
                                 defaultUnit = dataKala.DefaultUnit;
-
-
-
-
 
                                 if (sessionStorage.sels == "true") {
                                     Price1 = parseFloat(dataKala.SPrice1);
@@ -3375,9 +3361,9 @@ var ViewModel = function () {
                                     Price3 = parseFloat(dataKala.PPrice3);
                                 }
 
-                                getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, dataKala.Code);
+                                getKalaPriceBList(dataKala.Code);
 
-                                dataGrid.cellValue(ro, "UnitPrice", Price1);
+                                dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
 
                                 //KalaUnitList = [];
                                 //
@@ -3505,6 +3491,22 @@ var ViewModel = function () {
                                     cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                                     //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
                                     FDocB[ro].MainUnit = selectionChangedArgs.selectedRowsData[0].Code;
+
+                                    if (sessionStorage.sels == "true") {
+                                        Price1 = parseFloat(dataKala.SPrice1);
+                                        Price2 = parseFloat(dataKala.SPrice2);
+                                        Price3 = parseFloat(dataKala.SPrice3);
+                                    } else {
+                                        Price1 = parseFloat(dataKala.PPrice1);
+                                        Price2 = parseFloat(dataKala.PPrice2);
+                                        Price3 = parseFloat(dataKala.PPrice3);
+                                    }
+
+                                    getKalaPriceBList(dataKala.Code);
+
+                                    dataGrid.cellValue(ro, "UnitPrice", FDocB[ro].MainUnit == 1 ? Price1 : FDocB[ro].MainUnit == 2 ? Price2 : Price3);
+
+
                                     e.component.close();
                                 }
                             }

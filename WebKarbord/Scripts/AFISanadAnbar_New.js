@@ -170,18 +170,19 @@ var ViewModel = function () {
     var showPrice = localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true';
     var textSanad;
 
-
     if (sessionStorage.InOut == 1) {
         textSanad = translate('سند وارده به انبار')
         $('#TitleHeaderAnbar').text(textSanad);
         $('#titlePage').text(translate('سند وارده به انبار جدید'));
-        $('#LableThvlCode').text(translate('نام تحویل دهنده'));
+        $('#LableThvlCode').text(translate('تحویل دهنده'));
         $('#TitleModalThvl').text(translate('لیست تحویل دهندگان'));
         $('#TitleCodeTableModalThvl').text(translate('کد تحویل دهنده'));
         $('#TitleNameTableModalThvl').text(translate('نام تحویل دهنده'));
         ModeCodeExtraFields = 'IDOCI';
 
         amountAfterBarCode = sessionStorage.IDOCIAmountAfterBarCode
+
+        sessionStorage.NEW_IODOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
 
         invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
         modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_In') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_In');
@@ -212,6 +213,8 @@ var ViewModel = function () {
         }
 
 
+
+
     } else {
         textSanad = translate('سند صادره از انبار')
         $('#TitleHeaderAnbar').text(textSanad);
@@ -223,6 +226,8 @@ var ViewModel = function () {
         ModeCodeExtraFields = 'IDOCO';
 
         amountAfterBarCode = sessionStorage.IDOCOAmountAfterBarCode
+
+        sessionStorage.NEW_IODOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
 
         invSelected = localStorage.getItem('InvSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_Out');
         modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_Out');
@@ -251,6 +256,7 @@ var ViewModel = function () {
 
     else if (amountAfterBarCode == "1")
         $("#Panel_Barcode_Amount").removeAttr('hidden', '');
+
 
 
 
@@ -602,6 +608,7 @@ var ViewModel = function () {
                     SetKalaPrice();
                 }
                 else {
+                    kalapricecode = $("#gGhimat").val();
                     kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
                     $("#gGhimat").val(kalapricecode);
                     kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
@@ -615,7 +622,8 @@ var ViewModel = function () {
     })
 
     function SetKalaPrice() {
-        kalapricecode = $("#gGhimat").val();
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
+        //kalapricecode = $("#gGhimat").val();
 
         flagKalaPrice = true;
 
@@ -694,8 +702,9 @@ var ViewModel = function () {
 
 
     //Get KalaPriceB List
-    function getKalaPriceBList(codeKalaPrice, codeKala) {
-        ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + codeKalaPrice + '/' + codeKala, 'GET').done(function (data) {
+    function getKalaPriceBList(codeKala) {
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
+        ajaxFunction(KalaPriceBUri + ace + '/' + sal + '/' + group + '/' + kalapricecode + '/' + codeKala, 'GET').done(function (data) {
             self.KalaPriceBList(data);
             if (self.KalaPriceBList().length > 0) { // اگر شامل گروه قیمت بود
                 var dataPrice = self.KalaPriceBList()[0];
@@ -703,7 +712,7 @@ var ViewModel = function () {
                 Price2 = parseFloat(dataPrice.Price2);
                 Price3 = parseFloat(dataPrice.Price3);
             }
-            else if (codeKalaPrice > 0) {// اگر شامل گروه قیمت نبود
+            else if (kalapricecode > 0) {// اگر شامل گروه قیمت نبود
                 Price1 = 0;
                 Price2 = 0;
                 Price3 = 0;
@@ -1016,7 +1025,7 @@ var ViewModel = function () {
     function GetRprtCols_NewList(userName) {
         //showPrice = false;
         cols = getRprtCols(rprtId, userName);
-        if (showPrice) {
+        if (showPrice && sessionStorage.InOut == 1) {
             cols = cols.filter(s =>
                 // s.Code == 'BandNo' ||
                 s.Code == 'KalaCode' ||
@@ -1034,8 +1043,6 @@ var ViewModel = function () {
         }
         else {
             $("#p_Sum").hide();
-
-
 
             cols = cols.filter(s =>
                 // s.Code == 'BandNo' ||
@@ -1384,6 +1391,17 @@ var ViewModel = function () {
             onCellClick: function (e) {
                 co = e.columnIndex;
                 ro = e.rowIndex;
+                if (e == null) {
+                    a = 1;
+                }
+
+                if (e.column == null) {
+                    a = 2;
+                }
+                if (e.column.dataField == null) {
+                    a = 3;
+                }
+
                 fieldName = e.column.dataField;
             },
 
@@ -1698,6 +1716,8 @@ var ViewModel = function () {
                         item.visible = false;
                     }
 
+
+
                     if (sessionStorage.newSanad == "false" && item.name == "AddNewSanad")
                         item.visible = false;
 
@@ -1949,7 +1969,7 @@ var ViewModel = function () {
             TahieShode: ace,
             VstrPer: 0,
             PakhshCode: '',
-
+            Footer: $("#footer").val(),
             InvCode: inv,
             Eghdam: sessionStorage.userName,
             EghdamDate: 'null',
@@ -2062,7 +2082,6 @@ var ViewModel = function () {
                     ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
             }
 
-
             if (list[i].TestName == "Opr")
                 textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('پروژه مشخص نشده است') + ' </p>';
 
@@ -2080,9 +2099,8 @@ var ViewModel = function () {
             else if (list[i].TestName == 'ZeroPrice')
                 textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('مبلغ صفر است') + ' </p>';
 
-
             else if (list[i].TestName == 'Thvl')
-                textBody += '<p>' + $('#LableHesabCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
+                textBody += '<p>' + $('#LableThvlCode').text() + " " + translate('انتخاب نشده است') + ' </p>';
 
             else if (list[i].TestName == 'Inv')
                 textBody += '<p>' + translate('انبار انتخاب نشده است') + ' </p>';
@@ -2153,10 +2171,11 @@ var ViewModel = function () {
         status = $("#status").val();
         inv = $("#inv").val();
         docno = $("#docnoout").val();
-        kalapricecode = $("#gGhimat").val();
-        modeCode = $("#modeCode").val();
 
-        if (kalapricecode == null) kalapricecode = "";
+        modeCode = $("#modeCode").val();
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
+
+
 
 
 
@@ -2180,7 +2199,7 @@ var ViewModel = function () {
                 TahieShode: ace,
                 VstrPer: 0,
                 PakhshCode: '',
-
+                Footer: $("#footer").val(),
                 InvCode: inv,
                 Eghdam: sessionStorage.userName,
                 EghdamDate: 'null',
@@ -2497,7 +2516,7 @@ var ViewModel = function () {
             Price3 = parseFloat(IDocB[ro].dataKala.PPrice3);
         }
 
-        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, IDocB[ro].dataKala.Code);
+        getKalaPriceBList(IDocB[ro].dataKala.Code);
 
         if (value == "1") IDocB[ro].UnitPrice = Price1 = 0 ? 0 : Price1.toFixed(deghatR1)
         else if (value == "2") IDocB[ro].UnitPrice = Price2 = 0 ? 0 : Price2.toFixed(deghatR2)
@@ -2591,9 +2610,9 @@ var ViewModel = function () {
                                     Price3 = parseFloat(dataKala.PPrice3);
                                 }
 
-                                getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, dataKala.Code);
+                                getKalaPriceBList(dataKala.Code);
 
-                                dataGrid.cellValue(ro, "UnitPrice", Price1);
+                                dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
 
                                 //KalaUnitList = [];
                                 //
@@ -2721,6 +2740,20 @@ var ViewModel = function () {
                                     cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                                     //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
                                     IDocB[ro].MainUnit = selectionChangedArgs.selectedRowsData[0].Code;
+
+                                    if (sessionStorage.sels == "true") {
+                                        Price1 = parseFloat(dataKala.SPrice1);
+                                        Price2 = parseFloat(dataKala.SPrice2);
+                                        Price3 = parseFloat(dataKala.SPrice3);
+                                    } else {
+                                        Price1 = parseFloat(dataKala.PPrice1);
+                                        Price2 = parseFloat(dataKala.PPrice2);
+                                        Price3 = parseFloat(dataKala.PPrice3);
+                                    }
+
+                                    getKalaPriceBList(dataKala.Code);
+
+                                    dataGrid.cellValue(ro, "UnitPrice", IDocB[ro].MainUnit == 1 ? Price1 : IDocB[ro].MainUnit == 2 ? Price2 : Price3);
                                     e.component.close();
                                 }
                             }
