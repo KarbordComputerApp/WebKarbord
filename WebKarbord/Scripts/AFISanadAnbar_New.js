@@ -258,10 +258,7 @@ var ViewModel = function () {
         $("#Panel_Barcode_Amount").removeAttr('hidden', '');
 
 
-
-
     /*if (sessionStorage.InOut == 2) {
-
         $('#LableThvlCode').text(translate('فروشنده'));
         $('#LableThvlCode').text(translate('نام فروشنده'));
         $('#TitleModalThvl').text(translate('لیست فروشندگان'));

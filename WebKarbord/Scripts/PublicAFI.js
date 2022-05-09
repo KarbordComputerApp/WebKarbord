@@ -1482,7 +1482,7 @@ $("#repairDatabaseConfig").click(function () {
                 confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
-                    ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber, 'GET', null, true).done(function (data) {
+                    ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber + '/false', 'GET', null, true).done(function (data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
                         if (data == "OK") {
