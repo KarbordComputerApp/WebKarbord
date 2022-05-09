@@ -182,7 +182,8 @@ var ViewModel = function () {
 
         amountAfterBarCode = sessionStorage.IDOCIAmountAfterBarCode
 
-        sessionStorage.NEW_IODOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
+        sessionStorage.NEW_IIDOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
+
 
         invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
         modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_In') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_In');
