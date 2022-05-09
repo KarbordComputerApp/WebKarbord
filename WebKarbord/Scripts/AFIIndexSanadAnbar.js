@@ -1262,8 +1262,11 @@
         //else
         //{
         sessionStorage.InvCode = invCode;
-        window.location.href = sessionStorage.urlAddIDocH_New;
 
+        if (localStorage.getItem('ModeInsertSanad') == "New")
+            window.location.href = sessionStorage.urlAddIDocH_New;
+        else
+            window.location.href = sessionStorage.urlAddIDocH;
         //}
     });
 
@@ -1498,7 +1501,10 @@
             sessionStorage.MkzName = item.MkzName;
 
             sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
-            window.location.href = sessionStorage.urlAddIDocH_New;
+            if (localStorage.getItem('ModeInsertSanad') == "New")
+                window.location.href = sessionStorage.urlAddIDocH_New;
+            else
+                window.location.href = sessionStorage.urlAddIDocH;
         }
 
     }
@@ -1626,7 +1632,10 @@
 
                 sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
-                window.location.href = sessionStorage.urlAddIDocH_New;
+                if (localStorage.getItem('ModeInsertSanad') == "New")
+                    window.location.href = sessionStorage.urlAddIDocH_New;
+                else
+                    window.location.href = sessionStorage.urlAddIDocH;
             }
 
         });
@@ -1668,7 +1677,10 @@
 
 
     $('#SaveIDocH1').click(function () {
-        window.location.href = sessionStorage.urlIDocH;
+        if (localStorage.getItem('ModeInsertSanad') == "New")
+            window.location.href = sessionStorage.urlAddIDocH_New;
+        else
+            window.location.href = sessionStorage.urlAddIDocH;
     });
 
     $('#modal-Factor').on('shown.bs.modal', function () {

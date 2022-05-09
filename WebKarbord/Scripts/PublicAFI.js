@@ -80,7 +80,28 @@ var dict =
     ar: {}
 }
 
+
 */
+var ModeInsertSanad = localStorage.getItem('ModeInsertSanad');
+
+if (ModeInsertSanad == "New") {
+    $("#ModeInsertSanad").val(1);
+}
+else {
+    $("#ModeInsertSanad").val(0);
+}
+
+
+$("#ModeInsertSanad").change(function () {
+    if ($('#ModeInsertSanad').val() == 1) {
+        localStorage.setItem("ModeInsertSanad", "New");
+    }
+    else {
+        localStorage.setItem("ModeInsertSanad", "Old");
+    }
+});
+
+
 var lang = 'en';
 var dir_lang = 'ltr'
 

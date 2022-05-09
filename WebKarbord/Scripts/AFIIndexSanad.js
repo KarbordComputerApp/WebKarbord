@@ -870,7 +870,11 @@
         sessionStorage.F18 = "";
         sessionStorage.F19 = "";
         sessionStorage.F20 = "";*/
-        window.location.href = sessionStorage.urlAddADocH_New;
+
+        if (localStorage.getItem('ModeInsertSanad') == "New")
+            window.location.href = sessionStorage.urlAddADocH_New;
+        else
+            window.location.href = sessionStorage.urlAddADocH;
     });
 
 
@@ -1053,7 +1057,11 @@
             sessionStorage.F20 = item.F20;
             sessionStorage.lastPageSelect = self.currentPageIndexADocH();
            //window.location.href = sessionStorage.urlAddADocH;
-            window.location.href = sessionStorage.urlAddADocH_New;
+
+            if (localStorage.getItem('ModeInsertSanad') == "New")
+                window.location.href = sessionStorage.urlAddADocH_New;
+            else
+                window.location.href = sessionStorage.urlAddADocH;
         }
     }
 
@@ -1159,7 +1167,12 @@
                 sessionStorage.F19 = data.F19;
                 sessionStorage.F20 = data.F20;
                 sessionStorage.lastPageSelect = self.currentPageIndexADocH();
-                window.location.href = sessionStorage.urlAddADocH_New;
+
+                if (localStorage.getItem('ModeInsertSanad') == "New")
+                    window.location.href = sessionStorage.urlAddADocH_New;
+                else
+                    window.location.href = sessionStorage.urlAddADocH;
+
             }
         });
     }

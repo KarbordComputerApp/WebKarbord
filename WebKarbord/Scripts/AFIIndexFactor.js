@@ -2004,7 +2004,10 @@
         //        $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
         //}
         //else {
-        window.location.href = sessionStorage.urlAddFDocH;
+        if (localStorage.getItem('ModeInsertSanad') == "New")
+            window.location.href = sessionStorage.urlAddFDocH_New;
+        else
+            window.location.href = sessionStorage.urlAddFDocH;
         //}
     });
 
@@ -2051,7 +2054,10 @@
         sessionStorage.CustRegion = "";
         sessionStorage.VstrCode = "";
         sessionStorage.VstrName = "";
-        window.location.href = sessionStorage.urlAddFDocH_New;
+        if (localStorage.getItem('ModeInsertSanad') == "New")
+            window.location.href = sessionStorage.urlAddFDocH_New;
+        else
+            window.location.href = sessionStorage.urlAddFDocH;
     });
 
 
@@ -2213,7 +2219,10 @@
 
 
     $('#SaveFDocH1').click(function () {
-        window.location.href = sessionStorage.urlFDocH;
+        if (localStorage.getItem('ModeInsertSanad') == "New")
+            window.location.href = sessionStorage.urlAddFDocH_New;
+        else
+            window.location.href = sessionStorage.urlAddFDocH;
     });
 
     $('#modal-Factor').on('shown.bs.modal', function () {
@@ -2578,7 +2587,10 @@
 
             sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
             //window.location.href = sessionStorage.urlAddFDocH;
-            window.location.href = sessionStorage.urlAddFDocH_New;
+            if (localStorage.getItem('ModeInsertSanad') == "New")
+                window.location.href = sessionStorage.urlAddFDocH_New;
+            else
+                window.location.href = sessionStorage.urlAddFDocH;
 
 
         }
@@ -2791,7 +2803,10 @@
 
                 sessionStorage.lastPageSelect = self.currentPageIndexFDocH();
 
-                window.location.href = sessionStorage.urlAddFDocH_New;
+                if (localStorage.getItem('ModeInsertSanad') == "New")
+                    window.location.href = sessionStorage.urlAddFDocH_New;
+                else
+                    window.location.href = sessionStorage.urlAddFDocH;
             }
         });
     }
