@@ -2920,7 +2920,7 @@ var ViewModel = function () {
 
 
                     self.ThvlCode(item.Code)
-
+                    SetKalaPrice();
                     flagKalaPrice = true;
                 }
             })
