@@ -124,7 +124,7 @@
 
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.OprList(data);
+            self.OprList(data == null ? [] : data);
         });
     }
 

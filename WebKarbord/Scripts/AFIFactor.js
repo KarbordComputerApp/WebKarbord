@@ -345,7 +345,7 @@
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
-            self.CustList(data);
+            self.CustList(data == null ? [] : data);
         });
     }
     $('#btnCust').click(function () {
@@ -363,7 +363,7 @@
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
-            self.KalaList(data);
+            self.KalaList(data == null ? [] : data);
         });
     }
 
@@ -376,7 +376,7 @@
     //Get KalaPrice List
     function getKalaPriceList(insert) {
         ajaxFunction(KalaPriceUri + ace + '/' + sal + '/' + group + '/' + insert, 'GET').done(function (data) {
-            self.KalaPriceList(data);
+            self.KalaPriceList(data == null ? [] : data);
             if (self.KalaPriceList().length > 0) {
                 //$("#gGhimat").val('شکری');
                 //aaaaa = $("#gGhimat").val();
@@ -399,7 +399,7 @@
     //Get Payment List
     function getPaymentList() {
         ajaxFunction(PaymentUri + ace + '/' + sal + '/' + group, 'GET').done(function (data) {
-            self.PaymentList(data);
+            self.PaymentList(data == null ? [] : data);
             if (self.PaymentList().length > 0) {
                 //if (flagupdateHeader == 1)
                 //$("#paymenttype").val(sessionStorage.PaymentType);
@@ -427,7 +427,7 @@
     //Get Opr List
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.OprList(data);
+            self.OprList(data == null ? [] : data);
         });
     }
     $('#btnOpr').click(function () {
@@ -439,7 +439,7 @@
     //Get  Mkz List
     function getMkzList() {
         ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.MkzList(data);
+            self.MkzList(data == null ? [] : data);
         });
     }
 
@@ -453,7 +453,7 @@
     //Get  Vstr List
     function getVstrList() {
         ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.VstrList(data);
+            self.VstrList(data == null ? [] : data);
         });
     }
 
@@ -517,7 +517,7 @@
     //Get FDocP List
     function getFDocP(serialNumber) {
         ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
-            self.FDocPList(data);
+            self.FDocPList(data == null ? [] : data);
         });
     }
 

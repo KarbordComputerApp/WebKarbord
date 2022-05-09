@@ -123,7 +123,7 @@
 
     function getMkzList() {
         ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.MkzList(data);
+            self.MkzList(data == null ? [] : data);
         });
     }
 
@@ -158,7 +158,8 @@
         var filterActiveSt = self.filterActiveSt();
 
         if (!filterCode && !filterName && !filterSpec && !filterActiveSt) {
-            $("#CountRecord").text(self.MkzList().length);
+            //if (self.MkzList() != null)
+                $("#CountRecord").text(self.MkzList().length);
             sessionStorage.setItem('listFilter', null);
             return self.MkzList();
         } else {
@@ -336,7 +337,7 @@
         $('#Name').val(item.Name);
         $('#Spec').val(item.Spec);
 
-        
+
         status = item.ActiveSt == 'فعال' ? 0 : 1;
         $('#status').val(status);
 
@@ -372,9 +373,9 @@
             return showNotification(translate('کد مرکزهزینه را وارد کنید'), 0)
         }
 
-       /* if (name == "") {
-            return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
-        }*/
+        /* if (name == "") {
+             return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
+         }*/
 
         var TestMkz_Object = {
             Code: code
@@ -610,7 +611,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">' +
-        '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
+            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +

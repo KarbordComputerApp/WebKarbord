@@ -381,7 +381,7 @@
     //Get Opr List
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.OprList(data);
+            self.OprList(data == null ? [] : data);
         });
     }
     $('#btnOpr').click(function () {
@@ -392,7 +392,7 @@
     //Get  Mkz List
     function getMkzList() {
         ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
-            self.MkzList(data);
+            self.MkzList(data == null ? [] : data);
         });
     }
 

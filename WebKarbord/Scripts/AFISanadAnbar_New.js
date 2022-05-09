@@ -369,7 +369,7 @@ var ViewModel = function () {
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
-            self.ThvlList(data);
+            self.ThvlList(data == null ? [] : data);
         });
     }
 
@@ -383,7 +383,7 @@ var ViewModel = function () {
     //Get Opr List
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.OprList(data);
+            self.OprList(data == null ? [] : data);
         });
     }
 
@@ -397,7 +397,7 @@ var ViewModel = function () {
     //Get  Mkz List
     function getMkzList() {
         ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.MkzList(data);
+            self.MkzList(data == null ? [] : data);
         });
     }
 

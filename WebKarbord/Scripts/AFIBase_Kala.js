@@ -182,7 +182,7 @@
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
-            self.KalaList(data);
+            self.KalaList(data == null ? [] : data);
         });
     }
     getKalaList();

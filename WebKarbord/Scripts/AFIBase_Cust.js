@@ -196,7 +196,7 @@
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
-            self.CustList(data);
+            self.CustList(data == null ? [] : data);
         });
     }
 

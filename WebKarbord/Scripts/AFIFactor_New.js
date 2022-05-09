@@ -333,7 +333,7 @@ var ViewModel = function () {
             UserCode: sessionStorage.userName,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
-            self.CustList(data);
+            self.CustList(data == null ? [] : data);
         });
     }
 
@@ -348,7 +348,7 @@ var ViewModel = function () {
     //Get Opr List
     function getOprList() {
         ajaxFunction(OprUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.OprList(data);
+            self.OprList(data == null ? [] : data);
         });
     }
 
@@ -362,7 +362,7 @@ var ViewModel = function () {
     //Get  Mkz List
     function getMkzList() {
         ajaxFunction(MkzUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.MkzList(data);
+            self.MkzList(data == null ? [] : data);
         });
     }
 
@@ -377,7 +377,7 @@ var ViewModel = function () {
     //Get  Vstr List
     function getVstrList() {
         ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
-            self.VstrList(data);
+            self.VstrList(data == null ? [] : data);
         });
     }
 

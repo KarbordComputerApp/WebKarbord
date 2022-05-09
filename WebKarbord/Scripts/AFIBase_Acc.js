@@ -256,7 +256,7 @@
         }
 
         ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {
-            self.AccList(data);
+            self.AccList(data == null ? [] : data);
         });
     }
 
