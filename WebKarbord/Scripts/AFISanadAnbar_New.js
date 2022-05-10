@@ -2910,7 +2910,7 @@ var ViewModel = function () {
 
     self.selectThvl = function (item) {
 
-        if (Serial != '') {
+        //if (Serial != '') {
             Swal.fire({
                 title: translate('تایید و ثبت نهایی تغییرات ؟'),
                 text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('تحویل گیرنده') : translate('تحویل دهنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
@@ -2948,7 +2948,7 @@ var ViewModel = function () {
                     flagKalaPrice = true;
                 }
             })
-        }
+       /* }
         else {
             codeThvl = item.Code;
             $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
@@ -2971,7 +2971,7 @@ var ViewModel = function () {
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
             self.ThvlCode(item.Code)
-        }
+        }*/
         $('#nameThvl').focus();
     };
 

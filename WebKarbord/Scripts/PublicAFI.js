@@ -5195,7 +5195,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
             });
         }
     }

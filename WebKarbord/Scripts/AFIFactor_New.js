@@ -3683,7 +3683,7 @@ var ViewModel = function () {
 
     self.selectCust = function (item) {
 
-        if (Serial != '') {
+       // if (Serial != '') {
             Swal.fire({
                 title: translate('تایید تغییرات ؟'),
                 text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال می شود . آیا عملیات انجام شود؟'),
@@ -3723,7 +3723,7 @@ var ViewModel = function () {
                     flagKalaPrice = true;
                 }
             })
-        }
+        /*}
         else {
             codeCust = item.Code;
             $('#nameCust').val('(' + item.Code + ') ' + item.Name)
@@ -3746,7 +3746,7 @@ var ViewModel = function () {
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
             self.CustCode(item.Code)
-        }
+        }*/
         CalcAddmin();
         $('#nameCust').focus();
     };
