@@ -3905,35 +3905,37 @@ var ViewModel = function () {
         for (i = 0; i <= data.length - 1; i++) {
             //item = data[i].data;
             item = data[i];
-            tmp = {
-                AccCode: item.AccCode == null ? "" : item.AccCode,
-                AccZCode: item.AccZCode == null ? "" : item.AccZCode,
-                Bede: item.Bede == null ? "0" : item.Bede,
-                Best: item.Best == null ? "0" : item.Best,
-                Comm: item.Comm == null ? "" : item.Comm,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                CheckNo: item.CheckNo == null ? "" : item.CheckNo,
-                CheckDate: item.CheckDate == null ? '' : item.CheckDate.toEnglishDigit(),
-                Bank: item.Bank == null ? "" : item.Bank,
-                Shobe: item.Shobe == null ? "" : item.Shobe,
-                Jari: item.Jari == null ? "" : item.Jari,
-                BaratNo: item.BaratNo == null ? "" : item.BaratNo,
-                TrafCode: item.TrafCode == null ? "" : item.TrafCode,
-                TrafZCode: item.TrafZCode == null ? "" : item.TrafZCode,
-                CheckRadif: item.CheckRadif == null ? "" : item.CheckRadif,
-                CheckComm: item.CheckComm == null ? "" : item.CheckComm,
-                CheckStatus: item.CheckStatus == null ? "" : item.CheckStatus,
-                CheckVosoolDate: item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toEnglishDigit(),
-                OprCode: item.OprCode == null ? "" : item.OprCode,
-                MkzCode: item.MkzCode == null ? "" : item.MkzCode,
-                ArzCode: item.ArzCode == null ? "" : item.ArzCode,
-                ArzRate: item.ArzRate == null ? "" : item.ArzRate,
-                arzValue: item.ArzValue == null ? "" : item.ArzValue,
+            if (item.AccCode != "") {
+                tmp = {
+                    AccCode: item.AccCode == null ? "" : item.AccCode,
+                    AccZCode: item.AccZCode == null ? "" : item.AccZCode,
+                    Bede: item.Bede == null ? "0" : item.Bede,
+                    Best: item.Best == null ? "0" : item.Best,
+                    Comm: item.Comm == null ? "" : item.Comm,
+                    BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                    CheckNo: item.CheckNo == null ? "" : item.CheckNo,
+                    CheckDate: item.CheckDate == null ? '' : item.CheckDate.toEnglishDigit(),
+                    Bank: item.Bank == null ? "" : item.Bank,
+                    Shobe: item.Shobe == null ? "" : item.Shobe,
+                    Jari: item.Jari == null ? "" : item.Jari,
+                    BaratNo: item.BaratNo == null ? "" : item.BaratNo,
+                    TrafCode: item.TrafCode == null ? "" : item.TrafCode,
+                    TrafZCode: item.TrafZCode == null ? "" : item.TrafZCode,
+                    CheckRadif: item.CheckRadif == null ? "" : item.CheckRadif,
+                    CheckComm: item.CheckComm == null ? "" : item.CheckComm,
+                    CheckStatus: item.CheckStatus == null ? "" : item.CheckStatus,
+                    CheckVosoolDate: item.CheckVosoolDate == null ? '' : item.CheckVosoolDate.toEnglishDigit(),
+                    OprCode: item.OprCode == null ? "" : item.OprCode,
+                    MkzCode: item.MkzCode == null ? "" : item.MkzCode,
+                    ArzCode: item.ArzCode == null ? "" : item.ArzCode,
+                    ArzRate: item.ArzRate == null ? "" : item.ArzRate,
+                    arzValue: item.ArzValue == null ? "" : item.ArzValue,
 
-                flagLog: 'N',
-                flagTest: 'Y',
-            };
-            obj.push(tmp);
+                    flagLog: 'N',
+                    flagTest: 'Y',
+                };
+                obj.push(tmp);
+            }
         }
 
         ajaxFunction(ADocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj).done(function (response) {

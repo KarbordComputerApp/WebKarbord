@@ -2029,28 +2029,29 @@ var ViewModel = function () {
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
+            if (item.KalaCode != "") {
+                tmp = {
+                    SerialNumber: Serial_Test,
+                    KalaCode: item.KalaCode == null ? "" : item.KalaCode,
+                    Amount1: item.Amount1 == null ? 0 : item.Amount1,
+                    Amount2: item.Amount2 == null ? 0 : item.Amount2,
+                    Amount3: item.Amount3 == null ? 0 : item.Amount3,
+                    UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
+                    TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
+                    MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
+                    Comm: item.Comm == null ? "" : item.Comm,
+                    BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                    Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
+                    ModeCode: modeCode,
+                    InvCode: inv,
+                    OprCode: codeOpr,
+                    MkzCode: codeMkz,
+                    flagLog: 'N',
+                    flagTest: 'Y'
+                };
 
-            tmp = {
-                SerialNumber: Serial_Test,
-                KalaCode: item.KalaCode == null ? "" : item.KalaCode,
-                Amount1: item.Amount1 == null ? 0 : item.Amount1,
-                Amount2: item.Amount2 == null ? 0 : item.Amount2,
-                Amount3: item.Amount3 == null ? 0 : item.Amount3,
-                UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
-                TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
-                MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
-                Comm: item.Comm == null ? "" : item.Comm,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
-                ModeCode: modeCode,
-                InvCode: inv,
-                OprCode: codeOpr,
-                MkzCode: codeMkz,
-                flagLog: 'N',
-                flagTest: 'Y'
-            };
-
-            obj.push(tmp);
+                obj.push(tmp);
+            }
         }
 
         ajaxFunction(IDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj, false).done(function (response) {

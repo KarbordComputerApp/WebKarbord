@@ -642,14 +642,14 @@ var ViewModel = function () {
                 item = response;
                 sessionStorage.Status = selectStatus;
                 lastStatus = "";
-                showNotification(translate('وضعیت ' + textFactor + ' ' +  selectStatus + ' شد'), 1);
+                showNotification(translate('وضعیت ' + textFactor + ' ' + selectStatus + ' شد'), 1);
             });
         }
 
 
 
-        
-       
+
+
     });
 
 
@@ -2384,28 +2384,29 @@ var ViewModel = function () {
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
+            if (item.KalaCode != "") {
+                tmp = {
+                    SerialNumber: Serial_Test,
+                    KalaCode: item.KalaCode == null ? "" : item.KalaCode,
+                    Amount1: item.Amount1 == null ? 0 : item.Amount1,
+                    Amount2: item.Amount2 == null ? 0 : item.Amount2,
+                    Amount3: item.Amount3 == null ? 0 : item.Amount3,
+                    UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
+                    TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
+                    Discount: item.Discount == null ? 0 : item.Discount,
+                    MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
+                    BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                    Comm: item.Comm == null ? "" : item.Comm,
+                    Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
+                    ModeCode: sessionStorage.ModeCode,
+                    InvCode: inv,
+                    OprCode: codeOpr,
+                    MkzCode: codeMkz,
+                    flagLog: 'N',
+                };
 
-            tmp = {
-                SerialNumber: Serial_Test,
-                KalaCode: item.KalaCode == null ? "" : item.KalaCode,
-                Amount1: item.Amount1 == null ? 0 : item.Amount1,
-                Amount2: item.Amount2 == null ? 0 : item.Amount2,
-                Amount3: item.Amount3 == null ? 0 : item.Amount3,
-                UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
-                TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
-                Discount: item.Discount == null ? 0 : item.Discount,
-                MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                Comm: item.Comm == null ? "" : item.Comm,
-                Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
-                ModeCode: sessionStorage.ModeCode,
-                InvCode: inv,
-                OprCode: codeOpr,
-                MkzCode: codeMkz,
-                flagLog: 'N',
-            };
-
-            obj.push(tmp);
+                obj.push(tmp);
+            }
         }
 
         if (obj.length > 0) {
@@ -2734,34 +2735,36 @@ var ViewModel = function () {
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
+            if (item.KalaCode != "") {
+                tmp = {
+                    SerialNumber: Serial_Test,
+                    KalaCode: item.KalaCode == null ? "" : item.KalaCode,
+                    Amount1: item.Amount1 == null ? 0 : item.Amount1,
+                    Amount2: item.Amount2 == null ? 0 : item.Amount2,
+                    Amount3: item.Amount3 == null ? 0 : item.Amount3,
+                    UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
+                    TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
+                    Discount: item.Discount == null ? 0 : item.Discount,
+                    MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
+                    Comm: item.Comm == null ? "" : item.Comm,
+                    BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                    Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
+                    ModeCode: sessionStorage.ModeCode,
+                    InvCode: inv,
+                    OprCode: codeOpr,
+                    MkzCode: codeMkz,
 
-            tmp = {
-                SerialNumber: Serial_Test,
-                KalaCode: item.KalaCode == null ? "" : item.KalaCode,
-                Amount1: item.Amount1 == null ? 0 : item.Amount1,
-                Amount2: item.Amount2 == null ? 0 : item.Amount2,
-                Amount3: item.Amount3 == null ? 0 : item.Amount3,
-                UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
-                TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
-                Discount: item.Discount == null ? 0 : item.Discount,
-                MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
-                Comm: item.Comm == null ? "" : item.Comm,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
-                ModeCode: sessionStorage.ModeCode,
-                InvCode: inv,
-                OprCode: codeOpr,
-                MkzCode: codeMkz,
+                    InvSerialNumber: item.InvSerialNumber == null ? 0 : item.InvSerialNumber,
+                    LFctSerialNumber: item.LFctSerialNumber == null ? 0 : item.LFctSerialNumber,
+                    LinkNumber: item.LinkNumber == null ? 0 : item.LinkNumber,
+                    LinkYear: item.LinkYear == null ? 0 : item.LinkYear,
+                    LinkProg: item.LinkProg == null ? '' : item.LinkProg,
+                    flagLog: 'N',
+                };
+                obj.push(tmp);
+            }
 
-                InvSerialNumber: item.InvSerialNumber == null ? 0 : item.InvSerialNumber,
-                LFctSerialNumber: item.LFctSerialNumber == null ? 0 : item.LFctSerialNumber,
-                LinkNumber: item.LinkNumber == null ? 0 : item.LinkNumber,
-                LinkYear: item.LinkYear == null ? 0 : item.LinkYear,
-                LinkProg: item.LinkProg == null ? '' : item.LinkProg,
-                flagLog: 'N',
-            };
-
-            obj.push(tmp);
+          
         }
 
         ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj, false).done(function (response) {
