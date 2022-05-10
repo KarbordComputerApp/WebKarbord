@@ -1285,9 +1285,7 @@
             UserCode: sessionStorage.userName,
             BranchCode: 0,
             ModeCode: modeCode,
-            DocNoMode: ace == 'Web1' ? 1 :
-                sessionStorage.AllInvSameNo == "1" ? 1 :
-                    sameNoAllMode == 1 ? 2 : 3,
+            DocNoMode: ace == 'Web1' ? 1 : sessionStorage.AllInvSameNo == "1" ? 1 : sameNoAllMode == 1 ? 2 : 3,
             InsertMode: 0,
             DocNo: docno == "" ? 0 : docno,
             StartNo: 0,
@@ -1300,6 +1298,7 @@
             InvCode: inv,
             Eghdam: sessionStorage.userName,
             InOut: sessionStorage.InOut,
+            Footer: $("#footer").val(),
             EghdamDate: 'null',
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),

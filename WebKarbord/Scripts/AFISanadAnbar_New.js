@@ -344,6 +344,7 @@ var ViewModel = function () {
     var IDocBConvertUri = server + '/api/AFI_IDocBi/Convert/'; // آدرس ذخیره یند انباردر جدول اصلی 
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
+    var IChangeStatusUri = server + '/api/IDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -676,25 +677,47 @@ var ViewModel = function () {
     });
 
     $("#status").change(function () {
-        selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == translate('تایید')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('دسترسی تایید ندارید'), 0);
-        }
+        if (lastStatus != "") {
+            if (Serial == 0) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
+            }
 
-        if (accessCancel == false && selectStatus == translate('باطل')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('دسترسی باطل ندارید'), 0);
-        }
+            selectStatus = $("#status").val();
+            if (accessTaeed == false && selectStatus == translate('تایید')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی تایید ندارید'), 0);
+            }
 
-        if (accessTasvib == false && selectStatus == translate('تصویب')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('دسترسی تصویب ندارید'), 0);
-        }
+            if (accessCancel == false && selectStatus == translate('باطل')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی باطل ندارید'), 0);
+            }
 
-        if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('فقط انبار های تایید شده امکان تصویب دارند'), 0);
+            if (accessTasvib == false && selectStatus == translate('تصویب')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی تصویب ندارید'), 0);
+            }
+
+            if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('فقط انبار های تایید شده امکان تصویب دارند'), 0);
+            }
+
+
+            var StatusChangeObject = {
+                DMode: 0,
+                UserCode: sessionStorage.userName,
+                SerialNumber: Serial,
+                Status: selectStatus,
+            };
+
+            ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+                item = response;
+                sessionStorage.Status = selectStatus;
+                lastStatus = "";
+                showNotification(translate('وضعیت ' + textSanad + ' ' + selectStatus + ' شد'), 1);
+            });
         }
     });
 

@@ -297,14 +297,14 @@ var ViewModel = function () {
     var V_Del_FDocUri = server + '/api/Web_Data/V_Del_FDoc/'; // آدرس ویزیتور 
 
     var SaveFDoc_HZUri = server + '/api/FDocData/SaveFDoc_HZ/'; // آدرس ویرایس ستون تنظیم
-    var FDocHiUri = server + '/api/AFI_FDocHi/'; // آدرس ذخیره هدر فاکتور 
-    var FDocBUri = server + '/api/AFI_FDocBi/'; // آدرس ذخیره بند فاکتور 
+
 
 
     var FDocBSaveAllUri = server + '/api/AFI_FDocBi/SaveAllDocB/'; // آدرس ذخیره یند فاکتور 
     var FDocBConvertUri = server + '/api/AFI_FDocBi/Convert/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
+    var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -537,7 +537,7 @@ var ViewModel = function () {
                 confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
-                    SetKalaPrice(); 
+                    SetKalaPrice();
 
                 }
                 else {
@@ -603,26 +603,53 @@ var ViewModel = function () {
     });
 
     $("#status").change(function () {
-        selectStatus = $("#status").val();
-        if (accessTaeed == false && selectStatus == translate('تایید')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('دسترسی تایید ندارید'), 0);
+        if (lastStatus != "") {
+            if (Serial == 0) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
+            }
+
+            selectStatus = $("#status").val();
+            if (accessTaeed == false && selectStatus == translate('تایید')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی تایید ندارید'), 0);
+            }
+
+            if (accessCancel == false && selectStatus == translate('باطل')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی باطل ندارید'), 0);
+            }
+
+            if (accessTasvib == false && selectStatus == translate('تصویب')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('دسترسی تصویب ندارید'), 0);
+            }
+
+            if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
+                $("#status").val(lastStatus);
+                return showNotification(translate('فقط فاکتور های تایید شده امکان تصویب دارند'), 0);
+            }
+
+
+            var StatusChangeObject = {
+                DMode: 0,
+                UserCode: sessionStorage.userName,
+                SerialNumber: Serial,
+                Status: selectStatus,
+            };
+
+            ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+                item = response;
+                sessionStorage.Status = selectStatus;
+                lastStatus = "";
+                showNotification(translate('وضعیت ' + textFactor + ' ' +  selectStatus + ' شد'), 1);
+            });
         }
 
-        if (accessCancel == false && selectStatus == translate('باطل')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('دسترسی باطل ندارید'), 0);
-        }
 
-        if (accessTasvib == false && selectStatus == translate('تصویب')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('دسترسی تصویب ندارید'), 0);
-        }
 
-        if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
-            $("#status").val(lastStatus);
-            return showNotification(translate('فقط فاکتور های تایید شده امکان تصویب دارند'), 0);
-        }
+        
+       
     });
 
 
@@ -1566,7 +1593,7 @@ var ViewModel = function () {
             },
 
             paging: {
-                   enabled: false,
+                enabled: false,
             },
 
 
@@ -2180,7 +2207,7 @@ var ViewModel = function () {
             },
 
             paging: {
-                    enabled: false,
+                enabled: false,
             },
 
 
@@ -2338,6 +2365,8 @@ var ViewModel = function () {
             AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
             AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
             InvCode: inv,
+            PaymentType: $("#paymenttype").val(),
+            Footer: $("#footer").val(),
             Eghdam: sessionStorage.userName,
             EghdamDate: 'null',
             flagLog: 'N',
@@ -2345,7 +2374,7 @@ var ViewModel = function () {
             flagTest: 'Y'
         };
 
-        ajaxFunction(FDocHiUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             var res = response.split("@");
             Serial_Test = res[1];
         });
@@ -2379,33 +2408,39 @@ var ViewModel = function () {
             obj.push(tmp);
         }
 
-        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj, false).done(function (response) {
+        if (obj.length > 0) {
 
-            getAddMinList(sessionStorage.sels, Serial_Test, codeCust, 0, false,
-                FDocHObject.AddMinSpec1,
-                FDocHObject.AddMinSpec2,
-                FDocHObject.AddMinSpec3,
-                FDocHObject.AddMinSpec4,
-                FDocHObject.AddMinSpec5,
-                FDocHObject.AddMinSpec6,
-                FDocHObject.AddMinSpec7,
-                FDocHObject.AddMinSpec8,
-                FDocHObject.AddMinSpec9,
-                FDocHObject.AddMinSpec10,
 
-                FDocHObject.AddMinPrice1,
-                FDocHObject.AddMinPrice2,
-                FDocHObject.AddMinPrice3,
-                FDocHObject.AddMinPrice4,
-                FDocHObject.AddMinPrice5,
-                FDocHObject.AddMinPrice6,
-                FDocHObject.AddMinPrice7,
-                FDocHObject.AddMinPrice8,
-                FDocHObject.AddMinPrice9,
-                FDocHObject.AddMinPrice10
-            );
+            ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial_Test, 'POST', obj, false).done(function (response) {
 
-        });
+            });
+        }
+
+        getAddMinList(sessionStorage.sels, Serial_Test, codeCust, 0, false,
+            FDocHObject.AddMinSpec1,
+            FDocHObject.AddMinSpec2,
+            FDocHObject.AddMinSpec3,
+            FDocHObject.AddMinSpec4,
+            FDocHObject.AddMinSpec5,
+            FDocHObject.AddMinSpec6,
+            FDocHObject.AddMinSpec7,
+            FDocHObject.AddMinSpec8,
+            FDocHObject.AddMinSpec9,
+            FDocHObject.AddMinSpec10,
+
+            FDocHObject.AddMinPrice1,
+            FDocHObject.AddMinPrice2,
+            FDocHObject.AddMinPrice3,
+            FDocHObject.AddMinPrice4,
+            FDocHObject.AddMinPrice5,
+            FDocHObject.AddMinPrice6,
+            FDocHObject.AddMinPrice7,
+            FDocHObject.AddMinPrice8,
+            FDocHObject.AddMinPrice9,
+            FDocHObject.AddMinPrice10
+        );
+
+
     }
 
 
@@ -2660,6 +2695,8 @@ var ViewModel = function () {
             AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
             AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
             InvCode: inv,
+            PaymentType: $("#paymenttype").val(),
+            Footer: $("#footer").val(),
             Eghdam: sessionStorage.userName,
             EghdamDate: 'null',
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
@@ -2687,7 +2724,7 @@ var ViewModel = function () {
             flagTest: 'Y'
         };
 
-        ajaxFunction(FDocHiUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             var res = response.split("@");
             Serial_Test = res[1];
         });
@@ -2917,6 +2954,8 @@ var ViewModel = function () {
                 AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
                 AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
                 InvCode: inv,
+                PaymentType: $("#paymenttype").val(),
+                Footer: $("#footer").val(),
                 Eghdam: sessionStorage.userName,
                 EghdamDate: 'null',
                 flagLog: flaglog,
@@ -3033,7 +3072,7 @@ var ViewModel = function () {
 
 
 
-            ajaxFunction(FDocHiUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
+            ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
                 sessionStorage.searchFDocH = docno;
                 flaglog = 'N';
                 DeleteBand();

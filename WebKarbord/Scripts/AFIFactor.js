@@ -1198,6 +1198,8 @@
             InvCode: inv,
             Eghdam: sessionStorage.userName,
             EghdamDate: 'null',
+            PaymentType: $("#paymenttype").val(),
+            Footer: $("#footer").val(),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
