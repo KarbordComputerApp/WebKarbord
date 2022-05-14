@@ -3276,7 +3276,7 @@ var ViewModel = function () {
 
 
 
-    setInterval(SaveColumnSanad, 3000);
+    setInterval(SaveColumnSanad, 10000);
     function SaveColumnSanad() {
         if (changeColumn == true) {
             var dataGrid = $("#gridContainer").dxDataGrid("instance");

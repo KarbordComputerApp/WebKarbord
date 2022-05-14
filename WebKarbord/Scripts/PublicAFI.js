@@ -1103,7 +1103,7 @@ function showLoad() {
 
 }
 
-function ajaxFunction(uri, method, data, sync) {
+function ajaxFunction(uri, method, data, sync,error) {
 
     //$('#loading-image').show();
     var userNameAccount = localStorage.getItem("userNameAccount");
@@ -1146,7 +1146,9 @@ function ajaxFunction(uri, method, data, sync) {
         data: data ? JSON.stringify(data) : null
         //data: data ? data : null
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
+        error != false ?
+            showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3)
+            : null;
         // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
     });
 }
@@ -5187,7 +5189,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
             }
 
             // حذف سند باز شده توسط وب در ویندوز
-            DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+           var DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
             var DeleteDocInUseObject = {
                 Prog: prog,
                 DMode: dMode,
@@ -5195,7 +5197,8 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true,false).done(function (response) {
+                //showNotification('1',0);
             });
         }
     }

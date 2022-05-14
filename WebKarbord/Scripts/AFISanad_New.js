@@ -505,7 +505,7 @@ var ViewModel = function () {
             $("#TafavotSanad").val(NumberToNumberString(sumBede - sumBest));
 
             ADocB = data;
-            GetRprtCols_NewList();
+            GetRprtCols_NewList(sessionStorage.userName);
         });
 
     }
@@ -2055,7 +2055,7 @@ var ViewModel = function () {
     // $("#gridContainer").dxDataGrid("columnOption", "ArzName", "visible", false);
 
 
-    setInterval(SaveColumnSanad, 3000);
+    setInterval(SaveColumnSanad, 10000);
     function SaveColumnSanad() {
         if (changeColumn == true) {
             var dataGrid = $("#gridContainer").dxDataGrid("instance");
@@ -3404,11 +3404,10 @@ var ViewModel = function () {
         value = value.replaceAll('/', '.');
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc.PDMode == 1) {
-
             dataGrid.cellValue(ro, "Best", value);
-            //dataGrid.cellValue(ro, "Bede",'0');
+            dataGrid.cellValue(ro, "Bede",'0');
         } else {
-            //dataGrid.cellValue(ro, "Best", '0');
+            dataGrid.cellValue(ro, "Best", '0');
             dataGrid.cellValue(ro, "Bede", value);
         }
     });
