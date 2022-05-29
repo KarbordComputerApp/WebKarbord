@@ -13,14 +13,28 @@
 
     TestUser();
 
-    validation = CheckAccess('NEW_MKZ', localStorage.getItem('ProgAccess'));// New Mkz
+
+
+    Prog = localStorage.getItem('ProgAccess');
+
+    if (Prog.includes('Acc5'))
+        Prog = 'Acc5';  
+    else if (Prog.includes('Fct5'))
+        Prog = 'Fct5'; 
+    else if (Prog.includes('Inv5'))
+        Prog = 'Inv5';
+    else
+        Prog = 'Erj1';
+
+
+    validation = CheckAccess('NEW_MKZ', Prog);// New Mkz
     sessionStorage.NEW_Mkz = validation;
     validation == true ? $("#AddNewMkz").show() : $("#AddNewMkz").hide()
 
-    validation = CheckAccess('CHG_MKZ', localStorage.getItem('ProgAccess'));// edit Mkz
+    validation = CheckAccess('CHG_MKZ', Prog);// edit Mkz
     sessionStorage.CHG_Mkz = validation;
 
-    validation = CheckAccess('DEL_MKZ', localStorage.getItem('ProgAccess')); // delete Mkz
+    validation = CheckAccess('DEL_MKZ', Prog); // delete Mkz
     sessionStorage.DEL_Mkz = validation;
 
     self.ShowAction = function (Code) {
@@ -404,7 +418,7 @@
                     getMkzList();
                     $('#modal-Mkz').modal('hide');
                     flag_Save = true;
-                    SaveLog(localStorage.getItem('ProgAccess'), isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_MKZ, code, 0, 0);
+                    SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_MKZ, code, 0, 0);
 
                     showNotification(translate('ذخیره شد'), 1);
                 });
@@ -518,7 +532,7 @@
             currentPage = self.currentPageIndexMkz();
             getMkzList();
             self.currentPageIndexMkz(currentPage);
-            SaveLog(localStorage.getItem('ProgAccess'), EditMode_Del, LogMode_MKZ, code, 0, 0);
+            SaveLog(Prog, EditMode_Del, LogMode_MKZ, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }

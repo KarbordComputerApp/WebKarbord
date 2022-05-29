@@ -13,14 +13,26 @@
 
     TestUser();
 
-    validation = CheckAccess('NEW_OPR', localStorage.getItem('ProgAccess'));// New Opr
+    Prog = localStorage.getItem('ProgAccess');
+
+    if (Prog.includes('Acc5'))
+        Prog = 'Acc5';
+    else if (Prog.includes('Fct5'))
+        Prog = 'Fct5';
+    else if (Prog.includes('Inv5'))
+        Prog = 'Inv5';
+    else
+        Prog = 'Erj1';
+
+
+    validation = CheckAccess('NEW_OPR', Prog);// New Opr
     sessionStorage.NEW_Opr = validation;
     validation == true ? $("#AddNewOpr").show() : $("#AddNewOpr").hide()
 
-    validation = CheckAccess('CHG_OPR', localStorage.getItem('ProgAccess'));// edit Opr
+    validation = CheckAccess('CHG_OPR', Prog);// edit Opr
     sessionStorage.CHG_Opr = validation;
 
-    validation = CheckAccess('DEL_OPR', localStorage.getItem('ProgAccess')); // delete Opr
+    validation = CheckAccess('DEL_OPR', Prog); // delete Opr
     sessionStorage.DEL_Opr = validation;
 
     self.ShowAction = function (Code) {
@@ -402,7 +414,7 @@
                     getOprList();
                     $('#modal-Opr').modal('hide');
                     flag_Save = true;
-                    SaveLog(localStorage.getItem('ProgAccess'), isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_OPR, code, 0, 0);
+                    SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_OPR, code, 0, 0);
 
                     showNotification(translate('ذخیره شد'), 1);
                 });
@@ -516,7 +528,7 @@
             currentPage = self.currentPageIndexOpr();
             getOprList();
             self.currentPageIndexOpr(currentPage);
-            SaveLog(localStorage.getItem('ProgAccess'), EditMode_Del, LogMode_OPR, code, 0, 0);
+            SaveLog(Prog, EditMode_Del, LogMode_OPR, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }
