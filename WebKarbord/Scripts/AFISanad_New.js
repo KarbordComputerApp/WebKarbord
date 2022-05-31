@@ -1803,7 +1803,7 @@ var ViewModel = function () {
                                             getADocHLastDate();
                                         }
 
-                                        getADocB(0);
+                                        getADocB(-1);
 
                                         for (i = 0; i < 5; i++) {
                                             tmp = {
@@ -3496,7 +3496,7 @@ var ViewModel = function () {
                      getADocHLastDate();
                  }
  
-                 getADocB(0);
+                 getADocB(-1);
  
                  for (i = 0; i < 5; i++) {
                      tmp = {
@@ -3558,7 +3558,7 @@ var ViewModel = function () {
         if (parseInt(sal) < SalNow) {
             getADocHLastDate();
         }
-        getADocB(0);
+        getADocB(-1);
         dataGrid = $("#gridContainer").dxDataGrid("instance");
         $("#SumBedehkar").val(0);
         $("#SumBestankar").val(0);

@@ -5,7 +5,6 @@
     sessionStorage.BeforeMoveFactor = false;
 
 
-
     DocNoReport = localStorage.getItem("DocNoAFIFactor");
     if (DocNoReport != "null" && DocNoReport != null) {
         sessionStorage.removeItem("ModeCode");
@@ -215,7 +214,8 @@
             }
 
             validation = CheckAccess('MOVE_SFDOC', 'Fct5');
-            validation == true ? $("#TabMove").show() : $("#TabMove").hide()
+            validation == true ? sessionStorage.MOVE = true : sessionStorage.MOVE = false
+            //validation == true ? $("#TabMove").show() : $("#TabMove").hide()
             sessionStorage.moveFactor = validation;
             localStorage.setItem("moveFactor", validation);
         }
@@ -671,6 +671,12 @@
         $("#UpdateFactor").hide();
     }
 
+    if (sessionStorage.MOVE == "true") {
+        $("#TabMove").show()
+    }
+    else {
+        $("#TabMove").hide()
+    }
 
 
 
