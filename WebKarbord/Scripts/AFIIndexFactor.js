@@ -214,8 +214,6 @@
             }
 
             validation = CheckAccess('MOVE_SFDOC', 'Fct5');
-            validation == true ? sessionStorage.MOVE = true : sessionStorage.MOVE = false
-            //validation == true ? $("#TabMove").show() : $("#TabMove").hide()
             sessionStorage.moveFactor = validation;
             localStorage.setItem("moveFactor", validation);
         }
@@ -670,14 +668,6 @@
     else {
         $("#UpdateFactor").hide();
     }
-
-    if (sessionStorage.MOVE == "true") {
-        $("#TabMove").show()
-    }
-    else {
-        $("#TabMove").hide()
-    }
-
 
 
     self.FDocHList = ko.observableArray([]); // لیست اطلاعات تکمیلی فاکتور فروش  
