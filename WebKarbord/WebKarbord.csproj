@@ -193,6 +193,7 @@
     <Content Include="Content\img\email.png" />
     <Content Include="Content\img\list\attach_file.png" />
     <Content Include="Content\img\list\download.png" />
+    <Content Include="Content\img\list\link.png" />
     <Content Include="Content\img\Loading.png" />
     <Content Include="Content\img\loading.svg" />
     <Content Include="Content\img\Login\LogoLogin_En.png" />

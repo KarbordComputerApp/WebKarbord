@@ -385,6 +385,22 @@
         }
     });
 
+    $('#LinkSanad').click(function () {
+        tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
+            result =
+                item.select == true;
+            return result;
+        });
+
+        if (tempData.length == 0) {
+            return showNotification(translate('اسناد را انتخاب کنید'), 0);
+
+        }
+
+        $('#modal-LinkSanad').modal('show');
+    });
+
+
 
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
@@ -583,6 +599,10 @@
         ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHMinObject, true).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
+
+            for (var i = 0; i < data.length; i++) {
+                data[i].select = false;
+            }
             self.IDocHList(data);
             //self.currentPageIndexIDocH(0);
             //ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/Count', 'GET').done(function (dataCount) {
@@ -2028,6 +2048,7 @@
             '   <thead style="cursor: pointer;">' +
         '       <tr data-bind="click: sortTableIDocH">' +
         '<th>' + translate('ردیف') + '</th>' +
+        '<th>' + translate('انتخاب') + '</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('InvName', data) +
@@ -2085,6 +2106,7 @@
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}" >' +
         '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+        '<td style="padding: 0px 10px;text-align: left;"><input type="checkbox"  data-bind="checked:select"> </td>' +
             //'<td data-bind="text:  $index() + 1"></td>' +
             // '<td data-bind="text: $data.DocNo"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
@@ -2195,6 +2217,7 @@
             '</tbody>' +
             ' <tfoot>' +
         '  <tr style="background-color: #efb68399;">' +
+        '<td style="background-color: #efb683;"></td>' +
         '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +

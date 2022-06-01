@@ -2011,9 +2011,9 @@ th {
 
 
 
-    input[type="checkbox"] {
-        mix-blend-mode: exclusion;
-    }
+input[type="checkbox"] {
+    mix-blend-mode: luminosity;
+}
 
 
 

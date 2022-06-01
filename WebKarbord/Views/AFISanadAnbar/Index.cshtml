@@ -51,6 +51,9 @@
                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
                     </a>
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
+                        <a id="LinkSanad">
+                            <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
+                        </a>
                         <a id="SettingColumn" class="">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                         </a>
@@ -166,6 +169,34 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="modal-LinkSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="height:200px;width:800px">
+        <div class="modal-content" style="height:400px;width:800px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لینک اسناد')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('تایید')" type="button" id="aaaa" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+
 <div class="modal fade" id="modal-SettingColumn" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -210,6 +241,7 @@
         </div>
     </div>
 </div>
+    -->
 
 <div class="modal fade" id="modal-SettingColumn" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -255,7 +287,7 @@
         </div>
     </div>
 </div>
-
+ 
 
 <div class="modal fade" id="modal-Move" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
     <div class="modal-dialog">

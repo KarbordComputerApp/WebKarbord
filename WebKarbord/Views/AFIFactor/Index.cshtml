@@ -15,7 +15,7 @@
                         <span data-bind="text:translate('جستجوی')"></span>
                         <b id="TitleListFactorSearch"></b>
                         <span data-bind="text:translate('شماره')"></span>
-                        
+
                     </strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
                     <a id="btn_DocNoSearch">
@@ -24,8 +24,12 @@
 
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <!-- <a id="Print" style="margin-left: 10px;">
-        <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-    </a> -->
+                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
+                        </a> -->
+                        <a id="LinkSanad">
+                            <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
+                        </a>
+
                         <a id="SettingColumn" class="">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                         </a>
@@ -37,12 +41,12 @@
                         </a>
 
                         <!--  <a id="AddNewFactor" class="">
-        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
-    </a>
+                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
+                        </a>
 
-    <a id="AddNewFactor_New" class="">
-        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="26" height="26" />
-    </a>-->
+                        <a id="AddNewFactor_New" class="">
+                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="26" height="26" />
+                        </a>-->
 
                     </div>
                 </div>
@@ -313,6 +317,33 @@
 </div>
 
 
+
+
+<div class="modal fade" id="modal-LinkSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="height:200px;width:800px">
+        <div class="modal-content" style="height:400px;width:800px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لینک اسناد')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                   
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('تایید')" type="button" id="aaaaa" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
 <div class="modal fade" id="modal-SettingColumn" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -352,7 +383,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 
 

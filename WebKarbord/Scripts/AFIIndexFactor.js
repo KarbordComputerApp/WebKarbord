@@ -214,7 +214,9 @@
             }
 
             validation = CheckAccess('MOVE_SFDOC', 'Fct5');
+            validation == true ? $("#TabMove").show() : $("#TabMove").hide()
             sessionStorage.moveFactor = validation;
+
             localStorage.setItem("moveFactor", validation);
         }
 
@@ -1008,6 +1010,23 @@
         }
     });
 
+    $('#LinkSanad').click(function () {
+        tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
+            result =
+                item.select == true;
+            return result;
+        });
+
+        if (tempData.length == 0) {
+            return showNotification(translate('اسناد را انتخاب کنید'), 0);
+
+        }
+
+        $('#modal-LinkSanad').modal('show');
+    });
+
+
+
 
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
@@ -1071,7 +1090,7 @@
             return showNotification(translate('دسترسی باطل ندارید'), 0);
         }
 
-        if (  sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')  ) {
+        if (sessionStorage.Status != translate('تایید') && selectStatus == translate('تصویب')) {
             $("#status").val(lastStatus);
             return showNotification(translate('فقط فاکتور های تایید شده امکان تصویب دارند'), 0);
         }
@@ -1170,6 +1189,9 @@
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
+            for (var i = 0; i < data.length; i++) {
+                data[i].select = false;
+            }
             self.FDocHList(data);
         });
 
@@ -1192,7 +1214,7 @@
                 if (i == 1) {
                     opt.value = 0;
                     if (sortType == "descending")
-                        textSort = ' '+translate('100 رکورد آخر به ترتیب');
+                        textSort = ' ' + translate('100 رکورد آخر به ترتیب');
                     else
                         textSort = ' ' + translate('100 رکورد اول به ترتیب');
 
@@ -1598,6 +1620,7 @@
         }
     });
 
+
     self.currentPageFDocH = ko.computed(function () {
         var pageSizeFDocH = parseInt(self.pageSizeFDocH(), 10),
             startIndex = pageSizeFDocH * self.currentPageIndexFDocH(),
@@ -1932,7 +1955,7 @@
         Swal.fire({
             title: mes_Refresh,
             //text: "لیست " + $('#TitleListFactor').text() + " به روز رسانی شود ؟",
-            text: translate("لیست") + " " + translate($('#TitleListFactor').text()) + " "+ translate("به روز رسانی شود ؟"),
+            text: translate("لیست") + " " + translate($('#TitleListFactor').text()) + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -2066,7 +2089,7 @@
 
             Swal.fire({
                 title: translate('تایید حذف'),
-                text: translate("آیا") + " " + TitleListFactor +" "+ translate("انتخابی حذف شود ؟"),
+                text: translate("آیا") + " " + TitleListFactor + " " + translate("انتخابی حذف شود ؟"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -2077,7 +2100,7 @@
             }).then((result) => {
                 if (result.value) {
                     serial = factorBand.SerialNumber;
-                    docnoDelete = factorBand.DocNo; 
+                    docnoDelete = factorBand.DocNo;
 
                     var TestFDoc_DeleteObject = {
                         SerialNumber: serial
@@ -2124,7 +2147,7 @@
             }
 
             if (list[i].TestName == "AccReg")
-                textBody += '<p>' + translate('این') + ' ' + TitleListFactor +' '+ translate('ثبت حسابداری شده است و قابل حذف نیست')+'</p>';
+                textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت حسابداری شده است و قابل حذف نیست') + '</p>';
 
             else if (list[i].TestName == "InvReg")
                 textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت انبارداری شده است و قابل حذف نیست') + '</p>';
@@ -2492,6 +2515,7 @@
     });
 
 
+
     self.UpdateHeader = function (item) {
 
         if (TestUseSanad(ace, sal, "Factor", item.SerialNumber, true, item.DocNo) == true) {
@@ -2605,7 +2629,7 @@
         if (e.keyCode == 13) {
             docnoSearch = $("#DocNoSearch").val();
             if (docnoSearch == '') {
-                return showNotification(translate('شماره') + ' ' + TitleListFactor +' '+ translate('را وارد کنید'), 2);
+                return showNotification(translate('شماره') + ' ' + TitleListFactor + ' ' + translate('را وارد کنید'), 2);
             }
             ShowDataUpdate(docnoSearch);
         }
@@ -2614,7 +2638,7 @@
     $("#btn_DocNoSearch").click(function (e) {
         docnoSearch = $("#DocNoSearch").val();
         if (docnoSearch == '') {
-            return showNotification(translate('شماره') + ' ' + TitleListFactor +' '+ translate('را وارد کنید'), 2);
+            return showNotification(translate('شماره') + ' ' + TitleListFactor + ' ' + translate('را وارد کنید'), 2);
         }
         ShowDataUpdate(docnoSearch);
     });
@@ -2642,11 +2666,11 @@
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject, true).done(function (response) {
 
             if (response.length == 0) {
-                return showNotification(TitleListFactor +' '+ translate('یافت نشد'), 0);
+                return showNotification(TitleListFactor + ' ' + translate('یافت نشد'), 0);
             }
 
             if (response.length > 1) {
-                return showNotification(translate('بیش از یک') + ' ' + TitleListFactor + ' '+translate('وجود دارد'), 0);
+                return showNotification(translate('بیش از یک') + ' ' + TitleListFactor + ' ' + translate('وجود دارد'), 0);
             }
 
 
@@ -2818,7 +2842,7 @@
         $('#modeCodeMove').val(defultMove);
         $('#modeCodePor').val(sessionStorage.ModeCode);
 
-        $('#titleMove').text(translate('انتقال') + ' ' + TitleListFactor + ' ' + item.DocNo + ' '+ translate('به'));
+        $('#titleMove').text(translate('انتقال') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('به'));
         $('#titlePor').text(translate('کپی') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('در'));
         $('#modal-Move').modal();
     }
@@ -3191,6 +3215,7 @@
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableFDocH">' +
             '<th>' + translate('ردیف') + '</th>' +
+            '<th>' + translate('انتخاب') + '</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('CustName', data) +
@@ -3253,6 +3278,7 @@
             ' <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}  " >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+            '<td style="padding: 0px 10px;text-align: left;"><input type="checkbox"  data-bind="checked:select"> </td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
             CreateTableTd('CustName', 0, 0, data) +
@@ -3329,14 +3355,14 @@
             '    <li>' +
             '        <a id="MoveFactor" data-bind="click: $root.MoveFactor  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-        translate('کپی') +
+            translate('کپی') +
             '        </a>' +
             '    </li>' +
 
             '    <li>' +
             '        <a id="ChangeStatusFactor" data-bind="click: $root.ChangeStatusFactor" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-        translate('تغییر وضعیت') +
+            translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
 
@@ -3345,7 +3371,7 @@
                 '    <li>' +
                 '        <a id="PrintFactor" data-bind="click: $root.PrintFactor" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-            translate('چاپ') +
+                translate('چاپ') +
                 '        </a>' +
                 '    </li>';
         }
@@ -3369,6 +3395,7 @@
             '</tbody>' +
             ' <tfoot>' +
             '  <tr>' +
+            '<td style="background-color: #efb683;"></td>' +
             '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
