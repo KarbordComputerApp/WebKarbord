@@ -2032,7 +2032,7 @@
 
 
 
-    $('#AddNewFactor_New').click(function () {
+    $('#AddNewFactor').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = translate('موقت');

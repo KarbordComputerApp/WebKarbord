@@ -80,7 +80,7 @@
     sessionStorage.BeforeMoveSanad = false;
 
     //sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
-    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad_New").show() : $("#AddNewSanad_New").hide();
+    sessionStorage.NEW_ADOC == "true" ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
 
     TestUser();
 
@@ -846,7 +846,7 @@
     });*/
 
 
-    $('#AddNewSanad_New').click(function () {
+    $('#AddNewSanad').click(function () {
         sessionStorage.flagupdateHeader = 0;
         /*sessionStorage.Eghdam = localStorage.getItem("userName");
         sessionStorage.Status = translate('موقت');
