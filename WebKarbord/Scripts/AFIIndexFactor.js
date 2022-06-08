@@ -678,6 +678,8 @@
     self.StatusList = ko.observableArray([]); // وضعیت  
     self.TestFDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
+    self.FDocHLinkList = ko.observableArray([]);
+
     self.StatusFactor = ko.observable();
 
     TestUser();
@@ -694,7 +696,7 @@
     var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
     var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
 
-
+    var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/'; 
 
     var allSearchFDocH = true;
     var inOut;
@@ -1010,20 +1012,61 @@
         }
     });
 
+
+
+    var RegSerialNumber = '';
+
     $('#LinkSanad').click(function () {
+        RegSerialNumber = '';
+
         tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
             result =
                 item.select == true;
             return result;
         });
-
+        
         if (tempData.length == 0) {
             return showNotification(translate('اسناد را انتخاب کنید'), 0);
 
         }
+        else {
+            self.FDocHLinkList(tempData);
+            list = '';
+            for (var i = 0; i < tempData.length; i++) {
+                if (i < tempData.length - 1) {
+                    list += tempData[i].SerialNumber + ',';
+                }
+                else
+                {
+                    list += tempData[i].SerialNumber;
+                }
+            }
+        }
 
+        RegSerialNumber = list;
+
+        $('#L_TitleLink').text(tempData.length + ' ' + TitleListFactor + ' زیر انتخاب شده اند ')
         $('#modal-LinkSanad').modal('show');
     });
+
+
+    $('#RegFDocToADoc').click(function () {
+        var RegFDocToADocObject = {
+            SerialNumbers: RegSerialNumber,
+            ModeCode: sessionStorage.ModeCode
+        };
+
+        ajaxFunction(RegFDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToADocObject).done(function (data) {
+            
+        });
+    });
+
+
+    $('#modal-LinkSanad').on('hide.bs.modal', function () {
+        getFDocH($('#pageCountSelector').val(), false);
+    })
+   
+
 
 
 
@@ -1128,6 +1171,10 @@
             }
         }
     }
+
+    
+
+
 
     $('#modal-ChangeStatusFactor').on('hide.bs.modal', function () {
         RemoveUseSanad(ace, sal, "Factor", serial);
@@ -2014,6 +2061,8 @@
         sessionStorage.CustRegion = "";
         sessionStorage.VstrCode = "";
         sessionStorage.VstrName = "";
+        sessionStorage.ArzCode = "";
+        sessionStorage.ArzName = "";
 
         //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         //    $('#modal-SelectFactor').modal('show');
@@ -2073,6 +2122,9 @@
         sessionStorage.CustRegion = "";
         sessionStorage.VstrCode = "";
         sessionStorage.VstrName = "";
+
+        sessionStorage.ArzCode = "";
+        sessionStorage.ArzName = "";
         if (localStorage.getItem('ModeInsertSanad') == "New")
             window.location.href = sessionStorage.urlAddFDocH_New;
         else
@@ -2532,6 +2584,9 @@
             sessionStorage.VstrCode = item.VstrCode;
             sessionStorage.VstrName = item.VstrName;
 
+            sessionStorage.ArzCode = item.ArzCode;
+            sessionStorage.ArzName = item.ArzName;
+
             sessionStorage.Spec = item.Spec;
             sessionStorage.PriceCode = item.KalaPriceCode;
             sessionStorage.InvCode = item.InvCode;
@@ -2743,6 +2798,9 @@
 
                 sessionStorage.VstrCode = data.VstrCode;
                 sessionStorage.VstrName = data.VstrName;
+
+                sessionStorage.ArzCode = data.ArzCode;
+                sessionStorage.ArzName = data.ArzName;
 
                 sessionStorage.Spec = data.Spec;
                 sessionStorage.PriceCode = data.KalaPriceCode;
@@ -3192,6 +3250,10 @@
 
 
 
+    $('#RegFDocToADoc').click(function () {
+
+
+    });
 
 
 

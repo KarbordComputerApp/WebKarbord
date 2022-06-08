@@ -55,6 +55,8 @@ var ViewModel = function () {
     var codeOpr = '';
     var codeMkz = '';
     var codeVstr = '';
+    var codeArz = '';
+    var arzRate = 0;
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -138,6 +140,8 @@ var ViewModel = function () {
     self.OprCode = ko.observable();
     self.MkzCode = ko.observable();
     self.VstrCode = ko.observable();
+    self.ArzCode = ko.observable();
+    self.ArzRate = ko.observable();
 
     self.PriceCode = ko.observable();
     self.InvCode = ko.observable();
@@ -163,6 +167,7 @@ var ViewModel = function () {
     //self.TestFDocList = ko.observableArray([]); // لیست تست 
     self.TestFDoc_NewList = ko.observableArray([]); // لیست تست جدید
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
+    self.ArzList = ko.observableArray([]); // لیست ارز ها
 
     FDOC_SO_Text = translate("سفارش فروش");
     FDOC_SP_Text = translate("پیش فاکتور فروش");
@@ -302,6 +307,7 @@ var ViewModel = function () {
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
+    var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -384,6 +390,19 @@ var ViewModel = function () {
         }
     });
 
+
+    //Get Arz List
+    function getArzList() {
+        ajaxFunction(ArzUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+            self.ArzList(data);
+        });
+    }
+
+    $('#btnArz').click(function () {
+        if (self.ArzList().length == 0) {
+            getArzList();
+        }
+    });
 
     //Get  UnitName List
     function getUnitNameList() {
@@ -1066,6 +1085,7 @@ var ViewModel = function () {
             $('#btnMkz').removeAttr('style');
             $('#btnVstr').removeAttr('style');
             $('#btnOpr').removeAttr('style');
+            $('#btnArz').removeAttr('style');
             $('#gGhimat').attr('disabled', false);
             $('#inv').attr('disabled', false);
         }
@@ -1144,9 +1164,13 @@ var ViewModel = function () {
         self.VstrCode(sessionStorage.VstrCode);
         codeVstr = sessionStorage.VstrCode;
 
+        self.ArzCode(sessionStorage.ArzCode);
+        codeArz = sessionStorage.ArzCode;
+
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameVstr').val(sessionStorage.VstrCode == '' ? '' : '(' + sessionStorage.VstrCode + ') ' + sessionStorage.VstrName);
+        $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
 
         getFDocH(Serial);
         getFDocB(Serial);
@@ -1215,6 +1239,7 @@ var ViewModel = function () {
             $('#btnCust').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
             $('#btnOpr').attr('style', 'display: none');
+            $('#btnArz').attr('style', 'display: none');
             $('#gGhimat').attr('disabled', true);
             $('#inv').attr('disabled', true);
         }
@@ -1918,9 +1943,11 @@ var ViewModel = function () {
                                         self.OprCode("");
                                         self.MkzCode("");
                                         self.VstrCode("");
+                                        self.ArzCode("");
                                         codeOpr = '';
                                         codeMkz = '';
-                                        codeVstrMkz = '';
+                                        codeVstr = '';
+                                        codeArz = '';
                                         flaglog = "Y";
                                         if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
                                         $("#gGhimat").val(sessionStorage.GPriceDefult);
@@ -2418,6 +2445,9 @@ var ViewModel = function () {
                     InvCode: inv,
                     OprCode: codeOpr,
                     MkzCode: codeMkz,
+                    ArzCode: codeArz,
+                    ArzRate: arzRate,
+                    ArzValue: 0,
                     flagLog: 'N',
                 };
 
@@ -2769,6 +2799,9 @@ var ViewModel = function () {
                     InvCode: inv,
                     OprCode: codeOpr,
                     MkzCode: codeMkz,
+                    ArzCode: codeArz,
+                    ArzRate: arzRate,
+                    ArzValue: 0,
 
                     InvSerialNumber: item.InvSerialNumber == null ? 0 : item.InvSerialNumber,
                     LFctSerialNumber: item.LFctSerialNumber == null ? 0 : item.LFctSerialNumber,
@@ -4090,6 +4123,143 @@ var ViewModel = function () {
     };
 
     $('#modal-Mkz').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+
+
+
+    self.iconTypeRate = ko.observable("");
+
+    self.currentPageArz = ko.observable();
+    pageSizeArz = localStorage.getItem('pageSizeArz') == null ? 10 : localStorage.getItem('pageSizeArz');
+    self.pageSizeArz = ko.observable(pageSizeArz);
+    self.currentPageIndexArz = ko.observable(0);
+
+    self.filterArz0 = ko.observable("");
+    self.filterArz1 = ko.observable("");
+    self.filterArz2 = ko.observable("");
+    self.filterArz3 = ko.observable("");
+
+    self.filterArzList = ko.computed(function () {
+
+        self.currentPageIndexArz(0);
+        var filter0 = self.filterArz0().toUpperCase();
+        var filter1 = self.filterArz1();
+        var filter2 = self.filterArz2();
+        var filter3 = self.filterArz3();
+
+        if (!filter0 && !filter1 && !filter2 && !filter3) {
+            return self.ArzList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ArzList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                    ko.utils.stringStartsWith(item.Rate.toString().toLowerCase(), filter3)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageArz = ko.computed(function () {
+        var pageSizeArz = parseInt(self.pageSizeArz(), 10),
+            startIndex = pageSizeArz * self.currentPageIndexArz(),
+            endIndex = startIndex + pageSizeArz;
+        localStorage.setItem('pageSizeArz', pageSizeArz);
+        return self.filterArzList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageArz = function () {
+        if (((self.currentPageIndexArz() + 1) * self.pageSizeArz()) < self.filterArzList().length) {
+            self.currentPageIndexArz(self.currentPageIndexArz() + 1);
+        }
+    };
+
+    self.previousPageArz = function () {
+        if (self.currentPageIndexArz() > 0) {
+            self.currentPageIndexArz(self.currentPageIndexArz() - 1);
+        }
+    };
+
+    self.firstPageArz = function () {
+        self.currentPageIndexArz(0);
+    };
+
+    self.lastPageArz = function () {
+        countArz = parseInt(self.filterArzList().length / self.pageSizeArz(), 10);
+        if ((self.filterArzList().length % self.pageSizeArz()) == 0)
+            self.currentPageIndexArz(countArz - 1);
+        else
+            self.currentPageIndexArz(countArz);
+    };
+
+    self.sortTableArz = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.ArzList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+        self.iconTypeRate('');
+
+
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Rate') self.iconTypeRate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    $('#refreshArz').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ارز") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getArzList();
+            }
+        })
+    })
+
+
+    self.selectArz = function (item) {
+        $('#nameArz').val('(' + item.Code + ') ' + item.Name);
+        codeArz = item.Code;
+        self.ArzCode(item.Code);
+        arzRate = item.Rate; 
+        //$('#ArzRate').val(item.Rate);
+        
+    }
+
+
+    $('#modal-Arz').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
 

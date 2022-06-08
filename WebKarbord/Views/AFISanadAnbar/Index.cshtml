@@ -13,12 +13,12 @@
             <div class="header" style="padding-bottom: 5px;">
                 <div class="form-inline focused">
 
-                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;"> 
-                    <b data-bind="text:translate('لیست')"></b>
-                    <b id="TitleListAnbar"></b>
+                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">
+                        <b data-bind="text:translate('لیست')"></b>
+                        <b id="TitleListAnbar"></b>
                     </strong>
 
-                   <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;"></strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;"></strong>
                     <div class="col-md-2 ">
                         <div class="form-inline">
                             <select id="invSelect" data-bind="options: InvList,
@@ -41,8 +41,8 @@
                                event:{ change: $root.PageCountView}"></select>
                         </div>
                     </div>
-                   
-                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 5px;"  data-bind="text:translate('جستجوی سند شماره')"></strong>
+
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 5px;" data-bind="text:translate('جستجوی سند شماره')"></strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;margin-bottom: 1px;margin-left: 5px;margin-right: 5px;" />
 
 
@@ -68,20 +68,19 @@
             </div>
             <div class="body">
                 <div class="row">
-                   <!-- <div class="col-md-6 ">
-                        <div class="form-inline">
-                            <label>انبار</label>
-                            <div class="col-md-10" style="text-align: center;">
-                                <select id="invSelect" data-bind="options: InvList,
-                               optionsText: function(item) {return item.Name},
-                               optionsValue: 'Code',
-                               value: InvCode,
-                               optionsCaption: OptionsCaptionAnbar(),
-                               event:{ change: $root.PageCountView}"></select>
-                            </div>
-                        </div>
-                    </div>-->
-
+                    <!-- <div class="col-md-6 ">
+                         <div class="form-inline">
+                             <label>انبار</label>
+                             <div class="col-md-10" style="text-align: center;">
+                                 <select id="invSelect" data-bind="options: InvList,
+                                optionsText: function(item) {return item.Name},
+                                optionsValue: 'Code',
+                                value: InvCode,
+                                optionsCaption: OptionsCaptionAnbar(),
+                                event:{ change: $root.PageCountView}"></select>
+                             </div>
+                         </div>
+                     </div>-->
                     <!-- <div class="col-md-6">
                         <div class="input-group">
                             <div class="form-group form-float">
@@ -132,7 +131,7 @@
 
                     <div class="col-md-3" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageIDocH">
-                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageIDocH">
                             <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -172,8 +171,8 @@
 
 
 <div class="modal fade" id="modal-LinkSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog" style="height:200px;width:800px">
-        <div class="modal-content" style="height:400px;width:800px">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -182,19 +181,99 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
+                <p id="L_TitleLink"></p>
+                <br />
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>شماره سند</th>
+                            <th>تاریخ سند</th>
+                            <th>ملاحظات</th>
+                        </tr>
+                    </thead>
 
+                    <tbody data-bind="foreach: IDocHLinkList" style="cursor: default;">
+                        <tr>
+                            <td data-bind="text: $index() + 1"></td>
+                            <td data-bind="text: DocNo"></td>
+                            <td data-bind="text: DocDate"></td>
+                            <td data-bind="text: Spec"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
 
                     <div class="col-md-6">
-                        <button data-bind="text:translate('تایید')" type="button" id="aaaa" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                        <button data-bind="text:translate('ثبت حسابداری اسناد')" type="button" id="RegIDocToADoc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ثبت خرید و فروش اسناد')" type="button" id="RegIDocToFDoc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="modal-LinkSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لینک اسناد')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <p id="L_TitleLink"></p>
+                <br />
+                <div style="height:200px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>شماره سند</th>
+                                <th>تاریخ سند</th>
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody data-bind="foreach: IDocHLinkList" style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: $index() + 1"></td>
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: Spec"></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ثبت حسابداری فاکتور ها')" type="button" id="RegFDocToADoc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ثبت انبارداری فاکتور ها')" type="button" id="RegFDocToIDoc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--
 
 <div class="modal fade" id="modal-SettingColumn" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
@@ -228,12 +307,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-       
+
                         </button>
                     </div>
                     <div class="col-md-6">
                         <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                   
+
                         </button>
                     </div>
                 </div>
@@ -260,7 +339,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
+                                <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -273,23 +352,19 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                             
-                        </button>
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                     <div class="col-md-6">
-                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            
-                        </button>
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
- 
 
-<div class="modal fade" id="modal-Move" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+
+<div class="modal fade" id="modal-Move" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -302,10 +377,10 @@
 
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a class="active show" data-toggle="tab" href="#home" style="padding-left: 20px;padding-right: 20px;"data-bind="text:translate('کپی')"></a>
+                        <a class="active show" data-toggle="tab" href="#home" style="padding-left: 20px;padding-right: 20px;" data-bind="text:translate('کپی')"></a>
                     </li>
                     <li id="TabMove" hidden>
-                        <a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;"data-bind="text:translate('انتقال')"></a>
+                        <a data-toggle="tab" href="#menu1" style="padding-left: 20px;padding-right: 20px;" data-bind="text:translate('انتقال')"></a>
                     </li>
                 </ul>
 
@@ -349,12 +424,8 @@
 
             <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                <button  data-bind="text:translate('تایید')" type="button" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    
-                </button>
-                <button  data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    
-                </button>
+                <button data-bind="text:translate('تایید')" type="button" id="Move" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
             </div>
 
         </div>
@@ -385,12 +456,8 @@
             <br />
             <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                <button  data-bind="text:translate('تایید')" type="button" id="ChangeStatus" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    
-                </button>
-                <button  data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                    
-                </button>
+                <button data-bind="text:translate('تایید')" type="button" id="ChangeStatus" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
             </div>
 
         </div>
@@ -406,7 +473,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleFinalSave"  data-bind="text:translate('حذف سند انبار')"></h4>
+                <h4 id="titleFinalSave" data-bind="text:translate('حذف سند انبار')"></h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">

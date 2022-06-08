@@ -24,11 +24,11 @@ $("#AccessRefresh").hide();
 
 if (sessionStorage.versionTitle == "ورژن تست") {
     $("#AccessRefresh").show();
-   // $("#AddNewSanad_New").show();
+    // $("#AddNewSanad_New").show();
 
 }
 
-$("#VerDllCheck").text(localStorage.getItem('VerDllCheck'));
+$("#VerDllCheck").text('ACC6 ' + localStorage.getItem('VerDllCheckAcc6') + ' - ' + 'FCT6 ' + localStorage.getItem('VerDllCheckFct6'));
 
 
 var tiketUrl = 'http://localhost:51091/';
@@ -1103,7 +1103,7 @@ function showLoad() {
 
 }
 
-function ajaxFunction(uri, method, data, sync,error) {
+function ajaxFunction(uri, method, data, sync, error) {
 
     //$('#loading-image').show();
     var userNameAccount = localStorage.getItem("userNameAccount");
@@ -5189,7 +5189,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
             }
 
             // حذف سند باز شده توسط وب در ویندوز
-           var DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+            var DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
             var DeleteDocInUseObject = {
                 Prog: prog,
                 DMode: dMode,
@@ -5197,7 +5197,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true,false).done(function (response) {
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true, false).done(function (response) {
                 //showNotification('1',0);
             });
         }
@@ -5271,7 +5271,7 @@ const LogMode_CUST = 9;
 
 
 
-function SaveLog(progName,editMode, logMode, code, DocNo, serialNumber) {
+function SaveLog(progName, editMode, logMode, code, DocNo, serialNumber) {
     //mIdKarbord = localStorage.getItem("MachineIdKarbord")
     ipw = localStorage.getItem("IPW");
     //country = localStorage.getItem("CountryLogin");

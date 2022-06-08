@@ -320,8 +320,8 @@
 
 
 <div class="modal fade" id="modal-LinkSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog" style="height:200px;width:800px">
-        <div class="modal-content" style="height:400px;width:800px">
+    <div class="modal-dialog" >
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -330,13 +330,40 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                
+                <p id="L_TitleLink"></p>
+                <br />
+                <div style="height:200px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>شماره سند</th>
+                                <th>تاریخ سند</th>
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody data-bind="foreach: FDocHLinkList" style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: $index() + 1"></td>
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: Spec"></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
             </div>
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
-                   
                     <div class="col-md-6">
-                        <button data-bind="text:translate('تایید')" type="button" id="aaaaa" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                        <button data-bind="text:translate('ثبت حسابداری فاکتور ها')" type="button" id="RegFDocToADoc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ثبت انبارداری فاکتور ها')" type="button" id="RegFDocToIDoc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>

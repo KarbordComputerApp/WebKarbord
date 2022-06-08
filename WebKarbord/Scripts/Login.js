@@ -323,8 +323,12 @@
                        
 
 
-                        ajaxFunction(server + '/api/Web_Data/GetVerDll', 'Get').done(function (data) {
-                            localStorage.setItem('VerDllCheck', data);
+                        ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
+                            localStorage.setItem('VerDllCheckAcc6', data);
+                        });
+
+                        ajaxFunction(server + '/api/Web_Data/GetVerDllFct6', 'Get').done(function (data) {
+                            localStorage.setItem('VerDllCheckFct6', data);
                         });
 
                         window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;

@@ -169,6 +169,8 @@
     self.TestIDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
     self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
+    self.IDocHLinkList = ko.observableArray([]); 
+
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
 
     TestUser();
@@ -183,6 +185,8 @@
     var IDoc_DeleteUri = server + '/api/IDocData/TestIDoc_Delete/'; // آدرس تست حذف 
     var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد 
     var TestIDoc_EditUri = server + '/api/IDocData/TestIDoc_Edit/'; // آدرس تست ویرایش 
+
+    var RegIDocToADocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToADoc/'; 
 
 
 
@@ -385,21 +389,52 @@
         }
     });
 
+    var RegSerialNumber = '';
     $('#LinkSanad').click(function () {
+        RegSerialNumber = '';
         tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
             result =
                 item.select == true;
             return result;
         });
 
+       
+
         if (tempData.length == 0) {
             return showNotification(translate('اسناد را انتخاب کنید'), 0);
 
-        }
+        } else {
+            self.IDocHLinkList(tempData);
+            list = '';
+            for (var i = 0; i < tempData.length; i++) {
+                if (i < tempData.length - 1) {
+                    list += tempData[i].SerialNumber + ',';
+                }
+                else {
+                    list += tempData[i].SerialNumber;
+                }
 
+            }
+        }
+        RegSerialNumber = list;
+        $('#L_TitleLink').text(tempData.length + ' ' + (sessionStorage.InOut == 1 ? translate('سند وارده') : translate('سند صادره')) + ' زیر انتخاب شده اند ')
         $('#modal-LinkSanad').modal('show');
     });
 
+    $('#RegIDocToADoc').click(function () {
+        var RegIDocToADocObject = {
+            SerialNumbers: RegSerialNumber
+        };
+
+        ajaxFunction(RegIDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegIDocToADocObject).done(function (data) {
+
+        });
+    });
+
+
+    $('#modal-LinkSanad').on('hide.bs.modal', function () {
+        getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
+    })
 
 
     $('#DefultColumn').click(function () {
@@ -1255,6 +1290,19 @@
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = 'موقت';
         invCode = $('#invSelect').val();
+
+        sessionStorage.SerialNumber = 0;
+        sessionStorage.DocNo = "";
+        sessionStorage.DocDate = "";
+        sessionStorage.ThvlCode = "";
+        sessionStorage.ThvlName = "";
+        sessionStorage.Spec = "";
+        sessionStorage.PriceCode = "";
+        sessionStorage.ModeCodeValue = "";
+        sessionStorage.ModeName = "";
+        sessionStorage.PaymentType = "";
+        sessionStorage.Footer = "";
+        sessionStorage.TaeedI = "";
         sessionStorage.F01 = "";
         sessionStorage.F02 = "";
         sessionStorage.F03 = "";
@@ -1275,19 +1323,20 @@
         sessionStorage.F18 = "";
         sessionStorage.F19 = "";
         sessionStorage.F20 = "";
-        //if (invCode == '' || invCode == null) 
-        //{
-        //    return showNotification(translate('انبار را انتخاب کنید');
-        //} 
-        //else
-        //{
+        sessionStorage.OprCode = "";
+        sessionStorage.OprName = "";
+        sessionStorage.MkzCode = "";
+        sessionStorage.MkzName = "";
+
+        sessionStorage.ArzCode = "";
+        sessionStorage.ArzName = "";
+
         sessionStorage.InvCode = invCode;
 
         if (localStorage.getItem('ModeInsertSanad') == "New")
             window.location.href = sessionStorage.urlAddIDocH_New;
         else
             window.location.href = sessionStorage.urlAddIDocH;
-        //}
     });
 
 
@@ -1520,6 +1569,9 @@
             sessionStorage.MkzCode = item.MkzCode;
             sessionStorage.MkzName = item.MkzName;
 
+            sessionStorage.ArzCode = item.ArzCode;
+            sessionStorage.ArzName = item.ArzName;
+
             sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
             if (localStorage.getItem('ModeInsertSanad') == "New")
                 window.location.href = sessionStorage.urlAddIDocH_New;
@@ -1649,6 +1701,9 @@
 
                 sessionStorage.MkzCode = data.MkzCode;
                 sessionStorage.MkzName = data.MkzName;
+
+                sessionStorage.ArzCode = item.ArzCode;
+                sessionStorage.ArzName = item.ArzName;
 
                 sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
@@ -1928,6 +1983,7 @@
 
                 sessionStorage.MkzCode = item.MkzCode;
                 sessionStorage.MkzName = item.MkzName;
+
 
 
                 // sessionStorage.ModeCodeValue = modeCodeMove;

@@ -88,7 +88,7 @@
 
                 <div class="form-inline" style="padding-top: 10px;">
 
-                    <div class="input-group col-sm">
+                    <div class="input-group col-3">
                         <div class="input-group-addon">
                             <a id="btnThvl" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Thvl">
                                 <img src="~/Content/img/sanad/man.png" class="icon" width="20" height="20" />
@@ -104,7 +104,7 @@
 
 
 
-                    <div class="input-group  col-sm">
+                    <div class="input-group  col-3">
                         <div class="input-group-addon">
                             <a id="btnOpr" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Opr">
                                 <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
@@ -119,7 +119,7 @@
                     </div>
 
 
-                    <div class="input-group  col-sm">
+                    <div class="input-group  col-3">
                         <div class="input-group-addon">
                             <a id="btnMkz" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Mkz">
                                 <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
@@ -133,6 +133,24 @@
                         </div>
                     </div>
 
+
+
+                    <div class="col-3">
+                        <div class="input-group">
+                            <div class="input-group-addon" style="width:32px;">
+                                <a id="btnArz" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Arz">
+                                    <img src="/Content/img/list/SearchKala.png" class="icon" height="20" width="20">
+                                </a>
+                            </div>
+
+                            <div class="form-group form-float">
+                                <div class="form-line focused fix">
+                                    <input id="nameArz" class="form-control" readonly />
+                                    <label class="form-label" data-bind="text:translate('ارز')"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -606,6 +624,119 @@
     </div>
 </div>
 
+
+
+
+
+
+<div class="modal fade" id="modal-Arz" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('لیست ارز')"></h4>
+                <a id="refreshArz">
+                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div style="height:400px;overflow:auto;border: 1px #ddd solid;">
+                    <table class="table table-hover table-striped tableFixList">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableArz">
+
+
+                                <th data-column="Code" style="width: 200px;">
+                                    <span data-column="Code" data-bind="text:translate('کد')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Code' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeCode }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="SortName" style="width: 500px;">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeName }"></i>
+                                    </span>
+                                </th>
+                                <th data-column="Spec" style="width: 300px;">
+                                    <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeSpec }"></i>
+                                    </span>
+                                </th>
+
+                                <th data-column="Rate">
+                                    <span data-column="Spec" data-bind="text:translate('نرخ')"></span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Rate' ? 'isVisible' : 'isHidden' }">
+                                        <i data-bind="attr: { class: iconTypeRate }"></i>
+                                    </span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageArz" data-dismiss="modal" style="cursor: default;">
+                            <tr data-bind="click: $parent.selectArz">
+                                <td data-bind="text: Code"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Rate"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterArz0, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterArz1, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterArz2, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterArz3, valueUpdate: 'afterkeydown'" type="text" class="form-control intandline" style="height: 2.4rem;" /> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label data-bind="text:translate('نمایش')"></label>
+                            <div class="form-group" style="text-align: center; width: 50px;  margin: 5px;">
+                                <select id="pageSizeSelector" class="selectorange" data-bind="value: pageSizeArz">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <label data-bind="text:translate('رکورد در هر صفحه')"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
+                        <a data-bind="click: firstPageArz">
+                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                        </a>
+                        <a data-bind="click: previousPageArz">
+                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <b data-bind="text: currentPageIndexArz() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        <a data-bind="click: nextPageArz">
+                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                        </a>
+                        <a data-bind="click: lastPageArz">
+                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
