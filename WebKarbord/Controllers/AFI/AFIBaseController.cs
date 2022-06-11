@@ -34,5 +34,12 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult Arz()
+        {
+            return View();
+        }
+
+
+
     }
 }

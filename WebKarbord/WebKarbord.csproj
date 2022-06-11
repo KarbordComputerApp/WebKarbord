@@ -757,6 +757,7 @@
     <Content Include="Content\fonts\Vazir-FD-WOL.ttf" />
     <Content Include="Content\fonts\Vazir-FD-WOL.woff" />
     <Content Include="Scripts\AFIBase_Mkz.js" />
+    <Content Include="Scripts\AFIBase_Arz.js" />
     <Content Include="Scripts\AFIBase_Opr.js" />
     <Content Include="Scripts\AFIBase_Acc.js" />
     <Content Include="Scripts\AFIBase_Cust.js" />
@@ -968,6 +969,7 @@
     <Content Include="Views\AFISanad\AddAdoc_New.cshtml" />
     <Content Include="Views\AFIFactor\AddFdoc_New.cshtml" />
     <Content Include="Views\AFISanadAnbar\AddIdoc_New.cshtml" />
+    <Content Include="Views\AFIBase\Arz.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
