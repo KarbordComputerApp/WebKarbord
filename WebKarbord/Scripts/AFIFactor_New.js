@@ -1956,6 +1956,7 @@ var ViewModel = function () {
                                         $('#nameOpr').val("");
                                         $('#nameMkz').val("");
                                         $('#nameVstr').val("");
+                                        $('#nameArz').val("");
 
                                         sessionStorage.F01 = "";
                                         sessionStorage.F02 = "";

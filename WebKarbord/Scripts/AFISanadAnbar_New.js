@@ -1684,6 +1684,7 @@ var ViewModel = function () {
                                         $('#nameThvl').val("");
                                         $('#nameOpr').val("");
                                         $('#nameMkz').val("");
+                                        $('#nameArz').val("");
 
                                         sessionStorage.F01 = "";
                                         sessionStorage.F02 = "";

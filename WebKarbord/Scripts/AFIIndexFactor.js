@@ -696,7 +696,7 @@
     var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
     var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
 
-    var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/'; 
+    var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/';
 
     var allSearchFDocH = true;
     var inOut;
@@ -1024,7 +1024,7 @@
                 item.select == true;
             return result;
         });
-        
+
         if (tempData.length == 0) {
             return showNotification(translate('اسناد را انتخاب کنید'), 0);
 
@@ -1036,8 +1036,7 @@
                 if (i < tempData.length - 1) {
                     list += tempData[i].SerialNumber + ',';
                 }
-                else
-                {
+                else {
                     list += tempData[i].SerialNumber;
                 }
             }
@@ -1057,7 +1056,14 @@
         };
 
         ajaxFunction(RegFDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToADocObject).done(function (data) {
-            
+            serial = data;
+            docNoSanadHesab = 74; // تست
+            if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
+            }
+            else {
+                localStorage.setItem("DocNoAFISanad", docNoSanadHesab);
+                window.open(sessionStorage.urlAFISanadIndex, '_blank');
+            }
         });
     });
 
@@ -1065,7 +1071,7 @@
     $('#modal-LinkSanad').on('hide.bs.modal', function () {
         getFDocH($('#pageCountSelector').val(), false);
     })
-   
+
 
 
 
@@ -1172,7 +1178,7 @@
         }
     }
 
-    
+
 
 
 

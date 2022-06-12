@@ -323,11 +323,11 @@
                        
 
 
-                        ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
+                        ajaxFunction(server + '/api/ADocData/GetVerDllAcc6', 'Get').done(function (data) {
                             localStorage.setItem('VerDllCheckAcc6', data);
                         });
 
-                        ajaxFunction(server + '/api/Web_Data/GetVerDllFct6', 'Get').done(function (data) {
+                        ajaxFunction(server + '/api/FDocData/GetVerDllFct6', 'Get').done(function (data) {
                             localStorage.setItem('VerDllCheckFct6', data);
                         });
 
