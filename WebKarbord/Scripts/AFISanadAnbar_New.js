@@ -7,12 +7,8 @@ var cols;
 
 var ViewModel = function () {
     var self = this;
-
-
-
-
     var forSels = true;
-
+    var arzCalcMode = localStorage.getItem("ArzCalcMode");
     var viewAction = false;
     var allSearchThvl = true;
     var allSearchKala = true;
@@ -938,6 +934,9 @@ var ViewModel = function () {
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
 
+        self.ArzRate(sessionStorage.ArzRate);
+        arzRate = sessionStorage.ArzRate;
+
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
@@ -1675,6 +1674,10 @@ var ViewModel = function () {
                                         self.OprCode("");
                                         self.MkzCode("");
                                         self.ArzCode("");
+
+                                        self.ArzRate("");
+                                        arzRate = 0;
+
                                         codeOpr = '';
                                         codeMkz = '';
                                         flaglog = "Y";

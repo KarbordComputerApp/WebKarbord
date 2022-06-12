@@ -54,7 +54,7 @@
     var rprtId = 'Arz';
 
     var columns = [
-        'Code',
+        'LtnCode',
         'Name',
         'Spec',
         'Rate'
@@ -150,7 +150,7 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
-    self.filterCode = ko.observable("");
+    self.filterLtnCode = ko.observable("");
     self.filterName = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterRate = ko.observable("");
@@ -158,25 +158,25 @@
 
     listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
     if (listFilter != null) {
-        self.filterCode(listFilter[0]);
+        self.filterLtnCode(listFilter[0]);
         self.filterName(listFilter[1]);
         self.filterSpec(listFilter[2]);
         self.filterRate(listFilter[3]);
     }
     self.filterArzList = ko.computed(function () {
         self.currentPageIndexArz(0);
-        var filterCode = self.filterCode();
+        var filterLtnCode = self.filterLtnCode();
         var filterName = self.filterName();
         var filterSpec = self.filterSpec();
         var filterRate = self.filterRate();
 
-        if (!filterCode && !filterName && !filterSpec && !filterRate) {
+        if (!filterLtnCode && !filterName && !filterSpec && !filterRate) {
             $("#CountRecord").text(self.ArzList().length);
             sessionStorage.setItem('listFilter', null);
             return self.ArzList();
         } else {
             listFilter = [
-                filterCode,
+                filterLtnCode,
                 filterName,
                 filterSpec,
                 filterRate
@@ -185,7 +185,7 @@
             sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.ArzList(), function (item) {
                 result =
-                    (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
+                    (item.LtnCode == null ? '' : item.LtnCode.toString().search(filterLtnCode) >= 0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filterName) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                     ko.utils.stringStartsWith(item.Rate.toString().toLowerCase(), filterRate)
@@ -253,7 +253,7 @@
             self.currentPageIndexArz(tempCountArz);
     };
 
-    self.iconTypeCode = ko.observable("");
+    self.iconTypeLtnCode = ko.observable("");
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeRate = ko.observable("");
@@ -287,12 +287,12 @@
         });
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-        self.iconTypeCode('');
+        self.iconTypeLtnCode('');
         self.iconTypeName('');
         self.iconTypeSpec('');
         self.iconTypeRate('');
 
-        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'LtnCode') self.iconTypeLtnCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Rate') self.iconTypeRate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -344,18 +344,18 @@
 
     function SetDataArz(item) {
         isUpdate = true;
-        $('#Code').val(item.Code);
+        $('#Code').val(item.LtnCode);
         $('#Code').attr('readonly', true);
         $('#Name').val(item.Name);
         $('#Spec').val(item.Spec);
         $('#Rate').val(item.Rate);
 
-        old_Code = item.Code;
+        old_Code = item.LtnCode;
         old_Name = item.Name;
         old_Spec = item.Spec;
         old_Rate = item.Rate;
         $("#Code").focus();
-        ArzCode = item.Code;
+        ArzCode = item.LtnCode;
     }
 
     self.UpdateArz = function (item) {
@@ -412,7 +412,7 @@
                     getArzList();
                     $('#modal-Arz').modal('hide');
                     flag_Save = true;
-                    SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_Arz, code, 0, 0);
+                    SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_ARZ, code, 0, 0);
 
                     showNotification(translate('ذخیره شد'), 1);
                 });
@@ -427,7 +427,7 @@
 
     self.DeleteArz = function (item) {
 
-        ArzCode = item.Code;
+        ArzCode = item.LtnCode;
         if (TestUseSanad(ace, sal, "Arz", ArzCode, false, '') == true) {
             showNotification(translate('ارز') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
@@ -445,7 +445,7 @@
                 confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
-                    code = item.Code;
+                    code = item.LtnCode;
                     var TestArz_DeleteObject = {
                         Code: code
                     };
@@ -526,7 +526,7 @@
             currentPage = self.currentPageIndexArz();
             getArzList();
             self.currentPageIndexArz(currentPage);
-            SaveLog(Prog, EditMode_Del, LogMode_Arz, code, 0, 0);
+            SaveLog(Prog, EditMode_Del, LogMode_ARZ, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
         });
     }
@@ -611,7 +611,7 @@
             '       <tr data-bind="click: sortTableArz">' +
             '<th>' + translate('ردیف') + '</th>' +
 
-            CreateTableTh('Code', data) +
+            CreateTableTh('LtnCode', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
             CreateTableTh('Rate', data) +
@@ -619,9 +619,9 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageArz" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr oncontextmenu="window.alert(\'test\');return false;">' +
+            '     <tr>' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-            CreateTableTd('Code', 0, 0, data) +
+        CreateTableTd('LtnCode', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Rate', 0, 0, data) +
@@ -638,7 +638,7 @@
             '</tbody>' +
             ' <tfoot>' +
             '<td style="background-color: #efb683;"></td>' +
-            CreateTableTdSearch('Code', data) +
+        CreateTableTdSearch('LtnCode', data) +
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
             CreateTableTdSearch('Rate', data) +

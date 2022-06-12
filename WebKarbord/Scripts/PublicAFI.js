@@ -1708,6 +1708,9 @@ async function getParamList() {
             sessionStorage.FDOCPRAmountAfterBarCode = SearchArry("FDOCPRAmountAfterBarCode", "FDOCPRAmountAfterBarCode", self.ParamList());
             localStorage.setItem("FDOCPRAmountAfterBarCode", sessionStorage.FDOCPRAmountAfterBarCode);
 
+            sessionStorage.ArzCalcMode = SearchArry("ArzCalcMode", "ArzCalcMode", self.ParamList());
+            sessionStorage.ArzCalcMode = 1;
+            localStorage.setItem("ArzCalcMode", sessionStorage.ArzCalcMode);
 
             if (ace == 'Web8') {
                 sessionStorage.Move_SCONT = SearchArry("MoveTo", "SCONT", self.ParamList());
@@ -4282,7 +4285,8 @@ function SetColumn(code, indexId, data, mode) {
         findCode = code.search("Code");
         if (user == "*Default*" &&
             (
-                (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
+            (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
+            code.lastIndexOf("LtnCode") > 0 ||
                 code.lastIndexOf("Amount2") > 0 ||
                 code.lastIndexOf("Amount3") > 0 ||
                 code.lastIndexOf("UnitPrice2") > 0 ||

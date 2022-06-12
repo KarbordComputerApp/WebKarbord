@@ -1056,13 +1056,20 @@
         };
 
         ajaxFunction(RegFDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToADocObject).done(function (data) {
-            serial = data;
-            docNoSanadHesab = 74; // تست
-            if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
+            var res = data.split("-");
+
+            if (res.length > 1) {
+                serial = res[0];
+                docNoSanadHesab = res[1];
+                if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
+                }
+                else {
+                    localStorage.setItem("DocNoAFISanad", docNoSanadHesab);
+                    window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                }
             }
             else {
-                localStorage.setItem("DocNoAFISanad", docNoSanadHesab);
-                window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                alert(res[0]);
             }
         });
     });
@@ -2069,6 +2076,7 @@
         sessionStorage.VstrName = "";
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
+        sessionStorage.ArzRate = 0;
 
         //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
         //    $('#modal-SelectFactor').modal('show');
@@ -2131,6 +2139,7 @@
 
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
+        sessionStorage.ArzRate = 0;
         if (localStorage.getItem('ModeInsertSanad') == "New")
             window.location.href = sessionStorage.urlAddFDocH_New;
         else
@@ -2592,6 +2601,7 @@
 
             sessionStorage.ArzCode = item.ArzCode;
             sessionStorage.ArzName = item.ArzName;
+            sessionStorage.ArzRate = item.ArzRate;
 
             sessionStorage.Spec = item.Spec;
             sessionStorage.PriceCode = item.KalaPriceCode;
@@ -2602,6 +2612,7 @@
             sessionStorage.OprName = item.OprName;
             sessionStorage.MkzCode = item.MkzCode;
             sessionStorage.MkzName = item.MkzName;
+
 
             sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
             sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
@@ -2807,6 +2818,7 @@
 
                 sessionStorage.ArzCode = data.ArzCode;
                 sessionStorage.ArzName = data.ArzName;
+                sessionStorage.ArzRate = data.ArzRate;
 
                 sessionStorage.Spec = data.Spec;
                 sessionStorage.PriceCode = data.KalaPriceCode;

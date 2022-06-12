@@ -9,7 +9,7 @@ var ViewModel = function () {
     var self = this;
 
 
-
+    var arzCalcMode = localStorage.getItem("ArzCalcMode");
 
     var forSels = true;
 
@@ -1167,6 +1167,10 @@ var ViewModel = function () {
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
 
+        self.ArzRate(sessionStorage.ArzRate);
+        arzRate = sessionStorage.ArzRate;
+
+
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameVstr').val(sessionStorage.VstrCode == '' ? '' : '(' + sessionStorage.VstrCode + ') ' + sessionStorage.VstrName);
@@ -1944,6 +1948,9 @@ var ViewModel = function () {
                                         self.MkzCode("");
                                         self.VstrCode("");
                                         self.ArzCode("");
+                                        self.ArzRate(0);
+                                        arzRate = 0;
+
                                         codeOpr = '';
                                         codeMkz = '';
                                         codeVstr = '';
@@ -2423,6 +2430,10 @@ var ViewModel = function () {
             Serial_Test = res[1];
         });
 
+        if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+            temp_FinalPrice = item.TotalPrice - item.Discount;
+
+        }
 
         data = FDocB;
         var obj = [];

@@ -2,6 +2,8 @@
     var self = this;
     var forSels = true;
 
+    var arzCalcMode = localStorage.getItem("ArzCalcMode");
+
     var viewAction = false;
     var allSearchHesab = true;
     var allSearchKala = true;
@@ -791,6 +793,8 @@
         self.MkzCode('');
         self.VstrCode('');
         self.ArzCode('');
+        self.ArzRate(0);
+        arzRate = 0;
         codeOpr = '';
         codeMkz = '';
         codeVstr = '';
@@ -3679,6 +3683,10 @@
                 self.MkzCode("");
                 self.VstrCode("");
                 self.ArzCode("");
+
+                self.ArzRate(0);
+                arzRate = 0;
+
                 codeOpr = '';
                 codeMkz = '';
                 codeVstr = '';
@@ -4088,6 +4096,10 @@
 
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
+
+        self.ArzRate(sessionStorage.ArzRate);
+        arzRate = sessionStorage.ArzRate;
+
 
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);

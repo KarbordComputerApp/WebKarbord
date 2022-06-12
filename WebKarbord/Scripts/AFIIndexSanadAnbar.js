@@ -428,6 +428,20 @@
 
         ajaxFunction(RegIDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegIDocToADocObject).done(function (data) {
 
+            var res = data.split("-");
+            if (res.length > 1) {
+                serial = res[0];
+                docNoSanadHesab = res[1];
+                if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
+                }
+                else {
+                    localStorage.setItem("DocNoAFISanad", docNoSanadHesab);
+                    window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                }
+            } else {
+                alert(res[0]);
+            }
+
         });
     });
 
@@ -1330,6 +1344,8 @@
 
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
+        sessionStorage.ArzRate = 0;
+        
 
         sessionStorage.InvCode = invCode;
 
@@ -1571,6 +1587,7 @@
 
             sessionStorage.ArzCode = item.ArzCode;
             sessionStorage.ArzName = item.ArzName;
+            sessionStorage.ArzRate = item.ArzRate;
 
             sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
             if (localStorage.getItem('ModeInsertSanad') == "New")
@@ -1704,6 +1721,7 @@
 
                 sessionStorage.ArzCode = item.ArzCode;
                 sessionStorage.ArzName = item.ArzName;
+                sessionStorage.ArzRate = item.ArzRate;
 
                 sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
