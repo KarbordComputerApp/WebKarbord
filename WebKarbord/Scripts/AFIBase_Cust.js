@@ -1154,7 +1154,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() } "  >' +
+            '     <tr data-bind="event:{dblclick: $root.UpdateCust} , css: { matched: $data === $root.firstMatch() } "  >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
@@ -1181,10 +1181,10 @@
             CreateTableTd('CustF19', 0, 4, data) +
             CreateTableTd('CustF20', 0, 4, data) +
             '<td>' +
-            '   <a id="UpdateCust" data-bind="click: $root.UpdateCust">' +
+            '   <a id="UpdateCust" data-bind="click: $root.UpdateCust , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteCust" data-bind="click: $root.DeleteCust, visible: $root.ShowAction(Code)">' +
+            '   <a id="DeleteCust" data-bind="click: $root.DeleteCust, visible: $root.ShowAction(Code) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

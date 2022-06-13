@@ -13,9 +13,9 @@
                 <h2><strong data-bind="text:translate('لیست اعلامیه ها')"></strong></h2>
                 <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                     <a id="refreshBox" class="">
-                        <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                        <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                     </a>
-                    <a id="AddNewBox"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
+                    <a id="AddNewBox" data-bind="attr: {title:text_Add}"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
                 </div>
             </div>
             <div class="body">
@@ -86,7 +86,7 @@
                                     <a data-bind="click: $root.ViewBoxAttach , visible: namefile != '' && namefile != null ">
                                         <img src="/Content/img/list/attach_file.png" width="18" height="18" style="margin-left:10px">
                                     </a>
-                                    <a data-bind="click: $root.DeleteBox , visible: mode == 1">
+                                    <a data-bind="click: $root.DeleteBox , visible: mode == 1 , attr: {title:text_Delete}">
                                         <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="18" height="18" style="margin-left:10px">
                                     </a>
 
@@ -130,17 +130,17 @@
 
                     <div class="col-md-3" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageBox">
-                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageBox">
-                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexBox() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageBox">
-                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageBox">
-                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
 
                     </div>
@@ -171,7 +171,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title" id="titleBox"></h4>
@@ -191,7 +191,7 @@
     <div class="modal-dialog modal-entesab" style="width:980px">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="titleSaveBox"></h4>

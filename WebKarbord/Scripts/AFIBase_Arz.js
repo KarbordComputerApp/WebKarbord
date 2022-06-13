@@ -626,10 +626,10 @@
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('Rate', 0, 0, data) +
             '<td>' +
-            '   <a id="UpdateArz" data-bind="click: $root.UpdateArz">' +
+            '   <a id="UpdateArz" data-bind="click: $root.UpdateArz , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteArz" data-bind="click: $root.DeleteArz, visible: $root.ShowAction(Code)">' +
+            '   <a id="DeleteArz" data-bind="click: $root.DeleteArz, visible: $root.ShowAction(Code) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

@@ -3356,7 +3356,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageFDocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}  " >' +
+            '     <tr data-bind="event:{dblclick: $root.UpdateHeader} , css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}  " >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             '<td style="padding: 0px 10px;text-align: left;"><input type="checkbox"  data-bind="checked:select"> </td>' +
             CreateTableTd('DocNo', 0, 0, data) +
@@ -3458,7 +3458,7 @@
 
 
         dataTable += '</ul>' +
-            '<a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad()">';
+            '<a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad(), attr: {title:text_Update}">';
 
         if (sessionStorage.CHG == "true")
             dataTable += '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a>';
@@ -3466,7 +3466,7 @@
             dataTable += '<img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/></a>';
 
         dataTable +=
-            '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam)">' +
+            '   <a id="DeleteFactor" data-bind="click: $root.DeleteFactor, visible: $root.ShowAction(Eghdam) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

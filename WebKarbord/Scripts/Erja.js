@@ -3010,7 +3010,7 @@
             '   </thead >' +
 
             '<tbody data-bind="foreach: currentPageDocB_Last" data-dismiss="modal" style="cursor: default;">' +
-            '   <tr data-bind="click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
+            '   <tr data-bind="event:{dblclick: $root.ViewErjDocErja} ,click: $parent.selectDocB_Last , css: { matched: $data === $root.firstMatch() }">' +
             //'<td style="background-color: ' + colorRadif + ';">' +
             //style: {\'text-decoration\': RjReadSt == \'T\'  ? \'underline\' : null , \'font-size\': RjReadSt == \'T\'  ? \'13px\' : \'11px\' } 
 
@@ -3063,7 +3063,7 @@
         else // ارسالی
             html +=
                 //'<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" >' +
-                '<a data-bind="click: $root.UpdateErjDocErja" id="UpdateErja" >' +
+                '<a data-bind="click: $root.UpdateErjDocErja , attr: {title:text_Update}" id="UpdateErja" >' +
                 '   <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">' +
                 '</a >' +
                 //'<a data-bind="click: $root.ViewErjDocErja" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-ErjDocErja" data-backdrop="static" data-keyboard="false">' +

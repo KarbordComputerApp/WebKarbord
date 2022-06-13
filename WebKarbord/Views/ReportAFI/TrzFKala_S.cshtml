@@ -12,7 +12,7 @@
             <div class="header">
                 <h2><strong data-bind="text:translate('تراز فروش کالاها')"></strong></h2>
                 <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
-                    <a id="SettingColumn" class="">
+                    <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                     </a>
                     <a id="Print" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Print" style="margin-left: 10px;">
@@ -106,7 +106,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnStatus" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Status">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -123,7 +123,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnInv" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Inv">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -140,7 +140,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnKGru" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-KGru">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -156,7 +156,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnkala" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-kala">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -176,7 +176,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnCGru" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-CGru">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -192,7 +192,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnCust" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Cust">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -208,7 +208,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnOpr" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Opr">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -224,7 +224,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <a id="btnMkz" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Mkz">
-                                        <img src="~/Content/img/list/SearchKala.png" class="icon" height="20" width="20" />
+                                        <img src="~/Content/img/list/SearchKala.png" data-bind="attr: {title:text_Select}" class="icon" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="form-group form-float">
@@ -275,16 +275,16 @@
 
                     <div class="col-md-4" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageTrzFKala_S">
-                            <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageTrzFKala_S">
-                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a> <b data-bind="text: currentPageIndexTrzFKala_S() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageTrzFKala_S">
-                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageTrzFKala_S">
-                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
                     </div>
 
@@ -304,12 +304,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                  <h4 class="modal-title" data-bind="text:translate('لیست وضعیت سند')"></h4>
                 <a id="refreshStatus">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -397,17 +397,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageStatus">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageStatus">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexStatus() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageStatus">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageStatus">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -424,12 +424,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست انبارها')"></h4>
                 <a id="refreshInv">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -535,17 +535,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageInv">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageInv">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexInv() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageInv">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageInv">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -562,12 +562,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست گروه کالا')"></h4>
                 <a id="refreshKGru">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -671,17 +671,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageKGru">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageKGru">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexKGru() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageKGru">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageKGru">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -696,12 +696,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست کالاها')"></h4>
                 <a id="refreshkala">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -814,17 +814,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageKala">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageKala">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexKala() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageKala">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageKala">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -839,12 +839,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">لیست گروه خریداران</h4>
                 <a id="refreshCGru">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -946,17 +946,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageCGru">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageCGru">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexCGru() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageCGru">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageCGru">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -972,12 +972,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">لیست خریداران</h4>
                 <a id="refreshCust">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -1082,17 +1082,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageCust">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageCust">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexCust() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageCust">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageCust">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -1109,12 +1109,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست پروژه')"></h4>
                 <a id="refreshOpr">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -1167,7 +1167,7 @@
                                 <div class="row centered">
                                     <div style="height:160px; width:20px"></div>
                                     <a data-bind="click: AddAllOpr" style="height:18px;padding-right: 3px;">
-                                        <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" style="width:22px;height:18px;" />
+                                        <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" style="width:22px;height:18px;" />
                                     </a>
                                     <div style="height:80px"></div>
                                     <a data-bind="click: DelAllOpr" style="height:18px;padding-right: 3px;">
@@ -1218,17 +1218,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageOpr">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageOpr">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexOpr() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageOpr">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageOpr">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
                         </div>
@@ -1243,12 +1243,12 @@
     <div class="modal-dialog modal-entesab">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست مرکز هزینه')"></h4>
                 <a id="refreshMkz">
-                    <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
             <div class="modal-body">
@@ -1352,17 +1352,17 @@
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageMkz">
-                                    <img  class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageMkz">
-                                    <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <b data-bind="text: currentPageIndexMkz() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageMkz">
-                                    <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                                    <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
                                 <a data-bind="click: lastPageMkz">
-                                    <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                                    <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                                 </a>
                             </div>
 
@@ -1379,7 +1379,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')"></h4>

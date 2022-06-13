@@ -1220,7 +1220,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageKala" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() } "  >' +
+            '     <tr data-bind="event:{dblclick: $root.UpdateKala} , css: { matched: $data === $root.firstMatch() } "  >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
@@ -1247,10 +1247,10 @@
             CreateTableTd('KalaF19', 0, 4, data) +
             CreateTableTd('KalaF20', 0, 4, data) +
             '<td>' +
-            '   <a id="UpdateKala" data-bind="click: $root.UpdateKala">' +
+            '   <a id="UpdateKala" data-bind="click: $root.UpdateKala , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteKala" data-bind="click: $root.DeleteKala, visible: $root.ShowAction(Code)">' +
+            '   <a id="DeleteKala" data-bind="click: $root.DeleteKala, visible: $root.ShowAction(Code) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

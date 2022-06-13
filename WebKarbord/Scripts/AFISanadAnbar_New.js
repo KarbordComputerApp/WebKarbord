@@ -2073,6 +2073,16 @@ var ViewModel = function () {
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
             if (item.KalaCode != "") {
+
+                temp_FinalPrice = item.TotalPrice;
+                arzValue = 0
+                if (temp_FinalPrice > 0) {
+
+                    if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                        arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+                    }
+                }
+
                 tmp = {
                     SerialNumber: Serial_Test,
                     KalaCode: item.KalaCode == null ? "" : item.KalaCode,
@@ -2091,7 +2101,7 @@ var ViewModel = function () {
                     MkzCode: codeMkz,
                     ArzCode: codeArz,
                     ArzRate: arzRate,
-                    ArzValue: 0,
+                    ArzValue: arzValue,
                     flagLog: 'N',
                     flagTest: 'Y'
                 };

@@ -1098,6 +1098,15 @@
                             a2 != 0 ? a2 = a2.toFixed(DataKalaBarcode.DeghatM2) : a2 = "";
                             a3 != 0 ? a3 = a3.toFixed(DataKalaBarcode.DeghatM3) : a3 = "";
 
+                            temp_FinalPrice = totalPrice - dataBandKala.Discount;
+                            arzValue = 0
+                            if (temp_FinalPrice > 0) {
+
+                                if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                                    arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+                                }
+                            }
+
                             var IDocBObject = {
                                 SerialNumber: dataBandKala.SerialNumber,
                                 BandNo: dataBandKala.BandNo,
@@ -1117,7 +1126,7 @@
                                 MkzCode: codeMkz,
                                 ArzCode: codeArz,
                                 ArzRate: arzRate,
-                                ArzValue: 0,
+                                ArzValue: arzValue,
                             };
                             SendIDocBU(IDocBObject);
                             if (acceptUpdate == true) {
@@ -1218,6 +1227,15 @@
         a2 != 0 ? a2 = a2.toFixed(kala.DeghatM2) : a2 = "";
         a3 != 0 ? a3 = a3.toFixed(kala.DeghatM3) : a3 = "";
 
+        temp_FinalPrice = totalPrice ;
+        arzValue = 0
+        if (temp_FinalPrice > 0) {
+
+            if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+            }
+        }
+
         var IDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumber,
@@ -1237,7 +1255,7 @@
             MkzCode: codeMkz,
             ArzCode: codeArz,
             ArzRate: arzRate,
-            ArzValue: 0,
+            ArzValue: arzValue,
         };
 
         if (self.bundNumberImport > 0) {
@@ -1500,10 +1518,7 @@
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
             flagLog: flaglog,
             OprCode: codeOpr,
-            MkzCode: codeMkz,
-            ArzCode: codeArz,
-            ArzRate: arzRate,
-            ArzValue: 0,
+            MkzCode: codeMkz
         };
 
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'PUT', IDocHObject).done(function (response) {
@@ -1663,6 +1678,15 @@
 
         $('#Save').attr('disabled', 'disabled');
 
+        temp_FinalPrice = totalPrice;
+        arzValue = 0
+        if (temp_FinalPrice > 0) {
+
+            if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+            }
+        }
+
         var IDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),
             BandNo: bandnumber,
@@ -1681,7 +1705,7 @@
             MkzCode: codeMkz,
             ArzCode: codeArz,
             ArzRate: arzRate,
-            ArzValue: 0,
+            ArzValue: arzValue,
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -1792,6 +1816,14 @@
                 }
 
 
+        temp_FinalPrice = totalPrice;
+        arzValue = 0
+        if (temp_FinalPrice > 0) {
+
+            if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+            }
+        }
 
         var IDocBObject = {
             SerialNumber: Serial,//self.SerialNumber(),
@@ -1811,7 +1843,7 @@
             MkzCode: codeMkz,
             ArzCode: codeArz,
             ArzRate: arzRate,
-            ArzValue: 0,
+            ArzValue: arzValue,
         };
 
 

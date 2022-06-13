@@ -17,6 +17,45 @@ Master_ProgName = localStorage.getItem('Master_ProgName');
 //if (Master_ProgName == 'ERJ1') Master_ProgName = 'Erj1';
 
 
+var key_F1 = 112;
+var key_F2 = 113;
+var key_F3 = 114;
+var key_F4 = 115;
+var key_F5 = 116;
+var key_F6 = 117;
+var key_F7 = 118;
+var key_F8 = 119;
+var key_F9 = 120;
+var key_F10 = 121;
+var key_F11 = 122;
+var key_F12 = 123;
+
+var key_Space = 32;
+var key_BackSpace = 8;
+var key_Enter = 13;
+
+var key_a = 97;
+var key_b = 98;
+
+
+text_Add = 'جدید';
+text_Update = 'ویرایش';
+text_Delete = 'حذف';
+text_SettingColumn = 'تنظیم ستون ها';
+text_Refresh = 'به روز رسانی';
+text_Select = 'انتخاب';
+text_OtherField = 'مشخصات اضافی';
+text_LinkSanad = 'لینک اسناد';
+
+text_FirstPage = 'اولین';
+text_PreviousPage = 'قبلی';
+text_NextPage = 'بعدی';
+text_LastPage = 'آخرین';
+
+text_Close = 'بستن';
+//text_ = 'aaa';
+
+
 Fct_or_Inv = localStorage.getItem('Fct_or_Inv');
 
 $("#AccessRefresh").hide();

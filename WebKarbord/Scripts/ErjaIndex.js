@@ -3523,7 +3523,7 @@
             '      </tr>' +
             '   </thead >' +
             '<tbody data-bind="foreach: currentPageErjDocH" data-dismiss="modal" style="cursor: default;">' +
-            '    <tr data-bind="click: $parent.selectErjDocH , css: { matched: $data === $root.firstMatch() },' +
+            '    <tr data-bind="event:{dblclick: $root.UpdateErjDocH} ,click: $parent.selectErjDocH , css: { matched: $data === $root.firstMatch() },' +
             '       style: {color: Status == \'پایان یافته\'  ? ' +
             '\'#15a01b\'' +
             ': Status == \'باطل\' ? \'red\' : DocBExists == \'0\'  ? \'#673ab7\' : \'\' }">' +
@@ -3570,10 +3570,10 @@
             CreateTableTd('F19', 0, 4, 0, data) +
             CreateTableTd('F20', 0, 4, 0, data) +
             '<td>' +
-            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(ShowDocTrs,EditDocTrs)">' +
+            '   <a id="UpdateErjDocH" data-bind="click: $root.UpdateErjDocH, visible: $root.ShowActionUpdate(ShowDocTrs,EditDocTrs) , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs)">' +
+            '   <a id="DeleteErjDocH" data-bind="click: $root.DeleteErjDocH, visible: $root.ShowAction(DeleteDocTrs) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

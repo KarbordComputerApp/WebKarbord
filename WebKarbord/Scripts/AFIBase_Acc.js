@@ -21,6 +21,7 @@
 
     TestUser();
 
+    var isShowModal = false;
 
 
     validation = CheckAccess('NEW_ACC', 'Acc5');// New Acc
@@ -1510,6 +1511,11 @@
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         RemoveUseSanad(ace, sal, "Acc", AccCode);
+        isShowModal = false;
+    });
+
+    $('#modal-Acc').on('show.bs.modal', function () {
+        isShowModal = true; 
     });
 
     window.onbeforeunload = function () {
@@ -1926,7 +1932,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageAcc" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
+            '     <tr data-bind="event:{dblclick: $root.UpdateAcc} , css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
@@ -1962,10 +1968,10 @@
             CreateTableTd('AccF19', 0, 4, data) +
             CreateTableTd('AccF20', 0, 4, data) +
             '<td>' +
-            '   <a id="UpdateAcc" data-bind="click: $root.UpdateAcc">' +
+            '   <a id="UpdateAcc" data-bind="click: $root.UpdateAcc , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteAcc" data-bind="click: $root.DeleteAcc, visible: $root.ShowAction(Code)">' +
+            '   <a id="DeleteAcc" data-bind="click: $root.DeleteAcc, visible: $root.ShowAction(Code) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +
@@ -2093,6 +2099,19 @@
 
 
     self.sortTableAcc();
+
+
+
+
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2 && isShowModal) {
+            SaveAcc();
+        }
+
+        //if (e.ctrlKey) {}  
+        //if (e.shiftKey) {}
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

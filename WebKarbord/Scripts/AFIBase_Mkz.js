@@ -625,17 +625,17 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
+            '     <tr data-bind="event:{dblclick: $root.UpdateMkz} , css: { matched: $data === $root.firstMatch() }, style: {color: Level == 1 ? \'#009688\': \'#212529\'}  "  >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
             CreateTableTd('ActiveSt', 0, 0, data) +
             '<td>' +
-            '   <a id="UpdateMkz" data-bind="click: $root.UpdateMkz">' +
+            '   <a id="UpdateMkz" data-bind="click: $root.UpdateMkz , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteMkz" data-bind="click: $root.DeleteMkz, visible: $root.ShowAction(Code)">' +
+            '   <a id="DeleteMkz" data-bind="click: $root.DeleteMkz, visible: $root.ShowAction(Code) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

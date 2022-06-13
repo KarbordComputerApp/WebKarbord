@@ -47,20 +47,20 @@
 
 
 
-                    <a id="btn_DocNoSearch">
+                    <a id="btn_DocNoSearch" data-bind="attr: {title:text_Update}">
                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
                     </a>
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
-                        <a id="LinkSanad">
+                        <a id="LinkSanad" data-bind="attr: {title:text_LinkSanad}">
                             <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
                         </a>
-                        <a id="SettingColumn" class="">
+                        <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                         </a>
                         <a id="refreshIdocH" class="">
-                            <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                            <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                         </a>
-                        <a id="AddNewSanadAnbar" class="">
+                        <a id="AddNewSanadAnbar" class="" data-bind="attr: {title:text_Add}">
                             <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
                         </a>
                     </div>
@@ -131,17 +131,17 @@
 
                     <div class="col-md-3" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageIDocH">
-                            <img class="firstPage-img" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageIDocH">
-                            <img class="previousPage-img" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <b data-bind="text: currentPageIndexIDocH() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageIDocH">
-                            <img class="nextPage-img" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
+                            <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
                         <a data-bind="click: lastPageIDocH">
-                            <img class="lastPage-img" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
+                            <img class="lastPage-img" data-bind="attr: {title:text_LastPage}" src="~/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" />
                         </a>
 
                     </div>
@@ -174,7 +174,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لینک اسناد')"></h4>
@@ -226,7 +226,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لینک اسناد')"></h4>
@@ -280,7 +280,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')"></h4>
@@ -326,7 +326,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('تنظیم ستون ها')"></h4>
@@ -368,7 +368,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <a id=""></a>
@@ -438,7 +438,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="titleChangeStatus"></h4>
@@ -470,7 +470,7 @@
     <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 id="titleFinalSave" data-bind="text:translate('حذف سند انبار')"></h4>

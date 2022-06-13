@@ -15,6 +15,28 @@
     sessionStorage.SelectMenu = '';
 
 
+    $("#user").focus();
+
+    $("#user").keydown(function (e) {
+        if (e.keyCode == key_Enter) {
+            $("#pass").focus();
+        }
+    });
+
+    $("#pass").keydown(function (e) {
+        LoginUser();
+    });
+
+
+    $("#userAccount").keydown(function (e) {
+        if (e.keyCode == key_Enter) {
+            $("#passAccount").focus();
+        }
+    });
+
+    $("#passAccount").keydown(function (e) {
+        LoginAccount();
+    });
 
 
     //var serverAccount = 'http://192.168.0.114:902/api/';
@@ -40,14 +62,14 @@
     self.LoginList = ko.observableArray([]); // ليست حساب ها
 
 
-    $('#modal-service').on('show.bs.modal', function () {
+    $('#modal-service').on('shown.bs.modal', function () {
         var userNameAccount = localStorage.getItem("userNameAccount");
         var passAccount = localStorage.getItem("passAccount");
 
         $('#userAccount').val(userNameAccount);
         $('#passAccount').val(passAccount);
+        $('#userAccount').focus();
     });
-
 
 
     var lastMachineId;

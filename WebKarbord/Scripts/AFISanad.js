@@ -3550,10 +3550,10 @@
 
 
             '<td id="action_bodysanad">' +
-            '<a data-bind="click: $root.UpdateBand">' +
+            '<a data-bind="click: $root.UpdateBand , attr: {title:text_Update}">' +
             '    <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '</a>' +
-            '<a data-bind="click: $root.DeleteBand">' +
+            '<a data-bind="click: $root.DeleteBand , attr: {title:text_Delete}">' +
             '    <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '</a>' +
             '<a data-bind="click: $root.ImportBand" data-toggle="modal" data-target="#modal-Band" data-backdrop="static" data-keyboard="false">' +

@@ -628,10 +628,10 @@
             CreateTableTd('Spec', 0, 0, data) +
         CreateTableTd('ActiveSt', 0, 0, data) +
             '<td>' +
-            '   <a id="UpdateOpr" data-bind="click: $root.UpdateOpr">' +
+            '   <a id="UpdateOpr" data-bind="click: $root.UpdateOpr , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
             '   </a>' +
-            '   <a id="DeleteOpr" data-bind="click: $root.DeleteOpr, visible: $root.ShowAction(Code)">' +
+            '   <a id="DeleteOpr" data-bind="click: $root.DeleteOpr, visible: $root.ShowAction(Code) , attr: {title:text_Delete}">' +
             '      <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
             '</td >' +

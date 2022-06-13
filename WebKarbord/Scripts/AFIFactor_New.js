@@ -1167,8 +1167,8 @@ var ViewModel = function () {
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
 
-        self.ArzRate(sessionStorage.ArzRate);
-        arzRate = sessionStorage.ArzRate;
+        self.ArzRate(parseFloat(sessionStorage.ArzRate));
+        arzRate = parseFloat(sessionStorage.ArzRate);
 
 
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
@@ -2430,16 +2430,23 @@ var ViewModel = function () {
             Serial_Test = res[1];
         });
 
-        if (arzCalcMode == 1) { // مبلغ / نرخ ارز
-            temp_FinalPrice = item.TotalPrice - item.Discount;
-
-        }
 
         data = FDocB;
         var obj = [];
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
             if (item.KalaCode != "") {
+
+                temp_FinalPrice = item.TotalPrice - item.Discount;
+                arzValue = 0
+                if (temp_FinalPrice > 0) {
+
+                    if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                        arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+                    }
+                }
+
+
                 tmp = {
                     SerialNumber: Serial_Test,
                     KalaCode: item.KalaCode == null ? "" : item.KalaCode,
@@ -2459,7 +2466,7 @@ var ViewModel = function () {
                     MkzCode: codeMkz,
                     ArzCode: codeArz,
                     ArzRate: arzRate,
-                    ArzValue: 0,
+                    ArzValue: arzValue,
                     flagLog: 'N',
                 };
 
@@ -2794,6 +2801,16 @@ var ViewModel = function () {
         for (i = 0; i <= data.length - 1; i++) {
             item = data[i];
             if (item.KalaCode != "") {
+
+                temp_FinalPrice = item.TotalPrice - item.Discount;
+                arzValue = 0
+                if (temp_FinalPrice > 0) {
+
+                    if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                        arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+                    }
+                }
+
                 tmp = {
                     SerialNumber: Serial_Test,
                     KalaCode: item.KalaCode == null ? "" : item.KalaCode,
@@ -2813,7 +2830,7 @@ var ViewModel = function () {
                     MkzCode: codeMkz,
                     ArzCode: codeArz,
                     ArzRate: arzRate,
-                    ArzValue: 0,
+                    ArzValue: arzValue,
 
                     InvSerialNumber: item.InvSerialNumber == null ? 0 : item.InvSerialNumber,
                     LFctSerialNumber: item.LFctSerialNumber == null ? 0 : item.LFctSerialNumber,

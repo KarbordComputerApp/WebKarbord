@@ -1300,7 +1300,7 @@
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageADocH" data-dismiss="modal" style="cursor: default;">' +
-            '     <tr data-bind=" css: { matched: $data === $root.firstMatch() }, style: {color :  Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : null} " >' +
+            '     <tr data-bind="event:{dblclick: $root.UpdateHeader} , css: { matched: $data === $root.firstMatch() }, style: {color :  Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' || Balance == 1 ? \'#840fbc\' : null} " >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, data) +
@@ -1369,7 +1369,7 @@
 
         dataTable +=
             '</ul>' +
-            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader , visible: $root.ViewSanad()" >';
+            '<a id = "UpdateSanad" data-bind="click: $root.UpdateHeader , visible: $root.ViewSanad(), attr: {title:text_Update}" >';
 
         if (sessionStorage.CHG == "true")
             dataTable += '<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a>'
@@ -1379,7 +1379,7 @@
         //'<img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px"/></a >' +
         //'<img data-bind="attr:{src: /Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png}" width="16" height="16" style="margin-left:10px"/></a >' +
 
-        dataTable += '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam)">' +
+        dataTable += '<a id="DeleteSanad" data-bind="click: $root.DeleteSanad, visible: $root.ShowAction(Eghdam) , attr: {title:text_Delete}">' +
             '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16"/></a>' +
             '</td >' +
             '</tr>' +
