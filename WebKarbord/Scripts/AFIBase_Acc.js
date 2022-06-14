@@ -21,8 +21,6 @@
 
     TestUser();
 
-    var isShowModal = false;
-
 
     validation = CheckAccess('NEW_ACC', 'Acc5');// New Acc
     sessionStorage.NEW_Acc = validation;
@@ -1511,12 +1509,8 @@
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         RemoveUseSanad(ace, sal, "Acc", AccCode);
-        isShowModal = false;
     });
 
-    $('#modal-Acc').on('show.bs.modal', function () {
-        isShowModal = true; 
-    });
 
     window.onbeforeunload = function () {
         RemoveUseSanad(ace, sal, "Acc", AccCode);
@@ -2104,7 +2098,7 @@
 
 
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && isShowModal) {
+        if (e.keyCode == key_F2 && $('#modal-Acc').is(':visible')) {
             SaveAcc();
         }
 

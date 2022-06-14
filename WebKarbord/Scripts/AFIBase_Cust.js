@@ -1315,6 +1315,12 @@
 
 
     self.sortTableCust();
+
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2 && $('#modal-Cust').is(':visible')) {
+            SaveCust();
+        }
+    };
 };
 
 ko.applyBindings(new ViewModel());

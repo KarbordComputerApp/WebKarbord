@@ -114,6 +114,8 @@
             }
 
             ajaxFunction(DatabseSalUrl, 'Post', DatabseSalObject).done(function (data) {
+                localStorage.setItem('SalMaliList', JSON.stringify(data));
+
                 self.DatabseSalList(data);
                 if (self.DatabseSalList().length > 0) {
                     for (var i = 1; i < self.DatabseSalList().length + 1; i++) {

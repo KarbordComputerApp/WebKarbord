@@ -1500,7 +1500,10 @@ var ViewModel = function () {
 
                 const keyCode = e.event.key;
 
-
+                if (keyCode == 'F2') {
+                    SaveColumnSanad();
+                    ControlSave();
+                }
 
                 if (keyCode == 'Enter' && columnName == 'button') {
                     rows = dataGrid.getVisibleRows().length;
@@ -1522,6 +1525,7 @@ var ViewModel = function () {
                         dataGrid.refresh(true);
 
                     }
+
                     //var dataGrid = $("#gridContainer").dxDataGrid("instance");
                     //dataGrid.focus(dataGrid.getCellElement(1, 'AccCode'));
                 };
@@ -5502,7 +5506,12 @@ var ViewModel = function () {
     };
 
 
-
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2) {
+            SaveColumnSanad();
+            ControlSave();
+        }
+    };
 
 
 };

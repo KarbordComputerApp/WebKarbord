@@ -11,21 +11,28 @@
             <div class="header" style="padding-bottom: 5px;">
                 <div class="form-inline focused">
                     <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;" data-bind="text:translate('لیست اسناد حسابداری')"> </strong>
-                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;"data-bind="text:translate('جستجوی سند شماره')"></strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;" data-bind="text:translate('جستجوی سند شماره')"></strong>
                     <input type="text" id="DocNoSearch" class="form-control int" style="width: 100px;text-align: center;" />
                     <a id="btn_DocNoSearch" data-bind="attr: {title:text_Update}">
                         <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-right: 5px;" />
                     </a>
+
+
+                    <strong style="margin-left: 5px; margin-right: 5px;padding-right: 30px;" data-bind="text:translate('سال مالی')"></strong>
+                    <select id="DropSalSanad" style="direction: rtl;width: 100px">
+                    </select>
+
+
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                         </a>
-                        <a id="refreshADocH" class="" >
+                        <a id="refreshADocH" class="">
                             <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                         </a>
-                       <!-- <a id="AddNewSanad" class="">
-                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
-                        </a> -->
+                        <!-- <a id="AddNewSanad" class="">
+            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
+        </a> -->
 
                         <a id="AddNewSanad" class="" data-bind="attr: {title:text_Add}">
                             <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />

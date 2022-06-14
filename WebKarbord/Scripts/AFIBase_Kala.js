@@ -1375,6 +1375,12 @@
         }*/
     };
 
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
+            SaveKala();
+        }
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

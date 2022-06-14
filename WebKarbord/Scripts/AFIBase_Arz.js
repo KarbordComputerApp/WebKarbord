@@ -714,6 +714,12 @@
     }
 
     self.sortTableArz();
+
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2 && $('#modal-Arz').is(':visible')) {
+            SaveArz();
+        }
+    };
 };
 
 ko.applyBindings(new ViewModel());

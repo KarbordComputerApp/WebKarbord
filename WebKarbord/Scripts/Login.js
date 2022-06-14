@@ -12,6 +12,13 @@
     var LoginUri; // 
     var LoginTestUri;
 
+    //var serverAccount = 'http://192.168.0.114:902/api/';
+    var serverAccount = 'http://127.0.0.1:902/api/';
+
+
+
+
+
     sessionStorage.SelectMenu = '';
 
 
@@ -24,7 +31,9 @@
     });
 
     $("#pass").keydown(function (e) {
-        LoginUser();
+        if (e.keyCode == key_Enter) {
+            LoginUser();
+        }
     });
 
 
@@ -35,12 +44,12 @@
     });
 
     $("#passAccount").keydown(function (e) {
-        LoginAccount();
+        if (e.keyCode == key_Enter) {
+            LoginAccount();
+        }
     });
 
 
-    //var serverAccount = 'http://192.168.0.114:902/api/';
-    var serverAccount = 'http://127.0.0.1:902/api/';
 
     localStorage.setItem("serverAccount", serverAccount);
 
@@ -82,7 +91,7 @@
 
 
         ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber + '/true', 'GET', null, true).done(function (data) {
-          
+
         });
 
 
@@ -164,40 +173,40 @@
                     tempAccess = localStorage.getItem('afi8Access');
 
 
-                   /* if (tempAccess.search("ADOC") > 0 ||
-                        tempAccess.search("TrzAcc") > 0 ||
-                        tempAccess.search("Dftr") > 0 ||
-                        tempAccess.search("TChk") > 0 ||
-                        tempAccess.search("ADocR") > 0)
-                        progName = "ACC5"
-
-                    else if (
-                        tempAccess.search("SFORD") > 0 ||
-                        tempAccess.search("SPFCT") > 0 ||
-                        tempAccess.search("SFCT") > 0 ||
-                        tempAccess.search("SRFCT") > 0 ||
-                        tempAccess.search("SHVL") > 0 ||
-                        tempAccess.search("SEXT") > 0 ||
-                        tempAccess.search("PFORD") > 0 ||
-                        tempAccess.search("PPFCT") > 0 ||
-                        tempAccess.search("PFCT") > 0 ||
-                        tempAccess.search("PRFCT") > 0 ||
-                        tempAccess.search("FDocR_S") > 0 ||
-                        tempAccess.search("FDocR_P") > 0 ||
-                        tempAccess.search("TrzFKala_S") > 0 ||
-                        tempAccess.search("TrzFKala_P") > 0 ||
-                        tempAccess.search("TrzFCust_S") > 0 ||
-                        tempAccess.search("TrzFCust_P") > 0)
-                        progName = "FCT5"
-
-                    else if (tempAccess.search("IIDOC") > 0 ||
-                        tempAccess.search("IODOC") > 0 ||
-                        tempAccess.search("TrzIKala") > 0 ||
-                        tempAccess.search("TrzIKalaExf") > 0 ||
-                        tempAccess.search("Krdx") > 0 ||
-                        tempAccess.search("IDocR") > 0)
-                        progName = "INV5"
-                        */
+                    /* if (tempAccess.search("ADOC") > 0 ||
+                         tempAccess.search("TrzAcc") > 0 ||
+                         tempAccess.search("Dftr") > 0 ||
+                         tempAccess.search("TChk") > 0 ||
+                         tempAccess.search("ADocR") > 0)
+                         progName = "ACC5"
+ 
+                     else if (
+                         tempAccess.search("SFORD") > 0 ||
+                         tempAccess.search("SPFCT") > 0 ||
+                         tempAccess.search("SFCT") > 0 ||
+                         tempAccess.search("SRFCT") > 0 ||
+                         tempAccess.search("SHVL") > 0 ||
+                         tempAccess.search("SEXT") > 0 ||
+                         tempAccess.search("PFORD") > 0 ||
+                         tempAccess.search("PPFCT") > 0 ||
+                         tempAccess.search("PFCT") > 0 ||
+                         tempAccess.search("PRFCT") > 0 ||
+                         tempAccess.search("FDocR_S") > 0 ||
+                         tempAccess.search("FDocR_P") > 0 ||
+                         tempAccess.search("TrzFKala_S") > 0 ||
+                         tempAccess.search("TrzFKala_P") > 0 ||
+                         tempAccess.search("TrzFCust_S") > 0 ||
+                         tempAccess.search("TrzFCust_P") > 0)
+                         progName = "FCT5"
+ 
+                     else if (tempAccess.search("IIDOC") > 0 ||
+                         tempAccess.search("IODOC") > 0 ||
+                         tempAccess.search("TrzIKala") > 0 ||
+                         tempAccess.search("TrzIKalaExf") > 0 ||
+                         tempAccess.search("Krdx") > 0 ||
+                         tempAccess.search("IDocR") > 0)
+                         progName = "INV5"
+                         */
                     //progName = "ERJ1"
 
 
@@ -303,18 +312,18 @@
                         }
 
                         ace = localStorage.getItem("ace");
-                        ajaxFunction(server + '/api/Web_Data/ProgTrs/' + ace , 'POST', ProgTrsObject).done(function (data) {
+                        ajaxFunction(server + '/api/Web_Data/ProgTrs/' + ace, 'POST', ProgTrsObject).done(function (data) {
 
                             //if (localStorage.getItem("ace") == 'Web8') {
-                             //   data = data.filter(s => s.prog != 'Afi1');
-                           // }
+                            //   data = data.filter(s => s.prog != 'Afi1');
+                            // }
 
                             p = '';
                             for (var i = 0; i < data.length; i++) {
                                 p += data[i].prog + '-';
                             }
                             localStorage.setItem('ProgAccess', p);
-                            
+
 
                             sessionStorage.OrgProgName = data[0].prog;
                         });
@@ -342,7 +351,7 @@
                         localStorage.setItem('StatementsList', Statements);
 
                         localStorage.removeItem("listForms");
-                       
+
 
 
                         ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
@@ -411,7 +420,7 @@
                 Master_ProgName = data.ProgName;
                 Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '';
 
-                
+
 
                 localStorage.setItem("ApiAddress", serverAddress);
                 localStorage.setItem('userNameAccount', userAccount);

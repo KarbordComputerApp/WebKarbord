@@ -1344,7 +1344,8 @@ var ViewModel = function () {
                 s.Code == 'Comm' ||
                 s.Code == 'UnitPrice' ||
                 s.Code == 'TotalPrice' ||
-                s.Code == 'Discount'
+                s.Code == 'Discount' ||
+                s.Code == 'ArzValue'
             );
         }
         else {
@@ -1362,7 +1363,8 @@ var ViewModel = function () {
                 s.Code == 'Amount1' ||
                 s.Code == 'Amount2' ||
                 s.Code == 'Amount3' ||
-                s.Code == 'Comm'
+                s.Code == 'Comm' ||
+                s.Code == 'ArzValue'
             );
         }
 
@@ -1449,10 +1451,7 @@ var ViewModel = function () {
             //    f += ',"setCellValue": "EditorAmount1"'
             //}
 
-            if (
-                data[i].Code == "BandNo"
-
-            ) {
+            if (data[i].Code == "BandNo" || data[i].Code == "ArzValue") {
                 f += ',"allowEditing": false'
             }
 
@@ -1713,6 +1712,12 @@ var ViewModel = function () {
 
             onKeyDown: function (e) {
                 const keyCode = e.event.key;
+
+                if (keyCode == 'F2') {
+                    SaveColumnSanad();
+                    ControlSave();
+                }
+
 
                 if (keyCode == 'Enter' && columnName == 'button') {
                     rows = dataGrid.getVisibleRows().length;
@@ -4282,9 +4287,9 @@ var ViewModel = function () {
         $('#nameArz').val('(' + item.Code + ') ' + item.Name);
         codeArz = item.Code;
         self.ArzCode(item.Code);
-        arzRate = item.Rate; 
+        arzRate = item.Rate;
         //$('#ArzRate').val(item.Rate);
-        
+
     }
 
 
@@ -4551,24 +4556,24 @@ var ViewModel = function () {
 
 
 
-                           /* var FDocBObject = {
-                                SerialNumber: dataBandKala.SerialNumber,
-                                BandNo: dataBandKala.BandNo,
-                                KalaCode: dataBandKala.KalaCode,
-                                Amount1: a1,
-                                Amount2: a2,
-                                Amount3: a3,
-                                UnitPrice: unitPrice,
-                                TotalPrice: totalPrice,
-                                Discount: dataBandKala.Discount,
-                                MainUnit: dataBandKala.MainUnit,
-                                Comm: dataBandKala.Comm,
-                                Up_Flag: dataBandKala.UP_Flag,
-                                ModeCode: sessionStorage.ModeCode,
-                                flagLog: flaglog,
-                                OprCode: codeOpr,
-                                MkzCode: codeMkz,
-                            };*/
+                            /* var FDocBObject = {
+                                 SerialNumber: dataBandKala.SerialNumber,
+                                 BandNo: dataBandKala.BandNo,
+                                 KalaCode: dataBandKala.KalaCode,
+                                 Amount1: a1,
+                                 Amount2: a2,
+                                 Amount3: a3,
+                                 UnitPrice: unitPrice,
+                                 TotalPrice: totalPrice,
+                                 Discount: dataBandKala.Discount,
+                                 MainUnit: dataBandKala.MainUnit,
+                                 Comm: dataBandKala.Comm,
+                                 Up_Flag: dataBandKala.UP_Flag,
+                                 ModeCode: sessionStorage.ModeCode,
+                                 flagLog: flaglog,
+                                 OprCode: codeOpr,
+                                 MkzCode: codeMkz,
+                             };*/
 
                             FDocB[ro].Amount1 = a1;
                             FDocB[ro].Amount2 = a2;
@@ -4576,7 +4581,7 @@ var ViewModel = function () {
                             FDocB[ro].UnitPrice = unitPrice;
                             FDocB[ro].TotalPrice = totalPrice;
 
-                            
+
                             $('#TitleBarcode').text(translate('بند شماره') + ' ' + (ro + 1) + ' ' + translate('ویرایش شد'));
                             $('#Barcode_Value').val('');
                             $('#Barcode_Value').focus();
@@ -4949,7 +4954,12 @@ var ViewModel = function () {
 
 
 
-
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2) {
+            SaveColumnSanad();
+            ControlSave();
+        }
+    };
 
 
 

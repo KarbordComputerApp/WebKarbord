@@ -536,6 +536,8 @@ var accessReport = JSON.parse(localStorage.getItem("AccessReport"));
 var accessErj = JSON.parse(localStorage.getItem("AccessErj"));
 var accessReportErj = JSON.parse(localStorage.getItem("AccessReportErj"));
 
+var salMaliList = JSON.parse(localStorage.getItem("SalMaliList"));
+
 var lockNumber = localStorage.getItem("lockNumber");
 
 const MODECODE_ADOC_A = 1;

@@ -17,12 +17,28 @@
     }
 
 
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalSanad").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalSanad").val(sal);
+    }
+
+    $('#DropSalSanad').change(function () {
+        sal = $('#DropSalSanad').val();
+        getADocH($('#pageCountSelector').val(), false);
+        self.sortTableADocH();
+    });
+
+
+
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 
         if (sessionStorage.ModeCode == 'ADOC') {
-            validation = CheckAccess('NEW_ADOC','Acc5');// new Sanad Hesab
+            validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
             //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
             validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
 
@@ -145,7 +161,7 @@
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
-        cols = getRprtCols(rprtId, sessionStorage.userName); 
+        cols = getRprtCols(rprtId, sessionStorage.userName);
 
         if (FlagSetting) {
             CreateTableReport(cols)
@@ -157,30 +173,30 @@
             }
         }
 
-        cols = getRprtCols('ADocP', sessionStorage.userName); 
+        cols = getRprtCols('ADocP', sessionStorage.userName);
         ListColumns = cols;
 
 
-       /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
-            data = TranslateData(data);
-            self.SettingColumnList(data);
-            //ListColumns = data;
-            if (FlagSetting) {
-                CreateTableReport(data)
-            }
-            else {
-                CreateTableColumn(columns);
-                for (var i = 1; i <= columns.length; i++) {
-                    SetColumn(columns[i - 1], i, data);
-                }
-            }
-
-
-            ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + 'ADocP' + '/' + username, 'GET').done(function (data) {
-                ListColumns = data;
-            });
-
-        });*/
+        /* ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+             data = TranslateData(data);
+             self.SettingColumnList(data);
+             //ListColumns = data;
+             if (FlagSetting) {
+                 CreateTableReport(data)
+             }
+             else {
+                 CreateTableColumn(columns);
+                 for (var i = 1; i <= columns.length; i++) {
+                     SetColumn(columns[i - 1], i, data);
+                 }
+             }
+ 
+ 
+             ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + 'ADocP' + '/' + username, 'GET').done(function (data) {
+                 ListColumns = data;
+             });
+ 
+         });*/
 
     }
 
@@ -818,32 +834,32 @@
         })
     })
 
-   /* $('#AddNewSanad').click(function () {
-        sessionStorage.flagupdateHeader = 0;
-        sessionStorage.Eghdam = localStorage.getItem("userName");
-        sessionStorage.Status = translate('موقت');
-        sessionStorage.F01 = "";
-        sessionStorage.F02 = "";
-        sessionStorage.F03 = "";
-        sessionStorage.F04 = "";
-        sessionStorage.F05 = "";
-        sessionStorage.F06 = "";
-        sessionStorage.F07 = "";
-        sessionStorage.F08 = "";
-        sessionStorage.F09 = "";
-        sessionStorage.F10 = "";
-        sessionStorage.F11 = "";
-        sessionStorage.F12 = "";
-        sessionStorage.F13 = "";
-        sessionStorage.F14 = "";
-        sessionStorage.F15 = "";
-        sessionStorage.F16 = "";
-        sessionStorage.F17 = "";
-        sessionStorage.F18 = "";
-        sessionStorage.F19 = "";
-        sessionStorage.F20 = "";
-        window.location.href = sessionStorage.urlAddADocH;
-    });*/
+    /* $('#AddNewSanad').click(function () {
+         sessionStorage.flagupdateHeader = 0;
+         sessionStorage.Eghdam = localStorage.getItem("userName");
+         sessionStorage.Status = translate('موقت');
+         sessionStorage.F01 = "";
+         sessionStorage.F02 = "";
+         sessionStorage.F03 = "";
+         sessionStorage.F04 = "";
+         sessionStorage.F05 = "";
+         sessionStorage.F06 = "";
+         sessionStorage.F07 = "";
+         sessionStorage.F08 = "";
+         sessionStorage.F09 = "";
+         sessionStorage.F10 = "";
+         sessionStorage.F11 = "";
+         sessionStorage.F12 = "";
+         sessionStorage.F13 = "";
+         sessionStorage.F14 = "";
+         sessionStorage.F15 = "";
+         sessionStorage.F16 = "";
+         sessionStorage.F17 = "";
+         sessionStorage.F18 = "";
+         sessionStorage.F19 = "";
+         sessionStorage.F20 = "";
+         window.location.href = sessionStorage.urlAddADocH;
+     });*/
 
 
     $('#AddNewSanad').click(function () {
@@ -896,7 +912,7 @@
             }).then((result) => {
                 if (result.value) {
                     serial = SanadBand.SerialNumber;
-                    docnoDelete = SanadBand.DocNo; 
+                    docnoDelete = SanadBand.DocNo;
                     var TestADoc_DeleteObject = {
                         SerialNumber: serial
                     };
@@ -904,7 +920,7 @@
                     ajaxFunction(ADoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestADoc_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
                         self.TestADoc_DeleteList(obj);
-                       
+
                         if (data.length > 2) {
                             $('#modal-TestDelete').modal('show');
                             SetDataTestDocB();
@@ -1056,7 +1072,7 @@
             sessionStorage.F19 = item.F19;
             sessionStorage.F20 = item.F20;
             sessionStorage.lastPageSelect = self.currentPageIndexADocH();
-           //window.location.href = sessionStorage.urlAddADocH;
+            //window.location.href = sessionStorage.urlAddADocH;
 
             if (localStorage.getItem('ModeInsertSanad') == "New")
                 window.location.href = sessionStorage.urlAddADocH_New;
@@ -1338,9 +1354,9 @@
             '<ul class="';
 
         if (lang == 'en')
-            dataTable += 'dropdown-menu dropdown-menultr' 
+            dataTable += 'dropdown-menu dropdown-menultr'
         else
-            dataTable += 'dropdown-menu' 
+            dataTable += 'dropdown-menu'
 
         dataTable += '">' +
             '    <li>' +

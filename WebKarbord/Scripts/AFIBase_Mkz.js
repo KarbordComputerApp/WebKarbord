@@ -723,6 +723,12 @@
     }
 
     self.sortTableMkz();
+
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2 && $('#modal-Mkz').is(':visible')) {
+            SaveMkz();
+        }
+    };
 };
 
 ko.applyBindings(new ViewModel());

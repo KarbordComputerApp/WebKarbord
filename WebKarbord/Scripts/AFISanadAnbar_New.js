@@ -1078,7 +1078,8 @@ var ViewModel = function () {
                 s.Code == 'Amount3' ||
                 s.Code == 'Comm' ||
                 s.Code == 'UnitPrice' ||
-                s.Code == 'TotalPrice'
+                s.Code == 'TotalPrice' ||
+                s.Code == 'ArzValue'
             );
         }
         else {
@@ -1094,7 +1095,8 @@ var ViewModel = function () {
                 s.Code == 'Amount1' ||
                 s.Code == 'Amount2' ||
                 s.Code == 'Amount3' ||
-                s.Code == 'Comm'
+                s.Code == 'Comm' ||
+                s.Code == 'ArzValue'
             );
         }
 
@@ -1179,10 +1181,7 @@ var ViewModel = function () {
             //    f += ',"setCellValue": "EditorAmount1"'
             //}
 
-            if (
-                data[i].Code == "BandNo"
-
-            ) {
+            if (data[i].Code == "BandNo" || data[i].Code == "ArzValue") {
                 f += ',"allowEditing": false'
             }
 
@@ -1350,7 +1349,7 @@ var ViewModel = function () {
             },
 
             paging: {
-                    enabled: false,
+                enabled: false,
             },
 
 
@@ -1447,6 +1446,11 @@ var ViewModel = function () {
 
             onKeyDown: function (e) {
                 const keyCode = e.event.key;
+
+                if (keyCode == 'F2') {
+                    SaveColumnSanad();
+                    ControlSave();
+                }
 
                 if (keyCode == 'Enter' && columnName == 'button') {
                     rows = dataGrid.getVisibleRows().length;
@@ -2967,54 +2971,26 @@ var ViewModel = function () {
     self.selectThvl = function (item) {
 
         //if (Serial != '') {
-            Swal.fire({
-                title: translate('تایید و ثبت نهایی تغییرات ؟'),
-                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('تحویل گیرنده') : translate('تحویل دهنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
-                type: 'warning',
-                showCancelButton: true,
-                cancelButtonColor: '#3085d6',
-                cancelButtonText: text_No,
-                allowOutsideClick: false,
-                confirmButtonColor: '#d33',
-                confirmButtonText: text_Yes
-            }).then((result) => {
-                if (result.value) {
-                    codeThvl = item.Code;
-                    $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
-
-                    if (sessionStorage.sels == "true")
-                        sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                    else
-                        sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
-
-
-                    if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
-                        $("#gGhimat").val(item.CGruKalaPriceCode_S);
-                    else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
-                        $("#gGhimat").val(item.CGruKalaPriceCode_P);
-
-                    if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
-                        $("#gGhimat").val(item.KalaPriceCode_S);
-                    else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
-                        $("#gGhimat").val(item.KalaPriceCode_P);
-
-
-                    self.ThvlCode(item.Code)
-                    SetKalaPrice();
-                    flagKalaPrice = true;
-                }
-            })
-       /* }
-        else {
-            codeThvl = item.Code;
-            $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
-
-            if ($("#gGhimat").val() == '') {
+        Swal.fire({
+            title: translate('تایید و ثبت نهایی تغییرات ؟'),
+            text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('تحویل گیرنده') : translate('تحویل دهنده')) + " " + translate('تغییرات پیش فرض اعمال و ثبت نهایی می شود . آیا عملیات انجام شود؟'),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                codeThvl = item.Code;
+                $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
 
                 if (sessionStorage.sels == "true")
                     sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                 else
                     sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
+
 
                 if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
                     $("#gGhimat").val(item.CGruKalaPriceCode_S);
@@ -3025,9 +3001,37 @@ var ViewModel = function () {
                     $("#gGhimat").val(item.KalaPriceCode_S);
                 else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
                     $("#gGhimat").val(item.KalaPriceCode_P);
+
+
+                self.ThvlCode(item.Code)
+                SetKalaPrice();
+                flagKalaPrice = true;
             }
-            self.ThvlCode(item.Code)
-        }*/
+        })
+        /* }
+         else {
+             codeThvl = item.Code;
+             $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
+ 
+             if ($("#gGhimat").val() == '') {
+ 
+                 if (sessionStorage.sels == "true")
+                     sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                 else
+                     sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
+ 
+                 if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
+                     $("#gGhimat").val(item.CGruKalaPriceCode_S);
+                 else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
+                     $("#gGhimat").val(item.CGruKalaPriceCode_P);
+ 
+                 if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
+                     $("#gGhimat").val(item.KalaPriceCode_S);
+                 else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
+                     $("#gGhimat").val(item.KalaPriceCode_P);
+             }
+             self.ThvlCode(item.Code)
+         }*/
         $('#nameThvl').focus();
     };
 
@@ -3969,7 +3973,12 @@ var ViewModel = function () {
     };
 
 
-
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2) {
+            SaveColumnSanad();
+            ControlSave();
+        }
+    };
 
 };
 

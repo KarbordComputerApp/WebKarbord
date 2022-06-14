@@ -719,6 +719,12 @@
     }
 
     self.sortTableOpr();
+
+    document.onkeydown = function (e) {
+        if (e.keyCode == key_F2 && $('#modal-Opr').is(':visible')) {
+            SaveOpr();
+        }
+    };
 };
 
 ko.applyBindings(new ViewModel());
