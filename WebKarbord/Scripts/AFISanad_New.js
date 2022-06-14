@@ -12,6 +12,8 @@ var ViewModel = function () {
     var resTestNew = false;
     var flagFinalSave = false;
 
+    sal = localStorage.getItem("DropSalAcc");
+
     var flagupdateHeader;
     var changeColumn = false;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;

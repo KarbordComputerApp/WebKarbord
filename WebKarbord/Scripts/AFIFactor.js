@@ -56,6 +56,7 @@
 
     var codeArz = '';
     var arzRate = 0;
+    $('#ArzRate').val(0);
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -795,6 +796,7 @@
         self.ArzCode('');
         self.ArzRate(0);
         arzRate = 0;
+        $('#ArzRate').val(0);
         codeOpr = '';
         codeMkz = '';
         codeVstr = '';
@@ -2958,6 +2960,7 @@
         codeArz = item.Code;
         self.ArzCode(item.Code);
         arzRate = item.Rate;
+        $('#ArzRate').val(arzRate);
     }
 
 
@@ -3702,6 +3705,7 @@
 
                 self.ArzRate(0);
                 arzRate = 0;
+                $('#ArzRate').val(0);
 
                 codeOpr = '';
                 codeMkz = '';
@@ -4121,6 +4125,7 @@
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameVstr').val(sessionStorage.VstrCode == '' ? '' : '(' + sessionStorage.VstrCode + ') ' + sessionStorage.VstrName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
+        $('#ArzRate').val(arzRate);
 
         getFDocH(Serial);
         getFDocB(Serial);

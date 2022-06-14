@@ -104,6 +104,8 @@ var ViewModel = function () {
 
     var codeArz = '';
     var arzRate = 0;
+    $('#ArzRate').val(0);
+
 
     var accessTaeed = false;
     var accessTasvib = false;
@@ -940,6 +942,7 @@ var ViewModel = function () {
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
+        $('#ArzRate').val(arzRate);
 
         getIDocH(Serial);
         getIDocB(Serial);
@@ -1681,6 +1684,7 @@ var ViewModel = function () {
 
                                         self.ArzRate("");
                                         arzRate = 0;
+                                        $('#ArzRate').val(0);
 
                                         codeOpr = '';
                                         codeMkz = '';
@@ -2530,6 +2534,16 @@ var ViewModel = function () {
                 // $("#unitPrice").css("backgroundColor", "yellow");
                 sum != 0 ? IDocB[row].UnitPrice = sum : IDocB[row].UnitPrice = 0;
             }
+
+            temp_FinalPrice = IDocB[row].TotalPrice;
+            if (temp_FinalPrice > 0) {
+
+                if (arzCalcMode == 1) { // مبلغ / نرخ ارز
+                    arzRate > 0 ? IDocB[row].ArzValue = temp_FinalPrice / arzRate : IDocB[row].ArzValue = 0;
+                }
+            }
+
+
         }
 
 
@@ -3491,7 +3505,7 @@ var ViewModel = function () {
         codeArz = item.Code;
         self.ArzCode(item.Code);
         arzRate = item.Rate;
-        //$('#ArzRate').val(item.Rate);
+        $('#ArzRate').val(arzRate);
 
     }
 

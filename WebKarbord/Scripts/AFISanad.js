@@ -1,6 +1,8 @@
 ﻿var ViewModel = function () {
     var self = this;
 
+    sal = localStorage.getItem("DropSalAcc");
+
     var flagupdateHeader;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
     sessionStorage.searchADocH = "";

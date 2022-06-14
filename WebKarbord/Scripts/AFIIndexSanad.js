@@ -16,17 +16,24 @@
         localStorage.setItem("ModeCode", "ADOC");
     }
 
+    salAcc = localStorage.getItem("DropSalAcc");
+    if (salAcc != '' && salAcc != null)
+        sal = salAcc; 
 
+    localStorage.setItem("DropSalAcc", sal);
 
     for (var i = 0; i < salMaliList.length; i++) {
-        $("#DropSalSanad").append('<option  value="'
+        $("#DropSalAcc").append('<option  value="'
             + salMaliList[i].Code + '">'
             + salMaliList[i].Name + '</option>');
-        $("#DropSalSanad").val(sal);
+        $("#DropSalAcc").val(sal);
+
     }
 
-    $('#DropSalSanad').change(function () {
-        sal = $('#DropSalSanad').val();
+    $('#DropSalAcc').change(function () {
+        sal = $('#DropSalAcc').val();
+        //getParamList();
+        localStorage.setItem("DropSalAcc", sal);
         getADocH($('#pageCountSelector').val(), false);
         self.sortTableADocH();
     });
@@ -1969,7 +1976,6 @@
     self.ViewSpec = function (Band) {
         ViewSpec(Band.Spec)
     }
-
 
     self.sortTableADocH();
 };
