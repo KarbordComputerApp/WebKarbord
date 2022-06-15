@@ -1,7 +1,8 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    var arzCalcMode = localStorage.getItem("ArzCalcMode");
+    sal = localStorage.getItem("SalInv");
+    var arzCalcMode = localStorage.getItem("ArzCalcMode_Inv");
     var forSels = true;
     var flagupdateHeader;
     var flagOtherFieldShow;
@@ -510,13 +511,13 @@
                     invSelect = sessionStorage.InvCode;
                 }
                 else {
-                    if (sessionStorage.InvDefult == "null" || sessionStorage.InvDefult == "") {
+                    if (sessionStorage.InvDefult_Inv == "null" || sessionStorage.InvDefult_Inv == "") {
                         //$("#inv").val(invSelected);
                         invSelect = invSelected;
                     }
                     else {
                         //$("#inv").val(sessionStorage.InvDefult);
-                        invSelect = sessionStorage.InvDefult;
+                        invSelect = sessionStorage.InvDefult_Inv;
                     }
                 }
             }
@@ -585,8 +586,8 @@
                 IDocHAmount1 == 0 ? $('#foottextamount1').text('') : $('#foottextamount1').text(NumberToNumberString(IDocHAmount1.valueOf()));
                 IDocHAmount2 == 0 ? $('#foottextamount2').text('') : $('#foottextamount2').text(NumberToNumberString(IDocHAmount2.valueOf()));
                 IDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(IDocHAmount3.valueOf()));
-                IDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
-                $('#sumfactor').val(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
+                IDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.DeghatInv))));
+                $('#sumfactor').val(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.DeghatInv))));
             }
             else {
                 $('#footertext').hide();
@@ -725,7 +726,7 @@
             if (tarikh == '')
                 return showNotification(translate('تاریخ را وارد کنید'), 0);
 
-            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            if ((tarikh >= sessionStorage.BeginDateInv) && (tarikh <= sessionStorage.EndDateInv)) { }
             else
                 return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
@@ -953,7 +954,7 @@
             if (tarikh == '')
                 return showNotification(translate('تاریخ را وارد کنید'), 0);
 
-            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            if ((tarikh >= sessionStorage.BeginDateInv) && (tarikh <= sessionStorage.EndDateInv)) { }
             else
                 return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
@@ -1301,7 +1302,7 @@
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateInv) && (tarikh <= sessionStorage.EndDateInv)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -1430,7 +1431,7 @@
             //    return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateInv) && (tarikh <= sessionStorage.EndDateInv)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -1497,7 +1498,7 @@
             InOut: sessionStorage.InOut,
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
-            deghat: parseInt(sessionStorage.Deghat),
+            deghat: parseInt(sessionStorage.DeghatInv),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
@@ -1599,7 +1600,7 @@
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateInv) && (tarikh <= sessionStorage.EndDateInv)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -2571,7 +2572,7 @@
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Inv = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
@@ -2704,7 +2705,7 @@
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Inv = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
@@ -2945,7 +2946,7 @@
             amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 
             item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice.toFixed(item.DeghatR))) : $('#unitPrice').val('');
-            item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.Deghat)))) : $('#totalPrice').val('');
+            item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.DeghatInv)))) : $('#totalPrice').val('');
             $('#comm').val(item.Comm);
 
             flag = item.UP_Flag;
@@ -3258,7 +3259,7 @@
             if (flag == 1) {
                 $("#unitPrice").css("backgroundColor", "white");
                 $("#totalPrice").css("backgroundColor", "yellow");
-                sum != 0 ? $("#totalPrice").val(NumberToNumberString(parseFloat(sum).toFixed(parseInt(sessionStorage.Deghat)))) : $("#totalPrice").val('');
+                sum != 0 ? $("#totalPrice").val(NumberToNumberString(parseFloat(sum).toFixed(parseInt(sessionStorage.DeghatInv)))) : $("#totalPrice").val('');
             }
             else if (flag == 0) {
                 $("#totalPrice").css("backgroundColor", "white");
@@ -4171,7 +4172,7 @@
         amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 
         item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice.toFixed(item.DeghatR))) : $('#unitPrice').val('');
-        item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.Deghat)))) : $('#totalPrice').val('');
+        item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.DeghatInv)))) : $('#totalPrice').val('');
         item.Discount != 0 ? $('#discountprice').val(NumberToNumberString(Math.abs(item.Discount))) : $('#discountprice').val('');
         ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 && item.TotalPrice > 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
         $('#comm').val(item.Comm);

@@ -21,8 +21,39 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
-    self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(sessionStorage.EndDate);
+    self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
+    self.TaDate = ko.observable(sessionStorage.EndDateAcc);
+
+
+    salAcc = localStorage.getItem("SalAcc");
+    if (salAcc != '' && salAcc != null)
+        sal = salAcc;
+
+
+
+    localStorage.setItem("SalAcc", sal);
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalAcc").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalAcc").val(sal);
+
+    }
+
+    $('#DropSalAcc').change(function () {
+        sal = $('#DropSalAcc').val();
+        getParamAcc();
+        localStorage.setItem("SalAcc", sal);
+        self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
+        self.TaDate = ko.observable(sessionStorage.EndDateAcc);
+        $('#aztarikh').val(sessionStorage.BeginDateAcc);
+        $('#tatarikh').val(sessionStorage.EndDateAcc);
+    });
+
+
+    getParamAcc();
+
 
     self.AzShomarh = ko.observable();
     self.TaShomarh = ko.observable();

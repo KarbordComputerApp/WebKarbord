@@ -107,7 +107,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
                                 <span class="col-md-3" data-bind="text:translate('نوع چک')">
-                                    
+
                                 </span>
                                 <div class="form-group col-md-9">
                                     <select id="PDMode"></select>
@@ -125,16 +125,28 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameCheckStatus" class="form-control" readonly />
-                                        <label class="form-label" data-bind="text:translate('وضعیت چک')" ></label>
+                                        <label class="form-label" data-bind="text:translate('وضعیت چک')"></label>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
 
-                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+
+
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                <span data-bind="text:translate('سال مالی')" style="width:20%"></span>
+                                <div class="form-group " style="width:80%">
+                                    <select id="DropSalAcc"></select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="pull-left">
-                                <button  data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
+                                <button data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
                             </div>
                         </div>
 

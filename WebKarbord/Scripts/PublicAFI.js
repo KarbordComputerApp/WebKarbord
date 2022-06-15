@@ -416,10 +416,18 @@ if (ShowNewTab == "ShowNewTab" && hrefSetting == localStorage.getItem("urlSettin
 
 
 sessionStorage.CoName = localStorage.getItem("CoName");
-sessionStorage.BeginDate = localStorage.getItem("BeginDate");
 
-sessionStorage.EndDate = localStorage.getItem("EndDate");
-sessionStorage.Deghat = localStorage.getItem("Deghat");
+sessionStorage.BeginDateAcc = localStorage.getItem("BeginDateAcc");
+sessionStorage.BeginDateFct = localStorage.getItem("BeginDateFct");
+sessionStorage.BeginDateInv = localStorage.getItem("BeginDateInv");
+sessionStorage.EndDateAcc = localStorage.getItem("EndDateAcc");
+sessionStorage.EndDateFct = localStorage.getItem("EndDateFct");
+sessionStorage.EndDateInv = localStorage.getItem("EndDateInv");
+
+sessionStorage.DeghatAcc = localStorage.getItem("DeghatAcc");
+sessionStorage.DeghatFct = localStorage.getItem("DeghatFct");
+sessionStorage.DeghatInv = localStorage.getItem("DeghatInv");
+
 sessionStorage.InvDefult = localStorage.getItem("InvDefult");
 sessionStorage.GPriceDefultS = localStorage.getItem("GPriceDefultS");
 sessionStorage.GPriceDefultP = localStorage.getItem("GPriceDefultP");
@@ -1591,7 +1599,6 @@ function getProgName(value) {
 
 //Get Param List
 async function getParamList() {
-
     ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function (data) {
         ParamList(data);
         $('#information').hide();
@@ -1602,12 +1609,24 @@ async function getParamList() {
             $('#coName_TitleMenu').val(sessionStorage.CoName);
 
             sessionStorage.BeginDate = SearchArry("SalMali", "BeginDate", self.ParamList());
-            localStorage.setItem("BeginDate", sessionStorage.BeginDate);
+            localStorage.setItem("BeginDateAcc", sessionStorage.BeginDate);
+            localStorage.setItem("BeginDateFct", sessionStorage.BeginDate);
+            localStorage.setItem("BeginDateInv", sessionStorage.BeginDate);
 
             sessionStorage.EndDate = SearchArry("SalMali", "EndDate", self.ParamList());
-            localStorage.setItem("EndDate", sessionStorage.EndDate);
+            localStorage.setItem("EndDateAcc", sessionStorage.EndDate);
+            localStorage.setItem("EndDateFct", sessionStorage.EndDate);
+            localStorage.setItem("EndDateInv", sessionStorage.EndDate);
+
             sessionStorage.Deghat = SearchArry("Deghat", "Deghat", self.ParamList());
-            localStorage.setItem("Deghat", sessionStorage.Deghat);
+            localStorage.setItem("DeghatAcc", sessionStorage.Deghat);
+            localStorage.setItem("DeghatFct", sessionStorage.Deghat);
+            localStorage.setItem("DeghatInv", sessionStorage.Deghat);
+
+
+
+
+
             sessionStorage.InvDefult = SearchArry("Inv", "Default", self.ParamList());
             localStorage.setItem("InvDefult", sessionStorage.InvDefult);
             sessionStorage.GPriceDefultS = SearchArry("KalaPriceS", "Default", self.ParamList());
@@ -1814,6 +1833,271 @@ async function getParamList() {
         }
     });
 }
+
+
+
+
+
+function getParamFct() {
+    ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function (data) {
+        if (data.length > 0) {
+            sessionStorage.BeginDateFct = SearchArry("SalMali", "BeginDate", data);
+            localStorage.setItem("BeginDateFct", sessionStorage.BeginDateFct);
+
+            sessionStorage.EndDateFct = SearchArry("SalMali", "EndDate", data);
+            localStorage.setItem("EndDateFct", sessionStorage.EndDateFct);
+
+            sessionStorage.DeghatFct = SearchArry("Deghat", "Deghat", data);
+            localStorage.setItem("DeghatFct", sessionStorage.DeghatFct);
+
+            sessionStorage.FDOCSO_TestCust = SearchArry("FDOCSO_TestCust", "FDOCSO_TestCust", data);
+            localStorage.setItem("FDOCSO_TestCust", sessionStorage.FDOCSO_TestCust);
+            sessionStorage.FDOCSP_TestCust = SearchArry("FDOCSP_TestCust", "FDOCSP_TestCust", data);
+            localStorage.setItem("FDOCSP_TestCust", sessionStorage.FDOCSP_TestCust);
+            sessionStorage.FDOCS_TestCust = SearchArry("FDOCS_TestCust", "FDOCS_TestCust", data);
+            localStorage.setItem("FDOCS_TestCust", sessionStorage.FDOCS_TestCust);
+            sessionStorage.FDOCSR_TestCust = SearchArry("FDOCSR_TestCust", "FDOCSR_TestCust", data);
+            localStorage.setItem("FDOCSR_TestCust", sessionStorage.FDOCSR_TestCust);
+            sessionStorage.FDOCSH_TestCust = SearchArry("FDOCSH_TestCust", "FDOCSH_TestCust", data);
+            localStorage.setItem("FDOCSH_TestCust", sessionStorage.FDOCSH_TestCust);
+            sessionStorage.FDOCSE_TestCust = SearchArry("FDOCSE_TestCust", "FDOCSE_TestCust", data);
+            localStorage.setItem("FDOCSE_TestCust", sessionStorage.FDOCSE_TestCust);
+            sessionStorage.FDOCPO_TestCust = SearchArry("FDOCPO_TestCust", "FDOCPO_TestCust", data);
+            localStorage.setItem("FDOCPO_TestCust", sessionStorage.FDOCPO_TestCust);
+            sessionStorage.FDOCPP_TestCust = SearchArry("FDOCPP_TestCust", "FDOCPP_TestCust", data);
+            localStorage.setItem("FDOCPP_TestCust", sessionStorage.FDOCPP_TestCust);
+            sessionStorage.FDOCP_TestCust = SearchArry("FDOCP_TestCust", "FDOCP_TestCust", data);
+            localStorage.setItem("FDOCP_TestCust", sessionStorage.FDOCP_TestCust);
+            sessionStorage.FDOCPR_TestCust = SearchArry("FDOCPR_TestCust", "FDOCPR_TestCust", data);
+            localStorage.setItem("FDOCPR_TestCust", sessionStorage.FDOCPR_TestCust);
+
+            sessionStorage.FDOCSO_TestZeroAmount = SearchArry("FDOCSO_TestZeroAmount", "FDOCSO_TestZeroAmount", data);
+            localStorage.setItem("FDOCSO_TestZeroAmount", sessionStorage.FDOCSO_TestZeroAmount);
+            sessionStorage.FDOCSP_TestZeroAmount = SearchArry("FDOCSP_TestZeroAmount", "FDOCSP_TestZeroAmount", data);
+            localStorage.setItem("FDOCSP_TestZeroAmount", sessionStorage.FDOCSP_TestZeroAmount);
+            sessionStorage.FDOCS_TestZeroAmount = SearchArry("FDOCS_TestZeroAmount", "FDOCS_TestZeroAmount", data);
+            localStorage.setItem("FDOCS_TestZeroAmount", sessionStorage.FDOCS_TestZeroAmount);
+            sessionStorage.FDOCSR_TestZeroAmount = SearchArry("FDOCSR_TestZeroAmount", "FDOCSR_TestZeroAmount", data);
+            localStorage.setItem("FDOCSR_TestZeroAmount", sessionStorage.FDOCSR_TestZeroAmount);
+            sessionStorage.FDOCSH_TestZeroAmount = SearchArry("FDOCSH_TestZeroAmount", "FDOCSH_TestZeroAmount", data);
+            localStorage.setItem("FDOCSH_TestZeroAmount", sessionStorage.FDOCSH_TestZeroAmount);
+            sessionStorage.FDOCSE_TestZeroAmount = SearchArry("FDOCSE_TestZeroAmount", "FDOCSE_TestZeroAmount", data);
+            localStorage.setItem("FDOCSE_TestZeroAmount", sessionStorage.FDOCSE_TestZeroAmount);
+            sessionStorage.FDOCPO_TestZeroAmount = SearchArry("FDOCPO_TestZeroAmount", "FDOCPO_TestZeroAmount", data);
+            localStorage.setItem("FDOCPO_TestZeroAmount", sessionStorage.FDOCPO_TestZeroAmount);
+            sessionStorage.FDOCPP_TestZeroAmount = SearchArry("FDOCPP_TestZeroAmount", "FDOCPP_TestZeroAmount", data);
+            localStorage.setItem("FDOCPP_TestZeroAmount", sessionStorage.FDOCPP_TestZeroAmount);
+            sessionStorage.FDOCP_TestZeroAmount = SearchArry("FDOCP_TestZeroAmount", "FDOCP_TestZeroAmount", data);
+            localStorage.setItem("FDOCP_TestZeroAmount", sessionStorage.FDOCP_TestZeroAmount);
+            sessionStorage.FDOCPR_TestZeroAmount = SearchArry("FDOCPR_TestZeroAmount", "FDOCPR_TestZeroAmount", data);
+            localStorage.setItem("FDOCPR_TestZeroAmount", sessionStorage.FDOCPR_TestZeroAmount);
+
+            sessionStorage.FDOCSO_TestZeroPrice = SearchArry("FDOCSO_TestZeroPrice", "FDOCSO_TestZeroPrice", data);
+            localStorage.setItem("FDOCSO_TestZeroPrice", sessionStorage.FDOCSO_TestZeroPrice);
+            sessionStorage.FDOCSP_TestZeroPrice = SearchArry("FDOCSP_TestZeroPrice", "FDOCSP_TestZeroPrice", data);
+            localStorage.setItem("FDOCSP_TestZeroPrice", sessionStorage.FDOCSP_TestZeroPrice);
+            sessionStorage.FDOCS_TestZeroPrice = SearchArry("FDOCS_TestZeroPrice", "FDOCS_TestZeroPrice", data);
+            localStorage.setItem("FDOCS_TestZeroPrice", sessionStorage.FDOCS_TestZeroPrice);
+            sessionStorage.FDOCSR_TestZeroPrice = SearchArry("FDOCSR_TestZeroPrice", "FDOCSR_TestZeroPrice", data);
+            localStorage.setItem("FDOCSR_TestZeroPrice", sessionStorage.FDOCSR_TestZeroPrice);
+            sessionStorage.FDOCSH_TestZeroPrice = SearchArry("FDOCSH_TestZeroPrice", "FDOCSH_TestZeroPrice", data);
+            localStorage.setItem("FDOCSH_TestZeroPrice", sessionStorage.FDOCSH_TestZeroPrice);
+            sessionStorage.FDOCSE_TestZeroPrice = SearchArry("FDOCSE_TestZeroPrice", "FDOCSE_TestZeroPrice", data);
+            localStorage.setItem("FDOCSE_TestZeroPrice", sessionStorage.FDOCSE_TestZeroPrice);
+            sessionStorage.FDOCPO_TestZeroPrice = SearchArry("FDOCPO_TestZeroPrice", "FDOCPO_TestZeroPrice", data);
+            localStorage.setItem("FDOCPO_TestZeroPrice", sessionStorage.FDOCPO_TestZeroPrice);
+            sessionStorage.FDOCPP_TestZeroPrice = SearchArry("FDOCPP_TestZeroPrice", "FDOCPP_TestZeroPrice", data);
+            localStorage.setItem("FDOCPP_TestZeroPrice", sessionStorage.FDOCPP_TestZeroPrice);
+            sessionStorage.FDOCP_TestZeroPrice = SearchArry("FDOCP_TestZeroPrice", "FDOCP_TestZeroPrice", data);
+            localStorage.setItem("FDOCP_TestZeroPrice", sessionStorage.FDOCP_TestZeroPrice);
+            sessionStorage.FDOCPR_TestZeroPrice = SearchArry("FDOCPR_TestZeroPrice", "FDOCPR_TestZeroPrice", data);
+            localStorage.setItem("FDOCPR_TestZeroPrice", sessionStorage.FDOCPR_TestZeroPrice);
+
+            sessionStorage.FDOCSO_TestInv = SearchArry("FDOCSO_TestInv", "FDOCSO_TestInv", data);
+            localStorage.setItem("FDOCSO_TestInv", sessionStorage.FDOCSO_TestInv);
+            sessionStorage.FDOCSP_TestInv = SearchArry("FDOCSP_TestInv", "FDOCSP_TestInv", data);
+            localStorage.setItem("FDOCSP_TestInv", sessionStorage.FDOCSP_TestInv);
+            sessionStorage.FDOCS_TestInv = SearchArry("FDOCS_TestInv", "FDOCS_TestInv", data);
+            localStorage.setItem("FDOCS_TestInv", sessionStorage.FDOCS_TestInv);
+            sessionStorage.FDOCSR_TestInv = SearchArry("FDOCSR_TestInv", "FDOCSR_TestInv", data);
+            localStorage.setItem("FDOCSR_TestInv", sessionStorage.FDOCSR_TestInv);
+            sessionStorage.FDOCSH_TestInv = SearchArry("FDOCSH_TestInv", "FDOCSH_TestInv", data);
+            localStorage.setItem("FDOCSH_TestInv", sessionStorage.FDOCSH_TestInv);
+            sessionStorage.FDOCSE_TestInv = SearchArry("FDOCSE_TestInv", "FDOCSE_TestInv", data);
+            localStorage.setItem("FDOCSE_TestInv", sessionStorage.FDOCSE_TestInv);
+            sessionStorage.FDOCPO_TestInv = SearchArry("FDOCPO_TestInv", "FDOCPO_TestInv", data);
+            localStorage.setItem("FDOCPO_TestInv", sessionStorage.FDOCPO_TestInv);
+            sessionStorage.FDOCPP_TestInv = SearchArry("FDOCPP_TestInv", "FDOCPP_TestInv", data);
+            localStorage.setItem("FDOCPP_TestInv", sessionStorage.FDOCPP_TestInv);
+            sessionStorage.FDOCP_TestInv = SearchArry("FDOCP_TestInv", "FDOCP_TestInv", data);
+            localStorage.setItem("FDOCP_TestInv", sessionStorage.FDOCP_TestInv);
+            sessionStorage.FDOCPR_TestInv = SearchArry("FDOCPR_TestInv", "FDOCPR_TestInv", data);
+            localStorage.setItem("FDOCPR_TestInv", sessionStorage.FDOCPR_TestInv);
+
+            sessionStorage.FDOCSOAmountAfterBarCode = SearchArry("FDOCSOAmountAfterBarCode", "FDOCSOAmountAfterBarCode", data);
+            localStorage.setItem("FDOCSOAmountAfterBarCode", sessionStorage.FDOCSOAmountAfterBarCode);
+            sessionStorage.FDOCSPAmountAfterBarCode = SearchArry("FDOCSPAmountAfterBarCode", "FDOCSPAmountAfterBarCode", data);
+            localStorage.setItem("FDOCSPAmountAfterBarCode", sessionStorage.FDOCSPAmountAfterBarCode);
+            sessionStorage.FDOCSAmountAfterBarCode = SearchArry("FDOCSAmountAfterBarCode", "FDOCSAmountAfterBarCode", data);
+            localStorage.setItem("FDOCSAmountAfterBarCode", sessionStorage.FDOCSAmountAfterBarCode);
+            sessionStorage.FDOCSRAmountAfterBarCode = SearchArry("FDOCSRAmountAfterBarCode", "FDOCSRAmountAfterBarCode", data);
+            localStorage.setItem("FDOCSRAmountAfterBarCode", sessionStorage.FDOCSRAmountAfterBarCode);
+            sessionStorage.FDOCSHAmountAfterBarCode = SearchArry("FDOCSHAmountAfterBarCode", "FDOCSHAmountAfterBarCode", data);
+            localStorage.setItem("FDOCSHAmountAfterBarCode", sessionStorage.FDOCSHAmountAfterBarCode);
+            sessionStorage.FDOCSEAmountAfterBarCode = SearchArry("FDOCSEAmountAfterBarCode", "FDOCSEAmountAfterBarCode", data);
+            localStorage.setItem("FDOCSEAmountAfterBarCode", sessionStorage.FDOCSEAmountAfterBarCode);
+            sessionStorage.FDOCPOAmountAfterBarCode = SearchArry("FDOCPOAmountAfterBarCode", "FDOCPOAmountAfterBarCode", data);
+            localStorage.setItem("FDOCPOAmountAfterBarCode", sessionStorage.FDOCPOAmountAfterBarCode);
+            sessionStorage.FDOCPPAmountAfterBarCode = SearchArry("FDOCPPAmountAfterBarCode", "FDOCPPAmountAfterBarCode", data);
+            localStorage.setItem("FDOCPPAmountAfterBarCode", sessionStorage.FDOCPPAmountAfterBarCode);
+            sessionStorage.FDOCPAmountAfterBarCode = SearchArry("FDOCPAmountAfterBarCode", "FDOCPAmountAfterBarCode", data);
+            localStorage.setItem("FDOCPAmountAfterBarCode", sessionStorage.FDOCPAmountAfterBarCode);
+            sessionStorage.FDOCPRAmountAfterBarCode = SearchArry("FDOCPRAmountAfterBarCode", "FDOCPRAmountAfterBarCode", data);
+            localStorage.setItem("FDOCPRAmountAfterBarCode", sessionStorage.FDOCPRAmountAfterBarCode);
+
+            if (ace == 'Web8') {
+                sessionStorage.Move_SCONT = SearchArry("MoveTo", "SCONT", data);
+                localStorage.setItem("Move_SCONT", sessionStorage.Move_SCONT);
+                sessionStorage.Move_SORD = SearchArry("MoveTo", "SORD", data);
+                localStorage.setItem("Move_SORD", sessionStorage.Move_SORD);
+                sessionStorage.Move_SPFCT = SearchArry("MoveTo", "SPFCT", data);
+                localStorage.setItem("Move_SPFCT", sessionStorage.Move_SPFCT);
+                sessionStorage.Move_SFCT = SearchArry("MoveTo", "SFCT", data);
+                localStorage.setItem("Move_SFCT", sessionStorage.Move_SFCT);
+                sessionStorage.Move_SRFCT = SearchArry("MoveTo", "SRFCT", data);
+                localStorage.setItem("Move_SRFCT", sessionStorage.Move_SRFCT);
+                sessionStorage.Move_SHVL = SearchArry("MoveTo", "SHVL", data);
+                localStorage.setItem("Move_SHVL", sessionStorage.Move_SHVL);
+                sessionStorage.Move_SEXT = SearchArry("MoveTo", "SEXT", data);
+                localStorage.setItem("Move_SEXT", sessionStorage.Move_SEXT);
+                sessionStorage.Move_PCONT = SearchArry("MoveTo", "PCONT", data);
+                localStorage.setItem("Move_PCONT", sessionStorage.Move_PCONT);
+                sessionStorage.Move_PORD = SearchArry("MoveTo", "PORD", data);
+                localStorage.setItem("Move_PORD", sessionStorage.Move_PORD);
+                sessionStorage.Move_PPFCT = SearchArry("MoveTo", "PPFCT", data);
+                localStorage.setItem("Move_PPFCT", sessionStorage.Move_PPFCT);
+                sessionStorage.Move_PFCT = SearchArry("MoveTo", "PFCT", data);
+                localStorage.setItem("Move_PFCT", sessionStorage.Move_PFCT);
+                sessionStorage.Move_PRFCT = SearchArry("MoveTo", "PRFCT", data);
+                localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
+            }
+            else if (ace == 'Web1') {
+                sessionStorage.Move_SPFCT = SearchArry("MoveTo", "51", data);
+                localStorage.setItem("Move_SPFCT", sessionStorage.Move_SPFCT);
+                sessionStorage.Move_SFCT = SearchArry("MoveTo", "52", data);
+                localStorage.setItem("Move_SFCT", sessionStorage.Move_SFCT);
+                sessionStorage.Move_SRFCT = SearchArry("MoveTo", "53", data);
+                localStorage.setItem("Move_SRFCT", sessionStorage.Move_SRFCT);
+                sessionStorage.Move_PPFCT = SearchArry("MoveTo", "54", data);
+                localStorage.setItem("Move_PPFCT", sessionStorage.Move_PPFCT);
+                sessionStorage.Move_PFCT = SearchArry("MoveTo", "55", data);
+                localStorage.setItem("Move_PFCT", sessionStorage.Move_PFCT);
+                sessionStorage.Move_PRFCT = SearchArry("MoveTo", "56", data);
+                localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
+            }
+
+
+
+
+
+
+            sessionStorage.InvDefult_Fct = SearchArry("Inv", "Default", data);
+            localStorage.setItem("InvDefult_Fct", sessionStorage.InvDefult_Fct);
+
+            sessionStorage.GPriceDefultS = SearchArry("KalaPriceS", "Default", data);
+            localStorage.setItem("GPriceDefultS", sessionStorage.GPriceDefultS);
+
+            sessionStorage.GPriceDefultP = SearchArry("KalaPriceP", "Default", data);
+            localStorage.setItem("GPriceDefultP", sessionStorage.GPriceDefultP);
+
+            sessionStorage.ArzCalcMode_Fct = SearchArry("ArzCalcMode", "ArzCalcMode", data);
+            sessionStorage.ArzCalcMode_Fct = 1;
+            localStorage.setItem("ArzCalcMode_Fct", sessionStorage.ArzCalcMode_Fct);
+
+            sessionStorage.invSelect_Fct = "";
+            localStorage.setItem("invSelect_Fct", sessionStorage.invSelect_Fct);
+
+
+
+
+
+
+        }
+    });
+}
+
+
+function getParamInv() {
+    ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function (data) {
+        if (data.length > 0) {
+            sessionStorage.BeginDateInv = SearchArry("SalMali", "BeginDate", data);
+            localStorage.setItem("BeginDateInv", sessionStorage.BeginDateInv);
+
+            sessionStorage.EndDateInv = SearchArry("SalMali", "EndDate", data);
+            localStorage.setItem("EndDateInv", sessionStorage.EndDateInv);
+
+            sessionStorage.DeghatInv = SearchArry("Deghat", "Deghat", data);
+            localStorage.setItem("DeghatInv", sessionStorage.DeghatInv);
+
+            sessionStorage.InvDefult_Inv = SearchArry("Inv", "Default", data);
+            localStorage.setItem("InvDefult_Inv", sessionStorage.InvDefult_Inv);
+
+            sessionStorage.GPriceDefultI = SearchArry("KalaPriceI", "Default", data);
+            localStorage.setItem("GPriceDefultI", sessionStorage.GPriceDefultI);
+
+            sessionStorage.ArzCalcMode_Inv = SearchArry("ArzCalcMode", "ArzCalcMode", data);
+            sessionStorage.ArzCalcMode_Inv = 1;
+            localStorage.setItem("ArzCalcMode_Inv", sessionStorage.ArzCalcMode_Inv);
+
+            sessionStorage.invSelect_Inv = "";
+            localStorage.setItem("invSelect_Inv", sessionStorage.invSelect_Inv);
+
+            sessionStorage.IDOCI_TestThvl = SearchArry("IDOCI_TestThvl", "IDOCI_TestThvl", data);
+            localStorage.setItem("IDOCI_TestThvl", sessionStorage.IDOCI_TestThvl);
+            sessionStorage.IDOCO_TestThvl = SearchArry("IDOCO_TestThvl", "IDOCO_TestThvl", data);
+            localStorage.setItem("IDOCO_TestThvl", sessionStorage.IDOCO_TestThvl);
+
+            sessionStorage.IDOCI_TestZeroAmount = SearchArry("IDOCI_TestZeroAmount", "IDOCI_TestZeroAmount", data);
+            localStorage.setItem("IDOCI_TestZeroAmount", sessionStorage.IDOCI_TestZeroAmount);
+            sessionStorage.IDOCO_TestZeroAmount = SearchArry("IDOCO_TestZeroAmount", "IDOCO_TestZeroAmount", data);
+            localStorage.setItem("IDOCO_TestZeroAmount", sessionStorage.IDOCO_TestZeroAmount);
+
+            sessionStorage.AllInvSameNo = SearchArry("AllInvSameNo", "AllInvSameNo", data);
+            localStorage.setItem("AllInvSameNo", sessionStorage.AllInvSameNo);
+
+            sessionStorage.IDOCIAmountAfterBarCode = SearchArry("IDOCIAmountAfterBarCode", "IDOCIAmountAfterBarCode", data);
+            localStorage.setItem("IDOCIAmountAfterBarCode", sessionStorage.IDOCIAmountAfterBarCode);
+            sessionStorage.IDOCOAmountAfterBarCode = SearchArry("IDOCOAmountAfterBarCode", "IDOCOAmountAfterBarCode", data);
+            localStorage.setItem("IDOCOAmountAfterBarCode", sessionStorage.IDOCOAmountAfterBarCode);
+        }
+    });
+}
+
+
+function getParamAcc() {
+    ajaxFunction(ParamUri + ace + '/' + sal + '/' + group, 'GET', null, false).done(function (data) {
+        if (data.length > 0) {
+            sessionStorage.BeginDateAcc = SearchArry("SalMali", "BeginDate", data);
+            localStorage.setItem("BeginDateAcc", sessionStorage.BeginDateAcc);
+
+            sessionStorage.EndDateAcc = SearchArry("SalMali", "EndDate", data);
+            localStorage.setItem("EndDateAcc", sessionStorage.EndDateAcc);
+
+            sessionStorage.DeghatAcc = SearchArry("Deghat", "Deghat", data);
+            localStorage.setItem("DeghatAcc", sessionStorage.DeghatAcc);
+
+
+            sessionStorage.ADOC_TestZeroPrice = SearchArry("ADOC_TestZeroPrice", "ADOC_TestZeroPrice", data);
+            localStorage.setItem("ADOC_TestZeroPrice", sessionStorage.ADOC_TestZeroPrice);
+            sessionStorage.ADOC_TestTraf = SearchArry("ADOC_TestTraf", "ADOC_TestTraf", data);
+            localStorage.setItem("ADOC_TestTraf", sessionStorage.ADOC_TestTraf);
+            sessionStorage.ADOC_TestCheck = SearchArry("ADOC_TestCheck", "ADOC_TestCheck", data);
+            localStorage.setItem("ADOC_TestCheck", sessionStorage.ADOC_TestCheck);
+        }
+    });
+}
+
+
 
 
 function CheckAccess(TrsName, Prog) {
@@ -3740,6 +4024,8 @@ $("#ADOC").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 
     localStorage.setItem("DocNoAFISanad", null);
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+
     sessionStorage.IsReport = "false";
 
     /*    var newTabs = [];
@@ -3757,9 +4043,9 @@ $("#FDOC_SO").click(function () {
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
 
-
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 
@@ -3774,6 +4060,7 @@ $("#FDOC_SP").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_S").click(function () {
@@ -3789,6 +4076,7 @@ $("#FDOC_S").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_SR").click(function () {
@@ -3803,6 +4091,7 @@ $("#FDOC_SR").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_SH").click(function () {
@@ -3816,6 +4105,7 @@ $("#FDOC_SH").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_SE").click(function () {
@@ -3830,6 +4120,7 @@ $("#FDOC_SE").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_PO").click(function () {
@@ -3844,6 +4135,7 @@ $("#FDOC_PO").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_PP").click(function () {
@@ -3858,6 +4150,7 @@ $("#FDOC_PP").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#FDOC_P").click(function () {
@@ -3872,6 +4165,7 @@ $("#FDOC_P").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 
@@ -3887,6 +4181,7 @@ $("#FDOC_PR").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFIFactor", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
 });
 
 $("#IDOC_I").click(function () {
@@ -3901,6 +4196,7 @@ $("#IDOC_I").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFISanadAnbar", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalInv", localStorage.getItem("sal"));
 });
 
 $("#IDOC_O").click(function () {
@@ -3915,6 +4211,7 @@ $("#IDOC_O").click(function () {
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
     localStorage.setItem("DocNoAFISanadAnbar", null);
     sessionStorage.IsReport = "false";
+    localStorage.setItem("SalInv", localStorage.getItem("sal"));
 });
 
 
@@ -3966,16 +4263,75 @@ $("#ErjDocB_Last").click(function () {
 $("#TrzAcc").click(function () {
     localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("LevelReport", null);
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
 });
 
 $("#ADocR").click(function () {
     localStorage.setItem("AccCodeReport", null);
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
 });
 
 
 $("#Dftr").click(function () {
     localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("AccNameReport", null);
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
+
+$("#TChk").click(function () {
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
+$("#AGMkz").click(function () {
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
+$("#AGOpr").click(function () {
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
+$("#TrzFKala_S").click(function () {
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
+});
+
+$("#TrzFKala_P").click(function () {
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
+});
+
+$("#TrzFCust_S").click(function () {
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
+});
+
+$("#TrzFCust_P").click(function () {
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
+});
+
+
+$("#FDocR_S").click(function () {
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
+});
+
+$("#FDocR_P").click(function () {
+    localStorage.setItem("SalFct", localStorage.getItem("sal"));
+});
+
+
+
+$("#Krdx").click(function () {
+    localStorage.setItem("SalInv", localStorage.getItem("sal"));
+});
+
+$("#TrzIKala").click(function () {
+    localStorage.setItem("SalInv", localStorage.getItem("sal"));
+});
+
+$("#TrzIKalaExf").click(function () {
+    localStorage.setItem("SalInv", localStorage.getItem("sal"));
+});
+
+$("#IDocR").click(function () {
+    localStorage.setItem("SalInv", localStorage.getItem("sal"));
 });
 
 

@@ -4,13 +4,44 @@
     var flagupdateHeader = 0;
     sessionStorage.BeforeMoveFactor = false;
 
-
     DocNoReport = localStorage.getItem("DocNoAFIFactor");
     if (DocNoReport != "null" && DocNoReport != null) {
         sessionStorage.removeItem("ModeCode");
         mode = localStorage.getItem("ModeCodeAFIFactor");
         localStorage.setItem("ModeCode", mode)
     }
+
+    salFct = localStorage.getItem("SalFct");
+    if (salFct != '' && salFct != null)
+        sal = salFct;
+
+
+
+    localStorage.setItem("SalFct", sal);
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalFct").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalFct").val(sal);
+
+    }
+
+    $('#DropSalFct').change(function () {
+        sal = $('#DropSalFct').val();
+        //getParamList();
+        getParamFct();
+        localStorage.setItem("SalFct", sal);
+        getFDocH($('#pageCountSelector').val(), false);
+        self.sortTableFDocH();
+    });
+
+
+
+
+
+    getParamFct();
+
 
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {

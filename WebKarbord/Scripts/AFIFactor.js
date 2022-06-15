@@ -2,7 +2,9 @@
     var self = this;
     var forSels = true;
 
-    var arzCalcMode = localStorage.getItem("ArzCalcMode");
+    sal = localStorage.getItem("SalFct");
+
+    var arzCalcMode = localStorage.getItem("ArzCalcMode_Fct");
 
     var viewAction = false;
     var allSearchHesab = true;
@@ -597,8 +599,8 @@
                 var dataAddminTemp = self.AddMinList()[0];
                 discountCol = dataAddminTemp.SumDiscount;
                 tempsumfactor = FDocHTotalPrice + FDocHDiscount;// $("#sumfactor").val() != null ? parseFloat($("#sumfactor").val()) : 0;
-                $("#discountCol").val(NumberToNumberString(discountCol.toFixed(parseInt(sessionStorage.Deghat))));
-                $('#ghabelpardakht').val(NumberToNumberString(parseFloat(parseFloat(tempsumfactor) + discountCol).toFixed(parseInt(sessionStorage.Deghat))))
+                $("#discountCol").val(NumberToNumberString(discountCol.toFixed(parseInt(sessionStorage.DeghatFct))));
+                $('#ghabelpardakht').val(NumberToNumberString(parseFloat(parseFloat(tempsumfactor) + discountCol).toFixed(parseInt(sessionStorage.DeghatFct))))
             }
         });
     }
@@ -616,7 +618,7 @@
                     self.InvCode(sessionStorage.InvCode);
                 }
                 else {
-                    if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
+                    if (sessionStorage.InvDefult_Fct != "null") $("#inv").val(sessionStorage.InvDefult_Fct);
                 }
             }
         });
@@ -647,10 +649,10 @@
                 FDocHAmount1 == 0 ? $('#foottextamount1').text('') : $('#foottextamount1').text(NumberToNumberString(FDocHAmount1.valueOf()));
                 FDocHAmount2 == 0 ? $('#foottextamount2').text('') : $('#foottextamount2').text(NumberToNumberString(FDocHAmount2.valueOf()));
                 FDocHAmount3 == 0 ? $('#foottextamount3').text('') : $('#foottextamount3').text(NumberToNumberString(FDocHAmount3.valueOf()));
-                FDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(FDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
+                FDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(FDocHTotalPrice).toFixed(parseInt(sessionStorage.DeghatFct))));
                 FDocHDiscount == 0 ? $('#foottextdiscount').text('') : $('#foottextdiscount').text(NumberToNumberString(Math.abs(FDocHDiscount)));
-                $('#sumfactor').val(NumberToNumberString(parseFloat(FDocHTotalPrice + FDocHDiscount).toFixed(parseInt(sessionStorage.Deghat))));
-                $('#ghabelpardakht').val(NumberToNumberString(parseFloat(FDocHFinalPrice).toFixed(parseInt(sessionStorage.Deghat))))
+                $('#sumfactor').val(NumberToNumberString(parseFloat(FDocHTotalPrice + FDocHDiscount).toFixed(parseInt(sessionStorage.DeghatFct))));
+                $('#ghabelpardakht').val(NumberToNumberString(parseFloat(FDocHFinalPrice).toFixed(parseInt(sessionStorage.DeghatFct))))
             }
         });
     }
@@ -864,7 +866,7 @@
             if (tarikh == '')
                 return showNotification(translate('تاریخ را وارد کنید'), 0);
 
-            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            if ((tarikh >= sessionStorage.BeginDateFct) && (tarikh <= sessionStorage.EndDateFct)) { }
             else
                 return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
@@ -987,7 +989,7 @@
             if (tarikh == '')
                 return showNotification(translate('تاریخ را وارد کنید'), 0);
 
-            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            if ((tarikh >= sessionStorage.BeginDateFct) && (tarikh <= sessionStorage.EndDateFct)) { }
             else
                 return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
@@ -1041,7 +1043,7 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateFct) && (tarikh <= sessionStorage.EndDateFct)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -1322,7 +1324,7 @@
             //return Swal.fire({ type: 'info', title: 'اطلاعات ناقص', text: 'تاریخ را وارد کنید' });
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateFct) && (tarikh <= sessionStorage.EndDateFct)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -1391,7 +1393,7 @@
             Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
             PaymentType: $("#paymenttype").val(),
             Footer: $("#footer").val(),
-            deghat: parseInt(sessionStorage.Deghat),
+            deghat: parseInt(sessionStorage.DeghatFct),
             F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
             F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
             F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
@@ -2514,7 +2516,7 @@
             amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 
             item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice.toFixed(item.DeghatR))) : $('#unitPrice').val('');
-            item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.Deghat)))) : $('#totalPrice').val('');
+            item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.DeghatFct)))) : $('#totalPrice').val('');
             item.Discount != 0 ? $('#discountprice').val(NumberToNumberString(Math.abs(item.Discount))) : $('#discountprice').val('');
             ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 && item.TotalPrice > 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
             $('#comm').val(item.Comm);
@@ -2656,7 +2658,7 @@
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Fct = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
@@ -2791,7 +2793,7 @@
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Fct = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
@@ -3067,7 +3069,7 @@
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Fct = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
@@ -3307,7 +3309,7 @@
             if (flag == 1) {
                 $("#unitPrice").css("backgroundColor", "white");
                 $("#totalPrice").css("backgroundColor", "yellow");
-                sum != 0 ? $("#totalPrice").val(NumberToNumberString(parseFloat(sum).toFixed(parseInt(sessionStorage.Deghat)))) : $("#totalPrice").val('');
+                sum != 0 ? $("#totalPrice").val(NumberToNumberString(parseFloat(sum).toFixed(parseInt(sessionStorage.DeghatFct)))) : $("#totalPrice").val('');
             }
             else if (flag == 0) {
                 $("#totalPrice").css("backgroundColor", "white");
@@ -3334,7 +3336,7 @@
             }
             else if (flagdiscount == 1) {
                 //$("#discountprice").val(NumberToNumberString(((totalPrice * discountdarsad) / 100).toFixed(parseInt(sessionStorage.Deghat))));
-                ((totalPrice * discountdarsad) / 100) != 0 ? $("#discountprice").val(NumberToNumberString(((totalPrice * discountdarsad) / 100).toFixed(parseInt(sessionStorage.Deghat)))) : $("#discountprice").val('');
+                ((totalPrice * discountdarsad) / 100) != 0 ? $("#discountprice").val(NumberToNumberString(((totalPrice * discountdarsad) / 100).toFixed(parseInt(sessionStorage.DeghatFct)))) : $("#discountprice").val('');
 
                 //$("#discountprice").css("backgroundColor", "yellow");
                 //$("#discountdarsad").css("backgroundColor", "white");
@@ -3687,7 +3689,7 @@
                 self.Spec();
                 self.CustCode();
                 self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
-                self.InvCode = ko.observable(sessionStorage.InvDefult);
+                self.InvCode = ko.observable(sessionStorage.InvDefult_Fct);
                 self.BandNo();
                 self.KalaCode();
                 self.Amount1();
@@ -3712,8 +3714,9 @@
                 codeVstr = '';
                 codeArz = '';
                 flaglog = "Y";
-                if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
-                //$("#inv").val(sessionStorage.InvDefult);
+                if (sessionStorage.InvDefult_Fct != "null")
+                    $("#inv").val(sessionStorage.InvDefult_Fct);
+
                 $("#gGhimat").val(sessionStorage.GPriceDefult);
 
                 $('#nameOpr').val("");
@@ -5279,7 +5282,7 @@
         amo != 0 ? $('#amount').val(NumberToNumberString(amo)) : $('#amount').val('');
 
         item.UnitPrice != 0 ? $('#unitPrice').val(NumberToNumberString(item.UnitPrice.toFixed(item.DeghatR))) : $('#unitPrice').val('');
-        item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.Deghat)))) : $('#totalPrice').val('');
+        item.TotalPrice != 0 ? $('#totalPrice').val(NumberToNumberString(item.TotalPrice.toFixed(parseInt(sessionStorage.DeghatFct)))) : $('#totalPrice').val('');
         item.Discount != 0 ? $('#discountprice').val(NumberToNumberString(Math.abs(item.Discount))) : $('#discountprice').val('');
         ((Math.abs(item.Discount) * 100) / item.TotalPrice) != 0 && item.TotalPrice > 0 ? $('#discountdarsad').val(NumberToNumberString(((Math.abs(item.Discount) * 100) / item.TotalPrice).toFixed(2))) : $('#discountdarsad').val('');
         $('#comm').val(item.Comm);

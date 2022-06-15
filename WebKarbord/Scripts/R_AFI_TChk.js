@@ -24,6 +24,31 @@
 
     TestUser();
 
+
+    salAcc = localStorage.getItem("SalAcc");
+    if (salAcc != '' && salAcc != null)
+        sal = salAcc;
+
+
+
+    localStorage.setItem("SalAcc", sal);
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalAcc").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalAcc").val(sal);
+
+    }
+
+    $('#DropSalAcc').change(function () {
+        sal = $('#DropSalAcc').val();
+        getParamAcc();
+        localStorage.setItem("SalAcc", sal);
+    });
+
+    getParamAcc();
+
     $('#btnaztarikh').click(function () {
         $('#aztarikh').change();
     });
@@ -899,7 +924,7 @@
             CreateTableTdSum('CheckRadif', 1, data) +
             CreateTableTdSum('CheckComm', 1, data) +
             CreateTableTdSum('CheckVosoolDate', 1, data) +
-            '<td style="background-color: #e37d228f !important;"></td>' +
+            //'<td style="background-color: #e37d228f !important;"></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -917,7 +942,7 @@
             CreateTableTdSearch('CheckRadif', data) +
             CreateTableTdSearch('CheckComm', data) +
             CreateTableTdSearch('CheckVosoolDate', data) +
-            '<td style="background-color: #efb683;"></td>' +
+            //'<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'

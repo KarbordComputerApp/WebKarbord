@@ -19,6 +19,44 @@
     }
 
 
+
+
+    salInv = localStorage.getItem("SalInv");
+    if (salInv != '' && salInv != null)
+        sal = salInv;
+
+
+
+    localStorage.setItem("SalInv", sal);
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalInv").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalInv").val(sal);
+
+    }
+
+    $('#DropSalInv').change(function () {
+        sal = $('#DropSalInv').val();
+        //getParamList();
+        getParamInv();
+        localStorage.setItem("SalInv", sal);
+        getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
+        self.sortTableIDocH();
+    });
+
+
+
+
+
+    getParamInv();
+
+
+
+
+
+
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         sessionStorage.InOut = localStorage.getItem("InOut");

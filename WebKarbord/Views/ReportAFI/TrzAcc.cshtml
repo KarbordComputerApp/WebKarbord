@@ -1,7 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "تراز حساب";
-    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+                /**/
+
+                ViewBag.Title = "تراز حساب";
+                Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
 
@@ -11,7 +13,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card" style="margin-top:0px;">
             <div class="header">
-                <h2><strong  data-bind="text:translate('تراز حساب')">تراز حساب</strong></h2>
+                <h2><strong data-bind="text:translate('تراز حساب')">تراز حساب</strong></h2>
                 <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                     <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
@@ -133,7 +135,7 @@
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
                                         <input id="nameMkz" class="form-control" readonly />
-                                        <label class="form-label"  data-bind="text:translate('مرکز هزینه')"></label>
+                                        <label class="form-label" data-bind="text:translate('مرکز هزینه')"></label>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +144,7 @@
 
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <span class="col-md-4" data-bind="text:translate('نوع تراز')" >نوع تراز</span>
+                                <span class="col-md-4" data-bind="text:translate('نوع تراز')"></span>
                                 <div class="form-group  col-md-8">
                                     <select id="SathTaraz"></select>
                                 </div>
@@ -152,7 +154,7 @@
 
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                             <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <span class="col-md-4" data-bind="text:translate('سطح تراز')">سطح تراز</span>
+                                <span class="col-md-4" data-bind="text:translate('سطح تراز')"></span>
                                 <div class="form-group col-md-8">
                                     <select id="Level"></select>
                                 </div>
@@ -160,11 +162,21 @@
                         </div>
 
 
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
+                                <span data-bind="text:translate('سال مالی')" style="width:20%"></span>
+                                <div class="form-group " style="width:80%">
+                                    <select id="DropSalAcc"></select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 
 
                             <div class="pull-left">
-                                <button  data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i> </button>
+                                <button data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i> </button>
                             </div>
                         </div>
 
@@ -202,7 +214,7 @@
 
                     <div class="col-md-4" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageTrzAcc">
-                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageTrzAcc">
                             <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -216,7 +228,7 @@
                     </div>
 
                     <div class="col-md-4 panel_CountRecord" style="margin-top: 10px; text-align:left;">
-                       <span data-bind="text:translate('تعداد کل رکورد ها') + ' = ' "></span><span id="CountRecord">0</span>
+                        <span data-bind="text:translate('تعداد کل رکورد ها') + ' = ' "></span><span id="CountRecord">0</span>
                     </div>
                 </div>
 
@@ -246,17 +258,20 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableAcc">
-                                        <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
+                                        <th data-column="SortCode">
+                                            <span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                        <th data-column="SortName">
+                                            <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                        <th data-column="Spec">
+                                            <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -338,13 +353,13 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageAcc">
-                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageAcc">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -393,12 +408,14 @@
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                        <th data-column="SortName">
+                                            <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                        <th data-column="Spec">
+                                            <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -475,13 +492,13 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageOpr">
-                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageOpr">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -521,17 +538,20 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableMkz">
-                                        <th data-column="SortCode"><span data-column="SortCode" data-bind="text:translate('کد')"></span>
+                                        <th data-column="SortCode">
+                                            <span data-column="SortCode" data-bind="text:translate('کد')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortCode' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                        <th data-column="SortName">
+                                            <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                        <th data-column="Spec">
+                                            <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -609,13 +629,13 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageMkz">
-                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageMkz">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -644,7 +664,7 @@
                 <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                 <h4 class="modal-title"  data-bind="text:translate('لیست نوع سند')"></h4>
+                <h4 class="modal-title" data-bind="text:translate('لیست نوع سند')"></h4>
                 <a id="refreshAMode">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -738,13 +758,13 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageAMode">
-                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageAMode">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -784,7 +804,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
+                                <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -797,14 +817,10 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                         
-                        </button>
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                     <div class="col-md-6">
-                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            
-                        </button>
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>

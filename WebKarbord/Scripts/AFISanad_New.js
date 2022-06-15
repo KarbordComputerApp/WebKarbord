@@ -12,7 +12,7 @@ var ViewModel = function () {
     var resTestNew = false;
     var flagFinalSave = false;
 
-    sal = localStorage.getItem("DropSalAcc");
+    sal = localStorage.getItem("SalAcc");
 
     var flagupdateHeader;
     var changeColumn = false;
@@ -3814,7 +3814,7 @@ var ViewModel = function () {
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateAcc) && (tarikh <= sessionStorage.EndDateAcc)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);

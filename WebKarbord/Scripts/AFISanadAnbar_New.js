@@ -8,7 +8,9 @@ var cols;
 var ViewModel = function () {
     var self = this;
     var forSels = true;
-    var arzCalcMode = localStorage.getItem("ArzCalcMode");
+
+    sal = localStorage.getItem("SalInv");
+    var arzCalcMode = localStorage.getItem("ArzCalcMode_Inv");
     var viewAction = false;
     var allSearchThvl = true;
     var allSearchKala = true;
@@ -522,11 +524,11 @@ var ViewModel = function () {
                     invSelect = sessionStorage.InvCode;
                 }
                 else {
-                    if (sessionStorage.InvDefult == "null" || sessionStorage.InvDefult == "") {
+                    if (sessionStorage.InvDefult_Inv == "null" || sessionStorage.InvDefult_Inv == "") {
                         invSelect = invSelected;
                     }
                     else {
-                        invSelect = sessionStorage.InvDefult;
+                        invSelect = sessionStorage.InvDefult_Inv;
                     }
                 }
             }
@@ -784,7 +786,7 @@ var ViewModel = function () {
                 dataIDocH.Amount3 != null ? IDocHAmount3 = dataIDocH.Amount3 : IDocHAmount3 = 0;
                 dataIDocH.TotalPrice != null ? IDocHTotalPrice = dataIDocH.TotalPrice : IDocHTotalPrice = 0;
                 dataIDocH.FinalPrice != null ? IDocHFinalPrice = dataIDocH.FinalPrice : IDocHFinalPrice = 0;
-                $('#sumSanad').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
+                $('#sumSanad').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.DeghatInv))));
             }
         });
     }
@@ -1689,7 +1691,7 @@ var ViewModel = function () {
                                         codeOpr = '';
                                         codeMkz = '';
                                         flaglog = "Y";
-                                        if (sessionStorage.InvDefult != "null") $("#inv").val(sessionStorage.InvDefult);
+                                        if (sessionStorage.InvDefult_Inv != "null") $("#inv").val(sessionStorage.InvDefult_Inv);
                                         $("#gGhimat").val(sessionStorage.GPriceDefult);
 
                                         $('#nameThvl').val("");
@@ -1958,7 +1960,7 @@ var ViewModel = function () {
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateInv) && (tarikh <= sessionStorage.EndDateInv)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -2354,7 +2356,7 @@ var ViewModel = function () {
                 Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
                 PaymentType: $("#paymenttype").val(),
                 Footer: $("#footer").val(),
-                deghat: parseInt(sessionStorage.Deghat),
+                deghat: parseInt(sessionStorage.DeghatInv),
                 F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
                 F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
                 F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
@@ -2527,7 +2529,7 @@ var ViewModel = function () {
                 // $("#unitPrice").css("backgroundColor", "white");
                 //$("#totalPrice").css("backgroundColor", "yellow");
 
-                sum != 0 ? IDocB[row].TotalPrice = parseFloat(sum).toFixed(parseInt(sessionStorage.Deghat)) : IDocB[row].TotalPrice = 0;
+                sum != 0 ? IDocB[row].TotalPrice = parseFloat(sum).toFixed(parseInt(sessionStorage.DeghatInv)) : IDocB[row].TotalPrice = 0;
             }
             else {
                 // $("#totalPrice").css("backgroundColor", "white");
@@ -3199,7 +3201,7 @@ var ViewModel = function () {
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Inv = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);
@@ -3334,7 +3336,7 @@ var ViewModel = function () {
     };
 
     self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
+        sessionStorage.invSelect_Inv = $('#invSelect').val();
         invSelect = $('#invSelect').val() == '' ? 0 : $('#invSelect').val();
         select = $('#pageCountSelector').val();
         getIDocH(select, invSelect);

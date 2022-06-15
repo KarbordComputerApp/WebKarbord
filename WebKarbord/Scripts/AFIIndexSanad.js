@@ -16,11 +16,13 @@
         localStorage.setItem("ModeCode", "ADOC");
     }
 
-    salAcc = localStorage.getItem("DropSalAcc");
+    salAcc = localStorage.getItem("SalAcc");
     if (salAcc != '' && salAcc != null)
-        sal = salAcc; 
+        sal = salAcc;
 
-    localStorage.setItem("DropSalAcc", sal);
+
+
+    localStorage.setItem("SalAcc", sal);
 
     for (var i = 0; i < salMaliList.length; i++) {
         $("#DropSalAcc").append('<option  value="'
@@ -33,12 +35,17 @@
     $('#DropSalAcc').change(function () {
         sal = $('#DropSalAcc').val();
         //getParamList();
-        localStorage.setItem("DropSalAcc", sal);
+        getParamAcc();
+        localStorage.setItem("SalAcc", sal);
         getADocH($('#pageCountSelector').val(), false);
         self.sortTableADocH();
     });
 
 
+
+
+
+    getParamAcc();
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");

@@ -517,6 +517,11 @@
         localStorage.setItem('ace', '');
         localStorage.setItem('group', '');
         localStorage.setItem('sal', '');
+
+        localStorage.setItem("SalAcc", '');
+        localStorage.setItem("SalFct", '');
+        localStorage.setItem("SalInv", '');
+
         localStorage.setItem("Inbox", 0);
 
         getAccountData();

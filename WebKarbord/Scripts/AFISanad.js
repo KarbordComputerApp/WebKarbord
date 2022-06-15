@@ -1,7 +1,7 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    sal = localStorage.getItem("DropSalAcc");
+    sal = localStorage.getItem("SalAcc");
 
     var flagupdateHeader;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
@@ -2682,7 +2682,7 @@
             if (tarikh == '')
                 return showNotification(translate('تاریخ را وارد کنید'), 0);
 
-            if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) { }
+            if ((tarikh >= sessionStorage.BeginDateAcc) && (tarikh <= sessionStorage.EndDateAcc)) { }
             else
                 return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
 
@@ -2790,7 +2790,7 @@
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateAcc) && (tarikh <= sessionStorage.EndDateAcc)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -2873,7 +2873,7 @@
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateAcc) && (tarikh <= sessionStorage.EndDateAcc)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -3128,7 +3128,7 @@
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateAcc) && (tarikh <= sessionStorage.EndDateAcc)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -3243,7 +3243,7 @@
             return showNotification(translate('تاریخ را وارد کنید'), 0);
         }
 
-        if ((tarikh >= sessionStorage.BeginDate) && (tarikh <= sessionStorage.EndDate)) {
+        if ((tarikh >= sessionStorage.BeginDateAcc) && (tarikh <= sessionStorage.EndDateAcc)) {
         }
         else {
             return showNotification(translate('تاریخ وارد شده با سال انتخابی همخوانی ندارد'), 0);
@@ -3530,8 +3530,8 @@
             '<td  class="CellWithComment"> <span data-bind="text: AccFullName" ></span>  <span data-bind="text: AccCompleteName" class="CellComment"></span>   </td>' +
 
             CreateTableTd('Comm', 0, 0, data) +
-            CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('Bede', sessionStorage.DeghatAcc, 2, data) +
+            CreateTableTd('Best', sessionStorage.DeghatAcc, 2, data) +
             CreateTableTd('CheckNo', 0, 0, data) +
             CreateTableTd('CheckDate', 0, 0, data) +
             CreateTableTd('Bank', 0, 0, data) +
@@ -3547,8 +3547,8 @@
 
             CreateTableTd('ArzCode', 0, 0, data) +
             CreateTableTd('ArzName', 0, 0, data) +
-            CreateTableTd('ArzRate', sessionStorage.Deghat, 2, data) +
-            CreateTableTd('ArzValue', sessionStorage.Deghat, 2, data) +
+            CreateTableTd('ArzRate', sessionStorage.DeghatAcc, 2, data) +
+            CreateTableTd('ArzValue', sessionStorage.DeghatAcc, 2, data) +
 
 
             '<td id="action_bodysanad">' +
