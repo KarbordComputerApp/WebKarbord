@@ -30,8 +30,39 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
-    self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(sessionStorage.EndDate);
+    self.AzDate = ko.observable(sessionStorage.BeginDateFct);
+    self.TaDate = ko.observable(sessionStorage.EndDateFct);
+
+    salFct = localStorage.getItem("SalFct");
+    if (salFct != '' && salFct != null)
+        sal = salFct;
+
+
+
+    localStorage.setItem("SalFct", sal);
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalFct").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalFct").val(sal);
+
+    }
+
+    $('#DropSalFct').change(function () {
+        sal = $('#DropSalFct').val();
+        getParamFct();
+        localStorage.setItem("SalFct", sal);
+        self.AzDate = ko.observable(sessionStorage.BeginDateFct);
+        self.TaDate = ko.observable(sessionStorage.EndDateFct);
+        $('#aztarikh').val(sessionStorage.BeginDateFct);
+        $('#tatarikh').val(sessionStorage.EndDateFct);
+    });
+
+
+    getParamFct();
+
+
     $('#btnaztarikh').click(function () {
         $('#aztarikh').change();
     });

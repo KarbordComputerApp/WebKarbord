@@ -10,6 +10,10 @@
             <div class="header">
                 <h2><strong data-bind="text:translate('گردش مراکز هزینه')"></strong></h2>
                 <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
+
+                    <strong style="padding-top: 10px;" data-bind="text:translate('سال مالی')"></strong>
+                    <select id="DropSalAcc" class="selectorange"  style="direction: rtl;width: 100px; margin-left: 15px;"></select>
+
                     <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                         <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                     </a>
@@ -153,17 +157,8 @@
 
 
 
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                            <div class="form-inline" style="margin-left: 5px; margin-right: 5px;">
-                                <span data-bind="text:translate('سال مالی')" style="width:20%"></span>
-                                <div class="form-group " style="width:80%">
-                                    <select id="DropSalAcc"></select>
-                                </div>
-                            </div>
-                        </div>
 
-
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="pull-left">
                                 <button data-bind="text:translate('گزارش گیری')" type="button" id="CreateReport" class="btn btn-primary"><i class="fa fa-sign-in fa-lg fa-fw"></i> </button>
                             </div>

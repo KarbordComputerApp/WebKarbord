@@ -29,8 +29,39 @@
     var TrzIExfCountUri = server + '/api/Web_Data/TrzIExfCount/'; // تعداد رکورد های گزارش 
    // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
-    self.AzDate = ko.observable(sessionStorage.BeginDate);
-    self.TaDate = ko.observable(sessionStorage.EndDate);
+    self.AzDate = ko.observable(sessionStorage.BeginDateInv);
+    self.TaDate = ko.observable(sessionStorage.EndDateInv);
+
+    salInv = localStorage.getItem("SalInv");
+    if (salInv != '' && salInv != null)
+        sal = salInv;
+
+
+
+    localStorage.setItem("SalInv", sal);
+
+    for (var i = 0; i < salMaliList.length; i++) {
+        $("#DropSalInv").append('<option  value="'
+            + salMaliList[i].Code + '">'
+            + salMaliList[i].Name + '</option>');
+        $("#DropSalInv").val(sal);
+
+    }
+
+    $('#DropSalInv').change(function () {
+        sal = $('#DropSalInv').val();
+        getParamInv();
+        localStorage.setItem("SalInv", sal);
+        self.AzDate = ko.observable(sessionStorage.BeginDateInv);
+        self.TaDate = ko.observable(sessionStorage.EndDateInv);
+        $('#aztarikh').val(sessionStorage.BeginDateInv);
+        $('#tatarikh').val(sessionStorage.EndDateInv);
+    });
+
+
+    getParamInv();
+
+
     $('#btnaztarikh').click(function () {
         $('#aztarikh').change();
     });

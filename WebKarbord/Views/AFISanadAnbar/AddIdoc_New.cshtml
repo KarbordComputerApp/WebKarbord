@@ -209,17 +209,17 @@
         </div>
     </div>
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
         <div class="card" style="margin-top: 0px; margin-left: 10px;">
             <div class="body" style="padding-bottom: 10px;">
                 <div class="row">
 
                     <div class="col-md">
-                        <textarea data-bind="attr:{placeholder:translate('زیر نویس')}" rows="3" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder="" style="margin-top: 10px"></textarea>
+                        <textarea data-bind="attr:{placeholder:translate('زیر نویس')}" rows="9" id="footer" class="form-control no-resize auto-growth string autocomplete" placeholder="" style="margin-top: 10px"></textarea>
                     </div>
 
                     <div id="p_Sum" class="col-md-3 row">
-                        <table style="margin-top: 10px;">
+                        <table style="margin-top: 10px;max-height: 0px;">
                             <tr style="border: #dddddd 1px solid;">
                                 <td>
                                     جمع بند ها
@@ -228,6 +228,36 @@
                             </tr>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <div class="card" style="margin-top: 0px;margin-left: 10px;margin-right: 10px;margin-bottom: 0px;padding-bottom: 10px;">
+            <div class="body" style="padding-bottom: 10px;">
+                <div class="row">
+                    <table style="margin-top: 10px;">
+                        <tr style="border: #dddddd 1px solid;">
+                            <td>
+                                مانده حساب
+                            </td>
+                            <td id="mandehHesab" style="direction: ltr;">0</td>
+                        </tr>
+                        <tr style="border: #dddddd 1px solid;">
+                            <td>
+                                مانده کالا
+                            </td>
+                            <td id="mandehKala" style="direction: ltr;">0</td>
+                        </tr>
+                        <tr style="border: #dddddd 1px solid;">
+                            <td>
+                                مانده ریالی
+                            </td>
+                            <td id="mandehKala2" style="direction: ltr;">0</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

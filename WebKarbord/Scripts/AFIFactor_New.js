@@ -1712,6 +1712,13 @@ var ViewModel = function () {
                 fieldName = e.column.dataField;
             },
 
+            onRowPrepared(e) {
+               // if (e.rowType == 'data' ) {
+               //     e.rowElement[0].bgColor = 'red';
+               // }
+            } ,
+
+
             onKeyDown: function (e) {
                 const keyCode = e.event.key;
 
