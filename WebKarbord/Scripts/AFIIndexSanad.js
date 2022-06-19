@@ -283,7 +283,7 @@
             ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         }
 
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject).done(function (data) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject,true).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);

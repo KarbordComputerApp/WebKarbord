@@ -728,6 +728,7 @@
     var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
 
     var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/';
+    var RegFDocToIDocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToIDoc/';
 
     var allSearchFDocH = true;
     var inOut;
@@ -1106,6 +1107,37 @@
     });
 
 
+    $('#RegFDocToIDoc').click(function () {
+        var RegFDocToIDocObject = {
+            SerialNumbers: RegSerialNumber,
+            ModeCode: sessionStorage.ModeCode
+        };
+
+        ajaxFunction(RegFDocToIDocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToIDocObject).done(function (data) {
+            var res = data.split("-");
+
+            if (res.length > 1) {
+                serial = res[0];
+                docNoSanadAnbar = res[1];
+                if (TestUseSanad(ace, sal, "SanadAnbar", serial, false, docNoSanadAnbar)) {
+
+                }
+                else {
+                    localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
+                    localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
+                    localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+                    localStorage.setItem("DocNoAFISanadAnbar", docNoSanadAnbar);
+                    window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+                }
+            }
+            else {
+                alert(res[0]);
+            }
+        });
+    });
+
+
+
     $('#modal-LinkSanad').on('hide.bs.modal', function () {
         getFDocH($('#pageCountSelector').val(), false);
     })
@@ -1277,7 +1309,7 @@
             DocNo: '',
         }
 
-        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject).done(function (data) {
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject, true).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             for (var i = 0; i < data.length; i++) {

@@ -21,6 +21,8 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
+    getParamAcc();
+
     self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
     self.TaDate = ko.observable(sessionStorage.EndDateAcc);
 
@@ -52,7 +54,7 @@
     });
 
 
-    getParamAcc();
+   
 
 
     self.AzShomarh = ko.observable();

@@ -46,6 +46,9 @@ text_Refresh = 'به روز رسانی';
 text_Select = 'انتخاب';
 text_OtherField = 'مشخصات اضافی';
 text_LinkSanad = 'لینک اسناد';
+text_Date = 'انتخاب تاریخ';
+
+//data-bind="attr: {title:text_Date}"
 
 text_FirstPage = 'اولین';
 text_PreviousPage = 'قبلی';
@@ -124,15 +127,15 @@ var dict =
 var ModeInsertSanad = localStorage.getItem('ModeInsertSanad');
 
 if (ModeInsertSanad == "New") {
-    $("#ModeInsertSanad").val(1);
+    $("#ModeInsertSanad").val(0);
 }
 else {
-    $("#ModeInsertSanad").val(0);
+    $("#ModeInsertSanad").val(1);
 }
 
 
 $("#ModeInsertSanad").change(function () {
-    if ($('#ModeInsertSanad').val() == 1) {
+    if ($('#ModeInsertSanad').val() == 0) {
         localStorage.setItem("ModeInsertSanad", "New");
     }
     else {

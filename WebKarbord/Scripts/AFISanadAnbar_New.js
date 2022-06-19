@@ -1834,6 +1834,10 @@ var ViewModel = function () {
             },
 
             onCellPrepared: function (e) {
+                if (e.rowType === "header") {
+                    e.cellElement.css("background-color", '#d9d9d9');
+                    e.cellElement.css("color", 'black');
+                }
 
                 if (e.rowType === "data" && e.column.dataField === "KalaCode" && Serial > 0) {
                     const visibleRows = dataGrid.getVisibleRows();
