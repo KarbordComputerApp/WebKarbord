@@ -35,7 +35,7 @@
 
     var codeArz = '';
     var arzRate = 0;
-    $('#ArzRate').val("0.00");
+    $('#ArzRate').val(0);
 
     var zarib1 = 0;
     var zarib2 = 0;
@@ -664,7 +664,7 @@
 
         self.ArzRate(0);
         arzRate = 0;
-        $('#ArzRate').val("0.00");
+        $('#ArzRate').val(0);
 
         codeOpr = '';
         codeMkz = '';
@@ -2040,7 +2040,7 @@
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
-        $('#ArzRate').val(arzRate.toFixed(2));
+        $('#ArzRate').val(arzRate);
 
         $("#modeCode").val(sessionStorage.ModeCodeValue);
         self.modeCode(sessionStorage.ModeCodeValue);
@@ -2875,7 +2875,7 @@
         codeArz = item.Code;
         self.ArzCode(item.Code);
         arzRate = item.Rate;
-        $('#ArzRate').val(arzRate.toFixed(2));
+        $('#ArzRate').val(arzRate);
     }
 
 

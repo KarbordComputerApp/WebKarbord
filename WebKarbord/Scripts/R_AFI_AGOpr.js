@@ -20,6 +20,8 @@
 
     TestUser();
 
+    getParamAcc();
+
     self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
     self.TaDate = ko.observable(sessionStorage.EndDateAcc);
     salAcc = localStorage.getItem("SalAcc");
@@ -47,8 +49,6 @@
         $('#aztarikh').val(sessionStorage.BeginDateAcc);
         $('#tatarikh').val(sessionStorage.EndDateAcc);
     });
-
-    getParamAcc();
 
     //$('#aztarikh').val(sessionStorage.BeginDate);
     //$('#tatarikh').val(sessionStorage.EndDate);

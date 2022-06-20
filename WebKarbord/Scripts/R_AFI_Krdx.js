@@ -26,7 +26,7 @@
 
 
     TestUser();
-
+    getParamInv();
     self.AzDate = ko.observable(sessionStorage.BeginDateInv);
     self.TaDate = ko.observable(sessionStorage.EndDateInv);
 
@@ -57,7 +57,7 @@
     });
 
 
-    getParamInv();
+
 
 
     $('#btnaztarikh').click(function () {

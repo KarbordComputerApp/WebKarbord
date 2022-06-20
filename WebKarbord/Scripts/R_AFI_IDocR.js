@@ -24,6 +24,7 @@
     var IDocRUri = server + '/api/ReportInv/IDocR/'; // آدرس گزارش 
     var StatusUri = server + '/api/Web_Data/Status/'; // آدرس وضعیت 
 
+    getParamInv();
 
     self.AzDate = ko.observable(sessionStorage.BeginDateInv);
     self.TaDate = ko.observable(sessionStorage.EndDateInv);
@@ -55,7 +56,7 @@
     });
 
 
-    getParamInv();
+
 
 
     $('#btnaztarikh').click(function() {

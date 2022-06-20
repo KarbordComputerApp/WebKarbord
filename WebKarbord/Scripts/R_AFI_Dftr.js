@@ -21,6 +21,7 @@
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
 
+    getParamAcc();
     self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
     self.TaDate = ko.observable(sessionStorage.EndDateAcc);
 
@@ -54,8 +55,6 @@
         $('#aztarikh').val(sessionStorage.BeginDateAcc);
         $('#tatarikh').val(sessionStorage.EndDateAcc);
     });
-
-    getParamAcc();
 
 
     $('#btnaztarikh').click(function () {

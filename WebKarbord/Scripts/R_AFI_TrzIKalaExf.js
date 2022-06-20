@@ -29,6 +29,8 @@
     var TrzIExfCountUri = server + '/api/Web_Data/TrzIExfCount/'; // تعداد رکورد های گزارش 
    // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
+    getParamInv();
+
     self.AzDate = ko.observable(sessionStorage.BeginDateInv);
     self.TaDate = ko.observable(sessionStorage.EndDateInv);
 
@@ -59,7 +61,6 @@
     });
 
 
-    getParamInv();
 
 
     $('#btnaztarikh').click(function () {

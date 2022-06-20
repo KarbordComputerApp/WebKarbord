@@ -24,6 +24,7 @@
 
     TestUser();
 
+    getParamAcc();
 
     salAcc = localStorage.getItem("SalAcc");
     if (salAcc != '' && salAcc != null)
@@ -47,7 +48,7 @@
         localStorage.setItem("SalAcc", sal);
     });
 
-    getParamAcc();
+
 
     $('#btnaztarikh').click(function () {
         $('#aztarikh').change();
