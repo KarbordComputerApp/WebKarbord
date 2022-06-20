@@ -1849,7 +1849,7 @@ var ViewModel = function () {
                         name: 'DefultColumn',
                         options: {
                             icon: 'columnproperties',
-                            hint: 'پیش فرض',
+                            hint: 'پیش فرض ستون ها',
                             onClick() {
                                 Swal.fire({
                                     title: '',
@@ -1965,10 +1965,11 @@ var ViewModel = function () {
 
             onCellPrepared: function (e) {
 
-                if (e.rowType === "header") {
+                if (e.rowType === "header" || (e.rowType === "data" && (e.column.dataField === "#" || e.column.dataField === "button"))) {
                     e.cellElement.css("background-color", '#d9d9d9');
                     e.cellElement.css("color", 'black');
                 }
+
 
                 if (e.rowType === "data" && (e.column.dataField === "AccZCode" || e.column.dataField === "AccZName")) {
 

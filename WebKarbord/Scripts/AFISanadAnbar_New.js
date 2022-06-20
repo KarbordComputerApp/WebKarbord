@@ -106,7 +106,7 @@ var ViewModel = function () {
 
     var codeArz = '';
     var arzRate = 0;
-    $('#ArzRate').val(0);
+    $('#ArzRate').val("0.00");
 
 
     var accessTaeed = false;
@@ -351,6 +351,8 @@ var ViewModel = function () {
 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
+    var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس مانده کالا 
+
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
 
@@ -545,6 +547,48 @@ var ViewModel = function () {
             }
         });
     }
+
+
+    function GetTrzIKala(kalaCode, mainUnit) {
+        taTarikh = $("#tarikh").val().toEnglishDigit();
+
+        var TrzIObject = {
+            azTarikh: '',
+            taTarikh: taTarikh,
+            StatusCode: '',
+            ModeCode: '',
+            InvCode: '',
+            KGruCode: '',
+            KalaCode: kalaCode,
+            ThvlCode: '',
+            TGruCode: '',
+            MkzCode: '',
+            OprCode: '',
+        };
+
+        ajaxFunction(TrzIUri + ace + '/' + sal + '/' + group, 'POST', TrzIObject, true).done(function (data) {
+            mAmount = 0;
+            mTotalPrice = 0;
+
+            for (var i = 0; i < data.length; i++) {
+                if (mainUnit == 1) {
+                    mAmount += data[i].MAmount1;
+                }
+                else if (mainUnit == 2) {
+                    mAmount += data[i].MAmount2;
+                }
+                else if (mainUnit == 3) {
+                    mAmount += data[i].MAmount3;
+                }
+                mTotalPrice += data[i].MTotalPrice;
+            }
+            $("#MAmount").text(NumberToNumberString(mAmount));
+            $("#MTotalPrice").text(NumberToNumberString(mTotalPrice));
+
+        });
+    }
+
+
 
     self.OptionsCaptionAnbar = ko.computed(function () {
         return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
@@ -938,13 +982,13 @@ var ViewModel = function () {
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
 
-        self.ArzRate(sessionStorage.ArzRate);
-        arzRate = sessionStorage.ArzRate;
+        self.ArzRate(parseFloat(sessionStorage.ArzRate));
+        arzRate = parseFloat(sessionStorage.ArzRate);
 
         $('#nameOpr').val(sessionStorage.OprCode == '' ? '' : '(' + sessionStorage.OprCode + ') ' + sessionStorage.OprName);
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
-        $('#ArzRate').val(arzRate);
+        $('#ArzRate').val(arzRate.toFixed(2));
 
         getIDocH(Serial);
         getIDocB(Serial);
@@ -1686,7 +1730,7 @@ var ViewModel = function () {
 
                                         self.ArzRate("");
                                         arzRate = 0;
-                                        $('#ArzRate').val(0);
+                                        $('#ArzRate').val("0.00");
 
                                         codeOpr = '';
                                         codeMkz = '';
@@ -1753,7 +1797,7 @@ var ViewModel = function () {
                         name: 'DefultColumn',
                         options: {
                             icon: 'columnproperties',
-                            hint: 'پیش فرض',
+                            hint: 'پیش فرض ستون ها',
                             onClick() {
                                 Swal.fire({
                                     title: '',
@@ -1834,7 +1878,7 @@ var ViewModel = function () {
             },
 
             onCellPrepared: function (e) {
-                if (e.rowType === "header") {
+                if (e.rowType === "header" || (e.rowType === "data" && (e.column.dataField === "#" || e.column.dataField === "button"))) {
                     e.cellElement.css("background-color", '#d9d9d9');
                     e.cellElement.css("color", 'black');
                 }
@@ -2711,11 +2755,12 @@ var ViewModel = function () {
                                     Price2 = parseFloat(dataKala.PPrice2);
                                     Price3 = parseFloat(dataKala.PPrice3);
                                 }
-
+                               
                                 getKalaPriceBList(dataKala.Code);
 
                                 dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
 
+                                GetTrzIKala(dataKala.Code, defaultUnit);
                                 //KalaUnitList = [];
                                 //
                                 // KalaUnitList[0].Name = IDocB[ro].dataKala.UnitName1;
@@ -3511,7 +3556,7 @@ var ViewModel = function () {
         codeArz = item.Code;
         self.ArzCode(item.Code);
         arzRate = item.Rate;
-        $('#ArzRate').val(arzRate);
+        $('#ArzRate').val(arzRate.toFixed(2));
 
     }
 

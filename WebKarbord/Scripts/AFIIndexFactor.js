@@ -1088,9 +1088,10 @@
         };
 
         ajaxFunction(RegFDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToADocObject).done(function (data) {
-            var res = data.split("-");
 
-            if (res.length > 1) {
+            var mes = data.split("+");
+            if (mes[0] == "Success") {
+                var res = mes.split("-");
                 serial = res[0];
                 docNoSanadHesab = res[1];
                 if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
@@ -1101,7 +1102,7 @@
                 }
             }
             else {
-                alert(res[0]);
+                alert(mes[0] + ' : ' + mes[1]);
             }
         });
     });
@@ -1114,9 +1115,9 @@
         };
 
         ajaxFunction(RegFDocToIDocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToIDocObject).done(function (data) {
-            var res = data.split("-");
-
-            if (res.length > 1) {
+            var mes = data.split("+");
+            if (mes[0] == "Success") {
+                var res = mes.split("-");
                 serial = res[0];
                 docNoSanadAnbar = res[1];
                 if (TestUseSanad(ace, sal, "SanadAnbar", serial, false, docNoSanadAnbar)) {
@@ -1131,7 +1132,7 @@
                 }
             }
             else {
-                alert(res[0]);
+                alert(mes[0] + ' : ' + mes[1]);
             }
         });
     });
@@ -3331,11 +3332,7 @@
 
 
 
-    $('#RegFDocToADoc').click(function () {
-
-
-    });
-
+ 
 
 
 

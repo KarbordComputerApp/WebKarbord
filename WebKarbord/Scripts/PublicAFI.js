@@ -70,7 +70,16 @@ if (sessionStorage.versionTitle == "ورژن تست") {
 
 }
 
-$("#VerDllCheck").text('ACC6 ' + localStorage.getItem('VerDllCheckAcc6') + ' - ' + 'FCT6 ' + localStorage.getItem('VerDllCheckFct6'));
+if (ace == 'Web8') {
+    $("#VerDllCheck").text(
+        'ACC6 ' + localStorage.getItem('VerDllCheckAcc6') + ' - ' +
+        'FCT6 ' + localStorage.getItem('VerDllCheckFct6') + ' - ' +
+        'Inv6 ' + localStorage.getItem('VerDllCheckInv6')
+    );
+}
+else if (ace == 'Web1') {
+    $("#VerDllCheck").text('Afi2 ' + localStorage.getItem('VerDllCheckAfi2'));
+}
 
 
 var tiketUrl = 'http://localhost:51091/';
@@ -4685,8 +4694,8 @@ function SetColumn(code, indexId, data, mode) {
         findCode = code.search("Code");
         if (user == "*Default*" &&
             (
-            (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
-            code.lastIndexOf("LtnCode") > 0 ||
+                (code.lastIndexOf("Code") > 0 && code != "AccCode" && code != "AccFullCode") ||
+                code.lastIndexOf("LtnCode") > 0 ||
                 code.lastIndexOf("Amount2") > 0 ||
                 code.lastIndexOf("Amount3") > 0 ||
                 code.lastIndexOf("UnitPrice2") > 0 ||

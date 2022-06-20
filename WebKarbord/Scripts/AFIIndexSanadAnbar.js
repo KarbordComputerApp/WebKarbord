@@ -225,6 +225,7 @@
     var TestIDoc_EditUri = server + '/api/IDocData/TestIDoc_Edit/'; // آدرس تست ویرایش 
 
     var RegIDocToADocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToADoc/'; 
+    var RegIDocToFDocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToFDoc/'; 
 
 
 
@@ -466,8 +467,9 @@
 
         ajaxFunction(RegIDocToADocUri + ace + '/' + sal + '/' + group, 'POST', RegIDocToADocObject).done(function (data) {
 
-            var res = data.split("-");
-            if (res.length > 1) {
+            var mes = data.split("+");
+            if (mes[0] == "Success") {
+                var res = mes.split("-");
                 serial = res[0];
                 docNoSanadHesab = res[1];
                 if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
@@ -477,7 +479,33 @@
                     window.open(sessionStorage.urlAFISanadIndex, '_blank');
                 }
             } else {
-                alert(res[0]);
+                alert(mes[0] + ' : ' + mes[1]);
+            }
+
+        });
+    });
+
+    $('#RegIDocToFDoc').click(function () {
+        var RegIDocToFDocObject = {
+            SerialNumbers: RegSerialNumber
+        };
+
+        ajaxFunction(RegIDocToFDocUri + ace + '/' + sal + '/' + group, 'POST', RegIDocToFDocObject).done(function (data) {
+
+            var mes = data.split("+");
+            if (mes[0] == "Success") {
+                var res = mes.split("-");
+                serial = res[0];
+                docNoFactor = res[1];
+                if (TestUseSanad(ace, sal, "Factor", serial, false, docNoFactor)) {
+                }
+                else {
+                    localStorage.setItem("DocNoAFIFactor", docNoFactor);
+                    localStorage.setItem("ModeCodeAFIFactor", '');
+                    window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+                }
+            } else {
+                alert(mes[0] + ' : ' + mes[1]);
             }
 
         });

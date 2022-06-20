@@ -28,6 +28,12 @@
         if (e.keyCode == key_Enter) {
             $("#pass").focus();
         }
+
+       // var WshShell = new ActiveXObject("WScript.Shell");
+
+       //     MyObject.Run("file:///C:/Program%20Files/EditPlus%203/editplus.exe");
+
+
     });
 
     $("#pass").keydown(function (e) {
@@ -361,6 +367,17 @@
                         ajaxFunction(server + '/api/Web_Data/GetVerDllFct6', 'Get').done(function (data) {
                             localStorage.setItem('VerDllCheckFct6', data);
                         });
+
+                        ajaxFunction(server + '/api/Web_Data/GetVerDllInv6', 'Get').done(function (data) {
+                            localStorage.setItem('VerDllCheckInv6', data);
+                        });
+
+                        ajaxFunction(server + '/api/Web_Data/GetVerDllAfi2', 'Get').done(function (data) {
+                            localStorage.setItem('VerDllCheckAfi2', data);
+                        });
+
+
+
 
                         window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                     }
