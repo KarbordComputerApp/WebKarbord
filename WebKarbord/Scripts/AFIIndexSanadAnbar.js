@@ -469,7 +469,7 @@
 
             var mes = data.split("+");
             if (mes[0] == "Success") {
-                var res = mes.split("-");
+                var res = mes[1].split("-");
                 serial = res[0];
                 docNoSanadHesab = res[1];
                 if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
@@ -494,7 +494,7 @@
 
             var mes = data.split("+");
             if (mes[0] == "Success") {
-                var res = mes.split("-");
+                var res = mes[1].split("-");
                 serial = res[0];
                 docNoFactor = res[1];
                 if (TestUseSanad(ace, sal, "Factor", serial, false, docNoFactor)) {

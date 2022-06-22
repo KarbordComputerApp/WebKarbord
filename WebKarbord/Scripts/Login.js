@@ -19,6 +19,58 @@
 
 
 
+
+    /*  read text file
+     var input = document.getElementById("myFile");
+var output = document.getElementById("output");
+
+
+input.addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    var myFile = this.files[0];
+    var reader = new FileReader();
+
+    reader.addEventListener('load', function (e) {
+      output.textContent = e.target.result;
+    });
+
+    reader.readAsBinaryString(myFile);
+  }
+});
+<input type="file" id="myFile">
+<hr>
+<textarea style="width:500px;height: 400px" id="output"></textarea>
+     */
+
+
+    /*
+<input type="file" onchange="loadFile(this.files[0])">
+<script>
+  async function loadFile(file) {
+    let text = await file.text();
+    console.log(text);
+  }
+</script>
+
+     */
+
+
+
+    /*
+            /* MyObject = new ActiveXObject("WScript.Shell")
+        MyObject.Run("file:///D:/Audacity/Audacity.exe");
+
+
+        if (window.DOMParser) { // Firefox, Chrome, Opera, etc.
+            parser = new DOMParser();
+            var htmlDoc = parser.parseFromString(txt, 'text/html');
+            htmlDoc.getElementById("someID");
+        }
+
+        var x = new ActiveXObject("WScript.Shell");
+        x.run('calc.exe');
+        */
+
     sessionStorage.SelectMenu = '';
 
 
@@ -28,12 +80,6 @@
         if (e.keyCode == key_Enter) {
             $("#pass").focus();
         }
-
-       // var WshShell = new ActiveXObject("WScript.Shell");
-
-       //     MyObject.Run("file:///C:/Program%20Files/EditPlus%203/editplus.exe");
-
-
     });
 
     $("#pass").keydown(function (e) {
@@ -185,7 +231,7 @@
                          tempAccess.search("TChk") > 0 ||
                          tempAccess.search("ADocR") > 0)
                          progName = "ACC5"
- 
+     
                      else if (
                          tempAccess.search("SFORD") > 0 ||
                          tempAccess.search("SPFCT") > 0 ||
@@ -204,7 +250,7 @@
                          tempAccess.search("TrzFCust_S") > 0 ||
                          tempAccess.search("TrzFCust_P") > 0)
                          progName = "FCT5"
- 
+     
                      else if (tempAccess.search("IIDOC") > 0 ||
                          tempAccess.search("IODOC") > 0 ||
                          tempAccess.search("TrzIKala") > 0 ||
@@ -286,7 +332,7 @@
 
                     lastMachineId = datalogin;
                     /*   if (datalogin.ID > -1) {
-
+    
                         m_id = datalogin.CompName.split('-')
                         var LogOutObject = {
                             MachineId: m_id[0],
@@ -422,6 +468,7 @@
             }
             else {
                 serverAddress = data.AddressApi;
+                apiAddressPos = data.AddressApiPos;
                 afi1List = data.AFI1_Group;
                 afi8List = data.AFI8_Group;
                 erjList = data.ERJ_Group;
@@ -440,6 +487,7 @@
 
 
                 localStorage.setItem("ApiAddress", serverAddress);
+                localStorage.setItem("ApiAddressPos", apiAddressPos);
                 localStorage.setItem('userNameAccount', userAccount);
                 localStorage.setItem('passAccount', passAccount);
                 localStorage.setItem("lockNumber", lockNumber);

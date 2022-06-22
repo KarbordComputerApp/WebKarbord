@@ -1091,7 +1091,7 @@
 
             var mes = data.split("+");
             if (mes[0] == "Success") {
-                var res = mes.split("-");
+                var res = mes[1].split("-");
                 serial = res[0];
                 docNoSanadHesab = res[1];
                 if (TestUseSanad(ace, sal, "SanadHesab", serial, false, docNoSanadHesab)) {
@@ -1117,7 +1117,7 @@
         ajaxFunction(RegFDocToIDocUri + ace + '/' + sal + '/' + group, 'POST', RegFDocToIDocObject).done(function (data) {
             var mes = data.split("+");
             if (mes[0] == "Success") {
-                var res = mes.split("-");
+                var res = mes[1].split("-");
                 serial = res[0];
                 docNoSanadAnbar = res[1];
                 if (TestUseSanad(ace, sal, "SanadAnbar", serial, false, docNoSanadAnbar)) {
