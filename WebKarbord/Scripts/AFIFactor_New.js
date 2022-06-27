@@ -534,7 +534,7 @@ var ViewModel = function () {
 
 
 
-    function GetTrzIKala(kalaCode,mainUnit) {
+    function GetTrzIKala(kalaCode, mainUnit) {
         taTarikh = $("#tarikh").val().toEnglishDigit();
 
         var TrzIObject = {
@@ -1758,10 +1758,10 @@ var ViewModel = function () {
             },
 
             onRowPrepared(e) {
-               // if (e.rowType == 'data' ) {
-               //     e.rowElement[0].bgColor = 'red';
-               // }
-            } ,
+                // if (e.rowType == 'data' ) {
+                //     e.rowElement[0].bgColor = 'red';
+                // }
+            },
 
 
             onKeyDown: function (e) {
@@ -1804,6 +1804,20 @@ var ViewModel = function () {
             onToolbarPreparing: function (e) {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
+                    {
+                        location: 'after',
+                        widget: 'dxButton',
+                        name: 'SendPos',
+                        options: {
+                            icon: 'cart',
+                            hint: 'ارسال به دستگاه کارت خوان',
+                            onClick() {
+                                $('#modal-Pos').modal('show');
+
+                            },
+                        },
+                    },
+
                     {
                         location: 'after',
                         widget: 'dxButton',
@@ -2158,7 +2172,7 @@ var ViewModel = function () {
             },
 
             onCellPrepared: function (e) {
-                if (e.rowType === "header" || (e.rowType === "data" && (e.column.dataField === "#" || e.column.dataField === "button"  ))) {
+                if (e.rowType === "header" || (e.rowType === "data" && (e.column.dataField === "#" || e.column.dataField === "button"))) {
                     e.cellElement.css("background-color", '#d9d9d9');
                     e.cellElement.css("color", 'black');
                 }
@@ -4983,6 +4997,51 @@ var ViewModel = function () {
         setReport(self.FDocPList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
+
+
+
+
+    $('#AcceptPos').click(function () {
+        if (Serial != '') {
+            codeSelect = $("#posList").val();
+            list = PosList();
+
+            prn_Message = '';
+            docNo_Pay = $("#docnoout").val();
+            value = $('#ghabelPardakht').text();
+            value = value == '' ? 0 : value.replaceAll(',', '');
+
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == codeSelect) {
+                    baudRate = list[i].BuadRates;
+                    port = list[i].ComPorts;
+                    posBanMode = list[i].ModePos;
+                }
+            }
+
+
+            var Pay_PosBanUri = serverPos + '/api/Web_Data/Pay_PosBan/';
+
+            var Pay_PosBanObject = {
+                BaudRate: baudRate,
+                Port: port,
+                PosBanMode: posBanMode,
+                Factor_NO: docNo_Pay,
+                Value: value,
+                Prn_Message: prn_Message
+            };
+
+            ajaxFunction(Pay_PosBanUri, 'POST', Pay_PosBanObject).done(function (data) {
+                a = data;
+                alert(a);
+            });
+
+        }
+        $('#modal-Print').modal('hide');
+    });
+
+
+
 
 
 

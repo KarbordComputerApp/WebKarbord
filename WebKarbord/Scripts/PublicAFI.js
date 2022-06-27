@@ -623,6 +623,8 @@ var LogXUri = server + '/api/Web_Data/LogX/'; //  آدرس لاگ
 
 
 
+
+
 /*
 var source = ["Apples", "Oranges", "Bananas"];
 $(function () {
@@ -810,6 +812,7 @@ AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 
 PrintFormsList = ko.observableArray([]); // لیست چاپ 
+PosList = ko.observableArray([]); // لیست دستگاه کارتخوان 
 
 MessageList = ko.observableArray([]);
 
@@ -5215,6 +5218,27 @@ function saveByteArray(reportName, byte) {
 
 
 
+var serverPos = localStorage.getItem("ApiAddressPos");
+CodePos = ko.observable();
+function GetPosList() {
+
+
+    if (serverPos != '' && serverPos != null) {
+
+        var PosListUri = serverPos + '/api/Web_Data/PosList/';
+
+
+        ajaxFunction(PosListUri, 'GET').done(function (data) {
+            PosList(data);
+        });
+    }
+}
+//if ((serverPos != '' && serverPos != null) && (self.PosList.length == 0)) {
+GetPosList();
+//}
+
+
+
 
 function GetPrintForms(Mode) {
 
@@ -5226,6 +5250,7 @@ function GetPrintForms(Mode) {
         PrintFormsList(data);
     });
 }
+
 
 $('#refreshPrintForms').click(function () {
     Swal.fire({

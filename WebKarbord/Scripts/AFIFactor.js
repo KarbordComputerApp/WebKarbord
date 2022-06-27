@@ -4479,6 +4479,43 @@
     });
 
 
+    $('#AcceptPos').click(function () {
+        if (Serial != '') {
+            codeSelect = $("#posList").val();
+            list = PosList();
+
+            prn_Message = '';
+            docNo_Pay = $("#docnoout").val();
+            value = $('#ghabelpardakht').text();
+            value = value == '' ? 0 : value.replaceAll(',', '');
+
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].Code == codeSelect) {
+                    baudRate = list[i].BuadRates;
+                    port = list[i].ComPorts;
+                    posBanMode = list[i].ModePos;
+                }
+            }
+
+
+            var Pay_PosBanUri = serverPos + '/api/Web_Data/PosList/';
+
+            var Pay_PosBanObject = {
+                BaudRate: baudRate,
+                Port: port,
+                PosBanMode: posBanMode,
+                Factor_NO: docNo_Pay,
+                Value: value,
+                Prn_Message: prn_Message
+            };
+
+            ajaxFunction(Pay_PosBanUri, 'POST', Pay_PosBanObject).done(function (data) {
+
+            });
+
+        }
+        $('#modal-Print').modal('hide');
+    });
 
 
 

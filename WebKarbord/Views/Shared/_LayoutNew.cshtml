@@ -258,7 +258,7 @@
             <ul class="list">
                 <li class="sidebar-user-panel active">
                     <div class="center">
-                        <img id="logoMenu"src="~/Content/img/Logo.jpg" style="width: 250px;" />
+                        <img id="logoMenu" src="~/Content/img/Logo.jpg" style="width: 250px;" />
                         <img src="~/Content/img/new item/line.png" style="padding :5px 0px; max-width:100%" />
                     </div>
                     <div class="profile-usertitle">
@@ -441,7 +441,7 @@
                             <a data-bind="text:translate('پرونده')" class="useBlank" target="_blank" href=@Url.Action("Index","ERJ")></a>
                         </li>
                         <li id="Erja_Resive" class="rightClick">
-                            <a data-bind="text:translate('ارجاعات پرونده دریافتی')"class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")></a>
+                            <a data-bind="text:translate('ارجاعات پرونده دریافتی')" class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")></a>
                         </li>
                         <li id="Erja_Send" class="rightClick">
                             <a data-bind="text:translate('ارجاعات پرونده ارسالی')" class="useBlank" target="_blank" href=@Url.Action("Erja","ERJ")></a>
@@ -484,9 +484,9 @@
 
 
                         <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
-    <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
-    <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
-    <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
+                        <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
+                        <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
+                        <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -1004,6 +1004,43 @@
                 </textarea>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal fade" id="modal-Pos" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text:translate('ارسال به دستگاه کارت خوان')"> </h4>
+
+                       <a></a>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <select id="posList" data-bind="options: PosList,
+                                                          optionsText: function(item) {return item.Name},
+                                                          optionsValue: 'Code',
+                                                          value: CodePos"></select>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                    <button data-bind="text:translate('ارسال')" type="button" id="AcceptPos" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                </div>
+
+            </div>
+
         </div>
     </div>
 
