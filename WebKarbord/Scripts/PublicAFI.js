@@ -5223,7 +5223,7 @@ CodePos = ko.observable();
 function GetPosList() {
 
 
-    if (serverPos != '' && serverPos != null) {
+    if (serverPos != "undefined" && serverPos != "" && serverPos != null) {
 
         var PosListUri = serverPos + '/api/Web_Data/PosList/';
 
