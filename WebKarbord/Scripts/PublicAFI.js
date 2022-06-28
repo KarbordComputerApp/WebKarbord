@@ -5234,7 +5234,7 @@ function GetPosList() {
     }
 }
 //if ((serverPos != '' && serverPos != null) && (self.PosList.length == 0)) {
-GetPosList();
+//GetPosList();
 //}
 
 
