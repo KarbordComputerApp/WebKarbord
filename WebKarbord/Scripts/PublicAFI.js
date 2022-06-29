@@ -5555,7 +5555,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     }
 
 
-    if (useWindows == true && userUse != sessionStorage.userName) {
+    if (useWindows == true /*&& userUse != sessionStorage.userName*/) {
         showNotification(translate('توسط') + ' ' + userUseName + ' ' + translate('درحال استفاده است'), 0);
         return true;
     }
