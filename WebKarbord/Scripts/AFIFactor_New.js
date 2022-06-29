@@ -1804,7 +1804,9 @@ var ViewModel = function () {
             onToolbarPreparing: function (e) {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
-                    {
+
+                    serverPos != '' && serverPos != null && PosList.length == 0  ?
+                 {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'SendPos',
@@ -1816,7 +1818,7 @@ var ViewModel = function () {
 
                             },
                         },
-                    },
+                    } : '' ,
 
                     {
                         location: 'after',

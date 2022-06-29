@@ -468,9 +468,9 @@
         textLastBand = '';
         for (var j = 0; j < listLastBand.length; j++) {
             if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
-                textLastBand +=
+               /* textLastBand +=
                     '  <div style="padding: 3px;margin: 0px 10px 0px 10px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '
+                textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">نتیجه ثبت شده توسط :</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '*/
             }
             else if (listLastBand[j].DocBMode == 1) {
                 textLastBand +=
@@ -490,7 +490,8 @@
                     textLastBand += ' </div> ';
                 }
             }
-            else {
+            else if (listLastBand[j].DocBMode != 0) {
+
                 textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                 textLastBand += ConvertComm(listLastBand[j].RjResult);
                 textLastBand += ' </div> ';

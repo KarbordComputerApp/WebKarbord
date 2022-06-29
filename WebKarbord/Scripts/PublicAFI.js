@@ -5235,7 +5235,7 @@ function GetPosList() {
     }
 }
 
-if ((serverPos != '' && serverPos != null) && (self.PosList.length == 0)) {
+if ((serverPos != '' && serverPos != null) && (PosList.length == 0)) {
     GetPosList();
 }
 
@@ -5594,6 +5594,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
                         DocNo: docNo
                     };
                     ajaxFunction(SaveDocInUseUri, 'POST', SaveDocInUseObject, false).done(function (response) {
+                        a = response;
                     });
                 }
 
