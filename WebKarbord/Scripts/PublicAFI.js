@@ -5251,7 +5251,7 @@ CodePos = ko.observable();
 function GetPosList() {
 
 
-    if (serverPos != "undefined" && serverPos != "" && serverPos != null) {
+    if (serverPos != "undefined" && serverPos != "" && serverPos != null && serverPos != "null") {
 
         var PosListUri = serverPos + '/api/Web_Data/PosList/';
 
