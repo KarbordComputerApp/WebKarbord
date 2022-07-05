@@ -96,6 +96,9 @@ var serverAccount = localStorage.getItem('serverAccount');
 
 
 
+function showLoad() {
+
+}
 
 function ajaxFunction(uri, method, data, sync, error) {
 
@@ -123,7 +126,7 @@ function ajaxFunction(uri, method, data, sync, error) {
             'userName': userNameAccount,
             'password': passAccount,
             'userKarbord': sessionStorage.userName,
-            'device': 'Web',
+            'device': "Web"
         },
         complete: function () {
             var n = uri.search("ChangeDatabase");
@@ -5664,7 +5667,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
             }
 
             // حذف سند باز شده توسط وب در ویندوز
-            var DeleteDocInUseUri = server + 'api/Web_Data/DeleteDocInUse/';
+            var DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
             var DeleteDocInUseObject = {
                 Prog: prog,
                 DMode: dMode,
@@ -5672,7 +5675,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true, true).done(function (response) {
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true, false).done(function (response) {
                 //showNotification('1',0);
             });
         }
