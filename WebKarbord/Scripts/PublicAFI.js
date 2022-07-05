@@ -95,6 +95,163 @@ var serverAccount = localStorage.getItem('serverAccount');
 //sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 
 
+
+
+function ajaxFunction(uri, method, data, sync, error) {
+
+    //$('#loading-image').show();
+    var userNameAccount = localStorage.getItem("userNameAccount");
+    var passAccount = localStorage.getItem("passAccount");
+
+    return $.ajax({
+        type: method,
+        async: sync == null ? false : sync,
+        encoding: 'UTF-8',
+        beforeSend: function () {
+            if (sync == true) {
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
+        url: uri,//+ '/' + userNameAccount + '/' + passAccount,
+        dataType: 'json',
+
+        cache: false,
+        timeout: 300000,
+        onLoading: showLoad(),
+        headers: {
+            'userName': userNameAccount,
+            'password': passAccount,
+            'userKarbord': sessionStorage.userName,
+            'device': 'Web',
+        },
+        complete: function () {
+            var n = uri.search("ChangeDatabase");
+            if (sync == true && n == -1) {
+                $('#loadingsite').css('display', 'none');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
+        },
+        //async: true,
+        //crossDomain: true,
+        //cache: false,
+        contentType: 'application/json',
+        //contentType: 'application/x-www-form-urlencoded',
+        // xhrFields: { withCredentials: true },
+        data: data ? JSON.stringify(data) : null
+        //data: data ? data : null
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        error != false ?
+            showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3)
+            : null;
+        // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
+    });
+}
+
+
+function ajaxFunctionAccount(uri, method, sync, data) {
+    return $.ajax({
+        type: method,
+        url: uri,
+        dataType: 'json',
+        async: sync == null ? false : sync,
+        beforeSend: function () {
+            if (sync == true) {
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
+        cache: false,
+        timeout: 30000,
+        complete: function () {
+            if (sync == true) {
+                $('#loadingsite').css('display', 'none');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
+        },
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
+    });
+}
+
+
+function ajaxFunctionOther(uri, method, data) {
+
+    return $.ajax({
+        type: method,
+        url: uri,
+        dataType: 'json',
+        async: false,
+        cache: false,
+        timeout: 30000,
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
+    });
+}
+
+
+function ajaxFunctionUpload(uri, data, sync) {
+
+    var userNameAccount = localStorage.getItem("userNameAccount");
+    var passAccount = localStorage.getItem("passAccount");
+    return $.ajax({
+        url: uri,
+        type: 'POST',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        async: sync == null ? false : sync,
+        beforeSend: function () {
+            if (sync == true) {
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
+
+        headers: {
+            'userName': userNameAccount,
+            'password': passAccount,
+            'userKarbord': sessionStorage.userName,
+            'device': 'Web',
+        },
+        success: function (fileName) {
+            // $("#fileProgress").hide();
+            // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
+        },
+        complete: function () {
+            var n = uri.search("ChangeDatabase");
+            if (sync == true && n == -1) {
+                $('#loadingsite').css('display', 'none');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
+        },
+        xhr: function () {
+            var fileXhr = $.ajaxSettings.xhr();
+            if (fileXhr.upload) {
+                $("progress").show();
+                fileXhr.upload.addEventListener("progress", function (e) {
+                    if (e.lengthComputable) {
+                        $("#fileProgress").attr({
+                            value: e.loaded,
+                            max: e.total
+                        });
+                    }
+                }, false);
+            }
+            return fileXhr;
+        }
+    });
+}
+
+
+
+
 var DictionaryUri = server + '/api/Web_Data/Web_Dictionary/'; // آدرس  دیکشنری
 
 //localStorage.removeItem('dict');
@@ -1135,161 +1292,6 @@ else
 //    });
 //}
 
-function ajaxFunctionAccount(uri, method, sync, data) {
-    return $.ajax({
-        type: method,
-        url: uri,
-        dataType: 'json',
-        async: sync == null ? false : sync,
-        beforeSend: function () {
-            if (sync == true) {
-                $('#loadingsite').attr('class', 'page-proccess-wrapper');
-                $('#loadingsite').css('display', 'block');
-            }
-        },
-        cache: false,
-        timeout: 30000,
-        complete: function () {
-            if (sync == true) {
-                $('#loadingsite').css('display', 'none');
-                $('#loadingsite').attr('class', 'page-loader-wrapper');
-            }
-        },
-        contentType: 'application/json',
-        data: data ? JSON.stringify(data) : null
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
-    });
-}
-
-
-
-function showLoad() {
-
-}
-
-function ajaxFunction(uri, method, data, sync, error) {
-
-    //$('#loading-image').show();
-    var userNameAccount = localStorage.getItem("userNameAccount");
-    var passAccount = localStorage.getItem("passAccount");
-
-    return $.ajax({
-        type: method,
-        async: sync == null ? false : sync,
-        encoding: 'UTF-8',
-        beforeSend: function () {
-            if (sync == true) {
-                $('#loadingsite').attr('class', 'page-proccess-wrapper');
-                $('#loadingsite').css('display', 'block');
-            }
-        },
-        url: uri,//+ '/' + userNameAccount + '/' + passAccount,
-        dataType: 'json',
-
-        cache: false,
-        timeout: 300000,
-        onLoading: showLoad(),
-        headers: {
-            'userName': userNameAccount,
-            'password': passAccount,
-            'userKarbord': sessionStorage.userName,
-            'device': 'Web',
-        },
-        complete: function () {
-            var n = uri.search("ChangeDatabase");
-            if (sync == true && n == -1) {
-                $('#loadingsite').css('display', 'none');
-                $('#loadingsite').attr('class', 'page-loader-wrapper');
-            }
-        },
-        //async: true,
-        //crossDomain: true,
-        //cache: false,
-        contentType: 'application/json',
-        //contentType: 'application/x-www-form-urlencoded',
-        // xhrFields: { withCredentials: true },
-        data: data ? JSON.stringify(data) : null
-        //data: data ? data : null
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        error != false ?
-            showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3)
-            : null;
-        // Swal.fire({ type: 'danger', title: 'اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید', text: errorThrown });
-    });
-}
-
-function ajaxFunctionOther(uri, method, data) {
-
-    return $.ajax({
-        type: method,
-        url: uri,
-        dataType: 'json',
-        async: false,
-        cache: false,
-        timeout: 30000,
-        contentType: 'application/json',
-        data: data ? JSON.stringify(data) : null
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3);
-    });
-}
-
-
-function ajaxFunctionUpload(uri, data, sync) {
-
-    var userNameAccount = localStorage.getItem("userNameAccount");
-    var passAccount = localStorage.getItem("passAccount");
-    return $.ajax({
-        url: uri,
-        type: 'POST',
-        data: data,
-        cache: false,
-        contentType: false,
-        processData: false,
-
-        async: sync == null ? false : sync,
-        beforeSend: function () {
-            if (sync == true) {
-                $('#loadingsite').attr('class', 'page-proccess-wrapper');
-                $('#loadingsite').css('display', 'block');
-            }
-        },
-
-        headers: {
-            'userName': userNameAccount,
-            'password': passAccount,
-            'userKarbord': sessionStorage.userName,
-            'device': 'Web',
-        },
-        success: function (fileName) {
-            // $("#fileProgress").hide();
-            // $("#lblMessage").html("<b>" + fileName + "</b> has been uploaded.");
-        },
-        complete: function () {
-            var n = uri.search("ChangeDatabase");
-            if (sync == true && n == -1) {
-                $('#loadingsite').css('display', 'none');
-                $('#loadingsite').attr('class', 'page-loader-wrapper');
-            }
-        },
-        xhr: function () {
-            var fileXhr = $.ajaxSettings.xhr();
-            if (fileXhr.upload) {
-                $("progress").show();
-                fileXhr.upload.addEventListener("progress", function (e) {
-                    if (e.lengthComputable) {
-                        $("#fileProgress").attr({
-                            value: e.loaded,
-                            max: e.total
-                        });
-                    }
-                }, false);
-            }
-            return fileXhr;
-        }
-    });
-}
 
 
 
@@ -5662,7 +5664,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
             }
 
             // حذف سند باز شده توسط وب در ویندوز
-            var DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+            var DeleteDocInUseUri = server + 'api/Web_Data/DeleteDocInUse/';
             var DeleteDocInUseObject = {
                 Prog: prog,
                 DMode: dMode,
@@ -5670,7 +5672,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true, false).done(function (response) {
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true, true).done(function (response) {
                 //showNotification('1',0);
             });
         }
