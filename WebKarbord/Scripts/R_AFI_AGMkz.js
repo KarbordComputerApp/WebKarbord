@@ -176,9 +176,11 @@
 
 
     function getAccList() {
+        whereAcc = localStorage.getItem('whereAcc');
         var AccObject = {
             Mode: 0,
             UserCode: sessionStorage.userName,
+            Where: whereAcc
         }
 
         ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {

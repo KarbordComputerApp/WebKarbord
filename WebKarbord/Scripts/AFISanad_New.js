@@ -214,9 +214,11 @@ var ViewModel = function () {
 
     function getAccList() {
         if (AccList == null) {
+            whereAcc = localStorage.getItem('whereAcc');
             var AccObject = {
                 Mode: 1,
                 UserCode: sessionStorage.userName,
+                Where: whereAcc
             }
 
             ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, false).done(function (data) {
@@ -5498,6 +5500,7 @@ var ViewModel = function () {
                 'userName': userNameAccount,
                 'password': passAccount,
                 'userKarbord': sessionStorage.userName,
+                'device': 'Web',
             },
             contentType: 'application/json',
             data: data ? JSON.stringify(data) : null

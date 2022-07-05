@@ -1194,6 +1194,7 @@ function ajaxFunction(uri, method, data, sync, error) {
             'userName': userNameAccount,
             'password': passAccount,
             'userKarbord': sessionStorage.userName,
+            'device': 'Web',
         },
         complete: function () {
             var n = uri.search("ChangeDatabase");
@@ -1259,6 +1260,7 @@ function ajaxFunctionUpload(uri, data, sync) {
             'userName': userNameAccount,
             'password': passAccount,
             'userKarbord': sessionStorage.userName,
+            'device': 'Web',
         },
         success: function (fileName) {
             // $("#fileProgress").hide();
@@ -2370,7 +2372,7 @@ function getAccessList(GoHome) {
             }
             else {
                 serverAddress = data.AddressApi;
-
+                apiAddressPos = data.AddressApiPos;
                 afi1List = data.AFI1_Group;
                 afi8List = data.AFI8_Group;
                 erjList = data.ERJ_Group;
@@ -2379,6 +2381,20 @@ function getAccessList(GoHome) {
                 afi8Access = data.AFI8_Access;
                 erjAccess = data.ERJ_Access;
 
+                lockNumber = data.lockNumber;
+                multilang = data.multilang;
+                logoutmin = data.logoutmin;
+
+                whereKala = data.WhereKala;
+                whereCust = data.WhereCust;
+                whereAcc = data.WhereAcc;
+
+                Master_ProgName = data.ProgName;
+                Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '';
+
+                localStorage.setItem("ApiAddressPos", apiAddressPos);
+
+                localStorage.setItem('DataAccount', JSON.stringify(data));
                 localStorage.setItem('afi1List', afi1List);
                 localStorage.setItem('afi8List', afi8List);
                 localStorage.setItem('erjList', erjList);
@@ -2386,6 +2402,15 @@ function getAccessList(GoHome) {
                 localStorage.setItem('afi1Access', afi1Access);
                 localStorage.setItem('afi8Access', afi8Access);
                 localStorage.setItem('erjAccess', erjAccess);
+                localStorage.setItem('multilang', multilang);
+                localStorage.setItem('logoutmin', logoutmin);
+
+                localStorage.setItem('whereKala', whereKala);
+                localStorage.setItem('whereCust', whereCust);
+                localStorage.setItem('whereAcc', whereAcc);
+
+                localStorage.setItem('Master_ProgName', Master_ProgName);
+                localStorage.setItem('Fct_or_Inv', Fct_or_Inv);
 
 
 

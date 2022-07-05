@@ -314,11 +314,13 @@
 
     //Get kala List
     function getKalaList() {
+        whereKala = localStorage.getItem('whereKala');
         var KalaObject = {
             withimage: false,
             updatedate: null,
             Mode: 3,
             UserCode: sessionStorage.userName,
+            where: whereKala,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);

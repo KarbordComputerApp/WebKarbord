@@ -170,6 +170,10 @@ input.addEventListener("change", function () {
                 return showNotification(translate('زمان استفاده شما از نرم افزار به پایان رسیده است'), 0);
             }
 
+            if (data == "Not Access Web") {
+                return showNotification(translate('دسترسی به وب ندارید'), 0);
+            }
+
             if (data == null || data == 0)
                 //return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
                 return showNotification(translate('نام کاربری یا کلمه عبور اشتباه است'), 0);
@@ -481,6 +485,10 @@ input.addEventListener("change", function () {
                 multilang = data.multilang;
                 logoutmin = data.logoutmin;
 
+                whereKala = data.WhereKala;
+                whereCust = data.WhereCust;
+                whereAcc = data.WhereAcc;
+
                 Master_ProgName = data.ProgName;
                 Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '';
 
@@ -502,6 +510,10 @@ input.addEventListener("change", function () {
                 localStorage.setItem('erjAccess', erjAccess);
                 localStorage.setItem('multilang', multilang);
                 localStorage.setItem('logoutmin', logoutmin);
+
+                localStorage.setItem('whereKala', whereKala);
+                localStorage.setItem('whereCust', whereCust);
+                localStorage.setItem('whereAcc', whereAcc);
 
                 localStorage.setItem('Master_ProgName', Master_ProgName);
                 localStorage.setItem('Fct_or_Inv', Fct_or_Inv);

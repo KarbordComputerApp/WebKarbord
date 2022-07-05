@@ -319,11 +319,13 @@
 
     //Get kala List
     function getKalaList() {
+        whereKala = localStorage.getItem('whereKala');
         var KalaObject = {
             withimage: false,
             updatedate: null,
             Mode: 0,
             UserCode: sessionStorage.userName,
+            where: whereKala,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data);
@@ -365,12 +367,13 @@
 
     //Get Cust List
     function getCustList() {
-
+        whereCust = localStorage.getItem('whereCust');
         var CustObject = {
             forSale: null,
             updatedate: null,
             Mode: 0,
             UserCode: sessionStorage.userName,
+            Where: whereCust, 
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
             self.CustList(data);

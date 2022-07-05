@@ -332,11 +332,13 @@ var ViewModel = function () {
 
     //Get Cust List
     function getCustList() {
+        whereCust = localStorage.getItem('whereCust');
         var CustObject = {
             forSale: sessionStorage.InOut == 2 ? true : false,
             updatedate: null,
             Mode: 2,
             UserCode: sessionStorage.userName,
+            Where: whereCust, 
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
             self.CustList(data == null ? [] : data);
@@ -430,11 +432,13 @@ var ViewModel = function () {
 
     //Get kala List
     function getKalaList() {
+        whereKala = localStorage.getItem('whereKala');
         var KalaObject = {
             withimage: false,
             updatedate: null,
             Mode: 2,
             UserCode: sessionStorage.userName,
+            where: whereKala,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
             self.KalaList(data);
@@ -2173,6 +2177,13 @@ var ViewModel = function () {
                 a = 1;
             },
 
+         /*   onContentReady: function (e) {
+                if (e.component.__focused) {
+                    e.component.__focused = true;  //__focus is a fake option. It's required only for this scenario.  
+                    e.component.focus();
+                }
+            }  ,*/
+
             onCellPrepared: function (e) {
                 if (e.rowType === "header" || (e.rowType === "data" && (e.column.dataField === "#" || e.column.dataField === "button"))) {
                     e.cellElement.css("background-color", '#d9d9d9');
@@ -3597,8 +3608,9 @@ var ViewModel = function () {
 
 
                                 e.component.close();
+
+                               
                                 dataGrid.focus(dataGrid.getCellElement(ro, 'Amount' + (defaultUnit == null ? 1 : defaultUnit)));
-                                //dataGrid.focus(dataGrid.getCellElement(ro, 5));
                             }
                         }
 
@@ -3610,6 +3622,7 @@ var ViewModel = function () {
             },
         });
     }
+
 
     function dropDownBoxEditorKalaName(cellElement, cellInfo) {
         return $('<div>').dxDropDownBox({

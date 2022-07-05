@@ -189,11 +189,13 @@
 
 
     function getCustList() {
+        whereCust = localStorage.getItem('whereCust');
         var CustObject = {
             forSale: null,
             updatedate: null,
             Mode: 255,
             UserCode: sessionStorage.userName,
+            Where: whereCust, 
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
             self.CustList(data == null ? [] : data);

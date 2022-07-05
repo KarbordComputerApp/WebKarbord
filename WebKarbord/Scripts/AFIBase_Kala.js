@@ -175,11 +175,13 @@
     getExtraFieldsList();
 
     function getKalaList() {
+        whereKala = localStorage.getItem('whereKala');
         var KalaObject = {
             withimage: false,
             updatedate: null,
             Mode: 255,
             UserCode: sessionStorage.userName,
+            where: whereKala,
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
             self.KalaList(data == null ? [] : data);
