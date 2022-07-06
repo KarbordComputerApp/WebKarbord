@@ -5636,8 +5636,6 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
 
 function RemoveUseSanad(prog, year, FormName, Id) {
     if (Id != null) {
-
-
         listUse = localStorage.getItem("list" + FormName + "Use");
 
         if (listUse == null) {
@@ -5675,7 +5673,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true, false).done(function (response) {
+            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false, false).done(function (response) {
                 //showNotification('1',0);
             });
         }
