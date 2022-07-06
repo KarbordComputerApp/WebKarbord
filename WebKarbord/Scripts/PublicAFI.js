@@ -1,4 +1,16 @@
-﻿var server = localStorage.getItem('ApiAddress');
+﻿var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+
+window.addEventListener("pageshow", function (event) {
+    var historyTraversal = event.persisted ||
+        (typeof window.performance != "undefined" &&
+            window.performance.navigation.type === 2);
+    if (historyTraversal && isFirefox == false) {
+        // Handle page restore.
+        window.location.reload();
+    }
+});
+
+var server = localStorage.getItem('ApiAddress');
 var ace = localStorage.getItem('ace');
 var sal = localStorage.getItem('sal');
 var group = localStorage.getItem('group');
@@ -99,6 +111,7 @@ var serverAccount = localStorage.getItem('serverAccount');
 function showLoad() {
 
 }
+
 
 function ajaxFunction(uri, method, data, sync, error) {
 
@@ -249,6 +262,51 @@ function ajaxFunctionUpload(uri, data, sync) {
             }
             return fileXhr;
         }
+    });
+}
+
+
+
+function ajaxFunctionPos(uri, method, data, sync, error) {
+
+    //$('#loading-image').show();
+    var userNameAccount = localStorage.getItem("userNameAccount");
+    var passAccount = localStorage.getItem("passAccount");
+
+    return $.ajax({
+        type: method,
+        async: sync == null ? false : sync,
+        encoding: 'UTF-8',
+        beforeSend: function () {
+            if (sync == true) {
+                $('#loadingsite').attr('class', 'page-proccess-wrapper');
+                $('#loadingsite').css('display', 'block');
+            }
+        },
+        url: uri,
+        dataType: 'json',
+        cache: false,
+        timeout: 300000,
+        onLoading: showLoad(),
+        headers: {
+            'userName': userNameAccount,
+            'password': passAccount,
+            'userKarbord': sessionStorage.userName,
+            'device': "Web"
+        },
+        complete: function () {
+            var n = uri.search("ChangeDatabase");
+            if (sync == true && n == -1) {
+                $('#loadingsite').css('display', 'none');
+                $('#loadingsite').attr('class', 'page-loader-wrapper');
+            }
+        },
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        error != false ?
+            showNotification(translate('اشکال در دریافت اطلاعات از سرور . لطفا عملیات را دوباره انجام دهید') + '</br>' + textStatus + ' : ' + errorThrown, 3)
+            : null;
     });
 }
 
@@ -972,7 +1030,7 @@ AccessList = ko.observableArray([]); // سطح دسترسی
 AccessListReport = ko.observableArray([]); // سطح دسترسی گزارشات
 
 PrintFormsList = ko.observableArray([]); // لیست چاپ 
-PosList = ko.observableArray([]); // لیست دستگاه کارتخوان 
+
 
 MessageList = ko.observableArray([]);
 
@@ -5248,29 +5306,6 @@ function saveByteArray(reportName, byte) {
 
 
 
-var serverPos = localStorage.getItem("ApiAddressPos");
-CodePos = ko.observable();
-
-function GetPosList() {
-
-
-    if (serverPos != "undefined" && serverPos != "" && serverPos != null && serverPos != "null") {
-
-        var PosListUri = serverPos + '/api/Web_Data/PosList/';
-
-
-        ajaxFunction(PosListUri, 'GET').done(function (data) {
-            PosList(data);
-        });
-    }
-}
-
-if ((serverPos != '' && serverPos != null) && (PosList.length == 0)) {
-    GetPosList();
-}
-
-
-
 
 function GetPrintForms(Mode) {
 
@@ -5634,6 +5669,8 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     }
 }
 
+
+
 function RemoveUseSanad(prog, year, FormName, Id) {
     if (Id != null) {
         listUse = localStorage.getItem("list" + FormName + "Use");
@@ -5665,7 +5702,7 @@ function RemoveUseSanad(prog, year, FormName, Id) {
             }
 
             // حذف سند باز شده توسط وب در ویندوز
-            var DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+            DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
             var DeleteDocInUseObject = {
                 Prog: prog,
                 DMode: dMode,
@@ -5673,9 +5710,16 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false, false).done(function (response) {
-                //showNotification('1',0);
-            });
+            
+            if (isFirefox) {
+                ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
+                });
+            }
+            else {
+                ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
+                });
+            }
+
         }
     }
 }

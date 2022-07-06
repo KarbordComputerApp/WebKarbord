@@ -282,13 +282,13 @@
                         </tr>
                         <tr style="border: #dddddd 1px solid;">
                             <td>
-                               مانده کالا
+                                مانده کالا
                             </td>
                             <td id="MAmount" style="direction: ltr;">0</td>
                         </tr>
                         <tr style="border: #dddddd 1px solid;">
                             <td>
-                               مانده ریالی
+                                مانده ریالی
                             </td>
                             <td id="MTotalPrice" style="direction: ltr;">0</td>
                         </tr>
@@ -907,6 +907,41 @@
 </div>
 
 
+
+
+
+<div class="modal fade" id="modal-Pos" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('ارسال به دستگاه کارت خوان')"> </h4>
+
+                <a></a>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <select id="posList" data-bind="options: PosList,
+                                                          optionsText: function(item) {return item.Name},
+                                                          optionsValue: 'Code',
+                                                          value: CodePos"></select>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                <button data-bind="text:translate('ارسال')" type="button" id="AcceptPos" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 
 

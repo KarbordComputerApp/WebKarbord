@@ -5,6 +5,7 @@ var cols;
 //var dataGrid = $("#gridContainer").dxDataGrid("instance");
 //cellValue = dataGrid.cellValue(ro, 'KalaCode');
 
+
 var ViewModel = function () {
     var self = this;
 
@@ -338,7 +339,7 @@ var ViewModel = function () {
             updatedate: null,
             Mode: 2,
             UserCode: sessionStorage.userName,
-            Where: whereCust, 
+            Where: whereCust,
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
             self.CustList(data == null ? [] : data);
@@ -575,6 +576,23 @@ var ViewModel = function () {
             $("#MTotalPrice").text(NumberToNumberString(mTotalPrice));
 
         });
+    }
+
+
+
+    var serverPos = localStorage.getItem("ApiAddressPos");
+    self.CodePos = ko.observable();
+    self.PosList = ko.observableArray([]); // لیست دستگاه کارتخوان 
+
+    function GetPosList() {
+        var PosListUri = serverPos + '/api/Web_Data/PosList/';
+        ajaxFunction(PosListUri, 'GET', false, false).done(function (data) {
+            self.PosList(data);
+        });
+    }
+
+    if (serverPos != "undefined" && serverPos != "" && serverPos != null && serverPos != "null") {
+        GetPosList();
     }
 
 
@@ -1758,7 +1776,10 @@ var ViewModel = function () {
             onCellClick: function (e) {
                 co = e.columnIndex;
                 ro = e.rowIndex;
-                fieldName = e.column.dataField;
+                //if (e.column.dataField != null) {
+
+                    fieldName = e.column.dataField;
+                //}
             },
 
             onRowPrepared(e) {
@@ -1809,20 +1830,20 @@ var ViewModel = function () {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
 
-                    serverPos != '' && serverPos != null && PosList.length == 0  ?
-                 {
-                        location: 'after',
-                        widget: 'dxButton',
-                        name: 'SendPos',
-                        options: {
-                            icon: 'cart',
-                            hint: 'ارسال به دستگاه کارت خوان',
-                            onClick() {
-                                $('#modal-Pos').modal('show');
+                    serverPos != '' && serverPos != null && self.PosList.length == 0 ?
+                        {
+                            location: 'after',
+                            widget: 'dxButton',
+                            name: 'SendPos',
+                            options: {
+                                icon: 'cart',
+                                hint: 'ارسال به دستگاه کارت خوان',
+                                onClick() {
+                                    $('#modal-Pos').modal('show');
 
+                                },
                             },
-                        },
-                    } : '' ,
+                        } : '',
 
                     {
                         location: 'after',
@@ -2177,12 +2198,12 @@ var ViewModel = function () {
                 a = 1;
             },
 
-         /*   onContentReady: function (e) {
-                if (e.component.__focused) {
-                    e.component.__focused = true;  //__focus is a fake option. It's required only for this scenario.  
-                    e.component.focus();
-                }
-            }  ,*/
+            /*   onContentReady: function (e) {
+                   if (e.component.__focused) {
+                       e.component.__focused = true;  //__focus is a fake option. It's required only for this scenario.  
+                       e.component.focus();
+                   }
+               }  ,*/
 
             onCellPrepared: function (e) {
                 if (e.rowType === "header" || (e.rowType === "data" && (e.column.dataField === "#" || e.column.dataField === "button"))) {
@@ -3609,7 +3630,7 @@ var ViewModel = function () {
 
                                 e.component.close();
 
-                               
+
                                 dataGrid.focus(dataGrid.getCellElement(ro, 'Amount' + (defaultUnit == null ? 1 : defaultUnit)));
                             }
                         }
@@ -5019,7 +5040,7 @@ var ViewModel = function () {
     $('#AcceptPos').click(function () {
         if (Serial != '') {
             codeSelect = $("#posList").val();
-            list = PosList();
+            list = self.PosList();
 
             prn_Message = '';
             docNo_Pay = $("#docnoout").val();
@@ -5094,6 +5115,8 @@ var ViewModel = function () {
     $('#modal-OtherField').on('hide.bs.modal', function () {
         $('#finalSave_Title').removeAttr('hidden', '');
     });
+
+
 
 
     window.onbeforeunload = function () {

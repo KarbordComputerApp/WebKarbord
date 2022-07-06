@@ -1,4 +1,5 @@
-﻿var ViewModel = function () {
+﻿
+var ViewModel = function () {
     var self = this;
     var docnoDelete = 0;
     var flagupdateHeader = 0;
