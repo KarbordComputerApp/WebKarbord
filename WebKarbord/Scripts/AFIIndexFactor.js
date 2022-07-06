@@ -1255,11 +1255,13 @@ var ViewModel = function () {
 
 
     $('#modal-ChangeStatusFactor').on('hide.bs.modal', function () {
+        if (serial != null)
         RemoveUseSanad(ace, sal, "Factor", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "Factor", serial);
+        if (serial != null)
+            RemoveUseSanad(ace, sal, "Factor", serial);
     };
 
     $('#ChangeStatus').click(function () {
@@ -3333,7 +3335,7 @@ var ViewModel = function () {
 
 
 
- 
+
 
 
 
