@@ -141,7 +141,7 @@ input.addEventListener("change", function () {
 
 
 
-
+        var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
         ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber + '/true', 'GET', null, true).done(function (data) {
 
         });

@@ -119,6 +119,9 @@ function ajaxFunction(uri, method, data, sync, error) {
     var userNameAccount = localStorage.getItem("userNameAccount");
     var passAccount = localStorage.getItem("passAccount");
 
+    if (userNameAccount == null) {
+        return showNotification(translate('تنظیمات اتصال را وارد کنید'));
+    }
     return $.ajax({
         type: method,
         async: sync == null ? false : sync,
@@ -320,7 +323,7 @@ var dict = localStorage.getItem('dict');
 if (dict != null)
     dict = JSON.parse(dict);
 else {
-    ajaxFunction(DictionaryUri, 'GET', false).done(function (data) {
+    ajaxFunction(DictionaryUri, 'GET', false, false).done(function (data) {
         a = '{\"en\":{';
         for (var i = 0; i < data.length; i++) {
             a += '"' + data[i].Fa + '": "' + data[i].En + '",';
@@ -5713,10 +5716,12 @@ function RemoveUseSanad(prog, year, FormName, Id) {
             
             if (isFirefox) {
                 ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
+                    for (var i = 0; i < 1000; i++) {}
                 });
             }
             else {
                 ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
+                    for (var i = 0; i < 1000; i++) { }
                 });
             }
 
