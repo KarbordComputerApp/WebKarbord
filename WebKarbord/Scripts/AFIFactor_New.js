@@ -3889,48 +3889,49 @@ var ViewModel = function () {
 
 
     self.selectCust = function (item) {
+        s = $("#sumFactor").text();
+        if (s != '' && s != '') {
+            Swal.fire({
+                title: translate('تایید تغییرات ؟'),
+                text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال می شود . آیا عملیات انجام شود؟'),
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: text_No,
+                allowOutsideClick: false,
+                confirmButtonColor: '#d33',
+                confirmButtonText: text_Yes
+            }).then((result) => {
+                if (result.value) {
+                    codeCust = item.Code;
+                    $('#nameCust').val('(' + item.Code + ') ' + item.Name)
 
-        // if (Serial != '') {
-        Swal.fire({
-            title: translate('تایید تغییرات ؟'),
-            text: translate('در صورت تغییر') + " " + (sessionStorage.InOut == 2 ? translate('خریدار') : translate('فروشنده')) + " " + translate('تغییرات پیش فرض اعمال می شود . آیا عملیات انجام شود؟'),
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#3085d6',
-            cancelButtonText: text_No,
-            allowOutsideClick: false,
-            confirmButtonColor: '#d33',
-            confirmButtonText: text_Yes
-        }).then((result) => {
-            if (result.value) {
-                codeCust = item.Code;
-                $('#nameCust').val('(' + item.Code + ') ' + item.Name)
-
-                if (sessionStorage.sels == "true")
-                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
-                else
-                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
-
-
-                if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
-                    $("#gGhimat").val(item.CGruKalaPriceCode_S);
-                else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
-                    $("#gGhimat").val(item.CGruKalaPriceCode_P);
-
-                if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
-                    $("#gGhimat").val(item.KalaPriceCode_S);
-                else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
-                    $("#gGhimat").val(item.KalaPriceCode_P);
+                    if (sessionStorage.sels == "true")
+                        sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                    else
+                        sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
 
-                self.CustCode(item.Code);
-                SetKalaPrice();
+                    if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
+                        $("#gGhimat").val(item.CGruKalaPriceCode_S);
+                    else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
+                        $("#gGhimat").val(item.CGruKalaPriceCode_P);
+
+                    if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
+                        $("#gGhimat").val(item.KalaPriceCode_S);
+                    else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
+                        $("#gGhimat").val(item.KalaPriceCode_P);
 
 
-                flagKalaPrice = true;
-            }
-        })
-        /*}
+                    self.CustCode(item.Code);
+                    SetKalaPrice();
+
+
+                    flagKalaPrice = true;
+                }
+            })
+            CalcAddmin();
+        }
         else {
             codeCust = item.Code;
             $('#nameCust').val('(' + item.Code + ') ' + item.Name)
@@ -3953,8 +3954,7 @@ var ViewModel = function () {
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
             self.CustCode(item.Code)
-        }*/
-        CalcAddmin();
+        }
         $('#nameCust').focus();
     };
 

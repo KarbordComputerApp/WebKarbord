@@ -1603,6 +1603,7 @@
 
                 ajaxFunction(SaveAccUri + ace + '/' + sal + '/' + group, 'POST', SaveAcc_Object).done(function (data) {
                     getAccList();
+                    self.sortTableAcc();
                     $('#modal-Acc').modal('hide');
                     flag_Save = true;
                     SaveLog('Acc5', isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_Acc, code, 0, 0);
@@ -1717,6 +1718,7 @@
         ajaxFunction(DelAccUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
             currentPage = self.currentPageIndexAcc();
             getAccList();
+            self.sortTableAcc();
             self.currentPageIndexAcc(currentPage);
             SaveLog('Acc5', EditMode_Del, LogMode_Acc, code, 0, 0);
             showNotification(translate('حذف شد'), 1);

@@ -416,6 +416,7 @@
 
                 ajaxFunction(SaveMkzUri + ace + '/' + sal + '/' + group, 'POST', SaveMkz_Object).done(function (data) {
                     getMkzList();
+                    self.sortTableMkz();
                     $('#modal-Mkz').modal('hide');
                     flag_Save = true;
                     SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_MKZ, code, 0, 0);
@@ -531,6 +532,7 @@
         ajaxFunction(DelMkzUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
             currentPage = self.currentPageIndexMkz();
             getMkzList();
+            self.sortTableMkz();
             self.currentPageIndexMkz(currentPage);
             SaveLog(Prog, EditMode_Del, LogMode_MKZ, code, 0, 0);
             showNotification(translate('حذف شد'), 1);

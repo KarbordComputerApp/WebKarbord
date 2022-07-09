@@ -412,6 +412,7 @@
 
                 ajaxFunction(SaveOprUri + ace + '/' + sal + '/' + group, 'POST', SaveOpr_Object).done(function (data) {
                     getOprList();
+                    self.sortTableOpr();
                     $('#modal-Opr').modal('hide');
                     flag_Save = true;
                     SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_OPR, code, 0, 0);
@@ -527,6 +528,7 @@
         ajaxFunction(DelOprUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
             currentPage = self.currentPageIndexOpr();
             getOprList();
+            self.sortTableOpr();
             self.currentPageIndexOpr(currentPage);
             SaveLog(Prog, EditMode_Del, LogMode_OPR, code, 0, 0);
             showNotification(translate('حذف شد'), 1);

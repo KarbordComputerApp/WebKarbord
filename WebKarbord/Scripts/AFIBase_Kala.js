@@ -185,10 +185,12 @@
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
             self.KalaList(data == null ? [] : data);
+            
         });
+        
     }
     getKalaList();
-
+   // self.sortTableKala();
 
     //Get  KGru List
     function getKGruList() {
@@ -1037,6 +1039,7 @@
 
                 ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
                     getKalaList();
+                    self.sortTableKala();
                     $('#modal-Kala').modal('hide');
                     SaveLog(Fct_or_Inv, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_KALA, code, 0, 0);
                     showNotification(translate('ذخيره شد'), 1);
@@ -1148,6 +1151,7 @@
         ajaxFunction(DelKalaUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
             currentPage = self.currentPageIndexKala();
             getKalaList();
+            self.sortTableKala();
             self.currentPageIndexKala(currentPage);
             SaveLog(Fct_or_Inv, EditMode_Del, LogMode_KALA, code, 0, 0);
             showNotification(translate('حذف شد'), 1);

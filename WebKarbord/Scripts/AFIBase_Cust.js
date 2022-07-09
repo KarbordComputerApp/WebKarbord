@@ -971,6 +971,7 @@
 
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
                     getCustList();
+                    self.sortTableCust();
                     $('#modal-Cust').modal('hide');
                     SaveLog('Fct5', isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_CUST, code, 0, 0);
                     showNotification(translate('ذخیره شد'), 1);
@@ -1084,6 +1085,7 @@
         ajaxFunction(DelCustUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
             currentPage = self.currentPageIndexCust();
             getCustList();
+            self.sortTableCust();
             self.currentPageIndexCust(currentPage);
             SaveLog('Fct5', EditMode_Del, LogMode_CUST, code, 0, 0);
             showNotification(translate('حذف شد'), 1);

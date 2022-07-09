@@ -5752,6 +5752,10 @@ function getRprtAllCols() {
 
 function getRprtCols(rprtId, username) {
     data = JSON.parse(localStorage.getItem('RprtCols'));
+    if (data == null) {
+        getRprtAllCols();
+        data = JSON.parse(localStorage.getItem('RprtCols'));
+    }
     result = data.filter(s => s.RprtId == rprtId && s.UserCode == username);
     if (result.length == 0)
         result = data.filter(s => s.RprtId == rprtId && s.UserCode == "*Default*");

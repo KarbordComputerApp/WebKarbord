@@ -410,6 +410,7 @@
 
                 ajaxFunction(SaveArzUri + ace + '/' + sal + '/' + group, 'POST', SaveArz_Object).done(function (data) {
                     getArzList();
+                    self.sortTableArz();
                     $('#modal-Arz').modal('hide');
                     flag_Save = true;
                     SaveLog(Prog, isUpdate == true ? EditMode_Chg : EditMode_New, LogMode_ARZ, code, 0, 0);
@@ -525,6 +526,7 @@
         ajaxFunction(DelArzUri + ace + '/' + sal + '/' + group + '/' + code + '/', 'GET').done(function (response) {
             currentPage = self.currentPageIndexArz();
             getArzList();
+            self.sortTableArz();
             self.currentPageIndexArz(currentPage);
             SaveLog(Prog, EditMode_Del, LogMode_ARZ, code, 0, 0);
             showNotification(translate('حذف شد'), 1);
