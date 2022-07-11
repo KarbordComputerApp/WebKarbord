@@ -481,6 +481,7 @@ input.addEventListener("change", function () {
 
                 whereKala = data.WhereKala;
                 whereCust = data.WhereCust;
+                whereThvl = data.WhereThvl;
                 whereAcc = data.WhereAcc;
 
                 Master_ProgName = data.ProgName;
@@ -507,6 +508,7 @@ input.addEventListener("change", function () {
 
                 localStorage.setItem('whereKala', whereKala);
                 localStorage.setItem('whereCust', whereCust);
+                localStorage.setItem('whereThvl', whereThvl);
                 localStorage.setItem('whereAcc', whereAcc);
 
                 localStorage.setItem('Master_ProgName', Master_ProgName);

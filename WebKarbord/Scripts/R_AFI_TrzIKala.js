@@ -319,9 +319,11 @@
 
     //Get Thvl List
     function getThvlList() {
+        whereThvl = localStorage.getItem('whereThvl');
         var ThvlObject = {
             Mode: 0,
             UserCode: sessionStorage.userName,
+            Where: whereThvl, 
         }
         ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject,true).done(function (data) {
             self.ThvlList(data);

@@ -373,9 +373,11 @@ var ViewModel = function () {
 
     //Get Thvl List
     function getThvlList() {
+        whereThvl = localStorage.getItem('whereThvl');
         var ThvlObject = {
             Mode: 3,
             UserCode: sessionStorage.userName,
+            Where: whereThvl, 
         }
         ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
             self.ThvlList(data == null ? [] : data);

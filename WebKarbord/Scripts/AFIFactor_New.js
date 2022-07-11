@@ -385,7 +385,7 @@ var ViewModel = function () {
 
     //Get  Vstr List
     function getVstrList() {
-        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group + '/' + 'null', 'GET', true, false).done(function (data) {
             self.VstrList(data == null ? [] : data);
         });
     }
@@ -1327,6 +1327,14 @@ var ViewModel = function () {
         if (parseInt(sal) < SalNow) {
             getFDocHLastDate();
         }
+
+        vcode = localStorage.getItem("userVstrCode");
+        vname = localStorage.getItem("userVstrName");
+
+        self.VstrCode(vcode);
+        codeVstr = vcode;
+        $('#nameVstr').val(vcode == '' ? '' : '(' + vcode + ') ' + vname);
+
         getFDocB(0);
         dataGrid = $("#gridContainer").dxDataGrid("instance");
         // $("#SumBedehkar").val(0);

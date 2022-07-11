@@ -470,7 +470,7 @@
 
     //Get  Vstr List
     function getVstrList() {
-        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group, 'GET', true, true).done(function (data) {
+        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group + '/' + 'null', 'GET', true, true).done(function (data) {
             self.VstrList(data == null ? [] : data);
         });
     }

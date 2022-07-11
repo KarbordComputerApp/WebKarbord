@@ -1448,6 +1448,8 @@ function SetSelectProgram() {
 
         getParamList();
         getAccessList(true);
+
+        getDataVstr();
         $('#SaveParam').removeAttr('disabled');
 
         localStorage.setItem("ModeCode", '');
@@ -2182,6 +2184,17 @@ function getParamAcc() {
 
 
 
+function getDataVstr() {
+    vstrcode = localStorage.getItem("userVstrCode");
+    if (vstrcode != '' && vstrcode != null) {
+        localStorage.setItem("userVstrName", null);
+        var VstrUri = server + '/api/Web_Data/Vstr/';
+        ajaxFunction(VstrUri + ace + '/' + sal + '/' + group + '/' + vstrcode, 'GET', false, true).done(function (data) {
+            localStorage.setItem("userVstrName", data[0].Name);
+        });
+    }
+}
+
 
 function CheckAccess(TrsName, Prog) {
     if (localStorage.getItem('admin_Afi1') == '1' && ace == 'Web1')
@@ -2453,6 +2466,7 @@ function getAccessList(GoHome) {
 
                 whereKala = data.WhereKala;
                 whereCust = data.WhereCust;
+                whereThvl = data.WhereThvl;
                 whereAcc = data.WhereAcc;
 
                 Master_ProgName = data.ProgName;
@@ -2473,6 +2487,7 @@ function getAccessList(GoHome) {
 
                 localStorage.setItem('whereKala', whereKala);
                 localStorage.setItem('whereCust', whereCust);
+                localStorage.setItem('whereThvl', whereThvl);
                 localStorage.setItem('whereAcc', whereAcc);
 
                 localStorage.setItem('Master_ProgName', Master_ProgName);
@@ -5712,10 +5727,10 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 Year: year,
                 SerialNumber: Id,
             };
-            
+
             if (isFirefox) {
                 ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
-                    for (var i = 0; i < 1000; i++) {}
+                    for (var i = 0; i < 1000; i++) { }
                 });
             }
             else {
