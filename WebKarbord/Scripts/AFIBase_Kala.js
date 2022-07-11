@@ -144,7 +144,9 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
+        
+
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -165,7 +167,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -251,7 +253,7 @@
     self.filterKalaF19 = ko.observable("");
     self.filterKalaF20 = ko.observable("");
 
-    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    /*listFilter = JSON.parse(localStorage.getItem('listFilter'));
     if (listFilter != null) {
         self.filterCode(listFilter[0]);
         self.filterName(listFilter[1]);
@@ -277,7 +279,7 @@
         self.filterKalaF18(listFilter[21]);
         self.filterKalaF19(listFilter[22]);
         self.filterKalaF20(listFilter[23]);
-    }
+    }*/
     self.filterKalaList = ko.computed(function () {
         self.currentPageIndexKala(0);
         var filterCode = self.filterCode();
@@ -311,11 +313,11 @@
         if (!filterCode && !filterName && !filterSpec && !filterEghdam && !filterKalaF01 && !filterKalaF02 && !filterKalaF03 && !filterKalaF04 && !filterKalaF05 && !filterKalaF06 && !filterKalaF07 && !filterKalaF08 && !filterKalaF09 && !filterKalaF10 &&
             !filterKalaF11 && !filterKalaF12 && !filterKalaF13 && !filterKalaF14 && !filterKalaF15 && !filterKalaF16 && !filterKalaF17 && !filterKalaF18 && !filterKalaF19 && !filterKalaF20) {
             $("#CountRecord").text(self.KalaList().length);
-            sessionStorage.setItem('listFilter', null);
+            //localStorage.setItem('listFilter', null);
             return self.KalaList();
         } else {
 
-            listFilter = [
+           /* listFilter = [
                 filterCode,
                 filterName,
                 filterSpec,
@@ -341,7 +343,7 @@
                 filterKalaF19,
                 filterKalaF20
             ];
-            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&

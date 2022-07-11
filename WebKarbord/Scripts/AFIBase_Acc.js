@@ -216,7 +216,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Acc", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -237,7 +237,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Acc", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true);
@@ -335,7 +335,7 @@
 
 
 
-    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+   /* listFilter = JSON.parse(localStorage.getItem('listFilter'));
     if (listFilter != null) {
         self.filterCode(listFilter[0]);
         self.filterName(listFilter[1]);
@@ -371,7 +371,7 @@
         self.filterAccF20(listFilter[31]);
         self.filterAGruCode(listFilter[32]);
         self.filterAGruName(listFilter[32]);
-    }
+    }*/
     self.filterAccList = ko.computed(function () {
         self.currentPageIndexAcc(0);
         var filterCode = self.filterCode();
@@ -428,11 +428,11 @@
 
 
             $("#CountRecord").text(self.AccList().length);
-            sessionStorage.setItem('listFilter', null);
+            //localStorage.setItem('listFilter', null);
             return self.AccList();
         } else {
 
-            listFilter = [
+           /* listFilter = [
                 filterCode,
                 filterName,
                 filterSpec,
@@ -469,7 +469,7 @@
             ];
 
 
-            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&

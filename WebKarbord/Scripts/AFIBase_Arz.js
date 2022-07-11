@@ -108,7 +108,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Arz", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+       // localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -129,7 +129,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Arz", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+       // localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -156,13 +156,13 @@
     self.filterRate = ko.observable("");
 
 
-    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+   /* listFilter = JSON.parse(localStorage.getItem('listFilter'));
     if (listFilter != null) {
         self.filterLtnCode(listFilter[0]);
         self.filterName(listFilter[1]);
         self.filterSpec(listFilter[2]);
         self.filterRate(listFilter[3]);
-    }
+    }*/
     self.filterArzList = ko.computed(function () {
         self.currentPageIndexArz(0);
         var filterLtnCode = self.filterLtnCode();
@@ -172,17 +172,17 @@
 
         if (!filterLtnCode && !filterName && !filterSpec && !filterRate) {
             $("#CountRecord").text(self.ArzList().length);
-            sessionStorage.setItem('listFilter', null);
+            //localStorage.setItem('listFilter', null);
             return self.ArzList();
         } else {
-            listFilter = [
+            /*listFilter = [
                 filterLtnCode,
                 filterName,
                 filterSpec,
                 filterRate
             ];
 
-            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.ArzList(), function (item) {
                 result =
                     (item.LtnCode == null ? '' : item.LtnCode.toString().search(filterLtnCode) >= 0) &&

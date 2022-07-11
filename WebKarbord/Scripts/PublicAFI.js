@@ -4040,7 +4040,7 @@ function SetValidationErj() {
 $('.rightClick').on("contextmenu", function () {
     id = $(this).attr('id');
     if (id == "ADOC") {
-        sessionStorage.setItem('listFilter', null);
+        localStorage.setItem('listFilterADoc', null);
         localStorage.setItem("ModeCode", 'ADOC');
         sessionStorage.ModeCode = 'ADOC';
         sessionStorage.lastPageSelect = 0;
@@ -4123,7 +4123,7 @@ $(".useBlank").click(function () {
 
 
 $("#ADOC").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilterADoc', null);
     localStorage.setItem("ModeCode", 'ADOC');
     sessionStorage.ModeCode = 'ADOC';
     sessionStorage.lastPageSelect = 0;
@@ -4144,7 +4144,7 @@ $("#FDOC_SO").click(function () {
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SO;
     sessionStorage.InOut = 2; // فروش
     sessionStorage.lastPageSelect = 0;
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4156,11 +4156,11 @@ $("#FDOC_SO").click(function () {
 
 
 $("#FDOC_SP").click(function () {
-    sessionStorage.setItem('listFilter', null);
+
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SP;
     sessionStorage.InOut = 2; // فروش
     sessionStorage.lastPageSelect = 0;
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4170,13 +4170,13 @@ $("#FDOC_SP").click(function () {
 });
 
 $("#FDOC_S").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     localStorage.setItem("ModeCode", sessionStorage.MODECODE_FDOC_S);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_S;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4186,12 +4186,12 @@ $("#FDOC_S").click(function () {
 });
 
 $("#FDOC_SR").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SR;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4205,7 +4205,7 @@ $("#FDOC_SH").click(function () {
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4215,12 +4215,12 @@ $("#FDOC_SH").click(function () {
 });
 
 $("#FDOC_SE").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_SE;
     sessionStorage.InOut = 2;// فروش
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4230,12 +4230,12 @@ $("#FDOC_SE").click(function () {
 });
 
 $("#FDOC_PO").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PO;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4245,12 +4245,12 @@ $("#FDOC_PO").click(function () {
 });
 
 $("#FDOC_PP").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PP;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4260,12 +4260,12 @@ $("#FDOC_PP").click(function () {
 });
 
 $("#FDOC_P").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_P;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4276,12 +4276,12 @@ $("#FDOC_P").click(function () {
 
 
 $("#FDOC_PR").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = sessionStorage.MODECODE_FDOC_PR;
     sessionStorage.InOut = 1;// خرید
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4291,12 +4291,12 @@ $("#FDOC_PR").click(function () {
 });
 
 $("#IDOC_I").click(function () {
-    sessionStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = '';
     sessionStorage.InOut = 1;
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilterIDocH_I', null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4306,12 +4306,11 @@ $("#IDOC_I").click(function () {
 });
 
 $("#IDOC_O").click(function () {
-    sessionStorage.setItem('listFilter', null);
     sessionStorage.ModeCode = '';
     sessionStorage.InOut = 2;
     sessionStorage.lastPageSelect = 0;
 
-    localStorage.setItem('listFilter', null);
+    localStorage.setItem('listFilterIDocH_O', null);
     localStorage.setItem('ModeCode', sessionStorage.ModeCode);
     localStorage.setItem('InOut', sessionStorage.InOut);
     localStorage.setItem('lastPageSelect', sessionStorage.lastPageSelect);
@@ -4324,7 +4323,7 @@ $("#IDOC_O").click(function () {
 
 $("#Erja_Resive").click(function () {
     sessionStorage.ModeCodeErja = 1;
-    localStorage.setItem('listFilter', null);
+    //localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
     localStorage.SetItem('DocNoErjReport', null);
     localStorage.SetItem('DocNoErjDocK', null);
@@ -4333,7 +4332,7 @@ $("#Erja_Resive").click(function () {
 $("#P_NotificationErja").click(function () {
     sessionStorage.ModeCodeErja = 1;
 
-    localStorage.setItem('listFilter', null);
+    //localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
 });
 
@@ -4341,7 +4340,7 @@ $("#P_NotificationErja").click(function () {
 $("#Erja_Send").click(function () {
     sessionStorage.ModeCodeErja = 2;
 
-    localStorage.setItem('listFilter', null);
+    //localStorage.setItem('listFilter', null);
     localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
     localStorage.SetItem('DocNoErjReport', null);
     localStorage.SetItem('DocNoErjDocK', null);

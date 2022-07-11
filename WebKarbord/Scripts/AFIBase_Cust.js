@@ -157,7 +157,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Cust", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -178,7 +178,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Cust", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -266,7 +266,7 @@
     self.filterCustF19 = ko.observable("");
     self.filterCustF20 = ko.observable("");
 
-    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    /*listFilter = JSON.parse(localStorage.getItem('listFilter'));
     if (listFilter != null) {
         self.filterCode(listFilter[0]);
         self.filterName(listFilter[1]);
@@ -292,7 +292,7 @@
         self.filterCustF18(listFilter[21]);
         self.filterCustF19(listFilter[22]);
         self.filterCustF20(listFilter[23]);
-    }
+    }*/
     self.filterCustList = ko.computed(function () {
         self.currentPageIndexCust(0);
         var filterCode = self.filterCode();
@@ -326,11 +326,11 @@
         if (!filterCode && !filterName && !filterSpec && !filterEghdam && !filterCustF01 && !filterCustF02 && !filterCustF03 && !filterCustF04 && !filterCustF05 && !filterCustF06 && !filterCustF07 && !filterCustF08 && !filterCustF09 && !filterCustF10 &&
             !filterCustF11 && !filterCustF12 && !filterCustF13 && !filterCustF14 && !filterCustF15 && !filterCustF16 && !filterCustF17 && !filterCustF18 && !filterCustF19 && !filterCustF20) {
             $("#CountRecord").text(self.CustList().length);
-            sessionStorage.setItem('listFilter', null);
+            //localStorage.setItem('listFilter', null);
             return self.CustList();
         } else {
 
-            listFilter = [
+            /*listFilter = [
                 filterCode,
                 filterName,
                 filterSpec,
@@ -356,7 +356,7 @@
                 filterCustF19,
                 filterCustF20
             ];
-            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.CustList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&

@@ -1029,7 +1029,7 @@ var ViewModel = function () {
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -1153,7 +1153,7 @@ var ViewModel = function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIFactor/index", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
     });
 
 
@@ -1477,7 +1477,7 @@ var ViewModel = function () {
 
 
 
-    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    listFilter = JSON.parse(localStorage.getItem('listFilter' + sessionStorage.ModeCode));
     if (listFilter != null) {
         self.filterDocNo(listFilter[0]);
         self.filterDocDate(listFilter[1]);
@@ -1599,7 +1599,7 @@ var ViewModel = function () {
         ) {
             // $('#CountRecord').text(CountTable('FDocH', sessionStorage.ModeCode, null));
             $("#CountRecord").text(self.FDocHList().length);
-            sessionStorage.setItem('listFilter', null);
+            localStorage.setItem('listFilter' + sessionStorage.ModeCode, null);
             return self.FDocHList();
         } else {
 
@@ -1657,7 +1657,7 @@ var ViewModel = function () {
                 filterCustRegion
             ];
 
-            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            localStorage.setItem('listFilter' + sessionStorage.ModeCode, JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.FDocHList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&

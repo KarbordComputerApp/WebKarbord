@@ -412,7 +412,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFISanadAnbar/index", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        localStorage.setItem('listFilter' + rprtId, null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -521,7 +521,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFISanadAnbar/index", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        localStorage.setItem('listFilter' + rprtId, null);
     });
 
     if (DocNoReport == "null") {
@@ -870,7 +870,7 @@
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
 
-    listFilter = JSON.parse(sessionStorage.getItem('listFilter'));
+    listFilter = JSON.parse(localStorage.getItem('listFilter' + rprtId));
     if (listFilter != null) {
         self.filterDocNo(listFilter[0]);
         self.filterDocDate(listFilter[1]);
@@ -990,7 +990,7 @@
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 && !filterThvlEcoCode && !filterThvlMelliCode) {
             $("#CountRecord").text(self.IDocHList().length);
             // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
-            sessionStorage.setItem('listFilter', null);
+            localStorage.setItem('listFilter' + rprtId, null);
             return self.IDocHList();
         } else {
             listFilter = [
@@ -1046,7 +1046,7 @@
                 filterThvlEcoCode,
                 filterThvlMelliCode
             ];
-            sessionStorage.setItem('listFilter', JSON.stringify(listFilter));
+            localStorage.setItem('listFilter' + rprtId, JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), filterDocNo) &&

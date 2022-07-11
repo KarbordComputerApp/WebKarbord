@@ -184,7 +184,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/ReportAFI/Dftr", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+       // localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -203,7 +203,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/ReportAFI/Dftr", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);

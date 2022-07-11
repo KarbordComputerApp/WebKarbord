@@ -425,7 +425,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(aceErj, salErj, group, rprtId, "/ERJ/index", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
+        //localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -444,8 +444,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(aceErj, salErj, group, rprtId, "/ERJ/index", columns, self.SettingColumnList());
-        sessionStorage.setItem('listFilter', null);
-
+        //localStorage.setItem('listFilter', null);
     });
 
 
