@@ -1333,7 +1333,7 @@ var ViewModel = function () {
 
         self.VstrCode(vcode);
         codeVstr = vcode;
-        $('#nameVstr').val(vcode == '' ? '' : '(' + vcode + ') ' + vname);
+        $('#nameVstr').val(vcode == '' || vname == 'null' ? '' : '(' + vcode + ') ' + vname);
 
         getFDocB(0);
         dataGrid = $("#gridContainer").dxDataGrid("instance");
@@ -2492,6 +2492,9 @@ var ViewModel = function () {
         docno = $("#docnoout").val();
         rows = dataGrid.getVisibleRows();
 
+        value = $('#ghabelPardakht').text();
+        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '');
+
         dataGrid.saveEditData();
 
         var V_Del_FDocObject = {
@@ -2547,7 +2550,8 @@ var ViewModel = function () {
             EghdamDate: 'null',
             flagLog: 'N',
             VstrCode: codeVstr,
-            flagTest: 'Y'
+            flagTest: 'Y',
+            TotalValue: ghabelPardakht,
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
@@ -2655,6 +2659,9 @@ var ViewModel = function () {
         docno = $("#docnoout").val();
 
         CalcAddmin();
+
+        value = $('#ghabelPardakht').text();
+        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '');
 
         if (docno.length > 10) {
             return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
@@ -2912,7 +2919,8 @@ var ViewModel = function () {
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: 'N',
             VstrCode: codeVstr,
-            flagTest: 'Y'
+            flagTest: 'Y',
+            TotalValue: ghabelPardakht,
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
@@ -3117,6 +3125,9 @@ var ViewModel = function () {
 
         kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
 
+        value = $('#ghabelPardakht').text();
+        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '');
+
         //CalcAddmin();
 
         if (Serial == 0) {
@@ -3186,7 +3197,8 @@ var ViewModel = function () {
                 F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
-                flagTest: 'N'
+                flagTest: 'N',
+                TotalValue: ghabelPardakht,
             };
 
 
@@ -3204,7 +3216,8 @@ var ViewModel = function () {
 
         }
         else {
-            var FDocHObject = {
+            SaveFDocHU(false);
+            /*var FDocHObject = {
                 SerialNumber: Serial,
                 DocDate: tarikh,
                 Spec: self.Spec(),
@@ -3273,11 +3286,9 @@ var ViewModel = function () {
                 OprCode: codeOpr,
                 MkzCode: codeMkz,
                 VstrCode: codeVstr,
-                New: 'Y'
+                New: 'Y',
+                TotalValue: ghabelPardakht,
             };
-
-
-
             ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
                 sessionStorage.searchFDocH = docno;
                 flaglog = 'N';
@@ -3287,7 +3298,7 @@ var ViewModel = function () {
                     flagSaveLogWin = true;
                 }
 
-            });
+            });*/
         }
 
         /*data = FDocB;
@@ -3333,11 +3344,110 @@ var ViewModel = function () {
         };
 
         ajaxFunction(FDocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
+            SaveFDocHU(true);
             showNotification(translate('سند ذخیره شد'), 1);
         });
 
     }
 
+
+
+    function SaveFDocHU(isLast) {
+
+        tarikh = $("#tarikh").val().toEnglishDigit();
+        status = $("#status").val();
+        inv = $("#inv").val();
+        docno = $("#docnoout").val();
+        kalapricecode = $("#gGhimat").val() == "" ? 0 : $("#gGhimat").val();
+
+        var FDocHObject = {
+            SerialNumber: Serial,
+            DocDate: tarikh,
+            Spec: self.Spec(),
+            CustCode: codeCust,
+            KalaPriceCode: kalapricecode,
+            UserCode: sessionStorage.userName,
+            BranchCode: 0,
+            ModeCode: sessionStorage.ModeCode,
+            DocNoMode: 1,
+            InsertMode: 0,
+            DocNo: docno,
+            StartNo: 0,
+            EndNo: 0,
+            Tanzim: sessionStorage.userName,
+            TahieShode: ace,
+            VstrPer: 0,
+            PakhshCode: '',
+            AddMinSpec1: Addmin.length >= 1 ? Addmin[0].Name : '',
+            AddMinSpec2: Addmin.length >= 2 ? Addmin[1].Name : '',
+            AddMinSpec3: Addmin.length >= 3 ? Addmin[2].Name : '',
+            AddMinSpec4: Addmin.length >= 4 ? Addmin[3].Name : '',
+            AddMinSpec5: Addmin.length >= 5 ? Addmin[4].Name : '',
+            AddMinSpec6: Addmin.length >= 6 ? Addmin[5].Name : '',
+            AddMinSpec7: Addmin.length >= 7 ? Addmin[6].Name : '',
+            AddMinSpec8: Addmin.length >= 8 ? Addmin[7].Name : '',
+            AddMinSpec9: Addmin.length >= 9 ? Addmin[8].Name : '',
+            AddMinSpec10: Addmin.length >= 10 ? Addmin[9].Name : '',
+            AddMinPrice1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
+            AddMinPrice2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
+            AddMinPrice3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
+            AddMinPrice4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
+            AddMinPrice5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
+            AddMinPrice6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
+            AddMinPrice7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
+            AddMinPrice8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
+            AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
+            AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
+            InvCode: inv,
+            Status: status,
+            Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
+            Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
+            PaymentType: $("#paymenttype").val(),
+            Footer: $("#footer").val(),
+            deghat: parseInt(sessionStorage.DeghatFct),
+            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val() == "" ? sessionStorage.F01 : $("#ExtraFields1").val(),
+            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val() == "" ? sessionStorage.F02 : $("#ExtraFields2").val(),
+            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val() == "" ? sessionStorage.F03 : $("#ExtraFields3").val(),
+            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val() == "" ? sessionStorage.F04 : $("#ExtraFields4").val(),
+            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val() == "" ? sessionStorage.F05 : $("#ExtraFields5").val(),
+            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val() == "" ? sessionStorage.F06 : $("#ExtraFields6").val(),
+            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val() == "" ? sessionStorage.F07 : $("#ExtraFields7").val(),
+            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val() == "" ? sessionStorage.F08 : $("#ExtraFields8").val(),
+            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val() == "" ? sessionStorage.F09 : $("#ExtraFields9").val(),
+            F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
+            F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
+            F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
+            F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
+            F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
+            F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
+            F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
+            F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
+            F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
+            F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
+            F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
+            flagLog: flaglog,
+            OprCode: codeOpr,
+            MkzCode: codeMkz,
+            VstrCode: codeVstr,
+            New: 'Y',
+            TotalValue: ghabelPardakht,
+        };
+
+
+
+        ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
+            if (isLast == false) {
+                sessionStorage.searchFDocH = docno;
+                flaglog = 'N';
+                DeleteBand();
+                if (flagSaveLogWin == false) {
+                    SaveLog('Fct5', EditMode_Chg, LogMode_FDoc, 0, docno, Serial);
+                    flagSaveLogWin = true;
+                }
+            }
+
+        });
+    }
 
 
 
