@@ -2828,7 +2828,7 @@ var ViewModel = function () {
                     focusedRowKey: cellInfo.value,
                     onSelectionChanged(selectionChangedArgs) {
                         dKala = selectionChangedArgs.selectedRowsData[0];
-                        if (dKala != null) {
+                        /*if (dKala != null) {
                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
@@ -2839,7 +2839,51 @@ var ViewModel = function () {
                                 IDocB[ro].dataKala = selectionChangedArgs.selectedRowsData[0];
                                 e.component.close();
                             }
+                        }*/
+
+                       if (dKala != null) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+                                dataGrid.cellValue(ro, "KalaCode", selectionChangedArgs.selectedRowsData[0].Code);
+
+                                const visibleRows = dataGrid.getVisibleRows();
+                                visibleRows[ro].data.dataKala = selectionChangedArgs.selectedRowsData[0];
+                                IDocB[ro].dataKala = selectionChangedArgs.selectedRowsData[0];
+
+                               
+                                dataKala = selectionChangedArgs.selectedRowsData[0];
+                                IDocB[ro].MainUnit = dataKala.DefaultUnit
+                                dataGrid.cellValue(ro, "MainUnitName", dataKala.DefaultUnit == 1 ? IDocB[ro].dataKala.UnitName1 : dataKala.DefaultUnit == 2 ? IDocB[ro].dataKala.UnitName2 : IDocB[ro].dataKala.UnitName3);
+
+                                defaultUnit = dataKala.DefaultUnit;
+
+                                if (sessionStorage.sels == "true") {
+                                    Price1 = parseFloat(dataKala.SPrice1);
+                                    Price2 = parseFloat(dataKala.SPrice2);
+                                    Price3 = parseFloat(dataKala.SPrice3);
+                                } else {
+                                    Price1 = parseFloat(dataKala.PPrice1);
+                                    Price2 = parseFloat(dataKala.PPrice2);
+                                    Price3 = parseFloat(dataKala.PPrice3);
+                                }
+
+                                getKalaPriceBList(dataKala.Code);
+
+                                dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
+
+                                GetTrzIKala(dataKala.Code, defaultUnit);
+
+                                e.component.close();
+                                dataGrid.focus(dataGrid.getCellElement(ro, 'Amount' + (defaultUnit == null ? 1 : defaultUnit)));
+                            }
                         }
+
+
+
                     },
                 });
             },

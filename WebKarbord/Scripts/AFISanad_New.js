@@ -2244,7 +2244,7 @@ var ViewModel = function () {
                     focusedRowKey: cellInfo.value,
                     onSelectionChanged(selectionChangedArgs) {
                         dAcc = selectionChangedArgs.selectedRowsData[0];
-                        if (dAcc != null) {
+                        /*if (dAcc != null) {
                             if (dAcc.HasChild == 0 || dAcc.NextLevelFromZAcc == 1) {
                                 e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
@@ -2252,11 +2252,6 @@ var ViewModel = function () {
                                     cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
 
                                     newRec = false;
-                                    /* if (dataAcc[ro] == null) {
-                                         dataAcc[ro] = [];
-                                     }
-                                     dataAcc[ro] = selectionChangedArgs.selectedRowsData[0];
-                                     */
                                     dataGrid.cellValue(ro, "AccCode", selectionChangedArgs.selectedRowsData[0].Code);
 
                                     const visibleRows = dataGrid.getVisibleRows();
@@ -2293,7 +2288,72 @@ var ViewModel = function () {
                             else {
                                 showNotification(translate('این حساب قابل انتخاب نیست'), 0);
                             }
+                        }*/
+
+
+
+
+
+                        if (dAcc != null) {
+                            if (dAcc.HasChild == 0 || dAcc.NextLevelFromZAcc == 1) {
+
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    var dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+                                    newRec = false;
+
+                                    dataGrid.cellValue(ro, "AccCode", selectionChangedArgs.selectedRowsData[0].Code);
+
+                                    const visibleRows = dataGrid.getVisibleRows();
+                                    visibleRows[ro].data.dataAcc = selectionChangedArgs.selectedRowsData[0];
+                                    ADocB[ro].dataAcc = selectionChangedArgs.selectedRowsData[0];
+
+
+                                    if (newRec == false && visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 0) {
+                                        dataGrid.cellValue(ro, "AccZCode", '');
+                                        dataGrid.cellValue(ro, "AccZName", '');
+                                    }
+
+                                    if (newRec == false && visibleRows[ro].data.dataAcc.Mkz == 0) {
+                                        dataGrid.cellValue(ro, "MkzCode", '');
+                                        dataGrid.cellValue(ro, "MkzName", '');
+                                    }
+
+                                    if (newRec == false && visibleRows[ro].data.dataAcc.Opr == 0) {
+                                        dataGrid.cellValue(ro, "OprCode", '');
+                                        dataGrid.cellValue(ro, "OprName", '');
+                                    }
+
+                                    if (newRec == false && visibleRows[ro].data.dataAcc.Arzi == 0) {
+                                        dataGrid.cellValue(ro, "ArzCode", '');
+                                        dataGrid.cellValue(ro, "ArzName", '');
+                                        dataGrid.cellValue(ro, "ArzValue", '0');
+                                        dataGrid.cellValue(ro, "ArzRate", '0');
+                                    }
+
+                                    if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {
+                                        dataGrid.cellValue(ro, "Amount", '0');
+                                    }
+
+                                    if (visibleRows[ro].data.dataAcc.PDMode > 0) {
+                                        getCheckList(visibleRows[ro].data.dataAcc.PDMode);
+                                    }
+                                    e.component.close();
+
+                                    dataGrid.focus(dataGrid.getCellElement(ro, 5));
+                                }
+
+                            }
+                            else {
+                                showNotification(translate('این حساب قابل انتخاب نیست'), 0);
+                            }
                         }
+                    },
+
+
                     },
                 });
             },
