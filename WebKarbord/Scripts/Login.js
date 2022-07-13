@@ -181,8 +181,10 @@ input.addEventListener("change", function () {
 
                             for (var i = 0; i < erj.length; i++) {
                                 if (afi.includes(erj[i]) == false) {
-                                    groups += '-' + erj[i];
-                                    onlyGroupErj += erj[i] + '-'
+                                    if (erj[i] != 'null') {
+                                        groups += '-' + erj[i];
+                                        onlyGroupErj += erj[i] + '-'
+                                    }
                                 }
                             }
 
@@ -317,7 +319,7 @@ input.addEventListener("change", function () {
                         if (datalogin.ID == -1) {
                             sessionStorage.userName = user.toUpperCase();
                             sessionStorage.pass = pass;
-                           
+
                             localStorage.setItem("userName", user.toUpperCase());
                             localStorage.setItem('password', pass);
 
@@ -342,7 +344,15 @@ input.addEventListener("change", function () {
                                 localStorage.setItem('ProgAccess', p);
 
 
-                                sessionStorage.OrgProgName = data[0].prog;
+                                Master_ProgName = localStorage.getItem('Master_ProgName');
+
+                                if (p.includes(Master_ProgName) == true) {
+                                    sessionStorage.OrgProgName = Master_ProgName;
+                                }
+                                else {
+                                    sessionStorage.OrgProgName = data[0].prog;
+                                }
+
                             });
 
                             var GroupsObject = {
