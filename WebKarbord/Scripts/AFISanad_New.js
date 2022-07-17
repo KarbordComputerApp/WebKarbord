@@ -2353,8 +2353,6 @@ var ViewModel = function () {
                         }
                     },
 
-
-                    },
                 });
             },
         });

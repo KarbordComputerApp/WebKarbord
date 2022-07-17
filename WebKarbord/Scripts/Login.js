@@ -346,6 +346,8 @@ input.addEventListener("change", function () {
 
                                 Master_ProgName = localStorage.getItem('Master_ProgName');
 
+                                Master_ProgName = Master_ProgName == 'ACC5' ? 'Acc5' : Master_ProgName == 'FCT5' ? 'Fct5' : Master_ProgName == 'INV5' ? 'Inv5' : Master_ProgName == 'AFI1' ? 'Afi1' : Master_ProgName == 'ERJ1' ? 'Erj1' : '';
+
                                 if (p.includes(Master_ProgName) == true) {
                                     sessionStorage.OrgProgName = Master_ProgName;
                                 }

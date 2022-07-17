@@ -1785,9 +1785,9 @@
                 sessionStorage.MkzCode = data.MkzCode;
                 sessionStorage.MkzName = data.MkzName;
 
-                sessionStorage.ArzCode = item.ArzCode;
-                sessionStorage.ArzName = item.ArzName;
-                sessionStorage.ArzRate = item.ArzRate;
+                sessionStorage.ArzCode = data.ArzCode;
+                sessionStorage.ArzName = data.ArzName;
+                sessionStorage.ArzRate = data.ArzRate;
 
                 sessionStorage.lastPageSelect = self.currentPageIndexIDocH();
 
