@@ -84,6 +84,8 @@ var ViewModel = function () {
     var IDocHFinalPrice = 0;
     var sumSanad = 0;
 
+    var custAccMondeh_Value = 0
+
 
     self.bundNumberImport = 0;
 
@@ -348,6 +350,7 @@ var ViewModel = function () {
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var IChangeStatusUri = server + '/api/IDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
+    var CustAccMondehUri = server + '/api/Web_Data/CustAccMondeh/'; // مانده حساب مشتری 
 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
@@ -970,6 +973,11 @@ var ViewModel = function () {
         $("#footer").val(sessionStorage.Footer);
         codeThvl = sessionStorage.ThvlCode;
         self.ThvlCode(sessionStorage.ThvlCode);
+
+        CustAccMondeh(codeThvl);
+        $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(custAccMondeh_Value))) + ' ' + (custAccMondeh_Value > 0 ? 'بد' : custAccMondeh_Value == 0 ? '' : 'بس'));
+
+
         self.PriceCode(sessionStorage.PriceCode);
         kalapricecode = sessionStorage.PriceCode;
 
@@ -1055,6 +1063,7 @@ var ViewModel = function () {
         }
         getIDocB(0);
         dataGrid = $("#gridContainer").dxDataGrid("instance");
+        $('#mandehHesab').text(0);
         // $("#SumBedehkar").val(0);
         //$("#SumBestankar").val(0);
         //$("#TafavotSanad").val(0);
@@ -3081,6 +3090,19 @@ var ViewModel = function () {
     };
 
 
+
+    function CustAccMondeh(codeCust) {
+        custAccMondeh_Value = 0;
+        var CustAccMondehObject = {
+            CustCode: codeCust,
+        };
+
+        ajaxFunction(CustAccMondehUri + ace + '/' + sal + '/' + group, 'POST', CustAccMondehObject, false).done(function (data) {
+            custAccMondeh_Value = data[0].Mon;
+        });
+    }
+
+
     self.selectThvl = function (item) {
 
         //if (Serial != '') {
@@ -3098,6 +3120,9 @@ var ViewModel = function () {
             if (result.value) {
                 codeThvl = item.Code;
                 $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
+
+                CustAccMondeh(codeThvl);
+                $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(custAccMondeh_Value))) + ' ' + (custAccMondeh_Value > 0 ? 'بد' : custAccMondeh_Value == 0 ? '' : 'بس'));
 
                 if (sessionStorage.sels == "true")
                     sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
@@ -3125,8 +3150,11 @@ var ViewModel = function () {
          else {
              codeThvl = item.Code;
              $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
- 
-             if ($("#gGhimat").val() == '') {
+            
+            CustAccMondeh(codeThvl);
+             $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(custAccMondeh_Value))) + ' ' + (custAccMondeh_Value > 0 ? 'بد' : custAccMondeh_Value == 0 ? '' : 'بس'));
+            
+            if ($("#gGhimat").val() == '') {
  
                  if (sessionStorage.sels == "true")
                      sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);

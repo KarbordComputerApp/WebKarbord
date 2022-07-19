@@ -1323,7 +1323,7 @@ var ViewModel = function () {
             },
 
             paging: {
-                    enabled: false,
+                enabled: false,
             },
 
 
@@ -2014,14 +2014,15 @@ var ViewModel = function () {
             },
 
 
-            onEditingStart() {
+            onEditingStart: function (e) {
                 //editRowKey = e.key;
-                a = 1;
+                //getTrzAcc(e.data.AccCode);
             },
 
 
             onEditorPreparing: function (e) {
                 dataField = e.dataField;
+
                 if (e.parentType == 'dataRow' && e.dataField == 'Bede') {
                     e.editorOptions.onValueChanged = function (args) {
                         //dataGrid.saveEditData()
@@ -2142,6 +2143,7 @@ var ViewModel = function () {
 
                                     newRec = false;
 
+
                                     dataGrid.cellValue(ro, "AccName", selectionChangedArgs.selectedRowsData[0].Name);
 
                                     const visibleRows = dataGrid.getVisibleRows();
@@ -2196,6 +2198,7 @@ var ViewModel = function () {
                                     if (visibleRows[ro].data.dataAcc.PDMode > 0) {
                                         getCheckList(visibleRows[ro].data.dataAcc.PDMode);
                                     }
+                                    getTrzAcc(dAcc.Code);
                                     e.component.close();
 
                                     dataGrid.focus(dataGrid.getCellElement(ro, 5));
@@ -2341,6 +2344,8 @@ var ViewModel = function () {
                                     if (visibleRows[ro].data.dataAcc.PDMode > 0) {
                                         getCheckList(visibleRows[ro].data.dataAcc.PDMode);
                                     }
+
+                                    getTrzAcc(dAcc.Code);
                                     e.component.close();
 
                                     dataGrid.focus(dataGrid.getCellElement(ro, 5));
@@ -3476,7 +3481,7 @@ var ViewModel = function () {
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc.PDMode == 1) {
             dataGrid.cellValue(ro, "Best", value);
-            dataGrid.cellValue(ro, "Bede",'0');
+            dataGrid.cellValue(ro, "Bede", '0');
         } else {
             dataGrid.cellValue(ro, "Best", '0');
             dataGrid.cellValue(ro, "Bede", value);
@@ -5156,7 +5161,6 @@ var ViewModel = function () {
 
 
 
-
     self.currentPageTrafZ = ko.observable();
 
     pageSizeTrafZ = localStorage.getItem('pageSizeTrafZ') == null ? 10 : localStorage.getItem('pageSizeTrafZ');
@@ -5305,6 +5309,30 @@ var ViewModel = function () {
 
 
 
+
+    var TrzAccUri = server + '/api/ReportAcc/TrzAcc/'; //  // آدرس مانده حساب 
+    var monTotalAcc = 0;
+
+    function getTrzAcc(accCode) {
+        $('#mandehHesab').text('0');
+        var TrzAccObject = {
+            azTarikh: sessionStorage.BeginDateAcc,
+            taTarikh: sessionStorage.EndDateAcc,
+            AModeCode: '',
+            AccCode: accCode,
+            MkzCode: '',
+            OprCode: '',
+            Level: '5',
+            Sath: '2',
+        };
+
+        ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject, true).done(function (data) {
+            if (data.length > 0) {
+                monTotalAcc = data[0].MonTotal;
+                $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(monTotalAcc))) + ' ' + (monTotalAcc > 0 ? 'بد' : monTotalAcc == 0 ? '' : 'بس'));
+            }
+        });
+    }
 
 
 

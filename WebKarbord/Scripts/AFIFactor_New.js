@@ -94,6 +94,8 @@ var ViewModel = function () {
     var FDocHDiscount = 0;
     var sumFactor = 0;
 
+    var custAccMondeh_Value = 0
+
     var dataAddMin;
     var dataAddminCust = [];
     var dataAddminKala = [];
@@ -309,6 +311,8 @@ var ViewModel = function () {
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
+    var CustAccMondehUri = server + '/api/Web_Data/CustAccMondeh/'; // مانده حساب مشتری 
+
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
     var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس مانده کالا 
@@ -1215,6 +1219,10 @@ var ViewModel = function () {
         $("#footer").val(sessionStorage.Footer);
         codeCust = sessionStorage.CustCode;
         self.CustCode(sessionStorage.CustCode);
+
+        CustAccMondeh(codeCust);
+        $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(custAccMondeh_Value))) + ' ' + (custAccMondeh_Value > 0 ? 'بد' : custAccMondeh_Value == 0 ? '' : 'بس'));
+
         self.PriceCode(sessionStorage.PriceCode);
         kalapricecode = sessionStorage.PriceCode;
 
@@ -1333,6 +1341,7 @@ var ViewModel = function () {
 
         self.VstrCode(vcode);
         codeVstr = vcode;
+        $('#mandehHesab').text(0);
         $('#nameVstr').val(vcode == '' || vname == 'null' ? '' : '(' + vcode + ') ' + vname);
 
         getFDocB(0);
@@ -4064,6 +4073,19 @@ var ViewModel = function () {
     };
 
 
+
+
+    function CustAccMondeh(codeCust) {
+        custAccMondeh_Value= 0;
+        var CustAccMondehObject = {
+            CustCode: codeCust,
+        };
+
+        ajaxFunction(CustAccMondehUri + ace + '/' + sal + '/' + group, 'POST', CustAccMondehObject,false).done(function (data) {
+            custAccMondeh_Value = data[0].Mon;
+        });
+    }
+
     self.selectCust = function (item) {
         s = $("#sumFactor").text();
         if (s != '' && s != '') {
@@ -4081,6 +4103,9 @@ var ViewModel = function () {
                 if (result.value) {
                     codeCust = item.Code;
                     $('#nameCust').val('(' + item.Code + ') ' + item.Name)
+
+                    CustAccMondeh(codeCust);
+                    $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(custAccMondeh_Value))) + ' ' + (custAccMondeh_Value > 0 ? 'بد' : custAccMondeh_Value == 0 ? '' : 'بس'));
 
                     if (sessionStorage.sels == "true")
                         sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
@@ -4102,7 +4127,6 @@ var ViewModel = function () {
                     self.CustCode(item.Code);
                     SetKalaPrice();
 
-
                     flagKalaPrice = true;
                 }
             })
@@ -4111,6 +4135,8 @@ var ViewModel = function () {
         else {
             codeCust = item.Code;
             $('#nameCust').val('(' + item.Code + ') ' + item.Name)
+            CustAccMondeh(codeCust);
+            $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(custAccMondeh_Value))) + ' ' + (custAccMondeh_Value > 0 ? 'بد' : custAccMondeh_Value == 0 ? '' : 'بس'));
 
             if ($("#gGhimat").val() == '') {
 
@@ -4130,7 +4156,11 @@ var ViewModel = function () {
                     $("#gGhimat").val(item.KalaPriceCode_P);
             }
             self.CustCode(item.Code)
+            
         }
+
+        
+        
         $('#nameCust').focus();
     };
 
