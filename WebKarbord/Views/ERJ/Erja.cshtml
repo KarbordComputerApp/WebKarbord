@@ -68,7 +68,7 @@
 
                     <div class="col-md-4" style="text-align: center; margin-top: 10px;">
                         <a data-bind="click: firstPageDocB_Last">
-                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageDocB_Last">
                             <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -162,11 +162,39 @@
                                                 </div>
                                             </div>
 
+                                            <div class="row col-md-12" style="padding-bottom:10px">
+                                                <div class="form-group form-float">
+                                                    <div class="form-line focused fix">
+                                                        <input type="text" id="m_Spec" class="form-control" />
+                                                        <label class="form-label" id="amounttext">ملاحظات</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row col-md-12">
+                                                <div class="row col-md-6" style="padding-bottom:10px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_CustName" class="form-control" readonly />
+                                                            <label class="form-label" data-bind="text:translate('مشتری')"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row col-md-6" style="padding-bottom:10px">
+                                                    <div class="form-group form-float">
+                                                        <div class="form-line focused fix">
+                                                            <input type="text" id="m_KhdtName" class="form-control" readonly>
+                                                            <label class="form-label" data-bind="text:translate('نوع کار')"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
                                             <div id="panelInformation" class="row col-md-12">
 
                                                 <div class="row col-md-12">
-
-
 
                                                     <p class="col-md-1">نوع</p>
                                                     <div class="col-md-5">
@@ -195,34 +223,6 @@
                                                                 <input type="text" id="m_Tanzim" class="form-control" readonly>
                                                                 <label class="form-label">تنظیم</label>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="row col-md-12" style="padding-bottom:10px">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="m_CustName" class="form-control" readonly />
-                                                            <label class="form-label" data-bind="text:translate('مشتری')"></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row col-md-12" style="padding-bottom:10px">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="m_KhdtName" class="form-control" readonly>
-                                                            <label class="form-label" data-bind="text:translate('نوع کار')"></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row col-md-12" style="padding-bottom:10px">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="m_Spec" class="form-control" />
-                                                            <label class="form-label" id="amounttext">ملاحظات</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -451,7 +451,7 @@
 
                     <div class="col-md-3">
                         <!--<button  data-bind="text:translate('0')" type="button" id="erja" class="btn btn-primary  pull-left dropdown-toggle" data-toggle="modal" data-target="#modal-Erja" data-backdrop="static" data-keyboard="false"><i class="fa fa-sign-in fa-lg fa-fw"></i>ارجاع</button>-->
-                        <button  data-bind="text:translate('ارجاع')" type="button" id="erja" class="btn btn-primary  pull-left" ><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
+                        <button data-bind="text:translate('ارجاع')" type="button" id="erja" class="btn btn-primary  pull-left"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
                         <button data-bind="text:translate('ذخیره')" type="button" id="saveParvandeh" class="btn btn-primary  pull-left" style=" margin-left: 8px;"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
                     </div>
                 </div>
@@ -468,7 +468,7 @@
                 <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title"  data-bind="text:translate('پیوست')"></h4>
+                <h4 class="modal-title" data-bind="text:translate('پیوست')"></h4>
 
                 <div>
                     <a id="refreshDocAttach">
@@ -490,7 +490,7 @@
                             <tr data-bind="click: sortTableDocAttach">
                                 <th style="width: 10px;" data-bind="text:translate('ردیف')"></th>
                                 <th data-column="Comm" style="text-align: center;">
-                                    <span data-bind="text:translate('شرح')" ></span>
+                                    <span data-bind="text:translate('شرح')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Comm' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeComm }"></i>
                                     </span>
@@ -507,7 +507,7 @@
                                         <img src="/Content/img/list/download.png" width="20" height="20" style="margin-left:10px" />
                                     </a>
 
-                                    <a id="DeleteDocAttach" data-bind="click: $root.DeleteDocAttach ,visible: $root.ShowDeleteDocAttach() , attr: {title:text_Delete}" >
+                                    <a id="DeleteDocAttach" data-bind="click: $root.DeleteDocAttach ,visible: $root.ShowDeleteDocAttach() , attr: {title:text_Delete}">
                                         <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16">
                                     </a>
                                 </td>
@@ -613,12 +613,12 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
                             <div id="p_Result" class="col-md-4">
-                               
-                               
+
+
                             </div>
 
                         </div>
@@ -720,7 +720,7 @@
                         </div>
 
                         <div class="col-md-2 pull-left">
-                            <button  data-bind="text:translate('ثبت ارجاع')" type="button" id="saveErja" class="btn btn-primary  pull-left"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
+                            <button data-bind="text:translate('ثبت ارجاع')" type="button" id="saveErja" class="btn btn-primary  pull-left"><i class="fa fa-sign-in fa-lg fa-fw"></i></button>
                         </div>
                     </div>
                 </div>
@@ -755,12 +755,14 @@
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
-                                <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                <th data-column="SortName">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
-                                 <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                <th data-column="Spec">
+                                    <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>
@@ -807,7 +809,7 @@
                     </div>
                     <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageErjUsers">
-                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageErjUsers">
                             <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -856,12 +858,14 @@
                                                 <i data-bind="attr: { class: iconTypeCode }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                        <th data-column="SortName">
+                                            <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeName }"></i>
                                             </span>
                                         </th>
-                                         <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                        <th data-column="Spec">
+                                            <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeSpec }"></i>
                                             </span>
@@ -939,13 +943,13 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-                                   <label data-bind="text:translate('رکورد')"></label>
+                                    <label data-bind="text:translate('رکورد')"></label>
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align: left;">
 
                                 <a data-bind="click: firstPageErjUsersRonevesht">
-                                    <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                                    <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                                 </a>
                                 <a data-bind="click: previousPageErjUsersRonevesht">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -961,7 +965,7 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="text-align: left;">
-                        <button  data-bind="text:translate('همان افراد قبل')" type="button" id="lastRonevesht" class="btn btn-primary  pull-left" style="font-size: 10px;padding-right: 10px;padding-left: 10px;display:none"></button>
+                        <button data-bind="text:translate('همان افراد قبل')" type="button" id="lastRonevesht" class="btn btn-primary  pull-left" style="font-size: 10px;padding-right: 10px;padding-left: 10px;display:none"></button>
                     </div>
                 </div>
             </div>
@@ -1005,8 +1009,9 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
-                                 <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
-                          
+                                <th data-column="Spec">
+                                    <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>
@@ -1053,7 +1058,7 @@
                     </div>
                     <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageFarayand">
-                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageFarayand">
                             <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -1115,7 +1120,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
+                                <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -1128,14 +1133,10 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                             
-                        </button>
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                     <div class="col-md-6">
-                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            
-                        </button>
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>
@@ -1421,9 +1422,7 @@
                             <div class="col-md-9 row">
                             </div>
                             <div class="col-md-3">
-                                <button  data-bind="text:translate('بازگشت')" type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
-                                    
-                                </button>
+                                <button data-bind="text:translate('بازگشت')" type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>

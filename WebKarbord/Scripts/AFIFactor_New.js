@@ -2580,7 +2580,7 @@ var ViewModel = function () {
                 if (temp_FinalPrice > 0) {
 
                     if (arzCalcMode == 1) { // مبلغ / نرخ ارز
-                        arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+                        arzValue = arzRate > 0 ? temp_FinalPrice / arzRate : temp_FinalPrice;
                     }
                 }
 
@@ -2949,7 +2949,7 @@ var ViewModel = function () {
                 if (temp_FinalPrice > 0) {
 
                     if (arzCalcMode == 1) { // مبلغ / نرخ ارز
-                        arzRate > 0 ? arzValue = temp_FinalPrice / arzRate : temp_FinalPrice;
+                        arzValue = arzRate > 0 ? temp_FinalPrice / arzRate : temp_FinalPrice;
                     }
                 }
 
@@ -3588,7 +3588,7 @@ var ViewModel = function () {
             if (temp_FinalPrice > 0) {
 
                 if (arzCalcMode == 1) { // مبلغ / نرخ ارز
-                    arzRate > 0 ? FDocB[row].ArzValue = temp_FinalPrice / arzRate : FDocB[row].ArzValue = 0;
+                    FDocB[row].ArzValue =  arzRate > 0 ? temp_FinalPrice / arzRate : 0;
                 }
             }
         }
