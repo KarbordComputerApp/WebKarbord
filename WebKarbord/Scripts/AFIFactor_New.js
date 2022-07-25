@@ -1793,10 +1793,10 @@ var ViewModel = function () {
             onCellClick: function (e) {
                 co = e.columnIndex;
                 ro = e.rowIndex;
-                //if (e.column.dataField != null) {
+                if (e.column != null) {
 
                     fieldName = e.column.dataField;
-                //}
+                }
             },
 
             onRowPrepared(e) {
@@ -2262,12 +2262,14 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
 
+                        value = args.value == null ? 0 : args.value;
+
                         if (e.dataField == 'Amount1')
-                            FDocB[ro].Amount1 = args.value;
+                            FDocB[ro].Amount1 = value;
                         else if (e.dataField == 'Amount2')
-                            FDocB[ro].Amount2 = args.value;
+                            FDocB[ro].Amount2 = value;
                         else if (e.dataField == 'Amount3')
-                            FDocB[ro].Amount3 = args.value;
+                            FDocB[ro].Amount3 = value;
                         dataGrid.saveEditData();
                         dataGrid.refresh();
 
@@ -2280,7 +2282,8 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         FDocB[ro].UP_Flag = true;
-                        FDocB[ro].UnitPrice = args.value;
+                        value = args.value == null ? 0 : args.value;
+                        FDocB[ro].UnitPrice = value;
                         CalcPrice(ro);
                         dataGrid.saveEditData();
                         dataGrid.refresh();
@@ -2292,7 +2295,8 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         FDocB[ro].UP_Flag = false;
-                        FDocB[ro].TotalPrice = args.value;
+                        value = args.value == null ? 0 : args.value;
+                        FDocB[ro].TotalPrice = value;
                         CalcPrice(ro);
 
                         dataGrid.saveEditData();
@@ -2304,7 +2308,8 @@ var ViewModel = function () {
                 if (e.parentType == 'dataRow' && e.dataField == 'Discount') {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
-                        FDocB[ro].Discount = args.value;
+                        value = args.value == null ? 0 : args.value;
+                        FDocB[ro].Discount = value;
                         CalcFactor();
                         dataGrid.saveEditData();
                         dataGrid.refresh();

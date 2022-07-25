@@ -1930,13 +1930,13 @@ var ViewModel = function () {
                 if (e.parentType == 'dataRow' && e.dataField == 'Amount1' || e.dataField == 'Amount2' || e.dataField == 'Amount3') {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
-
+                        value = args.value == null ? 0 : args.value;
                         if (e.dataField == 'Amount1')
-                            IDocB[ro].Amount1 = args.value;
+                            IDocB[ro].Amount1 = value;
                         else if (e.dataField == 'Amount2')
-                            IDocB[ro].Amount2 = args.value;
+                            IDocB[ro].Amount2 = value;
                         else if (e.dataField == 'Amount3')
-                            IDocB[ro].Amount3 = args.value;
+                            IDocB[ro].Amount3 = value;
                         dataGrid.saveEditData();
                         dataGrid.refresh();
 
@@ -1949,7 +1949,8 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         IDocB[ro].UP_Flag = true;
-                        IDocB[ro].UnitPrice = args.value;
+                        value = args.value == null ? 0 : args.value;
+                        IDocB[ro].UnitPrice = value;
                         CalcPrice(ro);
                         dataGrid.saveEditData();
                         dataGrid.refresh();
@@ -1961,7 +1962,8 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
                         IDocB[ro].UP_Flag = false;
-                        IDocB[ro].TotalPrice = args.value;
+                        value = args.value == null ? 0 : args.value;
+                        IDocB[ro].TotalPrice = value;
                         CalcPrice(ro);
 
                         dataGrid.saveEditData();

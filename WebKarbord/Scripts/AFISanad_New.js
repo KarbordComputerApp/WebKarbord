@@ -1488,7 +1488,8 @@ var ViewModel = function () {
             onCellClick: function (e) {
                 co = e.columnIndex;
                 ro = e.rowIndex;
-                fieldName = e.column.dataField;
+               // if (e.column != null)
+                 fieldName = e.column.dataField;
                 //var summaryValue = dataGrid.getTotalSummaryValue(fieldName);
                 //calcSanad();
             },
@@ -2027,7 +2028,7 @@ var ViewModel = function () {
                     e.editorOptions.onValueChanged = function (args) {
                         //dataGrid.saveEditData()
                         ro = e.row.rowIndex;
-                        Bede = args.value;
+                        Bede = args.value == null ? 0 : args.value;
                         ADocB[ro].Bede = Bede;
                         ADocB[ro].Best = 0;
                         ArzValue = CalcArz(dataGrid.cellValue(ro, "ArzCode"), Bede, 0, dataGrid.cellValue(ro, "ArzRate"));
@@ -2043,7 +2044,7 @@ var ViewModel = function () {
                 if (e.parentType == 'dataRow' && e.dataField == 'Best') {
                     e.editorOptions.onValueChanged = function (args) {
                         ro = e.row.rowIndex;
-                        Best = args.value;
+                        Best = args.value == null ? 0 : args.value;
                         ADocB[ro].Bede = 0;
                         ADocB[ro].Best = Best;
                         ArzValue = CalcArz(dataGrid.cellValue(ro, "ArzCode"), 0, Best, dataGrid.cellValue(ro, "ArzRate"));
@@ -5595,12 +5596,67 @@ var ViewModel = function () {
         });
     }*/
 
-    window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+   navigationType = window.performance.navigation.type; 
+
+   window.onbeforeunload = function (e) {
+       // isclose = false;
+       // while (isclose == false) {
+       //     isclose = RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+       // }
+
+
+        //aa();
+
+        /*if (someConditionThatIndicatesIShouldConfirm) {
+            return "If you reload this page, your previous action will be repeated";
+        } else {
+            //Don't return anything
+        }*/
+        //if (is_form_dirty()) {
+        //    a = 1;
+       // }
+
+
+
+      /* if (
+           (window.performance.navigation.type === 1)// ||
+          // window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')
+       )*/
+
+         RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+
+
+
+
+
+
+
+        //for (var i = 0; i < 100000; i++) { }
         // SaveColumnSanad();
 
     };
 
+   // window.onbeforeunload = function (e) { }
+
+   /* async function aa() {
+        var a = false; 
+         while (a != true) {
+             a = await RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+        }
+    } */
+
+
+
+    // alert after close and refresh
+     //$(window).bind("beforeunload", function (event) {
+    //    var a = event
+     //   return confirm("Do you really want to close?"); 
+    //    return ''; 
+    //});
+
+   // $(window).unload(function () {
+   //     RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+   // });
 
     document.onkeydown = function (e) {
         if (e.keyCode == key_F2) {

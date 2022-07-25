@@ -5290,7 +5290,7 @@ function setReport(reportObject, addressMrt, variablesObject) {
 }
 
 
-function sleep(milliseconds) {
+async function sleep(milliseconds) {
     var start = new Date().getTime();
     for (var i = 0; i < 1e7; i++) {
         if ((new Date().getTime() - start) > milliseconds) {
@@ -5688,8 +5688,10 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
 
 
 
-function RemoveUseSanad(prog, year, FormName, Id) {
+
+async function RemoveUseSanad(prog, year, FormName, Id) {
     if (Id != null) {
+        isClose = false;
         listUse = localStorage.getItem("list" + FormName + "Use");
 
         if (listUse == null) {
@@ -5728,17 +5730,22 @@ function RemoveUseSanad(prog, year, FormName, Id) {
                 SerialNumber: Id,
             };
 
+
             if (isFirefox) {
                 ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
-                    for (var i = 0; i < 1000; i++) { }
+                    isClose = true;
                 });
+
             }
             else {
                 ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
-                    for (var i = 0; i < 1000; i++) { }
+                    isClose = true;
                 });
             }
+        }
 
+        if (isClose == false) {
+           await sleep(1000);
         }
     }
 }
