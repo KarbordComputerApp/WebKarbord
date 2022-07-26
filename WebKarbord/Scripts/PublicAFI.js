@@ -2470,7 +2470,7 @@ function getAccessList(GoHome) {
                 whereAcc = data.WhereAcc;
 
                 Master_ProgName = data.ProgName;
-                Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : Fct_or_Inv == 'INV5' ? 'Inv5' : '';
+                Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : data.Fct_or_Inv == 'INV5' ? 'Inv5' : '';
 
                 localStorage.setItem("ApiAddressPos", apiAddressPos);
 
