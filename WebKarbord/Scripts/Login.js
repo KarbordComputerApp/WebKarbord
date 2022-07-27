@@ -143,9 +143,9 @@ input.addEventListener("change", function () {
 
         var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
         ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber + '/true', 'GET', null, true).done(function (data) {
-
-        });
-
+            if (data != 'OK') {
+                 return showNotification(translate('خطا در بازسازی اطلاعات'), 0);
+            }
 
 
         var LoginObject = {
@@ -451,6 +451,7 @@ input.addEventListener("change", function () {
                 }
             }
 
+            });
         });
     }
 
