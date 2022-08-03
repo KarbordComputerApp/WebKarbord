@@ -1153,7 +1153,7 @@
         }
 
         ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject,true).done(function (data) {
-            var sampleArr = base64ToArrayBuffer(data);
+            var sampleArr = base64ToArrayBuffer(data[0].Atch);
             saveByteArray(fileName[0] + ".zip", sampleArr);
 
             //const contentType = 'image/png';

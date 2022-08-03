@@ -898,7 +898,7 @@ $(".autocomplete").select(function () {
     // var parentOffset = $("#" + id_Autocomplete).parent().offset();
 
     $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
-    // $("#p_Statement").show();
+    $("#p_Statement").show();
 
 
 
