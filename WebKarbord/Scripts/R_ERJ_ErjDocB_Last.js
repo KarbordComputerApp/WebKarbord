@@ -1796,22 +1796,22 @@
 
     $('#btn-eghdamComm').click(function () {
         text = $('#eghdamComm').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     $('#btn-DocDesc').click(function () {
         text = $('#docDesc').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     $('#btn-specialComm').click(function () {
         text = $('#specialComm').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     $('#btn-finalComm').click(function () {
         text = $('#finalComm').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     /*  if (sessionStorage.userModeErj == 'USER') {

@@ -835,7 +835,8 @@ var MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
 
 var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
 
-var StatementsSaveUri = server + '/api/Web_Data/SaveStatements'; // آدرس  ذخیره عبارات تعریف شده
+
+
 
 var V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
 
@@ -864,7 +865,7 @@ $(function () {
 });
 */
 
-var Statements = localStorage.getItem('StatementsList');
+/*var Statements = localStorage.getItem('StatementsList');
 
 if (Statements != '' && Statements != null) {
     Statements = Statements.split(',');
@@ -880,9 +881,9 @@ var currentMousePos = { x: -1, y: -1 };
 $(document).mousemove(function (event) {
     currentMousePos.x = event.pageX;
     currentMousePos.y = event.pageY;
-});
+});*/
 
-var id_Autocomplete;
+//var id_Autocomplete;
 $(".autocomplete").select(function () {
     /*var rect = e.target.getBoundingClientRect();
        var x = e.clientX - rect.left; //x position within the element.
@@ -892,13 +893,13 @@ $(".autocomplete").select(function () {
     //var relX = e.pageX - parentOffset.left;
     // var relY = e.pageY - parentOffset.top;
 
-    id_Autocomplete = this.id;
+   // id_Autocomplete = this.id;
 
     //var parentOffset = $(this).parent().position();
     // var parentOffset = $("#" + id_Autocomplete).parent().offset();
 
-    $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
-    $("#p_Statement").show();
+   // $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
+   // $("#p_Statement").show();
 
 
 
@@ -906,11 +907,16 @@ $(".autocomplete").select(function () {
     //$("#saveStatement").css({ top: offset.top, left: offset.left });
     //$("#saveStatement").show();
     //getSelectedText();
+
+   
+    
+       
+
 });
 
 
 $(".autocomplete").click(function () {
-    $("#p_Statement").hide();
+ //   $("#p_Statement").hide();
 });
 
 /*
@@ -922,90 +928,11 @@ $(".autocomplete").focusout(function () {
 
 
 
-$("#saveStatement").on("click", function () {
-    //val = $(".autocomplete").val();
-    val = $("#" + id_Autocomplete).val();
-    var StatementsList = localStorage.getItem('StatementsList');
-    if (StatementsList.search(val) == -1) {
-
-        SaveStatementsDatabase(val);
-        StatementsList += ',' + val;
-        localStorage.setItem('StatementsList', StatementsList);
-        Statements.push(val);
-
-        /*Statement_ListNew = localStorage.getItem('Statement_ListNew');
-        if (Statement_ListNew == null) {
-            Statement_ListNew = val;
-        }
-        else {
-            Statement_ListNew += ',' + val;
-        }
-        localStorage.setItem('Statement_ListNew', Statement_ListNew);*/
-
-    }
-    $("#p_Statement").hide();
-});
-
-
-$("#refreshStatement").on("click", function () {
-
-    Statements = [];
-    temp = '';
-    ajaxFunction(server + '/api/Web_Data/Statements', 'GET', true).done(function (data) {
-        for (var i = 0; i < data.length; i++) {
-            Statements.push(data[i].Name);
-            if (i < data.length - 1)
-                temp += data[i].Name + ',';
-            else
-                temp += data[i].Name;
-        }
-    });
-    localStorage.setItem('StatementsList', temp);
-
-    //Statements = localStorage.getItem('StatementsList');
-
-    //if (Statements != '') {
-    //    Statements = Statements.split(',');
-    //}
-    //localStorage.removeItem('Statement_ListNew');
-    $("#p_Statement").hide();
-    showNotification(translate('برای اعمال تغییرات مرورگر را رفرش کنید'), 1)
-});
-
-
-
-function SaveStatementsDatabase(comm) {
-
-    /*Statement_ListNew = localStorage.getItem('Statement_ListNew');
-    if (Statement_ListNew != null) {
-        var obj = [];
-        data = Statement_ListNew.split(',');
-
-        for (i = 0; i < data.length; i++) {
-            temp = {
-                'Comm': data[i],
-            };
-            obj.push(temp);
-        }
-
-        ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
-            localStorage.removeItem('Statement_ListNew');
-        });
-    }*/
 
 
 
 
-    if (comm != "" && comm != "null") {
-        obj = {
-            'Comm': comm,
-        };
 
-        ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
-            localStorage.removeItem('Statement_ListNew');
-        });
-    }
-}
 
 function getSelectedText() {
     if (window.getSelection) {
@@ -5534,7 +5461,7 @@ function ViewSpec(Spec) {
     if (Spec.length > 15) {
         $('#titleComm').text(translate('ملاحظات'));
         $('#modal-Comm').modal('show');
-        $('#comm').val(Spec);
+        $('#commPublic').val(Spec);
     }
 }
 
@@ -5542,9 +5469,17 @@ function ViewCustName(CustName) {
     if (CustName.length > 15) {
         $('#titleComm').text(translate('نام مشتری'));
         $('#modal-Comm').modal('show');
-        $('#comm').val(CustName);
+        $('#commPublic').val(CustName);
     }
 }
+
+
+$('#modal-Comm').on('show.bs.modal', function () {
+    if ($('#commPublic').attr('readonly') == 'readonly')
+        $('#insertComm').hide();
+    else
+        $('#insertComm').show();
+})
 
 
 
@@ -5745,7 +5680,7 @@ async function RemoveUseSanad(prog, year, FormName, Id) {
         }
 
         if (isClose == false) {
-           await sleep(1000);
+            await sleep(1000);
         }
     }
 }
@@ -5844,3 +5779,77 @@ function SaveLog(progName, editMode, logMode, code, DocNo, serialNumber) {
         a = response;
     });
 }
+
+
+
+
+$('#minMaxComm').click(function () {
+    var images = $('#imgComm').attr('src');
+
+    if (images == '/Content/img/new item/minus-svgrepo-com.svg') {
+        $('#imgComm').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
+        $("#modal-dialogComm").removeClass("modal-entesab"); 
+        
+    }
+    else {
+        $('#imgComm').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
+        $("#modal-dialogComm").addClass("modal-entesab"); 
+    }
+})
+
+
+
+function insertAtCaret(text) {
+    var txtarea = document.getElementById("commPublic");
+    if (!txtarea) {
+        return;
+    }
+
+    var scrollPos = txtarea.scrollTop;
+    var strPos = 0;
+    var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+        "ff" : (document.selection ? "ie" : false));
+    if (br == "ie") {
+        txtarea.focus();
+        var range = document.selection.createRange();
+        range.moveStart('character', -txtarea.value.length);
+        strPos = range.text.length;
+    } else if (br == "ff") {
+        strPos = txtarea.selectionStart;
+    }
+
+    var front = (txtarea.value).substring(0, strPos);
+    var back = (txtarea.value).substring(strPos, txtarea.value.length);
+    txtarea.value = front +" " +text +" "+ back;
+    strPos = strPos + text.length;
+    if (br == "ie") {
+        txtarea.focus();
+        var ieRange = document.selection.createRange();
+        ieRange.moveStart('character', -txtarea.value.length);
+        ieRange.moveStart('character', strPos);
+        ieRange.moveEnd('character', 0);
+        ieRange.select();
+    } else if (br == "ff") {
+        txtarea.selectionStart = strPos;
+        txtarea.selectionEnd = strPos;
+        txtarea.focus();
+    }
+
+    txtarea.scrollTop = scrollPos;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

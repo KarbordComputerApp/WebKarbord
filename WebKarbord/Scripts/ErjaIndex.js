@@ -23,6 +23,9 @@
     self.DocAttachList = ko.observableArray([]); // ليست پیوست
     self.TestDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
+
+
+
     //var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var FarayandUri = server + '/api/Web_Data/Farayand/'; // آدرس فرایند 
     var ErjDocHUri = server + '/api/Web_Data/ErjDocH/'; // آدرس گزارش
@@ -1548,6 +1551,198 @@
 
 
 
+    var StatementsUri = server + '/api/Web_Data/Statements'; // آدرس عبارات تعریف شده
+    self.StatementsList = ko.observableArray([]); // لیست عبارات تعریف شده
+
+
+    function getStatementList() {
+        Statements = [];
+        temp = '';
+        ajaxFunction(StatementsUri, 'GET', true).done(function (data) {
+            self.StatementsList(data);
+        });
+    };
+
+
+    $('#insertComm').click(function () {
+        getStatementList();
+        $('#modal-Statements').modal('show');
+    })
+
+
+    self.currentPageStatements = ko.observable();
+    pageSizeStatements = localStorage.getItem('pageSizeStatements') == null ? 10 : localStorage.getItem('pageSizeStatements');
+    self.pageSizeStatements = ko.observable(pageSizeStatements);
+    self.currentPageIndexStatements = ko.observable(0);
+
+    self.filterStatements0 = ko.observable("");
+
+
+    self.filterStatementsList = ko.computed(function () {
+
+        self.currentPageIndexStatements(0);
+        var filter0 = self.filterStatements0().toUpperCase();
+
+        if (!filter0) {
+            return self.StatementsList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.StatementsList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageStatements = ko.computed(function () {
+        var pageSizeStatements = parseInt(self.pageSizeStatements(), 10),
+            startIndex = pageSizeStatements * self.currentPageIndexStatements(),
+            endIndex = startIndex + pageSizeStatements;
+        localStorage.setItem('pageSizeStatements', pageSizeStatements);
+        return self.filterStatementsList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageStatements = function () {
+        if (((self.currentPageIndexStatements() + 1) * self.pageSizeStatements()) < self.filterStatementsList().length) {
+            self.currentPageIndexStatements(self.currentPageIndexStatements() + 1);
+        }
+    };
+
+    self.previousPageStatements = function () {
+        if (self.currentPageIndexStatements() > 0) {
+            self.currentPageIndexStatements(self.currentPageIndexStatements() - 1);
+        }
+    };
+
+    self.firstPageStatements = function () {
+        self.currentPageIndexStatements(0);
+    };
+
+    self.lastPageStatements = function () {
+        countStatements = parseInt(self.filterStatementsList().length / self.pageSizeStatements(), 10);
+        if ((self.filterStatementsList().length % self.pageSizeStatements()) == 0)
+            self.currentPageIndexStatements(countStatements - 1);
+        else
+            self.currentPageIndexStatements(countStatements);
+    };
+
+    self.sortTableStatements = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.StatementsList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+        if (orderProp == 'Name') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    /*  $('#refreshStatements').click(function () {
+          Swal.fire({
+              title: mes_Refresh,
+              text: translate("لیست نوع کار ها") + " " + translate("به روز رسانی شود ؟"),
+              type: 'info',
+              showCancelButton: true,
+              cancelButtonColor: '#3085d6',
+              cancelButtonText: text_No,
+              allowOutsideClick: false,
+              confirmButtonColor: '#d33',
+              confirmButtonText: text_Yes
+          }).then((result) => {
+              if (result.value) {
+                  getStatementsList();
+              }
+          })
+      })*/
+
+
+    self.selectStatements = function (item) {
+        insertAtCaret(item.Name);
+        $('#modal-Statements').modal('hide');
+    };
+
+
+    var StatementsSaveUri = server + '/api/Web_Data/SaveStatements'; // آدرس  ذخیره عبارات تعریف شده
+
+    function SaveStatements(comm) {
+        if (comm != "" && comm != "null") {
+
+        }
+    }
+
+
+    $("#saveStatement").hide();
+
+    $("#commPublic").select(function () {
+        $("#saveStatement").show();
+    });
+
+    $("#saveStatement").on("click", function () {
+
+        var txtarea = document.getElementById("commPublic");
+        var start = txtarea.selectionStart;
+        var finish = txtarea.selectionEnd;
+        var val = txtarea.value.substring(start, finish);
+
+        if (val != "") {
+            getStatementList();
+            res = ko.utils.arrayFilter(self.StatementsList(), function (item) {
+                result = item.Name == val
+                return result;
+            });
+
+            if (res.length == 0) {
+                obj = {
+                    'Comm': val,
+                };
+                ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
+
+                });
+            }
+        }
+        $("#saveStatement").hide();
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     var counterRelatedDocs = 0;
     var list_RelatedDocsSelect = new Array()
@@ -2329,8 +2524,6 @@
     };
 
 
-
-
     $('#refreshDocAttach').click(function () {
         Swal.fire({
             title: mes_Refresh,
@@ -2354,8 +2547,8 @@
 
 
 
-    localStorage.getItem("ATTACH") == "true" ? $('#attachFile').show() : $('#attachFile').hide() 
-    localStorage.getItem("NEW_ATTACH") == "true" ? $('#AddNewDocAttach').show() : $('#AddNewDocAttach').hide() 
+    localStorage.getItem("ATTACH") == "true" ? $('#attachFile').show() : $('#attachFile').hide()
+    localStorage.getItem("NEW_ATTACH") == "true" ? $('#AddNewDocAttach').show() : $('#AddNewDocAttach').hide()
 
     $('#attachFile').click(function () {
         if (serialNumber > 0) {
@@ -2564,8 +2757,8 @@
         }
 
         if (rjTime_H == '' && rjTime_M == '') {
-           // rjTime_H == '0';
-           // rjTime_M == '0';
+            // rjTime_H == '0';
+            // rjTime_M == '0';
             // return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
@@ -2725,17 +2918,20 @@
 
     $('#ShowEghdamComm').click(function () {
         $('#titleComm').text(translate('اقدام'));
+        $('#codeComm').text('EghdamComm');
         $('#modal-Comm').modal('show');
-        $('#comm').val($('#p_EghdamComm').val());
+        $('#commPublic').val($('#p_EghdamComm').val());
     });
 
     $('#ShowDocDesc').click(function () {
         $('#titleComm').text(translate('عمومی'));
         $('#modal-Comm').modal('show');
-        $('#comm').val($('#p_DocDesc').val());
+        $('#codeComm').text('DocDesc');
+        $('#commPublic').val($('#p_DocDesc').val());
     });
 
     $('#ShowSpecialComm').click(function () {
+        $('#codeComm').text('SpecialComm');
         if (SpecialCommTrs == 1) {
             if ($("#p_SpecialComm").css('font-style') == 'italic') {
                 $("#p_SpecialComm").attr('readonly', false);
@@ -2744,26 +2940,45 @@
             }
             $('#titleComm').text(translate('مدیران'));
             $('#modal-Comm').modal('show');
-            $('#comm').attr("style", "");
-            $('#comm').val($('#p_SpecialComm').val());
+            $('#commPublic').attr("style", "");
+            $('#commPublic').val($('#p_SpecialComm').val());
         }
         /*
         $('#titleComm').text('مدیران');
         $('#modal-Comm').modal('show');
-        $('#comm').val($('#p_SpecialComm').val());*/
+        $('#commPublic').val($('#p_SpecialComm').val());*/
     });
 
     $('#ShowFinalComm').click(function () {
+        $('#codeComm').text('FinalComm');
         $('#titleComm').text(translate('نهایی'));
         $('#modal-Comm').modal('show');
-        $('#comm').val($('#p_FinalComm').val());
+        $('#commPublic').val($('#p_FinalComm').val());
     });
 
 
 
 
-    $('#modal-Comm').on('shown.bs.modal', function () {
+    $('#modal-Comm').on('hide.bs.modal', function () {
+        codeComm = $('#codeComm').text();
+        val = $('#commPublic').val();
+        if (codeComm == "EghdamComm") {
+            $('#p_EghdamComm').val(val)
+        }
 
+        else if (codeComm == "DocDesc") {
+            $('#p_DocDesc').val(val)
+        }
+
+        else if (codeComm == "SpecialComm") {
+            $('#p_SpecialComm').val(val)
+        }
+
+        else if (codeComm == "FinalComm") {
+            $('#p_FinalComm').val(val)
+        }
+
+        $('#codeComm').text("");
     });
 
 
@@ -3196,9 +3411,9 @@
             textLastBand = '';
             for (var j = 0; j < listLastBand.length; j++) {
                 if (listLastBand[j].DocBMode == 0 && listLastBand[j].RjResult != '') {
-                   /* textLastBand +=
-                        '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
-                    textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه ثبت شده توسط :') + '</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '*/
+                    /* textLastBand +=
+                         '  <div style="padding: 3px;margin: 0px 10px 0px 0px;background-color: #e2e1e17d !important;color: #39414b;border-radius: 10px;"> '
+                     textLastBand += '<div class=" form-inline" > <h6 style="padding-left: 4px;">' + translate('نتیجه ثبت شده توسط :') + '</h6> <h6>' + listLastBand[j].ToUserName + '</h6> </div></div > '*/
                 }
                 else if (listLastBand[j].DocBMode == 1) {
                     textLastBand +=
@@ -3214,7 +3429,7 @@
                         textLastBand += ' </div> ';
                     }
                 }
-                else if (listLastBand[j].DocBMode != 0)  {
+                else if (listLastBand[j].DocBMode != 0) {
                     textLastBand += ' <div style="margin: 0px 15px 0px 10px;font-size: 12px;background-color: #e2e1e12e;border-radius: 10px;"> ';
                     textLastBand += ConvertComm(listLastBand[j].RjResult);
                     textLastBand += ' </div> ';
@@ -3314,6 +3529,7 @@
     }
 
     $("#modal-ErjDocH").on('shown.bs.modal', function () {
+        $("#commPublic").prop("readonly", false);
         setTimeout(function () {
             var element = document.getElementById("BodyErjDocH");
             element.scrollTop = element.scrollHeight;
@@ -3416,7 +3632,7 @@
     });
 
     $("#modal-ErjDocH").on('hide.bs.modal', function () {
-
+        $("#commPublic").prop("readonly", true);
         RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
 
         if (DocNoReport != "null" && DocNoReport != null) {
@@ -3464,7 +3680,7 @@
             return false;
     }
 
-    
+
 
 
 

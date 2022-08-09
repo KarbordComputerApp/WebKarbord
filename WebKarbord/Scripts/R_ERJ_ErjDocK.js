@@ -988,26 +988,26 @@
     self.ViewDocDesc = function (Band) {
         $('#titleComm').text(translate('توضیحات عمومی'));
         $('#modal-Comm').modal('show');
-        $('#comm').val(Band.DocDesc);
+        $('#commPublic').val(Band.DocDesc);
     }
 
     self.ViewEghdamComm = function (Band) {
         $('#titleComm').text(translate('توضیحات اقدام کننده'));
         $('#modal-Comm').modal('show');
-        $('#comm').val(Band.EghdamComm);
+        $('#commPublic').val(Band.EghdamComm);
     }
 
     self.ViewFinalComm = function (Band) {
         $('#titleComm').text(translate('توضیحات نهایی'));
         $('#modal-Comm').modal('show');
-        $('#comm').val(Band.FinalComm);
+        $('#commPublic').val(Band.FinalComm);
     }
 
     self.ViewSpecialComm = function (Band) {
         if (Band.SpecialCommTrs == 1) {
             $('#titleComm').text(translate('توضیحات مدیران'));
             $('#modal-Comm').modal('show');
-            $('#comm').val(Band.SpecialComm);
+            $('#commPublic').val(Band.SpecialComm);
         }
         else {
             showNotification(translate('دسترسی ندارید'), 0);

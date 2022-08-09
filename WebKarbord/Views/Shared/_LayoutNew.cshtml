@@ -163,28 +163,28 @@
                                     </li>
                                 </ul>
                                 <!--
-                 <ul class="user_dw_menu">
-                          <li>
-                              <a href="javascript:void(0);">
-                                  <i class="material-icons">person</i>پروفایل
-                              </a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0);">
-                                  <i class="material-icons">feedback</i>بازخورد
-                              </a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0);">
-                                  <i class="material-icons">help</i>راهنما
-                              </a>
-                          </li>
-                          <li>
-                              <a id="LogOut">
-                                  <i class="material-icons">power_settings_new</i>خروج
-                              </a>
-                          </li>
-                </ul>-->
+                                 <ul class="user_dw_menu">
+                                          <li>
+                                              <a href="javascript:void(0);">
+                                                  <i class="material-icons">person</i>پروفایل
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="javascript:void(0);">
+                                                  <i class="material-icons">feedback</i>بازخورد
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="javascript:void(0);">
+                                                  <i class="material-icons">help</i>راهنما
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a id="LogOut">
+                                                  <i class="material-icons">power_settings_new</i>خروج
+                                              </a>
+                                          </li>
+                                </ul>-->
                             </li>
                         </ul>
 
@@ -241,11 +241,11 @@
                         </a>
                     </li>
 
-                  <!--<li class="dropdown pull-left" id="P_Tiket" title="تیکت پشتیبانی">
-                        <a id="btn_Tiket">
-                            <img src="~/Content/img/ticket-account.png" width="24" height="24" style="margin-top: 0px;" />
-                        </a>
-                    </li>-->
+                    <!--<li class="dropdown pull-left" id="P_Tiket" title="تیکت پشتیبانی">
+                          <a id="btn_Tiket">
+                              <img src="~/Content/img/ticket-account.png" width="24" height="24" style="margin-top: 0px;" />
+                          </a>
+                      </li>-->
                     <li class="dropdown pull-left" id="P_ContactUs" title="تماس با ما">
                         <a id="btn_App" href="https://m.karbordcomputer.ir/contact-us/" target="_blank">
                             <img src="~/Content/img/ContactUs.png" width="18" height="18" style="margin-top: 5px;margin-bottom: 0px;" />
@@ -781,10 +781,13 @@
     <section id="content" class="content">
         <div class="container-fluid">
             @RenderBody()
-            <div id="p_Statement" class="form-inline" style="top: 100px;left: 100px;position: absolute;z-index: 100000;display:none">
+
+
+
+            <!--<div id="p_Statement" class="form-inline" style="top: 100px;left: 100px;position: absolute;z-index: 100000;display:none">
                 <a id="saveStatement"><span class="material-icons" style="font-size:20px">save</span></a>
                 <a id="refreshStatement"><span class="material-icons" style="font-size:20px">refresh</span></a>
-            </div>
+            </div>-->
 
         </div>
 
@@ -1002,26 +1005,34 @@
 
 
     <div class="modal fade" id="modal-Comm" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" style="top: 200px;">
+        <div class="modal-dialog" id="modal-dialogComm" style="top: 150px;">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" style="padding-left: 200px;" id="titleComm">توضیحات</h4>
+                <div class="modal-header" style="padding-bottom: 0px;">
+                    <div>
+                        <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <a id="minMaxComm">
+                            <img id="imgComm" src="/Content/img/new item/square-svgrepo-com.svg" style="width:16px">
+                        </a>
+                    </div>
+                    <h4 class="modal-title" id="titleComm">توضیحات</h4>
+                    <div>
+                        <a id="insertComm" title="درج عبارات تعریف شده" style="margin-left: 5px;">
+                            <img src="/Content/img/sanad/list-add.png" width="20" height="20">
+                        </a>
+                        <a id="saveStatement" title="ذخیره متن در عبارات تعریف شده"><span class="material-icons" style="font-size:20px;float:left">save</span></a>
+                    </div>
+
                 </div>
                 <div class="modal-body">
-                    <textarea id="comm" rows="20" class="form-control no-resize auto-growth string autocomplete" style="text-align:justify" readonly>
+                    <span id="codeComm" style="display: none"></span>
+                    <textarea id="commPublic" rows="20" class="form-control no-resize auto-growth string autocomplete" style="text-align:justify" readonly>
                 </textarea>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
 
 
     <script type="text/javascript">

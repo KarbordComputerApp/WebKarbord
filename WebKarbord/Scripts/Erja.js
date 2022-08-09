@@ -196,12 +196,12 @@
         cols = getRprtColsErj(rprtId, sessionStorage.userName);
         ListColumns = cols;
         if (FlagSetting) {
-            CreateTableReport(data)
+            CreateTableReport(cols)
         }
         else {
             CreateTableColumn(columns);
             for (var i = 1; i <= columns.length; i++) {
-                SetColumn(columns[i - 1], i, data);
+                SetColumn(columns[i - 1], i, cols);
             }
         }
         /*
@@ -1259,6 +1259,178 @@
 
 
 
+    var StatementsUri = server + '/api/Web_Data/Statements'; // آدرس عبارات تعریف شده
+    self.StatementsList = ko.observableArray([]); // لیست عبارات تعریف شده
+
+
+    function getStatementList() {
+        Statements = [];
+        temp = '';
+        ajaxFunction(StatementsUri, 'GET', true).done(function (data) {
+            self.StatementsList(data);
+        });
+    };
+
+
+    $('#insertComm').click(function () {
+        getStatementList();
+        $('#modal-Statements').modal('show');
+    })
+
+
+    self.currentPageStatements = ko.observable();
+    pageSizeStatements = localStorage.getItem('pageSizeStatements') == null ? 10 : localStorage.getItem('pageSizeStatements');
+    self.pageSizeStatements = ko.observable(pageSizeStatements);
+    self.currentPageIndexStatements = ko.observable(0);
+
+    self.filterStatements0 = ko.observable("");
+
+
+    self.filterStatementsList = ko.computed(function () {
+
+        self.currentPageIndexStatements(0);
+        var filter0 = self.filterStatements0().toUpperCase();
+
+        if (!filter0) {
+            return self.StatementsList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.StatementsList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageStatements = ko.computed(function () {
+        var pageSizeStatements = parseInt(self.pageSizeStatements(), 10),
+            startIndex = pageSizeStatements * self.currentPageIndexStatements(),
+            endIndex = startIndex + pageSizeStatements;
+        localStorage.setItem('pageSizeStatements', pageSizeStatements);
+        return self.filterStatementsList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageStatements = function () {
+        if (((self.currentPageIndexStatements() + 1) * self.pageSizeStatements()) < self.filterStatementsList().length) {
+            self.currentPageIndexStatements(self.currentPageIndexStatements() + 1);
+        }
+    };
+
+    self.previousPageStatements = function () {
+        if (self.currentPageIndexStatements() > 0) {
+            self.currentPageIndexStatements(self.currentPageIndexStatements() - 1);
+        }
+    };
+
+    self.firstPageStatements = function () {
+        self.currentPageIndexStatements(0);
+    };
+
+    self.lastPageStatements = function () {
+        countStatements = parseInt(self.filterStatementsList().length / self.pageSizeStatements(), 10);
+        if ((self.filterStatementsList().length % self.pageSizeStatements()) == 0)
+            self.currentPageIndexStatements(countStatements - 1);
+        else
+            self.currentPageIndexStatements(countStatements);
+    };
+
+    self.sortTableStatements = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.StatementsList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+        if (orderProp == 'Name') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+
+    /*  $('#refreshStatements').click(function () {
+          Swal.fire({
+              title: mes_Refresh,
+              text: translate("لیست نوع کار ها") + " " + translate("به روز رسانی شود ؟"),
+              type: 'info',
+              showCancelButton: true,
+              cancelButtonColor: '#3085d6',
+              cancelButtonText: text_No,
+              allowOutsideClick: false,
+              confirmButtonColor: '#d33',
+              confirmButtonText: text_Yes
+          }).then((result) => {
+              if (result.value) {
+                  getStatementsList();
+              }
+          })
+      })*/
+
+
+    self.selectStatements = function (item) {
+        insertAtCaret(item.Name);
+        $('#modal-Statements').modal('hide');
+    };
+
+
+    var StatementsSaveUri = server + '/api/Web_Data/SaveStatements'; // آدرس  ذخیره عبارات تعریف شده
+
+    function SaveStatements(comm) {
+        if (comm != "" && comm != "null") {
+
+        }
+    }
+
+
+    $("#saveStatement").hide();
+
+    $("#commPublic").select(function () {
+        $("#saveStatement").show();
+    });
+
+    $("#saveStatement").on("click", function () {
+
+        var txtarea = document.getElementById("commPublic");
+        var start = txtarea.selectionStart;
+        var finish = txtarea.selectionEnd;
+        var val = txtarea.value.substring(start, finish);
+
+        if (val != "") {
+            getStatementList();
+            res = ko.utils.arrayFilter(self.StatementsList(), function (item) {
+                result = item.Name == val
+                return result;
+            });
+
+            if (res.length == 0) {
+                obj = {
+                    'Comm': val,
+                };
+                ajaxFunction(StatementsSaveUri, 'POST', obj).done(function (response) {
+
+                });
+            }
+        }
+        $("#saveStatement").hide();
+    });
+
+
+
+
+
+
 
 
     self.currentPageErjUsers = ko.observable();
@@ -2073,22 +2245,22 @@
 
     $('#btn-eghdamComm').click(function () {
         text = $('#eghdamComm').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     $('#btn-DocDesc').click(function () {
         text = $('#docDesc').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     $('#btn-specialComm').click(function () {
         text = $('#specialComm').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
     $('#btn-finalComm').click(function () {
         text = $('#finalComm').val();
-        $("#comm").val(text);
+        $("#commPublic").val(text);
     })
 
 
@@ -2107,7 +2279,7 @@
 
     $("#modal-ErjDocErja").on('shown.bs.modal', function () {
 
-        $("#comm").prop("readonly", false);
+        $("#commPublic").prop("readonly", false);
         setTimeout(function () {
             var element = document.getElementById("BodyErjDocErja");
             element.scrollTop = element.scrollHeight;
@@ -2135,7 +2307,7 @@
 
 
     $("#modal-ErjDocErja").on('hide.bs.modal', function () {
-        $("#comm").prop("readonly", true);
+        $("#commPublic").prop("readonly", true);
         getDocB_Last();
         self.sortTableDocB_Last();
 
@@ -2274,18 +2446,21 @@
     $('#ShowEghdamComm').click(function () {
         $('#titleComm').text(translate('اقدام'));
         $('#modal-Comm').modal('show');
-        $('#comm').attr("style", "");
-        $('#comm').val($('#eghdamComm').val());
+        $('#commPublic').attr("style", "");
+        $('#codeComm').text('EghdamComm');
+        $('#commPublic').val($('#eghdamComm').val());
     });
 
     $('#ShowDocDesc').click(function () {
         $('#titleComm').text(translate('عمومی'));
         $('#modal-Comm').modal('show');
-        $('#comm').attr("style", "");
-        $('#comm').val($('#docDesc').val());
+        $('#commPublic').attr("style", "");
+        $('#codeComm').text('DocDesc');
+        $('#commPublic').val($('#docDesc').val());
     });
 
     $('#ShowSpecialComm').click(function () {
+        $('#codeComm').text('SpecialComm');
         if (SpecialCommTrs == 1) {
             if ($("#specialComm").css('font-style') == 'italic') {
                 $("#specialComm").attr('readonly', false);
@@ -2294,17 +2469,43 @@
             }
             $('#titleComm').text(translate('مدیران'));
             $('#modal-Comm').modal('show');
-            $('#comm').attr("style", "");
-            $('#comm').val($('#specialComm').val());
+            $('#commPublic').attr("style", "");
+            $('#commPublic').val($('#specialComm').val());
         }
     });
 
+
     $('#ShowFinalComm').click(function () {
+        $('#codeComm').text('FinalComm');
         $('#titleComm').text(translate('نهایی'));
         $('#modal-Comm').modal('show');
-        $('#comm').attr("style", "");
-        $('#comm').val($('#finalComm').val());
+        $('#commPublic').attr("style", "");
+        $('#commPublic').val($('#finalComm').val());
     });
+
+
+    $('#modal-Comm').on('hide.bs.modal', function () {
+        codeComm = $('#codeComm').text();
+        val = $('#commPublic').val();
+        if (codeComm == "EghdamComm") {
+            $('#eghdamComm').val(val)
+        }
+
+        else if (codeComm == "DocDesc") {
+            $('#docDesc').val(val)
+        }
+
+        else if (codeComm == "SpecialComm") {
+            $('#specialComm').val(val)
+        }
+
+        else if (codeComm == "FinalComm") {
+            $('#finalComm').val(val)
+        }
+
+        $('#codeComm').text("");
+    });
+
 
     /*$('#ShowHideEghdamComm').click(function () {
         if (showHideEghdamComm) {

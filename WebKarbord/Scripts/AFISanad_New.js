@@ -524,6 +524,8 @@ var ViewModel = function () {
             $('#Print_SanadHesab').attr('style', 'display: none')
         }*/
 
+        localStorage.setItem("AccessViewSanad", false);
+
         if (localStorage.getItem("AccessViewSanad") == 'true') {
             viewAction = true;
         }
@@ -1839,7 +1841,7 @@ var ViewModel = function () {
                                         dataGrid.focus(dataGrid.getCellElement(0, 0));
 
 
-                                        //$(this).CheckAccess();
+                                        CheckAccess();
                                     }
                                 })
                             },
@@ -3618,6 +3620,7 @@ var ViewModel = function () {
         $('#btntarikh').click(function () {
             $('#tarikh').change();
         });
+
         self.Spec(sessionStorage.Spec);
         $("#docnoout").text(sessionStorage.DocNo);
         self.AModeCode(sessionStorage.ModeCodeSanad);

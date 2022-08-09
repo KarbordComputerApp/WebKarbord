@@ -368,7 +368,7 @@ input.addEventListener("change", function () {
                                 //a = localStorage.getItem('afiList');
                             });
 
-                            var Statements = "";
+                            /*var Statements = "";
                             ajaxFunction(server + '/api/Web_Data/Statements', 'GET', true).done(function (data) {
                                 for (var i = 0; i < data.length; i++) {
                                     if (i < data.length - 1)
@@ -377,7 +377,7 @@ input.addEventListener("change", function () {
                                         Statements += data[i].Name;
                                 }
                             });
-                            localStorage.setItem('StatementsList', Statements);
+                            localStorage.setItem('StatementsList', Statements);*/
 
                             localStorage.removeItem("listForms");
 

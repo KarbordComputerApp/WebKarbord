@@ -115,6 +115,7 @@ var ViewModel = function () {
 
             }
 
+
             validation = CheckAccess('MOVE_SFORD', 'Fct5');
             validation == true ? $("#TabMove").show() : $("#TabMove").hide()
             sessionStorage.moveFactor = validation;
