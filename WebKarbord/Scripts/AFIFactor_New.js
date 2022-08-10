@@ -5344,9 +5344,11 @@ var ViewModel = function () {
     };
 
 
-
-
-
+    $('#Btn_TasfiyeFactor').click(function () {
+        ghabelPardakht = $('#ghabelPardakht').text();
+        $('#mablaghDaryafti').val(ghabelPardakht);
+        
+    });
 };
 
 ko.applyBindings(new ViewModel());
