@@ -2444,7 +2444,7 @@
 
 
     $('#ShowEghdamComm').click(function () {
-        $('#titleComm').text(translate('اقدام'));
+        $('#titleComm').text(translate('توضیحات اقدام'));
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#codeComm').text('EghdamComm');
@@ -2452,7 +2452,7 @@
     });
 
     $('#ShowDocDesc').click(function () {
-        $('#titleComm').text(translate('عمومی'));
+        $('#titleComm').text(translate('توضیحات عمومی'));
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#codeComm').text('DocDesc');
@@ -2467,7 +2467,7 @@
                 TextHighlightDel("#specialComm");
                 $("#specialComm").val(specialComm);
             }
-            $('#titleComm').text(translate('مدیران'));
+            $('#titleComm').text(translate('توضیحات مدیران'));
             $('#modal-Comm').modal('show');
             $('#commPublic').attr("style", "");
             $('#commPublic').val($('#specialComm').val());
@@ -2477,7 +2477,7 @@
 
     $('#ShowFinalComm').click(function () {
         $('#codeComm').text('FinalComm');
-        $('#titleComm').text(translate('نهایی'));
+        $('#titleComm').text(translate('توضیحات نهایی'));
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#commPublic').val($('#finalComm').val());

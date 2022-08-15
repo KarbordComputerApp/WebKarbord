@@ -45,6 +45,12 @@ var key_F12 = 123;
 var key_Space = 32;
 var key_BackSpace = 8;
 var key_Enter = 13;
+var key_Esc = 27;
+var key_Insert = 45;
+var key_Delete = 46;
+var key_R = 82;
+var key_O = 79;
+var key_P = 80;
 
 var key_a = 97;
 var key_b = 98;
@@ -2113,8 +2119,8 @@ function getParamAcc() {
 
 function getDataVstr() {
     vstrcode = localStorage.getItem("userVstrCode");
+    localStorage.setItem("userVstrName", null);
     if (vstrcode != '' && vstrcode != null) {
-        localStorage.setItem("userVstrName", null);
         var VstrUri = server + '/api/Web_Data/Vstr/';
         ajaxFunction(VstrUri + ace + '/' + sal + '/' + group + '/' + vstrcode, 'GET', false, true).done(function (data) {
             localStorage.setItem("userVstrName", data[0].Name);

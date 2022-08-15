@@ -723,9 +723,25 @@
 
     self.sortTableOpr();
 
+
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && $('#modal-Opr').is(':visible')) {
-            SaveOpr();
+        if (e.ctrlKey) {
+            if ($('#AddNewOpr').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    self.AddNewOpr();
+            }
+
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2 && $('#modal-Opr').is(':visible')) {
+                SaveOpr();
+            }
+            if (e.keyCode == key_Esc && $('#modal-Opr').is(':visible')) {
+                $('#modal-Opr').modal('hide');
+            }
         }
     };
 };

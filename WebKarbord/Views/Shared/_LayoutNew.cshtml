@@ -242,10 +242,10 @@
                     </li>
 
                     <!--<li class="dropdown pull-left" id="P_Tiket" title="تیکت پشتیبانی">
-                          <a id="btn_Tiket">
-                              <img src="~/Content/img/ticket-account.png" width="24" height="24" style="margin-top: 0px;" />
-                          </a>
-                      </li>-->
+                        <a id="btn_Tiket">
+                            <img src="~/Content/img/ticket-account.png" width="24" height="24" style="margin-top: 0px;" />
+                        </a>
+                    </li>-->
                     <li class="dropdown pull-left" id="P_ContactUs" title="تماس با ما">
                         <a id="btn_App" href="https://m.karbordcomputer.ir/contact-us/" target="_blank">
                             <img src="~/Content/img/ContactUs.png" width="18" height="18" style="margin-top: 5px;margin-bottom: 0px;" />
@@ -257,6 +257,13 @@
                             <img src="~/Content/img/android.png" width="20" height="20" style="margin-top: 5px;" />
                         </a>
                     </li>
+
+                    <li class="dropdown pull-left" id="P_App" title="راهنمای کلید های میانبر">
+                        <a id="HotKeyHelp" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-HotKeyHelp">
+                            <img src="~/Content/img/help.png" width="24" height="24" style="margin-top: 3px;" />
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -1033,6 +1040,71 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <div class="modal fade" id="modal-HotKeyHelp" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text:translate('راهنمای کلید های میانبر')"></h4>
+                    <a></a>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <table style="margin-top: 10px;" class="table-hover">
+                            <thead>
+                                <tr style="background-color:#d9d9d9">
+                                    <th style="padding: 5px;">کلید میانبر</th>
+                                    <th style="padding: 5px;">شرح</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr style="border: #dddddd 1px solid;">
+                                    <td style="padding: 5px;">Ctrl + Insert</td>
+                                    <td style="padding: 5px;">جدید </td>
+                                </tr>
+
+                                <tr style="border: #dddddd 1px solid;">
+                                    <td style="padding: 5px;">Esc</td>
+                                    <td style="padding: 5px;">انصراف</td>
+                                </tr>
+                                <tr style="border: #dddddd 1px solid;">
+                                    <td style="padding: 5px;">F2</td>
+                                    <td style="padding: 5px;">ذخیره</td>
+                                </tr>
+                                <tr style="border: #dddddd 1px solid;">
+                                    <td style="padding: 5px;">Ctrl + F3</td>
+                                    <td style="padding: 5px;">جستجو</td>
+                                </tr>
+                                
+                                <tr style="border: #dddddd 1px solid;">
+                                    <td style="padding: 5px;">Alt + P</td>
+                                    <td style="padding: 5px;">چاپ</td>
+                                </tr>
+                                
+                                <tr style="border: #dddddd 1px solid;">
+                                    <td style="padding: 5px;">Alt + R</td>
+                                    <td style="padding: 5px;">بند جدید</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <script type="text/javascript">

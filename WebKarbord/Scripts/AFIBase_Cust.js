@@ -1320,11 +1320,28 @@
 
     self.sortTableCust();
 
+
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && $('#modal-Cust').is(':visible')) {
-            SaveCust();
+        if (e.ctrlKey) {
+            if ($('#AddNewCust').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    self.AddNewCust();
+            }
+
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2 && $('#modal-Cust').is(':visible')) {
+                SaveCust();
+            }
+            if (e.keyCode == key_Esc && $('#modal-Cust').is(':visible')) {
+                $('#modal-Cust').modal('hide');
+            }
         }
     };
+
 };
 
 ko.applyBindings(new ViewModel());

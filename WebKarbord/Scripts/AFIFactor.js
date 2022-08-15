@@ -860,6 +860,14 @@
 
 
     self.ButtonFDocH = function ButtonFDocH(newFDocH) {
+        AddNewBand();
+    }
+
+
+    function AddNewBand() {
+        KalaCode = '';
+        self.flagupdateband = false;
+
         if (flagInsertFdoch == 0) {
             var tarikh = $("#tarikh").val().toEnglishDigit();
             var docNo = $("#docnoout").val();
@@ -877,7 +885,7 @@
             TestFDoc_New(Serial, tarikh, docNo);
             if (resTestNew == true) {
                 self.ClearFDocB();
-                AddFDocH(newFDocH);
+                AddFDocH();
                 flagInsertFdoch == 1 ? $('#modal-Band').modal() : null
             }
             /* var TestFDoc_NewObject = {
@@ -901,8 +909,8 @@
         } else {
             $('#modal-Band').modal()
         }
-    }
 
+    }
 
     function TestFDoc_New(serialNumber, tarikh, docNo) {
         var TestFDoc_NewObject = {
@@ -1289,7 +1297,7 @@
                 flagInsertFdoch = 1;
             }
         });
-    };
+    }
 
 
 
@@ -1473,7 +1481,10 @@
 
         });
         return "OK";
-    }
+    
+    };
+
+   
 
     //Add new FDocB  
     self.AddFDocB = function AddFDocB(newFDocB) {
@@ -3239,8 +3250,7 @@
     });
 
     $('#insertband').click(function () {
-        KalaCode = '';
-        self.flagupdateband = false;
+       
     })
 
     $('#refreshcust').click(function () {
@@ -3606,7 +3616,11 @@
     sessionStorage.newFactor == "true" ? $("#AddNewFactor").show() : $("#AddNewFactor").hide();
 
     $('#AddNewFactor').click(function () {
+        AddNewSanad();
+    });
 
+
+    function AddNewSanad() {
         Swal.fire({
             title: '',
             text: $('#TitleHeaderFactor').text() + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
@@ -3776,8 +3790,7 @@
                 $(this).CheckAccess();
             }
         })
-    });
-
+    }
     $("#allSearchHesab").click(function () {
         if ($("#allSearchHesab").is(':checked')) {
             $('#allSearchHesabText').text(translate('جستجو بر اساس همه موارد'));
@@ -4432,6 +4445,10 @@
 
 
     $('#Print_Factor').click(function () {
+        PrintSanad();
+    });
+
+    function PrintSanad() {
         if (Serial == '')
             return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
         createViewer();
@@ -4461,7 +4478,7 @@
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
         $('#modal-Print').modal('show');
-    });
+    }
 
     $('#DesignPrint').click(function () {
         self.filterPrintForms1("");
@@ -4973,9 +4990,10 @@
 
 
     $('#FinalSave').click(function () {
+        SaveSanad();
+    });
 
-
-
+    function SaveSanad() {
         if (self.UpdateFDocH() != "OK") {
             return null;
         }
@@ -5005,7 +5023,7 @@
             }
 
         });
-    });
+    }
 
     function SetDataTestDocB() {
         $("#BodyTestDocB").empty();
@@ -5352,6 +5370,38 @@
 
     window.onbeforeunload = function () {
         RemoveUseSanad(ace, sal, "Factor", sessionStorage.SerialNumber);
+    };
+
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if (sessionStorage.newFactor == "true") {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+        }
+        else if (e.altKey) {
+            if (e.keyCode == key_R) {
+                AddNewBand();
+            }
+            if (sessionStorage.AccessPrint_Factor == "true") {
+                if (e.keyCode == key_P) {
+                    PrintSanad();
+                }
+            }
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2) {
+                SaveSanad();
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
+        }
     };
 
 };

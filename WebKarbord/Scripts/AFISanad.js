@@ -652,6 +652,10 @@
 
     $('#AddNewSanad').click(function () {
 
+        AddNewSanad();
+    });
+
+    function AddNewSanad() {
         Swal.fire({
             title: '',
             text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
@@ -711,8 +715,7 @@
                 $(this).CheckAccess();
             }
         })
-    });
-
+    }
 
 
 
@@ -2661,7 +2664,12 @@
         $("#panelSanad").addClass("col-md-8");
     }
 
-    self.ButtonADocH = function ButtonADocH(newADocH) {
+    self.ButtonADocH = function ButtonADocH() {
+        AddNewBand();
+    }
+
+
+    function AddNewBand() {
         ClearSearch();
         $('#panelZAcc').attr('hidden', '');
         $('#panelArz').attr('hidden', '');
@@ -2691,7 +2699,7 @@
 
             TestADoc_New(Serial, tarikh, docNo);
             if (resTestNew == true) {
-                AddADocH(newADocH);
+                AddADocH();
                 flagInsertADocH == 1 ? $('#modal-Band').modal() : null
             }
 
@@ -3369,7 +3377,10 @@
 
 
     $('#FinalSave').click(function () {
+        SaveSanad();
+    });
 
+    function SaveSanad() {
         if (Serial == "" || self.ADocBList().length == 0)
             return showNotification(translate('سند خالی قابل ذخیره نیست'), 0);
 
@@ -3395,7 +3406,7 @@
                 SetTanzimSanad();
             }
         });
-    });
+    }
 
     function SetDataTestDocB() {
         $("#BodyTestDocB").empty();
@@ -4071,7 +4082,11 @@
 
 
     $('#Print_SanadHesab').click(function () {
+        PrintSanad();
+    });
 
+
+    function PrintSanad() {
         if (Serial == '')
             return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
         getADocP(Serial);
@@ -4086,7 +4101,7 @@
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
         $('#modal-Print').modal('show');
-    });
+    }
 
     $('#DesignPrint').click(function () {
         self.filterPrintForms1("");
@@ -4442,6 +4457,40 @@
 
     window.onbeforeunload = function () {
         RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+    };
+
+
+
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if (sessionStorage.NEW_ADOC == "true") {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+        }
+        else if (e.altKey) {
+            if (e.keyCode == key_R) {
+                AddNewBand();
+            }
+            if (e.keyCode == key_P) {
+                if (localStorage.getItem("AccessPrint_SanadHesab") == "true") {
+                    PrintSanad();
+                }
+            }
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2) {
+                SaveSanad();
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
+        }
     };
 
 };

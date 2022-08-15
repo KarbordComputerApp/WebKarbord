@@ -717,9 +717,25 @@
 
     self.sortTableArz();
 
+
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && $('#modal-Arz').is(':visible')) {
-            SaveArz();
+        if (e.ctrlKey) {
+            if ($('#AddNewArz').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    self.AddNewArz();
+            }
+
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2 && $('#modal-Arz').is(':visible')) {
+                SaveArz();
+            }
+            if (e.keyCode == key_Esc && $('#modal-Arz').is(':visible')) {
+                $('#modal-Arz').modal('hide');
+            }
         }
     };
 };

@@ -718,8 +718,15 @@
 
 
     self.ButtonIDocH = function ButtonIDocH(newIDocH) {
-        if (flagInsertIDoch == 0) {
+        AddNewBand();
+    }
 
+
+    function AddNewBand() {
+        KalaCode = '';
+        self.flagupdateband = false;
+
+        if (flagInsertIDoch == 0) {
 
             var tarikh = $("#tarikh").val().toEnglishDigit();
             var docNo = $("#docnoout").val();
@@ -738,7 +745,7 @@
             TestIDoc_New(Serial, tarikh, docNo);
             if (resTestNew == true) {
                 self.ClearIDocB();
-                AddIDocH(newIDocH);
+                AddIDocH();
                 flagInsertIDoch == 1 ? $('#modal-Band').modal() : null
             }
 
@@ -747,8 +754,8 @@
         } else {
             $('#modal-Band').modal()
         }
-
     }
+
 
     function TestIDoc_New(serialNumber, tarikh, docNo) {
 
@@ -3053,8 +3060,7 @@
     });
 
     $('#insertband').click(function () {
-        KalaCode = '';
-        self.flagupdateband = false;
+
     })
 
     $('#refreshThvl').click(function () {
@@ -3371,7 +3377,10 @@
 
 
     $('#AddNewSanadAnbar').click(function () {
+        AddNewSanad();   
+    });
 
+    function AddNewSanad() {
         Swal.fire({
             title: '',
             text: $('#TitleHeaderAnbar').text() + " جدید ایجاد می شود . آیا مطمئن هستید ؟",
@@ -3412,7 +3421,7 @@
                 window.location.href = sessionStorage.urlAddIDocH;
             }
         })
-    });
+    }
 
 
 
@@ -3716,7 +3725,10 @@
 
 
     $('#Print_SanadAnbar').click(function () {
+        PrintSanad();    
+    });
 
+    function PrintSanad() {
         if (Serial == '')
             return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
         getIDocP(Serial);
@@ -3742,7 +3754,7 @@
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
         $('#modal-Print').modal('show');
-    });
+    }
 
     $('#DesignPrint').click(function () {
         self.filterPrintForms1("");
@@ -3834,8 +3846,10 @@
 
 
     $('#FinalSave').click(function () {
+        SaveSanad();
+    });
 
-
+    function SaveSanad() {
         if (self.UpdateIDocH() != "OK") {
             return null;
         }
@@ -3856,7 +3870,7 @@
                 SetTanzimSanad();
             }
         });
-    });
+    }
 
     function SetDataTestDocB() {
         $("#BodyTestDocB").empty();
@@ -4212,6 +4226,39 @@
         // if (a.type == 0) {
         RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber);
         // }
+    };
+
+
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if (sessionStorage.newSanad == "true") {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+        }
+        else if (e.altKey) {
+            if (e.keyCode == key_R) {
+                AddNewBand();
+            }
+            if (sessionStorage.AccessPrint_SanadAnbar == "true") {
+                if (e.keyCode == key_P) {
+                    PrintSanad();
+                }
+            }
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2) {
+                SaveSanad();
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
+        }
     };
 
 };

@@ -1366,6 +1366,10 @@
     };
 
     $('#AddNewSanadAnbar').click(function () {
+        AddNewSanadAnbar();
+    });
+
+    function AddNewSanadAnbar(){
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = 'موقت';
@@ -1411,7 +1415,7 @@
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
         sessionStorage.ArzRate = 0;
-        
+
 
         sessionStorage.InvCode = invCode;
 
@@ -1419,7 +1423,7 @@
             window.location.href = sessionStorage.urlAddIDocH_New;
         else
             window.location.href = sessionStorage.urlAddIDocH;
-    });
+    }
 
 
     /*$('#AddNewSanadAnbar_New').click(function () {
@@ -2712,6 +2716,39 @@
 
     self.sortTableIDocH();
 
+
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if ($('#AddNewSanadAnbar').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    AddNewSanadAnbar();
+            }
+
+            if (e.keyCode == key_F3)
+                $("#DocNoSearch").focus();
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            // if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
+            //   SaveKala();
+            //}
+
+            if (e.keyCode == key_Esc && $('#modal-Move').is(':visible')) {
+                $('#modal-Move').modal('hide');
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-ChangeStatusSanad').is(':visible')) {
+                $('#modal-ChangeStatusSanad').modal('hide');
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
+        }
+    };
 
 };
 

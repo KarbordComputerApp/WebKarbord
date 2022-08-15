@@ -727,10 +727,26 @@
     self.sortTableMkz();
 
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && $('#modal-Mkz').is(':visible')) {
-            SaveMkz();
+        if (e.ctrlKey) {
+            if ($('#AddNewMkz').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    self.AddNewMkz();
+            }
+
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2 && $('#modal-Mkz').is(':visible')) {
+                SaveMkz();
+            }
+            if (e.keyCode == key_Esc && $('#modal-Mkz').is(':visible')) {
+                $('#modal-Mkz').modal('hide');
+            }
         }
     };
+
 };
 
 ko.applyBindings(new ViewModel());

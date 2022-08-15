@@ -2101,7 +2101,7 @@ var ViewModel = function () {
         })
     })
 
-    $('#AddNewFactor').click(function () {
+   /* $('#AddNewFactor').click(function () {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = translate('موقت');
@@ -2159,11 +2159,16 @@ var ViewModel = function () {
         else
             window.location.href = sessionStorage.urlAddFDocH;
         //}
-    });
+    });*/
 
 
 
     $('#AddNewFactor').click(function () {
+        AddNewFactor();
+    });
+
+
+    function AddNewFactor() {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = translate('موقت');
@@ -2212,8 +2217,7 @@ var ViewModel = function () {
             window.location.href = sessionStorage.urlAddFDocH_New;
         else
             window.location.href = sessionStorage.urlAddFDocH;
-    });
-
+    }
 
     self.DeleteFactor = function (factorBand) {
 
@@ -3973,6 +3977,38 @@ var ViewModel = function () {
     self.currentPageIndexFDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
     self.sortTableFDocH();
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if ($('#AddNewFactor').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    AddNewFactor();
+            }
+
+            if (e.keyCode == key_F3)
+                $("#DocNoSearch").focus();
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            // if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
+            //   SaveKala();
+            //}
+
+            if (e.keyCode == key_Esc && $('#modal-Move').is(':visible')) {
+                $('#modal-Move').modal('hide');
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-ChangeStatusFactor').is(':visible')) {
+                $('#modal-ChangeStatusFactor').modal('hide');
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
+        }
+    };
 };
 
 ko.applyBindings(new ViewModel());

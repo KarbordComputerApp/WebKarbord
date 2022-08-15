@@ -923,7 +923,12 @@
 
 
 
-    self.AddNewDocH = function (Band) {
+    self.AddNewDocH = function () {
+        AddNewSanad();
+    }
+
+
+    function AddNewSanad() {
         //sessionStorage.flagupdate = 0;
         //sessionStorage.Eghdam = sessionStorage.userName;
         //docBMode = Band.DocBMode;
@@ -979,6 +984,8 @@
         $('#ExtraFields20').val('');
 
         $('#p_EghdamComm').attr('readonly', false);
+
+        $('#modal-ErjDocH').modal('show');
     }
 
 
@@ -2917,14 +2924,14 @@
 
 
     $('#ShowEghdamComm').click(function () {
-        $('#titleComm').text(translate('اقدام'));
+        $('#titleComm').text(translate('توضیحات اقدام'));
         $('#codeComm').text('EghdamComm');
         $('#modal-Comm').modal('show');
         $('#commPublic').val($('#p_EghdamComm').val());
     });
 
     $('#ShowDocDesc').click(function () {
-        $('#titleComm').text(translate('عمومی'));
+        $('#titleComm').text(translate('توضیحات عمومی'));
         $('#modal-Comm').modal('show');
         $('#codeComm').text('DocDesc');
         $('#commPublic').val($('#p_DocDesc').val());
@@ -2938,7 +2945,7 @@
                 TextHighlightDel("#p_SpecialComm");
                 $("#p_SpecialComm").val(specialComm);
             }
-            $('#titleComm').text(translate('مدیران'));
+            $('#titleComm').text(translate('توضیحات مدیران'));
             $('#modal-Comm').modal('show');
             $('#commPublic').attr("style", "");
             $('#commPublic').val($('#p_SpecialComm').val());
@@ -2951,7 +2958,7 @@
 
     $('#ShowFinalComm').click(function () {
         $('#codeComm').text('FinalComm');
-        $('#titleComm').text(translate('نهایی'));
+        $('#titleComm').text(translate('توضیحات نهایی'));
         $('#modal-Comm').modal('show');
         $('#commPublic').val($('#p_FinalComm').val());
     });
@@ -3939,6 +3946,29 @@
     self.currentPageIndexErjDocH(parseInt(sessionStorage.lastPageSelect == null ? 0 : sessionStorage.lastPageSelect));
 
     self.sortTableErjDocH();
+
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if ($('#AddNewErjDocH').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+        }
+        else if (e.altKey) {
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2 && $('#modal-ErjDocH').is(':visible')) {
+                ErjSaveDoc_HI();
+            }
+            if (e.keyCode == key_Esc && $('#modal-ErjDocH').is(':visible')) {
+                $('#modal-ErjDocH').modal('hide');
+            }
+        }
+    };
 
 };
 

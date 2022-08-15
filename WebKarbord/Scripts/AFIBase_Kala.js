@@ -145,7 +145,7 @@
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Kala", columns, self.SettingColumnList());
         //localStorage.setItem('listFilter', null);
-        
+
 
     });
 
@@ -187,12 +187,12 @@
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
             self.KalaList(data == null ? [] : data);
-            
+
         });
-        
+
     }
     getKalaList();
-   // self.sortTableKala();
+    // self.sortTableKala();
 
     //Get  KGru List
     function getKGruList() {
@@ -317,33 +317,33 @@
             return self.KalaList();
         } else {
 
-           /* listFilter = [
-                filterCode,
-                filterName,
-                filterSpec,
-                filterEghdam,
-                filterKalaF01,
-                filterKalaF02,
-                filterKalaF03,
-                filterKalaF04,
-                filterKalaF05,
-                filterKalaF06,
-                filterKalaF07,
-                filterKalaF08,
-                filterKalaF09,
-                filterKalaF10,
-                filterKalaF11,
-                filterKalaF12,
-                filterKalaF13,
-                filterKalaF14,
-                filterKalaF15,
-                filterKalaF16,
-                filterKalaF17,
-                filterKalaF18,
-                filterKalaF19,
-                filterKalaF20
-            ];
-            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
+            /* listFilter = [
+                 filterCode,
+                 filterName,
+                 filterSpec,
+                 filterEghdam,
+                 filterKalaF01,
+                 filterKalaF02,
+                 filterKalaF03,
+                 filterKalaF04,
+                 filterKalaF05,
+                 filterKalaF06,
+                 filterKalaF07,
+                 filterKalaF08,
+                 filterKalaF09,
+                 filterKalaF10,
+                 filterKalaF11,
+                 filterKalaF12,
+                 filterKalaF13,
+                 filterKalaF14,
+                 filterKalaF15,
+                 filterKalaF16,
+                 filterKalaF17,
+                 filterKalaF18,
+                 filterKalaF19,
+                 filterKalaF20
+             ];
+             localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.KalaList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
@@ -1384,8 +1384,24 @@
     };
 
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
-            SaveKala();
+        if (e.ctrlKey) {
+            if ($('#AddNewKala').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    self.AddNewKala();
+            }
+
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+
+            if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
+                SaveKala();
+            }
+            if (e.keyCode == key_Esc && $('#modal-Kala').is(':visible')) {
+                $('#modal-Kala').modal('hide');
+            }
         }
     };
 

@@ -283,7 +283,7 @@
             ModeSort: sortType == "ascending" ? "ASC" : "DESC"
         }
 
-        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject,true).done(function (data) {
+        ajaxFunction(ADocHUri + ace + '/' + sal + '/' + group, 'POST', ADocHObject, true).done(function (data) {
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);
@@ -876,7 +876,13 @@
      });*/
 
 
+
+
     $('#AddNewSanad').click(function () {
+        AddNewSanad();
+    });
+
+    function AddNewSanad() {
         sessionStorage.flagupdateHeader = 0;
         /*sessionStorage.Eghdam = localStorage.getItem("userName");
         sessionStorage.Status = translate('موقت');
@@ -905,7 +911,8 @@
             window.location.href = sessionStorage.urlAddADocH_New;
         else
             window.location.href = sessionStorage.urlAddADocH;
-    });
+    }
+
 
 
     self.DeleteSanad = function (SanadBand) {
@@ -1985,6 +1992,40 @@
     }
 
     self.sortTableADocH();
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey) {
+            if ($('#AddNewSanad').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+
+            if (e.keyCode == key_F3)
+                $("#DocNoSearch").focus();  
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+           // if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
+             //   SaveKala();
+            //}
+
+            if (e.keyCode == key_Esc && $('#modal-Move').is(':visible')) {
+                $('#modal-Move').modal('hide');
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-ChangeStatusSanad').is(':visible')) {
+                $('#modal-ChangeStatusSanad').modal('hide');
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
+        }
+    };
+
+
 };
 
 ko.applyBindings(new ViewModel());

@@ -524,7 +524,7 @@ var ViewModel = function () {
             $('#Print_SanadHesab').attr('style', 'display: none')
         }*/
 
-        localStorage.setItem("AccessViewSanad", false);
+        //localStorage.setItem("AccessViewSanad", false);
 
         if (localStorage.getItem("AccessViewSanad") == 'true') {
             viewAction = true;
@@ -1490,8 +1490,8 @@ var ViewModel = function () {
             onCellClick: function (e) {
                 co = e.columnIndex;
                 ro = e.rowIndex;
-               // if (e.column != null)
-                 fieldName = e.column.dataField;
+                // if (e.column != null)
+                fieldName = e.column.dataField;
                 //var summaryValue = dataGrid.getTotalSummaryValue(fieldName);
                 //calcSanad();
             },
@@ -1679,12 +1679,7 @@ var ViewModel = function () {
                             icon: 'add',
                             hint: 'بند جدید',
                             onClick() {
-                                e.component.saveEditData();
-                                ADocB.push({});
-                                for (var i = 0; i < ADocB.length; i++) {
-                                    ADocB[i].BandNo = i;
-                                }
-                                dataGrid.refresh(true);
+                                AddNewBand();
                             },
                         },
                     },
@@ -1697,20 +1692,7 @@ var ViewModel = function () {
                             icon: 'print',
                             hint: 'چاپ',
                             onClick() {
-                                if (Serial == '')
-                                    return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
-                                getADocP(Serial);
-                                createViewer();
-                                if (self.ADocPList().length == 0)
-                                    return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
-
-                                printVariable = '"ReportDate":"' + DateNow + '",';
-
-                                printName = null;
-                                sessionStorage.ModePrint = "ADoc";
-                                GetPrintForms(sessionStorage.ModePrint);
-                                self.filterPrintForms1("1");
-                                $('#modal-Print').modal('show');
+                                PrintSanad();
                             },
                         },
                     },
@@ -1736,114 +1718,7 @@ var ViewModel = function () {
                             icon: '/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png',
                             hint: 'سند جدید',
                             onClick() {
-                                Swal.fire({
-                                    title: '',
-                                    text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    cancelButtonColor: '#3085d6',
-                                    cancelButtonText: text_No,
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#d33',
-                                    confirmButtonText: text_Yes
-                                }).then((result) => {
-                                    if (result.value) {
-                                        $('#titlePage').text(translate("سند حسابداری جدید"));
-                                        flagSaveLogWin = false;
-                                        //ADocB = [];
-                                        dataAcc = [];
-                                        //dataGrid.option('dataSource', ADocB);
-                                        $('#docnoout').text(translate('جدید'));
-                                        self.StatusSanad(translate('موقت'));
-                                        $("#status").val(translate('موقت'));
-                                        sessionStorage.Status = translate('موقت');
-                                        sessionStorage.Eghdam = sessionStorage.userName;
-                                        flaglog = "Y";
-
-                                        $("#SumBedehkar").val(0);
-                                        $("#SumBestankar").val(0);
-                                        $("#TafavotSanad").val(0);
-
-
-
-                                        sessionStorage.F01 = '';
-                                        sessionStorage.F02 = '';
-                                        sessionStorage.F03 = '';
-                                        sessionStorage.F04 = '';
-                                        sessionStorage.F05 = '';
-                                        sessionStorage.F06 = '';
-                                        sessionStorage.F07 = '';
-                                        sessionStorage.F08 = '';
-                                        sessionStorage.F09 = '';
-                                        sessionStorage.F10 = '';
-                                        sessionStorage.F11 = '';
-                                        sessionStorage.F12 = '';
-                                        sessionStorage.F13 = '';
-                                        sessionStorage.F14 = '';
-                                        sessionStorage.F15 = '';
-                                        sessionStorage.F16 = '';
-                                        sessionStorage.F17 = '';
-                                        sessionStorage.F18 = '';
-                                        sessionStorage.F19 = '';
-                                        sessionStorage.F20 = '';
-
-                                        $("#ExtraFields1").val('');
-                                        $("#ExtraFields2").val('');
-                                        $("#ExtraFields3").val('');
-                                        $("#ExtraFields4").val('');
-                                        $("#ExtraFields5").val('');
-                                        $("#ExtraFields6").val('');
-                                        $("#ExtraFields7").val('');
-                                        $("#ExtraFields8").val('');
-                                        $("#ExtraFields9").val('');
-                                        $("#ExtraFields10").val('');
-                                        $("#ExtraFields11").val('');
-                                        $("#ExtraFields12").val('');
-                                        $("#ExtraFields13").val('');
-                                        $("#ExtraFields14").val('');
-                                        $("#ExtraFields15").val('');
-                                        $("#ExtraFields16").val('');
-                                        $("#ExtraFields17").val('');
-                                        $("#ExtraFields18").val('');
-                                        $("#ExtraFields19").val('');
-                                        $("#ExtraFields20").val('');
-
-
-                                        flagInsertADocH = 0;
-                                        if (parseInt(sal) < SalNow) {
-                                            getADocHLastDate();
-                                        }
-
-                                        getADocB(-1);
-
-                                        for (i = 0; i < 5; i++) {
-                                            tmp = {
-                                                AccCode: '',
-                                                AccZCode: '',
-                                                Bede: 0,
-                                                Best: 0,
-                                                Amount: 0,
-                                                ArzRate: 0,
-                                                ArzValue: 0,
-                                                Comm: '',
-                                                BandSpec: '',
-                                                BandNo: i
-                                            };
-                                            ADocB[i] = tmp;
-                                        }
-
-                                        //for (var i = 0; i < 1; i++) {
-                                        //    dataGrid.addRow();
-                                        //}
-
-                                        Serial = 0;
-
-                                        dataGrid.focus(dataGrid.getCellElement(0, 0));
-
-
-                                        CheckAccess();
-                                    }
-                                })
+                                AddNewSanad();
                             },
                         },
                     },
@@ -2068,6 +1943,144 @@ var ViewModel = function () {
 
 
 
+    function AddNewSanad() {
+        Swal.fire({
+            title: '',
+            text: translate("سند جدید ایجاد می شود . آیا مطمئن هستید ؟"),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                $('#titlePage').text(translate("سند حسابداری جدید"));
+                flagSaveLogWin = false;
+                //ADocB = [];
+                dataAcc = [];
+                //dataGrid.option('dataSource', ADocB);
+                $('#docnoout').text(translate('جدید'));
+                self.StatusSanad(translate('موقت'));
+                $("#status").val(translate('موقت'));
+                sessionStorage.Status = translate('موقت');
+                sessionStorage.Eghdam = sessionStorage.userName;
+                flaglog = "Y";
+
+                $("#SumBedehkar").val(0);
+                $("#SumBestankar").val(0);
+                $("#TafavotSanad").val(0);
+
+
+
+                sessionStorage.F01 = '';
+                sessionStorage.F02 = '';
+                sessionStorage.F03 = '';
+                sessionStorage.F04 = '';
+                sessionStorage.F05 = '';
+                sessionStorage.F06 = '';
+                sessionStorage.F07 = '';
+                sessionStorage.F08 = '';
+                sessionStorage.F09 = '';
+                sessionStorage.F10 = '';
+                sessionStorage.F11 = '';
+                sessionStorage.F12 = '';
+                sessionStorage.F13 = '';
+                sessionStorage.F14 = '';
+                sessionStorage.F15 = '';
+                sessionStorage.F16 = '';
+                sessionStorage.F17 = '';
+                sessionStorage.F18 = '';
+                sessionStorage.F19 = '';
+                sessionStorage.F20 = '';
+
+                $("#ExtraFields1").val('');
+                $("#ExtraFields2").val('');
+                $("#ExtraFields3").val('');
+                $("#ExtraFields4").val('');
+                $("#ExtraFields5").val('');
+                $("#ExtraFields6").val('');
+                $("#ExtraFields7").val('');
+                $("#ExtraFields8").val('');
+                $("#ExtraFields9").val('');
+                $("#ExtraFields10").val('');
+                $("#ExtraFields11").val('');
+                $("#ExtraFields12").val('');
+                $("#ExtraFields13").val('');
+                $("#ExtraFields14").val('');
+                $("#ExtraFields15").val('');
+                $("#ExtraFields16").val('');
+                $("#ExtraFields17").val('');
+                $("#ExtraFields18").val('');
+                $("#ExtraFields19").val('');
+                $("#ExtraFields20").val('');
+
+
+                flagInsertADocH = 0;
+                if (parseInt(sal) < SalNow) {
+                    getADocHLastDate();
+                }
+
+                getADocB(-1);
+
+                for (i = 0; i < 5; i++) {
+                    tmp = {
+                        AccCode: '',
+                        AccZCode: '',
+                        Bede: 0,
+                        Best: 0,
+                        Amount: 0,
+                        ArzRate: 0,
+                        ArzValue: 0,
+                        Comm: '',
+                        BandSpec: '',
+                        BandNo: i
+                    };
+                    ADocB[i] = tmp;
+                }
+
+                //for (var i = 0; i < 1; i++) {
+                //    dataGrid.addRow();
+                //}
+
+                Serial = 0;
+
+                dataGrid.focus(dataGrid.getCellElement(0, 0));
+
+
+                CheckAccess();
+            }
+        })
+    }
+
+
+    function AddNewBand() {
+        $("#gridContainer").dxDataGrid("saveEditData");
+        ADocB.push({});
+        for (var i = 0; i < ADocB.length; i++) {
+            ADocB[i].BandNo = i;
+        }
+        dataGrid.refresh(true);
+    }
+
+
+    function PrintSanad() {
+        if (Serial == '')
+            return showNotification(translate('ابتدا سند را ذخیره کنید'), 0);
+        getADocP(Serial);
+        createViewer();
+        if (self.ADocPList().length == 0)
+            return showNotification(translate('برای چاپ سند حداقل یک بند الزامیست'), 0);
+
+        printVariable = '"ReportDate":"' + DateNow + '",';
+
+        printName = null;
+        sessionStorage.ModePrint = "ADoc";
+        GetPrintForms(sessionStorage.ModePrint);
+        self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
+    }
 
     // $("#gridContainer").dxDataGrid("columnOption", "ArzName", "visible", false);
 
@@ -5599,13 +5612,13 @@ var ViewModel = function () {
         });
     }*/
 
-   navigationType = window.performance.navigation.type; 
+    navigationType = window.performance.navigation.type;
 
-   window.onbeforeunload = function (e) {
-       // isclose = false;
-       // while (isclose == false) {
-       //     isclose = RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
-       // }
+    window.onbeforeunload = function (e) {
+        // isclose = false;
+        // while (isclose == false) {
+        //     isclose = RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+        // }
 
 
         //aa();
@@ -5617,16 +5630,16 @@ var ViewModel = function () {
         }*/
         //if (is_form_dirty()) {
         //    a = 1;
-       // }
+        // }
 
 
 
-      /* if (
-           (window.performance.navigation.type === 1)// ||
-          // window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')
-       )*/
+        /* if (
+             (window.performance.navigation.type === 1)// ||
+            // window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')
+         )*/
 
-         RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
 
 
 
@@ -5639,32 +5652,57 @@ var ViewModel = function () {
 
     };
 
-   // window.onbeforeunload = function (e) { }
+    // window.onbeforeunload = function (e) { }
 
-   /* async function aa() {
-        var a = false; 
-         while (a != true) {
-             a = await RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
-        }
-    } */
+    /* async function aa() {
+         var a = false; 
+          while (a != true) {
+              a = await RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+         }
+     } */
 
 
 
     // alert after close and refresh
-     //$(window).bind("beforeunload", function (event) {
+    //$(window).bind("beforeunload", function (event) {
     //    var a = event
-     //   return confirm("Do you really want to close?"); 
+    //   return confirm("Do you really want to close?"); 
     //    return ''; 
     //});
 
-   // $(window).unload(function () {
-   //     RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
-   // });
+    // $(window).unload(function () {
+    //     RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+    // });
 
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2) {
-            SaveColumnSanad();
-            ControlSave();
+        if (e.ctrlKey) {
+            if (sessionStorage.NEW_ADOC == "true") {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+        }
+        else if (e.altKey) {
+            if (e.keyCode == key_R) {
+                AddNewBand();
+            }
+            if (e.keyCode == key_P) {
+                if (localStorage.getItem("AccessPrint_SanadHesab") == "true") {
+                    PrintSanad();
+                }
+            }
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2) {
+                SaveColumnSanad();
+                ControlSave();
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
         }
     };
 

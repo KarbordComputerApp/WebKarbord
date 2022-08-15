@@ -2101,12 +2101,24 @@
 
 
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2 && $('#modal-Acc').is(':visible')) {
-            SaveAcc();
-        }
+        if (e.ctrlKey) {
+            if ($('#AddNewAcc').css('display') != 'none') {
+                if (e.keyCode == key_Insert)
+                    self.AddNewAcc();
+            }
 
-        //if (e.ctrlKey) {}  
-        //if (e.shiftKey) {}
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2 && $('#modal-Acc').is(':visible')) {
+                SaveAcc();
+            }
+            if (e.keyCode == key_Esc && $('#modal-Acc').is(':visible')) {
+                $('#modal-Acc').modal('hide');
+            }
+        }
     };
 
 };

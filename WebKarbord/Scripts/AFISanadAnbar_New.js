@@ -377,7 +377,7 @@ var ViewModel = function () {
         var ThvlObject = {
             Mode: 3,
             UserCode: sessionStorage.userName,
-            Where: whereThvl, 
+            Where: whereThvl,
         }
         ajaxFunction(ThvlUri + ace + '/' + sal + '/' + group, 'POST', ThvlObject, true).done(function (data) {
             self.ThvlList(data == null ? [] : data);
@@ -1561,12 +1561,7 @@ var ViewModel = function () {
                             icon: 'add',
                             hint: 'بند جدید',
                             onClick() {
-                                e.component.saveEditData();
-                                IDocB.push({});
-                                for (var i = 0; i < IDocB.length; i++) {
-                                    IDocB[i].BandNo = i;
-                                }
-                                dataGrid.refresh(true);
+                                AddNewBand();
                             },
                         },
                     },
@@ -1579,35 +1574,7 @@ var ViewModel = function () {
                             icon: 'print',
                             hint: 'چاپ',
                             onClick() {
-
-
-
-                                if (Serial == '')
-                                    return showNotification(translate('ابتدا انبار را ذخیره کنید'), 0);
-                                getIDocP(Serial);
-                                createViewer();
-
-                                if (self.IDocPList().length == 0)
-                                    return showNotification(translate('برای چاپ انبار حداقل یک بند الزامیست'), 0);
-
-                                textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice;
-                                printVariable = '"ReportDate":"' + DateNow + '",' +
-                                    '"TextFinalPrice":"' + textFinalPrice + '",';
-                                printName = null;
-
-                                if (sessionStorage.InOut == 1) {
-                                    if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true')
-                                        sessionStorage.ModePrint = 'IDoc';
-                                    else
-                                        sessionStorage.ModePrint = 'IDoc_NoPrice';
-                                }
-                                else {
-                                    sessionStorage.ModePrint = 'ODoc';
-                                }
-
-                                GetPrintForms(sessionStorage.ModePrint);
-                                self.filterPrintForms1("1");
-                                $('#modal-Print').modal('show');
+                                PrintSanad();
                             },
                         },
                     },
@@ -1645,155 +1612,7 @@ var ViewModel = function () {
                             icon: '/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png',
                             hint: 'سند جدید',
                             onClick() {
-                                Swal.fire({
-                                    title: '',
-                                    text: textSanad + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    cancelButtonColor: '#3085d6',
-                                    cancelButtonText: text_No,
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#d33',
-                                    confirmButtonText: text_Yes
-                                }).then((result) => {
-                                    if (result.value) {
-                                        $('#titlePage').text(textSanad + " " + translate("جدید"));
-                                        Serial = 0;
-                                        Serial_Test = 0;
-                                        flagInsertIDocH = 0;
-                                        if (parseInt(sal) < SalNow) {
-                                            getIDocHLastDate();
-                                        }
-                                        getIDocB(0);
-                                        dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                        sumSanad = 0;
-                                        $('#sumSanad').text(0);
-                                        self.Spec('');
-
-
-                                        for (i = 0; i < 5; i++) {
-                                            tmp = {
-                                                KalaCode: '',
-                                                KalaName: '',
-                                                MainUnit: 0,
-                                                MainUnitName: '',
-                                                BandSpec: '',
-                                                Amount1: 0,
-                                                Amount2: 0,
-                                                Amount3: 0,
-                                                UnitPrice: 0,
-                                                TotalPrice: 0,
-                                                Comm: '',
-                                                BandNo: i
-                                            };
-                                            IDocB[i] = tmp;
-                                        }
-                                        dataGrid.focus(dataGrid.getCellElement(0, 1));
-
-
-
-
-                                        codeThvl = '';
-
-
-
-
-
-                                        closedDate = false;
-                                        codeThvl = '';
-                                        sessionStorage.flagupdateHeader = 0;
-                                        $('#docnoout').val('');
-                                        sessionStorage.searchIDocH = "";
-                                        $("#status").val(translate('موقت'));
-                                        sessionStorage.Status = translate('موقت');
-                                        $("#paymenttype").val(0);
-                                        $("#footer").val('');
-                                        sessionStorage.Eghdam = sessionStorage.userName;
-
-
-
-
-                                        kalapricecode = 0;
-                                        flagFinalSave = false;
-                                        flag = -1;
-                                        flagInsertIDocH = 0;
-                                        self.flagupdateband = false;
-                                        self.SerialNumber();
-                                        self.DocNoOut();
-                                        self.DocDate();
-                                        self.Spec();
-                                        self.ThvlCode();
-
-                                        $('#inv').prop('disabled', false);
-                                        $('#modeCode').prop('disabled', false);
-
-                                        self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
-                                        self.InvCode = ko.observable(invSelect);
-                                        self.BandNo();
-                                        self.KalaCode();
-                                        self.OprCode("");
-                                        self.MkzCode("");
-                                        self.ArzCode("");
-
-                                        self.ArzRate("");
-                                        arzRate = 0;
-                                        $('#ArzRate').val(0);
-
-                                        codeOpr = '';
-                                        codeMkz = '';
-                                        flaglog = "Y";
-                                        if (sessionStorage.InvDefult_Inv != "null") $("#inv").val(sessionStorage.InvDefult_Inv);
-                                        $("#gGhimat").val(sessionStorage.GPriceDefult);
-
-                                        $('#nameThvl').val("");
-                                        $('#nameOpr').val("");
-                                        $('#nameMkz').val("");
-                                        $('#nameArz').val("");
-
-                                        sessionStorage.F01 = "";
-                                        sessionStorage.F02 = "";
-                                        sessionStorage.F03 = "";
-                                        sessionStorage.F04 = "";
-                                        sessionStorage.F05 = "";
-                                        sessionStorage.F06 = "";
-                                        sessionStorage.F07 = "";
-                                        sessionStorage.F08 = "";
-                                        sessionStorage.F09 = "";
-                                        sessionStorage.F10 = "";
-                                        sessionStorage.F11 = "";
-                                        sessionStorage.F12 = "";
-                                        sessionStorage.F13 = "";
-                                        sessionStorage.F14 = "";
-                                        sessionStorage.F15 = "";
-                                        sessionStorage.F16 = "";
-                                        sessionStorage.F17 = "";
-                                        sessionStorage.F18 = "";
-                                        sessionStorage.F19 = "";
-                                        sessionStorage.F20 = "";
-
-                                        $("#ExtraFields1").val("");
-                                        $("#ExtraFields2").val("");
-                                        $("#ExtraFields3").val("");
-                                        $("#ExtraFields4").val("");
-                                        $("#ExtraFields5").val("");
-                                        $("#ExtraFields6").val("");
-                                        $("#ExtraFields7").val("");
-                                        $("#ExtraFields8").val("");
-                                        $("#ExtraFields9").val("");
-                                        $("#ExtraFields10").val("");
-                                        $("#ExtraFields11").val("");
-                                        $("#ExtraFields12").val("");
-                                        $("#ExtraFields13").val("");
-                                        $("#ExtraFields14").val("");
-                                        $("#ExtraFields15").val("");
-                                        $("#ExtraFields16").val("");
-                                        $("#ExtraFields17").val("");
-                                        $("#ExtraFields18").val("");
-                                        $("#ExtraFields19").val("");
-                                        $("#ExtraFields20").val("");
-                                        CheckAccess();
-                                    }
-                                })
+                                AddNewSanad();
                             },
                         },
                     },
@@ -1990,8 +1809,196 @@ var ViewModel = function () {
 
 
 
+    function AddNewSanad() {
+        Swal.fire({
+            title: '',
+            text: textSanad + " " + translate("جدید ایجاد می شود . آیا مطمئن هستید ؟"),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                $('#titlePage').text(textSanad + " " + translate("جدید"));
+                Serial = 0;
+                Serial_Test = 0;
+                flagInsertIDocH = 0;
+                if (parseInt(sal) < SalNow) {
+                    getIDocHLastDate();
+                }
+                getIDocB(0);
+                dataGrid = $("#gridContainer").dxDataGrid("instance");
+                sumSanad = 0;
+                $('#sumSanad').text(0);
+                self.Spec('');
 
 
+                for (i = 0; i < 5; i++) {
+                    tmp = {
+                        KalaCode: '',
+                        KalaName: '',
+                        MainUnit: 0,
+                        MainUnitName: '',
+                        BandSpec: '',
+                        Amount1: 0,
+                        Amount2: 0,
+                        Amount3: 0,
+                        UnitPrice: 0,
+                        TotalPrice: 0,
+                        Comm: '',
+                        BandNo: i
+                    };
+                    IDocB[i] = tmp;
+                }
+                dataGrid.focus(dataGrid.getCellElement(0, 1));
+
+
+
+
+                codeThvl = '';
+
+
+
+
+
+                closedDate = false;
+                codeThvl = '';
+                sessionStorage.flagupdateHeader = 0;
+                $('#docnoout').val('');
+                sessionStorage.searchIDocH = "";
+                $("#status").val(translate('موقت'));
+                sessionStorage.Status = translate('موقت');
+                $("#paymenttype").val(0);
+                $("#footer").val('');
+                sessionStorage.Eghdam = sessionStorage.userName;
+
+
+
+
+                kalapricecode = 0;
+                flagFinalSave = false;
+                flag = -1;
+                flagInsertIDocH = 0;
+                self.flagupdateband = false;
+                self.SerialNumber();
+                self.DocNoOut();
+                self.DocDate();
+                self.Spec();
+                self.ThvlCode();
+
+                $('#inv').prop('disabled', false);
+                $('#modeCode').prop('disabled', false);
+
+                self.PriceCode = ko.observable(sessionStorage.GPriceDefult);
+                self.InvCode = ko.observable(invSelect);
+                self.BandNo();
+                self.KalaCode();
+                self.OprCode("");
+                self.MkzCode("");
+                self.ArzCode("");
+
+                self.ArzRate("");
+                arzRate = 0;
+                $('#ArzRate').val(0);
+
+                codeOpr = '';
+                codeMkz = '';
+                flaglog = "Y";
+                if (sessionStorage.InvDefult_Inv != "null") $("#inv").val(sessionStorage.InvDefult_Inv);
+                $("#gGhimat").val(sessionStorage.GPriceDefult);
+
+                $('#nameThvl').val("");
+                $('#nameOpr').val("");
+                $('#nameMkz').val("");
+                $('#nameArz').val("");
+
+                sessionStorage.F01 = "";
+                sessionStorage.F02 = "";
+                sessionStorage.F03 = "";
+                sessionStorage.F04 = "";
+                sessionStorage.F05 = "";
+                sessionStorage.F06 = "";
+                sessionStorage.F07 = "";
+                sessionStorage.F08 = "";
+                sessionStorage.F09 = "";
+                sessionStorage.F10 = "";
+                sessionStorage.F11 = "";
+                sessionStorage.F12 = "";
+                sessionStorage.F13 = "";
+                sessionStorage.F14 = "";
+                sessionStorage.F15 = "";
+                sessionStorage.F16 = "";
+                sessionStorage.F17 = "";
+                sessionStorage.F18 = "";
+                sessionStorage.F19 = "";
+                sessionStorage.F20 = "";
+
+                $("#ExtraFields1").val("");
+                $("#ExtraFields2").val("");
+                $("#ExtraFields3").val("");
+                $("#ExtraFields4").val("");
+                $("#ExtraFields5").val("");
+                $("#ExtraFields6").val("");
+                $("#ExtraFields7").val("");
+                $("#ExtraFields8").val("");
+                $("#ExtraFields9").val("");
+                $("#ExtraFields10").val("");
+                $("#ExtraFields11").val("");
+                $("#ExtraFields12").val("");
+                $("#ExtraFields13").val("");
+                $("#ExtraFields14").val("");
+                $("#ExtraFields15").val("");
+                $("#ExtraFields16").val("");
+                $("#ExtraFields17").val("");
+                $("#ExtraFields18").val("");
+                $("#ExtraFields19").val("");
+                $("#ExtraFields20").val("");
+                CheckAccess();
+            }
+        })
+    }
+
+    function AddNewBand() {
+        $("#gridContainer").dxDataGrid("saveEditData");
+        // e.component.saveEditData();
+        IDocB.push({});
+        for (var i = 0; i < IDocB.length; i++) {
+            IDocB[i].BandNo = i;
+        }
+        dataGrid.refresh(true);
+    }
+
+    function PrintSanad() {
+        if (Serial == '')
+            return showNotification(translate('ابتدا انبار را ذخیره کنید'), 0);
+        getIDocP(Serial);
+        createViewer();
+
+        if (self.IDocPList().length == 0)
+            return showNotification(translate('برای چاپ انبار حداقل یک بند الزامیست'), 0);
+
+        textFinalPrice = self.IDocPList()[0].TotalPrice.toPersianLetter() + titlePrice;
+        printVariable = '"ReportDate":"' + DateNow + '",' +
+            '"TextFinalPrice":"' + textFinalPrice + '",';
+        printName = null;
+
+        if (sessionStorage.InOut == 1) {
+            if (localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true')
+                sessionStorage.ModePrint = 'IDoc';
+            else
+                sessionStorage.ModePrint = 'IDoc_NoPrice';
+        }
+        else {
+            sessionStorage.ModePrint = 'ODoc';
+        }
+
+        GetPrintForms(sessionStorage.ModePrint);
+        self.filterPrintForms1("1");
+        $('#modal-Print').modal('show');
+    }
 
 
     var Serial_Test = 0;
@@ -2737,10 +2744,10 @@ var ViewModel = function () {
                                 /*  KalaUnitList = [];
                                   if (IDocB[ro].dataKala.UnitName1 != '')
                                       KalaUnitList.push({ 'ID': 1, 'Name': IDocB[ro].dataKala.UnitName1 });
-  
+     
                                   if (IDocB[ro].dataKala.UnitName1 != '')
                                       KalaUnitList.push({ 'ID': 2, 'Name': IDocB[ro].dataKala.UnitName2 });
-  
+     
                                   if (IDocB[ro].dataKala.UnitName1 != '')
                                       KalaUnitList.push({ 'ID': 3, 'Name': IDocB[ro].dataKala.UnitName3 });
                                       */
@@ -2764,7 +2771,7 @@ var ViewModel = function () {
                                     Price2 = parseFloat(dataKala.PPrice2);
                                     Price3 = parseFloat(dataKala.PPrice3);
                                 }
-                               
+
                                 getKalaPriceBList(dataKala.Code);
 
                                 dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
@@ -2846,7 +2853,7 @@ var ViewModel = function () {
                             }
                         }*/
 
-                       if (dKala != null) {
+                        if (dKala != null) {
                             e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
                             cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
@@ -2859,7 +2866,7 @@ var ViewModel = function () {
                                 visibleRows[ro].data.dataKala = selectionChangedArgs.selectedRowsData[0];
                                 IDocB[ro].dataKala = selectionChangedArgs.selectedRowsData[0];
 
-                               
+
                                 dataKala = selectionChangedArgs.selectedRowsData[0];
                                 IDocB[ro].MainUnit = dataKala.DefaultUnit
                                 dataGrid.cellValue(ro, "MainUnitName", dataKala.DefaultUnit == 1 ? IDocB[ro].dataKala.UnitName1 : dataKala.DefaultUnit == 2 ? IDocB[ro].dataKala.UnitName2 : IDocB[ro].dataKala.UnitName3);
@@ -3087,7 +3094,7 @@ var ViewModel = function () {
 
 
 
-     self.selectThvl = function (item) {
+    self.selectThvl = function (item) {
 
         //if (Serial != '') {
         Swal.fire({
@@ -3105,7 +3112,7 @@ var ViewModel = function () {
                 codeThvl = item.Code;
                 $('#nameThvl').val('(' + item.Code + ') ' + item.Name)
 
-              
+
                 if (sessionStorage.sels == "true")
                     sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                 else
@@ -3135,17 +3142,17 @@ var ViewModel = function () {
             
               
             if ($("#gGhimat").val() == '') {
- 
+     
                  if (sessionStorage.sels == "true")
                      sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                  else
                      sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
- 
+     
                  if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
                      $("#gGhimat").val(item.CGruKalaPriceCode_S);
                  else if (sessionStorage.InOut == 1 && item.CGruKalaPriceCode_P > 0)
                      $("#gGhimat").val(item.CGruKalaPriceCode_P);
- 
+     
                  if (sessionStorage.InOut == 2 && item.KalaPriceCode_S > 0)
                      $("#gGhimat").val(item.KalaPriceCode_S);
                  else if (sessionStorage.InOut == 1 && item.KalaPriceCode_P > 0)
@@ -4095,9 +4102,34 @@ var ViewModel = function () {
 
 
     document.onkeydown = function (e) {
-        if (e.keyCode == key_F2) {
-            SaveColumnSanad();
-            ControlSave();
+        if (e.ctrlKey) {
+            if (sessionStorage.newSanad == "true") {
+                if (e.keyCode == key_Insert)
+                    AddNewSanad();
+            }
+        }
+        else if (e.altKey) {
+            if (e.keyCode == key_R) {
+                AddNewBand();
+            }
+            if (sessionStorage.AccessPrint_SanadAnbar == "true") {
+                if (e.keyCode == key_P) {
+                    PrintSanad();
+                }
+            }
+        }
+        else if (e.shiftKey) {
+
+        }
+        else {
+            if (e.keyCode == key_F2) {
+                SaveColumnSanad();
+                ControlSave();
+            }
+
+            if (e.keyCode == key_Esc && $('#modal-Print').is(':visible')) {
+                $('#modal-Print').modal('hide');
+            }
         }
     };
 

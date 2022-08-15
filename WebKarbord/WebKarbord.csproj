@@ -193,6 +193,7 @@
     <Content Include="Content\img\bookmark_un.png" />
     <Content Include="Content\img\ContactUs.png" />
     <Content Include="Content\img\email.png" />
+    <Content Include="Content\img\help.png" />
     <Content Include="Content\img\list\attach_file.png" />
     <Content Include="Content\img\list\download.png" />
     <Content Include="Content\img\list\link.png" />
