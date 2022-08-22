@@ -1312,6 +1312,7 @@ var ViewModel = function () {
             Sort: sort,
             ModeSort: sortType == "ascending" ? "ASC" : "DESC",
             DocNo: '',
+            CustCode: '',
         }
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject, true).done(function (data) {
@@ -2805,6 +2806,7 @@ var ViewModel = function () {
             Sort: '',
             ModeSort: '',
             DocNo: docNo,
+            CustCode: '',
         }
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHMinObject, true).done(function (response) {
