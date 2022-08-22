@@ -373,7 +373,8 @@
             updatedate: null,
             Mode: 0,
             UserCode: sessionStorage.userName,
-            Where: whereCust, 
+            Where: whereCust,
+            CustCode: '' 
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
             self.CustList(data);
