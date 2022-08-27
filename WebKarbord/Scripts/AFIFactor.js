@@ -380,6 +380,7 @@
             Mode: 2,
             UserCode: sessionStorage.userName,
             where: whereKala,
+            KalaCode: ''
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, true).done(function (data) {
             self.KalaList(data == null ? [] : data);

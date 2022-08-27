@@ -211,6 +211,7 @@
     <Content Include="Content\img\send.svg" />
     <Content Include="Content\img\tab-plus.png" />
     <Content Include="Content\img\tabs.png" />
+    <Content Include="Content\img\Tasfiye.png" />
     <Content Include="Content\img\ticket-account.png" />
     <Content Include="Content\img\tik.png" />
     <Content Include="Content\img\view.svg" />

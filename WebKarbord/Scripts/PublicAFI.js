@@ -1022,6 +1022,7 @@ getDateServer();
         updatedate: null,
         Mode: 2,
         UserCode: sessionStorage.userName,
+        KalaCode : ''
     }
     ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject).done(function (data) {
         self.KalaList(data);

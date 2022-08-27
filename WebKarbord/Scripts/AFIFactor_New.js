@@ -445,6 +445,7 @@ var ViewModel = function () {
             Mode: 2,
             UserCode: sessionStorage.userName,
             where: whereKala,
+            KalaCode: ''
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
             self.KalaList(data);
