@@ -6,6 +6,8 @@
     var bandNo = 0;
     var docBMode = 0;
 
+    var khdtHasTime = 1;
+
     var SpecialCommTrs;
 
     if (sessionStorage.ModeCodeErja == null) {
@@ -2052,6 +2054,8 @@
             old_StatusParvandeh = Band.Status;
             old_StatusErja = Band.RjStatus;
 
+            khdtHasTime = Band.KhdtHasTime;
+
 
 
             $('#erja').removeAttr('hidden', '');
@@ -2694,10 +2698,10 @@
             return showNotification(translate('ارجاع شونده را انتخاب کنید'), 0);
         }
 
-        if (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0') {
-            // rjTime_H = '';
-            // rjTime_M = '';
-            //return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
+        if ((khdtHasTime == 1) && (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0')) {
+             rjTime_H = '';
+             rjTime_M = '';
+            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 
         natijeh = $("#e_Result").val();
@@ -3009,7 +3013,7 @@
             if (docnoSearch == '') {
                 return showNotification(translate('شماره پرونده را وارد کنید'), 2);
             }
-            ShowDataUpdate(docnoSearch);  
+            ShowDataUpdate(docnoSearch);
         }
     });
 

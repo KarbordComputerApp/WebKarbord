@@ -1,6 +1,7 @@
 ﻿var ViewModel = function () {
     var self = this;
 
+    var khdtHasTime = 1;
 
     if (sessionStorage.AccessSanadErj == null) {
         sessionStorage.AccessSanadErj = localStorage.getItem("AccessSanadErj");
@@ -935,6 +936,7 @@
         //serialNumber = Band.SerialNumber;
         // p_docno
         serialNumber = 0;
+        khdtHasTime = 1;
         self.p_DocDate(DateNow);
         self.p_MhltDate('');
         self.p_AmalDate('');
@@ -1540,8 +1542,8 @@
         $('#nameKhdt').val('(' + item.Code + ') ' + item.Name)
         self.KhdtCode(item.Code)
         doc_KhdtCode = item.Code;
+        khdtHasTime = item.KhdtHasTime;
     };
-
 
 
 
@@ -2755,7 +2757,7 @@
 
     $('#saveErja').click(function () {
 
-
+        natijeh = $("#e_Result").val();
         rjTime_H = $("#RjTime_H").val();
         rjTime_M = $("#RjTime_M").val();
 
@@ -2763,13 +2765,11 @@
             return showNotification(translate('ارجاع شونده را انتخاب کنید'), 0);
         }
 
-        if (rjTime_H == '' && rjTime_M == '') {
-            // rjTime_H == '0';
-            // rjTime_M == '0';
-            // return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
+        if ((khdtHasTime == 1) && (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0')) {
+            rjTime_H = '';
+            rjTime_M = '';
+            return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
-
-        natijeh = $("#e_Result").val();
 
         if (natijeh == '') {
             return showNotification(translate('متن ارجاع را وارد کنید'), 0);
@@ -3248,7 +3248,7 @@
             sessionStorage.F19 = item.F19;
             sessionStorage.F20 = item.F20;
 
-
+            khdtHasTime = item.KhdtHasTime;
 
             self.p_DocDate(item.DocDate);
             self.p_MhltDate(item.MhltDate);
