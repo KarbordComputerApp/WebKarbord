@@ -1561,6 +1561,7 @@
 
 
     var StatementsUri = server + '/api/Web_Data/Statements'; // آدرس عبارات تعریف شده
+    var DeleteStatementsUri = server + '/api/Web_Data/DeleteStatements'; // حذف عبارت تعریف شده
     self.StatementsList = ko.observableArray([]); // لیست عبارات تعریف شده
 
 
@@ -1572,6 +1573,28 @@
         });
     };
 
+    self.DeletStatements = function (Band) {
+        Swal.fire({
+            title: translate('تایید حذف'),
+            text: translate("آیا عبارت انتخابی حذف شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                DeleteStatementsObject = {
+                    'Code': Band.Code
+                };
+                ajaxFunction(DeleteStatementsUri, 'POST', DeleteStatementsObject).done(function (response) {
+                    getStatementList();
+                });
+            }
+        })
+    }
 
     $('#insertComm').click(function () {
         getStatementList();

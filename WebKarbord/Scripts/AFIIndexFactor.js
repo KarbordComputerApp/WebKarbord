@@ -2679,7 +2679,7 @@ var ViewModel = function () {
             sessionStorage.PriceCode = item.KalaPriceCode;
             sessionStorage.InvCode = item.InvCode;
             sessionStorage.Eghdam = item.Eghdam;
-            sessionStorage.TaeedF = item.Taeed;
+            sessionStorage.TaeedF = data.Taeed == null ? '' : data.Taeed;
             sessionStorage.OprCode = item.OprCode;
             sessionStorage.OprName = item.OprName;
             sessionStorage.MkzCode = item.MkzCode;
@@ -2896,7 +2896,7 @@ var ViewModel = function () {
                 sessionStorage.PriceCode = data.KalaPriceCode;
                 sessionStorage.InvCode = data.InvCode;
                 sessionStorage.Eghdam = data.Eghdam;
-                sessionStorage.TaeedF = data.Taeed;
+                sessionStorage.TaeedF = data.Taeed == null ? '' : data.Taeed ;
 
                 sessionStorage.OprCode = data.OprCode;
                 sessionStorage.OprName = data.OprName;

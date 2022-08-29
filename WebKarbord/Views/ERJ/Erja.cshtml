@@ -1442,12 +1442,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('عبارات تعریف شده')"></h4>
-
-                <div>
-                    <!-- <a id="refreshStatements">
-                         <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
-                     </a>-->
-                </div>
+<div></div>
+               <!-- <a id="refreshStatements">
+                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                </a>-->
             </div>
             <div class="modal-body">
                 <br />
@@ -1461,16 +1459,27 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th>عملیات</th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: currentPageStatements" style="cursor: default;">
                             <tr data-bind="click: $parent.selectStatements">
                                 <td data-bind="text: Name"></td>
+                                <td>
+                                    <center>
+                                        <a id="DeleteStatements" data-bind="click: $root.DeletStatements , attr: {title:text_Delete}">
+                                            <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16">
+                                        </a>
+                                    </center>
+                                </td>
                             </tr>
+
+
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterStatements0, valueUpdate: 'afterkeydown'" type="text" class="form-control " style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
