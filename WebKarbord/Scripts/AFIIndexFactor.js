@@ -870,7 +870,7 @@ var ViewModel = function () {
         'Eghdam',
         'Tanzim',
         'Taeed',
-        'Tasvib',
+        ace == 'Web8' ? 'Tasvib' : '',
         'SerialNumber',
         'MkzCode',
         'MkzName',
@@ -1257,7 +1257,7 @@ var ViewModel = function () {
 
     $('#modal-ChangeStatusFactor').on('hide.bs.modal', function () {
         if (serial != null)
-        RemoveUseSanad(ace, sal, "Factor", serial);
+            RemoveUseSanad(ace, sal, "Factor", serial);
     });
 
     window.onbeforeunload = function () {
@@ -2101,65 +2101,65 @@ var ViewModel = function () {
         })
     })
 
-   /* $('#AddNewFactor').click(function () {
-        sessionStorage.flagupdateHeader = 0;
-        sessionStorage.Eghdam = sessionStorage.userName;
-        sessionStorage.Status = translate('موقت');
-        sessionStorage.F01 = "";
-        sessionStorage.F02 = "";
-        sessionStorage.F03 = "";
-        sessionStorage.F04 = "";
-        sessionStorage.F05 = "";
-        sessionStorage.F06 = "";
-        sessionStorage.F07 = "";
-        sessionStorage.F08 = "";
-        sessionStorage.F09 = "";
-        sessionStorage.F10 = "";
-        sessionStorage.F11 = "";
-        sessionStorage.F12 = "";
-        sessionStorage.F13 = "";
-        sessionStorage.F14 = "";
-        sessionStorage.F15 = "";
-        sessionStorage.F16 = "";
-        sessionStorage.F17 = "";
-        sessionStorage.F18 = "";
-        sessionStorage.F19 = "";
-        sessionStorage.F20 = "";
-        sessionStorage.CustEcoCode = "";
-        sessionStorage.CustMelliCode = "";
-        sessionStorage.CustTel = "";
-        sessionStorage.CustFax = "";
-        sessionStorage.CustMobile = "";
-        sessionStorage.CustEmail = "";
-        sessionStorage.CustCity = "";
-        sessionStorage.CustStreet = "";
-        sessionStorage.CustAlley = "";
-        sessionStorage.CustPlack = "";
-        sessionStorage.CustZipCode = "";
-        sessionStorage.CustAddress = "";
-        sessionStorage.CustOstan = "";
-        sessionStorage.CustShahrestan = "";
-        sessionStorage.CustRegion = "";
-        sessionStorage.VstrCode = "";
-        sessionStorage.VstrName = "";
-        sessionStorage.ArzCode = "";
-        sessionStorage.ArzName = "";
-        sessionStorage.ArzRate = 0;
-
-        //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-        //    $('#modal-SelectFactor').modal('show');
-        //    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
-        //        $('#CaptionSelectFactor').text('برگشت از فروش متناظر با فاکتور فروش شماره');
-        //    else
-        //        $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
-        //}
-        //else {
-        if (localStorage.getItem('ModeInsertSanad') == "New")
-            window.location.href = sessionStorage.urlAddFDocH_New;
-        else
-            window.location.href = sessionStorage.urlAddFDocH;
-        //}
-    });*/
+    /* $('#AddNewFactor').click(function () {
+         sessionStorage.flagupdateHeader = 0;
+         sessionStorage.Eghdam = sessionStorage.userName;
+         sessionStorage.Status = translate('موقت');
+         sessionStorage.F01 = "";
+         sessionStorage.F02 = "";
+         sessionStorage.F03 = "";
+         sessionStorage.F04 = "";
+         sessionStorage.F05 = "";
+         sessionStorage.F06 = "";
+         sessionStorage.F07 = "";
+         sessionStorage.F08 = "";
+         sessionStorage.F09 = "";
+         sessionStorage.F10 = "";
+         sessionStorage.F11 = "";
+         sessionStorage.F12 = "";
+         sessionStorage.F13 = "";
+         sessionStorage.F14 = "";
+         sessionStorage.F15 = "";
+         sessionStorage.F16 = "";
+         sessionStorage.F17 = "";
+         sessionStorage.F18 = "";
+         sessionStorage.F19 = "";
+         sessionStorage.F20 = "";
+         sessionStorage.CustEcoCode = "";
+         sessionStorage.CustMelliCode = "";
+         sessionStorage.CustTel = "";
+         sessionStorage.CustFax = "";
+         sessionStorage.CustMobile = "";
+         sessionStorage.CustEmail = "";
+         sessionStorage.CustCity = "";
+         sessionStorage.CustStreet = "";
+         sessionStorage.CustAlley = "";
+         sessionStorage.CustPlack = "";
+         sessionStorage.CustZipCode = "";
+         sessionStorage.CustAddress = "";
+         sessionStorage.CustOstan = "";
+         sessionStorage.CustShahrestan = "";
+         sessionStorage.CustRegion = "";
+         sessionStorage.VstrCode = "";
+         sessionStorage.VstrName = "";
+         sessionStorage.ArzCode = "";
+         sessionStorage.ArzName = "";
+         sessionStorage.ArzRate = 0;
+ 
+         //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
+         //    $('#modal-SelectFactor').modal('show');
+         //    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
+         //        $('#CaptionSelectFactor').text('برگشت از فروش متناظر با فاکتور فروش شماره');
+         //    else
+         //        $('#CaptionSelectFactor').text('برگشت از خرید متناظر با فاکتور خرید شماره');
+         //}
+         //else {
+         if (localStorage.getItem('ModeInsertSanad') == "New")
+             window.location.href = sessionStorage.urlAddFDocH_New;
+         else
+             window.location.href = sessionStorage.urlAddFDocH;
+         //}
+     });*/
 
 
 
@@ -2896,7 +2896,7 @@ var ViewModel = function () {
                 sessionStorage.PriceCode = data.KalaPriceCode;
                 sessionStorage.InvCode = data.InvCode;
                 sessionStorage.Eghdam = data.Eghdam;
-                sessionStorage.TaeedF = data.Taeed == null ? '' : data.Taeed ;
+                sessionStorage.TaeedF = data.Taeed == null ? '' : data.Taeed;
 
                 sessionStorage.OprCode = data.OprCode;
                 sessionStorage.OprName = data.OprName;
@@ -3378,7 +3378,7 @@ var ViewModel = function () {
             CreateTableTh('Eghdam', data) +
             CreateTableTh('Tanzim', data) +
             CreateTableTh('Taeed', data) +
-            CreateTableTh('Tasvib', data) +
+            (ace == 'Web8' ? CreateTableTh('Tasvib', data) : '') +
             CreateTableTh('SerialNumber', data) +
             CreateTableTh('MkzCode', data) +
             CreateTableTh('MkzName', data) +
@@ -3441,7 +3441,7 @@ var ViewModel = function () {
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
             CreateTableTd('Taeed', 0, 0, data) +
-            CreateTableTd('Tasvib', 0, 0, data) +
+            (ace == 'Web8' ? CreateTableTd('Tasvib', 0, 0, data) : '') +
             CreateTableTd('SerialNumber', 0, 0, data) +
 
             CreateTableTd('MkzCode', 0, 0, data) +
@@ -3559,7 +3559,7 @@ var ViewModel = function () {
             CreateTableTdSearch('Eghdam', data) +
             CreateTableTdSearch('Tanzim', data) +
             CreateTableTdSearch('Taeed', data) +
-            CreateTableTdSearch('Tasvib', data) +
+            (ace == 'Web8' ? CreateTableTdSearch('Tasvib', data) : '') +
             CreateTableTdSearch('SerialNumber', data) +
             CreateTableTdSearch('MkzCode', data) +
             CreateTableTdSearch('MkzName', data) +

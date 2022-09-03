@@ -5480,6 +5480,14 @@ function ViewCustName(CustName) {
     }
 }
 
+function ViewCommAttach(Comm) {
+    if (Comm.length > 15) {
+        $('#titleComm').text(translate('شرح'));
+        $('#modal-Comm').modal('show');
+        $('#commPublic').val(Comm);
+    }
+}
+
 
 $('#modal-Comm').on('show.bs.modal', function () {
     if ($('#commPublic').attr('readonly') == 'readonly')

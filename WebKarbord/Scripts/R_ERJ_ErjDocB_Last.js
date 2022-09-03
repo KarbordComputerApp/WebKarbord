@@ -1087,7 +1087,9 @@
     }
 
 
-
+    self.ViewCommAttach = function (Band) {
+        ViewCommAttach(Band.Comm)
+    }
 
 
 

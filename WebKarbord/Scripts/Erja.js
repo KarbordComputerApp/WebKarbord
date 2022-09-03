@@ -3489,6 +3489,10 @@
         ViewCustName(Band.CustName)
     }
 
+    self.ViewCommAttach = function (Band) {
+        ViewCommAttach(Band.Comm)
+    }
+
 
 
     $("#lastRonevesht").click(function () {

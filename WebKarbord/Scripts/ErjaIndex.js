@@ -2933,6 +2933,10 @@
     }
 
 
+    self.ViewCommAttach = function (Band) {
+        ViewCommAttach(Band.Comm)
+    }
+
     $('#p_SpecialComm').click(function () {
         if (SpecialCommTrs == 1) {
             if ($("#p_SpecialComm").css('font-style') == 'italic') {

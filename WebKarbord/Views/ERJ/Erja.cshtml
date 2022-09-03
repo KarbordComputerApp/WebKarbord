@@ -501,7 +501,7 @@
                         <tbody data-bind="foreach: currentPageDocAttach" style="cursor: default;">
                             <tr>
                                 <td data-bind="text: BandNo" style="background-color: #d9d9d9;"></td>
-                                <td data-bind="text: Comm"></td>
+                                <td data-bind="text: Comm , click: $root.ViewCommAttach" class="ellipsis"></td>
                                 <td>
                                     <a data-bind="click: $root.selectDocAttach ,visible: $root.ShowViewDocAttach()">
                                         <img src="/Content/img/list/download.png" width="20" height="20" style="margin-left:10px" />
