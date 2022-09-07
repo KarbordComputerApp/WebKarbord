@@ -1055,10 +1055,18 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad(ace, sal, "SanadHesab", item.SerialNumber, true, item.DocNo) == true) {
-            // showNotification('سند در تب دیگری وجود دارد', 0)
+        testUseSanad = TestUseSanad(ace, sal, "SanadHesab", item.SerialNumber, true, item.DocNo);
+        if (testUseSanad == true) {
+            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
+            nameTest = "TestUseSanadHesab" + item.SerialNumber
+            localStorage.removeItem(nameTest, "")
+
+            if (testUseSanad == null) {
+                localStorage.setItem(nameTest, "UseUser");
+            }
+
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
             sessionStorage.DocNo = item.DocNo;

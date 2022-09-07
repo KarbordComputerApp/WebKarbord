@@ -29,6 +29,8 @@ Master_ProgName = localStorage.getItem('Master_ProgName');
 //if (Master_ProgName == 'ERJ1') Master_ProgName = 'Erj1';
 
 
+
+
 var key_F1 = 112;
 var key_F2 = 113;
 var key_F3 = 114;
@@ -899,13 +901,13 @@ $(".autocomplete").select(function () {
     //var relX = e.pageX - parentOffset.left;
     // var relY = e.pageY - parentOffset.top;
 
-   // id_Autocomplete = this.id;
+    // id_Autocomplete = this.id;
 
     //var parentOffset = $(this).parent().position();
     // var parentOffset = $("#" + id_Autocomplete).parent().offset();
 
-   // $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
-   // $("#p_Statement").show();
+    // $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
+    // $("#p_Statement").show();
 
 
 
@@ -914,15 +916,15 @@ $(".autocomplete").select(function () {
     //$("#saveStatement").show();
     //getSelectedText();
 
-   
-    
-       
+
+
+
 
 });
 
 
 $(".autocomplete").click(function () {
- //   $("#p_Statement").hide();
+    //   $("#p_Statement").hide();
 });
 
 /*
@@ -5565,9 +5567,11 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     }
 
 
-    useWindows = false;
+
+    var testUseDoc = false;
+    var testUseDoc_UserName = '';
     var userUse = "";
-    var userUseName = "";
+    var testUseDoc = "";
     if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
@@ -5579,17 +5583,17 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
         };
         ajaxFunction(DocInUseUri, 'POST', DocInUseObject, false).done(function (response) {
             userUse = response[0].UserCode;
-            userUseName = response[0].UserName;
+            testUseDoc_UserName = response[0].UserName;
             if (userUse != "") {
-                useWindows = true;
+                testUseDoc = true;
             }
         });
     }
 
 
-    if (useWindows == true /*&& userUse != sessionStorage.userName*/) {
-        showNotification(translate('توسط') + ' ' + userUseName + ' ' + translate('درحال استفاده است'), 0);
-        return true;
+    if (testUseDoc == true /*&& userUse != sessionStorage.userName*/) {
+        showNotification(translate('توسط') + ' ' + testUseDoc_UserName + ' ' + translate('درحال استفاده است'), 2);
+        return null;
     }
     else {
         if (find == true) {
@@ -5639,7 +5643,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
 
 
 
-async function RemoveUseSanad(prog, year, FormName, Id) {
+async function RemoveUseSanad(prog, year, FormName, Id, exitDoc) {
     if (Id != null) {
         isClose = false;
         listUse = localStorage.getItem("list" + FormName + "Use");
@@ -5670,27 +5674,32 @@ async function RemoveUseSanad(prog, year, FormName, Id) {
                     break;
             }
 
-            // حذف سند باز شده توسط وب در ویندوز
-            DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
-            var DeleteDocInUseObject = {
-                Prog: prog,
-                DMode: dMode,
-                GroupNo: group,
-                Year: year,
-                SerialNumber: Id,
-            };
-
-
-            if (isFirefox) {
-                ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
-                    isClose = true;
-                });
-
+            if (exitDoc == false) {
+                isClose = true;
             }
             else {
-                ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
-                    isClose = true;
-                });
+                // حذف سند باز شده توسط وب در ویندوز
+                DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+                var DeleteDocInUseObject = {
+                    Prog: prog,
+                    DMode: dMode,
+                    GroupNo: group,
+                    Year: year,
+                    SerialNumber: Id,
+                };
+
+
+                if (isFirefox) {
+                    ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, false).done(function (response) {
+                        isClose = true;
+                    });
+
+                }
+                else {
+                    ajaxFunction(DeleteDocInUseUri, 'POST', DeleteDocInUseObject, true).done(function (response) {
+                        isClose = true;
+                    });
+                }
             }
         }
 
@@ -5803,12 +5812,12 @@ $('#minMaxComm').click(function () {
 
     if (images == '/Content/img/new item/minus-svgrepo-com.svg') {
         $('#imgComm').attr('src', '/Content/img/new item/square-svgrepo-com.svg');
-        $("#modal-dialogComm").removeClass("modal-entesab"); 
-        
+        $("#modal-dialogComm").removeClass("modal-entesab");
+
     }
     else {
         $('#imgComm').attr('src', '/Content/img/new item/minus-svgrepo-com.svg');
-        $("#modal-dialogComm").addClass("modal-entesab"); 
+        $("#modal-dialogComm").addClass("modal-entesab");
     }
 })
 
@@ -5835,7 +5844,7 @@ function insertAtCaret(text) {
 
     var front = (txtarea.value).substring(0, strPos);
     var back = (txtarea.value).substring(strPos, txtarea.value.length);
-    txtarea.value = front +" " +text +" "+ back;
+    txtarea.value = front + " " + text + " " + back;
     strPos = strPos + text.length;
     if (br == "ie") {
         txtarea.focus();

@@ -2656,11 +2656,18 @@ var ViewModel = function () {
 
 
     self.UpdateHeader = function (item) {
-
-        if (TestUseSanad(ace, sal, "Factor", item.SerialNumber, true, item.DocNo) == true) {
+        testUseSanad = TestUseSanad(ace, sal, "Factor", item.SerialNumber, true, item.DocNo);
+        if (testUseSanad == true) {
             // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
+            nameTest = "TestUse" + item.ModeCode + item.SerialNumber
+            localStorage.removeItem(nameTest, "")
+
+            if (testUseSanad == null) {
+                localStorage.setItem(nameTest, "UseUser");
+            }
+
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
             sessionStorage.DocNo = item.DocNo;

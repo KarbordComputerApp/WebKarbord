@@ -28,6 +28,10 @@ var ViewModel = function () {
         sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
     }
 
+
+    useSanadOtherUser = localStorage.getItem("TestUse" + sessionStorage.ModeCode + sessionStorage.SerialNumber);
+
+
     var resTestNew = false;
 
     var flaglog = "Y";
@@ -692,7 +696,7 @@ var ViewModel = function () {
     });
 
     $("#status").change(function () {
-        if (lastStatus != "") {
+        if (lastStatus != "" && viewAction == true) {
             if (Serial == 0) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
@@ -1144,6 +1148,10 @@ var ViewModel = function () {
             viewAction = false;
 
         if (accessCancel == false && sessionStorage.Status == translate('باطل'))
+            viewAction = false;
+
+
+        if (useSanadOtherUser == 'UseUser')
             viewAction = false;
 
 
@@ -5345,7 +5353,7 @@ var ViewModel = function () {
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "Factor", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "Factor", sessionStorage.SerialNumber, useSanadOtherUser != 'UseUser');
     };
 
 

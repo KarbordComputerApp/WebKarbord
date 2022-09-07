@@ -18,6 +18,8 @@ var ViewModel = function () {
     var changeColumn = false;
     sessionStorage.flagupdateHeader == 1 ? flagupdateHeader = 1 : flagupdateHeader = 0;
 
+    useSanadOtherUser = localStorage.getItem("TestUseSanadHesab" + sessionStorage.SerialNumber);
+
     bandFree = {
         "AccCode": "",
         "AccCompleteName": "",
@@ -551,10 +553,16 @@ var ViewModel = function () {
         // $(".dx-toolbar-after").hide();
         $('#status').attr('disabled', 'disabled');
 
+        if (useSanadOtherUser == 'UseUser')
+            viewAction = false;
+
         if (viewAction) {
             //$(".dx-toolbar-after").show();
             $('#status').removeAttr('disabled');
         }
+
+
+
 
         //var dataGrid = $("#gridContainer").dxDataGrid("instance");
         //saveButton = dataGrid.find(".dx-link-save");
@@ -5639,7 +5647,8 @@ var ViewModel = function () {
             // window.performance.getEntriesByType('navigation').map((nav) => nav.type).includes('reload')
          )*/
 
-        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber, useSanadOtherUser != 'UseUser');
+
 
 
 

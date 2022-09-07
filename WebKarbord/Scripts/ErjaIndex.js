@@ -2,6 +2,7 @@
     var self = this;
 
     var khdtHasTime = 1;
+    var useSanadOtherUser;
 
     if (sessionStorage.AccessSanadErj == null) {
         sessionStorage.AccessSanadErj = localStorage.getItem("AccessSanadErj");
@@ -986,6 +987,9 @@
         $('#ExtraFields20').val('');
 
         $('#p_EghdamComm').attr('readonly', false);
+
+        $('#saveErjDocH').removeAttr('hidden', '');
+        $('#AddNewDocAttach').removeAttr('hidden', '');
 
         $('#modal-ErjDocH').modal('show');
     }
@@ -3068,10 +3072,16 @@
 
             var data = response[0];
 
-            if (TestUseSanad(aceErj, salErj, "ErjDocH", data["SerialNumber"], true, data["DocNo"]) == true) {
-                // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+            useSanadOtherUser = false;
+
+            testUseSanad = TestUseSanad(aceErj, salErj, "ErjDocH", data["SerialNumber"], true, data["DocNo"]);
+            if (testUseSanad == true) {
+                // showNotification('در تب دیگری وجود دارد', 0)
             }
             else {
+                if (testUseSanad == null) {
+                    useSanadOtherUser = true;
+                }
 
                 if (data.ShowDocTrs == 0) {
                     return showNotification(translate('شما به این پرونده دسترسی ندارید'), 0);
@@ -3224,6 +3234,16 @@
                     //$('#ErjDocErja').prop('disabled', true);
                 }
 
+
+                $('#saveErjDocH').removeAttr('hidden', '');
+                $('#AddNewDocAttach').removeAttr('hidden', '');
+
+                if (useSanadOtherUser == true) {
+                    $('#saveErjDocH').attr('hidden', '');
+                    $('#ErjDocErja').attr('hidden', '');
+                    $('#AddNewDocAttach').attr('hidden', '');
+                }
+
                 $('#modal-ErjDocH').modal('show');
             }
 
@@ -3231,13 +3251,21 @@
     }
 
 
+   
+
     self.UpdateErjDocH = function (item) {
 
         serialNumber = item.SerialNumber;
-        if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, item.DocNo) == true) {
-            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        useSanadOtherUser = false;
+
+        testUseSanad = TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, item.DocNo);
+        if (testUseSanad == true) {
+            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
+            if (testUseSanad == null) {
+                useSanadOtherUser = true;
+            }
 
             editDoc = item.EditDocTrs && localStorage.getItem("CHG_ErjDOC")
             editDoc == true || editDoc == "true" ? $("#P_Action").show() : $("#P_Action").hide();
@@ -3387,13 +3415,24 @@
                 //$('#ErjDocErja').prop('disabled', true);
             }
 
+
+            $('#saveErjDocH').removeAttr('hidden', '');
+            $('#AddNewDocAttach').removeAttr('hidden', '');
+
+            if (useSanadOtherUser == true) {
+                $('#saveErjDocH').attr('hidden', '');
+                $('#ErjDocErja').attr('hidden', '');
+                $('#AddNewDocAttach').attr('hidden', '');
+            }
+
+
             $('#modal-ErjDocH').modal('show');
         }
     }
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
     };
 
 
@@ -3573,9 +3612,9 @@
 
 
 
-    $("#Colse_ModalErjDocH").click(function (e) {
+    $("#Close_ModalErjDocH").click(function (e) {
 
-        if (flag_Save == false && (editDoc == true || editDoc == "true")) {
+        if (flag_Save == false && (editDoc == true || editDoc == "true") && useSanadOtherUser == false) {
 
 
             if ($("#p_SpecialComm").css('font-style') == 'italic')
@@ -3667,7 +3706,7 @@
 
     $("#modal-ErjDocH").on('hide.bs.modal', function () {
         $("#commPublic").prop("readonly", true);
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false);
 
         if (DocNoReport != "null" && DocNoReport != null) {
             close();

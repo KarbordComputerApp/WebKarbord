@@ -66,7 +66,7 @@
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
 
         if (sessionStorage.InOut == 1) {
-            validation = CheckAccess('NEW_IIDOC','Inv5');// new varedae anbar
+            validation = CheckAccess('NEW_IIDOC', 'Inv5');// new varedae anbar
             sessionStorage.newSanadAnbar = validation;
             validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
             validation == true ? sessionStorage.NEW_IIDOC = true : sessionStorage.NEW_IIDOC = false;
@@ -172,8 +172,8 @@
             validation == true ? localStorage.setItem("Access_TASVIB_IODOC", "true") : localStorage.setItem("Access_TASVIB_IODOC", "false")
 
             //validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
-           // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-           // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+            // validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
             sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_IODOC");
 
             validation = CheckAccess('OTHERUSER_CHG_IODOC', 'Inv5');// AccessViewSanad
@@ -207,7 +207,7 @@
     self.TestIDoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
     self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
 
-    self.IDocHLinkList = ko.observableArray([]); 
+    self.IDocHLinkList = ko.observableArray([]);
 
     var rprtId = sessionStorage.InOut == 1 ? 'IDocH_I' : 'IDocH_O';
 
@@ -224,8 +224,8 @@
     var TestIDoc_NewUri = server + '/api/IDocData/TestIDoc_New/'; // آدرس تست ایجاد 
     var TestIDoc_EditUri = server + '/api/IDocData/TestIDoc_Edit/'; // آدرس تست ویرایش 
 
-    var RegIDocToADocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToADoc/'; 
-    var RegIDocToFDocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToFDoc/'; 
+    var RegIDocToADocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToADoc/';
+    var RegIDocToFDocUri = server + '/api/AFI_IDocHi/AFI_RegIDocToFDoc/';
 
 
 
@@ -246,7 +246,7 @@
         'Eghdam',
         'Tanzim',
         'Taeed',
-        'Tasvib',
+        ace == 'Web8' ? 'Tasvib' : '',
         'SerialNumber',
         'MkzCode',
         'MkzName',
@@ -389,7 +389,7 @@
                 return showNotification(translate('نیاز به دسترسی تایید'), 0);
             }
 
-            if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == translate('تصویب') ){
+            if (localStorage.getItem("Access_TASVIB_IODOC") == 'false' && selectStatus == translate('تصویب')) {
                 $("#status").val(lastStatus);
                 return showNotification(translate('نیاز به دسترسی تصویب'), 0);
             }
@@ -437,7 +437,7 @@
             return result;
         });
 
-       
+
 
         if (tempData.length == 0) {
             return showNotification(translate('اسناد را انتخاب کنید'), 0);
@@ -1369,7 +1369,7 @@
         AddNewSanadAnbar();
     });
 
-    function AddNewSanadAnbar(){
+    function AddNewSanadAnbar() {
         sessionStorage.flagupdateHeader = 0;
         sessionStorage.Eghdam = sessionStorage.userName;
         sessionStorage.Status = 'موقت';
@@ -1487,7 +1487,7 @@
     });
 
     self.DeleteIDocH = function (SanadBand) {
-        if (TestUseSanad(ace, sal,"SanadAnbar", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
+        if (TestUseSanad(ace, sal, "SanadAnbar", SanadBand.SerialNumber, false, SanadBand.DocNo) == true) {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
@@ -1504,7 +1504,7 @@
             }).then((result) => {
                 if (result.value) {
                     serial = SanadBand.SerialNumber;
-                    docnoDelete = SanadBand.DocNo; 
+                    docnoDelete = SanadBand.DocNo;
                     var TestIDoc_DeleteObject = {
                         SerialNumber: serial
                     };
@@ -1512,7 +1512,7 @@
                     ajaxFunction(IDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestIDoc_DeleteObject).done(function (data) {
                         var obj = JSON.parse(data);
                         self.TestIDoc_DeleteList(obj);
-                        
+
 
                         if (data.length > 2) {
                             $('#modal-TestDelete').modal('show');
@@ -1550,10 +1550,10 @@
             }
 
             if (list[i].TestName == "AccReg")
-                textBody += '<p>' + translate('این سند انبار ثبت حسابداری شده است و قابل حذف نیست')+'</p>';
+                textBody += '<p>' + translate('این سند انبار ثبت حسابداری شده است و قابل حذف نیست') + '</p>';
 
             else if (list[i].TestName == "FctReg")
-                textBody += '<p>' + translate('این سند انبار ثبت خرید و فروش شده است و قابل حذف نیست')+'</p>';
+                textBody += '<p>' + translate('این سند انبار ثبت خرید و فروش شده است و قابل حذف نیست') + '</p>';
 
             else if (list[i].TestCap != "")
                 textBody += '<p>' + translate(list[i].TestCap) + '</p>';
@@ -1609,10 +1609,19 @@
 
 
     self.UpdateHeader = function (item) {
-        if (TestUseSanad(ace, sal,"SanadAnbar", item.SerialNumber, true, item.DocNo) == true) {
-            //showNotification('در تب دیگری وجود دارد', 0)
+
+        testUseSanad = TestUseSanad(ace, sal, "SanadAnbar", item.SerialNumber, true, item.DocNo);
+        if (testUseSanad == true) {
+            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
+            nameTest = "TestUse" + item.ModeCode + item.SerialNumber
+            localStorage.removeItem(nameTest, "")
+
+            if (testUseSanad == null) {
+                localStorage.setItem(nameTest, "UseUser");
+            }
+
             sessionStorage.flagupdateHeader = 1;
             sessionStorage.SerialNumber = item.SerialNumber;
             sessionStorage.DocNo = item.DocNo;
@@ -1676,7 +1685,7 @@
         if (e.keyCode == 13) {
             docnoSearch = $("#DocNoSearch").val();
             if (docnoSearch == '') {
-                return showNotification(translate('شماره سند') + " " + TitleListAnbarSearch + " "+ translate('را وارد کنید'), 2);
+                return showNotification(translate('شماره سند') + " " + TitleListAnbarSearch + " " + translate('را وارد کنید'), 2);
             }
             ShowDataUpdate(docnoSearch, $("#invSelect").val(), $("#IMode").val());
         }
@@ -1685,7 +1694,7 @@
     $("#btn_DocNoSearch").click(function (e) {
         docnoSearch = $("#DocNoSearch").val();
         if (docnoSearch == '') {
-            return showNotification(translate('شماره سند') + TitleListAnbarSearch + " "+ translate('را وارد کنید'), 2);
+            return showNotification(translate('شماره سند') + TitleListAnbarSearch + " " + translate('را وارد کنید'), 2);
         }
         ShowDataUpdate(docnoSearch, $("#invSelect").val(), $("#IMode").val());
     });
@@ -1739,8 +1748,8 @@
 
             var data = response[0];
 
-            if (TestUseSanad(ace, sal,"SanadAnbar", data.SerialNumber, true, data.DocNo) == true) {
-              //  showNotification('در تب دیگری وجود دارد', 0)
+            if (TestUseSanad(ace, sal, "SanadAnbar", data.SerialNumber, true, data.DocNo) == true) {
+                //  showNotification('در تب دیگری وجود دارد', 0)
             }
             else {
                 sessionStorage.flagupdateHeader = 1;
@@ -1832,7 +1841,7 @@
         sessionStorage.sels = false;
         $('#TitleThvlName').text(translate('نام تحویل گیرنده'));
         $('#TitleListAnbar').text(translate('اسناد صادره از انبار'));
-        TitleListAnbarSearch = ' ' +translate('صادره') + ' ';
+        TitleListAnbarSearch = ' ' + translate('صادره') + ' ';
         // $('#titlePage').text('اسناد صادره');
     }
 
@@ -1958,7 +1967,7 @@
 
         $('#modeCodePor').val(item.ModeCode);
 
-        $('#titleMove').text(translate('انتقال') + ' ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName)+ ' ' + translate('به'));
+        $('#titleMove').text(translate('انتقال') + ' ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('به'));
         $('#titlePor').text(translate('کپی') + ' ' + item.ModeName + ' ' + item.DocNo + ' ' + AppendAnbar(item.InvName) + ' ' + translate('در'));
 
         if (invSelected == '') {
@@ -2108,12 +2117,12 @@
 
     });
 
-    
+
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
 
-        if (TestUseSanad(ace, sal,"SanadAnbar", serial, true, item.DocNo) == true) {
-           // showNotification('در تب دیگری وجود دارد', 0)
+        if (TestUseSanad(ace, sal, "SanadAnbar", serial, true, item.DocNo) == true) {
+            // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
 
@@ -2143,11 +2152,11 @@
 
 
     $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
-        RemoveUseSanad(ace, sal,"SanadAnbar", serial);
+        RemoveUseSanad(ace, sal, "SanadAnbar", serial);
     });
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal,"SanadAnbar", serial);
+        RemoveUseSanad(ace, sal, "SanadAnbar", serial);
     };
 
 
@@ -2190,9 +2199,9 @@
         dataTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-        '       <tr data-bind="click: sortTableIDocH">' +
-        '<th>' + translate('ردیف') + '</th>' +
-        '<th>' + translate('انتخاب') + '</th>' +
+            '       <tr data-bind="click: sortTableIDocH">' +
+            '<th>' + translate('ردیف') + '</th>' +
+            '<th>' + translate('انتخاب') + '</th>' +
             CreateTableTh('DocNo', data) +
             CreateTableTh('DocDate', data) +
             CreateTableTh('InvName', data) +
@@ -2203,7 +2212,7 @@
             CreateTableTh('Eghdam', data) +
             CreateTableTh('Tanzim', data) +
             CreateTableTh('Taeed', data) +
-            CreateTableTh('Tasvib', data) +
+            (ace == 'Web8' ? CreateTableTh('Tasvib', data) : '') +
             CreateTableTh('SerialNumber', data) +
             CreateTableTh('MkzCode', data) +
             CreateTableTh('MkzName', data) +
@@ -2249,8 +2258,8 @@
             '   </thead >' +
             ' <tbody data-bind="foreach: currentPageIDocH" data-dismiss="modal" style="cursor: default;">' +
             '     <tr data-bind="event:{dblclick: $root.UpdateHeader} , css: { matched: $data === $root.firstMatch() }, style: { color : Status == \'باطل\' ? \'red\' : Tanzim.substring(0, 1) == \'*\' &&  Tanzim.substring(Tanzim.length - 1 , Tanzim.length) == \'*\' ? \'#840fbc\' : null}" >' +
-        '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-        '<td style="padding: 0px 10px;text-align: left;"><input type="checkbox"  data-bind="checked:select"> </td>' +
+            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
+            '<td style="padding: 0px 10px;text-align: left;"><input type="checkbox"  data-bind="checked:select"> </td>' +
             //'<td data-bind="text:  $index() + 1"></td>' +
             // '<td data-bind="text: $data.DocNo"></td>' +
             CreateTableTd('DocNo', 0, 0, data) +
@@ -2263,7 +2272,7 @@
             CreateTableTd('Eghdam', 0, 0, data) +
             CreateTableTd('Tanzim', 0, 0, data) +
             CreateTableTd('Taeed', 0, 0, data) +
-            CreateTableTd('Tasvib', 0, 0, data) +
+            (ace == 'Web8' ? CreateTableTd('Tasvib', 0, 0, data) : '') +
             CreateTableTd('SerialNumber', 0, 0, data) +
             CreateTableTd('MkzCode', 0, 0, data) +
             CreateTableTd('MkzName', 0, 0, data) +
@@ -2327,7 +2336,7 @@
             '    <li>' +
             '        <a id="ChangeStatusSanad" data-bind="click: $root.ChangeStatusSanad" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-        translate('تغییر وضعیت') +
+            translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
         if (sessionStorage.AccessPrint_SanadAnbar == "true") {
@@ -2336,7 +2345,7 @@
                 '    <li>' +
                 '        <a id="PrintSanad" data-bind="click: $root.PrintSanad" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">' +
-            translate( 'چاپ') +
+                translate('چاپ') +
                 '        </a>' +
                 '    </li>';
         }
@@ -2352,7 +2361,7 @@
             dataTable += '<img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px"/></a>';
 
 
-        dataTable += 
+        dataTable +=
             '<a id="DeleteIDocH" data-bind="click: $root.DeleteIDocH, visible: $root.ShowAction(Eghdam) , attr: {title:text_Delete}">' +
             '<img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="16" height="16" />' +
             '   </a>' +
@@ -2360,9 +2369,9 @@
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
-        '  <tr style="background-color: #efb68399;">' +
-        '<td style="background-color: #efb683;"></td>' +
-        '<td style="background-color: #efb683;"></td>' +
+            '  <tr style="background-color: #efb68399;">' +
+            '<td style="background-color: #efb683;"></td>' +
+            '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('DocDate', data) +
             CreateTableTdSearch('InvName', data) +
@@ -2373,7 +2382,7 @@
             CreateTableTdSearch('Eghdam', data) +
             CreateTableTdSearch('Tanzim', data) +
             CreateTableTdSearch('Taeed', data) +
-            CreateTableTdSearch('Tasvib', data) +
+            (ace == 'Web8' ? CreateTableTdSearch('Tasvib', data) : '') +
             CreateTableTdSearch('SerialNumber', data) +
             CreateTableTdSearch('MkzCode', data) +
             CreateTableTdSearch('MkzName', data) +
@@ -2413,8 +2422,8 @@
             CreateTableTdSearch('F17', data) +
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
-        CreateTableTdSearch('F20', data) +
-        '<td style="background-color: #efb683;"></td>' +
+            CreateTableTdSearch('F20', data) +
+            '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >';

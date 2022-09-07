@@ -15,6 +15,7 @@
 
     }
 
+    var useSanadOtherUser;
 
     self.ErjStatusList = ko.observableArray([]); // لیست وضعیت 
     self.FarayandList = ko.observableArray([]); // لیست فرایند 
@@ -2068,10 +2069,17 @@
 
     self.ViewErjDocErja = function (Band) {
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo) == true) {
-            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        useSanadOtherUser = false;
+
+        testUseSanad = TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo);
+        if (testUseSanad == true) {
+
         }
         else {
+            if (testUseSanad == null) {
+                useSanadOtherUser = true;
+            }
+
             docBMode = Band.DocBMode;
             serialNumber = Band.SerialNumber;
             getDocK(serialNumber)
@@ -2117,7 +2125,7 @@
                 $('#erja').removeAttr('hidden', '');
             }
 
-            if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2") {
+            if (Band.ToUserCode != sessionStorage.userName || sessionStorage.ModeCodeErja == "2" || useSanadOtherUser == true) {
                 flag_Save = true;
                 $('#erja').attr('hidden', '');
                 $('#panel_Result').attr('hidden', '');
@@ -2125,6 +2133,9 @@
                 $('#m_StatusParvandeh').prop('disabled', true);
                 $('#m_StatusErja').prop('disabled', true);
             }
+
+
+
 
 
             if (Band.RjReadSt == 'T' && sessionStorage.ModeCodeErja == "1") {
@@ -2145,18 +2156,23 @@
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
     };
 
 
     self.UpdateErjDocErja = function (Band) {
         $('#p_Result').css('display', 'none');
+        $('#saveErja').removeAttr('hidden', '');
 
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo) == true) {
-            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        useSanadOtherUser = false;
+        testUseSanad = TestUseSanad(aceErj, salErj, "ErjDocH", serialNumber, true, Band.DocNo);
+        if (testUseSanad == true) {
         }
         else {
+            if (testUseSanad == null) {
+                useSanadOtherUser = true;
+            }
 
             getErjDocErja(serialNumber);
 
@@ -2232,6 +2248,15 @@
                 if (counter > 0) {
                     $('#p_Result').css('display', 'block');
                 }
+
+                $('#saveErja').removeAttr('hidden', '');
+                $('#AddNewDocAttach').removeAttr('hidden', '');
+
+                if (useSanadOtherUser == true) {
+                    $('#saveErja').attr('hidden', '');
+                    $('#AddNewDocAttach').attr('hidden', '');
+                }
+
                 $('#modal-Erja').modal('show');
             });
 
@@ -2344,13 +2369,14 @@
         getDocB_Last();
         self.sortTableDocB_Last();
 
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
     });
 
 
 
     $("#Close_ModalErjDocErja").click(function (e) {
-        if (flag_Save == false) {
+        if (flag_Save == false && useSanadOtherUser == false)
+        {
             if ($("#specialComm").css('font-style') == 'italic')
                 special = specialComm;
             else
@@ -2424,6 +2450,8 @@
         } else {
             $('#modal-ErjDocErja').modal('hide');
         }
+
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false);
 
 
     });
@@ -2663,7 +2691,7 @@
             counterErjUsersRonevesht = 0;
         }
         if (sessionStorage.ModeCodeErja == "2") {
-            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber);
+            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
         }
     });
 

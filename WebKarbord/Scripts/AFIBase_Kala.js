@@ -900,7 +900,10 @@
             $('#modal-Kala').modal('show');
         }*/
         kalaCode = item.Code;
-        if (TestUseSanad(ace, sal, "Kala", kalaCode, true, '') == true) {
+
+
+        testUseSanad = TestUseSanad(ace, sal, "Kala", kalaCode, true, '');
+        if (testUseSanad == true) {
             showNotification(translate('کالا') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {

@@ -16,6 +16,8 @@
         //sessionStorage.AccessPrint_Factor = localStorage.getItem("AccessPrint_Factor")
     }
 
+    useSanadOtherUser = localStorage.getItem("TestUse" + sessionStorage.ModeCode + sessionStorage.SerialNumber);
+
     TestUser();
 
     var flaglog = "Y";
@@ -1981,6 +1983,8 @@
     if (accessCancel == false && sessionStorage.Status == 'باطل')
         viewAction = false;
 
+    if (useSanadOtherUser == 'UseUser')
+        viewAction = false;
 
     if (viewAction) {
         $('#action_header').removeAttr('style');
@@ -4225,7 +4229,7 @@
     window.onbeforeunload = function () {
         // a = window.performance.navigation;
         // if (a.type == 0) {
-        RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber, useSanadOtherUser != 'UseUser');
         // }
     };
 

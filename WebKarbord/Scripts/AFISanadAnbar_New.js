@@ -24,6 +24,7 @@ var ViewModel = function () {
         sessionStorage.CHG = localStorage.getItem("CHG")
     }
 
+    useSanadOtherUser = localStorage.getItem("TestUse" + sessionStorage.ModeCode + sessionStorage.SerialNumber);
 
     var resTestNew = false;
 
@@ -934,6 +935,9 @@ var ViewModel = function () {
             viewAction = false;
 
         if (accessCancel == false && sessionStorage.Status == translate('باطل'))
+            viewAction = false;
+
+        if (useSanadOtherUser == 'UseUser')
             viewAction = false;
 
 
@@ -4098,7 +4102,7 @@ var ViewModel = function () {
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadAnbar", sessionStorage.SerialNumber, useSanadOtherUser != 'UseUser');
     };
 
 

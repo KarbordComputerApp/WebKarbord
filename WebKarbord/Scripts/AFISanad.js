@@ -15,6 +15,8 @@
 
     self.StatusSanad = ko.observable();
 
+    useSanadOtherUser = localStorage.getItem("TestUseSanadHesab" + sessionStorage.SerialNumber);
+
     TestUser();
     var viewAction = false;
     var resTestNew = false;
@@ -3909,6 +3911,10 @@
         if (accessDaem == false && sessionStorage.Status == 'دائم')
             viewAction = false;
 
+        if (useSanadOtherUser == 'UseUser')
+            viewAction = false;
+
+
         if (viewAction) {
             $('#action_headersanad').removeAttr('style');
             $('#action_bodysanad').removeAttr('style');
@@ -4456,7 +4462,7 @@
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber);
+        RemoveUseSanad(ace, sal, "SanadHesab", sessionStorage.SerialNumber, useSanadOtherUser != 'UseUser');
     };
 
 
