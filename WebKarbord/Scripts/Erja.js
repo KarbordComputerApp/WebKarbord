@@ -2150,6 +2150,7 @@
                     //AlertErja();
                 });
             }
+            TestUser();
             $('#modal-ErjDocErja').modal('show');
         }
     }
@@ -3263,6 +3264,7 @@
             //AlertErja();
             getDocB_Last();
             self.sortTableDocB_Last();
+            TestUser();
         });
 
     }
