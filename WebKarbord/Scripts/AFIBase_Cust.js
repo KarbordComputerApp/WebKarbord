@@ -968,6 +968,8 @@
                     F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
                     F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
                     F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
+                    Latitude: 0,
+                    Longitude : 0
                 };
 
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {

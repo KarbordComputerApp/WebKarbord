@@ -409,10 +409,10 @@
                 else
                     firstUpdateShow = 0;
                 if (sessionStorage.sels == "true")
-                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                 // $("#gGhimat").val(sessionStorage.GPriceDefultS);
                 else
-                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
+                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultP);
                 // $("#gGhimat").val(sessionStorage.GPriceDefultP);
             }
         });
@@ -1206,7 +1206,7 @@
 
 
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
 
         var FDocHObject = {
             SerialNumber: 0,//self.SerialNumber(),
@@ -1360,7 +1360,7 @@
 
 
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
 
         status = $("#status").val();
         var FDocHObject = {
@@ -2305,9 +2305,9 @@
                     //                    sessionStorage.GPriceDefult == "null" ? $("#gGhimat").val('گروه قیمت را انتخاب کنید') : $("#gGhimat").val(sessionStorage.GPriceDefult);
 
                     if (sessionStorage.sels == "true")
-                        sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                        sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                     else
-                        sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
+                        sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
 
                     if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
@@ -2337,12 +2337,12 @@
             codeCust = item.Code;
             $('#nameHesab').val('(' + item.Code + ') ' + item.Name)
 
-            if ($("#gGhimat").val() == '') {
+            if ($("#gGhimat").val() == 0) {
 
                 if (sessionStorage.sels == "true")
-                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultS);
+                    sessionStorage.GPriceDefultS == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultS);
                 else
-                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultP);
+                    sessionStorage.GPriceDefultP == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultP);
 
                 if (sessionStorage.InOut == 2 && item.CGruKalaPriceCode_S > 0)
                     $("#gGhimat").val(item.CGruKalaPriceCode_S);
@@ -2373,7 +2373,7 @@
     self.selectKala = function (item) {
         self.ClearFDocB();
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
 
         KalaCode = item.Code;
         getUnit(item.Code);
@@ -2388,7 +2388,7 @@
             Price3 = item.PPrice3;
         }
 
-        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.Code);
+        getKalaPriceBList(kalapricecode, item.Code);
 
         zarib1 = item.zarib1;
         zarib2 = item.zarib2;
@@ -2508,7 +2508,7 @@
             SearchKalaArry(item.KalaCode, self.KalaList());
 
             kalapricecode = $("#gGhimat").val();
-            getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
+            getKalaPriceBList(kalapricecode, item.KalaCode);
 
             if (item.MainUnit == 1) {
                 amo = item.Amount1.toFixed(item.KalaDeghatM1);
@@ -3496,9 +3496,9 @@
         return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
     });
 
-    self.OptionsCaptionKalaPrice = ko.computed(function () {
-        return translate('قیمت اطلاعات پایه');
-    });
+   // self.OptionsCaptionKalaPrice = ko.computed(function () {
+   //     return translate('قیمت اطلاعات پایه');
+   // });
 
     /*  $("#allSearchHesab").click(function () {
           if ($("#allSearchHesab").is(':checked')) {
@@ -3598,15 +3598,15 @@
             }).then((result) => {
                 if (result.value) {
                     kalapricecode = $("#gGhimat").val();
-                    if (kalapricecode == null) kalapricecode = "";
+                    if (kalapricecode == null) kalapricecode = 0;
                     kalapricecode = $("#gGhimat").val();
                     flagKalaPrice = true;
                     self.UpdateFDocH();
                 }
                 else {
-                    kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
+                    //kalapricecode == '0' ? kalapricecode = 0 : kalapricecode = kalapricecode;
                     $("#gGhimat").val(kalapricecode);
-                    kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
+                    //kalapricecode == 0 ? kalapricecode = 0 : kalapricecode = kalapricecode;
                 }
             })
         }
@@ -4744,7 +4744,7 @@
         unitPrice = 0;
         totalPrice = 0;
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
 
         if (sessionStorage.sels == "true") {
             Price1 = kala.SPrice1;
@@ -4756,7 +4756,7 @@
             Price3 = kala.PPrice3;
         }
 
-        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, kala.Code);
+        getKalaPriceBList(kalapricecode, kala.Code);
 
         if (defaultUnit == "1") {
             a1 = amountB;
@@ -5322,7 +5322,7 @@
         SearchKalaArry(item.KalaCode, self.KalaList());
 
         kalapricecode = $("#gGhimat").val();
-        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
+        getKalaPriceBList(kalapricecode, item.KalaCode);
 
         if (item.MainUnit == 1) {
             amo = item.Amount1.toFixed(item.KalaDeghatM1);

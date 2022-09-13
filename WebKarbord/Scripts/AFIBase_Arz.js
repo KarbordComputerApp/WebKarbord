@@ -25,14 +25,14 @@
         Prog = 'Erj1';
 
 
-    validation = CheckAccess('NEW_Arz', Prog);// New Arz
+    validation = CheckAccess('NEW_ARZ', Prog);// New Arz
     sessionStorage.NEW_Arz = validation;
     validation == true ? $("#AddNewArz").show() : $("#AddNewArz").hide()
 
-    validation = CheckAccess('CHG_Arz', Prog);// edit Arz
+    validation = CheckAccess('CHG_ARZ', Prog);// edit Arz
     sessionStorage.CHG_Arz = validation;
 
-    validation = CheckAccess('DEL_Arz', Prog); // delete Arz
+    validation = CheckAccess('DEL_ARZ', Prog); // delete Arz
     sessionStorage.DEL_Arz = validation;
 
     self.ShowAction = function (Code) {

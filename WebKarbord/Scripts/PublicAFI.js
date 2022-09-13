@@ -2167,13 +2167,18 @@ function CheckAccess(TrsName, Prog) {
     else {
         if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
             for (var i = 0; i < access.length; i++) {
-                if (access[i].TrsName == TrsName && access[i].OrgProgName == Fct_or_Inv)
+                if (access[i].TrsName == TrsName && access[i].OrgProgName == Fct_or_Inv.toUpperCase())
                     return true;
             }
         }
         else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName == "ARZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0 || TrsName.lastIndexOf("_ARZ") > 0) {
             for (var i = 0; i < access.length; i++) {
-                if (access[i].TrsName == TrsName && access[i].OrgProgName == Master_ProgName)
+                if (TrsName == "_OPR") {
+                    if (access[i].TrsName == "ARZ") {
+                        a = 1;
+                    }
+                }
+                if (access[i].TrsName == TrsName && access[i].OrgProgName.toLowerCase() == Master_ProgName.toLowerCase())
                     return true;
             }
         }
@@ -2406,7 +2411,7 @@ function getAccessList(GoHome) {
                 whereAcc = data.WhereAcc;
 
                 Master_ProgName = data.ProgName;
-                Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : data.Fct_or_Inv == 'INV5' ? 'Inv5' : '';
+                Fct_or_Inv = data.Fct_or_Inv == 'FCT5' ? 'Fct5' : data.Fct_or_Inv == 'INV5' ? 'Inv5' : data.Fct_or_Inv;
 
                 localStorage.setItem("ApiAddressPos", apiAddressPos);
 
@@ -2838,8 +2843,8 @@ function SetValidation() {
     validation = CheckAccessReport('AGOpr', 'Acc5');
     ShowMenu[37] = validation;  // گردش پروژه ها 
 
-    validation = CheckAccessReport('ARZ', localStorage.getItem('ProgAccess'));
-    ShowMenu[38] = validation;  // گردش ارز ها
+    validation = CheckAccess('ARZ', localStorage.getItem('ProgAccess'));
+    ShowMenu[38] = validation;  //  ارز ها
 
 
 
@@ -5861,19 +5866,3 @@ function insertAtCaret(text) {
 
     txtarea.scrollTop = scrollPos;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

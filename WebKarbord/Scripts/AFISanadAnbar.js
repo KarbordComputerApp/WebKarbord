@@ -366,10 +366,10 @@
             self.KalaPriceList(data);
             if (self.KalaPriceList().length > 0) {
                 if (flagupdateHeader == 1)
-                    sessionStorage.PriceCode > 0 ? $("#gGhimat").val(sessionStorage.PriceCode) : null;
+                    sessionStorage.PriceCode > 0 ? $("#gGhimat").val(sessionStorage.PriceCode) : 0;
                 else {
                     if (sessionStorage.InOut == 1) {
-                        sessionStorage.GPriceDefultI == "0" ? $("#gGhimat").val('') : $("#gGhimat").val(sessionStorage.GPriceDefultI);
+                        sessionStorage.GPriceDefultI == "0" ? $("#gGhimat").val(0) : $("#gGhimat").val(sessionStorage.GPriceDefultI);
                     }
                 }
             }
@@ -791,9 +791,9 @@
         });
     }
 
-    self.OptionsCaptionKalaPrice = ko.computed(function () {
-        return translate('قیمت اطلاعات پایه');
-    });
+    //self.OptionsCaptionKalaPrice = ko.computed(function () {
+    //    return translate('قیمت اطلاعات پایه');
+    //});
 
     function SetDataTest_New() {
         $("#BodyTest_New").empty();
@@ -1203,7 +1203,7 @@
         unitPrice = 0;
         totalPrice = 0;
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
 
         if (sessionStorage.sels == "true") {
             Price1 = kala.SPrice1;
@@ -1351,7 +1351,7 @@
         }
 
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
         var IDocHObject = {
             SerialNumber: 0,//self.SerialNumber(),
             DocDate: tarikh,//self.DocDate(),
@@ -1483,7 +1483,7 @@
 
 
         kalapricecode = $("#gGhimat").val();
-        if (kalapricecode == null) kalapricecode = "";
+        if (kalapricecode == null) kalapricecode = 0;
 
         status = $("#status").val();
         var IDocHObject = {
@@ -2935,7 +2935,7 @@
             SearchKalaArry(item.KalaCode, self.KalaList());
 
             kalapricecode = $("#gGhimat").val();
-            getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
+            getKalaPriceBList(kalapricecode, item.KalaCode);
 
 
             if (item.MainUnit == 1) {
@@ -3360,15 +3360,15 @@
             }).then((result) => {
                 if (result.value) {
                     kalapricecode = $("#gGhimat").val();
-                    if (kalapricecode == null) kalapricecode = "";
+                    if (kalapricecode == null) kalapricecode = 0;
                     kalapricecode = $("#gGhimat").val();
                     flagKalaPrice = true;
                     self.UpdateIDocH();
                 }
                 else {
-                    kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
+                    //kalapricecode == 0 ? kalapricecode = '' : kalapricecode = kalapricecode;
                     $("#gGhimat").val(kalapricecode);
-                    kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
+                   // kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
                 }
             })
         }
@@ -4168,7 +4168,7 @@
         SearchKalaArry(item.KalaCode, self.KalaList());
 
         kalapricecode = $("#gGhimat").val();
-        getKalaPriceBList(kalapricecode == '' ? 0 : kalapricecode, item.KalaCode);
+        getKalaPriceBList(kalapricecode, item.KalaCode);
 
         if (item.MainUnit == 1) {
             amo = item.Amount1.toFixed(item.KalaDeghatM1);
