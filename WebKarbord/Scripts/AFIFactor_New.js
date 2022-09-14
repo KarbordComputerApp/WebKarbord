@@ -2586,7 +2586,8 @@ var ViewModel = function () {
                 codeArz = '';
                 flaglog = "Y";
                 if (sessionStorage.InvDefult_Fct != "null") $("#inv").val(sessionStorage.InvDefult_Fct);
-                $("#gGhimat").val(sessionStorage.GPriceDefult);
+                $("#gGhimat").val(sessionStorage.GPriceDefult != null && sessionStorage.GPriceDefult != '' ? sessionStorage.GPriceDefult : 0);
+
 
                 $('#nameCust').val("");
                 $('#nameOpr').val("");

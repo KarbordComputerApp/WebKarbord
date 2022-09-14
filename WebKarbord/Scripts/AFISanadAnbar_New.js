@@ -1913,7 +1913,8 @@ var ViewModel = function () {
                 codeMkz = '';
                 flaglog = "Y";
                 if (sessionStorage.InvDefult_Inv != "null") $("#inv").val(sessionStorage.InvDefult_Inv);
-                $("#gGhimat").val(sessionStorage.GPriceDefult);
+                $("#gGhimat").val(sessionStorage.GPriceDefult != null && sessionStorage.GPriceDefult != '' ? sessionStorage.GPriceDefult : 0);
+
 
                 $('#nameThvl').val("");
                 $('#nameOpr').val("");
