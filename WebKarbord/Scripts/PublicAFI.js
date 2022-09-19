@@ -67,6 +67,7 @@ text_Select = 'انتخاب';
 text_OtherField = 'مشخصات اضافی';
 text_LinkSanad = 'لینک اسناد';
 text_Date = 'انتخاب تاریخ';
+text_Image = 'تصویر';
 
 //data-bind="attr: {title:text_Date}"
 

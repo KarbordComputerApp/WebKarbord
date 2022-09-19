@@ -15,6 +15,9 @@
     var DelKalaUri = server + '/api/Web_Data/AFI_DelKala/'; // آدرس حذف کالا
     var TestKala_DeleteUri = server + '/api/Web_Data/TestKala_Delete/'; // آدرس تست حذف 
     var TestKalaUri = server + '/api/Web_Data/TestKala/'; // آدرس تست 
+    var KalaAppUri = server + '/api/Web_Data/KalaApp/'; // آدرس اطلاعات کالا 
+    var SaveKalaImageUri = server + '/api/Web_Data/SaveKalaImage/'; // ذخیره عکس
+
     TestUser();
 
 
@@ -35,6 +38,7 @@
             return false;
     }
 
+    var file = null;
 
     var kGruCode = '';
     var kalaCode = '';
@@ -184,7 +188,7 @@
             Mode: 255,
             UserCode: sessionStorage.userName,
             where: whereKala,
-            KalaCode : ''
+            KalaCode: ''
         }
         ajaxFunction(KalaUri + ace + '/' + sal + '/' + group, 'POST', KalaObject, false).done(function (data) {
             self.KalaList(data == null ? [] : data);
@@ -193,6 +197,8 @@
 
     }
     getKalaList();
+
+
     // self.sortTableKala();
 
     //Get  KGru List
@@ -1409,6 +1415,81 @@
         }
     };
 
+
+
+    var imageKala = document.getElementById('imageKala');
+    var noImage = '/Content/img/No-image.jpg';
+
+    $('#modal-Image').on('show.bs.modal', function () {
+        file = null;
+        imageKala.src = noImage;
+
+
+        var KalaAppObject = {
+            withimage: true,
+            UserCode: sessionStorage.userName,
+            where: whereKala,
+            KalaCode: kalaCode,
+            InvCode: ''
+        }
+
+        ajaxFunction(KalaAppUri + ace + '/' + sal + '/' + group, 'POST', KalaAppObject, false).done(function (res) {
+            data = res[0].KalaImage;
+
+            if (data != '') {
+                var bytes = base64ToArrayBuffer(data);
+                var blob = new Blob([bytes.buffer], { type: 'image/png' });
+                imageKala.src = URL.createObjectURL(blob);
+            }
+        });
+
+
+
+
+    });
+
+
+    $("#AddImage").on('click', function (e) {
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+
+
+    $("#DelImage").on('click', function (e) {
+        file = null;
+        imageKala.src = noImage;
+    });
+
+    $("#SaveImage").on('click', function (e) {
+        if (file != null) {
+            size = file.size;
+            fileFullName = file.name;
+            //fileData = fileFullName.split(".");
+            //fileName = fileData[0];
+           //fileType = '.' + fileData[1];
+
+            attachDate = DateNow;
+            var formData = new FormData();
+
+            formData.append("Code", kalaCode);
+            formData.append("Atch", file == '' ? null : file);
+
+            ajaxFunctionUpload(SaveKalaImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
+
+            })
+        }
+        $('#modal-Image').modal('hide');
+    });
+
+
+
+    this.fileUpload = function (data, e) {
+        file = e.target.files[0];
+
+        if (file) {
+            imageKala.src = URL.createObjectURL(file);
+        }
+    }
 };
 
 ko.applyBindings(new ViewModel());

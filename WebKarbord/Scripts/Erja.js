@@ -2239,7 +2239,7 @@
                             '<div class="body" style="padding:5px;">' +
                             '    <div class="form-group" style="margin-bottom: 0.5rem;">' +
                             '        <div class="form-line">' +
-                            '            <textarea class="form-control no-resize auto-growth string" style="border-bottom-width:0px;" readonly>' + data[i].RjResult + '</textarea>' +
+                            '            <textarea class="form-control no-resize auto-growth string" style="border-bottom-width:0px;min-height: 420px" readonly>' + data[i].RjResult + '</textarea>' +
                             '        </div>' +
                             '    </div>' +
                             '</div>'
@@ -2546,6 +2546,16 @@
     });
 
 
+    $('#Result').dblclick(function () {
+        $('#codeComm').text('Natijeh');
+        $('#titleComm').text(translate('نتیجه'));
+        $('#modal-Comm').modal('show');
+        $('#commPublic').attr("style", "");
+        $('#commPublic').val($('#Result').val());
+    });
+
+
+
     $('#modal-Comm').on('hide.bs.modal', function () {
         codeComm = $('#codeComm').text();
         val = $('#commPublic').val();
@@ -2563,6 +2573,10 @@
 
         else if (codeComm == "FinalComm") {
             $('#finalComm').val(val)
+        }
+
+        else if (codeComm == "Natijeh") {
+            $('#Result').val(val)
         }
 
         $('#codeComm').text("");

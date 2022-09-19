@@ -194,6 +194,7 @@
     <Content Include="Content\img\ContactUs.png" />
     <Content Include="Content\img\email.png" />
     <Content Include="Content\img\help.png" />
+    <Content Include="Content\img\image.png" />
     <Content Include="Content\img\keyboard.png" />
     <Content Include="Content\img\list\attach_file.png" />
     <Content Include="Content\img\list\download.png" />
@@ -203,6 +204,7 @@
     <Content Include="Content\img\Login\LogoLogin_En.png" />
     <Content Include="Content\img\Logo_En.jpg" />
     <Content Include="Content\img\mail.png" />
+    <Content Include="Content\img\No-image.jpg" />
     <Content Include="Content\img\notificationErja.png" />
     <Content Include="Content\img\outline.svg" />
     <Content Include="Content\img\repair-config.svg" />

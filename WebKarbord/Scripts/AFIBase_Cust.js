@@ -16,6 +16,9 @@
     var TestCust_DeleteUri = server + '/api/Web_Data/TestCust_Delete/'; // آدرس تست حذف 
     var TestCustUri = server + '/api/Web_Data/TestCust/'; // آدرس تست 
 
+    var CustInfoUri = server + '/api/Web_Data/CustInfo/'; // آدرس اطلاعات 
+    var SaveCustImageUri = server + '/api/Web_Data/SaveCustImage/'; // ذخیره عکس
+
 
     TestUser();
 
@@ -1344,6 +1347,70 @@
             }
         }
     };
+
+
+
+    var imageCust = document.getElementById('imageCust');
+    var noImage = '/Content/img/No-image.jpg';
+
+    $('#modal-Image').on('show.bs.modal', function () {
+        file = null;
+        imageCust.src = noImage;
+
+        var CustInfoObject = {
+            UserCode: sessionStorage.userName,
+            where: whereCust,
+            CustCode: custCode,
+        }
+
+        ajaxFunction(CustInfoUri + ace + '/' + sal + '/' + group, 'POST', CustInfoObject, false).done(function (res) {
+            data = res[0].CustImage;
+
+            if (data != '') {
+                var bytes = base64ToArrayBuffer(data);
+                var blob = new Blob([bytes.buffer], { type: 'image/png' });
+                imageCust.src = URL.createObjectURL(blob);
+            }
+        });
+    });
+
+
+    $("#AddImage").on('click', function (e) {
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+
+
+    $("#DelImage").on('click', function (e) {
+        file = null;
+        imageCust.src = noImage;
+    });
+
+    $("#SaveImage").on('click', function (e) {
+        if (file != null) {
+            size = file.size;
+            fileFullName = file.name;
+            attachDate = DateNow;
+            var formData = new FormData();
+
+            formData.append("Code", custCode);
+            formData.append("Atch", file);
+
+            ajaxFunctionUpload(SaveCustImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
+            })
+        }
+        $('#modal-Image').modal('hide');
+    });
+
+
+
+    this.fileUpload = function (data, e) {
+        file = e.target.files[0];
+
+        if (file) {
+            imageCust.src = URL.createObjectURL(file);
+        }
+    }
 
 };
 

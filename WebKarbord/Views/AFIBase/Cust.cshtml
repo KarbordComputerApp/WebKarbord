@@ -9,13 +9,13 @@
         <div class="card">
             <div class="header">
                 <div class="form-inline focused">
-                    <strong style="margin-left: 5px; margin-right: 5px;"  data-bind="text:translate('لیست خریداران/فروشندگان')"></strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;" data-bind="text:translate('لیست خریداران/فروشندگان')"></strong>
 
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-target="#modal-SettingColumn" data-backdrop="static" data-keyboard="false" />
                         </a>
-                        <a id="refreshCust" class="" >
+                        <a id="refreshCust" class="">
                             <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                         </a>
                         <a id="AddNewCust" data-bind="click: $root.AddNewCust , attr: {title:text_Add}"> <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" /> </a>
@@ -93,7 +93,7 @@
                             <tr>
                                 <td data-bind="text:translate('ردیف')"></td>
                                 <td style="width:250px;" data-bind="text:translate('نام ستون')"> </td>
-                                 <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
+                                <td class="panel_AllSettingColumns" style="text-align: left;padding: 0px 10px 0px 10px;">
                                     <label for="AllSettingColumns" data-bind="text:translate('انتخاب همه')"></label>
                                     <input id="AllSettingColumns" type="checkbox" />
                                 </td>
@@ -106,14 +106,10 @@
             <div style="padding: 0px; margin: 10px;">
                 <div class="row">
                     <div class="col-md-6">
-                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                         
-                        </button>
+                        <button data-bind="text:translate('پیش فرض')" type="button" id="DefultColumn" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                     <div class="col-md-6">
-                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;">
-                            
-                        </button>
+                        <button data-bind="text:translate('تایید')" type="button" id="SaveColumns" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                     </div>
                 </div>
             </div>
@@ -131,6 +127,10 @@
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('خریدار/فروشنده')"></h4>
                 <div>
+                    <a id="ShowImageCust" data-bind="attr: {title:text_Image}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Image" style="margin-left: 10px;">
+                        <img src="/Content/img/image.png" width="20" height="20">
+                    </a>
+
                     <a id="OtherField" data-bind="attr: {title:text_OtherField}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-OtherField" style="margin-left: 10px;">
                         <img src="/Content/img/sanad/paper-write.png" width="20" height="20">
                     </a>
@@ -202,7 +202,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
-                                        <input type="text" id="EcoCode" class="form-control int" maxlength="12"/>
+                                        <input type="text" id="EcoCode" class="form-control int" maxlength="12" />
                                         <label class="form-label" data-bind="text:translate('کد اقتصادی')"></label>
                                     </div>
                                 </div>
@@ -368,7 +368,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست گروه خریداران/فروشندگان')"></h4>
-                <a id="refreshCGru" >
+                <a id="refreshCGru">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -384,12 +384,14 @@
                                         <i data-bind="attr: { class: iconTypeCode }"></i>
                                     </span>
                                 </th>
-                                <th data-column="SortName"><span data-column="SortName" data-bind="text:translate('نام')"></span>
+                                <th data-column="SortName">
+                                    <span data-column="SortName" data-bind="text:translate('نام')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'SortName' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
-                                 <th data-column="Spec"><span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
+                                <th data-column="Spec">
+                                    <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
                                     <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                         <i data-bind="attr: { class: iconTypeSpec }"></i>
                                     </span>
@@ -436,7 +438,7 @@
                     </div>
                     <div class="col-md-6 panel_Arrow" style="text-align: left; margin-top: 10px;">
                         <a data-bind="click: firstPageCGru">
-                            <img  class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
+                            <img class="firstPage-img" data-bind="attr: {title:text_FirstPage}" src="~/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" />
                         </a>
                         <a data-bind="click: previousPageCGru">
                             <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
@@ -498,9 +500,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <button  data-bind="text:translate('بازگشت')" type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close">
-                                    
-                                </button>
+                                <button data-bind="text:translate('بازگشت')" type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
@@ -532,6 +532,53 @@
 
 
 
+
+<div class="modal fade" id="modal-Image" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="max-width:350px">
+        <div class="modal-content" style="width:350px">
+            <div class="modal-header" style="padding-bottom: 5px;">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 data-bind="text:translate('')" class="modal-title" style="color:#ed882e"></h4>
+
+                <div>
+                    <a id="DelImage" data-bind="attr: {title:text_Delete}" style="margin-left: 10px;">
+                        <img src="/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20">
+                    </a>
+
+                    <input id="upload" type="file" style="display:none" data-bind="event: {change: $root.fileUpload}">
+                    <a id="AddImage" data-bind="attr: {title:text_Add}">
+                        <img src="/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20">
+                    </a>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <div style="border: solid 1px #ed882e;border-radius: 2%;padding-top: 10px;">
+                    <center>
+                        <img id="imageCust" src="~/Content/img/No-image.jpg" width="256" height="256">
+                    </center>
+
+                    <div style="padding: 10px;">
+                        <div class="row  form-inline ">
+                            <div class="col-md-6 row">
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <!--<button data-bind="text:translate('بازگشت')" type="button" class="btn btn-primary  pull-left dropdown-toggle" data-dismiss="modal" aria-label="Close"></button>-->
+                                <button id="SaveImage" data-bind="text:translate('ذخیره')" type="button" class="btn btn-primary  pull-left"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
