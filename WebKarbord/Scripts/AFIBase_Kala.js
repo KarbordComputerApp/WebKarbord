@@ -17,6 +17,7 @@
     var TestKalaUri = server + '/api/Web_Data/TestKala/'; // آدرس تست 
     var KalaAppUri = server + '/api/Web_Data/KalaApp/'; // آدرس اطلاعات کالا 
     var SaveKalaImageUri = server + '/api/Web_Data/SaveKalaImage/'; // ذخیره عکس
+    var DelKalaImageUri = server + '/api/Web_Data/DelKalaImage/'; // حذف عکس
 
     TestUser();
 
@@ -39,6 +40,7 @@
     }
 
     var file = null;
+    var delImage = false;
 
     var kGruCode = '';
     var kalaCode = '';
@@ -1422,6 +1424,7 @@
 
     $('#modal-Image').on('show.bs.modal', function () {
         file = null;
+        delImage = false;
         imageKala.src = noImage;
 
 
@@ -1457,6 +1460,7 @@
 
     $("#DelImage").on('click', function (e) {
         file = null;
+        delImage = true;
         imageKala.src = noImage;
     });
 
@@ -1478,6 +1482,11 @@
 
             })
         }
+
+        if (delImage == true) {
+            ajaxFunction(DelKalaImageUri + ace + '/' + sal + '/' + group + '/' + kalaCode, 'GET').done(function (response) { })
+        }
+
         $('#modal-Image').modal('hide');
     });
 

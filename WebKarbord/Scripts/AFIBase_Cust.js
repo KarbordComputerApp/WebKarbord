@@ -18,6 +18,7 @@
 
     var CustInfoUri = server + '/api/Web_Data/CustInfo/'; // آدرس اطلاعات 
     var SaveCustImageUri = server + '/api/Web_Data/SaveCustImage/'; // ذخیره عکس
+    var DelCustImageUri = server + '/api/Web_Data/DelCustImage/'; // حذف عکس
 
 
     TestUser();
@@ -52,6 +53,8 @@
 
     var cGruCode = '';
     var custCode = '';
+
+    var delImage = false;
 
     var isUpdate = false;
 
@@ -198,8 +201,8 @@
             updatedate: null,
             Mode: 255,
             UserCode: sessionStorage.userName,
-            Where: whereCust, 
-            CustCode : ''
+            Where: whereCust,
+            CustCode: ''
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, false).done(function (data) {
             self.CustList(data == null ? [] : data);
@@ -972,7 +975,7 @@
                     F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
                     F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
                     Latitude: 0,
-                    Longitude : 0
+                    Longitude: 0
                 };
 
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
@@ -1355,6 +1358,7 @@
 
     $('#modal-Image').on('show.bs.modal', function () {
         file = null;
+        delImage = false;
         imageCust.src = noImage;
 
         var CustInfoObject = {
@@ -1383,6 +1387,7 @@
 
     $("#DelImage").on('click', function (e) {
         file = null;
+        delImage = true;
         imageCust.src = noImage;
     });
 
@@ -1399,6 +1404,12 @@
             ajaxFunctionUpload(SaveCustImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
             })
         }
+
+        if (delImage == true) {
+            ajaxFunction(DelCustImageUri + ace + '/' + sal + '/' + group + '/' + custCode, 'GET').done(function (response) {})
+        }
+
+
         $('#modal-Image').modal('hide');
     });
 
