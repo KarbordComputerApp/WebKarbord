@@ -2604,10 +2604,10 @@ function getAccessList(GoHome) {
                         localStorage.setItem("Inbox", 1);
                     }
 
-                   /*if (GoHome == true)
+                   if (GoHome == true)
                         window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
                     else
-                        location.reload();*/
+                        location.reload();
                 });
 
 
