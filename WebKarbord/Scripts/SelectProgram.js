@@ -183,7 +183,7 @@
 
     if (sessionStorage.ace == 'Web2' && afiList.length == 1) {
         $("#DropGroup").attr('disabled', 'disabled');
-        $("#DropSal").attr('disabled', 'disabled');
+        $("#DropSal").attr('disabled', 'disabled'); 
 
         group = '97';
         sal = '0000';
