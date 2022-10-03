@@ -403,8 +403,8 @@
                         <tbody data-bind="foreach: currentPageAGru" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectAGru">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -573,8 +573,8 @@
                                 <tbody data-bind="foreach: currentPageZGru" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddZGru }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                        <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

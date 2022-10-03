@@ -2667,6 +2667,15 @@ function TestUser() {
                 //  localStorage.setItem('UpdateDateCols', updateDateCols);
 
                 if (count > 0) {
+                    countResiveErja = localStorage.getItem('CountResiveErja', count);
+
+                    if (countResiveErja == null) {
+                        countResiveErja = 0
+                    }
+                    if (countResiveErja != count) {
+                        ShowNotificationWindows('ارجاعات', 'تعداد ' + count + ' ارجاع دریافت کرده اید');
+                        localStorage.setItem('CountResiveErja', count);
+                    }
                     $("#notificationCount").text(count);
                     // showNotification('تعداد ' + count + ' ارجاع دریافت کرده اید ', 3, "bottom", null, 2000)
                 }
@@ -5480,6 +5489,7 @@ function ViewSpec(Spec) {
     }
 }
 
+
 function ViewCustName(CustName) {
     if (CustName.length > 15) {
         $('#titleComm').text(translate('نام مشتری'));
@@ -5867,3 +5877,31 @@ function insertAtCaret(text) {
 
     txtarea.scrollTop = scrollPos;
 }
+
+
+function ShowNotificationWindows(title, mess) {
+    if (window.Notification) {
+        Notification.requestPermission(function (status) {
+            console.log('Status: ', status); // show notification permission if permission granted then show otherwise message will not show
+            var options = {
+                image: '/Content/img/streamline-icon-alarm-bell-1@48x48.png',
+                body: mess,
+                dir: 'rtl'
+            }
+            var n = new Notification(title, options);
+            n.onclick = (e) => {
+                sessionStorage.ModeCodeErja = 1;
+                localStorage.setItem('ModeCodeErja', sessionStorage.ModeCodeErja);
+                localStorage.removeItem('DocNoErjReport');
+                localStorage.removeItem('DocNoErjDocK');
+                window.open(localStorage.getItem("urlErja"), '_blank');
+            };
+        });
+        
+    }
+    else {
+        ShowNotification('مرورگر شما از اعلان ها پشتیبانی نمی کند.',0);
+    }
+} 
+
+

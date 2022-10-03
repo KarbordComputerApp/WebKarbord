@@ -535,8 +535,8 @@
                         <tbody data-bind="foreach: currentPageErjCust" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectErjCust">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -633,8 +633,8 @@
                         <tbody data-bind="foreach: currentPageKhdt" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectKhdt">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -750,7 +750,7 @@
                                         <td data-bind="text: DocDate"></td>
                                         <td data-bind="text: CustName"></td>
                                         <td data-bind="text: KhdtName"></td>
-                                        <td data-bind="text: Spec"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -1296,8 +1296,8 @@
                         <tbody data-bind="foreach: currentPageErjUsers" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectErjUsers">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1399,8 +1399,8 @@
                                 <tbody data-bind="foreach: currentPageErjUsersRonevesht" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddErjUsersRonevesht }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -1617,8 +1617,8 @@
                         <tbody data-bind="foreach: currentPageFarayand" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectFarayand">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1708,7 +1708,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageStatements" style="cursor: default;">
                             <tr data-bind="click: $parent.selectStatements">
-                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td>
                                     <center>
                                         <a id="DeleteStatements" data-bind="click: $root.DeletStatements , attr: {title:text_Delete}">

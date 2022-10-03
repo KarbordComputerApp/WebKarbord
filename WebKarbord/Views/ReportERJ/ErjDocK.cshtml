@@ -220,8 +220,8 @@
                                 <tbody data-bind="foreach: currentPageErjCust" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddErjCust }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -356,8 +356,8 @@
                                 <tbody data-bind="foreach: currentPageKhdt" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddKhdt }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

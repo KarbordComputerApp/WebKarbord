@@ -510,8 +510,8 @@
                         <tbody data-bind="foreach: currentPageTraf" style="cursor: default;">
                             <tr data-bind="click: $parent.selectTraf  , style: {color: Level == 1 ? '#009688': '#212529'}">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -608,8 +608,8 @@
                         <tbody data-bind="foreach: currentPageTrafZ" style="cursor: default;">
                             <tr data-bind="click: $parent.selectTrafZ">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -694,7 +694,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageBank" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectBank">
-                                <td data-bind="text: Name"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -776,7 +776,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageShobe" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectShobe">
-                                <td data-bind="text: Name"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -858,7 +858,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageJari" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectJari">
-                                <td data-bind="text: Name"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>

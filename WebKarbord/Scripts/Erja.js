@@ -1261,7 +1261,6 @@
 
 
 
-
     var StatementsUri = server + '/api/Web_Data/Statements'; // آدرس عبارات تعریف شده
     var DeleteStatementsUri = server + '/api/Web_Data/DeleteStatements'; // حذف عبارت تعریف شده
     self.StatementsList = ko.observableArray([]); // لیست عبارات تعریف شده

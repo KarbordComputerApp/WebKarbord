@@ -241,8 +241,8 @@
                                 <tbody data-bind="foreach: currentPageAcc" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddAcc } , style: { color: Level == 1 ? '#009688': '#212529'}">
                                         <td data-bind="text: Code" style=" text-align: left;"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -373,7 +373,7 @@
                                 </thead>
                                 <tbody data-bind="foreach: currentPageCheckStatus" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddCheckStatus }">
-                                        <td data-bind="text: Name"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

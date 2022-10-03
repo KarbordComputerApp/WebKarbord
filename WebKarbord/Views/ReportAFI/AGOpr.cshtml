@@ -251,8 +251,8 @@
                                 <tbody data-bind="foreach: currentPageAcc" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddAcc } , style: { color: Level == 1 ? '#009688': '#212529'}">
                                         <td data-bind="text: Code" style=" text-align: left;"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -395,8 +395,8 @@
                                 <tbody data-bind="foreach: currentPageOpr" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddOpr }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -531,8 +531,8 @@
                                 <tbody data-bind="foreach: currentPageMkz" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddMkz }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -663,7 +663,7 @@
                                 <tbody data-bind="foreach: currentPageAMode" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddAMode }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

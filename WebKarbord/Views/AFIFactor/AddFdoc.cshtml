@@ -250,7 +250,7 @@
                                     <td id="tdUnitPrice" data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
                                     <td id="tdTotalPrice" data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
                                     <td id="tdDiscount" data-bind="text: Discount == 0 ? '' :  NumberToNumberString(Math.abs(Discount).toFixed(parseInt(sessionStorage.Deghat)))"></td>
-                                    <td data-bind="text: Comm"></td>
+                                    <td data-bind="text: Comm" class="ellipsis"></td>
                                     <td id="action_bodyfactor">
                                         <a data-bind="click: $root.UpdateBand">
                                             <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
@@ -455,8 +455,8 @@
                         <tbody data-bind="foreach: currentPageCust" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectCust">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -731,9 +731,9 @@
                         <tbody data-bind="foreach: currentPageKala" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectKala">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: FanniNo"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: FanniNo" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -958,8 +958,8 @@
                         <tbody data-bind="foreach: currentPageOpr" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind=" event: { click: $parent.selectOpr }">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1055,8 +1055,8 @@
                         <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectMkz">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1153,8 +1153,8 @@
                         <tbody data-bind="foreach: currentPageVstr" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectVstr">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1408,7 +1408,7 @@
                                 <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(KalaDeghatM3)) "></td>
                                 <td id="tdUnitPrice" data-bind="text: UnitPrice == 0 ? '' : NumberToNumberString(UnitPrice.toFixed(DeghatR))"></td>
                                 <td id="tdTotalPrice" data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))"></td>
-                                <td data-bind="text: Comm"></td>
+                                <td data-bind="text: Comm" class="ellipsis"></td>
                             </tr>
                         </tbody>
 
@@ -1525,8 +1525,8 @@
                         <tbody data-bind="foreach: currentPageArz" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectArz">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                                 <td data-bind="text: Rate"></td>
                             </tr>
                         </tbody>

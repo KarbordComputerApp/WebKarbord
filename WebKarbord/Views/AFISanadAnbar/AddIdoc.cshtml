@@ -225,7 +225,7 @@
                                     <td data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(KalaDeghatM3)) "></td>
                                     <td data-bind="text: NumberToNumberString(UnitPrice.toFixed(DeghatR))" id="unitpriceshowgridbody"></td>
                                     <td data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))" id="totalpriceshowgridbody"></td>
-                                    <td data-bind="text: Comm"></td>
+                                    <td data-bind="text: Comm" class="ellipsis"></td>
                                     <td id="action_body">
                                         <a data-bind="click: $root.UpdateBand">
                                             <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
@@ -353,7 +353,7 @@
                     <div data-bind="text: Amount3 == 0 ? '' : NumberToNumberString(Amount3.toFixed(DeghatM3)) ">-</div>
                     <div data-bind="text: NumberToNumberString(UnitPrice.toFixed(DeghatR))">-</div>
                     <div data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))">-</div>
-                    <div data-bind="text: Comm"></div>
+                    <div data-bind="text: Comm" class="ellipsis"></div>
                     <div>
                         <a class="glyphicon glyphicon-trash" data-bind="click: $root.DeleteBand"></a>
                         <a class="glyphicon glyphicon-edit" data-bind="click: $root.UpdateBand"></a>
@@ -375,7 +375,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="TitleModalThvl"></h4>
-                <a id="refreshThvl" >
+                <a id="refreshThvl">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -409,8 +409,8 @@
                         <tbody data-bind="foreach: currentPageThvl" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectThvl">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -594,7 +594,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست کالاها')"></h4>
-                <a id="refreshkala" >
+                <a id="refreshkala">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -653,9 +653,9 @@
                         <tbody data-bind="foreach: currentPageKala" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectKala">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td data-bind="text: FanniNo"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -823,7 +823,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست پروژه')"></h4>
-                <a id="refreshOpr" >
+                <a id="refreshOpr">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -856,8 +856,8 @@
                         <tbody data-bind="foreach: currentPageOpr" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind=" event: { click: $parent.selectOpr }">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -953,8 +953,8 @@
                         <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectMkz">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1350,8 +1350,8 @@
                         <tbody data-bind="foreach: currentPageArz" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectArz">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                                 <td data-bind="text: Rate"></td>
                             </tr>
                         </tbody>

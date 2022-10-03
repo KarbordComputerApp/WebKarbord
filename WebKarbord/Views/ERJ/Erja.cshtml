@@ -1,7 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "";
-    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+                /**/
+
+                ViewBag.Title = "";
+                Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -772,8 +774,8 @@
                         <tbody data-bind="foreach: currentPageErjUsers" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectErjUsers">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -875,8 +877,8 @@
                                 <tbody data-bind="foreach: currentPageErjUsersRonevesht" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddErjUsersRonevesht }">
                                         <td data-bind="text: Code"></td>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: Spec"></td>
+                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -1021,8 +1023,8 @@
                         <tbody data-bind="foreach: currentPageFarayand" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectFarayand">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1442,10 +1444,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('عبارات تعریف شده')"></h4>
-<div></div>
-               <!-- <a id="refreshStatements">
-                    <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
-                </a>-->
+                <div></div>
+                <!-- <a id="refreshStatements">
+                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
+                 </a>-->
             </div>
             <div class="modal-body">
                 <br />
@@ -1464,7 +1466,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageStatements" style="cursor: default;">
                             <tr data-bind="click: $parent.selectStatements">
-                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td>
                                     <center>
                                         <a id="DeleteStatements" data-bind="click: $root.DeletStatements , attr: {title:text_Delete}">
@@ -1473,7 +1475,6 @@
                                     </center>
                                 </td>
                             </tr>
-
 
                         </tbody>
                         <tfoot>

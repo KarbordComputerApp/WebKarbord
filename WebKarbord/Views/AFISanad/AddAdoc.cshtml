@@ -563,8 +563,8 @@
                         <tbody data-bind="foreach: currentPageAcc" style="cursor: default;">
                             <tr data-bind="click: $parent.selectAcc  , style: {color: Level == 1 ? '#009688': '#212529'}">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -661,8 +661,8 @@
                         <tbody data-bind="foreach: currentPageZAcc" style="cursor: default;">
                             <tr data-bind="click: $parent.selectZAcc">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -759,8 +759,8 @@
                         <tbody data-bind="foreach: currentPageTraf" style="cursor: default;">
                             <tr data-bind="click: $parent.selectTraf  , style: {color: Level == 1 ? '#009688': '#212529'}">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -857,8 +857,8 @@
                         <tbody data-bind="foreach: currentPageTrafZ" style="cursor: default;">
                             <tr data-bind="click: $parent.selectTrafZ">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -956,8 +956,8 @@
                         <tbody data-bind="foreach: currentPageMkz" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectMkz">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1056,8 +1056,8 @@
                         <tbody data-bind="foreach: currentPageOpr" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectOpr">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1164,8 +1164,8 @@
                         <tbody data-bind="foreach: currentPageArz" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectArz">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                                 <td data-bind="text: Rate"></td>
                             </tr>
                         </tbody>
@@ -1251,7 +1251,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageBank" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectBank">
-                                <td data-bind="text: Name"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1333,7 +1333,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageShobe" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectShobe">
-                                <td data-bind="text: Name"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1415,7 +1415,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageJari" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectJari">
-                                <td data-bind="text: Name"></td>
+                                 <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -1865,7 +1865,7 @@
                                 <td data-bind="text: BandNo"></td>
                                 <td data-bind="text: AccFullCode"></td>
                                 <td data-bind="text: AccFullName"></td>
-                                <td data-bind="text: Comm"></td>
+                                <td data-bind="text: Comm" class="ellipsis"></td>
                                 <td data-bind="text: Bede != null ? NumberToNumberString(parseFloat(Bede)) : '0', style: { color: Bede < 0 ? 'red' : '#3f4853' }"></td>
                                 <td data-bind="text: Best != null ? NumberToNumberString(parseFloat(Best)) : '0', style: { color: Best < 0 ? 'red' : '#3f4853' }"></td>
                                 <td data-bind="text: CheckNo"></td>

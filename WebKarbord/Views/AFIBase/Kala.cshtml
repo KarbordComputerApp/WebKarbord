@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
+
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -11,7 +12,6 @@
                 <div class="form-inline focused">
                     <!--<button id="add" class="hidden">add</button>-->
                     <strong style="margin-left: 5px; margin-right: 5px;" data-bind="text:translate('لیست کالا ها')"></strong>
-
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
@@ -313,8 +313,8 @@
                         <tbody data-bind="foreach: currentPageKGru" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectKGru">
                                 <td data-bind="text: Code"></td>
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
