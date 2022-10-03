@@ -179,5 +179,20 @@
     })()
 
 
+
+
+    if (sessionStorage.ace == 'Web2' && afiList.length == 1) {
+        $("#DropGroup").attr('disabled', 'disabled');
+        $("#DropSal").attr('disabled', 'disabled');
+
+        group = '97';
+        sal = '0000';
+        SaveParam(group, sal);
+    }
+    else {
+        $("#DropGroup").removeAttr('disabled');
+        $("#DropSal").removeAttr('disabled');
+    }
+
 };
 ko.applyBindings(new ViewModel());

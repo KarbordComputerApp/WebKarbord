@@ -1386,7 +1386,9 @@ function SetSelectProgram() {
         getParamList();
         getAccessList(true);
 
-        getDataVstr();
+        if (ace != 'Web2')
+            getDataVstr();
+
         $('#SaveParam').removeAttr('disabled');
 
         localStorage.setItem("ModeCode", '');
@@ -1408,9 +1410,17 @@ function SetSelectProgram() {
 //    SetSelectProgram();
 //}
 
+
 $("#SaveParam").click(function () {
     group = $("#DropGroup").val();
     sal = $("#DropSal").val();
+    SaveParam(group, sal);
+});
+
+
+
+function SaveParam(group, sal) {
+
 
 
     if (sal == '0000')
@@ -1478,9 +1488,7 @@ $("#SaveParam").click(function () {
 
         SetSelectProgram();
     });
-});
-
-
+}
 
 
 $("#repairDatabase").click(function () {
@@ -2595,10 +2603,11 @@ function getAccessList(GoHome) {
                     if (sessionStorage.userName == "ACE") {
                         localStorage.setItem("Inbox", 1);
                     }
-                    if (GoHome == true)
+
+                   /*if (GoHome == true)
                         window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
                     else
-                        location.reload();
+                        location.reload();*/
                 });
 
 
@@ -5897,11 +5906,11 @@ function ShowNotificationWindows(title, mess) {
                 window.open(localStorage.getItem("urlErja"), '_blank');
             };
         });
-        
+
     }
     else {
-        ShowNotification('مرورگر شما از اعلان ها پشتیبانی نمی کند.',0);
+        ShowNotification('مرورگر شما از اعلان ها پشتیبانی نمی کند.', 0);
     }
-} 
+}
 
 
