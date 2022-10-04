@@ -2601,7 +2601,7 @@ function getAccessList(GoHome) {
                     }
 
                     if (sessionStorage.userName == "ACE") {
-                        localStorage.setItem("Inbox", 1);
+                        localStorage.setItem("Inbox", 1); 
                     }
 
                    if (GoHome == true)
