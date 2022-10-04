@@ -185,8 +185,12 @@
         $("#DropGroup").attr('disabled', 'disabled');
         $("#DropSal").attr('disabled', 'disabled'); 
 
-        group = '97';
+        group = afiList[0].Code;
+        if (group < 10)
+            group = '0' + group; 
+
         sal = '0000';
+
         SaveParam(group, sal);
     }
     else {
