@@ -1346,6 +1346,15 @@ function SearchMode(name, myArray) {
     return '';
 }
 
+function SearchKey(key, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].Key === key) {
+            return myArray[i].Value;
+        }
+    }
+    return '';
+}
+
 
 function SetSelectProgram() {
     group = $("#DropGroup").val();
@@ -2601,10 +2610,10 @@ function getAccessList(GoHome) {
                     }
 
                     if (sessionStorage.userName == "ACE") {
-                        localStorage.setItem("Inbox", 1); 
+                        localStorage.setItem("Inbox", 1);
                     }
 
-                   if (GoHome == true)
+                    if (GoHome == true)
                         window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
                     else
                         location.reload();
@@ -5093,7 +5102,8 @@ function createViewer() {
 
 
         viewer.onEmailReport = function (args) {
-            sendMail();
+            //sendMail();
+            //window.open('mailto:test@example.com?subject=subject&body=body');
             // args.settings -  send email form
             // args.settings.email  -  email adress
             // args.settings.subject  -  email subject
@@ -5101,6 +5111,8 @@ function createViewer() {
             // args.format  -  export format - PDF, HTML, HTML 5, Excel2007, Word2007, CSV
             // args.fileName - report file name (name of attachement)
             // args.data  -  byte array with exported report file
+            //sendMail('Test', args.settings.email, args.settings.subject, args.settings.message)
+            sendMail(args.settings.email, args.settings.subject, args.settings.message, args.data, args.format);
 
         }
 
@@ -5127,14 +5139,123 @@ function createViewer() {
 }
 
 
-function sendMail() {
-    var link = "mailto:partopc1@yahoo.com"
-        + "?cc=partopc@yahoo.com"
-        + "&subject=" + encodeURIComponent("This is my subject")
-        + "&body=" + encodeURIComponent("body")
-        ;
+/*
+function sendMail(name, email, subject, message) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.set('Authorization', 'Basic ' + 'd8a9bf6560c21569fe4d9b7298fe9447:17fe0d872e0388186e5aa5345b2b7da3');
 
-    window.location.href = link;
+    const data = JSON.stringify({
+        "Messages": [{
+            "From": { "Email": "partocomputer2@gmail.com", "Name": "hossin" },
+            "To": [{ "Email": email, "Name": name }],
+            "Subject": subject,
+            "TextPart": message
+        }]
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: data,
+    };
+
+    fetch("https://api.mailjet.com/v3.1/send", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+}
+*/
+
+function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
+
+function sendMail(email, subject, body, attachment, format) {
+    /* {
+      "toEmail": "ToAddressEmail"
+      ,"toName": "ToAddressName"
+      ,"subject": "SubjectLine"
+      ,"body":"BodyText"
+      ,"bodyHtml":"HTML Body Text"
+      ,"attachments":["AttachmentPath","
+      AttachmentPath"],"titleColour":"Hex Colour (i.e.FF0000)"
+      }
+     
+    var dataView = new Uint8Array(attachment);
+    var blob = new Blob([dataView], { type: 'png' });
+    a =  URL.createObjectURL(blob);
+    //link = 'mailto:' + email + '?subject=' + subject + '&body=' + body + '&attachments[' + "blob:http://localhost:53759/01268c83-dd3f-4f96-9137-d33a93cb084a]"; // + URL.createObjectURL(blob);
+    link = 'mailto:' + email + '?subject=' + subject + '&body=' + body + '&attachment=c:/a/1.txt';
+    window.open(link);*/
+
+    if (isEmail(email) == false) {
+        return alert(translate('ایمیل را به صورت صحیح وارد کنید'));
+    }
+
+
+
+    var dataView = new Uint8Array(attachment);
+    //var blob = new Blob([dataView], { type: 'img' });
+    //a = URL.createObjectURL(blob);
+
+    //var blob = new Blob([dataView], { type: 'octet/stream' });
+
+
+    if (format == "Word2007")
+        format = 'docx'
+    else if (format == "Excel2007")
+        format = 'xlsx'
+
+
+
+    var file = new File([dataView], 'Report.' + format, { type: format });
+
+    //var link = document.createElement('a');
+    // link.href = window.URL.createObjectURL(file);
+    //link.click();
+
+
+    var SendEmailUri = server + '/api/Web_Data/SendEmail/';
+    var SmsandEmailUri = server + '/api/Web_Data/SmsandEmail/'; //لیست اطلاعات ایمیل   
+
+    host = '';
+
+    ajaxFunction(SmsandEmailUri + '/Email', 'GET').done(function (data) {
+        host = SearchKey("SmtpServer", data);
+        timeout = SearchKey("TimeOut", data);
+        fromAddress = SearchKey("Sender", data);
+        psw = SearchKey("Psw", data);
+        port = SearchKey("Port", data);
+
+
+        /* host = 'smtp.gmail.com';
+           fromAddress = 'partocomputer2@gmail.com';
+           psw = 'clojovjqibtyhxly';
+           port = 587;
+           timeout = 5000;*/
+
+        if (host == '' || host == null) {
+            return alert(translate('تنظیمات ایمیل را در برنامه تنظیم کنید'));
+        }
+        var formData = new FormData();
+        formData.append("fromAddress", fromAddress);
+        formData.append("toAddress", email);
+        formData.append("psw", psw);
+        formData.append("subject", subject);
+        formData.append("body", body);
+        formData.append("host", host);
+        formData.append("port", port);
+        formData.append("timeout", timeout);
+        formData.append("Atch", file == '' ? null : file);
+
+        ajaxFunctionUpload(SendEmailUri, formData, true).done(function (response) {
+            alert('ایمیل با موفقیت ارسال شد');
+        })
+    });
+
+
 }
 
 

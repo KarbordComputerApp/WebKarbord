@@ -5975,7 +5975,7 @@ StiJsViewer.prototype.InitializeExportForm = function () {
         'ImageResolution',
         'ImageCompressionMethod',
         'ImageQuality',
-        'EmbeddedFonts',
+        //'EmbeddedFonts',
         'ExportRtfTextAsImage',
         'PdfACompliance',
         'DocumentSecurityButton',
