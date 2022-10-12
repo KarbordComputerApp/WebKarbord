@@ -1387,7 +1387,7 @@
 
         self.iconTypeName('');
 
-        if (orderProp == 'Name') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -1411,8 +1411,8 @@
 
 
     self.selectStatements = function (item) {
-        insertAtCaret(item.Name);
         $('#modal-Statements').modal('hide');
+        insertAtCaret(item.Name);
     };
 
 
@@ -1946,17 +1946,33 @@
             $("#m_CustName").val(item.CustName);
             $("#m_KhdtName").val(item.KhdtName);
             $("#m_Spec").val(item.Spec);
-            $("#m_RelatedDocs").val(item.RelatedDocs);
 
+            //$("#m_RelatedDocs").val(item.RelatedDocs);
+
+
+            related = item.RelatedDocs.split('-');
+            $('#m_RelatedDocs').empty();
+            if (related[0] != "") {
+                item = '';
+                for (var i = 0; i < related.length; i++) {
+                    item += '<button type="button" class="btn btn-primary related" id="' + related[i] +
+                        '" style="background-color: white !important;color: black !important;border: 1px solid black;padding-left: 10px;padding-right: 10px;font-size: 11px;">'
+                        + related[i] +
+                        '</button>'
+                }
+
+                $('#m_RelatedDocs').append(item);
+            }
 
             $("#eghdamComm").val(item.EghdamComm);
 
             self.p_Eghdam(item.Eghdam);
 
-            if (item.Eghdam == sessionStorage.userName)
-                $('#eghdamComm').attr('readonly', false);
-            else
-                $('#eghdamComm').attr('readonly', true);
+            // if (item.Eghdam == sessionStorage.userName)
+            //     $('#eghdamComm').attr('readonly', false);
+            // else
+            $('#eghdamComm').attr('readonly', true);
+            $('#docDesc').attr('readonly', true);
 
             $("#docDesc").val(item.DocDesc);
 
@@ -1969,30 +1985,30 @@
 
             $("#finalComm").val(item.FinalComm);
 
-            sessionStorage.F01 = item.F01;
-            sessionStorage.F02 = item.F02;
-            sessionStorage.F03 = item.F03;
-            sessionStorage.F04 = item.F04;
-            sessionStorage.F05 = item.F05;
-            sessionStorage.F06 = item.F06;
-            sessionStorage.F07 = item.F07;
-            sessionStorage.F08 = item.F08;
-            sessionStorage.F09 = item.F09;
-            sessionStorage.F10 = item.F10;
-            sessionStorage.F11 = item.F11;
-            sessionStorage.F12 = item.F12;
-            sessionStorage.F13 = item.F13;
-            sessionStorage.F14 = item.F14;
-            sessionStorage.F15 = item.F15;
-            sessionStorage.F16 = item.F16;
-            sessionStorage.F17 = item.F17;
-            sessionStorage.F18 = item.F18;
-            sessionStorage.F19 = item.F19;
-            sessionStorage.F20 = item.F20;
+            sessionStorage.F01 = item.F01 == null ? '' : item.F01;
+            sessionStorage.F02 = item.F02 == null ? '' : item.F02;
+            sessionStorage.F03 = item.F03 == null ? '' : item.F03;
+            sessionStorage.F04 = item.F04 == null ? '' : item.F04;
+            sessionStorage.F05 = item.F05 == null ? '' : item.F05;
+            sessionStorage.F06 = item.F06 == null ? '' : item.F06;
+            sessionStorage.F07 = item.F07 == null ? '' : item.F07;
+            sessionStorage.F08 = item.F08 == null ? '' : item.F08;
+            sessionStorage.F09 = item.F09 == null ? '' : item.F09;
+            sessionStorage.F10 = item.F10 == null ? '' : item.F10;
+            sessionStorage.F11 = item.F11 == null ? '' : item.F11;
+            sessionStorage.F12 = item.F12 == null ? '' : item.F12;
+            sessionStorage.F13 = item.F13 == null ? '' : item.F13;
+            sessionStorage.F14 = item.F14 == null ? '' : item.F14;
+            sessionStorage.F15 = item.F15 == null ? '' : item.F15;
+            sessionStorage.F16 = item.F16 == null ? '' : item.F16;
+            sessionStorage.F17 = item.F17 == null ? '' : item.F17;
+            sessionStorage.F18 = item.F18 == null ? '' : item.F18;
+            sessionStorage.F19 = item.F19 == null ? '' : item.F19;
+            sessionStorage.F20 = item.F20 == null ? '' : item.F20;
 
 
             flag_Save = false;
-            old_Spec = item.Spec;
+            old_Spec = item.Spec == null ? '' : item.Spec;
             old_EghdamComm = $("#eghdamComm").val();
             old_DocDesc = $("#docDesc").val();
             old_FinalComm = $("#finalComm").val();
@@ -2046,6 +2062,21 @@
 
         });
     }
+
+
+    $(document).on('click', ".related", function () {
+        docNorelated = this.id;
+        if (TestUseSanad(ace, sal, "ErjDocH", docNorelated, false, docNorelated)) {
+            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        }
+        else {
+            localStorage.setItem("DocNoErjReport", docNorelated);
+            window.open(sessionStorage.urlErjaIndex, '_blank');
+        }
+    });
+
+
+
 
     $('#specialComm').click(function () {
         if (SpecialCommTrs == 1) {
@@ -2156,7 +2187,7 @@
 
 
     window.onbeforeunload = function () {
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false);
     };
 
 
@@ -2369,14 +2400,13 @@
         getDocB_Last();
         self.sortTableDocB_Last();
 
-        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
+        RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false);
     });
 
 
 
     $("#Close_ModalErjDocErja").click(function (e) {
-        if (flag_Save == false && useSanadOtherUser == false)
-        {
+        if (flag_Save == false && useSanadOtherUser == false) {
             if ($("#specialComm").css('font-style') == 'italic')
                 special = specialComm;
             else
@@ -2509,6 +2539,7 @@
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#codeComm').text('EghdamComm');
+        $('#commPublic').attr('readonly', true);
         $('#commPublic').val($('#eghdamComm').val());
     });
 
@@ -2517,6 +2548,7 @@
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#codeComm').text('DocDesc');
+        $('#commPublic').attr('readonly', true);
         $('#commPublic').val($('#docDesc').val());
     });
 
@@ -2531,6 +2563,7 @@
             $('#titleComm').text(translate('توضیحات مدیران'));
             $('#modal-Comm').modal('show');
             $('#commPublic').attr("style", "");
+            $('#commPublic').attr('readonly', false);
             $('#commPublic').val($('#specialComm').val());
         }
     });
@@ -2541,15 +2574,17 @@
         $('#titleComm').text(translate('توضیحات نهایی'));
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
+        $('#commPublic').attr('readonly', false);
         $('#commPublic').val($('#finalComm').val());
     });
 
 
-    $('#Result').dblclick(function () {
+    $('#ShowResult').click(function () {
         $('#codeComm').text('Natijeh');
         $('#titleComm').text(translate('نتیجه'));
         $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
+        $('#commPublic').attr('readonly', false);
         $('#commPublic').val($('#Result').val());
     });
 
@@ -2705,7 +2740,7 @@
             counterErjUsersRonevesht = 0;
         }
         if (sessionStorage.ModeCodeErja == "2") {
-            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false );
+            RemoveUseSanad(aceErj, salErj, "ErjDocH", serialNumber, useSanadOtherUser == false);
         }
     });
 
@@ -2770,8 +2805,8 @@
         }
 
         if ((khdtHasTime == 1) && (rjTime_H == '' && rjTime_M == '' || rjTime_H == '0' && rjTime_M == '0')) {
-             rjTime_H = '';
-             rjTime_M = '';
+            rjTime_H = '';
+            rjTime_M = '';
             return showNotification(translate('زمان صرف شده را وارد کنید'), 0);
         }
 

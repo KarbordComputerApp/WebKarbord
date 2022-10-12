@@ -1,10 +1,12 @@
 ﻿
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "";
-                Layout = "~/Views/Shared/_LayoutNew.cshtml";
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
+<style>
+</style>
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card" style="margin-top:0px;">
@@ -230,16 +232,17 @@
                                                 </div>
 
                                                 <div class="row col-md-12">
-                                                    <div class="form-group form-float">
-                                                        <div class="form-line focused fix">
-                                                            <input type="text" id="m_RelatedDocs" class="form-control" readonly />
-                                                            <label class="form-label" data-bind="text:translate('پرونده های مرتبط')"></label>
-                                                        </div>
-                                                    </div>
+                                                    <label data-bind="text:translate('پرونده های مرتبط')" style="padding-left:10px"></label>
+                                                    <div id="m_RelatedDocs">
+                                                    <a class="RelatedDocument"></a> 
+                                                    <!--   <button data-bind="click: RelatedDocs(12385)" type="button" class="btn btn-primary" style="background-color: white !important;color: black !important;border: 1px solid black;padding-left: 10px;padding-right: 10px;font-size: 11px;">12385</button>
+                                                        <button data-bind="click: RelatedDocs(300021)" type="button" class="btn btn-primary" style="background-color: white !important;color: black !important;border: 1px solid black;padding-left: 10px;padding-right: 10px;font-size: 11px;">300021</button>
+                                                    --></div>
                                                 </div>
 
                                             </div>
                                         </div>
+
                                     </div>
 
 
@@ -323,10 +326,16 @@
                                 <div id="panel_Result">
                                     <div class="header" style="background-color: #f5d3b4;">
                                         <div class="row form-inline modal-header" style="padding:0px;">
-                                            <a id="ShowHideResult">
-                                                <img id="imgResult" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
-                                            </a>
+                                            <div>
+                                                <a id="ShowHideResult">
+                                                    <img id="imgResult" src="~/Content/img/new item/minus-svgrepo-com.svg" style="width:16px" />
+                                                </a>
+                                                <a id="ShowResult">
+                                                    <img src="~/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png" style="width:16px" />
+                                                </a>
+                                            </div>
                                             <h6>نتیجه</h6>
+
                                         </div>
                                     </div>
                                     <div class="body" style="padding:10px;">
@@ -774,7 +783,7 @@
                         <tbody data-bind="foreach: currentPageErjUsers" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectErjUsers">
                                 <td data-bind="text: Code"></td>
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
@@ -877,7 +886,7 @@
                                 <tbody data-bind="foreach: currentPageErjUsersRonevesht" style="cursor: default;">
                                     <tr data-bind=" event: { dblclick: $parent.AddErjUsersRonevesht }">
                                         <td data-bind="text: Code"></td>
-                                         <td data-bind="text: Name" class="ellipsis"></td>
+                                        <td data-bind="text: Name" class="ellipsis"></td>
                                         <td data-bind="text: Spec" class="ellipsis"></td>
                                     </tr>
                                 </tbody>
@@ -1023,7 +1032,7 @@
                         <tbody data-bind="foreach: currentPageFarayand" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectFarayand">
                                 <td data-bind="text: Code"></td>
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
