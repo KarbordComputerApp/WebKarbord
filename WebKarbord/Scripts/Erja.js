@@ -32,6 +32,7 @@
     self.DocKList = ko.observableArray([]); // لیست گزارش پرونده
 
     self.DocAttachList = ko.observableArray([]); // لیست پیوست
+    self.JaneshinList = ko.observableArray([]); // لیست جانشین
 
     TestUser();
 
@@ -65,6 +66,7 @@
     var ErjDocAttach_DelUri = server + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
 
     var Web_ErjSaveDoc_HUUri = server + '/api/ErjDocH/ErjSaveDoc_HU/'; // آدرس ویرایش پرونده
+    var Web_JaneshinUri = server + '/api/Web_Data/Janeshin/'; // آدرس جانشین
 
 
     self.AzDocDate = ko.observable('');
@@ -78,6 +80,7 @@
     self.ToUserCode = ko.observable('');
     self.FarayandCode = ko.observable('');
     self.p_Eghdam = ko.observable('');
+    self.JaneshinCode = ko.observable('');
 
     self.Status = ko.observable();
 
@@ -310,6 +313,35 @@
          }*/
     // }
 
+
+
+
+    function getJaneshinList() {
+        var JaneshinObject = {
+            userCode: sessionStorage.userName,
+        }
+
+        ajaxFunction(Web_JaneshinUri + aceErj + '/' + salErj + '/' + group + '/', 'Post', JaneshinObject).done(function (data) {
+            self.JaneshinList(data);
+        });
+    }
+    getJaneshinList();
+
+
+    self.JaneshinChange = function () {
+        getDocB_Last();
+        self.sortTableDocB_Last();
+    }
+
+
+    self.OptionsCaptionJaneshin = ko.computed(function () {
+        //        return self.InvList().length > 1 ? 'همه انبارها' : 'انبار تعریف نشده است';
+        return translate(sessionStorage.userName);
+    });
+
+
+
+
     function getErjUsersList(serial) {
         var ErjUsersObject = {
             userCode: sessionStorage.userName,
@@ -503,11 +535,20 @@
 
         mode = sessionStorage.ModeCodeErja;
 
+        userName = sessionStorage.userName;
+
+        janeshin = $("#Janeshin").val();
+        if (janeshin == null || janeshin == '')
+            janeshin = userName;
+
+        if (janeshin != userName)
+            userName = janeshin
+
         var DocB_LastObject = {
             erjaMode: mode,
             docBMode: mode == 1 ? DocBMode : "5",
-            fromUserCode: mode == 1 ? '' : sessionStorage.userName,
-            toUserCode: mode == 1 ? sessionStorage.userName : '',
+            fromUserCode: mode == 1 ? '' : userName,
+            toUserCode: mode == 1 ? userName : '',
             azDocDate: '',
             taDocDate: '',
             azRjDate: '',
@@ -1955,8 +1996,8 @@
             if (related[0] != "") {
                 item = '';
                 for (var i = 0; i < related.length; i++) {
-                    item += '<button type="button" class="btn btn-primary related" id="' + related[i] +
-                        '" style="background-color: white !important;color: black !important;border: 1px solid black;padding-left: 10px;padding-right: 10px;font-size: 11px;">'
+                    item += '<button type="button" class="related" id="' + related[i] +
+                        '" style="background-color: white !important;color: black !important;border: 1px solid #bdb8b8;/* padding-left: 10px; */padding-right: 10px;font-size: 10px;border-radius: 10px;height: 24px;margin-right: 10px;padding-top: 3px;width: 70px;">'
                         + related[i] +
                         '</button>'
                 }
@@ -2536,20 +2577,20 @@
 
     $('#ShowEghdamComm').click(function () {
         $('#titleComm').text(translate('توضیحات اقدام'));
-        $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#codeComm').text('EghdamComm');
         $('#commPublic').attr('readonly', true);
-        $('#commPublic').val($('#eghdamComm').val());
+        $('#commPublic').val($('#eghdamComm').val()); 
+        $('#modal-Comm').modal('show');
     });
 
     $('#ShowDocDesc').click(function () {
         $('#titleComm').text(translate('توضیحات عمومی'));
-        $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#codeComm').text('DocDesc');
         $('#commPublic').attr('readonly', true);
         $('#commPublic').val($('#docDesc').val());
+        $('#modal-Comm').modal('show');
     });
 
     $('#ShowSpecialComm').click(function () {
@@ -2561,10 +2602,10 @@
                 $("#specialComm").val(specialComm);
             }
             $('#titleComm').text(translate('توضیحات مدیران'));
-            $('#modal-Comm').modal('show');
             $('#commPublic').attr("style", "");
             $('#commPublic').attr('readonly', false);
             $('#commPublic').val($('#specialComm').val());
+            $('#modal-Comm').modal('show');
         }
     });
 
@@ -2572,20 +2613,20 @@
     $('#ShowFinalComm').click(function () {
         $('#codeComm').text('FinalComm');
         $('#titleComm').text(translate('توضیحات نهایی'));
-        $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#commPublic').attr('readonly', false);
         $('#commPublic').val($('#finalComm').val());
+        $('#modal-Comm').modal('show');
     });
 
 
     $('#ShowResult').click(function () {
         $('#codeComm').text('Natijeh');
         $('#titleComm').text(translate('نتیجه'));
-        $('#modal-Comm').modal('show');
         $('#commPublic').attr("style", "");
         $('#commPublic').attr('readonly', false);
         $('#commPublic').val($('#Result').val());
+        $('#modal-Comm').modal('show');
     });
 
 
