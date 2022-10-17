@@ -1872,6 +1872,30 @@
     });
 
 
+    self.PageIndexAcc = function (item) {
+        return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
+    };
+
+
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+    self.PageIndexAMode = function (item) {
+        return CountPage(self.filterAModeList(), self.pageSizeAMode(), item);
+    };
+
+    self.PageIndexAGMkz = function (item) {
+        return CountPage(self.filterAGMkzList(), self.pageSizeAGMkz(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

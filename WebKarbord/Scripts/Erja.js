@@ -3641,6 +3641,32 @@
 
 
     self.sortTableDocB_Last();
+
+    self.pageIndexDocB_Last = function (item) {
+        return CountPage(self.filterDocB_LastList(), self.pageSizeDocB_Last(), item);
+    };
+
+
+    self.PageIndexDocAttach = function (item) {
+        return CountPage(self.filterDocAttachList(), self.pageSizeDocAttach(), item);
+    };
+
+    self.PageIndexErjUsers = function (item) {
+        return CountPage(self.filterErjUsersList(), self.pageSizeErjUsers(), item);
+    };
+
+
+    self.PageIndexErjUsersRonevesht = function (item) {
+        return CountPage(self.filterErjUsersRoneveshtList(), self.pageSizeErjUsersRonevesht(), item);
+    };
+
+    self.PageIndexFarayand = function (item) {
+        return CountPage(self.filterFarayandList(), self.pageSizeFarayand(), item);
+    };
+
+    self.PageIndexStatements = function (item) {
+        return CountPage(self.filterStatementsList(), self.pageSizeStatements(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

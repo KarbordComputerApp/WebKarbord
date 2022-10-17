@@ -2624,6 +2624,36 @@
     }
 
 
+
+    self.PageIndexDocAttach = function (item) {
+        return CountPage(self.filterDocAttachList(), self.pageSizeDocAttach(), item);
+    };
+
+    self.PageIndexErjUsers = function (item) {
+        return CountPage(self.filterErjUsersList(), self.pageSizeErjUsers(), item);
+    };
+
+
+    self.PageIndexErjUsersRonevesht = function (item) {
+        return CountPage(self.filterErjUsersRoneveshtList(), self.pageSizeErjUsersRonevesht(), item);
+    };
+
+    self.PageIndexKhdt = function (item) {
+        return CountPage(self.filterKhdtList(), self.pageSizeKhdt(), item);
+    };
+
+    self.PageIndexErjCust = function (item) {
+        return CountPage(self.filterErjCustList(), self.pageSizeErjCust(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+    
+    self.PageIndexDocB_Last = function (item) {
+        return CountPage(self.filterDocB_LastList(), self.pageSizeDocB_Last(), item);
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

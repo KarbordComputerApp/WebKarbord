@@ -280,7 +280,7 @@
                         </a>
                         <a data-bind="click: previousPageTrzFCust_S">
                             <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
-                        </a> <b data-bind="text: currentPageIndexTrzFCust_S() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                        </a> <b data-bind="text: PageIndexTrzFCust_S(currentPageIndexTrzFCust_S() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                         <a data-bind="click: nextPageTrzFCust_S">
                             <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                         </a>
@@ -404,7 +404,7 @@
                                 <a data-bind="click: previousPageStatus">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexStatus() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexStatus(currentPageIndexStatus() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageStatus">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -542,7 +542,7 @@
                                 <a data-bind="click: previousPageInv">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexInv() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexInv(currentPageIndexInv() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageInv">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -678,7 +678,7 @@
                                 <a data-bind="click: previousPageKGru">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexKGru() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexKGru(currentPageIndexKGru() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageKGru">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -821,7 +821,7 @@
                                 <a data-bind="click: previousPageKala">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexKala() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexKala(currentPageIndexKala() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageKala">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -953,7 +953,7 @@
                                 <a data-bind="click: previousPageCGru">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexCGru() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexCGru(currentPageIndexCGru() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageCGru">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -1089,7 +1089,7 @@
                                 <a data-bind="click: previousPageCust">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexCust() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexCust(currentPageIndexCust() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageCust">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -1225,7 +1225,7 @@
                                 <a data-bind="click: previousPageOpr">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexOpr() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                 <b data-bind="text: PageIndexOpr(currentPageIndexOpr() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageOpr">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
@@ -1359,7 +1359,7 @@
                                 <a data-bind="click: previousPageMkz">
                                     <img class="previousPage-img" data-bind="attr: {title:text_PreviousPage}" src="~/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>
-                                <b data-bind="text: currentPageIndexMkz() + 1" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
+                                <b data-bind="text: PageIndexMkz(currentPageIndexMkz() + 1)" style="margin: 0px 5px 0px 5px; color: #ec8121;"></b>
                                 <a data-bind="click: nextPageMkz">
                                     <img class="nextPage-img" data-bind="attr: {title:text_NextPage}" src="~/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" />
                                 </a>

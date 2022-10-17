@@ -1239,7 +1239,23 @@
         $('#modal-Print').modal('hide');
     });
 
-   
+
+    self.PageIndexAcc = function (item) {
+        return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
+    };
+
+    self.PageIndexCheckStatus = function (item) {
+        return CountPage(self.filterCheckStatusList(), self.pageSizeCheckStatus(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexTChk = function (item) {
+        return CountPage(self.filterTChkList(), self.pageSizeTChk(), item);
+    };
+
 
 };
 

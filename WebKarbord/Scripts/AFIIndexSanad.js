@@ -1551,6 +1551,7 @@
         return text;
     }
 
+    /*
 
     pageSizePrintForms = localStorage.getItem('pageSizePrintForms') == null ? 10 : localStorage.getItem('pageSizePrintForms');
     self.pageSizePrintForms = ko.observable(pageSizePrintForms);
@@ -1696,6 +1697,7 @@
         })
 
     };
+    */
 
     $('#AddNewPrintForms').click(function () {
         printName = translate('فرم جدید');
@@ -2031,6 +2033,10 @@
                 $('#modal-Print').modal('hide');
             }
         }
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
 
 

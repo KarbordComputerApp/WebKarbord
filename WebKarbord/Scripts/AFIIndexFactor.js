@@ -4016,6 +4016,10 @@ var ViewModel = function () {
             }
         }
     };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

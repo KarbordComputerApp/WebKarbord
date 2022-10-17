@@ -4499,6 +4499,57 @@
         }
     };
 
+
+    self.PageIndexArz = function (item) {
+        return CountPage(self.filterArzList(), self.pageSizeArz(), item);
+    };
+
+    self.PageIndexAcc = function (item) {
+        return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
+    };
+
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+    self.PageIndexZAcc = function (item) {
+        return CountPage(self.filterZAccList(), self.pageSizeZAcc(), item);
+    };
+
+    self.PageIndexTraf = function (item) {
+        return CountPage(self.filterTrafList(), self.pageSizeTraf(), item);
+    };
+
+    self.PageIndexTrafZ = function (item) {
+        return CountPage(self.filterTrafZList(), self.pageSizeTrafZ(), item);
+    };
+
+    self.PageIndexBank = function (item) {
+        return CountPage(self.filterBankList(), self.pageSizeBank(), item);
+    };
+    self.PageIndexShobe = function (item) {
+        return CountPage(self.filterShobeList(), self.pageSizeShobe(), item);
+    };
+
+    self.PageIndexJari = function (item) {
+        return CountPage(self.filterJariList(), self.pageSizeJari(), item);
+    };
+
+    self.PageIndexCheck = function (item) {
+        return CountPage(self.filterCheckList(), self.pageSizeCheck(), item);
+    };
+
+    self.PageIndexADocB = function (item) {
+        return CountPage(self.filterADocBList(), self.pageSizeADocB(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

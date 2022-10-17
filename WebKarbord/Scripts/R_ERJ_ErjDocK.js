@@ -763,7 +763,7 @@
 
     $('#modal-ErjCust').on('hide.bs.modal', function () {
         if (counterErjCust > 0)
-            $('#nameErjCust').val(counterErjCust +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameErjCust').val(counterErjCust + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameErjCust').val(translate('همه موارد'));
     });
@@ -933,7 +933,7 @@
 
     $('#modal-Khdt').on('hide.bs.modal', function () {
         if (counterKhdt > 0)
-            $('#nameKhdt').val(counterKhdt +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameKhdt').val(counterKhdt + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameKhdt').val(translate('همه موارد'));
     });
@@ -975,8 +975,8 @@
 
     self.ShowErjDocH = function (Band) {
         serialNumber = Band.SerialNumber;
-        if (TestUseSanad(ace, sal,"ErjDocH", serialNumber, false, Band.DocNo)) {
-           // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
+        if (TestUseSanad(ace, sal, "ErjDocH", serialNumber, false, Band.DocNo)) {
+            // showNotification('پرونده در تب دیگری در حال ویرایش است', 0)
         }
         else {
             localStorage.setItem("DocNoErjReport", Band.DocNo);
@@ -1545,6 +1545,23 @@
     self.ViewCustName = function (Band) {
         ViewCustName(Band.CustName)
     }
+
+    self.PageIndexKhdt = function (item) {
+        return CountPage(self.filterKhdtList(), self.pageSizeKhdt(), item);
+    };
+
+    self.PageIndexErjCust = function (item) {
+        return CountPage(self.filterErjCustList(), self.pageSizeErjCust(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexDocK = function (item) {
+        return CountPage(self.filterDocKList(), self.pageSizeDocK(), item);
+    };
+
 
 };
 

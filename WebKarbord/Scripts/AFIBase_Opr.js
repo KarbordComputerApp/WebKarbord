@@ -744,6 +744,10 @@
             }
         }
     };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

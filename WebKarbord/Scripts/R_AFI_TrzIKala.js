@@ -3174,6 +3174,49 @@
         $('#modal-Print').modal('hide');
     });
 
+    self.PageIndexKala = function (item) {
+        return CountPage(self.filterKalaList(), self.pageSizeKala(), item);
+    };
+
+    self.PageIndexKGru = function (item) {
+        return CountPage(self.filterKGruList(), self.pageSizeKGru(), item);
+    };
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+
+    self.PageIndexStatus = function (item) {
+        return CountPage(self.filterStatusList(), self.pageSizeStatus(), item);
+    };
+
+    self.PageIndexInv = function (item) {
+        return CountPage(self.filterInvList(), self.pageSizeInv(), item);
+    };
+
+    self.PageIndexThvl = function (item) {
+        return CountPage(self.filterThvlList(), self.pageSizeThvl(), item);
+    };
+
+    self.PageIndexIMode = function (item) {
+        return CountPage(self.filterIModeList(), self.pageSizeIMode(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexTrzI = function (item) {
+        return CountPage(self.filterTrzIList(), self.pageSizeTrzI(), item);
+    };
+
+    self.PageIndexTGru = function (item) {
+        return CountPage(self.filterTGruList(), self.pageSizeTGru(), item);
+    };
 
 };
 

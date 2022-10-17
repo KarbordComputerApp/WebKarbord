@@ -3200,6 +3200,34 @@
         $('#modal-Print').modal('hide');
     });
 
+    self.PageIndexKala = function (item) {
+        return CountPage(self.filterKalaList(), self.pageSizeKala(), item);
+    };
+
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+
+    self.PageIndexStatus = function (item) {
+        return CountPage(self.filterStatusList(), self.pageSizeStatus(), item);
+    };
+
+    self.PageIndexIMode = function (item) {
+        return CountPage(self.filterIModeList(), self.pageSizeIMode(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexIDocR = function (item) {
+        return CountPage(self.filterIDocRList(), self.pageSizeIDocR(), item);
+    };
 
 };
 

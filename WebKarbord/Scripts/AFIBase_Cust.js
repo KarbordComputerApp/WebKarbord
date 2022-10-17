@@ -1423,6 +1423,14 @@
         }
     }
 
+    self.PageIndexCust = function (item) {
+        return CountPage(self.filterCustList(), self.pageSizeCust(), item);
+    };
+
+    self.PageIndexCGru = function (item) {
+        return CountPage(self.filterCGruList(), self.pageSizeCGru(), item);
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

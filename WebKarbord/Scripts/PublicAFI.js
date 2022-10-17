@@ -6035,3 +6035,11 @@ function ShowNotificationWindows(title, mess) {
 }
 
 
+
+
+function CountPage(list, pageSize, item) {
+    allPage = Math.ceil(list.length / pageSize);
+    allPage = allPage < 1 ? 1 : allPage;
+    return item + ' از ' + allPage;
+}
+

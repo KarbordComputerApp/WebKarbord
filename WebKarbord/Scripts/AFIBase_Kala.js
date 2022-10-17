@@ -1499,6 +1499,14 @@
             imageKala.src = URL.createObjectURL(file);
         }
     }
+
+    self.PageIndexKala = function (item) {
+        return CountPage(self.filterKalaList(), self.pageSizeKala(), item);
+    };
+
+    self.PageIndexKGru = function (item) {
+        return CountPage(self.filterKGruList(), self.pageSizeKGru(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

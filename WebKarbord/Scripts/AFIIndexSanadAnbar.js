@@ -2759,6 +2759,14 @@
         }
     };
 
+
+    self.PageIndexIDocH = function (item) {
+        return CountPage(self.filterIDocHList(), self.pageSizeIDocH(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

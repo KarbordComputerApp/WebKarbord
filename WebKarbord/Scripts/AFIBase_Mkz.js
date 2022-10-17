@@ -747,6 +747,9 @@
         }
     };
 
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

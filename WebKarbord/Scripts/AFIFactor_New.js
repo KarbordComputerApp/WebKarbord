@@ -5397,6 +5397,30 @@ var ViewModel = function () {
         $('#mablaghDaryafti').val(ghabelPardakht);
 
     });
+
+    self.PageIndexCust = function (item) {
+        return CountPage(self.filterCustList(), self.pageSizeCust(), item);
+    };
+
+    self.PageIndexArz = function (item) {
+        return CountPage(self.filterArzList(), self.pageSizeArz(), item);
+    };
+
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+    self.PageIndexVstr = function (item) {
+        return CountPage(self.filterVstrList(), self.pageSizeVstr(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

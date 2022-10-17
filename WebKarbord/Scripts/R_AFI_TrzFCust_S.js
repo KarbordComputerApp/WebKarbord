@@ -3094,7 +3094,45 @@
         $('#modal-Print').modal('hide');
     });
 
+    self.PageIndexCust = function (item) {
+        return CountPage(self.filterCustList(), self.pageSizeCust(), item);
+    };
 
+    self.PageIndexCGru = function (item) {
+        return CountPage(self.filterCGruList(), self.pageSizeCGru(), item);
+    };
+
+    self.PageIndexKala = function (item) {
+        return CountPage(self.filterKalaList(), self.pageSizeKala(), item);
+    };
+
+    self.PageIndexKGru = function (item) {
+        return CountPage(self.filterKGruList(), self.pageSizeKGru(), item);
+    };
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+
+    self.PageIndexStatus = function (item) {
+        return CountPage(self.filterStatusList(), self.pageSizeStatus(), item);
+    };
+
+    self.PageIndexInv = function (item) {
+        return CountPage(self.filterInvList(), self.pageSizeInv(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexTrzFCust_S = function (item) {
+        return CountPage(self.filterTrzFCust_SList(), self.pageSizeTrzFCust_S(), item);
+    };
 
 };
 

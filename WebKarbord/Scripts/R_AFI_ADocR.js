@@ -2430,6 +2430,35 @@
         $('#modal-Print').modal('hide');
     });
 
+
+    self.PageIndexAcc = function (item) {
+        return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
+    };
+    self.PageIndexMkz = function (item) {
+        return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
+    };
+
+    self.PageIndexOpr = function (item) {
+        return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
+    };
+
+    self.PageIndexAMode = function (item) {
+        return CountPage(self.filterAModeList(), self.pageSizeAMode(), item);
+    };
+
+    self.PageIndexStatus = function (item) {
+        return CountPage(self.filterStatusList(), self.pageSizeStatus(), item);
+    };
+
+    self.PageIndexADocR = function (item) {
+        return CountPage(self.filterADocRList(), self.pageSizeADocR(), item);
+    };
+
+    self.PageIndexPrintForms = function (item) {
+        return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+
 };
 
 ko.applyBindings(new ViewModel());

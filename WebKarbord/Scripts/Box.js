@@ -292,6 +292,11 @@
 
 
     });
+
+    
+    self.PageIndexBox = function (item) {
+        return CountPage(self.filterBoxList(), self.pageSizeBox(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

@@ -2121,6 +2121,19 @@
         }
     };
 
+    
+    self.PageIndexAcc = function (item) {
+        return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
+    };
+
+    self.PageIndexAGru = function (item) {
+        return CountPage(self.filterAGruList(), self.pageSizeAGru(), item);
+    };
+
+    
+    self.PageIndexZGru = function (item) {
+        return CountPage(self.filterZGruList(), self.pageSizeZGru(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());
