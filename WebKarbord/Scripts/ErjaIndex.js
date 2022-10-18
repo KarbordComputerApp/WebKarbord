@@ -397,6 +397,7 @@
     function getDocAttachList(serial) {
         var DocAttachObject = {
             ModeCode: 1,
+            Prog: 'ERJ1',
             SerialNumber: serial
         }
         ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {

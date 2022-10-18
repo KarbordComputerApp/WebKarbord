@@ -475,6 +475,7 @@
     function getDocAttachList(serial) {
         var DocAttachObject = {
             ModeCode: 1,
+            Prog: 'ERJ1',
             SerialNumber: serial
         }
         ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {
@@ -802,7 +803,7 @@
     self.filterStatus = ko.observable("");
     self.filterDocNo = ko.observable("");
     self.filterMhltDate = ko.observable("");
-    self.filterFarayandCode = ko.observable("");
+    //self.filterFarayandCode = ko.observable("");
     self.filterFarayandName = ko.observable("");
 
 
@@ -819,7 +820,7 @@
         var filterStatus = self.filterStatus().toUpperCase();
         var filterDocNo = self.filterDocNo();
         var filterMhltDate = self.filterMhltDate();
-        var filterFarayandCode = self.filterFarayandCode();
+        //var filterFarayandCode = self.filterFarayandCode();
         var filterFarayandName = self.filterFarayandName();
 
 
@@ -837,7 +838,7 @@
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.DocNo == null ? '' : item.DocNo.toString().search(filterDocNo) >= 0) &&
                 (item.MhltDate == null ? '' : item.MhltDate.toString().search(filterMhltDate) >= 0) &&
-                (item.FarayandCode == null ? '' : item.FarayandCode.toString().search(filterFarayandCode) >= 0) &&
+                //(item.FarayandCode == null ? '' : item.FarayandCode.toString().search(filterFarayandCode) >= 0) &&
                 (item.FarayandName == null ? '' : item.FarayandName.toString().search(filterFarayandName) >= 0)
             return result;
         })
@@ -921,7 +922,7 @@
     self.iconTypeStatus = ko.observable("");
     self.iconTypeDocNo = ko.observable("");
     self.iconTypeMhltDate = ko.observable("");
-    self.iconTypeFarayandCode = ko.observable("");
+    //self.iconTypeFarayandCode = ko.observable("");
     self.iconTypeFarayandName = ko.observable("");
 
 
@@ -975,7 +976,7 @@
         self.iconTypeStatus('');
         self.iconTypeDocNo('');
         self.iconTypeMhltDate('');
-        self.iconTypeFarayandCode('');
+        //self.iconTypeFarayandCode('');
         self.iconTypeFarayandName('');
 
 
@@ -991,7 +992,7 @@
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MhltDate') self.iconTypeMhltDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'FarayandCode') self.iconTypeFarayandCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'FarayandCode') self.iconTypeFarayandCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'FarayandName') self.iconTypeFarayandName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
@@ -3390,7 +3391,7 @@
             CreateTableTh('Status', data) +
             CreateTableTh('DocNo', data) +
             CreateTableTh('MhltDate', data) +
-            CreateTableTh('FarayandCode', data) +
+            //CreateTableTh('FarayandCode', data) +
             CreateTableTh('FarayandName', data) +
 
             '<th>' + translate('عملیات') + '</th>' +
@@ -3421,7 +3422,7 @@
             CreateTableTd('Status', 0, 0, data) +
             CreateTableTd('DocNo', 0, 0, data) +
             CreateTableTd('MhltDate', 0, 2, data) +
-            CreateTableTd('FarayandCode', 0, 0, data) +
+            //CreateTableTd('FarayandCode', 0, 0, data) +
             CreateTableTd('FarayandName', 0, 0, data) +
             '<td>';
 
@@ -3484,7 +3485,7 @@
             CreateTableTdSearch('Status', data) +
             CreateTableTdSearch('DocNo', data) +
             CreateTableTdSearch('MhltDate', data) +
-            CreateTableTdSearch('FarayandCode', data) +
+            //CreateTableTdSearch('FarayandCode', data) +
             CreateTableTdSearch('FarayandName', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +

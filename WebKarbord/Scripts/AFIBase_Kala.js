@@ -19,6 +19,7 @@
     var SaveKalaImageUri = server + '/api/Web_Data/SaveKalaImage/'; // ذخیره عکس
     var DelKalaImageUri = server + '/api/Web_Data/DelKalaImage/'; // حذف عکس
 
+    var addImage = false;
     TestUser();
 
 
@@ -769,7 +770,7 @@
         $('#ExtraFields18').val('');
         $('#ExtraFields19').val('');
         $('#ExtraFields20').val('');
-
+        kalaCode = '';
         $("#Code").focus();
         $('#modal-Kala').modal('show');
     }
@@ -885,7 +886,6 @@
     self.UpdateKala = function (item) {
         sessionStorage.CHG_KALA == 'true' ? $("#saveKala").show() : $("#saveKala").hide()
         SetDataKala(item);
-
         // $("#Code").focus();
 
         /*var listKalaUse = localStorage.getItem("listKalaUse");
@@ -922,6 +922,7 @@
 
 
     $('#modal-Kala').on('show.bs.modal', function () {
+        addImage = false;
         if (ace == 'Web8') {
             $('#showFanniNo').css('display', 'none');
         }
@@ -1052,6 +1053,30 @@
                 };
 
                 ajaxFunction(SaveKalaUri + ace + '/' + sal + '/' + group, 'POST', SaveKala_Object).done(function (data) {
+
+                    if (file != null && addImage == true) {
+                        size = file.size;
+                        fileFullName = file.name;
+                        //fileData = fileFullName.split(".");
+                        //fileName = fileData[0];
+                        //fileType = '.' + fileData[1];
+
+                        attachDate = DateNow;
+                        var formData = new FormData();
+
+                        formData.append("Code", code);
+                        formData.append("Atch", file);
+
+                        ajaxFunctionUpload(SaveKalaImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
+
+                        })
+                    }
+
+                    if (delImage == true) {
+                        ajaxFunction(DelKalaImageUri + ace + '/' + sal + '/' + group + '/' + code, 'GET').done(function (response) { })
+                    }
+
+
                     getKalaList();
                     self.sortTableKala();
                     $('#modal-Kala').modal('hide');
@@ -1426,25 +1451,26 @@
         file = null;
         delImage = false;
         imageKala.src = noImage;
+        if (kalaCode != '') {
 
-
-        var KalaAppObject = {
-            withimage: true,
-            UserCode: sessionStorage.userName,
-            where: whereKala,
-            KalaCode: kalaCode,
-            InvCode: ''
-        }
-
-        ajaxFunction(KalaAppUri + ace + '/' + sal + '/' + group, 'POST', KalaAppObject, false).done(function (res) {
-            data = res[0].KalaImage;
-
-            if (data != '') {
-                var bytes = base64ToArrayBuffer(data);
-                var blob = new Blob([bytes.buffer], { type: 'image/png' });
-                imageKala.src = URL.createObjectURL(blob);
+            var KalaAppObject = {
+                withimage: true,
+                UserCode: sessionStorage.userName,
+                where: whereKala,
+                KalaCode: kalaCode,
+                InvCode: ''
             }
-        });
+
+            ajaxFunction(KalaAppUri + ace + '/' + sal + '/' + group, 'POST', KalaAppObject, false).done(function (res) {
+                data = res[0].KalaImage;
+
+                if (data != '') {
+                    var bytes = base64ToArrayBuffer(data);
+                    var blob = new Blob([bytes.buffer], { type: 'image/png' });
+                    imageKala.src = URL.createObjectURL(blob);
+                }
+            });
+        }
 
 
 
@@ -1464,31 +1490,13 @@
         imageKala.src = noImage;
     });
 
-    $("#SaveImage").on('click', function (e) {
+   /* $("#SaveImage").on('click', function (e) {
         if (file != null) {
-            size = file.size;
-            fileFullName = file.name;
-            //fileData = fileFullName.split(".");
-            //fileName = fileData[0];
-           //fileType = '.' + fileData[1];
-
-            attachDate = DateNow;
-            var formData = new FormData();
-
-            formData.append("Code", kalaCode);
-            formData.append("Atch", file == '' ? null : file);
-
-            ajaxFunctionUpload(SaveKalaImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
-
-            })
-        }
-
-        if (delImage == true) {
-            ajaxFunction(DelKalaImageUri + ace + '/' + sal + '/' + group + '/' + kalaCode, 'GET').done(function (response) { })
+            addImage = true;
         }
 
         $('#modal-Image').modal('hide');
-    });
+    });*/
 
 
 
@@ -1496,6 +1504,7 @@
         file = e.target.files[0];
 
         if (file) {
+            addImage = true;
             imageKala.src = URL.createObjectURL(file);
         }
     }

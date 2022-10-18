@@ -4020,6 +4020,10 @@ var ViewModel = function () {
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
+
+    self.PageIndexFDocH = function (item) {
+        return CountPage(self.filterFDocHList(), self.pageSizeFDocH(), item);
+    };
 };
 
 ko.applyBindings(new ViewModel());

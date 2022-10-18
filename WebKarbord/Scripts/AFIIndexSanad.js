@@ -2038,6 +2038,10 @@
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
+    
+    self.PageIndexADocH = function (item) {
+        return CountPage(self.filterADocHList(), self.pageSizeADocH(), item);
+    };
 
 
 };

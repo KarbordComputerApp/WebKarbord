@@ -19,7 +19,7 @@
     var CustInfoUri = server + '/api/Web_Data/CustInfo/'; // آدرس اطلاعات 
     var SaveCustImageUri = server + '/api/Web_Data/SaveCustImage/'; // ذخیره عکس
     var DelCustImageUri = server + '/api/Web_Data/DelCustImage/'; // حذف عکس
-
+    var addImage = false;
 
     TestUser();
 
@@ -729,7 +729,7 @@
         isUpdate = false;
         sessionStorage.NEW_CUST == 'true' ? $("#saveCust").show() : $("#saveCust").hide();
         cGruCode = '';
-
+        custCode = '';
         $('#Code').attr('readonly', false);
         $('#Code').val('');
         $('#Name').val('');
@@ -772,7 +772,6 @@
         $('#ExtraFields18').val('');
         $('#ExtraFields19').val('');
         $('#ExtraFields20').val('');
-
         $("#Code").focus();
         $('#modal-Cust').modal('show');
     }
@@ -882,6 +881,11 @@
         }
     }
 
+
+    $('#modal-Cust').on('show.bs.modal', function () {
+        addImage = false;
+    });
+
     $('#modal-Cust').on('hide.bs.modal', function () {
         RemoveUseSanad(ace, sal, "Cust", custCode);
     });
@@ -934,7 +938,7 @@
                 var SaveCust_Object = {
                     BranchCode: 0,
                     UserCode: sessionStorage.userName,
-                    Code: $('#Code').val(),
+                    Code: code,
                     Name: $('#Name').val(),
                     Spec: $('#Spec').val(),
                     MelliCode: melliCode,
@@ -979,6 +983,26 @@
                 };
 
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
+
+
+                    if (file != null) {
+                        size = file.size;
+                        fileFullName = file.name;
+                        attachDate = DateNow;
+                        var formData = new FormData();
+
+                        formData.append("Code", code);
+                        formData.append("Atch", file);
+
+                        ajaxFunctionUpload(SaveCustImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
+                        })
+                    }
+
+                    if (delImage == true) {
+                        ajaxFunction(DelCustImageUri + ace + '/' + sal + '/' + group + '/' + code, 'GET').done(function (response) { })
+                    }
+
+
                     getCustList();
                     self.sortTableCust();
                     $('#modal-Cust').modal('hide');
@@ -1361,21 +1385,24 @@
         delImage = false;
         imageCust.src = noImage;
 
-        var CustInfoObject = {
-            UserCode: sessionStorage.userName,
-            where: whereCust,
-            CustCode: custCode,
-        }
+        if (custCode != '') {
 
-        ajaxFunction(CustInfoUri + ace + '/' + sal + '/' + group, 'POST', CustInfoObject, false).done(function (res) {
-            data = res[0].CustImage;
-
-            if (data != '') {
-                var bytes = base64ToArrayBuffer(data);
-                var blob = new Blob([bytes.buffer], { type: 'image/png' });
-                imageCust.src = URL.createObjectURL(blob);
+            var CustInfoObject = {
+                UserCode: sessionStorage.userName,
+                where: whereCust,
+                CustCode: custCode,
             }
-        });
+
+            ajaxFunction(CustInfoUri + ace + '/' + sal + '/' + group, 'POST', CustInfoObject, false).done(function (res) {
+                data = res[0].CustImage;
+
+                if (data != '') {
+                    var bytes = base64ToArrayBuffer(data);
+                    var blob = new Blob([bytes.buffer], { type: 'image/png' });
+                    imageCust.src = URL.createObjectURL(blob);
+                }
+            });
+        }
     });
 
 
@@ -1391,27 +1418,29 @@
         imageCust.src = noImage;
     });
 
-    $("#SaveImage").on('click', function (e) {
-        if (file != null) {
-            size = file.size;
-            fileFullName = file.name;
-            attachDate = DateNow;
-            var formData = new FormData();
-
-            formData.append("Code", custCode);
-            formData.append("Atch", file);
-
-            ajaxFunctionUpload(SaveCustImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
-            })
-        }
-
-        if (delImage == true) {
-            ajaxFunction(DelCustImageUri + ace + '/' + sal + '/' + group + '/' + custCode, 'GET').done(function (response) {})
-        }
-
-
-        $('#modal-Image').modal('hide');
-    });
+    /*
+     $("#SaveImage").on('click', function (e) {
+         if (file != null) {
+             size = file.size;
+             fileFullName = file.name;
+             attachDate = DateNow;
+             var formData = new FormData();
+ 
+             formData.append("Code", custCode);
+             formData.append("Atch", file);
+ 
+             ajaxFunctionUpload(SaveCustImageUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
+             })
+         }
+ 
+         if (delImage == true) {
+             ajaxFunction(DelCustImageUri + ace + '/' + sal + '/' + group + '/' + custCode, 'GET').done(function (response) {})
+         }
+ 
+ 
+         $('#modal-Image').modal('hide');
+     });
+     */
 
 
 
