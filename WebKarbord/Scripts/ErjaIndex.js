@@ -46,7 +46,7 @@
     var RepFromUsersUri = server + '/api/Web_Data/Web_RepFromUsers/'; // آدرس ارجاع دهنده 
 
     var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
-    var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
+    //var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
 
     var ErjSaveDoc_BSaveUri = server + '/api/Web_Data/ErjSaveDoc_BSave/'; // آدرس ذخیره ارجاع
     var ErjSaveDoc_CSaveUri = server + '/api/Web_Data/ErjSaveDoc_CSave/'; // آدرس ذخیره رونوشت
@@ -396,11 +396,16 @@
     //Get DocAttach List
     function getDocAttachList(serial) {
         var DocAttachObject = {
-            ModeCode: 1,
-            Prog: 'ERJ1',
-            SerialNumber: serial
+            ProgName: 'ERJ1',
+            Group: group,
+            Year: salErj,
+            ModeCode: '1',
+            SerialNumber: serial,
+            BandNo: 0,
+            ByData: 0
         }
-        ajaxFunction(DocAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DocAttachObject).done(function (data) {
+
+        ajaxFunction(DocAttachUri , 'POST', DocAttachObject).done(function (data) {
             self.DocAttachList(data);
         });
     }
@@ -2600,12 +2605,18 @@
     self.selectDocAttach = function (item) {
 
         var fileName = item.FName.split(".");
+
         var DownloadAttachObject = {
+            ProgName: 'ERJ1',
+            Group: group,
+            Year: salErj,
+            ModeCode: '1',
             SerialNumber: item.SerialNumber,
-            BandNo: item.BandNo
+            BandNo: item.BandNo,
+            ByData: 1
         }
 
-        ajaxFunction(DownloadAttachUri + aceErj + '/' + salErj + '/' + group, 'POST', DownloadAttachObject, true).done(function (data) {
+        ajaxFunction(DocAttachUri, 'POST', DownloadAttachObject, true).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data[0].Atch);
             saveByteArray(fileName[0] + ".zip", sampleArr);
         });

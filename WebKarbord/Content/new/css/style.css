@@ -4494,7 +4494,7 @@ table .checkbox [type="checkbox"] + label {
 .logo-white .navbar-toggle,
 .logo-white .bars:before,
 .logo-white .bars:after {
-    color: #000 !important;
+    color: #FFF !important;
 }
 
 .logo-black .navbar-toggle,
