@@ -1112,57 +1112,74 @@ afiaccess = [false, false, false, false, false, false, false,
 tempAccess = localStorage.getItem("afi1Access");
 if (ace != 'Web2') {
     if (tempAccess == "null" || tempAccess == "" || tempAccess == null) {
-        afiAccessApi = localStorage.getItem('afi8Access').split("*")
+        afiAccessApi = localStorage.getItem('afi8Access');
+        if (afiAccessApi != '*')
+            afiAccessApi = afiAccessApi.split("*")
     }
     else {
-        afiAccessApi = localStorage.getItem('afi1Access').split("*")
+        afiAccessApi = localStorage.getItem('afi1Access');
+        if (afiAccessApi != '*')
+            afiAccessApi = afiAccessApi.split("*")
+        //afiAccessApi = localStorage.getItem('afi1Access').split("*")
     }
 
 
-    for (var i = 0; i <= 34; i++) {
-        afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
-        afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
-        afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
-        afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
-        afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
-        afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
+    if (afiAccessApi == '*') {
+        for (var i = 0; i <= 34; i++) {
+            afiaccess[i] = true;
+        }
+    }
+    else {
 
-        afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
-        afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-        afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
-        afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
-        afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-        afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
-        afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
-        afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
-        afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
-        afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
-        afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
-        afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
-        afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
-        afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
-        afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-        afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-        afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
-        afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
-        afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-        afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-        afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
-        afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
-        afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
-        afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
-        afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
-        afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
-        afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
-        afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
-        afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
+        for (var i = 0; i <= 34; i++) {
+            afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
+            afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
+            afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
+            afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
+            afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
+            afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
+
+            afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
+            afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
+            afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
+            afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
+            afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
+            afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
+            afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
+            afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
+            afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
+            afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
+            afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
+            afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
+            afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
+            afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
+            afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
+            afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
+            afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
+            afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
+            afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
+            afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
+            afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
+            afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
+            afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
+            afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+            afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
+            afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
+            afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
+            afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
+            afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
+        }
     }
 
 }
 
+//localStorage.setItem("erjAccess", '');
 
 if (localStorage.getItem("erjAccess") != null && localStorage.getItem("erjAccess") != "") {
-    erjAccessApi = localStorage.getItem("erjAccess").split("*")
+    erjAccessApi = localStorage.getItem("erjAccess");
+    if (erjAccessApi != '*')
+        erjAccessApi = localStorage.getItem("erjAccess").split("*")
+
     erjGroupApi = localStorage.getItem("erjList").split("-")
 }
 
@@ -1187,15 +1204,21 @@ function CheckGroupErj(GroupName) {
 }
 
 
-erjaccess = [false, false, false, false, false]
+erjaccess = [false, false, false, false, false, false]
 
 if (CheckGroupErj(group) == true) {
-    for (var i = 0; i < 5; i++) {
-        erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
-        erjAccessApi[i] == 'ErjDocErja' ? erjaccess[1] = true : null;
-        erjAccessApi[i] == 'ErjDoc' ? erjaccess[2] = true : null;
-        erjAccessApi[i] == 'Erja_Resive' ? erjaccess[3] = true : null;
-        erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
+    if (erjAccessApi == '*') {
+        for (var i = 0; i < 5; i++)
+            erjaccess[i] = true
+    }
+    else {
+        for (var i = 0; i < 5; i++) {
+            erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
+            erjAccessApi[i] == 'ErjDocErja' ? erjaccess[1] = true : null;
+            erjAccessApi[i] == 'ErjDoc' ? erjaccess[2] = true : null;
+            erjAccessApi[i] == 'Erja_Resive' ? erjaccess[3] = true : null;
+            erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
+        }
     }
 }
 
@@ -2461,66 +2484,91 @@ function getAccessList(GoHome) {
                     false, false, false, false, false, false, false, false,
                     false, false, false, false, false, false, false, false]
 
+                afiAccessApi = '';
+
                 if (ace == 'Web2') {
-                    afiAccessApi = '';
+                    //afiAccessApi = '';
                 }
                 else {
                     if (ace == 'Web1') {
-                        afi1Access != null ? afiAccessApi = afi1Access.split("*") : afiAccessApi = ''
+                        if (afi1Access != null) {
+                            if (afi1Access == '*')
+                                afiAccessApi = '*';
+                            else
+                                afiAccessApi = afi1Access.split("*");
+                        }
                     }
                     else if (ace == 'Web8') {
-                        afi8Access != null ? afiAccessApi = afi8Access.split("*") : afiAccessApi = ''
+                        if (afi8Access != null) {
+                            if (afi8Access == '*')
+                                afiAccessApi = '*';
+                            else
+                                afiAccessApi = afi8Access.split("*");
+                        }
                     }
 
-                    for (var i = 0; i <= 34; i++) {
-                        afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
-                        afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
-                        afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
-                        afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
+                    if (afiAccessApi == '*') {
+                        for (var i = 0; i <= 34; i++) {
+                            afiaccess[i] = true;
+                        }
+                    }
+                    else {
+                        for (var i = 0; i <= 34; i++) {
+                            afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
+                            afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
+                            afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
+                            afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
 
-                        afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
-                        afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
-                        afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
-                        afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-                        afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
-                        afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
-                        afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-                        afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
-                        afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
-                        afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
-                        afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
-                        afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
-                        afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
-                        afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
-                        afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
-                        afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
-                        afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-                        afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-                        afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
-                        afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
-                        afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-                        afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-                        afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
-                        afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
-                        afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
-                        afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
-                        afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
-                        afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
-                        afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
-                        afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
-                        afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
+                            afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
+                            afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
+                            afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
+                            afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
+                            afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
+                            afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
+                            afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
+                            afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
+                            afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
+                            afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
+                            afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
+                            afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
+                            afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
+                            afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
+                            afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
+                            afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
+                            afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
+                            afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
+                            afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
+                            afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
+                            afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
+                            afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
+                            afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
+                            afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
+                            afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
+                            afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
+                            afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
+                            afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
+                            afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
+                            afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
+                            afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
+                        }
                     }
                 }
 
-                erjaccess = [false, false]
+                erjaccess = [false, false, false, false, false, false]
 
                 if (CheckGroupErj(group) == true) {
-                    for (var i = 0; i < 5; i++) {
-                        erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
-                        erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
-                        erjAccessApi[i] == 'ErjDoc' ? erjaccess[2] = true : null;
-                        erjAccessApi[i] == 'Erja_Resive' ? erjaccess[3] = true : null;
-                        erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
+                    if (erjAccessApi == '*') {
+                        for (var i = 0; i < 5; i++)
+                            erjaccess[i] = true
+                    }
+                    else {
+                        for (var i = 0; i < 5; i++) {
+                            erjAccessApi[i] == 'ErjDocK' ? erjaccess[0] = true : null;
+                            erjAccessApi[i] == 'ErjDocB_Last' ? erjaccess[1] = true : null;
+                            erjAccessApi[i] == 'ErjDoc' ? erjaccess[2] = true : null;
+                            erjAccessApi[i] == 'Erja_Resive' ? erjaccess[3] = true : null;
+                            erjAccessApi[i] == 'Erja_Send' ? erjaccess[4] = true : null;
+                        }
                     }
 
                     ajaxFunction(AccessUri + aceErj + '/' + group + '/' + sessionStorage.userName, 'GET', true).done(function (data) {

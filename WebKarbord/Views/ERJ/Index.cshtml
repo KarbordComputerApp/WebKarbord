@@ -709,34 +709,33 @@
                             <table class="table table-hover table-striped tableFixList">
                                 <thead style="cursor: pointer;">
                                     <tr data-bind="click: sortTableRelatedDocs">
-                                        <th data-column="DocNo" style="width: 1px;">
-                                            شماره
+                                        <th data-column="DocNo"  data-bind="text:translate('شماره')" style="width: 1px;">
+                                            
                                             <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsDocNo }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="DocDate" style="width: 1px;">
-                                            تاریخ
+                                        <th data-column="DocDate"  data-bind="text:translate('تاریخ')"style="width: 1px;">
+                                            
                                             <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsDocDate }"></i>
                                             </span>
                                         </th>
-                                        <th data-column="CustName">
-                                            مشتری
+                                        <th data-column="CustName" data-bind="text:translate('مشتری')">
+                                            
                                             <span data-bind="attr: { class: currentColumn() == 'CustName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsCustName }"></i>
                                             </span>
                                         </th>
 
-                                        <th data-column="KhdtName">
-                                            نوع کار
+                                        <th data-column="KhdtName" data-bind="text:translate('نوع کار')">
+                                            
                                             <span data-bind="attr: { class: currentColumn() == 'KhdtName' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsKhdtName }"></i>
                                             </span>
                                         </th>
                                         <th data-column="Spec">
                                             <span data-column="Spec" data-bind="text:translate('ملاحظات')"></span>
-                                            ملاحظات
                                             <span data-bind="attr: { class: currentColumn() == 'Spec' ? 'isVisible' : 'isHidden' }">
                                                 <i data-bind="attr: { class: iconTypeRelatedDocsSpec }"></i>
                                             </span>
@@ -785,11 +784,11 @@
                                     <table class="table table-hover table-striped tableFixList" id="TableListRelatedDocs">
                                         <thead style="cursor: pointer;">
                                             <tr>
-                                                <th style="width: 10px;">شماره </th>
-                                                <th style="width: 10px;">تاریخ </th>
-                                                <th style="width: 10px;">مشتری</th>
-                                                <th style="width: 10px;">نوع کار</th>
-                                                <th style="width: 10px;">ملاحظات</th>
+                                                <th style="width: 10px;" data-bind="text:translate('شماره')"> </th>
+                                                <th style="width: 10px;" data-bind="text:translate('تاریخ')"> </th>
+                                                <th style="width: 10px;" data-bind="text:translate('مشتری')"></th>
+                                                <th style="width: 10px;" data-bind="text:translate('نوع کار')"></th>
+                                                <th style="width: 10px;" data-bind="text:translate('ملاحظات')"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBodyListRelatedDocs" style="cursor: default;"></tbody>
