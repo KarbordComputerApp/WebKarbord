@@ -369,6 +369,9 @@
     });
     //Get CheckList List
     function getCheckList(PDMode) {
+        if (PDMode > 1) {
+            PDMode = 2
+        }
         ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
             self.CheckList(data);
         });
@@ -966,7 +969,7 @@
             }
 
             PDModeAcc = item.PDMode;
-            if (item.PDMode > 0) {
+            if (item.PDMode == 1 || item.PDMode == 2) {
                 getCheckList(PDModeAcc);
                 ShowCheck();
             }

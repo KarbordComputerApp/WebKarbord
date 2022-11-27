@@ -6,7 +6,7 @@
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.AGruList = ko.observableArray([]); // ليست گروه حساب ها
     self.TestAccList = ko.observableArray([]); // لیست تست  
-    self.ZGruList = ko.observableArray([]); // ليست زیر حساب ها ها
+    self.ZGruList = ko.observableArray([]); // ليست زیر حساب ها
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها 
@@ -40,9 +40,8 @@
     }
 
 
-    self.isAfi8 = ko.observable(ace == "Web8");
+    self.isAfi1 = ko.observable(ace != "Web8");
 
-    a = self.isAfi8();
 
 
     var aGruCode = '';

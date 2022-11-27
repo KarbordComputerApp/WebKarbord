@@ -4,16 +4,18 @@
     self.ZAccList = ko.observableArray([]); // ليست زیر حساب ها 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.TestZAccList = ko.observableArray([]); // لیست تست  
+    self.ZGruList = ko.observableArray([]); // لیست تست  
 
     var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس زیر حساب ها 
     var SaveZAccUri = server + '/api/Web_Data/AFI_SaveZAcc/'; // آدرس ذخیره زیر حساب ها
     var DelZAccUri = server + '/api/Web_Data/AFI_DelZAcc/'; // آدرس حذف زیر حساب ها
     var TestZAcc_DeleteUri = server + '/api/Web_Data/TestZAcc_Delete/'; // آدرس تست حذف 
     var TestZAccUri = server + '/api/Web_Data/TestZAcc/'; // آدرس تست  
+    var ZGruUri = server + '/api/Web_Data/ZGru/'; // آدرس گروه زیر حساب ها 
 
     TestUser();
 
-
+    var zGruCode = '';
 
     Prog = localStorage.getItem('ProgAccess');
 
@@ -50,6 +52,7 @@
     var old_Code = '';
     var old_Name = '';
     var old_Spec = '';
+    var old_ZGru = '';
     var isUpdate = false;
     var rprtId = 'ZAcc';
 
@@ -104,6 +107,19 @@
             }
         });
     }
+
+    //Get  ZGru List
+    function getZGruList() {
+        ajaxFunction(ZGruUri + ace + '/' + sal + '/' + group, 'GET',  true).done(function (data) {
+            self.ZGruList(data);
+        });
+    }
+
+    $('#btnZGru').click(function () {
+        if (self.ZGruList().length == 0) {
+            getZGruList();
+        }
+    });
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/ZAcc", columns, self.SettingColumnList());
@@ -306,18 +322,19 @@
         isUpdate = false;
         sessionStorage.NEW_ZAcc == 'true' ? $("#saveZAcc").show() : $("#saveZAcc").hide();
         aGruCode = '';
-        ZGruCode = '';
+        zGruCode = '';
         counterZGru = 0;
         list_ZGruSelect = new Array();
         $('#Code').attr('readonly', false);
         $('#Code').val('');
         $('#Name').val('');
         $('#Spec').val('');
-        $('#status').val(0);
+        $('#nameZGru').val('');
 
         old_Code = '';
         old_Name = '';
         old_Spec = '';
+        old_ZGru = '';
 
         $("#Code").focus();
         $('#modal-ZAcc').modal('show');
@@ -337,8 +354,14 @@
         old_Code = item.Code;
         old_Name = item.Name;
         old_Spec = item.Spec;
+        old_ZGru = item.ZGru;
         $("#Code").focus();
         ZAccCode = item.Code;
+
+        zGruCode = item.ZGruCode;
+        if (zGruCode != '')
+            $('#nameZGru').val('(' + item.ZGruCode + ') ' + item.ZGruName);
+
     }
 
     self.UpdateZAcc = function (item) {
@@ -389,7 +412,7 @@
                     Code: code,
                     Name: name,
                     Spec: $('#Spec').val(),
-                    Mode: status,
+                    CGruCode: cGruCode,
                 };
 
                 ajaxFunction(SaveZAccUri + ace + '/' + sal + '/' + group, 'POST', SaveZAcc_Object).done(function (data) {
@@ -524,7 +547,8 @@
             flag_IsChange1 = ($("#Code").val() != old_Code);
             flag_IsChange2 = ($("#Name").val() != old_Name);
             flag_IsChange3 = ($("#Spec").val() != old_Spec);
-            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3) {
+            flag_IsChange4 = (zGruCode != old_ZGru);
+            if (flag_IsChange1 || flag_IsChange2 || flag_IsChange3 || flag_IsChange4) {
                 Swal.fire({
                     title: translate('ثبت تغییرات'),
                     text: translate('زیر حساب تغییر کرده است آیا ذخیره شود ؟'),
@@ -725,6 +749,136 @@
     self.PageIndexZAcc = function (item) {
         return CountPage(self.filterZAccList(), self.pageSizeZAcc(), item);
     };
+
+
+
+
+    self.currentPageZGru = ko.observable();
+    pageSizeZGru = localStorage.getItem('pageSizeZGru') == null ? 10 : localStorage.getItem('pageSizeZGru');
+    self.pageSizeZGru = ko.observable(pageSizeZGru);
+    self.currentPageIndexZGru = ko.observable(0);
+
+    self.filterZGru0 = ko.observable("");
+    self.filterZGru1 = ko.observable("");
+    self.filterZGru2 = ko.observable("");
+
+    self.PageIndexZGru = function (item) {
+        return CountPage(self.filterZGruList(), self.pageSizeZGru(), item);
+    };
+
+    self.filterZGruList = ko.computed(function () {
+
+        self.currentPageIndexZGru(0);
+        var filter0 = self.filterZGru0().toUpperCase();
+        var filter1 = self.filterZGru1();
+        var filter2 = self.filterZGru2();
+
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ZGruList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.ZGruList(), function (item) {
+                result =
+                    ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
+                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageZGru = ko.computed(function () {
+        var pageSizeZGru = parseInt(self.pageSizeZGru(), 10),
+            startIndex = pageSizeZGru * self.currentPageIndexZGru(),
+            endIndex = startIndex + pageSizeZGru;
+        localStorage.setItem('pageSizeZGru', pageSizeZGru);
+        return self.filterZGruList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageZGru = function () {
+        if (((self.currentPageIndexZGru() + 1) * self.pageSizeZGru()) < self.filterZGruList().length) {
+            self.currentPageIndexZGru(self.currentPageIndexZGru() + 1);
+        }
+    };
+
+    self.previousPageZGru = function () {
+        if (self.currentPageIndexZGru() > 0) {
+            self.currentPageIndexZGru(self.currentPageIndexZGru() - 1);
+        }
+    };
+
+    self.firstPageZGru = function () {
+        self.currentPageIndexZGru(0);
+    };
+
+    self.lastPageZGru = function () {
+        countZGru = parseInt(self.filterZGruList().length / self.pageSizeZGru(), 10);
+        if ((self.filterZGruList().length % self.pageSizeZGru()) == 0)
+            self.currentPageIndexZGru(countZGru - 1);
+        else
+            self.currentPageIndexZGru(countZGru);
+    };
+
+    self.sortTableZGru = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null)
+            return null
+        self.currentColumn(orderProp);
+        self.ZGruList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeCode('');
+        self.iconTypeName('');
+        self.iconTypeSpec('');
+
+
+        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.PageCountView = function () {
+        sessionStorage.invSelect = $('#invSelect').val();
+        select = $('#pageCountSelector').val();
+    }
+
+
+
+    $('#refreshZGru').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست گروه زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getZGruList();
+            }
+        })
+    })
+
+
+    self.selectZGru = function (item) {
+        zGruCode = item.Code;
+        $('#nameZGru').val('(' + item.Code + ') ' + item.Name);
+    }
+
+
 };
 
 ko.applyBindings(new ViewModel());

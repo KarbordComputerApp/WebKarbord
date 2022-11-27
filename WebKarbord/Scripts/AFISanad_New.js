@@ -272,6 +272,9 @@ var ViewModel = function () {
 
     //Get CheckList List
     function getCheckList(PDMode) {
+        if (PDMode > 1) {
+            PDMode = 2
+        }
         ajaxFunction(CheckUri + ace + '/' + sal + '/' + group + '/' + PDMode, 'GET').done(function (data) {
             self.CheckList(data);
         });
@@ -1020,8 +1023,10 @@ var ViewModel = function () {
                         hint: 'اطلاعات چک',
                         icon: 'file',
                         disabled(e) {
-                            if (e.row.data.dataAcc != null)
-                                return e.row.data.dataAcc.PDMode == 0;
+                            if (e.row.data.dataAcc != null) {
+                                temp = e.row.data.dataAcc;
+                                return temp.PDMode != 1 || temp.PDMode != 2
+                            }
                             else
                                 return true;
 
