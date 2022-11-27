@@ -1125,13 +1125,13 @@ if (ace != 'Web2') {
 
 
     if (afiAccessApi == '*') {
-        for (var i = 0; i <= 34; i++) {
+        for (var i = 0; i <= 35; i++) {
             afiaccess[i] = true;
         }
     }
     else {
 
-        for (var i = 0; i <= 34; i++) {
+        for (var i = 0; i <= 35; i++) {
             afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
             afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
             afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -1168,6 +1168,7 @@ if (ace != 'Web2') {
             afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
             afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
             afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
+            afiAccessApi[i] == 'ZAcc' ? afiaccess[35] = true : null;
         }
     }
 
@@ -1492,6 +1493,7 @@ function SaveParam(group, sal) {
         localStorage.setItem("listOprUse", "0");
         localStorage.setItem("listMkzUse", "0");
         localStorage.setItem("listArzUse", "0");
+        localStorage.setItem("listZAccUse", "0");
         localStorage.setItem("listSanadHesabUse", "0")
         localStorage.setItem("listFactorUse", "0")
         localStorage.setItem("listSanadAnbarUse", "0")
@@ -2508,12 +2510,12 @@ function getAccessList(GoHome) {
                     }
 
                     if (afiAccessApi == '*') {
-                        for (var i = 0; i <= 34; i++) {
+                        for (var i = 0; i <= 35; i++) {
                             afiaccess[i] = true;
                         }
                     }
                     else {
-                        for (var i = 0; i <= 34; i++) {
+                        for (var i = 0; i <= 35; i++) {
                             afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
                             afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
                             afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
@@ -2550,6 +2552,7 @@ function getAccessList(GoHome) {
                             afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
                             afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
                             afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
+                            afiAccessApi[i] == 'ZAcc' ? afiaccess[35] = true : null;
                         }
                     }
                 }
@@ -2922,7 +2925,8 @@ function SetValidation() {
     validation = CheckAccess('ARZ', localStorage.getItem('ProgAccess'));
     ShowMenu[38] = validation;  //  ارز ها
 
-
+    validation = CheckAccess('ZAcc', 'Acc5');
+    ShowMenu[39] = validation;  //  ارز ها
 
 
     //localStorage.setItem("", );
@@ -3809,8 +3813,8 @@ function SetValidation() {
 
 
 
-    if (afiaccess[27] == true || afiaccess[28] == true || afiaccess[29] == true || afiaccess[30] == true || afiaccess[31] == true || afiaccess[34] == true) {
-        if (ShowMenu[31] || ShowMenu[32] || ShowMenu[33] || ShowMenu[34] || ShowMenu[35] || ShowMenu[38]) {
+    if (afiaccess[27] == true || afiaccess[28] == true || afiaccess[29] == true || afiaccess[30] == true || afiaccess[31] == true || afiaccess[34] == true || afiaccess[35] == true) {
+        if (ShowMenu[31] || ShowMenu[32] || ShowMenu[33] || ShowMenu[34] || ShowMenu[35] || ShowMenu[38] || ShowMenu[39]) {
             $("#Base_Menu").show();
             (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
             (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
@@ -3818,6 +3822,8 @@ function SetValidation() {
             (ShowMenu[34] == true) && (afiaccess[30] == true) ? $("#BaseMkz").show() : $("#BaseMkz").hide();
             (ShowMenu[35] == true) && (afiaccess[31] == true) ? $("#BaseOpr").show() : $("#BaseOpr").hide();
             (ShowMenu[38] == true) && (afiaccess[34] == true) ? $("#BaseArz").show() : $("#BaseArz").hide();
+
+            (ShowMenu[39] == true) && (afiaccess[35] == true) ? $("#BaseZAcc").show() : $("#BaseZAcc").hide();
         }
         else {
             $("#Base_Menu").hide();
@@ -5766,7 +5772,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     var testUseDoc_UserName = '';
     var userUse = "";
     var testUseDoc = "";
-    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && find == false) {
+    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && FormName != "ZAcc" &&  find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
             Prog: prog,
@@ -5851,7 +5857,7 @@ async function RemoveUseSanad(prog, year, FormName, Id, exitDoc) {
         localStorage.setItem("list" + FormName + "Use", listUse);
 
 
-        if ((FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz")) {
+        if ((FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && FormName != "ZAcc")) {
             dMode = 0;
             switch (FormName) {
                 case "SanadHesab":
@@ -5971,7 +5977,7 @@ const LogMode_OPR = 6;
 const LogMode_ARZ = 7;
 const LogMode_KALA = 8;
 const LogMode_CUST = 9;
-
+const LogMode_ZAcc = 10;
 
 
 function SaveLog(progName, editMode, logMode, code, DocNo, serialNumber) {

@@ -222,11 +222,12 @@
                         </ul>
                     </li>
 
+                    <!--
                     <li class="dropdown pull-left" id="P_Box">
                         <a href="/Home/Box" title="اعلامیه">
                             <img id="" src="~/Content/img/email.png" width="23" height="25" style="margin-top: 1px;" />
                         </a>
-                    </li>
+                    </li>-->
 
                     <li class="dropdown pull-left notification" id="P_NotificationErja">
                         <a href="/ERJ/Erja" title="ارجاعات پرونده دریافتی">
@@ -337,6 +338,10 @@
 
                         <li id="BaseArz" class="rightClick">
                             <a data-bind="text:translate('ارز')" class="useBlank" target="_blank" href=@Url.Action("Arz","AFIBase")> </a>
+                        </li>
+
+                        <li id="BaseZAcc" class="rightClick">
+                            <a data-bind="text:translate('زیر حساب ها')" class="useBlank" target="_blank" href=@Url.Action("ZAcc","AFIBase")> </a>
                         </li>
 
                     </ul>

@@ -39,6 +39,11 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult ZAcc()
+        {
+            return View();
+        }
+
 
 
     }
