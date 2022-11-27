@@ -40,6 +40,10 @@
     }
 
 
+    self.isAfi8 = ko.observable(ace == "Web8");
+
+    a = self.isAfi8();
+
 
     var aGruCode = '';
     var AccCode = '';
@@ -79,6 +83,11 @@
     $('#EMail').val('');
     $('#Mobile').val('')
     $('#AccStatus').val(0);
+
+
+
+
+
 
 
     $('#LtnName').attr('disabled', 'disabled');
