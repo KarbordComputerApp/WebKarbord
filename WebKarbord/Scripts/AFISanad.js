@@ -940,7 +940,7 @@
     })
 
 
-    self.selectAcc = function (item) {
+    self.selectAcc = function (item) { 
 
         AccZCode = '';
         ArzCode = '';
