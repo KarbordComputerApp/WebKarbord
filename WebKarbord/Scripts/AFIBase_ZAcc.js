@@ -412,7 +412,7 @@
                     Code: code,
                     Name: name,
                     Spec: $('#Spec').val(),
-                    CGruCode: cGruCode,
+                    ZGruCode: zGruCode,
                 };
 
                 ajaxFunction(SaveZAccUri + ace + '/' + sal + '/' + group, 'POST', SaveZAcc_Object).done(function (data) {
