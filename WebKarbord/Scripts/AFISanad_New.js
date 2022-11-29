@@ -2394,8 +2394,11 @@ var ViewModel = function () {
 
 
 
+
     function FilterAccZCode(ZGru) {
+        ZGru = ZGru.replaceAll(' ', '');
         if (ZGru != '') {
+
             a = ZGru.split(',');
 
             if (a.length == 1)
@@ -2403,7 +2406,7 @@ var ViewModel = function () {
             else {
                 var b = "[";
                 for (var i = 0; i < a.length; i++) {
-                    b += '["ZGruCode", "=",' + a[i] + '],"or",'
+                    b += '["ZGruCode", "=","' + a[i] + '"],"or",'
                 }
                 b = b.substr(0, b.length - 6);
                 b += ']'
