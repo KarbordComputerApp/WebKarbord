@@ -259,7 +259,12 @@ var ViewModel = function () {
     getArzList();
 
     function getZAccList() {
-        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + null, 'GET').done(function (data) {
+        var ZAccObject = {
+            Mode: 1,
+            Filter: null
+        };
+
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
             ZAccList = data;
             self.ZAccList(data);
         });
@@ -2398,9 +2403,7 @@ var ViewModel = function () {
     function FilterAccZCode(ZGru) {
         ZGru = ZGru.replaceAll(' ', '');
         if (ZGru != '') {
-
             a = ZGru.split(',');
-
             if (a.length == 1)
                 return ["ZGruCode", "=", a[0]];
             else {
@@ -2412,7 +2415,6 @@ var ViewModel = function () {
                 b += ']'
                 b = JSON.parse(b);
                 return b;
-
             }
         }
     }

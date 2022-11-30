@@ -1172,6 +1172,14 @@ if (ace != 'Web2') {
         }
     }
 
+    if (ace == 'Web1') {
+        afiaccess[9] = false; //TrzIKalaExf
+        afiaccess[22] = false; //SFORD
+        afiaccess[23] = false; //SHVL
+        afiaccess[24] = false; //SEXT
+        afiaccess[25] = false; //PFORD
+    }
+
 }
 
 //localStorage.setItem("erjAccess", '');
@@ -2555,6 +2563,15 @@ function getAccessList(GoHome) {
                             afiAccessApi[i] == 'ZAcc' ? afiaccess[35] = true : null;
                         }
                     }
+
+                    if (ace == 'Web1') {
+                        afiaccess[9] = false; //TrzIKalaExf
+                        afiaccess[22] = false; //SFORD
+                        afiaccess[23] = false; //SHVL
+                        afiaccess[24] = false; //SEXT
+                        afiaccess[25] = false; //PFORD
+                    }
+
                 }
 
                 erjaccess = [false, false, false, false, false, false]

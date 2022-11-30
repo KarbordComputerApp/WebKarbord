@@ -2509,10 +2509,14 @@
         }
         else {
             localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
-            localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
             localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+
+            //localStorage.setItem("InvSelectSanadAnbar_Out", Band.InvCode);
+            //localStorage.setItem("ModeCodeSelectSanadAnbar_Out", Band.ModeCode);
+
+            localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
             localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
-            window.open(sessionStorage.urlAFISanadAnbarIndex, '_blank');
+            window.open(sessionStorage.urlAFISanadAnbarIndex);
         }
     }
 

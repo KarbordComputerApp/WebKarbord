@@ -150,7 +150,12 @@
     getRprtColsList(true, sessionStorage.userName);
 
     function getZAccList() {
-        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + null, 'GET', true, true).done(function (data) {
+        var ZAccObject = {
+            Mode: 0,
+            Filter : null
+        };
+
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
             self.ZAccList(data == null ? [] : data);
         });
     }

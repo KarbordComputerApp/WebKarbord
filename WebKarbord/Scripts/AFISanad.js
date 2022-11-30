@@ -326,9 +326,12 @@
 
     //Get ZAcc List
     function getZAccList(filter) {
-        if (filter == null)
-            filter = null;
-        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group + '/' + filter, 'GET').done(function (data) {
+        var ZAccObject = {
+            Mode: 1,
+            Filter: filter
+        };
+
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
             self.ZAccList(data);
         });
     }
