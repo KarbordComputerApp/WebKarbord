@@ -258,10 +258,9 @@ var ViewModel = function () {
     }
     getArzList();
 
-    function getZAccList() {
+    function getZAccList(filter) {
         var ZAccObject = {
-            Mode: 1,
-            Filter: null
+            Filter: filter
         };
 
         ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
@@ -269,7 +268,7 @@ var ViewModel = function () {
             self.ZAccList(data);
         });
     }
-    getZAccList();
+    getZAccList('');
 
 
 
@@ -2416,6 +2415,9 @@ var ViewModel = function () {
                 b = JSON.parse(b);
                 return b;
             }
+        }
+        else {
+            return [["ZGruCode", "=", "-1"], "or" ["ZGruCode", "=", "-2"], "or" ["ZGruCode", "=", "-3"]]
         }
     }
 
@@ -5151,18 +5153,21 @@ var ViewModel = function () {
     })
 
 
+    var zGruCode = '';
     self.selectTraf = function (item) {
         zGruTraf = "";
         $('#nameZAcc').val('');
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
             if (item.NextLevelFromZAcc == 1) {
                 $('#btnTrafZ').removeAttr('hidden', '');
-                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                zGruCode = item.ZGru;
+                getZAccList(zGruCode);
                 $('#modal-TrafZ').modal('show');
             }
             else {
                 $('#btnTrafZ').attr('hidden', '');
                 $('#nameTrafZ').val('');
+                zGruCode = '';
                 trafZCode = '';
                 trafZName = '';
             }
@@ -5303,7 +5308,7 @@ var ViewModel = function () {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getZAccList();
+                getZAccList(zGruCode);
             }
         })
     })

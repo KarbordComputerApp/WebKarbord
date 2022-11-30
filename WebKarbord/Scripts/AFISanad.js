@@ -37,7 +37,7 @@
     var flagEditBand = false;
     var flag = -1;
     var flagInsertADocH;
-    var zGruAcc = "";
+    var zGruCode = "";
     var allSearchAcc = true;
     var allSearchAcc = true;
     var Serial = '';
@@ -250,7 +250,7 @@
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند
-   // var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    // var ColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
@@ -327,7 +327,6 @@
     //Get ZAcc List
     function getZAccList(filter) {
         var ZAccObject = {
-            Mode: 1,
             Filter: filter
         };
 
@@ -464,8 +463,8 @@
         result = ko.utils.arrayFilter(cols, function (item) {
             result =
                 (ko.utils.stringStartsWith(item.Code, 'F0') ||
-                ko.utils.stringStartsWith(item.Code, 'F1') ||
-                ko.utils.stringStartsWith(item.Code, 'F2')) &&
+                    ko.utils.stringStartsWith(item.Code, 'F1') ||
+                    ko.utils.stringStartsWith(item.Code, 'F2')) &&
                 item.Name != ''
             return result;
         })
@@ -943,7 +942,7 @@
     })
 
 
-    self.selectAcc = function (item) { 
+    self.selectAcc = function (item) {
 
         AccZCode = '';
         ArzCode = '';
@@ -961,7 +960,8 @@
                 $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
                 $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
                 $('#panelZAcc').removeAttr('hidden', '');
-                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                zGruCode = item.ZGru;
+                getZAccList(zGruCode);
                 $('#modal-ZAcc').modal('show');
             }
             else {
@@ -1177,7 +1177,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getZAccList();
+                getZAccList(zGruCode);
             }
         })
     })
@@ -1336,7 +1336,8 @@
         if (item.HasChild == 0 || item.NextLevelFromZAcc == 1) {
             if (item.NextLevelFromZAcc == 1) {
                 $('#btnTrafZ').removeAttr('hidden', '');
-                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                zGruCode = item.ZGru;
+                getZAccList(zGruCode);
                 $('#modal-TrafZ').modal('show');
             }
             else {
@@ -1480,7 +1481,7 @@
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getZAccList();
+                getZAccList(zGruCode);
             }
         })
     })
@@ -2679,6 +2680,7 @@
 
     function AddNewBand() {
         ClearSearch();
+        zGruCode = '';
         $('#panelZAcc').attr('hidden', '');
         $('#panelArz').attr('hidden', '');
         $('#panelOpr').attr('hidden', '');
@@ -2984,7 +2986,8 @@
                 $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
                 $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
                 $('#panelZAcc').removeAttr('hidden', '');
-                getZAccList(item.ZGru == '' ? null : item.ZGru);
+                zGruCode = item.ZGru;
+                getZAccList(zGruCode);
             }
             else {
                 $('#panelZAcc').attr('hidden', '');
@@ -4377,7 +4380,7 @@
     };
 
     self.selectADocB = function (item) {
-       // bandnumberedit = item.BandNo;
+        // bandnumberedit = item.BandNo;
         AccCode = item.AccCode;
         AccZCode = item.AccZCode;
         ArzCode = item.ArzCode;
@@ -4391,7 +4394,8 @@
             $("#panelAcc").removeClass("col-lg-6 col-md-6 col-sm-12 col-xs-12");
             $("#panelAcc").addClass("col-lg-3 col-md-3 col-sm-12 col-xs-12");
             $('#panelZAcc').removeAttr('hidden', '');
-            getZAccList(item.ZGru == '' ? null : item.ZGru);
+            zGruCode = item.ZGru;
+            getZAccList(zGruCode);
         }
         else {
             $('#panelZAcc').attr('hidden', '');

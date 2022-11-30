@@ -151,8 +151,7 @@
 
     function getZAccList() {
         var ZAccObject = {
-            Mode: 0,
-            Filter : null
+            Filter: 'Base'
         };
 
         ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
