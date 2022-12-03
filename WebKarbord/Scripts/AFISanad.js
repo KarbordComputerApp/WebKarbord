@@ -244,7 +244,7 @@
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
-    var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس حساب ها
+    var ZAccUri = server + '/api/Web_Data/ZAccADoc/'; // آدرس حساب ها
     var ADocHUri = server + '/api/ADocData/ADocH/'; // آدرس هدر سند 
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 

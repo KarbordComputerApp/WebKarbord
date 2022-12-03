@@ -11,7 +11,7 @@
     var DelZAccUri = server + '/api/Web_Data/AFI_DelZAcc/'; // آدرس حذف زیر حساب ها
     var TestZAcc_DeleteUri = server + '/api/Web_Data/TestZAcc_Delete/'; // آدرس تست حذف 
     var TestZAccUri = server + '/api/Web_Data/TestZAcc/'; // آدرس تست  
-    var ZGruUri = server + '/api/Web_Data/ZGru/'; // آدرس گروه زیر حساب ها 
+    var ZGruUri = server + '/api/Web_Data/ZGru/'; // آدرس گروه زیر حساب 
 
     TestUser();
 
@@ -142,11 +142,8 @@
     getRprtColsList(true, sessionStorage.userName);
 
     function getZAccList() {
-        var ZAccObject = {
-            Filter: 'Base'
-        };
 
-        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', true).done(function (data) {
             self.ZAccList(data == null ? [] : data);
         });
     }
@@ -288,7 +285,7 @@
         self.iconTypeName('');
         self.iconTypeSpec('');
 
-        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
@@ -659,7 +656,7 @@
 
         switch (field) {
             case "Code":
-                sortField = 'SortCode';
+                sortField = 'Code';
                 break;
             case "Name":
                 sortField = 'SortName';
@@ -838,7 +835,7 @@
         self.iconTypeSpec('');
 
 
-        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
@@ -853,7 +850,7 @@
     $('#refreshZGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست گروه زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست گروه زیر حساب") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

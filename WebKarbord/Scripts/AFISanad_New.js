@@ -136,7 +136,7 @@ var ViewModel = function () {
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
-    var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس زیر حساب ها
+    var ZAccUri = server + '/api/Web_Data/ZAccADoc/'; // آدرس زیر حساب ها
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
 
@@ -2417,7 +2417,7 @@ var ViewModel = function () {
             }
         }
         else {
-            return [["ZGruCode", "=", "-1"], "or" ["ZGruCode", "=", "-2"], "or" ["ZGruCode", "=", "-3"]]
+            return [["ZGruCode", "=", "-1"], "or", ["ZGruCode", "=", "-2"], "or" ,["ZGruCode", "=", "-3"]]
         }
     }
 
