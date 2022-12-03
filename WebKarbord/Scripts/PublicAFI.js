@@ -2942,7 +2942,7 @@ function SetValidation() {
     validation = CheckAccess('ARZ', localStorage.getItem('ProgAccess'));
     ShowMenu[38] = validation;  //  ارز ها
 
-    validation = CheckAccess('ZAcc', 'Acc5');
+    validation = CheckAccess('ZACC', 'Acc5');
     ShowMenu[39] = validation;  //  زیر حساب ها
 
 

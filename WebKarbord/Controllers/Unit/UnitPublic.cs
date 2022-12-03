@@ -16,7 +16,7 @@ namespace WebKarbord.Controllers.Unit
     public class UnitPublic
     {
        public static string titleVer = "ورژن تست";
-       public static string titleVerNumber = "805"; 
+       public static string titleVerNumber = "806"; 
 
         
         //public static string titleVer = "ورژن";
