@@ -2943,7 +2943,7 @@ function SetValidation() {
     ShowMenu[38] = validation;  //  ارز ها
 
     validation = CheckAccess('ZAcc', 'Acc5');
-    ShowMenu[39] = validation;  //  ارز ها
+    ShowMenu[39] = validation;  //  زیر حساب ها
 
 
     //localStorage.setItem("", );

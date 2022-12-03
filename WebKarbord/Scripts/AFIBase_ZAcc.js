@@ -17,16 +17,8 @@
 
     var zGruCode = '';
 
-    Prog = localStorage.getItem('ProgAccess');
+    Prog = 'Acc5';
 
-    if (Prog.includes('Acc5'))
-        Prog = 'Acc5';  
-    else if (Prog.includes('Fct5'))
-        Prog = 'Fct5'; 
-    else if (Prog.includes('Inv5'))
-        Prog = 'Inv5';
-    else
-        Prog = 'Erj1';
 
 
     validation = CheckAccess('NEW_ZAcc', Prog);// New ZAcc

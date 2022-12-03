@@ -966,6 +966,7 @@ var ViewModel = function () {
         Serial = sessionStorage.SerialNumber;
         self.SerialNumber(Serial);
         self.InvCode(sessionStorage.InvCode);
+        self.modeCode(sessionStorage.ModeCodeValue);
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
         $('#btntarikh').click(function () {
