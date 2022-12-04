@@ -16,7 +16,7 @@
     var DelAccUri = server + '/api/Web_Data/AFI_DelAcc/'; // آدرس حذف حساب ها
     var TestAcc_DeleteUri = server + '/api/Web_Data/TestAcc_Delete/'; // آدرس تست حذف 
     var TestAccUri = server + '/api/Web_Data/TestAcc/'; // آدرس تست  
-    var ZGruUri = server + '/api/Web_Data/ZGru/'; // آدرس گروه زیر حساب ها 
+    var ZGruAccUri = server + '/api/Web_Data/ZGruAcc/'; // آدرس گروه زیر حساب ها 
 
 
     TestUser();
@@ -213,7 +213,7 @@
 
     //Get ZGru List
     function getZGruList() {
-        ajaxFunction(ZGruUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
+        ajaxFunction(ZGruAccUri + ace + '/' + sal + '/' + group, 'GET', true, false).done(function (data) {
             self.ZGruList(data);
         });
     }
