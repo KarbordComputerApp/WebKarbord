@@ -18,9 +18,10 @@
     var TestAccUri = server + '/api/Web_Data/TestAcc/'; // آدرس تست  
     var ZGruAccUri = server + '/api/Web_Data/ZGruAcc/'; // آدرس گروه زیر حساب ها 
 
-    
+
 
     TestUser();
+
 
 
     validation = CheckAccess('NEW_ACC', 'Acc5');// New Acc
@@ -111,7 +112,7 @@
         'Code',
         'Name',
         'Spec',
-        'Eghdam',
+        ace == 'Web1' ? 'Eghdam' : '',
         'MkzCode',
         'MkzName',
         'OprCode',
@@ -198,11 +199,11 @@
 
 
     //Get ExtraFields List
-   /* function getExtraFieldsList() {
-        ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
-            self.ExtraFieldsList(data);
-        });
-    }*/
+    /* function getExtraFieldsList() {
+         ajaxFunction(ExtraFieldsUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+             self.ExtraFieldsList(data);
+         });
+     }*/
 
     function getExtraFieldsList() {
         result = ko.utils.arrayFilter(cols, function (item) {
@@ -346,43 +347,43 @@
 
 
 
-   /* listFilter = JSON.parse(localStorage.getItem('listFilter'));
-    if (listFilter != null) {
-        self.filterCode(listFilter[0]);
-        self.filterName(listFilter[1]);
-        self.filterSpec(listFilter[2]);
-        self.filterEghdam(listFilter[3]);
-        self.filterMkzCode(listFilter[4]);
-        self.filterMkzName(listFilter[5]);
-        self.filterOprCode(listFilter[6]);
-        self.filterOprName(listFilter[7]);
-        self.filterArzCode(listFilter[8]);
-        self.filterArzName(listFilter[9]);
-        self.filterArzRate(listFilter[10]);
-
-        self.filterAccF01(listFilter[12]);
-        self.filterAccF02(listFilter[13]);
-        self.filterAccF03(listFilter[14]);
-        self.filterAccF04(listFilter[15]);
-        self.filterAccF05(listFilter[16]);
-        self.filterAccF06(listFilter[17]);
-        self.filterAccF07(listFilter[18]);
-        self.filterAccF08(listFilter[19]);
-        self.filterAccF09(listFilter[20]);
-        self.filterAccF10(listFilter[21]);
-        self.filterAccF11(listFilter[22]);
-        self.filterAccF12(listFilter[23]);
-        self.filterAccF13(listFilter[24]);
-        self.filterAccF14(listFilter[25]);
-        self.filterAccF15(listFilter[26]);
-        self.filterAccF16(listFilter[27]);
-        self.filterAccF17(listFilter[28]);
-        self.filterAccF18(listFilter[29]);
-        self.filterAccF19(listFilter[30]);
-        self.filterAccF20(listFilter[31]);
-        self.filterAGruCode(listFilter[32]);
-        self.filterAGruName(listFilter[32]);
-    }*/
+    /* listFilter = JSON.parse(localStorage.getItem('listFilter'));
+     if (listFilter != null) {
+         self.filterCode(listFilter[0]);
+         self.filterName(listFilter[1]);
+         self.filterSpec(listFilter[2]);
+         self.filterEghdam(listFilter[3]);
+         self.filterMkzCode(listFilter[4]);
+         self.filterMkzName(listFilter[5]);
+         self.filterOprCode(listFilter[6]);
+         self.filterOprName(listFilter[7]);
+         self.filterArzCode(listFilter[8]);
+         self.filterArzName(listFilter[9]);
+         self.filterArzRate(listFilter[10]);
+ 
+         self.filterAccF01(listFilter[12]);
+         self.filterAccF02(listFilter[13]);
+         self.filterAccF03(listFilter[14]);
+         self.filterAccF04(listFilter[15]);
+         self.filterAccF05(listFilter[16]);
+         self.filterAccF06(listFilter[17]);
+         self.filterAccF07(listFilter[18]);
+         self.filterAccF08(listFilter[19]);
+         self.filterAccF09(listFilter[20]);
+         self.filterAccF10(listFilter[21]);
+         self.filterAccF11(listFilter[22]);
+         self.filterAccF12(listFilter[23]);
+         self.filterAccF13(listFilter[24]);
+         self.filterAccF14(listFilter[25]);
+         self.filterAccF15(listFilter[26]);
+         self.filterAccF16(listFilter[27]);
+         self.filterAccF17(listFilter[28]);
+         self.filterAccF18(listFilter[29]);
+         self.filterAccF19(listFilter[30]);
+         self.filterAccF20(listFilter[31]);
+         self.filterAGruCode(listFilter[32]);
+         self.filterAGruName(listFilter[32]);
+     }*/
     self.filterAccList = ko.computed(function () {
         self.currentPageIndexAcc(0);
         var filterCode = self.filterCode();
@@ -443,44 +444,44 @@
             return self.AccList();
         } else {
 
-           /* listFilter = [
-                filterCode,
-                filterName,
-                filterSpec,
-                filterEghdam,
-                filterMkzCode,
-                filterMkzName,
-                filterOprCode,
-                filterOprName,
-                filterArzCode,
-                filterArzName,
-                filterArzRate,
-                filterAccF01,
-                filterAccF02,
-                filterAccF03,
-                filterAccF04,
-                filterAccF05,
-                filterAccF06,
-                filterAccF07,
-                filterAccF08,
-                filterAccF09,
-                filterAccF10,
-                filterAccF11,
-                filterAccF12,
-                filterAccF13,
-                filterAccF14,
-                filterAccF15,
-                filterAccF16,
-                filterAccF17,
-                filterAccF18,
-                filterAccF19,
-                filterAccF20,
-                filterAGruCode,
-                filterAGruName
-            ];
-
-
-            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
+            /* listFilter = [
+                 filterCode,
+                 filterName,
+                 filterSpec,
+                 filterEghdam,
+                 filterMkzCode,
+                 filterMkzName,
+                 filterOprCode,
+                 filterOprName,
+                 filterArzCode,
+                 filterArzName,
+                 filterArzRate,
+                 filterAccF01,
+                 filterAccF02,
+                 filterAccF03,
+                 filterAccF04,
+                 filterAccF05,
+                 filterAccF06,
+                 filterAccF07,
+                 filterAccF08,
+                 filterAccF09,
+                 filterAccF10,
+                 filterAccF11,
+                 filterAccF12,
+                 filterAccF13,
+                 filterAccF14,
+                 filterAccF15,
+                 filterAccF16,
+                 filterAccF17,
+                 filterAccF18,
+                 filterAccF19,
+                 filterAccF20,
+                 filterAGruCode,
+                 filterAGruName
+             ];
+ 
+ 
+             localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
@@ -1059,7 +1060,7 @@
 
     $('#modal-ZGru').on('hide.bs.modal', function () {
         if (counterZGru > 0)
-            $('#nameZGru').val(counterZGru + ' ' + translate('مورد انتخاب شده') )  
+            $('#nameZGru').val(counterZGru + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameZGru').val('');
     });
@@ -1249,7 +1250,7 @@
             if (ZGruCode != '') {
                 list_ZGruSelect = ZGruCode.split(",");
                 counterZGru = list_ZGruSelect.length;
-                $('#nameZGru').val(counterZGru +  ' ' + translate('مورد انتخاب شده'))
+                $('#nameZGru').val(counterZGru + ' ' + translate('مورد انتخاب شده'))
             }
             $('#P_ZGru').show();
         }
@@ -1537,9 +1538,9 @@
             return showNotification(translate('کد حساب را وارد کنید'), 0)
         }
 
-       /* if (name == "") {
-            return showNotification(translate('نام حساب را وارد کنید'), 0)
-        }*/
+        /* if (name == "") {
+             return showNotification(translate('نام حساب را وارد کنید'), 0)
+         }*/
 
 
         zgrucode = '';
@@ -1901,13 +1902,18 @@
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
             '       <tr data-bind="click: sortTableAcc">' +
-        '<th>' + translate('ردیف') + '</th>' +
-        
+            '<th>' + translate('ردیف') + '</th>' +
+
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
-            CreateTableTh('Spec', data) +
-            CreateTableTh('Eghdam', data) +
-            CreateTableTh('MkzCode', data) +
+            CreateTableTh('Spec', data);
+
+        if (ace == 'Web1') {
+            dataTable +=
+                CreateTableTh('Eghdam', data);
+        }
+
+        dataTable += CreateTableTh('MkzCode', data) +
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
@@ -1944,8 +1950,13 @@
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
-            CreateTableTd('Spec', 0, 0, data) +
-            CreateTableTd('Eghdam', 0, 0, data) +
+            CreateTableTd('Spec', 0, 0, data);
+        if (ace == 'Web1') {
+            dataTable +=
+                CreateTableTd('Eghdam', 0, 0, data);
+        }
+
+        dataTable +=
             CreateTableTd('MkzCode', 0, 0, data) +
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
@@ -1990,9 +2001,14 @@
             '<td style="background-color: #efb683;"></td>' +
             CreateTableTdSearch('Code', data) +
             CreateTableTdSearch('Name', data) +
-            CreateTableTdSearch('Spec', data) +
-            CreateTableTdSearch('Eghdam', data) +
-            CreateTableTdSearch('MkzCode', data) +
+            CreateTableTdSearch('Spec', data);
+
+        if (ace == 'Web1') {
+            dataTable +=
+                CreateTableTdSearch('Eghdam', data)
+        }
+
+        dataTable += CreateTableTdSearch('MkzCode', data) +
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
             CreateTableTdSearch('OprName', data) +
@@ -2132,7 +2148,7 @@
         }
     };
 
-    
+
     self.PageIndexAcc = function (item) {
         return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
     };
@@ -2141,7 +2157,7 @@
         return CountPage(self.filterAGruList(), self.pageSizeAGru(), item);
     };
 
-    
+
     self.PageIndexZGru = function (item) {
         return CountPage(self.filterZGruList(), self.pageSizeZGru(), item);
     };
