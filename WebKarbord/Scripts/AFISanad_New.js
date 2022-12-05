@@ -2417,7 +2417,11 @@ var ViewModel = function () {
             }
         }
         else {
-            return [["ZGruCode", "=", "-1"], "or", ["ZGruCode", "=", "-2"], "or" ,["ZGruCode", "=", "-3"]]
+            if (ace == 'Web1') {
+                return [["ZGruCode", "=", "-1"], "or", ["ZGruCode", "=", "-2"], "or", ["ZGruCode", "=", "-3"]]
+            }
+            else
+                return '';
         }
     }
 

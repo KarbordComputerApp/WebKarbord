@@ -385,6 +385,14 @@
             return showNotification(translate('نام ارز را وارد کنید'), 0)
         }
 
+        rate = rate.replace('/', '.')
+        rate = rate.replaceAll(',', '')
+        
+        if (rate == "")
+            rate = "0";
+
+        rate = parseFloat(rate);
+
         var TestArz_Object = {
             Code: code
         };
@@ -626,7 +634,7 @@
         CreateTableTd('LtnCode', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
-            CreateTableTd('Rate', 0, 0, data) +
+        CreateTableTd('Rate', 4, 2, data) +
             '<td>' +
             '   <a id="UpdateArz" data-bind="click: $root.UpdateArz , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
