@@ -3233,6 +3233,22 @@
         return CountPage(self.filterIDocRList(), self.pageSizeIDocR(), item);
     };
 
+    self.PageIndexInv = function (item) {
+        return CountPage(self.filterInvList(), self.pageSizeInv(), item);
+    };
+
+    self.PageIndexInv = function (item) {
+        return CountPage(self.filterInvList(), self.pageSizeInv(), item);
+    };
+
+    self.PageIndexThvl = function (item) {
+        return CountPage(self.filterThvlList(), self.pageSizeThvl(), item);
+    };
+
+    self.PageIndexKGru = function (item) {
+        return CountPage(self.filterKGruList(), self.pageSizeKGru(), item);
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

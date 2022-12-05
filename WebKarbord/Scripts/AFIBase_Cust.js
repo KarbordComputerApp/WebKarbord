@@ -20,7 +20,7 @@
     var SaveCustImageUri = server + '/api/Web_Data/SaveCustImage/'; // ذخیره عکس
     var DelCustImageUri = server + '/api/Web_Data/DelCustImage/'; // حذف عکس
     var addImage = false;
-
+    var file;
     TestUser();
 
 
@@ -43,10 +43,11 @@
     }
 
 
-    $('#EtebarCheck').attr('disabled', 'disabled');
+    $('#P_EtebarCheck').hide()//('disabled', 'disabled');
 
     if (ace == 'Web8') {
-        $('#EtebarCheck').removeAttr('disabled');
+        $('#P_EtebarCheck').show()
+        //$('#EtebarCheck').removeAttr('disabled');
     }
 
 

@@ -136,7 +136,7 @@ var ViewModel = function () {
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
-    var ZAccUri = server + '/api/Web_Data/ZAccADoc/'; // آدرس زیر حساب ها
+    var ZAccADocUri = server + '/api/Web_Data/ZAccADoc/'; // آدرس زیر حساب ها
     var ADocHLastDateUri = server + '/api/ADocData/ADocH/LastDate/'; // آدرس آخرین تاریخ سند
     var ADocHiUri = server + '/api/AFI_ADocHi/'; // آدرس ذخیره هدر سند 
 
@@ -263,7 +263,7 @@ var ViewModel = function () {
             Filter: filter
         };
 
-        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, true).done(function (data) {
+        ajaxFunction(ZAccADocUri + ace + '/' + sal + '/' + group, 'POST', ZAccObject, false).done(function (data) {
             ZAccList = data;
             self.ZAccList(data);
         });
@@ -2404,7 +2404,7 @@ var ViewModel = function () {
         if (ZGru != '') {
             a = ZGru.split(',');
             if (a.length == 1)
-                return ["ZGruCode", "=", a[0]];
+                return ["ZGruCode", "=", a[0].toString()];
             else {
                 var b = "[";
                 for (var i = 0; i < a.length; i++) {
@@ -2422,14 +2422,13 @@ var ViewModel = function () {
     }
 
     function dropDownBoxEditorAccZCode(cellElement, cellInfo) {
-
         const visibleRows = dataGrid.getVisibleRows();
 
         if (visibleRows[ro].data.dataAcc == null)
             return '';
         else
             dataAcc = visibleRows[ro].data.dataAcc;
-
+  
         if (dataAcc.NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -2439,8 +2438,7 @@ var ViewModel = function () {
                 displayExpr: 'Code',
                 contentTemplate(e) {
                     return $('<div>').dxDataGrid({
-                        dataSource:
-                            new DevExpress.data.DataSource({
+                        dataSource: new DevExpress.data.DataSource({
                                 store: new DevExpress.data.ArrayStore({
                                     key: 'Code',
                                     data: ZAccList,
@@ -2473,7 +2471,6 @@ var ViewModel = function () {
                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
-
                                 ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "AccZName", selectionChangedArgs.selectedRowsData[0].Name);
                                 e.component.close();
@@ -2542,7 +2539,7 @@ var ViewModel = function () {
                             if (selectionChangedArgs.selectedRowKeys.length > 0) {
                                 cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
                                 var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                                //ro = cellInfo.rowIndex;
+                                ro = cellInfo.rowIndex;
                                 dataGrid.cellValue(ro, "AccZCode", selectionChangedArgs.selectedRowsData[0].Code);
                                 e.component.close();
                             }
@@ -4042,6 +4039,7 @@ var ViewModel = function () {
                     ArzCode: item.ArzCode == null ? "" : item.ArzCode,
                     ArzRate: item.ArzRate == null ? "" : item.ArzRate,
                     arzValue: item.ArzValue == null ? "" : item.ArzValue,
+                    Amount: item.Amount == null ? "" : item.Amount,
 
                     flagLog: 'N',
                     flagTest: 'Y',

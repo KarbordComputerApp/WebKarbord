@@ -1,13 +1,13 @@
 ﻿var ViewModel = function () {
     var self = this;
 
-    self.MkzList = ko.observableArray([]); // ليست مرکزهزینه ها 
+    self.MkzList = ko.observableArray([]); // ليست مراکزهزینه 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.TestMkzList = ko.observableArray([]); // لیست تست  
 
-    var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکزهزینه ها 
-    var SaveMkzUri = server + '/api/Web_Data/AFI_SaveMkz/'; // آدرس ذخیره مرکزهزینه ها
-    var DelMkzUri = server + '/api/Web_Data/AFI_DelMkz/'; // آدرس حذف مرکزهزینه ها
+    var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مراکزهزینه 
+    var SaveMkzUri = server + '/api/Web_Data/AFI_SaveMkz/'; // آدرس ذخیره مراکزهزینه
+    var DelMkzUri = server + '/api/Web_Data/AFI_DelMkz/'; // آدرس حذف مراکزهزینه
     var TestMkz_DeleteUri = server + '/api/Web_Data/TestMkz_Delete/'; // آدرس تست حذف 
     var TestMkzUri = server + '/api/Web_Data/TestMkz/'; // آدرس تست  
 
@@ -304,7 +304,7 @@
     $('#refreshMkz').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست مرکزهزینه ها") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست مراکزهزینه") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',

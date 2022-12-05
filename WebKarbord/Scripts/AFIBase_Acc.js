@@ -89,16 +89,18 @@
 
 
 
-    $('#LtnName').attr('disabled', 'disabled');
-    $('#EMail').attr('disabled', 'disabled');
-    $('#Mobile').attr('disabled', 'disabled');
-    $('#AccStatus').attr('disabled', 'disabled');
+    $('#P_LtnName').hide();//.attr('disabled', 'disabled');
+    $('#P_EMail').hide();//.attr('disabled', 'disabled');
+    $('#P_Mobile').hide();//.attr('disabled', 'disabled');
+    $('#P_AccStatus').hide();//.attr('disabled', 'disabled');
+
+
 
     if (ace == 'Web8') {
-        $('#LtnName').removeAttr('disabled');
-        $('#EMail').removeAttr('disabled');
-        $('#Mobile').removeAttr('disabled');
-        $('#AccStatus').removeAttr('disabled');
+        $('#P_LtnName').show();//.removeAttr('disabled');
+        $('#P_EMail').show();//.removeAttr('disabled');
+        $('#P_Mobile').show();//.removeAttr('disabled');
+        $('#P_AccStatus').show();//.removeAttr('disabled');
     }
 
     var rprtId = 'Acc';
