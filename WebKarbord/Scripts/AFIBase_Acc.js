@@ -4,14 +4,14 @@
     self.AccList = ko.observableArray([]); // ليست حساب ها 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون 
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
-    self.AGruList = ko.observableArray([]); // ليست گروه حساب ها
+    self.AGruList = ko.observableArray([]); // ليست گروه حساب 
     self.TestAccList = ko.observableArray([]); // لیست تست  
     self.ZGruList = ko.observableArray([]); // ليست زیر حساب ها
 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها 
     var ExtraFieldsUri = server + '/api/Web_Data/ExtraFields/'; // آدرس مشخصات اضافه 
-    var AGruUri = server + '/api/Web_Data/AGru/'; // آدرس گروه حساب ها
+    var AGruUri = server + '/api/Web_Data/AGru/'; // آدرس گروه حساب 
     var SaveAccUri = server + '/api/Web_Data/AFI_SaveAcc/'; // آدرس ذخیره حساب ها
     var DelAccUri = server + '/api/Web_Data/AFI_DelAcc/'; // آدرس حذف حساب ها
     var TestAcc_DeleteUri = server + '/api/Web_Data/TestAcc_Delete/'; // آدرس تست حذف 
@@ -113,13 +113,13 @@
         'Name',
         'Spec',
         ace == 'Web1' ? 'Eghdam' : '',
-        'MkzCode',
-        'MkzName',
-        'OprCode',
-        'OprName',
-        'ArzCode',
-        'ArzName',
-        'ArzRate',
+        //'MkzCode',
+        //'MkzName',
+        //'OprCode',
+        //'OprName',
+        //'ArzCode',
+        //'ArzName',
+        //'ArzRate',
         'AccF01',
         'AccF02',
         'AccF03',
@@ -315,13 +315,13 @@
     self.filterName = ko.observable("");
     self.filterSpec = ko.observable("");
     self.filterEghdam = ko.observable("");
-    self.filterMkzCode = ko.observable("");
-    self.filterMkzName = ko.observable("");
-    self.filterOprCode = ko.observable("");
-    self.filterOprName = ko.observable("");
-    self.filterArzCode = ko.observable("");
-    self.filterArzName = ko.observable("");
-    self.filterArzRate = ko.observable("");
+    //self.filterMkzCode = ko.observable("");
+    //self.filterMkzName = ko.observable("");
+    //self.filterOprCode = ko.observable("");
+    //self.filterOprName = ko.observable("");
+    //self.filterArzCode = ko.observable("");
+    //self.filterArzName = ko.observable("");
+    //self.filterArzRate = ko.observable("");
     self.filterAccF01 = ko.observable("");
     self.filterAccF02 = ko.observable("");
     self.filterAccF03 = ko.observable("");
@@ -391,13 +391,13 @@
         var filterSpec = self.filterSpec();
         var filterEghdam = self.filterEghdam();
 
-        var filterMkzCode = self.filterMkzCode();
-        var filterMkzName = self.filterMkzName();
-        var filterOprCode = self.filterOprCode();
-        var filterOprName = self.filterOprName();
-        var filterArzCode = self.filterArzCode();
-        var filterArzName = self.filterArzName();
-        var filterArzRate = self.filterArzRate();
+        //var filterMkzCode = self.filterMkzCode();
+        //var filterMkzName = self.filterMkzName();
+        //var filterOprCode = self.filterOprCode();
+        //var filterOprName = self.filterOprName();
+        //var filterArzCode = self.filterArzCode();
+        //var filterArzName = self.filterArzName();
+       // var filterArzRate = self.filterArzRate();
 
         var filterAccF01 = self.filterAccF01();
         var filterAccF02 = self.filterAccF02();
@@ -426,13 +426,13 @@
 
         if (!filterCode && !filterName && !filterSpec &&
             !filterEghdam &&
-            !filterMkzCode &&
-            !filterMkzName &&
-            !filterOprCode &&
-            !filterOprName &&
-            !filterArzCode &&
-            !filterArzName &&
-            !filterArzRate &&
+            //!filterMkzCode &&
+            //!filterMkzName &&
+            //!filterOprCode &&
+            //!filterOprName &&
+            //!filterArzCode &&
+            //!filterArzName &&
+            //!filterArzRate &&
             !filterAccF01 && !filterAccF02 && !filterAccF03 && !filterAccF04 && !filterAccF05 && !filterAccF06 && !filterAccF07 && !filterAccF08 && !filterAccF09 && !filterAccF10 &&
             !filterAccF11 && !filterAccF12 && !filterAccF13 && !filterAccF14 && !filterAccF15 && !filterAccF16 && !filterAccF17 && !filterAccF18 && !filterAccF19 && !filterAccF20
             && !filterAGruCode && !filterAGruName
@@ -488,13 +488,13 @@
                     (item.Name == null ? '' : item.Name.toString().search(filterName) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                     (item.Eghdam == null ? '' : item.Eghdam.toString().search(filterEghdam) >= 0) &&
-                    (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
-                    (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
-                    (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
-                    (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                    (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
-                    (item.ArzName == null ? '' : item.ArzName.toString().search(filterArzName) >= 0) &&
-                    (item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) &&
+                    //(item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
+                    //(item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                    //(item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
+                    //(item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                   // (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
+                    //(item.ArzName == null ? '' : item.ArzName.toString().search(filterArzName) >= 0) &&
+                    //(item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) &&
 
                     (item.AccF01 == null ? '' : item.AccF01.toString().search(filterAccF01) >= 0) &&
                     (item.AccF02 == null ? '' : item.AccF02.toString().search(filterAccF02) >= 0) &&
@@ -590,13 +590,13 @@
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
     self.iconTypeEghdam = ko.observable("");
-    self.iconTypeMkzCode = ko.observable("");
-    self.iconTypeMkzName = ko.observable("");
-    self.iconTypeOprCode = ko.observable("");
-    self.iconTypeOprName = ko.observable("");
-    self.iconTypeArzCode = ko.observable("");
-    self.iconTypeArzName = ko.observable("");
-    self.iconTypeArzRate = ko.observable("");
+    //self.iconTypeMkzCode = ko.observable("");
+   // self.iconTypeMkzName = ko.observable("");
+   // self.iconTypeOprCode = ko.observable("");
+   // self.iconTypeOprName = ko.observable("");
+   // self.iconTypeArzCode = ko.observable("");
+   // self.iconTypeArzName = ko.observable("");
+    //self.iconTypeArzRate = ko.observable("");
     self.iconTypeAccF01 = ko.observable("");
     self.iconTypeAccF02 = ko.observable("");
     self.iconTypeAccF03 = ko.observable("");
@@ -660,13 +660,13 @@
         self.iconTypeSpec('');
         self.iconTypeEghdam('');
 
-        self.iconTypeMkzCode('');
-        self.iconTypeMkzName('');
-        self.iconTypeOprCode('');
-        self.iconTypeOprName('');
-        self.iconTypeArzCode('');
-        self.iconTypeArzName('');
-        self.iconTypeArzRate('');
+        //self.iconTypeMkzCode('');
+        //self.iconTypeMkzName('');
+       // self.iconTypeOprCode('');
+        //self.iconTypeOprName('');
+       // self.iconTypeArzCode('');
+        //self.iconTypeArzName('');
+       // self.iconTypeArzRate('');
 
         self.iconTypeAccF01('');
         self.iconTypeAccF02('');
@@ -695,13 +695,13 @@
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Eghdam') self.iconTypeEghdam((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'ArzCode') self.iconTypeArzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'ArzName') self.iconTypeArzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'ArzRate') self.iconTypeArzRate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'ArzCode') self.iconTypeArzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+       // if (orderProp == 'ArzName') self.iconTypeArzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        //if (orderProp == 'ArzRate') self.iconTypeArzRate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
         if (orderProp == 'AccF01') self.iconTypeAccF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccF02') self.iconTypeAccF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -859,7 +859,7 @@
     $('#refreshAGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست گروه حساب ها") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست گروه حساب") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1444,15 +1444,15 @@
          sessionStorage.F19 = item.AccF19;
          sessionStorage.F20 = item.AccF20;
  
-         $("#ExtraFields1").val(sessionStorage.AccF01);
-         $("#ExtraFields2").val(sessionStorage.AccF02);
-         $("#ExtraFields3").val(sessionStorage.AccF03);
-         $("#ExtraFields4").val(sessionStorage.AccF04);
-         $("#ExtraFields5").val(sessionStorage.AccF05);
-         $("#ExtraFields6").val(sessionStorage.AccF06);
-         $("#ExtraFields7").val(sessionStorage.AccF07);
-         $("#ExtraFields8").val(sessionStorage.AccF08);
-         $("#ExtraFields9").val(sessionStorage.AccF09);
+         $("#ExtraFields01").val(sessionStorage.AccF01);
+         $("#ExtraFields02").val(sessionStorage.AccF02);
+         $("#ExtraFields03").val(sessionStorage.AccF03);
+         $("#ExtraFields04").val(sessionStorage.AccF04);
+         $("#ExtraFields05").val(sessionStorage.AccF05);
+         $("#ExtraFields06").val(sessionStorage.AccF06);
+         $("#ExtraFields07").val(sessionStorage.AccF07);
+         $("#ExtraFields08").val(sessionStorage.AccF08);
+         $("#ExtraFields09").val(sessionStorage.AccF09);
          $("#ExtraFields10").val(sessionStorage.AccF10);
          $("#ExtraFields11").val(sessionStorage.AccF11);
          $("#ExtraFields12").val(sessionStorage.AccF12);
@@ -1465,15 +1465,15 @@
          $("#ExtraFields19").val(sessionStorage.AccF19);
          $("#ExtraFields20").val(sessionStorage.AccF20);
  
-         $("#ExtraFields1").val(item.AccF01);
-         $("#ExtraFields2").val(item.AccF02);
-         $("#ExtraFields3").val(item.AccF03);
-         $("#ExtraFields4").val(item.AccF04);
-         $("#ExtraFields5").val(item.AccF05);
-         $("#ExtraFields6").val(item.AccF06);
-         $("#ExtraFields7").val(item.AccF07);
-         $("#ExtraFields8").val(item.AccF08);
-         $("#ExtraFields9").val(item.AccF09);
+         $("#ExtraFields01").val(item.AccF01);
+         $("#ExtraFields02").val(item.AccF02);
+         $("#ExtraFields03").val(item.AccF03);
+         $("#ExtraFields04").val(item.AccF04);
+         $("#ExtraFields05").val(item.AccF05);
+         $("#ExtraFields06").val(item.AccF06);
+         $("#ExtraFields07").val(item.AccF07);
+         $("#ExtraFields08").val(item.AccF08);
+         $("#ExtraFields09").val(item.AccF09);
          $("#ExtraFields10").val(item.AccF10);
          $("#ExtraFields11").val(item.AccF11);
          $("#ExtraFields12").val(item.AccF12);
@@ -1913,13 +1913,14 @@
                 CreateTableTh('Eghdam', data);
         }
 
-        dataTable += CreateTableTh('MkzCode', data) +
-            CreateTableTh('MkzName', data) +
-            CreateTableTh('OprCode', data) +
-            CreateTableTh('OprName', data) +
-            CreateTableTh('ArzCode', data) +
-            CreateTableTh('ArzName', data) +
-            CreateTableTh('ArzRate', data) +
+        dataTable +=
+            //CreateTableTh('MkzCode', data) +
+            //CreateTableTh('MkzName', data) +
+            //CreateTableTh('OprCode', data) +
+            //CreateTableTh('OprName', data) +
+            //CreateTableTh('ArzCode', data) +
+            //CreateTableTh('ArzName', data) +
+            //CreateTableTh('ArzRate', data) +
             CreateTableTh('AGruCode', data) +
             CreateTableTh('AGruName', data) +
             CreateTableTh('AccF01', data) +
@@ -1957,13 +1958,13 @@
         }
 
         dataTable +=
-            CreateTableTd('MkzCode', 0, 0, data) +
-            CreateTableTd('MkzName', 0, 0, data) +
-            CreateTableTd('OprCode', 0, 0, data) +
-            CreateTableTd('OprName', 0, 0, data) +
-            CreateTableTd('ArzCode', 0, 0, data) +
-            CreateTableTd('ArzName', 0, 0, data) +
-            CreateTableTd('ArzRate', 0, 0, data) +
+            //CreateTableTd('MkzCode', 0, 0, data) +
+            //CreateTableTd('MkzName', 0, 0, data) +
+            //CreateTableTd('OprCode', 0, 0, data) +
+            //CreateTableTd('OprName', 0, 0, data) +
+           // CreateTableTd('ArzCode', 0, 0, data) +
+           // CreateTableTd('ArzName', 0, 0, data) +
+           // CreateTableTd('ArzRate', 0, 0, data) +
             CreateTableTd('AGruCode', 0, 0, data) +
             CreateTableTd('AGruName', 0, 0, data) +
             CreateTableTd('AccF01', 0, 4, data) +
@@ -2008,13 +2009,14 @@
                 CreateTableTdSearch('Eghdam', data)
         }
 
-        dataTable += CreateTableTdSearch('MkzCode', data) +
-            CreateTableTdSearch('MkzName', data) +
-            CreateTableTdSearch('OprCode', data) +
-            CreateTableTdSearch('OprName', data) +
-            CreateTableTdSearch('ArzCode', data) +
-            CreateTableTdSearch('ArzName', data) +
-            CreateTableTdSearch('ArzRate', data) +
+        dataTable +=
+            //CreateTableTdSearch('MkzCode', data) +
+            //CreateTableTdSearch('MkzName', data) +
+            //CreateTableTdSearch('OprCode', data) +
+            //CreateTableTdSearch('OprName', data) +
+            //CreateTableTdSearch('ArzCode', data) +
+            //CreateTableTdSearch('ArzName', data) +
+            //CreateTableTdSearch('ArzRate', data) +
             CreateTableTdSearch('AGruCode', data) +
             CreateTableTdSearch('AGruName', data) +
             CreateTableTdSearch('AccF01', data) +

@@ -2067,15 +2067,15 @@
             old_FinalComm = $("#finalComm").val();
             old_SpecialComm = item.SpecialComm;
 
-            $("#ExtraFields1").val(sessionStorage.F01);
-            $("#ExtraFields2").val(sessionStorage.F02);
-            $("#ExtraFields3").val(sessionStorage.F03);
-            $("#ExtraFields4").val(sessionStorage.F04);
-            $("#ExtraFields5").val(sessionStorage.F05);
-            $("#ExtraFields6").val(sessionStorage.F06);
-            $("#ExtraFields7").val(sessionStorage.F07);
-            $("#ExtraFields8").val(sessionStorage.F08);
-            $("#ExtraFields9").val(sessionStorage.F09);
+            $("#ExtraFields01").val(sessionStorage.F01);
+            $("#ExtraFields02").val(sessionStorage.F02);
+            $("#ExtraFields03").val(sessionStorage.F03);
+            $("#ExtraFields04").val(sessionStorage.F04);
+            $("#ExtraFields05").val(sessionStorage.F05);
+            $("#ExtraFields06").val(sessionStorage.F06);
+            $("#ExtraFields07").val(sessionStorage.F07);
+            $("#ExtraFields08").val(sessionStorage.F08);
+            $("#ExtraFields09").val(sessionStorage.F09);
             $("#ExtraFields10").val(sessionStorage.F10);
             $("#ExtraFields11").val(sessionStorage.F11);
             $("#ExtraFields12").val(sessionStorage.F12);
@@ -2088,15 +2088,15 @@
             $("#ExtraFields19").val(sessionStorage.F19);
             $("#ExtraFields20").val(sessionStorage.F20);
 
-            $("#ExtraFields1").val(item.F01);
-            $("#ExtraFields2").val(item.F02);
-            $("#ExtraFields3").val(item.F03);
-            $("#ExtraFields4").val(item.F04);
-            $("#ExtraFields5").val(item.F05);
-            $("#ExtraFields6").val(item.F06);
-            $("#ExtraFields7").val(item.F07);
-            $("#ExtraFields8").val(item.F08);
-            $("#ExtraFields9").val(item.F09);
+            $("#ExtraFields01").val(item.F01);
+            $("#ExtraFields02").val(item.F02);
+            $("#ExtraFields03").val(item.F03);
+            $("#ExtraFields04").val(item.F04);
+            $("#ExtraFields05").val(item.F05);
+            $("#ExtraFields06").val(item.F06);
+            $("#ExtraFields07").val(item.F07);
+            $("#ExtraFields08").val(item.F08);
+            $("#ExtraFields09").val(item.F09);
             $("#ExtraFields10").val(item.F10);
             $("#ExtraFields11").val(item.F11);
             $("#ExtraFields12").val(item.F12);
@@ -2472,15 +2472,15 @@
             flag_IsChange5 = (special != old_SpecialComm);
             flag_IsChange6 = ($("#docDesc").val() != old_DocDesc);
             flag_IsChange7 = ($("#finalComm").val() != old_FinalComm);
-            flag_IsChange8 = (($("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val()) != sessionStorage.F01);
-            flag_IsChange9 = (($("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val()) != sessionStorage.F02);
-            flag_IsChange10 = (($("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val()) != sessionStorage.F03);
-            flag_IsChange11 = (($("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val()) != sessionStorage.F04);
-            flag_IsChange12 = (($("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val()) != sessionStorage.F05);
-            flag_IsChange13 = (($("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val()) != sessionStorage.F06);
-            flag_IsChange14 = (($("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val()) != sessionStorage.F07);
-            flag_IsChange15 = (($("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val()) != sessionStorage.F08);
-            flag_IsChange16 = (($("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val()) != sessionStorage.F09);
+            flag_IsChange8 = (($("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val()) != sessionStorage.F01);
+            flag_IsChange9 = (($("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val()) != sessionStorage.F02);
+            flag_IsChange10 = (($("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val()) != sessionStorage.F03);
+            flag_IsChange11 = (($("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val()) != sessionStorage.F04);
+            flag_IsChange12 = (($("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val()) != sessionStorage.F05);
+            flag_IsChange13 = (($("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val()) != sessionStorage.F06);
+            flag_IsChange14 = (($("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val()) != sessionStorage.F07);
+            flag_IsChange15 = (($("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val()) != sessionStorage.F08);
+            flag_IsChange16 = (($("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val()) != sessionStorage.F09);
             flag_IsChange17 = (($("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val()) != sessionStorage.F10);
             flag_IsChange18 = (($("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val()) != sessionStorage.F11);
             flag_IsChange19 = (($("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val()) != sessionStorage.F12);
@@ -2969,15 +2969,15 @@
             EghdamComm: $("#eghdamComm").val(),
             FinalComm: $("#finalComm").val(),
             SpecialComm: special,
-            F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-            F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-            F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-            F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-            F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-            F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-            F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-            F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-            F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+            F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val(),
+            F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val(),
+            F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val(),
+            F04: $("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val(),
+            F05: $("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val(),
+            F06: $("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val(),
+            F07: $("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val(),
+            F08: $("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val(),
+            F09: $("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val(),
             F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
             F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
             F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
@@ -3076,15 +3076,15 @@
                  EghdamComm: $("#eghdamComm").val(),
                  FinalComm: $("#finalComm").val(),
                  SpecialComm: $("#specialComm").val(),
-                 F01: $("#ExtraFields1").val() == null ? '' : $("#ExtraFields1").val(),
-                 F02: $("#ExtraFields2").val() == null ? '' : $("#ExtraFields2").val(),
-                 F03: $("#ExtraFields3").val() == null ? '' : $("#ExtraFields3").val(),
-                 F04: $("#ExtraFields4").val() == null ? '' : $("#ExtraFields4").val(),
-                 F05: $("#ExtraFields5").val() == null ? '' : $("#ExtraFields5").val(),
-                 F06: $("#ExtraFields6").val() == null ? '' : $("#ExtraFields6").val(),
-                 F07: $("#ExtraFields7").val() == null ? '' : $("#ExtraFields7").val(),
-                 F08: $("#ExtraFields8").val() == null ? '' : $("#ExtraFields8").val(),
-                 F09: $("#ExtraFields9").val() == null ? '' : $("#ExtraFields9").val(),
+                 F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val(),
+                 F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val(),
+                 F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val(),
+                 F04: $("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val(),
+                 F05: $("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val(),
+                 F06: $("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val(),
+                 F07: $("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val(),
+                 F08: $("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val(),
+                 F09: $("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val(),
                  F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val(),
                  F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val(),
                  F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val(),
