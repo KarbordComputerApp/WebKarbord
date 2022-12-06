@@ -2183,6 +2183,7 @@ var ViewModel = function () {
                                     visibleRows[ro].data.dataAcc = selectionChangedArgs.selectedRowsData[0];
                                     ADocB[ro].dataAcc = selectionChangedArgs.selectedRowsData[0];
 
+                                    //dataAcc = ADocB[ro].dataAcc;
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 0) {
                                         //visibleRows[ro].data.AccZCode = '';
@@ -2221,10 +2222,10 @@ var ViewModel = function () {
                                     }
 
                                     // $("#gridContainer").dxDataGrid("columnOption", "Amount", "allowEditing", true);
-                                    if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {
+                                    //if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {  به خاطر صورتی نشدن فیلد زیر حساب
                                         //visibleRows[ro].data.Amount = 0;
                                         dataGrid.cellValue(ro, "Amount", '0');
-                                    }
+                                    //}
 
 
 
@@ -2346,7 +2347,7 @@ var ViewModel = function () {
                                     const visibleRows = dataGrid.getVisibleRows();
                                     visibleRows[ro].data.dataAcc = selectionChangedArgs.selectedRowsData[0];
                                     ADocB[ro].dataAcc = selectionChangedArgs.selectedRowsData[0];
-
+                                    //dataAcc = ADocB[ro].dataAcc;
 
                                     if (newRec == false && visibleRows[ro].data.dataAcc.NextLevelFromZAcc == 0) {
                                         dataGrid.cellValue(ro, "AccZCode", '');
@@ -2370,9 +2371,9 @@ var ViewModel = function () {
                                         dataGrid.cellValue(ro, "ArzRate", '0');
                                     }
 
-                                    if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {
+                                    //if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {
                                         dataGrid.cellValue(ro, "Amount", '0');
-                                    }
+                                    //}
 
                                     if (visibleRows[ro].data.dataAcc.PDMode > 0) {
                                         getCheckList(visibleRows[ro].data.dataAcc.PDMode);
