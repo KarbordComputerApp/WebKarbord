@@ -1422,7 +1422,7 @@
 
 
         old_LevelReport = parseInt(localStorage.getItem("LevelReport"));
-        $("#Level").val(old_LevelReport + 1);
+        $("#Level").val(old_LevelReport == 5 ? 5 : old_LevelReport + 1);
 
         
         old_SathReport = parseInt(localStorage.getItem("SathReport"));
