@@ -2006,15 +2006,15 @@
             related = item.RelatedDocs.split('-');
             $('#m_RelatedDocs').empty();
             if (related[0] != "") {
-                item = '';
+                temp = '';
                 for (var i = 0; i < related.length; i++) {
-                    item += '<button type="button" class="related" id="' + related[i] +
+                    temp += '<button type="button" class="related" id="' + related[i] +
                         '" style="background-color: white !important;color: black !important;border: 1px solid #bdb8b8;/* padding-left: 10px; */padding-right: 10px;font-size: 10px;border-radius: 10px;height: 24px;margin-right: 10px;padding-top: 3px;width: 70px;">'
                         + related[i] +
                         '</button>'
                 }
 
-                $('#m_RelatedDocs').append(item);
+                $('#m_RelatedDocs').append(temp);
             }
 
             $("#eghdamComm").val(item.EghdamComm);
