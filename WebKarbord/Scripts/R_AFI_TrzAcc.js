@@ -1424,6 +1424,10 @@
         old_LevelReport = parseInt(localStorage.getItem("LevelReport"));
         $("#Level").val(old_LevelReport + 1);
 
+        
+        old_SathReport = parseInt(localStorage.getItem("SathReport"));
+        $("#SathTaraz").val(old_SathReport);
+
 
         azTarikh = localStorage.getItem("AzTarikhReport");
         self.AzDate(azTarikh);
