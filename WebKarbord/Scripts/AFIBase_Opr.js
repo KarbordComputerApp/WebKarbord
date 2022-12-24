@@ -108,7 +108,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Opr", columns, self.SettingColumnList());
-       // localStorage.setItem('listFilter', null);
+        // localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -129,7 +129,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Opr", columns, self.SettingColumnList());
-       // localStorage.setItem('listFilter', null);
+        // localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -173,23 +173,23 @@
 
         if (!filterCode && !filterName && !filterSpec && !filterActiveSt) {
             $("#CountRecord").text(self.OprList().length);
-           // localStorage.setItem('listFilter', null);
+            // localStorage.setItem('listFilter', null);
             return self.OprList();
         } else {
-           /* listFilter = [
-                filterCode,
-                filterName,
-                filterSpec,
-                filterActiveSt
-            ];
-
-            localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
+            /* listFilter = [
+                 filterCode,
+                 filterName,
+                 filterSpec,
+                 filterActiveSt
+             ];
+ 
+             localStorage.setItem('listFilter', JSON.stringify(listFilter));*/
             tempData = ko.utils.arrayFilter(self.OprList(), function (item) {
                 result =
                     (item.Code == null ? '' : item.Code.toString().search(filterCode) >= 0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filterName) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0)
-                    (item.ActiveSt == null ? '' : item.ActiveSt.toString().search(filterActiveSt) >= 0)
+                        (item.ActiveSt == null ? '' : item.ActiveSt.toString().search(filterActiveSt) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -597,9 +597,7 @@
         RemoveUseSanad(ace, sal, "Opr", OprCode);
     });
 
-    window.onbeforeunload = function () {
-        RemoveUseSanad(ace, sal, "Opr", OprCode);
-    };
+
 
     self.radif = function (index) {
         countShow = self.pageSizeOpr();
@@ -619,7 +617,7 @@
             CreateTableTh('Code', data) +
             CreateTableTh('Name', data) +
             CreateTableTh('Spec', data) +
-        CreateTableTh('ActiveSt', data) +
+            CreateTableTh('ActiveSt', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -629,7 +627,7 @@
             CreateTableTd('Code', 0, 0, data) +
             CreateTableTd('Name', 0, 0, data) +
             CreateTableTd('Spec', 0, 0, data) +
-        CreateTableTd('ActiveSt', 0, 0, data) +
+            CreateTableTd('ActiveSt', 0, 0, data) +
             '<td>' +
             '   <a id="UpdateOpr" data-bind="click: $root.UpdateOpr , attr: {title:text_Update}">' +
             '       <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />' +
@@ -646,7 +644,7 @@
             CreateTableTdSearch('Code', data) +
             CreateTableTdSearch('Name', data) +
             CreateTableTdSearch('Spec', data) +
-        CreateTableTdSearch('ActiveSt', data) +
+            CreateTableTdSearch('ActiveSt', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
@@ -748,6 +746,11 @@
     self.PageIndexOpr = function (item) {
         return CountPage(self.filterOprList(), self.pageSizeOpr(), item);
     };
+
+    window.onbeforeunload = function () {
+        RemoveUseSanad(ace, sal, "Opr", OprCode);
+    };
+
 };
 
 ko.applyBindings(new ViewModel());

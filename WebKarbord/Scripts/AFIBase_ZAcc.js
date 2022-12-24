@@ -102,7 +102,7 @@
 
     //Get  ZGru List
     function getZGruList() {
-        ajaxFunction(ZGruUri + ace + '/' + sal + '/' + group, 'GET',  true).done(function (data) {
+        ajaxFunction(ZGruUri + ace + '/' + sal + '/' + group, 'GET', true).done(function (data) {
             self.ZGruList(data);
         });
     }
@@ -115,7 +115,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/ZAcc", columns, self.SettingColumnList());
-       // localStorage.setItem('listFilter', null);
+        // localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -136,7 +136,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/ZAcc", columns, self.SettingColumnList());
-       // localStorage.setItem('listFilter', null);
+        // localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -175,8 +175,8 @@
 
         if (!filterCode && !filterName && !filterSpec) {
             //if (self.ZAccList() != null)
-                $("#CountRecord").text(self.ZAccList().length);
-           // localStorage.setItem('listFilter', null);
+            $("#CountRecord").text(self.ZAccList().length);
+            // localStorage.setItem('listFilter', null);
             return self.ZAccList();
         } else {
             tempData = ko.utils.arrayFilter(self.ZAccList(), function (item) {
@@ -381,9 +381,9 @@
             return showNotification(translate('کد زیر حساب را وارد کنید'), 0)
         }
 
-        /* if (name == "") {
-             return showNotification(translate('نام زیر حساب را وارد کنید'), 0)
-         }*/
+        if (name == "") {
+            return showNotification(translate('نام زیر حساب را وارد کنید'), 0)
+        }
 
         var TestZAcc_Object = {
             Code: code

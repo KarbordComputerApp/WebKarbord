@@ -397,7 +397,7 @@
         //var filterOprName = self.filterOprName();
         //var filterArzCode = self.filterArzCode();
         //var filterArzName = self.filterArzName();
-       // var filterArzRate = self.filterArzRate();
+        // var filterArzRate = self.filterArzRate();
 
         var filterAccF01 = self.filterAccF01();
         var filterAccF02 = self.filterAccF02();
@@ -492,7 +492,7 @@
                     //(item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
                     //(item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
                     //(item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                   // (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
+                    // (item.ArzCode == null ? '' : item.ArzCode.toString().search(filterArzCode) >= 0) &&
                     //(item.ArzName == null ? '' : item.ArzName.toString().search(filterArzName) >= 0) &&
                     //(item.ArzRate == null ? '' : item.ArzRate.toString().search(filterArzRate) >= 0) &&
 
@@ -591,11 +591,11 @@
     self.iconTypeSpec = ko.observable("");
     self.iconTypeEghdam = ko.observable("");
     //self.iconTypeMkzCode = ko.observable("");
-   // self.iconTypeMkzName = ko.observable("");
-   // self.iconTypeOprCode = ko.observable("");
-   // self.iconTypeOprName = ko.observable("");
-   // self.iconTypeArzCode = ko.observable("");
-   // self.iconTypeArzName = ko.observable("");
+    // self.iconTypeMkzName = ko.observable("");
+    // self.iconTypeOprCode = ko.observable("");
+    // self.iconTypeOprName = ko.observable("");
+    // self.iconTypeArzCode = ko.observable("");
+    // self.iconTypeArzName = ko.observable("");
     //self.iconTypeArzRate = ko.observable("");
     self.iconTypeAccF01 = ko.observable("");
     self.iconTypeAccF02 = ko.observable("");
@@ -662,11 +662,11 @@
 
         //self.iconTypeMkzCode('');
         //self.iconTypeMkzName('');
-       // self.iconTypeOprCode('');
+        // self.iconTypeOprCode('');
         //self.iconTypeOprName('');
-       // self.iconTypeArzCode('');
+        // self.iconTypeArzCode('');
         //self.iconTypeArzName('');
-       // self.iconTypeArzRate('');
+        // self.iconTypeArzRate('');
 
         self.iconTypeAccF01('');
         self.iconTypeAccF02('');
@@ -700,7 +700,7 @@
         //if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         //if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         //if (orderProp == 'ArzCode') self.iconTypeArzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-       // if (orderProp == 'ArzName') self.iconTypeArzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        // if (orderProp == 'ArzName') self.iconTypeArzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         //if (orderProp == 'ArzRate') self.iconTypeArzRate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
 
         if (orderProp == 'AccF01') self.iconTypeAccF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1538,9 +1538,9 @@
             return showNotification(translate('کد حساب را وارد کنید'), 0)
         }
 
-        /* if (name == "") {
-             return showNotification(translate('نام حساب را وارد کنید'), 0)
-         }*/
+        if (name == "") {
+            return showNotification(translate('نام حساب را وارد کنید'), 0)
+        }
 
 
         zgrucode = '';
@@ -1962,9 +1962,9 @@
             //CreateTableTd('MkzName', 0, 0, data) +
             //CreateTableTd('OprCode', 0, 0, data) +
             //CreateTableTd('OprName', 0, 0, data) +
-           // CreateTableTd('ArzCode', 0, 0, data) +
-           // CreateTableTd('ArzName', 0, 0, data) +
-           // CreateTableTd('ArzRate', 0, 0, data) +
+            // CreateTableTd('ArzCode', 0, 0, data) +
+            // CreateTableTd('ArzName', 0, 0, data) +
+            // CreateTableTd('ArzRate', 0, 0, data) +
             CreateTableTd('AGruCode', 0, 0, data) +
             CreateTableTd('AGruName', 0, 0, data) +
             CreateTableTd('AccF01', 0, 4, data) +

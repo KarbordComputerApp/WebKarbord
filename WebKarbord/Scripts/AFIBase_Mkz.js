@@ -18,9 +18,9 @@
     Prog = localStorage.getItem('ProgAccess');
 
     if (Prog.includes('Acc5'))
-        Prog = 'Acc5';  
+        Prog = 'Acc5';
     else if (Prog.includes('Fct5'))
-        Prog = 'Fct5'; 
+        Prog = 'Fct5';
     else if (Prog.includes('Inv5'))
         Prog = 'Inv5';
     else
@@ -109,7 +109,7 @@
 
     $('#SaveColumns').click(function () {
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Mkz", columns, self.SettingColumnList());
-       // localStorage.setItem('listFilter', null);
+        // localStorage.setItem('listFilter', null);
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -130,7 +130,7 @@
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
         SaveColumn(ace, sal, group, rprtId, "/AFIBase/Mkz", columns, self.SettingColumnList());
-       // localStorage.setItem('listFilter', null);
+        // localStorage.setItem('listFilter', null);
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -157,13 +157,13 @@
     self.filterActiveSt = ko.observable("");
 
 
-   /* listFilter = JSON.parse(localStorage.getItem('listFilter'));
-    if (listFilter != null) {
-        self.filterCode(listFilter[0]);
-        self.filterName(listFilter[1]);
-        self.filterSpec(listFilter[2]);
-        self.filterActiveSt(listFilter[3]);
-    }*/
+    /* listFilter = JSON.parse(localStorage.getItem('listFilter'));
+     if (listFilter != null) {
+         self.filterCode(listFilter[0]);
+         self.filterName(listFilter[1]);
+         self.filterSpec(listFilter[2]);
+         self.filterActiveSt(listFilter[3]);
+     }*/
     self.filterMkzList = ko.computed(function () {
         self.currentPageIndexMkz(0);
         var filterCode = self.filterCode();
@@ -173,8 +173,8 @@
 
         if (!filterCode && !filterName && !filterSpec && !filterActiveSt) {
             //if (self.MkzList() != null)
-                $("#CountRecord").text(self.MkzList().length);
-           // localStorage.setItem('listFilter', null);
+            $("#CountRecord").text(self.MkzList().length);
+            // localStorage.setItem('listFilter', null);
             return self.MkzList();
         } else {
             /*listFilter = [
@@ -387,9 +387,9 @@
             return showNotification(translate('کد مرکزهزینه را وارد کنید'), 0)
         }
 
-        /* if (name == "") {
-             return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
-         }*/
+        if (name == "") {
+            return showNotification(translate('نام مرکزهزینه را وارد کنید'), 0)
+        }
 
         var TestMkz_Object = {
             Code: code

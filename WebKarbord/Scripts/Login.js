@@ -623,7 +623,7 @@ input.addEventListener("change", function () {
         // self.LoginUser();
     }
 
-    function getIP(data) {
+    function getIP() {
         ajaxFunctionAccount('http://ip-api.com/json/', 'GET').done(function (data) {
             //a = sessionStorage.MacAddress;
             //b = sessionStorage.IP4Address;

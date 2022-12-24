@@ -22062,3 +22062,14 @@ html.ie11 .bs-searchbox .form-control {
 }
 
 
+.card_dashbord {
+    height: inherit;
+    background: #fff;
+    min-height: 50px;
+    box-shadow: none;
+    border: 0;
+    position: relative;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    box-shadow: 5px 5px 20px 1px #4048524f;
+}
