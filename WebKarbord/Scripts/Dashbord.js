@@ -1,8 +1,10 @@
 ﻿var gridster = null;
 
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
+var date_TarazFasli = localStorage.getItem("date_TarazFasli");
 
 dayCheckPardakht = dayCheckPardakht == null ? 3 : dayCheckPardakht;
+date_TarazFasli = date_TarazFasli == null ? localStorage.getItem("BeginDateFct") : date_TarazFasli;
 
 gridster = $(".gridster ul").gridster({
     widget_base_dimensions: ['auto', 100],
@@ -199,7 +201,102 @@ var ViewModel = function () {
         $('#modal-SD_TChk').modal('hide');
         getTChk();
     })
+
+
+
+
+
+    var TrazFasliUri = server + '/api/ReportFct/TrazFasli/'; // آدرس گزارش 
+
+    var trazFasli_labels = [];
+    var trazFasli_data = [];
+
+    function getTrazFasli() {
+        var TrazFasliObject = {
+            azTarikh: date_TarazFasli,
+            taTarikh: LowDay(0) ,
+            mode: "1",
+        };
+        ajaxFunction(TrazFasliUri + ace + '/' + sal + '/' + group, 'POST', TrazFasliObject, false).done(function (response) {
+            trazFasli_labels = []
+            trazFasli_data = []
+            sum = 0;
+            for (var i = 0; i < response.length; i++) {
+                trazFasli_labels[i] = response[i].DocDate;
+                trazFasli_data[i] = response[i].TotalValue;
+                sum += response[i].TotalValue
+            }
+            $("#Sum_D_TarazFasli").text(NumberToNumberString(sum) + ' ریال');
+            $("#Title_D_TarazFasli").text(date_TarazFasli + ' - ' + LowDay(0));
+
+        });
+    }
+
+    getTrazFasli();
+
+    $('#btnTarazFasli_Date').click(function () {
+        $('#SD_TarazFasli_Date').change();
+    });
+
+    $('#modal-SD_TarazFasli').on('show.bs.modal', function () {
+        $('#SD_TarazFasli_Date').val(date_TarazFasli);
+    })
+
+    $('#SD_TarazFasli_Save').click(function () {
+        date = $('#SD_TarazFasli_Date').val();
+
+        localStorage.setItem("date_TarazFasli", date);
+        date_TarazFasli = date;
+        $('#modal-SD_TarazFasli').modal('hide');
+        getTrazFasli();
+    })
+
+
+    new Chart("myChart", {
+        type: 'bar',
+        data: {
+            labels: trazFasli_labels,
+            datasets: [{
+                label: 'فروش',
+                data: trazFasli_data,
+                //backgroundColor: ['rgb(255, 99, 132)', 'rgb(0, 255, 0)', 'rgb(255, 99, 132)', 'rgb(128, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 255, 0)', 'rgb(255, 255, 128)'],
+                //borderColor: 'rgb(255, 99, 132)',
+                borderColor: '#36A2EB',
+                backgroundColor: '#9BD0F5',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            animation: false,
+            //legend: { display: false },
+            //maintainAspectRatio: false,
+            responsive: true,
+            responsiveAnimationDuration: 0,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            value = (value / 1000000).toFixed(0);
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                    }
+                }
+            }
+        }
+    });
+
+
+
 };
+
 
 ko.applyBindings(new ViewModel());
 
@@ -254,3 +351,6 @@ var widgets = [
 $.each(widgets, function (i, widget) {
     gridster.add_widget.apply(gridster, widget)
 });*/
+
+
+

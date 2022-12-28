@@ -8,9 +8,9 @@
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-        <div class="card">
+        <div class="card" style="margin-bottom: 0px;margin-top: 0px;">
             <div class="header center">
-                <h4><span id="userNameHome"></span><span data-bind="text:translate('خوش آمدید')"></span></h4>
+                <h4><span id="userNameHome"></span></h4>
 
             </div>
             <!--  <div class="body center">
@@ -34,8 +34,6 @@
                                     <h4 class="modal-title" data-bind="text:translate('چک های پرداختی')"></h4>
                                     <div>
                                         <a id="SD_TChk" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TChk">
-
-
                                             <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20">
                                         </a>
                                         <a id="RD_TChk">
@@ -69,9 +67,9 @@
                                                     <h6 data-bind="text:TrafName" style="padding-right:5px"></h6>
                                                 </div>
                                             </td>
-                                            <td style="width:0px;padding-left:15px" >
+                                            <td style="width:0px;padding-left:15px">
                                                 <h5 data-bind="text:NumberToNumberString(Value)" style="text-align:center"></h5>
-                                                <div data-bind="text:CheckDate" style=" border: 1px solid #1c84c6;border-radius: 4px;color: #1c84c6;padding: 2px 0; width: 80px; text-align: center; margin-top: 0.25rem;"></div>
+                                                <div data-bind="text:CheckDate" style=" border: 1px solid red;border-radius: 4px;color: red;padding: 2px 0; width: 80px; text-align: center; margin-top: 0.25rem;"></div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -86,21 +84,33 @@
 
                         </div>
 
-
-
                     </li>
                     <li id="D_Box1" data-col="2" data-row="1" data-sizex="2" data-sizey="4">
                         <div class="card_dashbord">
                             <handle class="modal-header form-inline focused" style="cursor: grabbing;">
-                                <h4 class="modal-title" data-bind="text:translate('بدون عنوان')"></h4>
+                                <h4 class="modal-title" data-bind="text:translate('نمودار فروش')"></h4>
                                 <div>
-                                    <a id="SD_TChk">
+                                    <a id="SD_TarazFasli" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TarazFasli">
                                         <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20">
+                                    </a>
+                                    <a id="RD_TarazFasli">
+                                        <img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20">
                                     </a>
                                 </div>
                             </handle>
+                            <div style="padding:10px">
+                                <h4 id="Sum_D_TarazFasli" style="padding-right:5px">0</h4>
+                                <h6 id="Title_D_TarazFasli" style="padding-right:5px;padding-top:15px;color:#dcdcdc">0</h6>
+                            </div>
+
+                            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+
                         </div>
                     </li>
+
+
+
                     <li id="D_Box2" data-col="1" data-row="1" data-sizex="2" data-sizey="4">
                         <div class="card_dashbord">
                             <handle class="modal-header form-inline focused" style="cursor: grabbing;">
@@ -127,44 +137,105 @@
 
 
 
-    <div class="modal fade" id="modal-SD_TChk" tabindex="-1" role="dialog" ria-labelledby="formModal" >
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" data-bind="text:translate('تنظیمات چک های پرداختی')"></h4>
-                    <a id=""></a>
-                </div>
-                <div class="modal-body">
-                    
-                    <div class="col-sm" style="padding-top:20px">
-                        <div class="form-group form-float">
-                            <div class="form-line focused date fix">
-                                <input type="text" id="SD_TChk_Day" class="form-control">
-                                <label class="form-label active" data-bind="text:translate('روز مانده به تاریخ چک')"></label>
-                            </div>
-                        </div>
-                    </div>
+<div class="modal fade" id="modal-SD_TChk" tabindex="-1" role="dialog" ria-labelledby="formModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('تنظیمات چک های پرداختی')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
 
-                </div>
-                <div style="padding: 0px; margin: 10px;">
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <button data-bind="text:translate('ذخیره')" type="button" id="SD_TChk_Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
-                            </div>
+                <div class="col-sm" style="padding-top:20px">
+                    <div class="form-group form-float">
+                        <div class="form-line focused date fix">
+                            <input type="text" id="SD_TChk_Day" class="form-control">
+                            <label class="form-label active" data-bind="text:translate('روز مانده به تاریخ چک')"></label>
                         </div>
                     </div>
+                </div>
+
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ذخیره')" type="button" id="SD_TChk_Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="modal-SD_TarazFasli" tabindex="-1" role="dialog" ria-labelledby="formModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('تنظیمات تراز فصلی')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-sm" style="padding-top:20px">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="input-group-btn">
+                                <a id="btnTarazFasli_Date" data-mdpersiandatetimepicker="" data-original-title="" title="">
+                                    <img src="/Content/img/list/calendar.png" data-bind="attr: {title:text_Date}" class="icon" height="20" width="20" title="انتخاب تاریخ">
+                                </a>
+                            </span>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line date focused fix">
+                                <input id="SD_TarazFasli_Date" class="form-control date" type="text" maxlength="10">
+                                <label class="form-label active" data-bind="text:translate('از تاریخ')">از تاریخ</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ذخیره')" type="button" id="SD_TarazFasli_Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
-    @section scripts{
-        <script src="~/Scripts/Dashbord.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
-        <script src="~/Scripts/HomeIndex.js"></script>
-    }
+@section scripts{
+    <script type="text/javascript">
+
+        $('#btnTarazFasli_Date').MdPersianDateTimePicker({
+            targetTextSelector: '#SD_TarazFasli_Date',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
+        });
+    </script>
+    <script src="~/Content/js/Chart.js"></script>
+    <script src="~/Scripts/Dashbord.js?dt=@(WebKarbord.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
+    <script src="~/Scripts/HomeIndex.js"></script>
+}
 
