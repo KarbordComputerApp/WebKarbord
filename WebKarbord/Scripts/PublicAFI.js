@@ -1035,7 +1035,7 @@ getDateServer();
 
 $('#userNameFa').text(sessionStorage.userNameFa);
 $('#userNameHome').text(
-    sessionStorage.CoName + ' - ' + (sal == "0" ? "" : sal)
+    sessionStorage.CoName + ' - سال ' + (sal == "0" ? "" : sal)
 );
 
 $('#coName_TitleMenu').val(sessionStorage.CoName);

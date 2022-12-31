@@ -1,10 +1,15 @@
 ﻿var gridster = null;
 
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
+var dayCheckPardakht_Sum = localStorage.getItem("dayCheckPardakht_Sum");
+
 var date_TarazFasli = localStorage.getItem("date_TarazFasli");
+var mode_TarazFasli = localStorage.getItem("mode_TarazFasli");
 
 dayCheckPardakht = dayCheckPardakht == null ? 3 : dayCheckPardakht;
+dayCheckPardakht_Sum = dayCheckPardakht_Sum == null ? 3 : dayCheckPardakht_Sum;
 date_TarazFasli = date_TarazFasli == null ? localStorage.getItem("BeginDateFct") : date_TarazFasli;
+mode_TarazFasli = mode_TarazFasli == null ? 0 : mode_TarazFasli;
 
 gridster = $(".gridster ul").gridster({
     widget_base_dimensions: ['auto', 100],
@@ -206,6 +211,94 @@ var ViewModel = function () {
 
 
 
+
+
+
+
+
+
+
+
+    var TChk_SumUri = server + '/api/ReportAcc/TChk_Sum/'; // آدرس گزارش 
+
+    self.TChk_SumList = ko.observableArray([]); // لیست گزارش 
+
+    function getTChk_Sum() {
+        var TChk_SumObject = {
+            azTarikh: LowDay(dayCheckPardakht_Sum),
+            taTarikh: "",
+        };
+        ajaxFunction(TChk_SumUri + ace + '/' + sal + '/' + group, 'POST', TChk_SumObject, true).done(function (response) {
+            self.TChk_SumList(response);
+            sum = 0;
+            for (var i = 0; i < response.length; i++) {
+                sum += response[i].Value
+            }
+            $("#Sum_D_TChk_Sum").text(NumberToNumberString(sum));
+        });
+    }
+
+    getTChk_Sum();
+
+    $('#RD_TChk_Sum').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست صورت خلاصه چک های پرداختی به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getTChk_Sum();
+            }
+        })
+    })
+
+
+    $('#modal-SD_TChk_Sum').on('show.bs.modal', function () {
+        $('#SD_TChk_Sum_Day').val(dayCheckPardakht_Sum);
+    })
+
+    $('#SD_TChk_Sum_Save').click(function () {
+        day = $('#SD_TChk_Sum_Day').val();
+
+
+        if (day == '') {
+            day = 1;
+        }
+        day = parseInt(day);
+
+        if (day < 1) {
+            day = 1;
+        }
+        if (day > 10000000) {
+            day = 10000000;
+        }
+
+        localStorage.setItem("dayCheckPardakht_Sum", day);
+        dayCheckPardakht_Sum = day;
+        $('#modal-SD_TChk_Sum').modal('hide');
+        getTChk_Sum();
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var TrazFasliUri = server + '/api/ReportFct/TrazFasli/'; // آدرس گزارش 
 
     var trazFasli_labels = [];
@@ -214,8 +307,8 @@ var ViewModel = function () {
     function getTrazFasli() {
         var TrazFasliObject = {
             azTarikh: date_TarazFasli,
-            taTarikh: LowDay(0) ,
-            mode: "1",
+            taTarikh: LowDay(0),
+            mode: mode_TarazFasli,
         };
         ajaxFunction(TrazFasliUri + ace + '/' + sal + '/' + group, 'POST', TrazFasliObject, false).done(function (response) {
             trazFasli_labels = []
@@ -240,15 +333,41 @@ var ViewModel = function () {
 
     $('#modal-SD_TarazFasli').on('show.bs.modal', function () {
         $('#SD_TarazFasli_Date').val(date_TarazFasli);
+        $('#TarazFasli_Mode').val(mode_TarazFasli);
     })
 
     $('#SD_TarazFasli_Save').click(function () {
         date = $('#SD_TarazFasli_Date').val();
+        mode = $('#TarazFasli_Mode').val();
+
+        localStorage.setItem("mode_TarazFasli", mode);
+        mode_TarazFasli = mode;
 
         localStorage.setItem("date_TarazFasli", date);
         date_TarazFasli = date;
+
+
         $('#modal-SD_TarazFasli').modal('hide');
         getTrazFasli();
+    })
+
+
+    $('#RD_TarazFasli').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("نمودار فروش به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getTrazFasli();
+            }
+        })
     })
 
 
