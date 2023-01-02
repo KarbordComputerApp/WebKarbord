@@ -1,4 +1,5 @@
 ﻿var gridster = null;
+var barColors = ["red", "green", "blue", "orange", "brown","red", "green", "blue", "orange", "brown","red", "green", "blue", "orange", "brown"];
 
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
 var dayCheckPardakht_Sum = localStorage.getItem("dayCheckPardakht_Sum");
@@ -6,10 +7,29 @@ var dayCheckPardakht_Sum = localStorage.getItem("dayCheckPardakht_Sum");
 var date_TarazFasli = localStorage.getItem("date_TarazFasli");
 var mode_TarazFasli = localStorage.getItem("mode_TarazFasli");
 
+var date_TrzFCust_S = localStorage.getItem("date_TrzFCust_S");
+var date_TrzFCust_P = localStorage.getItem("date_TrzFCust_P");
+
+var top_TrzFCust_S = localStorage.getItem("top_TrzFCust_S");
+var top_TrzFCust_P = localStorage.getItem("top_TrzFCust_P");
+
+var top_TrzFKala_S = localStorage.getItem("top_TrzFKala_S");
+var mode_TrzFKala_S = localStorage.getItem("mode_TrzFKala_S");
+
 dayCheckPardakht = dayCheckPardakht == null ? 3 : dayCheckPardakht;
 dayCheckPardakht_Sum = dayCheckPardakht_Sum == null ? 3 : dayCheckPardakht_Sum;
 date_TarazFasli = date_TarazFasli == null ? localStorage.getItem("BeginDateFct") : date_TarazFasli;
 mode_TarazFasli = mode_TarazFasli == null ? 0 : mode_TarazFasli;
+
+date_TrzFCust_S = date_TrzFCust_S == null ? localStorage.getItem("BeginDateFct") : date_TrzFCust_S;
+date_TrzFCust_P = date_TrzFCust_P == null ? localStorage.getItem("BeginDateFct") : date_TrzFCust_P;
+
+top_TrzFCust_S = top_TrzFCust_S == null ? 10 : top_TrzFCust_S;
+top_TrzFCust_P = top_TrzFCust_P == null ? 10 : top_TrzFCust_P;
+
+top_TrzFKala_S = top_TrzFKala_S == null ? 10 : top_TrzFKala_S;
+mode_TrzFKala_S = mode_TrzFKala_S == null ? 0 : mode_TrzFKala_S;
+
 
 gridster = $(".gridster ul").gridster({
     widget_base_dimensions: ['auto', 100],
@@ -304,6 +324,7 @@ var ViewModel = function () {
     var trazFasli_labels = [];
     var trazFasli_data = [];
 
+
     function getTrazFasli() {
         var TrazFasliObject = {
             azTarikh: date_TarazFasli,
@@ -315,13 +336,52 @@ var ViewModel = function () {
             trazFasli_data = []
             sum = 0;
             for (var i = 0; i < response.length; i++) {
-                trazFasli_labels[i] = response[i].DocDate;
-                trazFasli_data[i] = response[i].TotalValue;
-                sum += response[i].TotalValue
+                trazFasli_labels[i] = response[i].docdate;
+                trazFasli_data[i] = response[i].FinalPrice;
+                sum += response[i].FinalPrice
             }
             $("#Sum_D_TarazFasli").text(NumberToNumberString(sum) + ' ریال');
             $("#Title_D_TarazFasli").text(date_TarazFasli + ' - ' + LowDay(0));
 
+
+            new Chart("trazFasli_Chart", {
+                type: 'bar',
+                data: {
+                    labels: trazFasli_labels,
+                    datasets: [{
+                        label: 'فروش',
+                        data: trazFasli_data,
+                        backgroundColor: barColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    animation: false,
+                    //legend: { display: false },
+                    //maintainAspectRatio: false,
+                    responsive: true,
+                    responsiveAnimationDuration: 0,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function (value, index, values) {
+                                    value = (value / 1000000).toFixed(0);
+                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                                }
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                            }
+                        }
+                    }
+                }
+            });
+            
         });
     }
 
@@ -336,8 +396,20 @@ var ViewModel = function () {
         $('#TarazFasli_Mode').val(mode_TarazFasli);
     })
 
+    if (mode_TarazFasli != '2') {
+        $('#PSD_TarazFasli_Date').hide();
+    }
+    
+    $('#TarazFasli_Mode').change(function () {
+        $('#PSD_TarazFasli_Date').hide();
+        val = $(this).val();
+        if (val == '2') {
+            $('#PSD_TarazFasli_Date').show();
+        }
+    })
+
     $('#SD_TarazFasli_Save').click(function () {
-        date = $('#SD_TarazFasli_Date').val();
+        date = $('#SD_TarazFasli_Date').val().toEnglishDigit();
         mode = $('#TarazFasli_Mode').val();
 
         localStorage.setItem("mode_TarazFasli", mode);
@@ -371,46 +443,346 @@ var ViewModel = function () {
     })
 
 
-    new Chart("myChart", {
-        type: 'bar',
-        data: {
-            labels: trazFasli_labels,
-            datasets: [{
-                label: 'فروش',
-                data: trazFasli_data,
-                //backgroundColor: ['rgb(255, 99, 132)', 'rgb(0, 255, 0)', 'rgb(255, 99, 132)', 'rgb(128, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 255, 0)', 'rgb(255, 255, 128)'],
-                //borderColor: 'rgb(255, 99, 132)',
-                borderColor: '#36A2EB',
-                backgroundColor: '#9BD0F5',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            animation: false,
-            //legend: { display: false },
-            //maintainAspectRatio: false,
-            responsive: true,
-            responsiveAnimationDuration: 0,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        callback: function (value, index, values) {
-                            value = (value / 1000000).toFixed(0);
-                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var TrzFCust_SUri = server + '/api/ReportFct/TrzFCust/'; // آدرس گزارش 
+
+    self.TrzFCust_SList = ko.observableArray([]); // لیست گزارش 
+
+    $('#btnTrzFCust_S_Date').click(function () {
+        $('#SD_TrzFCust_S_Date').change();
+    });
+
+
+    function getTrzFCust_S() {
+        var TrzFCust_SObject = {
+            ModeCode1: 'SFCT',
+            ModeCode2: 'SRFCT',
+            azTarikh: date_TrzFCust_S,
+            taTarikh: LowDay(0),
+            azShomarh: "",
+            taShomarh: "",
+            CustCode: "",
+            CGruCode: "",
+            MkzCode: "",
+            OprCode: "",
+            InvCode: "",
+            StatusCode: "موقت*تایید*تصویب",
+            ZeroValue: "0",
+            KGruCode: "",
+            KalaCode: "",
+            Top: top_TrzFCust_S,
+        };
+
+        ajaxFunction(TrzFCust_SUri + ace + '/' + sal + '/' + group, 'POST', TrzFCust_SObject, true).done(function (response) {
+            $("#Count_D_TrzFCust_S").text(response.length);
+            self.TrzFCust_SList(response);
+            sum = 0;
+            for (var i = 0; i < response.length; i++) {
+                sum += response[i].AccMon
+            }
+            $("#Sum_D_TrzFCust_S").text(NumberToNumberString(sum) + ' ریال');
+        });
+    }
+
+    getTrzFCust_S();
+
+    self.GetIconCustomer = function (code) {
+        return '/Content/img/profile.png'
+    }
+
+    $('#RD_TrzFCust_S').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست مانده حساب خریداران به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getTrzFCust_S();
+            }
+        })
+    })
+
+
+    $('#modal-SD_TrzFCust_S').on('show.bs.modal', function () {
+        $('#SD_TrzFCust_S_Date').val(date_TrzFCust_S);
+        $('#TrzFCust_S_Top').val(top_TrzFCust_S);
+    })
+
+    $('#SD_TrzFCust_S_Save').click(function () {
+        date_TrzFCust_S = $('#SD_TrzFCust_S_Date').val().toEnglishDigit();
+        localStorage.setItem("date_TrzFCust_S", date_TrzFCust_S);
+
+        top_TrzFCust_S = $('#TrzFCust_S_Top').val();
+        localStorage.setItem("top_TrzFCust_S", top_TrzFCust_S);
+
+
+        $('#modal-SD_TrzFCust_S').modal('hide');
+        getTrzFCust_S();
+    })
+
+
+
+
+
+
+
+
+    var TrzFCust_PUri = server + '/api/ReportFct/TrzFCust/'; // آدرس گزارش 
+
+    self.TrzFCust_PList = ko.observableArray([]); // لیست گزارش 
+
+    $('#btnTrzFCust_P_Date').click(function () {
+        $('#SD_TrzFCust_P_Date').change();
+    });
+
+
+    function getTrzFCust_P() {
+        var TrzFCust_PObject = {
+            ModeCode1: 'PFCT',
+            ModeCode2: 'PRFCT',
+            azTarikh: date_TrzFCust_P,
+            taTarikh: LowDay(0),
+            azShomarh: "",
+            taShomarh: "",
+            CustCode: "",
+            CGruCode: "",
+            MkzCode: "",
+            OprCode: "",
+            InvCode: "",
+            StatusCode: "موقت*تایید*تصویب",
+            ZeroValue: "0",
+            KGruCode: "",
+            KalaCode: "",
+            Top: top_TrzFCust_P,
+        };
+
+        ajaxFunction(TrzFCust_PUri + ace + '/' + sal + '/' + group, 'POST', TrzFCust_PObject, true).done(function (response) {
+            $("#Count_D_TrzFCust_P").text(response.length);
+            self.TrzFCust_PList(response);
+            sum = 0;
+            for (var i = 0; i < response.length; i++) {
+                sum += response[i].AccMon
+            }
+            $("#Sum_D_TrzFCust_P").text(NumberToNumberString(sum) + ' ریال');
+        });
+    }
+
+    getTrzFCust_P();
+
+    self.GetIconCustomer = function (code) {
+        return '/Content/img/profile.png'
+    }
+
+    $('#RD_TrzFCust_P').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست مانده حساب فروشندگان به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getTrzFCust_P();
+            }
+        })
+    })
+
+
+    $('#modal-SD_TrzFCust_P').on('show.bs.modal', function () {
+        $('#SD_TrzFCust_P_Date').val(date_TrzFCust_P);
+        $('#TrzFCust_P_Top').val(top_TrzFCust_P);
+    })
+
+    $('#SD_TrzFCust_P_Save').click(function () {
+        date_TrzFCust_P = $('#SD_TrzFCust_P_Date').val().toEnglishDigit();
+        localStorage.setItem("date_TrzFCust_P", date_TrzFCust_P);
+
+        top_TrzFCust_P = $('#TrzFCust_P_Top').val();
+        localStorage.setItem("top_TrzFCust_P", top_TrzFCust_P);
+
+
+
+        $('#modal-SD_TrzFCust_P').modal('hide');
+        getTrzFCust_P();
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var TrzFKala_SUri = server + '/api/ReportFct/TrzFKala/';
+
+    var TrzFKala_S_labels = [];
+    var TrzFKala_S_data = [];
+
+
+    function getTrzFKala_S() {
+        var TrzFKala_SObject = {
+            ModeCode1: "SFCT",
+            ModeCode2: "SRFCT",
+            azTarikh: "",
+            taTarikh: LowDay(0),
+            azShomarh: "",
+            taShomarh: "",
+            CustCode: "",
+            CGruCode: "",
+            MkzCode: "",
+            OprCode: "",
+            InvCode: "",
+            StatusCode: "موقت*تایید*تصویب",
+            ZeroValue: "0",
+            KGruCode: "",
+            KalaCode: "",
+        };
+
+        ajaxFunction(TrzFKala_SUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_SObject, false).done(function (response) {
+            TrzFKala_S_labels = []
+            TrzFKala_S_data = []
+            sum = 0;
+            for (var i = 0; i < response.length; i++) {
+                TrzFKala_S_labels[i] = response[i].KalaCode + ' - ' + response[i].KalaName;
+                TrzFKala_S_data[i] = response[i].TotalPrice;
+                sum += response[i].TotalPrice
+            }
+            $("#Sum_D_TrzFKala_S").text(NumberToNumberString(sum) + ' ریال');
+            $("#Title_D_TrzFKala_S").text("" + ' - ' + LowDay(0));
+
+
+            new Chart("TrzFKala_S_Chart", {
+                type: 'pie',
+                data: {
+                    labels: TrzFKala_S_labels,
+                    datasets: [{
+                        label: 'فروش',
+                        data: TrzFKala_S_data,
+                        backgroundColor: barColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: ""
+                    },
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'left',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Chart.js Pie Chart'
                         }
                     }
-                }]
-            },
-            tooltips: {
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                },
+                /*options: {
+                    animation: false,
+                    //legend: { display: false },
+                    //maintainAspectRatio: false,
+                    responsive: true,
+                    responsiveAnimationDuration: 0,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function (value, index, values) {
+                                    value = (value / 1000000).toFixed(0);
+                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                                }
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                            }
+                        }
                     }
-                }
+                }*/
+            });
+
+        });
+    }
+
+    getTrzFKala_S();
+
+    $('#modal-SD_TrzFKala_S').on('show.bs.modal', function () {
+        $('#TrzFKala_S_Top').val(top_TrzFKala_S);
+        $('#TrzFKala_S_Mode').val(mode_TrzFKala_S);
+    })
+
+
+    $('#SD_TrzFKala_S_Save').click(function () {
+
+        mode_TrzFKala_S = $('#TrzFKala_S_Mode').val();
+        localStorage.setItem("mode_TrzFKala_S", mode_TrzFKala_S);
+
+        top_TrzFKala_S = $('#TrzFKala_S_Top').val();
+        localStorage.setItem("top_TrzFKala_S", top_TrzFKala_S);
+
+        $('#modal-SD_TrzFKala_S').modal('hide');
+        getTrzFKala_S();
+    })
+
+
+    $('#RD_TrzFKala_S').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("نمودار بیشترین فروش کالا به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getTrzFKala_S();
             }
-        }
-    });
+        })
+    })
+
+
 
 
 
@@ -418,58 +790,4 @@ var ViewModel = function () {
 
 
 ko.applyBindings(new ViewModel());
-
-/*
- * var gridster;
-
-
-gridster = $(".gridster").gridster({
-    widget_base_dimensions: [100, 55],
-    widget_base_dimensions: ['auto', 140],
-    autogenerate_stylesheet: true,
-    min_cols: 1,
-    max_cols: 4,
-    widget_margins: [5, 5],
-    resize: {
-        enabled: true
-    }
-}).data('gridster');
-var widgets = [
-    [
-        `<li style="background-color: red;">
-        
-                        <div class="gridster" style="background-color:blue">
-
-                    <div _ngcontent-c13="" class="h-100 dx-rtl">
-                        <app-profit-loss-widget _ngcontent-c13="" _nghost-c20="">
-                            <div _ngcontent-c20="" class="dashboard-widget d-flex flex-column">
-                                <span _ngcontent-c20="" class="dx-icon dx-icon-preferences">
-                                </span><div _ngcontent-c20="" class="d-flex justify-content-between align-items-center mb-2">
-                                    <h2 _ngcontent-c20="">سود یا زیان</h2><app-textual-date-range-selector _ngcontent-c20="" _nghost-c37="">
-                                        <dx-drop-down-button _ngcontent-c37="" stylingmode="text" class="dx-widget dx-rtl dx-dropdownbutton dx-dropdownbutton-has-arrow" tabindex="0">
-                                            <div role="group" class="dx-buttongroup dx-widget dx-rtl" tabindex="0" style="width: 100%; height: 100%;">
-                                                <div class="dx-buttongroup-wrapper dx-widget dx-rtl dx-collection"><div class="dx-item dx-buttongroup-item dx-item-content dx-buttongroup-item-content dx-buttongroup-first-item dx-buttongroup-last-item dx-shape-standard dx-button dx-button-normal dx-button-mode-text dx-widget dx-dropdownbutton-action dx-rtl dx-button-has-text dx-buttongroup-item-has-width" aria-label="کل سال مالی" role="button"><div class="dx-button-content"><span class="dx-button-text">کل سال مالی</span><i class="dx-icon dx-icon-spindown dx-icon-right"></i></div></div></div>
-
-                          </div>
-                                        </dx-drop-down-button>
-                                    </app-textual-date-range-selector>
-                                </div><div _ngcontent-c20="" class="d-flex flex-column h-100"><dx-scroll-view _ngcontent-c20="" class="h-100 dx-scrollable dx-scrollview dx-rtl dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-simulated"><div class="dx-scrollable-wrapper"><div class="dx-scrollable-container" tabindex="0"><div class="dx-scrollable-content" style="left: 0px; top: 0px; transform: none;"><div class="dx-scrollview-top-pocket"><div class="dx-scrollview-pull-down dx-state-invisible"><div class="dx-scrollview-pull-down-image"></div><div class="dx-scrollview-pull-down-indicator"><div class="dx-loadindicator dx-widget dx-rtl"><div class="dx-loadindicator-wrapper"><div class="dx-loadindicator-content"><div class="dx-loadindicator-icon"><div class="dx-loadindicator-segment dx-loadindicator-segment7"></div><div class="dx-loadindicator-segment dx-loadindicator-segment6"></div><div class="dx-loadindicator-segment dx-loadindicator-segment5"></div><div class="dx-loadindicator-segment dx-loadindicator-segment4"></div><div class="dx-loadindicator-segment dx-loadindicator-segment3"></div><div class="dx-loadindicator-segment dx-loadindicator-segment2"></div><div class="dx-loadindicator-segment dx-loadindicator-segment1"></div><div class="dx-loadindicator-segment dx-loadindicator-segment0"></div></div></div></div></div></div><div class="dx-scrollview-pull-down-text"><div class="dx-scrollview-pull-down-text-visible">برای بازیابی به پایین بکشید...</div><div>برای بازیابی رها کنید...</div><div>درحال بازیابی...</div></div></div></div><div class="dx-scrollview-content"><div _ngcontent-c20="" class="mb-4"><div _ngcontent-c20="" class="loss"> ‎ریال&nbsp;۱۵۸٬۶۲۲٬۷۳۳ </div><div _ngcontent-c20="" class="title1">زیان خالص (۱۳۹۷/۱۲/۲۹ - ۱۳۹۸/۱۲/۲۸)</div></div><div _ngcontent-c20="" class="mb-3"><div _ngcontent-c20="" class="mb-1"><div _ngcontent-c20="" class="title2">‎ریال&nbsp;۷۵۵٬۸۰۴٬۲۲۸</div><div _ngcontent-c20="" class="title1">فروش</div></div><app-horizontal-bar-chart _ngcontent-c20="" _nghost-c38=""><div _ngcontent-c38="" class="back" style="background: rgb(238, 238, 238); height: 30px;"><div _ngcontent-c38="" class="body" style="background: rgb(44, 160, 28); width: 100%; height: 30px;"></div></div></app-horizontal-bar-chart></div><div _ngcontent-c20="" class="mb-3"><div _ngcontent-c20="" class="mb-1"><div _ngcontent-c20="" class="title2">‎ریال&nbsp;۲۷۸٬۵۰۱٬۴۰۰</div><div _ngcontent-c20="" class="title1">خرید</div></div><app-horizontal-bar-chart _ngcontent-c20="" _nghost-c38=""><div _ngcontent-c38="" class="back" style="background: rgb(238, 238, 238); height: 30px;"><div _ngcontent-c38="" class="body" style="background: rgb(255, 128, 0); width: 37%; height: 30px;"></div></div></app-horizontal-bar-chart></div><div _ngcontent-c20="" class="mb-3"><div _ngcontent-c20="" class="mb-1"><div _ngcontent-c20="" class="title2">‎ریال&nbsp;۳۹٬۳۴۵٬۰۳۵</div><div _ngcontent-c20="" class="title1">درآمد ها</div></div><app-horizontal-bar-chart _ngcontent-c20="" _nghost-c38=""><div _ngcontent-c38="" class="back" style="background: rgb(238, 238, 238); height: 30px;"><div _ngcontent-c38="" class="body" style="background: rgb(124, 210, 0); width: 5%; height: 30px;"></div></div></app-horizontal-bar-chart></div><div _ngcontent-c20="" class="mb-3"><div _ngcontent-c20="" class="mb-1"><div _ngcontent-c20="" class="title2">‎ریال&nbsp;۶۷۵٬۲۷۰٬۵۹۶</div><div _ngcontent-c20="" class="title1">هزینه ها</div></div><app-horizontal-bar-chart _ngcontent-c20="" _nghost-c38=""><div _ngcontent-c38="" class="back" style="background: rgb(238, 238, 238); height: 30px;"><div _ngcontent-c38="" class="body" style="background: rgb(249, 87, 0); width: 89%; height: 30px;"></div></div></app-horizontal-bar-chart></div></div><div class="dx-scrollview-bottom-pocket"><div class="dx-scrollview-scrollbottom dx-state-invisible"><div class="dx-scrollview-scrollbottom-indicator"><div class="dx-loadindicator dx-widget dx-rtl"><div class="dx-loadindicator-wrapper"><div class="dx-loadindicator-content"><div class="dx-loadindicator-icon"><div class="dx-loadindicator-segment dx-loadindicator-segment7"></div><div class="dx-loadindicator-segment dx-loadindicator-segment6"></div><div class="dx-loadindicator-segment dx-loadindicator-segment5"></div><div class="dx-loadindicator-segment dx-loadindicator-segment4"></div><div class="dx-loadindicator-segment dx-loadindicator-segment3"></div><div class="dx-loadindicator-segment dx-loadindicator-segment2"></div><div class="dx-loadindicator-segment dx-loadindicator-segment1"></div><div class="dx-loadindicator-segment dx-loadindicator-segment0"></div></div></div></div></div></div><div class="dx-scrollview-scrollbottom-text">درحال بارگذاری...</div></div></div></div><div class="dx-scrollable-scrollbar dx-widget dx-rtl dx-scrollbar-vertical dx-scrollbar-hoverable" style="display: none;"><div class="dx-scrollable-scroll dx-state-invisible" style="height: 492px; transform: translate(0px, 0px);"><div class="dx-scrollable-scroll-content"></div></div></div></div></div><div class="dx-scrollview-loadpanel dx-overlay dx-widget dx-state-invisible dx-visibility-change-handler dx-loadpanel"><div class="dx-overlay-content dx-rtl" aria-hidden="true" style="width: 222px; height: 90px;"></div></div></dx-scroll-view></div>
-                            </div>
-                        </app-profit-loss-widget><div _ngcontent-c13="" class="dashboard-widget-move-handle">
-                            <svg _ngcontent-c13="" fill="currentColor" viewBox="0 0 24 24" width="16px"><path _ngcontent-c13="" d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path><path _ngcontent-c13="" d="M0 0h24v24H0z" fill="none"></path></svg>
-                        </div>
-                    </div>
-
-                </div>
-        
-        </li >`
-        ,1, 1],
-    //['<li style="background-color: red;">1</li>', 1, 2],
-];
-
-$.each(widgets, function (i, widget) {
-    gridster.add_widget.apply(gridster, widget)
-});*/
-
-
 

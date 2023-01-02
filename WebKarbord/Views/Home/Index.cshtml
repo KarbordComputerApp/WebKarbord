@@ -112,9 +112,7 @@
                                 <h6 id="Title_D_TarazFasli" style="padding-right:5px;padding-top:15px;color:#dcdcdc">0</h6>
                             </div>
 
-                            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-
-
+                            <canvas id="trazFasli_Chart" style="width:100%;max-width:700px"></canvas>
                         </div>
                     </li>
 
@@ -160,6 +158,126 @@
                             </div>
                         </div>
                     </li>
+
+
+
+                    <li id="D_TrzFCust_S" data-col="1" data-row="1" data-sizex="2" data-sizey="4">
+                        <div class="card_dashbord">
+                            <div style="overflow:auto;border: 1px #ddd solid; height:100%">
+                                <handle class="modal-header form-inline focused" style="cursor: grabbing;top: 0px !important;position: sticky; background-color:white">
+                                    <h4 class="modal-title" data-bind="text:translate('مانده حساب خریداران')"></h4>
+                                    <div>
+                                        <a id="SD_TrzFCust_S" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TrzFCust_S">
+                                            <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20">
+                                        </a>
+                                        <a id="RD_TrzFCust_S">
+                                            <img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20">
+                                        </a>
+                                    </div>
+                                </handle>
+                                <div class="form-inline" style="padding:10px">
+
+                                    <div class="form-inline" style="margin-left:auto">
+                                        <h4>مجموع : </h4>
+                                        <h4 id="Sum_D_TrzFCust_S" style="padding-right:5px">51,330,227</h4>
+                                    </div>
+
+                                    <div class="form-inline" style="margin-right:auto">
+                                        <h4>تعداد : </h4>
+                                        <h4 id="Count_D_TrzFCust_S" style="padding-right:5px">4</h4>
+                                    </div>
+                                </div>
+
+                                <table class="table table-addmin">
+                                    <tbody data-bind="foreach: TrzFCust_SList">
+                                        <tr>
+                                            <td style="width:0px">
+                                                <img data-bind="attr:{src: $root.GetIconCustomer(CustCode)}" src="" style="padding-left:10px" width="70" />
+                                            </td>
+                                            <td>
+                                                <h5 data-bind="text: CustCode + ' - ' + CustName"></h5>
+                                            </td>
+                                            <td style="width:0px;padding-left:15px">
+                                                <h5 data-bind="text:NumberToNumberString(AccMon)" style="text-align:center"></h5>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="D_TrzFCust_P" data-col="1" data-row="1" data-sizex="2" data-sizey="4">
+                        <div class="card_dashbord">
+                            <div style="overflow:auto;border: 1px #ddd solid; height:100%">
+                                <handle class="modal-header form-inline focused" style="cursor: grabbing;top: 0px !important;position: sticky; background-color:white">
+                                    <h4 class="modal-title" data-bind="text:translate('مانده حساب فروشندگان')"></h4>
+                                    <div>
+                                        <a id="SD_TrzFCust_P" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TrzFCust_P">
+                                            <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20">
+                                        </a>
+                                        <a id="RD_TrzFCust_P">
+                                            <img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20">
+                                        </a>
+                                    </div>
+                                </handle>
+                                <div class="form-inline" style="padding:10px">
+
+                                    <div class="form-inline" style="margin-left:auto">
+                                        <h4>مجموع : </h4>
+                                        <h4 id="Sum_D_TrzFCust_P" style="padding-right:5px">51,330,227</h4>
+                                    </div>
+
+                                    <div class="form-inline" style="margin-right:auto">
+                                        <h4>تعداد : </h4>
+                                        <h4 id="Count_D_TrzFCust_P" style="padding-right:5px">4</h4>
+                                    </div>
+                                </div>
+
+                                <table class="table table-addmin">
+                                    <tbody data-bind="foreach: TrzFCust_PList">
+                                        <tr>
+                                            <td style="width:0px">
+                                                <img data-bind="attr:{src: $root.GetIconCustomer(CustCode)}" src="" style="padding-left:10px" width="70" />
+                                            </td>
+                                            <td>
+                                                <h5 data-bind="text: CustCode + ' - ' + CustName"></h5>
+                                            </td>
+                                            <td style="width:0px;padding-left:15px">
+                                                <h5 data-bind="text:NumberToNumberString(AccMon)" style="text-align:center"></h5>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li id="D_TrzFKala_S" data-col="2" data-row="1" data-sizex="2" data-sizey="4">
+                        <div class="card_dashbord">
+                            <handle class="modal-header form-inline focused" style="cursor: grabbing;">
+                                <h4 class="modal-title" data-bind="text:translate('بیشترین فروش کالا')"></h4>
+                                <div>
+                                    <a id="SD_TrzFKala_S" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TrzFKala_S">
+                                        <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20">
+                                    </a>
+                                    <a id="RD_TrzFKala_S">
+                                        <img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20">
+                                    </a>
+                                </div>
+                            </handle>
+                            <div style="padding:10px">
+                                <h4 id="Sum_D_TrzFKala_S" style="padding-right:5px">0</h4>
+                            </div>
+
+                            <canvas id="TrzFKala_S_Chart" style="width:100%;max-width:700px"></canvas>
+                        </div>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
@@ -255,13 +373,13 @@
 
                 <div class="row" style="padding-top:20px">
 
-                    <select id="TarazFasli_Mode" class="col-6">
+                    <select id="TarazFasli_Mode" class="col-6" style="margin-bottom:2rem">
                         <option value="0" selected>فصلی</option>
                         <option value="1">ماهانه</option>
                         <option value="2">روزانه</option>
                     </select>
 
-                    <div class="input-group col-6" style="padding-right:25px">
+                    <div id="PSD_TarazFasli_Date" class="input-group col-6" style="padding-right:25px">
                         <div class="input-group-addon">
                             <span class="input-group-btn">
                                 <a id="btnTarazFasli_Date" data-mdpersiandatetimepicker="" data-original-title="" title="">
@@ -296,11 +414,195 @@
 
 
 
+<div class="modal fade" id="modal-SD_TrzFCust_S" tabindex="-1" role="dialog" ria-labelledby="formModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('تنظیمات مانده حساب خریداران')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" style="padding-top:20px">
+                    <div class="col-6">
+                        <div class="form-group form-float">
+                            <div class="form-line date fix">
+                                <input id="TrzFCust_S_Top" class="form-control date" type="text" maxlength="10">
+                                <label class="form-label" data-bind="text:translate('تعداد رکورد')"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group col-6" style="padding-right:25px">
+                        <div class="input-group-addon">
+                            <span class="input-group-btn">
+                                <a id="btnTrzFCust_S_Date" data-mdpersiandatetimepicker="" data-original-title="" title="">
+                                    <img src="/Content/img/list/calendar.png" data-bind="attr: {title:text_Date}" class="icon" height="20" width="20" title="انتخاب تاریخ">
+                                </a>
+                            </span>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line date focused fix">
+                                <input id="SD_TrzFCust_S_Date" class="form-control date" type="text" maxlength="10">
+                                <label class="form-label active" data-bind="text:translate('از تاریخ')">از تاریخ</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ذخیره')" type="button" id="SD_TrzFCust_S_Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-SD_TrzFCust_P" tabindex="-1" role="dialog" ria-labelledby="formModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('تنظیمات مانده حساب فروشندگان')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" style="padding-top:20px">
+                    <div class="col-6">
+                        <div class="form-group form-float">
+                            <div class="form-line date fix">
+                                <input id="TrzFCust_P_Top" class="form-control date" type="text" maxlength="10">
+                                <label class="form-label" data-bind="text:translate('تعداد رکورد')"></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group col-6" style="padding-right:25px">
+                        <div class="input-group-addon">
+                            <span class="input-group-btn">
+                                <a id="btnTrzFCust_P_Date" data-mdpersiandatetimepicker="" data-original-title="" title="">
+                                    <img src="/Content/img/list/calendar.png" data-bind="attr: {title:text_Date}" class="icon" height="20" width="20" title="انتخاب تاریخ">
+                                </a>
+                            </span>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line date focused fix">
+                                <input id="SD_TrzFCust_P_Date" class="form-control date" type="text" maxlength="10">
+                                <label class="form-label active" data-bind="text:translate('از تاریخ')">از تاریخ</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ذخیره')" type="button" id="SD_TrzFCust_P_Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-SD_TrzFKala_S" tabindex="-1" role="dialog" ria-labelledby="formModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('تنظیمات نمودار بیشترین فروش کالا')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" style="padding-top:20px">
+
+                    <select id="TrzFKala_S_Mode" class="col-6" style="margin-bottom:2rem">
+                        <option value="0" selected>امسال</option>
+                        <option value="1">این ماه</option>
+                        <option value="2">ماه پیش</option>
+                        <option value="3">این فصل</option>
+                        <option value="4">فصل پیش</option>
+                    </select>
+
+                    <div class="col-6">
+                        <div class="form-group form-float">
+                            <div class="form-line date fix">
+                                <input id="TrzFKala_S_Top" class="form-control date" type="text" maxlength="10">
+                                <label class="form-label" data-bind="text:translate('تعداد رکورد')"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div style="padding: 0px; margin: 10px;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <button data-bind="text:translate('ذخیره')" type="button" id="SD_TrzFKala_S_Save" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 @section scripts{
     <script type="text/javascript">
 
         $('#btnTarazFasli_Date').MdPersianDateTimePicker({
             targetTextSelector: '#SD_TarazFasli_Date',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
+        });
+
+
+        $('#btnTrzFCust_S_Date').MdPersianDateTimePicker({
+            targetTextSelector: '#SD_TrzFCust_S_Date',
+            dateFormat: 'yyyy-MM-dd',
+            Placement: 'bottom', // default is 'bottom'
+            Trigger: 'focus', // default is 'focus',
+            EnableTimePicker: true, // default is true,
+            TargetSelector: '', // default is empty,
+            GroupId: '', // default is empty,
+            ToDate: false, // default is false,
+            FromDate: false, // default is false,
+            isGregorian: lang == 'en' ? true : false,
+            englishNumber: lang == 'en' ? true : false,
+        });
+
+        $('#btnTrzFCust_P_Date').MdPersianDateTimePicker({
+            targetTextSelector: '#SD_TrzFCust_P_Date',
             dateFormat: 'yyyy-MM-dd',
             Placement: 'bottom', // default is 'bottom'
             Trigger: 'focus', // default is 'focus',
