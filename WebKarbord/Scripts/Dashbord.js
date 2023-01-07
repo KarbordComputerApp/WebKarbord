@@ -1,5 +1,6 @@
 ﻿var gridster = null;
-var barColors = ["red", "green", "blue", "orange", "brown","red", "green", "blue", "orange", "brown","red", "green", "blue", "orange", "brown"];
+var barColors = ["#c1fff7", "#ffdfe4", "#d1fde8", "#dafde8", "#f27f90", "#dfebf9", "#d6e3fd", "#d7f8ea", "#f5d3c5", "#dee5f9", "#ffa0a0", "#ffff8c"];
+
 
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
 var dayCheckPardakht_Sum = localStorage.getItem("dayCheckPardakht_Sum");
@@ -323,7 +324,7 @@ var ViewModel = function () {
 
     var trazFasli_labels = [];
     var trazFasli_data = [];
-
+    var trazFasli_Chart = null;
 
     function getTrazFasli() {
         var TrazFasliObject = {
@@ -343,49 +344,89 @@ var ViewModel = function () {
             $("#Sum_D_TarazFasli").text(NumberToNumberString(sum) + ' ریال');
             $("#Title_D_TarazFasli").text(date_TarazFasli + ' - ' + LowDay(0));
 
-
-            new Chart("trazFasli_Chart", {
-                type: 'bar',
-                data: {
-                    labels: trazFasli_labels,
-                    datasets: [{
-                        label: 'فروش',
-                        data: trazFasli_data,
-                        backgroundColor: barColors,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    animation: false,
-                    //legend: { display: false },
-                    //maintainAspectRatio: false,
-                    responsive: true,
-                    responsiveAnimationDuration: 0,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function (value, index, values) {
-                                    value = (value / 1000000).toFixed(0);
-                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
-                                }
-                            }
-                        }]
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function (tooltipItem, data) {
-                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
-                            }
-                        }
-                    }
-                }
-            });
+            if (trazFasli_Chart != null) {
+                updateTrazFasli_Chart(trazFasli_Chart, trazFasli_labels, trazFasli_data);
+            }
             
         });
     }
 
     getTrazFasli();
+
+    function updateTrazFasli_Chart(chart, lable, data) {
+        chart.
+            data = {
+            labels: lable,
+                datasets: [{
+                    data: data,
+                    backgroundColor: barColors,
+                    borderWidth: 1
+                }]
+        },
+        options = {
+            animation: false,
+                responsive: true,
+                    responsiveAnimationDuration: 0,
+                        scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            value = (value / 1000000).toFixed(0);
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                    }
+                }
+            }
+        }
+
+
+        chart.update();
+    }
+
+    trazFasli_Chart = new Chart("trazFasli_Chart", {
+        type: 'bar',
+        data: {
+            labels: trazFasli_labels,
+            datasets: [{
+                label: 'فروش',
+                data: trazFasli_data,
+                backgroundColor: barColors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            animation: false,
+            responsive: true,
+            responsiveAnimationDuration: 0,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            value = (value / 1000000).toFixed(0);
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                        }
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                    }
+                }
+            }
+        }
+    });
+
 
     $('#btnTarazFasli_Date').click(function () {
         $('#SD_TarazFasli_Date').change();
@@ -652,7 +693,7 @@ var ViewModel = function () {
 
     var TrzFKala_S_labels = [];
     var TrzFKala_S_data = [];
-
+    var trzFKala_S_Chart = null;
 
     function getTrzFKala_S() {
         var TrzFKala_SObject = {
@@ -671,6 +712,7 @@ var ViewModel = function () {
             ZeroValue: "0",
             KGruCode: "",
             KalaCode: "",
+            Top: top_TrzFKala_S,
         };
 
         ajaxFunction(TrzFKala_SUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_SObject, false).done(function (response) {
@@ -685,65 +727,55 @@ var ViewModel = function () {
             $("#Sum_D_TrzFKala_S").text(NumberToNumberString(sum) + ' ریال');
             $("#Title_D_TrzFKala_S").text("" + ' - ' + LowDay(0));
 
-
-            new Chart("TrzFKala_S_Chart", {
-                type: 'pie',
-                data: {
-                    labels: TrzFKala_S_labels,
-                    datasets: [{
-                        label: 'فروش',
-                        data: TrzFKala_S_data,
-                        backgroundColor: barColors,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: ""
-                    },
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'left',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Chart.js Pie Chart'
-                        }
-                    }
-                },
-                /*options: {
-                    animation: false,
-                    //legend: { display: false },
-                    //maintainAspectRatio: false,
-                    responsive: true,
-                    responsiveAnimationDuration: 0,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function (value, index, values) {
-                                    value = (value / 1000000).toFixed(0);
-                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
-                                }
-                            }
-                        }]
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function (tooltipItem, data) {
-                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
-                            }
-                        }
-                    }
-                }*/
-            });
-
+            if (trzFKala_S_Chart != null) {
+                updateTrzFKala_S_Chart(trzFKala_S_Chart, TrzFKala_S_labels, TrzFKala_S_data);
+            }
+           
         });
     }
 
     getTrzFKala_S();
+
+    function updateTrzFKala_S_Chart(chart, lable , data) {
+        chart.data= {
+            labels: lable,
+                datasets: [{
+                    data: data,
+                    backgroundColor: barColors,
+                    borderWidth: 1
+                }]
+        };
+        chart.update();
+    }
+
+    trzFKala_S_Chart = new Chart("TrzFKala_S_Chart", {
+        type: 'pie',
+        data: {
+            labels: TrzFKala_S_labels,
+            datasets: [{
+                label: 'فروش',
+                data: TrzFKala_S_data,
+                backgroundColor: barColors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            pieceLabel: {
+                showZero: true,
+                fontColor: '#fff',
+                fontFamily: "'Maven Pro', sans-serif",
+                position: 'default'
+            },
+            legend: {
+                position: 'right',
+                align: 'center',
+                fullWidth: true,
+                reverse: true,
+                PointStyle: 'Cross'
+
+            }
+        }
+    });
 
     $('#modal-SD_TrzFKala_S').on('show.bs.modal', function () {
         $('#TrzFKala_S_Top').val(top_TrzFKala_S);
@@ -757,6 +789,9 @@ var ViewModel = function () {
         localStorage.setItem("mode_TrzFKala_S", mode_TrzFKala_S);
 
         top_TrzFKala_S = $('#TrzFKala_S_Top').val();
+        if (top_TrzFKala_S > 10 || top_TrzFKala_S <= 0) {
+           return  showNotification(translate('حداکثر 10 رکورد'), 0)
+        }
         localStorage.setItem("top_TrzFKala_S", top_TrzFKala_S);
 
         $('#modal-SD_TrzFKala_S').modal('hide');

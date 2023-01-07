@@ -56,28 +56,23 @@
                                     <tbody data-bind="foreach: TChkList">
                                         <tr>
                                             <td style="width:0px">
-                                                <img data-bind="attr:{src: $root.GetIconBank(Bank)}" src="" style="padding-left:10px" width="45" />
-                                            </td>
-                                            <td>
-                                                <div class="form-inline">
-                                                    <h5>در وجه :</h5>
-                                                    <h5 data-bind="text:TrafName" style="padding-right:5px"></h5>
-                                                </div>
-                                                <h6 data-bind="text:Shobe" style="padding-top:10px;color: darkgray;"></h6>
-                                            </td>
-                                            <td>
                                                 <center>
-                                                    <div data-bind="text:CheckDate" style=" border: 1px solid red;border-radius: 4px;color: red;padding: 2px 0; width: 80px; text-align: center; margin-bottom: 0.25rem;"></div>
-                                                    <div class="form-inline" style="display:inline-flex">
-                                                        <h6>شماره چک :</h6>
-                                                        <h6 data-bind="text:CheckNo" style="padding-right:5px"></h6>
-                                                    </div>
+                                                    <img data-bind="attr:{src: $root.GetIconBank(Bank)}" src="" width="35" />
+                                                    <p data-bind="text:Shobe" style="color: darkgray;"></p>
                                                 </center>
-
                                             </td>
-
-                                            <td style="width:0px;padding-left:15px">
-                                                <h5 data-bind="text:NumberToNumberString(Value)" style="text-align:center"></h5>
+                                            <td>
+                                                <div>
+                                                    <h5 data-bind="text:TrafName" style="padding-right:5px"></h5>
+                                                    <h5 style="padding-right:5px">حسین</h5>
+                                                    <h5 data-bind="text:'چک : ' + CheckNo" style="padding-right:5px;padding-top: 10px;"></h5>
+                                                </div>
+                                            </td>
+                                            <td style="width:0px">
+                                                <center>
+                                                    <h5 data-bind="text:NumberToNumberString(Value)" style="text-align:center"></h5>
+                                                    <div data-bind="text:CheckDate" style=" border: 1px solid red;border-radius: 4px;color: red;padding: 2px 0; width: 80px; text-align: center; margin-bottom: 0.25rem;"></div>
+                                                </center>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -196,6 +191,14 @@
                                             </td>
                                             <td>
                                                 <h5 data-bind="text: CustCode + ' - ' + CustName"></h5>
+                                                <div data-bind="style : {display : Tel == '' ? 'none' :'block'}" class="form-inline" style="padding-top:10px;padding-right:5px">
+                                                    <img src="/Content/img/ContactUs.png" width="16" style="margin-left: 5px;">
+                                                    <span data-bind="text: Tel"></span>
+                                                </div>
+                                                <div data-bind="style : {display : Mobile == '' ? 'none' :'block'}" class="form-inline" style="padding-top:5px;padding-right:5px">
+                                                    <img src="/Content/img/ContactUs.png" width="16" style="margin-left: 5px;">
+                                                    <span data-bind="text: Mobile"></span>
+                                                </div>
                                             </td>
                                             <td style="width:0px;padding-left:15px">
                                                 <h5 data-bind="text:NumberToNumberString(AccMon)" style="text-align:center"></h5>
@@ -243,6 +246,15 @@
                                             </td>
                                             <td>
                                                 <h5 data-bind="text: CustCode + ' - ' + CustName"></h5>
+
+                                                <div data-bind="style : {display : Tel == '' ? 'none' :'block'}" class="form-inline" style="padding-top:10px;padding-right:5px">
+                                                    <img src="/Content/img/ContactUs.png" width="16" style="margin-left: 5px;">
+                                                    <span data-bind="text: Tel"></span>
+                                                </div>
+                                                <div data-bind="style : {display : Mobile == '' ? 'none' :'block'}" class="form-inline" style="padding-top:5px;padding-right:5px">
+                                                    <img src="/Content/img/ContactUs.png" width="16" style="margin-left: 5px;">
+                                                    <span data-bind="text: Mobile"></span>
+                                                </div>
                                             </td>
                                             <td style="width:0px;padding-left:15px">
                                                 <h5 data-bind="text:NumberToNumberString(AccMon)" style="text-align:center"></h5>
