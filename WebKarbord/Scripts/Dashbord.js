@@ -1,5 +1,9 @@
 ﻿var gridster = null;
-var barColors = ["#c1fff7", "#ffdfe4", "#d1fde8", "#dafde8", "#f27f90", "#dfebf9", "#d6e3fd", "#d7f8ea", "#f5d3c5", "#dee5f9", "#ffa0a0", "#ffff8c"];
+
+var barColors = ["#660033", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff0000", "#0033ff",
+    "#6699cc", "#009999", "#171a9b", "#00a20b", "#11c0a9"];
+
+
 
 
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
@@ -32,6 +36,7 @@ top_TrzFKala_S = top_TrzFKala_S == null ? 10 : top_TrzFKala_S;
 mode_TrzFKala_S = mode_TrzFKala_S == null ? 0 : mode_TrzFKala_S;
 
 
+/*
 gridster = $(".gridster ul").gridster({
     widget_base_dimensions: ['auto', 100],
     autogenerate_stylesheet: true,
@@ -48,8 +53,22 @@ gridster = $(".gridster ul").gridster({
 }).data('gridster');
 $('.gridster  ul').css({ 'padding': '10' });
 
-
+*/
+/*
 var dashbordData = [];
+
+let grid = GridStack.init({
+    cellHeight: 'initial', // start square but will set to % of window width later
+    animate: true, // show immediate (animate: true is nice for user dragging though)
+    disableOneColumnMode: true, // will manually do 1 column
+    float: true
+});
+
+saveGrid = function () {
+    a = grid.save();
+}
+
+
 
 
 function LoadDashbord() {
@@ -74,7 +93,10 @@ LoadDashbord();
 
 function SaveDashbord() {
     dashbordData = [];
-    $.each(gridster.$widgets, function (i, widgets) {
+    dashbordData = grid.save();
+    localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
+
+    /*$.each(gridster.$widgets, function (i, widgets) {
         element = $(widgets);
         id = $(element).attr("id");
         col = $(element).attr("data-col");
@@ -82,8 +104,93 @@ function SaveDashbord() {
         sizex = $(element).attr("data-sizex");
         sizey = $(element).attr("data-sizey");
         dashbordData.push({ "id": id, "col": col, "row": row, "sizex": sizex, "sizey": sizey })
-    });
+    });*/
 
+    //localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
+//}
+
+
+
+//window.onbeforeunload = function () {
+//    SaveDashbord();
+//};
+
+
+
+
+var dashbordData = [];
+
+let grid = GridStack.init({
+    cellHeight: 'initial', // start square but will set to % of window width later
+    animate: true, // show immediate (animate: true is nice for user dragging though)
+    disableOneColumnMode: true, // will manually do 1 column
+    float: true
+});
+
+
+function LoadDashbord() {
+    data = localStorage.getItem("dashbordData");
+    if (data != null) {
+        dashbordData = JSON.parse(data);
+        nodes = grid.save();
+        for (var i = 0; i < dashbordData.length; i++) {
+            dashbordData[i].content = nodes[i].content;
+           /*element = $('#' + dashbordData[i].id);
+            grid.engine.nodes[i].x = dashbordData[i].x;
+            grid.engine.nodes[i].y = dashbordData[i].y;
+            grid.engine.nodes[i].w = dashbordData[i].w;
+            grid.engine.nodes[i].h = dashbordData[i].h;
+
+
+            element = $(".grid-stack").find(`[gs-id='${dashbordData[i].id}']`)
+            id = $(element).attr("gs-id");
+            $(element).attr("gs-x", dashbordData[i].x);
+            $(element).attr("gs-y", dashbordData[i].y);
+            $(element).attr("gs-w", dashbordData[i].w);
+            $(element).attr("gs-h", dashbordData[i].h);
+            a = $(element).attr("gs-h");*/
+        }
+        grid.load(dashbordData);
+    }
+}
+
+LoadDashbord();
+
+
+function SaveDashbord() {
+    dashbordData = [];
+    dashbordData = grid.save();
+    for (var i = 0; i < dashbordData.length; i++) {
+        dashbordData[i].content = null;
+    }
+    localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
+}
+
+
+
+
+window.onbeforeunload = function () {
+    SaveDashbord();
+};
+
+
+/*
+function LoadDashbord() {
+    data = localStorage.getItem("dashbordData");
+    if (data != null) {
+        grid.removeAll();
+        dashbordData = JSON.parse(data);
+        grid.load(dashbordData, true); 
+    }
+}
+
+
+LoadDashbord();
+
+
+function SaveDashbord() {
+    dashbordData = [];
+    dashbordData = grid.save();
     localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
 }
 
@@ -93,13 +200,46 @@ window.onbeforeunload = function () {
     SaveDashbord();
 };
 
-
+*/
 
 
 
 
 var ViewModel = function () {
     var self = this;
+
+    var aceList = [];
+    var afi1List = [];
+    var afi8List = [];
+    var afiList = [];
+    var erjList = [];
+
+    var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
+    self.DatabseSalList = ko.observableArray([]); // دیتابیس های سال
+
+    $('#information').hide();
+
+    if (sessionStorage.userName != 'ACE') {
+        $('#show_RepairDatabaseConfig').hide();
+        $('#show_RepairDatabase').hide();
+    }
+
+
+    /*
+        var now = new Date();
+        var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate();
+        //"0" + now.getHours();
+        var head = document.getElementsByTagName("head")[0];
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
+        head.appendChild(link);
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.async = true;
+        script.src = "https://app.najva.com/static/js/scripts/174-website-27295-a0b970d7-1466-49f3-bf2b-1cfa6674e8e9.js" + "?v=" + version;
+        head.appendChild(script);
+        */
 
 
     var TChkUri = server + '/api/ReportAcc/TChk/'; // آدرس گزارش 
@@ -221,7 +361,7 @@ var ViewModel = function () {
         if (day > 10000000) {
             day = 10000000;
         }
-        
+
         localStorage.setItem("dayCheckPardakht", day);
         dayCheckPardakht = day;
         $('#modal-SD_TChk').modal('hide');
@@ -347,7 +487,7 @@ var ViewModel = function () {
             if (trazFasli_Chart != null) {
                 updateTrazFasli_Chart(trazFasli_Chart, trazFasli_labels, trazFasli_data);
             }
-            
+
         });
     }
 
@@ -356,36 +496,37 @@ var ViewModel = function () {
     function updateTrazFasli_Chart(chart, lable, data) {
         chart.
             data = {
-            labels: lable,
+                labels: lable,
                 datasets: [{
+                    label: '',
                     data: data,
                     backgroundColor: barColors,
                     borderWidth: 1
                 }]
-        },
-        options = {
-            animation: false,
-                responsive: true,
-                    responsiveAnimationDuration: 0,
-                        scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        callback: function (value, index, values) {
-                            value = (value / 1000000).toFixed(0);
-                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
-                        }
-                    }
-                }]
             },
-            tooltips: {
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+            options = {
+                animation: false,
+                responsive: true,
+                responsiveAnimationDuration: 0,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                value = (value / 1000000).toFixed(0);
+                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                        }
                     }
                 }
             }
-        }
 
 
         chart.update();
@@ -396,7 +537,7 @@ var ViewModel = function () {
         data: {
             labels: trazFasli_labels,
             datasets: [{
-                label: 'فروش',
+                label: '',
                 data: trazFasli_data,
                 backgroundColor: barColors,
                 borderWidth: 1
@@ -440,7 +581,7 @@ var ViewModel = function () {
     if (mode_TarazFasli != '2') {
         $('#PSD_TarazFasli_Date').hide();
     }
-    
+
     $('#TarazFasli_Mode').change(function () {
         $('#PSD_TarazFasli_Date').hide();
         val = $(this).val();
@@ -484,7 +625,7 @@ var ViewModel = function () {
     })
 
 
-  
+
 
 
 
@@ -730,26 +871,27 @@ var ViewModel = function () {
             if (trzFKala_S_Chart != null) {
                 updateTrzFKala_S_Chart(trzFKala_S_Chart, TrzFKala_S_labels, TrzFKala_S_data);
             }
-           
+
         });
     }
 
     getTrzFKala_S();
 
-    function updateTrzFKala_S_Chart(chart, lable , data) {
-        chart.data= {
+    function updateTrzFKala_S_Chart(chart, lable, data) {
+        chart.data = {
             labels: lable,
-                datasets: [{
-                    data: data,
-                    backgroundColor: barColors,
-                    borderWidth: 1
-                }]
-        };
+            datasets: [{
+                data: data,
+                backgroundColor: barColors,
+                borderWidth: 1
+            }]
+        }
+
         chart.update();
     }
 
     trzFKala_S_Chart = new Chart("TrzFKala_S_Chart", {
-        type: 'pie',
+        type: 'doughnut',
         data: {
             labels: TrzFKala_S_labels,
             datasets: [{
@@ -790,7 +932,7 @@ var ViewModel = function () {
 
         top_TrzFKala_S = $('#TrzFKala_S_Top').val();
         if (top_TrzFKala_S > 10 || top_TrzFKala_S <= 0) {
-           return  showNotification(translate('حداکثر 10 رکورد'), 0)
+            return showNotification(translate('حداکثر 10 رکورد'), 0)
         }
         localStorage.setItem("top_TrzFKala_S", top_TrzFKala_S);
 
@@ -816,7 +958,6 @@ var ViewModel = function () {
             }
         })
     })
-
 
 
 

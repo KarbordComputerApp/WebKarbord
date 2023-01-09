@@ -181,6 +181,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\gridstack-extra.min.css" />
+    <Content Include="Content\css\gridstack.min.css" />
     <Content Include="Content\css\PersianDateTimePicker.css" />
     <Content Include="Content\css\rtl.css" />
     <Content Include="Content\css\Site.css" />
@@ -665,6 +667,7 @@
     <Content Include="Content\img\Sweet\streamline-icon-question-help-circle%4048x48.png" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\Chart.js" />
+    <Content Include="Content\js\gridstack-all.js" />
     <Content Include="Content\js\jquery-3.6.0.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
