@@ -57,6 +57,91 @@ var key_P = 80;
 var key_a = 97;
 var key_b = 98;
 
+// دسترسی های ادمین پنل
+const AP_SFCT = 0;
+const AP_SPFCT = 1;
+const AP_SRFCT = 2;
+const AP_PFCT = 3;
+const AP_PPFCT = 4;
+const AP_PRFCT = 5;
+const AP_IIDOC = 6;
+const AP_IODOC = 7;
+const AP_TrzIKala = 8;
+const AP_TrzIKalaExf = 9;
+const AP_IDocR = 10;
+const AP_FDocR_S = 11;
+const AP_FDocR_P = 12;
+const AP_TrzAcc = 13;
+const AP_Dftr = 14;
+const AP_ADocR = 15;
+const AP_TChk = 16;
+const AP_TrzFKala_S = 17;
+const AP_TrzFKala_P = 18;
+const AP_TrzFCust_S = 19;
+const AP_TrzFCust_P = 20;
+const AP_ADOC = 21;
+const AP_SFORD = 22;
+const AP_SHVL = 23;
+const AP_SEXT = 24;
+const AP_PFORD = 25;
+const AP_Krdx = 26;
+const AP_Kala = 27;
+const AP_Cust = 28;
+const AP_Acc = 29;
+const AP_Mkz = 30;
+const AP_Opr = 31;
+const AP_AGMkz = 32;
+const AP_AGOpr = 33;
+const AP_Arz = 34;
+const AP_ZAcc = 35;
+
+// دسترسی های  ویندوزی
+const AC_DOC = 0;
+const AC_FSDOC = 1;
+const AC_FPDOC = 2;
+const AC_SPDOC = 3;
+const AC_SFDOC = 4;
+const AC_SRDOC = 5;
+const AC_PPDOC = 6;
+const AC_PFDOC = 7;
+const AC_PRDOC = 8;
+const AC_IIDOC = 9;
+const AC_IODOC = 10;
+const AC_RPRT = 11;
+const AC_TrzIKala = 12;
+const AC_TrzIKalaExf = 13;
+const AC_IDocR = 14;
+const AC_FDocR_S = 15;
+const AC_FDocR_P = 16;
+const AC_TrzAcc = 17;
+const AC_Dftr = 18;
+const AC_ADocR = 19;
+const AC_TChk = 20;
+const AC_TrzFKala_S = 21;
+const AC_TrzFKala_P = 22;
+const AC_TrzFCust_S = 23;
+const AC_TrzFCust_P = 24;
+const AC_ADOC = 25;
+const AC_SFORD = 26;
+const AC_SHVL = 27;
+const AC_SEXT = 28;
+const AC_PFORD = 29;
+const AC_Krdx = 30;
+const AC_KALA = 31;
+const AC_CUST = 32;
+const AC_ACC = 33;
+const AC_MKZ = 34;
+const AC_OPR = 35;
+const AC_AGMkz = 36;
+const AC_AGOpr = 37;
+const AC_ARZ = 38;
+const AC_ZACC = 39;
+
+var ShowMenu = [false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false];
 
 text_Add = 'جدید';
 text_Update = 'ویرایش';
@@ -616,14 +701,14 @@ hrefSetting = '/' + sp[3] + '/' + sp[4];
 
 if (ShowNewTab == "ShowNewTab" && (hrefHome != localStorage.getItem("urlIndex") && hrefSetting != localStorage.getItem("urlSetting"))) {
     $("#P_Setting").css({ display: "none" });
-    $("#P_Home").css({ display: "none" });
+    //$("#P_Home").css({ display: "none" });
     $("body").addClass("side-closed");
     $("body").addClass("submenu-closed");
     $(".sidebar-user-panel").css({ display: "none" });
 }
 else {
     $("#P_Setting").css({ display: "block" });
-    $("#P_Home").css({ display: "block" });
+    //$("#P_Home").css({ display: "block" });
     $("body").removeClass("side-closed");
     $("body").removeClass("submenu-closed");
     $(".sidebar-user-panel").css({ display: "block" });
@@ -631,7 +716,7 @@ else {
 
 
 if (ShowNewTab == "ShowNewTab" && hrefHome == localStorage.getItem("urlIndex")) {
-    $("#P_Home").css({ display: "none" });
+    //$("#P_Home").css({ display: "none" });
 }
 
 if (ShowNewTab == "ShowNewTab" && hrefSetting == localStorage.getItem("urlSetting")) {
@@ -1133,53 +1218,54 @@ if (ace != 'Web2') {
     }
     else {
 
-        for (var i = 0; i <= 35; i++) {
-            afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
-            afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
-            afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
-            afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
-            afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
-            afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
 
-            afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
-            afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-            afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
-            afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
-            afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-            afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
-            afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
-            afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
-            afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
-            afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
-            afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
-            afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
-            afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
-            afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
-            afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-            afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-            afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
-            afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
-            afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-            afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-            afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
-            afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
-            afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
-            afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
-            afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
-            afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
-            afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
-            afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
-            afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
-            afiAccessApi[i] == 'ZAcc' ? afiaccess[35] = true : null;
+
+        for (var i = 0; i <= 35; i++) {
+            afiAccessApi[i] == 'SFCT' ? afiaccess[AP_SFCT] = true : null;
+            afiAccessApi[i] == 'SPFCT' ? afiaccess[AP_SPFCT] = true : null;
+            afiAccessApi[i] == 'SRFCT' ? afiaccess[AP_SRFCT] = true : null;
+            afiAccessApi[i] == 'PFCT' ? afiaccess[AP_PFCT] = true : null;
+            afiAccessApi[i] == 'PPFCT' ? afiaccess[AP_PPFCT] = true : null;
+            afiAccessApi[i] == 'PRFCT' ? afiaccess[AP_PRFCT] = true : null;
+            afiAccessApi[i] == 'IIDOC' ? afiaccess[AP_IIDOC] = true : null;
+            afiAccessApi[i] == 'IODOC' ? afiaccess[AP_IODOC] = true : null;
+            afiAccessApi[i] == 'TrzIKala' ? afiaccess[AP_TrzIKala] = true : null;
+            afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[AP_TrzIKalaExf] = true : null;
+            afiAccessApi[i] == 'IDocR' ? afiaccess[AP_IDocR] = true : null;
+            afiAccessApi[i] == 'FDocR_S' ? afiaccess[AP_FDocR_S] = true : null;
+            afiAccessApi[i] == 'FDocR_P' ? afiaccess[AP_FDocR_P] = true : null;
+            afiAccessApi[i] == 'TrzAcc' ? afiaccess[AP_TrzAcc] = true : null;
+            afiAccessApi[i] == 'Dftr' ? afiaccess[AP_Dftr] = true : null;
+            afiAccessApi[i] == 'ADocR' ? afiaccess[AP_ADocR] = true : null;
+            afiAccessApi[i] == 'TChk' ? afiaccess[AP_TChk] = true : null;
+            afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[AP_TrzFKala_S] = true : null;
+            afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[AP_TrzFKala_P] = true : null;
+            afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[AP_TrzFCust_S] = true : null;
+            afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[AP_TrzFCust_P] = true : null;
+            afiAccessApi[i] == 'ADOC' ? afiaccess[AP_ADOC] = true : null;
+            afiAccessApi[i] == 'SFORD' ? afiaccess[AP_SFORD] = true : null;
+            afiAccessApi[i] == 'SHVL' ? afiaccess[AP_SHVL] = true : null;
+            afiAccessApi[i] == 'SEXT' ? afiaccess[AP_SEXT] = true : null;
+            afiAccessApi[i] == 'PFORD' ? afiaccess[AP_PFORD] = true : null;
+            afiAccessApi[i] == 'Krdx' ? afiaccess[AP_Krdx] = true : null;
+            afiAccessApi[i] == 'Kala' ? afiaccess[AP_Kala] = true : null;
+            afiAccessApi[i] == 'Cust' ? afiaccess[AP_Cust] = true : null;
+            afiAccessApi[i] == 'Acc' ? afiaccess[AP_Acc] = true : null;
+            afiAccessApi[i] == 'Mkz' ? afiaccess[AP_Mkz] = true : null;
+            afiAccessApi[i] == 'Opr' ? afiaccess[AP_Opr] = true : null;
+            afiAccessApi[i] == 'AGMkz' ? afiaccess[AP_AGMkz] = true : null;
+            afiAccessApi[i] == 'AGOpr' ? afiaccess[AP_AGOpr] = true : null;
+            afiAccessApi[i] == 'Arz' ? afiaccess[AP_Arz] = true : null;
+            afiAccessApi[i] == 'ZAcc' ? afiaccess[AP_ZAcc] = true : null;
         }
     }
 
     if (ace == 'Web1') {
-        afiaccess[9] = false; //TrzIKalaExf
-        afiaccess[22] = false; //SFORD
-        afiaccess[23] = false; //SHVL
-        afiaccess[24] = false; //SEXT
-        afiaccess[25] = false; //PFORD
+        afiaccess[AP_TrzIKalaExf] = false; //TrzIKalaExf
+        afiaccess[AP_SFORD] = false; //SFORD
+        afiaccess[AP_SHVL] = false; //SHVL
+        afiaccess[AP_SEXT] = false; //SEXT
+        afiaccess[AP_PFORD] = false; //PFORD
     }
 
 }
@@ -1290,6 +1376,7 @@ $("#ErjDocK").hide();
 $("#ErjDocB_Last").hide();
 
 
+$("#Dashbord").hide();
 $("#Base_Menu").hide();
 $("#ADOC_Menu").hide();
 $("#FDOC_Menu").hide();
@@ -2526,52 +2613,52 @@ function getAccessList(GoHome) {
                     }
                     else {
                         for (var i = 0; i <= 35; i++) {
-                            afiAccessApi[i] == 'SFCT' ? afiaccess[0] = true : null;
-                            afiAccessApi[i] == 'SPFCT' ? afiaccess[1] = true : null;
-                            afiAccessApi[i] == 'SRFCT' ? afiaccess[2] = true : null;
-                            afiAccessApi[i] == 'PFCT' ? afiaccess[3] = true : null;
 
-                            afiAccessApi[i] == 'PPFCT' ? afiaccess[4] = true : null;
-                            afiAccessApi[i] == 'PRFCT' ? afiaccess[5] = true : null;
-                            afiAccessApi[i] == 'IIDOC' ? afiaccess[6] = true : null;
-                            afiAccessApi[i] == 'IODOC' ? afiaccess[7] = true : null;
-                            afiAccessApi[i] == 'TrzIKala' ? afiaccess[8] = true : null;
-                            afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[9] = true : null;
-                            afiAccessApi[i] == 'IDocR' ? afiaccess[10] = true : null;
-                            afiAccessApi[i] == 'FDocR_S' ? afiaccess[11] = true : null;
-                            afiAccessApi[i] == 'FDocR_P' ? afiaccess[12] = true : null;
-                            afiAccessApi[i] == 'TrzAcc' ? afiaccess[13] = true : null;
-                            afiAccessApi[i] == 'Dftr' ? afiaccess[14] = true : null;
-                            afiAccessApi[i] == 'ADocR' ? afiaccess[15] = true : null;
-                            afiAccessApi[i] == 'TChk' ? afiaccess[16] = true : null;
-                            afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[17] = true : null;
-                            afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[18] = true : null;
-                            afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[19] = true : null;
-                            afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[20] = true : null;
-                            afiAccessApi[i] == 'ADOC' ? afiaccess[21] = true : null;
-                            afiAccessApi[i] == 'SFORD' ? afiaccess[22] = true : null;
-                            afiAccessApi[i] == 'SHVL' ? afiaccess[23] = true : null;
-                            afiAccessApi[i] == 'SEXT' ? afiaccess[24] = true : null;
-                            afiAccessApi[i] == 'PFORD' ? afiaccess[25] = true : null;
-                            afiAccessApi[i] == 'Krdx' ? afiaccess[26] = true : null;
-                            afiAccessApi[i] == 'Kala' ? afiaccess[27] = true : null;
-                            afiAccessApi[i] == 'Cust' ? afiaccess[28] = true : null;
-                            afiAccessApi[i] == 'Acc' ? afiaccess[29] = true : null;
-                            afiAccessApi[i] == 'Mkz' ? afiaccess[30] = true : null;
-                            afiAccessApi[i] == 'Opr' ? afiaccess[31] = true : null;
-                            afiAccessApi[i] == 'AGMkz' ? afiaccess[32] = true : null;
-                            afiAccessApi[i] == 'AGOpr' ? afiaccess[33] = true : null;
-                            afiAccessApi[i] == 'Arz' ? afiaccess[34] = true : null;
-                            afiAccessApi[i] == 'ZAcc' ? afiaccess[35] = true : null;
+                            afiAccessApi[i] == 'SFCT' ? afiaccess[AP_SFCT] = true : null;
+                            afiAccessApi[i] == 'SPFCT' ? afiaccess[AP_SPFCT] = true : null;
+                            afiAccessApi[i] == 'SRFCT' ? afiaccess[AP_SRFCT] = true : null;
+                            afiAccessApi[i] == 'PFCT' ? afiaccess[AP_PFCT] = true : null;
+                            afiAccessApi[i] == 'PPFCT' ? afiaccess[AP_PPFCT] = true : null;
+                            afiAccessApi[i] == 'PRFCT' ? afiaccess[AP_PRFCT] = true : null;
+                            afiAccessApi[i] == 'IIDOC' ? afiaccess[AP_IIDOC] = true : null;
+                            afiAccessApi[i] == 'IODOC' ? afiaccess[AP_IODOC] = true : null;
+                            afiAccessApi[i] == 'TrzIKala' ? afiaccess[AP_TrzIKala] = true : null;
+                            afiAccessApi[i] == 'TrzIKalaExf' ? afiaccess[AP_TrzIKalaExf] = true : null;
+                            afiAccessApi[i] == 'IDocR' ? afiaccess[AP_IDocR] = true : null;
+                            afiAccessApi[i] == 'FDocR_S' ? afiaccess[AP_FDocR_S] = true : null;
+                            afiAccessApi[i] == 'FDocR_P' ? afiaccess[AP_FDocR_P] = true : null;
+                            afiAccessApi[i] == 'TrzAcc' ? afiaccess[AP_TrzAcc] = true : null;
+                            afiAccessApi[i] == 'Dftr' ? afiaccess[AP_Dftr] = true : null;
+                            afiAccessApi[i] == 'ADocR' ? afiaccess[AP_ADocR] = true : null;
+                            afiAccessApi[i] == 'TChk' ? afiaccess[AP_TChk] = true : null;
+                            afiAccessApi[i] == 'TrzFKala_S' ? afiaccess[AP_TrzFKala_S] = true : null;
+                            afiAccessApi[i] == 'TrzFKala_P' ? afiaccess[AP_TrzFKala_P] = true : null;
+                            afiAccessApi[i] == 'TrzFCust_S' ? afiaccess[AP_TrzFCust_S] = true : null;
+                            afiAccessApi[i] == 'TrzFCust_P' ? afiaccess[AP_TrzFCust_P] = true : null;
+                            afiAccessApi[i] == 'ADOC' ? afiaccess[AP_ADOC] = true : null;
+                            afiAccessApi[i] == 'SFORD' ? afiaccess[AP_SFORD] = true : null;
+                            afiAccessApi[i] == 'SHVL' ? afiaccess[AP_SHVL] = true : null;
+                            afiAccessApi[i] == 'SEXT' ? afiaccess[AP_SEXT] = true : null;
+                            afiAccessApi[i] == 'PFORD' ? afiaccess[AP_PFORD] = true : null;
+                            afiAccessApi[i] == 'Krdx' ? afiaccess[AP_Krdx] = true : null;
+                            afiAccessApi[i] == 'Kala' ? afiaccess[AP_Kala] = true : null;
+                            afiAccessApi[i] == 'Cust' ? afiaccess[AP_Cust] = true : null;
+                            afiAccessApi[i] == 'Acc' ? afiaccess[AP_Acc] = true : null;
+                            afiAccessApi[i] == 'Mkz' ? afiaccess[AP_Mkz] = true : null;
+                            afiAccessApi[i] == 'Opr' ? afiaccess[AP_Opr] = true : null;
+                            afiAccessApi[i] == 'AGMkz' ? afiaccess[AP_AGMkz] = true : null;
+                            afiAccessApi[i] == 'AGOpr' ? afiaccess[AP_AGOpr] = true : null;
+                            afiAccessApi[i] == 'Arz' ? afiaccess[AP_Arz] = true : null;
+                            afiAccessApi[i] == 'ZAcc' ? afiaccess[AP_ZAcc] = true : null;
                         }
                     }
 
                     if (ace == 'Web1') {
-                        afiaccess[9] = false; //TrzIKalaExf
-                        afiaccess[22] = false; //SFORD
-                        afiaccess[23] = false; //SHVL
-                        afiaccess[24] = false; //SEXT
-                        afiaccess[25] = false; //PFORD
+                        afiaccess[AP_TrzIKalaExf] = false; //TrzIKalaExf
+                        afiaccess[AP_SFORD] = false; //SFORD
+                        afiaccess[AP_SHVL] = false; //SHVL
+                        afiaccess[AP_SEXT] = false; //SEXT
+                        afiaccess[AP_PFORD] = false; //PFORD
                     }
 
                 }
@@ -2827,11 +2914,7 @@ function AlertErja() {
 
 
 function SetValidation() {
-    var ShowMenu = [false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false];
+    
     if (access == null) return false;
     if (access.length == 0) return false;
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
@@ -2850,102 +2933,127 @@ function SetValidation() {
 
     $('#persionUserName').text(sessionStorage.userName);
 
-    /*if (afiaccess[0] == 0 && afiaccess[1] == 0 &&
-        afiaccess[2] == 0 && afiaccess[3] == 0 &&
-        afiaccess[4] == 0 && afiaccess[5] == 0)
-        $("#FDOC_Menu").hide();
-    else
-        $("#FDOC_Menu").show();
- 
- 
-    if (afiaccess[6] == 0 && afiaccess[7] == 0)
-        $("#IDOC_Menu").hide();
-    else
-        $("#IDOC_Menu").show();*/
+
 
     validation = CheckAccess('DOC', localStorage.getItem('ProgAccess')); //ثبت اسناد
-    ShowMenu[0] = validation;
+    ShowMenu[AC_DOC] = validation;
 
     validation = CheckAccess('ADOC', 'Acc5'); //اسناد حسابداری
-    ShowMenu[25] = validation;
+    ShowMenu[AC_ADOC] = validation;
 
     validation = CheckAccess('FSDOC', 'Fct5'); //اسناد فروش
-    ShowMenu[1] = validation;
+    ShowMenu[AC_FSDOC] = validation;
 
     validation = CheckAccess('FPDOC', 'Fct5'); // اسناد خرید
-    ShowMenu[2] = validation;
+    ShowMenu[AC_FPDOC] = validation;
 
     validation = CheckAccess('RPRT', localStorage.getItem('ProgAccess')); // گزارشات
-    ShowMenu[11] = validation;
+    ShowMenu[AC_RPRT] = validation;
 
     validation = CheckAccessReport('TrzIKala', 'Inv5');
-    ShowMenu[12] = validation;  // گزارش موجودی کالا
+    ShowMenu[AC_TrzIKala] = validation;  // گزارش موجودی کالا
 
     validation = CheckAccessReport('TrzIKalaExf', 'Inv5');
-    ShowMenu[13] = validation;  // گزارش موجودی کالا به تفکیک ویژگیها
+    ShowMenu[AC_TrzIKalaExf] = validation;  // گزارش موجودی کالا به تفکیک ویژگیها
 
     validation = CheckAccessReport('IDocR', 'Inv5');
-    ShowMenu[14] = validation;  // گزارش ريز گردش اسناد انبارداری 
+    ShowMenu[AC_IDocR] = validation;  // گزارش ريز گردش اسناد انبارداری 
 
     validation = CheckAccessReport('FDocR_S', 'Fct5');
-    ShowMenu[15] = validation;  // گزارش ريز گردش خرید و فروش
+    ShowMenu[AC_FDocR_S] = validation;  // گزارش ريز گردش خرید و فروش
 
     validation = CheckAccessReport('FDocR_P', 'Fct5');
-    ShowMenu[16] = validation;  // گزارش ريز گردش خرید و فروش
+    ShowMenu[AC_FDocR_P] = validation;  // گزارش ريز گردش خرید و فروش
 
     validation = CheckAccessReport('TrzAcc', 'Acc5');
-    ShowMenu[17] = validation;  // تراز دفاتر حسابداری
+    ShowMenu[AC_TrzAcc] = validation;  // تراز دفاتر حسابداری
 
     validation = CheckAccessReport('Dftr', 'Acc5');
-    ShowMenu[18] = validation;  // دفتر حساب حسابداری 
+    ShowMenu[AC_Dftr] = validation;  // دفتر حساب حسابداری 
 
     validation = CheckAccessReport('ADocR', 'Acc5');
-    ShowMenu[19] = validation;  // دفتر حساب روزنامه
+    ShowMenu[AC_ADocR] = validation;  // دفتر حساب روزنامه
 
     validation = CheckAccessReport('TChk', 'Acc5');
-    ShowMenu[20] = validation;  // صورت ریز چک  
+    ShowMenu[AC_TChk] = validation;  // صورت ریز چک  
 
     validation = CheckAccessReport('TrzFKala_S', 'Fct5');
-    ShowMenu[21] = validation;  // صورت ریز چک   
+    ShowMenu[AC_TrzFKala_S] = validation;  // تراز فروش کالا  
 
     validation = CheckAccessReport('TrzFKala_P', 'Fct5');
-    ShowMenu[22] = validation;  // صورت ریز چک 
+    ShowMenu[AC_TrzFKala_P] = validation;  //تراز خرید کالا 
 
     validation = CheckAccessReport('TrzFCust_S', 'Fct5');
-    ShowMenu[23] = validation;  // تراز فروش به خریداران 
+    ShowMenu[AC_TrzFCust_S] = validation;  // تراز فروش به خریداران 
 
     validation = CheckAccessReport('TrzFCust_P', 'Fct5');
-    ShowMenu[24] = validation;  // تراز خرید از فروشندگان
+    ShowMenu[AC_TrzFCust_P] = validation;  // تراز خرید از فروشندگان
 
     validation = CheckAccessReport('Krdx', 'Inv5');
-    ShowMenu[30] = validation;  // گزارش کاردکس
+    ShowMenu[AC_Krdx] = validation;  // گزارش کاردکس
 
     validation = CheckAccess('KALA', Fct_or_Inv);
-    ShowMenu[31] = validation;  // کالاها
+    ShowMenu[AC_KALA] = validation;  // کالاها
 
     validation = CheckAccess('CUST', 'Fct5');
-    ShowMenu[32] = validation;  // خریداران / فروشندگان
+    ShowMenu[AC_CUST] = validation;  // خریداران / فروشندگان
 
     validation = CheckAccess('ACC', 'Acc5');
-    ShowMenu[33] = validation;  // حساب ها
+    ShowMenu[AC_ACC] = validation;  // حساب ها
 
     validation = CheckAccess('MKZ', localStorage.getItem('ProgAccess'));
-    ShowMenu[34] = validation;  // مرکز هزینه
+    ShowMenu[AC_MKZ] = validation;  // مرکز هزینه
 
     validation = CheckAccess('OPR', localStorage.getItem('ProgAccess'));
-    ShowMenu[35] = validation;  // پروژه
+    ShowMenu[AC_OPR] = validation;  // پروژه
 
     validation = CheckAccessReport('AGMkz', 'Acc5');
-    ShowMenu[36] = validation;  // گردش مراکز هزینه
+    ShowMenu[AC_AGMkz] = validation;  // گردش مراکز هزینه
 
     validation = CheckAccessReport('AGOpr', 'Acc5');
-    ShowMenu[37] = validation;  // گردش پروژه ها 
+    ShowMenu[AC_AGOpr] = validation;  // گردش پروژه ها 
 
     validation = CheckAccess('ARZ', localStorage.getItem('ProgAccess'));
-    ShowMenu[38] = validation;  //  ارز ها
+    ShowMenu[AC_ARZ] = validation;  //  ارز ها
 
     validation = CheckAccess('ZACC', 'Acc5');
-    ShowMenu[39] = validation;  //  زیر حساب ها
+    ShowMenu[AC_ZACC] = validation;  //  زیر حساب ها
+
+    validation = CheckAccess('SFORD', 'Fct5');
+    ShowMenu[AC_SFORD] = validation;  // سفارش فروش
+
+    validation = CheckAccess('SPDOC', 'Fct5');
+    ShowMenu[AC_SPDOC] = validation;  // پیش فاکتور قروش
+
+    validation = CheckAccess('SFDOC', 'Fct5');
+    ShowMenu[AC_SFDOC] = validation;  //  فاکتور قروش
+
+    validation = CheckAccess('SRDOC', 'Fct5');
+    ShowMenu[AC_SRDOC] = validation;  // برگشت فاکتور قروش
+
+    validation = CheckAccess('SHVL', 'Fct5');
+    ShowMenu[AC_SHVL] = validation;  // حواله فروش
+
+    validation = CheckAccess('SEXT', 'Fct5');
+    ShowMenu[AC_SEXT] = validation;  //برگه خروج 
+
+    validation = CheckAccess('PFORD', 'Fct5');
+    ShowMenu[AC_PFORD] = validation;  // سفارش خرید
+
+    validation = CheckAccess('PPDOC', 'Fct5');
+    ShowMenu[AC_PPDOC] = validation;  // پیش فاکتور خرید
+
+    validation = CheckAccess('PFDOC', 'Fct5');
+    ShowMenu[AC_PFDOC] = validation;  //  فاکتور خرید
+
+    validation = CheckAccess('PRDOC', 'Fct5');
+    ShowMenu[AC_PRDOC] = validation;  // برگشت فاکتور خرید
+
+    validation = CheckAccess('IIDOC', 'Inv5');
+    ShowMenu[AC_IIDOC] = validation;  // وارده انبار
+
+    validation = CheckAccess('IODOC', 'Inv5');
+    ShowMenu[AC_IODOC] = validation;  // صادره انبار
 
 
     //localStorage.setItem("", );
@@ -2967,31 +3075,10 @@ function SetValidation() {
     localStorage.setItem("VIEW_PPDOC", ace == "Web1" ? true : CheckAccess('VIEW_PPDOC', 'Fct5'));
     localStorage.setItem("VIEW_PFDOC", ace == "Web1" ? true : CheckAccess('VIEW_PFDOC', 'Fct5')); //VIEW_PDOC
     localStorage.setItem("VIEW_PRDOC", ace == "Web1" ? true : CheckAccess('VIEW_PRDOC', 'Fct5'));
-
     localStorage.setItem("VIEW_IIDOC", ace == "Web1" ? true : CheckAccess('VIEW_IIDOC', 'Inv5'));
     localStorage.setItem("VIEW_IODOC", ace == "Web1" ? true : CheckAccess('VIEW_IODOC', 'Inv5'));
 
-
-    /*
-    localStorage.setItem("AccessViewSanad", CheckAccess('OTHERUSER_CHG_ADOC')) 
-
-    localStorage.setItem("AccessViewSefareshForosh", CheckAccess('OTHERUSER_CHG_SFORD')) 
-    localStorage.setItem("AccessViewPishFactorForosh", CheckAccess('OTHERUSER_CHG_SPDOC')) 
-    localStorage.setItem("AccessViewFactorForosh", CheckAccess('OTHERUSER_CHG_SFDOC')) 
-    localStorage.setItem("AccessViewBackFactorForosh", CheckAccess('OTHERUSER_CHG_SRDOC')) 
-    localStorage.setItem("AccessViewHavaleForosh", CheckAccess('OTHERUSER_CHG_SHVL')) 
-    localStorage.setItem("AccessViewBargeKhoroj", CheckAccess('OTHERUSER_CHG_SEXT')) 
-    localStorage.setItem("AccessViewSefareshKharid", CheckAccess('OTHERUSER_CHG_PFORD')) 
-    localStorage.setItem("AccessViewPishFactorKharid", CheckAccess('OTHERUSER_CHG_PPDOC')) 
-    localStorage.setItem("AccessViewFactorKharid", CheckAccess('OTHERUSER_CHG_PFDOC')) 
-    localStorage.setItem("AccessViewBackFactorKharid", CheckAccess('OTHERUSER_CHG_PRDOC')) 
-
-    localStorage.setItem("AccessViewSanadAnbarVarede", CheckAccess('OTHERUSER_CHG_IIDOC')) 
-    localStorage.setItem("AccessViewSanadAnbarSadere", CheckAccess('OTHERUSER_CHG_IODOC')) 
-    */
-
     localStorage.setItem("AccessSanad_ADOC", CheckAccess('OTHERUSER_VIEW_ADOC', 'Acc5'))
-
     localStorage.setItem("AccessSanad_SFORD", CheckAccess('OTHERUSER_VIEW_SFORD', 'Fct5'))
     localStorage.setItem("AccessSanad_SPDOC", CheckAccess('OTHERUSER_VIEW_SPDOC', 'Fct5'))
     localStorage.setItem("AccessSanad_SFDOC", CheckAccess('OTHERUSER_VIEW_SFDOC', 'Fct5'))
@@ -3011,817 +3098,6 @@ function SetValidation() {
 
 
 
-    /*  if (accessReport[i].Code == 'TrzIKala') {
-          return accessReport[i].Trs;
-      }
-      else if (accessReport[i].Code == 'TrzIKalaExf') {
-          return accessReport[i].Trs;
-      }
-      else if (accessReport[i].Code == 'IDocR') {
-          return accessReport[i].Trs;
-      }
-      else if (accessReport[i].Code == 'FDocR') {
-          return accessReport[i].Trs;
-      }*/
-
-
-    // سند حسابداری
-    /*  if (sessionStorage.ModeCode == 'ADOC') {
-          validation = CheckAccess('NEW_ADOC');// new Sanad Hesab
-          validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide()
-  
-          localStorage.setItem("moveSanad", validation);
-          sessionStorage.moveSanad = validation;
-  
-          validation = CheckAccess('CHG_ADOC');// edit Sanad Hesab
-          validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-          validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-          validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
-  
-          validation = CheckAccess('DEL_ADOC'); // delete Sanad Hesab
-          //validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
-  
-          validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
-          validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
-  
-  
-          validation = CheckAccess('TAEED_ADOC');// AccessTaeed
-          validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
-          validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
-  
-          validation = CheckAccess('DAEM_ADOC');// AccessDaem
-          validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
-          validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
-  
-          validation = CheckAccess('OTHERUSER_VIEW_ADOC');
-          validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-          validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-  
-          validation = CheckAccess('PRN_ADOC'); // Print Sanad Hesab
-          validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
-          validation == true ? localStorage.setItem("AccessPrint_SanadHesab", "true") : localStorage.setItem("AccessPrint_SanadHesab", "false")
-  
-  
-          validation = CheckAccess('OTHERUSER_CHG_ADOC');// AccessViewADoc
-          if (validation == true) {
-              sessionStorage.AccessViewSanad = true;
-              localStorage.setItem("AccessViewSanad", "true"); 
-          }
-          else {
-              sessionStorage.AccessViewSanad = false;
-              localStorage.setItem("AccessViewSanad", "false"); 
-          }
-      }
-      */
-
-
-    validation = CheckAccess('SFORD', 'Fct5');
-    ShowMenu[26] = validation;  // سفارش فروش
-
-    /*$("#AddNewFactor").hide();
-    $("#TabPor").hide();
-    $("#UpdateFactor").hide();
-    $("#DeleteFactor").hide();*/
-
-    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
-        validation = CheckAccess('NEW_SFORD');// new sefaresh forosh
-        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-       
-
-        sessionStorage.newFactor = validation;
-        localStorage.setItem("newFactor", validation);
-
-        validation = CheckAccess('CHG_SFORD');// edit sefaresh forosh
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-       // validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-
-
-        validation = CheckAccess('DEL_SFORD'); // delete sefaresh forosh
-
-        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_SFORD = true : sessionStorage.DEL_SFORD = false
-        validation == true ? localStorage.setItem("DEL_SFORD", "true") : localStorage.setItem("DEL_SFORD", "false")
-
-        validation = CheckAccess('PRN_SFORD'); // Print 
-        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-        validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-        validation = CheckAccess('OTHERUSER_VIEW_SFORD');
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-        validation = CheckAccess('SHOWPRICE_SFORD');// AccessPrice
-        validation == true ? sessionStorage.Access_SHOWPRICE_SFORD = true : sessionStorage.Access_SHOWPRICE_SFORD = false
-        validation == true ? localStorage.setItem("Access_SHOWPRICE_SFORD", "true") : localStorage.setItem("Access_SHOWPRICE_SFORD", "false")
-
-        validation = CheckAccess('TAEED_SFORD');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_SFORD = true : sessionStorage.Access_TAEED_SFORD = false
-        validation == true ? localStorage.setItem("Access_TAEED_SFORD", "true") : localStorage.setItem("Access_TAEED_SFORD", "false")
-
-        validation = CheckAccess('CANCEL_SFORD');// AccessCANCEL  باطل
-        validation == true ? sessionStorage.Access_CANCEL_SFORD = true : sessionStorage.Access_CANCEL_SFORD = false
-        validation == true ? localStorage.setItem("Access_CANCEL_SFORD", "true") : localStorage.setItem("Access_CANCEL_SFORD", "false")
-
-        validation = CheckAccess('TASVIB_SFORD');// AccessTasvib
-        validation == true ? sessionStorage.Access_TASVIB_SFORD = true : sessionStorage.Access_TASVIB_SFORD = false
-        validation == true ? localStorage.setItem("Access_TASVIB_SFORD", "true") : localStorage.setItem("Access_TASVIB_SFORD", "false")
-
-        validation = CheckAccess('OTHERUSER_CHG_SFORD');// AccessViewSanad
-        if (validation == true) {
-            sessionStorage.AccessViewSefareshForosh = true;
-            localStorage.setItem("AccessViewSefareshForosh", "true")
-        }
-        else {
-            sessionStorage.AccessViewSefareshForosh = false;
-            localStorage.setItem("AccessViewSefareshForosh", "false")
-
-        }
-
-        validation = CheckAccess('MOVE_SFORD');
-        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-        sessionStorage.moveFactor = validation;
-        localStorage.setItem("moveFactor", validation);
-    }*/
-
-
-
-    validation = CheckAccess('SPDOC', 'Fct5');
-    ShowMenu[3] = validation;  // پیش فاکتور قروش
-    //sessionStorage.AccessSanad = true; // بعد از ایجاد دسترسی پاک شود
-
-    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SP) {
-        validation = CheckAccess('NEW_SPDOC');// new pish Factor forosh
-        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-        sessionStorage.newFactor = validation;
-        localStorage.setItem("newFactor", validation);
-
-        validation = CheckAccess('CHG_SPDOC');// edit pish Factor forosh
-        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-
-        validation = CheckAccess('DEL_SPDOC'); // delete pish Factor forosh
-       // validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_SPDOC = true : sessionStorage.DEL_SPDOC = false
-        validation == true ? localStorage.setItem("DEL_SPDOC", "true") : localStorage.setItem("DEL_SPDOC", "false")
-
-        validation = CheckAccess('OTHERUSER_VIEW_SPDOC');
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-        validation = CheckAccess('PRN_SPDOC'); // Print pish Factor forosh
-        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-        validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-        //validation = CheckAccess('AccessSanad_SPDOC');// AccessSanad
-        //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-
-        validation = CheckAccess('SHOWPRICE_SPDOC');// AccessPrice
-        validation == true ? sessionStorage.Access_SHOWPRICE_SPDOC = true : sessionStorage.Access_SHOWPRICE_SPDOC = false
-        validation == true ? localStorage.setItem("Access_SHOWPRICE_SPDOC", "true") : localStorage.setItem("Access_SHOWPRICE_SPDOC", "false")
-
-        validation = CheckAccess('TAEED_SPDOC');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_SPDOC = true : sessionStorage.Access_TAEED_SPDOC = false
-        validation == true ? localStorage.setItem("Access_TAEED_SPDOC", "true") : localStorage.setItem("Access_TAEED_SPDOC", "false")
-
-        validation = CheckAccess('CANCEL_SPDOC');// AccessCANCEL  باطل
-        validation == true ? sessionStorage.Access_CANCEL_SPDOC = true : sessionStorage.Access_CANCEL_SPDOC = false
-        validation == true ? localStorage.setItem("Access_CANCEL_SPDOC", "true") : localStorage.setItem("Access_CANCEL_SPDOC", "false")
-
-        validation = CheckAccess('TASVIB_SPDOC');// AccessTasvib
-        validation == true ? sessionStorage.Access_TASVIB_SPDOC = true : sessionStorage.Access_TASVIB_SPDOC = false
-        validation == true ? localStorage.setItem("Access_TASVIB_SPDOC", "true") : localStorage.setItem("Access_TASVIB_SPDOC", "false")
-
-
-        validation = CheckAccess('OTHERUSER_CHG_SPDOC');// AccessViewSanad
-        if (validation == true) {
-            sessionStorage.AccessViewPishFactorForosh = true;
-            localStorage.setItem("AccessViewPishFactorForosh", "true")
-        }
-        else {
-            sessionStorage.AccessViewPishFactorForosh = false;
-            localStorage.setItem("AccessViewPishFactorForosh", "false")
-        }
-
-        validation = CheckAccess('MOVE_SPDOC');
-        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-        sessionStorage.moveFactor = validation;
-        localStorage.setItem("moveFactor", validation);
-    }*/
-
-    // OTHERUSER_SDOC
-
-    validation = CheckAccess('SFDOC', 'Fct5');
-    ShowMenu[4] = validation;  //  فاکتور قروش
-
-    /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S) {
-         validation = CheckAccess('NEW_SFDOC');// new Factor forosh
-         //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-         //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-         sessionStorage.newFactor = validation;
-         localStorage.setItem("newFactor", validation);
- 
-         validation = CheckAccess('CHG_SFDOC');// edit Factor forosh
-         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-         //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
- 
- 
-         validation = CheckAccess('DEL_SFDOC'); // delete Factor forosh
-         //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-         validation == true ? sessionStorage.DEL_SDOC = true : sessionStorage.DEL_SDOC = false
-         validation == true ? localStorage.setItem("DEL_SDOC", "true") : localStorage.setItem("DEL_SDOC", "false")
- 
-         validation = CheckAccess('PRN_SFDOC'); // Print Factor forosh
-         validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-         validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
- 
-         validation = CheckAccess('OTHERUSER_VIEW_SFDOC');// AccessSanad
-         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-         validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-         //sessionStorage.AccessSanad = true;
- 
-         validation = CheckAccess('SHOWPRICE_SFDOC');// AccessPrice
-         validation == true ? sessionStorage.Access_SHOWPRICE_SFDOC = true : sessionStorage.Access_SHOWPRICE_SFDOC = false
-         validation == true ? localStorage.setItem("Access_SHOWPRICE_SFDOC", "true") : localStorage.setItem("Access_SHOWPRICE_SFDOC", "false")
- 
-         validation = CheckAccess('TAEED_SFDOC');// AccessTaeed
-         validation == true ? sessionStorage.Access_TAEED_SFDOC = true : sessionStorage.Access_TAEED_SFDOC = false
-         validation == true ? localStorage.setItem("Access_TAEED_SFDOC", "true") : localStorage.setItem("Access_TAEED_SFDOC", "false")
- 
-         validation = CheckAccess('CANCEL_SFDOC');// AccessCANCEL  باطل
-         validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
-         validation == true ? localStorage.setItem("Access_CANCEL_SFDOC", "true") : localStorage.setItem("Access_CANCEL_SFDOC", "false")
- 
-         validation = CheckAccess('TASVIB_SFDOC');// AccessTasvib
-         validation == true ? sessionStorage.Access_TASVIB_SFDOC = true : sessionStorage.Access_TASVIB_SFDOC = false
-         validation == true ? localStorage.setItem("Access_TASVIB_SFDOC", "true") : localStorage.setItem("Access_TASVIB_SFDOC", "false")
- 
- 
-         validation = CheckAccess('OTHERUSER_CHG_SFDOC');// AccessViewSanad
-         if (validation == true) {
-             sessionStorage.AccessViewFactorForosh = true;
-             localStorage.setItem("AccessViewFactorForosh", "true")
-         }
-         else {
-             sessionStorage.AccessViewFactorForosh = false;
-             localStorage.setItem("AccessViewFactorForosh", "false")
-         }
- 
-         validation = CheckAccess('MOVE_SFDOC');
-         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-         sessionStorage.moveFactor = validation;
-         localStorage.setItem("moveFactor", validation);
-     }*/
-
-    validation = CheckAccess('SRDOC', 'Fct5');
-    ShowMenu[5] = validation;  // برگشت فاکتور قروش
-
-    /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR) {
-         validation = CheckAccess('NEW_SRDOC');// new back Factor forosh
-         //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-         //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-         sessionStorage.newFactor = validation;
-         localStorage.setItem("newFactor", validation);
- 
-         validation = CheckAccess('CHG_SRDOC');// edit back Factor forosh
-         //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
- 
-         validation = CheckAccess('DEL_SRDOC'); // delete back Factor forosh
-         //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-         validation == true ? sessionStorage.DEL_SRDOC = true : sessionStorage.DEL_SRDOC = false
-         validation == true ? localStorage.setItem("DEL_SRDOC", "true") : localStorage.setItem("DEL_SRDOC", "false")
- 
-         validation = CheckAccess('PRN_SRDOC'); // Print back Factor forosh
-         validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-         validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
- 
-         validation = CheckAccess('OTHERUSER_VIEW_SRDOC');// AccessSanad
-         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-         validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
- 
-         validation = CheckAccess('SHOWPRICE_SRDOC');// AccessPrice
-         validation == true ? sessionStorage.Access_SHOWPRICE_SRDOC = true : sessionStorage.Access_SHOWPRICE_SRDOC = false
-         validation == true ? localStorage.setItem("Access_SHOWPRICE_SRDOC", "true") : localStorage.setItem("Access_SHOWPRICE_SRDOC", "false")
- 
-         validation = CheckAccess('TAEED_SRDOC');// AccessTaeed
-         validation == true ? sessionStorage.Access_TAEED_SRDOC = true : sessionStorage.Access_TAEED_SRDOC = false
-         validation == true ? localStorage.setItem("Access_TAEED_SRDOC", "true") : localStorage.setItem("Access_TAEED_SRDOC", "false")
- 
-         validation = CheckAccess('CANCEL_SFDOC');// AccessCANCEL  باطل
-         validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
-         validation == true ? localStorage.setItem("Access_CANCEL_SFDOC", "true") : localStorage.setItem("Access_CANCEL_SFDOC", "false")
- 
- 
-         validation = CheckAccess('TASVIB_SRDOC');// AccessTasvib
-         validation == true ? sessionStorage.Access_TASVIB_SRDOC = true : sessionStorage.Access_TASVIB_SRDOC = false
-         validation == true ? localStorage.setItem("Access_TASVIB_SRDOC", "true") : localStorage.setItem("Access_TASVIB_SRDOC", "false")
- 
-         validation = CheckAccess('OTHERUSER_CHG_SRDOC');// AccessViewSanad
-         if (validation == true) {
-             sessionStorage.AccessViewBackFactorForosh = true;
-             localStorage.setItem("AccessViewBackFactorForosh", "true")
-         }
-         else {
-             sessionStorage.AccessViewBackFactorForosh = false;
-             localStorage.setItem("AccessViewBackFactorForosh", "false")
-         }
- 
-         validation = CheckAccess('MOVE_SRDOC');
-         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-         sessionStorage.moveFactor = validation;
-         localStorage.setItem("moveFactor", validation);
-     }*/
-
-
-    validation = CheckAccess('SHVL', 'Fct5');
-    ShowMenu[27] = validation;  // حواله فروش
-
-    /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SH) {
-         validation = CheckAccess('NEW_SHVL');// new 
-         //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-         //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-         sessionStorage.newFactor = validation;
-         localStorage.setItem("newFactor", validation);
- 
-         validation = CheckAccess('CHG_SHVL');// edit
-         //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-         validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-         validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
- 
-         validation = CheckAccess('DEL_SHVL'); // delete 
-         //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-         validation == true ? sessionStorage.DEL_SHVL = true : sessionStorage.DEL_SHVL = false
-         validation == true ? localStorage.setItem("DEL_SHVL", "true") : localStorage.setItem("DEL_SHVL", "false")
- 
-         validation = CheckAccess('PRN_SHVL'); // Print
-         validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-         validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
- 
-         validation = CheckAccess('OTHERUSER_VIEW_SHVL');
-         validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-         validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
- 
-         validation = CheckAccess('TAEED_SHVL');// AccessTaeed
-         validation == true ? sessionStorage.Access_TAEED_SHVL = true : sessionStorage.Access_TAEED_SHVL = false
-         validation == true ? localStorage.setItem("Access_TAEED_SHVL", "true") : localStorage.setItem("Access_TAEED_SHVL", "false")
- 
-         validation = CheckAccess('CANCEL_SFDOC');// AccessCANCEL  باطل
-         validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
-         validation == true ? localStorage.setItem("Access_CANCEL_SFDOC", "true") : localStorage.setItem("Access_CANCEL_SFDOC", "false")
- 
-         validation = CheckAccess('TASVIB_SHVL');// AccessTasvib
-         validation == true ? sessionStorage.Access_TASVIB_SHVL = true : sessionStorage.Access_TASVIB_SHVL = false
-         validation == true ? localStorage.setItem("Access_TASVIB_SHVL", "true") : localStorage.setItem("Access_TASVIB_SHVL", "false")
- 
- 
-         validation = CheckAccess('OTHERUSER_CHG_SHVL');
-         if (validation == true) {
-             sessionStorage.AccessViewHavaleForosh = true;
-             localStorage.setItem("AccessViewHavaleForosh", "true")
-         }
-         else {
-             sessionStorage.AccessViewHavaleForosh = false;
-             localStorage.setItem("AccessViewHavaleForosh", "false")
-         }
- 
-         validation = CheckAccess('MOVE_SHVL');
-         validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-         sessionStorage.moveFactor = validation;
-         localStorage.setItem("moveFactor", validation);
-     }*/
-
-
-    validation = CheckAccess('SEXT', 'Fct5');
-    ShowMenu[28] = validation;  //برگه خروج 
-
-    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SE) {
-        validation = CheckAccess('NEW_SEXT');// new 
-        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-        sessionStorage.newFactor = validation;
-        localStorage.setItem("newFactor", validation);
-
-        validation = CheckAccess('CHG_SEXT');// edit 
-        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-
-        validation = CheckAccess('DEL_SEXT'); // delete 
-        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_SEXT = true : sessionStorage.DEL_SEXT = false
-        validation == true ? localStorage.setItem("DEL_SEXT", "true") : localStorage.setItem("DEL_SEXT", "false")
-
-        validation = CheckAccess('PRN_SEXT'); // Print
-        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-        validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-        validation = CheckAccess('OTHERUSER_VIEW_SEXT');
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-        validation = CheckAccess('TAEED_SEXT');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_SEXT = true : sessionStorage.Access_TAEED_SEXT = false
-        validation == true ? localStorage.setItem("Access_TAEED_SEXT", "true") : localStorage.setItem("Access_TAEED_SEXT", "false")
-
-        validation = CheckAccess('CANCEL_SEXT');// AccessCANCEL  باطل
-        validation == true ? sessionStorage.Access_CANCEL_SEXT = true : sessionStorage.Access_CANCEL_SEXT = false
-        validation == true ? localStorage.setItem("Access_CANCEL_SEXT", "true") : localStorage.setItem("Access_CANCEL_SEXT", "false")
-
-        validation = CheckAccess('TASVIB_SEXT');// AccessTasvib
-        validation == true ? sessionStorage.Access_TASVIB_SEXT = true : sessionStorage.Access_TASVIB_SEXT = false
-        validation == true ? localStorage.setItem("Access_TASVIB_SEXT", "true") : localStorage.setItem("Access_TASVIB_SEXT", "false")
-
-
-        validation = CheckAccess('OTHERUSER_CHG_SEXT');
-        if (validation == true) {
-            sessionStorage.AccessViewBargeKhoroj = true;
-            localStorage.setItem("AccessViewBargeKhoroj", "true")
-        }
-        else {
-            sessionStorage.AccessViewBargeKhoroj = false;
-            localStorage.setItem("AccessViewBargeKhoroj", "false")
-        }
-
-        validation = CheckAccess('MOVE_SEXT');
-        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-        sessionStorage.moveFactor = validation;
-        localStorage.setItem("moveFactor", validation);
-    }*/
-
-
-    validation = CheckAccess('PFORD', 'Fct5');
-    ShowMenu[29] = validation;  // سفارش خرید
-
-    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PO) {
-        validation = CheckAccess('NEW_PFORD');// new
-        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-        sessionStorage.newFactor = validation;
-        localStorage.setItem("newFactor", validation);
-
-        validation = CheckAccess('CHG_PFORD');// edit
-        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-
-        validation = CheckAccess('DEL_PFORD'); // delete
-        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_PFORD = true : sessionStorage.DEL_PFORD = false
-        validation == true ? localStorage.setItem("DEL_PFORD", "true") : localStorage.setItem("DEL_PFORD", "false")
-
-        validation = CheckAccess('PRN_PFORD'); // Print
-        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-        validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-        validation = CheckAccess('OTHERUSER_VIEW_PFORD');
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-        validation = CheckAccess('SHOWPRICE_PFORD');// AccessPrice
-        validation == true ? sessionStorage.Access_SHOWPRICE_PFORD = true : sessionStorage.Access_SHOWPRICE_PFORD = false
-        validation == true ? localStorage.setItem("Access_SHOWPRICE_PFORD", "true") : localStorage.setItem("Access_SHOWPRICE_PFORD", "false")
-
-        validation = CheckAccess('TAEED_PFORD');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_PFORD = true : sessionStorage.Access_TAEED_PFORD = false
-        validation == true ? localStorage.setItem("Access_TAEED_PFORD", "true") : localStorage.setItem("Access_TAEED_PFORD", "false")
-
-        validation = CheckAccess('CANCEL_SEXT');// AccessCANCEL  باطل
-        validation == true ? sessionStorage.Access_CANCEL_SEXT = true : sessionStorage.Access_CANCEL_SEXT = false
-        validation == true ? localStorage.setItem("Access_CANCEL_SEXT", "true") : localStorage.setItem("Access_CANCEL_SEXT", "false")
-
-        validation = CheckAccess('TASVIB_PFORD');// AccessTasvib
-        validation == true ? sessionStorage.Access_TASVIB_PFORD = true : sessionStorage.Access_TASVIB_PFORD = false
-        validation == true ? localStorage.setItem("Access_TASVIB_PFORD", "true") : localStorage.setItem("Access_TASVIB_PFORD", "false")
-
-
-        validation = CheckAccess('OTHERUSER_CHG_PFORD');
-        if (validation == true) {
-            sessionStorage.AccessViewSefareshKharid = true;
-            localStorage.setItem("AccessViewSefareshKharid", "true")
-        }
-        else {
-            sessionStorage.AccessViewSefareshKharid = false;
-            localStorage.setItem("AccessViewSefareshKharid", "false")
-        }
-
-        validation = CheckAccess('MOVE_PFORD');
-        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-        sessionStorage.moveFactor = validation;
-        localStorage.setItem("moveFactor", validation);
-    }*/
-
-
-
-    validation = CheckAccess('PPDOC', 'Fct5');
-    ShowMenu[6] = validation;  // پیش فاکتور خرید
-
-    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PP) {
-        validation = CheckAccess('NEW_PPDOC');// new pish Factor kharid
-        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-        sessionStorage.newFactor = validation;
-        localStorage.setItem("newFactor", validation);
-
-        validation = CheckAccess('CHG_PPDOC');// edit pish Factor kharid
-        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-
-        validation = CheckAccess('DEL_PPDOC'); // delete pish Factor kharid
-        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_PPDOC = true : sessionStorage.DEL_PPDOC = false
-        validation == true ? localStorage.setItem("DEL_PPDOC", "true") : localStorage.setItem("DEL_PPDOC", "false")
-
-        validation = CheckAccess('PRN_PPDOC'); // Print pish Factor kharid
-        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-        validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-        //validation = CheckAccess('OTHERUSER_PPDOC');// AccessSanad
-        //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-
-        validation = CheckAccess('OTHERUSER_VIEW_PPDOC');// AccessSanad
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-        validation = CheckAccess('SHOWPRICE_PPDOC');// AccessPrice
-        validation == true ? sessionStorage.Access_SHOWPRICE_PPDOC = true : sessionStorage.Access_SHOWPRICE_PPDOC = false
-        validation == true ? localStorage.setItem("Access_SHOWPRICE_PPDOC", "true") : localStorage.setItem("Access_SHOWPRICE_PPDOC", "false")
-
-        validation = CheckAccess('TAEED_PPDOC');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_PPDOC = true : sessionStorage.Access_TAEED_PPDOC = false
-        validation == true ? localStorage.setItem("Access_TAEED_PPDOC", "true") : localStorage.setItem("Access_TAEED_PPDOC", "false")
-
-        validation = CheckAccess('CANCEL_PPDOC');// AccessCANCEL  باطل
-        validation == true ? sessionStorage.Access_CANCEL_PPDOC = true : sessionStorage.Access_CANCEL_PPDOC = false
-        validation == true ? localStorage.setItem("Access_CANCEL_PPDOC", "true") : localStorage.setItem("Access_CANCEL_PPDOC", "false")
-
-        validation = CheckAccess('TASVIB_PPDOC');// AccessTasvib
-        validation == true ? sessionStorage.Access_TASVIB_PPDOC = true : sessionStorage.Access_TASVIB_PPDOC = false
-        validation == true ? localStorage.setItem("Access_TASVIB_PPDOC", "true") : localStorage.setItem("Access_TASVIB_PPDOC", "false")
-
-        validation = CheckAccess('OTHERUSER_CHG_PPDOC');// AccessViewSanad
-        if (validation == true) {
-            sessionStorage.AccessViewPishFactorKharid = true;
-            localStorage.setItem("AccessViewPishFactorKharid", "true")
-        }
-        else {
-            sessionStorage.AccessViewPishFactorKharid = false;
-            localStorage.setItem("AccessViewPishFactorKharid", "false")
-        }
-
-        validation = CheckAccess('MOVE_PPDOC');
-        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-        sessionStorage.moveFactor = validation;
-        localStorage.setItem("moveFactor", validation);
-    }*/
-
-    validation = CheckAccess('PFDOC', 'Fct5');
-    ShowMenu[7] = validation;  //  فاکتور خرید
-
-    /* if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_P) {
-        validation = CheckAccess('NEW_PFDOC');// new Factor kharid
-        //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-        //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-        sessionStorage.newFactor = validation;
-        localStorage.setItem("newFactor", validation);
-
-        validation = CheckAccess('CHG_PFDOC');// edit Factor kharid
-        //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-        validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-        validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-
-        validation = CheckAccess('DEL_PFDOC'); // delete Factor kharid
-        //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-        validation == true ? sessionStorage.DEL_PDOC = true : sessionStorage.DEL_PDOC = false
-        validation == true ? localStorage.setItem("DEL_PDOC", "true") : localStorage.setItem("DEL_PDOC", "false")
-
-        validation = CheckAccess('PRN_PFDOC'); // Print Factor kharid
-        validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-        validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-
-        validation = CheckAccess('OTHERUSER_VIEW_PFDOC');// AccessSanad
-        validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-        validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-
-        validation = CheckAccess('SHOWPRICE_PFDOC');// AccessPrice
-        validation == true ? sessionStorage.Access_SHOWPRICE_PFDOC = true : sessionStorage.Access_SHOWPRICE_PFDOC = false
-        validation == true ? localStorage.setItem("Access_SHOWPRICE_PFDOC", "true") : localStorage.setItem("Access_SHOWPRICE_PFDOC", "false")
-
-        validation = CheckAccess('TAEED_PFDOC');// AccessTaeed
-        validation == true ? sessionStorage.Access_TAEED_PFDOC = true : sessionStorage.Access_TAEED_PFDOC = false
-        validation == true ? localStorage.setItem("Access_TAEED_PFDOC", "true") : localStorage.setItem("Access_TAEED_PFDOC", "false")
-
-        validation = CheckAccess('CANCEL_PFDOC');// AccessCANCEL  باطل
-        validation == true ? sessionStorage.Access_CANCEL_PFDOC = true : sessionStorage.Access_CANCEL_PFDOC = false
-        validation == true ? localStorage.setItem("Access_CANCEL_PFDOC", "true") : localStorage.setItem("Access_CANCEL_PFDOC", "false")
-
-        validation = CheckAccess('TASVIB_PFDOC');// AccessTasvib
-        validation == true ? sessionStorage.Access_TASVIB_PFDOC = true : sessionStorage.Access_TASVIB_PFDOC = false
-        validation == true ? localStorage.setItem("Access_TASVIB_PFDOC", "true") : localStorage.setItem("Access_TASVIB_PFDOC", "false")
-
-        validation = CheckAccess('OTHERUSER_CHG_PFDOC');// AccessViewSanad
-        if (validation == true) {
-            sessionStorage.AccessViewFactorKharid = true;
-            localStorage.setItem("AccessViewFactorKharid", "true")
-        }
-        else {
-            sessionStorage.AccessViewFactorKharid = false;
-            localStorage.setItem("AccessViewFactorKharid", "false")
-        }
-
-        validation = CheckAccess('MOVE_PFDOC');
-        validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-        sessionStorage.moveFactor = validation;
-        localStorage.setItem("moveFactor", validation);
-    }*/
-
-
-    validation = CheckAccess('PRDOC', 'Fct5');
-    ShowMenu[8] = validation;  // برگشت فاکتور خرید
-
-    /*  if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
-          validation = CheckAccess('NEW_PRDOC');// new back Factor kharid
-          //validation == true ? $("#AddNewFactor").show() : $("#AddNewFactor").hide()
-          //validation == true ? $("#TabPor").show() : $("#TabPor").hide()
-          sessionStorage.newFactor = validation;
-          localStorage.setItem("newFactor", validation);
-  
-          validation = CheckAccess('CHG_PRDOC');// edit back Factor kharid
-          //validation == true ? $("#UpdateFactor").show() : $("#UpdateFactor").hide()
-          validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-          validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-  
-  
-          validation = CheckAccess('DEL_PRDOC'); // delete back Factor kharid
-          //validation == true ? $("#DeleteFactor").show() : $("#DeleteFactor").hide()
-          validation == true ? sessionStorage.DEL_PRDOC = true : sessionStorage.DEL_PRDOC = false
-          validation == true ? localStorage.setItem("DEL_PRDOC", "true") : localStorage.setItem("DEL_PRDOC", "false")
-  
-          validation = CheckAccess('PRN_PRDOC'); // Print back Factor kharid
-          validation == true ? sessionStorage.AccessPrint_Factor = true : sessionStorage.AccessPrint_Factor = false
-          validation == true ? localStorage.setItem("AccessPrint_Factor", "true") : localStorage.setItem("AccessPrint_Factor", "false")
-  
-          validation = CheckAccess('OTHERUSER_VIEW_PRDOC');// AccessSanad
-          validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-          validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-  
-          validation = CheckAccess('SHOWPRICE_PRDOC');// AccessPrice
-          validation == true ? sessionStorage.Access_SHOWPRICE_PRDOC = true : sessionStorage.Access_SHOWPRICE_PRDOC = false
-          validation == true ? localStorage.setItem("Access_SHOWPRICE_PRDOC", "true") : localStorage.setItem("Access_SHOWPRICE_PRDOC", "false")
-  
-          validation = CheckAccess('TAEED_PRDOC');// AccessTaeed
-          validation == true ? sessionStorage.Access_TAEED_PRDOC = true : sessionStorage.Access_TAEED_PRDOC = false
-          validation == true ? localStorage.setItem("Access_TAEED_PRDOC", "true") : localStorage.setItem("Access_TAEED_PRDOC", "false")
-  
-          validation = CheckAccess('CANCEL_PRDOC');// AccessCANCEL  باطل
-          validation == true ? sessionStorage.Access_CANCEL_PRDOC = true : sessionStorage.Access_CANCEL_PRDOC = false
-          validation == true ? localStorage.setItem("Access_CANCEL_PRDOC", "true") : localStorage.setItem("Access_CANCEL_PRDOC", "false")
-  
-          validation = CheckAccess('TASVIB_PRDOC');// AccessTasvib
-          validation == true ? sessionStorage.Access_TASVIB_PRDOC = true : sessionStorage.Access_TASVIB_PRDOC = false
-          validation == true ? localStorage.setItem("Access_TASVIB_PRDOC", "true") : localStorage.setItem("Access_TASVIB_PRDOC", "false")
-  
-          validation = CheckAccess('OTHERUSER_CHG_PRDOC');// AccessViewSanad
-          if (validation == true) {
-              sessionStorage.AccessViewBackFactorKharid = true;
-              localStorage.setItem("AccessViewBackFactorKharid", "true")
-          }
-          else {
-              sessionStorage.AccessViewBackFactorKharid = false;
-              localStorage.setItem("AccessViewBackFactorKharid", "false")
-          }
-  
-          validation = CheckAccess('MOVE_PRDOC');
-          validation == true ? $("#TabMove").show() : $("#TabMove").hide()
-          sessionStorage.moveFactor = validation;
-          localStorage.setItem("moveFactor", validation);
-  
-      }*/
-
-
-
-
-
-
-
-    validation = CheckAccess('IIDOC', 'Inv5');
-    ShowMenu[9] = validation;  // وارده انبار
-
-    /*   if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 1) {
-           validation = CheckAccess('NEW_IIDOC');// new varedae anbar
-           validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
-           sessionStorage.moveSanadAnbar = validation;
-           localStorage.setItem("moveSanadAnbar", validation);
-   
-           validation = CheckAccess('CHG_IIDOC');// edit varedae anbar
-           validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
-           validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-           validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-   
-           validation = CheckAccess('DEL_IIDOC'); // delete varedae anbar
-           validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
-           validation == true ? sessionStorage.DEL_IIDOC = true : sessionStorage.DEL_IIDOC = false
-           validation == true ? localStorage.setItem("DEL_IIDOC", "true") : localStorage.setItem("DEL_IIDOC", "false")
-   
-           validation = CheckAccess('PRN_IIDOC'); // Print
-           validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
-           validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
-   
-   
-           validation = CheckAccess('SHOWPRICE_IIDOC');// AccessPrice
-           validation == true ? sessionStorage.Access_SHOWPRICE_IIDOC = true : sessionStorage.Access_SHOWPRICE_IIDOC = false
-           validation == true ? localStorage.setItem("Access_SHOWPRICE_IIDOC", "true") : localStorage.setItem("Access_SHOWPRICE_IIDOC", "false")
-   
-           validation = CheckAccess('TAEED_IIDOC');// AccessTaeed
-           validation == true ? sessionStorage.Access_TAEED_IIDOC = true : sessionStorage.Access_TAEED_IIDOC = false
-           validation == true ? localStorage.setItem("Access_TAEED_IIDOC", "true") : localStorage.setItem("Access_TAEED_IIDOC", "false")
-   
-           validation = CheckAccess('CANCEL_IIDOC');// AccessCANCEL  باطل
-           validation == true ? sessionStorage.Access_CANCEL_IIDOC = true : sessionStorage.Access_CANCEL_IIDOC = false
-           validation == true ? localStorage.setItem("Access_CANCEL_IIDOC", "true") : localStorage.setItem("Access_CANCEL_IIDOC", "false")
-   
-           validation = CheckAccess('TASVIB_IIDOC');// AccessTasvib
-           validation == true ? sessionStorage.Access_TASVIB_IIDOC = true : sessionStorage.Access_TASVIB_IIDOC = false
-           validation == true ? localStorage.setItem("Access_TASVIB_IIDOC", "true") : localStorage.setItem("Access_TASVIB_IIDOC", "false")
-   
-   
-           validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
-           validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-           validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-   
-           validation = CheckAccess('OTHERUSER_CHG_IIDOC');// AccessViewSanad
-           if (validation == true) {
-               sessionStorage.AccessViewSanadAnbarVarede = true;
-               localStorage.setItem("AccessViewSanadAnbarVarede", "true")
-           }
-           else {
-               sessionStorage.AccessViewSanadAnbarVarede = false;
-               localStorage.setItem("AccessViewSanadAnbarVarede", "false")
-           }
-       }*/
-
-    validation = CheckAccess('IODOC', 'Inv5');
-    ShowMenu[10] = validation;  // صادره انبار
-
-    /*  if (sessionStorage.ModeCode == '' && sessionStorage.InOut == 2) {
-          validation = CheckAccess('NEW_IODOC');// new sadere anbar
-          validation == true ? $("#AddNewSanadAnbar").show() : $("#AddNewSanadAnbar").hide()
-          sessionStorage.moveSanadAnbar = validation;
-          localStorage.setItem("moveSanadAnbar", validation);
-  
-  
-          validation = CheckAccess('CHG_IODOC');// edit sadere anbar
-          validation == true ? $("#UpdateSanadAnbar").show() : $("#UpdateSanadAnbar").hide()
-          validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-          validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-  
-          validation = CheckAccess('DEL_IODOC'); // delete sadere anbar
-          validation == true ? $("#DeleteSanadAnbar").show() : $("#DeleteSanadAnbar").hide()
-          validation == true ? sessionStorage.DEL_IODOC = true : sessionStorage.DEL_IODOC = false
-          validation == true ? localStorage.setItem("DEL_IODOC", "true") : localStorage.setItem("DEL_IODOC", "false")
-  
-          validation = CheckAccess('PRN_IODOC'); // Print
-          validation == true ? sessionStorage.AccessPrint_SanadAnbar = true : sessionStorage.AccessPrint_SanadAnbar = false
-          validation == true ? localStorage.setItem("AccessPrint_SanadAnbar", "true") : localStorage.setItem("AccessPrint_SanadAnbar", "false")
-  
-  
-          validation = CheckAccess('SHOWPRICE_IODOC');// AccessPrice
-          validation == true ? sessionStorage.Access_SHOWPRICE_IODOC = true : sessionStorage.Access_SHOWPRICE_IODOC = false
-          validation == true ? localStorage.setItem("Access_SHOWPRICE_IODOC", "true") : localStorage.setItem("Access_SHOWPRICE_IODOC", "false")
-  
-          validation = CheckAccess('TAEED_IODOC');// AccessTaeed
-          validation == true ? sessionStorage.Access_TAEED_IODOC = true : sessionStorage.Access_TAEED_IODOC = false
-          validation == true ? localStorage.setItem("Access_TAEED_IODOC", "true") : localStorage.setItem("Access_TAEED_IODOC", "false")
-  
-          validation = CheckAccess('CANCEL_IODOC');// AccessCANCEL  باطل
-          validation == true ? sessionStorage.Access_CANCEL_IODOC = true : sessionStorage.Access_CANCEL_IODOC = false
-          validation == true ? localStorage.setItem("Access_CANCEL_IODOC", "true") : localStorage.setItem("Access_CANCEL_IODOC", "false")
-  
-          validation = CheckAccess('TASVIB_IODOC');// AccessTasvib
-          validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
-          validation == true ? localStorage.setItem("Access_TASVIB_IODOC", "true") : localStorage.setItem("Access_TASVIB_IODOC", "false")
-  
-          validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
-          validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-          validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-  
-          validation = CheckAccess('OTHERUSER_CHG_IODOC');// AccessViewSanad
-          if (validation == true) {
-              sessionStorage.AccessViewSanadAnbarSadere = true;
-              localStorage.setItem("AccessViewSanadAnbarSadere", "true")
-          }
-          else {
-              sessionStorage.AccessViewSanadAnbarSadere = false;
-              localStorage.setItem("AccessViewSanadAnbarSadere", "false")
-          }
-  
-      }*/
 
     if (access[0].TrsName == 'ADMIN') {
         sessionStorage.AccessSanad = true;
@@ -3832,17 +3108,20 @@ function SetValidation() {
 
 
 
-    if (afiaccess[27] == true || afiaccess[28] == true || afiaccess[29] == true || afiaccess[30] == true || afiaccess[31] == true || afiaccess[34] == true || afiaccess[35] == true) {
-        if (ShowMenu[31] || ShowMenu[32] || ShowMenu[33] || ShowMenu[34] || ShowMenu[35] || ShowMenu[38] || ShowMenu[39]) {
-            $("#Base_Menu").show();
-            (ShowMenu[31] == true) && (afiaccess[27] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
-            (ShowMenu[32] == true) && (afiaccess[28] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
-            (ShowMenu[33] == true) && (afiaccess[29] == true) ? $("#BaseAcc").show() : $("#BaseAcc").hide();
-            (ShowMenu[34] == true) && (afiaccess[30] == true) ? $("#BaseMkz").show() : $("#BaseMkz").hide();
-            (ShowMenu[35] == true) && (afiaccess[31] == true) ? $("#BaseOpr").show() : $("#BaseOpr").hide();
-            (ShowMenu[38] == true) && (afiaccess[34] == true) ? $("#BaseArz").show() : $("#BaseArz").hide();
 
-            (ShowMenu[39] == true) && (afiaccess[35] == true) ? $("#BaseZAcc").show() : $("#BaseZAcc").hide();
+    if (afiaccess[AP_Kala] == true || afiaccess[AP_Cust] == true || afiaccess[AP_Acc] == true || afiaccess[AP_Mkz] == true ||
+        afiaccess[AP_Opr] == true || afiaccess[AP_Arz] == true || afiaccess[AP_ZAcc] == true) {
+
+        if (ShowMenu[AC_KALA] || ShowMenu[AC_CUST] || ShowMenu[AC_ACC] || ShowMenu[AC_MKZ] || ShowMenu[AC_OPR] || ShowMenu[AC_ARZ] || ShowMenu[AC_ZACC]) {
+            $("#Base_Menu").show();
+            $("#Dashbord").show();
+            (ShowMenu[AC_KALA] == true) && (afiaccess[AP_Kala] == true) ? $("#BaseKala").show() : $("#BaseKala").hide();
+            (ShowMenu[AC_CUST] == true) && (afiaccess[AP_Cust] == true) ? $("#BaseCust").show() : $("#BaseCust").hide();
+            (ShowMenu[AC_ACC] == true) && (afiaccess[AP_Acc] == true) ? $("#BaseAcc").show() : $("#BaseAcc").hide();
+            (ShowMenu[AC_MKZ] == true) && (afiaccess[AP_Mkz] == true) ? $("#BaseMkz").show() : $("#BaseMkz").hide();
+            (ShowMenu[AC_OPR] == true) && (afiaccess[AP_Opr] == true) ? $("#BaseOpr").show() : $("#BaseOpr").hide();
+            (ShowMenu[AC_ARZ] == true) && (afiaccess[AP_Arz] == true) ? $("#BaseArz").show() : $("#BaseArz").hide();
+            (ShowMenu[AC_ZACC] == true) && (afiaccess[AP_ZAcc] == true) ? $("#BaseZAcc").show() : $("#BaseZAcc").hide();
         }
         else {
             $("#Base_Menu").hide();
@@ -3852,11 +3131,12 @@ function SetValidation() {
         $("#Base_Menu").hide();
     }
 
-    if (ShowMenu[0]) {
-        if (afiaccess[21] == true) {
-            if (ShowMenu[25]) {
+    if (ShowMenu[AC_DOC]) {
+        if (afiaccess[AP_ADOC] == true) {
+            if (ShowMenu[AC_ADOC]) {
                 $("#ADOC_Menu").show();
-                (ShowMenu[25] == true) && (afiaccess[21] == true) ? $("#ADOC").show() : $("#ADOC").hide();
+                $("#Dashbord").show();
+                (ShowMenu[AC_ADOC] == true) && (afiaccess[AP_ADOC] == true) ? $("#ADOC").show() : $("#ADOC").hide();
             }
             else {
                 $("#ADOC_Menu").hide();
@@ -3866,22 +3146,25 @@ function SetValidation() {
             $("#ADOC_Menu").hide();
         }
 
-        if (afiaccess[0] == true || afiaccess[1] == true || afiaccess[2] == true || afiaccess[3] == true || afiaccess[4] == true || afiaccess[5] == true
-            || afiaccess[22] == true || afiaccess[23] == true || afiaccess[24] == true || afiaccess[25] == true) {
-            if (ShowMenu[1] || ShowMenu[2]) {
-                if (ShowMenu[3] || ShowMenu[4] || ShowMenu[5] || ShowMenu[6] || ShowMenu[7] || ShowMenu[8] || ShowMenu[26] || ShowMenu[27] || ShowMenu[28] || ShowMenu[29]) {
-                    $("#FDOC_Menu").show();
-                    (ShowMenu[3] == true) && (afiaccess[1] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
-                    (ShowMenu[4] == true) && (afiaccess[0] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
-                    (ShowMenu[5] == true) && (afiaccess[2] == true) ? $("#FDOC_SR").show() : $("#FDOC_SR").hide();
-                    (ShowMenu[6] == true) && (afiaccess[3] == true) ? $("#FDOC_PP").show() : $("#FDOC_PP").hide();
-                    (ShowMenu[7] == true) && (afiaccess[4] == true) ? $("#FDOC_P").show() : $("#FDOC_P").hide();
-                    (ShowMenu[8] == true) && (afiaccess[5] == true) ? $("#FDOC_PR").show() : $("#FDOC_PR").hide();
 
-                    (ShowMenu[26] == true) && (afiaccess[22] == true) ? $("#FDOC_SO").show() : $("#FDOC_SO").hide(); //سفارش فروش
-                    (ShowMenu[27] == true) && (afiaccess[23] == true) ? $("#FDOC_SH").show() : $("#FDOC_SH").hide(); //حواله فروش
-                    (ShowMenu[28] == true) && (afiaccess[24] == true) ? $("#FDOC_SE").show() : $("#FDOC_SE").hide(); //برگه خروج
-                    (ShowMenu[29] == true) && (afiaccess[25] == true) ? $("#FDOC_PO").show() : $("#FDOC_PO").hide();// سفارش خرید 
+
+        if (afiaccess[AP_SFCT] == true || afiaccess[AP_SPFCT] == true || afiaccess[AP_SRFCT] == true || afiaccess[AP_PFCT] == true || afiaccess[AP_PPFCT] == true || afiaccess[AP_PRFCT] == true
+            || afiaccess[AP_SFORD] == true || afiaccess[AP_SHVL] == true || afiaccess[AP_SEXT] == true || afiaccess[AP_PFORD] == true) {
+            if (ShowMenu[AC_FSDOC] || ShowMenu[AC_FPDOC]) {
+                if (ShowMenu[AC_SPDOC] || ShowMenu[AC_SFDOC] || ShowMenu[AC_SRDOC] || ShowMenu[AC_PPDOC] || ShowMenu[AC_PFDOC] || ShowMenu[AC_PRDOC] ||
+                    ShowMenu[AC_SFORD] || ShowMenu[AC_SHVL] || ShowMenu[AC_SEXT] || ShowMenu[AC_PFORD]) {
+                    $("#FDOC_Menu").show();
+                    $("#Dashbord").show();
+                    (ShowMenu[AC_SPDOC] == true) && (afiaccess[AP_SPFCT] == true) ? $("#FDOC_SP").show() : $("#FDOC_SP").hide();
+                    (ShowMenu[AC_SFDOC] == true) && (afiaccess[AP_SFCT] == true) ? $("#FDOC_S").show() : $("#FDOC_S").hide();
+                    (ShowMenu[AC_SRDOC] == true) && (afiaccess[AP_SRFCT] == true) ? $("#FDOC_SR").show() : $("#FDOC_SR").hide();
+                    (ShowMenu[AC_PPDOC] == true) && (afiaccess[AP_PFCT] == true) ? $("#FDOC_PP").show() : $("#FDOC_PP").hide();
+                    (ShowMenu[AC_PFDOC] == true) && (afiaccess[AP_PPFCT] == true) ? $("#FDOC_P").show() : $("#FDOC_P").hide();
+                    (ShowMenu[AC_PRDOC] == true) && (afiaccess[AP_PRFCT] == true) ? $("#FDOC_PR").show() : $("#FDOC_PR").hide();
+                    (ShowMenu[AC_SFORD] == true) && (afiaccess[AP_SFORD] == true) ? $("#FDOC_SO").show() : $("#FDOC_SO").hide(); //سفارش فروش
+                    (ShowMenu[AC_SHVL] == true) && (afiaccess[AP_SHVL] == true) ? $("#FDOC_SH").show() : $("#FDOC_SH").hide(); //حواله فروش
+                    (ShowMenu[AC_SEXT] == true) && (afiaccess[AP_SEXT] == true) ? $("#FDOC_SE").show() : $("#FDOC_SE").hide(); //برگه خروج
+                    (ShowMenu[AC_PFORD] == true) && (afiaccess[AP_PFORD] == true) ? $("#FDOC_PO").show() : $("#FDOC_PO").hide();// سفارش خرید 
                 }
                 else {
                     $("#FDOC_Menu").hide();
@@ -3896,11 +3179,14 @@ function SetValidation() {
         }
 
 
-        if (afiaccess[6] == true || afiaccess[7] == true) {
-            if (ShowMenu[9] || ShowMenu[10]) {
+
+
+        if (afiaccess[AP_IIDOC] == true || afiaccess[AP_IODOC] == true) {
+            if (ShowMenu[AC_IIDOC] || ShowMenu[AC_IODOC]) {
                 $("#IDOC_Menu").show();
-                (ShowMenu[9] == true) && (afiaccess[6] == true) ? $("#IDOC_I").show() : $("#IDOC_I").hide();
-                (ShowMenu[10] == true) && (afiaccess[7] == true) ? $("#IDOC_O").show() : $("#IDOC_O").hide();
+                $("#Dashbord").show();
+                (ShowMenu[AC_IIDOC] == true) && (afiaccess[AP_IIDOC] == true) ? $("#IDOC_I").show() : $("#IDOC_I").hide();
+                (ShowMenu[AC_IODOC] == true) && (afiaccess[AP_IODOC] == true) ? $("#IDOC_O").show() : $("#IDOC_O").hide();
             }
             else {
                 $("#IDOC_Menu").hide();
@@ -3916,49 +3202,58 @@ function SetValidation() {
         $("#IDOC_Menu").hide();
     }
 
-    if (ShowMenu[11]) {    // گزارشات
-        if (afiaccess[8] || afiaccess[9] || afiaccess[10] || afiaccess[26]) {
-            $("#IReport_Menu").show();
-            afiaccess[8] && ShowMenu[12] ? $("#TrzIKala").show() : $("#TrzIKala").hide();
-            afiaccess[9] && ShowMenu[13] ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
-            afiaccess[10] && ShowMenu[14] ? $("#IDocR").show() : $("#IDocR").hide();
-            afiaccess[26] && ShowMenu[30] ? $("#Krdx").show() : $("#Krdx").hide();
 
-            if (ShowMenu[12] == false && ShowMenu[13] == false && ShowMenu[14] == false && ShowMenu[30] == false)
+    if (ShowMenu[AC_RPRT]) {    // گزارشات
+        if (afiaccess[AP_TrzIKala] || afiaccess[AP_TrzIKalaExf] || afiaccess[AP_IDocR] || afiaccess[AP_Krdx]) {
+            $("#IReport_Menu").show();
+            $("#Dashbord").show();
+            afiaccess[AP_TrzIKala] && ShowMenu[AC_TrzIKala] ? $("#TrzIKala").show() : $("#TrzIKala").hide();
+            afiaccess[AP_TrzIKalaExf] && ShowMenu[AC_TrzIKalaExf] ? $("#TrzIKalaExf").show() : $("#TrzIKalaExf").hide();
+            afiaccess[AP_IDocR] && ShowMenu[AC_IDocR] ? $("#IDocR").show() : $("#IDocR").hide();
+            afiaccess[AP_Krdx] && ShowMenu[AC_Krdx] ? $("#Krdx").show() : $("#Krdx").hide();
+
+            if (ShowMenu[AC_TrzIKala] == false && ShowMenu[AC_TrzIKalaExf] == false && ShowMenu[AC_IDocR] == false && ShowMenu[AC_Krdx] == false)
                 $("#IReport_Menu").hide();
         }
         else {
             $("#IReport_Menu").hide();
         }
 
-        if (afiaccess[11] || afiaccess[12] || afiaccess[17] || afiaccess[18] || afiaccess[19] || afiaccess[20]) {
+        if (afiaccess[AP_FDocR_S] || afiaccess[AP_FDocR_P] || afiaccess[AP_TrzFKala_S] || afiaccess[AP_TrzFKala_P] || afiaccess[AP_TrzFCust_S] || afiaccess[AP_TrzFCust_P]) {
             $("#FReport_Menu").show();
-            afiaccess[11] && ShowMenu[15] ? $("#FDocR_S").show() : $("#FDocR_S").hide();
-            afiaccess[12] && ShowMenu[16] ? $("#FDocR_P").show() : $("#FDocR_P").hide();
-            afiaccess[17] && ShowMenu[21] ? $("#TrzFKala_S").show() : $("#TrzFKala_S").hide();
-            afiaccess[18] && ShowMenu[22] ? $("#TrzFKala_P").show() : $("#TrzFKala_P").hide();
-            afiaccess[19] && ShowMenu[23] ? $("#TrzFCust_S").show() : $("#TrzFCust_S").hide();
-            afiaccess[20] && ShowMenu[24] ? $("#TrzFCust_P").show() : $("#TrzFCust_P").hide();
+            $("#Dashbord").show();
+            afiaccess[AP_FDocR_S] && ShowMenu[AC_FDocR_S] ? $("#FDocR_S").show() : $("#FDocR_S").hide();
+            afiaccess[AP_FDocR_P] && ShowMenu[AC_FDocR_P] ? $("#FDocR_P").show() : $("#FDocR_P").hide();
+            afiaccess[AP_TrzFKala_S] && ShowMenu[AC_TrzFKala_S] ? $("#TrzFKala_S").show() : $("#TrzFKala_S").hide();
+            afiaccess[AP_TrzFKala_P] && ShowMenu[AC_TrzFKala_P] ? $("#TrzFKala_P").show() : $("#TrzFKala_P").hide();
+            afiaccess[AP_TrzFCust_S] && ShowMenu[AC_TrzFCust_S] ? $("#TrzFCust_S").show() : $("#TrzFCust_S").hide();
+            afiaccess[AP_TrzFCust_P] && ShowMenu[AC_TrzFCust_P] ? $("#TrzFCust_P").show() : $("#TrzFCust_P").hide();
 
 
-            if (ShowMenu[15] == false && ShowMenu[16] == false && ShowMenu[21] == false && ShowMenu[22] == false && ShowMenu[23] == false && ShowMenu[24] == false)
+            if (ShowMenu[AC_FDocR_S] == false && ShowMenu[AC_FDocR_P] == false && ShowMenu[AC_TrzFKala_S] == false &&
+                ShowMenu[AC_TrzFKala_P] == false && ShowMenu[AC_TrzFCust_S] == false && ShowMenu[AC_TrzFCust_P] == false)
                 $("#FReport_Menu").hide();
         }
         else {
             $("#FReport_Menu").hide();
-        }
+        };
 
-        if (afiaccess[13] || afiaccess[14] || afiaccess[15] || afiaccess[16] || afiaccess[32] || afiaccess[33]) {
+
+
+        if (afiaccess[AP_TrzAcc] || afiaccess[AP_Dftr] || afiaccess[AP_ADocR] || afiaccess[AP_TChk] || afiaccess[AP_AGMkz] || afiaccess[AP_AGOpr]) {
             $("#AReport_Menu").show();
-            afiaccess[13] && ShowMenu[17] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
-            afiaccess[14] && ShowMenu[18] == true ? $("#Dftr").show() : $("#Dftr").hide();
-            afiaccess[15] && ShowMenu[19] == true ? $("#ADocR").show() : $("#ADocR").hide();
-            afiaccess[16] && ShowMenu[20] == true ? $("#TChk").show() : $("#TChk").hide();
+            $("#Dashbord").show();
+            afiaccess[AP_TrzAcc] && ShowMenu[AC_TrzAcc] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
+            afiaccess[AP_Dftr] && ShowMenu[AC_Dftr] == true ? $("#Dftr").show() : $("#Dftr").hide();
+            afiaccess[AP_ADocR] && ShowMenu[AC_ADocR] == true ? $("#ADocR").show() : $("#ADocR").hide();
+            afiaccess[AP_TChk] && ShowMenu[AC_TChk] == true ? $("#TChk").show() : $("#TChk").hide();
 
-            afiaccess[32] && ShowMenu[36] == true ? $("#AGMkz").show() : $("#AGMkz").hide();
-            afiaccess[33] && ShowMenu[37] == true ? $("#AGOpr").show() : $("#AGOpr").hide();
+            afiaccess[AP_AGMkz] && ShowMenu[AC_AGMkz] == true ? $("#AGMkz").show() : $("#AGMkz").hide();
+            afiaccess[AP_AGOpr] && ShowMenu[AC_AGOpr] == true ? $("#AGOpr").show() : $("#AGOpr").hide();
 
-            if (ShowMenu[17] == false && ShowMenu[18] == false && ShowMenu[19] == false) {
+            if (ShowMenu[AC_TrzAcc] == false && ShowMenu[AC_Dftr] == false && ShowMenu[AC_ADocR] == false &&
+                ShowMenu[AC_TChk] == false && ShowMenu[AC_AGMkz] == false && ShowMenu[AC_AGOpr] == false
+            ) {
                 $("#AReport_Menu").hide();
             }
         }
@@ -3966,22 +3261,6 @@ function SetValidation() {
             $("#AReport_Menu").hide();
         }
     }
-
-    // window.location.href = localStorage.getItem("urlIndex");
-
-    /*if (afiaccess[0] == 0 && afiaccess[1] == 0 &&
-   afiaccess[2] == 0 && afiaccess[3] == 0 &&
-   afiaccess[4] == 0 && afiaccess[5] == 0)
-   $("#FDOC_Menu").hide();
-else
-   $("#FDOC_Menu").show();
- 
- 
-if (afiaccess[6] == 0 && afiaccess[7] == 0)
-   $("#IDOC_Menu").hide();
-else
-   $("#IDOC_Menu").show();*/
-
 }
 
 
@@ -5791,7 +5070,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     var testUseDoc_UserName = '';
     var userUse = "";
     var testUseDoc = "";
-    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && FormName != "ZAcc" &&  find == false) {
+    if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && FormName != "ZAcc" && find == false) {
         DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
             Prog: prog,

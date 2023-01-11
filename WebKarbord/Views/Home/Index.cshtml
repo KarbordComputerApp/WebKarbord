@@ -24,8 +24,8 @@
             <div class="grid-stack" style="background: #f1f2f7;">
 
                 <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-x="8" gs-y="0" gs-w="4" gs-h="3" gs-id="D_TChk">
-                    <div class="grid-stack-item-content" style="background-color:white" >
-                        <div class="modal-header form-inline focused">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">
                             <h4 class="modal-title" data-bind="text:translate('چک های پرداختی')"></h4>
                             <div>
                                 <a id="SD_TChk" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TChk">
@@ -49,7 +49,7 @@
                                 <h4 id="Count_D_TChk" style="padding-right:5px">0</h4>
                             </div>
                         </div>
-                        <table class="table table-addmin">
+                        <table class="table table-hover">
                             <tbody data-bind="foreach: TChkList">
                                 <tr>
                                     <td style="width:0px">
@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-x="4" gs-y="0" gs-w="4" gs-h="3" gs-id="D_TChk_Sum">
-                    <div class="grid-stack-item-content" style="background-color:white" >
-                        <div class="modal-header form-inline focused">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">
                             <h4 class="modal-title" data-bind="text:translate('صورت خلاصه چک های پرداختی')"></h4>
                             <div>
                                 <a id="SD_TChk_Sum" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TChk_Sum">
@@ -101,7 +101,7 @@
                                 <h4 id="Sum_D_TChk_Sum" style="padding-right:5px">0</h4>
                             </div>
                         </div>
-                        <table class="table table-addmin">
+                        <table class="table table-hover">
                             <tbody data-bind="foreach: TChk_SumList">
                                 <tr>
                                     <td style="width:0px">
@@ -121,8 +121,8 @@
                 </div>
 
                 <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-x="0" gs-y="0" gs-w="4" gs-h="3" gs-id="D_TarazFasli">
-                    <div class="grid-stack-item-content" style="background-color:white" >
-                        <div class="modal-header form-inline focused">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">
                             <h4 class="modal-title" data-bind="text:translate('نمودار فروش')"></h4>
                             <div>
                                 <a id="SD_TarazFasli" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TarazFasli">
@@ -138,14 +138,14 @@
                             <h6 id="Title_D_TarazFasli" style="padding-right:5px;padding-top:15px;color:#dcdcdc">0</h6>
                         </div>
 
-                        <canvas id="trazFasli_Chart" style="width:100%;max-width:700px"></canvas>
+                        <canvas id="trzFDoreh_Chart" style="width:100%;max-width:700px"></canvas>
                     </div>
                 </div>
 
 
                 <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-x="8" gs-y="1" gs-w="4" gs-h="3" gs-id="D_TrzFCust_S">
-                    <div class="grid-stack-item-content" style="background-color:white" >
-                        <handle class="modal-header form-inline focused">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">
                             <h4 class="modal-title" data-bind="text:translate('مانده حساب خریداران')"></h4>
                             <div>
                                 <a id="SD_TrzFCust_S" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TrzFCust_S">
@@ -155,7 +155,8 @@
                                     <img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20">
                                 </a>
                             </div>
-                        </handle>
+                        </div>
+
                         <div class="form-inline" style="padding:10px">
 
                             <div class="form-inline" style="margin-left:auto">
@@ -169,7 +170,7 @@
                             </div>
                         </div>
 
-                        <table class="table table-addmin">
+                        <table class="table table-hover">
                             <tbody data-bind="foreach: TrzFCust_SList">
                                 <tr>
                                     <td style="width:0px">
@@ -198,8 +199,8 @@
                 </div>
 
                 <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-x="4" gs-y="1" gs-w="4" gs-h="3" gs-id="D_TrzFCust_P">
-                    <div class="grid-stack-item-content" style="background-color:white" >
-                        <div class="modal-header form-inline focused">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">
                             <h4 class="modal-title" data-bind="text:translate('مانده حساب فروشندگان')"></h4>
                             <div>
                                 <a id="SD_TrzFCust_P" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TrzFCust_P">
@@ -223,7 +224,7 @@
                             </div>
                         </div>
 
-                        <table class="table table-addmin">
+                        <table class="table table-hover">
                             <tbody data-bind="foreach: TrzFCust_PList">
                                 <tr>
                                     <td style="width:0px">
@@ -253,8 +254,8 @@
                 </div>
 
                 <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-x="0" gs-y="1" gs-w="4" gs-h="3" gs-id="D_TrzFKala_S">
-                    <div class="grid-stack-item-content" style="background-color:white" >
-                        <div class="modal-header form-inline focused">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline" style="position: sticky;top: 0px;background: white;">
                             <h4 class="modal-title" data-bind="text:translate('بیشترین فروش کالا')"></h4>
                             <div>
                                 <a id="SD_TrzFKala_S" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TrzFKala_S">
