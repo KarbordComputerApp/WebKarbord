@@ -564,7 +564,7 @@ input.addEventListener("change", function () {
 
         localStorage.setItem('Access', null);
         localStorage.setItem('AccessErj', null);
-        sessionStorage.SelectMenu = 0;
+        sessionStorage.SelectMenu = 9;
         sessionStorage.Login = "OK";
         getLoginData();
     }

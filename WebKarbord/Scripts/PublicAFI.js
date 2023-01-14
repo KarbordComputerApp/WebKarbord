@@ -691,15 +691,35 @@ $("#NewTab").change(function () {
 
 
 
+var FirstPageUrl = localStorage.getItem('FirstPageUrl');
+
+
+if (FirstPageUrl == 1) {
+    $("#FirstPageUrl").val(1);
+}
+else {
+    $("#FirstPageUrl").val(0);
+}
+
+
+$("#FirstPageUrl").change(function () {
+    FirstPageUrl = $('#FirstPageUrl').val();
+    localStorage.setItem("FirstPageUrl", FirstPageUrl);
+});
+
+
+
+
+
 
 href = window.location.href;
 sp = href.split('/');
-hrefHome = '/' + sp[3] + '/' + sp[4];
-hrefSetting = '/' + sp[3] + '/' + sp[4];
+hrefPage = '/' + sp[3] + '/' + sp[4];
 
 
 
-if (ShowNewTab == "ShowNewTab" && (hrefHome != localStorage.getItem("urlIndex") && hrefSetting != localStorage.getItem("urlSetting"))) {
+
+if (ShowNewTab == "ShowNewTab" && (hrefPage != localStorage.getItem("urlIndex") && hrefPage != localStorage.getItem("urlSetting") && hrefPage != localStorage.getItem("urlDashbord"))) {
     $("#P_Setting").css({ display: "none" });
     //$("#P_Home").css({ display: "none" });
     $("body").addClass("side-closed");
@@ -715,14 +735,17 @@ else {
 }
 
 
-if (ShowNewTab == "ShowNewTab" && hrefHome == localStorage.getItem("urlIndex")) {
+if (ShowNewTab == "ShowNewTab" && hrefPage == localStorage.getItem("urlIndex")) {
     //$("#P_Home").css({ display: "none" });
 }
 
-if (ShowNewTab == "ShowNewTab" && hrefSetting == localStorage.getItem("urlSetting")) {
+if (ShowNewTab == "ShowNewTab" && hrefPage == localStorage.getItem("urlSetting")) {
     $("#P_Setting").css({ display: "none" });
 }
 
+if (ShowNewTab == "ShowNewTab" && hrefPage == localStorage.getItem("urlDashbord")) {
+    $("#P_Setting").css({ display: "none" });
+}
 
 
 
@@ -1084,7 +1107,7 @@ selectMessage = function (item) {
 
 
 /*
-var DateNow;
+
 var SalNow;
 //Get Date List
 function getDateServer() {
@@ -2770,8 +2793,12 @@ function getAccessList(GoHome) {
                         localStorage.setItem("Inbox", 1);
                     }
 
-                    if (GoHome == true)
-                        window.location.href = localStorage.getItem("urlIndex");//sessionStorage.urlIndex;
+                    if (GoHome == true) {
+                        if (FirstPageUrl == 1)
+                            window.location.href = localStorage.getItem("urlDashbord");
+                        else
+                            window.location.href = localStorage.getItem("urlIndex");
+                    }
                     else
                         location.reload();
                 });
@@ -2822,6 +2849,10 @@ function TestUser() {
             }
             else {
                 DateNow = datalogin.SrvDate;
+                localStorage.setItem("DateNow", DateNow);
+
+                $("#dateTimeHome").text("تاریخ سرور " + DateNow);
+
                 listDate = DateNow.split("/");
                 SalNow = listDate[0];
 
@@ -2914,7 +2945,7 @@ function AlertErja() {
 
 
 function SetValidation() {
-    
+
     if (access == null) return false;
     if (access.length == 0) return false;
     sessionStorage.userName == 'ACE' ? access[0].TrsName = 'ADMIN' : null
@@ -3983,8 +4014,12 @@ $('#Base_Menu').click(function () {
     sessionStorage.SelectMenu = 8;
 });
 
+$('#Dashbord').click(function () {
+    sessionStorage.SelectMenu = 9;
+});
 
 
+$('#Dashbord').removeAttr('class');
 $('#Base_Menu').removeAttr('class');
 $('#ADOC_Menu').removeAttr('class');
 $('#FDOC_Menu').removeAttr('class');
@@ -4030,6 +4065,11 @@ else if (sessionStorage.SelectMenu == 7) {
 if (sessionStorage.SelectMenu == 8) {
     $('#Base_Menu').attr('class', 'active');
 }
+
+if (sessionStorage.SelectMenu == 9) {
+    $('#Dashbord').attr('class', 'active');
+}
+
 
 
 $.fn.inputFilter = function (inputFilter) {
@@ -5401,3 +5441,7 @@ function LowDay(days) {
     now.setDate(now.getDate() - days);
     return now.toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }).toEnglishDigit();
 }
+
+
+
+$("#dateTimeHome").text("تاریخ سرور " + localStorage.getItem("DateNow"))

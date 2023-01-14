@@ -218,6 +218,7 @@
     <Content Include="Content\img\bookmark.png" />
     <Content Include="Content\img\bookmark_un.png" />
     <Content Include="Content\img\ContactUs.png" />
+    <Content Include="Content\img\dashboard-report-icon.png" />
     <Content Include="Content\img\email.png" />
     <Content Include="Content\img\help.png" />
     <Content Include="Content\img\house-w.png" />
@@ -1012,6 +1013,7 @@
     <Content Include="Views\AFISanadAnbar\AddIdoc_New.cshtml" />
     <Content Include="Views\AFIBase\Arz.cshtml" />
     <Content Include="Views\AFIBase\ZAcc.cshtml" />
+    <Content Include="Views\Home\Dashbord.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

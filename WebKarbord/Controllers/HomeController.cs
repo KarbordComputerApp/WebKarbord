@@ -25,7 +25,12 @@ namespace WebKarbord.Controllers
             return View();
         }
 
-          public ActionResult Box()
+        public ActionResult Dashbord()
+        {
+            return View();
+        }
+
+        public ActionResult Box()
         {
             return View();
         }
