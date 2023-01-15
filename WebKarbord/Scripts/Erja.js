@@ -1355,11 +1355,15 @@
 
     }
 
-
-    $('#insertComm').click(function () {
+    
+    $('.insertComm').click(function () {
         getStatementList();
         $('#modal-Statements').modal('show');
     })
+
+
+
+    
 
 
     self.currentPageStatements = ko.observable();
@@ -1461,11 +1465,11 @@
               }
           })
       })*/
-
+    var idInsertCommErja = null;
 
     self.selectStatements = function (item) {
         $('#modal-Statements').modal('hide');
-        insertAtCaret(item.Name);
+        insertAtCaret(item.Name, idInsertCommErja);
     };
 
 
@@ -1478,15 +1482,19 @@
     }
 
 
-    $("#saveStatement").hide();
+    $(".saveStatement").hide();
 
     $("#commPublic").select(function () {
-        $("#saveStatement").show();
+        $(".saveStatement").show();
     });
 
-    $("#saveStatement").on("click", function () {
+    $("#e_Result").select(function () {
+        $(".saveStatement").show();
+    });
 
-        var txtarea = document.getElementById("commPublic");
+    $(".saveStatement").on("click", function () {
+
+        var txtarea = document.getElementById(idInsertCommErja == null ? "commPublic" : idInsertCommErja);
         var start = txtarea.selectionStart;
         var finish = txtarea.selectionEnd;
         var val = txtarea.value.substring(start, finish);
@@ -1507,7 +1515,7 @@
                 });
             }
         }
-        $("#saveStatement").hide();
+        $(".saveStatement").hide();
     });
 
 
@@ -2739,6 +2747,8 @@
     $('#modal-Erja').on('shown.bs.modal', function () {
         //$('#p_Result').css('display', 'none');
         flagIsSave = false;
+        idInsertCommErja = 'e_Result'
+
         $('#e_Result').css("height", "409px");
         if (sessionStorage.ModeCodeErja == "1") {
             flagSave = null;
@@ -2772,6 +2782,7 @@
 
 
     $('#modal-Erja').on('hide.bs.modal', function () {
+        idInsertCommErja = null;
         if (flagIsSave == true) {
             flagIsSave = false;
             if (sessionStorage.ModeCodeErja == "1") {

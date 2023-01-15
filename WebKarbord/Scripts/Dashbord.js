@@ -555,7 +555,9 @@ var ViewModel = function () {
                 animation: false,
                 responsive: true,
                 responsiveAnimationDuration: 0,
-
+                legend: {
+                    display: false
+                },
                 scales: {
                     yAxes: [{
                         ticks: {

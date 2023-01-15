@@ -1002,32 +1002,6 @@ $(document).mousemove(function (event) {
 
 //var id_Autocomplete;
 $(".autocomplete").select(function () {
-    /*var rect = e.target.getBoundingClientRect();
-       var x = e.clientX - rect.left; //x position within the element.
-       var y = e.clientY - rect.top;*/
-    // var parentOffset = $(this).parent().offset();
-    //or $(this).offset(); if you really just want the current element's offset
-    //var relX = e.pageX - parentOffset.left;
-    // var relY = e.pageY - parentOffset.top;
-
-    // id_Autocomplete = this.id;
-
-    //var parentOffset = $(this).parent().position();
-    // var parentOffset = $("#" + id_Autocomplete).parent().offset();
-
-    // $("#p_Statement").css({ top: currentMousePos.y - 10, left: currentMousePos.x - 70 });
-    // $("#p_Statement").show();
-
-
-
-    //var offset = $("#" + id_Autocomplete).position();
-    //$("#saveStatement").css({ top: offset.top, left: offset.left });
-    //$("#saveStatement").show();
-    //getSelectedText();
-
-
-
-
 
 });
 
@@ -1036,11 +1010,6 @@ $(".autocomplete").click(function () {
     //   $("#p_Statement").hide();
 });
 
-/*
-$(".autocomplete").focusout(function () {
-    $("#saveStatement").hide();
-});
-*/
 
 
 
@@ -5031,9 +5000,9 @@ function ViewCommAttach(Comm) {
 
 $('#modal-Comm').on('show.bs.modal', function () {
     if ($('#commPublic').attr('readonly') == 'readonly')
-        $('#insertComm').hide();
+        $('.insertComm').hide();
     else
-        $('#insertComm').show();
+        $('.insertComm').show();
 })
 
 
@@ -5361,8 +5330,8 @@ $('#minMaxComm').click(function () {
 
 
 
-function insertAtCaret(text) {
-    var txtarea = document.getElementById("commPublic");
+function insertAtCaret(text, id) {
+    var txtarea = document.getElementById(id == null ? "commPublic" : id);
     if (!txtarea) {
         return;
     }
@@ -5445,3 +5414,5 @@ function LowDay(days) {
 
 
 $("#dateTimeHome").text("تاریخ سرور " + localStorage.getItem("DateNow"))
+
+

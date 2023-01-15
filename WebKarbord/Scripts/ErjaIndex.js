@@ -1606,7 +1606,7 @@
         })
     }
 
-    $('#insertComm').click(function () {
+    $('.insertComm').click(function () {
         getStatementList();
         $('#modal-Statements').modal('show');
     })
@@ -1712,9 +1712,9 @@
           })
       })*/
 
-
+    var idInsertCommErja = null;
     self.selectStatements = function (item) {
-        insertAtCaret(item.Name);
+        insertAtCaret(item.Name, idInsertCommErja);
         $('#modal-Statements').modal('hide');
     };
 
@@ -1728,15 +1728,15 @@
     }
 
 
-    $("#saveStatement").hide();
+    $(".saveStatement").hide();
 
     $("#commPublic").select(function () {
-        $("#saveStatement").show();
+        $(".saveStatement").show();
     });
 
-    $("#saveStatement").on("click", function () {
+    $(".saveStatement").on("click", function () {
 
-        var txtarea = document.getElementById("commPublic");
+        var txtarea = document.getElementById(idInsertCommErja == null ? "commPublic" : idInsertCommErja);
         var start = txtarea.selectionStart;
         var finish = txtarea.selectionEnd;
         var val = txtarea.value.substring(start, finish);
@@ -1757,7 +1757,7 @@
                 });
             }
         }
-        $("#saveStatement").hide();
+        $(".saveStatement").hide();
     });
 
 
@@ -2782,6 +2782,7 @@
 
 
     $('#modal-Erja').on('shown.bs.modal', function () {
+        idInsertCommErja = 'e_Result'
         $('#e_Result').css("height", "409px");
         $('#e_Result').val($('#Result').val());
         $('#nameErjBe').val(translate('انتخاب نشده'));
@@ -2793,6 +2794,9 @@
         getFarayandList(doc_KhdtCode);
     });
 
+    $('#modal-Erja').on('hide.bs.modal', function () {
+        idInsertCommErja = null;
+    });
 
     $('#saveErja').click(function () {
 
