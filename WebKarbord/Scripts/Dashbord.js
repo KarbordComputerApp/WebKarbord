@@ -661,8 +661,8 @@ var ViewModel = function () {
 
         function getTrzFCust_S() {
             var TrzFCust_SObject = {
-                ModeCode1: 'SFCT',
-                ModeCode2: 'SRFCT',
+                ModeCode1: sessionStorage.MODECODE_FDOC_S,
+                ModeCode2: sessionStorage.MODECODE_FDOC_SR,
                 azTarikh: date_TrzFCust_S,
                 taTarikh: LowDay(0),
                 azShomarh: "",
@@ -752,8 +752,8 @@ var ViewModel = function () {
 
         function getTrzFCust_P() {
             var TrzFCust_PObject = {
-                ModeCode1: 'PFCT',
-                ModeCode2: 'PRFCT',
+                ModeCode1: sessionStorage.MODECODE_FDOC_P,
+                ModeCode2: sessionStorage.MODECODE_FDOC_PR,
                 azTarikh: date_TrzFCust_P,
                 taTarikh: LowDay(0),
                 azShomarh: "",
@@ -855,8 +855,8 @@ var ViewModel = function () {
 
         function getTrzFKala_S() {
             var TrzFKala_SObject = {
-                ModeCode1: "SFCT",
-                ModeCode2: "SRFCT",
+                ModeCode1: sessionStorage.MODECODE_FDOC_S,
+                ModeCode2: sessionStorage.MODECODE_FDOC_SR,
                 azTarikh: "",
                 taTarikh: LowDay(0),
                 azShomarh: "",
