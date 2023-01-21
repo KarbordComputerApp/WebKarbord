@@ -1029,7 +1029,7 @@ var ViewModel = function () {
                         disabled(e) {
                             if (e.row.data.dataAcc != null) {
                                 temp = e.row.data.dataAcc;
-                                return temp.PDMode != 1 || temp.PDMode != 2
+                                return temp.PDMode != 1 && temp.PDMode != 2
                             }
                             else
                                 return true;
