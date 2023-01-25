@@ -926,6 +926,7 @@ var resTestSavePrintForm = "";
 
 var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
 var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
+//var ChangeDatabaseFourzeroUri = server + '/api/Web_Data/ChangeDatabaseFourzero/'; // چهار صفر آدرس بازسازی اطلاعات
 var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
 var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
 var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
@@ -1564,6 +1565,9 @@ function SaveParam(group, sal) {
     if (sal == '0' || sal == null)
         return showNotification(translate('سال را انتخاب کنید'), 0);
 
+    
+    //ajaxFunction(ChangeDatabaseFourzeroUri + ace + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {});
+
     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {
 
         localStorage.removeItem('AccStatus');
@@ -1649,6 +1653,8 @@ $("#repairDatabase").click(function () {
                 confirmButtonText: text_Yes
             }).then((result) => {
                 if (result.value) {
+
+                   // ajaxFunction(ChangeDatabaseFourzeroUri + ace + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) { });
                     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
