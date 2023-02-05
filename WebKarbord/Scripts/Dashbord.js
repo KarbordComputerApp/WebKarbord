@@ -1,6 +1,6 @@
 ﻿var gridster = null;
 
-var barColors = ["#ff2d2d", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff0000", "#0033ff",
+var barColors = ["#ff2d2d", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff9e3a", "#0033ff",
     "#6699cc", "#009999", "#171a9b", "#00a20b", "#11c0a9"];
 
 

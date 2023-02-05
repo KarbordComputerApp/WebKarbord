@@ -1450,6 +1450,7 @@ var ViewModel = function () {
         else {
             $("#p_Sum").hide();
             $("#p_Addmin").hide();
+            $("#CalcAddmin").hide();
 
 
             cols = cols.filter(s =>
