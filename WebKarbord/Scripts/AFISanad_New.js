@@ -2110,16 +2110,17 @@ var ViewModel = function () {
             var obj = [];
             for (i = 0; i < columnCount; i++) {
                 var colInfo = dataGrid.columnOption(i);
-
-                tmp = {
-                    'UserCode': sessionStorage.userName,
-                    'RprtId': rprtId,
-                    'Code': colInfo.dataField,
-                    'Visible': colInfo.visible,
-                    'Position': colInfo.visibleIndex,
-                    'Width': colInfo.visibleWidth
-                };
-                obj.push(tmp);
+                if (colInfo.dataField != 'button' && colInfo.dataField != '#') {
+                    tmp = {
+                        'UserCode': sessionStorage.userName,
+                        'RprtId': rprtId,
+                        'Code': colInfo.dataField,
+                        'Visible': colInfo.visible,
+                        'Position': colInfo.visibleIndex,
+                        'Width': colInfo.visibleWidth
+                    };
+                    obj.push(tmp);
+                }
             }
             a = RprtColsSaveUri + ace + '/' + sal + '/' + group;
             ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {
@@ -2223,8 +2224,8 @@ var ViewModel = function () {
 
                                     // $("#gridContainer").dxDataGrid("columnOption", "Amount", "allowEditing", true);
                                     //if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {  به خاطر صورتی نشدن فیلد زیر حساب
-                                        //visibleRows[ro].data.Amount = 0;
-                                        dataGrid.cellValue(ro, "Amount", '0');
+                                    //visibleRows[ro].data.Amount = 0;
+                                    dataGrid.cellValue(ro, "Amount", '0');
                                     //}
 
 
@@ -2372,7 +2373,7 @@ var ViewModel = function () {
                                     }
 
                                     //if (newRec == false && visibleRows[ro].data.dataAcc.Amount == 0) {
-                                        dataGrid.cellValue(ro, "Amount", '0');
+                                    dataGrid.cellValue(ro, "Amount", '0');
                                     //}
 
                                     if (visibleRows[ro].data.dataAcc.PDMode > 0) {
@@ -2433,7 +2434,7 @@ var ViewModel = function () {
             return '';
         else
             dataAcc = visibleRows[ro].data.dataAcc;
-  
+
         if (dataAcc.NextLevelFromZAcc == 1) {
             return $('<div>').dxDropDownBox({
                 dropDownOptions: { width: 500 },
@@ -2444,13 +2445,13 @@ var ViewModel = function () {
                 contentTemplate(e) {
                     return $('<div>').dxDataGrid({
                         dataSource: new DevExpress.data.DataSource({
-                                store: new DevExpress.data.ArrayStore({
-                                    key: 'Code',
-                                    data: ZAccList,
-                                }),
-
-                                filter: FilterAccZCode(dataAcc.ZGru),
+                            store: new DevExpress.data.ArrayStore({
+                                key: 'Code',
+                                data: ZAccList,
                             }),
+
+                            filter: FilterAccZCode(dataAcc.ZGru),
+                        }),
                         keyExpr: 'Code',
                         remoteOperations: true,
                         rtlEnabled: true,

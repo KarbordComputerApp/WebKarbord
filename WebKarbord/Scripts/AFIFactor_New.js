@@ -634,7 +634,7 @@ var ViewModel = function () {
 
                 }
                 else {
-                   // kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
+                    // kalapricecode == '0' ? kalapricecode = '' : kalapricecode = kalapricecode;
                     $("#gGhimat").val(kalapricecode);
                     //kalapricecode == '' ? kalapricecode = '0' : kalapricecode = kalapricecode;
                 }
@@ -1444,6 +1444,23 @@ var ViewModel = function () {
                 s.Code == 'UnitPrice' ||
                 s.Code == 'TotalPrice' ||
                 s.Code == 'Discount' ||
+                (s.Code == 'KalaFileNo' && s.Name != '') ||
+                (s.Code == 'KalaState' && s.Name != '') ||
+                (s.Code == 'KalaExf1' && s.Name != '') ||
+                (s.Code == 'KalaExf2' && s.Name != '') ||
+                (s.Code == 'KalaExf3' && s.Name != '') ||
+                (s.Code == 'KalaExf4' && s.Name != '') ||
+                (s.Code == 'KalaExf5' && s.Name != '') ||
+                (s.Code == 'KalaExf6' && s.Name != '') ||
+                (s.Code == 'KalaExf7' && s.Name != '') ||
+                (s.Code == 'KalaExf8' && s.Name != '') ||
+                (s.Code == 'KalaExf9' && s.Name != '') ||
+                (s.Code == 'KalaExf10' && s.Name != '') ||
+                (s.Code == 'KalaExf11' && s.Name != '') ||
+                (s.Code == 'KalaExf12' && s.Name != '') ||
+                (s.Code == 'KalaExf13' && s.Name != '') ||
+                (s.Code == 'KalaExf14' && s.Name != '') ||
+                (s.Code == 'KalaExf15' && s.Name != '') ||
                 s.Code == 'ArzValue'
             );
         }
@@ -1464,6 +1481,23 @@ var ViewModel = function () {
                 s.Code == 'Amount2' ||
                 s.Code == 'Amount3' ||
                 s.Code == 'Comm' ||
+                (s.Code == 'KalaFileNo' && s.Name != '') ||
+                (s.Code == 'KalaState' && s.Name != '') ||
+                (s.Code == 'KalaExf1' && s.Name != '') ||
+                (s.Code == 'KalaExf2' && s.Name != '') ||
+                (s.Code == 'KalaExf3' && s.Name != '') ||
+                (s.Code == 'KalaExf4' && s.Name != '') ||
+                (s.Code == 'KalaExf5' && s.Name != '') ||
+                (s.Code == 'KalaExf6' && s.Name != '') ||
+                (s.Code == 'KalaExf7' && s.Name != '') ||
+                (s.Code == 'KalaExf8' && s.Name != '') ||
+                (s.Code == 'KalaExf9' && s.Name != '') ||
+                (s.Code == 'KalaExf10' && s.Name != '') ||
+                (s.Code == 'KalaExf11' && s.Name != '') ||
+                (s.Code == 'KalaExf12' && s.Name != '') ||
+                (s.Code == 'KalaExf13' && s.Name != '') ||
+                (s.Code == 'KalaExf14' && s.Name != '') ||
+                (s.Code == 'KalaExf15' && s.Name != '') ||
                 s.Code == 'ArzValue'
             );
         }
@@ -2434,6 +2468,24 @@ var ViewModel = function () {
                     ArzCode: codeArz,
                     ArzRate: arzRate,
                     ArzValue: arzValue,
+
+                    KalaFileNo: item.KalaFileNo,
+                    KalaState: item.KalaState,
+                    KalaExf1: item.KalaExf1,
+                    KalaExf2: item.KalaExf2,
+                    KalaExf3: item.KalaExf3,
+                    KalaExf4: item.KalaExf4,
+                    KalaExf5: item.KalaExf5,
+                    KalaExf6: item.KalaExf6,
+                    KalaExf7: item.KalaExf7,
+                    KalaExf8: item.KalaExf8,
+                    KalaExf9: item.KalaExf9,
+                    KalaExf10: item.KalaExf10,
+                    KalaExf11: item.KalaExf11,
+                    KalaExf12: item.KalaExf12,
+                    KalaExf13: item.KalaExf13,
+                    KalaExf14: item.KalaExf14,
+                    KalaExf15: item.KalaExf15,
                     flagLog: 'N',
                 };
 
@@ -3009,6 +3061,23 @@ var ViewModel = function () {
                     LinkYear: item.LinkYear == null ? 0 : item.LinkYear,
                     LinkProg: item.LinkProg == null ? '' : item.LinkProg,
                     flagLog: 'N',
+                    KalaFileNo: item.KalaFileNo,
+                    KalaState: item.KalaState,
+                    KalaExf1: item.KalaExf1,
+                    KalaExf2: item.KalaExf2,
+                    KalaExf3: item.KalaExf3,
+                    KalaExf4: item.KalaExf4,
+                    KalaExf5: item.KalaExf5,
+                    KalaExf6: item.KalaExf6,
+                    KalaExf7: item.KalaExf7,
+                    KalaExf8: item.KalaExf8,
+                    KalaExf9: item.KalaExf9,
+                    KalaExf10: item.KalaExf10,
+                    KalaExf11: item.KalaExf11,
+                    KalaExf12: item.KalaExf12,
+                    KalaExf13: item.KalaExf13,
+                    KalaExf14: item.KalaExf14,
+                    KalaExf15: item.KalaExf15,
                 };
                 obj.push(tmp);
             }
@@ -3644,15 +3713,17 @@ var ViewModel = function () {
             var obj = [];
             for (i = 0; i < columnCount; i++) {
                 var colInfo = dataGrid.columnOption(i);
-                tmp = {
-                    'UserCode': sessionStorage.userName,
-                    'RprtId': rprtId,
-                    'Code': colInfo.dataField,
-                    'Visible': colInfo.visible,
-                    'Position': colInfo.visibleIndex,
-                    'Width': colInfo.visibleWidth
-                };
-                obj.push(tmp);
+                if (colInfo.dataField != 'button' && colInfo.dataField != '#') {
+                    tmp = {
+                        'UserCode': sessionStorage.userName,
+                        'RprtId': rprtId,
+                        'Code': colInfo.dataField,
+                        'Visible': colInfo.visible,
+                        'Position': colInfo.visibleIndex,
+                        'Width': colInfo.visibleWidth
+                    };
+                    obj.push(tmp);
+                }
             }
             a = RprtColsSaveUri + ace + '/' + sal + '/' + group;
             ajaxFunction(RprtColsSaveUri + ace + '/' + sal + '/' + group, 'POST', obj).done(function (response) {

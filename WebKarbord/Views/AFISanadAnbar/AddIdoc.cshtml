@@ -210,6 +210,11 @@
                                     <th style="width: 160px" data-bind="text:translate('شرح')">
 
                                     </th>
+
+                                    <th data-bind="text:Caption_KalaFileNo"></th>
+                                    <th data-bind="text:Caption_KalaState"></th>
+                                    <th data-bind="text:Caption_KalaExf1"></th>
+
                                     <th id="action_header" data-bind="text:translate('عملیات')"></th>
                                 </tr>
                             </thead>
@@ -226,6 +231,10 @@
                                     <td data-bind="text: NumberToNumberString(UnitPrice.toFixed(DeghatR))" id="unitpriceshowgridbody"></td>
                                     <td data-bind="text: NumberToNumberString(NumberToNumberString(parseFloat(TotalPrice).toFixed(parseInt(sessionStorage.Deghat))))" id="totalpriceshowgridbody"></td>
                                     <td data-bind="text: Comm" class="ellipsis"></td>
+                                    <td data-bind="text: KalaFileNo"></td>
+                                    <td data-bind="text: KalaState"></td>
+                                    <td data-bind="text: KalaExf1"></td>
+
                                     <td id="action_body">
                                         <a data-bind="click: $root.UpdateBand">
                                             <img src="~/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
@@ -251,6 +260,9 @@
                                     <td id="foottextunitprice"></td>
                                     <td id="foottexttotalprice"></td>
                                     <td></td>
+                                    <td data-bind=""></td>
+                                    <td data-bind=""></td>
+                                    <td data-bind=""></td>
                                     <td id="action_footer"></td>
                                 </tr>
 

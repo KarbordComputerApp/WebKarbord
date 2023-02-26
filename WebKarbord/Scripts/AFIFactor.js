@@ -157,6 +157,25 @@
     self.MainUnit = ko.observable();
     self.Comm = ko.observable();
 
+
+    self.Caption_KalaFileNo = ko.observable();
+    self.Caption_KalaState = ko.observable();
+    self.Caption_KalaExf1 = ko.observable();
+    self.Caption_KalaExf2 = ko.observable();
+    self.Caption_KalaExf3 = ko.observable();
+    self.Caption_KalaExf4 = ko.observable();
+    self.Caption_KalaExf5 = ko.observable();
+    self.Caption_KalaExf6 = ko.observable();
+    self.Caption_KalaExf7 = ko.observable();
+    self.Caption_KalaExf8 = ko.observable();
+    self.Caption_KalaExf9 = ko.observable();
+    self.Caption_KalaExf10 = ko.observable();
+    self.Caption_KalaExf11 = ko.observable();
+    self.Caption_KalaExf12 = ko.observable();
+    self.Caption_KalaExf13 = ko.observable();
+    self.Caption_KalaExf14 = ko.observable();
+    self.Caption_KalaExf15 = ko.observable();
+
     self.CustList = ko.observableArray([]); // لیست حساب ها
     self.KalaList = ko.observableArray([]); // لیست کالاها
     self.KalaPriceList = ko.observableArray([]); // لیست گروه قیمت
@@ -351,6 +370,29 @@
         self.ExtraFieldsList(result);
     }
 
+    function getKalaExfList() {
+        var rprtId = sessionStorage.InOut == 1 ? 'FDocB_P' : 'FDocB_S';
+        cols = getRprtCols(rprtId, sessionStorage.userName);
+
+        result = ko.utils.arrayFilter(cols, function (item) {
+            result =
+                (ko.utils.stringStartsWith(item.Code, 'KalaExf') ||
+                    item.Code == 'KalaFileNo' ||
+                    item.Code == 'KalaState') &&
+
+                item.Name != ''
+            return result;
+        })
+
+        kalaExfCaption = [];
+        for (var i = 0; i < result.length; i++) {
+            kalaExfCaption[result[i]['Code']] = result[i]['Name'];
+        }
+        self.Caption_KalaFileNo(kalaExfCaption['KalaFileNo'])
+        self.Caption_KalaState(kalaExfCaption['KalaState'])
+        self.Caption_KalaExf1(kalaExfCaption['KalaExf1'])
+    }
+    getKalaExfList();
 
     //Get Cust List
     function getCustList() {
@@ -864,6 +906,24 @@
 
 
     self.ButtonFDocH = function ButtonFDocH(newFDocH) {
+        old_KalaFileNo = "";
+        old_KalaState = "";
+        old_KalaExf1 = "";
+        old_KalaExf2 = "";
+        old_KalaExf3 = "";
+        old_KalaExf4 = "";
+        old_KalaExf5 = "";
+        old_KalaExf6 = "";
+        old_KalaExf7 = "";
+        old_KalaExf8 = "";
+        old_KalaExf9 = "";
+        old_KalaExf10 = "";
+        old_KalaExf11 = "";
+        old_KalaExf12 = "";
+        old_KalaExf13 = "";
+        old_KalaExf14 = "";
+        old_KalaExf15 = "";
+
         AddNewBand();
     }
 
@@ -1475,7 +1535,7 @@
 
                 }
                 else {
-                  //  showNotification($('#TitleHeaderFactor').text() + ' ' + translate('ذخیره شد'), 1);
+                    //  showNotification($('#TitleHeaderFactor').text() + ' ' + translate('ذخیره شد'), 1);
                 }
             }
             else {
@@ -1485,10 +1545,10 @@
 
         });
         return "OK";
-    
+
     };
 
-   
+
 
     //Add new FDocB  
     self.AddFDocB = function AddFDocB(newFDocB) {
@@ -1727,6 +1787,25 @@
             ArzCode: codeArz,
             ArzRate: arzRate,
             ArzValue: arzValue,
+
+            KalaFileNo: "",
+            KalaState: "",
+            KalaExf1: "",
+            KalaExf2: "",
+            KalaExf3: "",
+            KalaExf4: "",
+            KalaExf5: "",
+            KalaExf6: "",
+            KalaExf7: "",
+            KalaExf8: "",
+            KalaExf9: "",
+            KalaExf10: "",
+            KalaExf11: "",
+            KalaExf12: "",
+            KalaExf13: "",
+            KalaExf14: "",
+            KalaExf15: "",
+
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
@@ -1991,6 +2070,23 @@
             ArzCode: codeArz,
             ArzRate: arzRate,
             ArzValue: arzValue,
+            KalaFileNo: old_KalaFileNo,
+            KalaState: old_KalaState,
+            KalaExf1: old_KalaExf1,
+            KalaExf2: old_KalaExf2,
+            KalaExf3: old_KalaExf3,
+            KalaExf4: old_KalaExf4,
+            KalaExf5: old_KalaExf5,
+            KalaExf6: old_KalaExf6,
+            KalaExf7: old_KalaExf7,
+            KalaExf8: old_KalaExf8,
+            KalaExf9: old_KalaExf9,
+            KalaExf10: old_KalaExf10,
+            KalaExf11: old_KalaExf11,
+            KalaExf12: old_KalaExf12,
+            KalaExf13: old_KalaExf13,
+            KalaExf14: old_KalaExf14,
+            KalaExf15: old_KalaExf15,
         };
         acceptUpdate = false;
         SendFDocBU(FDocBObject);
@@ -3184,8 +3280,43 @@
             }
         })
     };
+    var old_KalaFileNo = "";
+    var old_KalaState = "";
+    var old_KalaExf1 = "";
+    var old_KalaExf2 = "";
+    var old_KalaExf3 = "";
+    var old_KalaExf4 = "";
+    var old_KalaExf5 = "";
+    var old_KalaExf6 = "";
+    var old_KalaExf7 = "";
+    var old_KalaExf8 = "";
+    var old_KalaExf9 = "";
+    var old_KalaExf10 = "";
+    var old_KalaExf11 = "";
+    var old_KalaExf12 = "";
+    var old_KalaExf13 = "";
+    var old_KalaExf14 = "";
+    var old_KalaExf15 = "";
+
 
     self.UpdateBand = function (factorBand) {
+        old_KalaFileNo = factorBand.KalaFileNo;
+        old_KalaState = factorBand.KalaState;
+        old_KalaExf1 = factorBand.KalaExf1;
+        old_KalaExf2 = factorBand.KalaExf2;
+        old_KalaExf3 = factorBand.KalaExf3;
+        old_KalaExf4 = factorBand.KalaExf4;
+        old_KalaExf5 = factorBand.KalaExf5;
+        old_KalaExf6 = factorBand.KalaExf6;
+        old_KalaExf7 = factorBand.KalaExf7;
+        old_KalaExf8 = factorBand.KalaExf8;
+        old_KalaExf9 = factorBand.KalaExf9;
+        old_KalaExf10 = factorBand.KalaExf10;
+        old_KalaExf11 = factorBand.KalaExf11;
+        old_KalaExf12 = factorBand.KalaExf12;
+        old_KalaExf13 = factorBand.KalaExf13;
+        old_KalaExf14 = factorBand.KalaExf14;
+        old_KalaExf15 = factorBand.KalaExf15;
         self.flagupdateband = true;
     }
 
@@ -3254,7 +3385,7 @@
     });
 
     $('#insertband').click(function () {
-       
+
     })
 
     $('#refreshcust').click(function () {
@@ -3496,9 +3627,9 @@
         return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
     });
 
-   // self.OptionsCaptionKalaPrice = ko.computed(function () {
-   //     return translate('قیمت اطلاعات پایه');
-   // });
+    // self.OptionsCaptionKalaPrice = ko.computed(function () {
+    //     return translate('قیمت اطلاعات پایه');
+    // });
 
     /*  $("#allSearchHesab").click(function () {
           if ($("#allSearchHesab").is(':checked')) {
@@ -4687,6 +4818,23 @@
                                 ArzCode: codeArz,
                                 ArzRate: arzRate,
                                 ArzValue: arzValue,
+                                KalaFileNo: dataBandKala.KalaFileNo,
+                                KalaState: dataBandKala.KalaState,
+                                KalaExf1: dataBandKala.KalaExf1,
+                                KalaExf2: dataBandKala.KalaExf2,
+                                KalaExf3: dataBandKala.KalaExf3,
+                                KalaExf4: dataBandKala.KalaExf4,
+                                KalaExf5: dataBandKala.KalaExf5,
+                                KalaExf6: dataBandKala.KalaExf6,
+                                KalaExf7: dataBandKala.KalaExf7,
+                                KalaExf8: dataBandKala.KalaExf8,
+                                KalaExf9: dataBandKala.KalaExf9,
+                                KalaExf10: dataBandKala.KalaExf10,
+                                KalaExf11: dataBandKala.KalaExf11,
+                                KalaExf12: dataBandKala.KalaExf12,
+                                KalaExf13: dataBandKala.KalaExf13,
+                                KalaExf14: dataBandKala.KalaExf14,
+                                KalaExf15: dataBandKala.KalaExf15,
                             };
                             SendFDocBU(FDocBObject);
                             if (acceptUpdate == true) {
@@ -4816,6 +4964,23 @@
             ArzCode: codeArz,
             ArzRate: arzRate,
             ArzValue: arzValue,
+            KalaFileNo: "",
+            KalaState: "",
+            KalaExf1: "",
+            KalaExf2: "",
+            KalaExf3: "",
+            KalaExf4: "",
+            KalaExf5: "",
+            KalaExf6: "",
+            KalaExf7: "",
+            KalaExf8: "",
+            KalaExf9: "",
+            KalaExf10: "",
+            KalaExf11: "",
+            KalaExf12: "",
+            KalaExf13: "",
+            KalaExf14: "",
+            KalaExf15: "",
         };
         if (self.bundNumberImport > 0) {
             bandnumber = self.bundNumberImport;
