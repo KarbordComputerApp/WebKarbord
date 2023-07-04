@@ -623,14 +623,16 @@
 
 
     function ConvertComm(comm) {
-        var res = comm.split("\r\n");
+        /*var res = comm.split("\r\n");
         if (res.length == 1)
             var res = comm.split("\n");
         tempText = '';
         for (var i = 0; i < res.length; i++) {
             r = res[i] == "" ? "‍‍" : res[i];
             tempText += '<p>' + r + '</p> '
-        }
+        }*/
+        tempText = comm.replaceAll('\r', '');
+        tempText = '<p>' + tempText + '</p> '
         return tempText;
     }
 
