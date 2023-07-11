@@ -3521,10 +3521,17 @@ var ViewModel = function () {
         if (visibleRows[ro].data.dataAcc.PDMode == 1) {
             dataGrid.cellValue(ro, "Best", value);
             dataGrid.cellValue(ro, "Bede", '0');
+            ADocB[ro].Best = value;
+            ADocB[ro].Bede = 0;
         } else {
             dataGrid.cellValue(ro, "Best", '0');
             dataGrid.cellValue(ro, "Bede", value);
+            ADocB[ro].Best = 0;
+            ADocB[ro].Bede = value;
         }
+
+       
+        calcSanad();
     });
 
 
