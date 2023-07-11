@@ -2365,7 +2365,7 @@ var ViewModel = function () {
         rows = dataGrid.getVisibleRows();
 
         value = $('#ghabelPardakht').text();
-        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '');
+        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
 
         dataGrid.saveEditData();
 
@@ -2751,7 +2751,7 @@ var ViewModel = function () {
         CalcAddmin();
 
         value = $('#ghabelPardakht').text();
-        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '');
+        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
 
         if (docno.length > 10) {
             return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
@@ -3233,7 +3233,7 @@ var ViewModel = function () {
         kalapricecode = $("#gGhimat").val();
 
         value = $('#ghabelPardakht').text();
-        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '');
+        ghabelPardakht = value == '' ? 0 :  value.replaceAll(',', '').replaceAll('/', '.');
 
         //CalcAddmin();
 
@@ -5351,7 +5351,7 @@ var ViewModel = function () {
             prn_Message = '';
             docNo_Pay = $("#docnoout").val();
             value = $('#ghabelPardakht').text();
-            value = value == '' ? 0 : value.replaceAll(',', '');
+            value = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
 
             for (var i = 0; i < list.length; i++) {
                 if (list[i].Code == codeSelect) {

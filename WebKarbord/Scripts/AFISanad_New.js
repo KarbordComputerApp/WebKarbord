@@ -3515,8 +3515,7 @@ var ViewModel = function () {
         dataGrid.cellValue(ro, "CheckComm", $('#CheckComm').val());
 
         value = $('#Value').val();
-        value = value.replaceAll(',', '');
-        value = value.replaceAll('/', '.');
+        value = value.replaceAll(',', '').replaceAll('/', '.');
         const visibleRows = dataGrid.getVisibleRows();
         if (visibleRows[ro].data.dataAcc.PDMode == 1) {
             dataGrid.cellValue(ro, "Best", value);

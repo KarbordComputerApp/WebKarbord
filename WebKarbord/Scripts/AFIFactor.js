@@ -4647,7 +4647,7 @@
             prn_Message = '';
             docNo_Pay = $("#docnoout").val();
             value = $('#ghabelpardakht').text();
-            value = value == '' ? 0 : value.replaceAll(',', '');
+            value = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
 
             for (var i = 0; i < list.length; i++) {
                 if (list[i].Code == codeSelect) {
