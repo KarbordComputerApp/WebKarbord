@@ -29,8 +29,6 @@ Master_ProgName = localStorage.getItem('Master_ProgName');
 //if (Master_ProgName == 'ERJ1') Master_ProgName = 'Erj1';
 
 
-
-
 var key_F1 = 112;
 var key_F2 = 113;
 var key_F3 = 114;
@@ -448,7 +446,9 @@ var dict =
 
 
 */
-var ModeInsertSanad = localStorage.getItem('ModeInsertSanad');
+//var ModeInsertSanad = localStorage.getItem('ModeInsertSanad');
+localStorage.setItem("ModeInsertSanad", "New");
+var ModeInsertSanad = "New";
 
 if (ModeInsertSanad == "New") {
     $("#ModeInsertSanad").val(0);
@@ -5421,4 +5421,14 @@ function LowDay(days) {
 
 $("#dateTimeHome").text("تاریخ سرور " + localStorage.getItem("DateNow"))
 
+
+function TestAccessRes(res) {
+    if (res == "Not access to the group") {
+        return "به گروه دسترسی ندارید"
+    }
+    else if (res == "Not access to the method") {
+        return "دسترسی ندارید"
+    }
+    else return "";
+}
 

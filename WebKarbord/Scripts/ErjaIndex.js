@@ -3479,7 +3479,7 @@
 
 
     function ConvertComm(comm) {
-        var res = comm.split("\r\n");
+       /* var res = comm.split("\r\n");
         if (res.length == 1)
             var res = comm.split("\n");
         tempText = '';
@@ -3487,7 +3487,10 @@
             r = res[i] == "" ? "‍‍" : res[i];
             tempText += '<p>' + r + '</p> '
         }
-        return tempText;
+        return tempText;*/
+
+        var res = comm.replaceAll("\r\n", '<br>');
+        return '<p>' + res + '</p>';
     }
 
     function SetDataErjDocErja() {

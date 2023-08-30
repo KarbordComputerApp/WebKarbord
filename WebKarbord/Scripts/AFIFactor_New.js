@@ -2374,7 +2374,7 @@ var ViewModel = function () {
         };
 
         ajaxFunction(V_Del_FDocUri + ace + '/' + sal + '/' + group, 'POST', V_Del_FDocObject).done(function (response) {
-
+            var a = response;
         });
 
         var FDocHObject = {
@@ -2427,6 +2427,10 @@ var ViewModel = function () {
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
+            var mes = TestAccessRes(response);
+            if (mes != "")
+                return showNotification(translate(mes), 0);
+
             var res = response.split("@");
             Serial_Test = res[1];
         });
@@ -3014,6 +3018,9 @@ var ViewModel = function () {
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
+            var mes = TestAccessRes(response);
+            if (mes != "")
+                return showNotification(translate(mes), 0);
             var res = response.split("@");
             Serial_Test = res[1];
         });
@@ -3451,6 +3458,10 @@ var ViewModel = function () {
         };
 
         ajaxFunction(FDocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
+            var mes = TestAccessRes(response);
+            if (mes != "")
+                return showNotification(translate(mes), 0);
+
             SaveFDocHU(true);
             showNotification(translate('سند ذخیره شد'), 1);
         });

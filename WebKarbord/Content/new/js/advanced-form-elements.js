@@ -87,5 +87,7 @@ function getNoUISliderValue(e, i) {
         e.find(".email").inputmask({ alias: "email" }),
         e.find(".key").inputmask("****-****-****-****",
             { placeholder: "____-____-____-____" }),
-        $("#optgroup").multiSelect({ selectableOptgroup: !0 })
+        e.length > 0 ?
+            $("#optgroup").multiSelect({ selectableOptgroup: !0 }) :
+        null
 });

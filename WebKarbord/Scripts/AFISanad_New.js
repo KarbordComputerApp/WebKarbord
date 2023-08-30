@@ -4015,6 +4015,10 @@ var ViewModel = function () {
         };
 
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {
+            var mes = TestAccessRes(response);
+            if (mes != "")
+                return showNotification(translate(mes), 0);
+
             var res = response.split("-");
             Serial_Test = res[1];
         });

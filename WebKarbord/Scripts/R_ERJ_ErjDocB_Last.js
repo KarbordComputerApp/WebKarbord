@@ -458,12 +458,14 @@
 
 
     function ConvertComm(comm) {
-        var res = comm.split("\r\n");
+       /* var res = comm.split("\r\n");
         tempText = '';
         for (var i = 0; i < res.length; i++) {
             tempText += '<p>' + res[i] + '</p> '
         }
-        return tempText;
+        return tempText;*/
+        var res = comm.replaceAll("\r\n", '<br>');
+        return '<p>' + res + '</p>';
     }
 
     function SetDataErjDocErja() {

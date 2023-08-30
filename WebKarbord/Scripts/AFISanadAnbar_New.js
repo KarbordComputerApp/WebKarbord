@@ -2415,6 +2415,7 @@ var ViewModel = function () {
                 EghdamDate: 'null',
                 flagLog: flaglog,
                 VstrCode: 0,
+                InOut: sessionStorage.InOut,
                 F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val() == "" ? sessionStorage.F01 : $("#ExtraFields01").val(),
                 F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val() == "" ? sessionStorage.F02 : $("#ExtraFields02").val(),
                 F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val() == "" ? sessionStorage.F03 : $("#ExtraFields03").val(),
@@ -2440,6 +2441,10 @@ var ViewModel = function () {
 
 
             ajaxFunction(IDocHUri + ace + '/' + sal + '/' + group, 'POST', IDocHObject).done(function (response) {
+                var mes = TestAccessRes(response);
+                if (mes != "")
+                    return showNotification(translate(mes), 0);
+
                 var res = response.split("-");
                 Serial = res[0];
                 DocNoOut = res[1];
@@ -2471,7 +2476,7 @@ var ViewModel = function () {
                 TahieShode: ace,
                 VstrPer: 0,
                 PakhshCode: '',
-
+                InOut: sessionStorage.InOut,
                 InvCode: inv,
                 Status: status,
                 //Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
@@ -2509,6 +2514,10 @@ var ViewModel = function () {
 
 
             ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'PUT', IDocHObject).done(function (response) {
+                var mes = TestAccessRes(response);
+                if (mes != "")
+                    return showNotification(translate(mes), 0);
+
                 sessionStorage.searchIDocH = docno;
                 flaglog = 'N';
                 DeleteBand();
@@ -2526,6 +2535,10 @@ var ViewModel = function () {
         };
 
         ajaxFunction(IDocBConvertUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut, 'POST', ConvertObject, false).done(function (response) {
+            var mes = TestAccessRes(response);
+            if (mes != "")
+                return showNotification(translate(mes), 0);
+
             $('#inv').prop('disabled', true);
             $('#modeCode').prop('disabled', true);
             showNotification(translate('سند ذخیره شد'), 1);

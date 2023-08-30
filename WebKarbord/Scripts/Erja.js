@@ -631,9 +631,14 @@
             r = res[i] == "" ? "‍‍" : res[i];
             tempText += '<p>' + r + '</p> '
         }*/
-        tempText = comm.replaceAll('\r', '');
-        tempText = '<p>' + tempText + '</p> '
-        return tempText;
+
+        /*tempText = comm.replaceAll('\r', '');
+        tempText = '<p>' + tempText + '</p> '*/
+
+        //return tempText
+
+        var res = comm.replaceAll("\r\n",'<br>');
+        return '<p>' + res + '</p>' ;
     }
 
     var lastBand = 0;
