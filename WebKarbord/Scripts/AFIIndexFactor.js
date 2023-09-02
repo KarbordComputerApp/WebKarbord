@@ -2991,6 +2991,9 @@ var ViewModel = function () {
 
 
 
+
+
+
     self.MoveFactor = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
@@ -3001,6 +3004,100 @@ var ViewModel = function () {
         $('#titlePor').text(translate('کپی') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('در'));
         $('#modal-Move').modal();
     }
+
+
+
+
+    var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
+    var SaveAllSanadUri = server + '/api/AFI_IDocHi/SaveAllSanad/'; // آدرس ثبت سند و لینک فاکتور  
+
+    self.Link_FctToInv = function (item) {
+        serial = item.SerialNumber;
+        invCode = 1;
+        modeCodeSanad = 101;
+        thvlCode = "";
+
+        var headSanad = {
+            BranchCode : 0,
+            DocDate : item.DocDate,
+            DocNo : "",
+            DocNoMode : 1,
+            Eghdam : sessionStorage.userName,
+            EghdamDate : "null",
+            EndNo : 0,
+            F01 : item.F01,
+            F02 : item.F02,
+            F03 : item.F03,
+            F04 : item.F04,
+            F05 : item.F05,
+            F06 : item.F06,
+            F07 : item.F07,
+            F08 : item.F08,
+            F09 : item.F09,
+            F10 : item.F10,
+            F11 : item.F11,
+            F12 : item.F12,
+            F13 : item.F13,
+            F14 : item.F14,
+            F15 : item.F15,
+            F16 : item.F16,
+            F17 : item.F17,
+            F18 : item.F18,
+            F19 : item.F19,
+            F20 : item.F20,
+            Footer : item.Footer,
+            InsertMode : 0,
+            InvCode : invCode,
+            KalaPriceCode : item.KalaPriceCode,
+            ModeCode : modeCodeSanad,
+            PakhshCode : "",
+            SerialNumber : 0,
+            Spec : item.Spec,
+            StartNo : 0,
+            TahieShode : ace,
+            Tanzim : sessionStorage.userName,
+            ThvlCode : thvlCode,
+            UserCode : sessionStorage.userName,
+            VstrCode : 0,
+            VstrPer : 0,
+            flagLog : "N",
+            flagTest : "Y"
+        };
+
+        ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serial, 'GET').done(function (data) {
+
+            var SaveAllSanadObject = {
+                SerialFactor: serial,
+                Head: headSanad,
+                Bands: data,
+            };
+
+            ajaxFunction(SaveAllSanadUri + ace + '/' + sal + '/' + group, 'POST', SaveAllSanadObject).done(function (res) {
+                a = res
+                showNotification("سند انبار یه شماره مبنا " + res.SerialNumber + " ایجاد شد", 1);
+
+               /* if (TestUseSanad(ace, sal, "SanadAnbar", res.SerialNumber, false, Band.DocNo) == true) {
+                }
+                else {
+                    localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
+                    localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+                    localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
+                    localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
+                    window.open(sessionStorage.urlAFISanadAnbarIndex);
+                }*/
+
+            });
+
+           
+
+        });
+
+
+    }
+
+
+
+
 
     getFModeList();
     //Get  FMode List
@@ -3530,6 +3627,14 @@ var ViewModel = function () {
                 '        </a>' +
                 '    </li>';
         }
+
+        dataTable +=
+            '    <li>' +
+            '        <a id="Link_FctToInv" data-bind="click: $root.Link_FctToInv" style="font-size: 11px;text-align: right;">' +
+            '            <img src="" width="16" height="16" style="margin-left:10px">' +
+            translate('ثبت سند انبار') +
+            '        </a>' +
+            '    </li>';
 
 
         dataTable += '</ul>' +
