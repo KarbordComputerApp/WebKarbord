@@ -2248,6 +2248,7 @@ var ViewModel = function () {
 
         var TestIDocObject = {
             SerialNumber: Serial_Test,
+            Last_SerialNumber: Serial,
             flagTest: 'Y'
         };
 
@@ -2314,6 +2315,9 @@ var ViewModel = function () {
 
             else if (list[i].TestName == 'Inv')
                 textBody += '<p>' + translate('انبار انتخاب نشده است') + ' </p>';
+
+            else if (list[i].TestName == 'NegativeAmount')
+                textBody += '<p>' + translate('بند شماره') + " " + list[i].BandNo + " " + translate('موجودی کالا منفی می شود') + ' </p>';
 
             else if (list[i].TestCap != "")
                 textBody += '<p>' + translate(list[i].TestCap) + '</p>';

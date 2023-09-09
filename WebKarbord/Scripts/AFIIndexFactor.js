@@ -3628,14 +3628,14 @@ var ViewModel = function () {
                 '    </li>';
         }
 
-        dataTable +=
+       /* dataTable +=
             '    <li>' +
             '        <a id="Link_FctToInv" data-bind="click: $root.Link_FctToInv" style="font-size: 11px;text-align: right;">' +
             '            <img src="" width="16" height="16" style="margin-left:10px">' +
             translate('ثبت سند انبار') +
             '        </a>' +
             '    </li>';
-
+            */
 
         dataTable += '</ul>' +
             '<a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad(), attr: {title:text_Update}">';
