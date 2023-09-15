@@ -2426,6 +2426,7 @@ var ViewModel = function () {
             TotalValue: ghabelPardakht,
         };
 
+
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             var mes = TestAccessRes(response);
             if (mes != "")
@@ -3016,6 +3017,8 @@ var ViewModel = function () {
             flagTest: 'Y',
             TotalValue: ghabelPardakht,
         };
+
+        var a = JSON.stringify(FDocHObject);
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
             var mes = TestAccessRes(response);

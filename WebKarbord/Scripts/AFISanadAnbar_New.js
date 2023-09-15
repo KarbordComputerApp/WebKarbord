@@ -2152,6 +2152,7 @@ var ViewModel = function () {
             InvCode: inv,
             Eghdam: sessionStorage.userName,
             EghdamDate: 'null',
+            InOut: sessionStorage.InOut,
             F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val(),
             F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val(),
             F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val(),
