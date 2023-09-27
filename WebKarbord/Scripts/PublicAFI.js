@@ -214,6 +214,11 @@ function ajaxFunction(uri, method, data, sync, error) {
     if (userNameAccount == null) {
         return showNotification(translate('تنظیمات اتصال را وارد کنید'));
     }
+
+    if (method != "GET") {
+        var json = JSON.stringify(data);
+    }
+
     return $.ajax({
         type: method,
         async: sync == null ? false : sync,
