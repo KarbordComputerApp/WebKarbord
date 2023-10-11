@@ -401,7 +401,7 @@ input.addEventListener("change", function () {
 
 
 
-
+                            localStorage.setItem('FirstInputWeb', "T");
                             window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                         }
                         else {

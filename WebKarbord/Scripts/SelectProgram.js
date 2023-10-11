@@ -180,8 +180,9 @@
 
 
 
+    
 
-    if (sessionStorage.ace == 'Web2' && afiList.length == 1) {
+    if (sessionStorage.ace == 'Web2' && afiList.length == 1 ) {
         $("#DropGroup").attr('disabled', 'disabled');
         $("#DropSal").attr('disabled', 'disabled'); 
 
@@ -191,11 +192,17 @@
 
         sal = '0000';
 
-        SaveParam(group, sal);
+        var firstInputWeb = localStorage.getItem('FirstInputWeb');
+
+        if (firstInputWeb == "T") {
+            SaveParam(group, sal);
+            localStorage.setItem('FirstInputWeb', "F");
+        }
     }
     else {
         $("#DropGroup").removeAttr('disabled');
         $("#DropSal").removeAttr('disabled');
+        localStorage.setItem('FirstInputWeb', "F");
     }
 
 };
