@@ -12,7 +12,7 @@
     var LoginUri; // 
     var LoginTestUri;
 
-    //var serverAccount = 'http://192.168.0.114:902/api/';
+    //var serverAccount = 'http://192.168.0.106:902/api/';
     var serverAccount = 'http://127.0.0.1:902/api/';
 
 
@@ -297,9 +297,22 @@ input.addEventListener("change", function () {
                         Year: '',
                     }
                     ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
-
+                       
                         if (datalogin == "MaxCount") {
                             return showNotification(translate('محدودیت ورود تعداد کاربران'), 0);
+                        }
+
+                        srvDate = datalogin.SrvDate;
+                        expireDate = localStorage.getItem('expireDate');
+
+                        date1 = new Date(srvDate).getTime()
+                        date2 = new Date(expireDate).getTime()
+                        var date = date2 - date1
+
+                        var difference_date = date / 86400000;
+                        if (difference_date < 15) {
+
+                            alert("برنامه تحت وب شما تا تاریخ " + expireDate.toPersianDigit()+" فعال می باشد.لطفاجهت تمدید قرارداد با بخش فروش شرکت کاربرد کامپیوتر تماس حاصل فرمایید");                            
                         }
 
                         lastMachineId = datalogin;
@@ -526,6 +539,8 @@ input.addEventListener("change", function () {
 
                 localStorage.setItem('Master_ProgName', Master_ProgName);
                 localStorage.setItem('Fct_or_Inv', Fct_or_Inv);
+
+                localStorage.setItem('expireDate', data.toDate);
 
                 $('#modal-service').modal('hide');
                 // $('#modal-service').hide();

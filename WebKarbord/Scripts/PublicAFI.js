@@ -2577,6 +2577,10 @@ function getAccessList(GoHome) {
                 localStorage.setItem('Master_ProgName', Master_ProgName);
                 localStorage.setItem('Fct_or_Inv', Fct_or_Inv);
 
+                localStorage.setItem('expireDate', data.toDate);
+
+                
+
 
 
                 afiaccess = [false, false, false, false, false, false, false,
@@ -3027,7 +3031,7 @@ function SetValidation() {
     validation = CheckAccess('ARZ', localStorage.getItem('ProgAccess'));
     ShowMenu[AC_ARZ] = validation;  //  ارز ها
 
-    validation = CheckAccess('ZACC', 'Acc5');
+    validation = CheckAccess('ZAcc', 'Acc5');
     ShowMenu[AC_ZACC] = validation;  //  زیر حساب ها
 
     validation = CheckAccess('SFORD', 'Fct5');
