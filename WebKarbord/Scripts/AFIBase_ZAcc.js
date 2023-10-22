@@ -21,14 +21,14 @@
 
 
 
-    validation = CheckAccess('NEW_ZAcc', Prog);// New ZAcc
+    validation = CheckAccess('NEW_ZACC', Prog);// New ZAcc
     sessionStorage.NEW_ZAcc = validation;
     validation == true ? $("#AddNewZAcc").show() : $("#AddNewZAcc").hide()
 
-    validation = CheckAccess('CHG_ZAcc', Prog);// edit ZAcc
+    validation = CheckAccess('CHG_ZACC', Prog);// edit ZAcc
     sessionStorage.CHG_ZAcc = validation;
 
-    validation = CheckAccess('DEL_ZAcc', Prog); // delete ZAcc
+    validation = CheckAccess('DEL_ZACC', Prog); // delete ZAcc
     sessionStorage.DEL_ZAcc = validation;
 
     self.ShowAction = function (Code) {
