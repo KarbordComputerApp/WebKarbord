@@ -310,7 +310,7 @@ input.addEventListener("change", function () {
                         var date = date2 - date1
 
                         var difference_date = date / 86400000;
-                        if (difference_date < 15) {
+                        if (difference_date <= 31) {
 
                             alert("برنامه تحت وب شما تا تاریخ " + expireDate.toPersianDigit()+" فعال می باشد.لطفاجهت تمدید قرارداد با بخش فروش شرکت کاربرد کامپیوتر تماس حاصل فرمایید");                            
                         }
