@@ -28,6 +28,7 @@ Master_ProgName = localStorage.getItem('Master_ProgName');
 //if (Master_ProgName == 'INV5') Master_ProgName = 'Inv5';
 //if (Master_ProgName == 'ERJ1') Master_ProgName = 'Erj1';
 
+var notAccess = "Not access to the method";
 
 var key_F1 = 112;
 var key_F2 = 113;

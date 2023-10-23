@@ -569,21 +569,28 @@ var ViewModel = function () {
         ajaxFunction(TrzIUri + ace + '/' + sal + '/' + group, 'POST', TrzIObject, true).done(function (data) {
             mAmount = 0;
             mTotalPrice = 0;
-
-            for (var i = 0; i < data.length; i++) {
-                if (mainUnit == 1) {
-                    mAmount += data[i].MAmount1;
-                }
-                else if (mainUnit == 2) {
-                    mAmount += data[i].MAmount2;
-                }
-                else if (mainUnit == 3) {
-                    mAmount += data[i].MAmount3;
-                }
-                mTotalPrice += data[i].MTotalPrice;
+            if (data == notAccess) {
+                $('#MAmount').text("به گزارش دسترسی ندارید");
+                $('#MTotalPrice').text("به گزارش دسترسی ندارید");
+                $('#MAmount').css('color', 'red');
+                $('#MTotalPrice').css('color', 'red');
             }
-            $("#MAmount").text(NumberToNumberString(mAmount));
-            $("#MTotalPrice").text(NumberToNumberString(mTotalPrice));
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    if (mainUnit == 1) {
+                        mAmount += data[i].MAmount1;
+                    }
+                    else if (mainUnit == 2) {
+                        mAmount += data[i].MAmount2;
+                    }
+                    else if (mainUnit == 3) {
+                        mAmount += data[i].MAmount3;
+                    }
+                    mTotalPrice += data[i].MTotalPrice;
+                }
+                $("#MAmount").text(NumberToNumberString(mAmount));
+                $("#MTotalPrice").text(NumberToNumberString(mTotalPrice));
+            }
 
         });
     }

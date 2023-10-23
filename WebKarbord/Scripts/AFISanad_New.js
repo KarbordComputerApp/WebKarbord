@@ -3529,7 +3529,7 @@ var ViewModel = function () {
             ADocB[ro].Bede = value;
         }
 
-       
+
         calcSanad();
     });
 
@@ -5381,7 +5381,11 @@ var ViewModel = function () {
         };
 
         ajaxFunction(TrzAccUri + ace + '/' + sal + '/' + group, 'POST', TrzAccObject, true).done(function (data) {
-            if (data.length > 0) {
+            if (data == notAccess) {
+                $('#mandehHesab').text("به گزارش دسترسی ندارید");
+                $('#mandehHesab').css('color', 'red');
+
+            } else if (data.length > 0) {
                 monTotalAcc = data[0].MonTotal;
                 $('#mandehHesab').text(NumberToNumberString(parseFloat(Math.abs(monTotalAcc))) + ' ' + (monTotalAcc > 0 ? 'بد' : monTotalAcc == 0 ? '' : 'بس'));
             }
