@@ -615,7 +615,7 @@
 
     //Get IDocP List
     function getIDocP(serialNumber) {
-        ajaxFunction(IDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+        ajaxFunction(IDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber + '/' + sessionStorage.InOut, 'GET').done(function (data) {
             self.IDocPList(data);
         });
     }

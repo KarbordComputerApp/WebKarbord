@@ -595,7 +595,7 @@
 
     //Get FDocP List
     function getFDocP(serialNumber) {
-        ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
+        ajaxFunction(FDocPUri + ace + '/' + sal + '/' + group + '/' + serialNumber + '/' + sessionStorage.ModeCode, 'GET').done(function (data) {
             self.FDocPList(data == null ? [] : data);
         });
     }
