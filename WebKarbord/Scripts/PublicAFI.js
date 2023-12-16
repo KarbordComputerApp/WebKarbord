@@ -1571,7 +1571,7 @@ function SaveParam(group, sal) {
     if (sal == '0' || sal == null)
         return showNotification(translate('سال را انتخاب کنید'), 0);
 
-    
+
     //ajaxFunction(ChangeDatabaseFourzeroUri + ace + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {});
 
     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/true/' + lockNumber, 'GET', null, true).done(function (data) {
@@ -1660,7 +1660,7 @@ $("#repairDatabase").click(function () {
             }).then((result) => {
                 if (result.value) {
 
-                   // ajaxFunction(ChangeDatabaseFourzeroUri + ace + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) { });
+                    // ajaxFunction(ChangeDatabaseFourzeroUri + ace + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) { });
                     ajaxFunction(ChangeDatabaseUri + ace + '/' + sal + '/' + group + '/false/' + lockNumber, 'GET', null, true).done(function (data) {
                         $('#loadingsite').css('display', 'none');
                         $('#loadingsite').attr('class', 'page-loader-wrapper');
@@ -2580,7 +2580,7 @@ function getAccessList(GoHome) {
 
                 localStorage.setItem('expireDate', data.toDate);
 
-                
+
 
 
 
@@ -2725,6 +2725,12 @@ function getAccessList(GoHome) {
                             if (admin[i].OrgProgName == 'Inv5') admin_Inv5 = 1;
                             if (admin[i].OrgProgName == 'Afi1') admin_Afi1 = 1;
                             if (admin[i].OrgProgName == 'Erj1') admin_Erj1 = 1;
+                        }
+
+                        if (admin_Afi1 == 1) {
+                            admin_Acc5 = 1;
+                            admin_Fct5 = 1;
+                            admin_Inv5 = 1;
                         }
 
                         localStorage.setItem('admin_Acc5', admin_Acc5);
@@ -3073,8 +3079,8 @@ function SetValidation() {
 
 
     //localStorage.setItem("", );
-    localStorage.setItem("FDoc_REP_PRICE", CheckAccessReport('FDoc_REP_PRICE', 'Fct5')); // خرید و فروش دسترسی مبلغ در گزارشات
-    localStorage.setItem("IDoc_REP_PRICE", CheckAccessReport('IDoc_REP_PRICE', 'Inv5')); // دسترسی مبلغ در گزارشات انبار
+    localStorage.setItem("FDoc_REP_PRICE", CheckAccess('FDoc_REP_PRICE', 'Fct5')); // خرید و فروش دسترسی مبلغ در گزارشات
+    localStorage.setItem("IDoc_REP_PRICE", CheckAccess('IDoc_REP_PRICE', 'Inv5')); // دسترسی مبلغ در گزارشات انبار
     //sessionStorage.FDoc_REP_PRICE = CheckAccessReport('FDoc_REP_PRICE');
     //sessionStorage.IDoc_REP_PRICE = CheckAccessReport('IDoc_REP_PRICE');
 
