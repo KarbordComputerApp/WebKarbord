@@ -2864,7 +2864,7 @@
     function CreateTableReport(data) {
         $("#TableReport").empty();
 
-        showPrice = localStorage.getItem("FDoc_REP_PRICE") == 'true';
+        showPrice = localStorage.getItem("IDoc_REP_PRICE") == 'true';
         //showPrice = false;
 
         $('#TableReport').append(
