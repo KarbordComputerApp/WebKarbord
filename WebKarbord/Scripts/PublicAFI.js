@@ -17,10 +17,13 @@ var group = localStorage.getItem('group');
 var aceErj = 'Web2';
 var salErj = '0000';
 
+
 var userName = localStorage.getItem('userName');
 var pass = localStorage.getItem('password');
 
 Master_ProgName = localStorage.getItem('Master_ProgName');
+
+var apiKeyMap = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE3N2VlOGUyMmFlZTVhZjQ4YzJjNmVlNDg1MTBmMTQ4MmE0MTcyOGE2N2Y3ZDg5MmYyMmNkMzQ0MGUwNWVkYjQ0NTQwYTkxYjIyMzdhMzFjIn0.eyJhdWQiOiIxOTQxOCIsImp0aSI6ImE3N2VlOGUyMmFlZTVhZjQ4YzJjNmVlNDg1MTBmMTQ4MmE0MTcyOGE2N2Y3ZDg5MmYyMmNkMzQ0MGUwNWVkYjQ0NTQwYTkxYjIyMzdhMzFjIiwiaWF0IjoxNjYyODk3ODA5LCJuYmYiOjE2NjI4OTc4MDksImV4cCI6MTY2NTU3OTgwOSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.qdEbX0m4jziLci0rpJVVgqFre-z9z2AjopNmAW8RmKJq4qBaLyUMa81YzTby7-GD9enq_G_-598xDnZup3H5yR2XbxmaT4QhZoOz6lDfY68t-_fffH8AQja-VdY0OBpkiTUg4AP4Ta-lexE5LLINqNbJCvwJV0sHyBPHTkbv1pb1Ax5nU_lLAbFwDJZ_5l9_H6mNVwR5d4xQGCKWPnVYQQG6Vukqh_iajIJ-YGDNIuP3fOQlBz4XPdUwzAzNIibW_yioMcRIm38kfxqFqePc6ZpI4zyb4HWx4maIWYYx2GRf4uFNZiB7gcWtyksNZppTKav8f9Rlv6D7xWqsntLUKA";
 
 //if (Master_ProgName == 'AFI1') Master_ProgName = 'Afi1';
 //if (Master_ProgName == 'ACC5') Master_ProgName = 'Acc5';
@@ -152,6 +155,7 @@ text_OtherField = 'مشخصات اضافی';
 text_LinkSanad = 'لینک اسناد';
 text_Date = 'انتخاب تاریخ';
 text_Image = 'تصویر';
+text_Location = 'موقعیت مکانی';
 
 //data-bind="attr: {title:text_Date}"
 

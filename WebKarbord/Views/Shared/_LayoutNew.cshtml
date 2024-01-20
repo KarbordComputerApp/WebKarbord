@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title id="titlePage">@ViewBag.Title</title>
     <link rel="icon" href="~/Content/new/img/loading.png" type="image/x-icon" />
-    
+
     <link href="~/Content/css/gridstack.min.css" rel="stylesheet" />
     <link href="~/Content/css/gridstack-extra.min.css" rel="stylesheet" />
 
@@ -23,6 +23,8 @@
     <link href="~/Content/new/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet" />
     <link href="~/Content/new/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet" />
     <link href="~/Content/new/css/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/new/css/mapp.min.css" rel="stylesheet" />
+    <link href="~/Content/new/css/MapStyle.css" rel="stylesheet" />
     <!-- <link href="~/Content/new/css/jquery.gridster.min.css" rel="stylesheet" />-->
     <!--<link rel="manifest" href="/manifest.json">-->
     <!-- Najva Push Notification -->
@@ -281,7 +283,7 @@
             <ul class="list">
                 <li class="sidebar-user-panel active">
                     <div class="center">
-                        <img id="logoMenu" src="~/Content/img/logo meno2.png"  style="width: 100px;"  />
+                        <img id="logoMenu" src="~/Content/img/logo meno2.png" style="width: 100px;" />
 
                         <img src="~/Content/img/new item/line.png" style="padding :5px 0px; max-width:100%" />
                     </div>
@@ -1120,6 +1122,81 @@
 
 
 
+    <div class="modal fade" id="modal-Location" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" style="max-width:900px">
+            <div class="modal-content" style="width:900px; height:70vh">
+                <div class="modal-header" style="padding-bottom: 5px;">
+                    <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">موقعیت مکانی</h4>
+                    <a></a>
+                </div>
+                <div class="modal-body">
+                    <div id="ContentLocation"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-SaveLocation" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 5px;">
+                    <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">ذخیره موقعیت مکانی</h4>
+                    <a></a>
+                </div>
+                <div class="modal-body">
+                    <table style="margin-top: 10px;" class="table-hover">
+                        <tbody>
+                            <tr style="border: #dddddd 1px solid; background-color: antiquewhite;">
+                                <td>آدرس قبل</td>
+                                <td id="Location_LastAddr">دورود </td>
+                            </tr>
+
+                            <tr style="border: #dddddd 1px solid; background-color: aliceblue;">
+                                <td>آدرس جدید</td>
+                                <td id="Location_NewAddr">تهران</td>
+                            </tr>
+
+
+                            <tr style="border: #dddddd 1px solid; background-color: aliceblue;">
+                                <td>ارتفاع</td>
+                                <td id="Location_Altitude">52.333</td>
+                            </tr>
+
+                            <tr style="border: #dddddd 1px solid; background-color: aliceblue;">
+                                <td>عرض جغرافیایی</td>
+                                <td id="Location_Latitude">35.69</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <div class="row  form-inline ">
+                        <div class="col-md-9 row">
+                            <input id="ChangeAddrLocation" type="checkbox">
+                            <label for="ChangeAddrLocation" style="margin-right: 5px;margin-top: 3px;" >ذخیره آدرس جدید</label>
+                        </div>
+                        <div class="col-md-3">
+                            <button data-bind="text:translate('ذخیره')" type="button" id="SaveLocation" class="btn btn-primary  pull-left" style=" margin-left: 8px; margin-right: 8px;">ذخیره</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
     <script type="text/javascript">
         sessionStorage.versionTitle = '@(WebKarbord.Controllers.Unit.UnitPublic.titleVer)';
 
@@ -1160,8 +1237,9 @@
     <script src="~/Content/new/js/jquery.md.bootstrap.datetimepicker.js"></script>
     <script src="~/Content/new/js/jquery.md5.js"></script>
     <script src="~/Content/new/js/dx.all.js"></script>
+    <script src="~/Content/new/js/mapp.env.js"></script>
+    <script src="~/Content/new/js/mapp.min.js"></script>
     <!--<script src="~/Content/new/js/jquery.gridster.min.js"></script>-->
-
     <!--<script src="https://smtpjs.com/v2/smtp.js"></script>-->
     <!-- <script src="~/Content/new/js/jquery ui/jquery.js"></script>-->
     <!--<script src="~/Content/new/js/jquery ui/jquery-ui.min.js"></script>-->

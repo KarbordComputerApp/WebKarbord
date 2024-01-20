@@ -271,6 +271,14 @@ namespace WebKarbord.Controllers
         }
 
 
+        //http://localhost:53759/Home/Map?latitude=35.6995&&altitude=51.3370
+        public ActionResult Map(decimal latitude, decimal altitude)
+        {
+            ViewBag.latitude = latitude;
+            ViewBag.altitude = altitude;
+            return View();
+        }
+
 
 
     }

@@ -21,6 +21,9 @@
     var DelCustImageUri = server + '/api/Web_Data/DelCustImage/'; // حذف عکس
     var addImage = false;
     var file;
+
+    var altitude = 0;
+    var latitude = 0;
     TestUser();
 
 
@@ -778,6 +781,7 @@
         $('#modal-Cust').modal('show');
     }
 
+    var oldAddress = "";
     function SetDataCust(item) {
         isUpdate = true;
         $('#Code').val(item.Code);
@@ -801,6 +805,24 @@
         $('#EtebarCheck').val(item.EtebarCheck);
         $('#Email').val(item.Email);
         $('#nameCGru').val('');
+
+        altitude = item.altitude;
+        latitude = item.latitude;
+
+        oldAddress =
+            (item.Ostan == "" ? '' : item.Ostan) +
+            (item.Shahrestan == "" ? '' : '-' + item.Shahrestan) +
+            (item.City == "" ? '' : '-' + item.City) +
+            (item.Region == "" ? '' : '-' + item.Region) +
+            (item.Street == "" ? '' : '-' + item.Street) +
+            (item.Alley == "" ? '' : '-' + item.Alley) +
+            (item.Plack == "" ? '' : '-' + item.Plack);
+
+
+
+        $('#altitude').val(altitude);
+        $('#latitude').val(latitude);
+
         cGruCode = item.CGruCode;
         if (cGruCode != '')
             $('#nameCGru').val('(' + item.CGruCode + ') ' + item.CGruName);
@@ -980,8 +1002,8 @@
                     F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val(),
                     F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
                     F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
-                    Latitude: 0,
-                    Longitude: 0
+                    Latitude: latitude,
+                    Altitude: altitude
                 };
 
                 ajaxFunction(SaveCustUri + ace + '/' + sal + '/' + group, 'POST', SaveCust_Object).done(function (data) {
@@ -1461,6 +1483,143 @@
     self.PageIndexCGru = function (item) {
         return CountPage(self.filterCGruList(), self.pageSizeCGru(), item);
     };
+
+
+    var newAddrData = null;
+
+    function CreateMap() {
+        $("#ContentLocation").empty();
+        hasLocation = latitude == 0 || altitude == 0 ? false : true
+
+        var app = new Mapp({
+            element: '#ContentLocation',
+            presets: {
+                latlng: {
+                    lat: hasLocation ? latitude : 35.6995,
+                    lng: hasLocation ? altitude : 51.3370
+                },
+                zoom: hasLocation ? 16 : 6
+            },
+            apiKey: apiKeyMap
+        });
+        app.addLayers();
+
+        if (hasLocation) {
+            app.markReverseGeocode({
+                state: {
+                    latlng: {
+                        lat: latitude,
+                        lng: altitude,
+                    },
+                    zoom: 16,
+                },
+            });
+        }
+
+        app.map.on('click', function (e) {
+
+            app.findReverseGeocode({
+                state: {
+                    latlng: {
+                        lat: e.latlng.lat,
+                        lng: e.latlng.lng
+                    },
+                    zoom: 16
+                },
+                after: function (addr) {
+                    newAddrData = addr;
+
+                    address = newAddrData.address
+                    address_compact = newAddrData.address_compact;
+
+                    $('#modal-SaveLocation').modal('show');
+                    $("#Location_LastAddr").text(oldAddress);
+                    $("#Location_NewAddr").text(address_compact);
+                    $("#Location_Latitude").text(e.latlng.lat);
+                    $("#Location_Altitude").text(e.latlng.lng);
+                }
+            });
+
+            app.addMarker({
+                name: 'advanced-marker',
+                latlng: {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng
+                },
+                icon: app.icons.red,
+                popup: false
+            });
+        });
+
+    }
+
+
+
+    $('#modal-Location').on('shown.bs.modal', function () {
+        CreateMap();
+    });
+
+
+    $('#SaveLocation').click(function () {
+        if (newAddrData != null) {
+            latitude = $("#Location_Latitude").text();
+            altitude = $("#Location_Altitude").text();
+
+            $("#latitude").val(latitude);
+            $("#altitude").val(altitude);
+
+            var isChangeAddrLocation = $('#ChangeAddrLocation').is(':checked');
+            if (isChangeAddrLocation) {
+
+                Ostan = newAddrData.province; //استان
+                Shahrestan = newAddrData.county; // شهرستان
+                City = newAddrData.city; // شهر
+                Region = newAddrData.region;//منطقه
+                Street = newAddrData.primary; // خیابان
+                Alley = newAddrData.last; // کوچه
+                Plack = newAddrData.plaque;//پلاک
+                ZipCode = newAddrData.postal_code; //کد پستی
+
+                $('#Ostan').val(Ostan);
+                $('#Shahrestan').val(Shahrestan);
+                $('#Region').val(Region);
+                $('#City').val(City);
+                $('#Street').val(Street);
+                $('#Alley').val(Alley);
+                $('#Plack').val(Plack);
+                $('#ZipCode').val(ZipCode);
+            }
+            $('#modal-SaveLocation').modal('hide');
+            $('#modal-Location').modal('hide');
+        }
+
+
+
+        /*
+        lastAddress = Ostan: $('#Ostan').val(),
+        Shahrestan: $('#Shahrestan').val(),
+        Region: $('#Region').val(),
+        City: $('#City').val(),
+        Street: $('#Street').val(),
+        Alley: $('#Alley').val(),
+        Plack: $('#Plack').val(),
+        ZipCode: $('#ZipCode').val(),*/
+
+        /*country = addr.country; // کشور
+        district = addr.district; // ناحیه
+        name = addr.name;
+        neighbourhood = addr.neighbourhood; // محله
+        penult = addr.penult;//عقب مانده
+        poi = addr.poi;
+        postal_address = addr.postal_address;
+        rural_district = addr.rural_district;//دهستان_بخش
+        village = addr.village;//دهکده*/
+    });
+
+
+
+
+
 
 };
 

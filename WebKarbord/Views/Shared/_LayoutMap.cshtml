@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="PRAGMA" content="NO-CACHE">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title id="titlePage">@ViewBag.Title</title>
+    <link rel="icon" href="~/Content/new/img/loading.png" type="image/x-icon" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/new/css/mapp.min.css" rel="stylesheet" />
+    <link href="~/Content/new/css/MapStyle.css" rel="stylesheet" />
+</head>
+
+<body class="light rtlSite" ondragstart="return false;" ondrop="return false;">
+
+    <section id="content" class="content">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </section>
+
+
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/new/js/jquery.md5.js"></script>
+    <script src="~/Content/new/js/mapp.env.js"></script>
+    <script src="~/Content/new/js/mapp.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

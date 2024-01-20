@@ -127,6 +127,10 @@
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('خریدار/فروشنده')"></h4>
                 <div>
+                    <a id="LocationCust" data-bind="attr: {title:text_Location}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Location" style="margin-left: 10px;">
+                        <img src="~/Content/img/map/Location.png" width="23" height="23" />
+                    </a> 
+                    
                     <a id="ShowImageCust" data-bind="attr: {title:text_Image}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Image" style="margin-left: 10px;">
                         <img src="/Content/img/image.png" width="20" height="20">
                     </a>
@@ -143,7 +147,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
-                                        <input type="text" id="Code" class="form-control int" maxlength="11"/>
+                                        <input type="text" id="Code" class="form-control int" maxlength="11" />
                                         <label class="form-label" data-bind="text:translate('کد')"></label>
                                     </div>
                                 </div>
@@ -295,7 +299,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group form-float">
                                     <div class="form-line focused fix">
-                                        <input data-bind=" event:{ keydown : $root.docNoKeyDown}" type="text" id="ZipCode" class="form-control" maxlength="10"/>
+                                        <input data-bind=" event:{ keydown : $root.docNoKeyDown}" type="text" id="ZipCode" class="form-control" maxlength="10" />
                                         <label class="form-label" data-bind="text:translate('کد پستی')"></label>
                                     </div>
                                 </div>
@@ -339,6 +343,31 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="row form-line">
+                            <div class="col-sm-3">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input type="text" id="altitude" class="form-control float" />
+                                        <label class="form-label" data-bind="text:translate('ارتفاع')"></label>
+                                    </div>
+                                </div>
+                            </div>  
+                            
+                            <div class="col-sm-3">
+                                <div class="form-group form-float">
+                                    <div class="form-line focused fix">
+                                        <input type="text" id="latitude" class="form-control float" />
+                                        <label class="form-label" data-bind="text:translate('عرض جغرافیایی')"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                       </div>
+
+
                     </form>
                 </div>
             </div>
