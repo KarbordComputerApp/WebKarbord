@@ -12131,11 +12131,18 @@
 .dx-datagrid-rowsview:focus {
   outline: 0;
 }
-.dx-datagrid-rowsview .dx-row > td,
-.dx-datagrid-rowsview .dx-row > tr > td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    .dx-datagrid-rowsview .dx-row > td,
+    .dx-datagrid-rowsview .dx-row > tr > td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dx-datagrid-rowsview .dx-row > td
+     {
+        text-wrap: balance;
+    }
+
+
 .dx-datagrid-rowsview .dx-row.dx-row-lines:first-child,
 .dx-datagrid-rowsview .dx-row.dx-row-lines:first-child>td,
 .dx-datagrid-rowsview .dx-row.dx-row-lines:first-child>tr>td {
