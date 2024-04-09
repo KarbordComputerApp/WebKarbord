@@ -396,7 +396,7 @@ input.addEventListener("change", function () {
 
 
 
-                            ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
+                           /* ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
                                 localStorage.setItem('VerDllCheckAcc6', data);
                             });
 
@@ -410,7 +410,7 @@ input.addEventListener("change", function () {
 
                             ajaxFunction(server + '/api/Web_Data/GetVerDllAfi2', 'Get').done(function (data) {
                                 localStorage.setItem('VerDllCheckAfi2', data);
-                            });
+                            });*/
 
 
 

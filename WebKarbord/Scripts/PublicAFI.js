@@ -179,6 +179,7 @@ if (sessionStorage.versionTitle == "ورژن تست") {
 
 }
 
+/*
 if (ace == 'Web8') {
     $("#VerDllCheck").text(
         'ACC6 ' + localStorage.getItem('VerDllCheckAcc6') + ' - ' +
@@ -188,7 +189,7 @@ if (ace == 'Web8') {
 }
 else if (ace == 'Web1') {
     $("#VerDllCheck").text('Afi2 ' + localStorage.getItem('VerDllCheckAfi2'));
-}
+}*/
 
 
 var tiketUrl = 'http://localhost:51091/';
