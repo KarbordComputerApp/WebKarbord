@@ -170,12 +170,17 @@ var ViewModel = function () {
     self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
     self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.VstrList = ko.observableArray([]); // لیست ویزیتور
+    self.Daryafti_List = ko.observableArray([]); // لیست دریافتی ها
+
 
     self.FDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     //self.TestFDocList = ko.observableArray([]); // لیست تست 
     self.TestFDoc_NewList = ko.observableArray([]); // لیست تست جدید
     self.ExtraFieldsList = ko.observableArray([]); // لیست مشخصات اضافه 
     self.ArzList = ko.observableArray([]); // لیست ارز ها
+
+
+
 
     FDOC_SO_Text = translate("سفارش فروش");
     FDOC_SP_Text = translate("پیش فاکتور فروش");
@@ -316,6 +321,10 @@ var ViewModel = function () {
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
     var CustAccMondehUri = server + '/api/Web_Data/CustAccMondeh/'; // مانده حساب مشتری 
+
+    var Daryafti_ListUri = server + '/api/Web_Data/Daryafti_List/'; // لیست دریافتی های فاکتور 
+    var SaveCDoc_IUri = server + '/api/Web_Data/Web_SaveCDoc_I/'; // ثبت دریافتی های فاکتور 
+    var SaveCDoc_DelUri = server + '/api/Web_Data/Web_SaveCDoc_Del/'; // حذف دریافتی های فاکتور 
 
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
@@ -1903,6 +1912,21 @@ var ViewModel = function () {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
 
+                    sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR ?
+                        {
+                            location: 'after',
+                            widget: 'dxButton',
+                            name: 'Daryafti_List',
+                            options: {
+                                icon: '/Content/img/sanad/GetMony.png',
+                                hint: 'دریافت وجه',
+                                onClick() {
+                                    ShowDaryafti_List();
+                                },
+                            },
+                        } : '',
+
+
                     serverPos != '' && serverPos != null && self.PosList.length == 0 ?
                         {
                             location: 'after',
@@ -3253,7 +3277,7 @@ var ViewModel = function () {
         kalapricecode = $("#gGhimat").val();
 
         value = $('#ghabelPardakht').text();
-        ghabelPardakht = value == '' ? 0 :  value.replaceAll(',', '').replaceAll('/', '.');
+        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
 
         //CalcAddmin();
 
@@ -5517,6 +5541,171 @@ var ViewModel = function () {
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
+
+
+    //Get  Daryafti_List 
+    function getDaryafti_List() {
+
+        Daryafti_ListObject = {
+            SerialNumber: Serial
+        };
+        ajaxFunction(Daryafti_ListUri + ace + '/' + sal + '/' + group + '/', 'POST', Daryafti_ListObject, true).done(function (data) {
+            self.Daryafti_List(data == null ? [] : data);
+        });
+    }
+
+
+    function ShowDaryafti_List() {
+        if (Serial > 0) {
+            getDaryafti_List();
+            $('#modal-Daryafti_List').modal('show');
+        }
+        else {
+            return showNotification(translate('ابتدا فاکتور را ذخیره کنید'), 0);
+        }
+    }
+
+
+    $('#refreshDaryafti_List').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست دریافتی ها ") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getDaryafti_List();
+            }
+        })
+    })
+
+    $("#NoDaryafti").change(function () {
+        noDaryafti = $("#NoDaryafti").val();
+
+        if (noDaryafti == 0) {
+            $("#P_CheckDaryafti").hide();
+        }
+        else {
+            $("#P_CheckDaryafti").show();
+        }
+    })
+
+
+    var noDaryafti = 0;
+    var bandNoDaryafti = 0;
+
+    $('#AddDaryafti').click(function () {
+        noDaryafti = 0;
+        bandNoDaryafti = 0;
+        $("#P_CheckDaryafti").hide();
+        $("#NoDaryafti").val(noDaryafti);
+
+        $("#tarikhDaryafti").val("");
+        $("#ValueDaryafti").val("");
+        $("#CheckNo").val("");
+        $("#CheckDate").val("");
+        $("#Bank").val("");
+        $("#Shobe").val("");
+        $("#Jari").val("");
+        $('#modal-AddDaryafti').modal('show');
+    });
+
+
+    self.UpdateDaryafti = function (band) {
+        noDaryafti = band.CheckNo == "" ? 0 : 1;
+        $("#NoDaryafti").val(noDaryafti);
+        if (noDaryafti == 0) {
+            $("#P_CheckDaryafti").hide();
+        }
+        else {
+            $("#P_CheckDaryafti").show();
+        }
+        bandNoDaryafti = band.BandNo
+        $("#tarikhDaryafti").val(band.DocDate);
+        $("#ValueDaryafti").val(NumberToNumberString(band.Value));
+        $("#CheckNo").val(band.CheckNo);
+        $("#CheckDate").val(band.CheckDate);
+        $("#Bank").val(band.Bank);
+        $("#Shobe").val(band.Shobe);
+        $("#Jari").val(band.Jari);
+
+        $('#modal-AddDaryafti').modal('show');
+    };
+
+    self.DeleteDaryafti = function (band) {
+        bandNoDaryafti = band.BandNo
+
+        Swal.fire({
+            title: translate('تایید حذف'),
+            text: translate("آیا") + " "+  translate("دریافتی انتخابی حذف شود ؟"),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                Web_SaveCDoc_DelObject = {
+                    SerialNumber: Serial,
+                    BandNo: bandNoDaryafti,
+                };
+                ajaxFunction(SaveCDoc_DelUri + ace + '/' + sal + '/' + group + '/', 'POST', Web_SaveCDoc_DelObject, true).done(function (data) {
+                    getDaryafti_List();
+                });
+            }
+        })
+    };
+
+    $('#SaveDaryafti').click(function () {
+
+        var checkNo = $("#CheckNo").val();
+        var checkDate = $("#CheckDate").val().toEnglishDigit();
+        var bank = $("#Bank").val();
+        var shobe = $("#Shobe").val();
+        var jari = $("#Jari").val();
+        var value = $("#ValueDaryafti").val();
+        var tarikhDaryafti = $("#tarikhDaryafti").val().toEnglishDigit();
+
+        if (value == "") {
+            return showNotification(translate('مبلغ را وارد کنید'), 0);
+        }
+
+        if (tarikhDaryafti == "") {
+            return showNotification(translate('تاریخ را وارد کنید'), 0);
+        }
+
+        value = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
+
+        Web_SaveCDoc_IObject = {
+            SerialNumber: Serial,
+            BandNo: bandNoDaryafti,
+            Mode: 0,
+            DocDate: tarikhDaryafti,
+            CheckNo: checkNo,
+            CheckDate: checkDate,
+            Bank: bank,
+            Shobe: shobe,
+            Jari: jari,
+            Value: value
+        };
+        ajaxFunction(SaveCDoc_IUri + ace + '/' + sal + '/' + group + '/', 'POST', Web_SaveCDoc_IObject, true).done(function (data) {
+            getDaryafti_List();
+            $('#modal-AddDaryafti').modal('hide');
+        });
+
+    });
+
+
+
+
 };
+
 
 ko.applyBindings(new ViewModel());

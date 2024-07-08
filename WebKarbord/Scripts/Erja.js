@@ -2162,7 +2162,6 @@
     $('#erja').click(function () {
         $('#p_Result').css('display', 'none');
         $('#modal-Erja').modal('show');
-
     });
 
     self.ViewErjDocErja = function (Band) {

@@ -427,6 +427,7 @@
     <Content Include="Content\img\repair-config.svg" />
     <Content Include="Content\img\repair-sal.svg" />
     <Content Include="Content\img\Repair.png" />
+    <Content Include="Content\img\sanad\GetMony.png" />
     <Content Include="Content\img\send.svg" />
     <Content Include="Content\img\tab-plus.png" />
     <Content Include="Content\img\tabs.png" />
