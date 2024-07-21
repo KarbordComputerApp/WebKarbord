@@ -833,7 +833,7 @@ var ViewModel = function () {
 
     //Get IDocH
     function getIDocH(serialNumber) {
-        ajaxFunction(IDocHListUri + ace + '/' + sal + '/' + group + '/' + serialNumber + '/' + sessionStorage.ModeCode, 'GET').done(function (data) {
+        ajaxFunction(IDocHListUri + ace + '/' + sal + '/' + group + '/' + serialNumber , 'GET').done(function (data) {
             self.IDocHList(data);
 
             if (self.IDocHList().length > 0) { // اگر شامل اطلاعات انبار بود
