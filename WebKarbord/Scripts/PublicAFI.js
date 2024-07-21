@@ -2810,6 +2810,17 @@ SetValidationErj();
 
 var DateNow;
 var SalNow;
+var timeNow;
+
+function getTimeServer() {
+    if (server != null) {
+        var TimeUri = server + '/api/Web_Data/Time/'; // آدرس  ساعت سرور
+        ajaxFunction(TimeUri, 'GET').done(function (data) {
+            timeNow = data[0];
+        });
+    }
+}
+
 
 if (sessionStorage.userName != '' && sessionStorage.userName != null)
     setInterval(TestUser, 60000);

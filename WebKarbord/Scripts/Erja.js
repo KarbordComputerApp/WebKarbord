@@ -736,15 +736,16 @@
                 + '        <div class="cardErj">'
                 + '            <div class="header" style="background-color: #f5d3b4;">'
                 + '<div class="form-inline"> '
-                + '     <div class= "col-md-9 form-inline" > '
+                + '     <div class= "col-md form-inline" > '
                 + '         <h6>' + i + ' ) ' + listBand[0].FromUserName + '</h6>'
                 + '         <img src="/Content/img/new item/arrow-back-svgrepo-com.svg" style="width: 14px;margin-left: 3px; margin-right: 3px;" /> '
                 + '         <h6>' + listBand[0].ToUserName + '</h6> '
                 + '     </div>'
-                + '     <div class="col-md-3 form-inline"> '
-                + '         <h6 style="padding-left: 10px">' + listBand[0].RjTimeSt + '</h6> '
-                + '         <h6>' + listBand[0].RjDate + '</h6> '
-                + '     </div> '
+            + '     <div class="col-md form-inline"  style="direction:ltr"> '
+            + '         <h6 >' + listBand[0].RjDate + '</h6> '
+            + '         <h6 style="padding-left: 5px;">' + listBand[0].RjTimeSt + '</h6> '
+            + '         <h6 style="padding-left: 5px;">' + listBand[0].RjHour + '</h6> '
+            + '     </div> '
                 + '</div>';
 
 
@@ -3056,13 +3057,13 @@
         }
 
         var ErjSaveDoc_BSaveObject;
+        getTimeServer();
         if (bandNoImput == 0 || sessionStorage.ModeCodeErja == "2") { // erja
             natijeh = $("#e_Result").val();
 
             if (natijeh == '') {
                 //   return showNotification(translate('متن ارجاع را وارد کنید', 0);
             }
-
 
             ErjSaveDoc_BSaveObject = {
                 SerialNumber: serialNumber,
@@ -3076,6 +3077,7 @@
                 SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1,
                 RjStatus: $("#m_StatusErja").val(),
                 FarayandCode: self.FarayandCode(),
+                RjHour: timeNow
             };
         }
         else // save
@@ -3134,6 +3136,7 @@
                 SrMode: sessionStorage.ModeCodeErja == "1" ? 0 : 1,
                 RjStatus: $("#m_StatusErja").val(),
                 FarayandCode: 0,
+                RjHour: timeNow
             };
 
 
