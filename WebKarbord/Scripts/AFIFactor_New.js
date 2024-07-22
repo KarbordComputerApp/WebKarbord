@@ -1911,8 +1911,8 @@ var ViewModel = function () {
             onToolbarPreparing: function (e) {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
-
-                    sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR ?
+                    // دریافتی در فاکتور
+                    /*sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_S || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR ?
                         {
                             location: 'after',
                             widget: 'dxButton',
@@ -1924,7 +1924,7 @@ var ViewModel = function () {
                                     ShowDaryafti_List();
                                 },
                             },
-                        } : '',
+                        } : '',*/
 
 
                     serverPos != '' && serverPos != null && self.PosList.length == 0 ?
