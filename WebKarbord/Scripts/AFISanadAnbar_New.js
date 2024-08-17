@@ -122,6 +122,30 @@ var ViewModel = function () {
     var Serial = '';
 
     var KalaList;
+    var kalaFileNoList;
+    var kalaStateList;
+    var kalaExf1List;
+    var kalaExf2List;
+    var kalaExf3List;
+    var kalaExf4List;
+    var kalaExf5List;
+    var kalaExf6List;
+    var kalaExf7List;
+    var kalaExf8List;
+    var kalaExf9List;
+    var kalaExf10List;
+    var kalaExf11List;
+    var kalaExf12List;
+    var kalaExf13List;
+    var kalaExf14List;
+    var kalaExf15List;
+
+    //var enableKalaExf = false;
+    var isSelectedKalaExf = false;   // کلید تایپ یا انتخاب در ویژگی کالا
+
+
+
+
     var IDocB;
     var KalaUnitList = [];// [{ 'ID': 1, 'Name': 'a' }, { 'ID': 2, 'Name': 'b' }, { 'ID': 3, 'Name': 'c' }];
     //var KalaUnitList = [{}];
@@ -223,7 +247,7 @@ var ViewModel = function () {
             $('#foottexttotalprice').hide();
         }
 
-
+        isSelectedKalaExf = false;
 
 
     } else {
@@ -252,6 +276,7 @@ var ViewModel = function () {
         $('#totalpriceshowgridbody').hide();
         $('#foottextunitprice').hide();
         $('#foottexttotalprice').hide();
+        isSelectedKalaExf = true;
     }
 
     self.InvCode = ko.observable(invSelected);
@@ -353,6 +378,8 @@ var ViewModel = function () {
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
     var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس مانده کالا 
+    var KalaExf_InvUri = server + '/api/IDocData/KalaExf_Inv/'; // آدرس لیست وسژگی کالا 
+
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
@@ -478,6 +505,38 @@ var ViewModel = function () {
 
 
     getKalaList();
+
+    //Get kalaExf List
+    function getKalaExf_InvList(field) {
+        var KalaExf_InvObject = {
+            fieldName: field
+        }
+        ajaxFunction(KalaExf_InvUri + ace + '/' + sal + '/' + group, 'POST', KalaExf_InvObject, false).done(function (data) {
+            if (field == 'KalaFileNo') kalaFileNoList = data;
+            else if (field == 'KalaState') kalaStateList = data;
+            else if (field == 'KalaExf1') kalaExf1List = data;
+            else if (field == 'KalaExf2') kalaExf2List = data;
+            else if (field == 'KalaExf3') kalaExf3List = data;
+            else if (field == 'KalaExf4') kalaExf4List = data;
+            else if (field == 'KalaExf5') kalaExf5List = data;
+            else if (field == 'KalaExf6') kalaExf6List = data;
+            else if (field == 'KalaExf7') kalaExf7List = data;
+            else if (field == 'KalaExf8') kalaExf8List = data;
+            else if (field == 'KalaExf9') kalaExf9List = data;
+            else if (field == 'KalaExf10') kalaExf10List = data;
+            else if (field == 'KalaExf11') kalaExf11List = data;
+            else if (field == 'KalaExf12') kalaExf12List = data;
+            else if (field == 'KalaExf13') kalaExf13List = data;
+            else if (field == 'KalaExf14') kalaExf14List = data;
+            else if (field == 'KalaExf15') kalaExf15List = data;
+        });
+    }
+
+
+    getKalaExf_InvList('KalaFileNo');
+    getKalaExf_InvList('KalaState');
+    getKalaExf_InvList('KalaExf1');
+
 
 
     function getStatusList() {
@@ -833,7 +892,7 @@ var ViewModel = function () {
 
     //Get IDocH
     function getIDocH(serialNumber) {
-        ajaxFunction(IDocHListUri + ace + '/' + sal + '/' + group + '/' + serialNumber , 'GET').done(function (data) {
+        ajaxFunction(IDocHListUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.IDocHList(data);
 
             if (self.IDocHList().length > 0) { // اگر شامل اطلاعات انبار بود
@@ -1280,9 +1339,24 @@ var ViewModel = function () {
                     ',"lookup": {"dataSource": "KalaUnitList", "valueExpr": "Name", "displayExpr": "Name"}';
             }
 
-            // else if (data[i].Code == "Amount1") {
-            //    f += ',"setCellValue": "EditorAmount1"'
-            //}
+            else if (data[i].Code == "KalaFileNo" && isSelectedKalaExf) {  f += ',"lookup": {"dataSource": "kalaFileNoList", "valueExpr": "Name", "displayExpr": "Name"}'; }
+            else if (data[i].Code == "KalaState" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaStateList", "valueExpr": "Name", "displayExpr": "Name"}'; }
+            else if (data[i].Code == "KalaExf1" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf1List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf2" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf2List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf3" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf3List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf4" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf4List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf5" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf5List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf6" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf6List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf7" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf7List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf8" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf8List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf9" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf9List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf10" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf10List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf11" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf11List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf12" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf12List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf13" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf13List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf14" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf14List", "valueExpr": "Name", "displayExpr": "Name"}';}
+            else if (data[i].Code == "KalaExf15" && isSelectedKalaExf) {f += ',"lookup": {"dataSource": "kalaExf15List", "valueExpr": "Name", "displayExpr": "Name"}';}
+
 
             if (data[i].Code == "BandNo" || data[i].Code == "ArzValue") {
                 f += ',"allowEditing": false'
@@ -1401,6 +1475,91 @@ var ViewModel = function () {
             if (cols[i].dataField == 'MainUnitName') {
                 cols[i].editCellTemplate = dropDownBoxEditorUnitName;
                 cols[i].lookup.dataSource = KalaUnitList;
+            }
+
+            if (cols[i].dataField == 'KalaFileNo' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaFileNo;
+                cols[i].lookup.dataSource = kalaFileNoList;
+            }
+
+            if (cols[i].dataField == 'KalaState' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaState;
+                cols[i].lookup.dataSource = kalaStateList;
+            }
+
+            if (cols[i].dataField == 'KalaExf1' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf1;
+                cols[i].lookup.dataSource = kalaExf1List;
+            }
+
+            if (cols[i].dataField == 'KalaExf2' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf2;
+                cols[i].lookup.dataSource = kalaExf2List;
+            }
+
+            if (cols[i].dataField == 'KalaExf3' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf3;
+                cols[i].lookup.dataSource = kalaExf3List;
+            }
+
+            if (cols[i].dataField == 'KalaExf4' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf4;
+                cols[i].lookup.dataSource = kalaExf4List;
+            }
+
+            if (cols[i].dataField == 'KalaExf5' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf5;
+                cols[i].lookup.dataSource = kalaExf5List;
+            }
+
+            if (cols[i].dataField == 'KalaExf6' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf6;
+                cols[i].lookup.dataSource = kalaExf6List;
+            }
+
+            if (cols[i].dataField == 'KalaExf7' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf7;
+                cols[i].lookup.dataSource = kalaExf7List;
+            }
+
+            if (cols[i].dataField == 'KalaExf8' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf8;
+                cols[i].lookup.dataSource = kalaExf8List;
+            }
+
+            if (cols[i].dataField == 'KalaExf9' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf9;
+                cols[i].lookup.dataSource = kalaExf9List;
+            }
+
+            if (cols[i].dataField == 'KalaExf10' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf10;
+                cols[i].lookup.dataSource = kalaExf10List;
+            }
+
+            if (cols[i].dataField == 'KalaExf11' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf11;
+                cols[i].lookup.dataSource = kalaExf11List;
+            }
+
+            if (cols[i].dataField == 'KalaExf12' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf12;
+                cols[i].lookup.dataSource = kalaExf12List;
+            }
+
+            if (cols[i].dataField == 'KalaExf13' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf13;
+                cols[i].lookup.dataSource = kalaExf13List;
+            }
+
+            if (cols[i].dataField == 'KalaExf14' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf14;
+                cols[i].lookup.dataSource = kalaExf14List;
+            }
+
+            if (cols[i].dataField == 'KalaExf15' && isSelectedKalaExf) {
+                cols[i].editCellTemplate = dropDownBoxEditorKalaExf15;
+                cols[i].lookup.dataSource = kalaExf15List;
             }
 
             if (cols[i].dataField == 'Amount1') {
@@ -3056,6 +3215,807 @@ var ViewModel = function () {
         }
     }
 
+    function dropDownBoxEditorKalaFileNo(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaFileNoList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaFileNoList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaFileNo = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+
+    function dropDownBoxEditorKalaState(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaStateList,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaStateList,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaState = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf1(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf1List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf1List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf1 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf2(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf2List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf2List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf2 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf3(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf3List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf3List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf3 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf4(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf4List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf4List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf4 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf5(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf5List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf5List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf5 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf6(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf6List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf6List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf6 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf7(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf7List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf7List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf7 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf8(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf8List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf8List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf8 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf9(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf9List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf9List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf9 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf10(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf10List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf10List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf10 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf11(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf11List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf11List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf11 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf12(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf12List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf12List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf12 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf13(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf13List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf13List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf13 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf14(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf14List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf14List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf14 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+    function dropDownBoxEditorKalaExf15(cellElement, cellInfo) {
+        ro = cellInfo.rowIndex;
+        if (IDocB[ro].dataKala != null) {
+            return $('<div>').dxDropDownBox({
+                dropDownOptions: { width: 500 },
+                dataSource: kalaExf15List,
+                value: cellInfo.value,
+                valueExpr: 'Name',
+                displayExpr: 'Name',
+                contentTemplate(e) {
+                    return $('<div>').dxDataGrid({
+                        dataSource: kalaExf15List,
+                        keyExpr: 'Name',
+                        remoteOperations: true,
+                        rtlEnabled: true,
+                        filterRow: {
+                            visible: true,
+                            applyFilter: 'auto',
+                        },
+                        columns: [
+                            { dataField: 'Name', caption: "عنوان" },
+                        ],
+                        hoverStateEnabled: true,
+                        scrolling: { mode: 'virtual' },
+                        height: 250,
+                        selection: { mode: 'single' },
+                        selectedRowKeys: [cellInfo.value],
+                        focusedRowEnabled: true,
+                        focusedRowKey: cellInfo.value,
+                        onSelectionChanged(selectionChangedArgs) {
+                            dKala = selectionChangedArgs.selectedRowsData[0];
+                            if (dKala != null) {
+                                e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                    cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                    //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
+                                    IDocB[ro].KalaExf15 = selectionChangedArgs.selectedRowsData[0].Name;
+                                    e.component.close();
+                                }
+                            }
+                        },
+                    });
+                },
+            });
+        }
+    }
+ 
 
     function FilterUnitName(dataKala) {
         if (dataKala != null) {
