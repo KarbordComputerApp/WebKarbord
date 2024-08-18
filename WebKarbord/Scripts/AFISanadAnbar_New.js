@@ -536,20 +536,34 @@ var ViewModel = function () {
     getKalaExf_InvList('KalaFileNo');
     getKalaExf_InvList('KalaState');
     getKalaExf_InvList('KalaExf1');
+    getKalaExf_InvList('KalaExf2');
+    getKalaExf_InvList('KalaExf3');
+    getKalaExf_InvList('KalaExf4');
+    getKalaExf_InvList('KalaExf5');
+    getKalaExf_InvList('KalaExf6');
+    getKalaExf_InvList('KalaExf7');
+    getKalaExf_InvList('KalaExf8');
+    getKalaExf_InvList('KalaExf9');
+    getKalaExf_InvList('KalaExf10');
+    getKalaExf_InvList('KalaExf11');
+    getKalaExf_InvList('KalaExf12');
+    getKalaExf_InvList('KalaExf13');
+    getKalaExf_InvList('KalaExf14');
+    getKalaExf_InvList('KalaExf15');
 
 
 
     function getStatusList() {
-        list = localStorage.getItem('FctStatus');
+        list = localStorage.getItem('InvStatus');
         if (list != null) {
-            list = JSON.parse(localStorage.getItem('FctStatus'));
+            list = JSON.parse(localStorage.getItem('InvStatus'));
             self.StatusList(list)
         }
         else {
             progName = getProgName('A');
             ajaxFunction(StatusUri + ace + '/' + sal + '/' + group + '/' + progName, 'GET').done(function (data) {
                 self.StatusList(data);
-                localStorage.setItem("FctStatus", JSON.stringify(data));
+                localStorage.setItem("InvStatus", JSON.stringify(data));
             });
         }
     }
