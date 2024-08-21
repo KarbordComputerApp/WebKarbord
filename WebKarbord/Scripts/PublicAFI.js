@@ -17,6 +17,8 @@ var group = localStorage.getItem('group');
 var aceErj = 'Web2';
 var salErj = '0000';
 
+var valueDropDownKalaExf = null;
+
 
 var userName = localStorage.getItem('userName');
 var pass = localStorage.getItem('password');
