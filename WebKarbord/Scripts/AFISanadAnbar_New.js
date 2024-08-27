@@ -194,6 +194,11 @@ var ViewModel = function () {
     self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.KalaExf_OutList = ko.observableArray([]); // لیست ویژگی ها
 
+
+    self.KalaFileNoList = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaStateList = ko.observableArray([]); // لیست ویژگی ها
+
+
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
     //self.TestIDocList = ko.observableArray([]); // لیست تست 
     self.TestIDoc_NewList = ko.observableArray([]); // لیست تست جدید
@@ -428,13 +433,13 @@ var ViewModel = function () {
         });
     }
 
-    function getKalaExf_OutList(invCode,kalaCode) {
+    function getKalaExf_OutList(invCode, kalaCode) {
         var KalaExf_Inv_OutObject = {
             InvCode: invCode,
             KalaCode: kalaCode
         }
 
-        ajaxFunction(KalaExf_Inv_OutUri + ace + '/' + sal + '/' + group , 'POST', KalaExf_Inv_OutObject, false).done(function (data) {
+        ajaxFunction(KalaExf_Inv_OutUri + ace + '/' + sal + '/' + group, 'POST', KalaExf_Inv_OutObject, false).done(function (data) {
             self.KalaExf_OutList(data == null ? [] : data);
         });
     }
@@ -526,8 +531,14 @@ var ViewModel = function () {
             fieldName: field
         }
         ajaxFunction(KalaExf_InvUri + ace + '/' + sal + '/' + group, 'POST', KalaExf_InvObject, false).done(function (data) {
-            if (field == 'KalaFileNo') kalaFileNoList = data;
-            else if (field == 'KalaState') kalaStateList = data;
+            if (field == 'KalaFileNo') {
+                self.KalaFileNoList(data);
+                kalaFileNoList = data;
+            }
+            else if (field == 'KalaState') {
+                self.KalaStateList(data);
+                kalaStateList = data;
+            }
             else if (field == 'KalaExf1') kalaExf1List = data;
             else if (field == 'KalaExf2') kalaExf2List = data;
             else if (field == 'KalaExf3') kalaExf3List = data;
@@ -1367,8 +1378,8 @@ var ViewModel = function () {
                     ',"lookup": {"dataSource": "KalaUnitList", "valueExpr": "Name", "displayExpr": "Name"}';
             }
 
-            else if (data[i].Code == "KalaFileNo" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaFileNoList", "valueExpr": "Name", "displayExpr": "Name"}'; }
-            else if (data[i].Code == "KalaState" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaStateList", "valueExpr": "Name", "displayExpr": "Name"}'; }
+            //else if (data[i].Code == "KalaFileNo" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaFileNoList", "valueExpr": "Name", "displayExpr": "Name"}'; }
+            //else if (data[i].Code == "KalaState" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaStateList", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf1" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf1List", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf2" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf2List", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf3" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf3List", "valueExpr": "Name", "displayExpr": "Name"}'; }
@@ -1391,21 +1402,23 @@ var ViewModel = function () {
             }
 
 
-            if (isSelectedKalaExf == false && (data[i].Code == "KalaFileNo" || data[i].Code == "KalaState" ||
-                data[i].Code == "KalaExf1" || 
-                data[i].Code == "KalaExf2" || 
-                data[i].Code == "KalaExf3" || 
-                data[i].Code == "KalaExf4" || 
-                data[i].Code == "KalaExf5" || 
-                data[i].Code == "KalaExf6" || 
-                data[i].Code == "KalaExf7" || 
-                data[i].Code == "KalaExf8" || 
-                data[i].Code == "KalaExf9" || 
-                data[i].Code == "KalaExf10" || 
-                data[i].Code == "KalaExf11" || 
-                data[i].Code == "KalaExf12" || 
-                data[i].Code == "KalaExf13" || 
-                data[i].Code == "KalaExf14" || 
+            if (isSelectedKalaExf == false && (
+                data[i].Code == "KalaFileNo" ||
+                data[i].Code == "KalaState" ||
+                data[i].Code == "KalaExf1" ||
+                data[i].Code == "KalaExf2" ||
+                data[i].Code == "KalaExf3" ||
+                data[i].Code == "KalaExf4" ||
+                data[i].Code == "KalaExf5" ||
+                data[i].Code == "KalaExf6" ||
+                data[i].Code == "KalaExf7" ||
+                data[i].Code == "KalaExf8" ||
+                data[i].Code == "KalaExf9" ||
+                data[i].Code == "KalaExf10" ||
+                data[i].Code == "KalaExf11" ||
+                data[i].Code == "KalaExf12" ||
+                data[i].Code == "KalaExf13" ||
+                data[i].Code == "KalaExf14" ||
                 data[i].Code == "KalaExf15")) {
                 f += ',"allowEditing": false'
             }
@@ -1526,7 +1539,7 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = KalaUnitList;
             }
 
-            if (cols[i].dataField == 'KalaFileNo' && isSelectedKalaExf) {
+            /*if (cols[i].dataField == 'KalaFileNo' && isSelectedKalaExf) {
                 cols[i].editCellTemplate = dropDownBoxEditorKalaFileNo;
                 cols[i].lookup.dataSource = kalaFileNoList;
             }
@@ -1534,7 +1547,7 @@ var ViewModel = function () {
             if (cols[i].dataField == 'KalaState' && isSelectedKalaExf) {
                 cols[i].editCellTemplate = dropDownBoxEditorKalaState;
                 cols[i].lookup.dataSource = kalaStateList;
-            }
+             }*/
 
             if (cols[i].dataField == 'KalaExf1' && isSelectedKalaExf) {
                 cols[i].editCellTemplate = dropDownBoxEditorKalaExf1;
@@ -1751,7 +1764,13 @@ var ViewModel = function () {
                 else {
                     fieldName = e.column.dataField;
                 }
+                //if (fieldName == 'KalaState') {
+                //    $("#modal-KalaState").modal('show');
+               // }
+
             },
+
+
 
             onKeyDown: function (e) {
                 const keyCode = e.event.key;
@@ -1775,6 +1794,14 @@ var ViewModel = function () {
 
                     }
                 };
+
+                if (keyCode == ' ' && columnName == 'KalaFileNo' && isSelectedKalaExf) {
+                    $("#modal-KalaFileNo").modal('show');
+                }
+
+                if (keyCode == ' ' && columnName == 'KalaState' && isSelectedKalaExf) {
+                    $("#modal-KalaState").modal('show');
+                }
 
                 if (keyCode == 'Enter') {
 
@@ -2036,20 +2063,6 @@ var ViewModel = function () {
                         CalcSanad();
                     }
                 }
-                if (e.dataField == 'KalaFileNo') {
-                    e.editorOptions.onValueChanged = function (args) {
-                        ro = e.row.rowIndex;
-                        IDocB[ro].UP_Flag = false;
-                        value = args.value == null ? 0 : args.value;
-                        IDocB[ro].TotalPrice = value;
-                        CalcPrice(ro);
-
-                        dataGrid.saveEditData();
-                        dataGrid.refresh();
-                        CalcSanad();
-                    }
-                }
-
             }
 
         }).dxDataGrid('instance');
@@ -3112,23 +3125,23 @@ var ViewModel = function () {
                                         IDocB[ro].KalaExf13 = "";
                                         IDocB[ro].KalaExf14 = "";
                                         IDocB[ro].KalaExf15 = "";
-                                        dataGrid.cellValue(ro, "KalaFileNo","")
-                                        dataGrid.cellValue(ro, "KalaState","")
-                                        dataGrid.cellValue(ro, "KalaExf1","")
-                                        dataGrid.cellValue(ro, "KalaExf2","")
-                                        dataGrid.cellValue(ro, "KalaExf3","")
-                                        dataGrid.cellValue(ro, "KalaExf4","")
-                                        dataGrid.cellValue(ro, "KalaExf5","")
-                                        dataGrid.cellValue(ro, "KalaExf6","")
-                                        dataGrid.cellValue(ro, "KalaExf7","")
-                                        dataGrid.cellValue(ro, "KalaExf8","")
-                                        dataGrid.cellValue(ro, "KalaExf9","")
-                                        dataGrid.cellValue(ro, "KalaExf10","")
-                                        dataGrid.cellValue(ro, "KalaExf11","")
-                                        dataGrid.cellValue(ro, "KalaExf12","")
-                                        dataGrid.cellValue(ro, "KalaExf13","")
-                                        dataGrid.cellValue(ro, "KalaExf14","")
-                                        dataGrid.cellValue(ro, "KalaExf15","")
+                                        dataGrid.cellValue(ro, "KalaFileNo", "")
+                                        dataGrid.cellValue(ro, "KalaState", "")
+                                        dataGrid.cellValue(ro, "KalaExf1", "")
+                                        dataGrid.cellValue(ro, "KalaExf2", "")
+                                        dataGrid.cellValue(ro, "KalaExf3", "")
+                                        dataGrid.cellValue(ro, "KalaExf4", "")
+                                        dataGrid.cellValue(ro, "KalaExf5", "")
+                                        dataGrid.cellValue(ro, "KalaExf6", "")
+                                        dataGrid.cellValue(ro, "KalaExf7", "")
+                                        dataGrid.cellValue(ro, "KalaExf8", "")
+                                        dataGrid.cellValue(ro, "KalaExf9", "")
+                                        dataGrid.cellValue(ro, "KalaExf10", "")
+                                        dataGrid.cellValue(ro, "KalaExf11", "")
+                                        dataGrid.cellValue(ro, "KalaExf12", "")
+                                        dataGrid.cellValue(ro, "KalaExf13", "")
+                                        dataGrid.cellValue(ro, "KalaExf14", "")
+                                        dataGrid.cellValue(ro, "KalaExf15", "")
                                     }
                                 }
 
@@ -3421,28 +3434,69 @@ var ViewModel = function () {
                         },
                     });
                 },
+
+
             });
+
+
+
+
             var a = res.find('.dx-dropdowneditor-input-wrapper');
             var input = a.find('input').next().first().find('input');
             input.ready(function () {
                 input.attr('readonly', false);
             });
-            input.keydown(function () {
+            input.keyup(function () {
                 value = input.val();
                 valueDropDownKalaExf = value;
+                //var d = res.dxDropDownBox("instance");
+                //d.option('displayValue', [valueDropDownKalaExf]);
+                //IDocB[ro].KalaFileNo = valueDropDownKalaExf;
+                //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                //dataGrid.cellValue(ro, "KalaFileNo", valueDropDownKalaExf);
+                //dataGrid.repaintRows();
+                //$("#gridContainer").dxDataGrid("instance").refresh();
+
+
+            });
+
+            res.change(function () {
+                //var list = kalaFileNoList.filter(c => Name == valueDropDownKalaExf)
+                //if (list.length == 0) {
+                //    kalaFileNoList.add({ Name: valueDropDownKalaExf });
+                //}
+
+
+                var d = res.dxDropDownBox("instance");
+                d.option('displayValue', [valueDropDownKalaExf]);
+                d.option('value', valueDropDownKalaExf);
+                IDocB[ro].KalaFileNo = valueDropDownKalaExf;
+
             });
             input.change(function () {
-                cellElement.text(valueDropDownKalaExf);
+                //cellElement.text(valueDropDownKalaExf);
                 //e_Template.component.option('value', valueDropDownKalaExf);
                 //cellInfo.setValue(valueDropDownKalaExf);
                 //cellInfo.value = valueDropDownKalaExf;
-                IDocB[ro].KalaFileNo = valueDropDownKalaExf;
-                valueDropDownKalaExf = null;
-                //e_Template.component.close();
+                //IDocB[ro].KalaFileNo = valueDropDownKalaExf;
+                //cellInfo.setValue(valueDropDownKalaExf);
+                //var dataGrid = $("#gridContainer").dxDataGrid("instance");
                 //dataGrid.cellValue(ro, "KalaFileNo", valueDropDownKalaExf);
-                //dataGrid.refresh();
 
-                //cellInfo.displayValue = '11200';
+
+                //valueDropDownKalaExf = null;
+                //e_Template.component.close();
+
+                //dataGrid.refresh();
+                // kalaFileNoList.add({ Name: valueDropDownKalaExf });
+                //var d = res.dxDropDownBox("instance");
+                //d.option('displayValue', [valueDropDownKalaExf]);
+                //d.option('value', valueDropDownKalaExf);
+                //IDocB[ro].KalaFileNo = valueDropDownKalaExf;
+                //cellInfo.setValue(valueDropDownKalaExf);
+                //var dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+
                 //cellInfo.setValue('11200');
                 //dataGrid.cellValue(ro, "KalaFileNo", 2000);
             })
@@ -3498,6 +3552,7 @@ var ViewModel = function () {
             });
         }
     }
+
     function dropDownBoxEditorKalaExf1(cellElement, cellInfo) {
         ro = cellInfo.rowIndex;
         if (IDocB[ro].dataKala != null) {
@@ -4885,14 +4940,14 @@ var ViewModel = function () {
         var filter1 = self.filterKalaExf_Out1();
         var filter2 = self.filterKalaExf_Out2();
 
-        if (!filter0 && !filter1 && !filter2 ) {
+        if (!filter0 && !filter1 && !filter2) {
             return self.KalaExf_OutList();
         } else {
             tempData = ko.utils.arrayFilter(self.KalaExf_OutList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) 
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
                 return result;
             })
             return tempData;
@@ -5025,6 +5080,252 @@ var ViewModel = function () {
     $('#modal-KalaExf_Out').on('shown.bs.modal', function () {
         $('.fix').attr('class', 'form-line focused fix');
     });
+
+
+
+
+
+
+
+    self.currentPageKalaFileNo = ko.observable();
+    pageSizeKalaFileNo = localStorage.getItem('pageSizeKalaFileNo') == null ? 10 : localStorage.getItem('pageSizeKalaFileNo');
+    self.pageSizeKalaFileNo = ko.observable(pageSizeKalaFileNo);
+    self.currentPageIndexKalaFileNo = ko.observable(0);
+
+    self.filterKalaFileNo0 = ko.observable("");
+
+    self.filterKalaFileNoList = ko.computed(function () {
+
+        self.currentPageIndexKalaFileNo(0);
+        var filter0 = self.filterKalaFileNo0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaFileNoList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaFileNoList(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaFileNo = ko.computed(function () {
+        var pageSizeKalaFileNo = parseInt(self.pageSizeKalaFileNo(), 10),
+            startIndex = pageSizeKalaFileNo * self.currentPageIndexKalaFileNo(),
+            endIndex = startIndex + pageSizeKalaFileNo;
+        localStorage.setItem('pageSizeKalaFileNo', pageSizeKalaFileNo);
+        return self.filterKalaFileNoList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaFileNo = function () {
+        if (((self.currentPageIndexKalaFileNo() + 1) * self.pageSizeKalaFileNo()) < self.filterKalaFileNoList().length) {
+            self.currentPageIndexKalaFileNo(self.currentPageIndexKalaFileNo() + 1);
+        }
+    };
+
+    self.previousPageKalaFileNo = function () {
+        if (self.currentPageIndexKalaFileNo() > 0) {
+            self.currentPageIndexKalaFileNo(self.currentPageIndexKalaFileNo() - 1);
+        }
+    };
+
+    self.firstPageKalaFileNo = function () {
+        self.currentPageIndexKalaFileNo(0);
+    };
+
+    self.lastPageKalaFileNo = function () {
+        countKalaFileNo = parseInt(self.filterKalaFileNoList().length / self.pageSizeKalaFileNo(), 10);
+        if ((self.filterKalaFileNoList().length % self.pageSizeKalaFileNo()) == 0)
+            self.currentPageIndexKalaFileNo(countKalaFileNo - 1);
+        else
+            self.currentPageIndexKalaFileNo(countKalaFileNo);
+    };
+
+    self.sortTableKalaFileNo = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaFileNoList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaFileNo = function (item) {
+        IDocB[ro].KalaFileNo = item.Name;
+        dataGrid.cellValue(ro, "KalaFileNo", item.Name)
+    }
+
+
+    $('#modal-KalaFileNo').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaFileNo').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaFileNo');
+            }
+        })
+    })
+
+    self.PageIndexKalaFileNo = function (item) {
+        return CountPage(self.filterKalaFileNoList(), self.pageSizeKalaFileNo(), item);
+    };
+
+
+
+
+
+
+
+    self.currentPageKalaState = ko.observable();
+    pageSizeKalaState = localStorage.getItem('pageSizeKalaState') == null ? 10 : localStorage.getItem('pageSizeKalaState');
+    self.pageSizeKalaState = ko.observable(pageSizeKalaState);
+    self.currentPageIndexKalaState = ko.observable(0);
+
+    self.filterKalaState0 = ko.observable("");
+
+    self.filterKalaStateList = ko.computed(function () {
+
+        self.currentPageIndexKalaState(0);
+        var filter0 = self.filterKalaState0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaStateList();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaStateList(), function (item) {
+                result =                  
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaState = ko.computed(function () {
+        var pageSizeKalaState = parseInt(self.pageSizeKalaState(), 10),
+            startIndex = pageSizeKalaState * self.currentPageIndexKalaState(),
+            endIndex = startIndex + pageSizeKalaState;
+        localStorage.setItem('pageSizeKalaState', pageSizeKalaState);
+        return self.filterKalaStateList().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaState = function () {
+        if (((self.currentPageIndexKalaState() + 1) * self.pageSizeKalaState()) < self.filterKalaStateList().length) {
+            self.currentPageIndexKalaState(self.currentPageIndexKalaState() + 1);
+        }
+    };
+
+    self.previousPageKalaState = function () {
+        if (self.currentPageIndexKalaState() > 0) {
+            self.currentPageIndexKalaState(self.currentPageIndexKalaState() - 1);
+        }
+    };
+
+    self.firstPageKalaState = function () {
+        self.currentPageIndexKalaState(0);
+    };
+
+    self.lastPageKalaState = function () {
+        countKalaState = parseInt(self.filterKalaStateList().length / self.pageSizeKalaState(), 10);
+        if ((self.filterKalaStateList().length % self.pageSizeKalaState()) == 0)
+            self.currentPageIndexKalaState(countKalaState - 1);
+        else
+            self.currentPageIndexKalaState(countKalaState);
+    };
+
+    self.sortTableKalaState = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaStateList.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaState = function (item) {
+        IDocB[ro].KalaState = item.Name;
+        dataGrid.cellValue(ro, "KalaState", item.Name)
+    }
+
+
+    $('#modal-KalaState').on('shown.bs.modal', function () {
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaState').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaState');
+            }
+        })
+    })
+
+    self.PageIndexKalaState = function (item) {
+        return CountPage(self.filterKalaStateList(), self.pageSizeKalaState(), item);
+    };
+
+
+
+
 
 
 
@@ -5536,6 +5837,11 @@ var ViewModel = function () {
 
     self.PageIndexKalaExf_Out = function (item) {
         return CountPage(self.filterKalaExf_OutList(), self.pageSizeKalaExf_Out(), item);
+    };
+
+
+    self.PageIndexKalaState = function (item) {
+        return CountPage(self.filterKalaStateList(), self.pageSizeKalaState(), item);
     };
 
 

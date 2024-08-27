@@ -888,6 +888,7 @@
     <Content Include="Content\new\css\stylelogin.css" />
     <Content Include="Content\new\img\loading.png" />
     <Content Include="Content\new\css\jquery.gridster.min.css" />
+    <Content Include="Content\new\js\dx.all.js" />
     <Content Include="Content\new\js\jquery.gridster.min.js" />
     <Content Include="Content\new\js\bootstrap.min.js" />
     <Content Include="Content\new\fonts\fontawesome-webfont.svg" />
@@ -906,7 +907,6 @@
     <Content Include="Content\new\js\chart.min.js" />
     <Content Include="Content\new\js\collapse.js" />
     <Content Include="Content\new\js\dialogs.js" />
-    <Content Include="Content\new\js\dx.all.js" />
     <Content Include="Content\new\js\farsiInput.js" />
     <Content Include="Content\new\js\jquery ui\jquery-ui.min.css" />
     <Content Include="Content\new\js\jquery ui\jquery-ui.min.js" />
