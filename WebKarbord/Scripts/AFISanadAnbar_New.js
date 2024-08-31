@@ -386,6 +386,7 @@ var ViewModel = function () {
 
     var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس مانده کالا 
     var KalaExf_InvUri = server + '/api/IDocData/KalaExf_Inv/'; // آدرس لیست وسژگی کالا 
+    var SaveExtraFieldListsUri = server + '/api/Web_Data/SaveExtraFieldLists/'; // آدرس ذخیره 
 
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
@@ -1402,7 +1403,7 @@ var ViewModel = function () {
             }
 
 
-            if (isSelectedKalaExf == false && (
+            if (
                 data[i].Code == "KalaFileNo" ||
                 data[i].Code == "KalaState" ||
                 data[i].Code == "KalaExf1" ||
@@ -1419,7 +1420,7 @@ var ViewModel = function () {
                 data[i].Code == "KalaExf12" ||
                 data[i].Code == "KalaExf13" ||
                 data[i].Code == "KalaExf14" ||
-                data[i].Code == "KalaExf15")) {
+                data[i].Code == "KalaExf15") {
                 f += ',"allowEditing": false'
             }
 
@@ -1539,90 +1540,6 @@ var ViewModel = function () {
                 cols[i].lookup.dataSource = KalaUnitList;
             }
 
-            /*if (cols[i].dataField == 'KalaFileNo' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaFileNo;
-                cols[i].lookup.dataSource = kalaFileNoList;
-            }
-
-            if (cols[i].dataField == 'KalaState' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaState;
-                cols[i].lookup.dataSource = kalaStateList;
-             }*/
-
-            if (cols[i].dataField == 'KalaExf1' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf1;
-                cols[i].lookup.dataSource = kalaExf1List;
-            }
-
-            if (cols[i].dataField == 'KalaExf2' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf2;
-                cols[i].lookup.dataSource = kalaExf2List;
-            }
-
-            if (cols[i].dataField == 'KalaExf3' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf3;
-                cols[i].lookup.dataSource = kalaExf3List;
-            }
-
-            if (cols[i].dataField == 'KalaExf4' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf4;
-                cols[i].lookup.dataSource = kalaExf4List;
-            }
-
-            if (cols[i].dataField == 'KalaExf5' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf5;
-                cols[i].lookup.dataSource = kalaExf5List;
-            }
-
-            if (cols[i].dataField == 'KalaExf6' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf6;
-                cols[i].lookup.dataSource = kalaExf6List;
-            }
-
-            if (cols[i].dataField == 'KalaExf7' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf7;
-                cols[i].lookup.dataSource = kalaExf7List;
-            }
-
-            if (cols[i].dataField == 'KalaExf8' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf8;
-                cols[i].lookup.dataSource = kalaExf8List;
-            }
-
-            if (cols[i].dataField == 'KalaExf9' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf9;
-                cols[i].lookup.dataSource = kalaExf9List;
-            }
-
-            if (cols[i].dataField == 'KalaExf10' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf10;
-                cols[i].lookup.dataSource = kalaExf10List;
-            }
-
-            if (cols[i].dataField == 'KalaExf11' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf11;
-                cols[i].lookup.dataSource = kalaExf11List;
-            }
-
-            if (cols[i].dataField == 'KalaExf12' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf12;
-                cols[i].lookup.dataSource = kalaExf12List;
-            }
-
-            if (cols[i].dataField == 'KalaExf13' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf13;
-                cols[i].lookup.dataSource = kalaExf13List;
-            }
-
-            if (cols[i].dataField == 'KalaExf14' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf14;
-                cols[i].lookup.dataSource = kalaExf14List;
-            }
-
-            if (cols[i].dataField == 'KalaExf15' && isSelectedKalaExf) {
-                cols[i].editCellTemplate = dropDownBoxEditorKalaExf15;
-                cols[i].lookup.dataSource = kalaExf15List;
-            }
 
             if (cols[i].dataField == 'Amount1') {
 
@@ -1766,7 +1683,15 @@ var ViewModel = function () {
                 }
                 //if (fieldName == 'KalaState') {
                 //    $("#modal-KalaState").modal('show');
-               // }
+                // }
+
+                if (columnName == 'KalaFileNo' && isSelectedKalaExf) {
+                    $("#modal-KalaFileNo").modal('show');
+                }
+
+                if (columnName == 'KalaState' && isSelectedKalaExf) {
+                    $("#modal-KalaState").modal('show');
+                }
 
             },
 
@@ -3504,7 +3429,7 @@ var ViewModel = function () {
             return res;
         }
     }
-
+    /*
     function dropDownBoxEditorKalaState(cellElement, cellInfo) {
         ro = cellInfo.rowIndex;
         if (IDocB[ro].dataKala != null) {
@@ -4258,7 +4183,7 @@ var ViewModel = function () {
             });
         }
     }
-
+    */
 
     function FilterUnitName(dataKala) {
         if (dataKala != null) {
@@ -5202,7 +5127,30 @@ var ViewModel = function () {
         return CountPage(self.filterKalaFileNoList(), self.pageSizeKalaFileNo(), item);
     };
 
+    $('#btnAddKalaFileNo').click(function () {
+        var value = $("#E_KalaFileNo").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaFileNo',
+                Code: 0,
+                Name: value
 
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaFileNo');
+                }
+                else {
+                    var data = kalaFileNoList.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        kalaFileNoList.add({ Name: value });
+                        self.KalaFileNoList(kalaFileNoList);
+                    }
+                }
+               
+            });
+        }
+    })
 
 
 
@@ -5224,7 +5172,7 @@ var ViewModel = function () {
             return self.KalaStateList();
         } else {
             tempData = ko.utils.arrayFilter(self.KalaStateList(), function (item) {
-                result =                  
+                result =
                     (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
                 return result;
             })
@@ -5314,7 +5262,7 @@ var ViewModel = function () {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getKalaExf_InvList('KalaState');
+                getKalaExf_InvList('KalaState'); 
             }
         })
     })
@@ -5322,6 +5270,34 @@ var ViewModel = function () {
     self.PageIndexKalaState = function (item) {
         return CountPage(self.filterKalaStateList(), self.pageSizeKalaState(), item);
     };
+
+    $('#btnAddKalaState').click(function () {
+        var value = $("#E_KalaState").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaState',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaState');
+                }
+                else {
+                    var data = kalaStateList.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        kalaStateList.add({ Name: value });
+                        self.KalaStateList(kalaStateList);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
 
 
 
