@@ -1746,23 +1746,26 @@ var ViewModel = function () {
                 //    $("#modal-KalaState").modal('show');
                 // }
 
-                if (columnName == 'KalaFileNo' && isSelectedKalaExf) {$("#modal-KalaFileNo").modal('show');}
-                if (columnName == 'KalaState' && isSelectedKalaExf) { $("#modal-KalaState").modal('show');}
-                if (columnName == 'KalaExf1' && isSelectedKalaExf) {$("#modal-KalaExf1").modal('show'); }
-                if (columnName == 'KalaExf2' && isSelectedKalaExf) {$("#modal-KalaExf2").modal('show'); }
-                if (columnName == 'KalaExf3' && isSelectedKalaExf) {$("#modal-KalaExf3").modal('show'); }
-                if (columnName == 'KalaExf4' && isSelectedKalaExf) {$("#modal-KalaExf4").modal('show'); }
-                if (columnName == 'KalaExf5' && isSelectedKalaExf) {$("#modal-KalaExf5").modal('show'); }
-                if (columnName == 'KalaExf6' && isSelectedKalaExf) {$("#modal-KalaExf6").modal('show'); }
-                if (columnName == 'KalaExf7' && isSelectedKalaExf) {$("#modal-KalaExf7").modal('show'); }
-                if (columnName == 'KalaExf8' && isSelectedKalaExf) {$("#modal-KalaExf8").modal('show'); }
-                if (columnName == 'KalaExf9' && isSelectedKalaExf) {$("#modal-KalaExf9").modal('show'); }
-                if (columnName == 'KalaExf10' && isSelectedKalaExf) {$("#modal-KalaExf10").modal('show'); }
-                if (columnName == 'KalaExf11' && isSelectedKalaExf) {$("#modal-KalaExf11").modal('show'); }
-                if (columnName == 'KalaExf12' && isSelectedKalaExf) {$("#modal-KalaExf12").modal('show'); }
-                if (columnName == 'KalaExf13' && isSelectedKalaExf) {$("#modal-KalaExf13").modal('show'); }
-                if (columnName == 'KalaExf14' && isSelectedKalaExf) {$("#modal-KalaExf14").modal('show'); }
-                if (columnName == 'KalaExf15' && isSelectedKalaExf) {$("#modal-KalaExf15").modal('show'); }
+                if (ro >= 0) {
+                    if (columnName == 'KalaFileNo' && isSelectedKalaExf) { $("#modal-KalaFileNo").modal('show'); }
+                    if (columnName == 'KalaState' && isSelectedKalaExf) { $("#modal-KalaState").modal('show'); }
+                    if (columnName == 'KalaExf1' && isSelectedKalaExf) { $("#modal-KalaExf1").modal('show'); }
+                    if (columnName == 'KalaExf2' && isSelectedKalaExf) { $("#modal-KalaExf2").modal('show'); }
+                    if (columnName == 'KalaExf3' && isSelectedKalaExf) { $("#modal-KalaExf3").modal('show'); }
+                    if (columnName == 'KalaExf4' && isSelectedKalaExf) { $("#modal-KalaExf4").modal('show'); }
+                    if (columnName == 'KalaExf5' && isSelectedKalaExf) { $("#modal-KalaExf5").modal('show'); }
+                    if (columnName == 'KalaExf6' && isSelectedKalaExf) { $("#modal-KalaExf6").modal('show'); }
+                    if (columnName == 'KalaExf7' && isSelectedKalaExf) { $("#modal-KalaExf7").modal('show'); }
+                    if (columnName == 'KalaExf8' && isSelectedKalaExf) { $("#modal-KalaExf8").modal('show'); }
+                    if (columnName == 'KalaExf9' && isSelectedKalaExf) { $("#modal-KalaExf9").modal('show'); }
+                    if (columnName == 'KalaExf10' && isSelectedKalaExf) { $("#modal-KalaExf10").modal('show'); }
+                    if (columnName == 'KalaExf11' && isSelectedKalaExf) { $("#modal-KalaExf11").modal('show'); }
+                    if (columnName == 'KalaExf12' && isSelectedKalaExf) { $("#modal-KalaExf12").modal('show'); }
+                    if (columnName == 'KalaExf13' && isSelectedKalaExf) { $("#modal-KalaExf13").modal('show'); }
+                    if (columnName == 'KalaExf14' && isSelectedKalaExf) { $("#modal-KalaExf14").modal('show'); }
+                    if (columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
+                }
+               
 
             },
 
@@ -1790,31 +1793,32 @@ var ViewModel = function () {
 
                     }
                 };
+                if (ro >= 0) {
 
-                if (keyCode == ' ' && columnName == 'KalaFileNo' && isSelectedKalaExf) {
-                    $("#modal-KalaFileNo").modal('show');
+                    if (keyCode == ' ' && columnName == 'KalaFileNo' && isSelectedKalaExf) {
+                        $("#modal-KalaFileNo").modal('show');
+                    }
+
+                    if (keyCode == ' ' && columnName == 'KalaState' && isSelectedKalaExf) {
+                        $("#modal-KalaState").modal('show');
+                    }
+
+                    if (keyCode == ' ' && columnName == 'KalaExf1' && isSelectedKalaExf) { $("#modal-KalaExf1").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf2' && isSelectedKalaExf) { $("#modal-KalaExf2").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf3' && isSelectedKalaExf) { $("#modal-KalaExf3").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf4' && isSelectedKalaExf) { $("#modal-KalaExf4").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf5' && isSelectedKalaExf) { $("#modal-KalaExf5").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf6' && isSelectedKalaExf) { $("#modal-KalaExf6").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf7' && isSelectedKalaExf) { $("#modal-KalaExf7").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf8' && isSelectedKalaExf) { $("#modal-KalaExf8").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf9' && isSelectedKalaExf) { $("#modal-KalaExf9").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf10' && isSelectedKalaExf) { $("#modal-KalaExf10").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf11' && isSelectedKalaExf) { $("#modal-KalaExf11").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf12' && isSelectedKalaExf) { $("#modal-KalaExf12").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf13' && isSelectedKalaExf) { $("#modal-KalaExf13").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf14' && isSelectedKalaExf) { $("#modal-KalaExf14").modal('show'); }
+                    if (keyCode == ' ' && columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
                 }
-
-                if (keyCode == ' ' && columnName == 'KalaState' && isSelectedKalaExf) {
-                    $("#modal-KalaState").modal('show');
-                }
-
-                if (keyCode == ' ' && columnName == 'KalaExf1' && isSelectedKalaExf) {$("#modal-KalaExf1").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf2' && isSelectedKalaExf) {$("#modal-KalaExf2").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf3' && isSelectedKalaExf) {$("#modal-KalaExf3").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf4' && isSelectedKalaExf) {$("#modal-KalaExf4").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf5' && isSelectedKalaExf) {$("#modal-KalaExf5").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf6' && isSelectedKalaExf) {$("#modal-KalaExf6").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf7' && isSelectedKalaExf) {$("#modal-KalaExf7").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf8' && isSelectedKalaExf) {$("#modal-KalaExf8").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf9' && isSelectedKalaExf) {$("#modal-KalaExf9").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf10' && isSelectedKalaExf) {$("#modal-KalaExf10").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf11' && isSelectedKalaExf) {$("#modal-KalaExf11").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf12' && isSelectedKalaExf) {$("#modal-KalaExf12").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf13' && isSelectedKalaExf) {$("#modal-KalaExf13").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf14' && isSelectedKalaExf) {$("#modal-KalaExf14").modal('show');}
-                if (keyCode == ' ' && columnName == 'KalaExf15' && isSelectedKalaExf) {$("#modal-KalaExf15").modal('show');}
-
                 if (keyCode == 'Enter') {
 
                 }
