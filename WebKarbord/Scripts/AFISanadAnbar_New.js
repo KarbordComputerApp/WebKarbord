@@ -124,21 +124,21 @@ var ViewModel = function () {
     var KalaList;
     var kalaFileNoList;
     var kalaStateList;
-    var kalaExf1List;
-    var kalaExf2List;
-    var kalaExf3List;
-    var kalaExf4List;
-    var kalaExf5List;
-    var kalaExf6List;
-    var kalaExf7List;
-    var kalaExf8List;
-    var kalaExf9List;
-    var kalaExf10List;
-    var kalaExf11List;
-    var kalaExf12List;
-    var kalaExf13List;
-    var kalaExf14List;
-    var kalaExf15List;
+    var KalaExf1List;
+    var KalaExf2List;
+    var KalaExf3List;
+    var KalaExf4List;
+    var KalaExf5List;
+    var KalaExf6List;
+    var KalaExf7List;
+    var KalaExf8List;
+    var KalaExf9List;
+    var KalaExf10List;
+    var KalaExf11List;
+    var KalaExf12List;
+    var KalaExf13List;
+    var KalaExf14List;
+    var KalaExf15List;
 
     //var enableKalaExf = false;
     var isSelectedKalaExf = true;   // کلید تایپ یا انتخاب در ویژگی کالا
@@ -197,6 +197,22 @@ var ViewModel = function () {
 
     self.KalaFileNoList = ko.observableArray([]); // لیست ویژگی ها
     self.KalaStateList = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf1List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf2List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf3List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf4List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf5List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf6List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf7List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf8List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf9List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf10List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf11List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf12List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf13List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf14List = ko.observableArray([]); // لیست ویژگی ها
+    self.KalaExf15List = ko.observableArray([]); // لیست ویژگی ها
+
 
 
     self.IDocPList = ko.observableArray([]); // لیست ویوی چاپ 
@@ -540,21 +556,66 @@ var ViewModel = function () {
                 self.KalaStateList(data);
                 kalaStateList = data;
             }
-            else if (field == 'KalaExf1') kalaExf1List = data;
-            else if (field == 'KalaExf2') kalaExf2List = data;
-            else if (field == 'KalaExf3') kalaExf3List = data;
-            else if (field == 'KalaExf4') kalaExf4List = data;
-            else if (field == 'KalaExf5') kalaExf5List = data;
-            else if (field == 'KalaExf6') kalaExf6List = data;
-            else if (field == 'KalaExf7') kalaExf7List = data;
-            else if (field == 'KalaExf8') kalaExf8List = data;
-            else if (field == 'KalaExf9') kalaExf9List = data;
-            else if (field == 'KalaExf10') kalaExf10List = data;
-            else if (field == 'KalaExf11') kalaExf11List = data;
-            else if (field == 'KalaExf12') kalaExf12List = data;
-            else if (field == 'KalaExf13') kalaExf13List = data;
-            else if (field == 'KalaExf14') kalaExf14List = data;
-            else if (field == 'KalaExf15') kalaExf15List = data;
+            else if (field == 'KalaExf1') {
+                self.KalaExf1List(data);
+                KalaExf1List = data;
+            }
+            else if (field == 'KalaExf2') {
+                self.KalaExf2List(data);
+                KalaExf2List = data;
+            }
+            else if (field == 'KalaExf3') {
+                self.KalaExf3List(data);
+                KalaExf3List = data;
+            }
+            else if (field == 'KalaExf4') {
+                self.KalaExf4List(data);
+                KalaExf4List = data;
+            }
+            else if (field == 'KalaExf5') {
+                self.KalaExf5List(data);
+                KalaExf5List = data;
+            }
+            else if (field == 'KalaExf6') {
+                self.KalaExf6List(data);
+                KalaExf6List = data;
+            }
+            else if (field == 'KalaExf7') {
+                self.KalaExf7List(data);
+                KalaExf7List = data;
+            }
+            else if (field == 'KalaExf8') {
+                self.KalaExf8List(data);
+                KalaExf8List = data;
+            }
+            else if (field == 'KalaExf9') {
+                self.KalaExf9List(data);
+                KalaExf9List = data;
+            }
+            else if (field == 'KalaExf10') {
+                self.KalaExf10List(data);
+                KalaExf10List = data;
+            }
+            else if (field == 'KalaExf11') {
+                self.KalaExf11List(data);
+                KalaExf11List = data;
+            }
+            else if (field == 'KalaExf12') {
+                self.KalaExf12List(data);
+                KalaExf12List = data;
+            }
+            else if (field == 'KalaExf13') {
+                self.KalaExf13List(data);
+                KalaExf13List = data;
+            }
+            else if (field == 'KalaExf14') {
+                self.KalaExf14List(data);
+                KalaExf14List = data;
+            }
+            else if (field == 'KalaExf15') {
+                self.KalaExf15List(data);
+                KalaExf15List = data;
+            }
         });
     }
 
@@ -1379,8 +1440,8 @@ var ViewModel = function () {
                     ',"lookup": {"dataSource": "KalaUnitList", "valueExpr": "Name", "displayExpr": "Name"}';
             }
 
-            //else if (data[i].Code == "KalaFileNo" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaFileNoList", "valueExpr": "Name", "displayExpr": "Name"}'; }
-            //else if (data[i].Code == "KalaState" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaStateList", "valueExpr": "Name", "displayExpr": "Name"}'; }
+            /*else if (data[i].Code == "KalaFileNo" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaFileNoList", "valueExpr": "Name", "displayExpr": "Name"}'; }
+            else if (data[i].Code == "KalaState" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaStateList", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf1" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf1List", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf2" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf2List", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf3" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf3List", "valueExpr": "Name", "displayExpr": "Name"}'; }
@@ -1396,7 +1457,7 @@ var ViewModel = function () {
             else if (data[i].Code == "KalaExf13" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf13List", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf14" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf14List", "valueExpr": "Name", "displayExpr": "Name"}'; }
             else if (data[i].Code == "KalaExf15" && isSelectedKalaExf) { f += ',"lookup": {"dataSource": "kalaExf15List", "valueExpr": "Name", "displayExpr": "Name"}'; }
-
+            */
 
             if (data[i].Code == "BandNo" || data[i].Code == "ArzValue") {
                 f += ',"allowEditing": false'
@@ -1685,13 +1746,23 @@ var ViewModel = function () {
                 //    $("#modal-KalaState").modal('show');
                 // }
 
-                if (columnName == 'KalaFileNo' && isSelectedKalaExf) {
-                    $("#modal-KalaFileNo").modal('show');
-                }
-
-                if (columnName == 'KalaState' && isSelectedKalaExf) {
-                    $("#modal-KalaState").modal('show');
-                }
+                if (columnName == 'KalaFileNo' && isSelectedKalaExf) {$("#modal-KalaFileNo").modal('show');}
+                if (columnName == 'KalaState' && isSelectedKalaExf) { $("#modal-KalaState").modal('show');}
+                if (columnName == 'KalaExf1' && isSelectedKalaExf) {$("#modal-KalaExf1").modal('show'); }
+                if (columnName == 'KalaExf2' && isSelectedKalaExf) {$("#modal-KalaExf2").modal('show'); }
+                if (columnName == 'KalaExf3' && isSelectedKalaExf) {$("#modal-KalaExf3").modal('show'); }
+                if (columnName == 'KalaExf4' && isSelectedKalaExf) {$("#modal-KalaExf4").modal('show'); }
+                if (columnName == 'KalaExf5' && isSelectedKalaExf) {$("#modal-KalaExf5").modal('show'); }
+                if (columnName == 'KalaExf6' && isSelectedKalaExf) {$("#modal-KalaExf6").modal('show'); }
+                if (columnName == 'KalaExf7' && isSelectedKalaExf) {$("#modal-KalaExf7").modal('show'); }
+                if (columnName == 'KalaExf8' && isSelectedKalaExf) {$("#modal-KalaExf8").modal('show'); }
+                if (columnName == 'KalaExf9' && isSelectedKalaExf) {$("#modal-KalaExf9").modal('show'); }
+                if (columnName == 'KalaExf10' && isSelectedKalaExf) {$("#modal-KalaExf10").modal('show'); }
+                if (columnName == 'KalaExf11' && isSelectedKalaExf) {$("#modal-KalaExf11").modal('show'); }
+                if (columnName == 'KalaExf12' && isSelectedKalaExf) {$("#modal-KalaExf12").modal('show'); }
+                if (columnName == 'KalaExf13' && isSelectedKalaExf) {$("#modal-KalaExf13").modal('show'); }
+                if (columnName == 'KalaExf14' && isSelectedKalaExf) {$("#modal-KalaExf14").modal('show'); }
+                if (columnName == 'KalaExf15' && isSelectedKalaExf) {$("#modal-KalaExf15").modal('show'); }
 
             },
 
@@ -1727,6 +1798,22 @@ var ViewModel = function () {
                 if (keyCode == ' ' && columnName == 'KalaState' && isSelectedKalaExf) {
                     $("#modal-KalaState").modal('show');
                 }
+
+                if (keyCode == ' ' && columnName == 'KalaExf1' && isSelectedKalaExf) {$("#modal-KalaExf1").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf2' && isSelectedKalaExf) {$("#modal-KalaExf2").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf3' && isSelectedKalaExf) {$("#modal-KalaExf3").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf4' && isSelectedKalaExf) {$("#modal-KalaExf4").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf5' && isSelectedKalaExf) {$("#modal-KalaExf5").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf6' && isSelectedKalaExf) {$("#modal-KalaExf6").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf7' && isSelectedKalaExf) {$("#modal-KalaExf7").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf8' && isSelectedKalaExf) {$("#modal-KalaExf8").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf9' && isSelectedKalaExf) {$("#modal-KalaExf9").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf10' && isSelectedKalaExf) {$("#modal-KalaExf10").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf11' && isSelectedKalaExf) {$("#modal-KalaExf11").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf12' && isSelectedKalaExf) {$("#modal-KalaExf12").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf13' && isSelectedKalaExf) {$("#modal-KalaExf13").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf14' && isSelectedKalaExf) {$("#modal-KalaExf14").modal('show');}
+                if (keyCode == ' ' && columnName == 'KalaExf15' && isSelectedKalaExf) {$("#modal-KalaExf15").modal('show');}
 
                 if (keyCode == 'Enter') {
 
@@ -5101,6 +5188,7 @@ var ViewModel = function () {
 
 
     $('#modal-KalaFileNo').on('shown.bs.modal', function () {
+        $("#E_KalaFileNo").val('');
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -5147,7 +5235,7 @@ var ViewModel = function () {
                         self.KalaFileNoList(kalaFileNoList);
                     }
                 }
-               
+
             });
         }
     })
@@ -5245,6 +5333,7 @@ var ViewModel = function () {
 
 
     $('#modal-KalaState').on('shown.bs.modal', function () {
+        $("#E_KalaState").val('');
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -5262,7 +5351,7 @@ var ViewModel = function () {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                getKalaExf_InvList('KalaState'); 
+                getKalaExf_InvList('KalaState');
             }
         })
     })
@@ -5295,6 +5384,2214 @@ var ViewModel = function () {
             });
         }
     })
+
+
+
+
+
+
+
+    self.currentPageKalaExf1 = ko.observable();
+    pageSizeKalaExf1 = localStorage.getItem('pageSizeKalaExf1') == null ? 10 : localStorage.getItem('pageSizeKalaExf1');
+    self.pageSizeKalaExf1 = ko.observable(pageSizeKalaExf1);
+    self.currentPageIndexKalaExf1 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf1List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf1(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf1List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf1List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf1 = ko.computed(function () {
+        var pageSizeKalaExf1 = parseInt(self.pageSizeKalaExf1(), 10),
+            startIndex = pageSizeKalaExf1 * self.currentPageIndexKalaExf1(),
+            endIndex = startIndex + pageSizeKalaExf1;
+        localStorage.setItem('pageSizeKalaExf1', pageSizeKalaExf1);
+        return self.filterKalaExf1List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf1 = function () {
+        if (((self.currentPageIndexKalaExf1() + 1) * self.pageSizeKalaExf1()) < self.filterKalaExf1List().length) {
+            self.currentPageIndexKalaExf1(self.currentPageIndexKalaExf1() + 1);
+        }
+    };
+
+    self.previousPageKalaExf1 = function () {
+        if (self.currentPageIndexKalaExf1() > 0) {
+            self.currentPageIndexKalaExf1(self.currentPageIndexKalaExf1() - 1);
+        }
+    };
+
+    self.firstPageKalaExf1 = function () {
+        self.currentPageIndexKalaExf1(0);
+    };
+
+    self.lastPageKalaExf1 = function () {
+        countKalaExf1 = parseInt(self.filterKalaExf1List().length / self.pageSizeKalaExf1(), 10);
+        if ((self.filterKalaExf1List().length % self.pageSizeKalaExf1()) == 0)
+            self.currentPageIndexKalaExf1(countKalaExf1 - 1);
+        else
+            self.currentPageIndexKalaExf1(countKalaExf1);
+    };
+
+    self.sortTableKalaExf1 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf1List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf1 = function (item) {
+        IDocB[ro].KalaExf1 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf1", item.Name)
+    }
+
+
+    $('#modal-KalaExf1').on('shown.bs.modal', function () {
+        $("#E_KalaExf1").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf1').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf1');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf1 = function (item) {
+        return CountPage(self.filterKalaExf1List(), self.pageSizeKalaExf1(), item);
+    };
+
+    $('#btnAddKalaExf1').click(function () {
+        var value = $("#E_KalaExf1").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf1',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf1');
+                }
+                else {
+                    var data = KalaExf1List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf1List.add({ Name: value });
+                        self.KalaExf1List(KalaExf1List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    self.currentPageKalaExf2 = ko.observable();
+    pageSizeKalaExf2 = localStorage.getItem('pageSizeKalaExf2') == null ? 10 : localStorage.getItem('pageSizeKalaExf2');
+    self.pageSizeKalaExf2 = ko.observable(pageSizeKalaExf2);
+    self.currentPageIndexKalaExf2 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf2List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf2(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf2List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf2List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf2 = ko.computed(function () {
+        var pageSizeKalaExf2 = parseInt(self.pageSizeKalaExf2(), 10),
+            startIndex = pageSizeKalaExf2 * self.currentPageIndexKalaExf2(),
+            endIndex = startIndex + pageSizeKalaExf2;
+        localStorage.setItem('pageSizeKalaExf2', pageSizeKalaExf2);
+        return self.filterKalaExf2List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf2 = function () {
+        if (((self.currentPageIndexKalaExf2() + 1) * self.pageSizeKalaExf2()) < self.filterKalaExf2List().length) {
+            self.currentPageIndexKalaExf2(self.currentPageIndexKalaExf2() + 1);
+        }
+    };
+
+    self.previousPageKalaExf2 = function () {
+        if (self.currentPageIndexKalaExf2() > 0) {
+            self.currentPageIndexKalaExf2(self.currentPageIndexKalaExf2() - 1);
+        }
+    };
+
+    self.firstPageKalaExf2 = function () {
+        self.currentPageIndexKalaExf2(0);
+    };
+
+    self.lastPageKalaExf2 = function () {
+        countKalaExf2 = parseInt(self.filterKalaExf2List().length / self.pageSizeKalaExf2(), 10);
+        if ((self.filterKalaExf2List().length % self.pageSizeKalaExf2()) == 0)
+            self.currentPageIndexKalaExf2(countKalaExf2 - 1);
+        else
+            self.currentPageIndexKalaExf2(countKalaExf2);
+    };
+
+    self.sortTableKalaExf2 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf2List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf2 = function (item) {
+        IDocB[ro].KalaExf2 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf2", item.Name)
+    }
+
+
+    $('#modal-KalaExf2').on('shown.bs.modal', function () {
+        $("#E_KalaExf2").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf2').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf2');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf2 = function (item) {
+        return CountPage(self.filterKalaExf2List(), self.pageSizeKalaExf2(), item);
+    };
+
+    $('#btnAddKalaExf2').click(function () {
+        var value = $("#E_KalaExf2").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf2',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf2');
+                }
+                else {
+                    var data = KalaExf2List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf2List.add({ Name: value });
+                        self.KalaExf2List(KalaExf2List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+        self.currentPageKalaExf3 = ko.observable();
+    pageSizeKalaExf3 = localStorage.getItem('pageSizeKalaExf3') == null ? 10 : localStorage.getItem('pageSizeKalaExf3');
+    self.pageSizeKalaExf3 = ko.observable(pageSizeKalaExf3);
+    self.currentPageIndexKalaExf3 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf3List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf3(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf3List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf3List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf3 = ko.computed(function () {
+        var pageSizeKalaExf3 = parseInt(self.pageSizeKalaExf3(), 10),
+            startIndex = pageSizeKalaExf3 * self.currentPageIndexKalaExf3(),
+            endIndex = startIndex + pageSizeKalaExf3;
+        localStorage.setItem('pageSizeKalaExf3', pageSizeKalaExf3);
+        return self.filterKalaExf3List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf3 = function () {
+        if (((self.currentPageIndexKalaExf3() + 1) * self.pageSizeKalaExf3()) < self.filterKalaExf3List().length) {
+            self.currentPageIndexKalaExf3(self.currentPageIndexKalaExf3() + 1);
+        }
+    };
+
+    self.previousPageKalaExf3 = function () {
+        if (self.currentPageIndexKalaExf3() > 0) {
+            self.currentPageIndexKalaExf3(self.currentPageIndexKalaExf3() - 1);
+        }
+    };
+
+    self.firstPageKalaExf3 = function () {
+        self.currentPageIndexKalaExf3(0);
+    };
+
+    self.lastPageKalaExf3 = function () {
+        countKalaExf3 = parseInt(self.filterKalaExf3List().length / self.pageSizeKalaExf3(), 10);
+        if ((self.filterKalaExf3List().length % self.pageSizeKalaExf3()) == 0)
+            self.currentPageIndexKalaExf3(countKalaExf3 - 1);
+        else
+            self.currentPageIndexKalaExf3(countKalaExf3);
+    };
+
+    self.sortTableKalaExf3 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf3List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf3 = function (item) {
+        IDocB[ro].KalaExf3 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf3", item.Name)
+    }
+
+
+    $('#modal-KalaExf3').on('shown.bs.modal', function () {
+        $("#E_KalaExf3").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf3').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf3');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf3 = function (item) {
+        return CountPage(self.filterKalaExf3List(), self.pageSizeKalaExf3(), item);
+    };
+
+    $('#btnAddKalaExf3').click(function () {
+        var value = $("#E_KalaExf3").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf3',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf3');
+                }
+                else {
+                    var data = KalaExf3List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf3List.add({ Name: value });
+                        self.KalaExf3List(KalaExf3List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+        self.currentPageKalaExf4 = ko.observable();
+    pageSizeKalaExf4 = localStorage.getItem('pageSizeKalaExf4') == null ? 10 : localStorage.getItem('pageSizeKalaExf4');
+    self.pageSizeKalaExf4 = ko.observable(pageSizeKalaExf4);
+    self.currentPageIndexKalaExf4 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf4List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf4(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf4List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf4List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf4 = ko.computed(function () {
+        var pageSizeKalaExf4 = parseInt(self.pageSizeKalaExf4(), 10),
+            startIndex = pageSizeKalaExf4 * self.currentPageIndexKalaExf4(),
+            endIndex = startIndex + pageSizeKalaExf4;
+        localStorage.setItem('pageSizeKalaExf4', pageSizeKalaExf4);
+        return self.filterKalaExf4List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf4 = function () {
+        if (((self.currentPageIndexKalaExf4() + 1) * self.pageSizeKalaExf4()) < self.filterKalaExf4List().length) {
+            self.currentPageIndexKalaExf4(self.currentPageIndexKalaExf4() + 1);
+        }
+    };
+
+    self.previousPageKalaExf4 = function () {
+        if (self.currentPageIndexKalaExf4() > 0) {
+            self.currentPageIndexKalaExf4(self.currentPageIndexKalaExf4() - 1);
+        }
+    };
+
+    self.firstPageKalaExf4 = function () {
+        self.currentPageIndexKalaExf4(0);
+    };
+
+    self.lastPageKalaExf4 = function () {
+        countKalaExf4 = parseInt(self.filterKalaExf4List().length / self.pageSizeKalaExf4(), 10);
+        if ((self.filterKalaExf4List().length % self.pageSizeKalaExf4()) == 0)
+            self.currentPageIndexKalaExf4(countKalaExf4 - 1);
+        else
+            self.currentPageIndexKalaExf4(countKalaExf4);
+    };
+
+    self.sortTableKalaExf4 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf4List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf4 = function (item) {
+        IDocB[ro].KalaExf4 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf4", item.Name)
+    }
+
+
+    $('#modal-KalaExf4').on('shown.bs.modal', function () {
+        $("#E_KalaExf4").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf4').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf4');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf4 = function (item) {
+        return CountPage(self.filterKalaExf4List(), self.pageSizeKalaExf4(), item);
+    };
+
+    $('#btnAddKalaExf4').click(function () {
+        var value = $("#E_KalaExf4").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf4',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf4');
+                }
+                else {
+                    var data = KalaExf4List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf4List.add({ Name: value });
+                        self.KalaExf4List(KalaExf4List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+        self.currentPageKalaExf5 = ko.observable();
+    pageSizeKalaExf5 = localStorage.getItem('pageSizeKalaExf5') == null ? 10 : localStorage.getItem('pageSizeKalaExf5');
+    self.pageSizeKalaExf5 = ko.observable(pageSizeKalaExf5);
+    self.currentPageIndexKalaExf5 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf5List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf5(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf5List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf5List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf5 = ko.computed(function () {
+        var pageSizeKalaExf5 = parseInt(self.pageSizeKalaExf5(), 10),
+            startIndex = pageSizeKalaExf5 * self.currentPageIndexKalaExf5(),
+            endIndex = startIndex + pageSizeKalaExf5;
+        localStorage.setItem('pageSizeKalaExf5', pageSizeKalaExf5);
+        return self.filterKalaExf5List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf5 = function () {
+        if (((self.currentPageIndexKalaExf5() + 1) * self.pageSizeKalaExf5()) < self.filterKalaExf5List().length) {
+            self.currentPageIndexKalaExf5(self.currentPageIndexKalaExf5() + 1);
+        }
+    };
+
+    self.previousPageKalaExf5 = function () {
+        if (self.currentPageIndexKalaExf5() > 0) {
+            self.currentPageIndexKalaExf5(self.currentPageIndexKalaExf5() - 1);
+        }
+    };
+
+    self.firstPageKalaExf5 = function () {
+        self.currentPageIndexKalaExf5(0);
+    };
+
+    self.lastPageKalaExf5 = function () {
+        countKalaExf5 = parseInt(self.filterKalaExf5List().length / self.pageSizeKalaExf5(), 10);
+        if ((self.filterKalaExf5List().length % self.pageSizeKalaExf5()) == 0)
+            self.currentPageIndexKalaExf5(countKalaExf5 - 1);
+        else
+            self.currentPageIndexKalaExf5(countKalaExf5);
+    };
+
+    self.sortTableKalaExf5 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf5List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf5 = function (item) {
+        IDocB[ro].KalaExf5 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf5", item.Name)
+    }
+
+
+    $('#modal-KalaExf5').on('shown.bs.modal', function () {
+        $("#E_KalaExf5").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf5').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf5');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf5 = function (item) {
+        return CountPage(self.filterKalaExf5List(), self.pageSizeKalaExf5(), item);
+    };
+
+    $('#btnAddKalaExf5').click(function () {
+        var value = $("#E_KalaExf5").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf5',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf5');
+                }
+                else {
+                    var data = KalaExf5List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf5List.add({ Name: value });
+                        self.KalaExf5List(KalaExf5List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+        self.currentPageKalaExf6 = ko.observable();
+    pageSizeKalaExf6 = localStorage.getItem('pageSizeKalaExf6') == null ? 10 : localStorage.getItem('pageSizeKalaExf6');
+    self.pageSizeKalaExf6 = ko.observable(pageSizeKalaExf6);
+    self.currentPageIndexKalaExf6 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf6List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf6(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf6List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf6List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf6 = ko.computed(function () {
+        var pageSizeKalaExf6 = parseInt(self.pageSizeKalaExf6(), 10),
+            startIndex = pageSizeKalaExf6 * self.currentPageIndexKalaExf6(),
+            endIndex = startIndex + pageSizeKalaExf6;
+        localStorage.setItem('pageSizeKalaExf6', pageSizeKalaExf6);
+        return self.filterKalaExf6List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf6 = function () {
+        if (((self.currentPageIndexKalaExf6() + 1) * self.pageSizeKalaExf6()) < self.filterKalaExf6List().length) {
+            self.currentPageIndexKalaExf6(self.currentPageIndexKalaExf6() + 1);
+        }
+    };
+
+    self.previousPageKalaExf6 = function () {
+        if (self.currentPageIndexKalaExf6() > 0) {
+            self.currentPageIndexKalaExf6(self.currentPageIndexKalaExf6() - 1);
+        }
+    };
+
+    self.firstPageKalaExf6 = function () {
+        self.currentPageIndexKalaExf6(0);
+    };
+
+    self.lastPageKalaExf6 = function () {
+        countKalaExf6 = parseInt(self.filterKalaExf6List().length / self.pageSizeKalaExf6(), 10);
+        if ((self.filterKalaExf6List().length % self.pageSizeKalaExf6()) == 0)
+            self.currentPageIndexKalaExf6(countKalaExf6 - 1);
+        else
+            self.currentPageIndexKalaExf6(countKalaExf6);
+    };
+
+    self.sortTableKalaExf6 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf6List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf6 = function (item) {
+        IDocB[ro].KalaExf6 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf6", item.Name)
+    }
+
+
+    $('#modal-KalaExf6').on('shown.bs.modal', function () {
+        $("#E_KalaExf6").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf6').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf6');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf6 = function (item) {
+        return CountPage(self.filterKalaExf6List(), self.pageSizeKalaExf6(), item);
+    };
+
+    $('#btnAddKalaExf6').click(function () {
+        var value = $("#E_KalaExf6").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf6',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf6');
+                }
+                else {
+                    var data = KalaExf6List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf6List.add({ Name: value });
+                        self.KalaExf6List(KalaExf6List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+        self.currentPageKalaExf7 = ko.observable();
+    pageSizeKalaExf7 = localStorage.getItem('pageSizeKalaExf7') == null ? 10 : localStorage.getItem('pageSizeKalaExf7');
+    self.pageSizeKalaExf7 = ko.observable(pageSizeKalaExf7);
+    self.currentPageIndexKalaExf7 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf7List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf7(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf7List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf7List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf7 = ko.computed(function () {
+        var pageSizeKalaExf7 = parseInt(self.pageSizeKalaExf7(), 10),
+            startIndex = pageSizeKalaExf7 * self.currentPageIndexKalaExf7(),
+            endIndex = startIndex + pageSizeKalaExf7;
+        localStorage.setItem('pageSizeKalaExf7', pageSizeKalaExf7);
+        return self.filterKalaExf7List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf7 = function () {
+        if (((self.currentPageIndexKalaExf7() + 1) * self.pageSizeKalaExf7()) < self.filterKalaExf7List().length) {
+            self.currentPageIndexKalaExf7(self.currentPageIndexKalaExf7() + 1);
+        }
+    };
+
+    self.previousPageKalaExf7 = function () {
+        if (self.currentPageIndexKalaExf7() > 0) {
+            self.currentPageIndexKalaExf7(self.currentPageIndexKalaExf7() - 1);
+        }
+    };
+
+    self.firstPageKalaExf7 = function () {
+        self.currentPageIndexKalaExf7(0);
+    };
+
+    self.lastPageKalaExf7 = function () {
+        countKalaExf7 = parseInt(self.filterKalaExf7List().length / self.pageSizeKalaExf7(), 10);
+        if ((self.filterKalaExf7List().length % self.pageSizeKalaExf7()) == 0)
+            self.currentPageIndexKalaExf7(countKalaExf7 - 1);
+        else
+            self.currentPageIndexKalaExf7(countKalaExf7);
+    };
+
+    self.sortTableKalaExf7 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf7List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf7 = function (item) {
+        IDocB[ro].KalaExf7 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf7", item.Name)
+    }
+
+
+    $('#modal-KalaExf7').on('shown.bs.modal', function () {
+        $("#E_KalaExf7").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf7').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf7');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf7 = function (item) {
+        return CountPage(self.filterKalaExf7List(), self.pageSizeKalaExf7(), item);
+    };
+
+    $('#btnAddKalaExf7').click(function () {
+        var value = $("#E_KalaExf7").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf7',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf7');
+                }
+                else {
+                    var data = KalaExf7List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf7List.add({ Name: value });
+                        self.KalaExf7List(KalaExf7List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+        self.currentPageKalaExf8 = ko.observable();
+    pageSizeKalaExf8 = localStorage.getItem('pageSizeKalaExf8') == null ? 10 : localStorage.getItem('pageSizeKalaExf8');
+    self.pageSizeKalaExf8 = ko.observable(pageSizeKalaExf8);
+    self.currentPageIndexKalaExf8 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf8List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf8(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf8List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf8List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf8 = ko.computed(function () {
+        var pageSizeKalaExf8 = parseInt(self.pageSizeKalaExf8(), 10),
+            startIndex = pageSizeKalaExf8 * self.currentPageIndexKalaExf8(),
+            endIndex = startIndex + pageSizeKalaExf8;
+        localStorage.setItem('pageSizeKalaExf8', pageSizeKalaExf8);
+        return self.filterKalaExf8List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf8 = function () {
+        if (((self.currentPageIndexKalaExf8() + 1) * self.pageSizeKalaExf8()) < self.filterKalaExf8List().length) {
+            self.currentPageIndexKalaExf8(self.currentPageIndexKalaExf8() + 1);
+        }
+    };
+
+    self.previousPageKalaExf8 = function () {
+        if (self.currentPageIndexKalaExf8() > 0) {
+            self.currentPageIndexKalaExf8(self.currentPageIndexKalaExf8() - 1);
+        }
+    };
+
+    self.firstPageKalaExf8 = function () {
+        self.currentPageIndexKalaExf8(0);
+    };
+
+    self.lastPageKalaExf8 = function () {
+        countKalaExf8 = parseInt(self.filterKalaExf8List().length / self.pageSizeKalaExf8(), 10);
+        if ((self.filterKalaExf8List().length % self.pageSizeKalaExf8()) == 0)
+            self.currentPageIndexKalaExf8(countKalaExf8 - 1);
+        else
+            self.currentPageIndexKalaExf8(countKalaExf8);
+    };
+
+    self.sortTableKalaExf8 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf8List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf8 = function (item) {
+        IDocB[ro].KalaExf8 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf8", item.Name)
+    }
+
+
+    $('#modal-KalaExf8').on('shown.bs.modal', function () {
+        $("#E_KalaExf8").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf8').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf8');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf8 = function (item) {
+        return CountPage(self.filterKalaExf8List(), self.pageSizeKalaExf8(), item);
+    };
+
+    $('#btnAddKalaExf8').click(function () {
+        var value = $("#E_KalaExf8").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf8',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf8');
+                }
+                else {
+                    var data = KalaExf8List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf8List.add({ Name: value });
+                        self.KalaExf8List(KalaExf8List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+        self.currentPageKalaExf9 = ko.observable();
+    pageSizeKalaExf9 = localStorage.getItem('pageSizeKalaExf9') == null ? 10 : localStorage.getItem('pageSizeKalaExf9');
+    self.pageSizeKalaExf9 = ko.observable(pageSizeKalaExf9);
+    self.currentPageIndexKalaExf9 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf9List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf9(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf9List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf9List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf9 = ko.computed(function () {
+        var pageSizeKalaExf9 = parseInt(self.pageSizeKalaExf9(), 10),
+            startIndex = pageSizeKalaExf9 * self.currentPageIndexKalaExf9(),
+            endIndex = startIndex + pageSizeKalaExf9;
+        localStorage.setItem('pageSizeKalaExf9', pageSizeKalaExf9);
+        return self.filterKalaExf9List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf9 = function () {
+        if (((self.currentPageIndexKalaExf9() + 1) * self.pageSizeKalaExf9()) < self.filterKalaExf9List().length) {
+            self.currentPageIndexKalaExf9(self.currentPageIndexKalaExf9() + 1);
+        }
+    };
+
+    self.previousPageKalaExf9 = function () {
+        if (self.currentPageIndexKalaExf9() > 0) {
+            self.currentPageIndexKalaExf9(self.currentPageIndexKalaExf9() - 1);
+        }
+    };
+
+    self.firstPageKalaExf9 = function () {
+        self.currentPageIndexKalaExf9(0);
+    };
+
+    self.lastPageKalaExf9 = function () {
+        countKalaExf9 = parseInt(self.filterKalaExf9List().length / self.pageSizeKalaExf9(), 10);
+        if ((self.filterKalaExf9List().length % self.pageSizeKalaExf9()) == 0)
+            self.currentPageIndexKalaExf9(countKalaExf9 - 1);
+        else
+            self.currentPageIndexKalaExf9(countKalaExf9);
+    };
+
+    self.sortTableKalaExf9 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf9List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf9 = function (item) {
+        IDocB[ro].KalaExf9 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf9", item.Name)
+    }
+
+
+    $('#modal-KalaExf9').on('shown.bs.modal', function () {
+        $("#E_KalaExf9").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf9').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf9');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf9 = function (item) {
+        return CountPage(self.filterKalaExf9List(), self.pageSizeKalaExf9(), item);
+    };
+
+    $('#btnAddKalaExf9').click(function () {
+        var value = $("#E_KalaExf9").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf9',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf9');
+                }
+                else {
+                    var data = KalaExf9List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf9List.add({ Name: value });
+                        self.KalaExf9List(KalaExf9List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+        self.currentPageKalaExf10 = ko.observable();
+    pageSizeKalaExf10 = localStorage.getItem('pageSizeKalaExf10') == null ? 10 : localStorage.getItem('pageSizeKalaExf10');
+    self.pageSizeKalaExf10 = ko.observable(pageSizeKalaExf10);
+    self.currentPageIndexKalaExf10 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf10List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf10(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf10List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf10List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf10 = ko.computed(function () {
+        var pageSizeKalaExf10 = parseInt(self.pageSizeKalaExf10(), 10),
+            startIndex = pageSizeKalaExf10 * self.currentPageIndexKalaExf10(),
+            endIndex = startIndex + pageSizeKalaExf10;
+        localStorage.setItem('pageSizeKalaExf10', pageSizeKalaExf10);
+        return self.filterKalaExf10List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf10 = function () {
+        if (((self.currentPageIndexKalaExf10() + 1) * self.pageSizeKalaExf10()) < self.filterKalaExf10List().length) {
+            self.currentPageIndexKalaExf10(self.currentPageIndexKalaExf10() + 1);
+        }
+    };
+
+    self.previousPageKalaExf10 = function () {
+        if (self.currentPageIndexKalaExf10() > 0) {
+            self.currentPageIndexKalaExf10(self.currentPageIndexKalaExf10() - 1);
+        }
+    };
+
+    self.firstPageKalaExf10 = function () {
+        self.currentPageIndexKalaExf10(0);
+    };
+
+    self.lastPageKalaExf10 = function () {
+        countKalaExf10 = parseInt(self.filterKalaExf10List().length / self.pageSizeKalaExf10(), 10);
+        if ((self.filterKalaExf10List().length % self.pageSizeKalaExf10()) == 0)
+            self.currentPageIndexKalaExf10(countKalaExf10 - 1);
+        else
+            self.currentPageIndexKalaExf10(countKalaExf10);
+    };
+
+    self.sortTableKalaExf10 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf10List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf10 = function (item) {
+        IDocB[ro].KalaExf10 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf10", item.Name)
+    }
+
+
+    $('#modal-KalaExf10').on('shown.bs.modal', function () {
+        $("#E_KalaExf10").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf10').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf10');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf10 = function (item) {
+        return CountPage(self.filterKalaExf10List(), self.pageSizeKalaExf10(), item);
+    };
+
+    $('#btnAddKalaExf10').click(function () {
+        var value = $("#E_KalaExf10").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf10',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf10');
+                }
+                else {
+                    var data = KalaExf10List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf10List.add({ Name: value });
+                        self.KalaExf10List(KalaExf10List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+    self.currentPageKalaExf11 = ko.observable();
+    pageSizeKalaExf11 = localStorage.getItem('pageSizeKalaExf11') == null ? 10 : localStorage.getItem('pageSizeKalaExf11');
+    self.pageSizeKalaExf11 = ko.observable(pageSizeKalaExf11);
+    self.currentPageIndexKalaExf11 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf11List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf11(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf11List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf11List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf11 = ko.computed(function () {
+        var pageSizeKalaExf11 = parseInt(self.pageSizeKalaExf11(), 10),
+            startIndex = pageSizeKalaExf11 * self.currentPageIndexKalaExf11(),
+            endIndex = startIndex + pageSizeKalaExf11;
+        localStorage.setItem('pageSizeKalaExf11', pageSizeKalaExf11);
+        return self.filterKalaExf11List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf11 = function () {
+        if (((self.currentPageIndexKalaExf11() + 1) * self.pageSizeKalaExf11()) < self.filterKalaExf11List().length) {
+            self.currentPageIndexKalaExf11(self.currentPageIndexKalaExf11() + 1);
+        }
+    };
+
+    self.previousPageKalaExf11 = function () {
+        if (self.currentPageIndexKalaExf11() > 0) {
+            self.currentPageIndexKalaExf11(self.currentPageIndexKalaExf11() - 1);
+        }
+    };
+
+    self.firstPageKalaExf11 = function () {
+        self.currentPageIndexKalaExf11(0);
+    };
+
+    self.lastPageKalaExf11 = function () {
+        countKalaExf11 = parseInt(self.filterKalaExf11List().length / self.pageSizeKalaExf11(), 10);
+        if ((self.filterKalaExf11List().length % self.pageSizeKalaExf11()) == 0)
+            self.currentPageIndexKalaExf11(countKalaExf11 - 1);
+        else
+            self.currentPageIndexKalaExf11(countKalaExf11);
+    };
+
+    self.sortTableKalaExf11 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf11List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf11 = function (item) {
+        IDocB[ro].KalaExf11 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf11", item.Name)
+    }
+
+
+    $('#modal-KalaExf11').on('shown.bs.modal', function () {
+        $("#E_KalaExf11").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf11').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf11');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf11 = function (item) {
+        return CountPage(self.filterKalaExf11List(), self.pageSizeKalaExf11(), item);
+    };
+
+    $('#btnAddKalaExf11').click(function () {
+        var value = $("#E_KalaExf11").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf11',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf11');
+                }
+                else {
+                    var data = KalaExf11List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf11List.add({ Name: value });
+                        self.KalaExf11List(KalaExf11List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+    self.currentPageKalaExf12 = ko.observable();
+    pageSizeKalaExf12 = localStorage.getItem('pageSizeKalaExf12') == null ? 10 : localStorage.getItem('pageSizeKalaExf12');
+    self.pageSizeKalaExf12 = ko.observable(pageSizeKalaExf12);
+    self.currentPageIndexKalaExf12 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf12List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf12(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf12List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf12List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf12 = ko.computed(function () {
+        var pageSizeKalaExf12 = parseInt(self.pageSizeKalaExf12(), 10),
+            startIndex = pageSizeKalaExf12 * self.currentPageIndexKalaExf12(),
+            endIndex = startIndex + pageSizeKalaExf12;
+        localStorage.setItem('pageSizeKalaExf12', pageSizeKalaExf12);
+        return self.filterKalaExf12List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf12 = function () {
+        if (((self.currentPageIndexKalaExf12() + 1) * self.pageSizeKalaExf12()) < self.filterKalaExf12List().length) {
+            self.currentPageIndexKalaExf12(self.currentPageIndexKalaExf12() + 1);
+        }
+    };
+
+    self.previousPageKalaExf12 = function () {
+        if (self.currentPageIndexKalaExf12() > 0) {
+            self.currentPageIndexKalaExf12(self.currentPageIndexKalaExf12() - 1);
+        }
+    };
+
+    self.firstPageKalaExf12 = function () {
+        self.currentPageIndexKalaExf12(0);
+    };
+
+    self.lastPageKalaExf12 = function () {
+        countKalaExf12 = parseInt(self.filterKalaExf12List().length / self.pageSizeKalaExf12(), 10);
+        if ((self.filterKalaExf12List().length % self.pageSizeKalaExf12()) == 0)
+            self.currentPageIndexKalaExf12(countKalaExf12 - 1);
+        else
+            self.currentPageIndexKalaExf12(countKalaExf12);
+    };
+
+    self.sortTableKalaExf12 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf12List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf12 = function (item) {
+        IDocB[ro].KalaExf12 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf12", item.Name)
+    }
+
+
+    $('#modal-KalaExf12').on('shown.bs.modal', function () {
+        $("#E_KalaExf12").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf12').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf12');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf12 = function (item) {
+        return CountPage(self.filterKalaExf12List(), self.pageSizeKalaExf12(), item);
+    };
+
+    $('#btnAddKalaExf12').click(function () {
+        var value = $("#E_KalaExf12").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf12',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf12');
+                }
+                else {
+                    var data = KalaExf12List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf12List.add({ Name: value });
+                        self.KalaExf12List(KalaExf12List);
+                    }
+                }
+
+            });
+        }
+    })
+
+    self.currentPageKalaExf13 = ko.observable();
+    pageSizeKalaExf13 = localStorage.getItem('pageSizeKalaExf13') == null ? 10 : localStorage.getItem('pageSizeKalaExf13');
+    self.pageSizeKalaExf13 = ko.observable(pageSizeKalaExf13);
+    self.currentPageIndexKalaExf13 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf13List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf13(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf13List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf13List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf13 = ko.computed(function () {
+        var pageSizeKalaExf13 = parseInt(self.pageSizeKalaExf13(), 10),
+            startIndex = pageSizeKalaExf13 * self.currentPageIndexKalaExf13(),
+            endIndex = startIndex + pageSizeKalaExf13;
+        localStorage.setItem('pageSizeKalaExf13', pageSizeKalaExf13);
+        return self.filterKalaExf13List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf13 = function () {
+        if (((self.currentPageIndexKalaExf13() + 1) * self.pageSizeKalaExf13()) < self.filterKalaExf13List().length) {
+            self.currentPageIndexKalaExf13(self.currentPageIndexKalaExf13() + 1);
+        }
+    };
+
+    self.previousPageKalaExf13 = function () {
+        if (self.currentPageIndexKalaExf13() > 0) {
+            self.currentPageIndexKalaExf13(self.currentPageIndexKalaExf13() - 1);
+        }
+    };
+
+    self.firstPageKalaExf13 = function () {
+        self.currentPageIndexKalaExf13(0);
+    };
+
+    self.lastPageKalaExf13 = function () {
+        countKalaExf13 = parseInt(self.filterKalaExf13List().length / self.pageSizeKalaExf13(), 10);
+        if ((self.filterKalaExf13List().length % self.pageSizeKalaExf13()) == 0)
+            self.currentPageIndexKalaExf13(countKalaExf13 - 1);
+        else
+            self.currentPageIndexKalaExf13(countKalaExf13);
+    };
+
+    self.sortTableKalaExf13 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf13List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf13 = function (item) {
+        IDocB[ro].KalaExf13 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf13", item.Name)
+    }
+
+
+    $('#modal-KalaExf13').on('shown.bs.modal', function () {
+        $("#E_KalaExf13").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf13').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf13');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf13 = function (item) {
+        return CountPage(self.filterKalaExf13List(), self.pageSizeKalaExf13(), item);
+    };
+
+    $('#btnAddKalaExf13').click(function () {
+        var value = $("#E_KalaExf13").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf13',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf13');
+                }
+                else {
+                    var data = KalaExf13List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf13List.add({ Name: value });
+                        self.KalaExf13List(KalaExf13List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+        self.currentPageKalaExf14 = ko.observable();
+    pageSizeKalaExf14 = localStorage.getItem('pageSizeKalaExf14') == null ? 10 : localStorage.getItem('pageSizeKalaExf14');
+    self.pageSizeKalaExf14 = ko.observable(pageSizeKalaExf14);
+    self.currentPageIndexKalaExf14 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf14List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf14(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf14List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf14List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf14 = ko.computed(function () {
+        var pageSizeKalaExf14 = parseInt(self.pageSizeKalaExf14(), 10),
+            startIndex = pageSizeKalaExf14 * self.currentPageIndexKalaExf14(),
+            endIndex = startIndex + pageSizeKalaExf14;
+        localStorage.setItem('pageSizeKalaExf14', pageSizeKalaExf14);
+        return self.filterKalaExf14List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf14 = function () {
+        if (((self.currentPageIndexKalaExf14() + 1) * self.pageSizeKalaExf14()) < self.filterKalaExf14List().length) {
+            self.currentPageIndexKalaExf14(self.currentPageIndexKalaExf14() + 1);
+        }
+    };
+
+    self.previousPageKalaExf14 = function () {
+        if (self.currentPageIndexKalaExf14() > 0) {
+            self.currentPageIndexKalaExf14(self.currentPageIndexKalaExf14() - 1);
+        }
+    };
+
+    self.firstPageKalaExf14 = function () {
+        self.currentPageIndexKalaExf14(0);
+    };
+
+    self.lastPageKalaExf14 = function () {
+        countKalaExf14 = parseInt(self.filterKalaExf14List().length / self.pageSizeKalaExf14(), 10);
+        if ((self.filterKalaExf14List().length % self.pageSizeKalaExf14()) == 0)
+            self.currentPageIndexKalaExf14(countKalaExf14 - 1);
+        else
+            self.currentPageIndexKalaExf14(countKalaExf14);
+    };
+
+    self.sortTableKalaExf14 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf14List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf14 = function (item) {
+        IDocB[ro].KalaExf14 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf14", item.Name)
+    }
+
+
+    $('#modal-KalaExf14').on('shown.bs.modal', function () {
+        $("#E_KalaExf14").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf14').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf14');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf14 = function (item) {
+        return CountPage(self.filterKalaExf14List(), self.pageSizeKalaExf14(), item);
+    };
+
+    $('#btnAddKalaExf14').click(function () {
+        var value = $("#E_KalaExf14").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf14',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf14');
+                }
+                else {
+                    var data = KalaExf14List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf14List.add({ Name: value });
+                        self.KalaExf14List(KalaExf14List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+        self.currentPageKalaExf15 = ko.observable();
+    pageSizeKalaExf15 = localStorage.getItem('pageSizeKalaExf15') == null ? 10 : localStorage.getItem('pageSizeKalaExf15');
+    self.pageSizeKalaExf15 = ko.observable(pageSizeKalaExf15);
+    self.currentPageIndexKalaExf15 = ko.observable(0);
+
+    self.filterKalaExf0 = ko.observable("");
+
+    self.filterKalaExf15List = ko.computed(function () {
+
+        self.currentPageIndexKalaExf15(0);
+        var filter0 = self.filterKalaExf0().toUpperCase();
+
+        if (!filter0) {
+            return self.KalaExf15List();
+        } else {
+            tempData = ko.utils.arrayFilter(self.KalaExf15List(), function (item) {
+                result =
+                    (item.Name == null ? '' : item.Name.toString().search(filter0) >= 0)
+                return result;
+            })
+            return tempData;
+        }
+    });
+
+
+    self.currentPageKalaExf15 = ko.computed(function () {
+        var pageSizeKalaExf15 = parseInt(self.pageSizeKalaExf15(), 10),
+            startIndex = pageSizeKalaExf15 * self.currentPageIndexKalaExf15(),
+            endIndex = startIndex + pageSizeKalaExf15;
+        localStorage.setItem('pageSizeKalaExf15', pageSizeKalaExf15);
+        return self.filterKalaExf15List().slice(startIndex, endIndex);
+    });
+
+    self.nextPageKalaExf15 = function () {
+        if (((self.currentPageIndexKalaExf15() + 1) * self.pageSizeKalaExf15()) < self.filterKalaExf15List().length) {
+            self.currentPageIndexKalaExf15(self.currentPageIndexKalaExf15() + 1);
+        }
+    };
+
+    self.previousPageKalaExf15 = function () {
+        if (self.currentPageIndexKalaExf15() > 0) {
+            self.currentPageIndexKalaExf15(self.currentPageIndexKalaExf15() - 1);
+        }
+    };
+
+    self.firstPageKalaExf15 = function () {
+        self.currentPageIndexKalaExf15(0);
+    };
+
+    self.lastPageKalaExf15 = function () {
+        countKalaExf15 = parseInt(self.filterKalaExf15List().length / self.pageSizeKalaExf15(), 10);
+        if ((self.filterKalaExf15List().length % self.pageSizeKalaExf15()) == 0)
+            self.currentPageIndexKalaExf15(countKalaExf15 - 1);
+        else
+            self.currentPageIndexKalaExf15(countKalaExf15);
+    };
+
+    self.sortTableKalaExf15 = function (viewModel, e) {
+        var orderProp = $(e.target).attr("data-column")
+        if (orderProp == null) {
+            return null
+        }
+        self.currentColumn(orderProp);
+        self.KalaExf15List.sort(function (left, right) {
+            leftVal = FixSortName(left[orderProp]);
+            rightVal = FixSortName(right[orderProp]);
+
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+
+        self.iconTypeName('');
+
+
+        if (orderProp == 'Name') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+    };
+
+    self.selectKalaExf15 = function (item) {
+        IDocB[ro].KalaExf15 = item.Name;
+        dataGrid.cellValue(ro, "KalaExf15", item.Name)
+    }
+
+
+    $('#modal-KalaExf15').on('shown.bs.modal', function () {
+        $("#E_KalaExf15").val('');
+        $('.fix').attr('class', 'form-line focused fix');
+    });
+
+
+    $('#refreshKalaExf15').click(function () {
+        Swal.fire({
+            title: mes_Refresh,
+            text: translate("لیست ویژگی") + " " + translate("به روز رسانی شود ؟"),
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            allowOutsideClick: false,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                getKalaExf_InvList('KalaExf15');
+            }
+        })
+    })
+
+    self.PageIndexKalaExf15 = function (item) {
+        return CountPage(self.filterKalaExf15List(), self.pageSizeKalaExf15(), item);
+    };
+
+    $('#btnAddKalaExf15').click(function () {
+        var value = $("#E_KalaExf15").val();
+        if (value != '') {
+            var SaveExtraFieldListsObject = {
+                KalaExfName: 'KalaExf15',
+                Code: 0,
+                Name: value
+
+            }
+            ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
+                if (data == true) {
+                    getKalaExf_InvList('KalaExf15');
+                }
+                else {
+                    var data = KalaExf15List.filter(s => s.Name == value);
+                    if (data.length == 0) {
+                        KalaExf15List.add({ Name: value });
+                        self.KalaExf15List(KalaExf15List);
+                    }
+                }
+
+            });
+        }
+    })
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5816,9 +8113,9 @@ var ViewModel = function () {
     };
 
 
-    self.PageIndexKalaState = function (item) {
+  /*  self.PageIndexKalaState = function (item) {
         return CountPage(self.filterKalaStateList(), self.pageSizeKalaState(), item);
-    };
+    };*/
 
 
     self.PageIndexMkz = function (item) {
