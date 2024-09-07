@@ -5246,6 +5246,7 @@ var ViewModel = function () {
             });
         }
         codeKalaFileNo = 0;
+        $("#E_KalaFileNo").val('');
     })
 
     var codeKalaFileNo = 0;
@@ -5384,7 +5385,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaState',
-                Code: 0,
+                Code: codeKalaState,
                 Name: value
 
             }
@@ -5402,6 +5403,7 @@ var ViewModel = function () {
 
             });
             codeKalaState = 0;
+            $("#E_KalaState").val('');
         }
     })
 
@@ -5539,7 +5541,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf1',
-                Code: 0,
+                Code: codeKalaExf1,
                 Name: value
 
             }
@@ -5557,6 +5559,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf1 = 0;
+            $("#E_KalaExf1").val('');
         }
     })
 
@@ -5708,7 +5711,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf2',
-                Code: 0,
+                Code: codeKalaExf2,
                 Name: value
 
             }
@@ -5726,6 +5729,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf2 = 0;
+            $("#E_KalaExf2").val('');
         }
     })
     var codeKalaExf2 = 0;
@@ -5866,7 +5870,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf3',
-                Code: 0,
+                Code: codeKalaExf3,
                 Name: value
 
             }
@@ -5884,6 +5888,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf3 = 0;
+            $("#E_KalaExf3").val('');
         }
     })
 
@@ -6025,7 +6030,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf4',
-                Code: 0,
+                Code: codeKalaExf4,
                 Name: value
 
             }
@@ -6043,6 +6048,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf4 = 0;
+            $("#E_KalaExf4").val('');
         }
     })
 
@@ -6185,7 +6191,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf5',
-                Code: 0,
+                Code: codeKalaExf5,
                 Name: value
 
             }
@@ -6203,6 +6209,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf5 = 0;
+            $("#E_KalaExf5").val('');
         }
     })
 
@@ -6345,7 +6352,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf6',
-                Code: 0,
+                Code: codeKalaExf6,
                 Name: value
 
             }
@@ -6363,6 +6370,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf6 = 0;
+            $("#E_KalaExf6").val('');
         }
     })
 
@@ -6499,7 +6507,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf7',
-                Code: 0,
+                Code: codeKalaExf7,
                 Name: value
 
             }
@@ -6517,6 +6525,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf7 = 0;
+            $("#E_KalaExf7").val('');
         }
     })
 
@@ -6653,7 +6662,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf8',
-                Code: 0,
+                Code: codeKalaExf8,
                 Name: value
 
             }
@@ -6671,6 +6680,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf8 = 0;
+            $("#E_KalaExf8").val('');
         }
     })
 
@@ -6804,7 +6814,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf9',
-                Code: 0,
+                Code: codeKalaExf9,
                 Name: value
 
             }
@@ -6822,6 +6832,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf9 = 0;
+            $("#E_KalaExf9").val('');
         }
     })
     var codeKalaExf9 = 0;
@@ -6954,7 +6965,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf10',
-                Code: 0,
+                Code: codeKalaExf10,
                 Name: value
 
             }
@@ -6972,6 +6983,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf10 = 0;
+            $("#E_KalaExf10").val('');
         }
     })
 
@@ -7104,7 +7116,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf11',
-                Code: 0,
+                Code: codeKalaExf11,
                 Name: value
 
             }
@@ -7122,6 +7134,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf11 = 0;
+            $("#E_KalaExf11").val('');
         }
 
     })
@@ -7255,7 +7268,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf12',
-                Code: 0,
+                Code: codeKalaExf12,
                 Name: value
 
             }
@@ -7273,6 +7286,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf12 = 0;
+            $("#E_KalaExf12").val('');
         }
     })
     var codeKalaExf12 = 0;
@@ -7406,7 +7420,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf13',
-                Code: 0,
+                Code: codeKalaExf13,
                 Name: value
 
             }
@@ -7424,6 +7438,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf13 = 0;
+            $("#E_KalaExf13").val('');
         }
     })
 
@@ -7559,7 +7574,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf14',
-                Code: 0,
+                Code: codeKalaExf14,
                 Name: value
 
             }
@@ -7577,6 +7592,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf14 = 0;
+            $("#E_KalaExf14").val('');
         }
     })
     var codeKalaExf14 = 0;
@@ -7712,7 +7728,7 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaExf15',
-                Code: 0,
+                Code: codeKalaExf15,
                 Name: value
 
             }
@@ -7730,6 +7746,7 @@ var ViewModel = function () {
 
             });
             codeKalaExf15 = 0;
+            $("#E_KalaExf15").val('');
         }
     })
 
