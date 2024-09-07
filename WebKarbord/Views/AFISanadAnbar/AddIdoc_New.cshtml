@@ -873,7 +873,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-KalaFileNo" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+<div class="modal fade" id="modal-KalaFileNo" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -914,16 +914,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaFileNo" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaFileNo">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaFileNo" style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaFileNo" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaFileNo , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaFileNo0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1012,16 +1019,24 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaState" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaState">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaState"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaState" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaState , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
+
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaState0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1108,16 +1123,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf1" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf1">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf1"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf1" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf1 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1204,16 +1226,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf2" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf2">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf2"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf2" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf2 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1302,16 +1331,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf3" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf3">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf3"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf3" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf3 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1396,16 +1432,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf4" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf4">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf4"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf4" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf4 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1491,16 +1534,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf5" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf5">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf5"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf5" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf5 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1586,16 +1636,24 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf6" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf6">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf6"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf6" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf6 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
+
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1681,16 +1739,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf7" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf7">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf7"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf7" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf7 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1776,16 +1841,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf8" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf8">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf8"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf8" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf8 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1871,16 +1943,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf9" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf9">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf9"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf9" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf9 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -1966,16 +2045,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf10" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf10">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf10"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf10" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf10 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -2061,16 +2147,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf11" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf11">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf11"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf11" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf11 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -2156,16 +2249,24 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf12" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf12">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf12"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf12" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf12 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
+
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -2251,16 +2352,24 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf13" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf13">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf13"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf13" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf13 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
+
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -2346,16 +2455,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf14" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf14">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf14"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf14" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf14 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -2441,16 +2557,23 @@
                                         <i data-bind="attr: { class: iconTypeName }"></i>
                                     </span>
                                 </th>
+                                <th style="width:1px;"></th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach: currentPageKalaExf15" data-dismiss="modal" style="cursor: default;">
-                            <tr data-bind="click: $parent.selectKalaExf15">
-                                <td data-bind="text: Name" class="ellipsis"></td>
+                        <tbody data-bind="foreach: currentPageKalaExf15"  style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: Name ,click: $parent.selectKalaExf15" class="ellipsis"></td>
+                                <td>
+                                    <a data-bind="click: $root.UpdateKalaExf15 , attr: {title:text_Update}">
+                                        <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px" />
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="background-color: #efb68399;">
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterKalaExf0, valueUpdate: 'afterkeydown'" type="text" class="form-control" style="height: 2.4rem;" /> </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>

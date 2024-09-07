@@ -1765,7 +1765,7 @@ var ViewModel = function () {
                     if (columnName == 'KalaExf14' && isSelectedKalaExf) { $("#modal-KalaExf14").modal('show'); }
                     if (columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
                 }
-               
+
 
             },
 
@@ -5187,12 +5187,15 @@ var ViewModel = function () {
 
     self.selectKalaFileNo = function (item) {
         IDocB[ro].KalaFileNo = item.Name;
-        dataGrid.cellValue(ro, "KalaFileNo", item.Name)
+        dataGrid.cellValue(ro, "KalaFileNo", item.Name);
+        codeKalaFileNo = 0;
+        $('#modal-KalaFileNo').modal('hide');
     }
 
 
     $('#modal-KalaFileNo').on('shown.bs.modal', function () {
         $("#E_KalaFileNo").val('');
+        codeKalaFileNo = 0;
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -5215,6 +5218,7 @@ var ViewModel = function () {
         })
     })
 
+
     self.PageIndexKalaFileNo = function (item) {
         return CountPage(self.filterKalaFileNoList(), self.pageSizeKalaFileNo(), item);
     };
@@ -5224,9 +5228,8 @@ var ViewModel = function () {
         if (value != '') {
             var SaveExtraFieldListsObject = {
                 KalaExfName: 'KalaFileNo',
-                Code: 0,
+                Code: codeKalaFileNo,
                 Name: value
-
             }
             ajaxFunction(SaveExtraFieldListsUri + ace + '/' + sal + '/' + group, 'POST', SaveExtraFieldListsObject, false).done(function (data) {
                 if (data == true) {
@@ -5242,7 +5245,15 @@ var ViewModel = function () {
 
             });
         }
+        codeKalaFileNo = 0;
     })
+
+    var codeKalaFileNo = 0;
+    self.UpdateKalaFileNo = function (item) {
+        codeKalaFileNo = item.Code;
+        $("#E_KalaFileNo").val(item.Name);
+    }
+
 
 
 
@@ -5332,12 +5343,16 @@ var ViewModel = function () {
 
     self.selectKalaState = function (item) {
         IDocB[ro].KalaState = item.Name;
-        dataGrid.cellValue(ro, "KalaState", item.Name)
+        dataGrid.cellValue(ro, "KalaState", item.Name);
+        codeKalaState = 0;
+        $('#modal-KalaState').modal('hide');
+
     }
 
 
     $('#modal-KalaState').on('shown.bs.modal', function () {
         $("#E_KalaState").val('');
+        codeKalaState = 0;
         $('.fix').attr('class', 'form-line focused fix');
     });
 
@@ -5386,10 +5401,15 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaState = 0;
         }
     })
 
-
+    var codeKalaState = 0;
+    self.UpdateKalaState = function (item) {
+        codeKalaState = item.Code;
+        $("#E_KalaState").val(item.Name);
+    }
 
 
 
@@ -5479,13 +5499,16 @@ var ViewModel = function () {
 
     self.selectKalaExf1 = function (item) {
         IDocB[ro].KalaExf1 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf1", item.Name)
+        dataGrid.cellValue(ro, "KalaExf1", item.Name);
+        codeKalaExf1 = 0;
+        $('#modal-KalaExf1').modal('hide');
     }
 
 
     $('#modal-KalaExf1').on('shown.bs.modal', function () {
         $("#E_KalaExf1").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf1 = 0;
     });
 
 
@@ -5533,12 +5556,17 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf1 = 0;
         }
     })
 
 
 
-
+    var codeKalaExf1 = 0;
+    self.UpdateKalaExf1 = function (item) {
+        codeKalaExf1 = item.Code;
+        $("#E_KalaExf1").val(item.Name);
+    }
 
 
 
@@ -5640,13 +5668,16 @@ var ViewModel = function () {
 
     self.selectKalaExf2 = function (item) {
         IDocB[ro].KalaExf2 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf2", item.Name)
+        dataGrid.cellValue(ro, "KalaExf2", item.Name);
+        codeKalaExf2 = 0;
+        $('#modal-KalaExf2').modal('hide');
     }
 
 
     $('#modal-KalaExf2').on('shown.bs.modal', function () {
         $("#E_KalaExf2").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf2 = 0;
     });
 
 
@@ -5694,8 +5725,14 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf2 = 0;
         }
     })
+    var codeKalaExf2 = 0;
+    self.UpdateKalaExf2 = function (item) {
+        codeKalaExf2 = item.Code;
+        $("#E_KalaExf2").val(item.Name);
+    }
 
 
 
@@ -5705,8 +5742,7 @@ var ViewModel = function () {
 
 
 
-
-        self.currentPageKalaExf3 = ko.observable();
+    self.currentPageKalaExf3 = ko.observable();
     pageSizeKalaExf3 = localStorage.getItem('pageSizeKalaExf3') == null ? 10 : localStorage.getItem('pageSizeKalaExf3');
     self.pageSizeKalaExf3 = ko.observable(pageSizeKalaExf3);
     self.currentPageIndexKalaExf3 = ko.observable(0);
@@ -5790,13 +5826,16 @@ var ViewModel = function () {
 
     self.selectKalaExf3 = function (item) {
         IDocB[ro].KalaExf3 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf3", item.Name)
+        dataGrid.cellValue(ro, "KalaExf3", item.Name);
+        codeKalaExf3 = 0;
+        $('#modal-KalaExf3').modal('hide');
     }
 
 
     $('#modal-KalaExf3').on('shown.bs.modal', function () {
         $("#E_KalaExf3").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf3 = 0;
     });
 
 
@@ -5844,10 +5883,16 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf3 = 0;
         }
     })
 
 
+    var codeKalaExf3 = 0;
+    self.UpdateKalaExf3 = function (item) {
+        codeKalaExf3 = item.Code;
+        $("#E_KalaExf3").val(item.Name);
+    }
 
 
 
@@ -5856,8 +5901,7 @@ var ViewModel = function () {
 
 
 
-
-        self.currentPageKalaExf4 = ko.observable();
+    self.currentPageKalaExf4 = ko.observable();
     pageSizeKalaExf4 = localStorage.getItem('pageSizeKalaExf4') == null ? 10 : localStorage.getItem('pageSizeKalaExf4');
     self.pageSizeKalaExf4 = ko.observable(pageSizeKalaExf4);
     self.currentPageIndexKalaExf4 = ko.observable(0);
@@ -5941,13 +5985,16 @@ var ViewModel = function () {
 
     self.selectKalaExf4 = function (item) {
         IDocB[ro].KalaExf4 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf4", item.Name)
+        dataGrid.cellValue(ro, "KalaExf4", item.Name);
+        codeKalaExf4 = 0;
+        $('#modal-KalaExf4').modal('hide');
     }
 
 
     $('#modal-KalaExf4').on('shown.bs.modal', function () {
         $("#E_KalaExf4").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf4 = 0;
     });
 
 
@@ -5995,10 +6042,16 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf4 = 0;
         }
     })
 
 
+    var codeKalaExf4 = 0;
+    self.UpdateKalaExf4 = function (item) {
+        codeKalaExf4 = item.Code;
+        $("#E_KalaExf4").val(item.Name);
+    }
 
 
 
@@ -6008,8 +6061,7 @@ var ViewModel = function () {
 
 
 
-
-        self.currentPageKalaExf5 = ko.observable();
+    self.currentPageKalaExf5 = ko.observable();
     pageSizeKalaExf5 = localStorage.getItem('pageSizeKalaExf5') == null ? 10 : localStorage.getItem('pageSizeKalaExf5');
     self.pageSizeKalaExf5 = ko.observable(pageSizeKalaExf5);
     self.currentPageIndexKalaExf5 = ko.observable(0);
@@ -6093,13 +6145,16 @@ var ViewModel = function () {
 
     self.selectKalaExf5 = function (item) {
         IDocB[ro].KalaExf5 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf5", item.Name)
+        dataGrid.cellValue(ro, "KalaExf5", item.Name);
+        codeKalaExf5 = 0;
+        $('#modal-KalaExf5').modal('hide');
     }
 
 
     $('#modal-KalaExf5').on('shown.bs.modal', function () {
         $("#E_KalaExf5").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf5 = 0;
     });
 
 
@@ -6147,9 +6202,15 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf5 = 0;
         }
     })
 
+    var codeKalaExf5 = 0;
+    self.UpdateKalaExf5 = function (item) {
+        codeKalaExf5 = item.Code;
+        $("#E_KalaExf5").val(item.Name);
+    }
 
 
 
@@ -6160,8 +6221,7 @@ var ViewModel = function () {
 
 
 
-
-        self.currentPageKalaExf6 = ko.observable();
+    self.currentPageKalaExf6 = ko.observable();
     pageSizeKalaExf6 = localStorage.getItem('pageSizeKalaExf6') == null ? 10 : localStorage.getItem('pageSizeKalaExf6');
     self.pageSizeKalaExf6 = ko.observable(pageSizeKalaExf6);
     self.currentPageIndexKalaExf6 = ko.observable(0);
@@ -6245,13 +6305,16 @@ var ViewModel = function () {
 
     self.selectKalaExf6 = function (item) {
         IDocB[ro].KalaExf6 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf6", item.Name)
+        dataGrid.cellValue(ro, "KalaExf6", item.Name);
+        codeKalaExf6 = 0;
+        $('#modal-KalaExf6').modal('hide');
     }
 
 
     $('#modal-KalaExf6').on('shown.bs.modal', function () {
         $("#E_KalaExf6").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf6 = 0;
     });
 
 
@@ -6299,15 +6362,20 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf6 = 0;
         }
     })
 
+    var codeKalaExf6 = 0;
+    self.UpdateKalaExf6 = function (item) {
+        codeKalaExf6 = item.Code;
+        $("#E_KalaExf6").val(item.Name);
+    }
 
 
 
 
-
-        self.currentPageKalaExf7 = ko.observable();
+    self.currentPageKalaExf7 = ko.observable();
     pageSizeKalaExf7 = localStorage.getItem('pageSizeKalaExf7') == null ? 10 : localStorage.getItem('pageSizeKalaExf7');
     self.pageSizeKalaExf7 = ko.observable(pageSizeKalaExf7);
     self.currentPageIndexKalaExf7 = ko.observable(0);
@@ -6391,13 +6459,16 @@ var ViewModel = function () {
 
     self.selectKalaExf7 = function (item) {
         IDocB[ro].KalaExf7 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf7", item.Name)
+        dataGrid.cellValue(ro, "KalaExf7", item.Name);
+        codeKalaExf7 = 0;
+        $('#modal-KalaExf7').modal('hide');
     }
 
 
     $('#modal-KalaExf7').on('shown.bs.modal', function () {
         $("#E_KalaExf7").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf7 = 0;
     });
 
 
@@ -6445,15 +6516,20 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf7 = 0;
         }
     })
 
+    var codeKalaExf7 = 0;
+    self.UpdateKalaExf7 = function (item) {
+        codeKalaExf7 = item.Code;
+        $("#E_KalaExf7").val(item.Name);
+    }
 
 
 
 
-
-        self.currentPageKalaExf8 = ko.observable();
+    self.currentPageKalaExf8 = ko.observable();
     pageSizeKalaExf8 = localStorage.getItem('pageSizeKalaExf8') == null ? 10 : localStorage.getItem('pageSizeKalaExf8');
     self.pageSizeKalaExf8 = ko.observable(pageSizeKalaExf8);
     self.currentPageIndexKalaExf8 = ko.observable(0);
@@ -6537,13 +6613,16 @@ var ViewModel = function () {
 
     self.selectKalaExf8 = function (item) {
         IDocB[ro].KalaExf8 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf8", item.Name)
+        dataGrid.cellValue(ro, "KalaExf8", item.Name);
+        codeKalaExf8 = 0;
+        $('#modal-KalaExf8').modal('hide');
     }
 
 
     $('#modal-KalaExf8').on('shown.bs.modal', function () {
         $("#E_KalaExf8").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf8 = 0;
     });
 
 
@@ -6591,12 +6670,17 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf8 = 0;
         }
     })
 
+    var codeKalaExf8 = 0;
+    self.UpdateKalaExf8 = function (item) {
+        codeKalaExf8 = item.Code;
+        $("#E_KalaExf8").val(item.Name);
+    }
 
-
-        self.currentPageKalaExf9 = ko.observable();
+    self.currentPageKalaExf9 = ko.observable();
     pageSizeKalaExf9 = localStorage.getItem('pageSizeKalaExf9') == null ? 10 : localStorage.getItem('pageSizeKalaExf9');
     self.pageSizeKalaExf9 = ko.observable(pageSizeKalaExf9);
     self.currentPageIndexKalaExf9 = ko.observable(0);
@@ -6680,13 +6764,16 @@ var ViewModel = function () {
 
     self.selectKalaExf9 = function (item) {
         IDocB[ro].KalaExf9 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf9", item.Name)
+        dataGrid.cellValue(ro, "KalaExf9", item.Name);
+        codeKalaExf9 = 0;
+        $('#modal-KalaExf9').modal('hide');
     }
 
 
     $('#modal-KalaExf9').on('shown.bs.modal', function () {
         $("#E_KalaExf9").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf9 = 0;
     });
 
 
@@ -6734,11 +6821,16 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf9 = 0;
         }
     })
+    var codeKalaExf9 = 0;
+    self.UpdateKalaExf9 = function (item) {
+        codeKalaExf9 = item.Code;
+        $("#E_KalaExf9").val(item.Name);
+    }
 
-
-        self.currentPageKalaExf10 = ko.observable();
+    self.currentPageKalaExf10 = ko.observable();
     pageSizeKalaExf10 = localStorage.getItem('pageSizeKalaExf10') == null ? 10 : localStorage.getItem('pageSizeKalaExf10');
     self.pageSizeKalaExf10 = ko.observable(pageSizeKalaExf10);
     self.currentPageIndexKalaExf10 = ko.observable(0);
@@ -6822,13 +6914,16 @@ var ViewModel = function () {
 
     self.selectKalaExf10 = function (item) {
         IDocB[ro].KalaExf10 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf10", item.Name)
+        dataGrid.cellValue(ro, "KalaExf10", item.Name);
+        codeKalaExf10 = 0;
+        $('#modal-KalaExf10').modal('hide');
     }
 
 
     $('#modal-KalaExf10').on('shown.bs.modal', function () {
         $("#E_KalaExf10").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf10 = 0;
     });
 
 
@@ -6876,10 +6971,15 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf10 = 0;
         }
     })
 
-
+    var codeKalaExf10 = 0;
+    self.UpdateKalaExf10 = function (item) {
+        codeKalaExf10 = item.Code;
+        $("#E_KalaExf10").val(item.Name);
+    }
     self.currentPageKalaExf11 = ko.observable();
     pageSizeKalaExf11 = localStorage.getItem('pageSizeKalaExf11') == null ? 10 : localStorage.getItem('pageSizeKalaExf11');
     self.pageSizeKalaExf11 = ko.observable(pageSizeKalaExf11);
@@ -6964,13 +7064,16 @@ var ViewModel = function () {
 
     self.selectKalaExf11 = function (item) {
         IDocB[ro].KalaExf11 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf11", item.Name)
+        dataGrid.cellValue(ro, "KalaExf11", item.Name);
+        codeKalaExf11 = 0;
+        $('#modal-KalaExf11').modal('hide');
     }
 
 
     $('#modal-KalaExf11').on('shown.bs.modal', function () {
         $("#E_KalaExf11").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf11 = 0;
     });
 
 
@@ -7018,10 +7121,16 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf11 = 0;
         }
+
     })
 
-
+    var codeKalaExf11 = 0;
+    self.UpdateKalaExf11 = function (item) {
+        codeKalaExf11 = item.Code;
+        $("#E_KalaExf11").val(item.Name);
+    }
     self.currentPageKalaExf12 = ko.observable();
     pageSizeKalaExf12 = localStorage.getItem('pageSizeKalaExf12') == null ? 10 : localStorage.getItem('pageSizeKalaExf12');
     self.pageSizeKalaExf12 = ko.observable(pageSizeKalaExf12);
@@ -7106,13 +7215,16 @@ var ViewModel = function () {
 
     self.selectKalaExf12 = function (item) {
         IDocB[ro].KalaExf12 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf12", item.Name)
+        dataGrid.cellValue(ro, "KalaExf12", item.Name);
+        codeKalaExf12 = 0;
+        $('#modal-KalaExf12').modal('hide');
     }
 
 
     $('#modal-KalaExf12').on('shown.bs.modal', function () {
         $("#E_KalaExf12").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf12 = 0;
     });
 
 
@@ -7160,8 +7272,15 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf12 = 0;
         }
     })
+    var codeKalaExf12 = 0;
+    self.UpdateKalaExf12 = function (item) {
+        codeKalaExf12 = item.Code;
+        $("#E_KalaExf12").val(item.Name);
+    }
+
 
     self.currentPageKalaExf13 = ko.observable();
     pageSizeKalaExf13 = localStorage.getItem('pageSizeKalaExf13') == null ? 10 : localStorage.getItem('pageSizeKalaExf13');
@@ -7247,13 +7366,16 @@ var ViewModel = function () {
 
     self.selectKalaExf13 = function (item) {
         IDocB[ro].KalaExf13 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf13", item.Name)
+        dataGrid.cellValue(ro, "KalaExf13", item.Name);
+        codeKalaExf13 = 0;
+        $('#modal-KalaExf13').modal('hide');
     }
 
 
     $('#modal-KalaExf13').on('shown.bs.modal', function () {
         $("#E_KalaExf13").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf13 = 0;
     });
 
 
@@ -7301,11 +7423,19 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf13 = 0;
         }
     })
 
+    var codeKalaExf13 = 0;
+    self.UpdateKalaExf13 = function (item) {
+        codeKalaExf13 = item.Code;
+        $("#E_KalaExf13").val(item.Name);
+    }
 
-        self.currentPageKalaExf14 = ko.observable();
+
+
+    self.currentPageKalaExf14 = ko.observable();
     pageSizeKalaExf14 = localStorage.getItem('pageSizeKalaExf14') == null ? 10 : localStorage.getItem('pageSizeKalaExf14');
     self.pageSizeKalaExf14 = ko.observable(pageSizeKalaExf14);
     self.currentPageIndexKalaExf14 = ko.observable(0);
@@ -7389,13 +7519,16 @@ var ViewModel = function () {
 
     self.selectKalaExf14 = function (item) {
         IDocB[ro].KalaExf14 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf14", item.Name)
+        dataGrid.cellValue(ro, "KalaExf14", item.Name);
+        codeKalaExf14 = 0;
+        $('#modal-KalaExf14').modal('hide');
     }
 
 
     $('#modal-KalaExf14').on('shown.bs.modal', function () {
         $("#E_KalaExf14").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf14 = 0;
     });
 
 
@@ -7443,11 +7576,19 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf14 = 0;
         }
     })
+    var codeKalaExf14 = 0;
+    self.UpdateKalaExf14 = function (item) {
+        codeKalaExf14 = item.Code;
+        $("#E_KalaExf14").val(item.Name);
+    }
 
 
-        self.currentPageKalaExf15 = ko.observable();
+
+
+    self.currentPageKalaExf15 = ko.observable();
     pageSizeKalaExf15 = localStorage.getItem('pageSizeKalaExf15') == null ? 10 : localStorage.getItem('pageSizeKalaExf15');
     self.pageSizeKalaExf15 = ko.observable(pageSizeKalaExf15);
     self.currentPageIndexKalaExf15 = ko.observable(0);
@@ -7531,13 +7672,16 @@ var ViewModel = function () {
 
     self.selectKalaExf15 = function (item) {
         IDocB[ro].KalaExf15 = item.Name;
-        dataGrid.cellValue(ro, "KalaExf15", item.Name)
+        dataGrid.cellValue(ro, "KalaExf15", item.Name);
+        codeKalaExf15 = 0;
+        $('#modal-KalaExf15').modal('hide');
     }
 
 
     $('#modal-KalaExf15').on('shown.bs.modal', function () {
         $("#E_KalaExf15").val('');
         $('.fix').attr('class', 'form-line focused fix');
+        codeKalaExf15 = 0;
     });
 
 
@@ -7585,10 +7729,15 @@ var ViewModel = function () {
                 }
 
             });
+            codeKalaExf15 = 0;
         }
     })
 
-
+    var codeKalaExf15 = 0;
+    self.UpdateKalaExf15 = function (item) {
+        codeKalaExf15 = item.Code;
+        $("#E_KalaExf15").val(item.Name);
+    }
 
 
 
@@ -8117,9 +8266,9 @@ var ViewModel = function () {
     };
 
 
-  /*  self.PageIndexKalaState = function (item) {
-        return CountPage(self.filterKalaStateList(), self.pageSizeKalaState(), item);
-    };*/
+    /*  self.PageIndexKalaState = function (item) {
+          return CountPage(self.filterKalaStateList(), self.pageSizeKalaState(), item);
+      };*/
 
 
     self.PageIndexMkz = function (item) {
