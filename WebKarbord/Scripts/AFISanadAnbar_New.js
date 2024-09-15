@@ -619,7 +619,7 @@ var ViewModel = function () {
         });
     }
 
-    if (sessionStorage.InOut == 1) {
+    if (sessionStorage.InOut == 1 && ace == 'Web8') {
         getKalaExf_InvList('KalaFileNo');
         getKalaExf_InvList('KalaState');
         getKalaExf_InvList('KalaExf1');
@@ -3118,7 +3118,7 @@ var ViewModel = function () {
 
 
 
-                                if (sessionStorage.InOut == 2) {
+                                if (sessionStorage.InOut == 2 && ace == 'Web8') {
                                     getKalaExf_OutList($("#inv").val(), dataKala.Code);
                                     if (self.KalaExf_OutList().length > 0) {
                                         $('#modal-KalaExf_Out').modal('show');
@@ -3268,7 +3268,7 @@ var ViewModel = function () {
 
                                 GetTrzIKala(dataKala.Code, defaultUnit);
 
-                                if (sessionStorage.InOut == 2) {
+                                if (sessionStorage.InOut == 2 && ace == 'Web8') {
                                     getKalaExf_OutList($("#inv").val(), dataKala.Code);
                                     if (self.KalaExf_OutList().length > 0) {
                                         $('#modal-KalaExf_Out').modal('show');
