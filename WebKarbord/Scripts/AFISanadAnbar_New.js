@@ -401,6 +401,7 @@ var ViewModel = function () {
     var ArzUri = server + '/api/Web_Data/Arz/'; // آدرس ارز 
 
     var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس مانده کالا 
+    var TrzIExfUri = server + '/api/ReportInv/TrzIExf/'; // آدرس گزارش 
     var KalaExf_InvUri = server + '/api/IDocData/KalaExf_Inv/'; // آدرس لیست وسژگی کالا 
     var SaveExtraFieldListsUri = server + '/api/Web_Data/SaveExtraFieldLists/'; // آدرس ذخیره 
 
@@ -761,6 +762,94 @@ var ViewModel = function () {
         });
     }
 
+
+
+
+    function GetTrzIKalaExf(invCode, kalaCode, mainUnit,
+        kalaFileNo,
+        kalaState,
+        kalaExf1,
+        kalaExf2,
+        kalaExf3,
+        kalaExf4,
+        kalaExf5,
+        kalaExf6,
+        kalaExf7,
+        kalaExf8,
+        kalaExf9,
+        kalaExf10,
+        kalaExf11,
+        kalaExf12,
+        kalaExf13,
+        kalaExf14,
+        kalaExf15
+    ) {
+        taTarikh = $("#tarikh").val().toEnglishDigit();
+
+        var TrzIExfObject = {
+            azTarikh: '',
+            taTarikh: taTarikh,
+            StatusCode: 'موقت ,تایید ,تصویب',
+            ModeCode: '',
+            InvCode: invCode,
+            KGruCode: '',
+            KalaCode: kalaCode,
+            ThvlCode: '',
+            TGruCode: '',
+            MkzCode: '',
+            OprCode: '',
+        };
+
+        ajaxFunction(TrzIExfUri + ace + '/' + sal + '/' + group, 'POST', TrzIExfObject, true).done(function (data) {
+            
+            mAmount = 0;
+            mTotalPrice = 0;
+            if (data == notAccess) {
+                $('#MAmount').text("به گزارش دسترسی ندارید");
+                $('#MTotalPrice').text("به گزارش دسترسی ندارید");
+                $('#MAmount').css('color', 'red');
+                $('#MTotalPrice').css('color', 'red');
+            }
+            else {
+                data = data.filter(
+                    s =>
+                        s.InvCode == invCode &&
+                        s.KalaFileNo == kalaFileNo &&
+                        s.KalaState == kalaState &&
+                        s.KalaExf1 == kalaExf1 && 
+                        s.KalaExf2 == kalaExf2 && 
+                        s.KalaExf3 == kalaExf3 && 
+                        s.KalaExf4 == kalaExf4 && 
+                        s.KalaExf5 == kalaExf5 && 
+                        s.KalaExf6 == kalaExf6 && 
+                        s.KalaExf7 == kalaExf7 && 
+                        s.KalaExf8 == kalaExf8 && 
+                        s.KalaExf9 == kalaExf9 && 
+                        s.KalaExf10 == kalaExf10 && 
+                        s.KalaExf11 == kalaExf11 && 
+                        s.KalaExf12 == kalaExf12 && 
+                        s.KalaExf13 == kalaExf13 && 
+                        s.KalaExf14 == kalaExf14 && 
+                        s.KalaExf15 == kalaExf15
+                    );
+                for (var i = 0; i < data.length; i++) {
+                    if (mainUnit == 1) {
+                        mAmount += data[i].MAmount1;
+                    }
+                    else if (mainUnit == 2) {
+                        mAmount += data[i].MAmount2;
+                    }
+                    else if (mainUnit == 3) {
+                        mAmount += data[i].MAmount3;
+                    }
+                    mTotalPrice += data[i].MTotalPrice;
+                }
+                $("#MAmount").text(NumberToNumberString(mAmount));
+                $("#MTotalPrice").text(NumberToNumberString(mTotalPrice));
+            }
+
+        });
+    }
 
 
     self.OptionsCaptionAnbar = ko.computed(function () {
@@ -5090,6 +5179,30 @@ var ViewModel = function () {
         dataGrid.cellValue(ro, "KalaExf13", item.KalaExf13)
         dataGrid.cellValue(ro, "KalaExf14", item.KalaExf14)
         dataGrid.cellValue(ro, "KalaExf15", item.KalaExf15)
+
+        GetTrzIKalaExf(
+            $("#inv").val(),
+            item.Code,
+            defaultUnit,
+            item.KalaFileNo,
+            item.KalaState,
+            item.KalaExf1,
+            item.KalaExf2,
+            item.KalaExf3,
+            item.KalaExf4,
+            item.KalaExf5,
+            item.KalaExf6,
+            item.KalaExf7,
+            item.KalaExf8,
+            item.KalaExf9,
+            item.KalaExf10,
+            item.KalaExf11,
+            item.KalaExf12,
+            item.KalaExf13,
+            item.KalaExf14,
+            item.KalaExf15
+        )
+
     }
 
 
