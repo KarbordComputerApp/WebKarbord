@@ -403,6 +403,7 @@ var ViewModel = function () {
     var TrzIUri = server + '/api/ReportInv/TrzI/'; // آدرس مانده کالا 
     var TrzIExfUri = server + '/api/ReportInv/TrzIExf/'; // آدرس گزارش 
     var KalaExf_InvUri = server + '/api/IDocData/KalaExf_Inv/'; // آدرس لیست وسژگی کالا 
+    var KalaMjdUri = server + '/api/Web_Data/KalaMjd/'; // آدرس لیست  موجودی کالا 
     var SaveExtraFieldListsUri = server + '/api/Web_Data/SaveExtraFieldLists/'; // آدرس ذخیره 
 
 
@@ -801,7 +802,7 @@ var ViewModel = function () {
         };
 
         ajaxFunction(TrzIExfUri + ace + '/' + sal + '/' + group, 'POST', TrzIExfObject, true).done(function (data) {
-            
+
             mAmount = 0;
             mTotalPrice = 0;
             if (data == notAccess) {
@@ -816,22 +817,22 @@ var ViewModel = function () {
                         s.InvCode == invCode &&
                         s.KalaFileNo == kalaFileNo &&
                         s.KalaState == kalaState &&
-                        s.KalaExf1 == kalaExf1 && 
-                        s.KalaExf2 == kalaExf2 && 
-                        s.KalaExf3 == kalaExf3 && 
-                        s.KalaExf4 == kalaExf4 && 
-                        s.KalaExf5 == kalaExf5 && 
-                        s.KalaExf6 == kalaExf6 && 
-                        s.KalaExf7 == kalaExf7 && 
-                        s.KalaExf8 == kalaExf8 && 
-                        s.KalaExf9 == kalaExf9 && 
-                        s.KalaExf10 == kalaExf10 && 
-                        s.KalaExf11 == kalaExf11 && 
-                        s.KalaExf12 == kalaExf12 && 
-                        s.KalaExf13 == kalaExf13 && 
-                        s.KalaExf14 == kalaExf14 && 
+                        s.KalaExf1 == kalaExf1 &&
+                        s.KalaExf2 == kalaExf2 &&
+                        s.KalaExf3 == kalaExf3 &&
+                        s.KalaExf4 == kalaExf4 &&
+                        s.KalaExf5 == kalaExf5 &&
+                        s.KalaExf6 == kalaExf6 &&
+                        s.KalaExf7 == kalaExf7 &&
+                        s.KalaExf8 == kalaExf8 &&
+                        s.KalaExf9 == kalaExf9 &&
+                        s.KalaExf10 == kalaExf10 &&
+                        s.KalaExf11 == kalaExf11 &&
+                        s.KalaExf12 == kalaExf12 &&
+                        s.KalaExf13 == kalaExf13 &&
+                        s.KalaExf14 == kalaExf14 &&
                         s.KalaExf15 == kalaExf15
-                    );
+                );
                 for (var i = 0; i < data.length; i++) {
                     if (mainUnit == 1) {
                         mAmount += data[i].MAmount1;
@@ -850,6 +851,87 @@ var ViewModel = function () {
 
         });
     }
+
+
+
+    var mAmount_Mjd
+    var mTotalPrice_Mjd
+    function GetKalaMjd(kalaCode,
+        kalaFileNo,
+        kalaState,
+        kalaExf1,
+        kalaExf2,
+        kalaExf3,
+        kalaExf4,
+        kalaExf5,
+        kalaExf6,
+        kalaExf7,
+        kalaExf8,
+        kalaExf9,
+        kalaExf10,
+        kalaExf11,
+        kalaExf12,
+        kalaExf13,
+        kalaExf14,
+        kalaExf15
+    ) {
+
+        taTarikh = $("#tarikh").val().toEnglishDigit();
+        if (taTarikh == null || taTarikh == "") {
+            taTarikh = self.DocDate();
+        }
+
+        invMjd = $("#inv").val();
+        if (invMjd == null || invMjd == "") {
+            invMjd = invSelect;
+        }
+
+        var KalaMjdObject = {
+            FromDate: '',
+            ToDate: taTarikh,
+            InvCode: invMjd,
+            KalaCode: kalaCode,
+            KalaFileNo: kalaFileNo,
+            KalaState: kalaState,
+            KalaExf1: kalaExf1,
+            KalaExf2: kalaExf2,
+            KalaExf3: kalaExf3,
+            KalaExf4: kalaExf4,
+            KalaExf5: kalaExf5,
+            KalaExf6: kalaExf6,
+            KalaExf7: kalaExf7,
+            KalaExf8: kalaExf8,
+            KalaExf9: kalaExf9,
+            KalaExf10: kalaExf10,
+            KalaExf11: kalaExf11,
+            KalaExf12: kalaExf12,
+            KalaExf13: kalaExf13,
+            KalaExf14: kalaExf14,
+            KalaExf15: kalaExf15
+        };
+        mAmount_Mjd = 0;
+        mTotalPrice_Mjd = 0;
+
+        ajaxFunction(KalaMjdUri + ace + '/' + sal + '/' + group, 'POST', KalaMjdObject, false).done(function (data) {
+            if (data == notAccess) {
+                $('#MAmount').text("به گزارش دسترسی ندارید");
+                $('#MTotalPrice').text("به گزارش دسترسی ندارید");
+                $('#MAmount').css('color', 'red');
+                $('#MTotalPrice').css('color', 'red');
+            }
+            else {
+                if (data.length > 0) {
+                    mAmount_Mjd = data[0].Amount1;
+                    mTotalPrice_Mjd = 0;
+                }
+                //$("#MAmount").text(NumberToNumberString(mAmount_Mjd));
+                //$("#MTotalPrice").text(NumberToNumberString(mTotalPrice_Mjd));
+            }
+
+        });
+    }
+
+
 
 
     self.OptionsCaptionAnbar = ko.computed(function () {
@@ -1136,9 +1218,32 @@ var ViewModel = function () {
                 if (KalaData.length > 0) {
                     data[i].dataKala = KalaData[0];
                 }
+
+                GetKalaMjd(
+                    data[i].KalaCode,
+                    data[i].KalaFileNo,
+                    data[i].KalaState,
+                    data[i].KalaExf1,
+                    data[i].KalaExf2,
+                    data[i].KalaExf3,
+                    data[i].KalaExf4,
+                    data[i].KalaExf5,
+                    data[i].KalaExf6,
+                    data[i].KalaExf7,
+                    data[i].KalaExf8,
+                    data[i].KalaExf9,
+                    data[i].KalaExf10,
+                    data[i].KalaExf11,
+                    data[i].KalaExf12,
+                    data[i].KalaExf13,
+                    data[i].KalaExf14,
+                    data[i].KalaExf15
+                );
+                data[i].KalaMjd = mAmount_Mjd;
             }
             IDocB = data;
             GetRprtCols_NewList(sessionStorage.userName);
+
         });
 
     }
@@ -1853,6 +1958,10 @@ var ViewModel = function () {
                     if (columnName == 'KalaExf13' && isSelectedKalaExf) { $("#modal-KalaExf13").modal('show'); }
                     if (columnName == 'KalaExf14' && isSelectedKalaExf) { $("#modal-KalaExf14").modal('show'); }
                     if (columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
+
+                    $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
+                    $("#MTotalPrice").text(NumberToNumberString(0));
+
                 }
 
 
@@ -3194,11 +3303,38 @@ var ViewModel = function () {
                                     Price3 = parseFloat(dataKala.PPrice3);
                                 }
 
-                                getKalaPriceBList(dataKala.Code);
+                                //getKalaPriceBList(dataKala.Code);
 
                                 dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
 
-                                GetTrzIKala(dataKala.Code, defaultUnit);
+                                
+                                //GetTrzIKala(dataKala.Code, defaultUnit);
+
+                                GetKalaMjd(
+                                    dataKala.Code,
+                                    IDocB[ro].KalaFileNo,
+                                    IDocB[ro].KalaState,
+                                    IDocB[ro].KalaExf1,
+                                    IDocB[ro].KalaExf2,
+                                    IDocB[ro].KalaExf3,
+                                    IDocB[ro].KalaExf4,
+                                    IDocB[ro].KalaExf5,
+                                    IDocB[ro].KalaExf6,
+                                    IDocB[ro].KalaExf7,
+                                    IDocB[ro].KalaExf8,
+                                    IDocB[ro].KalaExf9,
+                                    IDocB[ro].KalaExf10,
+                                    IDocB[ro].KalaExf11,
+                                    IDocB[ro].KalaExf12,
+                                    IDocB[ro].KalaExf13,
+                                    IDocB[ro].KalaExf14,
+                                    IDocB[ro].KalaExf15
+                                );
+                                IDocB[ro].KalaMjd = mAmount_Mjd;
+
+                                $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
+                                $("#MTotalPrice").text(NumberToNumberString(0));
+
                                 //KalaUnitList = [];
                                 //
                                 // KalaUnitList[0].Name = IDocB[ro].dataKala.UnitName1;
@@ -3355,7 +3491,33 @@ var ViewModel = function () {
 
                                 dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
 
-                                GetTrzIKala(dataKala.Code, defaultUnit);
+                                //GetTrzIKala(dataKala.Code, defaultUnit);
+
+
+                                GetKalaMjd(
+                                    dataKala.Code,
+                                    IDocB[ro].KalaFileNo,
+                                    IDocB[ro].KalaState,
+                                    IDocB[ro].KalaExf1,
+                                    IDocB[ro].KalaExf2,
+                                    IDocB[ro].KalaExf3,
+                                    IDocB[ro].KalaExf4,
+                                    IDocB[ro].KalaExf5,
+                                    IDocB[ro].KalaExf6,
+                                    IDocB[ro].KalaExf7,
+                                    IDocB[ro].KalaExf8,
+                                    IDocB[ro].KalaExf9,
+                                    IDocB[ro].KalaExf10,
+                                    IDocB[ro].KalaExf11,
+                                    IDocB[ro].KalaExf12,
+                                    IDocB[ro].KalaExf13,
+                                    IDocB[ro].KalaExf14,
+                                    IDocB[ro].KalaExf15
+                                );
+                                IDocB[ro].KalaMjd = mAmount_Mjd;
+
+                                $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
+                                $("#MTotalPrice").text(NumberToNumberString(0));
 
                                 if (sessionStorage.InOut == 2 && ace == 'Web8') {
                                     getKalaExf_OutList($("#inv").val(), dataKala.Code);
@@ -5180,7 +5342,34 @@ var ViewModel = function () {
         dataGrid.cellValue(ro, "KalaExf14", item.KalaExf14)
         dataGrid.cellValue(ro, "KalaExf15", item.KalaExf15)
 
-        GetTrzIKalaExf(
+
+        GetKalaMjd(
+            item.Code,
+            item.KalaFileNo,
+            item.KalaState,
+            item.KalaExf1,
+            item.KalaExf2,
+            item.KalaExf3,
+            item.KalaExf4,
+            item.KalaExf5,
+            item.KalaExf6,
+            item.KalaExf7,
+            item.KalaExf8,
+            item.KalaExf9,
+            item.KalaExf10,
+            item.KalaExf11,
+            item.KalaExf12,
+            item.KalaExf13,
+            item.KalaExf14,
+            item.KalaExf15
+        );
+        IDocB[ro].KalaMjd = mAmount_Mjd;
+
+        $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
+        $("#MTotalPrice").text(NumberToNumberString(0));
+
+
+  /*      GetTrzIKalaExf(
             $("#inv").val(),
             item.Code,
             defaultUnit,
@@ -5201,7 +5390,7 @@ var ViewModel = function () {
             item.KalaExf13,
             item.KalaExf14,
             item.KalaExf15
-        )
+        )*/
 
     }
 
