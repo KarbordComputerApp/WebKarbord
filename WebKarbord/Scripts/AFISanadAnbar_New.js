@@ -1960,8 +1960,8 @@ var ViewModel = function () {
                     if (columnName == 'KalaExf14' && isSelectedKalaExf) { $("#modal-KalaExf14").modal('show'); }
                     if (columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
 
-                    $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
-                    $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd ));
+                    $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd == null ? 0 : IDocB[ro].KalaMjd));
+                    $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd == null ? 0 : IDocB[ro].TotalPriceMjd ));
                 }
 
 
@@ -3497,6 +3497,7 @@ var ViewModel = function () {
 
                                 GetKalaMjd(
                                     dataKala.Code,
+                                    defaultUnit,
                                     IDocB[ro].KalaFileNo,
                                     IDocB[ro].KalaState,
                                     IDocB[ro].KalaExf1,
@@ -5347,6 +5348,7 @@ var ViewModel = function () {
 
         GetKalaMjd(
             item.Code,
+            defaultUnit,
             item.KalaFileNo,
             item.KalaState,
             item.KalaExf1,
