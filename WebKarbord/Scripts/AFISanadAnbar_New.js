@@ -920,8 +920,8 @@ var ViewModel = function () {
             }
             else {
                 if (data.length > 0) {
-                    mAmount_Mjd = data[0].Amount;
-                    mTotalPrice_Mjd = data[0].TotalPrice;
+                    mAmount_Mjd = data[0].Amount == null ? 0 : data[0].Amount;
+                    mTotalPrice_Mjd = data[0].TotalPrice == null ? 0 : data[0].TotalPrice;
                 }
                 //$("#MAmount").text(NumberToNumberString(mAmount_Mjd));
                 //$("#MTotalPrice").text(NumberToNumberString(mTotalPrice_Mjd));
