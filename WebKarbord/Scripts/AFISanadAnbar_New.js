@@ -716,7 +716,7 @@ var ViewModel = function () {
         });
     }
 
-
+    /*
     function GetTrzIKala(kalaCode, mainUnit) {
         taTarikh = $("#tarikh").val().toEnglishDigit();
 
@@ -762,10 +762,6 @@ var ViewModel = function () {
 
         });
     }
-
-
-
-
     function GetTrzIKalaExf(invCode, kalaCode, mainUnit,
         kalaFileNo,
         kalaState,
@@ -852,11 +848,13 @@ var ViewModel = function () {
         });
     }
 
-
+    */
 
     var mAmount_Mjd
     var mTotalPrice_Mjd
-    function GetKalaMjd(kalaCode,
+    function GetKalaMjd(
+        kalaCode,
+        mainUnit,
         kalaFileNo,
         kalaState,
         kalaExf1,
@@ -889,6 +887,7 @@ var ViewModel = function () {
         var KalaMjdObject = {
             FromDate: '',
             ToDate: taTarikh,
+            MainUnit: mainUnit,
             InvCode: invMjd,
             KalaCode: kalaCode,
             KalaFileNo: kalaFileNo,
@@ -921,8 +920,8 @@ var ViewModel = function () {
             }
             else {
                 if (data.length > 0) {
-                    mAmount_Mjd = data[0].Amount1;
-                    mTotalPrice_Mjd = 0;
+                    mAmount_Mjd = data[0].Amount;
+                    mTotalPrice_Mjd = data[0].TotalPrice;
                 }
                 //$("#MAmount").text(NumberToNumberString(mAmount_Mjd));
                 //$("#MTotalPrice").text(NumberToNumberString(mTotalPrice_Mjd));
@@ -1221,6 +1220,7 @@ var ViewModel = function () {
 
                 GetKalaMjd(
                     data[i].KalaCode,
+                    data[i].MainUnit,
                     data[i].KalaFileNo,
                     data[i].KalaState,
                     data[i].KalaExf1,
@@ -1240,6 +1240,7 @@ var ViewModel = function () {
                     data[i].KalaExf15
                 );
                 data[i].KalaMjd = mAmount_Mjd;
+                data[i].TotalPriceMjd = mTotalPrice_Mjd;
             }
             IDocB = data;
             GetRprtCols_NewList(sessionStorage.userName);
@@ -1960,8 +1961,7 @@ var ViewModel = function () {
                     if (columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
 
                     $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
-                    $("#MTotalPrice").text(NumberToNumberString(0));
-
+                    $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd ));
                 }
 
 
@@ -3331,9 +3331,10 @@ var ViewModel = function () {
                                     IDocB[ro].KalaExf15
                                 );
                                 IDocB[ro].KalaMjd = mAmount_Mjd;
+                                IDocB[ro].TotalPriceMjd = mTotalPrice_Mjd;
 
                                 $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
-                                $("#MTotalPrice").text(NumberToNumberString(0));
+                                $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd));
 
                                 //KalaUnitList = [];
                                 //
@@ -3515,9 +3516,10 @@ var ViewModel = function () {
                                     IDocB[ro].KalaExf15
                                 );
                                 IDocB[ro].KalaMjd = mAmount_Mjd;
+                                IDocB[ro].TotalPriceMjd = mTotalPrice_Mjd;
 
                                 $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
-                                $("#MTotalPrice").text(NumberToNumberString(0));
+                                $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd));
 
                                 if (sessionStorage.InOut == 2 && ace == 'Web8') {
                                     getKalaExf_OutList($("#inv").val(), dataKala.Code);
@@ -5364,9 +5366,10 @@ var ViewModel = function () {
             item.KalaExf15
         );
         IDocB[ro].KalaMjd = mAmount_Mjd;
+        IDocB[ro].TotalPriceMjd = mTotalPrice_Mjd;
 
         $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd));
-        $("#MTotalPrice").text(NumberToNumberString(0));
+        $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd));
 
 
   /*      GetTrzIKalaExf(
