@@ -25,16 +25,16 @@
 
                     <div id="buttom-header-dropdown" class="header-dropdown m-r--5">
                         <!-- <a id="Print" style="margin-left: 10px;">
-        <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-    </a> -->
+                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
+                        </a> -->
 
                         <strong data-bind="text:translate('سال مالی')"></strong>
                         <select id="DropSalFct" class="selectorange" style="direction: rtl;width: 100px; margin-left: 15px;"></select>
 
 
-                      <!--  <a id="LinkSanad" data-bind="attr: {title:text_LinkSanad}">
-                            <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
-                        </a> -->
+                        <!--  <a id="LinkSanad" data-bind="attr: {title:text_LinkSanad}">
+                              <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
+                          </a> -->
 
                         <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
@@ -47,12 +47,12 @@
                         </a>
 
                         <!--  <a id="AddNewFactor" class="">
-        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
-    </a>
+                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20" />
+                        </a>
 
-    <a id="AddNewFactor_New" class="">
-        <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="26" height="26" />
-    </a>-->
+                        <a id="AddNewFactor_New" class="">
+                            <img src="~/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="26" height="26" />
+                        </a>-->
 
                     </div>
                 </div>
@@ -326,7 +326,7 @@
 
 
 <div class="modal fade" id="modal-LinkSanad" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-    <div class="modal-dialog" >
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -536,6 +536,77 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-LinkAcc" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('ثبت سند حسابداری')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                <button data-bind="text:translate('تایید')" type="button" id="CreateLinkAcc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modal-TestLink" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4>خطا در ذخیره</h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div id="BodyTestDoc_Link" style="height:400px;overflow:auto;border: 1px #ddd solid;border-radius: 20px;">
+                </div>
+                <br />
+                <div>
+                    <div class="row  form-inline ">
+                        <div class="col-md-6 row">
+                            <div style="margin-right: 0px;margin-left: 0px;">
+                                <div id="ShowCountWarning" class="row" style="padding-bottom:5px;" data-bind="text:translate('مورد')">
+                                    <img src="~/Content/img/Warning.jpg" width="22" height="22" style="margin-left:5px;" /> <p><span data-bind="text:translate('هشدار') + ' : '"></span> <span id="CountWarning">1</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                </div>
+
+                                <div id="ShowCountError" class="row">
+                                    <img src="~/Content/img/Error.jpg" width="22" height="22" style="margin-left:5px;" /><p><span data-bind="text:translate('خطا') + ' : '"></span> <span id="CountError">0</span> <span data-bind="text:translate('مورد')"></span> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button data-bind="text:translate('بستن')" type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary pull-left" style="margin-right: 8px; width:100px; background-color: #eb8121 !important;"></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 

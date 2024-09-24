@@ -729,6 +729,8 @@ var ViewModel = function () {
     var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
     var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
 
+    var LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
+
     var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/';
     var RegFDocToIDocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToIDoc/';
 
@@ -3018,50 +3020,50 @@ var ViewModel = function () {
         thvlCode = "";
 
         var headSanad = {
-            BranchCode : 0,
-            DocDate : item.DocDate,
-            DocNo : "",
-            DocNoMode : 1,
-            Eghdam : sessionStorage.userName,
-            EghdamDate : "null",
-            EndNo : 0,
-            F01 : item.F01,
-            F02 : item.F02,
-            F03 : item.F03,
-            F04 : item.F04,
-            F05 : item.F05,
-            F06 : item.F06,
-            F07 : item.F07,
-            F08 : item.F08,
-            F09 : item.F09,
-            F10 : item.F10,
-            F11 : item.F11,
-            F12 : item.F12,
-            F13 : item.F13,
-            F14 : item.F14,
-            F15 : item.F15,
-            F16 : item.F16,
-            F17 : item.F17,
-            F18 : item.F18,
-            F19 : item.F19,
-            F20 : item.F20,
-            Footer : item.Footer,
-            InsertMode : 0,
-            InvCode : invCode,
-            KalaPriceCode : item.KalaPriceCode,
-            ModeCode : modeCodeSanad,
-            PakhshCode : "",
-            SerialNumber : 0,
-            Spec : item.Spec,
-            StartNo : 0,
-            TahieShode : ace,
-            Tanzim : sessionStorage.userName,
-            ThvlCode : thvlCode,
-            UserCode : sessionStorage.userName,
-            VstrCode : 0,
-            VstrPer : 0,
-            flagLog : "N",
-            flagTest : "Y"
+            BranchCode: 0,
+            DocDate: item.DocDate,
+            DocNo: "",
+            DocNoMode: 1,
+            Eghdam: sessionStorage.userName,
+            EghdamDate: "null",
+            EndNo: 0,
+            F01: item.F01,
+            F02: item.F02,
+            F03: item.F03,
+            F04: item.F04,
+            F05: item.F05,
+            F06: item.F06,
+            F07: item.F07,
+            F08: item.F08,
+            F09: item.F09,
+            F10: item.F10,
+            F11: item.F11,
+            F12: item.F12,
+            F13: item.F13,
+            F14: item.F14,
+            F15: item.F15,
+            F16: item.F16,
+            F17: item.F17,
+            F18: item.F18,
+            F19: item.F19,
+            F20: item.F20,
+            Footer: item.Footer,
+            InsertMode: 0,
+            InvCode: invCode,
+            KalaPriceCode: item.KalaPriceCode,
+            ModeCode: modeCodeSanad,
+            PakhshCode: "",
+            SerialNumber: 0,
+            Spec: item.Spec,
+            StartNo: 0,
+            TahieShode: ace,
+            Tanzim: sessionStorage.userName,
+            ThvlCode: thvlCode,
+            UserCode: sessionStorage.userName,
+            VstrCode: 0,
+            VstrPer: 0,
+            flagLog: "N",
+            flagTest: "Y"
         };
 
         ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serial, 'GET').done(function (data) {
@@ -3076,19 +3078,19 @@ var ViewModel = function () {
                 a = res
                 showNotification("سند انبار یه شماره مبنا " + res.SerialNumber + " ایجاد شد", 1);
 
-               /* if (TestUseSanad(ace, sal, "SanadAnbar", res.SerialNumber, false, Band.DocNo) == true) {
-                }
-                else {
-                    localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
-                    localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
-                    localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
-                    localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
-                    window.open(sessionStorage.urlAFISanadAnbarIndex);
-                }*/
+                /* if (TestUseSanad(ace, sal, "SanadAnbar", res.SerialNumber, false, Band.DocNo) == true) {
+                 }
+                 else {
+                     localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
+                     localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
+                     localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
+                     localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
+                     window.open(sessionStorage.urlAFISanadAnbarIndex);
+                 }*/
 
             });
 
-           
+
 
         });
 
@@ -3616,6 +3618,13 @@ var ViewModel = function () {
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('تغییر وضعیت') +
             '        </a>' +
+            '    </li>' +
+
+            '    <li>' +
+            '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            translate('ثبت سند حسابداری') +
+            '        </a>' +
             '    </li>';
 
         if (sessionStorage.AccessPrint_Factor == "true") {
@@ -3628,14 +3637,14 @@ var ViewModel = function () {
                 '    </li>';
         }
 
-       /* dataTable +=
-            '    <li>' +
-            '        <a id="Link_FctToInv" data-bind="click: $root.Link_FctToInv" style="font-size: 11px;text-align: right;">' +
-            '            <img src="" width="16" height="16" style="margin-left:10px">' +
-            translate('ثبت سند انبار') +
-            '        </a>' +
-            '    </li>';
-            */
+        /* dataTable +=
+             '    <li>' +
+             '        <a id="Link_FctToInv" data-bind="click: $root.Link_FctToInv" style="font-size: 11px;text-align: right;">' +
+             '            <img src="" width="16" height="16" style="margin-left:10px">' +
+             translate('ثبت سند انبار') +
+             '        </a>' +
+             '    </li>';
+             */
 
         dataTable += '</ul>' +
             '<a id="UpdateFactor" data-bind="click: $root.UpdateHeader, visible: $root.ViewSanad(), attr: {title:text_Update}">';
@@ -4129,6 +4138,93 @@ var ViewModel = function () {
     self.PageIndexFDocH = function (item) {
         return CountPage(self.filterFDocHList(), self.pageSizeFDocH(), item);
     };
+
+    var serialLink = 0;
+
+    self.LinkAcc = function (item) {
+        serialLink = item.SerialNumber;
+        $('#modal-LinkAcc').modal('show');
+
+    }
+
+
+    $('#modal-LinkAcc').on('hide.bs.modal', function () {
+        serialLink = 0;
+    });
+
+    $("#CreateLinkAcc").click(function () {
+
+        var LinkFDocADocObject = {
+            SerialNumber: serialLink,
+            AddminMode: 1,
+            TahieShode: 'Fct5'
+        };
+
+        ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject).done(function (data) {
+            if (data.length == 1) {
+                if (data[0].Test == 255) { // success
+                    serialAccLink = data[0].AccCode;
+                    $('#modal-LinkAcc').modal('hide');
+                }
+            } else { // error
+                $("#BodyTestDoc_Delete").empty();
+                textBody = '';
+                countWarning = 0;
+                countError = 0;
+                for (var i = 0; i < data.length; i++) {
+                    textBody +=
+                        '<div class="body" style="padding:7px;">' +
+                        '    <div class="form-inline">';
+                    if (data[i].Test == 1) {
+                        countWarning += 1;
+                        textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                            ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
+                    }
+                    else {
+                        countError += 1;
+                        textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                            ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
+                    }
+
+                    if (data[i].TestName == "AccReg")
+                        textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت حسابداری شده است و قابل حذف نیست') + '</p>';
+
+                    else if (data[i].TestName == "InvReg")
+                        textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت انبارداری شده است و قابل حذف نیست') + '</p>';
+
+                    else if (data[i].TestCap != "")
+                        textBody += '<p>' + translate(data[i].TestCap) + '</p>';
+
+                    textBody +=
+                        '    </div>' +
+                        '</div>';
+                }
+
+                $('#BodyTestDoc_Link').append(textBody);
+                $('#CountWarning').text(countWarning);
+                $('#CountError').text(countError);
+
+                if (countError > 0) {
+                    $('#Delete-Modal').attr('hidden', '');
+                    $('#ShowCountError').removeAttr('hidden', '');
+                }
+                else {
+                    $('#Delete-Modal').removeAttr('hidden', '')
+                    $('#ShowCountError').attr('hidden', '');
+                }
+
+                if (countWarning > 0) {
+                    $('#ShowCountWarning').removeAttr('hidden', '');
+                }
+                else {
+                    $('#ShowCountWarning').attr('hidden', '');
+                }
+
+            }
+
+        });
+    });
+
 };
 
 ko.applyBindings(new ViewModel());

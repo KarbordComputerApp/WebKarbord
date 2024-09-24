@@ -13,7 +13,7 @@ var ViewModel = function () {
     var arzCalcMode = localStorage.getItem("ArzCalcMode_Fct");
 
     var forSels = true;
-
+    var invBand = true;
     var viewAction = false;
     var allSearchCust = true;
     var allSearchKala = true;
@@ -133,6 +133,8 @@ var ViewModel = function () {
     var Serial = '';
 
     var KalaList;
+    var InvList;
+
     var FDocB;
     var Addmin;
     var KalaUnitList = [];// [{ 'ID': 1, 'Name': 'a' }, { 'ID': 2, 'Name': 'b' }, { 'ID': 3, 'Name': 'c' }];
@@ -539,6 +541,7 @@ var ViewModel = function () {
         ajaxFunction(InvUri + ace + '/' + sal + '/' + group + '/2/' + sessionStorage.userName, 'GET').done(function (data) {
             $("div.loadingZone").hide();
             self.InvList(data);
+            InvList = data;
             if (self.InvList().length > 0) {
                 if (flagupdateHeader == 1) {
                     $("#inv").val(sessionStorage.InvCode);
@@ -553,6 +556,7 @@ var ViewModel = function () {
     self.OptionsCaptionAnbar = ko.computed(function () {
         return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
     });
+
     getInvList();
 
 
@@ -1445,9 +1449,52 @@ var ViewModel = function () {
     function GetRprtCols_NewList(userName) {
         //showPrice = false;
         cols = getRprtCols(rprtId, userName);
+        if (invBand) {
+            $("#inv").hide();
+            icode = cols.filter(s => s.Code == 'InvCode');
+            iname = cols.filter(s => s.Code == 'InvName');
+
+            if (icode.length == 0) {
+                cols.add(
+                    {
+                        "RprtId": "FDocB_S",
+                        "UserCode": "*Default*",
+                        "Code": "InvCode",
+                        "Type": 1,
+                        "Visible": 1,
+                        "Translate": 1,
+                        "Prog": "Afi1",
+                        "Name": "کد انبار",
+                        "Position": 0,
+                        "Width": 100
+                    })
+            }
+            if (icode.length == 0) {
+                iname.add(
+                    {
+                        "RprtId": "FDocB_S",
+                        "UserCode": "*Default*",
+                        "Code": "InvName",
+                        "Type": 1,
+                        "Visible": 1,
+                        "Translate": 1,
+                        "Prog": "Afi1",
+                        "Name": "نام انبار",
+                        "Position": 0,
+                        "Width": 100
+                    })
+            }
+        }
+        else {
+            $("#inv").show();
+        }
+       
+
         if (showPrice) {
             cols = cols.filter(s =>
                 //s.Code == 'BandNo' ||
+                (invBand && s.Code == 'InvCode') ||
+                (invBand && s.Code == 'InvName') ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -1488,6 +1535,8 @@ var ViewModel = function () {
 
             cols = cols.filter(s =>
                 //s.Code == 'BandNo' ||
+                (invBand && s.Code == 'InvCode') ||
+                    (invBand &&  s.Code == 'InvName') ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -1528,6 +1577,8 @@ var ViewModel = function () {
         if (cols[0].UserCode == '*Default*') {
             for (var i = 0; i < cols.length; i++) {
                 if (
+                    (invBand && cols[i].Code == 'InvCode') ||
+                        (invBand && cols[i].Code == 'InvName') ||
                     cols[i].Code == 'KalaCode' ||
                     cols[i].Code == 'KalaName' ||
                     //cols[i].Code == 'MainUnit' ||
@@ -1577,7 +1628,19 @@ var ViewModel = function () {
             f += '"caption":"' + data[i].Name + '",';
             // f += '"alignment": "center",';
             f += '"visible":' + (data[i].Visible == 0 ? false : true);
-            if (data[i].Code == "KalaCode") {
+            if (data[i].Code == "InvCode") {
+                f +=
+                    ',"lookup": {"dataSource": "InvList", "valueExpr": "Code", "displayExpr": "Code"},' +
+                    '"editCellTemplate": "dropDownBoxEditorCode"'//+ 
+            }
+
+            else if (data[i].Code == "InvName") {
+                f +=
+                    ',"lookup": {"dataSource": "InvList", "valueExpr": "Name", "displayExpr": "Name"},' +
+                    '"editCellTemplate": "dropDownBoxEditorCode"'//+ 
+            }
+
+            else if (data[i].Code == "KalaCode") {
                 f +=
                     ',"lookup": {"dataSource": "KalaList", "valueExpr": "Code", "displayExpr": "Code"},' +
                     // '"validationRules": [{ "type": "required" }],' +
@@ -1723,6 +1786,16 @@ var ViewModel = function () {
             if (cols[i].dataField == 'Amount1') {
 
             }
+
+            if (cols[i].dataField == 'InvCode') {
+                cols[i].editCellTemplate = dropDownBoxEditorInvCode;
+                cols[i].lookup.dataSource = InvList;
+            }
+            if (cols[i].dataField == 'InvName') {
+                cols[i].editCellTemplate = dropDownBoxEditorInvName;
+                cols[i].lookup.dataSource = InvList;
+            }
+
         }
 
         CreateTableColumn(cols);
@@ -2391,7 +2464,12 @@ var ViewModel = function () {
     function CalcAddmin() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
-        inv = $("#inv").val();
+        var inv = "";
+
+        if (invBand == false) {
+            inv = $("#inv").val();
+        }
+        
         docno = $("#docnoout").val();
         rows = dataGrid.getVisibleRows();
 
@@ -2498,7 +2576,7 @@ var ViewModel = function () {
                     Comm: item.Comm == null ? "" : item.Comm,
                     Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
                     ModeCode: sessionStorage.ModeCode,
-                    InvCode: inv,
+                    InvCode: item.InvCode,
                     OprCode: codeOpr,
                     MkzCode: codeMkz,
                     ArzCode: codeArz,
@@ -2780,7 +2858,11 @@ var ViewModel = function () {
     function ControlSave() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
-        inv = $("#inv").val();
+
+        var inv = "";
+        if (invBand == false) {
+            inv = $("#inv").val();
+        }
 
         docno = $("#docnoout").val();
 
@@ -2879,7 +2961,7 @@ var ViewModel = function () {
         }
 
 
-        if (inv == '') {
+        if (inv == '' && invBand == false) {
             switch (sessionStorage.ModeCode.toString()) {
                 case sessionStorage.MODECODE_FDOC_SO:
                     if (sessionStorage.FDOCSO_TestInv == "1")
@@ -3089,7 +3171,7 @@ var ViewModel = function () {
                     BandSpec: item.BandSpec == null ? "" : item.BandSpec,
                     Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
                     ModeCode: sessionStorage.ModeCode,
-                    InvCode: inv,
+                    InvCode: item.InvCode,
                     OprCode: codeOpr,
                     MkzCode: codeMkz,
                     ArzCode: codeArz,
@@ -3268,7 +3350,12 @@ var ViewModel = function () {
     function SaveSanad() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
-        inv = $("#inv").val();
+        var inv = "";
+
+        if (invBand == false) {
+            inv = $("#inv").val();
+        }
+
         docno = $("#docnoout").val();
         //kalapricecode = $("#gGhimat").val();
 
@@ -3511,7 +3598,12 @@ var ViewModel = function () {
 
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
-        inv = $("#inv").val();
+        var inv = "";
+
+        if (invBand == false) {
+            inv = $("#inv").val();
+        }
+
         docno = $("#docnoout").val();
         kalapricecode = $("#gGhimat").val();
 
@@ -3817,6 +3909,126 @@ var ViewModel = function () {
         dataGrid.saveEditData();
         dataGrid.refresh();
     }
+
+
+    function dropDownBoxEditorInvCode(cellElement, cellInfo) {
+        return $('<div>').dxDropDownBox({
+            //dropDownOptions: { width: 500, height: 1500},
+            dropDownOptions: { width: 500 },
+            dataSource: InvList,
+            value: cellInfo.value,
+            valueExpr: 'Code',
+            displayExpr: 'Code',
+            contentTemplate(e) {
+                return $('<div>').dxDataGrid({
+                    dataSource: InvList,
+                    keyExpr: 'Code',
+                    remoteOperations: true,
+                    rtlEnabled: true,
+                    filterRow: {
+                        visible: true,
+                        applyFilter: 'auto',
+                    },
+                    columns: [
+                        { dataField: 'Code', caption: "کد" },
+                        { dataField: 'Name', caption: "نام" },
+                        { dataField: 'Spec', caption: "ملاحظات" },
+                    ],
+                    hoverStateEnabled: true,
+                    scrolling: { mode: 'virtual' },
+                    height: 250,
+                    selection: { mode: 'single' },
+                    selectedRowKeys: [cellInfo.value],
+                    focusedRowEnabled: true,
+                    focusedRowKey: cellInfo.value,
+                    onSelectionChanged(selectionChangedArgs) {
+                        dInv = selectionChangedArgs.selectedRowsData[0];
+                        if (dInv != null) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+
+                                dataGrid.cellValue(ro, "InvName", selectionChangedArgs.selectedRowsData[0].Name);
+
+                                const visibleRows = dataGrid.getVisibleRows();
+
+
+                           
+
+                            
+
+                             
+                                e.component.close();
+
+                            }
+                        }
+
+
+
+                    },
+
+                });
+            },
+        });
+    }
+
+    
+    function dropDownBoxEditorInvName(cellElement, cellInfo) {
+        return $('<div>').dxDropDownBox({
+            //dropDownOptions: { width: 500, height: 1500},
+            dropDownOptions: { width: 500 },
+            dataSource: InvList,
+            value: cellInfo.value,
+            valueExpr: 'Name',
+            displayExpr: 'Name',
+            contentTemplate(e) {
+                return $('<div>').dxDataGrid({
+                    dataSource: InvList,
+                    keyExpr: 'Name',
+                    remoteOperations: true,
+                    rtlEnabled: true,
+                    filterRow: {
+                        visible: true,
+                        applyFilter: 'auto',
+                    },
+                    columns: [
+                        { dataField: 'Code', caption: "کد" },
+                        { dataField: 'Name', caption: "نام" },
+                        { dataField: 'Spec', caption: "ملاحظات" },
+                    ],
+                    hoverStateEnabled: true,
+                    scrolling: { mode: 'virtual' },
+                    height: 250,
+                    selection: { mode: 'single' },
+                    selectedRowKeys: [cellInfo.value],
+                    focusedRowEnabled: true,
+                    focusedRowKey: cellInfo.value,
+                    onSelectionChanged(selectionChangedArgs) {
+                        dInv = selectionChangedArgs.selectedRowsData[0];
+                        if (dInv != null) {
+                            e.component.option('value', selectionChangedArgs.selectedRowKeys[0]);
+                            cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                            if (selectionChangedArgs.selectedRowKeys.length > 0) {
+                                cellInfo.setValue(selectionChangedArgs.selectedRowKeys[0]);
+                                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                                dataGrid.cellValue(ro, "InvCode", selectionChangedArgs.selectedRowsData[0].Code);
+                                const visibleRows = dataGrid.getVisibleRows();
+                                e.component.close();
+                            }
+                        }
+                    },
+
+                });
+            },
+        });
+    }
+
+
+
+
+
 
 
     function dropDownBoxEditorKalaCode(cellElement, cellInfo) {
@@ -5642,7 +5854,7 @@ var ViewModel = function () {
 
         Swal.fire({
             title: translate('تایید حذف'),
-            text: translate("آیا") + " "+  translate("دریافتی انتخابی حذف شود ؟"),
+            text: translate("آیا") + " " + translate("دریافتی انتخابی حذف شود ؟"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
