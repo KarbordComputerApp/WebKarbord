@@ -869,6 +869,12 @@ sessionStorage.FDOCPAmountAfterBarCode = localStorage.getItem("FDOCPAmountAfterB
 sessionStorage.FDOCPRAmountAfterBarCode = localStorage.getItem("FDOCPRAmountAfterBarCode");
 
 
+sessionStorage.InvRegKalaInv_SFCT = localStorage.getItem("InvRegKalaInv_SFCT");
+sessionStorage.InvRegKalaInv_SRFCT = localStorage.getItem("InvRegKalaInv_SRFCT");
+sessionStorage.InvRegKalaInv_PFCT = localStorage.getItem("InvRegKalaInv_PFCT");
+sessionStorage.InvRegKalaInv_PRFCT = localStorage.getItem("InvRegKalaInv_PRFCT");
+
+
 if (ace == 'Web8') {
     sessionStorage.Move_SCONT = localStorage.getItem("Move_SCONT");
     sessionStorage.Move_SORD = localStorage.getItem("Move_SORD");
@@ -1985,6 +1991,16 @@ async function getParamList() {
                 localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
             }
 
+            // روش ذخیره انبار در فاکتور
+            sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "SFCT", self.ParamList());
+            localStorage.setItem("InvRegKalaInv_SFCT", sessionStorage.InvRegKalaInv_SFCT);
+            sessionStorage.InvRegKalaInv_SRFCT = SearchArry("InvRegKalaInv", "SRFCT", self.ParamList());
+            localStorage.setItem("InvRegKalaInv_SRFCT", sessionStorage.InvRegKalaInv_SRFCT);
+            sessionStorage.InvRegKalaInv_PFCT = SearchArry("InvRegKalaInv", "PFCT", self.ParamList());
+            localStorage.setItem("InvRegKalaInv_PFCT", sessionStorage.InvRegKalaInv_PFCT);
+            sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "PRFCT", self.ParamList());
+            localStorage.setItem("InvRegKalaInv_PRFCT", sessionStorage.InvRegKalaInv_PRFCT);
+
 
             sessionStorage.invSelect = "";
             localStorage.setItem("invSelect", sessionStorage.invSelect);
@@ -2170,6 +2186,16 @@ function getParamFct() {
 
 
 
+
+            // روش ذخیره انبار در فاکتور
+            sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "SFCT", data);
+            localStorage.setItem("InvRegKalaInv_SFCT", sessionStorage.InvRegKalaInv_SFCT);
+            sessionStorage.InvRegKalaInv_SRFCT = SearchArry("InvRegKalaInv", "SRFCT", data);
+            localStorage.setItem("InvRegKalaInv_SRFCT", sessionStorage.InvRegKalaInv_SRFCT);
+            sessionStorage.InvRegKalaInv_PFCT = SearchArry("InvRegKalaInv", "PFCT", data);
+            localStorage.setItem("InvRegKalaInv_PFCT", sessionStorage.InvRegKalaInv_PFCT);
+            sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "PRFCT", data);
+            localStorage.setItem("InvRegKalaInv_PRFCT", sessionStorage.InvRegKalaInv_PRFCT);
 
 
 

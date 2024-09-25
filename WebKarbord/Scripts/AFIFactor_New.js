@@ -13,7 +13,7 @@ var ViewModel = function () {
     var arzCalcMode = localStorage.getItem("ArzCalcMode_Fct");
 
     var forSels = true;
-    var invBand = true;
+    var invBand = null;
     var viewAction = false;
     var allSearchCust = true;
     var allSearchKala = true;
@@ -212,11 +212,22 @@ var ViewModel = function () {
             //ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
+            if (sessionStorage.InvRegKalaInv_SFCT == "2") {
+                invBand = false;
+            } else if (sessionStorage.InvRegKalaInv_SFCT == "3") {
+                invBand = true;
+            }
             break;
         case sessionStorage.MODECODE_FDOC_SR:
             textFactor = FDOC_SR_Text;
             amountAfterBarCode = sessionStorage.FDOCSRAmountAfterBarCode;
             ModeCodeExtraFields = 'FSDOC';
+            if (sessionStorage.InvRegKalaInv_SRFCT == "2") {
+                invBand = false;
+            } else if (sessionStorage.InvRegKalaInv_SRFCT == "3") {
+                invBand = true;
+            }
+
             break;
         case sessionStorage.MODECODE_FDOC_SH:
             textFactor = FDOC_SH_Text;
@@ -242,11 +253,23 @@ var ViewModel = function () {
             textFactor = FDOC_P_Text;
             amountAfterBarCode = sessionStorage.FDOCPAmountAfterBarCode;
             ModeCodeExtraFields = 'FPDOC';
+            if (sessionStorage.InvRegKalaInv_PFCT == "2") {
+                invBand = false;
+            } else if (sessionStorage.InvRegKalaInv_PFCT == "3") {
+                invBand = true;
+            }
+
             break;
         case sessionStorage.MODECODE_FDOC_PR:
             textFactor = FDOC_PR_Text;
             ModeCodeExtraFields = 'FPDOC';
             amountAfterBarCode = sessionStorage.FDOCPRAmountAfterBarCode;
+            if (sessionStorage.InvRegKalaInv_PRFCT == "2") {
+                invBand = false;
+            } else if (sessionStorage.InvRegKalaInv_PRFCT == "3") {
+                invBand = true;
+            }
+
             break;
     }
 
@@ -1449,9 +1472,10 @@ var ViewModel = function () {
     function GetRprtCols_NewList(userName) {
         //showPrice = false;
         cols = getRprtCols(rprtId, userName);
-        if (invBand) {
-            $("#inv").hide();
-            icode = cols.filter(s => s.Code == 'InvCode');
+        //invBand = true;
+        $("#inv").hide();
+        if (invBand == true) {
+            /*icode = cols.filter(s => s.Code == 'InvCode');
             iname = cols.filter(s => s.Code == 'InvName');
 
             if (icode.length == 0) {
@@ -1483,12 +1507,11 @@ var ViewModel = function () {
                         "Position": 0,
                         "Width": 100
                     })
-            }
+            }*/
         }
-        else {
+        else if (invBand == false) { 
             $("#inv").show();
         }
-       
 
         if (showPrice) {
             cols = cols.filter(s =>
@@ -3678,9 +3701,8 @@ var ViewModel = function () {
             VstrCode: codeVstr,
             New: 'Y',
             TotalValue: ghabelPardakht,
+            SaveInv: (invBand == true ? 0 : 1) 
         };
-
-
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
             if (isLast == false) {

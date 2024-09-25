@@ -3623,9 +3623,15 @@ var ViewModel = function () {
             '    <li>' +
             '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            translate('ثبت سند حسابداری') +
+            translate('ثبت حسابداری') +
             '        </a>' +
-            '    </li>';
+            '    </li>' +
+            '    <li>' +
+            '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            translate('ثبت انبارداری') +
+            '        </a>' +
+            '    </li>'
 
         if (sessionStorage.AccessPrint_Factor == "true") {
             dataTable +=
@@ -4139,90 +4145,61 @@ var ViewModel = function () {
         return CountPage(self.filterFDocHList(), self.pageSizeFDocH(), item);
     };
 
-    var serialLink = 0;
+    var serialAcc = 0;
 
     self.LinkAcc = function (item) {
-        serialLink = item.SerialNumber;
+        serial = item.SerialNumber;
+        serialAcc = item.AccSerialNumber;
+        $("#CreateLinkAcc").text('ثبت سند');
+        if (serialAcc > 0) {
+            $("#CreateLinkAcc").text('مشاهده');
+        }
         $('#modal-LinkAcc').modal('show');
-
     }
 
 
     $('#modal-LinkAcc').on('hide.bs.modal', function () {
-        serialLink = 0;
+        serial = 0;
+        serialAcc = 0;
     });
 
-    $("#CreateLinkAcc").click(function () {
 
+    function CreateSanadAcc_Link(serial,sync) {
         var LinkFDocADocObject = {
-            SerialNumber: serialLink,
+            SerialNumber: serial,
             AddminMode: 1,
             TahieShode: 'Fct5'
         };
+        var res;
+        ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject, sync).done(function (data) {
+            res = data
+        });
+        return res;
+    }
 
-        ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject).done(function (data) {
+    $("#CreateLinkAcc").click(function () {
+        if (serialAcc == 0) {
+            var data = CreateSanadAcc_Link(serial, false);
             if (data.length == 1) {
                 if (data[0].Test == 255) { // success
                     serialAccLink = data[0].AccCode;
+                    showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
                     $('#modal-LinkAcc').modal('hide');
                 }
-            } else { // error
-                $("#BodyTestDoc_Delete").empty();
-                textBody = '';
-                countWarning = 0;
-                countError = 0;
-                for (var i = 0; i < data.length; i++) {
-                    textBody +=
-                        '<div class="body" style="padding:7px;">' +
-                        '    <div class="form-inline">';
-                    if (data[i].Test == 1) {
-                        countWarning += 1;
-                        textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                            ' <p style="margin-left: 3px;">' + translate('هشدار :') + '</p>'
-                    }
-                    else {
-                        countError += 1;
-                        textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                            ' <p style="margin-left: 3px;">' + translate('خطا :') + '</p>'
-                    }
-
-                    if (data[i].TestName == "AccReg")
-                        textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت حسابداری شده است و قابل حذف نیست') + '</p>';
-
-                    else if (data[i].TestName == "InvReg")
-                        textBody += '<p>' + translate('این') + ' ' + TitleListFactor + ' ' + translate('ثبت انبارداری شده است و قابل حذف نیست') + '</p>';
-
-                    else if (data[i].TestCap != "")
-                        textBody += '<p>' + translate(data[i].TestCap) + '</p>';
-
-                    textBody +=
-                        '    </div>' +
-                        '</div>';
-                }
-
-                $('#BodyTestDoc_Link').append(textBody);
-                $('#CountWarning').text(countWarning);
-                $('#CountError').text(countError);
-
-                if (countError > 0) {
-                    $('#Delete-Modal').attr('hidden', '');
-                    $('#ShowCountError').removeAttr('hidden', '');
-                }
-                else {
-                    $('#Delete-Modal').removeAttr('hidden', '')
-                    $('#ShowCountError').attr('hidden', '');
-                }
-
-                if (countWarning > 0) {
-                    $('#ShowCountWarning').removeAttr('hidden', '');
-                }
-                else {
-                    $('#ShowCountWarning').attr('hidden', '');
-                }
-
             }
+        }
+        else {
+            var docNoAcc = 0
+            if (TestUseSanad(ace, sal, "SanadHesab", serialAcc, false, docNoAcc)) {
+            }
+            else {
+                lastModeCode = sessionStorage.ModeCode;
+                localStorage.setItem("DocNoAFISanad", docNoAcc);
+                window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                sessionStorage.ModeCode = lastModeCode;
+            }
+        }
 
-        });
     });
 
 };
