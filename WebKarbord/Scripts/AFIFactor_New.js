@@ -1472,7 +1472,7 @@ var ViewModel = function () {
     function GetRprtCols_NewList(userName) {
         //showPrice = false;
         cols = getRprtCols(rprtId, userName);
-        //invBand = true;
+        invBand = true;
         $("#inv").hide();
         if (invBand == true) {
             /*icode = cols.filter(s => s.Code == 'InvCode');

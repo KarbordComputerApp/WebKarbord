@@ -5492,3 +5492,17 @@ function TestAccessRes(res) {
     else return "";
 }
 
+
+function CreateFctToAcc_Link(serial, sync) {
+    var LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
+    var LinkFDocADocObject = {
+        SerialNumber: serial,
+        AddminMode: 1,
+        TahieShode: 'Fct5'
+    };
+    var res;
+    ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject, sync).done(function (data) {
+        res = data
+    });
+    return res;
+}

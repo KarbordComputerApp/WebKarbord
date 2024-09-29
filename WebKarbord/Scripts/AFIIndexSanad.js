@@ -12,8 +12,8 @@
 
     DocNoReport = localStorage.getItem("DocNoAFISanad");
     if (DocNoReport != "null" && DocNoReport != null) {
-
-        localStorage.setItem("ModeCode", "ADOC");
+        sessionStorage.ModeCode = "ADOC";
+        //localStorage.setItem("ModeCode", "ADOC");
     }
 
     salAcc = localStorage.getItem("SalAcc");

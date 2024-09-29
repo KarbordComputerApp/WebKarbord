@@ -729,10 +729,10 @@ var ViewModel = function () {
     var TestFDoc_NewUri = server + '/api/FDocData/TestFDoc_New/'; // آدرس تست ایجاد فاکتور 
     var TestFDoc_EditUri = server + '/api/FDocData/TestFDoc_Edit/'; // آدرس تست ویرایش 
 
-    var LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
 
-    var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/';
-    var RegFDocToIDocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToIDoc/';
+
+    //var RegFDocToADocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToADoc/';
+    //var RegFDocToIDocUri = server + '/api/AFI_FDocHi/AFI_RegFDocToIDoc/';
 
     var allSearchFDocH = true;
     var inOut;
@@ -1085,6 +1085,7 @@ var ViewModel = function () {
     });
 
 
+    /*
     $('#RegFDocToADoc').click(function () {
         var RegFDocToADocObject = {
             SerialNumbers: RegSerialNumber,
@@ -1140,7 +1141,7 @@ var ViewModel = function () {
             }
         });
     });
-
+    */
 
 
     $('#modal-LinkSanad').on('hide.bs.modal', function () {
@@ -3010,92 +3011,83 @@ var ViewModel = function () {
 
 
 
-    var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
-    var SaveAllSanadUri = server + '/api/AFI_IDocHi/SaveAllSanad/'; // آدرس ثبت سند و لینک فاکتور  
-
-    self.Link_FctToInv = function (item) {
-        serial = item.SerialNumber;
-        invCode = 1;
-        modeCodeSanad = 101;
-        thvlCode = "";
-
-        var headSanad = {
-            BranchCode: 0,
-            DocDate: item.DocDate,
-            DocNo: "",
-            DocNoMode: 1,
-            Eghdam: sessionStorage.userName,
-            EghdamDate: "null",
-            EndNo: 0,
-            F01: item.F01,
-            F02: item.F02,
-            F03: item.F03,
-            F04: item.F04,
-            F05: item.F05,
-            F06: item.F06,
-            F07: item.F07,
-            F08: item.F08,
-            F09: item.F09,
-            F10: item.F10,
-            F11: item.F11,
-            F12: item.F12,
-            F13: item.F13,
-            F14: item.F14,
-            F15: item.F15,
-            F16: item.F16,
-            F17: item.F17,
-            F18: item.F18,
-            F19: item.F19,
-            F20: item.F20,
-            Footer: item.Footer,
-            InsertMode: 0,
-            InvCode: invCode,
-            KalaPriceCode: item.KalaPriceCode,
-            ModeCode: modeCodeSanad,
-            PakhshCode: "",
-            SerialNumber: 0,
-            Spec: item.Spec,
-            StartNo: 0,
-            TahieShode: ace,
-            Tanzim: sessionStorage.userName,
-            ThvlCode: thvlCode,
-            UserCode: sessionStorage.userName,
-            VstrCode: 0,
-            VstrPer: 0,
-            flagLog: "N",
-            flagTest: "Y"
-        };
-
-        ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serial, 'GET').done(function (data) {
-
-            var SaveAllSanadObject = {
-                SerialFactor: serial,
-                Head: headSanad,
-                Bands: data,
-            };
-
-            ajaxFunction(SaveAllSanadUri + ace + '/' + sal + '/' + group, 'POST', SaveAllSanadObject).done(function (res) {
-                a = res
-                showNotification("سند انبار یه شماره مبنا " + res.SerialNumber + " ایجاد شد", 1);
-
-                /* if (TestUseSanad(ace, sal, "SanadAnbar", res.SerialNumber, false, Band.DocNo) == true) {
-                 }
-                 else {
-                     localStorage.setItem("InvCodeAFISanadAnbar", Band.InvCode);
-                     localStorage.setItem("ModeCodeAFISanadAnbar", Band.ModeCode);
-                     localStorage.setItem("InOutAFISanadAnbar", Band.InOut);
-                     localStorage.setItem("DocNoAFISanadAnbar", Band.DocNo);
-                     window.open(sessionStorage.urlAFISanadAnbarIndex);
-                 }*/
-
-            });
-
-
-
-        });
-
-
-    }
+    /* var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
+     var SaveAllSanadUri = server + '/api/AFI_IDocHi/SaveAllSanad/'; // آدرس ثبت سند و لینک فاکتور  
+ 
+     self.Link_FctToInv = function (item) {
+         serial = item.SerialNumber;
+         invCode = 1;
+         modeCodeSanad = 101;
+         thvlCode = "";
+ 
+         var headSanad = {
+             BranchCode: 0,
+             DocDate: item.DocDate,
+             DocNo: "",
+             DocNoMode: 1,
+             Eghdam: sessionStorage.userName,
+             EghdamDate: "null",
+             EndNo: 0,
+             F01: item.F01,
+             F02: item.F02,
+             F03: item.F03,
+             F04: item.F04,
+             F05: item.F05,
+             F06: item.F06,
+             F07: item.F07,
+             F08: item.F08,
+             F09: item.F09,
+             F10: item.F10,
+             F11: item.F11,
+             F12: item.F12,
+             F13: item.F13,
+             F14: item.F14,
+             F15: item.F15,
+             F16: item.F16,
+             F17: item.F17,
+             F18: item.F18,
+             F19: item.F19,
+             F20: item.F20,
+             Footer: item.Footer,
+             InsertMode: 0,
+             InvCode: invCode,
+             KalaPriceCode: item.KalaPriceCode,
+             ModeCode: modeCodeSanad,
+             PakhshCode: "",
+             SerialNumber: 0,
+             Spec: item.Spec,
+             StartNo: 0,
+             TahieShode: ace,
+             Tanzim: sessionStorage.userName,
+             ThvlCode: thvlCode,
+             UserCode: sessionStorage.userName,
+             VstrCode: 0,
+             VstrPer: 0,
+             flagLog: "N",
+             flagTest: "Y"
+         };
+ 
+         ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serial, 'GET').done(function (data) {
+ 
+             var SaveAllSanadObject = {
+                 SerialFactor: serial,
+                 Head: headSanad,
+                 Bands: data,
+             };
+ 
+             ajaxFunction(SaveAllSanadUri + ace + '/' + sal + '/' + group, 'POST', SaveAllSanadObject).done(function (res) {
+                 a = res
+                 showNotification("سند انبار یه شماره مبنا " + res.SerialNumber + " ایجاد شد", 1);
+ 
+             });
+ 
+ 
+ 
+         });
+ 
+ 
+     }
+     */
 
 
 
@@ -4164,27 +4156,88 @@ var ViewModel = function () {
     });
 
 
-    function CreateSanadAcc_Link(serial,sync) {
-        var LinkFDocADocObject = {
-            SerialNumber: serial,
-            AddminMode: 1,
-            TahieShode: 'Fct5'
-        };
-        var res;
-        ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject, sync).done(function (data) {
-            res = data
-        });
-        return res;
-    }
-
     $("#CreateLinkAcc").click(function () {
         if (serialAcc == 0) {
-            var data = CreateSanadAcc_Link(serial, false);
-            if (data.length == 1) {
-                if (data[0].Test == 255) { // success
-                    serialAccLink = data[0].AccCode;
-                    showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
-                    $('#modal-LinkAcc').modal('hide');
+            var data = CreateFctToAcc_Link(serial, false);
+            if (data[0].Test == 255) { // success
+                serialAccLink = data[0].AccCode;
+                showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
+                $('#modal-LinkAcc').modal('hide');
+                //getFDocH($('#pageCountSelector').val(), false);
+            } else {
+                $("#BodyTestLink").empty();
+                textBody = '';
+                countWarning = 0;
+                countError = 0;
+                list = data;
+                for (var i = 0; i < list.length; i++) {
+                    textBody +=
+                        '<div class="body" style="padding:7px;">' +
+                        '    <div class="form-inline">';
+                    if (list[i].Test == 1) {
+                        countWarning += 1;
+                        textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                            ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');"> ' + translate('هشدار :') + '</a>'
+                    }
+                    else {
+                        countError += 1;
+                        textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                            ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');">' + translate('خطا :') + '</a>'
+                    }
+
+                    tBand = translate('بند شماره') + ' ';
+                    if (list[i].TestName == "Opr")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </a>';
+                    else if (list[i].TestName == "Mkz")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </a>';
+                    else if (list[i].TestName == "Arz")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </a>';
+                    else if (list[i].TestName == "Mahiat")
+                        //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
+
+                    else if (list[i].TestName == "Balance")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </a>';
+
+                    else if (list[i].TestName == "ZeroBand")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';
+
+
+                    else if (list[i].TestName == "Traf")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
+
+                    else if (list[i].TestName == "Check")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
+
+                    else if (list[i].TestName == "HasZir")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('زیر حساب انتخاب نشده است') + ' </a>';
+
+                    else if (list[i].TestCap != "")
+                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
+
+                    textBody +=
+                        '    </div>' +
+                        '</div>';
+                }
+
+                $('#BodyTestLink').append(textBody);
+
+                $('#CountWarningLink').text(countWarning);
+                $('#CountErrorLink').text(countError);
+
+                if (countWarning > 0) {
+                    $('#ShowCountWarningLink').removeAttr('hidden', '');
+                }
+                else {
+                    $('#ShowCountWarningLink').attr('hidden', '');
+                }
+
+                if (countError > 0) {
+                    $('#ShowCountErrorLink').removeAttr('hidden', '');
+                    $("#modal-TestLink").modal('show');
+                }
+                else {
+                    $('#ShowCountErrorLink').attr('hidden', '');
                 }
             }
         }
