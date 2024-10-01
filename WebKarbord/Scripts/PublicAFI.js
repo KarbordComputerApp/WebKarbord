@@ -2002,6 +2002,25 @@ async function getParamList() {
             localStorage.setItem("InvRegKalaInv_PRFCT", sessionStorage.InvRegKalaInv_PRFCT);
 
 
+            sessionStorage.FDOCS_AutoInvReg = SearchArry("FDOCS_AutoInvReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCS_AutoInvReg", sessionStorage.FDOCS_AutoInvReg);
+            sessionStorage.FDOCSR_AutoInvReg = SearchArry("FDOCSR_AutoInvReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCSR_AutoInvReg", sessionStorage.FDOCSR_AutoInvReg);
+            sessionStorage.FDOCP_AutoInvReg = SearchArry("FDOCP_AutoInvReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCP_AutoInvReg", sessionStorage.FDOCP_AutoInvReg);
+            sessionStorage.FDOCPR_AutoInvReg = SearchArry("FDOCPR_AutoInvReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCPR_AutoInvReg", sessionStorage.FDOCPR_AutoInvReg);
+
+
+            sessionStorage.FDOCS_AutoAccReg = SearchArry("FDOCS_AutoAccReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCS_AutoAccReg", sessionStorage.FDOCS_AutoAccReg);
+            sessionStorage.FDOCSR_AutoAccReg = SearchArry("FDOCSR_AutoAccReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCSR_AutoAccReg", sessionStorage.FDOCSR_AutoAccReg);
+            sessionStorage.FDOCP_AutoAccReg = SearchArry("FDOCP_AutoAccReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCP_AutoAccReg", sessionStorage.FDOCP_AutoAccReg);
+            sessionStorage.FDOCPR_AutoAccReg = SearchArry("FDOCPR_AutoAccReg", "Default", self.ParamList());
+            localStorage.setItem("FDOCPR_AutoAccReg", sessionStorage.FDOCPR_AutoAccReg);
+
             sessionStorage.invSelect = "";
             localStorage.setItem("invSelect", sessionStorage.invSelect);
             /* $('#param1').text(ace == "null" ? "انتخاب نشده است" : sessionStorage.ace);
@@ -2196,6 +2215,26 @@ function getParamFct() {
             localStorage.setItem("InvRegKalaInv_PFCT", sessionStorage.InvRegKalaInv_PFCT);
             sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "PRFCT", data);
             localStorage.setItem("InvRegKalaInv_PRFCT", sessionStorage.InvRegKalaInv_PRFCT);
+
+            // ذخیره سند انبار بعد از ذخیره فاکتور
+            sessionStorage.FDOCS_AutoInvReg = SearchArry("FDOCS_AutoInvReg", "Default", data);
+            localStorage.setItem("FDOCS_AutoInvReg", sessionStorage.FDOCS_AutoInvReg);
+            sessionStorage.FDOCSR_AutoInvReg = SearchArry("FDOCSR_AutoInvReg", "Default", data);
+            localStorage.setItem("FDOCSR_AutoInvReg", sessionStorage.FDOCSR_AutoInvReg);
+            sessionStorage.FDOCP_AutoInvReg = SearchArry("FDOCP_AutoInvReg", "Default", data);
+            localStorage.setItem("FDOCP_AutoInvReg", sessionStorage.FDOCP_AutoInvReg);
+            sessionStorage.FDOCPR_AutoInvReg = SearchArry("FDOCPR_AutoInvReg", "Default", data);
+            localStorage.setItem("FDOCPR_AutoInvReg", sessionStorage.FDOCPR_AutoInvReg);
+
+             // ذخیره سند حسابداری بعد از ذخیره فاکتور
+            sessionStorage.FDOCS_AutoAccReg = SearchArry("FDOCS_AutoAccReg", "Default", data);
+            localStorage.setItem("FDOCS_AutoAccReg", sessionStorage.FDOCS_AutoAccReg);
+            sessionStorage.FDOCSR_AutoAccReg = SearchArry("FDOCSR_AutoAccReg", "Default", data);
+            localStorage.setItem("FDOCSR_AutoAccReg", sessionStorage.FDOCSR_AutoAccReg);
+            sessionStorage.FDOCP_AutoAccReg = SearchArry("FDOCP_AutoAccReg", "Default", data);
+            localStorage.setItem("FDOCP_AutoAccReg", sessionStorage.FDOCP_AutoAccReg);
+            sessionStorage.FDOCPR_AutoAccReg = SearchArry("FDOCPR_AutoAccReg", "Default", data);
+            localStorage.setItem("FDOCPR_AutoAccReg", sessionStorage.FDOCPR_AutoAccReg);
 
 
 
@@ -5498,11 +5537,178 @@ function CreateFctToAcc_Link(serial, sync) {
     var LinkFDocADocObject = {
         SerialNumber: serial,
         AddminMode: 1,
-        TahieShode: 'Fct5'
+        TahieShode: 'FCT5'
     };
     var res;
     ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject, sync).done(function (data) {
         res = data
+        if (data[0].Test != 255) {
+            $("#BodyTestLink").empty();
+            textBody = '';
+            countWarning = 0;
+            countError = 0;
+            list = data;
+            for (var i = 0; i < list.length; i++) {
+                textBody +=
+                    '<div class="body" style="padding:7px;">' +
+                    '    <div class="form-inline">';
+                if (list[i].Test == 1) {
+                    countWarning += 1;
+                    textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                        ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');"> ' + translate('هشدار :') + '</a>'
+                }
+                else {
+                    countError += 1;
+                    textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                        ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');">' + translate('خطا :') + '</a>'
+                }
+
+                tBand = translate('بند شماره') + ' ';
+                if (list[i].TestName == "Opr")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </a>';
+                else if (list[i].TestName == "Mkz")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </a>';
+                else if (list[i].TestName == "Arz")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </a>';
+                else if (list[i].TestName == "Mahiat")
+                    //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
+
+                else if (list[i].TestName == "Balance")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </a>';
+
+                else if (list[i].TestName == "ZeroBand")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';
+
+
+                else if (list[i].TestName == "Traf")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
+
+                else if (list[i].TestName == "Check")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
+
+                else if (list[i].TestName == "HasZir")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('زیر حساب انتخاب نشده است') + ' </a>';
+
+                else if (list[i].TestCap != "")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
+
+                textBody +=
+                    '    </div>' +
+                    '</div>';
+            }
+
+            $('#BodyTestLink').append(textBody);
+
+            $('#CountWarningLink').text(countWarning);
+            $('#CountErrorLink').text(countError);
+
+            if (countWarning > 0) {
+                $('#ShowCountWarningLink').removeAttr('hidden', '');
+            }
+            else {
+                $('#ShowCountWarningLink').attr('hidden', '');
+            }
+
+            if (countError > 0) {
+                $('#ShowCountErrorLink').removeAttr('hidden', '');
+                $("#modal-TestLink").modal('show');
+            }
+            else {
+                $('#ShowCountErrorLink').attr('hidden', '');
+            }
+        }
     });
+
+    return res;
+}
+
+
+function CreateFctToInv_Link(serial, sync) {
+    var LinkFDocIDocUri = server + '/api/Link/LinkFDocIDoc/';
+    var LinkFDocIDocObject = {
+        SerialNumber: serial,
+        TahieShode: 'FCT5'
+    };
+    var res;
+    ajaxFunction(LinkFDocIDocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocIDocObject, sync).done(function (data) {
+        res = data
+        if (data[0].Test != 255) {
+            $("#BodyTestLink").empty();
+            textBody = '';
+            countWarning = 0;
+            countError = 0;
+            list = data;
+            for (var i = 0; i < list.length; i++) {
+                textBody +=
+                    '<div class="body" style="padding:7px;">' +
+                    '    <div class="form-inline">';
+                if (list[i].Test == 1) {
+                    countWarning += 1;
+                    textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                        ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');"> ' + translate('هشدار :') + '</a>'
+                }
+                else {
+                    countError += 1;
+                    textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                        ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');">' + translate('خطا :') + '</a>'
+                }
+
+                tBand = translate('بند شماره') + ' ';
+                if (list[i].TestName == "Opr")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </a>';
+                else if (list[i].TestName == "Mkz")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </a>';
+                else if (list[i].TestName == "Arz")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </a>';
+                else if (list[i].TestName == "Mahiat")
+                    //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
+
+                else if (list[i].TestName == "Balance")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </a>';
+
+                else if (list[i].TestName == "ZeroBand")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';
+
+                else if (list[i].TestName == "Traf")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
+
+                else if (list[i].TestName == "Check")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
+
+                else if (list[i].TestName == "HasZir")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('زیر حساب انتخاب نشده است') + ' </a>';
+
+                else if (list[i].TestCap != "")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
+
+                textBody +=
+                    '    </div>' +
+                    '</div>';
+            }
+
+            $('#BodyTestLink').append(textBody);
+
+            $('#CountWarningLink').text(countWarning);
+            $('#CountErrorLink').text(countError);
+
+            if (countWarning > 0) {
+                $('#ShowCountWarningLink').removeAttr('hidden', '');
+            }
+            else {
+                $('#ShowCountWarningLink').attr('hidden', '');
+            }
+
+            if (countError > 0) {
+                $('#ShowCountErrorLink').removeAttr('hidden', '');
+                $("#modal-TestLink").modal('show');
+            }
+            else {
+                $('#ShowCountErrorLink').attr('hidden', '');
+            }
+        }
+    });
+
     return res;
 }

@@ -62,6 +62,9 @@ var ViewModel = function () {
     var codeVstr = '';
     var codeArz = '';
     var arzRate = 0;
+    var invSerialNumber = 0;
+    var accSerialNumber = 0;
+
     $('#ArzRate').val(0);
 
     var zarib1 = 0;
@@ -195,6 +198,10 @@ var ViewModel = function () {
     FDOC_P_Text = translate("فاکتور خرید");
     FDOC_PR_Text = translate("برگشت از خرید");
 
+
+    var autoInvReg = 0;
+    var autoAccReg = 0;
+
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             textFactor = FDOC_SO_Text;
@@ -217,6 +224,9 @@ var ViewModel = function () {
             } else if (sessionStorage.InvRegKalaInv_SFCT == "3") {
                 invBand = true;
             }
+            autoInvReg = sessionStorage.FDOCS_AutoInvReg;
+            autoAccReg = sessionStorage.FDOCS_AutoAccReg;
+
             break;
         case sessionStorage.MODECODE_FDOC_SR:
             textFactor = FDOC_SR_Text;
@@ -227,8 +237,11 @@ var ViewModel = function () {
             } else if (sessionStorage.InvRegKalaInv_SRFCT == "3") {
                 invBand = true;
             }
+            autoInvReg = sessionStorage.FDOCSR_AutoInvReg;
+            autoAccReg = sessionStorage.FDOCSR_AutoAccReg;
 
             break;
+
         case sessionStorage.MODECODE_FDOC_SH:
             textFactor = FDOC_SH_Text;
             amountAfterBarCode = sessionStorage.FDOCSHAmountAfterBarCode;
@@ -258,6 +271,8 @@ var ViewModel = function () {
             } else if (sessionStorage.InvRegKalaInv_PFCT == "3") {
                 invBand = true;
             }
+            autoInvReg = sessionStorage.FDOCP_AutoInvReg;
+            autoAccReg = sessionStorage.FDOCP_AutoAccReg;
 
             break;
         case sessionStorage.MODECODE_FDOC_PR:
@@ -269,9 +284,14 @@ var ViewModel = function () {
             } else if (sessionStorage.InvRegKalaInv_PRFCT == "3") {
                 invBand = true;
             }
+            autoInvReg = sessionStorage.FDOCPR_AutoInvReg;
+            autoAccReg = sessionStorage.FDOCPR_AutoAccReg;
 
             break;
     }
+
+    //autoAccReg = "1";
+
 
     $('#TitleHeaderFactor').text(textFactor + " ");
     $('#TitleBodyFactor').text(textFactor + " ");
@@ -1254,7 +1274,7 @@ var ViewModel = function () {
     }
 
 
-
+    var isUpdateFactor = true;
 
     if (flagupdateHeader == 1) {
 
@@ -1289,6 +1309,10 @@ var ViewModel = function () {
         self.MkzCode(sessionStorage.MkzCode);
         codeMkz = sessionStorage.MkzCode;
 
+        invSerialNumber = sessionStorage.InvSerialNumber;
+        accSerialNumber = sessionStorage.AccSerialNumber;
+
+
         self.VstrCode(sessionStorage.VstrCode);
         codeVstr = sessionStorage.VstrCode;
 
@@ -1304,6 +1328,35 @@ var ViewModel = function () {
         $('#nameVstr').val(sessionStorage.VstrCode == '' ? '' : '(' + sessionStorage.VstrCode + ') ' + sessionStorage.VstrName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
         $('#ArzRate').val(arzRate);
+
+        invSerialNumber = sessionStorage.InvSerialNumber;
+        accSerialNumber = sessionStorage.AccSerialNumber;
+
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invSerialNumber != '' || accSerialNumber > 0) {
+            $('#btnCust').attr('style', 'display: none');
+            $('#btnVstr').attr('style', 'display: none');
+            $('#btnMkz').attr('style', 'display: none');
+            $('#btnOpr').attr('style', 'display: none');
+            $('#btnArz').attr('style', 'display: none');
+            $('#CalcAddmin').attr('style', 'display: none');
+            $('#Btn_TasfiyeFactor').attr('style', 'display: none');
+            $('#gGhimat').attr('disabled', true);
+            $('#status').attr('disabled', true);
+            $('#inv').attr('disabled', true);
+            isUpdateFactor = false;
+        }
+
+        if (codeOpr == "!!!" || codeMkz == "!!!") {
+            showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد'), 0);
+        }
+
+        if (invSerialNumber != "") {
+            showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای سند انبارداری می باشد و امکان ثبت وجود ندارد'), 0);
+        }
+
+        if (accSerialNumber > 0) {
+            showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
+        }
 
         getFDocH(Serial);
         getFDocB(Serial);
@@ -1361,25 +1414,6 @@ var ViewModel = function () {
         });
 
 
-
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true) {
-            $('#action_headerfactor').attr('style', 'display: none');
-            $('#action_bodyfactor').attr('style', 'display: none');
-            $('#action_footerfactor').attr('style', 'display: none');
-            $('#action_Fdoc').attr('style', 'display: none');
-            $('#insertband').attr('style', 'display: none');
-            $('#Barcode').attr('style', 'display: none');
-            $('#btnCust').attr('style', 'display: none');
-            $('#btnMkz').attr('style', 'display: none');
-            $('#btnOpr').attr('style', 'display: none');
-            $('#btnArz').attr('style', 'display: none');
-            $('#gGhimat').attr('disabled', true);
-            $('#inv').attr('disabled', true);
-        }
-
-        if (codeOpr == "!!!" || codeMkz == "!!!") {
-            showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد'), 0);
-        }
 
         dataGrid.focus(dataGrid.getCellElement(0, 4));
     }
@@ -1509,7 +1543,7 @@ var ViewModel = function () {
                     })
             }*/
         }
-        else if (invBand == false) { 
+        else if (invBand == false) {
             $("#inv").show();
         }
 
@@ -1559,7 +1593,7 @@ var ViewModel = function () {
             cols = cols.filter(s =>
                 //s.Code == 'BandNo' ||
                 (invBand && s.Code == 'InvCode') ||
-                    (invBand &&  s.Code == 'InvName') ||
+                (invBand && s.Code == 'InvName') ||
                 s.Code == 'KalaCode' ||
                 s.Code == 'KalaName' ||
                 //s.Code == 'MainUnit' ||
@@ -1601,7 +1635,7 @@ var ViewModel = function () {
             for (var i = 0; i < cols.length; i++) {
                 if (
                     (invBand && cols[i].Code == 'InvCode') ||
-                        (invBand && cols[i].Code == 'InvName') ||
+                    (invBand && cols[i].Code == 'InvName') ||
                     cols[i].Code == 'KalaCode' ||
                     cols[i].Code == 'KalaName' ||
                     //cols[i].Code == 'MainUnit' ||
@@ -2023,7 +2057,7 @@ var ViewModel = function () {
                         } : '',*/
 
 
-                    serverPos != '' && serverPos != null && self.PosList.length == 0 ?
+                    isUpdateFactor && serverPos != '' && serverPos != null && self.PosList.length == 0 ?
                         {
                             location: 'after',
                             widget: 'dxButton',
@@ -2038,7 +2072,7 @@ var ViewModel = function () {
                             },
                         } : '',
 
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'save',
@@ -2050,9 +2084,9 @@ var ViewModel = function () {
                                 ControlSave();
                             },
                         },
-                    },
+                    } : '',
 
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'addRow',
@@ -2063,7 +2097,7 @@ var ViewModel = function () {
                                 AddNewBand();
                             },
                         },
-                    },
+                    } : '',
 
                     {
                         location: 'after',
@@ -2077,7 +2111,7 @@ var ViewModel = function () {
                             },
                         },
                     },
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'OtherField',
@@ -2088,9 +2122,9 @@ var ViewModel = function () {
                                 $('#modal-OtherField').modal('show');
                             },
                         },
-                    },
+                    } : '',
 
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'Barcode',
@@ -2101,7 +2135,7 @@ var ViewModel = function () {
                                 $('#modal-Barcode').modal();
                             },
                         },
-                    },
+                    } : '',
 
                     {
                         location: 'after',
@@ -2492,7 +2526,7 @@ var ViewModel = function () {
         if (invBand == false) {
             inv = $("#inv").val();
         }
-        
+
         docno = $("#docnoout").val();
         rows = dataGrid.getVisibleRows();
 
@@ -2827,6 +2861,9 @@ var ViewModel = function () {
                 $("#ExtraFields19").val("");
                 $("#ExtraFields20").val("");
                 CheckAccess();
+                sessionStorage.AccSerialNumber = 0;
+                sessionStorage.invSerialNumber = "";
+                isUpdateFactor = true;
             }
         })
     }
@@ -3371,247 +3408,280 @@ var ViewModel = function () {
 
 
     function SaveSanad() {
-        tarikh = $("#tarikh").val().toEnglishDigit();
-        status = $("#status").val();
-        var inv = "";
+        if (isUpdateFactor) {
+            tarikh = $("#tarikh").val().toEnglishDigit();
+            status = $("#status").val();
+            var inv = "";
 
-        if (invBand == false) {
-            inv = $("#inv").val();
-        }
+            if (invBand == false) {
+                inv = $("#inv").val();
+            }
 
-        docno = $("#docnoout").val();
-        //kalapricecode = $("#gGhimat").val();
+            docno = $("#docnoout").val();
+            //kalapricecode = $("#gGhimat").val();
 
-        //if (kalapricecode == null) kalapricecode = "";
+            //if (kalapricecode == null) kalapricecode = "";
 
-        kalapricecode = $("#gGhimat").val();
+            kalapricecode = $("#gGhimat").val();
 
-        value = $('#ghabelPardakht').text();
-        ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
+            value = $('#ghabelPardakht').text();
+            ghabelPardakht = value == '' ? 0 : value.replaceAll(',', '').replaceAll('/', '.');
 
-        //CalcAddmin();
+            //CalcAddmin();
 
-        if (Serial == 0) {
+            if (Serial == 0) {
 
-            var FDocHObject = {
-                SerialNumber: 0,
-                DocDate: tarikh,
-                Spec: self.Spec(),
-                CustCode: codeCust,
-                KalaPriceCode: kalapricecode,
-                UserCode: sessionStorage.userName,
-                BranchCode: 0,
-                ModeCode: sessionStorage.ModeCode,
-                DocNoMode: 1,
-                InsertMode: 0,
-                DocNo: docno,
-                StartNo: 0,
-                EndNo: 0,
-                Tanzim: sessionStorage.userName,
-                TahieShode: ace,
-                VstrPer: 0,
-                PakhshCode: '',
-                AddMinSpec1: Addmin.length >= 1 ? Addmin[0].Name : '',
-                AddMinSpec2: Addmin.length >= 2 ? Addmin[1].Name : '',
-                AddMinSpec3: Addmin.length >= 3 ? Addmin[2].Name : '',
-                AddMinSpec4: Addmin.length >= 4 ? Addmin[3].Name : '',
-                AddMinSpec5: Addmin.length >= 5 ? Addmin[4].Name : '',
-                AddMinSpec6: Addmin.length >= 6 ? Addmin[5].Name : '',
-                AddMinSpec7: Addmin.length >= 7 ? Addmin[6].Name : '',
-                AddMinSpec8: Addmin.length >= 8 ? Addmin[7].Name : '',
-                AddMinSpec9: Addmin.length >= 9 ? Addmin[8].Name : '',
-                AddMinSpec10: Addmin.length >= 10 ? Addmin[9].Name : '',
-                AddMinPrice1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
-                AddMinPrice2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
-                AddMinPrice3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
-                AddMinPrice4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
-                AddMinPrice5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
-                AddMinPrice6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
-                AddMinPrice7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
-                AddMinPrice8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
-                AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
-                AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
-                InvCode: inv,
-                PaymentType: $("#paymenttype").val(),
-                Footer: $("#footer").val(),
-                Eghdam: sessionStorage.userName,
-                EghdamDate: 'null',
-                flagLog: flaglog,
-                VstrCode: codeVstr,
-                F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val() == "" ? sessionStorage.F01 : $("#ExtraFields01").val(),
-                F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val() == "" ? sessionStorage.F02 : $("#ExtraFields02").val(),
-                F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val() == "" ? sessionStorage.F03 : $("#ExtraFields03").val(),
-                F04: $("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val() == "" ? sessionStorage.F04 : $("#ExtraFields04").val(),
-                F05: $("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val() == "" ? sessionStorage.F05 : $("#ExtraFields05").val(),
-                F06: $("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val() == "" ? sessionStorage.F06 : $("#ExtraFields06").val(),
-                F07: $("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val() == "" ? sessionStorage.F07 : $("#ExtraFields07").val(),
-                F08: $("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val() == "" ? sessionStorage.F08 : $("#ExtraFields08").val(),
-                F09: $("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val() == "" ? sessionStorage.F09 : $("#ExtraFields09").val(),
-                F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
-                F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
-                F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
-                F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
-                F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
-                F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
-                F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
-                F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
-                F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
-                F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
-                F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
-                flagTest: 'N',
-                TotalValue: ghabelPardakht,
-            };
+                var FDocHObject = {
+                    SerialNumber: 0,
+                    DocDate: tarikh,
+                    Spec: self.Spec(),
+                    CustCode: codeCust,
+                    KalaPriceCode: kalapricecode,
+                    UserCode: sessionStorage.userName,
+                    BranchCode: 0,
+                    ModeCode: sessionStorage.ModeCode,
+                    DocNoMode: 1,
+                    InsertMode: 0,
+                    DocNo: docno,
+                    StartNo: 0,
+                    EndNo: 0,
+                    Tanzim: sessionStorage.userName,
+                    TahieShode: ace,
+                    VstrPer: 0,
+                    PakhshCode: '',
+                    AddMinSpec1: Addmin.length >= 1 ? Addmin[0].Name : '',
+                    AddMinSpec2: Addmin.length >= 2 ? Addmin[1].Name : '',
+                    AddMinSpec3: Addmin.length >= 3 ? Addmin[2].Name : '',
+                    AddMinSpec4: Addmin.length >= 4 ? Addmin[3].Name : '',
+                    AddMinSpec5: Addmin.length >= 5 ? Addmin[4].Name : '',
+                    AddMinSpec6: Addmin.length >= 6 ? Addmin[5].Name : '',
+                    AddMinSpec7: Addmin.length >= 7 ? Addmin[6].Name : '',
+                    AddMinSpec8: Addmin.length >= 8 ? Addmin[7].Name : '',
+                    AddMinSpec9: Addmin.length >= 9 ? Addmin[8].Name : '',
+                    AddMinSpec10: Addmin.length >= 10 ? Addmin[9].Name : '',
+                    AddMinPrice1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
+                    AddMinPrice2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
+                    AddMinPrice3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
+                    AddMinPrice4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
+                    AddMinPrice5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
+                    AddMinPrice6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
+                    AddMinPrice7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
+                    AddMinPrice8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
+                    AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
+                    AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
+                    InvCode: inv,
+                    PaymentType: $("#paymenttype").val(),
+                    Footer: $("#footer").val(),
+                    Eghdam: sessionStorage.userName,
+                    EghdamDate: 'null',
+                    flagLog: flaglog,
+                    VstrCode: codeVstr,
+                    F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val() == "" ? sessionStorage.F01 : $("#ExtraFields01").val(),
+                    F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val() == "" ? sessionStorage.F02 : $("#ExtraFields02").val(),
+                    F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val() == "" ? sessionStorage.F03 : $("#ExtraFields03").val(),
+                    F04: $("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val() == "" ? sessionStorage.F04 : $("#ExtraFields04").val(),
+                    F05: $("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val() == "" ? sessionStorage.F05 : $("#ExtraFields05").val(),
+                    F06: $("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val() == "" ? sessionStorage.F06 : $("#ExtraFields06").val(),
+                    F07: $("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val() == "" ? sessionStorage.F07 : $("#ExtraFields07").val(),
+                    F08: $("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val() == "" ? sessionStorage.F08 : $("#ExtraFields08").val(),
+                    F09: $("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val() == "" ? sessionStorage.F09 : $("#ExtraFields09").val(),
+                    F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
+                    F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
+                    F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
+                    F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
+                    F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
+                    F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
+                    F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
+                    F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
+                    F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
+                    F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
+                    F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
+                    flagTest: 'N',
+                    TotalValue: ghabelPardakht,
+                };
 
 
-            ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
-                var res = response.split("@");
-                Serial = res[0];
-                DocNoOut = res[1];
-                $('#docnoout').val(DocNoOut);
-                flaglog = 'N';
-                if (flagSaveLogWin == false) {
-                    SaveLog('Fct5', EditMode_New, LogMode_FDoc, 0, DocNoOut, Serial);
-                    flagSaveLogWin = true;
-                }
-            });
+                ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'POST', FDocHObject).done(function (response) {
+                    var res = response.split("@");
+                    Serial = res[0];
+                    DocNoOut = res[1];
+                    $('#docnoout').val(DocNoOut);
+                    flaglog = 'N';
+                    if (flagSaveLogWin == false) {
+                        SaveLog('Fct5', EditMode_New, LogMode_FDoc, 0, DocNoOut, Serial);
+                        flagSaveLogWin = true;
+                    }
+                });
 
-        }
-        else {
-            SaveFDocHU(false);
-            /*var FDocHObject = {
-                SerialNumber: Serial,
-                DocDate: tarikh,
-                Spec: self.Spec(),
-                CustCode: codeCust,
-                KalaPriceCode: kalapricecode,
-                UserCode: sessionStorage.userName,
-                BranchCode: 0,
-                ModeCode: sessionStorage.ModeCode,
-                DocNoMode: 1,
-                InsertMode: 0,
-                DocNo: docno,
-                StartNo: 0,
-                EndNo: 0,
-                Tanzim: sessionStorage.userName,
-                TahieShode: ace,
-                VstrPer: 0,
-                PakhshCode: '',
-                AddMinSpec1: Addmin.length >= 1 ? Addmin[0].Name : '',
-                AddMinSpec2: Addmin.length >= 2 ? Addmin[1].Name : '',
-                AddMinSpec3: Addmin.length >= 3 ? Addmin[2].Name : '',
-                AddMinSpec4: Addmin.length >= 4 ? Addmin[3].Name : '',
-                AddMinSpec5: Addmin.length >= 5 ? Addmin[4].Name : '',
-                AddMinSpec6: Addmin.length >= 6 ? Addmin[5].Name : '',
-                AddMinSpec7: Addmin.length >= 7 ? Addmin[6].Name : '',
-                AddMinSpec8: Addmin.length >= 8 ? Addmin[7].Name : '',
-                AddMinSpec9: Addmin.length >= 9 ? Addmin[8].Name : '',
-                AddMinSpec10: Addmin.length >= 10 ? Addmin[9].Name : '',
-                AddMinPrice1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
-                AddMinPrice2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
-                AddMinPrice3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
-                AddMinPrice4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
-                AddMinPrice5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
-                AddMinPrice6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
-                AddMinPrice7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
-                AddMinPrice8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
-                AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
-                AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
-                InvCode: inv,
-                Status: status,
-                Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
-                Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
-                PaymentType: $("#paymenttype").val(),
-                Footer: $("#footer").val(),
-                deghat: parseInt(sessionStorage.DeghatFct),
-                F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val() == "" ? sessionStorage.F01 : $("#ExtraFields01").val(),
-                F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val() == "" ? sessionStorage.F02 : $("#ExtraFields02").val(),
-                F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val() == "" ? sessionStorage.F03 : $("#ExtraFields03").val(),
-                F04: $("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val() == "" ? sessionStorage.F04 : $("#ExtraFields04").val(),
-                F05: $("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val() == "" ? sessionStorage.F05 : $("#ExtraFields05").val(),
-                F06: $("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val() == "" ? sessionStorage.F06 : $("#ExtraFields06").val(),
-                F07: $("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val() == "" ? sessionStorage.F07 : $("#ExtraFields07").val(),
-                F08: $("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val() == "" ? sessionStorage.F08 : $("#ExtraFields08").val(),
-                F09: $("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val() == "" ? sessionStorage.F09 : $("#ExtraFields09").val(),
-                F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
-                F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
-                F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
-                F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
-                F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
-                F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
-                F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
-                F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
-                F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
-                F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
-                F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
-                flagLog: flaglog,
-                OprCode: codeOpr,
-                MkzCode: codeMkz,
-                VstrCode: codeVstr,
-                New: 'Y',
-                TotalValue: ghabelPardakht,
-            };
-            ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
-                sessionStorage.searchFDocH = docno;
-                flaglog = 'N';
-                DeleteBand();
-                if (flagSaveLogWin == false) {
-                    SaveLog('Fct5', EditMode_Chg, LogMode_FDoc, 0, docno, Serial);
-                    flagSaveLogWin = true;
-                }
+            }
+            else {
+                SaveFDocHU(false);
+                /*var FDocHObject = {
+                    SerialNumber: Serial,
+                    DocDate: tarikh,
+                    Spec: self.Spec(),
+                    CustCode: codeCust,
+                    KalaPriceCode: kalapricecode,
+                    UserCode: sessionStorage.userName,
+                    BranchCode: 0,
+                    ModeCode: sessionStorage.ModeCode,
+                    DocNoMode: 1,
+                    InsertMode: 0,
+                    DocNo: docno,
+                    StartNo: 0,
+                    EndNo: 0,
+                    Tanzim: sessionStorage.userName,
+                    TahieShode: ace,
+                    VstrPer: 0,
+                    PakhshCode: '',
+                    AddMinSpec1: Addmin.length >= 1 ? Addmin[0].Name : '',
+                    AddMinSpec2: Addmin.length >= 2 ? Addmin[1].Name : '',
+                    AddMinSpec3: Addmin.length >= 3 ? Addmin[2].Name : '',
+                    AddMinSpec4: Addmin.length >= 4 ? Addmin[3].Name : '',
+                    AddMinSpec5: Addmin.length >= 5 ? Addmin[4].Name : '',
+                    AddMinSpec6: Addmin.length >= 6 ? Addmin[5].Name : '',
+                    AddMinSpec7: Addmin.length >= 7 ? Addmin[6].Name : '',
+                    AddMinSpec8: Addmin.length >= 8 ? Addmin[7].Name : '',
+                    AddMinSpec9: Addmin.length >= 9 ? Addmin[8].Name : '',
+                    AddMinSpec10: Addmin.length >= 10 ? Addmin[9].Name : '',
+                    AddMinPrice1: Addmin.length >= 1 ? Addmin[0].AddMinPrice : 0,
+                    AddMinPrice2: Addmin.length >= 2 ? Addmin[1].AddMinPrice : 0,
+                    AddMinPrice3: Addmin.length >= 3 ? Addmin[2].AddMinPrice : 0,
+                    AddMinPrice4: Addmin.length >= 4 ? Addmin[3].AddMinPrice : 0,
+                    AddMinPrice5: Addmin.length >= 5 ? Addmin[4].AddMinPrice : 0,
+                    AddMinPrice6: Addmin.length >= 6 ? Addmin[5].AddMinPrice : 0,
+                    AddMinPrice7: Addmin.length >= 7 ? Addmin[6].AddMinPrice : 0,
+                    AddMinPrice8: Addmin.length >= 8 ? Addmin[7].AddMinPrice : 0,
+                    AddMinPrice9: Addmin.length >= 9 ? Addmin[8].AddMinPrice : 0,
+                    AddMinPrice10: Addmin.length >= 10 ? Addmin[9].AddMinPrice : 0,
+                    InvCode: inv,
+                    Status: status,
+                    Taeed: sessionStorage.TaeedF == '' ? status == translate("تایید") ? sessionStorage.userName : '' : sessionStorage.TaeedF,
+                    Tasvib: status == translate("تصویب") ? sessionStorage.userName : '',
+                    PaymentType: $("#paymenttype").val(),
+                    Footer: $("#footer").val(),
+                    deghat: parseInt(sessionStorage.DeghatFct),
+                    F01: $("#ExtraFields01").val() == null ? '' : $("#ExtraFields01").val() == "" ? sessionStorage.F01 : $("#ExtraFields01").val(),
+                    F02: $("#ExtraFields02").val() == null ? '' : $("#ExtraFields02").val() == "" ? sessionStorage.F02 : $("#ExtraFields02").val(),
+                    F03: $("#ExtraFields03").val() == null ? '' : $("#ExtraFields03").val() == "" ? sessionStorage.F03 : $("#ExtraFields03").val(),
+                    F04: $("#ExtraFields04").val() == null ? '' : $("#ExtraFields04").val() == "" ? sessionStorage.F04 : $("#ExtraFields04").val(),
+                    F05: $("#ExtraFields05").val() == null ? '' : $("#ExtraFields05").val() == "" ? sessionStorage.F05 : $("#ExtraFields05").val(),
+                    F06: $("#ExtraFields06").val() == null ? '' : $("#ExtraFields06").val() == "" ? sessionStorage.F06 : $("#ExtraFields06").val(),
+                    F07: $("#ExtraFields07").val() == null ? '' : $("#ExtraFields07").val() == "" ? sessionStorage.F07 : $("#ExtraFields07").val(),
+                    F08: $("#ExtraFields08").val() == null ? '' : $("#ExtraFields08").val() == "" ? sessionStorage.F08 : $("#ExtraFields08").val(),
+                    F09: $("#ExtraFields09").val() == null ? '' : $("#ExtraFields09").val() == "" ? sessionStorage.F09 : $("#ExtraFields09").val(),
+                    F10: $("#ExtraFields10").val() == null ? '' : $("#ExtraFields10").val() == "" ? sessionStorage.F10 : $("#ExtraFields10").val(),
+                    F11: $("#ExtraFields11").val() == null ? '' : $("#ExtraFields11").val() == "" ? sessionStorage.F11 : $("#ExtraFields11").val(),
+                    F12: $("#ExtraFields12").val() == null ? '' : $("#ExtraFields12").val() == "" ? sessionStorage.F12 : $("#ExtraFields12").val(),
+                    F13: $("#ExtraFields13").val() == null ? '' : $("#ExtraFields13").val() == "" ? sessionStorage.F13 : $("#ExtraFields13").val(),
+                    F14: $("#ExtraFields14").val() == null ? '' : $("#ExtraFields14").val() == "" ? sessionStorage.F14 : $("#ExtraFields14").val(),
+                    F15: $("#ExtraFields15").val() == null ? '' : $("#ExtraFields15").val() == "" ? sessionStorage.F15 : $("#ExtraFields15").val(),
+                    F16: $("#ExtraFields16").val() == null ? '' : $("#ExtraFields16").val() == "" ? sessionStorage.F16 : $("#ExtraFields16").val(),
+                    F17: $("#ExtraFields17").val() == null ? '' : $("#ExtraFields17").val() == "" ? sessionStorage.F17 : $("#ExtraFields17").val(),
+                    F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
+                    F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
+                    F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
+                    flagLog: flaglog,
+                    OprCode: codeOpr,
+                    MkzCode: codeMkz,
+                    VstrCode: codeVstr,
+                    New: 'Y',
+                    TotalValue: ghabelPardakht,
+                };
+                ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
+                    sessionStorage.searchFDocH = docno;
+                    flaglog = 'N';
+                    DeleteBand();
+                    if (flagSaveLogWin == false) {
+                        SaveLog('Fct5', EditMode_Chg, LogMode_FDoc, 0, docno, Serial);
+                        flagSaveLogWin = true;
+                    }
+    
+                });*/
+            }
 
+            /*data = FDocB;
+            var obj = [];
+            for (i = 0; i <= data.length - 1; i++) {
+                item = data[i];
+                tmp = {
+                    SerialNumber: Serial,
+                    KalaCode: item.KalaCode == null ? "" : item.KalaCode,
+                    Amount1: item.Amount1 == null ? 0 : item.Amount1,
+                    Amount2: item.Amount2 == null ? 0 : item.Amount2,
+                    Amount3: item.Amount3 == null ? 0 : item.Amount3,
+                    UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
+                    TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
+                    Discount: item.Discount == null ? 0 : item.Discount,
+                    MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
+                    Comm: item.Comm == null ? "" : item.Comm,
+                    BandSpec: item.BandSpec == null ? "" : item.BandSpec,
+                    Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
+                    ModeCode: sessionStorage.ModeCode,
+                    InvCode: inv,
+                    OprCode: codeOpr,
+                    MkzCode: codeMkz,
+                    flagLog: flaglog,
+                    flagTest: 'N'
+                };
+     
+                obj.push(tmp);
+            }
+     
+            ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj, false).done(function (response) {
+                showNotification(translate('سند ذخیره شد'), 1);
             });*/
-        }
 
-        /*data = FDocB;
-        var obj = [];
-        for (i = 0; i <= data.length - 1; i++) {
-            item = data[i];
-            tmp = {
+
+
+
+
+            var ConvertObject = {
                 SerialNumber: Serial,
-                KalaCode: item.KalaCode == null ? "" : item.KalaCode,
-                Amount1: item.Amount1 == null ? 0 : item.Amount1,
-                Amount2: item.Amount2 == null ? 0 : item.Amount2,
-                Amount3: item.Amount3 == null ? 0 : item.Amount3,
-                UnitPrice: item.UnitPrice == null ? 0 : item.UnitPrice,
-                TotalPrice: item.TotalPrice == null ? 0 : item.TotalPrice,
-                Discount: item.Discount == null ? 0 : item.Discount,
-                MainUnit: item.MainUnit == null ? 1 : item.MainUnit,
-                Comm: item.Comm == null ? "" : item.Comm,
-                BandSpec: item.BandSpec == null ? "" : item.BandSpec,
-                Up_Flag: item.UP_Flag == null ? true : item.UP_Flag,
+                TempSerialNumber: Serial_Test,
                 ModeCode: sessionStorage.ModeCode,
-                InvCode: inv,
-                OprCode: codeOpr,
-                MkzCode: codeMkz,
-                flagLog: flaglog,
-                flagTest: 'N'
             };
- 
-            obj.push(tmp);
+
+            ajaxFunction(FDocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
+                var mes = TestAccessRes(response);
+                if (mes != "")
+                    return showNotification(translate(mes), 0);
+
+                SaveFDocHU(true);
+                showNotification(translate('سند ذخیره شد'), 1);
+
+                if (autoInvReg == "1") {
+                    var d = FDocB.filter(c => c.InvCode == "" || c.InvCode == "0" || c.InvCode == null);
+                    if (d.length == 0) {
+
+                        var dataInv = CreateFctToInv_Link(Serial, false);
+                        if (dataInv[0].Test == 255) { // success
+                            sessionStorage.InvSerialNumber = "*";
+                            showNotification(dataInv.length + " سند ایجاد شد", 1)
+                            isUpdateFactor = false;
+                        }
+                    }
+                    else {
+                      return  showNotification("در " + d.length + " بند انبار انتخاب نشده است و امکان ثبت اسناد وجود ندارد", 0)
+                    }
+                }
+
+                if (autoAccReg == "1") {
+                    var dataAcc = CreateFctToAcc_Link(Serial, false);
+                    if (dataAcc[0].Test == 255) { // success
+                        serialAccLink = dataAcc[0].AccCode;
+                        sessionStorage.AccSerialNumber = serialAccLink;
+                        showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1);
+                        isUpdateFactor = false;
+                    }
+                }
+
+                
+
+            });
+        } else {
+            showNotification("به دلیل وجود اسناد لینک امکان ذخیره مجدد وجود ندارد", 0);
         }
- 
-        ajaxFunction(FDocBSaveAllUri + ace + '/' + sal + '/' + group + '/' + Serial, 'POST', obj, false).done(function (response) {
-            showNotification(translate('سند ذخیره شد'), 1);
-        });*/
-
-
-
-
-
-        var ConvertObject = {
-            SerialNumber: Serial,
-            TempSerialNumber: Serial_Test,
-            ModeCode: sessionStorage.ModeCode,
-        };
-
-        ajaxFunction(FDocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
-            var mes = TestAccessRes(response);
-            if (mes != "")
-                return showNotification(translate(mes), 0);
-
-            SaveFDocHU(true);
-            showNotification(translate('سند ذخیره شد'), 1);
-        });
 
     }
 
@@ -3701,7 +3771,7 @@ var ViewModel = function () {
             VstrCode: codeVstr,
             New: 'Y',
             TotalValue: ghabelPardakht,
-            SaveInv: (invBand == true ? 0 : 1) 
+            SaveInv: (invBand == true ? 0 : 1)
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
@@ -3977,11 +4047,11 @@ var ViewModel = function () {
                                 const visibleRows = dataGrid.getVisibleRows();
 
 
-                           
 
-                            
 
-                             
+
+
+
                                 e.component.close();
 
                             }
@@ -3996,7 +4066,7 @@ var ViewModel = function () {
         });
     }
 
-    
+
     function dropDownBoxEditorInvName(cellElement, cellInfo) {
         return $('<div>').dxDropDownBox({
             //dropDownOptions: { width: 500, height: 1500},

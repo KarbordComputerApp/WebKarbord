@@ -913,6 +913,8 @@ var ViewModel = function () {
         'F18',
         'F19',
         'F20',
+        'AccSerialNumber',
+        'InvSerialNumber',
     ];
 
 
@@ -2696,6 +2698,10 @@ var ViewModel = function () {
             sessionStorage.MkzName = item.MkzName;
 
 
+            sessionStorage.InvSerialNumber = item.InvSerialNumber;
+            sessionStorage.AccSerialNumber = item.AccSerialNumber;
+
+
             sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
             sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
             sessionStorage.AddMinSpec3 = item.AddMinSpec3// == "" ? null : item.AddMinSpec3;
@@ -2913,6 +2919,9 @@ var ViewModel = function () {
 
                 sessionStorage.MkzCode = data.MkzCode;
                 sessionStorage.MkzName = data.MkzName;
+
+                sessionStorage.InvSerialNumber = data.InvSerialNumber;
+                sessionStorage.AccSerialNumber = data.AccSerialNumber;
 
                 sessionStorage.AddMinSpec1 = data.AddMinSpec1//== "" ? null : data.AddMinSpec1;
                 sessionStorage.AddMinSpec2 = data.AddMinSpec2// == "" ? null : data.AddMinSpec2;
@@ -3619,7 +3628,7 @@ var ViewModel = function () {
             '        </a>' +
             '    </li>' +
             '    <li>' +
-            '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+            '        <a id="LinkAcc" data-bind="click: $root.LinkInv" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('ثبت انبارداری') +
             '        </a>' +
@@ -4138,10 +4147,12 @@ var ViewModel = function () {
     };
 
     var serialAcc = 0;
+    var docNoAcc = 0;
 
     self.LinkAcc = function (item) {
         serial = item.SerialNumber;
         serialAcc = item.AccSerialNumber;
+        docNoAcc = item.AccDocNo;
         $("#CreateLinkAcc").text('ثبت سند');
         if (serialAcc > 0) {
             $("#CreateLinkAcc").text('مشاهده');
@@ -4153,6 +4164,7 @@ var ViewModel = function () {
     $('#modal-LinkAcc').on('hide.bs.modal', function () {
         serial = 0;
         serialAcc = 0;
+        docNoAcc = 0;
     });
 
 
@@ -4162,87 +4174,11 @@ var ViewModel = function () {
             if (data[0].Test == 255) { // success
                 serialAccLink = data[0].AccCode;
                 showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
-                $('#modal-LinkAcc').modal('hide');
-                //getFDocH($('#pageCountSelector').val(), false);
-            } else {
-                $("#BodyTestLink").empty();
-                textBody = '';
-                countWarning = 0;
-                countError = 0;
-                list = data;
-                for (var i = 0; i < list.length; i++) {
-                    textBody +=
-                        '<div class="body" style="padding:7px;">' +
-                        '    <div class="form-inline">';
-                    if (list[i].Test == 1) {
-                        countWarning += 1;
-                        textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
-                            ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');"> ' + translate('هشدار :') + '</a>'
-                    }
-                    else {
-                        countError += 1;
-                        textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
-                            ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');">' + translate('خطا :') + '</a>'
-                    }
-
-                    tBand = translate('بند شماره') + ' ';
-                    if (list[i].TestName == "Opr")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </a>';
-                    else if (list[i].TestName == "Mkz")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </a>';
-                    else if (list[i].TestName == "Arz")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </a>';
-                    else if (list[i].TestName == "Mahiat")
-                        //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
-
-                    else if (list[i].TestName == "Balance")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </a>';
-
-                    else if (list[i].TestName == "ZeroBand")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';
-
-
-                    else if (list[i].TestName == "Traf")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
-
-                    else if (list[i].TestName == "Check")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
-
-                    else if (list[i].TestName == "HasZir")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('زیر حساب انتخاب نشده است') + ' </a>';
-
-                    else if (list[i].TestCap != "")
-                        textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
-
-                    textBody +=
-                        '    </div>' +
-                        '</div>';
-                }
-
-                $('#BodyTestLink').append(textBody);
-
-                $('#CountWarningLink').text(countWarning);
-                $('#CountErrorLink').text(countError);
-
-                if (countWarning > 0) {
-                    $('#ShowCountWarningLink').removeAttr('hidden', '');
-                }
-                else {
-                    $('#ShowCountWarningLink').attr('hidden', '');
-                }
-
-                if (countError > 0) {
-                    $('#ShowCountErrorLink').removeAttr('hidden', '');
-                    $("#modal-TestLink").modal('show');
-                }
-                else {
-                    $('#ShowCountErrorLink').attr('hidden', '');
-                }
+                getFDocH($('#pageCountSelector').val(), false);
             }
+            $('#modal-LinkAcc').modal('hide');
         }
         else {
-            var docNoAcc = 0
             if (TestUseSanad(ace, sal, "SanadHesab", serialAcc, false, docNoAcc)) {
             }
             else {
@@ -4250,10 +4186,56 @@ var ViewModel = function () {
                 localStorage.setItem("DocNoAFISanad", docNoAcc);
                 window.open(sessionStorage.urlAFISanadIndex, '_blank');
                 sessionStorage.ModeCode = lastModeCode;
+                $('#modal-LinkAcc').modal('hide');
             }
         }
 
     });
+
+
+    var serialInv = "";
+
+    self.LinkInv = function (item) {
+        serial = item.SerialNumber;
+        serialInv = item.InvSerialNumber;
+        $("#CreateLinkInv").text('ثبت سند');
+        if (serialInv != "") {
+            $("#CreateLinkInv").text('مشاهده');
+        }
+        $('#modal-LinkInv').modal('show');
+    }
+
+
+    $('#modal-LinkInv').on('hide.bs.modal', function () {
+        serial = 0;
+        serialInv = "";
+    });
+
+
+    $("#CreateLinkInv").click(function () {
+        var TestInvBandFctUri = server + '/api/Web_Data/TestInvBandFct/';
+        var TestInvBandFctObject = {
+            SerialNumber: serial
+        };
+
+        ajaxFunction(TestInvBandFctUri + ace + '/' + sal + '/' + group, 'POST', TestInvBandFctObject).done(function (d) {
+            if (d == 0) {
+                var data = CreateFctToInv_Link(serial, false);
+                if (data[0].Test == 255) { // success
+                    showNotification(data.length +  " سند ایجاد شد", 1)
+                    getFDocH($('#pageCountSelector').val(), false);
+                }
+                $('#modal-LinkInv').modal('hide');
+            }
+            else {
+                showNotification("در " + d + " بند انبار انتخاب نشده است", 0)
+            }
+        });
+
+
+    });
+
+
 
 };
 
