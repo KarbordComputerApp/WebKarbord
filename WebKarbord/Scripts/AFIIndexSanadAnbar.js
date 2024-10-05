@@ -2339,6 +2339,17 @@
             translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
+
+        if (sessionStorage.InOut == 2) {
+            dataTable +=
+                '    <li>' +
+                '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+                translate('ثبت حسابداری') +
+                '        </a>' +
+                '    </li>';
+        }
+
         if (sessionStorage.AccessPrint_SanadAnbar == "true") {
 
             dataTable +=
@@ -2767,6 +2778,54 @@
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
+
+
+    self.LinkAcc = function (item) {
+        serial = item.SerialNumber;
+        serialAcc = item.AccSerialNumber;
+        docNoAcc = item.AccDocNo;
+        $("#CreateLinkAcc").text('ثبت سند');
+        if (serialAcc > 0) {
+            $("#CreateLinkAcc").text('مشاهده');
+        }
+        $('#modal-LinkAcc').modal('show');
+    }
+
+
+    $('#modal-LinkAcc').on('hide.bs.modal', function () {
+        serial = 0;
+        serialAcc = 0;
+        docNoAcc = 0;
+    });
+
+
+    $("#CreateLinkAcc").click(function () {
+        if (serialAcc == 0) {
+            var data = CreateFctToAcc_Link(serial, false);
+            if (data[0].Test == 255) { // success
+                serialAccLink = data[0].AccCode;
+                showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
+                getFDocH($('#pageCountSelector').val(), false);
+            }
+            $('#modal-LinkAcc').modal('hide');
+        }
+        else {
+            if (TestUseSanad(ace, sal, "SanadHesab", serialAcc, false, docNoAcc)) {
+            }
+            else {
+                lastModeCode = sessionStorage.ModeCode;
+                localStorage.setItem("DocNoAFISanad", docNoAcc);
+                window.open(sessionStorage.urlAFISanadIndex, '_blank');
+                sessionStorage.ModeCode = lastModeCode;
+                $('#modal-LinkAcc').modal('hide');
+            }
+        }
+
+    });
+
+
+
+
 };
 
 ko.applyBindings(new ViewModel());

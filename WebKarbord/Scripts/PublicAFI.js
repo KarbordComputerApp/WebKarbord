@@ -5536,7 +5536,6 @@ function CreateFctToAcc_Link(serial, sync) {
     var LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
     var LinkFDocADocObject = {
         SerialNumber: serial,
-        AddminMode: 1,
         TahieShode: 'FCT5'
     };
     var res;
@@ -5575,7 +5574,7 @@ function CreateFctToAcc_Link(serial, sync) {
                     textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
 
                 else if (list[i].TestName == "Balance")
-                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('سند بالانس نیست . بدهکار') + ' : ' + $("#SumBedehkar").val() + ' ' + translate('بستانکار') + ' : ' + $("#SumBestankar").val() + ' </a>';
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('به دلیل خطاهای لینک سند بالانس نمی شود ') +' </a>';
 
                 else if (list[i].TestName == "ZeroBand")
                     textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';
