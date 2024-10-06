@@ -2801,11 +2801,11 @@
 
     $("#CreateLinkAcc").click(function () {
         if (serialAcc == 0) {
-            var data = CreateFctToAcc_Link(serial, false);
+            var data = CreateInvToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
                 serialAccLink = data[0].AccCode;
                 showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
-                getFDocH($('#pageCountSelector').val(), false);
+                getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
             }
             $('#modal-LinkAcc').modal('hide');
         }

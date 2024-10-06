@@ -18,7 +18,7 @@
                         <b id="TitleListAnbar"></b>
                     </strong>
 
-                    
+
                     <div style="padding-left: 5px;padding-right: 5px;">
                         <div class="form-inline">
                             <select id="invSelect" data-bind="options: InvList,
@@ -55,13 +55,13 @@
 
 
                     <div id="buttom-header-dropdown" class=" header-dropdown m-r--5">
-                        <strong  data-bind="text:translate('سال مالی')"></strong>
-                        <select id="DropSalInv" class="selectorange"  style="direction: rtl;width: 80px; margin-left: 15px;"></select>
+                        <strong data-bind="text:translate('سال مالی')"></strong>
+                        <select id="DropSalInv" class="selectorange" style="direction: rtl;width: 80px; margin-left: 15px;"></select>
 
 
-                       <!-- <a id="LinkSanad" data-bind="attr: {title:text_LinkSanad}">
-                            <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
-                        </a> -->
+                        <!-- <a id="LinkSanad" data-bind="attr: {title:text_LinkSanad}">
+                             <img src="~/Content/img/list/link.png" width="20" height="20" style="margin-left: 10px;" />
+                         </a> -->
                         <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
                             <img src="~/Content/img/sanad/list-add.png" width="20" height="20" style="margin-left: 10px;" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-SettingColumn" />
                         </a>
@@ -511,6 +511,34 @@
 
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-LinkAcc" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text:translate('ثبت سند حسابداری')"></h4>
+                <a id=""></a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>مقادیر مورد نیاز برای ثبت سند حسابداری</p>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
+                <button data-bind="text:translate('تایید')" type="button" id="CreateLinkAcc" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+            </div>
+
+        </div>
+
     </div>
 </div>
 

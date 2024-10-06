@@ -5711,3 +5711,94 @@ function CreateFctToInv_Link(serial, sync) {
 
     return res;
 }
+
+
+function CreateInvToAcc_Link(serial, sync) {
+    var LinkIDocADocUri = server + '/api/Link/LinkIDocADoc/';
+    var LinkIDocADocObject = {
+        SerialNumber: serial,
+        TahieShode: 'INV5'
+    };
+    var res;
+    ajaxFunction(LinkIDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkIDocADocObject, sync).done(function (data) {
+        res = data
+        if (data[0].Test != 255) {
+            $("#BodyTestLink").empty();
+            textBody = '';
+            countWarning = 0;
+            countError = 0;
+            list = data;
+            for (var i = 0; i < list.length; i++) {
+                textBody +=
+                    '<div class="body" style="padding:7px;">' +
+                    '    <div class="form-inline">';
+                if (list[i].Test == 1) {
+                    countWarning += 1;
+                    textBody += ' <img src="/Content/img/Warning.jpg" width="22" style="margin-left: 3px;" />' +
+                        ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');"> ' + translate('هشدار :') + '</a>'
+                }
+                else {
+                    countError += 1;
+                    textBody += ' <img src="/Content/img/Error.jpg" width="22" style="margin-left: 3px;" />' +
+                        ' <a style="margin-left: 3px;" onclick="FocusRowGrid(' + i + ');">' + translate('خطا :') + '</a>'
+                }
+
+                tBand = translate('بند شماره') + ' ';
+                if (list[i].TestName == "Opr")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('پروژه مشخص نشده است') + ' </a>';
+                else if (list[i].TestName == "Mkz")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مرکز هزینه مشخص نشده است') + ' </a>';
+                else if (list[i].TestName == "Arz")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای حساب ارزی می باشد ولی ارز آن مشخص نیست') + ' </a>';
+                else if (list[i].TestName == "Mahiat")
+                    //  textBody += '<span>بند شماره ' + list[i].BandNo + ' مانده حساب  <span>' + list[i].AccCode + '</span> مغایر با ماهیت آن می شود ' + ' </span>';
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
+
+                else if (list[i].TestName == "Balance")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('به دلیل خطاهای لینک سند بالانس نمی شود ') + ' </a>';
+
+                else if (list[i].TestName == "ZeroBand")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';
+
+
+                else if (list[i].TestName == "Traf")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('طرف حساب انتخاب نشده است') + ' </a>';
+
+                else if (list[i].TestName == "Check")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('اطلاعات چک وارد نشده است') + ' </a>';
+
+                else if (list[i].TestName == "HasZir")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('زیر حساب انتخاب نشده است') + ' </a>';
+
+                else if (list[i].TestCap != "")
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate(list[i].TestCap) + '</a>';
+
+                textBody +=
+                    '    </div>' +
+                    '</div>';
+            }
+
+            $('#BodyTestLink').append(textBody);
+
+            $('#CountWarningLink').text(countWarning);
+            $('#CountErrorLink').text(countError);
+
+            if (countWarning > 0) {
+                $('#ShowCountWarningLink').removeAttr('hidden', '');
+            }
+            else {
+                $('#ShowCountWarningLink').attr('hidden', '');
+            }
+
+            if (countError > 0) {
+                $('#ShowCountErrorLink').removeAttr('hidden', '');
+                $("#modal-TestLink").modal('show');
+            }
+            else {
+                $('#ShowCountErrorLink').attr('hidden', '');
+            }
+        }
+    });
+
+    return res;
+}
