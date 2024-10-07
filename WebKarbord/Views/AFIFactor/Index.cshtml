@@ -576,15 +576,43 @@
                 <a id=""></a>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row" style="padding-bottom:15px">
                     <p>مقادیر مورد نیاز برای ثبت سند انبارداری</p>
                 </div>
+
+                <div id="P_IDoc_linkto_FDoc" class="row">
+
+
+                    <div style="height:120px;overflow:auto;border: 1px #ddd solid;width: -webkit-fill-available;">
+                        <table class="table table-hover table-striped tableFixList">
+                            <thead style="cursor: pointer;">
+                                <tr>
+                                    <th>شماره سند</th>
+                                    <th>شماره مبنا</th>
+                                    <th>کد انبار</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: IDoc_linkto_FDocList" style="cursor: default;">
+                                <tr>
+                                    <td data-bind="text: DocNo"></td>
+                                    <td data-bind="text: SerialNumber"></td>
+                                    <td data-bind="text: InvCode"></td>
+                                    <td>
+                                        <a  data-bind="click: $root.ViewSanadAnbar, attr: {title:text_Update}">
+                                            <img src="/Content/img/list/streamline-icon-pencil-write-2-alternate@48x48.png" width="16" height="16" style="margin-left:10px">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
             </div>
-            <br />
-            <br />
-            <br />
             <div class="modal-footer" style="padding: 0px; margin: 10px 0px 0px 0px;">
-                <button data-bind="text:translate('تایید')" type="button" id="CreateLinkInv" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
+                <button data-bind="text:translate('ثبت سند')" type="button" id="CreateLinkInv" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
                 <button data-bind="text:translate('انصراف')" type="button" data-dismiss="modal" class="btn btn-primary btn-block" style="background-color: #eb8121 !important;"></button>
             </div>
 

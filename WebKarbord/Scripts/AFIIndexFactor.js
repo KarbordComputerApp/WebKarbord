@@ -713,6 +713,7 @@ var ViewModel = function () {
 
     self.FDocHLinkList = ko.observableArray([]);
 
+    self.IDoc_linkto_FDocList = ko.observableArray([]);
     self.StatusFactor = ko.observable();
 
     TestUser();
@@ -4193,14 +4194,25 @@ var ViewModel = function () {
     });
 
 
-    var serialInv = "";
+    var invReg = "";
+    var IDoc_linkto_FDocUri = server + '/api/Web_Data/IDoc_linkto_FDoc/';
 
     self.LinkInv = function (item) {
         serial = item.SerialNumber;
-        serialInv = item.InvSerialNumber;
-        $("#CreateLinkInv").text('ثبت سند');
-        if (serialInv != "") {
-            $("#CreateLinkInv").text('مشاهده');
+        invReg = item.InvReg;
+        $("#CreateLinkInv").show();
+        $("#P_IDoc_linkto_FDoc").hide();
+        if (invReg == "ثبت شده") {
+            $("#CreateLinkInv").hide();
+            $("#P_IDoc_linkto_FDoc").show();
+
+            var IDoc_linkto_FDocObject = {
+                SerialNumber: serial
+            };
+
+            ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
+                self.IDoc_linkto_FDocList(data);
+            });
         }
         $('#modal-LinkInv').modal('show');
     }
@@ -4208,7 +4220,7 @@ var ViewModel = function () {
 
     $('#modal-LinkInv').on('hide.bs.modal', function () {
         serial = 0;
-        serialInv = "";
+        invReg = "";
     });
 
 
@@ -4222,7 +4234,7 @@ var ViewModel = function () {
             if (d == 0) {
                 var data = CreateFctToInv_Link(serial, false);
                 if (data[0].Test == 255) { // success
-                    showNotification(data.length +  " سند ایجاد شد", 1)
+                    showNotification(data.length + " سند ایجاد شد", 1)
                     getFDocH($('#pageCountSelector').val(), false);
                 }
                 $('#modal-LinkInv').modal('hide');
@@ -4231,9 +4243,20 @@ var ViewModel = function () {
                 showNotification("در " + d + " بند انبار انتخاب نشده است", 0)
             }
         });
-
-
     });
+
+
+    self.ViewSanadAnbar = function (item) {
+        if (TestUseSanad(ace, sal, "SanadAnbar", item.SerialNumber, false, item.DocNo) == true) {
+        }
+        else {
+            localStorage.setItem("InvCodeAFISanadAnbar", item.InvCode);
+            localStorage.setItem("ModeCodeAFISanadAnbar", item.ModeCode);
+            localStorage.setItem("InOutAFISanadAnbar", item.InOut);
+            localStorage.setItem("DocNoAFISanadAnbar", item.DocNo);
+            window.open(sessionStorage.urlAFISanadAnbarIndex);
+        }
+    }
 
 
 
