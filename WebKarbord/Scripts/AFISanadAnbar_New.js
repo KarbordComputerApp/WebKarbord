@@ -143,7 +143,7 @@ var ViewModel = function () {
     //var enableKalaExf = false;
     var isSelectedKalaExf = true;   // کلید تایپ یا انتخاب در ویژگی کالا
 
-
+    var accSerialNumber = 0;
 
 
     var IDocB;
@@ -226,6 +226,9 @@ var ViewModel = function () {
     var showPrice = localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true';
     var textSanad;
 
+    var autoFctReg = 0;
+    var autoAccReg = 0;
+
     if (sessionStorage.InOut == 1) {
         textSanad = translate('سند وارده به انبار')
         $('#TitleHeaderAnbar').text(textSanad);
@@ -271,6 +274,8 @@ var ViewModel = function () {
 
         isSelectedKalaExf = true;
 
+        autoFctReg = sessionStorage.IDOCI_AutoFctReg;
+        autoAccReg = sessionStorage.IDOCI_AutoAccReg;
 
     } else {
         textSanad = translate('سند صادره از انبار')
@@ -299,6 +304,9 @@ var ViewModel = function () {
         $('#foottextunitprice').hide();
         $('#foottexttotalprice').hide();
         isSelectedKalaExf = false;
+
+        autoFctReg = sessionStorage.IDOCO_AutoFctReg;
+        autoAccReg = sessionStorage.IDOCO_AutoAccReg;
     }
 
     self.InvCode = ko.observable(invSelected);
@@ -1320,7 +1328,7 @@ var ViewModel = function () {
 
     CheckAccess();
 
-
+    var isUpdateFactor = true;
 
     if (flagupdateHeader == 1) {
 
@@ -1353,6 +1361,8 @@ var ViewModel = function () {
         self.MkzCode(sessionStorage.MkzCode);
         codeMkz = sessionStorage.MkzCode;
 
+        accSerialNumber = sessionStorage.AccSerialNumber;
+
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
 
@@ -1363,6 +1373,31 @@ var ViewModel = function () {
         $('#nameMkz').val(sessionStorage.MkzCode == '' ? '' : '(' + sessionStorage.MkzCode + ') ' + sessionStorage.MkzName);
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
         $('#ArzRate').val(arzRate);
+
+
+
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0) {
+            $('#btnThvl').attr('style', 'display: none');
+            $('#btnVstr').attr('style', 'display: none');
+            $('#btnMkz').attr('style', 'display: none');
+            $('#btnOpr').attr('style', 'display: none');
+            $('#btnArz').attr('style', 'display: none');
+            $('#CalcAddmin').attr('style', 'display: none');
+            $('#Btn_TasfiyeFactor').attr('style', 'display: none');
+            $('#gGhimat').attr('disabled', true);
+            $('#status').attr('disabled', true);
+            $('#inv').attr('disabled', true);
+            isUpdateFactor = false;
+        }
+
+        if (codeOpr == "!!!" || codeMkz == "!!!") {
+            showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد'), 0);
+        }
+
+        if (accSerialNumber > 0) {
+            showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
+        }
+
 
         getIDocH(Serial);
         getIDocB(Serial);
@@ -1377,6 +1412,7 @@ var ViewModel = function () {
         $("#paymenttype").val(sessionStorage.PaymentType);
 
         $('#titlePage').text(sessionStorage.ModeName + " " + sessionStorage.DocNo.toPersianDigit() + " " + AppendAnbar(sessionStorage.InvName));
+
 
 
         var closedDate = false;
@@ -1396,25 +1432,7 @@ var ViewModel = function () {
 
         });
 
-
-
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true) {
-            $('#action_headerSanad').attr('style', 'display: none');
-            $('#action_bodySanad').attr('style', 'display: none');
-            $('#action_footerSanad').attr('style', 'display: none');
-            $('#action_IDoc').attr('style', 'display: none');
-            $('#insertband').attr('style', 'display: none');
-            $('#Barcode').attr('style', 'display: none');
-            $('#btnThvl').attr('style', 'display: none');
-            $('#btnMkz').attr('style', 'display: none');
-            $('#btnOpr').attr('style', 'display: none');
-            $('#gGhimat').attr('disabled', true);
-            // $('#inv').attr('disabled', true);
-        }
-
-        if (codeOpr == "!!!" || codeMkz == "!!!") {
-            showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد'), 0);
-        }
+        
 
         dataGrid.focus(dataGrid.getCellElement(0, 4));
     }
@@ -1961,7 +1979,7 @@ var ViewModel = function () {
                     if (columnName == 'KalaExf15' && isSelectedKalaExf) { $("#modal-KalaExf15").modal('show'); }
 
                     $("#MAmount").text(NumberToNumberString(IDocB[ro].KalaMjd == null ? 0 : IDocB[ro].KalaMjd));
-                    $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd == null ? 0 : IDocB[ro].TotalPriceMjd ));
+                    $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd == null ? 0 : IDocB[ro].TotalPriceMjd));
                 }
 
 
@@ -2033,7 +2051,7 @@ var ViewModel = function () {
             onToolbarPreparing: function (e) {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'save',
@@ -2045,9 +2063,9 @@ var ViewModel = function () {
                                 ControlSave();
                             },
                         },
-                    },
+                    } : '',
 
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'addRow',
@@ -2058,7 +2076,7 @@ var ViewModel = function () {
                                 AddNewBand();
                             },
                         },
-                    },
+                    } : '',
 
                     {
                         location: 'after',
@@ -2072,7 +2090,7 @@ var ViewModel = function () {
                             },
                         },
                     },
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'OtherField',
@@ -2083,9 +2101,9 @@ var ViewModel = function () {
                                 $('#modal-OtherField').modal('show');
                             },
                         },
-                    },
+                    } : '',
 
-                    {
+                    isUpdateFactor == true ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'Barcode',
@@ -2096,7 +2114,7 @@ var ViewModel = function () {
                                 $('#modal-Barcode').modal();
                             },
                         },
-                    },
+                    } : '',
 
                     {
                         location: 'after',
@@ -2450,6 +2468,7 @@ var ViewModel = function () {
                 $("#ExtraFields19").val("");
                 $("#ExtraFields20").val("");
                 CheckAccess();
+                isUpdateFactor = true;
             }
         })
     }
@@ -2834,7 +2853,7 @@ var ViewModel = function () {
 
 
     function SaveSanad() {
-        tarikh = $("#tarikh").val().toEnglishDigit();
+        if (isUpdateFactor) {  tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
         inv = $("#inv").val();
         docno = $("#docnoout").val();
@@ -2999,7 +3018,26 @@ var ViewModel = function () {
             $('#inv').prop('disabled', true);
             $('#modeCode').prop('disabled', true);
             showNotification(translate('سند ذخیره شد'), 1);
-        });
+
+
+            if (autoFctReg == "1") {
+
+            }
+
+            if (autoAccReg == "1" && sessionStorage.InOut == 2) {
+                var dataAcc = CreateInvToAcc_Link(Serial, false);
+                if (dataAcc[0].Test == 255) { // success
+                    serialAccLink = dataAcc[0].AccCode;
+                    sessionStorage.AccSerialNumber = serialAccLink;
+                    showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1);
+                    isUpdateFactor = false;
+                }
+            }
+
+            });
+        } else {
+            showNotification("به دلیل وجود اسناد لینک امکان ذخیره مجدد وجود ندارد", 0);
+        }
 
     }
 
@@ -3307,7 +3345,7 @@ var ViewModel = function () {
 
                                 dataGrid.cellValue(ro, "UnitPrice", defaultUnit == 1 ? Price1 : defaultUnit == 2 ? Price2 : Price3);
 
-                                
+
                                 //GetTrzIKala(dataKala.Code, defaultUnit);
 
                                 GetKalaMjd(
@@ -5374,28 +5412,28 @@ var ViewModel = function () {
         $("#MTotalPrice").text(NumberToNumberString(IDocB[ro].TotalPriceMjd));
 
 
-  /*      GetTrzIKalaExf(
-            $("#inv").val(),
-            item.Code,
-            defaultUnit,
-            item.KalaFileNo,
-            item.KalaState,
-            item.KalaExf1,
-            item.KalaExf2,
-            item.KalaExf3,
-            item.KalaExf4,
-            item.KalaExf5,
-            item.KalaExf6,
-            item.KalaExf7,
-            item.KalaExf8,
-            item.KalaExf9,
-            item.KalaExf10,
-            item.KalaExf11,
-            item.KalaExf12,
-            item.KalaExf13,
-            item.KalaExf14,
-            item.KalaExf15
-        )*/
+        /*      GetTrzIKalaExf(
+                  $("#inv").val(),
+                  item.Code,
+                  defaultUnit,
+                  item.KalaFileNo,
+                  item.KalaState,
+                  item.KalaExf1,
+                  item.KalaExf2,
+                  item.KalaExf3,
+                  item.KalaExf4,
+                  item.KalaExf5,
+                  item.KalaExf6,
+                  item.KalaExf7,
+                  item.KalaExf8,
+                  item.KalaExf9,
+                  item.KalaExf10,
+                  item.KalaExf11,
+                  item.KalaExf12,
+                  item.KalaExf13,
+                  item.KalaExf14,
+                  item.KalaExf15
+              )*/
 
     }
 

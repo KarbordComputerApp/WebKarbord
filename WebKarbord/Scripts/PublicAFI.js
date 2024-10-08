@@ -141,6 +141,9 @@ const AC_AGOpr = 37;
 const AC_ARZ = 38;
 const AC_ZACC = 39;
 
+const InvRegSave = "ثبت شده";
+const InvRegNotSave = "ثبت نشد";
+
 var ShowMenu = [false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false, false, false,
@@ -2021,6 +2024,18 @@ async function getParamList() {
             sessionStorage.FDOCPR_AutoAccReg = SearchArry("FDOCPR_AutoAccReg", "Default", self.ParamList());
             localStorage.setItem("FDOCPR_AutoAccReg", sessionStorage.FDOCPR_AutoAccReg);
 
+
+            sessionStorage.IDOCI_AutoAccReg = SearchArry("IDOCI_AutoAccReg", "Default", self.ParamList());
+            localStorage.setItem("IDOCI_AutoAccReg", sessionStorage.IDOCI_AutoAccReg);
+            sessionStorage.IDOCO_AutoAccReg = SearchArry("IDOCO_AutoAccReg", "Default", self.ParamList());
+            localStorage.setItem("IDOCO_AutoAccReg", sessionStorage.IDOCO_AutoAccReg);
+            sessionStorage.IDOCI_AutoFctReg = SearchArry("IDOCI_AutoFctReg", "Default", self.ParamList());
+            localStorage.setItem("IDOCI_AutoFctReg", sessionStorage.IDOCI_AutoFctReg);
+            sessionStorage.IDOCO_AutoFctReg = SearchArry("IDOCO_AutoFctReg", "Default", self.ParamList());
+            localStorage.setItem("IDOCO_AutoFctReg", sessionStorage.IDOCO_AutoFctReg);
+
+
+
             sessionStorage.invSelect = "";
             localStorage.setItem("invSelect", sessionStorage.invSelect);
             /* $('#param1').text(ace == "null" ? "انتخاب نشده است" : sessionStorage.ace);
@@ -2235,6 +2250,17 @@ function getParamFct() {
             localStorage.setItem("FDOCP_AutoAccReg", sessionStorage.FDOCP_AutoAccReg);
             sessionStorage.FDOCPR_AutoAccReg = SearchArry("FDOCPR_AutoAccReg", "Default", data);
             localStorage.setItem("FDOCPR_AutoAccReg", sessionStorage.FDOCPR_AutoAccReg);
+
+
+            sessionStorage.IDOCI_AutoAccReg = SearchArry("IDOCI_AutoAccReg", "Default", data);
+            localStorage.setItem("IDOCI_AutoAccReg", sessionStorage.IDOCI_AutoAccReg);
+            sessionStorage.IDOCO_AutoAccReg = SearchArry("IDOCO_AutoAccReg", "Default", data);
+            localStorage.setItem("IDOCO_AutoAccReg", sessionStorage.IDOCO_AutoAccReg);
+
+            sessionStorage.IDOCI_AutoFctReg = SearchArry("IDOCI_AutoFctReg", "Default", data);
+            localStorage.setItem("IDOCI_AutoFctReg", sessionStorage.IDOCI_AutoFctReg);
+            sessionStorage.IDOCO_AutoFctReg = SearchArry("IDOCO_AutoFctReg", "Default", data);
+            localStorage.setItem("IDOCO_AutoFctReg", sessionStorage.IDOCO_AutoFctReg);
 
 
 

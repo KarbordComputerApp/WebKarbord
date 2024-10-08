@@ -747,6 +747,8 @@ var ViewModel = function () {
     var accessTasvib = false;
     var accessCancel = false;
 
+    var isLinkAcc = false;
+    var isLinkInv = false;
 
     sessionStorage.flagCopy = 'N';
 
@@ -778,6 +780,8 @@ var ViewModel = function () {
                 $('#titlePage').text(translate('فاکتور های فروش'));
                 defultMove = sessionStorage.Move_SFCT;
                 inOut = 2;
+                isLinkAcc = true;
+                isLinkInv = true;
                 break;
             }
         case sessionStorage.MODECODE_FDOC_SR:
@@ -789,6 +793,8 @@ var ViewModel = function () {
                 $("#menu1").attr('hidden', '');
                 $("#TabMove").attr('hidden', '');
                 inOut = 2;
+                isLinkAcc = true;
+                isLinkInv = true;
                 break;
             }
 
@@ -841,6 +847,8 @@ var ViewModel = function () {
                 $('#titlePage').text(translate('فاکتور های خرید'));
                 defultMove = sessionStorage.Move_PFCT;
                 inOut = 1;
+                isLinkAcc = true;
+                isLinkInv = true;
                 break;
             }
 
@@ -853,6 +861,8 @@ var ViewModel = function () {
                 $("#TabMove").attr('hidden', '');
                 defultMove = '';//sessionStorage.Move_PRFCT;
                 inOut = 1;
+                isLinkAcc = true;
+                isLinkInv = true;
             }
     }
 
@@ -915,7 +925,7 @@ var ViewModel = function () {
         'F19',
         'F20',
         'AccSerialNumber',
-        'InvSerialNumber',
+        'InvReg',
     ];
 
 
@@ -2699,7 +2709,7 @@ var ViewModel = function () {
             sessionStorage.MkzName = item.MkzName;
 
 
-            sessionStorage.InvSerialNumber = item.InvSerialNumber;
+            sessionStorage.InvReg = item.InvReg;
             sessionStorage.AccSerialNumber = item.AccSerialNumber;
 
 
@@ -2921,7 +2931,7 @@ var ViewModel = function () {
                 sessionStorage.MkzCode = data.MkzCode;
                 sessionStorage.MkzName = data.MkzName;
 
-                sessionStorage.InvSerialNumber = data.InvSerialNumber;
+                sessionStorage.InvReg = data.InvReg;
                 sessionStorage.AccSerialNumber = data.AccSerialNumber;
 
                 sessionStorage.AddMinSpec1 = data.AddMinSpec1//== "" ? null : data.AddMinSpec1;
@@ -3620,20 +3630,23 @@ var ViewModel = function () {
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('تغییر وضعیت') +
             '        </a>' +
-            '    </li>' +
+            '    </li>';
 
-            '    <li>' +
-            '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            translate('ثبت حسابداری') +
-            '        </a>' +
-            '    </li>' +
-            '    <li>' +
-            '        <a id="LinkAcc" data-bind="click: $root.LinkInv" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-            translate('ثبت انبارداری') +
-            '        </a>' +
-            '    </li>'
+
+        if (isLinkAcc == true)
+            dataTable += '    <li>' +
+                '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+                translate('ثبت حسابداری') +
+                '        </a>' +
+                '    </li>';
+        if (isLinkInv == true)
+            dataTable += '    <li>' +
+                '        <a id="LinkAcc" data-bind="click: $root.LinkInv" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+                translate('ثبت انبارداری') +
+                '        </a>' +
+                '    </li>';
 
         if (sessionStorage.AccessPrint_Factor == "true") {
             dataTable +=

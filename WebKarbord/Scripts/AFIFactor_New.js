@@ -62,7 +62,7 @@ var ViewModel = function () {
     var codeVstr = '';
     var codeArz = '';
     var arzRate = 0;
-    var invSerialNumber = 0;
+    var invReg = InvRegNotSave;
     var accSerialNumber = 0;
 
     $('#ArzRate').val(0);
@@ -1309,7 +1309,7 @@ var ViewModel = function () {
         self.MkzCode(sessionStorage.MkzCode);
         codeMkz = sessionStorage.MkzCode;
 
-        invSerialNumber = sessionStorage.InvSerialNumber;
+        invReg = sessionStorage.InvReg;
         accSerialNumber = sessionStorage.AccSerialNumber;
 
 
@@ -1329,10 +1329,8 @@ var ViewModel = function () {
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
         $('#ArzRate').val(arzRate);
 
-        invSerialNumber = sessionStorage.InvSerialNumber;
-        accSerialNumber = sessionStorage.AccSerialNumber;
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invSerialNumber != '' || accSerialNumber > 0) {
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0) {
             $('#btnCust').attr('style', 'display: none');
             $('#btnVstr').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
@@ -1350,7 +1348,7 @@ var ViewModel = function () {
             showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای پروژه و مرکز هزینه متفاوت است و امکان ثبت وجود ندارد'), 0);
         }
 
-        if (invSerialNumber != "") {
+        if (invReg == InvRegSave) {
             showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای سند انبارداری می باشد و امکان ثبت وجود ندارد'), 0);
         }
 
@@ -2862,7 +2860,7 @@ var ViewModel = function () {
                 $("#ExtraFields20").val("");
                 CheckAccess();
                 sessionStorage.AccSerialNumber = 0;
-                sessionStorage.invSerialNumber = "";
+                sessionStorage.InvReg = InvRegNotSave;
                 isUpdateFactor = true;
             }
         })
@@ -3656,7 +3654,7 @@ var ViewModel = function () {
 
                         var dataInv = CreateFctToInv_Link(Serial, false);
                         if (dataInv[0].Test == 255) { // success
-                            sessionStorage.InvSerialNumber = "*";
+                            sessionStorage.InvReg = InvRegSave;
                             showNotification(dataInv.length + " سند ایجاد شد", 1)
                             isUpdateFactor = false;
                         }

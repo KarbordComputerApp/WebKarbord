@@ -1412,6 +1412,8 @@
         sessionStorage.MkzCode = "";
         sessionStorage.MkzName = "";
 
+        sessionStorage.AccSerialNumber = 0;
+
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
         sessionStorage.ArzRate = 0;
@@ -1664,6 +1666,8 @@
             sessionStorage.MkzCode = item.MkzCode;
             sessionStorage.MkzName = item.MkzName;
 
+            sessionStorage.AccSerialNumber = item.AccSerialNumber;
+
             sessionStorage.ArzCode = item.ArzCode;
             sessionStorage.ArzName = item.ArzName;
             sessionStorage.ArzRate = item.ArzRate;
@@ -1797,6 +1801,8 @@
 
                 sessionStorage.MkzCode = data.MkzCode;
                 sessionStorage.MkzName = data.MkzName;
+
+                sessionStorage.AccSerialNumber = data.AccSerialNumber;
 
                 sessionStorage.ArzCode = data.ArzCode;
                 sessionStorage.ArzName = data.ArzName;
