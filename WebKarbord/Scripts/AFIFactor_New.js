@@ -1230,7 +1230,9 @@ var ViewModel = function () {
             $('#btnVstr').removeAttr('style');
             $('#btnOpr').removeAttr('style');
             $('#btnArz').removeAttr('style');
+            $('#CalcAddmin').removeAttr('style');
             $('#gGhimat').attr('disabled', false);
+            $('#status').attr('disabled', false);
             $('#inv').attr('disabled', false);
         }
     }

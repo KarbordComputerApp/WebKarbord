@@ -1995,13 +1995,13 @@ async function getParamList() {
             }
 
             // روش ذخیره انبار در فاکتور
-            sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "SFCT", self.ParamList());
+            sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "FDOCS", self.ParamList());
             localStorage.setItem("InvRegKalaInv_SFCT", sessionStorage.InvRegKalaInv_SFCT);
-            sessionStorage.InvRegKalaInv_SRFCT = SearchArry("InvRegKalaInv", "SRFCT", self.ParamList());
+            sessionStorage.InvRegKalaInv_SRFCT = SearchArry("InvRegKalaInv", "FDOCSR", self.ParamList());
             localStorage.setItem("InvRegKalaInv_SRFCT", sessionStorage.InvRegKalaInv_SRFCT);
-            sessionStorage.InvRegKalaInv_PFCT = SearchArry("InvRegKalaInv", "PFCT", self.ParamList());
+            sessionStorage.InvRegKalaInv_PFCT = SearchArry("InvRegKalaInv", "FDOCP", self.ParamList());
             localStorage.setItem("InvRegKalaInv_PFCT", sessionStorage.InvRegKalaInv_PFCT);
-            sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "PRFCT", self.ParamList());
+            sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "FDOCPR", self.ParamList());
             localStorage.setItem("InvRegKalaInv_PRFCT", sessionStorage.InvRegKalaInv_PRFCT);
 
 
@@ -2222,14 +2222,15 @@ function getParamFct() {
 
 
             // روش ذخیره انبار در فاکتور
-            sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "SFCT", data);
+            sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "FDOCS", data);
             localStorage.setItem("InvRegKalaInv_SFCT", sessionStorage.InvRegKalaInv_SFCT);
-            sessionStorage.InvRegKalaInv_SRFCT = SearchArry("InvRegKalaInv", "SRFCT", data);
+            sessionStorage.InvRegKalaInv_SRFCT = SearchArry("InvRegKalaInv", "FDOCSR", data);
             localStorage.setItem("InvRegKalaInv_SRFCT", sessionStorage.InvRegKalaInv_SRFCT);
-            sessionStorage.InvRegKalaInv_PFCT = SearchArry("InvRegKalaInv", "PFCT", data);
+            sessionStorage.InvRegKalaInv_PFCT = SearchArry("InvRegKalaInv", "FDOCP", data);
             localStorage.setItem("InvRegKalaInv_PFCT", sessionStorage.InvRegKalaInv_PFCT);
-            sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "PRFCT", data);
+            sessionStorage.InvRegKalaInv_PRFCT = SearchArry("InvRegKalaInv", "FDOCPR", data);
             localStorage.setItem("InvRegKalaInv_PRFCT", sessionStorage.InvRegKalaInv_PRFCT);
+
 
             // ذخیره سند انبار بعد از ذخیره فاکتور
             sessionStorage.FDOCS_AutoInvReg = SearchArry("FDOCS_AutoInvReg", "Default", data);

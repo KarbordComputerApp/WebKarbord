@@ -475,6 +475,7 @@ var ViewModel = function () {
     //var dataAcc = [];
     //var darChecks = '';
     // var parChecks = '';
+    var isUpdateFactor = true;
 
     var ADocBUri = server + '/api/ADocData/ADocB/'; // آدرس بند سند 
     function getADocB(serialNumber) {
@@ -517,6 +518,8 @@ var ViewModel = function () {
             $("#SumBestankar").val(NumberToNumberString(sumBest));
             $("#TafavotSanad").val(NumberToNumberString(sumBede - sumBest));
 
+            dataLink = data.filter(s => s.LinkSerialNumber > 0);
+            isUpdateFactor = dataLink.length == 0;
             ADocB = data;
             GetRprtCols_NewList(sessionStorage.userName);
         });
@@ -566,6 +569,7 @@ var ViewModel = function () {
         if (viewAction) {
             //$(".dx-toolbar-after").show();
             $('#status').removeAttr('disabled');
+
         }
 
 
@@ -1661,19 +1665,20 @@ var ViewModel = function () {
             onToolbarPreparing: function (e) {
                 var toolbarItems = e.toolbarOptions.items;
                 e.toolbarOptions.items.unshift(
-                    {
-                        location: 'after',
-                        widget: 'dxButton',
-                        name: 'save',
-                        options: {
-                            icon: 'save',
-                            hint: 'ذخیره',
-                            onClick() {
-                                SaveColumnSanad();
-                                ControlSave();
+                    isUpdateFactor ?
+                        {
+                            location: 'after',
+                            widget: 'dxButton',
+                            name: 'save',
+                            options: {
+                                icon: 'save',
+                                hint: 'ذخیره',
+                                onClick() {
+                                    SaveColumnSanad();
+                                    ControlSave();
+                                },
                             },
-                        },
-                    },
+                        } : '',
 
                     /*{
                         location: 'after',
@@ -1688,7 +1693,7 @@ var ViewModel = function () {
                         },
                     },*/
 
-                    {
+                    isUpdateFactor ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'addRow',
@@ -1699,7 +1704,7 @@ var ViewModel = function () {
                                 AddNewBand();
                             },
                         },
-                    },
+                    } : '',
 
                     {
                         location: 'after',
@@ -1714,7 +1719,7 @@ var ViewModel = function () {
                         },
                     },
 
-                    {
+                    isUpdateFactor ? {
                         location: 'after',
                         widget: 'dxButton',
                         name: 'OtherField',
@@ -1725,7 +1730,7 @@ var ViewModel = function () {
                                 $('#modal-OtherField').modal('show');
                             },
                         },
-                    },
+                    } : '',
 
                     {
                         location: 'after',
@@ -2067,6 +2072,7 @@ var ViewModel = function () {
 
 
                 CheckAccess();
+                isUpdateFactor = true;
             }
         })
     }
@@ -3673,6 +3679,12 @@ var ViewModel = function () {
         flagOtherFieldShow = true;
         $('#titlePage').text(translate("سند حسابداری شماره") + ' ' + sessionStorage.DocNo.toPersianDigit());
         getADocB(Serial);
+
+        if (isUpdateFactor == false) {
+            $('#status').attr('disabled', true);
+            showNotification(translate('سند دارای بند های لینک می باشد و امکان ویرایش وجود ندارد'), 0);
+        }
+
         dataGrid.focus(dataGrid.getCellElement(0, 4));
     }
     else {
@@ -4056,9 +4068,10 @@ var ViewModel = function () {
                     ArzRate: item.ArzRate == null ? "" : item.ArzRate,
                     arzValue: item.ArzValue == null ? "" : item.ArzValue,
                     Amount: item.Amount == null ? "" : item.Amount,
-
                     flagLog: 'N',
                     flagTest: 'Y',
+                    LinkSerialNumber: item.LinkSerialNumber,
+                    LinkProg: item.LinkProg
                 };
                 obj.push(tmp);
             }
