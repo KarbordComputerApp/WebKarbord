@@ -1020,7 +1020,11 @@ var ViewModel = function () {
             //dataLink = data.filter(s => s.LinkSerialNumber > 0);
             //isUpdateFactor = dataLink.length == 0;
             dataLink = data.filter(s => s.LinkNumber > 0);
-            isUpdateFactor = dataLink.length == 0;
+
+            if (dataLink.length != 0) {
+                LockSanad();
+                showNotification(translate($('#TitleHeaderFactor').text() + ' ' + ' دارای بند های لینک می باشد و امکان ویرایش وجود ندارد'), 0);
+            }
 
             FDocB = data;
             GetRprtCols_NewList(sessionStorage.userName);
@@ -1279,6 +1283,20 @@ var ViewModel = function () {
 
     var isUpdateFactor = true;
 
+    function LockSanad() {
+        $('#btnCust').attr('style', 'display: none');
+        $('#btnVstr').attr('style', 'display: none');
+        $('#btnMkz').attr('style', 'display: none');
+        $('#btnOpr').attr('style', 'display: none');
+        $('#btnArz').attr('style', 'display: none');
+        $('#CalcAddmin').attr('style', 'display: none');
+        $('#Btn_TasfiyeFactor').attr('style', 'display: none');
+        $('#gGhimat').attr('disabled', true);
+        $('#status').attr('disabled', true);
+        $('#inv').attr('disabled', true);
+        isUpdateFactor = false;
+    }
+
     if (flagupdateHeader == 1) {
 
         flagInsertFdoch = 1;
@@ -1332,23 +1350,9 @@ var ViewModel = function () {
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
         $('#ArzRate').val(arzRate);
 
-        getFDocB(Serial);
-        if (isUpdateFactor == false) {
-            showNotification(translate($('#TitleHeaderFactor').text() + ' ' + ' دارای بند های لینک می باشد و امکان ویرایش وجود ندارد'), 0);
-        }
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0 || isUpdateFactor == false) {
-            $('#btnCust').attr('style', 'display: none');
-            $('#btnVstr').attr('style', 'display: none');
-            $('#btnMkz').attr('style', 'display: none');
-            $('#btnOpr').attr('style', 'display: none');
-            $('#btnArz').attr('style', 'display: none');
-            $('#CalcAddmin').attr('style', 'display: none');
-            $('#Btn_TasfiyeFactor').attr('style', 'display: none');
-            $('#gGhimat').attr('disabled', true);
-            $('#status').attr('disabled', true);
-            $('#inv').attr('disabled', true);
-            isUpdateFactor = false;
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0) {
+            LockSanad();
         }
 
         if (codeOpr == "!!!" || codeMkz == "!!!") {
@@ -1363,8 +1367,9 @@ var ViewModel = function () {
             showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
         }
 
+
         getFDocH(Serial);
-       
+        getFDocB(Serial);       
 
         getAddMinList(
             sessionStorage.sels,
