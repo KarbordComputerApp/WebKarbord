@@ -4071,7 +4071,9 @@ var ViewModel = function () {
                     flagLog: 'N',
                     flagTest: 'Y',
                     LinkSerialNumber: item.LinkSerialNumber,
-                    LinkProg: item.LinkProg
+                    LinkProg: item.LinkProg,
+                    LinkYear: item.LinkYear,
+                    LinkBandNo: item.LinkBandNo,
                 };
                 obj.push(tmp);
             }

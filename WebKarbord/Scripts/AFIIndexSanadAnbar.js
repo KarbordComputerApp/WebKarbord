@@ -1939,7 +1939,12 @@
         }
     }
 
-
+    self.ViewLinkAcc = function (status) {
+        if (status == 'باطل')
+            return false;
+        else
+            return true;
+    }
 
     $("#searchIDocH").on("keydown", function search(e) {
         if (allSearchIDocH == false) {
@@ -2348,7 +2353,7 @@
 
         if (sessionStorage.InOut == 2) {
             dataTable +=
-                '    <li>' +
+                '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
                 '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
                 translate('ثبت حسابداری') +

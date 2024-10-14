@@ -291,9 +291,9 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_TAEED_SRDOC = true : sessionStorage.Access_TAEED_SRDOC = false
             validation == true ? localStorage.setItem("Access_TAEED_SRDOC", "true") : localStorage.setItem("Access_TAEED_SRDOC", "false")
 
-            validation = CheckAccess('CANCEL_SFDOC', 'Fct5');// AccessCANCEL  باطل
-            validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
-            validation == true ? localStorage.setItem("Access_CANCEL_SFDOC", "true") : localStorage.setItem("Access_CANCEL_SFDOC", "false")
+            validation = CheckAccess('CANCEL_SRDOC', 'Fct5');// AccessCANCEL  باطل
+            validation == true ? sessionStorage.Access_CANCEL_SRDOC = true : sessionStorage.Access_CANCEL_SRDOC = false
+            validation == true ? localStorage.setItem("Access_CANCEL_SRDOC", "true") : localStorage.setItem("Access_CANCEL_SRDOC", "false")
 
 
             validation = CheckAccess('TASVIB_SRDOC', 'Fct5');// AccessTasvib
@@ -349,9 +349,9 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_TAEED_SHVL = true : sessionStorage.Access_TAEED_SHVL = false
             validation == true ? localStorage.setItem("Access_TAEED_SHVL", "true") : localStorage.setItem("Access_TAEED_SHVL", "false")
 
-            validation = CheckAccess('CANCEL_SFDOC', 'Fct5');// AccessCANCEL  باطل
-            validation == true ? sessionStorage.Access_CANCEL_SFDOC = true : sessionStorage.Access_CANCEL_SFDOC = false
-            validation == true ? localStorage.setItem("Access_CANCEL_SFDOC", "true") : localStorage.setItem("Access_CANCEL_SFDOC", "false")
+            validation = CheckAccess('CANCEL_SHVL', 'Fct5');// AccessCANCEL  باطل
+            validation == true ? sessionStorage.Access_CANCEL_SHVL = true : sessionStorage.Access_CANCEL_SHVL = false
+            validation == true ? localStorage.setItem("Access_CANCEL_SHVL", "true") : localStorage.setItem("Access_CANCEL_SHVL", "false")
 
             validation = CheckAccess('TASVIB_SHVL', 'Fct5');// AccessTasvib
             validation == true ? sessionStorage.Access_TASVIB_SHVL = true : sessionStorage.Access_TASVIB_SHVL = false
@@ -2639,6 +2639,15 @@ var ViewModel = function () {
     }
 
 
+    self.ViewLinkAcc = function (status) {
+        if (status == 'باطل')
+            return false;
+        else
+            return true;
+    }
+
+
+
     $("#searchFDocH").on("keydown", function search(e) {
         var key = e.charCode || e.keyCode || 0;
         if (allSearchFDocH == false) {
@@ -3634,15 +3643,15 @@ var ViewModel = function () {
 
 
         if (isLinkAcc == true)
-            dataTable += '    <li>' +
-                '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+            dataTable += '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
+                '        <a data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
                 translate('ثبت حسابداری') +
                 '        </a>' +
                 '    </li>';
         if (isLinkInv == true)
-            dataTable += '    <li>' +
-                '        <a id="LinkAcc" data-bind="click: $root.LinkInv" style="font-size: 11px;text-align: right;">' +
+            dataTable += '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
+                '        <a data-bind="click: $root.LinkInv" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
                 translate('ثبت انبارداری') +
                 '        </a>' +

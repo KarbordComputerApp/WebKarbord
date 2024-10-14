@@ -1004,10 +1004,6 @@ var ViewModel = function () {
 
 
 
-
-
-
-
     var firstShowData = true;
 
     var rprtId = sessionStorage.InOut == 1 ? 'FDocB_P' : 'FDocB_S';
@@ -1021,6 +1017,11 @@ var ViewModel = function () {
                     data[i].dataKala = KalaData[0];
                 }
             }
+            //dataLink = data.filter(s => s.LinkSerialNumber > 0);
+            //isUpdateFactor = dataLink.length == 0;
+            dataLink = data.filter(s => s.LinkNumber > 0);
+            isUpdateFactor = dataLink.length == 0;
+
             FDocB = data;
             GetRprtCols_NewList(sessionStorage.userName);
         });
@@ -1331,8 +1332,12 @@ var ViewModel = function () {
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
         $('#ArzRate').val(arzRate);
 
+        getFDocB(Serial);
+        if (isUpdateFactor == false) {
+            showNotification(translate($('#TitleHeaderFactor').text() + ' ' + ' دارای بند های لینک می باشد و امکان ویرایش وجود ندارد'), 0);
+        }
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0) {
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0 || isUpdateFactor == false) {
             $('#btnCust').attr('style', 'display: none');
             $('#btnVstr').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
@@ -1359,7 +1364,7 @@ var ViewModel = function () {
         }
 
         getFDocH(Serial);
-        getFDocB(Serial);
+       
 
         getAddMinList(
             sessionStorage.sels,
@@ -2543,6 +2548,10 @@ var ViewModel = function () {
             var a = response;
         });
 
+        for (var i = 0; i < Addmin.length; i++) {
+            Addmin[i].AddMinPrice = Addmin[i].AddMinPrice == null ? 0 : Addmin[i].AddMinPrice;
+        }
+
         var FDocHObject = {
             SerialNumber: 0,
             DocDate: tarikh,
@@ -2658,6 +2667,12 @@ var ViewModel = function () {
                     KalaExf14: item.KalaExf14,
                     KalaExf15: item.KalaExf15,
                     flagLog: 'N',
+                    LFctSerialNumber: item.LFctSerialNumber,
+                    InvSerialNumber: item.InvSerialNumber,
+                    LinkNumber: item.LinkNumber,
+                    LinkYear: item.LinkYear,
+                    LinkBandNo: item.LinkBandNo,
+                    LinkProg: item.LinkProg
                 };
 
                 obj.push(tmp);
@@ -3261,6 +3276,12 @@ var ViewModel = function () {
                     KalaExf13: item.KalaExf13,
                     KalaExf14: item.KalaExf14,
                     KalaExf15: item.KalaExf15,
+                    LFctSerialNumber: item.LFctSerialNumber,
+                    InvSerialNumber: item.InvSerialNumber,
+                    LinkNumber: item.LinkNumber,
+                    LinkYear: item.LinkYear,
+                    LinkBandNo: item.LinkBandNo,
+                    LinkProg: item.LinkProg
                 };
                 obj.push(tmp);
             }
@@ -3650,7 +3671,7 @@ var ViewModel = function () {
                 SaveFDocHU(true);
                 showNotification(translate('سند ذخیره شد'), 1);
 
-                if (autoInvReg == "1") {
+                /*if (autoInvReg == "1") {
                     var d = FDocB.filter(c => c.InvCode == "" || c.InvCode == "0" || c.InvCode == null);
                     if (d.length == 0) {
 
@@ -3674,7 +3695,7 @@ var ViewModel = function () {
                         showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1);
                         isUpdateFactor = false;
                     }
-                }
+                }*/
 
                 
 

@@ -1250,6 +1250,10 @@ var ViewModel = function () {
                 data[i].KalaMjd = mAmount_Mjd;
                 data[i].TotalPriceMjd = mTotalPrice_Mjd;
             }
+
+            dataLink = data.filter(s => s.LinkSerialNumber > 0);
+            isUpdateFactor = dataLink.length == 0;
+
             IDocB = data;
             GetRprtCols_NewList(sessionStorage.userName);
 
@@ -1374,9 +1378,13 @@ var ViewModel = function () {
         $('#nameArz').val(sessionStorage.ArzName == '' || sessionStorage.ArzName == 'null' ? '' : '(' + sessionStorage.ArzCode + ') ' + sessionStorage.ArzName);
         $('#ArzRate').val(arzRate);
 
+        getIDocB(Serial);
 
+        if (isUpdateFactor == false) {
+            showNotification(translate('سند دارای بند های لینک می باشد و امکان ویرایش وجود ندارد'), 0);
+        }
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0) {
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0 || isUpdateFactor == false) {
             $('#btnThvl').attr('style', 'display: none');
             $('#btnVstr').attr('style', 'display: none');
             $('#btnMkz').attr('style', 'display: none');
@@ -1400,7 +1408,7 @@ var ViewModel = function () {
 
 
         getIDocH(Serial);
-        getIDocB(Serial);
+
 
 
         $("#footer").val(sessionStorage.Footer);
@@ -2707,7 +2715,11 @@ var ViewModel = function () {
                     KalaExf13: item.KalaExf13,
                     KalaExf14: item.KalaExf14,
                     KalaExf15: item.KalaExf15,
-                    flagTest: 'Y'
+                    flagTest: 'Y',
+                    LinkSerialNumber: item.LinkSerialNumber,
+                    LinkYear: item.LinkYear,
+                    LinkBandNo: item.LinkBandNo,
+                    LinkProg: item.LinkProg,
                 };
 
                 obj.push(tmp);
@@ -3020,7 +3032,7 @@ var ViewModel = function () {
             showNotification(translate('سند ذخیره شد'), 1);
 
 
-            if (autoFctReg == "1") {
+            /*if (autoFctReg == "1") {
 
             }
 
@@ -3032,7 +3044,7 @@ var ViewModel = function () {
                     showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1);
                     isUpdateFactor = false;
                 }
-            }
+            }*/
 
             });
         } else {
