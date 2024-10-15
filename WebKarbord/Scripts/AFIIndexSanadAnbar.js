@@ -18,7 +18,7 @@
         localStorage.setItem("InOut", inOut);
     }
 
-
+// access move to fct5   INV_SFCT, INV_SRFCT, INV_PFCT, INV_PRFCT, INV_SHVL, INV_SEXT
 
 
     salInv = localStorage.getItem("SalInv");
