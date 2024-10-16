@@ -2177,7 +2177,7 @@
     $('#ChangeStatus').click(function () {
         var value = self.StatusSanad();
         if (serialAcc > 0 && value == "باطل") {
-           showNotification(translate('دارای سند انبار'), 0);
+            showNotification(translate('این اسناد به سند حسابداری لینک هستند و برای تغییر وضعیت، باید ابتدا اسناد حسابداری مرتبط حذف شوند'), 0);
         }
 
         if (serialAcc > 0  && value == "باطل") {

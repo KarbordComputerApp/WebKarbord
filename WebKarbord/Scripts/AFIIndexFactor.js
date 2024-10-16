@@ -1310,10 +1310,10 @@ var ViewModel = function () {
     $('#ChangeStatus').click(function () {
         var value = self.StatusFactor();
         if (serialAcc > 0 && value == "باطل") {
-            showNotification(translate('دارای سند حسابداری'), 0);
+            showNotification(translate('این اسناد به سند حسابداری لینک هستند و برای تغییر وضعیت، باید ابتدا اسناد حسابداری مرتبط حذف شوند'), 0);
         }
         if (invReg == "ثبت شده" && value == "باطل") {
-            showNotification(translate('دارای سند انبار'), 0);
+            showNotification(translate('این اسناد به سند انبارداری لینک هستند و برای تغییر وضعیت، باید ابتدا اسناد حسابداری مرتبط حذف شوند'), 0);
         }
 
         if ((serialAcc > 0 || invReg == "ثبت شده") && value == "باطل") {
