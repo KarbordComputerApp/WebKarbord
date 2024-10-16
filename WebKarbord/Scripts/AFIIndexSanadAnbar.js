@@ -18,7 +18,7 @@
         localStorage.setItem("InOut", inOut);
     }
 
-// access move to fct5   INV_SFCT, INV_SRFCT, INV_PFCT, INV_PRFCT, INV_SHVL, INV_SEXT
+    // access move to fct5   INV_SFCT, INV_SRFCT, INV_PFCT, INV_PRFCT, INV_SHVL, INV_SEXT
 
 
     salInv = localStorage.getItem("SalInv");
@@ -2131,6 +2131,7 @@
 
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
+        serialAcc = item.AccSerialNumber;
 
         if (TestUseSanad(ace, sal, "SanadAnbar", serial, true, item.DocNo) == true) {
             // showNotification('در تب دیگری وجود دارد', 0)
@@ -2163,6 +2164,7 @@
 
 
     $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
+        serialAcc = 0;
         RemoveUseSanad(ace, sal, "SanadAnbar", serial);
     });
 
@@ -2173,26 +2175,35 @@
 
 
     $('#ChangeStatus').click(function () {
-        var StatusChangeObject = {
-            DMode: 0,
-            UserCode: sessionStorage.userName,
-            SerialNumber: serial,
-            Status: self.StatusSanad(),
-            InOut: sessionStorage.InOut
-        };
-        $('#modal-ChangeStatusSanad').modal('hide');
-        showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
+        var value = self.StatusSanad();
+        if (serialAcc > 0 && value == "باطل") {
+           showNotification(translate('دارای سند انبار'), 0);
+        }
 
-        ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
-            item = response;
+        if (serialAcc > 0  && value == "باطل") {
+
+        } else {
+            var StatusChangeObject = {
+                DMode: 0,
+                UserCode: sessionStorage.userName,
+                SerialNumber: serial,
+                Status: self.StatusSanad(),
+                InOut: sessionStorage.InOut
+            };
+            $('#modal-ChangeStatusSanad').modal('hide');
+            showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
+
+            ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+                item = response;
 
 
-            currentPage = self.currentPageIndexIDocH();
-            getIDocH(0, invSelected, modeCodeSelected, false);
-            self.sortTableIDocH();
-            self.currentPageIndexIDocH(currentPage);
+                currentPage = self.currentPageIndexIDocH();
+                getIDocH(0, invSelected, modeCodeSelected, false);
+                self.sortTableIDocH();
+                self.currentPageIndexIDocH(currentPage);
 
-        });
+            });
+        }
 
     });
 

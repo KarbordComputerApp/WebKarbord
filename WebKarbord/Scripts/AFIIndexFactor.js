@@ -1258,11 +1258,15 @@ var ViewModel = function () {
 
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
+
+        serialAcc = item.AccSerialNumber;
+        invReg = item.InvReg;
+
+
         if (TestUseSanad(ace, sal, "Factor", serial, true, item.DocNo) == true) {
             // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
-
             var closedDate = false;
 
             var TestFDoc_EditObject = {
@@ -1292,6 +1296,8 @@ var ViewModel = function () {
 
 
     $('#modal-ChangeStatusFactor').on('hide.bs.modal', function () {
+        serialAcc = 0;
+        invReg = "";
         if (serial != null)
             RemoveUseSanad(ace, sal, "Factor", serial);
     });
@@ -1302,23 +1308,35 @@ var ViewModel = function () {
     };
 
     $('#ChangeStatus').click(function () {
-        var StatusChangeObject = {
-            DMode: 0,
-            UserCode: sessionStorage.userName,
-            SerialNumber: serial,
-            Status: self.StatusFactor(),
-            ModeCode: sessionStorage.ModeCode,
-        };
-        $('#modal-ChangeStatusFactor').modal('hide');
-        showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
+        var value = self.StatusFactor();
+        if (serialAcc > 0 && value == "باطل") {
+            showNotification(translate('دارای سند حسابداری'), 0);
+        }
+        if (invReg == "ثبت شده" && value == "باطل") {
+            showNotification(translate('دارای سند انبار'), 0);
+        }
 
-        ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
-            item = response;
-            currentPage = self.currentPageIndexFDocH();
-            getFDocH($('#pageCountSelector').val(), false);
-            self.sortTableFDocH();
-            self.currentPageIndexFDocH(currentPage);
-        });
+        if ((serialAcc > 0 || invReg == "ثبت شده") && value == "باطل") {
+
+        } else {
+            var StatusChangeObject = {
+                DMode: 0,
+                UserCode: sessionStorage.userName,
+                SerialNumber: serial,
+                Status: self.StatusFactor(),
+                ModeCode: sessionStorage.ModeCode,
+            };
+            $('#modal-ChangeStatusFactor').modal('hide');
+            showNotification(translate('در حال تغییر وضعیت لطفا منتظر بمانید'), 1);
+
+            ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
+                item = response;
+                currentPage = self.currentPageIndexFDocH();
+                getFDocH($('#pageCountSelector').val(), false);
+                self.sortTableFDocH();
+                self.currentPageIndexFDocH(currentPage);
+            });
+        }
 
     });
 
@@ -2668,6 +2686,12 @@ var ViewModel = function () {
             return true;
     }
 
+    self.ViewLinkInv = function (status) {
+        if (status == 'باطل')
+            return false;
+        else
+            return true;
+    }
 
 
     $("#searchFDocH").on("keydown", function search(e) {
@@ -3654,14 +3678,13 @@ var ViewModel = function () {
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('کپی') +
             '        </a>' +
-            '    </li>' +
-
+            '    </li>'+
             '    <li>' +
             '        <a id="ChangeStatusFactor" data-bind="click: $root.ChangeStatusFactor" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('تغییر وضعیت') +
             '        </a>' +
-            '    </li>';
+            '    </li>'
 
 
         if (isLinkAcc == true)
@@ -3672,7 +3695,7 @@ var ViewModel = function () {
                 '        </a>' +
                 '    </li>';
         if (isLinkInv == true)
-            dataTable += '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
+            dataTable += '    <li data-bind="visible: $root.ViewLinkInv(Status)">' +
                 '        <a data-bind="click: $root.LinkInv" style="font-size: 11px;text-align: right;">' +
                 '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
                 translate('ثبت انبارداری') +
@@ -4236,7 +4259,6 @@ var ViewModel = function () {
         }
 
     });
-
 
     var invReg = "";
     var IDoc_linkto_FDocUri = server + '/api/Web_Data/IDoc_linkto_FDoc/';
