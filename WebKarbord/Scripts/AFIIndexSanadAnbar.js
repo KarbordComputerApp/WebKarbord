@@ -2362,7 +2362,7 @@
             '        </a>' +
             '    </li>';
 
-        if (sessionStorage.InOut == 2) {
+
             dataTable +=
                 '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
                 '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
@@ -2370,7 +2370,7 @@
                 translate('ثبت حسابداری') +
                 '        </a>' +
                 '    </li>';
-        }
+
 
         if (sessionStorage.AccessPrint_SanadAnbar == "true") {
 

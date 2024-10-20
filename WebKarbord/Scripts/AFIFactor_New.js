@@ -1019,7 +1019,7 @@ var ViewModel = function () {
             }
             //dataLink = data.filter(s => s.LinkSerialNumber > 0);
             //isUpdateFactor = dataLink.length == 0;
-            dataLink = data.filter(s => s.InvSerialNumber > 0 || s.LFctSerialNumber > 0);
+            dataLink = data.filter(s => s.LinkNumber > 0 && s.LinkProg.toUpperCase() != 'FCT5');
 
             if (dataLink.length != 0) {
                 LockSanad();
