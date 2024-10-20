@@ -1331,10 +1331,7 @@ var ViewModel = function () {
 
             ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
                 item = response;
-                currentPage = self.currentPageIndexFDocH();
                 getFDocH($('#pageCountSelector').val(), false);
-                self.sortTableFDocH();
-                self.currentPageIndexFDocH(currentPage);
             });
         }
 
@@ -1347,7 +1344,13 @@ var ViewModel = function () {
 
 
 
+    self.currentPageFDocH = ko.observable();
 
+    pageSizeFDocH = localStorage.getItem('pageSizeFDocH') == null ? 10 : localStorage.getItem('pageSizeFDocH');
+    self.pageSizeFDocH = ko.observable(pageSizeFDocH);
+    self.currentPageIndexFDocH = ko.observable(0);
+    self.sortType = "ascending";
+    self.currentColumn = ko.observable("");
 
 
     //Get FDocH 
@@ -1356,6 +1359,8 @@ var ViewModel = function () {
         lastSelect = select;
         sort = localStorage.getItem("sortFdocH_" + sessionStorage.ModeCode);
         sortType = localStorage.getItem("sortTypeFdocH_" + sessionStorage.ModeCode);
+
+        currentPage = self.currentPageIndexFDocH();
 
         var FDocHMinObject = {
             ModeCode: sessionStorage.ModeCode,
@@ -1375,6 +1380,11 @@ var ViewModel = function () {
                 data[i].select = false;
             }
             self.FDocHList(data);
+
+            if (data.length < self.pageSizeFDocH() || currentPage == 0)
+                self.currentPageIndexFDocH(0);
+            else
+                self.currentPageIndexFDocH(currentPage);
         });
 
 
@@ -1432,18 +1442,6 @@ var ViewModel = function () {
     }
 
     //------------------------------------------------------
-    self.currentPageFDocH = ko.observable();
-
-    pageSizeFDocH = localStorage.getItem('pageSizeFDocH') == null ? 10 : localStorage.getItem('pageSizeFDocH');
-    self.pageSizeFDocH = ko.observable(pageSizeFDocH);
-    self.currentPageIndexFDocH = ko.observable(0);
-    self.sortType = "ascending";
-    self.currentColumn = ko.observable("");
-
-
-
-
-
 
 
 
@@ -2381,9 +2379,9 @@ var ViewModel = function () {
 
     function DeleteFactor() {
         ajaxFunction(FDocHHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.ModeCode, 'DELETE').done(function (response) {
-            currentPage = self.currentPageIndexFDocH();
+            //currentPage = self.currentPageIndexFDocH();
             getFDocH($('#pageCountSelector').val(), false);
-            self.currentPageIndexFDocH(currentPage);
+            // self.currentPageIndexFDocH(currentPage);
             SaveLog('Fct5', EditMode_Del, LogMode_FDoc, 0, docnoDelete, serial);
             showNotification(TitleListFactor + ' ' + translate('حذف شد'), 1);
         });
@@ -3678,7 +3676,7 @@ var ViewModel = function () {
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('کپی') +
             '        </a>' +
-            '    </li>'+
+            '    </li>' +
             '    <li>' +
             '        <a id="ChangeStatusFactor" data-bind="click: $root.ChangeStatusFactor" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +

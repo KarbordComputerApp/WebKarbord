@@ -697,6 +697,7 @@
             modeName = sessionStorage.InOut == 1 ? translate('همه انواع سند وارده') : translate('همه انواع سند صادره');
         }
 
+        currentPage = self.currentPageIndexIDocH();
 
         var IDocHMinObject = {
             InOut: sessionStorage.InOut,
@@ -723,7 +724,6 @@
             //ajaxFunction(IDocHCountUri + ace + '/' + sal + '/' + group + '/' + sessionStorage.InOut + '/Count', 'GET').done(function (dataCount) {
             //    $('#countAllRecord').text(dataCount);
             // });
-            self.currentPageIndexIDocH(0);
 
             if (sessionStorage.InOut == "1") {
                 localStorage.setItem('InvSelectSanadAnbar_In', invCode);
@@ -747,6 +747,11 @@
                 $('#titlePage').text(translate('اسناد') + ' ' + textNoSanad + ' ' + translate('همه انبارها'));
             else
                 $('#titlePage').text(translate('اسناد') + ' ' + textNoSanad + AppendAnbar(invName));
+
+            if (data.length < self.pageSizeIDocH() || currentPage == 0)
+                self.currentPageIndexIDocH(0);
+            else
+                self.currentPageIndexIDocH(currentPage);
 
         });
 
@@ -1591,9 +1596,9 @@
 
     function DeleteSanadAnbar() {
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group + '/' + serial + '/' + sessionStorage.InOut, 'DELETE').done(function (response) {
-            currentPage = self.currentPageIndexIDocH();
+            //currentPage = self.currentPageIndexIDocH();
             getIDocH(0, invSelected, modeCodeSelected, false);
-            self.currentPageIndexIDocH(currentPage);
+            //self.currentPageIndexIDocH(currentPage);
             SaveLog('Inv5', EditMode_Del, LogMode_IDoc, 0, docnoDelete, serial);
 
             showNotification(translate('سند حذف شد'), 1);
@@ -2180,7 +2185,7 @@
             showNotification(translate('این اسناد به سند حسابداری لینک هستند و برای تغییر وضعیت، باید ابتدا اسناد حسابداری مرتبط حذف شوند'), 0);
         }
 
-        if (serialAcc > 0  && value == "باطل") {
+        if (serialAcc > 0 && value == "باطل") {
 
         } else {
             var StatusChangeObject = {
@@ -2195,13 +2200,10 @@
 
             ajaxFunction(IChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
                 item = response;
-
-
-                currentPage = self.currentPageIndexIDocH();
+                //currentPage = self.currentPageIndexIDocH();
                 getIDocH(0, invSelected, modeCodeSelected, false);
                 self.sortTableIDocH();
-                self.currentPageIndexIDocH(currentPage);
-
+                //self.currentPageIndexIDocH(currentPage);
             });
         }
 
@@ -2363,13 +2365,13 @@
             '    </li>';
 
 
-            dataTable +=
-                '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
-                '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
-                '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
-                translate('ثبت حسابداری') +
-                '        </a>' +
-                '    </li>';
+        dataTable +=
+            '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
+            '        <a id="LinkAcc" data-bind="click: $root.LinkAcc" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            translate('ثبت حسابداری') +
+            '        </a>' +
+            '    </li>';
 
 
         if (sessionStorage.AccessPrint_SanadAnbar == "true") {

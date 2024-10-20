@@ -266,6 +266,12 @@
     }
 
 
+    self.currentPageADocH = ko.observable();
+
+    pageSizeADocH = localStorage.getItem('pageSizeADocH') == null ? 10 : localStorage.getItem('pageSizeADocH');
+    self.pageSizeADocH = ko.observable(pageSizeADocH);
+
+    self.currentPageIndexADocH = ko.observable(0);
 
 
     //Get ADocH 
@@ -273,6 +279,8 @@
         lastSelect = select;
         sort = localStorage.getItem("sortAdocH");
         sortType = localStorage.getItem("sortTypeAdocH");
+        
+        currentPage = self.currentPageIndexADocH();
 
         var ADocHObject = {
             Select: select,
@@ -287,6 +295,12 @@
             flagupdateHeader = 0;
             sessionStorage.flagupdateHeader = 0;
             self.ADocHList(data);
+
+            if (data.length < self.pageSizeADocH() || currentPage == 0)
+                self.currentPageIndexADocH(0);
+            else
+                self.currentPageIndexADocH(currentPage);
+
         });
 
 
@@ -433,10 +447,10 @@
 
         ajaxFunction(AChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
             item = response;
-            currentPage = self.currentPageIndexADocH();
+            //currentPage = self.currentPageIndexADocH();
             getADocH($('#pageCountSelector').val(), false);
             self.sortTableADocH();
-            self.currentPageIndexADocH(currentPage);
+            //self.currentPageIndexADocH(currentPage);
         });
 
     });
@@ -450,12 +464,7 @@
     }
 
     //------------------------------------------------------
-    self.currentPageADocH = ko.observable();
 
-    pageSizeADocH = localStorage.getItem('pageSizeADocH') == null ? 10 : localStorage.getItem('pageSizeADocH');
-    self.pageSizeADocH = ko.observable(pageSizeADocH);
-
-    self.currentPageIndexADocH = ko.observable(0);
 
     self.filterDocNo = ko.observable("");
     self.filterDocDate = ko.observable("");
@@ -1037,9 +1046,9 @@
 
     function DeleteSanad() {
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group + '/' + serial, 'DELETE').done(function (response) {
-            currentPage = self.currentPageIndexADocH();
+            //currentPage = self.currentPageIndexADocH();
             getADocH($('#pageCountSelector').val(), false);
-            self.currentPageIndexADocH(currentPage);
+            //self.currentPageIndexADocH(currentPage);
             SaveLog('Acc5', EditMode_Del, LogMode_ADoc, 0, docnoDelete, serial);
 
             showNotification(translate('سند حذف شد'), 1);
