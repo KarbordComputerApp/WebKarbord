@@ -944,7 +944,7 @@ var ViewModel = function () {
         'F18',
         'F19',
         'F20',
-        'AccSerialNumber',
+        'AccDocNo',
         'InvReg',
     ];
 
@@ -1527,6 +1527,8 @@ var ViewModel = function () {
     self.filterCustOstan = ko.observable("");
     self.filterCustShahrestan = ko.observable("");
     self.filterCustRegion = ko.observable("");
+    self.filterAccDocNo = ko.observable("");
+    self.filterInvReg = ko.observable("");
 
 
 
@@ -1583,6 +1585,8 @@ var ViewModel = function () {
         self.filterCustShahrestan(listFilter[48]);
         self.filterCustRegion(listFilter[49]);
         self.filterVstrName(listFilter[50]);
+        self.filterAccDocNo(listFilter[51]);
+        self.filterInvReg(listFilter[52]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -1637,14 +1641,13 @@ var ViewModel = function () {
         var filterCustShahrestan = self.filterCustShahrestan();
         var filterCustRegion = self.filterCustRegion();
         var filterVstrName = self.filterVstrName();
-
-
-
+        var filterAccDocNo = self.filterAccDocNo();
+        var filterInvReg = self.filterInvReg();
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
 
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterVstrName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
-            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
+            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 &&
             !filterCustEcoCode && !filterCustMelliCode && !filterCustTel && !filterCustFax && !filterCustMobile && !filterCustEmail && !filterCustCity &&
@@ -1707,7 +1710,9 @@ var ViewModel = function () {
                 filterCustAddress,
                 filterCustOstan,
                 filterCustShahrestan,
-                filterCustRegion
+                filterCustRegion,
+                filterAccDocNo,
+                filterInvReg
             ];
 
             localStorage.setItem('listFilter' + sessionStorage.ModeCode, JSON.stringify(listFilter));
@@ -1763,7 +1768,8 @@ var ViewModel = function () {
                     (item.CustAddress == null ? '' : item.CustAddress.toString().search(filterCustAddress) >= 0) &&
                     (item.CustOstan == null ? '' : item.CustOstan.toString().search(filterCustOstan) >= 0) &&
                     (item.CustShahrestan == null ? '' : item.CustShahrestan.toString().search(filterCustShahrestan) >= 0) &&
-                    (item.CustRegion == null ? '' : item.CustRegion.toString().search(filterCustRegion) >= 0)
+                    (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0) &&
+                    (item.InvReg == null ? '' : item.InvReg.toString().search(filterInvReg) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -1887,6 +1893,9 @@ var ViewModel = function () {
     self.iconTypeCustOstan = ko.observable("");
     self.iconTypeCustShahrestan = ko.observable("");
     self.iconTypeCustRegion = ko.observable("");
+    self.iconTypeAccDocNo = ko.observable("");
+    self.iconTypeInvReg = ko.observable("");
+
 
 
     self.sortTableFDocH = function (viewModel, e) {
@@ -1979,6 +1988,10 @@ var ViewModel = function () {
         self.iconTypeCustOstan('');
         self.iconTypeCustShahrestan('');
         self.iconTypeCustRegion('');
+        self.iconTypeAccDocNo('');
+        self.iconTypeInvReg('');
+
+
 
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2031,8 +2044,10 @@ var ViewModel = function () {
         if (orderProp == 'CustOstan') self.iconTypeCustOstan((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustShahrestan') self.iconTypeCustShahrestan((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'CustRegion') self.iconTypeCustRegion((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-
+        if (orderProp == 'AccDocNo') self.iconTypeAccDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'InvReg') self.iconTypeInvReg((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
+
 
 
 
@@ -2261,7 +2276,6 @@ var ViewModel = function () {
         sessionStorage.CustRegion = "";
         sessionStorage.VstrCode = "";
         sessionStorage.VstrName = "";
-
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
         sessionStorage.ArzRate = 0;
@@ -3590,7 +3604,8 @@ var ViewModel = function () {
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
-
+            CreateTableTh('AccDocNo', data) +
+            CreateTableTh('InvReg', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -3655,7 +3670,8 @@ var ViewModel = function () {
             CreateTableTd('F18', 0, 4, data) +
             CreateTableTd('F19', 0, 4, data) +
             CreateTableTd('F20', 0, 4, data) +
-
+            CreateTableTd('AccDocNo', 0, 0, data) +
+            CreateTableTd('InvReg', 0, 4, data) +
 
             '<td>' +
 
@@ -3794,6 +3810,9 @@ var ViewModel = function () {
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
+            CreateTableTdSearch('AccDocNo', data) +
+            CreateTableTdSearch('InvReg', data) +
+
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
@@ -4235,6 +4254,7 @@ var ViewModel = function () {
 
 
     $("#CreateLinkAcc").click(function () {
+        if (isDoubleClicked($(this))) return;
         if (serialAcc == 0) {
             var data = CreateFctToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
@@ -4289,6 +4309,8 @@ var ViewModel = function () {
 
 
     $("#CreateLinkInv").click(function () {
+        if (isDoubleClicked($(this))) return;
+
         var TestInvBandFctUri = server + '/api/Web_Data/TestInvBandFct/';
         var TestInvBandFctObject = {
             SerialNumber: serial

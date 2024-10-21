@@ -286,7 +286,8 @@
         'F17',
         'F18',
         'F19',
-        'F20'
+        'F20',
+        'AccDocNo'
     ];
 
 
@@ -874,6 +875,7 @@
     self.filterF18 = ko.observable("");
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
+    self.filterAccDocNo = ko.observable("");
 
     listFilter = JSON.parse(localStorage.getItem('listFilter' + rprtId));
     if (listFilter != null) {
@@ -928,7 +930,7 @@
         self.filterF20(listFilter[48]);
         self.filterThvlEcoCode(listFilter[49]);
         self.filterThvlMelliCode(listFilter[50]);
-
+        self.filterAccDocNo(listFilter[51]);
     }
 
 
@@ -986,13 +988,15 @@
         var filterF20 = self.filterF20();
         var filterThvlEcoCode = self.filterThvlEcoCode();
         var filterThvlMelliCode = self.filterThvlMelliCode();
+        var filterAccDocNo = self.filterAccDocNo();
 
         if (!filterDocNo && !filterDocDate && !filterInvName && !filterThvlName && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
             !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber && !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
             !filterThvlRegion && !filterThvlOstan && !filterThvlShahrestan && !filterThvlCity && !filterThvlStreet && !filterThvlAlley && !filterThvlPlack && !filterThvlZipCode && !filterThvlTel && !filterThvlMobile
             && !filterThvlFax && !filterThvlEMail && !filterThvlAddress &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
-            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 && !filterThvlEcoCode && !filterThvlMelliCode) {
+            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 && !filterThvlEcoCode &&
+            !filterThvlMelliCode && !filterAccDocNo) {
             $("#CountRecord").text(self.IDocHList().length);
             // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
             localStorage.setItem('listFilter' + rprtId, null);
@@ -1049,7 +1053,8 @@
                 filterF19,
                 filterF20,
                 filterThvlEcoCode,
-                filterThvlMelliCode
+                filterThvlMelliCode,
+                filterAccDocNo
             ];
             localStorage.setItem('listFilter' + rprtId, JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
@@ -1104,7 +1109,8 @@
                     (item.F19 == null ? '' : item.F19.toString().search(filterF19) >= 0) &&
                     (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0) &&
                     (item.ThvlEcoCode == null ? '' : item.ThvlEcoCode.toString().search(filterThvlEcoCode) >= 0) &&
-                    (item.ThvlMelliCode == null ? '' : item.ThvlMelliCode.toString().search(filterThvlMelliCode) >= 0)
+                    (item.ThvlMelliCode == null ? '' : item.ThvlMelliCode.toString().search(filterThvlMelliCode) >= 0) &&
+                    (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0)
 
                 return result;
             })
@@ -1232,6 +1238,7 @@
     self.iconTypeF20 = ko.observable("");
     self.iconTypeThvlEcoCode = ko.observable("");
     self.iconTypeThvlMelliCode = ko.observable("");
+    self.iconTypeAccDocNo = ko.observable("");
 
 
     self.sortTableIDocH = function (viewModel, e) {
@@ -1316,6 +1323,7 @@
         self.iconTypeF20('');
         self.iconTypeThvlEcoCode('');
         self.iconTypeThvlMelliCode('');
+        self.iconTypeAccDocNo('');
 
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1368,6 +1376,7 @@
         if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ThvlEcoCode') self.iconTypeThvlEcoCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ThvlMelliCode') self.iconTypeThvlMelliCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccDocNo') self.iconTypeAccDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
     $('#AddNewSanadAnbar').click(function () {
@@ -2277,6 +2286,7 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
+            CreateTableTh('AccDocNo', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -2337,6 +2347,7 @@
             CreateTableTd('F18', 0, 4, data) +
             CreateTableTd('F19', 0, 4, data) +
             CreateTableTd('F20', 0, 4, data) +
+            CreateTableTd('AccDocNo', 0, 4, data) +
             '<td>' +
 
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
@@ -2458,6 +2469,7 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
+            CreateTableTdSearch('AccDocNo', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
@@ -2824,6 +2836,8 @@
 
 
     $("#CreateLinkAcc").click(function () {
+        if (isDoubleClicked($(this))) return;
+        
         if (serialAcc == 0) {
             var data = CreateInvToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
@@ -2844,7 +2858,7 @@
                 $('#modal-LinkAcc').modal('hide');
             }
         }
-
+       
     });
 
 

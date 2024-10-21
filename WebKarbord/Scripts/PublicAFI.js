@@ -5829,3 +5829,18 @@ function CreateInvToAcc_Link(serial, sync) {
 
     return res;
 }
+
+
+function isDoubleClicked(element) {
+    //if already clicked return TRUE to indicate this click is not allowed
+    if (element.data("isclicked")) return true;
+
+    //mark as clicked for 1 second
+    element.data("isclicked", true);
+    setTimeout(function () {
+        element.removeData("isclicked");
+    }, 1000);
+
+    //return FALSE to indicate this click was allowed
+    return false;
+}
