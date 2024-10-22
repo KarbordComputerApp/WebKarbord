@@ -61,6 +61,9 @@ var key_P = 80;
 var key_a = 97;
 var key_b = 98;
 
+
+
+
 // دسترسی های ادمین پنل
 const AP_SFCT = 0;
 const AP_SPFCT = 1;
@@ -878,6 +881,8 @@ sessionStorage.InvRegKalaInv_PFCT = localStorage.getItem("InvRegKalaInv_PFCT");
 sessionStorage.InvRegKalaInv_PRFCT = localStorage.getItem("InvRegKalaInv_PRFCT");
 
 
+
+
 if (ace == 'Web8') {
     sessionStorage.Move_SCONT = localStorage.getItem("Move_SCONT");
     sessionStorage.Move_SORD = localStorage.getItem("Move_SORD");
@@ -901,8 +906,20 @@ else {
     sessionStorage.Move_PRFCT = localStorage.getItem("Move_PRFCT");
 }
 
+var TahieShode_Acc5;
+var TahieShode_Fct5;
+var TahieShode_Inv5;
 
-
+if (ace == 'Web8') {
+    TahieShode_Acc5 = 'ACC5' + ace;
+    TahieShode_Fct5 = 'FCT5' + ace;
+    TahieShode_Inv5 = 'INV5' + ace;
+}
+else if (ace == 'Web1') {
+    TahieShode_Acc5 = 'AFI1' + ace;
+    TahieShode_Fct5 = 'AFI1' + ace;
+    TahieShode_Inv5 = 'AFI1' + ace;
+}
 
 
 
@@ -927,6 +944,11 @@ const MODECODE_ADOC_SODZYN = 4;
 
 const Web1 = 'Web1';
 const Web8 = 'Web8';
+
+
+
+
+
 
 const titlePrice = ' ریال ';
 
@@ -5563,7 +5585,7 @@ function CreateFctToAcc_Link(serial, sync) {
     var LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
     var LinkFDocADocObject = {
         SerialNumber: serial,
-        TahieShode: 'FCT5'
+        TahieShode: TahieShode_Fct5
     };
     var res;
     ajaxFunction(LinkFDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocADocObject, sync).done(function (data) {
@@ -5654,7 +5676,7 @@ function CreateFctToInv_Link(serial, sync) {
     var LinkFDocIDocUri = server + '/api/Link/LinkFDocIDoc/';
     var LinkFDocIDocObject = {
         SerialNumber: serial,
-        TahieShode: 'FCT5'
+        TahieShode: TahieShode_Fct5
     };
     var res;
     ajaxFunction(LinkFDocIDocUri + ace + '/' + sal + '/' + group, 'POST', LinkFDocIDocObject, sync).done(function (data) {
@@ -5744,7 +5766,7 @@ function CreateInvToAcc_Link(serial, sync) {
     var LinkIDocADocUri = server + '/api/Link/LinkIDocADoc/';
     var LinkIDocADocObject = {
         SerialNumber: serial,
-        TahieShode: 'INV5'
+        TahieShode: TahieShode_Inv5
     };
     var res;
     ajaxFunction(LinkIDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkIDocADocObject, sync).done(function (data) {

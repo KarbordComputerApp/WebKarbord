@@ -1771,7 +1771,7 @@
                 SerialNumber: serial,
                 DocDate: docDate,
                 UserCode: localStorage.getItem("userName"),
-                TahieShode: ace,
+                TahieShode: TahieShode_Acc5,
                 DocNoMode: 1,
                 InsertMode: 0,
                 DocNo: 1,

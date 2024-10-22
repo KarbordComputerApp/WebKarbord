@@ -2045,7 +2045,7 @@
                 SerialNumber: serial,
                 DocDate: docDate,
                 UserCode: sessionStorage.userName,
-                TahieShode: ace,
+                TahieShode: TahieShode_Inv5,
                 ModeCode: modeCodeMove,
                 InvCode: invSelectMove,
                 DocNoMode: ace == 'Web1' ? 1 :

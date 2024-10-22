@@ -1204,7 +1204,7 @@
             UserCode: sessionStorage.userName,
             Eghdam: self.p_Eghdam(),
             Tanzim: sessionStorage.userName,
-            TahieShode: 'Web',
+            TahieShode: 'ERJ1Web2',
             Status: $("#p_Status").val(),
             Spec: self.p_Spec(),
             CustCode: self.ErjCustCode(),
