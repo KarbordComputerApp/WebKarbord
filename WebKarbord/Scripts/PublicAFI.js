@@ -911,14 +911,14 @@ var TahieShode_Fct5;
 var TahieShode_Inv5;
 
 if (ace == 'Web8') {
-    TahieShode_Acc5 = 'ACC5' + ace;
-    TahieShode_Fct5 = 'FCT5' + ace;
-    TahieShode_Inv5 = 'INV5' + ace;
+    TahieShode_Acc5 = 'Acc5';
+    TahieShode_Fct5 = 'Fct5';
+    TahieShode_Inv5 = 'Inv5';
 }
 else if (ace == 'Web1') {
-    TahieShode_Acc5 = 'AFI1' + ace;
-    TahieShode_Fct5 = 'AFI1' + ace;
-    TahieShode_Inv5 = 'AFI1' + ace;
+    TahieShode_Acc5 = 'Afi1';
+    TahieShode_Fct5 = 'Afi1';
+    TahieShode_Inv5 = 'Afi1';
 }
 
 
