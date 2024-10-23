@@ -2850,7 +2850,12 @@
         if (serialAcc == 0) {
             var data = CreateInvToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
-                serialAccLink = data[0].AccCode;
+                var d = data[0].AccCode.split('!!');
+                serialAccLink = d[0];
+                var d_docNo = d[1];
+
+                SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
+
                 showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
                 getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
             }

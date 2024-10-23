@@ -5431,6 +5431,7 @@ const EditMode_New = 1;
 const EditMode_Chg = 2;
 const EditMode_Darj = 3;
 const EditMode_Del = 4;
+const EditMode_Link = 1;
 
 const LogMode_ADoc = 1;
 const LogMode_IDoc = 2;

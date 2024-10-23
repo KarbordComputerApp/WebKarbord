@@ -4258,7 +4258,11 @@ var ViewModel = function () {
         if (serialAcc == 0) {
             var data = CreateFctToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
-                serialAccLink = data[0].AccCode;
+                var d = data[0].AccCode.split('!!');
+                serialAccLink = d[0];
+                var d_docNo = d[1];
+                SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
+
                 showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
                 getFDocH($('#pageCountSelector').val(), false);
             }
@@ -4320,6 +4324,13 @@ var ViewModel = function () {
             if (d == 0) {
                 var data = CreateFctToInv_Link(serial, false);
                 if (data[0].Test == 255) { // success
+
+                    var d = data[0].KalaName.split('!!');
+                    var serialInvLink = d[0];
+                    var d_docNo = d[1];
+
+                    SaveLog('Inv5', EditMode_Link, LogMode_IDoc, 0, d_docNo, serialInvLink);
+
                     showNotification(data.length + " سند ایجاد شد", 1)
                     getFDocH($('#pageCountSelector').val(), false);
                 }
