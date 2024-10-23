@@ -144,6 +144,7 @@ var ViewModel = function () {
     var isSelectedKalaExf = true;   // کلید تایپ یا انتخاب در ویژگی کالا
 
     var accSerialNumber = 0;
+    var fctReg = FctRegNotSave;
 
 
     var IDocB;
@@ -226,7 +227,7 @@ var ViewModel = function () {
     var showPrice = localStorage.getItem("Access_SHOWPRICE_IIDOC") == 'true';
     var textSanad;
 
-    var autoFctReg = 0;
+    var autoFctReg = '';
     var autoAccReg = 0;
 
     if (sessionStorage.InOut == 1) {
@@ -1251,7 +1252,7 @@ var ViewModel = function () {
                 data[i].TotalPriceMjd = mTotalPrice_Mjd;
             }
 
-            dataLink = data.filter(s => s.LinkSerialNumber > 0);
+            dataLink = data.filter(s => s.LinkSerialNumber > 0 && s.LinkProg.toUpperCase() != 'INV5');
             if (dataLink.length != 0) {
                 LockSanad();
                 showNotification(translate('سند دارای بند های لینک می باشد و امکان ویرایش وجود ندارد'), 0);
@@ -1383,6 +1384,7 @@ var ViewModel = function () {
         codeMkz = sessionStorage.MkzCode;
 
         accSerialNumber = sessionStorage.AccSerialNumber;
+        fctReg = sessionStorage.fctReg;
 
         self.ArzCode(sessionStorage.ArzCode);
         codeArz = sessionStorage.ArzCode;
@@ -1397,7 +1399,7 @@ var ViewModel = function () {
 
 
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0) {
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0 || fctReg == FctRegSave) {
             LockSanad();
         }
 
@@ -1409,6 +1411,9 @@ var ViewModel = function () {
             showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
         }
 
+        //if (fctReg == FctRegSave) {
+        //    showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
+        //}
 
         getIDocH(Serial);
         getIDocB(Serial);

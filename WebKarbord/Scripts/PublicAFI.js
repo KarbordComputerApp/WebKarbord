@@ -147,6 +147,9 @@ const AC_ZACC = 39;
 const InvRegSave = "ثبت شده";
 const InvRegNotSave = "ثبت نشد";
 
+const FctRegSave = "ثبت شده";
+const FctRegNotSave = "ثبت نشد";
+
 var ShowMenu = [false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false, false, false,

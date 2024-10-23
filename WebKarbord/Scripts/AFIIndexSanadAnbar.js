@@ -1427,6 +1427,7 @@
         sessionStorage.MkzName = "";
 
         sessionStorage.AccSerialNumber = 0;
+        sessionStorage.fctReg = FctRegNotSave;
 
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
@@ -1681,6 +1682,7 @@
             sessionStorage.MkzName = item.MkzName;
 
             sessionStorage.AccSerialNumber = item.AccSerialNumber;
+            sessionStorage.fctReg = item.FctReg;
 
             sessionStorage.ArzCode = item.ArzCode;
             sessionStorage.ArzName = item.ArzName;
@@ -1817,6 +1819,7 @@
                 sessionStorage.MkzName = data.MkzName;
 
                 sessionStorage.AccSerialNumber = data.AccSerialNumber;
+                sessionStorage.fctReg = data.FctReg;
 
                 sessionStorage.ArzCode = data.ArzCode;
                 sessionStorage.ArzName = data.ArzName;
@@ -2141,11 +2144,12 @@
         }
 
     });
-
+    var fctReg = FctRegNotSave;
 
     self.ChangeStatusSanad = function (item) {
         serial = item.SerialNumber;
         serialAcc = item.AccSerialNumber;
+        fctReg = item.FctReg;
 
         if (TestUseSanad(ace, sal, "SanadAnbar", serial, true, item.DocNo) == true) {
             // showNotification('در تب دیگری وجود دارد', 0)
@@ -2179,6 +2183,7 @@
 
     $('#modal-ChangeStatusSanad').on('hide.bs.modal', function () {
         serialAcc = 0;
+        fctReg = FctRegNotSave;
         RemoveUseSanad(ace, sal, "SanadAnbar", serial);
     });
 
@@ -2194,7 +2199,11 @@
             showNotification(translate('این اسناد به سند حسابداری لینک هستند و برای تغییر وضعیت، باید ابتدا اسناد حسابداری مرتبط حذف شوند'), 0);
         }
 
-        if (serialAcc > 0 && value == "باطل") {
+        if (fctReg == FctRegSave && value == "باطل") {
+            showNotification(translate('این اسناد به سند خرید و فروش لینک هستند و برای تغییر وضعیت، باید ابتدا اسناد خرید و فروش مرتبط حذف شوند'), 0);
+        }
+
+        if ((serialAcc > 0 || fctReg == FctRegSave) && value == "باطل") {
 
         } else {
             var StatusChangeObject = {
