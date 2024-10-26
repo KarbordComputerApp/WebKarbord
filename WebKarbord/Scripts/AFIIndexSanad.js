@@ -49,7 +49,8 @@
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
-        sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+        if (sessionStorage.ModeCode.toUpperCase() != "ADOC")
+            sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 
         if (sessionStorage.ModeCode == 'ADOC') {
             validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
@@ -279,7 +280,7 @@
         lastSelect = select;
         sort = localStorage.getItem("sortAdocH");
         sortType = localStorage.getItem("sortTypeAdocH");
-        
+
         currentPage = self.currentPageIndexADocH();
 
         var ADocHObject = {
@@ -2020,14 +2021,14 @@
             }
 
             if (e.keyCode == key_F3)
-                $("#DocNoSearch").focus();  
+                $("#DocNoSearch").focus();
         }
         else if (e.shiftKey) {
 
         }
         else {
-           // if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
-             //   SaveKala();
+            // if (e.keyCode == key_F2 && $('#modal-Kala').is(':visible')) {
+            //   SaveKala();
             //}
 
             if (e.keyCode == key_Esc && $('#modal-Move').is(':visible')) {
@@ -2047,7 +2048,7 @@
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
-    
+
     self.PageIndexADocH = function (item) {
         return CountPage(self.filterADocHList(), self.pageSizeADocH(), item);
     };
