@@ -43,7 +43,10 @@ var ViewModel = function () {
 
     getParamFct();
 
-
+    /* FCTREG_INDOC  FCTREG_OUTDOC
+       INV_SFCT  INV_SRFCT INV_PFCT INV_PRFCT INV_SHVL INV_SEXT
+       ACCREG_INDOC  ACCREG_OUTDOC
+    */
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.ModeCode = localStorage.getItem("ModeCode");
@@ -239,6 +242,9 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
             validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
 
+            validation = CheckAccess('INV_SFCT', 'Fct5');// AccessLinkINV
+            validation == true ? sessionStorage.Access_INVLink = true : sessionStorage.Access_INVLink = false
+            validation == true ? localStorage.setItem("Access_INVLink", "true") : localStorage.setItem("Access_INVLink", "false")
 
 
             validation = CheckAccess('OTHERUSER_CHG_SFDOC', 'Fct5');// AccessViewSanad
@@ -309,6 +315,11 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
             validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
 
+            validation = CheckAccess('INV_SRFCT', 'Fct5');// AccessLinkINV
+            validation == true ? sessionStorage.Access_INVLink = true : sessionStorage.Access_INVLink = false
+            validation == true ? localStorage.setItem("Access_INVLink", "true") : localStorage.setItem("Access_INVLink", "false")
+
+
             validation = CheckAccess('OTHERUSER_CHG_SRDOC', 'Fct5');// AccessViewSanad
             if (validation == true) {
                 sessionStorage.AccessViewBackFactorForosh = true;
@@ -367,6 +378,10 @@ var ViewModel = function () {
             validation == true ? localStorage.setItem("Access_TASVIB_SHVL", "true") : localStorage.setItem("Access_TASVIB_SHVL", "false")
 
 
+            /*validation = CheckAccess('INV_SHVL', 'Fct5');// AccessLinkINV
+            validation == true ? sessionStorage.Access_INVLink = true : sessionStorage.Access_INVLink = false
+            validation == true ? localStorage.setItem("Access_INVLink", "true") : localStorage.setItem("Access_INVLink", "false")*/
+
             validation = CheckAccess('OTHERUSER_CHG_SHVL', 'Fct5');
             if (validation == true) {
                 sessionStorage.AccessViewHavaleForosh = true;
@@ -424,6 +439,9 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_TASVIB_SEXT = true : sessionStorage.Access_TASVIB_SEXT = false
             validation == true ? localStorage.setItem("Access_TASVIB_SEXT", "true") : localStorage.setItem("Access_TASVIB_SEXT", "false")
 
+            /*validation = CheckAccess('INV_SEXT', 'Fct5');// AccessLinkINV
+              validation == true ? sessionStorage.Access_INVLink = true : sessionStorage.Access_INVLink = false
+              validation == true ? localStorage.setItem("Access_INVLink", "true") : localStorage.setItem("Access_INVLink", "false")*/
 
             validation = CheckAccess('OTHERUSER_CHG_SEXT', 'Fct5');
             if (validation == true) {
@@ -618,6 +636,9 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
             validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
 
+            validation = CheckAccess('INV_PFCT', 'Fct5');// AccessLinkINV
+            validation == true ? sessionStorage.Access_INVLink = true : sessionStorage.Access_INVLink = false
+            validation == true ? localStorage.setItem("Access_INVLink", "true") : localStorage.setItem("Access_INVLink", "false")
 
             validation = CheckAccess('OTHERUSER_CHG_PFDOC', 'Fct5');// AccessViewSanad
             if (validation == true) {
@@ -686,6 +707,9 @@ var ViewModel = function () {
             validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
             validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
 
+            validation = CheckAccess('INV_PRFCT', 'Fct5');// AccessLinkINV
+            validation == true ? sessionStorage.Access_INVLink = true : sessionStorage.Access_INVLink = false
+            validation == true ? localStorage.setItem("Access_INVLink", "true") : localStorage.setItem("Access_INVLink", "false")
 
             validation = CheckAccess('OTHERUSER_CHG_PRDOC', 'Fct5');// AccessViewSanad
             if (validation == true) {
@@ -2692,6 +2716,8 @@ var ViewModel = function () {
     self.ViewLinkAcc = function (status) {
         if (status == 'باطل')
             return false;
+        else if (ace.toUpperCase() == 'WEB1')
+            return false;
         else if (sessionStorage.Access_ACCLink == "false")
             return false;
         else
@@ -2700,6 +2726,10 @@ var ViewModel = function () {
 
     self.ViewLinkInv = function (status) {
         if (status == 'باطل')
+            return false;
+        else if (ace.toUpperCase() == 'WEB1')
+            return false;
+        else if (sessionStorage.Access_INVLink == "false")
             return false;
         else
             return true;

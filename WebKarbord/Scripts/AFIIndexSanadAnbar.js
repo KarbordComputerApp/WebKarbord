@@ -111,6 +111,9 @@
             validation == true ? sessionStorage.Access_TASVIB_IIDOC = true : sessionStorage.Access_TASVIB_IIDOC = false
             validation == true ? localStorage.setItem("Access_TASVIB_IIDOC", "true") : localStorage.setItem("Access_TASVIB_IIDOC", "false")
 
+            validation = CheckAccess('ACCREG_INDOC', 'Inv5');// AccessLinkAcc
+            validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
+            validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
 
             //validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -170,6 +173,11 @@
             validation = CheckAccess('TASVIB_IODOC', 'Inv5');// AccessTasvib
             validation == true ? sessionStorage.Access_TASVIB_IODOC = true : sessionStorage.Access_TASVIB_IODOC = false
             validation == true ? localStorage.setItem("Access_TASVIB_IODOC", "true") : localStorage.setItem("Access_TASVIB_IODOC", "false")
+
+            validation = CheckAccess('ACCREG_OUTDOC', 'Inv5');// AccessLinkAcc
+            validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
+            validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
+
 
             //validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
             // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
@@ -1958,6 +1966,10 @@
 
     self.ViewLinkAcc = function (status) {
         if (status == 'باطل')
+            return false;
+        else if (ace.toUpperCase() == 'WEB1')
+            return false;
+        else if (sessionStorage.Access_ACCLink == "false")
             return false;
         else
             return true;
