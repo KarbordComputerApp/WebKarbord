@@ -64,6 +64,8 @@
 
     TestUser();
 
+    var onlyGroupErj = localStorage.getItem('onlyGroupErj');
+
     function SetGroupData() {
         var programSelect = sessionStorage.ace;
         $("#DropGroup").empty();
@@ -79,13 +81,14 @@
                     + afiList[i].Code + " - " + afiList[i].Name + '</option>');
             }
 
-            if (sessionStorage.onlyGroupErj != '' && sessionStorage.onlyGroupErj != 'null' && sessionStorage.onlyGroupErj != null) {
-                onlyGroupErj = sessionStorage.onlyGroupErj.split('-');
+            if (onlyGroupErj != '' && onlyGroupErj != 'null' && onlyGroupErj != null) {
 
-                for (var i = 0; i < onlyGroupErj.length; i++) {
+                var onlyGroupErjList = onlyGroupErj.split('-');
+
+                for (var i = 0; i < onlyGroupErjList.length; i++) {
                     $("#DropGroup").append('<option value="'
-                        + onlyGroupErj[i] + '">'
-                        + onlyGroupErj[i] + " - " + "اتوماسیون" + '</option>');
+                        + onlyGroupErjList[i] + '">'
+                        + onlyGroupErjList[i] + " - " + "اتوماسیون" + '</option>');
                 }
             }
 
@@ -100,9 +103,9 @@
         $("#DropSal").append('<option value="0">' + translate('سال را انتخاب کنید') +'</option>');
         if (programSelect != 0 && GroupSelect != 0 && GroupSelect != null) {
 
-            onlyGroupErj = sessionStorage.onlyGroupErj.split('-');
+            var onlyGroupErjList = sessionStorage.onlyGroupErj.split('-');
 
-            if (onlyGroupErj.includes(GroupSelect) == true)
+            if (onlyGroupErjList.includes(GroupSelect) == true)
                 progName = 'erj1';
             else
                 progName = ace== 'Web1' ? 'Afi1' : sessionStorage.OrgProgName;

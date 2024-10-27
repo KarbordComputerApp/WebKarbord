@@ -166,6 +166,7 @@ input.addEventListener("change", function () {
 
                 if (item.Value == 1) {
                     sessionStorage.onlyGroupErj = '';
+                    localStorage.setItem('onlyGroupErj', '');
                     var progCaption;
                     if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
                         localStorage.setItem("ace", 'Web8');
@@ -194,6 +195,7 @@ input.addEventListener("change", function () {
                             if (onlyGroupErj != '') {
                                 onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
                                 sessionStorage.onlyGroupErj = onlyGroupErj;
+                                localStorage.setItem('onlyGroupErj', onlyGroupErj);
                             }
                         }
 
@@ -265,6 +267,7 @@ input.addEventListener("change", function () {
                             if (onlyGroupErj != '') {
                                 onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
                                 sessionStorage.onlyGroupErj = onlyGroupErj;
+                                localStorage.setItem('onlyGroupErj', onlyGroupErj);
                             }
                         }
 
