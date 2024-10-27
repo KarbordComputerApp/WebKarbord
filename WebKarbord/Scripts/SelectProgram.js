@@ -102,13 +102,13 @@
         $("#DropSal").empty();
         $("#DropSal").append('<option value="0">' + translate('سال را انتخاب کنید') +'</option>');
         if (programSelect != 0 && GroupSelect != 0 && GroupSelect != null) {
+            progName = ace == 'Web1' ? 'Afi1' : sessionStorage.OrgProgName;
 
-            var onlyGroupErjList = sessionStorage.onlyGroupErj.split('-');
-
-            if (onlyGroupErjList.includes(GroupSelect) == true)
-                progName = 'erj1';
-            else
-                progName = ace== 'Web1' ? 'Afi1' : sessionStorage.OrgProgName;
+            if (onlyGroupErj != '' && onlyGroupErj != 'null' && onlyGroupErj != null) {
+                var onlyGroupErjList = onlyGroupErj.split('-');
+                if (onlyGroupErjList.includes(GroupSelect) == true)
+                    progName = 'erj1';
+            }
 
             var DatabseSalObject = {
                 ProgName: progName,
