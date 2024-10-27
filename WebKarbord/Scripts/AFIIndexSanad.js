@@ -49,9 +49,8 @@
 
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
-        if (sessionStorage.ModeCode.toUpperCase() != "ADOC")
-            sessionStorage.ModeCode = localStorage.getItem("ModeCode");
-
+        //if (sessionStorage.ModeCode.toUpperCase() != "ADOC") sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+        sessionStorage.ModeCode = "ADOC";
         if (sessionStorage.ModeCode == 'ADOC') {
             validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
             //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
