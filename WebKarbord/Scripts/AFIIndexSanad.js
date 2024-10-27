@@ -13,7 +13,7 @@
     DocNoReport = localStorage.getItem("DocNoAFISanad");
     if (DocNoReport != "null" && DocNoReport != null) {
         sessionStorage.ModeCode = "ADOC";
-        //localStorage.setItem("ModeCode", "ADOC");
+        localStorage.setItem("ModeCode", "ADOC");
     }
 
     salAcc = localStorage.getItem("SalAcc");
@@ -50,7 +50,8 @@
     if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
         //if (sessionStorage.ModeCode.toUpperCase() != "ADOC") sessionStorage.ModeCode = localStorage.getItem("ModeCode");
-        sessionStorage.ModeCode = "ADOC";
+        //sessionStorage.ModeCode = "ADOC";
+        sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         if (sessionStorage.ModeCode == 'ADOC') {
             validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
             //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
