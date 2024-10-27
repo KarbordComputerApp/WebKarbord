@@ -97,6 +97,7 @@
 
     function SetSalData() {
         var programSelect = ace;
+        sessionStorage.OrgProgName = localStorage.getItem('OrgProgName');
 
         var GroupSelect = $("#DropGroup").val();
         $("#DropSal").empty();

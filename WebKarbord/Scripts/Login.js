@@ -376,6 +376,7 @@ input.addEventListener("change", function () {
 
                             });
 
+                            localStorage.setItem('OrgProgName', sessionStorage.OrgProgName);
                             var GroupsObject = {
                                 ProgName: sessionStorage.OrgProgName,
                                 User: sessionStorage.userName,
