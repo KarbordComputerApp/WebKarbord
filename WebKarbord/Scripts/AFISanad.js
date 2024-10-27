@@ -3905,6 +3905,9 @@
             if (sessionStorage.Eghdam == sessionStorage.userName) {
                 viewAction = true;
             }
+            else if (flagupdateHeader == 0) {
+                viewAction = true;
+            }
         }
 
         if (localStorage.getItem("CHG") == 'false' && sessionStorage.BeforeMoveSanad == "false" && flagupdateHeader == 1) {
