@@ -10,11 +10,14 @@
     self.ADocPList = ko.observableArray([]); // لیست ویوی چاپ 
     self.TestADoc_DeleteList = ko.observableArray([]); // لیست تست حذف 
 
+    sessionStorage.ModeCode = "ADOC";
+    localStorage.setItem("ModeCode", "ADOC");
     DocNoReport = localStorage.getItem("DocNoAFISanad");
-    if (DocNoReport != "null" && DocNoReport != null) {
-        sessionStorage.ModeCode = "ADOC";
-        localStorage.setItem("ModeCode", "ADOC");
-    }
+
+    //if (DocNoReport != "null" && DocNoReport != null) {
+    //    sessionStorage.ModeCode = "ADOC";
+    //    localStorage.setItem("ModeCode", "ADOC");
+    //}
 
     salAcc = localStorage.getItem("SalAcc");
     if (salAcc != '' && salAcc != null)
@@ -47,12 +50,12 @@
 
     getParamAcc();
 
-    if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
+    //if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
         sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
         //if (sessionStorage.ModeCode.toUpperCase() != "ADOC") sessionStorage.ModeCode = localStorage.getItem("ModeCode");
         //sessionStorage.ModeCode = "ADOC";
-        sessionStorage.ModeCode = localStorage.getItem("ModeCode");
-        if (sessionStorage.ModeCode == 'ADOC') {
+        //sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+        //if (sessionStorage.ModeCode == 'ADOC') {
             validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
             //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
             validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
@@ -102,9 +105,9 @@
                 sessionStorage.AccessViewSanad = false;
                 localStorage.setItem("AccessViewSanad", "false");
             }
-        }
+       // }
 
-    }
+   // }
 
     self.StatusSanad = ko.observable();
 
