@@ -2490,7 +2490,7 @@ var ViewModel = function () {
             onEditorPreparing: function (e) {
 
 
-                if (e.row.data.Auto == true) {
+                if (e.row.data.Auto > 0 ) {
                     e.editorOptions.disabled = true;
                     // e.editorOptions.readOnly = true;
                 }
