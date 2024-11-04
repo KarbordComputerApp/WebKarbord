@@ -2718,9 +2718,8 @@ var ViewModel = function () {
     self.ViewLinkAcc = function (status) {
         if (status == 'باطل')
             return false;
-        else if (ace.toUpperCase() == 'WEB1')
-            return false;
-        else if (progAccess.includes('ACC5') == false )
+        //else if (ace.toUpperCase() == 'WEB1')  return false;
+        else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('ACC5') == false )
             return false;
         else if (sessionStorage.Access_ACCLink == "false")
             return false;
@@ -2731,9 +2730,8 @@ var ViewModel = function () {
     self.ViewLinkInv = function (status) {
         if (status == 'باطل')
             return false;
-        else if (ace.toUpperCase() == 'WEB1')
-            return false;
-        else if (progAccess.includes('INV5') == false)
+       // else if (ace.toUpperCase() == 'WEB1') return false;
+        else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('INV5') == false)
             return false;
         else if (sessionStorage.Access_INVLink == "false")
             return false;
@@ -4325,18 +4323,25 @@ var ViewModel = function () {
         serial = item.SerialNumber;
         invReg = item.InvReg;
         $("#CreateLinkInv").show();
+        $("#CreateLinkInv").text("ثبت سند");
         $("#P_IDoc_linkto_FDoc").hide();
         if (invReg == "ثبت شده") {
             $("#CreateLinkInv").hide();
-            $("#P_IDoc_linkto_FDoc").show();
+                var IDoc_linkto_FDocObject = {
+                    SerialNumber: serial
+                };
+                ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
+                    self.IDoc_linkto_FDocList(data);
+                    if (data.length > 1) {
+                        $("#CreateLinkInv").hide();
+                        $("#P_IDoc_linkto_FDoc").show();
+                    } else {
+                        $("#CreateLinkInv").text("مشاهده");
+                        $("#CreateLinkInv").show();
+                    }
+                });
 
-            var IDoc_linkto_FDocObject = {
-                SerialNumber: serial
-            };
-
-            ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
-                self.IDoc_linkto_FDocList(data);
-            });
+           
         }
         $('#modal-LinkInv').modal('show');
     }
@@ -4351,31 +4356,57 @@ var ViewModel = function () {
     $("#CreateLinkInv").click(function () {
         if (isDoubleClicked($(this))) return;
 
-        var TestInvBandFctUri = server + '/api/Web_Data/TestInvBandFct/';
-        var TestInvBandFctObject = {
-            SerialNumber: serial
-        };
+        if (invReg == "ثبت شده") {
+            var data = self.IDoc_linkto_FDocList();
+            if (data.length > 0) {
 
-        ajaxFunction(TestInvBandFctUri + ace + '/' + sal + '/' + group, 'POST', TestInvBandFctObject).done(function (d) {
-            if (d == 0) {
-                var data = CreateFctToInv_Link(serial, false);
-                if (data[0].Test == 255) { // success
-
-                    var d = data[0].KalaName.split('!!');
-                    var serialInvLink = d[0];
-                    var d_docNo = d[1];
-
-                    SaveLog('Inv5', EditMode_Link, LogMode_IDoc, 0, d_docNo, serialInvLink);
-
-                    showNotification(data.length + " سند ایجاد شد", 1)
-                    getFDocH($('#pageCountSelector').val(), false);
+                if (TestUseSanad(ace, sal, "SanadAnbar", data[0].SerialNumber, false, data[0].DocNo) == true) {
+                }
+                else {
+                    localStorage.setItem("InvCodeAFISanadAnbar", data[0].InvCode);
+                    localStorage.setItem("ModeCodeAFISanadAnbar", data[0].ModeCode);
+                    localStorage.setItem("InOutAFISanadAnbar", data[0].InOut);
+                    localStorage.setItem("DocNoAFISanadAnbar", data[0].DocNo);
+                    window.open(sessionStorage.urlAFISanadAnbarIndex);
                 }
                 $('#modal-LinkInv').modal('hide');
             }
-            else {
-                showNotification("در " + d + " بند انبار انتخاب نشده است", 0)
-            }
-        });
+        }
+        else {
+
+            var TestInvBandFctUri = server + '/api/Web_Data/TestInvBandFct/';
+            var TestInvBandFctObject = {
+                SerialNumber: serial
+            };
+
+            ajaxFunction(TestInvBandFctUri + ace + '/' + sal + '/' + group, 'POST', TestInvBandFctObject).done(function (d) {
+                if (d == 0) {
+                    var data = CreateFctToInv_Link(serial, false);
+                    if (data[0].Test == 255) { // success
+
+                        var d = data[0].KalaName.split('!!');
+                        var serialInvLink = d[0];
+                        var d_docNo = d[1];
+
+                        SaveLog('Inv5', EditMode_Link, LogMode_IDoc, 0, d_docNo, serialInvLink);
+
+                        showNotification(data.length + " سند ایجاد شد", 1)
+                        getFDocH($('#pageCountSelector').val(), false);
+                    }
+                    $('#modal-LinkInv').modal('hide');
+                }
+                else {
+                    var mes = "";
+                    if (ace.toUpperCase() == "WEB1") {
+                        mes = "انبار انتخاب نشده است";
+                    }
+                    else if (ace.toUpperCase() == "WEB8") {
+                        mes = "در " + d + " بند انبار انتخاب نشده است";
+                    }
+                    showNotification(mes, 0)
+                }
+            });
+        }
     });
 
 

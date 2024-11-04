@@ -1969,9 +1969,8 @@
     self.ViewLinkAcc = function (status) {
         if (status == 'باطل')
             return false;
-        else if (ace.toUpperCase() == 'WEB1')
-            return false;
-        else if (progAccess.includes('ACC5') == false)
+        //else if (ace.toUpperCase() == 'WEB1') return false;
+        else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('ACC5') == false)
             return false;
         else if (sessionStorage.Access_ACCLink == "false")
             return false;
