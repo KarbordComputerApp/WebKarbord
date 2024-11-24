@@ -2863,6 +2863,7 @@
         if (isDoubleClicked($(this))) return;
         
         if (serialAcc == 0) {
+            $(this).attr('disabled', 'disabled');
             var data = CreateInvToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
                 var d = data[0].AccCode.split('!!');
@@ -2875,6 +2876,7 @@
                 getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
             }
             $('#modal-LinkAcc').modal('hide');
+            $(this).attr('disabled', 'disabled');
         }
         else {
             if (TestUseSanad(ace, sal, "SanadHesab", serialAcc, false, docNoAcc)) {

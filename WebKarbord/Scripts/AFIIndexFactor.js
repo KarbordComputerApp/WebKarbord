@@ -4290,6 +4290,7 @@ var ViewModel = function () {
     $("#CreateLinkAcc").click(function () {
         if (isDoubleClicked($(this))) return;
         if (serialAcc == 0) {
+            $(this).attr('disabled', 'disabled');
             var data = CreateFctToAcc_Link(serial, false);
             if (data[0].Test == 255) { // success
                 var d = data[0].AccCode.split('!!');
@@ -4301,6 +4302,7 @@ var ViewModel = function () {
                 getFDocH($('#pageCountSelector').val(), false);
             }
             $('#modal-LinkAcc').modal('hide');
+            $(this).removeAttr('disabled', 'disabled');
         }
         else {
             if (TestUseSanad(ace, sal, "SanadHesab", serialAcc, false, docNoAcc)) {
@@ -4374,6 +4376,7 @@ var ViewModel = function () {
         }
         else {
 
+            $(this).attr('disabled', 'disabled');
             var TestInvBandFctUri = server + '/api/Web_Data/TestInvBandFct/';
             var TestInvBandFctObject = {
                 SerialNumber: serial
@@ -4405,7 +4408,9 @@ var ViewModel = function () {
                     }
                     showNotification(mes, 0)
                 }
+                
             });
+            $(this).removeAttr('disabled', 'disabled');
         }
     });
 
