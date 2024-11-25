@@ -2875,8 +2875,8 @@
                 showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
                 getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
             }
+            $(this).removeAttr('disabled', 'disabled');
             $('#modal-LinkAcc').modal('hide');
-            $(this).attr('disabled', 'disabled');
         }
         else {
             if (TestUseSanad(ace, sal, "SanadHesab", serialAcc, false, docNoAcc)) {
