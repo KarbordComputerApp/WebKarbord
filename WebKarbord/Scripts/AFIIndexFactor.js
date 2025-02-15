@@ -4284,6 +4284,7 @@ var ViewModel = function () {
         serial = 0;
         serialAcc = 0;
         docNoAcc = 0;
+        $("#CreateLinkAcc").removeAttr('disabled', 'disabled');
     });
 
 
@@ -4352,6 +4353,7 @@ var ViewModel = function () {
     $('#modal-LinkInv').on('hide.bs.modal', function () {
         serial = 0;
         invReg = "";
+        $("#CreateLinkInv").removeAttr('disabled', 'disabled');
     });
 
 

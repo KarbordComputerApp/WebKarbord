@@ -42,6 +42,11 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult GrdZAcc()
+        {
+            return View();
+        }
+
 
         // انبار داری ------------------------------------------
 

@@ -1021,6 +1021,7 @@
     <Content Include="Scripts\R_AFI_AGOpr.js" />
     <Content Include="Scripts\R_AFI_Krdx.js" />
     <Content Include="Scripts\R_AFI_AGMkz.js" />
+    <Content Include="Scripts\R_AFI_GrdZAcc.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_P.js" />
     <Content Include="Scripts\R_AFI_TrzFKala_P.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_S.js" />
@@ -1216,6 +1217,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Shared\_LayoutMap.cshtml" />
+    <Content Include="Views\ReportAFI\GrdZAcc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -63,7 +63,7 @@ var key_b = 98;
 
 
 
-
+var countAccess = 36;
 // دسترسی های ادمین پنل
 const AP_SFCT = 0;
 const AP_SPFCT = 1;
@@ -101,6 +101,7 @@ const AP_AGMkz = 32;
 const AP_AGOpr = 33;
 const AP_Arz = 34;
 const AP_ZAcc = 35;
+const AP_GrdZAcc = 36;
 
 // دسترسی های  ویندوزی
 const AC_DOC = 0;
@@ -143,6 +144,7 @@ const AC_AGMkz = 36;
 const AC_AGOpr = 37;
 const AC_ARZ = 38;
 const AC_ZACC = 39;
+const AC_GrdZAcc = 40;
 
 const InvRegSave = "ثبت شده";
 const InvRegNotSave = "ثبت نشد";
@@ -1252,7 +1254,7 @@ if (ace != 'Web2') {
 
 
     if (afiAccessApi == '*') {
-        for (var i = 0; i <= 35; i++) {
+        for (var i = 0; i <= countAccess; i++) {
             afiaccess[i] = true;
         }
     }
@@ -1260,7 +1262,7 @@ if (ace != 'Web2') {
 
 
 
-        for (var i = 0; i <= 35; i++) {
+        for (var i = 0; i <= countAccess; i++) {
             afiAccessApi[i] == 'SFCT' ? afiaccess[AP_SFCT] = true : null;
             afiAccessApi[i] == 'SPFCT' ? afiaccess[AP_SPFCT] = true : null;
             afiAccessApi[i] == 'SRFCT' ? afiaccess[AP_SRFCT] = true : null;
@@ -1297,6 +1299,7 @@ if (ace != 'Web2') {
             afiAccessApi[i] == 'AGOpr' ? afiaccess[AP_AGOpr] = true : null;
             afiAccessApi[i] == 'Arz' ? afiaccess[AP_Arz] = true : null;
             afiAccessApi[i] == 'ZAcc' ? afiaccess[AP_ZAcc] = true : null;
+            afiAccessApi[i] == 'GrdZAcc' ? afiaccess[AP_GrdZAcc] = true : null;
         }
     }
 
@@ -1397,6 +1400,7 @@ $("#TrzAcc").hide();
 $("#Dftr").hide();
 $("#ADocR").hide();
 $("#TChk").hide();
+$("#GrdZAcc").hide();
 
 
 $("#FDocR_S").hide();
@@ -2739,12 +2743,12 @@ function getAccessList(GoHome) {
                     }
 
                     if (afiAccessApi == '*') {
-                        for (var i = 0; i <= 35; i++) {
+                        for (var i = 0; i <= countAccess; i++) {
                             afiaccess[i] = true;
                         }
                     }
                     else {
-                        for (var i = 0; i <= 35; i++) {
+                        for (var i = 0; i <= countAccess; i++) {
 
                             afiAccessApi[i] == 'SFCT' ? afiaccess[AP_SFCT] = true : null;
                             afiAccessApi[i] == 'SPFCT' ? afiaccess[AP_SPFCT] = true : null;
@@ -2782,6 +2786,7 @@ function getAccessList(GoHome) {
                             afiAccessApi[i] == 'AGOpr' ? afiaccess[AP_AGOpr] = true : null;
                             afiAccessApi[i] == 'Arz' ? afiaccess[AP_Arz] = true : null;
                             afiAccessApi[i] == 'ZAcc' ? afiaccess[AP_ZAcc] = true : null;
+                            afiAccessApi[i] == 'GrdZAcc' ? afiaccess[AP_GrdZAcc] = true : null;
                         }
                     }
 
@@ -3125,6 +3130,9 @@ function SetValidation() {
     validation = CheckAccessReport('TrzAcc', 'Acc5');
     ShowMenu[AC_TrzAcc] = validation;  // تراز دفاتر حسابداری
 
+    validation = CheckAccessReport('GrdZAcc', 'Acc5');
+    ShowMenu[AC_GrdZAcc] = validation;  // گردش زیرحساب ها
+
     validation = CheckAccessReport('Dftr', 'Acc5');
     ShowMenu[AC_Dftr] = validation;  // دفتر حساب حسابداری 
 
@@ -3211,6 +3219,7 @@ function SetValidation() {
 
     validation = CheckAccess('IODOC', 'Inv5');
     ShowMenu[AC_IODOC] = validation;  // صادره انبار
+
 
 
     //localStorage.setItem("", );
@@ -3397,7 +3406,7 @@ function SetValidation() {
 
 
 
-        if (afiaccess[AP_TrzAcc] || afiaccess[AP_Dftr] || afiaccess[AP_ADocR] || afiaccess[AP_TChk] || afiaccess[AP_AGMkz] || afiaccess[AP_AGOpr]) {
+        if (afiaccess[AP_TrzAcc] || afiaccess[AP_Dftr] || afiaccess[AP_ADocR] || afiaccess[AP_TChk] || afiaccess[AP_AGMkz] || afiaccess[AP_AGOpr] || afiaccess[AP_GrdZAcc]) {
             $("#AReport_Menu").show();
             $("#Dashbord").show();
             afiaccess[AP_TrzAcc] && ShowMenu[AC_TrzAcc] == true ? $("#TrzAcc").show() : $("#TrzAcc").hide();
@@ -3407,9 +3416,13 @@ function SetValidation() {
 
             afiaccess[AP_AGMkz] && ShowMenu[AC_AGMkz] == true ? $("#AGMkz").show() : $("#AGMkz").hide();
             afiaccess[AP_AGOpr] && ShowMenu[AC_AGOpr] == true ? $("#AGOpr").show() : $("#AGOpr").hide();
+            afiaccess[AP_GrdZAcc] && ShowMenu[AC_GrdZAcc] == true ? $("#GrdZAcc").show() : $("#GrdZAcc").hide();
+            //$("#GrdZAcc").show();
+
 
             if (ShowMenu[AC_TrzAcc] == false && ShowMenu[AC_Dftr] == false && ShowMenu[AC_ADocR] == false &&
                 ShowMenu[AC_TChk] == false && ShowMenu[AC_AGMkz] == false && ShowMenu[AC_AGOpr] == false
+                && ShowMenu[AC_GrdZAcc] == false
             ) {
                 $("#AReport_Menu").hide();
             }
@@ -3864,6 +3877,7 @@ $("#TrzAcc").click(function () {
     localStorage.setItem("SalAcc", localStorage.getItem("sal"));
 });
 
+
 $("#ADocR").click(function () {
     localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("SalAcc", localStorage.getItem("sal"));
@@ -3886,6 +3900,11 @@ $("#AGMkz").click(function () {
 });
 
 $("#AGOpr").click(function () {
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
+$("#GrdZAcc").click(function () {
+    localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("SalAcc", localStorage.getItem("sal"));
 });
 
