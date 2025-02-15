@@ -523,9 +523,10 @@
 
         tempData = ko.utils.arrayFilter(self.GrdZAccList(), function (item) {
             result =
-                ko.utils.stringStartsWith(item.ZAccCode.toString().toLowerCase(), filterZAccCode) &&
+               // ko.utils.stringStartsWith(item.ZAccCode.toString().toLowerCase(), filterZAccCode) &&
+                (item.ZAccCode == null ? '' : item.ZAccCode.toString().search(filterZAccCode) >= 0) &&
                 (item.ZAccName == null ? '' : item.ZAccName.toString().search(filterZAccName) >= 0) &&
-                ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filterAccCode) &&
+                (item.AccCode == null ? '' : item.AccCode.toString().search(filterAccCode) >= 0) &&
                 (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
                 ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
                 ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
@@ -640,7 +641,7 @@
 
         if (orderProp == 'ZAccCode') self.iconTypeZAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ZAccName') self.iconTypeZAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -2254,7 +2255,7 @@
 
         sortField = field == 'DocNo' ? 'SortDocNo' :
             field == 'MkzCode' ? 'SortMkzCode' :
-                field == 'AccCode' ? 'SortAccCode' :
+                field == 'AccCode' ? 'AccCode' :
                     field
 
         if (TextField == 0)
