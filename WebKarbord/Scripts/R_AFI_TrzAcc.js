@@ -346,18 +346,22 @@
             if (sathTaraz == 2 && TrzAccData.Level == 1) {
                 totalBede += TrzAccData.Bede;
                 totalBest += TrzAccData.Best;
-                totalMonBede += TrzAccData.MonBede;
-                totalMonBest += TrzAccData.MonBest;
-                totalMonTotal += TrzAccData.MonTotal;
+                //totalMonBede += TrzAccData.MonBede;
+                //totalMonBest += TrzAccData.MonBest;
+                //totalMonTotal += TrzAccData.MonTotal;
             }
             else if (sathTaraz == 1) {
                 totalBede += TrzAccData.Bede;
                 totalBest += TrzAccData.Best;
-                totalMonBede += TrzAccData.MonBede;
-                totalMonBest += TrzAccData.MonBest;
-                totalMonTotal += TrzAccData.MonTotal;
+                //totalMonBede += TrzAccData.MonBede;
+                //totalMonBest += TrzAccData.MonBest;
+                //totalMonTotal += TrzAccData.MonTotal;
             }
         }
+
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal): 0
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));

@@ -437,11 +437,15 @@
             if (GrdZAccData.Tag > 1) {
                 totalBede += GrdZAccData.Bede;
                 totalBest += GrdZAccData.Best;
-                totalMonBede += GrdZAccData.MonBede;
-                totalMonBest += GrdZAccData.MonBest;
-                totalMonTotal += GrdZAccData.MonTotal;
+                //totalMonBede += GrdZAccData.MonBede;
+                //totalMonBest += GrdZAccData.MonBest;
+                //totalMonTotal += GrdZAccData.MonTotal;
             }
         }
+
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
