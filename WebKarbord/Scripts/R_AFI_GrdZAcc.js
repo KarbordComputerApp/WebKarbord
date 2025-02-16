@@ -90,10 +90,10 @@
     var list_OprNameSelect = new Array();
 
 
-    var zGruAccCode = '';
+    var zGruCode = '';
     var counterZGruAcc = 0;
     var list_ZGruAccSelect = new Array();
-    var list_ZGruAccNameSelect = new Array();
+    var list_zGruNameSelect = new Array();
 
     var zAccCode = '';
     var counterZAcc = 0;
@@ -322,16 +322,16 @@
                 accName += list_AccNameSelect[i];
             }
         }
-        zGruAccCode = '';
-        zGruAccName = '';
+        zGruCode = '';
+        zGruName = '';
         for (var i = 0; i <= counterZGruAcc - 1; i++) {
             if (i < counterZGruAcc - 1) {
-                zGruAccCode += list_ZGruAccSelect[i] + '*';
-                zGruAccName += list_ZGruAccNameSelect[i] + '*';
+                zGruCode += list_ZGruAccSelect[i] + '*';
+                zGruName += list_zGruNameSelect[i] + '*';
             }
             else {
-                zGruAccCode += list_ZGruAccSelect[i];
-                zGruAccName += list_ZGruAccNameSelect[i];
+                zGruCode += list_ZGruAccSelect[i];
+                zGruName += list_zGruNameSelect[i];
             }
         }
 
@@ -411,12 +411,10 @@
             taTarikh: taTarikh,
             AModeCode: aModeCode,
             AccCode: accCode,
-            ZGruAccCode: zGruAccCode,
+            ZGruCode: zGruCode,
             ZAccCode: zAccCode,
             MkzCode: mkzcode,
-            OprCode: oprcode,
-            StatusCode: statusCode
-
+            OprCode: oprcode 
         };
 
         ajaxFunction(GrdZAccUri + ace + '/' + sal + '/' + group, 'POST', GrdZAccObject, true).done(function (response) {
@@ -436,11 +434,13 @@
 
         for (var i = 0; i < list.length; ++i) {
             GrdZAccData = list[i];
-            totalBede += GrdZAccData.Bede;
-            totalBest += GrdZAccData.Best;
-            totalMonBede += GrdZAccData.MonBede;
-            totalMonBest += GrdZAccData.MonBest;
-            totalMonTotal += GrdZAccData.MonTotal;
+            if (GrdZAccData.Tag > 1) {
+                totalBede += GrdZAccData.Bede;
+                totalBest += GrdZAccData.Best;
+                totalMonBede += GrdZAccData.MonBede;
+                totalMonBest += GrdZAccData.MonBest;
+                totalMonTotal += GrdZAccData.MonTotal;
+            }
         }
 
         // $("#textTotal").text('جمع');
@@ -1383,10 +1383,10 @@
 
     self.AddZGruAcc = function (item) {
 
-        ZGruAccCode = item.Code;
+        zGruCode = item.Code;
         find = false;
         list_ZGruAccSelect.forEach(function (item, key) {
-            if (item == ZGruAccCode) {
+            if (item == zGruCode) {
                 find = true;
             }
         });
@@ -1399,7 +1399,7 @@
                 + '</tr>'
             );
             list_ZGruAccSelect[counterZGruAcc] = item.Code;
-            list_ZGruAccNameSelect[counterZGruAcc] = item.Name;
+            list_zGruNameSelect[counterZGruAcc] = item.Name;
             counterZGruAcc = counterZGruAcc + 1;
         }
     };
@@ -1407,7 +1407,7 @@
 
     self.AddAllZGruAcc = function () {
         list_ZGruAccSelect = new Array();
-        list_ZGruAccNameSelect = new Array();
+        list_zGruNameSelect = new Array();
         list = self.ZGruAccList();
         $("#TableBodyListZGruAcc").empty();
         for (var i = 0; i < list.length; i++) {
@@ -1418,7 +1418,7 @@
                 + '</tr>'
             );
             list_ZGruAccSelect[i] = list[i].Code;
-            list_ZGruAccNameSelect[i] = list[i].Name;
+            list_zGruNameSelect[i] = list[i].Name;
             counterZGruAcc = i + 1;
         }
     };
@@ -1426,7 +1426,7 @@
 
     self.DelAllZGruAcc = function () {
         list_ZGruAccSelect = new Array();
-        list_ZGruAccNameSelect = new Array();
+        list_zGruNameSelect = new Array();
         counterZGruAcc = 0;
         $("#TableBodyListZGruAcc").empty();
     };
@@ -1446,7 +1446,7 @@
                 $('#TableBodyListZGruAcc').append(
                     '<tr data-bind="">'
                     + ' <td data-bind="text: Code">' + list_ZGruAccSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + list_ZGruAccNameSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_zGruNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
@@ -2183,8 +2183,8 @@
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageGrdZAcc}" style="cursor: default;">'+
-            '     <tr>'
+            ' <tbody data-bind=" {foreach: currentPageGrdZAcc}" style="cursor: default;">' +
+                '     <tr data-bind="style: { \'background-color\': Tag == 1 ? \'#f5efeb\' : \'\' }" >'
 
 
 

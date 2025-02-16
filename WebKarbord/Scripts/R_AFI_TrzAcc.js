@@ -333,7 +333,7 @@
 
     function calcsum(list) {
         totalBede = 0;
-        totalBest = 0;
+        totalBest = 0; 
         totalMonBede = 0;
         totalMonBest = 0;
         totalMonTotal = 0;
