@@ -16,7 +16,7 @@
 
     var TrzAccUri = server + '/api/ReportAcc/TrzAcc/'; // آدرس گزارش 
     var TrzAccCountUri = server + '/api/ReportAcc/TrzAccCount/'; // تعداد رکورد های گزارش 
-   // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -333,7 +333,7 @@
 
     function calcsum(list) {
         totalBede = 0;
-        totalBest = 0; 
+        totalBest = 0;
         totalMonBede = 0;
         totalMonBest = 0;
         totalMonTotal = 0;
@@ -361,7 +361,7 @@
 
         totalMonTotal = totalBede - totalBest;
         totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
-        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal): 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
@@ -590,9 +590,9 @@
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                    filter3 != '' ?  item.Level <= filter3 : ''
+                        (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                        (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                        filter3 != '' ? item.Level <= filter3 : ''
                 return result;
             })
             return tempData;
@@ -741,7 +741,7 @@
 
     $('#modal-Acc').on('hide.bs.modal', function () {
         if (counterAcc > 0)
-            $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAcc').val(translate('همه موارد'));
     });
@@ -944,7 +944,7 @@
 
     $('#modal-Mkz').on('hide.bs.modal', function () {
         if (counterMkz > 0)
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameMkz').val(translate('همه موارد'));
     });
@@ -1138,7 +1138,7 @@
 
     $('#modal-Opr').on('hide.bs.modal', function () {
         if (counterOpr > 0)
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameOpr').val(translate('همه موارد'));
     });
@@ -1339,7 +1339,7 @@
 
     $('#modal-AMode').on('hide.bs.modal', function () {
         if (counterAMode > 0)
-            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'))
+            $('#nameAMode').val(counterAMode + ' ' + translate('مورد انتخاب شده'))
         else
             $('#nameAMode').val(translate('همه موارد'));
     });
@@ -1421,14 +1421,14 @@
         counterAcc = 1;
         list_AccSelect[0] = AccCodeReport;
         list_AccNameSelect[0] = AccNameReport;
-        $('#nameAcc').val(counterAcc +  ' ' + translate('مورد انتخاب شده'));
+        $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'));
 
 
 
         old_LevelReport = parseInt(localStorage.getItem("LevelReport"));
         $("#Level").val(old_LevelReport == 5 ? 5 : old_LevelReport + 1);
 
-        
+
         old_SathReport = parseInt(localStorage.getItem("SathReport"));
         $("#SathTaraz").val(old_SathReport);
 
@@ -1445,7 +1445,7 @@
             list_AModeSelect = aModeCode.split("*");
             list_AModeNameSelect = aModeName.split("*");
             counterAMode = list_AModeSelect.length;
-            $('#nameAMode').val(counterAMode +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameAMode').val(counterAMode + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameAMode').val(translate('همه موارد'));
@@ -1458,7 +1458,7 @@
             list_MkzNameSelect = mkzName.split("*");
 
             counterMkz = list_MkzSelect.length;
-            $('#nameMkz').val(counterMkz +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameMkz').val(counterMkz + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameMkz').val(translate('همه موارد'))
@@ -1471,7 +1471,7 @@
             list_OprNameSelect = oprName.split("*");
 
             counterOpr = list_OprSelect.length;
-            $('#nameOpr').val(counterOpr +  ' ' + translate('مورد انتخاب شده'));
+            $('#nameOpr').val(counterOpr + ' ' + translate('مورد انتخاب شده'));
         }
         else
             $('#nameOpr').val(translate('همه موارد'));
@@ -1570,7 +1570,7 @@
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
-        '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
+            '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
             CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
@@ -1908,6 +1908,40 @@
         printVariable = '"ReportDate":"' + DateNow + '",';
         printVariable += '"FromDate":"' + FromDate + '",';
         printVariable += '"ToDate":"' + ToDate + '",';
+
+
+
+
+        totalBede = 0;
+        totalBest = 0;
+        totalMonBede = 0;
+        totalMonBest = 0;
+        totalMonTotal = 0;
+
+        sathTaraz = $('#SathTaraz').val();
+        var listSumReport = self.TrzAccList();
+        for (var i = 0; i < listSumReport.length; ++i) {
+            TrzAccData = listSumReport[i];
+
+            if (sathTaraz == 2 && TrzAccData.Level == 1) {
+                totalBede += TrzAccData.Bede;
+                totalBest += TrzAccData.Best;
+            }
+            else if (sathTaraz == 1) {
+                totalBede += TrzAccData.Bede;
+                totalBest += TrzAccData.Best;
+            }
+        }
+
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
+
+        printVariable += '"SumBede":"' + totalBede + '",';
+        printVariable += '"SumBest":"' + totalBest + '",';
+        printVariable += '"MonBede":"' + totalMonBede + '",';
+        printVariable += '"MonBest":"' + totalMonBest + '",';
+        printVariable += '"MonTotal":"' + totalMonTotal + '",';
 
         printName = null;
         sessionStorage.ModePrint = "ReportTrzAcc";
