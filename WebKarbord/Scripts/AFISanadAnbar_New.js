@@ -8,6 +8,7 @@ var cols;
 var ViewModel = function () {
     var self = this;
     var forSels = true;
+    var raveshInv = 0;
 
     sal = localStorage.getItem("SalInv");
     var arzCalcMode = localStorage.getItem("ArzCalcMode_Inv");
@@ -716,6 +717,7 @@ var ViewModel = function () {
             var list = data;
             for (var i = 0; i < list.length; i++) {
                 if (list[i].Code == invSelect) {
+                    raveshInv = list[i].Ravesh;
                     sameNoAllMode = list[i].SameNoAllMode;
                     if (list[i].AutoDocNo == 1) {
                         $('#docnoout').attr('readonly', true);
@@ -946,16 +948,31 @@ var ViewModel = function () {
         return self.InvList().length > 0 ? translate('انبار را انتخاب کنید') : translate('انبار تعریف نشده است');
     });
 
+
     $("#inv").change(function () {
         if (flagupdateHeader != 1 && invSelect == "") {
             invSelect = $("#inv").val();
-
             $('#docnoout').attr('readonly', false);
-
             var list = self.InvList();
             for (var i = 0; i < list.length; i++) {
                 if (list[i].Code == invSelect) {
+                    raveshInv = list[i].Ravesh;
                     sameNoAllMode = list[i].SameNoAllMode;
+                    if (sessionStorage.InOut == "2") {
+                        if (raveshInv == 2) {
+                            $("#gridContainer").dxDataGrid("columnOption", "UnitPrice", "allowEditing", true);
+                            $("#gridContainer").dxDataGrid("columnOption", "TotalPrice", "allowEditing", true);
+                        } else {
+                            $("#gridContainer").dxDataGrid("columnOption", "UnitPrice", "allowEditing", false);
+                            $("#gridContainer").dxDataGrid("columnOption", "TotalPrice", "allowEditing", false);
+                            for (var j = 0; j < IDocB.length; j++) {
+                                IDocB[j].UnitPrice = 0;
+                                IDocB[j].TotalPrice = 0;
+                                $("#gridContainer").dxDataGrid("instance").refresh();
+                            }
+                        }
+                    }
+
                     if (list[i].AutoDocNo == 1) {
                         $('#docnoout').val("");
                         $('#docnoout').attr('readonly', true);
@@ -968,10 +985,6 @@ var ViewModel = function () {
     });
 
     getInvList();
-
-
-
-
 
 
     //Get KalaPrice List
@@ -1571,6 +1584,8 @@ var ViewModel = function () {
                 s.Code == 'Amount2' ||
                 s.Code == 'Amount3' ||
                 s.Code == 'Comm' ||
+                s.Code == 'UnitPrice' ||
+                s.Code == 'TotalPrice' ||
                 (s.Code == 'KalaFileNo' && s.Name != '') ||
                 (s.Code == 'KalaState' && s.Name != '') ||
                 (s.Code == 'KalaExf1' && s.Name != '') ||
@@ -1715,9 +1730,15 @@ var ViewModel = function () {
             }
 
 
+            if (raveshInv != 2 && sessionStorage.InOut == "2" && (data[i].Code == "UnitPrice" || data[i].Code == "TotalPrice")) {
+                raveshInv = raveshInv;
+                f += ',"allowEditing": false'
+            }
+
             if (data[i].Type == 4) {
                 f += ',"dataType":"number"';
             }
+
             else if (data[i].Type == 5 || data[i].Code == 'Amount') {
                 f += ',"format": { "style": "decimal",  "useGrouping": true, "minimumSignificantDigits": 1 }';
             }
