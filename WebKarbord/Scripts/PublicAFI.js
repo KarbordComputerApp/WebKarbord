@@ -237,6 +237,7 @@ function ajaxFunction(uri, method, data, sync, error) {
     if (method != "GET") {
         var json = JSON.stringify(data);
     }
+    var aaaa = JSON.stringify(data);
 
     return $.ajax({
         type: method,

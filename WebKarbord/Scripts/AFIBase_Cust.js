@@ -53,6 +53,14 @@
         //$('#EtebarCheck').removeAttr('disabled');
     }
 
+    if (Master_ProgName.toUpperCase() == "INV5") {
+        $("#LocationCust").hide();
+        $("#ShowImageCust").hide();
+        $("#p_EtebarCheck").hide();
+        $("#p_latitude").hide();
+        $("#p_altitude").hide();
+    }
+
 
 
     var cGruCode = '';
@@ -95,6 +103,7 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
+    
 
 
 
