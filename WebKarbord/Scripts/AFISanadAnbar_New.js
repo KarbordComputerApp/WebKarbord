@@ -339,7 +339,11 @@ var ViewModel = function () {
         sessionStorage.sels = "false";
         sessionStorage.NEW_IIDOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
     }*/
-
+    if (sessionStorage.InOut == 2) {
+        sessionStorage.sels = "true";
+    } else {
+        sessionStorage.sels = "false";
+    }
 
     if (ace == "Web8") {
         if (flagupdateHeader == 1) {
@@ -1058,14 +1062,21 @@ var ViewModel = function () {
 
 
                 if (kalapricecode == null || kalapricecode == 0) {
-                    if (sessionStorage.sels == "true") {
-                        Price1 = parseFloat(IDocB[i].dataKala.SPrice1);
-                        Price2 = parseFloat(IDocB[i].dataKala.SPrice2);
-                        Price3 = parseFloat(IDocB[i].dataKala.SPrice3);
-                    } else {
-                        Price1 = parseFloat(IDocB[i].dataKala.PPrice1);
-                        Price2 = parseFloat(IDocB[i].dataKala.PPrice2);
-                        Price3 = parseFloat(IDocB[i].dataKala.PPrice3);
+                    if (raveshInv == 2) {
+                        Price1 = 0;
+                        Price2 = 0;
+                        Price3 = 0;
+                    }
+                    else {
+                        if (sessionStorage.sels == "true") {
+                            Price1 = parseFloat(IDocB[i].dataKala.SPrice1);
+                            Price2 = parseFloat(IDocB[i].dataKala.SPrice2);
+                            Price3 = parseFloat(IDocB[i].dataKala.SPrice3);
+                        } else {
+                            Price1 = parseFloat(IDocB[i].dataKala.PPrice1);
+                            Price2 = parseFloat(IDocB[i].dataKala.PPrice2);
+                            Price3 = parseFloat(IDocB[i].dataKala.PPrice3);
+                        }
                     }
 
                     if (IDocB[i].MainUnit == 1) IDocB[i].UnitPrice = Price1;
@@ -3277,16 +3288,23 @@ var ViewModel = function () {
         var deghatR2 = item.dataKala.DeghatR2;
         var deghatR3 = item.dataKala.DeghatR3;
 
-
-        if (sessionStorage.sels == "true") {
-            Price1 = parseFloat(IDocB[ro].dataKala.SPrice1);
-            Price2 = parseFloat(IDocB[ro].dataKala.SPrice2);
-            Price3 = parseFloat(IDocB[ro].dataKala.SPrice3);
-        } else {
-            Price1 = parseFloat(IDocB[ro].dataKala.PPrice1);
-            Price2 = parseFloat(IDocB[ro].dataKala.PPrice2);
-            Price3 = parseFloat(IDocB[ro].dataKala.PPrice3);
+        if (raveshInv == 2) {
+            Price1 = 0;
+            Price2 = 0;
+            Price3 = 0;
         }
+        else {
+            if (sessionStorage.sels == "true") {
+                Price1 = parseFloat(IDocB[ro].dataKala.SPrice1);
+                Price2 = parseFloat(IDocB[ro].dataKala.SPrice2);
+                Price3 = parseFloat(IDocB[ro].dataKala.SPrice3);
+            } else {
+                Price1 = parseFloat(IDocB[ro].dataKala.PPrice1);
+                Price2 = parseFloat(IDocB[ro].dataKala.PPrice2);
+                Price3 = parseFloat(IDocB[ro].dataKala.PPrice3);
+            }
+        }
+
 
         getKalaPriceBList(IDocB[ro].dataKala.Code);
 
@@ -3371,16 +3389,21 @@ var ViewModel = function () {
 
 
 
-
-
-                                if (sessionStorage.sels == "true") {
-                                    Price1 = parseFloat(dataKala.SPrice1);
-                                    Price2 = parseFloat(dataKala.SPrice2);
-                                    Price3 = parseFloat(dataKala.SPrice3);
-                                } else {
-                                    Price1 = parseFloat(dataKala.PPrice1);
-                                    Price2 = parseFloat(dataKala.PPrice2);
-                                    Price3 = parseFloat(dataKala.PPrice3);
+                                if (raveshInv == 2) {
+                                    Price1 = 0;
+                                    Price2 = 0;
+                                    Price3 = 0;
+                                }
+                                else {
+                                    if (sessionStorage.sels == "true") {
+                                        Price1 = parseFloat(dataKala.SPrice1);
+                                        Price2 = parseFloat(dataKala.SPrice2);
+                                        Price3 = parseFloat(dataKala.SPrice3);
+                                    } else {
+                                        Price1 = parseFloat(dataKala.PPrice1);
+                                        Price2 = parseFloat(dataKala.PPrice2);
+                                        Price3 = parseFloat(dataKala.PPrice3);
+                                    }
                                 }
 
                                 //getKalaPriceBList(dataKala.Code);
@@ -3557,15 +3580,21 @@ var ViewModel = function () {
                                 dataGrid.cellValue(ro, "MainUnitName", dataKala.DefaultUnit == 1 ? IDocB[ro].dataKala.UnitName1 : dataKala.DefaultUnit == 2 ? IDocB[ro].dataKala.UnitName2 : IDocB[ro].dataKala.UnitName3);
 
                                 defaultUnit = dataKala.DefaultUnit;
-
-                                if (sessionStorage.sels == "true") {
-                                    Price1 = parseFloat(dataKala.SPrice1);
-                                    Price2 = parseFloat(dataKala.SPrice2);
-                                    Price3 = parseFloat(dataKala.SPrice3);
-                                } else {
-                                    Price1 = parseFloat(dataKala.PPrice1);
-                                    Price2 = parseFloat(dataKala.PPrice2);
-                                    Price3 = parseFloat(dataKala.PPrice3);
+                                if (raveshInv == 2) {
+                                    Price1 = 0;
+                                    Price2 = 0;
+                                    Price3 = 0;
+                                }
+                                else {
+                                    if (sessionStorage.sels == "true") {
+                                        Price1 = parseFloat(dataKala.SPrice1);
+                                        Price2 = parseFloat(dataKala.SPrice2);
+                                        Price3 = parseFloat(dataKala.SPrice3);
+                                    } else {
+                                        Price1 = parseFloat(dataKala.PPrice1);
+                                        Price2 = parseFloat(dataKala.PPrice2);
+                                        Price3 = parseFloat(dataKala.PPrice3);
+                                    }
                                 }
 
                                 getKalaPriceBList(dataKala.Code);
@@ -3704,14 +3733,21 @@ var ViewModel = function () {
                                     //dataGrid.cellValue(ro, "MainUnit", selectionChangedArgs.selectedRowsData[0].Code);
                                     IDocB[ro].MainUnit = selectionChangedArgs.selectedRowsData[0].Code;
 
-                                    if (sessionStorage.sels == "true") {
-                                        Price1 = parseFloat(dataKala.SPrice1);
-                                        Price2 = parseFloat(dataKala.SPrice2);
-                                        Price3 = parseFloat(dataKala.SPrice3);
-                                    } else {
-                                        Price1 = parseFloat(dataKala.PPrice1);
-                                        Price2 = parseFloat(dataKala.PPrice2);
-                                        Price3 = parseFloat(dataKala.PPrice3);
+                                    if (raveshInv == 2) {
+                                        Price1 = 0;
+                                        Price2 = 0;
+                                        Price3 = 0;
+                                    }
+                                    else {
+                                        if (sessionStorage.sels == "true") {
+                                            Price1 = parseFloat(dataKala.SPrice1);
+                                            Price2 = parseFloat(dataKala.SPrice2);
+                                            Price3 = parseFloat(dataKala.SPrice3);
+                                        } else {
+                                            Price1 = parseFloat(dataKala.PPrice1);
+                                            Price2 = parseFloat(dataKala.PPrice2);
+                                            Price3 = parseFloat(dataKala.PPrice3);
+                                        }
                                     }
 
                                     getKalaPriceBList(dataKala.Code);
