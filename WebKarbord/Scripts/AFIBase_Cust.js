@@ -53,7 +53,14 @@
         //$('#EtebarCheck').removeAttr('disabled');
     }
 
-    if (Master_ProgName.toUpperCase() == "INV5") {
+    $("#L_CustCaption").text(translate("لیست " + caption_CustS));
+    $("#L_CustTitleModel").text(translate(caption_Cust));
+
+
+    $("#L_CGruSelect").text(translate("گروه " + caption_CustS));
+    $("#L_CGruTitleModel").text(translate("لیست گروه " + caption_CustS));
+
+    if (Fct_or_Inv.toUpperCase() == "INV5") {
         $("#LocationCust").hide();
         $("#ShowImageCust").hide();
         $("#p_EtebarCheck").hide();
@@ -103,7 +110,7 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    
+
 
 
 
@@ -589,7 +596,7 @@
 
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست خریداران/فروشندگان") + " " + translate("به روز رسانی شود ؟"),
+            text: $("#L_CustCaption").text() + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -713,7 +720,7 @@
     $('#refreshCGru').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست گروه خریداران/فروشندگان") + " " + translate("به روز رسانی شود ؟"),
+            text: $("#L_CGruTitleModel").text() + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -907,7 +914,7 @@
         SetDataCust(item);
         custCode = item.Code;
         if (TestUseSanad(ace, sal, "Cust", custCode, true, '') == true) {
-            showNotification(translate('خریدار/فروشنده') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
+            showNotification(caption_Cust + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
             $('#modal-Cust').modal('show');
@@ -937,11 +944,11 @@
         ecoCode = $('#EcoCode').val();
 
         if (code == "") {
-            return showNotification(translate('کد خریدار/فروشنده را وارد کنید'), 0)
+            return showNotification(translate('کد ' + caption_Cust + ' را وارد کنید'), 0)
         }
 
         if (name == "") {
-            return showNotification(translate('نام خریدار/فروشنده را وارد کنید'), 0)
+            return showNotification(translate('نام ' + caption_Cust + ' را وارد کنید'), 0)
         }
 
 
@@ -1056,13 +1063,13 @@
 
         custCode = item.Code;
         if (TestUseSanad(ace, sal, "Cust", custCode, false, '') == true) {
-            showNotification(translate('خریدار/فروشنده') + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
+            showNotification(caption_Cust + ' ' + translate('در تب دیگری در حال ویرایش است'), 0)
         }
         else {
 
             Swal.fire({
                 title: mes_Delete,
-                text: translate("آیا خریداران/فروشندگان انتخابی حذف شود"),
+                text: translate("آیا " + caption_Cust + " انتخابی حذف شود"),
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
@@ -1095,7 +1102,10 @@
 
     function SetDataTestCust(deleteCust) {
         $("#BodyTestCust").empty();
-        deleteCust == true ? $("#titleTestCust").text(translate('حذف خریدار/فروشنده')) : $("#titleTestCust").text(translate('ذخیره خریدار/فروشنده'));
+
+
+
+        deleteCust == true ? $("#titleTestCust").text(translate('حذف ' + caption_Cust)) : $("#titleTestCust").text(translate('ذخیره ' + caption_Cust));
         textBody = '';
         countWarning = 0;
         countError = 0;

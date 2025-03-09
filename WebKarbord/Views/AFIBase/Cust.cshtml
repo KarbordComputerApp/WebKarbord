@@ -1,6 +1,6 @@
 ﻿@using WebKarbord.Controllers.Unit;
 @{
-    ViewBag.Title = "لیست خریداران/فروشندگان";
+    ViewBag.Title = "لیست ";
     Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
@@ -9,7 +9,7 @@
         <div class="card">
             <div class="header">
                 <div class="form-inline focused">
-                    <strong style="margin-left: 5px; margin-right: 5px;" data-bind="text:translate('لیست خریداران/فروشندگان')"></strong>
+                    <strong id="L_CustCaption" style="margin-left: 5px; margin-right: 5px;"></strong>
 
                     <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
                         <a id="SettingColumn" class="" data-bind="attr: {title:text_SettingColumn}">
@@ -125,7 +125,7 @@
                 <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" data-bind="text:translate('خریدار/فروشنده')"></h4>
+                <h4 class="modal-title" id="L_CustTitleModel"></h4>
                 <div>
                     <a id="LocationCust" data-bind="attr: {title:text_Location}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-Location" style="margin-left: 10px;">
                         <img src="~/Content/img/map/Location.png" width="23" height="23" />
@@ -173,7 +173,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line focused fix">
                                             <input id="nameCGru" class="form-control" readonly />
-                                            <label class="form-label" data-bind="text:translate('گروه خریداران/فروشندگان')"> </label>
+                                            <label class="form-label" id="L_CGruSelect"> </label>
                                         </div>
                                     </div>
                                 </div>
@@ -396,7 +396,7 @@
                 <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" data-bind="text:translate('لیست گروه خریداران/فروشندگان')"></h4>
+                <h4 class="modal-title" id="L_CGruTitleModel"></h4>
                 <a id="refreshCGru">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
@@ -619,7 +619,7 @@
                 <button data-bind="attr: {title:text_Close}" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="titleTestCust">حذف خریدار/فروشنده</h4>
+                <h4 id="titleTestCust">حذف</h4>
                 <a id=""></a>
             </div>
             <div class="modal-body">

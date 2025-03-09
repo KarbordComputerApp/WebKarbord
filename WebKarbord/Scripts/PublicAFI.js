@@ -183,6 +183,11 @@ text_Close = 'بستن';
 
 Fct_or_Inv = localStorage.getItem('Fct_or_Inv');
 
+
+var caption_Cust = Fct_or_Inv.toUpperCase() == "INV5" ? "تحویل دهنده/ گیرنده" : "خریدار/فروشنده";
+var caption_CustS = Fct_or_Inv.toUpperCase() == "INV5" ? "تحویل دهندگان/ گیرندگان" : "خریداران/فروشندگان";
+
+$("#BaseCustCaption").text(translate(caption_CustS));
 $("#AccessRefresh").hide();
 //$("#AddNewSanad_New").hide();
 
