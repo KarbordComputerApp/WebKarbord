@@ -27,6 +27,7 @@
     TestUser();
 
 
+    var rprtId = 'Cust';
 
     validation = CheckAccess('NEW_CUST', 'Fct5');// New CUST
     sessionStorage.NEW_CUST = validation;
@@ -66,6 +67,7 @@
         $("#p_EtebarCheck").hide();
         $("#p_latitude").hide();
         $("#p_altitude").hide();
+        rprtId = 'Thvl';
     }
 
 
@@ -78,7 +80,7 @@
     var isUpdate = false;
 
 
-    var rprtId = 'Cust';
+
 
 
     var columns = [
