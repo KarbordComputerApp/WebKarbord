@@ -30,7 +30,7 @@ namespace WebKarbord.Controllers.Unit
         public static IniFile MyIniServer;
         public static string apiAddress;
         public static char[] afiAccess;
-        //public static string ace;
+        //public static string ace; 
         //public static string group;
         //public static string sal;
 
