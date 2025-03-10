@@ -28,7 +28,7 @@
 
 
     var rprtId = 'Cust';
-
+    var extraFieldCode = 'CustF';
     validation = CheckAccess('NEW_CUST', 'Fct5');// New CUST
     sessionStorage.NEW_CUST = validation;
     validation == true ? $("#AddNewCust").show() : $("#AddNewCust").hide()
@@ -67,20 +67,16 @@
         $("#p_EtebarCheck").hide();
         $("#p_latitude").hide();
         $("#p_altitude").hide();
-        rprtId = 'Thvl';
+        //rprtId = 'Thvl';
+        //extraFieldCode = 'F';
     }
 
 
 
     var cGruCode = '';
     var custCode = '';
-
     var delImage = false;
-
     var isUpdate = false;
-
-
-
 
 
     var columns = [
@@ -176,7 +172,7 @@
     function getExtraFieldsList() {
         result = ko.utils.arrayFilter(cols, function (item) {
             result =
-                ko.utils.stringStartsWith(item.Code, 'CustF') &&
+                ko.utils.stringStartsWith(item.Code, extraFieldCode) &&
                 item.Name != ''
             return result;
         })
