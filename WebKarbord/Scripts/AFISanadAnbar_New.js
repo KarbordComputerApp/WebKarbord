@@ -3231,21 +3231,8 @@ var ViewModel = function () {
                 }
             }
 
-
         }
-
-
-
-
     }
-
-
-
-
-
-
-
-
 
 
     setInterval(SaveColumnSanad, 10000);

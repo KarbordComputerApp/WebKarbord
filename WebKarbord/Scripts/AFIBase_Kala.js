@@ -1002,6 +1002,7 @@
 
                 var SaveKala_Object = {
                     BranchCode: 0,
+                    EditMode: 0,
                     UserCode: sessionStorage.userName,
                     Code: code,
                     Name: name,
