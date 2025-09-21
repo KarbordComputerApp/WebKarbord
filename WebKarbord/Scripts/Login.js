@@ -147,329 +147,338 @@ input.addEventListener("change", function () {
         var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
         ajaxFunction(ChangeDatabaseConfigUri + '/' + lockNumber + '/true', 'GET', null, true).done(function (data) {
             if (data != 'OK') {
-                 return showNotification(translate('خطا در بازسازی اطلاعات'), 0);
+                return showNotification(translate('خطا در بازسازی اطلاعات'), 0);
             }
 
 
-        var LoginObject = {
-            userName: user,
-            pass: pass,
-            param1: 'u-Xe',
-            param2: 'zqQ3',
-        }
+            var LoginObject = {
+                userName: user,
+                pass: pass,
+                param1: 'u-Xe',
+                param2: 'zqQ3',
+            }
 
-        ajaxFunction(LoginUri, 'POST', LoginObject, true).done(function (data) {
-            if (data.length == 1) {
-                item = data[0];
-                localStorage.setItem("userNameFa", item.Name);
-                localStorage.setItem("userVstrCode", item.VstrCode);
+            ajaxFunction(LoginUri, 'POST', LoginObject, true).done(function (data) {
+                if (data.length == 1) {
+                    item = data[0];
+                    localStorage.setItem("userNameFa", item.Name);
+                    localStorage.setItem("userVstrCode", item.VstrCode);
 
-                if (item.Value == 1) {
-                    sessionStorage.onlyGroupErj = '';
-                    localStorage.setItem('onlyGroupErj', '');
-                    var progCaption;
-                    if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
-                        localStorage.setItem("ace", 'Web8');
-                        sessionStorage.ace = 'Web8';
-                        progCaption = translate('وب : سیستم جامع');
+                    if (item.Value == 1) {
+                        sessionStorage.onlyGroupErj = '';
+                        localStorage.setItem('onlyGroupErj', '');
+                        var progCaption;
+                        if (localStorage.getItem('afi1List') == 'null' && localStorage.getItem('afi8List') != 'null') {
+                            localStorage.setItem("ace", 'Web8');
+                            sessionStorage.ace = 'Web8';
+                            progCaption = translate('وب : سیستم جامع');
 
-                        groups = localStorage.getItem('afi8List');
-                        onlyGroupErj = '';
+                            groups = localStorage.getItem('afi8List');
+                            onlyGroupErj = '';
 
-                        erj = localStorage.getItem('erjList');
-                        afi = localStorage.getItem('afi8List');
+                            erj = localStorage.getItem('erjList');
+                            afi = localStorage.getItem('afi8List');
 
-                        if ((erj != null || erj != '') && erj != afi) {
-                            erj = erj.split("-");
-                            afi = afi.split("-");
+                            if ((erj != null || erj != '') && erj != afi) {
+                                erj = erj.split("-");
+                                afi = afi.split("-");
 
-                            for (var i = 0; i < erj.length; i++) {
-                                if (afi.includes(erj[i]) == false) {
-                                    if (erj[i] != 'null') {
+                                for (var i = 0; i < erj.length; i++) {
+                                    if (afi.includes(erj[i]) == false) {
+                                        if (erj[i] != 'null') {
+                                            groups += '-' + erj[i];
+                                            onlyGroupErj += erj[i] + '-'
+                                        }
+                                    }
+                                }
+
+                                if (onlyGroupErj != '') {
+                                    onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
+                                    sessionStorage.onlyGroupErj = onlyGroupErj;
+                                    localStorage.setItem('onlyGroupErj', onlyGroupErj);
+                                }
+                            }
+
+
+                            tempAccess = localStorage.getItem('afi8Access');
+
+
+                            /* if (tempAccess.search("ADOC") > 0 ||
+                                 tempAccess.search("TrzAcc") > 0 ||
+                                 tempAccess.search("Dftr") > 0 ||
+                                 tempAccess.search("TChk") > 0 ||
+                                 tempAccess.search("ADocR") > 0)
+                                 progName = "ACC5"
+             
+                             else if (
+                                 tempAccess.search("SFORD") > 0 ||
+                                 tempAccess.search("SPFCT") > 0 ||
+                                 tempAccess.search("SFCT") > 0 ||
+                                 tempAccess.search("SRFCT") > 0 ||
+                                 tempAccess.search("SHVL") > 0 ||
+                                 tempAccess.search("SEXT") > 0 ||
+                                 tempAccess.search("PFORD") > 0 ||
+                                 tempAccess.search("PPFCT") > 0 ||
+                                 tempAccess.search("PFCT") > 0 ||
+                                 tempAccess.search("PRFCT") > 0 ||
+                                 tempAccess.search("FDocR_S") > 0 ||
+                                 tempAccess.search("FDocR_P") > 0 ||
+                                 tempAccess.search("TrzFKala_S") > 0 ||
+                                 tempAccess.search("TrzFKala_P") > 0 ||
+                                 tempAccess.search("TrzFCust_S") > 0 ||
+                                 tempAccess.search("TrzFCust_P") > 0)
+                                 progName = "FCT5"
+             
+                             else if (tempAccess.search("IIDOC") > 0 ||
+                                 tempAccess.search("IODOC") > 0 ||
+                                 tempAccess.search("TrzIKala") > 0 ||
+                                 tempAccess.search("TrzIKalaExf") > 0 ||
+                                 tempAccess.search("Krdx") > 0 ||
+                                 tempAccess.search("IDocR") > 0)
+                                 progName = "INV5"
+                                 */
+                            //progName = "ERJ1"
+
+
+                        }
+                        else if (localStorage.getItem('afi1List') != 'null' && localStorage.getItem('afi8List') == 'null') {
+                            localStorage.setItem("ace", 'Web1');
+                            sessionStorage.ace = 'Web1';
+                            progCaption = translate('وب : مالی بازرگانی');
+
+                            groups = localStorage.getItem('afi1List');
+
+                            onlyGroupErj = '';
+
+                            erj = localStorage.getItem('erjList');
+                            afi = localStorage.getItem('afi1List');
+
+                            if ((erj != null || erj != '') && erj != afi) {
+                                erj = erj.split("-");
+                                afi = afi.split("-");
+
+                                for (var i = 0; i < erj.length; i++) {
+                                    if (afi.includes(erj[i]) == false) {
                                         groups += '-' + erj[i];
                                         onlyGroupErj += erj[i] + '-'
                                     }
                                 }
-                            }
 
-                            if (onlyGroupErj != '') {
-                                onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
-                                sessionStorage.onlyGroupErj = onlyGroupErj;
-                                localStorage.setItem('onlyGroupErj', onlyGroupErj);
-                            }
-                        }
-
-
-                        tempAccess = localStorage.getItem('afi8Access');
-
-
-                        /* if (tempAccess.search("ADOC") > 0 ||
-                             tempAccess.search("TrzAcc") > 0 ||
-                             tempAccess.search("Dftr") > 0 ||
-                             tempAccess.search("TChk") > 0 ||
-                             tempAccess.search("ADocR") > 0)
-                             progName = "ACC5"
-         
-                         else if (
-                             tempAccess.search("SFORD") > 0 ||
-                             tempAccess.search("SPFCT") > 0 ||
-                             tempAccess.search("SFCT") > 0 ||
-                             tempAccess.search("SRFCT") > 0 ||
-                             tempAccess.search("SHVL") > 0 ||
-                             tempAccess.search("SEXT") > 0 ||
-                             tempAccess.search("PFORD") > 0 ||
-                             tempAccess.search("PPFCT") > 0 ||
-                             tempAccess.search("PFCT") > 0 ||
-                             tempAccess.search("PRFCT") > 0 ||
-                             tempAccess.search("FDocR_S") > 0 ||
-                             tempAccess.search("FDocR_P") > 0 ||
-                             tempAccess.search("TrzFKala_S") > 0 ||
-                             tempAccess.search("TrzFKala_P") > 0 ||
-                             tempAccess.search("TrzFCust_S") > 0 ||
-                             tempAccess.search("TrzFCust_P") > 0)
-                             progName = "FCT5"
-         
-                         else if (tempAccess.search("IIDOC") > 0 ||
-                             tempAccess.search("IODOC") > 0 ||
-                             tempAccess.search("TrzIKala") > 0 ||
-                             tempAccess.search("TrzIKalaExf") > 0 ||
-                             tempAccess.search("Krdx") > 0 ||
-                             tempAccess.search("IDocR") > 0)
-                             progName = "INV5"
-                             */
-                        //progName = "ERJ1"
-
-
-                    }
-                    else if (localStorage.getItem('afi1List') != 'null' && localStorage.getItem('afi8List') == 'null') {
-                        localStorage.setItem("ace", 'Web1');
-                        sessionStorage.ace = 'Web1';
-                        progCaption = translate('وب : مالی بازرگانی');
-
-                        groups = localStorage.getItem('afi1List');
-
-                        onlyGroupErj = '';
-
-                        erj = localStorage.getItem('erjList');
-                        afi = localStorage.getItem('afi1List');
-
-                        if ((erj != null || erj != '') && erj != afi) {
-                            erj = erj.split("-");
-                            afi = afi.split("-");
-
-                            for (var i = 0; i < erj.length; i++) {
-                                if (afi.includes(erj[i]) == false) {
-                                    groups += '-' + erj[i];
-                                    onlyGroupErj += erj[i] + '-'
+                                if (onlyGroupErj != '') {
+                                    onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
+                                    sessionStorage.onlyGroupErj = onlyGroupErj;
+                                    localStorage.setItem('onlyGroupErj', onlyGroupErj);
                                 }
                             }
 
-                            if (onlyGroupErj != '') {
-                                onlyGroupErj = onlyGroupErj.substring(0, onlyGroupErj.length - 1);
-                                sessionStorage.onlyGroupErj = onlyGroupErj;
-                                localStorage.setItem('onlyGroupErj', onlyGroupErj);
-                            }
-                        }
+                            //progName = "afi1"
 
-                        //progName = "afi1"
-
-                    }
-                    else {
-                        localStorage.setItem("ace", 'Web2');
-                        sessionStorage.ace = 'Web2';
-                        progCaption = translate('وب : اتوماسیون');
-                        groups = localStorage.getItem('erjList');
-                        //progName = "ERJ1"
-                    }
-
-
-
-                    ipw = localStorage.getItem("IPW");
-                    country = localStorage.getItem("CountryLogin");
-                    city = localStorage.getItem("CityLogin");
-
-
-                    var LoginTestObject = {
-                        MachineId: MachineId,
-                        IPWan: ipw,
-                        Country: country,
-                        City: city,
-                        UserCode: user.toUpperCase(),
-                        ProgName: sessionStorage.ace,
-                        ProgVer: sessionStorage.ver,
-                        ProgCaption: progCaption,
-                        FlagTest: 0,
-                        GroupNo: '',
-                        Year: '',
-                    }
-                    ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
-                       
-                        if (datalogin == "MaxCount") {
-                            return showNotification(translate('محدودیت ورود تعداد کاربران'), 0);
-                        }
-
-                        srvDate = datalogin.SrvDate;
-                        expireDate = localStorage.getItem('expireDate');
-
-                        date1 = new Date(srvDate).getTime()
-                        date2 = new Date(expireDate).getTime()
-                        var date = date2 - date1
-
-                        var difference_date = date / 86400000;
-                        if (difference_date <= 31) {
-
-                            alert("برنامه تحت وب شما تا تاریخ " + expireDate.toPersianDigit()+" فعال می باشد.لطفاجهت تمدید قرارداد با بخش فروش شرکت کاربرد کامپیوتر تماس حاصل فرمایید");                            
-                        }
-
-                        lastMachineId = datalogin;
-                        /*   if (datalogin.ID > -1) {
-        
-                            m_id = datalogin.CompName.split('-')
-                            var LogOutObject = {
-                                MachineId: m_id[0],
-                                UserCode: user.toUpperCase(),
-                                ProgName: ace
-                            }
-                            ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
-                                return getLoginData();
-                            });
-                        }*/
-
-                        if (datalogin.ID == -1) {
-                            sessionStorage.userName = user.toUpperCase();
-                            sessionStorage.pass = pass;
-
-                            localStorage.setItem("userName", user.toUpperCase());
-                            localStorage.setItem('password', pass);
-
-
-                            server = localStorage.getItem("ApiAddress");
-
-                            var ProgTrsObject = {
-                                User: sessionStorage.userName,
-                            }
-
-                            ace = localStorage.getItem("ace");
-                            ajaxFunction(server + '/api/Web_Data/ProgTrs/' + ace, 'POST', ProgTrsObject).done(function (data) {
-
-                                //if (localStorage.getItem("ace") == 'Web8') {
-                                //   data = data.filter(s => s.prog != 'Afi1');
-                                // }
-
-                                p = '';
-                                for (var i = 0; i < data.length; i++) {
-                                    p += data[i].prog + '-';
-                                }
-                                localStorage.setItem('ProgAccess', p);
-
-
-                                Master_ProgName = localStorage.getItem('Master_ProgName');
-
-                                Master_ProgName = Master_ProgName == 'ACC5' ? 'Acc5' : Master_ProgName == 'FCT5' ? 'Fct5' : Master_ProgName == 'INV5' ? 'Inv5' : Master_ProgName == 'AFI1' ? 'Afi1' : Master_ProgName == 'ERJ1' ? 'Erj1' : '';
-
-                                if (p.includes(Master_ProgName) == true) {
-                                    sessionStorage.OrgProgName = Master_ProgName;
-                                }
-                                else {
-                                    sessionStorage.OrgProgName = data[0].prog;
-                                }
-
-                            });
-
-                            localStorage.setItem('OrgProgName', sessionStorage.OrgProgName);
-                            var GroupsObject = {
-                                ProgName: sessionStorage.OrgProgName,
-                                User: sessionStorage.userName,
-                                Groups: groups.replaceAll('-', ',')
-                            }
-
-                            ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
-                                localStorage.setItem('afiList', JSON.stringify(data));
-                                //a = localStorage.getItem('afiList');
-                            });
-
-                            /*var Statements = "";
-                            ajaxFunction(server + '/api/Web_Data/Statements', 'GET', true).done(function (data) {
-                                for (var i = 0; i < data.length; i++) {
-                                    if (i < data.length - 1)
-                                        Statements += data[i].Name + ',';
-                                    else
-                                        Statements += data[i].Name;
-                                }
-                            });
-                            localStorage.setItem('StatementsList', Statements);*/
-
-                            localStorage.removeItem("listForms");
-
-
-
-                           /* ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
-                                localStorage.setItem('VerDllCheckAcc6', data);
-                            });
-
-                            ajaxFunction(server + '/api/Web_Data/GetVerDllFct6', 'Get').done(function (data) {
-                                localStorage.setItem('VerDllCheckFct6', data);
-                            });
-
-                            ajaxFunction(server + '/api/Web_Data/GetVerDllInv6', 'Get').done(function (data) {
-                                localStorage.setItem('VerDllCheckInv6', data);
-                            });
-
-                            ajaxFunction(server + '/api/Web_Data/GetVerDllAfi2', 'Get').done(function (data) {
-                                localStorage.setItem('VerDllCheckAfi2', data);
-                            });*/
-
-
-
-                            localStorage.setItem('FirstInputWeb', "T");
-                            window.location.href = localStorage.getItem("urlSetting");//sessionStorage.urlSetting;
                         }
                         else {
-                            var ipW = datalogin.CompName.split("-");
-                            $('#title_dataUser').text(translate('کاربر') + ' ' + item.Name + ' ' + translate('قبلا وارد سیستم شده است'));
-                            $('#param_ipw').text(ipW[1]);
-                            $('#param_date').text(datalogin.LoginDate);
-                            $('#param_time').text(datalogin.LoginTime);
-                            $('#param_prog').text(datalogin.ProgCaption);
-                            $('#param_ver').text(datalogin.ProgVer);
-                            $('#param_country').text('');
-                            $('#param_city').text('');
-                            $('#modal-dataUser').modal('show');
+                            localStorage.setItem("ace", 'Web2');
+                            sessionStorage.ace = 'Web2';
+                            progCaption = translate('وب : اتوماسیون');
+                            groups = localStorage.getItem('erjList');
+                            //progName = "ERJ1"
                         }
-                    });
+
+
+
+                        ipw = localStorage.getItem("IPW");
+                        country = localStorage.getItem("CountryLogin");
+                        city = localStorage.getItem("CityLogin");
+
+
+                        var LoginTestObject = {
+                            MachineId: MachineId,
+                            IPWan: ipw,
+                            Country: country,
+                            City: city,
+                            UserCode: user.toUpperCase(),
+                            ProgName: sessionStorage.ace,
+                            ProgVer: sessionStorage.ver,
+                            ProgCaption: progCaption,
+                            FlagTest: 0,
+                            GroupNo: '',
+                            Year: '',
+                        }
+                        ajaxFunction(LoginTestUri, 'POST', LoginTestObject).done(function (datalogin) {
+
+                            if (datalogin == "MaxCount") {
+                                return showNotification(translate('محدودیت ورود تعداد کاربران'), 0);
+                            }
+
+                            srvDate = datalogin.SrvDate;
+                            expireDate = localStorage.getItem('expireDate');
+
+                            date1 = new Date(srvDate).getTime()
+                            date2 = new Date(expireDate).getTime()
+                            var date = date2 - date1
+
+                            var difference_date = date / 86400000;
+                            if (difference_date <= 31) {
+
+                                alert("برنامه تحت وب شما تا تاریخ " + expireDate.toPersianDigit() + " فعال می باشد.لطفاجهت تمدید قرارداد با بخش فروش شرکت کاربرد کامپیوتر تماس حاصل فرمایید");
+                            }
+
+                            lastMachineId = datalogin;
+                            /*   if (datalogin.ID > -1) {
+            
+                                m_id = datalogin.CompName.split('-')
+                                var LogOutObject = {
+                                    MachineId: m_id[0],
+                                    UserCode: user.toUpperCase(),
+                                    ProgName: ace
+                                }
+                                ajaxFunction(LogOutUri, 'POST', LogOutObject).done(function (datalogin) {
+                                    return getLoginData();
+                                });
+                            }*/
+
+                            if (datalogin.ID == -1) {
+                                sessionStorage.userName = user.toUpperCase();
+                                sessionStorage.pass = pass;
+
+                                localStorage.setItem("userName", user.toUpperCase());
+                                localStorage.setItem('password', pass);
+
+
+                                server = localStorage.getItem("ApiAddress");
+
+                                var ProgTrsObject = {
+                                    User: sessionStorage.userName,
+                                }
+
+                                ace = localStorage.getItem("ace");
+                                ajaxFunction(server + '/api/Web_Data/ProgTrs/' + ace, 'POST', ProgTrsObject).done(function (data) {
+
+                                    //if (localStorage.getItem("ace") == 'Web8') {
+                                    //   data = data.filter(s => s.prog != 'Afi1');
+                                    // }
+
+                                    p = '';
+                                    for (var i = 0; i < data.length; i++) {
+                                        p += data[i].prog + '-';
+                                    }
+                                    localStorage.setItem('ProgAccess', p);
+
+
+                                    Master_ProgName = localStorage.getItem('Master_ProgName');
+
+                                    Master_ProgName = Master_ProgName == 'ACC5' ? 'Acc5' : Master_ProgName == 'FCT5' ? 'Fct5' : Master_ProgName == 'INV5' ? 'Inv5' : Master_ProgName == 'AFI1' ? 'Afi1' : Master_ProgName == 'ERJ1' ? 'Erj1' : '';
+
+                                    if (p.includes(Master_ProgName) == true) {
+                                        sessionStorage.OrgProgName = Master_ProgName;
+                                    }
+                                    else {
+                                        sessionStorage.OrgProgName = data[0].prog;
+                                    }
+
+                                });
+
+                                localStorage.setItem('OrgProgName', sessionStorage.OrgProgName);
+                                var GroupsObject = {
+                                    ProgName: sessionStorage.OrgProgName,
+                                    User: sessionStorage.userName,
+                                    Groups: groups.replaceAll('-', ',')
+                                }
+
+                                ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
+                                    localStorage.setItem('afiList', JSON.stringify(data));
+                                    //a = localStorage.getItem('afiList');
+                                });
+
+                                /*var Statements = "";
+                                ajaxFunction(server + '/api/Web_Data/Statements', 'GET', true).done(function (data) {
+                                    for (var i = 0; i < data.length; i++) {
+                                        if (i < data.length - 1)
+                                            Statements += data[i].Name + ',';
+                                        else
+                                            Statements += data[i].Name;
+                                    }
+                                });
+                                localStorage.setItem('StatementsList', Statements);*/
+
+                                localStorage.removeItem("listForms");
+
+
+
+                                /* ajaxFunction(server + '/api/Web_Data/GetVerDllAcc6', 'Get').done(function (data) {
+                                     localStorage.setItem('VerDllCheckAcc6', data);
+                                 });
+     
+                                 ajaxFunction(server + '/api/Web_Data/GetVerDllFct6', 'Get').done(function (data) {
+                                     localStorage.setItem('VerDllCheckFct6', data);
+                                 });
+     
+                                 ajaxFunction(server + '/api/Web_Data/GetVerDllInv6', 'Get').done(function (data) {
+                                     localStorage.setItem('VerDllCheckInv6', data);
+                                 });
+     
+                                 ajaxFunction(server + '/api/Web_Data/GetVerDllAfi2', 'Get').done(function (data) {
+                                     localStorage.setItem('VerDllCheckAfi2', data);
+                                 });*/
+
+                                localStorage.setItem('FirstInputWeb', "T");
+                                if (group != null) {
+                                    if (group != "NULL" && group.toString().toUpperCase() != "" &&
+                                        sal.toString().toUpperCase() != "NULL" && sal.toString().toUpperCase() != ""
+                                    ) {
+                                        SaveParam(group, sal)
+                                    }
+                                    else {
+                                        window.location.href = localStorage.getItem("urlSetting");
+                                    }
+                                }
+                                else
+                                    window.location.href = localStorage.getItem("urlSetting");
+                            }
+                            else {
+                                var ipW = datalogin.CompName.split("-");
+                                $('#title_dataUser').text(translate('کاربر') + ' ' + item.Name + ' ' + translate('قبلا وارد سیستم شده است'));
+                                $('#param_ipw').text(ipW[1]);
+                                $('#param_date').text(datalogin.LoginDate);
+                                $('#param_time').text(datalogin.LoginTime);
+                                $('#param_prog').text(datalogin.ProgCaption);
+                                $('#param_ver').text(datalogin.ProgVer);
+                                $('#param_country').text('');
+                                $('#param_city').text('');
+                                $('#modal-dataUser').modal('show');
+                            }
+                        });
+                    }
+                    else {
+                        return showNotification(translate('نام کاربری یا کلمه عبور اشتباه است'), 0);
+                        // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
+                        sessionStorage.userName = '';
+                        sessionStorage.pass = '';
+
+                        localStorage.setItem("userName", '');
+                        localStorage.setItem('password', '');
+                        localStorage.setItem('userNameFa', '');
+                        localStorage.setItem('userVstrCode', '');
+                    }
                 }
+
+
                 else {
-                    return showNotification(translate('نام کاربری یا کلمه عبور اشتباه است'), 0);
-                    // return Swal.fire({ type: 'info', title: 'خطا ', text: ' نام کاربری یا کلمه عبور اشتباه است ' });
-                    sessionStorage.userName = '';
-                    sessionStorage.pass = '';
 
-                    localStorage.setItem("userName", '');
-                    localStorage.setItem('password', '');
-                    localStorage.setItem('userNameFa', '');
-                    localStorage.setItem('userVstrCode', '');
+                    if (data == "error") {
+                        return showNotification(translate('اشکال در اتصال به سرور'), 0);
+                    }
+
+                    if (data == "Disable Account") {
+                        return showNotification(translate('حساب شما مسدود شده است'), 0);
+                    }
+
+                    if (data == "Expire Account") {
+                        return showNotification(translate('زمان استفاده شما از نرم افزار به پایان رسیده است'), 0);
+                    }
+
+                    if (data == "Not Access Web") {
+                        return showNotification(translate('دسترسی به وب ندارید'), 0);
+                    }
                 }
-            }
-
-
-            else {
-
-                if (data == "error") {
-                    return showNotification(translate('اشکال در اتصال به سرور'), 0);
-                }
-
-                if (data == "Disable Account") {
-                    return showNotification(translate('حساب شما مسدود شده است'), 0);
-                }
-
-                if (data == "Expire Account") {
-                    return showNotification(translate('زمان استفاده شما از نرم افزار به پایان رسیده است'), 0);
-                }
-
-                if (data == "Not Access Web") {
-                    return showNotification(translate('دسترسی به وب ندارید'), 0);
-                }
-            }
 
             });
         });
@@ -562,6 +571,7 @@ input.addEventListener("change", function () {
 
     self.LoginUser = function LoginUser() {
         server = localStorage.getItem("ApiAddress");
+        SetUrl(server);
         if (server === null || server === "") {
             return showNotification(translate('تنظیمات اتصال به وب را وارد کنید'), 0);
             //return Swal.fire({ type: 'info', title: 'خطا در ورود', text: 'مشخصات سرویس را وارد کنید' });

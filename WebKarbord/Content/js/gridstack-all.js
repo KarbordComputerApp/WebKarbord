@@ -627,7 +627,8 @@
                 const s = i(593);
                 class o {
                     constructor(e = {}) {
-                        this.addedNodes = [], this.removedNodes = [], this.column = e.column || 12, this.maxRow = e.maxRow, this._float = e.float, this.nodes = e.nodes || [], this.onChange = e.onChange
+                        this.addedNodes = [], this.removedNodes = [], this.column = e.column || 12, this.maxRow = e.maxRow, this._float = e.float,
+                            this.nodes = e.nodes || [], this.onChange = e.onChange
                     }
                     batchUpdate(e = !0) {
                         return !!this.batchMode === e || (this.batchMode = e, e ? (this._prevFloat = this._float, this._float = !0, this.saveInitial()) : (this._float = this._prevFloat, delete this._prevFloat, this._packNodes()._notify())), this
@@ -739,7 +740,8 @@
                         this.batchUpdate().sortNodes();
                         let e = this.nodes;
                         return this.nodes = [], e.forEach((e => {
-                            e.locked || (e.autoPosition = !0), this.addNode(e, !1), e._dirty = !0
+                            e.locked || (e.autoPosition = !0),
+                                this.addNode(e, !1), e._dirty = !0
                         })), this.batchUpdate(!1)
                     }
                     set float(e) {
@@ -781,9 +783,10 @@
                             x: 0,
                             y: 0,
                             w: 1,
-                            h: 1
+                            h: 1,
                         };
-                        return s.Utils.defaults(e, i), e.autoPosition || delete e.autoPosition, e.noResize || delete e.noResize, e.noMove || delete e.noMove, "string" == typeof e.x && (e.x = Number(e.x)), "string" == typeof e.y && (e.y = Number(e.y)), "string" == typeof e.w && (e.w = Number(e.w)), "string" == typeof e.h && (e.h = Number(e.h)), isNaN(e.x) && (e.x = i.x, e.autoPosition = !0), isNaN(e.y) && (e.y = i.y, e.autoPosition = !0), isNaN(e.w) && (e.w = i.w), isNaN(e.h) && (e.h = i.h), this.nodeBoundFix(e, t)
+                        return s.Utils.defaults(e, i)
+                            , e.autoPosition || delete e.autoPosition, e.noResize || delete e.noResize, e.noMove || delete e.noMove, "string" == typeof e.x && (e.x = Number(e.x)), "string" == typeof e.y && (e.y = Number(e.y)), "string" == typeof e.w && (e.w = Number(e.w)), "string" == typeof e.h && (e.h = Number(e.h)), isNaN(e.x) && (e.x = i.x, e.autoPosition = !0), isNaN(e.y) && (e.y = i.y, e.autoPosition = !0), isNaN(e.w) && (e.w = i.w), isNaN(e.h) && (e.h = i.h), this.nodeBoundFix(e, t)
                     }
                     nodeBoundFix(e, t) {
                         let i = e._orig || s.Utils.copyPos({}, e);
@@ -869,7 +872,9 @@
                             nodes: this.nodes.map((e => Object.assign({}, e)))
                         }),
                             i = Object.assign({}, e);
-                        return this.cleanupNode(i), delete i.el, delete i._id, delete i.content, delete i.grid, t.addNode(i), t.getRow() <= this.maxRow && (e._willFitPos = s.Utils.copyPos({}, i), !0)
+                        return this.cleanupNode(i), delete i.el, delete i._id, delete i.content, delete i.grid,
+                            t.addNode(i),
+                            t.getRow() <= this.maxRow && (e._willFitPos = s.Utils.copyPos({}, i), !0)
                     }
                     changedPosConstrain(e, t) {
                         return t.w = t.w || e.w, t.h = t.h || e.h, e.x !== t.x || e.y !== t.y || (e.maxW && (t.w = Math.min(t.w, e.maxW)), e.maxH && (t.h = Math.min(t.h, e.maxH)), e.minW && (t.w = Math.max(t.w, e.minW)), e.minH && (t.h = Math.max(t.h, e.minH)), e.w !== t.w || e.h !== t.h)
@@ -968,7 +973,8 @@
                                 })), i = []
                             }
                         return l || (r = s.Utils.sort(r, -1, t)), this._inColumnResize = !0, this.nodes = [], r.forEach((e => {
-                            this.addNode(e, !1), delete e._orig
+                            this.addNode(e, !1),
+                                delete e._orig
                         })), this.batchUpdate(!1), delete this._inColumnResize, this
                     }
                     cacheLayout(e, t, i = !1) {
@@ -1050,9 +1056,13 @@
                                 accept: t.itemClass ? "." + t.itemClass : l.gridDefaults.removableOptions.accept
                             }
                         });
-                        e.getAttribute("gs-animate") && (g.animate = r.Utils.toBool(e.getAttribute("gs-animate"))), this.opts = r.Utils.defaults(t, g), t = null, this._initMargin(), 1 !== this.opts.column && !this.opts.disableOneColumnMode && this._widthOrContainer() <= this.opts.oneColumnSize && (this._prevColumn = this.getColumn(), this.opts.column = 1), "auto" === this.opts.rtl && (this.opts.rtl = "rtl" === e.style.direction), this.opts.rtl && this.el.classList.add("grid-stack-rtl");
+                        e.getAttribute("gs-animate") && (g.animate = r.Utils.toBool(e.getAttribute("gs-animate"))),
+                            this.opts = r.Utils.defaults(t, g)
+                            , t = null, this._initMargin(), 1 !== this.opts.column && !this.opts.disableOneColumnMode && this._widthOrContainer() <= this.opts.oneColumnSize && (this._prevColumn = this.getColumn(), this.opts.column = 1), "auto" === this.opts.rtl && (this.opts.rtl = "rtl" === e.style.direction), this.opts.rtl && this.el.classList.add("grid-stack-rtl");
                         let p = null === (i = r.Utils.closestUpByClass(this.el, l.gridDefaults.itemClass)) || void 0 === i ? void 0 : i.gridstackNode;
-                        p && (p.subGrid = this, this.parentGridItem = p, this.el.classList.add("grid-stack-nested"), p.el.classList.add("grid-stack-sub-grid")), this._isAutoCellHeight = "auto" === this.opts.cellHeight, this._isAutoCellHeight || "initial" === this.opts.cellHeight ? this.cellHeight(void 0, !1) : ("number" == typeof this.opts.cellHeight && this.opts.cellHeightUnit && this.opts.cellHeightUnit !== l.gridDefaults.cellHeightUnit && (this.opts.cellHeight = this.opts.cellHeight + this.opts.cellHeightUnit, delete this.opts.cellHeightUnit), this.cellHeight(this.opts.cellHeight, !1)), "mobile" === this.opts.alwaysShowResizeHandle && (this.opts.alwaysShowResizeHandle = h.isTouch), this._styleSheetClass = "grid-stack-instance-" + n.GridStackEngine._idSeq++ , this.el.classList.add(this._styleSheetClass), this._setStaticClass();
+                        p && (p.subGrid = this, this.parentGridItem = p, this.el.classList.add("grid-stack-nested"), p.el.classList.add("grid-stack-sub-grid")),
+                            this._isAutoCellHeight = "auto" === this.opts.cellHeight, this._isAutoCellHeight || "initial" === this.opts.cellHeight ? this.cellHeight(void 0, !1) : ("number" == typeof this.opts.cellHeight && this.opts.cellHeightUnit && this.opts.cellHeightUnit !== l.gridDefaults.cellHeightUnit && (this.opts.cellHeight = this.opts.cellHeight + this.opts.cellHeightUnit, delete this.opts.cellHeightUnit), this.cellHeight(this.opts.cellHeight, !1)), "mobile" === this.opts.alwaysShowResizeHandle && (this.opts.alwaysShowResizeHandle = h.isTouch),
+                            this._styleSheetClass = "grid-stack-instance-" + n.GridStackEngine._idSeq++ , this.el.classList.add(this._styleSheetClass), this._setStaticClass();
                         let c = this.opts.engineClass || u.engineClass || n.GridStackEngine;
                         if (this.engine = new c({
                             column: this.getColumn(),
@@ -1078,19 +1088,23 @@
                                     el: i,
                                     i: (Number.isNaN(s) ? 1e3 : s) + (Number.isNaN(o) ? 1e3 : o) * t
                                 })
-                            })), e.sort(((e, t) => t.i - e.i)).forEach((e => this._prepareElement(e.el))), this.batchUpdate(!1)
+                            })), e.sort(((e, t) => t.i - e.i)).forEach(
+                                    (e => this._prepareElement(e.el)))
+                                , this.batchUpdate(!1)
                         }
                         this.setAnimation(this.opts.animate), this._updateStyles(), 12 != this.opts.column && this.el.classList.add("grid-stack-" + this.opts.column), this.opts.dragIn && u.setupDragIn(this.opts.dragIn, this.opts.dragInOptions), delete this.opts.dragIn, delete this.opts.dragInOptions, this.opts.subGridDynamic && !d.DDManager.pauseDrag && (d.DDManager.pauseDrag = !0), void 0 !== (null === (s = this.opts.draggable) || void 0 === s ? void 0 : s.pause) && (d.DDManager.pauseDrag = this.opts.draggable.pause), this._setupRemoveDrop(), this._setupAcceptWidget(), this._updateWindowResizeEvent()
                     }
                     static init(e = {}, t = ".grid-stack") {
                         let i = u.getGridElement(t);
-                        return i ? (i.gridstack || (i.gridstack = new u(i, r.Utils.cloneDeep(e))), i.gridstack) : ("string" == typeof t ? console.error('GridStack.initAll() no grid was found with selector "' + t + '" - element missing or wrong selector ?\nNote: ".grid-stack" is required for proper CSS styling and drag/drop, and is the default selector.') : console.error("GridStack.init() no grid element was passed."), null)
+                        return i ? (i.gridstack || (i.gridstack = new u(i, r.Utils.cloneDeep(e))), i.gridstack) :
+                            ("string" == typeof t ? console.error('GridStack.initAll() no grid was found with selector "' + t + '" - element missing or wrong selector ?\nNote: ".grid-stack" is required for proper CSS styling and drag/drop, and is the default selector.') : console.error("GridStack.init() no grid element was passed."), null)
                     }
                     static initAll(e = {}, t = ".grid-stack") {
                         let i = [];
                         return u.getGridElements(t).forEach((t => {
                             t.gridstack || (t.gridstack = new u(t, r.Utils.cloneDeep(e)), delete e.dragIn, delete e.dragInOptions), i.push(t.gridstack)
-                        })), 0 === i.length && console.error('GridStack.initAll() no grid was found with selector "' + t + '" - element missing or wrong selector ?\nNote: ".grid-stack" is required for proper CSS styling and drag/drop, and is the default selector.'), i
+                        })), 0 === i.length && console.error('GridStack.initAll() no grid was found with selector "' + t
+                            + '" - element missing or wrong selector ?\nNote: ".grid-stack" is required for proper CSS styling and drag/drop, and is the default selector.'), i
                     }
                     static addGrid(e, t = {}) {
                         if (!e) return null;
@@ -1214,7 +1228,8 @@
                         return i ? Math.round(this.el.getBoundingClientRect().height / i) : this.opts.cellHeight
                     }
                     cellHeight(e, t = !0) {
-                        if (t && void 0 !== e && this._isAutoCellHeight !== ("auto" === e) && (this._isAutoCellHeight = "auto" === e, this._updateWindowResizeEvent()), "initial" !== e && "auto" !== e || (e = void 0), void 0 === e) {
+                        if (t && void 0 !== e && this._isAutoCellHeight !== ("auto" === e) && (this._isAutoCellHeight = "auto" === e, this._updateWindowResizeEvent()),
+                            "initial" !== e && "auto" !== e || (e = void 0), void 0 === e) {
                             let t = -this.opts.marginRight - this.opts.marginLeft + this.opts.marginTop + this.opts.marginBottom;
                             e = this.cellWidth() + t
                         }
@@ -1346,7 +1361,8 @@
                             let t = r.Utils.parseHeight(e);
                             if (this.opts.marginUnit === t.unit && this.opts.margin === t.h) return
                         }
-                        return this.opts.margin = e, this.opts.marginTop = this.opts.marginBottom = this.opts.marginLeft = this.opts.marginRight = void 0, this._initMargin(), this._updateStyles(!0), this
+                        return this.opts.margin = e, this.opts.marginTop = this.opts.marginBottom = this.opts.marginLeft = this.opts.marginRight = void 0,
+                            this._initMargin(), this._updateStyles(!0), this
                     }
                     getMargin() {
                         return this.opts.margin
@@ -1370,7 +1386,8 @@
                     _triggerChangeEvent() {
                         if (this.engine.batchMode) return this;
                         let e = this.engine.getDirtyNodes(!0);
-                        return e && e.length && (this._ignoreLayoutsNodeChange || this.engine.layoutsNodesChange(e), this._triggerEvent("change", e)), this.engine.saveInitial(), this
+                        return e && e.length && (this._ignoreLayoutsNodeChange || this.engine.layoutsNodesChange(e), this._triggerEvent("change", e)),
+                            this.engine.saveInitial(), this
                     }
                     _triggerAddEvent() {
                         return this.engine.batchMode || this.engine.addedNodes && this.engine.addedNodes.length > 0 && (this._ignoreLayoutsNodeChange || this.engine.layoutsNodesChange(this.engine.addedNodes), this.engine.addedNodes.forEach((e => {
@@ -1426,9 +1443,14 @@
                         return t ? (this.el.style.minHeight = e * t + i, this) : this
                     }
                     _prepareElement(e, t = !1, i) {
-                        e.classList.add(this.opts.itemClass), i = i || this._readAttr(e), e.gridstackNode = i, i.el = e, i.grid = this;
+                        e.classList.add(this.opts.itemClass),
+                            i = i || this._readAttr(e),
+                            e.gridstackNode = i,
+                            i.el = e,
+                            i.grid = this;
                         let s = Object.assign({}, i);
-                        return i = this.engine.addNode(i, t), r.Utils.same(i, s) || this._writeAttr(e, i), this._prepareDragDropByNode(i), this
+                        return i = this.engine.addNode(i, t),
+                            r.Utils.same(i, s) || this._writeAttr(e, i), this._prepareDragDropByNode(i), this
                     }
                     _writePosAttr(e, t) {
                         return void 0 !== t.x && null !== t.x && e.setAttribute("gs-x", String(t.x)), void 0 !== t.y && null !== t.y && e.setAttribute("gs-y", String(t.y)), t.w && e.setAttribute("gs-w", String(t.w)), t.h && e.setAttribute("gs-h", String(t.h)), this
@@ -1453,7 +1475,20 @@
                     }
                     _readAttr(e) {
                         let t = {};
-                        t.x = r.Utils.toNumber(e.getAttribute("gs-x")), t.y = r.Utils.toNumber(e.getAttribute("gs-y")), t.w = r.Utils.toNumber(e.getAttribute("gs-w")), t.h = r.Utils.toNumber(e.getAttribute("gs-h")), t.maxW = r.Utils.toNumber(e.getAttribute("gs-max-w")), t.minW = r.Utils.toNumber(e.getAttribute("gs-min-w")), t.maxH = r.Utils.toNumber(e.getAttribute("gs-max-h")), t.minH = r.Utils.toNumber(e.getAttribute("gs-min-h")), t.autoPosition = r.Utils.toBool(e.getAttribute("gs-auto-position")), t.noResize = r.Utils.toBool(e.getAttribute("gs-no-resize")), t.noMove = r.Utils.toBool(e.getAttribute("gs-no-move")), t.locked = r.Utils.toBool(e.getAttribute("gs-locked")), t.resizeHandles = e.getAttribute("gs-resize-handles"), t.id = e.getAttribute("gs-id");
+                            t.x = r.Utils.toNumber(e.getAttribute("gs-x")),
+                            t.y = r.Utils.toNumber(e.getAttribute("gs-y")),
+                            t.w = r.Utils.toNumber(e.getAttribute("gs-w")),
+                            t.h = r.Utils.toNumber(e.getAttribute("gs-h")),
+                            t.maxW = r.Utils.toNumber(e.getAttribute("gs-max-w")),
+                            t.minW = r.Utils.toNumber(e.getAttribute("gs-min-w")),
+                            t.maxH = r.Utils.toNumber(e.getAttribute("gs-max-h")),
+                            t.minH = r.Utils.toNumber(e.getAttribute("gs-min-h")),
+                            t.autoPosition = r.Utils.toBool(e.getAttribute("gs-auto-position")),
+                            t.noResize = r.Utils.toBool(e.getAttribute("gs-no-resize")),
+                            t.noMove = r.Utils.toBool(e.getAttribute("gs-no-move")),
+                            t.locked = r.Utils.toBool(e.getAttribute("gs-locked")),
+                            t.resizeHandles = e.getAttribute("gs-resize-handles"),
+                            t.id = e.getAttribute("gs-id");
                         for (const e in t) {
                             if (!t.hasOwnProperty(e)) return;
                             t[e] || 0 === t[e] || delete t[e]
@@ -1651,7 +1686,9 @@
                                         if (e.el = s, e._isAboutToRemove) {
                                             let o = t.gridstackNode.grid;
                                             o._gsEventHandler[i.type] && o._gsEventHandler[i.type](i, s), this._removeDD(t), o.engine.removedNodes.push(e), o._triggerRemoveEvent(), delete t.gridstackNode, delete e.el, t.remove()
-                                        } else r.Utils.removePositioningStyles(s), e._temporaryRemoved ? (r.Utils.copyPos(e, e._orig), this._writePosAttr(s, e), this.engine.addNode(e)) : this._writePosAttr(s, e), this._gsEventHandler[i.type] && this._gsEventHandler[i.type](i, s);
+                                        } else r.Utils.removePositioningStyles(s), e._temporaryRemoved ? (r.Utils.copyPos(e, e._orig), this._writePosAttr(s, e),
+                                            this.engine.addNode(e)
+                                        ) : this._writePosAttr(s, e), this._gsEventHandler[i.type] && this._gsEventHandler[i.type](i, s);
                                         this._extraDragRow = 0, this._updateContainerHeight(), this._triggerChangeEvent(), this.engine.endUpdate()
                                     }
                                 };
@@ -1668,7 +1705,9 @@
                         return g.draggable(t, i ? "disable" : "enable").resizable(t, s ? "disable" : "enable"), this
                     }
                     _onStartMoving(e, t, i, s, o, n) {
-                        this.engine.cleanNodes().beginUpdate(s), this._writePosAttr(this.placeholder, s), this.el.appendChild(this.placeholder), s.el = this.placeholder, s._lastUiPosition = i.position, s._prevYPix = i.position.top, s._moving = "dragstart" === t.type, delete s._lastTried, "dropover" === t.type && s._temporaryRemoved && (this.engine.addNode(s), s._moving = !0), this.engine.cacheRects(o, n, this.opts.marginTop, this.opts.marginRight, this.opts.marginBottom, this.opts.marginLeft), "resizestart" === t.type && (g.resizable(e, "option", "minWidth", o * (s.minW || 1)).resizable(e, "option", "minHeight", n * (s.minH || 1)), s.maxW && g.resizable(e, "option", "maxWidth", o * s.maxW), s.maxH && g.resizable(e, "option", "maxHeight", n * s.maxH))
+                        this.engine.cleanNodes().beginUpdate(s), this._writePosAttr(this.placeholder, s), this.el.appendChild(this.placeholder), s.el = this.placeholder, s._lastUiPosition = i.position, s._prevYPix = i.position.top, s._moving = "dragstart" === t.type, delete s._lastTried, "dropover" === t.type && s._temporaryRemoved && (
+                            this.engine.addNode(s)
+                            , s._moving = !0), this.engine.cacheRects(o, n, this.opts.marginTop, this.opts.marginRight, this.opts.marginBottom, this.opts.marginLeft), "resizestart" === t.type && (g.resizable(e, "option", "minWidth", o * (s.minW || 1)).resizable(e, "option", "minHeight", n * (s.minH || 1)), s.maxW && g.resizable(e, "option", "maxWidth", o * s.maxW), s.maxH && g.resizable(e, "option", "maxHeight", n * s.maxH))
                     }
                     _dragOrResize(e, t, i, s, o, n) {
                         let l, a = Object.assign({}, s._orig),
@@ -1720,7 +1759,8 @@
                     }
                     _leave(e, t) {
                         let i = e.gridstackNode;
-                        i && (g.off(e, "drag"), i._temporaryRemoved || (i._temporaryRemoved = !0, this.engine.removeNode(i), i.el = i._isExternal && t ? t : e, !0 === this.opts.removable && this._itemRemoving(e, !0), e._gridstackNodeOrig ? (e.gridstackNode = e._gridstackNodeOrig, delete e._gridstackNodeOrig) : i._isExternal && (delete i.el, delete e.gridstackNode, this.engine.restoreInitial())))
+                        i && (g.off(e, "drag"), i._temporaryRemoved || (i._temporaryRemoved = !0, this.engine.removeNode(i), i.el = i._isExternal && t ? t : e, !0 === this.opts.removable && this._itemRemoving(e, !0), e._gridstackNodeOrig ? (e.gridstackNode = e._gridstackNodeOrig, delete e._gridstackNodeOrig) : i._isExternal && (delete i.el, delete e.gridstackNode,
+                            this.engine.restoreInitial())))
                     }
                     commit() {
                         return r.obsolete(this, this.batchUpdate(!1), "commit", "batchUpdate", "5.2"), this

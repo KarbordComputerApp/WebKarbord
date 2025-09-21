@@ -22081,3 +22081,18 @@ html.ie11 .bs-searchbox .form-control {
     background-color: white;
     box-shadow: 5px 5px 20px 1px #4048524f;
 }
+
+.Center {
+    display: block;
+    text-align: -webkit-center;
+    unicode-bidi: isolate;
+}
+.DashbordDateChek {
+    border: 1px solid red;
+    border-radius: 4px;
+    color: red;
+    padding: 2px 0;
+    width: 80px;
+    text-align: center;
+    margin-bottom: 0.25rem;
+}

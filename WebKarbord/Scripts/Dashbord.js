@@ -5,6 +5,107 @@ var barColors = ["#ff2d2d", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff9e3a
 
 
 
+/*
+    $.widget("custom.colorize", {
+        options: {
+            red: 255,
+            green: 0,
+            blue: 0,
+            change: null,
+            random: null
+        },
+
+
+        _create: function () {
+            this.element.addClass("custom-colorize");
+            this.changer = $("<button>", {
+                text: "change",
+                "class": "custom-colorize-changer"
+            })
+                .appendTo(this.element)
+                .button();
+
+            this._on(this.changer, {
+                click: "random"
+            });
+            this._refresh();
+        },
+
+        _refresh: function () {
+            this.element.css("background-color", "rgb(" +
+                this.options.red + "," +
+                this.options.green + "," +
+                this.options.blue + ")"
+            );
+            this._trigger("change");
+        },
+
+        random: function (event) {
+            var colors = {
+                red: Math.floor(Math.random() * 256),
+                green: Math.floor(Math.random() * 256),
+                blue: Math.floor(Math.random() * 256)
+            };
+            if (this._trigger("random", event, colors) !== false) {
+                this.option(colors);
+            }
+        },
+
+        _destroy: function () {
+            this.changer.remove();
+
+            this.element
+                .removeClass("custom-colorize")
+                .enableSelection()
+                .css("background-color", "transparent");
+        },
+
+        _setOptions: function () {
+            this._superApply(arguments);
+            this._refresh();
+        },
+
+        _setOption: function (key, value) {
+            if (/red|green|blue/.test(key) && (value < 0 || value > 255)) {
+                return;
+            }
+            this._super(key, value);
+        }
+    });
+
+    $("#my-widget1").colorize();
+
+    $("#my-widget2").colorize({
+        red: 60,
+        blue: 60
+    });
+
+    $("#my-widget3").colorize({
+        green: 128,
+        random: function (event, ui) {
+            return ui.green > 128;
+        }
+    });
+
+    $("#disable").on("click", function () {
+        // use the custom selector created for each widget to find all instances
+        // all instances are toggled together, so we can check the state from the first
+        if ($(":custom-colorize").colorize("option", "disabled")) {
+            $(":custom-colorize").colorize("enable");
+        } else {
+            $(":custom-colorize").colorize("disable");
+        }
+    });
+
+    $("#green").on("click", function () {
+        $(":custom-colorize").colorize("option", {
+            red: 64,
+            green: 250,
+            blue: 8
+        });
+    });
+    */
+
 
 
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
@@ -37,129 +138,272 @@ top_TrzFKala_S = top_TrzFKala_S == null ? 10 : top_TrzFKala_S;
 mode_TrzFKala_S = mode_TrzFKala_S == null ? 0 : mode_TrzFKala_S;
 
 
-/*
-gridster = $(".gridster ul").gridster({
-    widget_base_dimensions: ['auto', 100],
-    autogenerate_stylesheet: true,
-    min_cols: 1,
-    max_cols: 6,
-    widget_margins: [30, 30],
-    resize: {
-        enabled: true
-    },
-    draggable: {
-        handle: 'handle'
+
+
+
+
+
+
+
+var dashbordData = {};
+//localStorage.removeItem("Karbord_DashbordData");
+var dashbordData_Save = localStorage.getItem("Karbord_DashbordData");
+
+//dashbordData_Save = `{"TChk1":{"valueControl":{"day":"555555"},"position":{"x":0,"y":0,"w":3,"h":3},"caption":"چک های پرداختی 1","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},"TChk2":{"valueControl":{"day":"700000"},"position":{"x":3,"y":0,"w":4,"h":3},"caption":"چک های پرداختی 2","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},"TChk3":{"valueControl":{"day":"220000"},"position":{"x":7,"y":0,"w":5,"h":3},"caption":"چک های پرداختی 3","visible":false,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}}}`;
+if (dashbordData_Save != null && dashbordData_Save.toString() != "null" && dashbordData_Save.toString() != "") {
+    dashbordData = JSON.parse(dashbordData_Save);
+}
+
+
+window.onbeforeunload = function () {
+    var myJsonString = JSON.stringify(dashbordData)
+    localStorage.setItem("Karbord_DashbordData", myJsonString);
+};
+
+
+let grid = GridStack.init({
+    cellHeight: 'initial', // start square but will set to % of window width later
+    animate: true, // show immediate (animate: true is nice for user dragging though)
+    disableOneColumnMode: true, // will manually do 1 column
+    float: true
+});
+
+var cols = '';
+$("#TableDesktopItem").empty();
+
+for (const property in dashbordData) {
+    var item = dashbordData[property];
+    var object = $('<div id="widget_' + property + '">');
+    $("#objectGrid").append(object);
+
+    if (property.contains("TChk")) {
+        $("#widget_" + property).D_TChk({
+            id: property,
+            caption: item.caption,
+            visible: item.visible,
+            baseValue: item.baseValue,
+            valueControl: item.valueControl,
+            position: item.position,
+            /*SaveModal: function (e, record, f) {
+                a = 1;
+            },
+            Refresh: function (e, record, f) {
+                a = 1;
+            },*/
+        });
     }
 
-}).data('gridster');
-$('.gridster  ul').css({ 'padding': '10' });
 
+    col = ' <tr id="Obj_' + property + '"> ' +
+        '    <td id="Text_' + property + '">' + item.caption+'</td> ' +
+        '    <td style="padding: 0px 10px;text-align: left;"> ' +
+        '        <input class="CheckedItem" id = "Setting_' + property + '" type = "checkbox" ' + (item.visible == false ? "" : 'Checked="checked"')+ '/>' +
+        '    </td > ' +
+        '</tr> ';
+
+    $('#TableDesktopItem').append(col);
+}
+
+$("#SaveItem").click(function () {
+    var obj = [];
+    var items = $('.CheckedItem');
+
+    for (i = 0; i < items.length; i++) {
+        var item = $(items[i]);
+        var idItem = items[i].id.substring(8);
+        dashbordData[idItem].visible = item.is(':checked') == true;
+        $("#" + idItem).css("visibility", item.is(':checked') == true ? "visible" : "hidden");
+    }
+
+    dashbordData_Save = JSON.stringify(dashbordData)
+    localStorage.setItem("Karbord_DashbordData", dashbordData_Save);
+    $('#modal-DesktopItem').modal('hide');
+
+
+});
+
+
+
+
+
+
+
+
+/*
+grid.on('change', function (event, items) {
+
+});*/
+
+/*
+let items = [
+    { x: 1, y: 1 }, //, locked:true, content:"locked"},
+    { x: 2, y: 2, w: 3 },
+    { x: 4, y: 2 },
+    { x: 3, y: 1, h: 2 },
+    { x: 0, y: 6, w: 2, h: 2 }
+];
+let count = 0;
+
+getNode = function () {
+    let n = items[count] || {
+        x: Math.round(12 * Math.random()),
+        y: Math.round(5 * Math.random()),
+        w: Math.round(1 + 3 * Math.random()),
+        h: Math.round(1 + 3 * Math.random())
+    };
+    n.content = n.content || String(count);
+    count++;
+    return n;
+};
+
+addNewWidget = function () {
+    let w = grid.addWidget(getNode());
+};
+
+makeNewWidget = function () {
+    let n = getNode();
+    let doc = document.implementation.createHTMLDocument();
+    doc.body.innerHTML = `<div class="item" gs-x="${n.x}" gs-y="${n.y}" gs-w="${n.w || 1}" gs-h="${n.h || 1}"><div class="grid-stack-item-content">${n.content}</div></div>`;
+    let el = doc.body.children[0];
+    grid.el.appendChild(el);
+    // example showing when DOM is created elsewhere (eg Angular/Vue/React) and GS is used to convert to a widget
+    let w = grid.makeWidget(el);
+};
+
+toggleFloat = function () {
+    grid.float(!grid.getFloat());
+    document.querySelector('#float').innerHTML = 'float: ' + grid.getFloat();
+};
+addNewWidget();
 */
+
 /*
-var dashbordData = [];
-
-let grid = GridStack.init({
-    cellHeight: 'initial', // start square but will set to % of window width later
-    animate: true, // show immediate (animate: true is nice for user dragging though)
-    disableOneColumnMode: true, // will manually do 1 column
-    float: true
+$("#my-widget1").D_TChk({
+    id: "TChk1",
+    caption: "چک های پرداختی 1",
+    baseValue: {
+        ace: ace,
+        group: group,
+        sal: sal
+    },
+    valueControl: {
+        day: 100000
+    },
+    position: {
+        x: 0,
+        y: 0,
+        w: 3,
+        h: 4
+    },
+    SaveModal: function (e, record, f) {
+        a = 1;
+    },
+    Refresh: function (e, record, f) {
+        a = 1;
+    },
 });
 
-saveGrid = function () {
-    a = grid.save();
-}
+$("#my-widget2").D_TChk({
+    id: "TChk2",
+    caption: "چک های پرداختی 2",
+    baseValue: {
+        ace: ace,
+        group: group,
+        sal: sal
+    },
+    position: {
+        x: 3,
+        y: 0,
+        w: 3,
+        h: 4
+    },
 
-
-
-
-function LoadDashbord() {
-    data = localStorage.getItem("dashbordData");
-    if (data != null) {
-        dashbordData = JSON.parse(data);
-        for (var i = 0; i < dashbordData.length; i++) {
-            element = $('#' + dashbordData[i].id);
-            id = $(element).attr("id");
-            $(element).attr("data-col", dashbordData[i].col);
-            $(element).attr("data-row", dashbordData[i].row);
-            $(element).attr("data-sizex", dashbordData[i].sizex);
-            $(element).attr("data-sizey", dashbordData[i].sizey);
-        }
-    }
-}
-
-
-
-LoadDashbord();
-
-
-function SaveDashbord() {
-    dashbordData = [];
-    dashbordData = grid.save();
-    localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
-
-    /*$.each(gridster.$widgets, function (i, widgets) {
-        element = $(widgets);
-        id = $(element).attr("id");
-        col = $(element).attr("data-col");
-        row = $(element).attr("data-row");
-        sizex = $(element).attr("data-sizex");
-        sizey = $(element).attr("data-sizey");
-        dashbordData.push({ "id": id, "col": col, "row": row, "sizex": sizex, "sizey": sizey })
-    });*/
-
-//localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
-//}
-
-
-
-//window.onbeforeunload = function () {
-//    SaveDashbord();
-//};
-
-
-
-
-var dashbordData = [];
-
-let grid = GridStack.init({
-    cellHeight: 'initial', // start square but will set to % of window width later
-    animate: true, // show immediate (animate: true is nice for user dragging though)
-    disableOneColumnMode: true, // will manually do 1 column
-    float: true
+    SaveModal: function (e, record, f) {
+        a = 1;
+    },
+    Refresh: function (e, record, f) {
+        a = 1;
+    },
 });
 
 
-function LoadDashbord() {
-    data = localStorage.getItem("dashbordData");
+var dD = [];
+
+var D_TChk =
+    `                <div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" gs-id="D_TChk">
+                    <div class="grid-stack-item-content" style="background-color:white">
+                        <div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">
+                            <h4 class="modal-title" data-bind="text:translate('چک های پرداختی')"></h4>
+                            <div>
+                                <a id="SD_TChk" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-target="#modal-SD_TChk">
+                                    <img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20">
+                                </a>
+                                <a id="RD_TChk">
+                                    <img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="form-inline" style="padding:10px">
+
+                            <div class="form-inline" style="margin-left:auto">
+                                <h4>مجموع : </h4>
+                                <h4 id="Sum_D_TChk" style="padding-right:5px">0</h4>
+                            </div>
+
+                            <div class="form-inline" style="margin-right:auto">
+                                <h4>تعداد : </h4>
+                                <h4 id="Count_D_TChk" style="padding-right:5px">0</h4>
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <tbody data-bind="foreach: TChkList">
+                                <tr>
+                                    <td style="width:0px">
+                                        <center>
+                                            <img data-bind="attr:{src: $root.GetIconBank(Bank)}" src="" width="35" />
+                                            <p data-bind="text:Shobe" style="color: darkgray;"></p>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <h5 data-bind="text:TrafName" style="padding-right:5px"></h5>
+                                            <h5 style="padding-right:5px">حسین</h5>
+                                            <h5 data-bind="text:'چک : ' + CheckNo" style="padding-right:5px;padding-top: 10px;"></h5>
+                                        </div>
+                                    </td>
+                                    <td style="width:0px">
+                                        <center>
+                                            <h5 data-bind="text:NumberToNumberString(Value)" style="text-align:center"></h5>
+                                            <div data-bind="text:CheckDate" style=" border: 1px solid red;border-radius: 4px;color: red;padding: 2px 0; width: 80px; text-align: center; margin-bottom: 0.25rem;"></div>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>`
+*/
+
+
+//function LoadDashbord() {
+
+// dashbordData.add({ "x": 8, "y": 0, "w": 4, "h": 3, "id": "D_TChk", "content": D_TChk });
+// grid.load(dashbordData);
+
+/*    data = localStorage.getItem("dashbordData");
     if (data != null) {
         dashbordData = JSON.parse(data);
         nodes = grid.save();
         for (var i = 0; i < dashbordData.length; i++) {
             element = $(".grid-stack").find(`[gs-id='${dashbordData[i].id}']`)
-
             html = element[0].innerHTML.replaceAll('grid-stack-item-content', '');
-
-
-            dashbordData[i].content = html;
-            /*element = $('#' + dashbordData[i].id);
-             grid.engine.nodes[i].x = dashbordData[i].x;
-             grid.engine.nodes[i].y = dashbordData[i].y;
-             grid.engine.nodes[i].w = dashbordData[i].w;
-             grid.engine.nodes[i].h = dashbordData[i].h;
- 
- 
-             element = $(".grid-stack").find(`[gs-id='${dashbordData[i].id}']`)
-             id = $(element).attr("gs-id");
-             $(element).attr("gs-x", dashbordData[i].x);
-             $(element).attr("gs-y", dashbordData[i].y);
-             $(element).attr("gs-w", dashbordData[i].w);
-             $(element).attr("gs-h", dashbordData[i].h);
-             a = $(element).attr("gs-h");*/
+            dashbordData[i].content = D_TChk;
         }
         grid.load(dashbordData);
-    }
-}
-
+    }*/
+//}
+/*
 LoadDashbord();
 
 
@@ -172,12 +416,8 @@ function SaveDashbord() {
     localStorage.setItem("dashbordData", JSON.stringify(dashbordData))
 }
 
+*/
 
-
-
-window.onbeforeunload = function () {
-    SaveDashbord();
-};
 
 
 /*
@@ -246,7 +486,7 @@ var ViewModel = function () {
         script.src = "https://app.najva.com/static/js/scripts/174-website-27295-a0b970d7-1466-49f3-bf2b-1cfa6674e8e9.js" + "?v=" + version;
         head.appendChild(script);
         */
-    
+
     if (afiaccess[AP_TChk] && ShowMenu[AC_TChk]) {
 
         var TChkUri = server + '/api/ReportAcc/TChk/'; // آدرس گزارش 
@@ -295,59 +535,7 @@ var ViewModel = function () {
             })
         })
 
-        self.GetIconBank = function (Bank) {
-            res = '';
 
-            if (Bank.includes("انصار"))
-                res = "ansar"
-            else if (Bank.includes("پاسارگاد"))
-                res = "asargad"
-            else if (Bank.includes("آینده"))
-                res = "ayandeh"
-            else if (Bank.includes("دی"))
-                res = "day"
-            else if (Bank.includes("اقتصاد"))
-                res = "eghtesad"
-            else if (Bank.includes("گردشگری"))
-                res = "gardesh"
-            else if (Bank.includes("حکمت"))
-                res = "hekmat"
-            else if (Bank.includes("آفرین"))
-                res = "karafarin"
-            else if (Bank.includes("کشاورزی"))
-                res = "keshavarzi"
-            else if (Bank.includes("مسکن"))
-                res = "maskan"
-            else if (Bank.includes("مهر"))
-                res = "mehr"
-            else if (Bank.includes("ملت"))
-                res = "melat"
-            else if (Bank.includes("ملی"))
-                res = "meli"
-            else if (Bank.includes("پارسیان"))
-                res = "parsian"
-            else if (Bank.includes("رفاه"))
-                res = "refah"
-            else if (Bank.includes("رسالت"))
-                res = "resalat"
-            else if (Bank.includes("صادرات"))
-                res = "saderat"
-            else if (Bank.includes("سامان"))
-                res = "saman"
-            else if (Bank.includes("سرمایه"))
-                res = "sarmaye"
-            else if (Bank.includes("سپه"))
-                res = "sepah"
-            else if (Bank.includes("شهر"))
-                res = "shahr"
-            else if (Bank.includes("سینا"))
-                res = "sina"
-            else if (Bank.includes("تعاون"))
-                res = "tavon"
-            else if (Bank.includes("تجارت"))
-                res = "tejarat"
-            return "/Content/img/bank/" + res + ".png";
-        }
 
         $('#modal-SD_TChk').on('show.bs.modal', function () {
             $('#SD_TChk_Day').val(dayCheckPardakht);
@@ -871,7 +1059,7 @@ var ViewModel = function () {
                 KGruCode: "",
                 KalaCode: "",
                 Top: top_TrzFKala_S,
-                Sort:"TotalPrice desc"
+                Sort: "TotalPrice desc"
             };
 
             ajaxFunction(TrzFKala_SUri + ace + '/' + sal + '/' + group, 'POST', TrzFKala_SObject, false).done(function (response) {
@@ -991,8 +1179,64 @@ var ViewModel = function () {
     }
 
 
+
+
+
 };
 
 
 ko.applyBindings(new ViewModel());
+function GetIconBank(Bank) {
+    res = '';
+
+    if (Bank.includes("انصار"))
+        res = "ansar"
+    else if (Bank.includes("پاسارگاد"))
+        res = "asargad"
+    else if (Bank.includes("آینده"))
+        res = "ayandeh"
+    else if (Bank.includes("دی"))
+        res = "day"
+    else if (Bank.includes("اقتصاد"))
+        res = "eghtesad"
+    else if (Bank.includes("گردشگری"))
+        res = "gardesh"
+    else if (Bank.includes("حکمت"))
+        res = "hekmat"
+    else if (Bank.includes("آفرین"))
+        res = "karafarin"
+    else if (Bank.includes("کشاورزی"))
+        res = "keshavarzi"
+    else if (Bank.includes("مسکن"))
+        res = "maskan"
+    else if (Bank.includes("مهر"))
+        res = "mehr"
+    else if (Bank.includes("ملت"))
+        res = "melat"
+    else if (Bank.includes("ملی"))
+        res = "meli"
+    else if (Bank.includes("پارسیان"))
+        res = "parsian"
+    else if (Bank.includes("رفاه"))
+        res = "refah"
+    else if (Bank.includes("رسالت"))
+        res = "resalat"
+    else if (Bank.includes("صادرات"))
+        res = "saderat"
+    else if (Bank.includes("سامان"))
+        res = "saman"
+    else if (Bank.includes("سرمایه"))
+        res = "sarmaye"
+    else if (Bank.includes("سپه"))
+        res = "sepah"
+    else if (Bank.includes("شهر"))
+        res = "shahr"
+    else if (Bank.includes("سینا"))
+        res = "sina"
+    else if (Bank.includes("تعاون"))
+        res = "tavon"
+    else if (Bank.includes("تجارت"))
+        res = "tejarat"
+    return "/Content/img/bank/" + res + ".png";
+}
 

@@ -861,10 +861,13 @@
     <Content Include="Content\js\Chart.js" />
     <Content Include="Content\js\gridstack-all.js" />
     <Content Include="Content\js\jquery-3.6.0.min.js" />
+    <Content Include="Content\css\jquery-ui.css" />
+    <Content Include="Content\js\jquery-ui.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\js\knockout-3.5.0.js" />
     <Content Include="Content\js\sweet2.js" />
+    <Content Include="Content\js\Widget_Dashbord.js" />
     <Content Include="Content\loading1.png" />
     <Content Include="Content\new\css\all-themes.css" />
     <Content Include="Content\new\css\bootstrap-colorpicker.css" />
@@ -1237,7 +1240,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53759</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53759/</IISUrl>
+          <IISUrl>http://localhost:50002</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

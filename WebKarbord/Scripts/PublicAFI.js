@@ -11,6 +11,7 @@ window.addEventListener("pageshow", function (event) {
 });
 
 var server = localStorage.getItem('ApiAddress');
+var serverAccount = localStorage.getItem('serverAccount');
 var ace = localStorage.getItem('ace');
 var sal = localStorage.getItem('sal');
 var group = localStorage.getItem('group');
@@ -19,6 +20,85 @@ var salErj = '0000';
 
 var valueDropDownKalaExf = null;
 
+
+
+var LinkFDocADocUri;
+var DeleteDocInUseUri;
+var SaveDocInUseUri;
+var TimeUri;
+var SendEmailUri;
+var SmsandEmailUri;
+var DocInUseUri;
+var LinkFDocIDocUri;
+var LinkIDocADocUri;
+var VstrUri;
+var AccountUri;
+var ParamUri;
+var ChangeDatabaseUri;
+var ChangeDatabaseConfigUri;
+var DatabseSalUrl;
+var AccessUri;
+var AccessReportUri;
+var AccessReportErjUri;
+var CountTableUri;
+var RprtColsSaveUri;
+var LogOutUri;
+var LoginTestUri;
+var RprtColsUri;
+var RprtColsDefultUri;
+var PrintFormsUri;
+var DeletePrintFormUri;
+var SavePrintFormUri;
+var TestSavePrintFormUri;
+var SelectedPrintFormUri;
+var SelectedAccessGhimatPrintFormUri;
+var MessageUri;
+var DateUri;
+var DictionaryUri;
+var V_Del_ADocUri;
+var LogXUri
+
+function SetUrlAccount(serverAccount) {
+    AccountUri = serverAccount + 'Account/'; // آدرس حساب
+    MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
+}
+SetUrlAccount(serverAccount);
+function SetUrl(server) {
+    LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
+    DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+    SaveDocInUseUri = server + '/api/Web_Data/SaveDocInUse/';
+    TimeUri = server + '/api/Web_Data/Time/'; // آدرس  ساعت سرور
+    SendEmailUri = server + '/api/Web_Data/SendEmail/';
+    SmsandEmailUri = server + '/api/Web_Data/SmsandEmail/'; //لیست اطلاعات ایمیل   
+    DocInUseUri = server + '/api/Web_Data/DocInUse/';
+    LinkFDocIDocUri = server + '/api/Link/LinkFDocIDoc/';
+    LinkIDocADocUri = server + '/api/Link/LinkIDocADoc/';
+    VstrUri = server + '/api/Web_Data/Vstr/';
+    ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
+    ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
+    ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
+    DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
+    AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
+    AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
+    AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
+    CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکورد ها 
+    RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
+    LogOutUri = server + '/api/Web_Data/LogOut'; // خروج کاربر
+    LoginTestUri = server + '/api/Web_Data/LoginTest'; // تست ورود کاربر
+    RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
+    RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
+    PrintFormsUri = server + '/api/Web_Data/PrintForms/'; // آدرس فرم های چاپ
+    DeletePrintFormUri = server + '/api/Web_Data/DeletePrintForm/'; // آدرس حذف فرم های چاپ
+    SavePrintFormUri = server + '/api/Web_Data/SavePrintForm/'; // آدرس ذخیره فرم های چاپ
+    TestSavePrintFormUri = server + '/api/Web_Data/TestSavePrintForm/'; // آدرس تست ذخیره فرم های چاپ
+    SelectedPrintFormUri = server + '/api/Web_Data/SelectedPrintForm/'; // آدرس انتخاب فرم چاپ
+    SelectedAccessGhimatPrintFormUri = server + '/api/Web_Data/SelectedAccessGhimatPrintForm/'; // آدرس دسترسی قیمت فرم چاپ
+    DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
+    DictionaryUri = server + '/api/Web_Data/Web_Dictionary/'; // آدرس  دیکشنری
+    V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
+    LogXUri = server + '/api/Web_Data/LogX/'; //  آدرس لاگ 
+}
+SetUrl(server);
 
 var userName = localStorage.getItem('userName');
 var pass = localStorage.getItem('password');
@@ -182,10 +262,14 @@ text_Close = 'بستن';
 
 
 Fct_or_Inv = localStorage.getItem('Fct_or_Inv');
+var caption_Cust = "";
+var caption_CustS = "";
+if (Fct_or_Inv != null) {
+    var caption_Cust = Fct_or_Inv.toUpperCase() == "INV5" ? "تحویل دهنده/ گیرنده" : "خریدار/فروشنده";
+    var caption_CustS = Fct_or_Inv.toUpperCase() == "INV5" ? "تحویل دهندگان/ گیرندگان" : "خریداران/فروشندگان";
+}
 
 
-var caption_Cust = Fct_or_Inv.toUpperCase() == "INV5" ? "تحویل دهنده/ گیرنده" : "خریدار/فروشنده";
-var caption_CustS = Fct_or_Inv.toUpperCase() == "INV5" ? "تحویل دهندگان/ گیرندگان" : "خریداران/فروشندگان";
 
 $("#BaseCustCaption").text(translate(caption_CustS));
 $("#AccessRefresh").hide();
@@ -218,7 +302,7 @@ sessionStorage.CoName = localStorage.getItem('CoName');
 sessionStorage.aceName = localStorage.getItem('aceName');
 sessionStorage.userName = userName;
 sessionStorage.pass = pass;
-var serverAccount = localStorage.getItem('serverAccount');
+
 
 //sessionStorage.ModeCode = localStorage.getItem("ModeCode");
 
@@ -436,27 +520,29 @@ function ajaxFunctionPos(uri, method, data, sync, error) {
 }
 
 
+if (server != null) {
 
 
-var DictionaryUri = server + '/api/Web_Data/Web_Dictionary/'; // آدرس  دیکشنری
-
-//localStorage.removeItem('dict');
-var dict = localStorage.getItem('dict');
-if (dict != null)
-    dict = JSON.parse(dict);
-else {
-    ajaxFunction(DictionaryUri, 'GET', false, false).done(function (data) {
-        a = '{\"en\":{';
-        for (var i = 0; i < data.length; i++) {
-            a += '"' + data[i].Fa + '": "' + data[i].En + '",';
-        }
-        a += '"":""'
-        a += "},"
-        a += '\"ar\": { }}';
-        localStorage.setItem('dict', a);
-        dict = JSON.parse(a);
-    });
+    //localStorage.removeItem('dict');
+    var dict = localStorage.getItem('dict');
+    if (dict != null)
+        dict = JSON.parse(dict);
+    else {
+        ajaxFunction(DictionaryUri, 'GET', false, false).done(function (data) {
+            a = '{\"en\":{';
+            for (var i = 0; i < data.length; i++) {
+                a += '"' + data[i].Fa + '": "' + data[i].En + '",';
+            }
+            a += '"":""'
+            a += "},"
+            a += '\"ar\": { }}';
+            localStorage.setItem('dict', a);
+            dict = JSON.parse(a);
+        });
+    }
 }
+
+
 
 
 
@@ -979,44 +1065,6 @@ var resTestSavePrintForm = "";
 
 
 
-var ParamUri = server + '/api/Web_Data/Param/'; // آدرس پارامتر
-var ChangeDatabaseUri = server + '/api/Web_Data/ChangeDatabase/'; // آدرس بازسازی اطلاعات
-//var ChangeDatabaseFourzeroUri = server + '/api/Web_Data/ChangeDatabaseFourzero/'; // چهار صفر آدرس بازسازی اطلاعات
-var ChangeDatabaseConfigUri = server + '/api/Web_Data/ChangeDatabaseConfig'; // آدرس بازسازی اطلاعات کانفیگ
-var DatabseSalUrl = server + '/api/Web_Data/DatabseSal/'; // آدرس دیتابیس های سال
-var AccessUri = server + '/api/Web_Data/AccessUser/'; // آدرس سطح دسترسی
-var AccessReportUri = server + '/api/Web_Data/AccessUserReport/'; // آدرس سطح دسترسی گزارشات
-var AccessReportErjUri = server + '/api/Web_Data/AccessUserReportErj/'; // آدرس سطح دسترسی گزارشات
-var CountTableUri = server + '/api/Web_Data/CountTable/'; // تعداد رکورد ها 
-var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
-
-var LogOutUri = server + '/api/Web_Data/LogOut'; // خروج کاربر
-var LoginTestUri = server + '/api/Web_Data/LoginTest'; // تست ورود کاربر
-
-
-var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها
-var RprtColsDefultUri = server + '/api/Web_Data/RprtColsDefult/'; // آدرس مشخصات ستون های پیش فرض
-
-var PrintFormsUri = server + '/api/Web_Data/PrintForms/'; // آدرس فرم های چاپ
-var DeletePrintFormUri = server + '/api/Web_Data/DeletePrintForm/'; // آدرس حذف فرم های چاپ
-var SavePrintFormUri = server + '/api/Web_Data/SavePrintForm/'; // آدرس ذخیره فرم های چاپ
-var TestSavePrintFormUri = server + '/api/Web_Data/TestSavePrintForm/'; // آدرس تست ذخیره فرم های چاپ
-var SelectedPrintFormUri = server + '/api/Web_Data/SelectedPrintForm/'; // آدرس انتخاب فرم چاپ
-var SelectedAccessGhimatPrintFormUri = server + '/api/Web_Data/SelectedAccessGhimatPrintForm/'; // آدرس دسترسی قیمت فرم چاپ
-
-var MessageUri = serverAccount + 'Account/Messages/'; // آدرس پیام ها
-
-var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
-
-
-
-
-var V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
-
-var LogXUri = server + '/api/Web_Data/LogX/'; //  آدرس لاگ 
-
-
-
 
 
 
@@ -1245,7 +1293,7 @@ afiaccess = [false, false, false, false, false, false, false,
 
 
 tempAccess = localStorage.getItem("afi1Access");
-if (ace != 'Web2') {
+if (ace != 'Web2' && ace != null) {
     if (tempAccess == "null" || tempAccess == "" || tempAccess == null) {
         afiAccessApi = localStorage.getItem('afi8Access');
         if (afiAccessApi != '*')
@@ -1527,11 +1575,7 @@ function SearchKey(key, myArray) {
 }
 
 
-function SetSelectProgram() {
-    group = $("#DropGroup").val();
-    sal = $("#DropSal").val();
-
-    //group = group.length == 1 ? "0" + group : group;
+function SetSelectProgram(group, sal) {
 
     if (server == '' || server == null) {
         showNotification(translate('دوباره لاگین کنید'), 0);
@@ -1560,7 +1604,6 @@ function SetSelectProgram() {
         localStorage.setItem('group', group);
         localStorage.setItem('sal', sal);
 
-        //sessionStorage.url = server + '/api/'; 
         $('#SaveParam').attr('disabled', 'disabled');
 
         getParamList();
@@ -1586,9 +1629,7 @@ function SetSelectProgram() {
     }
 }
 
-//if ($("#DropAce").val() != '0' && $("#DropGroup").val() != '0' && $("#DropSal").val() != '0') {
-//    SetSelectProgram();
-//}
+
 
 
 $("#SaveParam").click(function () {
@@ -1600,8 +1641,6 @@ $("#SaveParam").click(function () {
 
 
 function SaveParam(group, sal) {
-
-
 
     if (sal == '0000')
         ace = 'Web2'
@@ -1670,7 +1709,7 @@ function SaveParam(group, sal) {
         }
 
 
-        SetSelectProgram();
+        SetSelectProgram(group, sal);
     });
 }
 
@@ -2402,7 +2441,7 @@ function getDataVstr() {
     vstrcode = localStorage.getItem("userVstrCode");
     localStorage.setItem("userVstrName", null);
     if (vstrcode != '' && vstrcode != null) {
-        var VstrUri = server + '/api/Web_Data/Vstr/';
+
         ajaxFunction(VstrUri + ace + '/' + sal + '/' + group + '/' + vstrcode, 'GET', false, true).done(function (data) {
             localStorage.setItem("userVstrName", data[0].Name);
         });
@@ -2661,7 +2700,7 @@ function GetShowField(Code, InOut) {
 //Get Access List
 function getAccessList(GoHome) {
 
-    AccountUri = serverAccount + 'Account/'; // آدرس حساب
+
     ajaxFunctionAccount(AccountUri + localStorage.getItem("userNameAccount") + '/' +
         localStorage.getItem("passAccount"), 'GET', true).done(function (data) {
             if (data === null) {
@@ -2944,7 +2983,7 @@ var timeNow;
 
 function getTimeServer() {
     if (server != null) {
-        var TimeUri = server + '/api/Web_Data/Time/'; // آدرس  ساعت سرور
+
         ajaxFunction(TimeUri, 'GET').done(function (data) {
             timeNow = data[0];
         });
@@ -3044,7 +3083,7 @@ function AlertErja() {
             var aceErj = 'Web2';
             var salErj = '0000';
 
-            var CountErjDocB_LastUri = server + '/api/Web_Data/Web_CountErjDocB_Last/';
+
 
             var DocB_LastObject = {
                 erjaMode: '1',
@@ -4006,9 +4045,9 @@ function showNotification(text, colorNumber, From, Align, time) {
         colorName = 'alert-warning';
     else if (colorNumber == 3)
         colorName = 'alert-info';
+    else 
+        colorName = 'bg-black';
 
-
-    if (colorName === null || colorName === '') { colorName = 'bg-black'; }
     if (text === null || text === '') { text = 'خطای برنامه نویسی : متن هشدار وارد نشده است'; }
     if (animateEnter === null || animateEnter === '') { animateEnter = 'animated fadeInDown'; }
     if (animateExit === null || animateExit === '') { animateExit = 'animated fadeOutUp'; }
@@ -4760,8 +4799,6 @@ function sendMail(email, subject, body, attachment, format) {
     //link.click();
 
 
-    var SendEmailUri = server + '/api/Web_Data/SendEmail/';
-    var SmsandEmailUri = server + '/api/Web_Data/SmsandEmail/'; //لیست اطلاعات ایمیل   
 
     host = '';
 
@@ -5262,7 +5299,6 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
     var userUse = "";
     var testUseDoc = "";
     if (FormName != "Kala" && FormName != "Cust" && FormName != "Acc" && FormName != "Opr" && FormName != "Mkz" && FormName != "Arz" && FormName != "ZAcc" && find == false) {
-        DocInUseUri = server + '/api/Web_Data/DocInUse/';
         var DocInUseObject = {
             Prog: prog,
             DMode: dMode,
@@ -5309,7 +5345,7 @@ function TestUseSanad(prog, year, FormName, Id, Insert, docNo) {
 
                 if (docNo != null && docNo != "") {
                     // ذخیره سند باز شده در ویندوز
-                    SaveDocInUseUri = server + '/api/Web_Data/SaveDocInUse/';
+
                     var SaveDocInUseObject = {
                         Prog: prog,
                         DMode: dMode,
@@ -5368,7 +5404,7 @@ async function RemoveUseSanad(prog, year, FormName, Id, exitDoc) {
             }
             else {
                 // حذف سند باز شده توسط وب در ویندوز
-                DeleteDocInUseUri = server + '/api/Web_Data/DeleteDocInUse/';
+
                 var DeleteDocInUseObject = {
                     Prog: prog,
                     DMode: dMode,
@@ -5611,7 +5647,7 @@ function TestAccessRes(res) {
 
 
 function CreateFctToAcc_Link(serial, sync) {
-    var LinkFDocADocUri = server + '/api/Link/LinkFDocADoc/';
+
     var LinkFDocADocObject = {
         SerialNumber: serial,
         TahieShode: TahieShode_Fct5
@@ -5700,9 +5736,8 @@ function CreateFctToAcc_Link(serial, sync) {
     return res;
 }
 
-
 function CreateFctToInv_Link(serial, sync) {
-    var LinkFDocIDocUri = server + '/api/Link/LinkFDocIDoc/';
+
     var LinkFDocIDocObject = {
         SerialNumber: serial,
         TahieShode: TahieShode_Fct5
@@ -5792,7 +5827,7 @@ function CreateFctToInv_Link(serial, sync) {
 
 
 function CreateInvToAcc_Link(serial, sync) {
-    var LinkIDocADocUri = server + '/api/Link/LinkIDocADoc/';
+
     var LinkIDocADocObject = {
         SerialNumber: serial,
         TahieShode: TahieShode_Inv5
