@@ -1007,6 +1007,8 @@ var TahieShode_Acc5;
 var TahieShode_Fct5;
 var TahieShode_Inv5;
 
+
+
 if (ace == 'Web8') {
     TahieShode_Acc5 = 'Acc5';
     TahieShode_Fct5 = 'Fct5';
@@ -1671,7 +1673,6 @@ function SaveParam(group, sal) {
         localStorage.removeItem('InvStatus');
         localStorage.removeItem('ErjDocYears');
 
-
         localStorage.removeItem('Mahramaneh');
         localStorage.removeItem('ErjStatus');
 
@@ -2109,6 +2110,47 @@ async function getParamList() {
             localStorage.setItem("IDOCO_AutoFctReg", sessionStorage.IDOCO_AutoFctReg);
 
 
+            // گروه وابسته
+            sessionStorage.RelatedGroup_Acc = SearchArry("RelatedGroup", "Acc5", self.ParamList());
+            localStorage.setItem("RelatedGroup_Acc", sessionStorage.RelatedGroup_Acc);
+            sessionStorage.RelatedGroup_Fct = SearchArry("RelatedGroup", "Fct5", self.ParamList());
+            localStorage.setItem("RelatedGroup_Fct", sessionStorage.RelatedGroup_Fct);
+            sessionStorage.RelatedGroup_Inv = SearchArry("RelatedGroup", "Inv5", self.ParamList());
+            localStorage.setItem("RelatedGroup_Inv", sessionStorage.RelatedGroup_Inv);
+
+            sessionStorage.RelatedGroupDefault_ADOC = SearchArry("RelatedGroupDefault", "ADOC", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_ADOC", sessionStorage.RelatedGroupDefault_ADOC);
+
+            sessionStorage.RelatedGroupDefault_FDOCSO = SearchArry("RelatedGroupDefault", "FDOCSO", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCSO", sessionStorage.RelatedGroupDefault_FDOCSO);
+            sessionStorage.RelatedGroupDefault_FDOCSP = SearchArry("RelatedGroupDefault", "FDOCSP", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCSP", sessionStorage.RelatedGroupDefault_FDOCSP);
+            sessionStorage.RelatedGroupDefault_FDOCS = SearchArry("RelatedGroupDefault", "FDOCS", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCS", sessionStorage.RelatedGroupDefault_FDOCS);
+            sessionStorage.RelatedGroupDefault_FDOCSR = SearchArry("RelatedGroupDefault", "FDOCSR", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCSR", sessionStorage.RelatedGroupDefault_FDOCSR);
+            sessionStorage.RelatedGroupDefault_FDOCSH = SearchArry("RelatedGroupDefault", "FDOCSH", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCSH", sessionStorage.RelatedGroupDefault_FDOCSH);
+            sessionStorage.RelatedGroupDefault_FDOCSE = SearchArry("RelatedGroupDefault", "FDOCSE", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCSE", sessionStorage.RelatedGroupDefault_FDOCSE);
+            sessionStorage.RelatedGroupDefault_FDOCPO = SearchArry("RelatedGroupDefault", "FDOCPO", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCPO", sessionStorage.RelatedGroupDefault_FDOCPO);
+            sessionStorage.RelatedGroupDefault_FDOCPP = SearchArry("RelatedGroupDefault", "FDOCPP", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCPP", sessionStorage.RelatedGroupDefault_FDOCPP);
+            sessionStorage.RelatedGroupDefault_FDOCP = SearchArry("RelatedGroupDefault", "FDOCP", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCP", sessionStorage.RelatedGroupDefault_FDOCP);
+            sessionStorage.RelatedGroupDefault_FDOCPR = SearchArry("RelatedGroupDefault", "FDOCPR", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_FDOCPR", sessionStorage.RelatedGroupDefault_FDOCPR);
+
+            sessionStorage.RelatedGroupDefault_IDOCI = SearchArry("RelatedGroupDefault", "IDOCI", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_IDOCI", sessionStorage.RelatedGroupDefault_IDOCI);
+            sessionStorage.RelatedGroupDefault_IDOCO = SearchArry("RelatedGroupDefault", "IDOCO", self.ParamList());
+            localStorage.setItem("RelatedGroupDefault_IDOCO", sessionStorage.RelatedGroupDefault_IDOCO);
+
+
+            sessionStorage.SamaneValue = SearchArry("Samane", "Value", self.ParamList());
+            localStorage.setItem("SamaneValue", sessionStorage.SamaneValue); // 1 avtive    0 disable
+
 
             sessionStorage.invSelect = "";
             localStorage.setItem("invSelect", sessionStorage.invSelect);
@@ -2316,7 +2358,7 @@ function getParamFct() {
             sessionStorage.FDOCPR_AutoInvReg = SearchArry("FDOCPR_AutoInvReg", "Default", data);
             localStorage.setItem("FDOCPR_AutoInvReg", sessionStorage.FDOCPR_AutoInvReg);
 
-             // ذخیره سند حسابداری بعد از ذخیره فاکتور
+            // ذخیره سند حسابداری بعد از ذخیره فاکتور
             sessionStorage.FDOCS_AutoAccReg = SearchArry("FDOCS_AutoAccReg", "Default", data);
             localStorage.setItem("FDOCS_AutoAccReg", sessionStorage.FDOCS_AutoAccReg);
             sessionStorage.FDOCSR_AutoAccReg = SearchArry("FDOCSR_AutoAccReg", "Default", data);
@@ -4045,7 +4087,7 @@ function showNotification(text, colorNumber, From, Align, time) {
         colorName = 'alert-warning';
     else if (colorNumber == 3)
         colorName = 'alert-info';
-    else 
+    else
         colorName = 'bg-black';
 
     if (text === null || text === '') { text = 'خطای برنامه نویسی : متن هشدار وارد نشده است'; }
@@ -5688,7 +5730,7 @@ function CreateFctToAcc_Link(serial, sync) {
                     textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('مانده حساب') + ' </a>' + '<p style="padding-left: 5px;padding-right: 5px;">' + list[i].AccCode + ' </p>' + '<p>' + translate('مغایر با ماهیت آن می شود') + '</p>';
 
                 else if (list[i].TestName == "Balance")
-                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('به دلیل خطاهای لینک سند بالانس نمی شود ') +' </a>';
+                    textBody += '<a onclick="FocusRowGrid(' + i + ');">' + translate('به دلیل خطاهای لینک سند بالانس نمی شود ') + ' </a>';
 
                 else if (list[i].TestName == "ZeroBand")
                     textBody += '<a onclick="FocusRowGrid(' + i + ');">' + tBand + list[i].BandNo + ' ' + translate('دارای مبلغ نیست') + ' </a>';

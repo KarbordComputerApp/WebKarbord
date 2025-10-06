@@ -76,6 +76,16 @@ var ViewModel = function () {
     $('#titlePage').text(translate("سند حسابداری جدید"));
     $('#finalSave_Title').attr('hidden', '');
 
+    var relatedGroupDefault = false;
+    var RelatedGroup = localStorage.getItem("RelatedGroup_Acc");
+    $("#p_RelatedGroupActive").hide();
+    if (parseInt(RelatedGroup) > 0) {
+        $("#p_RelatedGroupActive").show();
+        relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_ADOC");
+        $('#relatedGroupActive').prop('checked', relatedGroupDefault == "1" ? true : false);
+    }
+
+
 
     var Serial = 0;
     var saveButton = null;
@@ -144,6 +154,8 @@ var ViewModel = function () {
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
     var ADocBSaveAllUri = server + '/api/AFI_ADocBi/SaveAllDocB/'; // آدرس ذخیره یند سند 
     var ADocBConvertUri = server + '/api/AFI_ADocBi/Convert/'; // آدرس ذخیره یند سند در جدول اصلی 
+    var SaveADocH_RelatedGroupUri = server + '/api/ADocData/SaveADocH_RelatedGroup/'; // آدرس ذخیره سند در گروه وابسته 
+
 
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
 
@@ -1993,6 +2005,9 @@ var ViewModel = function () {
                 sessionStorage.Eghdam = sessionStorage.userName;
                 flaglog = "Y";
 
+                sessionStorage.Spec = "";
+                $("#Spec").val("");
+
                 $("#SumBedehkar").val(0);
                 $("#SumBestankar").val(0);
                 $("#TafavotSanad").val(0);
@@ -2073,6 +2088,9 @@ var ViewModel = function () {
 
                 dataGrid.focus(dataGrid.getCellElement(0, 0));
 
+                if (parseInt(RelatedGroup) > 0) {
+                    $('#relatedGroupActive').prop('checked', relatedGroupDefault == "1" ? true : false);
+                }
 
                 CheckAccess();
                 isUpdateFactor = true;
@@ -3667,6 +3685,9 @@ var ViewModel = function () {
         self.SerialNumber(Serial);
         self.DocNoOut(sessionStorage.DocNo);
         self.DocDate(sessionStorage.DocDate);
+        $('#relatedGroupActive').prop('checked', sessionStorage.RelatedGroupActive == "true" ? true : false);
+
+
 
         $('#btntarikh').click(function () {
             $('#tarikh').change();
@@ -3757,11 +3778,14 @@ var ViewModel = function () {
         });
     }
 
+    var relatedActive = 0;
 
     function SaveSanad() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
         status = $("#status").val();
+        $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
+
         if (Serial == 0) {
             var ADocObject = {
                 DocNoMode: 1,
@@ -3803,6 +3827,7 @@ var ViewModel = function () {
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
                 flagLog: flaglog,
+                RelatedGroupActive: relatedActive,
                 //DarChecks: darChecks,
                 //ParChecks: parChecks,
             };
@@ -3861,6 +3886,7 @@ var ViewModel = function () {
                 F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
                 F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
                 flagLog: flaglog,
+                RelatedGroupActive: relatedActive,
                 //DarChecks: darChecks,
                 // ParChecks: parChecks,
             };
@@ -3925,6 +3951,17 @@ var ViewModel = function () {
 
         ajaxFunction(ADocBConvertUri + ace + '/' + sal + '/' + group, 'POST', ConvertObject, false).done(function (response) {
             showNotification(translate('سند ذخیره شد'), 1);
+
+            if (relatedActive == 1) {
+                var relatedGroupObject = {
+                    SerialNumber: Serial,
+                    TahieShode: TahieShode_Acc5,
+                };
+
+                ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (response) {
+                    showNotification(translate('سند گروه وابسته ذخیره شد'), 1);
+                });
+            }
         });
     }
 
@@ -3936,6 +3973,7 @@ var ViewModel = function () {
         tarikh = $("#tarikh").val().toEnglishDigit();
         modeCode = $("#modeCode").val();
         status = $("#status").val();
+        $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
 
         if (tarikh.length != 10) {
             return showNotification(translate('تاریخ را صحیح وارد کنید'), 0);
@@ -4027,6 +4065,7 @@ var ViewModel = function () {
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: 'N',
             flagTest: 'Y',
+            RelatedGroupActive: relatedActive,
         };
 
         ajaxFunction(ADocHiUri + ace + '/' + sal + '/' + group, 'POST', ADocObject).done(function (response) {

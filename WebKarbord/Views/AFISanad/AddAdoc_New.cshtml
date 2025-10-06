@@ -57,17 +57,26 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div id="p_RelatedGroupActive" class="form-inline" style="text-align: left;">
+                        <input id="relatedGroupActive" type="checkbox" style="margin:0px" />
+                        <strong style="padding-right: 5px;" data-bind="text:translate('ذخیره همزمان در گروه وابسته')"></strong>
+                    </div>
+
+
+
                     <!-- <div id="buttom-header-dropdown" class="row header-dropdown m-r--5">
-                         <a id="Print_SanadHesab" style="margin-left: 10px;">
-                             <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
-                         </a>
-                         <a id="OtherField" data-bind="attr: {title:text_OtherField}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-OtherField" style="margin-left: 10px;">
-                             <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
-                         </a>
-                         <a id="AddNewSanad">
-                             <img src="~/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png" width="20" height="20" />
-                         </a>
-                     </div>-->
+                        <a id="Print_SanadHesab" style="margin-left: 10px;">
+                            <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="20" height="20">
+                        </a>
+                        <a id="OtherField" data-bind="attr: {title:text_OtherField}" class="dropdown-toggle" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#modal-OtherField" style="margin-left: 10px;">
+                            <img src="~/Content/img/sanad/paper-write.png" width="20" height="20" />
+                        </a>
+                        <a id="AddNewSanad">
+                            <img src="~/Content/img/sanad/streamline-icon-pencil-write-3-alternate@48x48.png" width="20" height="20" />
+                        </a>
+                    </div>-->
                 </div>
             </div>
             <div class="body">
@@ -477,7 +486,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست طرف حساب ها')"></h4>
-                <a id="refreshTraf" >
+                <a id="refreshTraf">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -510,7 +519,7 @@
                         <tbody data-bind="foreach: currentPageTraf" style="cursor: default;">
                             <tr data-bind="click: $parent.selectTraf  , style: {color: Level == 1 ? '#009688': '#212529'}">
                                 <td data-bind="text: Code"></td>
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
@@ -575,7 +584,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست زیر حساب')"></h4>
-                <a id="refreshTrafZ" >
+                <a id="refreshTrafZ">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -608,7 +617,7 @@
                         <tbody data-bind="foreach: currentPageTrafZ" style="cursor: default;">
                             <tr data-bind="click: $parent.selectTrafZ">
                                 <td data-bind="text: Code"></td>
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                                 <td data-bind="text: Spec" class="ellipsis"></td>
                             </tr>
                         </tbody>
@@ -674,7 +683,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست بانک')"></h4>
-                <a id="refreshBank" >
+                <a id="refreshBank">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -694,7 +703,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageBank" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectBank">
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -756,7 +765,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست شعبه')"></h4>
-                <a id="refreshShobe" >
+                <a id="refreshShobe">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -776,7 +785,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageShobe" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectShobe">
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -838,7 +847,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست جاری')"></h4>
-                <a id="refreshJari" >
+                <a id="refreshJari">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>
@@ -858,7 +867,7 @@
                         </thead>
                         <tbody data-bind="foreach: currentPageJari" data-dismiss="modal" style="cursor: default;">
                             <tr data-bind="click: $parent.selectJari">
-                                 <td data-bind="text: Name" class="ellipsis"></td>
+                                <td data-bind="text: Name" class="ellipsis"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -920,7 +929,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" data-bind="text:translate('لیست چک')"></h4>
-                <a id="refreshCheck" >
+                <a id="refreshCheck">
                     <img data-bind="attr: {title:text_Refresh}" src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
                 </a>
             </div>

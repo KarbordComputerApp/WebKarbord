@@ -51,6 +51,7 @@ var ViewModel = function () {
     TestUser();
 
 
+
     var codeThvl = '';
     var codeOpr = '';
     var codeMkz = '';
@@ -231,6 +232,9 @@ var ViewModel = function () {
     var autoFctReg = '';
     var autoAccReg = 0;
 
+
+    var relatedGroupDefault = false;
+
     if (sessionStorage.InOut == 1) {
         textSanad = translate('سند وارده به انبار')
         $('#TitleHeaderAnbar').text(textSanad);
@@ -245,6 +249,7 @@ var ViewModel = function () {
 
         sessionStorage.NEW_IIDOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
 
+        relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_IDOCI");
 
         invSelected = localStorage.getItem('InvSelectSanadAnbar_In') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_In');
         modeCodeSelected = localStorage.getItem('ModeCodeSelectSanadAnbar_In') == null ? '' : localStorage.getItem('ModeCodeSelectSanadAnbar_In');
@@ -290,7 +295,7 @@ var ViewModel = function () {
         ModeCodeExtraFields = 'IDOCO';
 
         amountAfterBarCode = sessionStorage.IDOCOAmountAfterBarCode
-
+        relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_IDOCO");
         sessionStorage.NEW_IODOC == "true" ? sessionStorage.newSanad = "true" : sessionStorage.newSanad = "false";
 
         invSelected = localStorage.getItem('InvSelectSanadAnbar_Out') == null ? '' : localStorage.getItem('InvSelectSanadAnbar_Out');
@@ -310,6 +315,14 @@ var ViewModel = function () {
         autoFctReg = sessionStorage.IDOCO_AutoFctReg;
         autoAccReg = sessionStorage.IDOCO_AutoAccReg;
     }
+
+    var RelatedGroup = localStorage.getItem("RelatedGroup_Inv");
+    $("#p_RelatedGroupActive").hide();
+    if (parseInt(RelatedGroup) > 0) {
+        $("#p_RelatedGroupActive").show();
+        $('#relatedGroupActive').prop('checked', relatedGroupDefault == "1" ? true : false);
+    }
+
 
     self.InvCode = ko.observable(invSelected);
     self.modeCode = ko.observable(modeCodeSelected);
@@ -1201,7 +1214,6 @@ var ViewModel = function () {
     function getIDocH(serialNumber) {
         ajaxFunction(IDocHListUri + ace + '/' + sal + '/' + group + '/' + serialNumber, 'GET').done(function (data) {
             self.IDocHList(data);
-
             if (self.IDocHList().length > 0) { // اگر شامل اطلاعات انبار بود
                 dataIDocH = self.IDocHList()[0];
                 dataIDocH.Amount1 != null ? IDocHAmount1 = dataIDocH.Amount1 : IDocHAmount1 = 0;
@@ -1210,6 +1222,7 @@ var ViewModel = function () {
                 dataIDocH.TotalPrice != null ? IDocHTotalPrice = dataIDocH.TotalPrice : IDocHTotalPrice = 0;
                 dataIDocH.FinalPrice != null ? IDocHFinalPrice = dataIDocH.FinalPrice : IDocHFinalPrice = 0;
                 $('#sumSanad').text(NumberToNumberString(parseFloat(IDocHTotalPrice).toFixed(parseInt(sessionStorage.DeghatInv))));
+                $('#relatedGroupActive').prop('checked', dataIDocH.RelatedGroupActive);
             }
         });
     }
@@ -2416,15 +2429,7 @@ var ViewModel = function () {
                 }
                 dataGrid.focus(dataGrid.getCellElement(0, 1));
 
-
-
-
                 codeThvl = '';
-
-
-
-
-
                 closedDate = false;
                 codeThvl = '';
                 sessionStorage.flagupdateHeader = 0;
@@ -2471,6 +2476,9 @@ var ViewModel = function () {
                 if (sessionStorage.InvDefult_Inv != "null") $("#inv").val(sessionStorage.InvDefult_Inv);
                 $("#gGhimat").val(sessionStorage.GPriceDefult != null && sessionStorage.GPriceDefult != '' ? sessionStorage.GPriceDefult : 0);
 
+                if (parseInt(RelatedGroup) > 0) {
+                    $('#relatedGroupActive').prop('checked', relatedGroupDefault == "1" ? true : false);
+                }
 
                 $('#nameThvl').val("");
                 $('#nameOpr').val("");
@@ -2573,7 +2581,7 @@ var ViewModel = function () {
 
         docno = $("#docnoout").val();
         modeCode = $("#modeCode").val();
-
+        $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
 
         if (docno.length > 10) {
             return showNotification(translate('شماره نباید بیشتر از ده رقم باشد'), 0);
@@ -2697,7 +2705,8 @@ var ViewModel = function () {
             F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val(),
             flagLog: 'N',
             VstrCode: 0,
-            flagTest: 'Y'
+            flagTest: 'Y',
+            RelatedGroupActive: relatedActive,
         };
 
         ajaxFunction(IDocHiUri + ace + '/' + sal + '/' + group, 'POST', IDocHObject).done(function (response) {
@@ -2905,8 +2914,6 @@ var ViewModel = function () {
     }
 
 
-
-
     function SaveSanad() {
         if (isUpdateFactor) {
             tarikh = $("#tarikh").val().toEnglishDigit();
@@ -2917,9 +2924,7 @@ var ViewModel = function () {
             modeCode = $("#modeCode").val();
             kalapricecode = $("#gGhimat").val();
 
-
-
-
+            $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
 
             if (Serial == 0) {
 
@@ -2968,7 +2973,8 @@ var ViewModel = function () {
                     F18: $("#ExtraFields18").val() == null ? '' : $("#ExtraFields18").val() == "" ? sessionStorage.F18 : $("#ExtraFields18").val(),
                     F19: $("#ExtraFields19").val() == null ? '' : $("#ExtraFields19").val() == "" ? sessionStorage.F19 : $("#ExtraFields19").val(),
                     F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
-                    flagTest: 'N'
+                    flagTest: 'N',
+                    RelatedGroupActive: relatedActive,
                 };
 
 
@@ -3040,7 +3046,8 @@ var ViewModel = function () {
                     OprCode: codeOpr,
                     MkzCode: codeMkz,
                     VstrCode: 0,
-                    New: 'Y'
+                    New: 'Y',
+                    RelatedGroupActive: relatedActive,
                 };
 
 

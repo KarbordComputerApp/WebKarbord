@@ -1,9 +1,33 @@
 ﻿var gridster = null;
 
-var barColors = ["#ff2d2d", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff9e3a", "#0033ff",
-    "#6699cc", "#009999", "#171a9b", "#00a20b", "#11c0a9"];
+var barColors = ["#ff2d2d", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff9e3a", "#0033ff", "#6699cc", "#009999", "#171a9b", "#00a20b", "#11c0a9"];
 
 
+var orgProgName = localStorage.getItem('OrgProgName');
+
+
+/*
+var groupsAcount;
+if (ace == 'Web8') {
+    groupsAcount = localStorage.getItem('afi8List');
+}
+else if (ace == 'Web1') {
+    groupsAcount = localStorage.getItem('afi1List');
+}
+
+var orgProgName = localStorage.getItem('OrgProgName');
+
+var GroupsObject = {
+    ProgName: orgProgName,
+    User: sessionStorage.userName,
+    Groups: groups.replaceAll('-', ',')
+}
+
+ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
+    localStorage.setItem('afiList', JSON.stringify(data));
+});
+
+*/
 
 /*
     $.widget("custom.colorize", {
@@ -141,15 +165,21 @@ mode_TrzFKala_S = mode_TrzFKala_S == null ? 0 : mode_TrzFKala_S;
 
 
 
-
-
-
-
-var dashbordData = {};
+var dashbordData = [];
 //localStorage.removeItem("Karbord_DashbordData");
 var dashbordData_Save = localStorage.getItem("Karbord_DashbordData");
 
-//dashbordData_Save = `{"TChk1":{"valueControl":{"day":"555555"},"position":{"x":0,"y":0,"w":3,"h":3},"caption":"چک های پرداختی 1","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},"TChk2":{"valueControl":{"day":"700000"},"position":{"x":3,"y":0,"w":4,"h":3},"caption":"چک های پرداختی 2","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},"TChk3":{"valueControl":{"day":"220000"},"position":{"x":7,"y":0,"w":5,"h":3},"caption":"چک های پرداختی 3","visible":false,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}}}`;
+/*
+dashbordData_Save = `[
+{"id":"TChk-1","valueControl":{"day":"555555"},"position":{"x":0,"y":0,"w":3,"h":3},"caption":"چک های پرداختی 1","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},
+{"id":"TChk-2","valueControl":{"day":"700000"},"position":{"x":3,"y":0,"w":4,"h":3},"caption":"چک های پرداختی 2","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},
+{"id":"TChk-3","valueControl":{"day":"220000"},"position":{"x":7,"y":0,"w":5,"h":3},"caption":"چک های پرداختی 3","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}}
+]`;
+
+dashbordData_Save = `[{"id":"TChk-1","valueControl":{"day":"5000500"},"position":{"x":8,"y":0,"w":4,"h":3},"caption":"چک های پرداختی - گروه 97 - سال 1384","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},{"id":"TChk-2","valueControl":{"day":"50000"},"position":{"x":4,"y":0,"w":4,"h":3},"caption":"چک های پرداختی - گروه 97 - سال 1403","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1403"}}]`;
+*/
+
+
 if (dashbordData_Save != null && dashbordData_Save.toString() != "null" && dashbordData_Save.toString() != "") {
     dashbordData = JSON.parse(dashbordData_Save);
 }
@@ -170,55 +200,269 @@ let grid = GridStack.init({
 
 var cols = '';
 $("#TableDesktopItem").empty();
+for (var i = 0; i < dashbordData.length; i++) {
+    AddIteminGrid(dashbordData[i]);
+}
 
-for (const property in dashbordData) {
-    var item = dashbordData[property];
-    var object = $('<div id="widget_' + property + '">');
+
+$('#modal-DesktopItem').on('show.bs.modal', function () {
+    cols = '';
+    $("#TableDesktopItem").empty();
+    for (var i = 0; i < dashbordData.length; i++) {
+        var item = dashbordData[i];
+        id = item.id;
+        col = ' <tr id="Obj_' + id + '"> ' +
+            '    <td id="Text_' + id + '">' + item.caption + '</td> ' +
+            '    <td style="padding: 0px 10px;text-align: left;"> ' +
+            '        <input class="CheckedItem" id = "Setting_' + id + '" type = "checkbox" ' + (item.visible == false ? "" : 'Checked="checked"') + '/>' +
+            '    </td > ' +
+            '</tr> ';
+        $('#TableDesktopItem').append(col);
+    }
+});
+
+
+
+
+function AddIteminGrid(itemObject) {
+    id = itemObject.id;
+    var object = $('<div id="widget_' + id + '">');
     $("#objectGrid").append(object);
 
-    if (property.contains("TChk")) {
-        $("#widget_" + property).D_TChk({
-            id: property,
-            caption: item.caption,
-            visible: item.visible,
-            baseValue: item.baseValue,
-            valueControl: item.valueControl,
-            position: item.position,
-            /*SaveModal: function (e, record, f) {
-                a = 1;
-            },
-            Refresh: function (e, record, f) {
-                a = 1;
-            },*/
+    if (id.contains("TChk_Sum")) {
+        $("#widget_" + id).D_TChk_Sum({
+            id: id,
+            caption: itemObject.caption,
+            visible: itemObject.visible,
+            baseValue: itemObject.baseValue,
+            valueControl: itemObject.valueControl,
+            position: itemObject.position,
         });
     }
+    else if (id.contains("TChk")) {
+        $("#widget_" + id).D_TChk({
+            id: id,
+            caption: itemObject.caption,
+            visible: itemObject.visible,
+            baseValue: itemObject.baseValue,
+            valueControl: itemObject.valueControl,
+            position: itemObject.position,
+        });
+    } else if (id.contains("TrzFCust")) {
+        $("#widget_" + id).D_TrzFCust({
+            id: id,
+            caption: itemObject.caption,
+            visible: itemObject.visible,
+            baseValue: itemObject.baseValue,
+            valueControl: itemObject.valueControl,
+            position: itemObject.position,
+        });
+    }
+}
 
 
-    col = ' <tr id="Obj_' + property + '"> ' +
-        '    <td id="Text_' + property + '">' + item.caption+'</td> ' +
+
+var listModeDesktop = [
+    { value: "TChk_Sum", text: "صورت خلاصه چک های پرداختی" },
+    { value: "TarazFasli", text: "نمودار فروش" },
+    { value: "TrzFCust_S", text: "مانده حساب خریداران" },
+    { value: "TrzFCust_P", text: "مانده حساب فروشندگان" },
+    { value: "TrzFKala_S", text: "بیشترین فروش کالا" },
+    { value: "TChk", text: "چک های پرداختی" }
+]
+
+for (var i = 0; i < listModeDesktop.length; i++) {
+    $('#ModeDesktopItem').append($('<option>', { value: listModeDesktop[i].value, text: listModeDesktop[i].text }));
+}
+
+
+$('#modal-DesktopAddItem').on('show.bs.modal', function () {
+    $("#CaptionItem").val(listModeDesktop[0].text + ' - گروه ' + $('#GroupDesktopItem').val() + ' - سال ' + $('#SalDesktopItem').val());
+})
+
+$("#ModeDesktopItem").change(function () {
+    var value = $(this).val();
+    for (var i = 0; i < listModeDesktop.length; i++) {
+        if (listModeDesktop[i].value == value) {
+            $("#CaptionItem").val(listModeDesktop[i].text + ' - گروه ' + $('#GroupDesktopItem').val() + ' - سال ' + $('#SalDesktopItem option:selected').text());
+        }
+    }
+});
+
+
+var listGroups = localStorage.getItem('afiList');
+listGroups = JSON.parse(listGroups);
+
+for (var i = 0; i < listGroups.length; i++) {
+    $('#GroupDesktopItem').append($('<option>', { value: listGroups[i].Code, text: listGroups[i].Code + " - " + listGroups[i].Name }));
+}
+SetSalData();
+
+
+$("#GroupDesktopItem").change(function () {
+    SetSalData();
+    $("#CaptionItem").val($("#ModeDesktopItem option:selected").text() + ' - گروه ' + $('#GroupDesktopItem').val() + ' - سال ' + $('#SalDesktopItem option:selected').text());
+});
+
+$("#SalDesktopItem").change(function () {
+    $("#CaptionItem").val($("#ModeDesktopItem option:selected").text() + ' - گروه ' + $('#GroupDesktopItem').val() + ' - سال ' + $('#SalDesktopItem option:selected').text());
+});
+
+
+function SetSalData() {
+    var programSelect = ace;
+    var GroupSelect = $("#GroupDesktopItem").val();
+    $("#SalDesktopItem").empty();
+    //$("#SalDesktopItem").append('<option value="0">' + translate('انتخاب کنید') + '</option>');
+    if (programSelect != 0 && GroupSelect != 0 && GroupSelect != null) {
+        progName = ace == 'Web1' ? 'Afi1' : orgProgName;
+
+        var DatabseSalObject = {
+            ProgName: progName,
+            Group: GroupSelect,
+            UserCode: sessionStorage.userName
+        }
+
+        ajaxFunction(DatabseSalUrl, 'Post', DatabseSalObject).done(function (data) {
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#SalDesktopItem').append($('<option>', { value: data[i].Code, text: data[i].Name }));
+                }
+                $("#SalDesktopItem").val(data[i - 1].Code);
+            }
+        });
+    }
+}
+
+
+$("#SaveItem").click(function () {
+    var modeItem = $("#ModeDesktopItem").val();
+    var captionItem = $("#CaptionItem").val();
+    var groupDesktopItem = $("#GroupDesktopItem").val();
+    var salDesktopItem = $("#SalDesktopItem").val();
+
+    var lastItems = dashbordData.filter(o => o.id.contains(modeItem));
+    var index = lastItems.length + 1;
+    var idItem = modeItem + "-" + index;
+    var item = {};
+    if (modeItem == "TChk") {
+        item = {
+            "id": idItem,
+            "valueControl": {
+                "day": "10"
+            },
+            "position": {
+                "x": 0,
+                "y": 0,
+                "w": 4,
+                "h": 3
+            },
+            "caption": captionItem,
+            "visible": true,
+            "baseValue": {
+                "ace": ace,
+                "group": groupDesktopItem,
+                "sal": salDesktopItem
+            }
+        };
+    }
+    else if (modeItem == "TChk_Sum") {
+        item = {
+            "id": idItem,
+            "valueControl": {
+                "day": "10000000"
+            },
+            "position": {
+                "x": 0,
+                "y": 0,
+                "w": 4,
+                "h": 3
+            },
+            "caption": captionItem,
+            "visible": true,
+            "baseValue": {
+                "ace": ace,
+                "group": groupDesktopItem,
+                "sal": salDesktopItem
+            }
+        };
+    } else if (modeItem == "TrzFCust_S") {
+        item = {
+            "id": idItem,
+            "valueControl": {
+                "top": 10,
+                "fromDate": "1384/01/01",//localStorage.getItem("BeginDateFct"),
+                "modeItem": "S"
+            },
+            "position": {
+                "x": 0,
+                "y": 0,
+                "w": 4,
+                "h": 3
+            },
+            "caption": captionItem,
+            "visible": true,
+            "baseValue": {
+                "ace": ace,
+                "group": groupDesktopItem,
+                "sal": salDesktopItem
+            }
+        };
+    } else if (modeItem == "TrzFCust_P") {
+        item = {
+            "id": idItem,
+            "valueControl": {
+                "top": 10,
+                "fromDate": "1384/01/01",//localStorage.getItem("BeginDateFct"),
+                "modeItem": "P"
+            },
+            "position": {
+                "x": 0,
+                "y": 0,
+                "w": 4,
+                "h": 3
+            },
+            "caption": captionItem,
+            "visible": true,
+            "baseValue": {
+                "ace": ace,
+                "group": groupDesktopItem,
+                "sal": salDesktopItem
+            }
+        };
+    }
+    dashbordData.push(item);
+    AddIteminGrid(item);
+
+    var col = ' <tr id="Obj_' + item.id + '"> ' +
+        '    <td id="Text_' + item.id + '">' + item.caption + '</td> ' +
         '    <td style="padding: 0px 10px;text-align: left;"> ' +
-        '        <input class="CheckedItem" id = "Setting_' + property + '" type = "checkbox" ' + (item.visible == false ? "" : 'Checked="checked"')+ '/>' +
+        '        <input class="CheckedItem" id = "Setting_' + item.id + '" type = "checkbox" ' + (item.visible == false ? "" : 'Checked="checked"') + '/>' +
         '    </td > ' +
         '</tr> ';
 
     $('#TableDesktopItem').append(col);
-}
 
-$("#SaveItem").click(function () {
+    $('#modal-DesktopAddItem').modal('hide');
+});
+
+
+
+$("#SaveItems").click(function () {
     var obj = [];
     var items = $('.CheckedItem');
 
     for (i = 0; i < items.length; i++) {
         var item = $(items[i]);
         var idItem = items[i].id.substring(8);
-        dashbordData[idItem].visible = item.is(':checked') == true;
+        var itemData = dashbordData.find(c => c.id == idItem);
+        itemData.visible = item.is(':checked') == true;
         $("#" + idItem).css("visibility", item.is(':checked') == true ? "visible" : "hidden");
     }
 
     dashbordData_Save = JSON.stringify(dashbordData)
     localStorage.setItem("Karbord_DashbordData", dashbordData_Save);
     $('#modal-DesktopItem').modal('hide');
-
 
 });
 
@@ -487,6 +731,7 @@ var ViewModel = function () {
         head.appendChild(script);
         */
 
+    /*
     if (afiaccess[AP_TChk] && ShowMenu[AC_TChk]) {
 
         var TChkUri = server + '/api/ReportAcc/TChk/'; // آدرس گزارش 
@@ -1179,13 +1424,15 @@ var ViewModel = function () {
     }
 
 
-
+*/
 
 
 };
 
 
 ko.applyBindings(new ViewModel());
+
+
 function GetIconBank(Bank) {
     res = '';
 
@@ -1238,5 +1485,10 @@ function GetIconBank(Bank) {
     else if (Bank.includes("تجارت"))
         res = "tejarat"
     return "/Content/img/bank/" + res + ".png";
+}
+
+
+function GetIconCustomer(code) {
+    return '/Content/img/profile.png'
 }
 

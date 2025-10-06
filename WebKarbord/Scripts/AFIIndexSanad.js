@@ -1093,6 +1093,8 @@
             sessionStorage.Eghdam = item.Eghdam;
             sessionStorage.ModeCodeSanad = item.ModeCode;
 
+            sessionStorage.RelatedGroupActive = item.RelatedGroupActive;
+
             sessionStorage.F01 = item.F01;
             sessionStorage.F02 = item.F02;
             sessionStorage.F03 = item.F03;

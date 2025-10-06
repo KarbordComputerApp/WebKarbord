@@ -421,14 +421,15 @@ input.addEventListener("change", function () {
 
                                 localStorage.setItem('FirstInputWeb', "T");
                                 if (group != null) {
-                                    if (group != "NULL" && group.toString().toUpperCase() != "" &&
+                                    /*if (group != "NULL" && group.toString().toUpperCase() != "" &&
                                         sal.toString().toUpperCase() != "NULL" && sal.toString().toUpperCase() != ""
                                     ) {
                                         SaveParam(group, sal)
                                     }
                                     else {
                                         window.location.href = localStorage.getItem("urlSetting");
-                                    }
+                                    }*/
+                                    window.location.href = localStorage.getItem("urlSetting");
                                 }
                                 else
                                     window.location.href = localStorage.getItem("urlSetting");
@@ -670,7 +671,8 @@ input.addEventListener("change", function () {
     }
 
     //showMacAddress();
-    getIP();
+
+    //getIP();
     ///a = GetLocalIPAddr();
     //a = a;
 

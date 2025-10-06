@@ -30,6 +30,8 @@ var ViewModel = function () {
 
 
     useSanadOtherUser = localStorage.getItem("TestUse" + sessionStorage.ModeCode + sessionStorage.SerialNumber);
+   
+     
 
 
     var resTestNew = false;
@@ -202,15 +204,18 @@ var ViewModel = function () {
     var autoInvReg = 0;
     var autoAccReg = 0;
 
+
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
             textFactor = FDOC_SO_Text;
             ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSOAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCSO");
             break;
         case sessionStorage.MODECODE_FDOC_SP:
             textFactor = FDOC_SP_Text;
             amountAfterBarCode = sessionStorage.FDOCSPAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCSP");
             //ModeCodeExtraFields = 'FDOCSP';
             ModeCodeExtraFields = 'FSDOC';
             break;
@@ -218,6 +223,7 @@ var ViewModel = function () {
             textFactor = FDOC_S_Text;
             //ModeCodeExtraFields = 'FSDOC';
             amountAfterBarCode = sessionStorage.FDOCSAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCS");
             ModeCodeExtraFields = 'FSDOC';
             if (sessionStorage.InvRegKalaInv_SFCT == "2") {
                 invBand = false;
@@ -231,6 +237,7 @@ var ViewModel = function () {
         case sessionStorage.MODECODE_FDOC_SR:
             textFactor = FDOC_SR_Text;
             amountAfterBarCode = sessionStorage.FDOCSRAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCSR");
             ModeCodeExtraFields = 'FSDOC';
             if (sessionStorage.InvRegKalaInv_SRFCT == "2") {
                 invBand = false;
@@ -245,26 +252,31 @@ var ViewModel = function () {
         case sessionStorage.MODECODE_FDOC_SH:
             textFactor = FDOC_SH_Text;
             amountAfterBarCode = sessionStorage.FDOCSHAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCSH");
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_SE:
             textFactor = FDOC_SE_Text;
             amountAfterBarCode = sessionStorage.FDOCSEAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCSE");
             ModeCodeExtraFields = 'FSDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PO:
             textFactor = FDOC_PO_Text;
             amountAfterBarCode = sessionStorage.FDOCPOAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCPO");
             ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_PP:
             textFactor = FDOC_PP_Text;
             amountAfterBarCode = sessionStorage.FDOCPPAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCPP");
             ModeCodeExtraFields = 'FPDOC';
             break;
         case sessionStorage.MODECODE_FDOC_P:
             textFactor = FDOC_P_Text;
             amountAfterBarCode = sessionStorage.FDOCPAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCP");
             ModeCodeExtraFields = 'FPDOC';
             if (sessionStorage.InvRegKalaInv_PFCT == "2") {
                 invBand = false;
@@ -279,6 +291,7 @@ var ViewModel = function () {
             textFactor = FDOC_PR_Text;
             ModeCodeExtraFields = 'FPDOC';
             amountAfterBarCode = sessionStorage.FDOCPRAmountAfterBarCode;
+            relatedGroupDefault = localStorage.getItem("RelatedGroupDefault_FDOCPR");
             if (sessionStorage.InvRegKalaInv_PRFCT == "2") {
                 invBand = false;
             } else if (sessionStorage.InvRegKalaInv_PRFCT == "3") {
@@ -290,8 +303,14 @@ var ViewModel = function () {
             break;
     }
 
-    //autoAccReg = "1";
+    var RelatedGroup = localStorage.getItem("RelatedGroup_Fct");
+    $("#p_RelatedGroupActive").hide();
+    if (parseInt(RelatedGroup) > 0) {
+        $("#p_RelatedGroupActive").show();
+        $('#relatedGroupActive').prop('checked', relatedGroupDefault == "1" ? true : false);
+    }
 
+    //autoAccReg = "1";
 
     $('#TitleHeaderFactor').text(textFactor + " ");
     $('#TitleBodyFactor').text(textFactor + " ");
@@ -362,6 +381,7 @@ var ViewModel = function () {
 
     var FDocBSaveAllUri = server + '/api/AFI_FDocBi/SaveAllDocB/'; // آدرس ذخیره یند فاکتور 
     var FDocBConvertUri = server + '/api/AFI_FDocBi/Convert/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
+    var SaveFDocH_RelatedGroupUri = server + '/api/FDocData/SaveFDocH_RelatedGroup/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
@@ -952,6 +972,9 @@ var ViewModel = function () {
                 // FDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(FDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
                 // FDocHDiscount == 0 ? $('#foottextdiscount').text('') : $('#foottextdiscount').text(NumberToNumberString(Math.abs(FDocHDiscount)));
                 sumFactor = FDocHTotalPrice + FDocHDiscount;
+                 
+                $('#relatedGroupActive').prop('checked', dataFDocH.RelatedGroupActive);
+
                 $('#sumFactor').text(NumberToNumberString(parseFloat(sumFactor).toFixed(parseInt(sessionStorage.DeghatFct))));
                 $('#ghabelPardakht').text(NumberToNumberString(parseFloat(FDocHFinalPrice).toFixed(parseInt(sessionStorage.DeghatFct))))
             }
@@ -1036,7 +1059,11 @@ var ViewModel = function () {
 
     var showPrice;
 
+
+
+
     function CheckAccess() {
+
 
         if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SO) {
             showPrice = localStorage.getItem("Access_SHOWPRICE_SFORD") == 'true';// sessionStorage.Access_SHOWPRICE_SFORD == 'true'
@@ -1044,6 +1071,7 @@ var ViewModel = function () {
             accessTasvib = localStorage.getItem("Access_TASVIB_SFORD") == 'true';//sessionStorage.Access_TASVIB_SFORD == 'true'
             accessCancel = localStorage.getItem("Access_CANCEL_SFORD") == 'true';//sessionStorage.Access_CANCEL_SFORD == 'true'
 
+            var groupActive = localStorage.getItem("RelatedGroup_Fct");
             if (localStorage.getItem("AccessViewSefareshForosh") == 'true') {
                 viewAction = true;
             }
@@ -2526,11 +2554,12 @@ var ViewModel = function () {
 
 
 
-
+    var relatedActive = 0;
 
     function CalcAddmin() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
+        $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
         var inv = "";
 
         if (invBand == false) {
@@ -2604,6 +2633,7 @@ var ViewModel = function () {
             VstrCode: codeVstr,
             flagTest: 'Y',
             TotalValue: ghabelPardakht,
+            RelatedGroupActive: relatedActive
         };
 
 
@@ -2883,7 +2913,13 @@ var ViewModel = function () {
                 CheckAccess();
                 sessionStorage.AccSerialNumber = 0;
                 sessionStorage.InvReg = InvRegNotSave;
+
+                if (parseInt(RelatedGroup) > 0) {
+                    $('#relatedGroupActive').prop('checked', relatedGroupDefault == "1" ? true : false);
+                }
+
                 isUpdateFactor = true;
+
             }
         })
     }
@@ -2938,7 +2974,7 @@ var ViewModel = function () {
     function ControlSave() {
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
-
+        $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
         var inv = "";
         if (invBand == false) {
             inv = $("#inv").val();
@@ -3209,6 +3245,7 @@ var ViewModel = function () {
             VstrCode: codeVstr,
             flagTest: 'Y',
             TotalValue: ghabelPardakht,
+            RelatedGroupActive: relatedActive
         };
 
         var a = JSON.stringify(FDocHObject);
@@ -3437,6 +3474,8 @@ var ViewModel = function () {
         if (isUpdateFactor) {
             tarikh = $("#tarikh").val().toEnglishDigit();
             status = $("#status").val();
+            $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
+
             var inv = "";
 
             if (invBand == false) {
@@ -3524,6 +3563,7 @@ var ViewModel = function () {
                     F20: $("#ExtraFields20").val() == null ? '' : $("#ExtraFields20").val() == "" ? sessionStorage.F20 : $("#ExtraFields20").val(),
                     flagTest: 'N',
                     TotalValue: ghabelPardakht,
+                    RelatedGroupActive: relatedActive
                 };
 
 
@@ -3674,6 +3714,21 @@ var ViewModel = function () {
                     return showNotification(translate(mes), 0);
 
                 SaveFDocHU(true);
+
+                if (relatedActive == 1) {
+                    var relatedGroupObject = {
+                        SerialNumber: Serial,
+                        TahieShode: TahieShode_Fct5,
+                    };
+
+                    ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (response) {
+                        showNotification(translate('سند گروه وابسته ذخیره شد'), 1);
+                    });
+                }
+
+
+                
+
                 showNotification(translate('سند ذخیره شد'), 1);
 
                 /*if (autoInvReg == "1") {
@@ -3714,9 +3769,9 @@ var ViewModel = function () {
 
 
     function SaveFDocHU(isLast) {
-
         tarikh = $("#tarikh").val().toEnglishDigit();
         status = $("#status").val();
+        $('#relatedGroupActive').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
         var inv = "";
 
         if (invBand == false) {
@@ -3797,7 +3852,8 @@ var ViewModel = function () {
             VstrCode: codeVstr,
             New: 'Y',
             TotalValue: ghabelPardakht,
-            SaveInv: (invBand == true ? 0 : 1)
+            SaveInv: (invBand == true ? 0 : 1),
+            RelatedGroupActive: relatedActive,
         };
 
         ajaxFunction(FDocHUri + ace + '/' + sal + '/' + group, 'PUT', FDocHObject).done(function (response) {
