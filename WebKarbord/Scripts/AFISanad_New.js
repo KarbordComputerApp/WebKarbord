@@ -88,6 +88,7 @@ var ViewModel = function () {
 
 
     var Serial = 0;
+    var serialRelated = 0;
     var saveButton = null;
     var flagSaveLogWin = false;
 
@@ -3958,7 +3959,8 @@ var ViewModel = function () {
                     TahieShode: TahieShode_Acc5,
                 };
 
-                ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (response) {
+                ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                    serialRelated = res;
                     showNotification(translate('سند گروه وابسته ذخیره شد'), 1);
                 });
             }

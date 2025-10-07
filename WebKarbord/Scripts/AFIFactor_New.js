@@ -30,8 +30,8 @@ var ViewModel = function () {
 
 
     useSanadOtherUser = localStorage.getItem("TestUse" + sessionStorage.ModeCode + sessionStorage.SerialNumber);
-   
-     
+
+
 
 
     var resTestNew = false;
@@ -136,6 +136,7 @@ var ViewModel = function () {
 
     self.SerialNumber = ko.observable();
     var Serial = '';
+    var serialRelated = 0;
 
     var KalaList;
     var InvList;
@@ -204,6 +205,7 @@ var ViewModel = function () {
     var autoInvReg = 0;
     var autoAccReg = 0;
 
+    var samaneValue = localStorage.getItem("SamaneValue"); // 1 avtive    0 disable
 
     switch (sessionStorage.ModeCode.toString()) {
         case sessionStorage.MODECODE_FDOC_SO:
@@ -382,6 +384,7 @@ var ViewModel = function () {
     var FDocBSaveAllUri = server + '/api/AFI_FDocBi/SaveAllDocB/'; // آدرس ذخیره یند فاکتور 
     var FDocBConvertUri = server + '/api/AFI_FDocBi/Convert/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
     var SaveFDocH_RelatedGroupUri = server + '/api/FDocData/SaveFDocH_RelatedGroup/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
+    var SamaneMakeDocUri = server + '/api/FDocData/SamaneMakeDoc/'; // آدرس ذخیره سامانه 
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
@@ -972,7 +975,7 @@ var ViewModel = function () {
                 // FDocHTotalPrice == 0 ? $('#foottexttotalprice').text('') : $('#foottexttotalprice').text(NumberToNumberString(parseFloat(FDocHTotalPrice).toFixed(parseInt(sessionStorage.Deghat))));
                 // FDocHDiscount == 0 ? $('#foottextdiscount').text('') : $('#foottextdiscount').text(NumberToNumberString(Math.abs(FDocHDiscount)));
                 sumFactor = FDocHTotalPrice + FDocHDiscount;
-                 
+
                 $('#relatedGroupActive').prop('checked', dataFDocH.RelatedGroupActive);
 
                 $('#sumFactor').text(NumberToNumberString(parseFloat(sumFactor).toFixed(parseInt(sessionStorage.DeghatFct))));
@@ -1397,7 +1400,7 @@ var ViewModel = function () {
 
 
         getFDocH(Serial);
-        getFDocB(Serial);       
+        getFDocB(Serial);
 
         getAddMinList(
             sessionStorage.sels,
@@ -2518,7 +2521,7 @@ var ViewModel = function () {
             onEditorPreparing: function (e) {
 
 
-                if (e.row.data.Auto > 0 ) {
+                if (e.row.data.Auto > 0) {
                     e.editorOptions.disabled = true;
                     // e.editorOptions.readOnly = true;
                 }
@@ -3715,19 +3718,28 @@ var ViewModel = function () {
 
                 SaveFDocHU(true);
 
+                if (samaneValue == 1) {
+                    SaveSamaneMakeDoc(Serial, '');
+                    showNotification(translate('سامانه ذخیره شد'), 1);
+                }
+
+
                 if (relatedActive == 1) {
                     var relatedGroupObject = {
                         SerialNumber: Serial,
                         TahieShode: TahieShode_Fct5,
                     };
 
-                    ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (response) {
+                    ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                        serialRelated = res;
+                        SaveSamaneMakeDoc(serialRelated, RelatedGroup);
                         showNotification(translate('سند گروه وابسته ذخیره شد'), 1);
                     });
+
                 }
 
 
-                
+
 
                 showNotification(translate('سند ذخیره شد'), 1);
 
@@ -3757,7 +3769,7 @@ var ViewModel = function () {
                     }
                 }*/
 
-                
+
 
             });
         } else {
@@ -3766,6 +3778,17 @@ var ViewModel = function () {
 
     }
 
+    function SaveSamaneMakeDoc(serialnumber, relatedGroup) {
+
+        var SamaneMakeDocObject = {
+            SerialNumber: serialnumber,
+            RelatedGroup: relatedGroup,
+        };
+
+        ajaxFunction(SamaneMakeDocUri + ace + '/' + sal + '/' + group, 'POST', SamaneMakeDocObject, false).done(function (res) {
+            showNotification(translate('سامانه گروه وابسته ذخیره شد'), 1);
+        });
+    }
 
 
     function SaveFDocHU(isLast) {
