@@ -3738,39 +3738,7 @@ var ViewModel = function () {
 
                 }
 
-
-
-
                 showNotification(translate('سند ذخیره شد'), 1);
-
-                /*if (autoInvReg == "1") {
-                    var d = FDocB.filter(c => c.InvCode == "" || c.InvCode == "0" || c.InvCode == null);
-                    if (d.length == 0) {
-
-                        var dataInv = CreateFctToInv_Link(Serial, false);
-                        if (dataInv[0].Test == 255) { // success
-                            sessionStorage.InvReg = InvRegSave;
-                            showNotification(dataInv.length + " سند ایجاد شد", 1)
-                            isUpdateFactor = false;
-                        }
-                    }
-                    else {
-                      return  showNotification("در " + d.length + " بند انبار انتخاب نشده است و امکان ثبت اسناد وجود ندارد", 0)
-                    }
-                }
-
-                if (autoAccReg == "1") {
-                    var dataAcc = CreateFctToAcc_Link(Serial, false);
-                    if (dataAcc[0].Test == 255) { // success
-                        serialAccLink = dataAcc[0].AccCode;
-                        sessionStorage.AccSerialNumber = serialAccLink;
-                        showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1);
-                        isUpdateFactor = false;
-                    }
-                }*/
-
-
-
             });
         } else {
             showNotification("به دلیل وجود اسناد لینک امکان ذخیره مجدد وجود ندارد", 0);

@@ -3082,21 +3082,6 @@ var ViewModel = function () {
                 $('#modeCode').prop('disabled', true);
                 showNotification(translate('سند ذخیره شد'), 1);
 
-
-                /*if (autoFctReg == "1") {
-    
-                }
-    
-                if (autoAccReg == "1" && sessionStorage.InOut == 2) {
-                    var dataAcc = CreateInvToAcc_Link(Serial, false);
-                    if (dataAcc[0].Test == 255) { // success
-                        serialAccLink = dataAcc[0].AccCode;
-                        sessionStorage.AccSerialNumber = serialAccLink;
-                        showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1);
-                        isUpdateFactor = false;
-                    }
-                }*/
-
             });
         } else {
             showNotification("به دلیل وجود اسناد لینک امکان ذخیره مجدد وجود ندارد", 0);

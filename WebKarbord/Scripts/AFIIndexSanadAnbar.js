@@ -115,6 +115,12 @@
             validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
             validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
 
+
+            validation = CheckAccess('FCTREG_INDOC', 'Inv5');// AccessLinkFCT
+            validation == true ? sessionStorage.Access_FCTLink = true : sessionStorage.Access_FCTLink = false
+            validation == true ? localStorage.setItem("Access_FCTLink", "true") : localStorage.setItem("Access_FCTLink", "false")
+
+
             //validation = CheckAccess('OTHERUSER_VIEW_IIDOC');// AccessSanad
             //validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
             //validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
@@ -177,6 +183,10 @@
             validation = CheckAccess('ACCREG_OUTDOC', 'Inv5');// AccessLinkAcc
             validation == true ? sessionStorage.Access_ACCLink = true : sessionStorage.Access_ACCLink = false
             validation == true ? localStorage.setItem("Access_ACCLink", "true") : localStorage.setItem("Access_ACCLink", "false")
+
+            validation = CheckAccess('FCTREG_OUTDOC', 'Inv5');// AccessLinkFCT
+            validation == true ? sessionStorage.FCTREG_OUTDOC = true : sessionStorage.Access_FCTLink = false
+            validation == true ? localStorage.setItem("Access_FCTLink", "true") : localStorage.setItem("Access_FCTLink", "false")
 
 
             //validation = CheckAccess('OTHERUSER_VIEW_IODOC');// AccessSanad
@@ -1978,6 +1988,18 @@
             return true;
     }
 
+
+    self.ViewLinkFct = function (status) {
+        if (status == 'باطل')
+            return false;
+        else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('FCT5') == false)
+            return false;
+        else if (sessionStorage.Access_FCTLink == "false")
+            return false;
+        else
+            return true;
+    }
+
     $("#searchIDocH").on("keydown", function search(e) {
         if (allSearchIDocH == false) {
             if (e.shiftKey) {
@@ -2408,6 +2430,13 @@
             '        </a>' +
             '    </li>';
 
+        dataTable +=
+            '    <li data-bind="visible: $root.ViewLinkFct(Status)">' +
+            '        <a id="LinkFct" data-bind="click: $root.LinkFct" style="font-size: 11px;text-align: right;">' +
+            '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+            translate('ثبت خرید و فروش') +
+            '        </a>' +
+            '    </li>';
 
         if (sessionStorage.AccessPrint_SanadAnbar == "true") {
 
@@ -2861,20 +2890,29 @@
 
     $("#CreateLinkAcc").click(function () {
         if (isDoubleClicked($(this))) return;
-        
+
         if (serialAcc == 0) {
             $(this).attr('disabled', 'disabled');
-            var data = CreateInvToAcc_Link(serial, false);
-            if (data[0].Test == 255) { // success
-                var d = data[0].AccCode.split('!!');
-                serialAccLink = d[0];
-                var d_docNo = d[1];
+            var LinkIDocADocObject = {
+                SerialNumber: serial,
+                TahieShode: TahieShode_Inv5
+            };
+            ajaxFunction(LinkIDocADocUri + ace + '/' + sal + '/' + group, 'POST', LinkIDocADocObject, false).done(function (data) {
+                if (data[0].Test != 255) {
+                    CreateBodyMess(data);
+                }
+                else {
+                    var d = data[0].AccCode.split('!!');
+                    serialAccLink = d[0];
+                    var d_docNo = d[1];
 
-                SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
+                    SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
 
-                showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
-                getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
-            }
+                    showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
+                    getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
+                }
+            });
+
             $(this).removeAttr('disabled', 'disabled');
             $('#modal-LinkAcc').modal('hide');
         }
@@ -2889,7 +2927,72 @@
                 $('#modal-LinkAcc').modal('hide');
             }
         }
-       
+
+    });
+
+
+    self.LinkFct = function (item) {
+        serial = item.SerialNumber;
+        serialFct = item.FctSerialNumber == null ? 0 : item.FctSerialNumber;
+        docNoFct = item.FctDocNo == null ? 0 : item.FctDocNo;
+        $("#CreateLinkFct").text('ثبت فاکتور');
+        if (serialFct > 0) {
+            $("#CreateLinkFct").text('مشاهده');
+        }
+        $('#modal-LinkFct').modal('show');
+    }
+
+
+    $('#modal-LinkFct').on('hide.bs.modal', function () {
+        serial = 0;
+        serialFct = 0;
+        docNoFct = 0;
+    });
+
+
+    $("#CreateLinkFct").click(function () {
+        if (isDoubleClicked($(this))) return;
+
+        if (serialFct == 0) {
+            $(this).attr('disabled', 'disabled');
+
+            var LinkIDocFDocObject = {
+                SerialNumber: serial,
+                TahieShode: TahieShode_Inv5
+            };
+            ajaxFunction(LinkIDocFDocUri + ace + '/' + sal + '/' + group, 'POST', LinkIDocFDocObject, false).done(function (data) {
+                if (data[0].Test != 255) {
+                    CreateBodyMess(data);
+                }
+                else {
+                    var d = data[0].KalaCode.split('!!');
+                    serialFctLink = d[0];
+                    var d_docNo = d[1];
+
+                    SaveLog('Fct5', EditMode_Link, LogMode_FDoc, 0, d_docNo, serialFctLink);
+
+                    showNotification("فاکتور به شماره مبنای " + serialFctLink + " ایجاد شد", 1)
+                    getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
+                }
+            });
+
+            $(this).removeAttr('disabled', 'disabled');
+            $('#modal-LinkFct').modal('hide');
+        }
+        else {
+            serialNumber = Band.SerialNumber;
+            if (TestUseSanad(ace, sal, "Factor", serialFct, false, docNoFct)) {
+            }
+            else {
+                lastModeCode = sessionStorage.ModeCode;
+                localStorage.setItem("DocNoAFIFactor", Band.DocNo);
+                localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
+                window.open(sessionStorage.urlAFIFactorIndex, '_blank');
+                sessionStorage.ModeCode = lastModeCode;
+                $('#modal-LinkFct').modal('hide');
+            }
+        }
+
     });
 
 
