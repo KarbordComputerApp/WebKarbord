@@ -57,7 +57,12 @@ var MessageUri;
 var DateUri;
 var DictionaryUri;
 var V_Del_ADocUri;
-var LogXUri
+var LogXUri;
+var SaveADocH_RelatedGroupUri;
+var SaveFDocH_RelatedGroupUri;
+var SamaneMakeDocUri;
+
+
 
 function SetUrlAccount(serverAccount) {
     AccountUri = serverAccount + 'Account/'; // آدرس حساب
@@ -99,6 +104,9 @@ function SetUrl(server) {
     DictionaryUri = server + '/api/Web_Data/Web_Dictionary/'; // آدرس  دیکشنری
     V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
     LogXUri = server + '/api/Web_Data/LogX/'; //  آدرس لاگ 
+    SaveADocH_RelatedGroupUri = server + '/api/ADocData/SaveADocH_RelatedGroup/'; // آدرس ذخیره سند در گروه وابسته 
+    SaveFDocH_RelatedGroupUri = server + '/api/FDocData/SaveFDocH_RelatedGroup/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
+    SamaneMakeDocUri = server + '/api/FDocData/SamaneMakeDoc/'; // آدرس ذخیره سامانه 
 }
 SetUrl(server);
 
@@ -665,6 +673,7 @@ var mes_Refresh = translate('تایید به روز رسانی');
 var mes_Delete = translate('تایید حذف');
 var text_Yes = translate('بله');
 var text_No = translate('خیر');
+var mes_SaveRelatedGroup = translate('تایید ذخیره در گروه وابسته');
 
 
 
@@ -5849,4 +5858,14 @@ function isDoubleClicked(element) {
 
     //return FALSE to indicate this click was allowed
     return false;
+}
+
+
+function SaveSamaneMakeDoc(serialnumber, relatedGroup) {
+    var SamaneMakeDocObject = {
+        SerialNumber: serialnumber,
+        RelatedGroup: relatedGroup,
+    };
+    ajaxFunction(SamaneMakeDocUri + ace + '/' + sal + '/' + group, 'POST', SamaneMakeDocObject, false).done(function (res) {
+    });
 }

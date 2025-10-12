@@ -155,7 +155,6 @@ var ViewModel = function () {
     var ADocBiUri = server + '/api/AFI_ADocBi/'; // آدرس ذخیره یند سند 
     var ADocBSaveAllUri = server + '/api/AFI_ADocBi/SaveAllDocB/'; // آدرس ذخیره یند سند 
     var ADocBConvertUri = server + '/api/AFI_ADocBi/Convert/'; // آدرس ذخیره یند سند در جدول اصلی 
-    var SaveADocH_RelatedGroupUri = server + '/api/ADocData/SaveADocH_RelatedGroup/'; // آدرس ذخیره سند در گروه وابسته 
 
 
     var TestADocUri = server + '/api/ADocData/TestADoc/'; // آدرس تست سند 
@@ -3961,7 +3960,7 @@ var ViewModel = function () {
 
                 ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
                     serialRelated = res;
-                    showNotification(translate('سند گروه وابسته ذخیره شد'), 1);
+                    showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated + ' ذخیره شد'), 1);
                 });
             }
         });

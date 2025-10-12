@@ -2970,6 +2970,7 @@
                     var d_docNo = d[1];
 
                     SaveLog('Fct5', EditMode_Link, LogMode_FDoc, 0, d_docNo, serialFctLink);
+                    SaveSamaneMakeDoc(serialFctLink, '');
 
                     showNotification("فاکتور به شماره مبنای " + serialFctLink + " ایجاد شد", 1)
                     getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);

@@ -23,7 +23,7 @@
     if (salAcc != '' && salAcc != null)
         sal = salAcc;
 
-
+    var RelatedGroup = localStorage.getItem("RelatedGroup_Acc");
 
     localStorage.setItem("SalAcc", sal);
 
@@ -51,63 +51,63 @@
     getParamAcc();
 
     //if (sessionStorage.ModeCode == null || ShowNewTab != "ShowNewTab") {
-        sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
-        //if (sessionStorage.ModeCode.toUpperCase() != "ADOC") sessionStorage.ModeCode = localStorage.getItem("ModeCode");
-        //sessionStorage.ModeCode = "ADOC";
-        //sessionStorage.ModeCode = localStorage.getItem("ModeCode");
-        //if (sessionStorage.ModeCode == 'ADOC') {
-            validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
-            //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
-            validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
+    sessionStorage.lastPageSelect = localStorage.getItem("lastPageSelect");
+    //if (sessionStorage.ModeCode.toUpperCase() != "ADOC") sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+    //sessionStorage.ModeCode = "ADOC";
+    //sessionStorage.ModeCode = localStorage.getItem("ModeCode");
+    //if (sessionStorage.ModeCode == 'ADOC') {
+    validation = CheckAccess('NEW_ADOC', 'Acc5');// new Sanad Hesab
+    //validation == true ? $("#AddNewSanad").show() : $("#AddNewSanad").hide();
+    validation == true ? sessionStorage.NEW_ADOC = true : sessionStorage.NEW_ADOC = false;//localStorage.setItem("NEW_ADOC", "true") : localStorage.setItem("NEW_ADOC", "false");
 
-            localStorage.setItem("moveSanad", validation);
-            sessionStorage.moveSanad = validation;
+    localStorage.setItem("moveSanad", validation);
+    sessionStorage.moveSanad = validation;
 
-            validation = CheckAccess('CHG_ADOC', 'Acc5');// edit Sanad Hesab
-            validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
-            validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
-            validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
+    validation = CheckAccess('CHG_ADOC', 'Acc5');// edit Sanad Hesab
+    validation == true ? localStorage.setItem("CHG", "true") : localStorage.setItem("CHG", "false")
+    validation == true ? sessionStorage.CHG = true : sessionStorage.CHG = false
+    validation == true ? $("#UpdateSanad").show() : $("#UpdateSanad").hide()
 
-            validation = CheckAccess('DEL_ADOC', 'Acc5'); // delete Sanad Hesab
-            //validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
+    validation = CheckAccess('DEL_ADOC', 'Acc5'); // delete Sanad Hesab
+    //validation == true ? $("#DeleteSanad").show() : $("#DeleteSanad").hide()
 
-            validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
-            validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
-
-
-            //validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
-            //validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
-
-            validation = CheckAccess('TAEED_ADOC', 'Acc5');// AccessTaeed
-            validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
-            validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
-
-            validation = CheckAccess('DAEM_ADOC', 'Acc5');// AccessDaem
-            validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
-            validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
-
-            // validation = CheckAccess('OTHERUSER_VIEW_ADOC');
-            // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
-            //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
-            sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_ADOC");
-
-            validation = CheckAccess('PRN_ADOC', 'Acc5'); // Print Sanad Hesab
-            validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
-            validation == true ? localStorage.setItem("AccessPrint_SanadHesab", "true") : localStorage.setItem("AccessPrint_SanadHesab", "false")
+    validation == true ? sessionStorage.DEL_ADOC = true : sessionStorage.DEL_ADOC = false
+    validation == true ? localStorage.setItem("DEL_ADOC", "true") : localStorage.setItem("DEL_ADOC", "false")
 
 
-            validation = CheckAccess('OTHERUSER_CHG_ADOC', 'Acc5');// AccessViewADoc
-            if (validation == true) {
-                sessionStorage.AccessViewSanad = true;
-                localStorage.setItem("AccessViewSanad", "true");
-            }
-            else {
-                sessionStorage.AccessViewSanad = false;
-                localStorage.setItem("AccessViewSanad", "false");
-            }
-       // }
+    //validation = CheckAccess('VIEW_ADOC'); // VIEW Sanad Hesab
+    //validation == true ? localStorage.setItem("VIEW_ADOC", "true") : localStorage.setItem("VIEW_ADOC", "false")
 
-   // }
+    validation = CheckAccess('TAEED_ADOC', 'Acc5');// AccessTaeed
+    validation == true ? sessionStorage.Access_TAEED_ADOC = true : sessionStorage.Access_TAEED_ADOC = false
+    validation == true ? localStorage.setItem("Access_TAEED_ADOC", "true") : localStorage.setItem("Access_TAEED_ADOC", "false")
+
+    validation = CheckAccess('DAEM_ADOC', 'Acc5');// AccessDaem
+    validation == true ? sessionStorage.Access_DAEM_ADOC = true : sessionStorage.Access_DAEM_ADOC = false
+    validation == true ? localStorage.setItem("Access_DAEM_ADOC", "true") : localStorage.setItem("Access_DAEM_ADOC", "false")
+
+    // validation = CheckAccess('OTHERUSER_VIEW_ADOC');
+    // validation == true ? sessionStorage.AccessSanad = true : sessionStorage.AccessSanad = false
+    //  validation == true ? localStorage.setItem("AccessSanad", "true") : localStorage.setItem("AccessSanad", "false")
+    sessionStorage.AccessSanad = localStorage.getItem("AccessSanad_ADOC");
+
+    validation = CheckAccess('PRN_ADOC', 'Acc5'); // Print Sanad Hesab
+    validation == true ? sessionStorage.AccessPrint_SanadHesab = true : sessionStorage.AccessPrint_SanadHesab = false
+    validation == true ? localStorage.setItem("AccessPrint_SanadHesab", "true") : localStorage.setItem("AccessPrint_SanadHesab", "false")
+
+
+    validation = CheckAccess('OTHERUSER_CHG_ADOC', 'Acc5');// AccessViewADoc
+    if (validation == true) {
+        sessionStorage.AccessViewSanad = true;
+        localStorage.setItem("AccessViewSanad", "true");
+    }
+    else {
+        sessionStorage.AccessViewSanad = false;
+        localStorage.setItem("AccessViewSanad", "false");
+    }
+    // }
+
+    // }
 
     self.StatusSanad = ko.observable();
 
@@ -1305,6 +1305,33 @@
     });
 
 
+    self.SaveRelatedGroup = function (SanadBand) {
+        Swal.fire({
+            title: mes_SaveRelatedGroup,
+            text: translate("آیا سند انتخابی در گروه وابسته ذخیره شود"),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                var relatedGroupObject = {
+                    SerialNumber: SanadBand.SerialNumber,
+                    TahieShode: TahieShode_Acc5,
+                };
+
+                ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                    serialRelated = res;
+                    showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated +' ذخیره شد'), 1);
+                });
+            }
+        })
+    };
+
+
+
     self.PageCountView = function () {
         select = $('#pageCountSelector').val();
         getADocH(select, true);
@@ -1319,6 +1346,7 @@
         calc = (countShow * page) + 1;
         return index + calc;
     }
+
 
     function CreateTableReport(data) {
         $("#TableList").empty();
@@ -1402,6 +1430,13 @@
         else
             dataTable += 'dropdown-menu'
 
+
+
+
+
+
+
+
         dataTable += '">' +
             '    <li>' +
             '        <a id="MoveSanad" data-bind="click: $root.MoveSanad  , visible: $root.ShowMove(Eghdam)" style="font-size: 11px;text-align: right;">' +
@@ -1416,6 +1451,16 @@
             translate('تغییر وضعیت') +
             '        </a>' +
             '    </li>';
+
+        if (parseInt(RelatedGroup) > 0) {
+            dataTable +=
+                '    <li>' +
+                '        <a id="SaveRelatedGroup" data-bind="click: $root.SaveRelatedGroup" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+                translate('ذخیره در گروه وابسته') +
+                '        </a>' +
+                '    </li>';
+        }
 
         if (localStorage.getItem("AccessPrint_SanadHesab") == "true") {
             dataTable +=

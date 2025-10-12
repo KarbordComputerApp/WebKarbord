@@ -19,6 +19,7 @@ var ViewModel = function () {
 
 
     localStorage.setItem("SalFct", sal);
+    var RelatedGroup = localStorage.getItem("RelatedGroup_Fct");
 
     for (var i = 0; i < salMaliList.length; i++) {
         $("#DropSalFct").append('<option  value="'
@@ -2713,13 +2714,13 @@ var ViewModel = function () {
     }
 
     var progAccess = localStorage.getItem('ProgAccess').toUpperCase();
-    
+
 
     self.ViewLinkAcc = function (status) {
         if (status == 'باطل')
             return false;
         //else if (ace.toUpperCase() == 'WEB1')  return false;
-        else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('ACC5') == false )
+        else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('ACC5') == false)
             return false;
         else if (sessionStorage.Access_ACCLink == "false")
             return false;
@@ -2730,7 +2731,7 @@ var ViewModel = function () {
     self.ViewLinkInv = function (status) {
         if (status == 'باطل')
             return false;
-       // else if (ace.toUpperCase() == 'WEB1') return false;
+        // else if (ace.toUpperCase() == 'WEB1') return false;
         else if (ace.toUpperCase() == 'WEB8' && progAccess.includes('INV5') == false)
             return false;
         else if (sessionStorage.Access_INVLink == "false")
@@ -3562,8 +3563,34 @@ var ViewModel = function () {
 
 
 
+    self.SaveRelatedGroup = function (SanadBand) {
+        Swal.fire({
+            title: mes_SaveRelatedGroup,
+            text: translate("آیا " + TitleListFactor +" انتخابی در گروه وابسته ذخیره شود"),
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: text_No,
+            confirmButtonColor: '#d33',
+            confirmButtonText: text_Yes
+        }).then((result) => {
+            if (result.value) {
+                serial =  SanadBand.SerialNumber;
+                var relatedGroupObject = {
+                    SerialNumber: serial,
+                    TahieShode: TahieShode_Fct5,
+                };
 
-
+                ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                    serialRelated = res;
+                    if (serialRelated > 0) {
+                        SaveSamaneMakeDoc(serial, RelatedGroup);
+                    }
+                    showNotification(translate(TitleListFactor + ' گروه وابسته با شماره مبنای' + serialRelated + ' ذخیره شد'), 1);
+                });
+            }
+        })
+    };
 
 
 
@@ -3732,8 +3759,17 @@ var ViewModel = function () {
             '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
             translate('تغییر وضعیت') +
             '        </a>' +
-            '    </li>'
+            '    </li>';
 
+        if (parseInt(RelatedGroup) > 0) {
+            dataTable +=
+                '    <li>' +
+                '        <a id="SaveRelatedGroup" data-bind="click: $root.SaveRelatedGroup" style="font-size: 11px;text-align: right;">' +
+                '            <img src="/Content/img/sanad/synchronize-arrows-square-warning.png" width="16" height="16" style="margin-left:10px">' +
+                translate('ذخیره در گروه وابسته') +
+                '        </a>' +
+                '    </li>';
+        }
 
         if (isLinkAcc == true)
             dataTable += '    <li data-bind="visible: $root.ViewLinkAcc(Status)">' +
@@ -4339,21 +4375,21 @@ var ViewModel = function () {
         $("#P_IDoc_linkto_FDoc").hide();
         if (invReg == "ثبت شده") {
             $("#CreateLinkInv").hide();
-                var IDoc_linkto_FDocObject = {
-                    SerialNumber: serial
-                };
-                ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
-                    self.IDoc_linkto_FDocList(data);
-                    if (data.length > 1) {
-                        $("#CreateLinkInv").hide();
-                        $("#P_IDoc_linkto_FDoc").show();
-                    } else {
-                        $("#CreateLinkInv").text("مشاهده");
-                        $("#CreateLinkInv").show();
-                    }
-                });
+            var IDoc_linkto_FDocObject = {
+                SerialNumber: serial
+            };
+            ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
+                self.IDoc_linkto_FDocList(data);
+                if (data.length > 1) {
+                    $("#CreateLinkInv").hide();
+                    $("#P_IDoc_linkto_FDoc").show();
+                } else {
+                    $("#CreateLinkInv").text("مشاهده");
+                    $("#CreateLinkInv").show();
+                }
+            });
 
-           
+
         }
         $('#modal-LinkInv').modal('show');
     }
@@ -4426,7 +4462,7 @@ var ViewModel = function () {
                     }
                     showNotification(mes, 0)
                 }
-                
+
             });
             $(this).removeAttr('disabled', 'disabled');
         }

@@ -383,8 +383,7 @@ var ViewModel = function () {
 
     var FDocBSaveAllUri = server + '/api/AFI_FDocBi/SaveAllDocB/'; // آدرس ذخیره یند فاکتور 
     var FDocBConvertUri = server + '/api/AFI_FDocBi/Convert/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
-    var SaveFDocH_RelatedGroupUri = server + '/api/FDocData/SaveFDocH_RelatedGroup/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
-    var SamaneMakeDocUri = server + '/api/FDocData/SamaneMakeDoc/'; // آدرس ذخیره سامانه 
+
 
     var UnitNameUri = server + '/api/Web_Data/Web_UnitName/'; // آدرس عنوان واحد ها 
     var FChangeStatusUri = server + '/api/FDocData/ChangeStatus/'; // آدرس تغییر وضعیت اسناد 
@@ -3732,8 +3731,10 @@ var ViewModel = function () {
 
                     ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
                         serialRelated = res;
-                        SaveSamaneMakeDoc(serialRelated, RelatedGroup);
-                        showNotification(translate('سند گروه وابسته ذخیره شد'), 1);
+                        if (serialRelated > 0) {
+                            SaveSamaneMakeDoc(serialRelated, RelatedGroup);
+                        }
+                        showNotification(translate(TitleListFactor + ' گروه وابسته با شماره مبنای' + serialRelated + ' ذخیره شد'), 1);
                     });
 
                 }
@@ -3745,19 +3746,6 @@ var ViewModel = function () {
         }
 
     }
-
-    function SaveSamaneMakeDoc(serialnumber, relatedGroup) {
-
-        var SamaneMakeDocObject = {
-            SerialNumber: serialnumber,
-            RelatedGroup: relatedGroup,
-        };
-
-        ajaxFunction(SamaneMakeDocUri + ace + '/' + sal + '/' + group, 'POST', SamaneMakeDocObject, false).done(function (res) {
-            showNotification(translate('سامانه گروه وابسته ذخیره شد'), 1);
-        });
-    }
-
 
     function SaveFDocHU(isLast) {
         tarikh = $("#tarikh").val().toEnglishDigit();

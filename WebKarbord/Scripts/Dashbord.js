@@ -166,7 +166,6 @@ mode_TrzFKala_S = mode_TrzFKala_S == null ? 0 : mode_TrzFKala_S;
 
 
 var dashbordData = [];
-//localStorage.removeItem("Karbord_DashbordData");
 var dashbordData_Save = localStorage.getItem("Karbord_DashbordData");
 
 /*
@@ -180,8 +179,15 @@ dashbordData_Save = `[{"id":"TChk-1","valueControl":{"day":"5000500"},"position"
 */
 
 
+//dashbordData_Save = `[{"id":"TChk_Sum-1","valueControl":{"day":"10000000"},"position":{"x":0,"y":12,"w":4,"h":3},"caption":"صورت خلاصه چک های پرداختی - گروه 97 - سال 1384","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},{"id":"TChk_Sum-2","valueControl":{"day":"10000000"},"position":{"x":4,"y":3,"w":4,"h":3},"caption":"صورت خلاصه چک های پرداختی - گروه 97 - سال 1403","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1403"}},{"id":"TrzFCust_S-1","valueControl":{"top":10,"fromDate":"1384/01/01","modeItem":"S"},"position":{"x":8,"y":0,"w":4,"h":3},"caption":"مانده حساب خریداران - گروه 97 - سال 1403","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1403"}},{"id":"TrzFCust_P-1","valueControl":{"top":10,"fromDate":"1384/01/01","modeItem":"P"},"position":{"x":0,"y":3,"w":4,"h":3},"caption":"مانده حساب فروشندگان - گروه 97 - سال 1403","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1403"}},{"id":"TChk-3","valueControl":{"day":"1000000"},"position":{"x":0,"y":0,"w":4,"h":3},"caption":"چک های پرداختی - گروه 97 - سال 1403","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1403"}},{"id":"TChk-4","valueControl":{"day":"10000000"},"position":{"x":8,"y":3,"w":4,"h":3},"caption":"چک های پرداختی - گروه 97 - سال 1384","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}},{"id":"TrzFCust_P-2","valueControl":{"top":10,"fromDate":"1384/01/01","modeItem":"P"},"position":{"x":4,"y":0,"w":4,"h":3},"caption":"مانده حساب فروشندگان - گروه 97 - سال 1384","visible":true,"baseValue":{"ace":"Web8","group":"97","sal":"1384"}}]`
+
 if (dashbordData_Save != null && dashbordData_Save.toString() != "null" && dashbordData_Save.toString() != "") {
     dashbordData = JSON.parse(dashbordData_Save);
+    for (var i = 0; i < dashbordData.length; i++) {
+        if (Object.values(dashbordData[i]).length <= 0) {
+            dashbordData.splice(i, 1);
+        }
+    }
 }
 
 
@@ -200,9 +206,12 @@ let grid = GridStack.init({
 
 var cols = '';
 $("#TableDesktopItem").empty();
+
+
 for (var i = 0; i < dashbordData.length; i++) {
     AddIteminGrid(dashbordData[i]);
 }
+
 
 
 $('#modal-DesktopItem').on('show.bs.modal', function () {
@@ -294,7 +303,7 @@ var listGroups = localStorage.getItem('afiList');
 listGroups = JSON.parse(listGroups);
 
 for (var i = 0; i < listGroups.length; i++) {
-    $('#GroupDesktopItem').append($('<option>', { value: listGroups[i].Code, text: listGroups[i].Code + " - " + listGroups[i].Name }));
+    $('#GroupDesktopItem').append($('<option>', { value: listGroups[i].Code < 10 ? "0" + listGroups[i].Code : listGroups[i].Code, text: listGroups[i].Code + " - " + listGroups[i].Name }));
 }
 SetSalData();
 
