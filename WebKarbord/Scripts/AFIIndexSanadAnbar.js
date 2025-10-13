@@ -2930,11 +2930,15 @@
 
     });
 
+    var serialFct = 0;
+    var docNoFct = "";
+    var modeCodeFct = "";
 
     self.LinkFct = function (item) {
         serial = item.SerialNumber;
         serialFct = item.FctSerialNumber == null ? 0 : item.FctSerialNumber;
-        docNoFct = item.FctDocNo == null ? 0 : item.FctDocNo;
+        docNoFct = item.FctDocNo == null ? "" : item.FctDocNo.trim();
+        modeCodeFct = item.FctModeCode == null ? "" : item.FctModeCode;
         $("#CreateLinkFct").text('ثبت فاکتور');
         if (serialFct > 0) {
             $("#CreateLinkFct").text('مشاهده');
@@ -2946,7 +2950,8 @@
     $('#modal-LinkFct').on('hide.bs.modal', function () {
         serial = 0;
         serialFct = 0;
-        docNoFct = 0;
+        docNoFct = "";
+        modeCodeFct = "";
     });
 
 
@@ -2981,15 +2986,13 @@
             $('#modal-LinkFct').modal('hide');
         }
         else {
-            serialNumber = Band.SerialNumber;
+            //FctSerialNumber, FctDocNo, FctModeCode  
             if (TestUseSanad(ace, sal, "Factor", serialFct, false, docNoFct)) {
             }
             else {
-                lastModeCode = sessionStorage.ModeCode;
-                localStorage.setItem("DocNoAFIFactor", Band.DocNo);
-                localStorage.setItem("ModeCodeAFIFactor", Band.ModeCode);
+                localStorage.setItem("DocNoAFIFactor", docNoFct);
+                localStorage.setItem("ModeCodeAFIFactor", modeCodeFct);
                 window.open(sessionStorage.urlAFIFactorIndex, '_blank');
-                sessionStorage.ModeCode = lastModeCode;
                 $('#modal-LinkFct').modal('hide');
             }
         }
