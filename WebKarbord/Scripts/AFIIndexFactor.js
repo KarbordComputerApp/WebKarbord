@@ -3566,7 +3566,7 @@ var ViewModel = function () {
     self.SaveRelatedGroup = function (SanadBand) {
         Swal.fire({
             title: mes_SaveRelatedGroup,
-            text: translate("آیا " + TitleListFactor +" انتخابی در گروه وابسته ذخیره شود"),
+            text: translate("آیا " + TitleListFactor + " انتخابی در گروه وابسته ذخیره شود"),
             type: 'warning',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -3575,7 +3575,7 @@ var ViewModel = function () {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                serial =  SanadBand.SerialNumber;
+                serial = SanadBand.SerialNumber;
                 var relatedGroupObject = {
                     SerialNumber: serial,
                     TahieShode: TahieShode_Fct5,
@@ -4303,15 +4303,25 @@ var ViewModel = function () {
 
     var serialAcc = 0;
     var docNoAcc = 0;
+    var relatedGroupAcc = localStorage.getItem("RelatedGroup_Acc");
+    var relatedGroupDefaultAcc = localStorage.getItem("RelatedGroupDefault_ADOC");
 
     self.LinkAcc = function (item) {
         serial = item.SerialNumber;
         serialAcc = item.AccSerialNumber;
         docNoAcc = item.AccDocNo;
         $("#CreateLinkAcc").text('ثبت سند');
+        $("#p_RelatedGroupActiveAcc").hide();
+        if (parseInt(relatedGroupAcc) > 0) {
+            $("#p_RelatedGroupActiveAcc").show();
+            $('#relatedGroupActiveAcc').prop('checked', relatedGroupDefaultAcc == "1" ? true : false);
+        }
+
         if (serialAcc > 0) {
+            $("#p_RelatedGroupActiveAcc").hide();
             $("#CreateLinkAcc").text('مشاهده');
         }
+
         $('#modal-LinkAcc').modal('show');
     }
 
@@ -4342,8 +4352,22 @@ var ViewModel = function () {
                     serialAccLink = d[0];
                     var d_docNo = d[1];
                     SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
+                    $('#relatedGroupActiveAcc').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
+
+                    if (relatedActive == 1) {
+                        var relatedGroupObject = {
+                            SerialNumber: serialAccLink,
+                            TahieShode: TahieShode_Acc5,
+                        };
+
+                        ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                            serialRelated = res;
+                            showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated + ' ذخیره شد'), 1);
+                        });
+                    }
                     showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
                     getFDocH($('#pageCountSelector').val(), false);
+
                 }
             });
 

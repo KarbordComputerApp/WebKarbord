@@ -2868,13 +2868,23 @@
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
     };
 
+    var relatedGroupAcc = localStorage.getItem("RelatedGroup_Acc");
+    var relatedGroupDefaultAcc = localStorage.getItem("RelatedGroupDefault_ADOC");
 
     self.LinkAcc = function (item) {
         serial = item.SerialNumber;
         serialAcc = item.AccSerialNumber;
         docNoAcc = item.AccDocNo;
         $("#CreateLinkAcc").text('ثبت سند');
+
+        $("#p_RelatedGroupActiveAcc").hide();
+        if (parseInt(relatedGroupAcc) > 0) {
+            $("#p_RelatedGroupActiveAcc").show();
+            $('#relatedGroupActiveAcc').prop('checked', relatedGroupDefaultAcc == "1" ? true : false);
+        }
+
         if (serialAcc > 0) {
+            $("#p_RelatedGroupActiveAcc").hide();
             $("#CreateLinkAcc").text('مشاهده');
         }
         $('#modal-LinkAcc').modal('show');
@@ -2908,8 +2918,24 @@
 
                     SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
 
+                   
+
+                    $('#relatedGroupActiveAcc').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
+
+                    if (relatedActive == 1) {
+                        var relatedGroupObject = {
+                            SerialNumber: serialAccLink,
+                            TahieShode: TahieShode_Acc5,
+                        };
+
+                        ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                            serialRelated = res;
+                            showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated + ' ذخیره شد'), 1);
+                        });
+                    }
                     showNotification("سند حسابداری به شماره مبنای " + serialAccLink + " ایجاد شد", 1)
                     getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
+
                 }
             });
 
@@ -2933,6 +2959,8 @@
     var serialFct = 0;
     var docNoFct = "";
     var modeCodeFct = "";
+    var relatedGroupFct = localStorage.getItem("RelatedGroup_Fct");
+ 
 
     self.LinkFct = function (item) {
         serial = item.SerialNumber;
@@ -2940,9 +2968,18 @@
         docNoFct = item.FctDocNo == null ? "" : item.FctDocNo.trim();
         modeCodeFct = item.FctModeCode == null ? "" : item.FctModeCode;
         $("#CreateLinkFct").text('ثبت فاکتور');
+
+        $("#p_RelatedGroupActiveFct").hide();
+        if (parseInt(relatedGroupFct) > 0) {
+            $("#p_RelatedGroupActiveFct").show();
+            $('#relatedGroupActiveFct').prop('checked', false);
+        }
+
         if (serialFct > 0) {
+            $("#p_RelatedGroupActiveFct").hide();
             $("#CreateLinkFct").text('مشاهده');
         }
+
         $('#modal-LinkFct').modal('show');
     }
 
@@ -2954,6 +2991,7 @@
         modeCodeFct = "";
     });
 
+    var RelatedGroupFct = localStorage.getItem("RelatedGroup_Fct");
 
     $("#CreateLinkFct").click(function () {
         if (isDoubleClicked($(this))) return;
@@ -2977,9 +3015,28 @@
                     SaveLog('Fct5', EditMode_Link, LogMode_FDoc, 0, d_docNo, serialFctLink);
                     SaveSamaneMakeDoc(serialFctLink, '');
 
-                    showNotification("فاکتور به شماره مبنای " + serialFctLink + " ایجاد شد", 1)
+                   
+                    
+
+                    $('#relatedGroupActiveFct').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
+
+                    if (relatedActive == 1) {
+                        var relatedGroupObject = {
+                            SerialNumber: serialFctLink,
+                            TahieShode: TahieShode_Fct5,
+                        };
+
+                        ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                            serialRelated = res;
+                            if (serialRelated > 0) {
+                                SaveSamaneMakeDoc(serial, RelatedGroupFct);
+                            }
+                            showNotification(translate('فاکتور ' + ' گروه وابسته با شماره مبنای' + serialRelated + ' ذخیره شد'), 1);
+                        });
+                    }
                     getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
-                }
+                    showNotification("فاکتور به شماره مبنای " + serialFctLink + " ایجاد شد", 1)
+               }
             });
 
             $(this).removeAttr('disabled', 'disabled');
