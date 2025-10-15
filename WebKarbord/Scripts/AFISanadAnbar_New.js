@@ -145,6 +145,8 @@ var ViewModel = function () {
     //var enableKalaExf = false;
     var isSelectedKalaExf = true;   // کلید تایپ یا انتخاب در ویژگی کالا
 
+    var fctSerialNumber = 0;
+
     var accSerialNumber = 0;
     var fctReg = FctRegNotSave;
 
@@ -1423,6 +1425,8 @@ var ViewModel = function () {
         self.MkzCode(sessionStorage.MkzCode);
         codeMkz = sessionStorage.MkzCode;
 
+        fctSerialNumber = sessionStorage.FctSerialNumber;
+
         accSerialNumber = sessionStorage.AccSerialNumber;
         fctReg = sessionStorage.fctReg;
 
@@ -1439,7 +1443,7 @@ var ViewModel = function () {
 
 
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0 || fctReg == FctRegSave) {
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || accSerialNumber > 0 || fctSerialNumber > 0 || fctReg == FctRegSave) {
             LockSanad();
         }
 
@@ -1449,6 +1453,10 @@ var ViewModel = function () {
 
         if (accSerialNumber > 0) {
             showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
+        }
+
+        if (fctSerialNumber > 0) {
+            showNotification($('#TitleHeaderAnbar').text() + ' ' + translate('دارای سند خرید و فروش می باشد و امکان ثبت وجود ندارد'), 0);
         }
 
         //if (fctReg == FctRegSave) {

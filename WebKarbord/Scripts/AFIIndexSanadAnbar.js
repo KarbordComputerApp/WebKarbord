@@ -1447,6 +1447,8 @@
         sessionStorage.AccSerialNumber = 0;
         sessionStorage.fctReg = FctRegNotSave;
 
+        sessionStorage.FctSerialNumber = 0;
+
         sessionStorage.ArzCode = "";
         sessionStorage.ArzName = "";
         sessionStorage.ArzRate = 0;
@@ -1702,6 +1704,8 @@
             sessionStorage.AccSerialNumber = item.AccSerialNumber;
             sessionStorage.fctReg = item.FctReg;
 
+            sessionStorage.FctSerialNumber = item.FctSerialNumber;
+
             sessionStorage.ArzCode = item.ArzCode;
             sessionStorage.ArzName = item.ArzName;
             sessionStorage.ArzRate = item.ArzRate;
@@ -1838,6 +1842,8 @@
 
                 sessionStorage.AccSerialNumber = data.AccSerialNumber;
                 sessionStorage.fctReg = data.FctReg;
+
+                sessionStorage.FctSerialNumber = data.FctSerialNumber;
 
                 sessionStorage.ArzCode = data.ArzCode;
                 sessionStorage.ArzName = data.ArzName;

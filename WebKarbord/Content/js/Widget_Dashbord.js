@@ -140,7 +140,7 @@
         _header = $('<div class="modal-header">');
         _buttonExit = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن"><span aria-hidden="true">×</span></button >');
         _header.append(_buttonExit);
-        title = $('<p class="modal-title" style="width: 90%;">' + options.caption + '</p>');
+        title = $('<p class="modal-title" style="width: 90%;text-align: center;">' + options.caption + '</p>');
         _header.append(title);
         _header.append($('<div>'));
         // end head
@@ -436,7 +436,7 @@ $.widget("ui.D_TChk_Sum", {
         _header = $('<div class="modal-header">');
         _buttonExit = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن"><span aria-hidden="true">×</span></button >');
         _header.append(_buttonExit);
-        title = $('<p class="modal-title" style="width: 90%;">' + options.caption + '</p>');
+        title = $('<p class="modal-title" style="width: 90%;text-align: center;">' + options.caption + '</p>');
         _header.append(title);
         _header.append($('<div>'));
         // end head
@@ -608,7 +608,7 @@ $.widget("ui.D_TrzFCust", {
         valueControl: {
             top: 10,
             fromDate: '',
-            modeItem : '' // forosh S   -    kharid  P
+            modeItem: '' // forosh S   -    kharid  P
         },
         baseValue: {
             ace: null,
@@ -734,7 +734,7 @@ $.widget("ui.D_TrzFCust", {
         _header = $('<div class="modal-header">');
         _buttonExit = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن"><span aria-hidden="true">×</span></button >');
         _header.append(_buttonExit);
-        title = $('<p class="modal-title" style="width: 90%;">' + options.caption + '</p>');
+        title = $('<p class="modal-title" style="width: 90%;text-align: center;">' + options.caption + '</p>');
         _header.append(title);
         _header.append($('<div>'));
         // end head
@@ -814,7 +814,7 @@ $.widget("ui.D_TrzFCust", {
             var fromDate = $("#" + options.id + "_date").val().toEnglishDigit();
             obj.options.valueControl.fromDate = fromDate;
 
-            obj._GetData(fromDate,top);
+            obj._GetData(fromDate, top);
             $("#" + options.id + "_modal").modal('hide');
             obj._Button("SaveModal", obj.options);
         });
@@ -825,7 +825,7 @@ $.widget("ui.D_TrzFCust", {
         })
 
         _aTarikh.MdPersianDateTimePicker({
-            targetTextSelector: "#" + options.id +"_date",
+            targetTextSelector: "#" + options.id + "_date",
             dateFormat: 'yyyy-MM-dd',
             Placement: 'bottom', // default is 'bottom'
             Trigger: 'focus', // default is 'focus',
@@ -840,7 +840,7 @@ $.widget("ui.D_TrzFCust", {
         //end script
     },
 
-    _GetData: function (fromDate,top) {
+    _GetData: function (fromDate, top) {
         var obj = this;
         var options = obj.options;
         var ctrl = options.valueControl;
@@ -853,7 +853,7 @@ $.widget("ui.D_TrzFCust", {
             KGruCode: "",
             KalaCode: "",
             MkzCode: "",
-            ModeCode1: ctrl.modeItem == "S" ? sessionStorage.MODECODE_FDOC_S : sessionStorage.MODECODE_FDOC_P ,
+            ModeCode1: ctrl.modeItem == "S" ? sessionStorage.MODECODE_FDOC_S : sessionStorage.MODECODE_FDOC_P,
             ModeCode2: ctrl.modeItem == "S" ? sessionStorage.MODECODE_FDOC_SR : sessionStorage.MODECODE_FDOC_PR,
             OprCode: "",
             StatusCode: "موقت*تایید*تصویب",
@@ -870,7 +870,7 @@ $.widget("ui.D_TrzFCust", {
             for (var i = 0; i < response.length; i++) {
                 sum += response[i].AccMon
             }
-            $("#" + options.id + "_LSum").text(NumberToNumberString(sum) + ' ریال' );
+            $("#" + options.id + "_LSum").text(NumberToNumberString(sum) + ' ریال');
             obj._CreateTable(response);
             options.data = response;
             var itemData = dashbordData.find(c => c.id == options.id);
@@ -879,7 +879,7 @@ $.widget("ui.D_TrzFCust", {
 
     },
 
- 
+
 
 
     _CreateTable: function (data) {
@@ -919,7 +919,7 @@ $.widget("ui.D_TrzFCust", {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                obj._GetData(options.valueControl.fromDate,options.valueControl.top);
+                obj._GetData(options.valueControl.fromDate, options.valueControl.top);
             }
         })
     },
@@ -979,6 +979,7 @@ $.widget("ui.D_TarazFasli", {
         visible: true,
         data: null,
         o: null,
+        chart: null
     },
 
     _create: function () {
@@ -1028,13 +1029,13 @@ $.widget("ui.D_TarazFasli", {
         //Content
 
         var divSum = $('<div style="padding:10px">');
-        
-        h4 = $('<h4 style="padding-right:5px">0</h4>');
-        h6 = $('<h6 style="padding-right:5px;padding-top:15px;color:#dcdcdc">0</h6>');
+
+        h4 = $('<h4 id="' + options.id + '_LSum" style="padding-right:5px">0</h4>');
+        h6 = $('<h6 id="' + options.id + '_LTitle" style="padding-right:5px;padding-top:15px;color:#dcdcdc">0</h6>');
         divSum.append(h4);
         divSum.append(h6);
         divContent.append(divSum);
-        
+
         var chart = $('<canvas id="' + options.id + '_Chart" style="width:100%;max-width:700px"></canvas>');
         divContent.append(chart);
 
@@ -1070,7 +1071,7 @@ $.widget("ui.D_TarazFasli", {
         options.o = divCart[0];
         grid.el.appendChild(divCart[0]);
         let w = grid.makeWidget(divCart[0], options.position.x, options.position.y, options.position.w, options.position.h);
-        obj._GetData(options.valueControl.mode);
+        obj._GetData(options.valueControl.mode, options.valueControl.fromDate);
     },
 
     _createModal: function () {
@@ -1089,7 +1090,7 @@ $.widget("ui.D_TarazFasli", {
         _header = $('<div class="modal-header">');
         _buttonExit = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close" title="بستن"><span aria-hidden="true">×</span></button >');
         _header.append(_buttonExit);
-        title = $('<p class="modal-title" style="width: 90%;">' + options.caption + '</p>');
+        title = $('<p class="modal-title" style="width: 90%;text-align: center;">' + options.caption + '</p>');
         _header.append(title);
         _header.append($('<div>'));
         // end head
@@ -1098,41 +1099,12 @@ $.widget("ui.D_TarazFasli", {
         _body = $('<div class="modal-body">');
         _rowBody = $('<div class="row" style="padding-top:20px">');
 
-        _divBody1 = $('<div class="col-6" style="padding-top:20px">');
-        _divBody2 = $('<div class="form-group form-float">');
-        _divBody3 = $('<div class="form-line focused date fix">');
-        _inputTop = $('<input type="text" class="form-control" id="' + options.id + '_top">');
-        _lable = $('<label class="form-label active">تعداد رکورد</label>');
+        _selectMode = $('<select id="' + options.id + '_mode" class="col-6"  style="margin-bottom:2rem">');
+        _selectMode.append('<option value="0">فصلی</option>');
+        _selectMode.append('<option value="1">ماهانه</option>');
+        _selectMode.append('<option value="2">روزانه</option>');
 
-        _divBody3.append(_inputTop);
-        _divBody3.append(_lable);
-        _divBody2.append(_divBody3);
-        _divBody1.append(_divBody2);
-        _rowBody.append(_divBody1);
-
-
-        _divBody1 = $('<div class="input-group col-6" style="padding-top:25px">');
-
-        _divBtn1 = $('<div class="input-group-addon">');
-        _span = $('<span class="input-group-btn">');
-        _aTarikh = $('<a id="' + options.id + '_btn" data-mdpersiandatetimepicker="" data-original-title="" title="">');
-        _imageTarikh = $('<img src="/Content/img/list/calendar.png" class="icon" height="20" width="20" title="انتخاب تاریخ">');
-
-        _aTarikh.append(_imageTarikh);
-        _span.append(_aTarikh);
-        _divBtn1.append(_span);
-        _divBody1.append(_divBtn1);
-
-        _div1 = $('<div class="form-group form-float">');
-        _div2 = $('<div class="form-line focused date fix">');
-        _inputAzTarikh = $('<input id="' + options.id + '_date"  class="form-control date" type="text" maxlength="10">');
-        _lable = $('<label class="form-label active">از تاریخ</label>');
-
-        _div2.append(_inputAzTarikh);
-        _div2.append(_lable);
-        _div1.append(_div2);
-        _divBody1.append(_div1);
-        _rowBody.append(_divBody1);
+        _rowBody.append(_selectMode);
 
         _body.append(_rowBody);
 
@@ -1160,13 +1132,13 @@ $.widget("ui.D_TarazFasli", {
         //end modal
 
         //script
-        _inputTop.val(options.valueControl.top);
+        _selectMode.val(options.valueControl.mode);
 
         _buttonSave.click(function (e) {
             var mode = $("#" + options.id + "_mode").val();
             obj.options.valueControl.mode = mode;
+            obj._GetData(mode, options.valueControl.fromDate);
 
-            obj._GetData(mode);
             $("#" + options.id + "_modal").modal('hide');
             obj._Button("SaveModal", obj.options);
         });
@@ -1175,79 +1147,126 @@ $.widget("ui.D_TarazFasli", {
             $("#" + options.id + "_mode").val(options.valueControl.mode);
         })
 
-        _aTarikh.MdPersianDateTimePicker({
-            targetTextSelector: "#" + options.id + "_date",
-            dateFormat: 'yyyy-MM-dd',
-            Placement: 'bottom', // default is 'bottom'
-            Trigger: 'focus', // default is 'focus',
-            EnableTimePicker: true, // default is true,
-            TargetSelector: '', // default is empty,
-            GroupId: '', // default is empty,
-            ToDate: false, // default is false,
-            FromDate: false, // default is false,
-            isGregorian: lang == 'en' ? true : false,
-            englishNumber: lang == 'en' ? true : false,
-        });
-        //end script
+
     },
 
-    _GetData: function (mode) {
+    _GetData: function (mode, fromDate) {
         var obj = this;
         var options = obj.options;
         var ctrl = options.valueControl;
         var uri = server + '/api/ReportFct/TrzFDoreh/'; // آدرس گزارش 
 
         var tObject = {
-            azTarikh: "",
-            taTarikh: "",
+            azTarikh: fromDate,
+            taTarikh: LowDay(0),
             mode: mode,
         };
-        ajaxFunction(uri + options.baseValue.ace + '/' + options.baseValue.sal + '/' + options.baseValue.group, 'POST', tObject, true).done(function (response) {
+        ajaxFunction(uri + options.baseValue.ace + '/' + options.baseValue.sal + '/' + options.baseValue.group, 'POST', tObject, false).done(function (response) {
+            trzFDoreh_labels = []
+            trzFDoreh_data = []
             sum = 0;
             for (var i = 0; i < response.length; i++) {
-                sum += response[i].AccMon
+                trzFDoreh_labels[i] = response[i].docdate;
+                trzFDoreh_data[i] = response[i].totalvalue;
+                sum += response[i].totalvalue
             }
             $("#" + options.id + "_LSum").text(NumberToNumberString(sum) + ' ریال');
-            obj._CreateTable(response);
+            $("#" + options.id + "_LTitle").text(date_TarazFasli + ' - ' + LowDay(0));
+
+
+            $("#" + options.id + "_Chart").empty();
+            $(options.Chart).remove();
+            //if (options.Chart == null) {
+                options.Chart = new Chart(options.id + "_Chart", {
+                    type: 'bar',
+                    data: {
+                        labels: trzFDoreh_labels,
+                        datasets: [{
+                            label: '',
+                            data: trzFDoreh_data,
+                            backgroundColor: "#ff2d2d",
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        animation: false,
+                        responsive: true,
+                        responsiveAnimationDuration: 0,
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function (value, index, values) {
+                                        value = (value / 1000000).toFixed(0);
+                                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                                    }
+                                }
+                            }]
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                                }
+                            }
+                        }
+                    }
+                });
+            //}
+            //else {
+                /*var dataChart = {
+                    labels: trzFDoreh_labels,
+                    datasets: [{
+                        label: '',
+                        data: trzFDoreh_data,
+                        backgroundColor: "#ff2d2d",
+                        borderWidth: 1
+                    }]
+                },
+                    options = {
+                        animation: false,
+                        responsive: true,
+                        responsiveAnimationDuration: 0,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function (value, index, values) {
+                                        value = (value / 1000000).toFixed(0);
+                                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                                    }
+                                }
+                            }]
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                                }
+                            }
+                        }
+                    };
+
+                options.Chart.data = dataChart;
+                options.Chart.update();*/
+            //}
+            
+
             options.data = response;
             var itemData = dashbordData.find(c => c.id == options.id);
             itemData.valueControl = options.valueControl;
         });
-
     },
 
-
-
-
-    _CreateTable: function (data) {
-        var obj = this;
-        var options = obj.options;
-        var table = $("#" + options.id + "_Table");
-        table.empty();
-        var tbody = $('<tbody>');
-
-        for (var i = 0; i < data.length; i++) {
-            var tr = $('<tr>');
-            var tdIcon = $('<td style="width:0px"><center><img src="' + GetIconCustomer(data[i].CustCode) + '" width="35" /></center>')
-            var tdCust = $('<td><h5 style="padding-right:5px">' + data[i].CustCode + ' - ' + data[i].CustName + '</h5></td>')
-            var tdCustTel = $('<div class="form-inline" style="padding-top: 10px; padding-right: 5px;"><img src="/Content/img/ContactUs.png" width = "16" style = "margin-left: 5px;"><span>' + data[i].Tel + ' </span></div>');
-            if (data[i].Tel != "") {
-                tdCust.append(tdCustTel);
-            }
-            var tdValue = $('<td style="width:0px"><h5 style="text-align:center">' + NumberToNumberString(data[i].AccMon) + '</h5></td>')
-            tr.append(tdIcon);
-            tr.append(tdCust);
-            tr.append(tdValue);
-            tbody.append(tr);
-        }
-        table.append(tbody);
-    },
     _Refresh: function () {
         var obj = this;
         var options = obj.options;
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست " + options.caption + " به روز رسانی شود ؟"),
+            text: translate("اطلاعات " + options.caption + " به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -1256,7 +1275,7 @@ $.widget("ui.D_TarazFasli", {
             confirmButtonText: text_Yes
         }).then((result) => {
             if (result.value) {
-                obj._GetData(options.valueControl.mode);
+                obj._GetData(options.valueControl.mode, options.valueControl.fromDate);
             }
         })
     },
@@ -1292,6 +1311,3 @@ $.widget("ui.D_TarazFasli", {
     },
 
 });
-
-
-

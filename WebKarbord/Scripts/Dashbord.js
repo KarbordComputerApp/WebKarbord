@@ -257,8 +257,19 @@ function AddIteminGrid(itemObject) {
             valueControl: itemObject.valueControl,
             position: itemObject.position,
         });
-    } else if (id.contains("TrzFCust")) {
+    }
+    else if (id.contains("TrzFCust")) {
         $("#widget_" + id).D_TrzFCust({
+            id: id,
+            caption: itemObject.caption,
+            visible: itemObject.visible,
+            baseValue: itemObject.baseValue,
+            valueControl: itemObject.valueControl,
+            position: itemObject.position,
+        });
+    }
+    else if (id.contains("TarazFasli")) {
+        $("#widget_" + id).D_TarazFasli({
             id: id,
             caption: itemObject.caption,
             visible: itemObject.visible,
@@ -424,6 +435,28 @@ $("#SaveItem").click(function () {
                 "top": 10,
                 "fromDate": "1384/01/01",//localStorage.getItem("BeginDateFct"),
                 "modeItem": "P"
+            },
+            "position": {
+                "x": 0,
+                "y": 0,
+                "w": 4,
+                "h": 3
+            },
+            "caption": captionItem,
+            "visible": true,
+            "baseValue": {
+                "ace": ace,
+                "group": groupDesktopItem,
+                "sal": salDesktopItem
+            }
+        };
+    } else if (modeItem == "TarazFasli") {
+        item = {
+            "id": idItem,
+            "valueControl": {
+                "mode": 0,
+                "fromDate": "1384/01/01",
+                "modeItem": "S"
             },
             "position": {
                 "x": 0,
