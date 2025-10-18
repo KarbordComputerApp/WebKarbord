@@ -1356,6 +1356,10 @@ var ViewModel = function () {
 
             ajaxFunction(FChangeStatusUri + ace + '/' + sal + '/' + group, 'POST', StatusChangeObject).done(function (response) {
                 item = response;
+
+                if (serial > 0) {
+                    SaveSamaneMakeDoc(serial, '');
+                }
                 getFDocH($('#pageCountSelector').val(), false);
             });
         }

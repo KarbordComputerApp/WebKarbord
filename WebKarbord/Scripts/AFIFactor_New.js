@@ -820,6 +820,9 @@ var ViewModel = function () {
                 item = response;
                 sessionStorage.Status = selectStatus;
                 lastStatus = "";
+                if (Serial > 0) {
+                    SaveSamaneMakeDoc(Serial, '');
+                }
                 showNotification(translate('وضعیت ' + textFactor + ' ' + selectStatus + ' شد'), 1);
             });
         }
@@ -3719,7 +3722,7 @@ var ViewModel = function () {
 
                 if (samaneValue == 1) {
                     SaveSamaneMakeDoc(Serial, '');
-                    showNotification(translate('سامانه ذخیره شد'), 1);
+                    //showNotification(translate('سامانه ذخیره شد'), 1);
                 }
 
 
