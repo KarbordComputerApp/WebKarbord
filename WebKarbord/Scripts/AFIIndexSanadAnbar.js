@@ -2969,24 +2969,29 @@
  
 
     self.LinkFct = function (item) {
-        serial = item.SerialNumber;
-        serialFct = item.FctSerialNumber == null ? 0 : item.FctSerialNumber;
-        docNoFct = item.FctDocNo == null ? "" : item.FctDocNo.trim();
-        modeCodeFct = item.FctModeCode == null ? "" : item.FctModeCode;
-        $("#CreateLinkFct").text('ثبت فاکتور');
-
-        $("#p_RelatedGroupActiveFct").hide();
-        if (parseInt(relatedGroupFct) > 0) {
-            $("#p_RelatedGroupActiveFct").show();
-            $('#relatedGroupActiveFct').prop('checked', false);
+        if (item.TahieShode.toUpperCase() == "FCT5") {
+            showNotification("اسنادی که از سیستم خرید وفروش منتقل شده اند قابل ثبت مجدد در خریدوفروش نیستند", 0)
         }
+        else {
+            serial = item.SerialNumber;
+            serialFct = item.FctSerialNumber == null ? 0 : item.FctSerialNumber;
+            docNoFct = item.FctDocNo == null ? "" : item.FctDocNo.trim();
+            modeCodeFct = item.FctModeCode == null ? "" : item.FctModeCode;
+            $("#CreateLinkFct").text('ثبت فاکتور');
 
-        if (serialFct > 0) {
             $("#p_RelatedGroupActiveFct").hide();
-            $("#CreateLinkFct").text('مشاهده');
-        }
+            if (parseInt(relatedGroupFct) > 0) {
+                $("#p_RelatedGroupActiveFct").show();
+                $('#relatedGroupActiveFct').prop('checked', false);
+            }
 
-        $('#modal-LinkFct').modal('show');
+            if (serialFct > 0) {
+                $("#p_RelatedGroupActiveFct").hide();
+                $("#CreateLinkFct").text('مشاهده');
+            }
+
+            $('#modal-LinkFct').modal('show');
+        }
     }
 
 

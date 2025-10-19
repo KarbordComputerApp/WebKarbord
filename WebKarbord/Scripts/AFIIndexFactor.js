@@ -4396,30 +4396,35 @@ var ViewModel = function () {
     var IDoc_linkto_FDocUri = server + '/api/Web_Data/IDoc_linkto_FDoc/';
 
     self.LinkInv = function (item) {
-        serial = item.SerialNumber;
-        invReg = item.InvReg;
-        $("#CreateLinkInv").show();
-        $("#CreateLinkInv").text("ثبت سند");
-        $("#P_IDoc_linkto_FDoc").hide();
-        if (invReg == "ثبت شده") {
-            $("#CreateLinkInv").hide();
-            var IDoc_linkto_FDocObject = {
-                SerialNumber: serial
-            };
-            ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
-                self.IDoc_linkto_FDocList(data);
-                if (data.length > 1) {
-                    $("#CreateLinkInv").hide();
-                    $("#P_IDoc_linkto_FDoc").show();
-                } else {
-                    $("#CreateLinkInv").text("مشاهده");
-                    $("#CreateLinkInv").show();
-                }
-            });
-
-
+        if (item.TahieShode.toUpperCase() == "INV5") {
+            showNotification("اسنادی که از سیستم انبارداری منتقل شده اند قابل ثبت مجدد در انبارداری نیستند", 0)
         }
-        $('#modal-LinkInv').modal('show');
+        else {
+            serial = item.SerialNumber;
+            invReg = item.InvReg;
+            $("#CreateLinkInv").show();
+            $("#CreateLinkInv").text("ثبت سند");
+            $("#P_IDoc_linkto_FDoc").hide();
+            if (invReg == "ثبت شده") {
+                $("#CreateLinkInv").hide();
+                var IDoc_linkto_FDocObject = {
+                    SerialNumber: serial
+                };
+                ajaxFunction(IDoc_linkto_FDocUri + ace + '/' + sal + '/' + group, 'POST', IDoc_linkto_FDocObject).done(function (data) {
+                    self.IDoc_linkto_FDocList(data);
+                    if (data.length > 1) {
+                        $("#CreateLinkInv").hide();
+                        $("#P_IDoc_linkto_FDoc").show();
+                    } else {
+                        $("#CreateLinkInv").text("مشاهده");
+                        $("#CreateLinkInv").show();
+                    }
+                });
+
+
+            }
+            $('#modal-LinkInv').modal('show');
+        }
     }
 
 
@@ -4450,7 +4455,6 @@ var ViewModel = function () {
             }
         }
         else {
-
             $(this).attr('disabled', 'disabled');
             var TestInvBandFctUri = server + '/api/Web_Data/TestInvBandFct/';
             var TestInvBandFctObject = {
@@ -4459,8 +4463,6 @@ var ViewModel = function () {
 
             ajaxFunction(TestInvBandFctUri + ace + '/' + sal + '/' + group, 'POST', TestInvBandFctObject).done(function (d) {
                 if (d == 0) {
-
-
                     var LinkFDocIDocObject = {
                         SerialNumber: serial,
                         TahieShode: TahieShode_Fct5
@@ -4493,6 +4495,7 @@ var ViewModel = function () {
 
             });
             $(this).removeAttr('disabled', 'disabled');
+
         }
     });
 
