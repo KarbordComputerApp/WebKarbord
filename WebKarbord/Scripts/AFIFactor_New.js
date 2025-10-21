@@ -688,8 +688,9 @@ var ViewModel = function () {
 
     if (serverPos != "undefined" && serverPos != "" && serverPos != null && serverPos != "null") {
         GetPosList();
+    } else {
+        serverPos = "";
     }
-
 
 
     $("#inv").change(function () {
@@ -2100,7 +2101,9 @@ var ViewModel = function () {
                         } : '',*/
 
 
-                    isUpdateFactor && serverPos != '' && serverPos != null && self.PosList.length == 0 ?
+                    isUpdateFactor && serverPos != '' && serverPos != null && self.PosList.length == 0 &&
+                        sessionStorage.ModeCode != sessionStorage.MODECODE_FDOC_SH &&
+                        sessionStorage.ModeCode != sessionStorage.MODECODE_FDOC_SE?
                         {
                             location: 'after',
                             widget: 'dxButton',
@@ -3737,7 +3740,7 @@ var ViewModel = function () {
                         if (serialRelated > 0) {
                             SaveSamaneMakeDoc(serialRelated, RelatedGroup);
                         }
-                        showNotification(translate(TitleListFactor + ' گروه وابسته با شماره مبنای' + serialRelated + ' ذخیره شد'), 1);
+                        showNotification(translate(textFactor + ' گروه وابسته با شماره مبنای' + serialRelated + ' ذخیره شد'), 1);
                     });
 
                 }
