@@ -2503,15 +2503,16 @@ function getDataVstr() {
 
 
 function CheckAccess(TrsName, Prog) {
-    if (localStorage.getItem('admin_Afi1') == '1' && ace == 'Web1')
-        return true;
-    else if (Prog.includes('Acc5') && localStorage.getItem('admin_Acc5') == '1' && ace == 'Web8')
-        return true;
-    else if (Prog.includes('Fct5') && localStorage.getItem('admin_Fct5') == '1' && ace == 'Web8')
-        return true;
-    else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1' && ace == 'Web8')
-        return true;
-
+    if (Prog != null) {
+        if (localStorage.getItem('admin_Afi1') == '1' && ace == 'Web1')
+            return true;
+        else if (Prog.includes('Acc5') && localStorage.getItem('admin_Acc5') == '1' && ace == 'Web8')
+            return true;
+        else if (Prog.includes('Fct5') && localStorage.getItem('admin_Fct5') == '1' && ace == 'Web8')
+            return true;
+        else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1' && ace == 'Web8')
+            return true;
+    }
     /*if (access[0].TrsName == 'ADMIN') {
         if (ace == 'afi1') {
             return true;

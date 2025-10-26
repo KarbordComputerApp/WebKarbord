@@ -305,7 +305,8 @@
         'F18',
         'F19',
         'F20',
-        'AccDocNo'
+        'AccDocNo',
+        'RelatedGroupActiveCap',
     ];
 
 
@@ -894,6 +895,7 @@
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
     self.filterAccDocNo = ko.observable("");
+    self.filterRelatedGroupActiveCap = ko.observable("");
 
     listFilter = JSON.parse(localStorage.getItem('listFilter' + rprtId));
     if (listFilter != null) {
@@ -949,6 +951,7 @@
         self.filterThvlEcoCode(listFilter[49]);
         self.filterThvlMelliCode(listFilter[50]);
         self.filterAccDocNo(listFilter[51]);
+        self.filterRelatedGroupActiveCap(listFilter[52]);
     }
 
 
@@ -1007,6 +1010,7 @@
         var filterThvlEcoCode = self.filterThvlEcoCode();
         var filterThvlMelliCode = self.filterThvlMelliCode();
         var filterAccDocNo = self.filterAccDocNo();
+        var filterRelatedGroupActiveCap = self.filterRelatedGroupActiveCap();
 
         if (!filterDocNo && !filterDocDate && !filterInvName && !filterThvlName && !filterModeName && !filterSpec && !filterStatus && !filterEghdam &&
             !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber && !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName &&
@@ -1014,7 +1018,7 @@
             && !filterThvlFax && !filterThvlEMail && !filterThvlAddress &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 && !filterThvlEcoCode &&
-            !filterThvlMelliCode && !filterAccDocNo) {
+            !filterThvlMelliCode && !filterAccDocNo && !filterRelatedGroupActiveCap) {
             $("#CountRecord").text(self.IDocHList().length);
             // $('#CountRecord').text(CountTable('IDocH', null, sessionStorage.InOut));
             localStorage.setItem('listFilter' + rprtId, null);
@@ -1072,7 +1076,8 @@
                 filterF20,
                 filterThvlEcoCode,
                 filterThvlMelliCode,
-                filterAccDocNo
+                filterAccDocNo,
+                filterRelatedGroupActiveCap
             ];
             localStorage.setItem('listFilter' + rprtId, JSON.stringify(listFilter));
             tempData = ko.utils.arrayFilter(self.IDocHList(), function (item) {
@@ -1128,7 +1133,8 @@
                     (item.F20 == null ? '' : item.F20.toString().search(filterF20) >= 0) &&
                     (item.ThvlEcoCode == null ? '' : item.ThvlEcoCode.toString().search(filterThvlEcoCode) >= 0) &&
                     (item.ThvlMelliCode == null ? '' : item.ThvlMelliCode.toString().search(filterThvlMelliCode) >= 0) &&
-                    (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0)
+                    (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0) &&
+                    (item.RelatedGroupActiveCap == null ? '' : item.RelatedGroupActiveCap.toString().search(filterRelatedGroupActiveCap) >= 0)
 
                 return result;
             })
@@ -1257,6 +1263,7 @@
     self.iconTypeThvlEcoCode = ko.observable("");
     self.iconTypeThvlMelliCode = ko.observable("");
     self.iconTypeAccDocNo = ko.observable("");
+    self.iconTypeRelatedGroupActiveCap = ko.observable("");
 
 
     self.sortTableIDocH = function (viewModel, e) {
@@ -1342,6 +1349,7 @@
         self.iconTypeThvlEcoCode('');
         self.iconTypeThvlMelliCode('');
         self.iconTypeAccDocNo('');
+        self.iconTypeRelatedGroupActiveCap('');
 
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1395,6 +1403,7 @@
         if (orderProp == 'ThvlEcoCode') self.iconTypeThvlEcoCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'ThvlMelliCode') self.iconTypeThvlMelliCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccDocNo') self.iconTypeAccDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RelatedGroupActiveCap') self.iconTypeRelatedGroupActiveCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
     $('#AddNewSanadAnbar').click(function () {
@@ -2339,6 +2348,7 @@
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
             CreateTableTh('AccDocNo', data) +
+            CreateTableTh('RelatedGroupActiveCap', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -2400,6 +2410,7 @@
             CreateTableTd('F19', 0, 4, data) +
             CreateTableTd('F20', 0, 4, data) +
             CreateTableTd('AccDocNo', 0, 4, data) +
+            CreateTableTd('RelatedGroupActiveCap', 0, 4, data) +
             '<td>' +
 
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
@@ -2529,6 +2540,7 @@
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
             CreateTableTdSearch('AccDocNo', data) +
+            CreateTableTdSearch('RelatedGroupActiveCap', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
@@ -2924,7 +2936,7 @@
 
                     SaveLog('Acc5', EditMode_Link, LogMode_ADoc, 0, d_docNo, serialAccLink);
 
-                   
+
 
                     $('#relatedGroupActiveAcc').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
 
@@ -2966,7 +2978,7 @@
     var docNoFct = "";
     var modeCodeFct = "";
     var relatedGroupFct = localStorage.getItem("RelatedGroup_Fct");
- 
+
 
     self.LinkFct = function (item) {
         if (item.TahieShode.toUpperCase() == "FCT5") {
@@ -3026,8 +3038,8 @@
                     SaveLog('Fct5', EditMode_Link, LogMode_FDoc, 0, d_docNo, serialFctLink);
                     SaveSamaneMakeDoc(serialFctLink, '');
 
-                   
-                    
+
+
 
                     $('#relatedGroupActiveFct').is(':checked') == true ? relatedActive = 1 : relatedActive = 0;
 
@@ -3047,7 +3059,7 @@
                     }
                     getIDocH($('#pageCountSelector').val(), invSelected, modeCodeSelected, false);
                     showNotification("فاکتور به شماره مبنای " + serialFctLink + " ایجاد شد", 1)
-               }
+                }
             });
 
             $(this).removeAttr('disabled', 'disabled');

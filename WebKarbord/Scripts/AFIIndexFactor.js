@@ -971,8 +971,8 @@ var ViewModel = function () {
         'F20',
         'AccDocNo',
         'InvReg',
+        'RelatedGroupActiveCap',
     ];
-
 
 
     $.fn.CheckAccess = function () {
@@ -1292,26 +1292,31 @@ var ViewModel = function () {
             // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
-            var closedDate = false;
+            if (item.Samane_Status > 2) {
+                var closedDate = false;
 
-            var TestFDoc_EditObject = {
-                Serialnumber: serial
-            }
-            ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
-                list = JSON.parse(data);
-                for (var i = 0; i < list.length; i++) {
-                    if (list[i].TestName == "YTrs") {
-                        closedDate = true;
-                        return showNotification(translate(list[i].TestCap), 0);
-                    }
+                var TestFDoc_EditObject = {
+                    Serialnumber: serial
                 }
-            });
+                ajaxFunction(TestFDoc_EditUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_EditObject, false).done(function (data) {
+                    list = JSON.parse(data);
+                    for (var i = 0; i < list.length; i++) {
+                        if (list[i].TestName == "YTrs") {
+                            closedDate = true;
+                            return showNotification(translate(list[i].TestCap), 0);
+                        }
+                    }
+                });
 
-            if (closedDate == false) {
-                sessionStorage.Status = item.Status;
-                self.StatusFactor(item.Status);
-                $('#titleChangeStatus').text(translate('تغییر وضعیت') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('به'));
-                $('#modal-ChangeStatusFactor').modal();
+                if (closedDate == false) {
+                    sessionStorage.Status = item.Status;
+                    self.StatusFactor(item.Status);
+                    $('#titleChangeStatus').text(translate('تغییر وضعیت') + ' ' + TitleListFactor + ' ' + item.DocNo + ' ' + translate('به'));
+                    $('#modal-ChangeStatusFactor').modal();
+                }
+            }
+            else {
+                showNotification(TitleListFactor + ' ' + 'در حال ارسال به سامانه مودیان است و امکان تغییر وضعیت وجود ندارد', 0);
             }
         }
     }
@@ -1558,6 +1563,7 @@ var ViewModel = function () {
     self.filterCustRegion = ko.observable("");
     self.filterAccDocNo = ko.observable("");
     self.filterInvReg = ko.observable("");
+    self.filterRelatedGroupActiveCap = ko.observable("");
 
 
 
@@ -1616,6 +1622,7 @@ var ViewModel = function () {
         self.filterVstrName(listFilter[50]);
         self.filterAccDocNo(listFilter[51]);
         self.filterInvReg(listFilter[52]);
+        self.filterRelatedGroupActiveCap(listFilter[53]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -1672,11 +1679,12 @@ var ViewModel = function () {
         var filterVstrName = self.filterVstrName();
         var filterAccDocNo = self.filterAccDocNo();
         var filterInvReg = self.filterInvReg();
+        var filterRelatedGroupActiveCap = self.filterRelatedGroupActiveCap();
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
 
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterVstrName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
-            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg &&
+            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg && !filterRelatedGroupActiveCap &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 &&
             !filterCustEcoCode && !filterCustMelliCode && !filterCustTel && !filterCustFax && !filterCustMobile && !filterCustEmail && !filterCustCity &&
@@ -1741,7 +1749,8 @@ var ViewModel = function () {
                 filterCustShahrestan,
                 filterCustRegion,
                 filterAccDocNo,
-                filterInvReg
+                filterInvReg,
+                filterRelatedGroupActiveCap
             ];
 
             localStorage.setItem('listFilter' + sessionStorage.ModeCode, JSON.stringify(listFilter));
@@ -1798,7 +1807,8 @@ var ViewModel = function () {
                     (item.CustOstan == null ? '' : item.CustOstan.toString().search(filterCustOstan) >= 0) &&
                     (item.CustShahrestan == null ? '' : item.CustShahrestan.toString().search(filterCustShahrestan) >= 0) &&
                     (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0) &&
-                    (item.InvReg == null ? '' : item.InvReg.toString().search(filterInvReg) >= 0)
+                    (item.InvReg == null ? '' : item.InvReg.toString().search(filterInvReg) >= 0) &&
+                    (item.RelatedGroupActiveCap == null ? '' : item.RelatedGroupActiveCap.toString().search(filterRelatedGroupActiveCap) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -1924,6 +1934,7 @@ var ViewModel = function () {
     self.iconTypeCustRegion = ko.observable("");
     self.iconTypeAccDocNo = ko.observable("");
     self.iconTypeInvReg = ko.observable("");
+    self.iconTypeRelatedGroupActiveCap = ko.observable("");
 
 
 
@@ -2019,6 +2030,7 @@ var ViewModel = function () {
         self.iconTypeCustRegion('');
         self.iconTypeAccDocNo('');
         self.iconTypeInvReg('');
+        self.iconTypeRelatedGroupActiveCap('');
 
 
 
@@ -2075,6 +2087,7 @@ var ViewModel = function () {
         if (orderProp == 'CustRegion') self.iconTypeCustRegion((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccDocNo') self.iconTypeAccDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'InvReg') self.iconTypeInvReg((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RelatedGroupActiveCap') self.iconTypeRelatedGroupActiveCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -2241,7 +2254,7 @@ var ViewModel = function () {
          sessionStorage.ArzCode = "";
          sessionStorage.ArzName = "";
          sessionStorage.ArzRate = 0;
- 
+     
          //if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR || sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_PR) {
          //    $('#modal-SelectFactor').modal('show');
          //    if (sessionStorage.ModeCode == sessionStorage.MODECODE_FDOC_SR)
@@ -2320,40 +2333,44 @@ var ViewModel = function () {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
+            if (factorBand.Samane_Status == 0) {
+                Swal.fire({
+                    title: translate('تایید حذف'),
+                    text: translate("آیا") + " " + TitleListFactor + " " + translate("انتخابی حذف شود ؟"),
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#3085d6',
+                    cancelButtonText: text_No,
 
-            Swal.fire({
-                title: translate('تایید حذف'),
-                text: translate("آیا") + " " + TitleListFactor + " " + translate("انتخابی حذف شود ؟"),
-                type: 'warning',
-                showCancelButton: true,
-                cancelButtonColor: '#3085d6',
-                cancelButtonText: text_No,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: text_Yes
+                }).then((result) => {
+                    if (result.value) {
+                        serial = factorBand.SerialNumber;
+                        docnoDelete = factorBand.DocNo;
 
-                confirmButtonColor: '#d33',
-                confirmButtonText: text_Yes
-            }).then((result) => {
-                if (result.value) {
-                    serial = factorBand.SerialNumber;
-                    docnoDelete = factorBand.DocNo;
+                        var TestFDoc_DeleteObject = {
+                            SerialNumber: serial
+                        };
 
-                    var TestFDoc_DeleteObject = {
-                        SerialNumber: serial
-                    };
+                        ajaxFunction(FDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_DeleteObject).done(function (data) {
+                            var obj = JSON.parse(data);
+                            self.TestFDoc_DeleteList(obj);
+                            if (data.length > 2) {
+                                $('#modal-TestDelete').modal('show');
+                                SetDataTestDocB();
+                            }
+                            else {
+                                DeleteFactor();
+                            }
+                        });
 
-                    ajaxFunction(FDoc_DeleteUri + ace + '/' + sal + '/' + group, 'POST', TestFDoc_DeleteObject).done(function (data) {
-                        var obj = JSON.parse(data);
-                        self.TestFDoc_DeleteList(obj);
-                        if (data.length > 2) {
-                            $('#modal-TestDelete').modal('show');
-                            SetDataTestDocB();
-                        }
-                        else {
-                            DeleteFactor();
-                        }
-                    });
-
-                }
-            })
+                    }
+                })
+            }
+            else {
+                showNotification(TitleListFactor + ' ' + 'به سامانه مودیان ارسال شده است و امکان حذف ندارد', 0);
+            }
         }
     };
 
@@ -2813,6 +2830,7 @@ var ViewModel = function () {
             sessionStorage.OprName = item.OprName;
             sessionStorage.MkzCode = item.MkzCode;
             sessionStorage.MkzName = item.MkzName;
+            sessionStorage.Samane_Status = item.Samane_Status;
 
 
             sessionStorage.InvReg = item.InvReg;
@@ -2888,16 +2906,9 @@ var ViewModel = function () {
                 window.location.href = sessionStorage.urlAddFDocH_New;
             else
                 window.location.href = sessionStorage.urlAddFDocH;
-
-
         }
+
     }
-
-
-
-
-
-
 
 
 
@@ -3139,13 +3150,13 @@ var ViewModel = function () {
 
     /* var FDocBListUri = server + '/api/FDocData/FDocB/'; // آدرس لیست بند های فاکتور 
      var SaveAllSanadUri = server + '/api/AFI_IDocHi/SaveAllSanad/'; // آدرس ثبت سند و لینک فاکتور  
- 
+     
      self.Link_FctToInv = function (item) {
          serial = item.SerialNumber;
          invCode = 1;
          modeCodeSanad = 101;
          thvlCode = "";
- 
+     
          var headSanad = {
              BranchCode: 0,
              DocDate: item.DocDate,
@@ -3192,26 +3203,26 @@ var ViewModel = function () {
              flagLog: "N",
              flagTest: "Y"
          };
- 
+     
          ajaxFunction(FDocBListUri + ace + '/' + sal + '/' + group + '/' + serial, 'GET').done(function (data) {
- 
+     
              var SaveAllSanadObject = {
                  SerialFactor: serial,
                  Head: headSanad,
                  Bands: data,
              };
- 
+     
              ajaxFunction(SaveAllSanadUri + ace + '/' + sal + '/' + group, 'POST', SaveAllSanadObject).done(function (res) {
                  a = res
                  showNotification("سند انبار یه شماره مبنا " + res.SerialNumber + " ایجاد شد", 1);
- 
+     
              });
- 
- 
- 
+     
+     
+     
          });
- 
- 
+     
+     
      }
      */
 
@@ -3439,7 +3450,7 @@ var ViewModel = function () {
 
                 /* localStorage.setItem("ModeCode", modeCodeMove);
                 sessionStorage.ModeCode = modeCodeMove;
-
+    
                 switch (modeCodeMove.toString()) {
                     case sessionStorage.MODECODE_FDOC_SO:
                         sessionStorage.InOut = 2;
@@ -3472,9 +3483,9 @@ var ViewModel = function () {
                         sessionStorage.InOut = 1;
                         break;
                 }
-
+    
                 sessionStorage.searchFDocH = item.DocNo;
-
+    
                 sessionStorage.flagupdateHeader = 1;
                 sessionStorage.SerialNumber = item.SerialNumber;
                 sessionStorage.DocNo = item.DocNo;
@@ -3485,7 +3496,7 @@ var ViewModel = function () {
                 sessionStorage.PriceCode = item.KalaPriceCode;
                 sessionStorage.InvCode = item.InvCode;
                 sessionStorage.Eghdam = item.Eghdam;
-
+    
                 sessionStorage.AddMinSpec1 = item.AddMinSpec1//== "" ? null : item.AddMinSpec1;
                 sessionStorage.AddMinSpec2 = item.AddMinSpec2// == "" ? null : item.AddMinSpec2;
                 sessionStorage.AddMinSpec3 = item.AddMinSpec3// == "" ? null : item.AddMinSpec3;
@@ -3496,7 +3507,7 @@ var ViewModel = function () {
                 sessionStorage.AddMinSpec8 = item.AddMinSpec8// == "" ? null : item.AddMinSpec8;
                 sessionStorage.AddMinSpec9 = item.AddMinSpec9// == "" ? null : item.AddMinSpec9;
                 sessionStorage.AddMinSpec10 = item.AddMinSpec10 //== "" ? null : item.AddMinSpec10;
-
+    
                 sessionStorage.AddMin1 = item.AddMinPrice1 == null ? 0 : item.AddMinPrice1;
                 sessionStorage.AddMin2 = item.AddMinPrice2 == null ? 0 : item.AddMinPrice2;
                 sessionStorage.AddMin3 = item.AddMinPrice3 == null ? 0 : item.AddMinPrice3;
@@ -3507,7 +3518,7 @@ var ViewModel = function () {
                 sessionStorage.AddMin8 = item.AddMinPrice8 == null ? 0 : item.AddMinPrice8;
                 sessionStorage.AddMin9 = item.AddMinPrice9 == null ? 0 : item.AddMinPrice9;
                 sessionStorage.AddMin10 = item.AddMinPrice10 == null ? 0 : item.AddMinPrice10;
-
+    
                 sessionStorage.F01 = item.F01;
                 sessionStorage.F02 = item.F02;
                 sessionStorage.F03 = item.F03;
@@ -3543,18 +3554,18 @@ var ViewModel = function () {
                 sessionStorage.CustOstan = item.CustOstan;
                 sessionStorage.CustShahrestan = item.CustShahrestan;
                 sessionStorage.CustRegion = item.CustRegion;
-
+    
                 sessionStorage.OprCode = item.OprCode;
                 sessionStorage.OprName = item.OprName;
-
+    
                 sessionStorage.MkzCode = item.MkzCode;
                 sessionStorage.MkzName = item.MkzName;
-
+    
                 sessionStorage.Status = item.Status;
                 sessionStorage.PaymentType = item.PaymentType;
                 sessionStorage.Footer = item.Footer;
                 sessionStorage.BeforeMoveFactor = true;
-
+    
                 window.location.href = sessionStorage.urlAddFDocH;*/
             });
         }
@@ -3671,6 +3682,7 @@ var ViewModel = function () {
             CreateTableTh('F20', data) +
             CreateTableTh('AccDocNo', data) +
             CreateTableTh('InvReg', data) +
+            CreateTableTh('RelatedGroupActiveCap', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -3737,6 +3749,7 @@ var ViewModel = function () {
             CreateTableTd('F20', 0, 4, data) +
             CreateTableTd('AccDocNo', 0, 0, data) +
             CreateTableTd('InvReg', 0, 4, data) +
+            CreateTableTd('RelatedGroupActiveCap', 0, 4, data) +
 
             '<td>' +
 
@@ -3886,6 +3899,7 @@ var ViewModel = function () {
             CreateTableTdSearch('F20', data) +
             CreateTableTdSearch('AccDocNo', data) +
             CreateTableTdSearch('InvReg', data) +
+            CreateTableTdSearch('RelatedGroupActiveCap', data) +
 
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
@@ -3970,21 +3984,21 @@ var ViewModel = function () {
     }
 
     /*
-
+    
     self.PrintFactor = function (item) {
         serial = item.SerialNumber;
         docDate = item.DocDate;
-
-
+    
+    
         getFDocP(serial);
         if (self.FDocPList().length == 0)
             return showNotification(translate('برای چاپ فاکتور حداقل یک بند الزامیست', 0);
-
+    
         textFinalPrice = item.FinalPrice.toPersianLetter() + titlePrice;
-
+    
         printVariable = '"ReportDate":"' + DateNow + '",' +
             '"TextFinalPrice":"' + textFinalPrice + '",';
-
+    
         textAccess = translate('دسترسی ندارید');
         switch (sessionStorage.ModeCode.toString()) {
             case sessionStorage.MODECODE_FDOC_SO:
@@ -4042,7 +4056,7 @@ var ViewModel = function () {
                     return showNotification(textAccess, 0);
                 break;
         }
-
+    
         setReport(self.FDocPList(), 'Free', variable);
     };*/
 

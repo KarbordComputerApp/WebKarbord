@@ -172,7 +172,8 @@
         'F17',
         'F18',
         'F19',
-        'F20'
+        'F20',
+        'RelatedGroupActiveCap'
     ];
 
 
@@ -499,6 +500,7 @@
     self.filterF18 = ko.observable("");
     self.filterF19 = ko.observable("");
     self.filterF20 = ko.observable("");
+    self.filterRelatedGroupActiveCap = ko.observable("");
 
     listFilter = JSON.parse(localStorage.getItem('listFilterADoc'));
     if (listFilter != null) {
@@ -531,6 +533,7 @@
         self.filterF18(listFilter[26]);
         self.filterF19(listFilter[27]);
         self.filterF20(listFilter[28]);
+        self.filterRelatedGroupActiveCap(listFilter[29]);
     }
 
     self.filterADocHList = ko.computed(function () {
@@ -564,12 +567,13 @@
         var filterF18 = self.filterF18();
         var filterF19 = self.filterF19();
         var filterF20 = self.filterF20();
+        var filterRelatedGroupActiveCap = self.filterRelatedGroupActiveCap();
 
 
         if (!filterDocNo && !filterDocDate && !filterSpec && !filterEghdam && !filterTanzim && !filterTaeed && !filterModeName &&
             !filterStatus && !filterSerialNumber &&
             !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
-            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20) {
+            !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 && !filterRelatedGroupActiveCap) {
             $("#CountRecord").text(self.ADocHList().length);
             // $('#CountRecord').text(CountTable('ADocH', null, null));
             localStorage.setItem('listFilterADoc', null);
@@ -604,7 +608,8 @@
                 filterF17,
                 filterF18,
                 filterF19,
-                filterF20
+                filterF20,
+                filterRelatedGroupActiveCap
             ];
             localStorage.setItem('listFilterADoc', JSON.stringify(listFilter));
             //list = JSON.parse(localStorage.getItem('listFilter'));
@@ -638,7 +643,8 @@
                     (item.F17 == null ? 'null' : item.F17.toString().search(filterF17) >= 0) &&
                     (item.F18 == null ? 'null' : item.F18.toString().search(filterF18) >= 0) &&
                     (item.F19 == null ? 'null' : item.F19.toString().search(filterF19) >= 0) &&
-                    (item.F20 == null ? 'null' : item.F20.toString().search(filterF20) >= 0)
+                    (item.F20 == null ? 'null' : item.F20.toString().search(filterF20) >= 0) &&
+                    (item.RelatedGroupActiveCap == null ? 'null' : item.RelatedGroupActiveCap.toString().search(filterRelatedGroupActiveCap) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -739,6 +745,7 @@
     self.iconTypeF18 = ko.observable("");
     self.iconTypeF19 = ko.observable("");
     self.iconTypeF20 = ko.observable("");
+    self.iconTypeRelatedGroupActiveCap = ko.observable("");
 
 
 
@@ -807,6 +814,7 @@
         self.iconTypeF18('');
         self.iconTypeF19('');
         self.iconTypeF20('');
+        self.iconTypeRelatedGroupActiveCap('');
 
         if (orderProp == 'SortDocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -837,6 +845,7 @@
         if (orderProp == 'F18') self.iconTypeF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F19') self.iconTypeF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'F20') self.iconTypeF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'RelatedGroupActiveCap') self.iconTypeRelatedGroupActiveCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -1324,7 +1333,7 @@
 
                 ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
                     serialRelated = res;
-                    showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated +' ذخیره شد'), 1);
+                    showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated + ' ذخیره شد'), 1);
                 });
             }
         })
@@ -1384,6 +1393,7 @@
             CreateTableTh('F18', data) +
             CreateTableTh('F19', data) +
             CreateTableTh('F20', data) +
+        CreateTableTh('RelatedGroupActiveCap', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -1419,6 +1429,7 @@
             CreateTableTd('F18', 0, 4, data) +
             CreateTableTd('F19', 0, 4, data) +
             CreateTableTd('F20', 0, 4, data) +
+        CreateTableTd('RelatedGroupActiveCap', 0, 4, data) +
             '<td>' +
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
@@ -1521,6 +1532,7 @@
             CreateTableTdSearch('F18', data) +
             CreateTableTdSearch('F19', data) +
             CreateTableTdSearch('F20', data) +
+            CreateTableTdSearch('RelatedGroupActiveCap', data) +
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
