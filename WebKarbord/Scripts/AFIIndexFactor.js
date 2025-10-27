@@ -972,6 +972,7 @@ var ViewModel = function () {
         'AccDocNo',
         'InvReg',
         'RelatedGroupActiveCap',
+        'Samane_StatusCap',
     ];
 
 
@@ -1292,7 +1293,7 @@ var ViewModel = function () {
             // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
-            if (item.Samane_Status > 2) {
+            if (item.Samane_Status < 2) {
                 var closedDate = false;
 
                 var TestFDoc_EditObject = {
@@ -1564,6 +1565,7 @@ var ViewModel = function () {
     self.filterAccDocNo = ko.observable("");
     self.filterInvReg = ko.observable("");
     self.filterRelatedGroupActiveCap = ko.observable("");
+    self.filterSamane_StatusCap = ko.observable("");
 
 
 
@@ -1623,6 +1625,7 @@ var ViewModel = function () {
         self.filterAccDocNo(listFilter[51]);
         self.filterInvReg(listFilter[52]);
         self.filterRelatedGroupActiveCap(listFilter[53]);
+        self.filterSamane_StatusCap(listFilter[54]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -1680,11 +1683,12 @@ var ViewModel = function () {
         var filterAccDocNo = self.filterAccDocNo();
         var filterInvReg = self.filterInvReg();
         var filterRelatedGroupActiveCap = self.filterRelatedGroupActiveCap();
+        var filterSamane_StatusCap = self.filterSamane_StatusCap();
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
 
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterVstrName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
-            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg && !filterRelatedGroupActiveCap &&
+            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg && !filterRelatedGroupActiveCap && !filterSamane_StatusCap &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 &&
             !filterCustEcoCode && !filterCustMelliCode && !filterCustTel && !filterCustFax && !filterCustMobile && !filterCustEmail && !filterCustCity &&
@@ -1750,7 +1754,8 @@ var ViewModel = function () {
                 filterCustRegion,
                 filterAccDocNo,
                 filterInvReg,
-                filterRelatedGroupActiveCap
+                filterRelatedGroupActiveCap,
+                filterSamane_StatusCap
             ];
 
             localStorage.setItem('listFilter' + sessionStorage.ModeCode, JSON.stringify(listFilter));
@@ -1808,7 +1813,8 @@ var ViewModel = function () {
                     (item.CustShahrestan == null ? '' : item.CustShahrestan.toString().search(filterCustShahrestan) >= 0) &&
                     (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0) &&
                     (item.InvReg == null ? '' : item.InvReg.toString().search(filterInvReg) >= 0) &&
-                    (item.RelatedGroupActiveCap == null ? '' : item.RelatedGroupActiveCap.toString().search(filterRelatedGroupActiveCap) >= 0)
+                    (item.RelatedGroupActiveCap == null ? '' : item.RelatedGroupActiveCap.toString().search(filterRelatedGroupActiveCap) >= 0) &&
+                    (item.Samane_StatusCap == null ? '' : item.Samane_StatusCap.toString().search(filterSamane_StatusCap) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -1935,6 +1941,7 @@ var ViewModel = function () {
     self.iconTypeAccDocNo = ko.observable("");
     self.iconTypeInvReg = ko.observable("");
     self.iconTypeRelatedGroupActiveCap = ko.observable("");
+    self.iconTypeSamane_StatusCap = ko.observable("");
 
 
 
@@ -2031,6 +2038,7 @@ var ViewModel = function () {
         self.iconTypeAccDocNo('');
         self.iconTypeInvReg('');
         self.iconTypeRelatedGroupActiveCap('');
+        self.iconTypeSamane_StatusCap('');
 
 
 
@@ -2088,6 +2096,7 @@ var ViewModel = function () {
         if (orderProp == 'AccDocNo') self.iconTypeAccDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'InvReg') self.iconTypeInvReg((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'RelatedGroupActiveCap') self.iconTypeRelatedGroupActiveCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Samane_StatusCap') self.iconTypeSamane_StatusCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -3683,6 +3692,7 @@ var ViewModel = function () {
             CreateTableTh('AccDocNo', data) +
             CreateTableTh('InvReg', data) +
             CreateTableTh('RelatedGroupActiveCap', data) +
+            CreateTableTh('Samane_StatusCap', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -3750,6 +3760,7 @@ var ViewModel = function () {
             CreateTableTd('AccDocNo', 0, 0, data) +
             CreateTableTd('InvReg', 0, 4, data) +
             CreateTableTd('RelatedGroupActiveCap', 0, 4, data) +
+            CreateTableTd('Samane_StatusCap', 0, 4, data) +
 
             '<td>' +
 
@@ -3900,6 +3911,7 @@ var ViewModel = function () {
             CreateTableTdSearch('AccDocNo', data) +
             CreateTableTdSearch('InvReg', data) +
             CreateTableTdSearch('RelatedGroupActiveCap', data) +
+            CreateTableTdSearch('Samane_StatusCap', data) +
 
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +
