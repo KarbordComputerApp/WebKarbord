@@ -1365,7 +1365,7 @@ var ViewModel = function () {
         codeMkz = sessionStorage.MkzCode;
 
         invReg = sessionStorage.InvReg;
-        var samane_Status = sessionStorage.Samane_Status;
+        var samaneStatus = sessionStorage.SamaneStatus;
         accSerialNumber = sessionStorage.AccSerialNumber;
 
 
@@ -1386,7 +1386,7 @@ var ViewModel = function () {
         $('#ArzRate').val(arzRate);
 
 
-        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0 || samane_Status > 2) {
+        if (codeOpr == "!!!" || codeMkz == "!!!" || closedDate == true || invReg == InvRegSave || accSerialNumber > 0 || samaneStatus > 2) {
             LockSanad();
         }
 
@@ -1402,7 +1402,7 @@ var ViewModel = function () {
             showNotification($('#TitleHeaderFactor').text() + ' ' + translate('دارای سند حسابداری می باشد و امکان ثبت وجود ندارد'), 0);
         }
 
-        if (samane_Status > 2) {
+        if (samaneStatus > 2) {
             showNotification($('#TitleHeaderFactor').text() + ' ' + translate('در حال ارسال به سامانه مودیان است و امکان ثبت وجود ندارد'), 0);
         }
 

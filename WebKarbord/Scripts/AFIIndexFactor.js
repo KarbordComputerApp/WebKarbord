@@ -972,7 +972,7 @@ var ViewModel = function () {
         'AccDocNo',
         'InvReg',
         'RelatedGroupActiveCap',
-        'Samane_StatusCap',
+        'SamaneStatus',
     ];
 
 
@@ -1282,6 +1282,17 @@ var ViewModel = function () {
     });
 
 
+    function GetSamaneStatusCode(value) {
+        if (value == "") return 0
+        else if (value == "ارسال شده") return 1
+        else if (value == "بعد از ارسال تغيير کرده") return 1
+        else if (value == "خطا در ارسال") return 2
+        else if (value == "در انتظار ارسال") return 3
+        else if (value == "يافت نشد") return 4
+        else if (value == "در حال پردازش") return 5
+        else return 6
+    }
+
     self.ChangeStatusFactor = function (item) {
         serial = item.SerialNumber;
 
@@ -1293,7 +1304,8 @@ var ViewModel = function () {
             // showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
-            if (item.Samane_Status < 2) {
+            samaneStatusCode = GetSamaneStatusCode(item.SamaneStatus);
+            if (samaneStatusCode < 2) {
                 var closedDate = false;
 
                 var TestFDoc_EditObject = {
@@ -1565,7 +1577,7 @@ var ViewModel = function () {
     self.filterAccDocNo = ko.observable("");
     self.filterInvReg = ko.observable("");
     self.filterRelatedGroupActiveCap = ko.observable("");
-    self.filterSamane_StatusCap = ko.observable("");
+    self.filterSamaneStatus = ko.observable("");
 
 
 
@@ -1625,7 +1637,7 @@ var ViewModel = function () {
         self.filterAccDocNo(listFilter[51]);
         self.filterInvReg(listFilter[52]);
         self.filterRelatedGroupActiveCap(listFilter[53]);
-        self.filterSamane_StatusCap(listFilter[54]);
+        self.filterSamaneStatus(listFilter[54]);
     }
     self.filterFDocHList = ko.computed(function () {
         self.currentPageIndexFDocH(0);
@@ -1683,12 +1695,12 @@ var ViewModel = function () {
         var filterAccDocNo = self.filterAccDocNo();
         var filterInvReg = self.filterInvReg();
         var filterRelatedGroupActiveCap = self.filterRelatedGroupActiveCap();
-        var filterSamane_StatusCap = self.filterSamane_StatusCap();
+        var filterSamaneStatus = self.filterSamaneStatus();
 
         filterFinalPrice = filterFinalPrice.replace("/", ".");
 
         if (!filterDocNo && !filterDocDate && !filterCustName && !filterVstrName && !filterFinalPrice && !filterStatus && !filterEghdam && !filterTanzim && !filterTaeed && !filterTasvib && !filterSerialNumber &&
-            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg && !filterRelatedGroupActiveCap && !filterSamane_StatusCap &&
+            !filterMkzCode && !filterMkzName && !filterOprCode && !filterOprName && !filterAccDocNo && !filterInvReg && !filterRelatedGroupActiveCap && !filterSamaneStatus &&
             !filterSpec && !filterF01 && !filterF02 && !filterF03 && !filterF04 && !filterF05 && !filterF06 && !filterF07 && !filterF08 && !filterF09 && !filterF10 &&
             !filterF11 && !filterF12 && !filterF13 && !filterF14 && !filterF15 && !filterF16 && !filterF17 && !filterF18 && !filterF19 && !filterF20 &&
             !filterCustEcoCode && !filterCustMelliCode && !filterCustTel && !filterCustFax && !filterCustMobile && !filterCustEmail && !filterCustCity &&
@@ -1755,7 +1767,7 @@ var ViewModel = function () {
                 filterAccDocNo,
                 filterInvReg,
                 filterRelatedGroupActiveCap,
-                filterSamane_StatusCap
+                filterSamaneStatus
             ];
 
             localStorage.setItem('listFilter' + sessionStorage.ModeCode, JSON.stringify(listFilter));
@@ -1814,7 +1826,7 @@ var ViewModel = function () {
                     (item.AccDocNo == null ? '' : item.AccDocNo.toString().search(filterAccDocNo) >= 0) &&
                     (item.InvReg == null ? '' : item.InvReg.toString().search(filterInvReg) >= 0) &&
                     (item.RelatedGroupActiveCap == null ? '' : item.RelatedGroupActiveCap.toString().search(filterRelatedGroupActiveCap) >= 0) &&
-                    (item.Samane_StatusCap == null ? '' : item.Samane_StatusCap.toString().search(filterSamane_StatusCap) >= 0)
+                    (item.SamaneStatus == null ? '' : item.SamaneStatus.toString().search(filterSamaneStatus) >= 0)
                 return result;
             })
             $("#CountRecord").text(tempData.length);
@@ -1941,7 +1953,7 @@ var ViewModel = function () {
     self.iconTypeAccDocNo = ko.observable("");
     self.iconTypeInvReg = ko.observable("");
     self.iconTypeRelatedGroupActiveCap = ko.observable("");
-    self.iconTypeSamane_StatusCap = ko.observable("");
+    self.iconTypeSamaneStatus = ko.observable("");
 
 
 
@@ -2038,7 +2050,7 @@ var ViewModel = function () {
         self.iconTypeAccDocNo('');
         self.iconTypeInvReg('');
         self.iconTypeRelatedGroupActiveCap('');
-        self.iconTypeSamane_StatusCap('');
+        self.iconTypeSamaneStatus('');
 
 
 
@@ -2096,7 +2108,7 @@ var ViewModel = function () {
         if (orderProp == 'AccDocNo') self.iconTypeAccDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'InvReg') self.iconTypeInvReg((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'RelatedGroupActiveCap') self.iconTypeRelatedGroupActiveCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'Samane_StatusCap') self.iconTypeSamane_StatusCap((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SamaneStatus') self.iconTypeSamaneStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -2342,7 +2354,8 @@ var ViewModel = function () {
             //showNotification('در تب دیگری وجود دارد', 0)
         }
         else {
-            if (factorBand.Samane_Status == 0) {
+            samaneStatusCode = GetSamaneStatusCode(factorBand.SamaneStatus);
+            if (samaneStatusCode == 0) {
                 Swal.fire({
                     title: translate('تایید حذف'),
                     text: translate("آیا") + " " + TitleListFactor + " " + translate("انتخابی حذف شود ؟"),
@@ -2839,7 +2852,8 @@ var ViewModel = function () {
             sessionStorage.OprName = item.OprName;
             sessionStorage.MkzCode = item.MkzCode;
             sessionStorage.MkzName = item.MkzName;
-            sessionStorage.Samane_Status = item.Samane_Status;
+            samaneStatusCode = GetSamaneStatusCode(item.SamaneStatus);
+            sessionStorage.SamaneStatus = samaneStatusCode;
 
 
             sessionStorage.InvReg = item.InvReg;
@@ -3692,7 +3706,7 @@ var ViewModel = function () {
             CreateTableTh('AccDocNo', data) +
             CreateTableTh('InvReg', data) +
             CreateTableTh('RelatedGroupActiveCap', data) +
-            CreateTableTh('Samane_StatusCap', data) +
+            CreateTableTh('SamaneStatus', data) +
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
@@ -3760,7 +3774,7 @@ var ViewModel = function () {
             CreateTableTd('AccDocNo', 0, 0, data) +
             CreateTableTd('InvReg', 0, 4, data) +
             CreateTableTd('RelatedGroupActiveCap', 0, 4, data) +
-            CreateTableTd('Samane_StatusCap', 0, 4, data) +
+            CreateTableTd('SamaneStatus', 0, 4, data) +
 
             '<td>' +
 
@@ -3911,7 +3925,7 @@ var ViewModel = function () {
             CreateTableTdSearch('AccDocNo', data) +
             CreateTableTdSearch('InvReg', data) +
             CreateTableTdSearch('RelatedGroupActiveCap', data) +
-            CreateTableTdSearch('Samane_StatusCap', data) +
+            CreateTableTdSearch('SamaneStatus', data) +
 
             '<td style="background-color: #efb683;"></td>' +
             '      </tr>' +

@@ -2981,7 +2981,7 @@
 
 
     self.LinkFct = function (item) {
-        if (item.TahieShode.toUpperCase() == "FCT5") {
+        if (item.SrcReg.toUpperCase() == "FCT5") {
             showNotification("اسنادی که از سیستم خرید وفروش منتقل شده اند قابل ثبت مجدد در خریدوفروش نیستند", 0)
         }
         else {
