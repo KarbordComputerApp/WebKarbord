@@ -4437,7 +4437,7 @@ var ViewModel = function () {
     var IDoc_linkto_FDocUri = server + '/api/Web_Data/IDoc_linkto_FDoc/';
 
     self.LinkInv = function (item) {
-        if (item.TahieShode.toUpperCase() == "INV5") {
+        if (item.SrcReg.toUpperCase() == "INV5") {
             showNotification("اسنادی که از سیستم انبارداری منتقل شده اند قابل ثبت مجدد در انبارداری نیستند", 0)
         }
         else {
