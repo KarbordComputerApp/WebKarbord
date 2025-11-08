@@ -1331,7 +1331,7 @@
                     TahieShode: TahieShode_Acc5,
                 };
 
-                ajaxFunction(SaveADocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                ajaxFunction(SaveADoc_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
                     serialRelated = res;
                     showNotification(translate('سند گروه وابسته با شماره مبنای ' + serialRelated + ' ذخیره شد'), 1);
                 });

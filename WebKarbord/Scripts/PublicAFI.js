@@ -58,9 +58,9 @@ var DateUri;
 var DictionaryUri;
 var V_Del_ADocUri;
 var LogXUri;
-var SaveADocH_RelatedGroupUri;
-var SaveFDocH_RelatedGroupUri;
-var SamaneMakeDocUri;
+var SaveADoc_RelatedGroupUri;
+var SaveFDoc_RelatedGroupUri;
+var SaveFDoc_SamaneMakeDocUri;
 
 
 
@@ -104,9 +104,9 @@ function SetUrl(server) {
     DictionaryUri = server + '/api/Web_Data/Web_Dictionary/'; // آدرس  دیکشنری
     V_Del_ADocUri = server + '/api/Web_Data/V_Del_ADoc/'; //  آدرس حذف سند کنترل 
     LogXUri = server + '/api/Web_Data/LogX/'; //  آدرس لاگ 
-    SaveADocH_RelatedGroupUri = server + '/api/ADocData/SaveADocH_RelatedGroup/'; // آدرس ذخیره سند در گروه وابسته 
-    SaveFDocH_RelatedGroupUri = server + '/api/FDocData/SaveFDocH_RelatedGroup/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
-    SamaneMakeDocUri = server + '/api/FDocData/SamaneMakeDoc/'; // آدرس ذخیره سامانه 
+    SaveADoc_RelatedGroupUri = server + '/api/ADocData/SaveADoc_RelatedGroup/'; // آدرس ذخیره سند در گروه وابسته 
+    SaveFDoc_RelatedGroupUri = server + '/api/FDocData/SaveFDoc_RelatedGroup/'; // آدرس ذخیره یند فاکتوردر جدول اصلی 
+    SaveFDoc_SamaneMakeDocUri = server + '/api/FDocData/SaveFDoc_SamaneMakeDoc/'; // آدرس ذخیره سامانه 
 }
 SetUrl(server);
 
@@ -2345,9 +2345,6 @@ function getParamFct() {
                 localStorage.setItem("Move_PRFCT", sessionStorage.Move_PRFCT);
             }
 
-
-
-
             // روش ذخیره انبار در فاکتور
             sessionStorage.InvRegKalaInv_SFCT = SearchArry("InvRegKalaInv", "FDOCS", data);
             localStorage.setItem("InvRegKalaInv_SFCT", sessionStorage.InvRegKalaInv_SFCT);
@@ -2379,7 +2376,6 @@ function getParamFct() {
             sessionStorage.FDOCPR_AutoAccReg = SearchArry("FDOCPR_AutoAccReg", "Default", data);
             localStorage.setItem("FDOCPR_AutoAccReg", sessionStorage.FDOCPR_AutoAccReg);
 
-
             sessionStorage.IDOCI_AutoAccReg = SearchArry("IDOCI_AutoAccReg", "Default", data);
             localStorage.setItem("IDOCI_AutoAccReg", sessionStorage.IDOCI_AutoAccReg);
             sessionStorage.IDOCO_AutoAccReg = SearchArry("IDOCO_AutoAccReg", "Default", data);
@@ -2389,8 +2385,6 @@ function getParamFct() {
             localStorage.setItem("IDOCI_AutoFctReg", sessionStorage.IDOCI_AutoFctReg);
             sessionStorage.IDOCO_AutoFctReg = SearchArry("IDOCO_AutoFctReg", "Default", data);
             localStorage.setItem("IDOCO_AutoFctReg", sessionStorage.IDOCO_AutoFctReg);
-
-
 
             sessionStorage.InvDefult_Fct = SearchArry("Inv", "Default", data);
             localStorage.setItem("InvDefult_Fct", sessionStorage.InvDefult_Fct);
@@ -2407,11 +2401,6 @@ function getParamFct() {
 
             sessionStorage.invSelect_Fct = "";
             localStorage.setItem("invSelect_Fct", sessionStorage.invSelect_Fct);
-
-
-
-
-
 
         }
     });
@@ -2512,51 +2501,52 @@ function CheckAccess(TrsName, Prog) {
             return true;
         else if (Prog.includes('Inv5') && localStorage.getItem('admin_Inv5') == '1' && ace == 'Web8')
             return true;
-    }
-    /*if (access[0].TrsName == 'ADMIN') {
-        if (ace == 'afi1') {
-            return true;
-        }
-        else {
-            if (Prog == null)
-                alert(TrsName)
-               // Prog = 'Acc5';
 
-            if (Prog.length > 4) {
-                Prog = Prog.split('-');
-                for (var i = 0; i < Prog.length; i++) {
-                    if (access[0].OrgProgName == Prog[i]) {
-                        return true;
-                    }
-                }
-            }
-            else if (access[0].OrgProgName == Prog) {
+        /*if (access[0].TrsName == 'ADMIN') {
+            if (ace == 'afi1') {
                 return true;
             }
-        }
-    }*/
-    else {
-        if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
-            for (var i = 0; i < access.length; i++) {
-                if (access[i].TrsName == TrsName && access[i].OrgProgName == Fct_or_Inv.toUpperCase())
-                    return true;
-            }
-        }
-        else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName == "ARZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0 || TrsName.lastIndexOf("_ARZ") > 0) {
-            for (var i = 0; i < access.length; i++) {
-                if (TrsName == "_OPR") {
-                    if (access[i].TrsName == "ARZ") {
-                        a = 1;
+            else {
+                if (Prog == null)
+                    alert(TrsName)
+                   // Prog = 'Acc5';
+    
+                if (Prog.length > 4) {
+                    Prog = Prog.split('-');
+                    for (var i = 0; i < Prog.length; i++) {
+                        if (access[0].OrgProgName == Prog[i]) {
+                            return true;
+                        }
                     }
                 }
-                if (access[i].TrsName == TrsName && access[i].OrgProgName.toLowerCase() == Master_ProgName.toLowerCase())
+                else if (access[0].OrgProgName == Prog) {
                     return true;
+                }
             }
-        }
+        }*/
         else {
-            for (var i = 0; i < access.length; i++) {
-                if (access[i].TrsName == TrsName)
-                    return true;
+            if (TrsName == "KALA" || TrsName.lastIndexOf("_KALA") > 0) {
+                for (var i = 0; i < access.length; i++) {
+                    if (access[i].TrsName == TrsName && access[i].OrgProgName == Fct_or_Inv.toUpperCase())
+                        return true;
+                }
+            }
+            else if (TrsName == "OPR" || TrsName == "MKZ" || TrsName == "ARZ" || TrsName.lastIndexOf("_OPR") > 0 || TrsName.lastIndexOf("_MKZ") > 0 || TrsName.lastIndexOf("_ARZ") > 0) {
+                for (var i = 0; i < access.length; i++) {
+                    if (TrsName == "_OPR") {
+                        if (access[i].TrsName == "ARZ") {
+                            a = 1;
+                        }
+                    }
+                    if (access[i].TrsName == TrsName && access[i].OrgProgName.toLowerCase() == Master_ProgName.toLowerCase())
+                        return true;
+                }
+            }
+            else {
+                for (var i = 0; i < access.length; i++) {
+                    if (access[i].TrsName == TrsName)
+                        return true;
+                }
             }
         }
     }
@@ -5863,10 +5853,10 @@ function isDoubleClicked(element) {
 
 
 function SaveSamaneMakeDoc(serialnumber, relatedGroup) {
-    var SamaneMakeDocObject = {
+    var SaveFDoc_SamaneMakeDocObject = {
         SerialNumber: serialnumber,
         RelatedGroup: relatedGroup,
     };
-    ajaxFunction(SamaneMakeDocUri + ace + '/' + sal + '/' + group, 'POST', SamaneMakeDocObject, false).done(function (res) {
+    ajaxFunction(SaveFDoc_SamaneMakeDocUri + ace + '/' + sal + '/' + group, 'POST', SaveFDoc_SamaneMakeDocObject, false).done(function (res) {
     });
 }

@@ -3740,7 +3740,7 @@ var ViewModel = function () {
                         TahieShode: TahieShode_Fct5,
                     };
 
-                    ajaxFunction(SaveFDocH_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
+                    ajaxFunction(SaveFDoc_RelatedGroupUri + ace + '/' + sal + '/' + group, 'POST', relatedGroupObject, false).done(function (res) {
                         serialRelated = res;
                         if (serialRelated > 0) {
                             SaveSamaneMakeDoc(serialRelated, RelatedGroup);
