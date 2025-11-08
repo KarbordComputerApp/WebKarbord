@@ -3004,7 +3004,8 @@ function getAccessList(GoHome) {
 
                     if (GoHome == true) {
                         if (FirstPageUrl == 1)
-                            window.location.href = localStorage.getItem("urlDashbord");
+                            window.location.href = localStorage.getItem("urlIndex");
+                            //window.location.href = localStorage.getItem("urlDashbord");
                         else
                             window.location.href = localStorage.getItem("urlIndex");
                     }
