@@ -26,7 +26,7 @@ namespace WebKarbord.Controllers.Unit
 
 
         //Server.MapPath("ini/SqlServerConfig.Ini");
-        public static string Appddress; //ادرس نرم افزار
+        public static string Appddress;  //ادرس نرم افزار
         public static IniFile MyIniServer;
         public static string apiAddress;
         public static char[] afiAccess;
