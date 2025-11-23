@@ -1320,7 +1320,7 @@
 
         ZAccNameReport = localStorage.getItem("ZAccNameReport");
         counterAcc = 1;
-        list_AccSelect[0] = ZAccCodeReport;
+        list_ZAccSelect[0] = ZAccCodeReport;
         list_ZAccNameSelect[0] = ZAccNameReport;
         $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'));
 
