@@ -153,7 +153,7 @@ var key_b = 98;
 
 
 
-var countAccess = 36;
+var countAccess = 38;
 // دسترسی های ادمین پنل
 const AP_SFCT = 0;
 const AP_SPFCT = 1;
@@ -192,6 +192,9 @@ const AP_AGOpr = 33;
 const AP_Arz = 34;
 const AP_ZAcc = 35;
 const AP_GrdZAcc = 36;
+const AP_KhlAcc = 37;
+const AP_KhlZAcc = 38;
+
 
 // دسترسی های  ویندوزی
 const AC_DOC = 0;
@@ -235,6 +238,8 @@ const AC_AGOpr = 37;
 const AC_ARZ = 38;
 const AC_ZACC = 39;
 const AC_GrdZAcc = 40;
+const AC_KhlAcc = 41;
+const AC_KhlZAcc = 42;
 
 const InvRegSave = "ثبت شده";
 const InvRegNotSave = "ثبت نشد";
@@ -1301,7 +1306,9 @@ afiaccess = [false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false,
     false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false]
+    false, false, false, false, false, false, false, false,
+    false, false
+]
 
 
 
@@ -1367,6 +1374,8 @@ if (ace != 'Web2' && ace != null) {
             afiAccessApi[i] == 'Arz' ? afiaccess[AP_Arz] = true : null;
             afiAccessApi[i] == 'ZAcc' ? afiaccess[AP_ZAcc] = true : null;
             afiAccessApi[i] == 'GrdZAcc' ? afiaccess[AP_GrdZAcc] = true : null;
+            afiAccessApi[i] == 'KhlAcc' ? afiaccess[AP_KhlAcc] = true : null;
+            afiAccessApi[i] == 'KhlZAcc' ? afiaccess[AP_KhlZAcc] = true : null;
         }
     }
 
@@ -1468,6 +1477,8 @@ $("#Dftr").hide();
 $("#ADocR").hide();
 $("#TChk").hide();
 $("#GrdZAcc").hide();
+$("#KhlAcc").hide();
+$("#KhlZAcc").hide();
 
 
 $("#FDocR_S").hide();
@@ -2876,6 +2887,8 @@ function getAccessList(GoHome) {
                             afiAccessApi[i] == 'Arz' ? afiaccess[AP_Arz] = true : null;
                             afiAccessApi[i] == 'ZAcc' ? afiaccess[AP_ZAcc] = true : null;
                             afiAccessApi[i] == 'GrdZAcc' ? afiaccess[AP_GrdZAcc] = true : null;
+                            afiAccessApi[i] == 'KhlAcc' ? afiaccess[AP_KhlAcc] = true : null;
+                            afiAccessApi[i] == 'KhlZAcc' ? afiaccess[AP_KhlZAcc] = true : null;
                         }
                     }
 
@@ -3221,7 +3234,13 @@ function SetValidation() {
     ShowMenu[AC_TrzAcc] = validation;  // تراز دفاتر حسابداری
 
     validation = CheckAccessReport('GrdZAcc', 'Acc5');
-    ShowMenu[AC_GrdZAcc] = validation;  // گردش زیرحساب ها
+    ShowMenu[AC_GrdZAcc] = validation;  // گردش زیرحساب ها 
+
+    validation = CheckAccessReport('KhlAcc', 'Acc5');
+    ShowMenu[AC_KhlAcc] = validation;  // صورت خلاصه حساب ها  
+
+    validation = CheckAccessReport('KhlZAcc', 'Acc5');
+    ShowMenu[AC_KhlZAcc] = validation;  // صورت خلاصه زیرحساب ها
 
     validation = CheckAccessReport('Dftr', 'Acc5');
     ShowMenu[AC_Dftr] = validation;  // دفتر حساب حسابداری 
@@ -3507,12 +3526,15 @@ function SetValidation() {
             afiaccess[AP_AGMkz] && ShowMenu[AC_AGMkz] == true ? $("#AGMkz").show() : $("#AGMkz").hide();
             afiaccess[AP_AGOpr] && ShowMenu[AC_AGOpr] == true ? $("#AGOpr").show() : $("#AGOpr").hide();
             afiaccess[AP_GrdZAcc] && ShowMenu[AC_GrdZAcc] == true ? $("#GrdZAcc").show() : $("#GrdZAcc").hide();
-            //$("#GrdZAcc").show();
+
+            afiaccess[AP_KhlAcc] && ShowMenu[AC_KhlAcc] == true ? $("#KhlAcc").show() : $("#KhlAcc").hide();
+            afiaccess[AP_KhlZAcc] && ShowMenu[AC_KhlZAcc] == true ? $("#KhlZAcc").show() : $("#KhlZAcc").hide();
+
 
 
             if (ShowMenu[AC_TrzAcc] == false && ShowMenu[AC_Dftr] == false && ShowMenu[AC_ADocR] == false &&
                 ShowMenu[AC_TChk] == false && ShowMenu[AC_AGMkz] == false && ShowMenu[AC_AGOpr] == false
-                && ShowMenu[AC_GrdZAcc] == false
+                && ShowMenu[AC_GrdZAcc] == false && ShowMenu[AC_KhlAcc] == false && ShowMenu[AC_KhlZAcc] == false
             ) {
                 $("#AReport_Menu").hide();
             }
@@ -3997,6 +4019,18 @@ $("#GrdZAcc").click(function () {
     localStorage.setItem("AccCodeReport", null);
     localStorage.setItem("SalAcc", localStorage.getItem("sal"));
 });
+
+
+$("#KhlAcc").click(function () {
+    //localStorage.setItem("AccCodeReport", null);
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
+$("#KhlZAcc").click(function () {
+    //localStorage.setItem("AccCodeReport", null);
+    localStorage.setItem("SalAcc", localStorage.getItem("sal"));
+});
+
 
 $("#TrzFKala_S").click(function () {
     localStorage.setItem("SalFct", localStorage.getItem("sal"));

@@ -515,12 +515,19 @@
                         <li id="GrdZAcc" class="rightClick">
                             <a data-bind="text:translate('گردش زیرحساب ها')" class="useBlank" target="_blank" href=@Url.Action("GrdZAcc","ReportAFI")></a>
                         </li>
+                       
+                        <li id="KhlAcc" class="rightClick">
+                            <a data-bind="text:translate('صورت خلاصه حساب ها')" class="useBlank" target="_blank" href=@Url.Action("KhlAcc","ReportAFI")></a>
+                        </li>
 
+                        <li id="KhlZAcc" class="rightClick">
+                            <a data-bind="text:translate('صورت خلاصه زیرحساب ها')" class="useBlank" target="_blank" href=@Url.Action("KhlZAcc","ReportAFI")></a>
+                        </li>
 
                         <!-- <li id="TrzAcc">@Html.ActionLink("تراز حساب", "TrzAcc", "ReportAFI")</li>
-                        <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
-                        <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
-                        <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
+    <li id="Dftr">@Html.ActionLink("دفتر حساب", "Dftr", "ReportAFI")</li>
+    <li id="ADocR">@Html.ActionLink("دفتر روزنامه", "ADocR", "ReportAFI")</li>
+    <li id="TChk">@Html.ActionLink("صورت خلاصه چک ها", "TChk", "ReportAFI")</li>-->
                     </ul>
                 </li>
 
@@ -1249,7 +1256,10 @@
         sessionStorage.urlTrzAcc = '@Url.Action("TrzAcc", "ReportAFI")';
         sessionStorage.urlDftr = '@Url.Action("Dftr", "ReportAFI")';
         sessionStorage.urlADocR = '@Url.Action("ADocR", "ReportAFI")';
-        sessionStorage.urlADocR = '@Url.Action("GrdZAcc", "ReportAFI")';
+
+        sessionStorage.urlGrdZAcc = '@Url.Action("GrdZAcc", "ReportAFI")';
+        sessionStorage.urlKhlAcc = '@Url.Action("KhlAcc", "ReportAFI")';
+        sessionStorage.urlKhlZAcc = '@Url.Action("KhlZAcc", "ReportAFI")';
 
         sessionStorage.urlFDocR_S = '@Url.Action("FDocR_S","ReportAFI")';
         sessionStorage.urlFDocR_P = '@Url.Action("FDocR_P","ReportAFI")';

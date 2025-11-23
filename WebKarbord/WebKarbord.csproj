@@ -1022,9 +1022,11 @@
     <Content Include="Scripts\Map.js" />
     <Content Include="Scripts\R_AFI_ADocR.js" />
     <Content Include="Scripts\R_AFI_AGOpr.js" />
+    <Content Include="Scripts\R_AFI_KhlZAcc.js" />
     <Content Include="Scripts\R_AFI_Krdx.js" />
     <Content Include="Scripts\R_AFI_AGMkz.js" />
     <Content Include="Scripts\R_AFI_GrdZAcc.js" />
+    <Content Include="Scripts\R_AFI_KhlAcc.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_P.js" />
     <Content Include="Scripts\R_AFI_TrzFKala_P.js" />
     <Content Include="Scripts\R_AFI_TrzFCust_S.js" />
@@ -1221,6 +1223,8 @@
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Shared\_LayoutMap.cshtml" />
     <Content Include="Views\ReportAFI\GrdZAcc.cshtml" />
+    <Content Include="Views\ReportAFI\KhlAcc.cshtml" />
+    <Content Include="Views\ReportAFI\KhlZAcc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

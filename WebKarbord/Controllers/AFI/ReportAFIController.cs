@@ -47,6 +47,16 @@ namespace WebKarbord.Controllers.AFI
             return View();
         }
 
+        public ActionResult KhlAcc()
+        {
+            return View();
+        }
+
+        public ActionResult KhlZAcc()
+        {
+            return View();
+        }
+
 
         // انبار داری ------------------------------------------
 

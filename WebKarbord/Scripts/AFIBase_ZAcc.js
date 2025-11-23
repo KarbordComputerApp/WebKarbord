@@ -841,11 +841,6 @@
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
-    self.PageCountView = function () {
-        sessionStorage.invSelect = $('#invSelect').val();
-        select = $('#pageCountSelector').val();
-    }
-
 
 
     $('#refreshZGru').click(function () {

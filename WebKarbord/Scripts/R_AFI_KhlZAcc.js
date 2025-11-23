@@ -1,19 +1,19 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var flagupdateHeader = 0;
 
-    self.AccList = ko.observableArray([]); // لیست حساب ها
+    self.ZAccList = ko.observableArray([]); // لیست زیرحساب ها
     self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
     self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.AModeList = ko.observableArray([]); // لیست نوع سند ها
-    self.AGOprList = ko.observableArray([]); // لیست گزارش 
 
-    var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
+    self.KhlZAccList = ko.observableArray([]); // لیست گزارش 
+
+    var ZAccUri = server + '/api/Web_Data/ZAcc/'; // آدرس زیرحساب 
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند  
-    var AGOprUri = server + '/api/ReportAcc/AGOpr/'; // آدرس گزارش 
-    // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+
+    var KhlZAccUri = server + '/api/ReportAcc/KhlZAcc/'; // آدرس گزارش 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -24,11 +24,10 @@
 
     self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
     self.TaDate = ko.observable(sessionStorage.EndDateAcc);
+
     salAcc = localStorage.getItem("SalAcc");
     if (salAcc != '' && salAcc != null)
         sal = salAcc;
-
-
 
     localStorage.setItem("SalAcc", sal);
 
@@ -50,9 +49,6 @@
         $('#tatarikh').val(sessionStorage.EndDateAcc);
     });
 
-    //$('#aztarikh').val(sessionStorage.BeginDate);
-    //$('#tatarikh').val(sessionStorage.EndDate);
-    // $('#tatarikh').change();
 
 
 
@@ -65,10 +61,11 @@
     });
 
 
-    var AccCode = '';
-    var counterAcc = 0;
-    var list_AccSelect = new Array();
-    var list_AccNameSelect = new Array();
+
+    var zAccCode = '';
+    var counterZAcc = 0;
+    var list_ZAccSelect = new Array();
+    var list_ZAccNameSelect = new Array();
 
     var MkzCode = '';
     var counterMkz = 0;
@@ -89,12 +86,11 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'AGOpr';
+
+    var rprtId = 'KhlZAcc';
     var columns = [
-        'OprCode',
-        'OprName',
-        'AccCode',
-        'AccName',
+        'ZAccCode',
+        'ZAccName',
         'Bede',
         'Best',
         'MonBede',
@@ -115,21 +111,6 @@
                 SetColumn(columns[i - 1], i, cols);
             }
         }
-        /*   ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
-            data = TranslateData(data);
-            self.SettingColumnList(data);
-            ListColumns = data;
-            if (FlagSetting) {
-                CreateTableReport(data)
-            }
-            else {
-                CreateTableColumn(columns);
-                for (var i = 1; i <= columns.length; i++) {
-                    SetColumn(columns[i - 1], i, data);
-                }
-            }
-        });*/
-
     }
 
     //Get RprtColsDefult List
@@ -145,7 +126,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/AGOpr", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/KhlZAcc", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -163,7 +144,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/AGOpr", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/KhlZAcc", columns, self.SettingColumnList());
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -171,24 +152,18 @@
 
 
 
-    function getAccList() {
-        whereAcc = localStorage.getItem('whereAcc');
-        var AccObject = {
-            Mode: 0,
-            UserCode: sessionStorage.userName,
-            Where: whereAcc
-        }
-
-        ajaxFunction(AccUri + ace + '/' + sal + '/' + group, 'POST', AccObject, true).done(function (data) {
-            self.AccList(data);
+    //Get ZAcc List
+    function getZAccList() {
+        ajaxFunction(ZAccUri + ace + '/' + sal + '/' + group, 'POST', true, true).done(function (data) {
+            self.ZAccList(data);
         });
     }
-
-    $('#btnAcc').click(function () {
-        if (self.AccList().length == 0) {
-            getAccList();
+    $('#btnZAcc').click(function () {
+        if (self.ZAccList().length == 0) {
+            getZAccList();
         }
     });
+
 
     //Get Opr List
     function getOprList() {
@@ -224,7 +199,7 @@
     getAModeList();
 
 
-    $('#nameAcc').val(translate('همه موارد'));
+    $('#nameZAcc').val(translate('همه موارد'));
     $('#nameOpr').val(translate('همه موارد'));
     $('#nameMkz').val(translate('همه موارد'));
     $('#nameAMode').val(translate('همه موارد'));
@@ -233,8 +208,6 @@
 
     var azTarikh;
     var taTarikh;
-    var accCode;
-    var accName;
     var aModeCode;
     var aModeName;
     var mkzcode;
@@ -246,19 +219,19 @@
         azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
         taTarikh = self.TaDate().toEnglishDigit();// $("#tatarikh").val().toEnglishDigit();
 
-        accCode = '';
-        accName = '';
-        for (var i = 0; i <= counterAcc - 1; i++) {
-            if (i < counterAcc - 1) {
-                accCode += list_AccSelect[i] + '*';
-                accName += list_AccNameSelect[i] + '*';
+
+        zAccCode = '';
+        zAccName = '';
+        for (var i = 0; i <= counterZAcc - 1; i++) {
+            if (i < counterZAcc - 1) {
+                zAccCode += list_ZAccSelect[i] + '*';
+                zAccName += list_ZAccNameSelect[i] + '*';
             }
             else {
-                accCode += list_AccSelect[i];
-                accName += list_AccNameSelect[i];
+                zAccCode += list_ZAccSelect[i];
+                zAccName += list_ZAccNameSelect[i];
             }
         }
-
 
         aModeCode = '';
         aModeName = '';
@@ -303,21 +276,21 @@
 
 
 
-    //Get AGOpr
-    function getAGOpr() {
+    //Get KhlZAcc
+    function getKhlZAcc() {
         SetFilter();
-        var AGOprObject = {
+        var KhlZAccObject = {
             azTarikh: azTarikh,
             taTarikh: taTarikh,
             AModeCode: aModeCode,
-            AccCode: accCode,
+            ZAccCode: zAccCode,
             MkzCode: mkzcode,
-            OprCode: oprcode
+            OprCode: oprcode,
         };
 
-        ajaxFunction(AGOprUri + ace + '/' + sal + '/' + group, 'POST', AGOprObject, true).done(function (response) {
-            self.AGOprList(response);
-            //calcsum(self.AGOprList());
+        ajaxFunction(KhlZAccUri + ace + '/' + sal + '/' + group, 'POST', KhlZAccObject, true).done(function (response) {
+            self.KhlZAccList(response);
+            //calcsum(self.KhlZAccList());
         });
     }
 
@@ -328,43 +301,48 @@
         totalMonBest = 0;
         totalMonTotal = 0;
 
+
         for (var i = 0; i < list.length; ++i) {
-            AGOprData = list[i];
-            if (AGOprData.Tag == 1) {
-                totalBede += AGOprData.Bede;
-                totalBest += AGOprData.Best;
-            }
+            KhlZAccData = list[i];
+
+
+            totalBede += KhlZAccData.Bede;
+            totalBest += KhlZAccData.Best;
+
         }
 
-        totalMonBede = totalBede > totalBest ? totalBede - totalBest : 0;
-        totalMonBest = totalBede < totalBest ? totalBest - totalBede : 0;
-        totalMonTotal = totalMonBede > 0 ? totalMonBede : totalMonBest * -1;
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
         $("#totalMonBede").text(NumberToNumberString(totalMonBede));
         $("#totalMonBest").text(NumberToNumberString(totalMonBest));
-        $("#totalMonTotal").text(totalMonTotal >= 0 ? NumberToNumberString(totalMonTotal) : '(' + NumberToNumberString(Math.abs(totalMonTotal)) + ')');
+        $("#totalMonTotal").text(NumberToNumberString(totalMonTotal));
     }
 
     $("#CreateReport").click(function () {
-        getAGOpr();
-        self.sortTableAGOpr();
+        getKhlZAcc();
+        self.sortTableKhlZAcc();
     });
 
 
+
+
+
+
+
     //------------------------------------------------------
-    self.currentPageAGOpr = ko.observable();
-    pageSizeAGOpr = localStorage.getItem('pageSizeAGOpr') == null ? 10 : localStorage.getItem('pageSizeAGOpr');
-    self.pageSizeAGOpr = ko.observable(pageSizeAGOpr);
-    self.currentPageIndexAGOpr = ko.observable(0);
+    self.currentPageKhlZAcc = ko.observable();
+    pageSizeKhlZAcc = localStorage.getItem('pageSizeKhlZAcc') == null ? 10 : localStorage.getItem('pageSizeKhlZAcc');
+    self.pageSizeKhlZAcc = ko.observable(pageSizeKhlZAcc);
+    self.currentPageIndexKhlZAcc = ko.observable(0);
     self.iconType = ko.observable("");
 
-    self.iconTypeOprCode = ko.observable("");
-    self.iconTypeOprName = ko.observable("");
-    self.iconTypeAccCode = ko.observable("");
-    self.iconTypeAccName = ko.observable("");
+    self.iconTypeZAccCode = ko.observable("");
+    self.iconTypeZAccName = ko.observable("");
     self.iconTypeBede = ko.observable("");
     self.iconTypeBest = ko.observable("");
     self.iconTypeMonBede = ko.observable("");
@@ -372,23 +350,19 @@
     self.iconTypeMonTotal = ko.observable("");
 
 
-    self.filterOprCode = ko.observable("");
-    self.filterOprName = ko.observable("");
-    self.filterAccCode = ko.observable("");
-    self.filterAccName = ko.observable("");
+    self.filterZAccCode = ko.observable("");
+    self.filterZAccName = ko.observable("");
     self.filterBede = ko.observable("");
     self.filterBest = ko.observable("");
     self.filterMonBede = ko.observable("");
     self.filterMonBest = ko.observable("");
     self.filterMonTotal = ko.observable("");
 
-    self.filterAGOprList = ko.computed(function () {
+    self.filterKhlZAccList = ko.computed(function () {
 
-        self.currentPageIndexAGOpr(0);
-        var filterOprCode = self.filterOprCode();
-        var filterOprName = self.filterOprName();
-        var filterAccCode = self.filterAccCode();
-        var filterAccName = self.filterAccName();
+        self.currentPageIndexKhlZAcc(0);
+        var filterZAccCode = self.filterZAccCode();
+        var filterZAccName = self.filterZAccName();
         var filterBede = self.filterBede();
         var filterBest = self.filterBest();
         var filterMonBede = self.filterMonBede();
@@ -402,12 +376,13 @@
         filterMonTotal = filterMonTotal.replace("/", ".");
 
 
-        tempData = ko.utils.arrayFilter(self.AGOprList(), function (item) {
+        // , ZAccName, Bede, Best, MonBede, MonBest, MonTotal
+        // ZAccCode, ZAccName, Bede, Best, MonBede, MonBest, MonTotal
+
+        tempData = ko.utils.arrayFilter(self.KhlZAccList(), function (item) {
             result =
-                ko.utils.stringStartsWith(item.OprCode.toString().toLowerCase(), filterOprCode) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
-                ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filterAccCode) &&
-                (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
+                ko.utils.stringStartsWith(item.ZAccCode.toString().toLowerCase(), filterZAccCode) &&
+                (item.ZAccName == null ? '' : item.ZAccName.toString().search(filterZAccName) >= 0) &&
                 ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
                 ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
                 ko.utils.stringStartsWith(item.MonBede.toString().toLowerCase(), filterMonBede) &&
@@ -422,64 +397,64 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchAGOpr);
+    self.search(sessionStorage.searchKhlZAcc);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexAGOpr = 0;
-        sessionStorage.searchAGOpr = "";
+        var indexKhlZAcc = 0;
+        sessionStorage.searchKhlZAcc = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexAGOpr(0);
+            self.currentPageIndexKhlZAcc(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.AGOprList(), function (item) {
-                indexAGOpr += 1;
+            value = ko.utils.arrayFirst(self.KhlZAccList(), function (item) {
+                indexKhlZAcc += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexAGOpr < self.pageSizeAGOpr())
-                self.currentPageIndexAGOpr(0);
+            if (indexKhlZAcc < self.pageSizeKhlZAcc())
+                self.currentPageIndexKhlZAcc(0);
             else {
-                var a = Math.round((indexAGOpr / self.pageSizeAGOpr()), 0);
-                if (a < (indexAGOpr / self.pageSizeAGOpr())) a += 1;
-                self.currentPageIndexAGOpr(a - 1);
+                var a = Math.round((indexKhlZAcc / self.pageSizeKhlZAcc()), 0);
+                if (a < (indexKhlZAcc / self.pageSizeKhlZAcc())) a += 1;
+                self.currentPageIndexKhlZAcc(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageAGOpr = ko.computed(function () {
-        var pageSizeAGOpr = parseInt(self.pageSizeAGOpr(), 10),
-            startIndex = pageSizeAGOpr * self.currentPageIndexAGOpr(),
-            endIndex = startIndex + pageSizeAGOpr;
-        localStorage.setItem('pageSizeAGOpr', pageSizeAGOpr);
-        return self.filterAGOprList().slice(startIndex, endIndex);
+    self.currentPageKhlZAcc = ko.computed(function () {
+        var pageSizeKhlZAcc = parseInt(self.pageSizeKhlZAcc(), 10),
+            startIndex = pageSizeKhlZAcc * self.currentPageIndexKhlZAcc(),
+            endIndex = startIndex + pageSizeKhlZAcc;
+        localStorage.setItem('pageSizeKhlZAcc', pageSizeKhlZAcc);
+        return self.filterKhlZAccList().slice(startIndex, endIndex);
     });
 
-    self.nextPageAGOpr = function () {
-        if (((self.currentPageIndexAGOpr() + 1) * self.pageSizeAGOpr()) < self.filterAGOprList().length) {
-            self.currentPageIndexAGOpr(self.currentPageIndexAGOpr() + 1);
+    self.nextPageKhlZAcc = function () {
+        if (((self.currentPageIndexKhlZAcc() + 1) * self.pageSizeKhlZAcc()) < self.filterKhlZAccList().length) {
+            self.currentPageIndexKhlZAcc(self.currentPageIndexKhlZAcc() + 1);
         }
     };
 
-    self.previousPageAGOpr = function () {
-        if (self.currentPageIndexAGOpr() > 0) {
-            self.currentPageIndexAGOpr(self.currentPageIndexAGOpr() - 1);
+    self.previousPageKhlZAcc = function () {
+        if (self.currentPageIndexKhlZAcc() > 0) {
+            self.currentPageIndexKhlZAcc(self.currentPageIndexKhlZAcc() - 1);
         }
     };
 
-    self.firstPageAGOpr = function () {
-        self.currentPageIndexAGOpr(0);
+    self.firstPageKhlZAcc = function () {
+        self.currentPageIndexKhlZAcc(0);
     };
 
-    self.lastPageAGOpr = function () {
-        tempCountAGOpr = parseInt(self.filterAGOprList().length / self.pageSizeAGOpr(), 10);
-        if ((self.filterAGOprList().length % self.pageSizeAGOpr()) == 0)
-            self.currentPageIndexAGOpr(tempCountAGOpr - 1);
+    self.lastPageKhlZAcc = function () {
+        tempCountKhlZAcc = parseInt(self.filterKhlZAccList().length / self.pageSizeKhlZAcc(), 10);
+        if ((self.filterKhlZAccList().length % self.pageSizeKhlZAcc()) == 0)
+            self.currentPageIndexKhlZAcc(tempCountKhlZAcc - 1);
         else
-            self.currentPageIndexAGOpr(tempCountAGOpr);
+            self.currentPageIndexKhlZAcc(tempCountKhlZAcc);
     };
 
-    self.sortTableAGOpr = function (viewModel, e) {
+    self.sortTableKhlZAcc = function (viewModel, e) {
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
@@ -495,7 +470,7 @@
 
 
         self.currentColumn(orderProp);
-        self.AGOprList.sort(function (left, right) {
+        self.KhlZAccList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -509,20 +484,16 @@
 
 
 
-        self.iconTypeOprCode('');
-        self.iconTypeOprName('');
-        self.iconTypeAccCode('');
-        self.iconTypeAccName('');
+        self.iconTypeZAccCode('');
+        self.iconTypeZAccName('');
         self.iconTypeBede('');
         self.iconTypeBest('');
         self.iconTypeMonBede('');
         self.iconTypeMonBest('');
         self.iconTypeMonTotal('');
 
-        if (orderProp == 'SortOprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ZAccCode') self.iconTypeZAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'ZAccName') self.iconTypeZAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MonBede') self.iconTypeMonBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -530,38 +501,34 @@
         if (orderProp == 'MonTotal') self.iconTypeMonTotal((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     }
 
-
     self.iconTypeCode = ko.observable("");
     self.iconTypeName = ko.observable("");
     self.iconTypeSpec = ko.observable("");
 
-    self.currentPageAcc = ko.observable();
-    pageSizeAcc = localStorage.getItem('pageSizeAcc') == null ? 10 : localStorage.getItem('pageSizeAcc');
-    self.pageSizeAcc = ko.observable(pageSizeAcc);
-    self.currentPageIndexAcc = ko.observable(0);
+    self.currentPageZAcc = ko.observable();
+    pageSizeZAcc = localStorage.getItem('pageSizeZAcc') == null ? 10 : localStorage.getItem('pageSizeZAcc');
+    self.pageSizeZAcc = ko.observable(pageSizeZAcc);
+    self.currentPageIndexZAcc = ko.observable(0);
 
-    self.filterAcc0 = ko.observable("");
-    self.filterAcc1 = ko.observable("");
-    self.filterAcc2 = ko.observable("");
-    self.filterAcc3 = ko.observable("");
+    self.filterZAcc0 = ko.observable("");
+    self.filterZAcc1 = ko.observable("");
+    self.filterZAcc2 = ko.observable("");
 
-    self.filterAccList = ko.computed(function () {
+    self.filterZAccList = ko.computed(function () {
 
-        self.currentPageIndexAcc(0);
-        var filter0 = self.filterAcc0().toUpperCase();
-        var filter1 = self.filterAcc1();
-        var filter2 = self.filterAcc2();
-        var filter3 = self.filterAcc3();
+        self.currentPageIndexZAcc(0);
+        var filter0 = self.filterZAcc0().toUpperCase();
+        var filter1 = self.filterZAcc1();
+        var filter2 = self.filterZAcc2();
 
-        if (!filter0 && !filter1 && !filter2 && !filter3) {
-            return self.AccList();
+        if (!filter0 && !filter1 && !filter2) {
+            return self.ZAccList();
         } else {
-            tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
+            tempData = ko.utils.arrayFilter(self.ZAccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                    ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
+                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
                 return result;
             })
             return tempData;
@@ -569,44 +536,44 @@
     });
 
 
-    self.currentPageAcc = ko.computed(function () {
-        var pageSizeAcc = parseInt(self.pageSizeAcc(), 10),
-            startIndex = pageSizeAcc * self.currentPageIndexAcc(),
-            endIndex = startIndex + pageSizeAcc;
-        localStorage.setItem('pageSizeAcc', pageSizeAcc);
-        return self.filterAccList().slice(startIndex, endIndex);
+    self.currentPageZAcc = ko.computed(function () {
+        var pageSizeZAcc = parseInt(self.pageSizeZAcc(), 10),
+            startIndex = pageSizeZAcc * self.currentPageIndexZAcc(),
+            endIndex = startIndex + pageSizeZAcc;
+        localStorage.setItem('pageSizeZAcc', pageSizeZAcc);
+        return self.filterZAccList().slice(startIndex, endIndex);
     });
 
-    self.nextPageAcc = function () {
-        if (((self.currentPageIndexAcc() + 1) * self.pageSizeAcc()) < self.filterAccList().length) {
-            self.currentPageIndexAcc(self.currentPageIndexAcc() + 1);
+    self.nextPageZAcc = function () {
+        if (((self.currentPageIndexZAcc() + 1) * self.pageSizeZAcc()) < self.filterZAccList().length) {
+            self.currentPageIndexZAcc(self.currentPageIndexZAcc() + 1);
         }
     };
 
-    self.previousPageAcc = function () {
-        if (self.currentPageIndexAcc() > 0) {
-            self.currentPageIndexAcc(self.currentPageIndexAcc() - 1);
+    self.previousPageZAcc = function () {
+        if (self.currentPageIndexZAcc() > 0) {
+            self.currentPageIndexZAcc(self.currentPageIndexZAcc() - 1);
         }
     };
 
-    self.firstPageAcc = function () {
-        self.currentPageIndexAcc(0);
+    self.firstPageZAcc = function () {
+        self.currentPageIndexZAcc(0);
     };
 
-    self.lastPageAcc = function () {
-        countAcc = parseInt(self.filterAccList().length / self.pageSizeAcc(), 10);
-        if ((self.filterAccList().length % self.pageSizeAcc()) == 0)
-            self.currentPageIndexAcc(countAcc - 1);
+    self.lastPageZAcc = function () {
+        countZAcc = parseInt(self.filterZAccList().length / self.pageSizeZAcc(), 10);
+        if ((self.filterZAccList().length % self.pageSizeZAcc()) == 0)
+            self.currentPageIndexZAcc(countZAcc - 1);
         else
-            self.currentPageIndexAcc(countAcc);
+            self.currentPageIndexZAcc(countZAcc);
     };
 
-    self.sortTableAcc = function (viewModel, e) {
+    self.sortTableZAcc = function (viewModel, e) {
         var orderProp = $(e.target).attr("data-column")
         if (orderProp == null)
             return null
         self.currentColumn(orderProp);
-        self.AccList.sort(function (left, right) {
+        self.ZAccList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -623,16 +590,18 @@
         self.iconTypeSpec('');
 
 
-        if (orderProp == 'SortCode') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Code') self.iconTypeCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
-    $('#refreshAcc').click(function () {
+
+
+    $('#refreshZAcc').click(function () {
         Swal.fire({
             title: mes_Refresh,
-            text: translate("لیست حساب ها") + " " + translate("به روز رسانی شود ؟"),
+            text: translate("لیست زیر حساب ها") + " " + translate("به روز رسانی شود ؟"),
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -643,90 +612,85 @@
         }).then((result) => {
             if (result.value) {
                 $("div.loadingZone").show();
-                getAccList();
+                getZAccList();
                 $("div.loadingZone").hide();
             }
         })
     })
 
 
-    self.AddAcc = function (item) {
+    self.AddZAcc = function (item) {
 
-        AccCode = item.Code;
+        zAccCode = item.Code;
         find = false;
-        list_AccSelect.forEach(function (item, key) {
-            if (item == AccCode) {
+        list_ZAccSelect.forEach(function (item, key) {
+            if (item == zAccCode) {
                 find = true;
             }
         });
 
         if (find == false) {
-            $('#TableBodyListAcc').append(
+            $('#TableBodyListZAcc').append(
                 '<tr data-bind="">'
                 + ' <td data-bind="text: Code">' + item.Code + '</td > '
                 + ' <td data-bind="text: Name">' + item.Name + '</td > '
                 + '</tr>'
             );
-            list_AccSelect[counterAcc] = item.Code;
-            list_AccNameSelect[counterAcc] = item.Name;
-            counterAcc = counterAcc + 1;
+            list_ZAccSelect[counterZAcc] = item.Code;
+            list_ZAccNameSelect[counterZAcc] = item.Name;
+            counterZAcc = counterZAcc + 1;
         }
     };
 
 
-    self.AddAllAcc = function () {
-        list_AccSelect = new Array();
-        list_AccNameSelect = new Array();
-        list = self.filterAccList();
-        $("#TableBodyListAcc").empty();
+    self.AddAllZAcc = function () {
+        list_ZAccSelect = new Array();
+        list_ZAccNameSelect = new Array();
+        list = self.ZAccList();
+        $("#TableBodyListZAcc").empty();
         for (var i = 0; i < list.length; i++) {
-            $('#TableBodyListAcc').append(
+            $('#TableBodyListZAcc').append(
                 '  <tr data-bind="">'
                 + ' <td data-bind="text: Code">' + list[i].Code + '</td > '
                 + ' <td data-bind="text: Name">' + list[i].Name + '</td > '
                 + '</tr>'
             );
-            list_AccSelect[i] = list[i].Code;
-            list_AccNameSelect[i] = list[i].Name;
-            counterAcc = i + 1;
+            list_ZAccSelect[i] = list[i].Code;
+            list_ZAccNameSelect[i] = list[i].Name;
+            counterZAcc = i + 1;
         }
     };
 
 
-    self.DelAllAcc = function () {
-        list_AccSelect = new Array();
-        counterAcc = 0;
-        $("#TableBodyListAcc").empty();
+    self.DelAllZAcc = function () {
+        list_ZAccSelect = new Array();
+        list_ZAccNameSelect = new Array();
+        counterZAcc = 0;
+        $("#TableBodyListZAcc").empty();
     };
 
 
-    $('#modal-Acc').on('hide.bs.modal', function () {
-        if (counterAcc > 0)
-            $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'))
+    $('#modal-ZAcc').on('hide.bs.modal', function () {
+        if (counterZAcc > 0)
+            $('#nameZAcc').val(counterZAcc + ' ' + translate('مورد انتخاب شده'))
         else
-            $('#nameAcc').val(translate('همه موارد'));
+            $('#nameZAcc').val(translate('همه موارد'));
     });
 
-    $('#modal-Acc').on('shown.bs.modal', function () {
-
-        level = $("#Level").val();
-        level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
-
-        $("#TableBodyListAcc").empty();
-        for (var i = 0; i < counterAcc; i++) {
-            if (list_AccSelect[i] != "") {
-                $('#TableBodyListAcc').append(
+    $('#modal-ZAcc').on('shown.bs.modal', function () {
+        $("#TableBodyListZAcc").empty();
+        for (var i = 0; i < counterZAcc; i++) {
+            if (list_ZAccSelect[i] != "") {
+                $('#TableBodyListZAcc').append(
                     '<tr data-bind="">'
-                    + ' <td data-bind="text: Code">' + list_AccSelect[i] + '</td > '
-                    + ' <td data-bind="text: Name">' + list_AccNameSelect[i] + '</td > '
+                    + ' <td data-bind="text: Code">' + list_ZAccSelect[i] + '</td > '
+                    + ' <td data-bind="text: Name">' + list_ZAccNameSelect[i] + '</td > '
                     + '</tr>'
                 );
             }
         }
-
         $('.fix').attr('class', 'form-line focused fix');
     });
-
 
 
 
@@ -754,7 +718,6 @@
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
-
                 return result;
             })
             return tempData;
@@ -820,6 +783,8 @@
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
+
+
 
 
     $('#refreshMkz').click(function () {
@@ -1007,6 +972,7 @@
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
+
 
 
     $('#refreshOpr').click(function () {
@@ -1298,51 +1264,66 @@
     });
 
 
+/*
 
-
-    /*
-        self.ShowADocR = function (Band) {
-            SetFilter();
-            localStorage.setItem("AzTarikhReport", azTarikh);
-            localStorage.setItem("TaTarikhReport", taTarikh);
-            localStorage.setItem("AccCodeReport", Band.AccCode);
-            localStorage.setItem("AccNameReport", Band.AccName);
-            localStorage.setItem("AModeCodeReport", aModeCode);
-            localStorage.setItem("AModeNameReport", aModeName);
-            localStorage.setItem("MkzCodeReport", mkzcode);
-            localStorage.setItem("MkzNameReport", mkzname);
-            localStorage.setItem("OprCodeReport", Band.OprCode);
-            localStorage.setItem("OprNameReport", Band.OprName);
-            window.open(sessionStorage.urlADocR, '_blank');
-        } */
-
-    self.ShowDftr = function (Band) {
+    self.ShowKhlZAcc_Riz = function (Band) {
         SetFilter();
+        localStorage.setItem("ZAccCodeReport", Band.ZAccCode);
+        localStorage.setItem("ZAccNameReport", Band.ZAccName);
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
         localStorage.setItem("AModeCodeReport", aModeCode);
         localStorage.setItem("AModeNameReport", aModeName);
         localStorage.setItem("MkzCodeReport", mkzcode);
         localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", Band.OprCode);
-        localStorage.setItem("OprNameReport", Band.OprName);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
+        window.open(sessionStorage.urlKhlZAcc, '_blank');
+    }
+
+    self.ShowDftr = function (Band) {
+        SetFilter();
+        localStorage.setItem("ZAccCodeReport", Band.ZAccCode);
+        localStorage.setItem("ZAccNameReport", Band.ZAccName);
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
         window.open(sessionStorage.urlDftr, '_blank');
     }
 
+    self.ShowADocR = function (Band) {
+        SetFilter();
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("ZAccCodeReport", Band.ZAccCode);
+        localStorage.setItem("ZAccNameReport", Band.ZAccName);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
+        window.open(sessionStorage.urlADocR, '_blank');
+    }
+
+*/
 
 
+    ZAccCodeReport = localStorage.getItem("ZAccCodeReport");
+    localStorage.setItem("ZAccCodeReport", null);
+    if (ZAccCodeReport != "null") {
 
-    AccCodeReport = localStorage.getItem("AccCodeReport");
-    localStorage.setItem("AccCodeReport", null);
-    if (AccCodeReport != "null") {
-
-        AccNameReport = localStorage.getItem("AccNameReport");
+        ZAccNameReport = localStorage.getItem("ZAccNameReport");
         counterAcc = 1;
-        list_AccSelect[0] = AccCodeReport;
-        list_AccNameSelect[0] = AccNameReport;
+        list_AccSelect[0] = ZAccCodeReport;
+        list_ZAccNameSelect[0] = ZAccNameReport;
         $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'));
+
 
         azTarikh = localStorage.getItem("AzTarikhReport");
         self.AzDate(azTarikh);
@@ -1387,7 +1368,7 @@
         else
             $('#nameOpr').val(translate('همه موارد'));
 
-        getAGOpr();
+        getKhlZAcc();
     }
 
 
@@ -1396,8 +1377,8 @@
 
 
     self.radif = function (index) {
-        countShow = self.pageSizeAGOpr();
-        page = self.currentPageIndexAGOpr();
+        countShow = self.pageSizeKhlZAcc();
+        page = self.currentPageIndexKhlZAcc();
         calc = (countShow * page) + 1;
         return index + calc;
     }
@@ -1421,12 +1402,10 @@
         createTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableAGOpr">' +
+            '       <tr data-bind="click: sortTableKhlZAcc">' +
             '<th>' + translate('ردیف') + '</th>' +
-            CreateTableTh('OprCode', data) +
-            CreateTableTh('OprName', data) +
-            CreateTableTh('AccCode', data) +
-            CreateTableTh('AccName', data) +
+            CreateTableTh('ZAccCode', data) +
+            CreateTableTh('ZAccName', data) +
             CreateTableTh('Bede', data) +
             CreateTableTh('Best', data) +
             CreateTableTh('MonBede', data) +
@@ -1435,40 +1414,52 @@
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageAGOpr}" style="cursor: default;">' +
-            '     <tr data-bind="style: { \'background-color\': Tag == 0 ? \'#f5efeb\' : \'\' }" >' +
+            ' <tbody data-bind=" {foreach: currentPageKhlZAcc}" style="cursor: default;">';
+       
+            createTable +=  '     <tr>'
+            //createTable += '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
+
+
+        createTable +=
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-            CreateTableTd('OprCode', 0, 0, data) +
-            CreateTableTd('OprName', 0, 0, data) +
-            CreateTableTd('AccCode', 0, 0, data) +
-            CreateTableTd('AccName', 0, 0, data) +
+            CreateTableTd('ZAccCode', 0, 0, data) +
+            CreateTableTd('ZAccName', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
-            '<td>' +
-
-            '<a data-bind="visible: $root.AccessAction(\'ADocR\') == true && AccCode != \'\' " class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+           /* '<td>' +
+            '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
             '<ul class="dropdown-menu">' +
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowDftr" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر حساب' +
+            '            دفتر روزنامه' +
             '        </a>' +
             '    </li>' +
-            '</td >' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowKhlZAcc_Riz , visible: HasChild == 1" style="font-size: 11px;text-align: right;">' +
+            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '             تراز زیر حساب ها' +
+            '        </a>' +
+            '    </li>' +
+            '    <li>' +
+            '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
+            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+            '            دفتر حساب ' +
+            '        </a>' +
+            '    </li>' +
+            '</td >' +*/
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
             '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
-            CreateTableTdSum('OprCode', 0, data) +
-            CreateTableTdSum('OprName', 1, data) +
-            CreateTableTdSum('AccCode', 0, data) +
-            CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('ZAccCode', 0, data) +
+            CreateTableTdSum('ZAccName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
             CreateTableTdSum('MonBede', 2, data) +
@@ -1478,10 +1469,8 @@
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
-            CreateTableTdSearch('OprCode', data) +
-            CreateTableTdSearch('OprName', data) +
-            CreateTableTdSearch('AccCode', data) +
-            CreateTableTdSearch('AccName', data) +
+            CreateTableTdSearch('ZAccCode', data) +
+            CreateTableTdSearch('ZAccName', data) +
             CreateTableTdSearch('Bede', data) +
             CreateTableTdSearch('Best', data) +
             CreateTableTdSearch('MonBede', data) +
@@ -1499,13 +1488,8 @@
     function CreateTableTh(field, data) {
 
         text = '<th ';
-
         TextField = FindTextField(field, data);
-
-        sortField = field == 'DocNo' ? 'SortDocNo' :
-            field == 'MkzCode' ? 'SortMkzCode' :
-                field == 'AccCode' ? 'SortAccCode' :
-                    field
+        sortField = field == 'DocNo' ? 'SortDocNo' : field
 
         if (TextField == 0)
             text += 'Hidden ';
@@ -1584,14 +1568,6 @@
         return text;
 
     }
-
-
-
-
-
-
-
-
 
 
     $('.fix').attr('class', 'form-line date focused fix');
@@ -1704,7 +1680,7 @@
         address = item.address;
         data = item.Data;
         printPublic = item.isPublic == 1 ? true : false;
-        setReport(self.AGOprList(), data, printVariable);
+        setReport(self.KhlZAccList(), data, printVariable);
     };
 
 
@@ -1744,7 +1720,7 @@
     $('#AddNewPrintForms').click(function () {
         printName = translate('فرم جدید');
         printPublic = false;
-        setReport(self.AGOprList(), '', printVariable);
+        setReport(self.KhlZAccList(), '', printVariable);
     });
 
 
@@ -1757,8 +1733,36 @@
         printVariable += '"FromDate":"' + FromDate + '",';
         printVariable += '"ToDate":"' + ToDate + '",';
 
+
+
+
+        totalBede = 0;
+        totalBest = 0;
+        totalMonBede = 0;
+        totalMonBest = 0;
+        totalMonTotal = 0;
+
+
+        var listSumReport = self.KhlZAccList();
+        for (var i = 0; i < listSumReport.length; ++i) {
+            KhlZAccData = listSumReport[i];
+
+            totalBede += KhlZAccData.Bede;
+            totalBest += KhlZAccData.Best;
+        }
+
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
+
+        printVariable += '"SumBede":"' + totalBede + '",';
+        printVariable += '"SumBest":"' + totalBest + '",';
+        printVariable += '"MonBede":"' + totalMonBede + '",';
+        printVariable += '"MonBest":"' + totalMonBest + '",';
+        printVariable += '"MonTotal":"' + totalMonTotal + '",';
+
         printName = null;
-        sessionStorage.ModePrint = "ReportAGOpr";
+        sessionStorage.ModePrint = "ReportKhlZAcc";
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
     });
@@ -1778,14 +1782,10 @@
                 data = list[i].Data;
             }
         }
-        setReport(self.AGOprList(), data, printVariable);
+        setReport(self.KhlZAccList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
 
-
-    self.PageIndexAcc = function (item) {
-        return CountPage(self.filterAccList(), self.pageSizeAcc(), item);
-    };
 
     self.PageIndexMkz = function (item) {
         return CountPage(self.filterMkzList(), self.pageSizeMkz(), item);
@@ -1799,12 +1799,16 @@
         return CountPage(self.filterAModeList(), self.pageSizeAMode(), item);
     };
 
-    self.PageIndexAGOpr = function (item) {
-        return CountPage(self.filterAGOprList(), self.pageSizeAGOpr(), item);
-    };
-
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexZAcc = function (item) {
+        return CountPage(self.filterZAccList(), self.pageSizeZAcc(), item);
+    };
+
+    self.PageIndexKhlZAcc = function (item) {
+        return CountPage(self.filterKhlZAccList(), self.pageSizeKhlZAcc(), item);
     };
 };
 

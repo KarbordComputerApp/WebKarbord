@@ -1,19 +1,18 @@
 ﻿var ViewModel = function () {
     var self = this;
-    var flagupdateHeader = 0;
 
     self.AccList = ko.observableArray([]); // لیست حساب ها
     self.MkzList = ko.observableArray([]); // لیست مرکز هزینه
     self.OprList = ko.observableArray([]); // لیست پروژه ها
     self.AModeList = ko.observableArray([]); // لیست نوع سند ها
-    self.AGOprList = ko.observableArray([]); // لیست گزارش 
+
+    self.KhlAccList = ko.observableArray([]); // لیست گزارش 
 
     var AccUri = server + '/api/Web_Data/Acc/'; // آدرس حساب ها
     var MkzUri = server + '/api/Web_Data/Mkz/'; // آدرس مرکز هزینه
     var OprUri = server + '/api/Web_Data/Opr/'; // آدرس پروژه 
     var AModeUri = server + '/api/ADocData/AMode/'; // آدرس نوع سند  
-    var AGOprUri = server + '/api/ReportAcc/AGOpr/'; // آدرس گزارش 
-    // var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    var KhlAccUri = server + '/api/ReportAcc/KhlAcc/'; // آدرس گزارش 
 
     self.sortType = "ascending";
     self.currentColumn = ko.observable("");
@@ -24,6 +23,8 @@
 
     self.AzDate = ko.observable(sessionStorage.BeginDateAcc);
     self.TaDate = ko.observable(sessionStorage.EndDateAcc);
+
+
     salAcc = localStorage.getItem("SalAcc");
     if (salAcc != '' && salAcc != null)
         sal = salAcc;
@@ -50,9 +51,6 @@
         $('#tatarikh').val(sessionStorage.EndDateAcc);
     });
 
-    //$('#aztarikh').val(sessionStorage.BeginDate);
-    //$('#tatarikh').val(sessionStorage.EndDate);
-    // $('#tatarikh').change();
 
 
 
@@ -63,6 +61,7 @@
     $('#btntatarikh').click(function () {
         $('#tatarikh').change();
     });
+
 
 
     var AccCode = '';
@@ -89,18 +88,21 @@
 
     self.SettingColumnList = ko.observableArray([]); // لیست ستون ها
 
-    var rprtId = 'AGOpr';
+    var rprtId = 'KhlAcc';
     var columns = [
-        'OprCode',
-        'OprName',
         'AccCode',
         'AccName',
+        'MkzCode',
+        'MkzName',
+        'OprCode',
+        'OprName',
         'Bede',
         'Best',
         'MonBede',
         'MonBest',
         'MonTotal'
     ];
+
 
     //Get RprtCols List
     function getRprtColsList(FlagSetting) {
@@ -115,21 +117,6 @@
                 SetColumn(columns[i - 1], i, cols);
             }
         }
-        /*   ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
-            data = TranslateData(data);
-            self.SettingColumnList(data);
-            ListColumns = data;
-            if (FlagSetting) {
-                CreateTableReport(data)
-            }
-            else {
-                CreateTableColumn(columns);
-                for (var i = 1; i <= columns.length; i++) {
-                    SetColumn(columns[i - 1], i, data);
-                }
-            }
-        });*/
-
     }
 
     //Get RprtColsDefult List
@@ -145,7 +132,7 @@
     }
 
     $('#SaveColumns').click(function () {
-        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/AGOpr", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/KhlAcc", columns, self.SettingColumnList());
     });
 
     $('#modal-SettingColumn').on('show.bs.modal', function () {
@@ -163,7 +150,7 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/AGOpr", columns, self.SettingColumnList());
+        SaveColumn(ace, sal, group, rprtId, "/ReportAFI/KhlAcc", columns, self.SettingColumnList());
     });
 
     getRprtColsList(true, sessionStorage.userName);
@@ -246,6 +233,7 @@
         azTarikh = self.AzDate().toEnglishDigit();//$("#aztarikh").val().toEnglishDigit();
         taTarikh = self.TaDate().toEnglishDigit();// $("#tatarikh").val().toEnglishDigit();
 
+
         accCode = '';
         accName = '';
         for (var i = 0; i <= counterAcc - 1; i++) {
@@ -303,21 +291,21 @@
 
 
 
-    //Get AGOpr
-    function getAGOpr() {
+    //Get KhlAcc
+    function getKhlAcc() {
         SetFilter();
-        var AGOprObject = {
+        var KhlAccObject = {
             azTarikh: azTarikh,
             taTarikh: taTarikh,
             AModeCode: aModeCode,
             AccCode: accCode,
             MkzCode: mkzcode,
-            OprCode: oprcode
+            OprCode: oprcode,
         };
 
-        ajaxFunction(AGOprUri + ace + '/' + sal + '/' + group, 'POST', AGOprObject, true).done(function (response) {
-            self.AGOprList(response);
-            //calcsum(self.AGOprList());
+        ajaxFunction(KhlAccUri + ace + '/' + sal + '/' + group, 'POST', KhlAccObject, true).done(function (response) {
+            self.KhlAccList(response);
+            //calcsum(self.KhlAccList());
         });
     }
 
@@ -328,43 +316,52 @@
         totalMonBest = 0;
         totalMonTotal = 0;
 
+
         for (var i = 0; i < list.length; ++i) {
-            AGOprData = list[i];
-            if (AGOprData.Tag == 1) {
-                totalBede += AGOprData.Bede;
-                totalBest += AGOprData.Best;
-            }
+            KhlAccData = list[i];
+
+
+            totalBede += KhlAccData.Bede;
+            totalBest += KhlAccData.Best;
+
         }
 
-        totalMonBede = totalBede > totalBest ? totalBede - totalBest : 0;
-        totalMonBest = totalBede < totalBest ? totalBest - totalBede : 0;
-        totalMonTotal = totalMonBede > 0 ? totalMonBede : totalMonBest * -1;
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
 
         // $("#textTotal").text('جمع');
         $("#totalBede").text(NumberToNumberString(totalBede));
         $("#totalBest").text(NumberToNumberString(totalBest));
         $("#totalMonBede").text(NumberToNumberString(totalMonBede));
         $("#totalMonBest").text(NumberToNumberString(totalMonBest));
-        $("#totalMonTotal").text(totalMonTotal >= 0 ? NumberToNumberString(totalMonTotal) : '(' + NumberToNumberString(Math.abs(totalMonTotal)) + ')');
+        $("#totalMonTotal").text(NumberToNumberString(totalMonTotal));
     }
 
     $("#CreateReport").click(function () {
-        getAGOpr();
-        self.sortTableAGOpr();
+        getKhlAcc();
+        self.sortTableKhlAcc();
     });
 
 
+
+
+
+
+
     //------------------------------------------------------
-    self.currentPageAGOpr = ko.observable();
-    pageSizeAGOpr = localStorage.getItem('pageSizeAGOpr') == null ? 10 : localStorage.getItem('pageSizeAGOpr');
-    self.pageSizeAGOpr = ko.observable(pageSizeAGOpr);
-    self.currentPageIndexAGOpr = ko.observable(0);
+    self.currentPageKhlAcc = ko.observable();
+    pageSizeKhlAcc = localStorage.getItem('pageSizeKhlAcc') == null ? 10 : localStorage.getItem('pageSizeKhlAcc');
+    self.pageSizeKhlAcc = ko.observable(pageSizeKhlAcc);
+    self.currentPageIndexKhlAcc = ko.observable(0);
     self.iconType = ko.observable("");
 
-    self.iconTypeOprCode = ko.observable("");
-    self.iconTypeOprName = ko.observable("");
     self.iconTypeAccCode = ko.observable("");
     self.iconTypeAccName = ko.observable("");
+    self.iconTypeMkzCode = ko.observable("");
+    self.iconTypeMkzName = ko.observable("");
+    self.iconTypeOprCode = ko.observable("");
+    self.iconTypeOprName = ko.observable("");
     self.iconTypeBede = ko.observable("");
     self.iconTypeBest = ko.observable("");
     self.iconTypeMonBede = ko.observable("");
@@ -372,23 +369,30 @@
     self.iconTypeMonTotal = ko.observable("");
 
 
-    self.filterOprCode = ko.observable("");
-    self.filterOprName = ko.observable("");
     self.filterAccCode = ko.observable("");
     self.filterAccName = ko.observable("");
+    self.filterMkzCode = ko.observable("");
+    self.filterMkzName = ko.observable("");
+    self.filterOprCode = ko.observable("");
+    self.filterOprName = ko.observable("");
+
+
+
     self.filterBede = ko.observable("");
     self.filterBest = ko.observable("");
     self.filterMonBede = ko.observable("");
     self.filterMonBest = ko.observable("");
     self.filterMonTotal = ko.observable("");
 
-    self.filterAGOprList = ko.computed(function () {
+    self.filterKhlAccList = ko.computed(function () {
 
-        self.currentPageIndexAGOpr(0);
-        var filterOprCode = self.filterOprCode();
-        var filterOprName = self.filterOprName();
+        self.currentPageIndexKhlAcc(0);
         var filterAccCode = self.filterAccCode();
         var filterAccName = self.filterAccName();
+        var filterMkzCode = self.filterMkzCode();
+        var filterMkzName = self.filterMkzName();
+        var filterOprCode = self.filterOprCode();
+        var filterOprName = self.filterOprName();
         var filterBede = self.filterBede();
         var filterBest = self.filterBest();
         var filterMonBede = self.filterMonBede();
@@ -401,13 +405,14 @@
         filterMonBest = filterMonBest.replace("/", ".");
         filterMonTotal = filterMonTotal.replace("/", ".");
 
-
-        tempData = ko.utils.arrayFilter(self.AGOprList(), function (item) {
+        tempData = ko.utils.arrayFilter(self.KhlAccList(), function (item) {
             result =
-                ko.utils.stringStartsWith(item.OprCode.toString().toLowerCase(), filterOprCode) &&
-                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
                 ko.utils.stringStartsWith(item.AccCode.toString().toLowerCase(), filterAccCode) &&
                 (item.AccName == null ? '' : item.AccName.toString().search(filterAccName) >= 0) &&
+                (item.MkzCode == null ? '' : item.MkzCode.toString().search(filterMkzCode) >= 0) &&
+                (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
+                (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
+                (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
                 ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
                 ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
                 ko.utils.stringStartsWith(item.MonBede.toString().toLowerCase(), filterMonBede) &&
@@ -422,64 +427,64 @@
     });
 
     self.search = ko.observable("");
-    self.search(sessionStorage.searchAGOpr);
+    self.search(sessionStorage.searchKhlAcc);
     self.firstMatch = ko.dependentObservable(function () {
-        var indexAGOpr = 0;
-        sessionStorage.searchAGOpr = "";
+        var indexKhlAcc = 0;
+        sessionStorage.searchKhlAcc = "";
         var search = self.search();
         if (!search) {
-            self.currentPageIndexAGOpr(0);
+            self.currentPageIndexKhlAcc(0);
             return null;
         } else {
-            value = ko.utils.arrayFirst(self.AGOprList(), function (item) {
-                indexAGOpr += 1;
+            value = ko.utils.arrayFirst(self.KhlAccList(), function (item) {
+                indexKhlAcc += 1;
                 return ko.utils.stringStartsWith(item.DocNo.toString().toLowerCase(), search);
             });
-            if (indexAGOpr < self.pageSizeAGOpr())
-                self.currentPageIndexAGOpr(0);
+            if (indexKhlAcc < self.pageSizeKhlAcc())
+                self.currentPageIndexKhlAcc(0);
             else {
-                var a = Math.round((indexAGOpr / self.pageSizeAGOpr()), 0);
-                if (a < (indexAGOpr / self.pageSizeAGOpr())) a += 1;
-                self.currentPageIndexAGOpr(a - 1);
+                var a = Math.round((indexKhlAcc / self.pageSizeKhlAcc()), 0);
+                if (a < (indexKhlAcc / self.pageSizeKhlAcc())) a += 1;
+                self.currentPageIndexKhlAcc(a - 1);
             }
             return value;
         }
     });
 
 
-    self.currentPageAGOpr = ko.computed(function () {
-        var pageSizeAGOpr = parseInt(self.pageSizeAGOpr(), 10),
-            startIndex = pageSizeAGOpr * self.currentPageIndexAGOpr(),
-            endIndex = startIndex + pageSizeAGOpr;
-        localStorage.setItem('pageSizeAGOpr', pageSizeAGOpr);
-        return self.filterAGOprList().slice(startIndex, endIndex);
+    self.currentPageKhlAcc = ko.computed(function () {
+        var pageSizeKhlAcc = parseInt(self.pageSizeKhlAcc(), 10),
+            startIndex = pageSizeKhlAcc * self.currentPageIndexKhlAcc(),
+            endIndex = startIndex + pageSizeKhlAcc;
+        localStorage.setItem('pageSizeKhlAcc', pageSizeKhlAcc);
+        return self.filterKhlAccList().slice(startIndex, endIndex);
     });
 
-    self.nextPageAGOpr = function () {
-        if (((self.currentPageIndexAGOpr() + 1) * self.pageSizeAGOpr()) < self.filterAGOprList().length) {
-            self.currentPageIndexAGOpr(self.currentPageIndexAGOpr() + 1);
+    self.nextPageKhlAcc = function () {
+        if (((self.currentPageIndexKhlAcc() + 1) * self.pageSizeKhlAcc()) < self.filterKhlAccList().length) {
+            self.currentPageIndexKhlAcc(self.currentPageIndexKhlAcc() + 1);
         }
     };
 
-    self.previousPageAGOpr = function () {
-        if (self.currentPageIndexAGOpr() > 0) {
-            self.currentPageIndexAGOpr(self.currentPageIndexAGOpr() - 1);
+    self.previousPageKhlAcc = function () {
+        if (self.currentPageIndexKhlAcc() > 0) {
+            self.currentPageIndexKhlAcc(self.currentPageIndexKhlAcc() - 1);
         }
     };
 
-    self.firstPageAGOpr = function () {
-        self.currentPageIndexAGOpr(0);
+    self.firstPageKhlAcc = function () {
+        self.currentPageIndexKhlAcc(0);
     };
 
-    self.lastPageAGOpr = function () {
-        tempCountAGOpr = parseInt(self.filterAGOprList().length / self.pageSizeAGOpr(), 10);
-        if ((self.filterAGOprList().length % self.pageSizeAGOpr()) == 0)
-            self.currentPageIndexAGOpr(tempCountAGOpr - 1);
+    self.lastPageKhlAcc = function () {
+        tempCountKhlAcc = parseInt(self.filterKhlAccList().length / self.pageSizeKhlAcc(), 10);
+        if ((self.filterKhlAccList().length % self.pageSizeKhlAcc()) == 0)
+            self.currentPageIndexKhlAcc(tempCountKhlAcc - 1);
         else
-            self.currentPageIndexAGOpr(tempCountAGOpr);
+            self.currentPageIndexKhlAcc(tempCountKhlAcc);
     };
 
-    self.sortTableAGOpr = function (viewModel, e) {
+    self.sortTableKhlAcc = function (viewModel, e) {
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
@@ -495,7 +500,7 @@
 
 
         self.currentColumn(orderProp);
-        self.AGOprList.sort(function (left, right) {
+        self.KhlAccList.sort(function (left, right) {
             leftVal = FixSortName(left[orderProp]);
             rightVal = FixSortName(right[orderProp]);
             if (self.sortType == "ascending") {
@@ -509,20 +514,25 @@
 
 
 
-        self.iconTypeOprCode('');
-        self.iconTypeOprName('');
         self.iconTypeAccCode('');
         self.iconTypeAccName('');
+        self.iconTypeMkzCode('');
+        self.iconTypeMkzName('');
+        self.iconTypeOprCode('');
+        self.iconTypeOprName('');
         self.iconTypeBede('');
         self.iconTypeBest('');
         self.iconTypeMonBede('');
         self.iconTypeMonBest('');
         self.iconTypeMonTotal('');
 
-        if (orderProp == 'SortOprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
         if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MonBede') self.iconTypeMonBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -559,9 +569,9 @@
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
-                    (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                    (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                    ko.utils.stringStartsWith(item.Level.toString().toLowerCase(), filter3)
+                        (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
+                        (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
+                        filter3 != '' ? item.Level <= filter3 : ''
                 return result;
             })
             return tempData;
@@ -708,10 +718,6 @@
     });
 
     $('#modal-Acc').on('shown.bs.modal', function () {
-
-        level = $("#Level").val();
-        level == 1 ? self.filterAcc3("1") : self.filterAcc3("")
-
         $("#TableBodyListAcc").empty();
         for (var i = 0; i < counterAcc; i++) {
             if (list_AccSelect[i] != "") {
@@ -754,7 +760,6 @@
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                     (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
                     (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
-
                 return result;
             })
             return tempData;
@@ -1007,7 +1012,6 @@
         if (orderProp == 'SortName') self.iconTypeName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
-
 
     $('#refreshOpr').click(function () {
         Swal.fire({
@@ -1300,23 +1304,37 @@
 
 
 
-    /*
-        self.ShowADocR = function (Band) {
-            SetFilter();
-            localStorage.setItem("AzTarikhReport", azTarikh);
-            localStorage.setItem("TaTarikhReport", taTarikh);
-            localStorage.setItem("AccCodeReport", Band.AccCode);
-            localStorage.setItem("AccNameReport", Band.AccName);
-            localStorage.setItem("AModeCodeReport", aModeCode);
-            localStorage.setItem("AModeNameReport", aModeName);
-            localStorage.setItem("MkzCodeReport", mkzcode);
-            localStorage.setItem("MkzNameReport", mkzname);
-            localStorage.setItem("OprCodeReport", Band.OprCode);
-            localStorage.setItem("OprNameReport", Band.OprName);
-            window.open(sessionStorage.urlADocR, '_blank');
-        } */
+    /*   self.ShowKhlAcc_Riz = function (Band) {
+        SetFilter();
+        localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("AccNameReport", Band.AccName);
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
+        window.open(sessionStorage.urlKhlAcc, '_blank');
+    }
 
     self.ShowDftr = function (Band) {
+        SetFilter();
+        localStorage.setItem("AccCodeReport", Band.AccCode);
+        localStorage.setItem("AccNameReport", Band.AccName);
+        localStorage.setItem("AzTarikhReport", azTarikh);
+        localStorage.setItem("TaTarikhReport", taTarikh);
+        localStorage.setItem("AModeCodeReport", aModeCode);
+        localStorage.setItem("AModeNameReport", aModeName);
+        localStorage.setItem("MkzCodeReport", mkzcode);
+        localStorage.setItem("MkzNameReport", mkzname);
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
+        window.open(sessionStorage.urlDftr, '_blank');
+    }
+
+    self.ShowADocR = function (Band) {
         SetFilter();
         localStorage.setItem("AzTarikhReport", azTarikh);
         localStorage.setItem("TaTarikhReport", taTarikh);
@@ -1326,12 +1344,12 @@
         localStorage.setItem("AModeNameReport", aModeName);
         localStorage.setItem("MkzCodeReport", mkzcode);
         localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", Band.OprCode);
-        localStorage.setItem("OprNameReport", Band.OprName);
-        window.open(sessionStorage.urlDftr, '_blank');
+        localStorage.setItem("OprCodeReport", oprcode);
+        localStorage.setItem("OprNameReport", oprname);
+        window.open(sessionStorage.urlADocR, '_blank');
     }
 
-
+*/
 
 
     AccCodeReport = localStorage.getItem("AccCodeReport");
@@ -1343,6 +1361,7 @@
         list_AccSelect[0] = AccCodeReport;
         list_AccNameSelect[0] = AccNameReport;
         $('#nameAcc').val(counterAcc + ' ' + translate('مورد انتخاب شده'));
+
 
         azTarikh = localStorage.getItem("AzTarikhReport");
         self.AzDate(azTarikh);
@@ -1387,7 +1406,7 @@
         else
             $('#nameOpr').val(translate('همه موارد'));
 
-        getAGOpr();
+        getKhlAcc();
     }
 
 
@@ -1396,8 +1415,8 @@
 
 
     self.radif = function (index) {
-        countShow = self.pageSizeAGOpr();
-        page = self.currentPageIndexAGOpr();
+        countShow = self.pageSizeKhlAcc();
+        page = self.currentPageIndexKhlAcc();
         calc = (countShow * page) + 1;
         return index + calc;
     }
@@ -1421,12 +1440,14 @@
         createTable =
             ' <table class="table table-hover">' +
             '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableAGOpr">' +
+            '       <tr data-bind="click: sortTableKhlAcc">' +
             '<th>' + translate('ردیف') + '</th>' +
-            CreateTableTh('OprCode', data) +
-            CreateTableTh('OprName', data) +
             CreateTableTh('AccCode', data) +
             CreateTableTh('AccName', data) +
+            CreateTableTh('MkzCode', data) +
+            CreateTableTh('MkzName', data) +
+            CreateTableTh('OprCode', data) +
+            CreateTableTh('OprName', data) +
             CreateTableTh('Bede', data) +
             CreateTableTh('Best', data) +
             CreateTableTh('MonBede', data) +
@@ -1435,40 +1456,60 @@
             '<th>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
-            ' <tbody data-bind=" {foreach: currentPageAGOpr}" style="cursor: default;">' +
-            '     <tr data-bind="style: { \'background-color\': Tag == 0 ? \'#f5efeb\' : \'\' }" >' +
+            ' <tbody data-bind=" {foreach: currentPageKhlAcc}" style="cursor: default;">';
+
+        createTable += '     <tr>'
+        //createTable += '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
+
+
+        createTable +=
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-            CreateTableTd('OprCode', 0, 0, data) +
-            CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
+            CreateTableTd('MkzCode', 0, 0, data) +
+            CreateTableTd('MkzName', 0, 0, data) +
+            CreateTableTd('OprCode', 0, 0, data) +
+            CreateTableTd('OprName', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
-            '<td>' +
-
-            '<a data-bind="visible: $root.AccessAction(\'ADocR\') == true && AccCode != \'\' " class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
-            '    <span class="caret"></span>' +
-            '</a>' +
-            '<ul class="dropdown-menu">' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowDftr" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر حساب' +
-            '        </a>' +
-            '    </li>' +
-            '</td >' +
+            /* '<td>' +
+             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
+             '    <span class="caret"></span>' +
+             '</a>' +
+             '<ul class="dropdown-menu">' +
+             '    <li>' +
+             '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
+             '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+             '            دفتر روزنامه' +
+             '        </a>' +
+             '    </li>' +
+             '    <li>' +
+             '        <a  data-bind="click: $root.ShowKhlAcc_Riz , visible: HasChild == 1" style="font-size: 11px;text-align: right;">' +
+             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+             '             تراز زیر حساب ها' +
+             '        </a>' +
+             '    </li>' +
+             '    <li>' +
+             '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
+             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
+             '            دفتر حساب ' +
+             '        </a>' +
+             '    </li>' +
+             '</td >' +*/
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
             ' <tr style="background-color:#e37d228f;">' +
             '<td style="background-color: #e37d228f !important;">' + translate('جمع') + '</td>' +
-            CreateTableTdSum('OprCode', 0, data) +
-            CreateTableTdSum('OprName', 1, data) +
             CreateTableTdSum('AccCode', 0, data) +
             CreateTableTdSum('AccName', 1, data) +
+            CreateTableTdSum('MkzCode', 1, data) +
+            CreateTableTdSum('MkzName', 1, data) +
+            CreateTableTdSum('OprCode', 1, data) +
+            CreateTableTdSum('OprName', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
             CreateTableTdSum('MonBede', 2, data) +
@@ -1478,10 +1519,12 @@
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
-            CreateTableTdSearch('OprCode', data) +
-            CreateTableTdSearch('OprName', data) +
             CreateTableTdSearch('AccCode', data) +
             CreateTableTdSearch('AccName', data) +
+            CreateTableTdSearch('MkzCode', data) +
+            CreateTableTdSearch('MkzName', data) +
+            CreateTableTdSearch('OprCode', data) +
+            CreateTableTdSearch('OprName', data) +
             CreateTableTdSearch('Bede', data) +
             CreateTableTdSearch('Best', data) +
             CreateTableTdSearch('MonBede', data) +
@@ -1502,10 +1545,7 @@
 
         TextField = FindTextField(field, data);
 
-        sortField = field == 'DocNo' ? 'SortDocNo' :
-            field == 'MkzCode' ? 'SortMkzCode' :
-                field == 'AccCode' ? 'SortAccCode' :
-                    field
+        sortField =  field == 'AccCode' ? 'SortAccCode' :  field
 
         if (TextField == 0)
             text += 'Hidden ';
@@ -1584,14 +1624,6 @@
         return text;
 
     }
-
-
-
-
-
-
-
-
 
 
     $('.fix').attr('class', 'form-line date focused fix');
@@ -1704,7 +1736,7 @@
         address = item.address;
         data = item.Data;
         printPublic = item.isPublic == 1 ? true : false;
-        setReport(self.AGOprList(), data, printVariable);
+        setReport(self.KhlAccList(), data, printVariable);
     };
 
 
@@ -1744,7 +1776,7 @@
     $('#AddNewPrintForms').click(function () {
         printName = translate('فرم جدید');
         printPublic = false;
-        setReport(self.AGOprList(), '', printVariable);
+        setReport(self.KhlAccList(), '', printVariable);
     });
 
 
@@ -1757,8 +1789,36 @@
         printVariable += '"FromDate":"' + FromDate + '",';
         printVariable += '"ToDate":"' + ToDate + '",';
 
+
+
+
+        totalBede = 0;
+        totalBest = 0;
+        totalMonBede = 0;
+        totalMonBest = 0;
+        totalMonTotal = 0;
+
+
+        var listSumReport = self.KhlAccList();
+        for (var i = 0; i < listSumReport.length; ++i) {
+            KhlAccData = listSumReport[i];
+
+            totalBede += KhlAccData.Bede;
+            totalBest += KhlAccData.Best;
+        }
+
+        totalMonTotal = totalBede - totalBest;
+        totalMonBede = totalMonTotal >= 0 ? totalMonTotal : 0
+        totalMonBest = totalMonTotal < 0 ? Math.abs(totalMonTotal) : 0
+
+        printVariable += '"SumBede":"' + totalBede + '",';
+        printVariable += '"SumBest":"' + totalBest + '",';
+        printVariable += '"MonBede":"' + totalMonBede + '",';
+        printVariable += '"MonBest":"' + totalMonBest + '",';
+        printVariable += '"MonTotal":"' + totalMonTotal + '",';
+
         printName = null;
-        sessionStorage.ModePrint = "ReportAGOpr";
+        sessionStorage.ModePrint = "ReportKhlAcc";
         GetPrintForms(sessionStorage.ModePrint);
         self.filterPrintForms1("1");
     });
@@ -1778,7 +1838,7 @@
                 data = list[i].Data;
             }
         }
-        setReport(self.AGOprList(), data, printVariable);
+        setReport(self.KhlAccList(), data, printVariable);
         $('#modal-Print').modal('hide');
     });
 
@@ -1799,12 +1859,12 @@
         return CountPage(self.filterAModeList(), self.pageSizeAMode(), item);
     };
 
-    self.PageIndexAGOpr = function (item) {
-        return CountPage(self.filterAGOprList(), self.pageSizeAGOpr(), item);
-    };
-
     self.PageIndexPrintForms = function (item) {
         return CountPage(self.filterPrintFormsList(), self.pageSizePrintForms(), item);
+    };
+
+    self.PageIndexKhlAcc = function (item) {
+        return CountPage(self.filterKhlAccList(), self.pageSizeKhlAcc(), item);
     };
 };
 
