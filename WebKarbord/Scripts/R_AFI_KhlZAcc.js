@@ -1264,55 +1264,6 @@
     });
 
 
-/*
-
-    self.ShowKhlZAcc_Riz = function (Band) {
-        SetFilter();
-        localStorage.setItem("ZAccCodeReport", Band.ZAccCode);
-        localStorage.setItem("ZAccNameReport", Band.ZAccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlKhlZAcc, '_blank');
-    }
-
-    self.ShowDftr = function (Band) {
-        SetFilter();
-        localStorage.setItem("ZAccCodeReport", Band.ZAccCode);
-        localStorage.setItem("ZAccNameReport", Band.ZAccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlDftr, '_blank');
-    }
-
-    self.ShowADocR = function (Band) {
-        SetFilter();
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("ZAccCodeReport", Band.ZAccCode);
-        localStorage.setItem("ZAccNameReport", Band.ZAccName);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlADocR, '_blank');
-    }
-
-*/
-
 
     ZAccCodeReport = localStorage.getItem("ZAccCodeReport");
     localStorage.setItem("ZAccCodeReport", null);
@@ -1429,30 +1380,20 @@
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
-           /* '<td>' +
+            '<td>' +
             '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
             '    <span class="caret"></span>' +
             '</a>' +
             '<ul class="dropdown-menu">' +
+/*
             '    <li>' +
-            '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
-            '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر روزنامه' +
-            '        </a>' +
-            '    </li>' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowKhlZAcc_Riz , visible: HasChild == 1" style="font-size: 11px;text-align: right;">' +
+            '        <a  data-bind="click: $root.ShowTrzAcc_Riz , visible: HasChild == 1" style="font-size: 11px;text-align: right;">' +
             '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
             '             تراز زیر حساب ها' +
             '        </a>' +
             '    </li>' +
-            '    <li>' +
-            '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
-            '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
-            '            دفتر حساب ' +
-            '        </a>' +
-            '    </li>' +
-            '</td >' +*/
+ */          
+            '</td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +

@@ -96,6 +96,26 @@
         'MkzName',
         'OprCode',
         'OprName',
+        'AccF01',
+        'AccF02',
+        'AccF03',
+        'AccF04',
+        'AccF05',
+        'AccF06',
+        'AccF07',
+        'AccF08',
+        'AccF09',
+        'AccF10',
+        'AccF11',
+        'AccF12',
+        'AccF13',
+        'AccF14',
+        'AccF15',
+        'AccF16',
+        'AccF17',
+        'AccF18',
+        'AccF19',
+        'AccF20',
         'Bede',
         'Best',
         'MonBede',
@@ -320,10 +340,10 @@
         for (var i = 0; i < list.length; ++i) {
             KhlAccData = list[i];
 
-
-            totalBede += KhlAccData.Bede;
-            totalBest += KhlAccData.Best;
-
+            if (KhlAccData.Tag > 1) {
+                totalBede += KhlAccData.Bede;
+                totalBest += KhlAccData.Best;
+            }
         }
 
         totalMonTotal = totalBede - totalBest;
@@ -362,8 +382,29 @@
     self.iconTypeMkzName = ko.observable("");
     self.iconTypeOprCode = ko.observable("");
     self.iconTypeOprName = ko.observable("");
+    self.iconTypeAccF01 = ko.observable("");
+    self.iconTypeAccF02 = ko.observable("");
+    self.iconTypeAccF03 = ko.observable("");
+    self.iconTypeAccF04 = ko.observable("");
+    self.iconTypeAccF05 = ko.observable("");
+    self.iconTypeAccF06 = ko.observable("");
+    self.iconTypeAccF07 = ko.observable("");
+    self.iconTypeAccF08 = ko.observable("");
+    self.iconTypeAccF09 = ko.observable("");
+    self.iconTypeAccF10 = ko.observable("");
+    self.iconTypeAccF11 = ko.observable("");
+    self.iconTypeAccF12 = ko.observable("");
+    self.iconTypeAccF13 = ko.observable("");
+    self.iconTypeAccF14 = ko.observable("");
+    self.iconTypeAccF15 = ko.observable("");
+    self.iconTypeAccF16 = ko.observable("");
+    self.iconTypeAccF17 = ko.observable("");
+    self.iconTypeAccF18 = ko.observable("");
+    self.iconTypeAccF19 = ko.observable("");
+    self.iconTypeAccF20 = ko.observable("");
     self.iconTypeBede = ko.observable("");
     self.iconTypeBest = ko.observable("");
+
     self.iconTypeMonBede = ko.observable("");
     self.iconTypeMonBest = ko.observable("");
     self.iconTypeMonTotal = ko.observable("");
@@ -375,9 +416,26 @@
     self.filterMkzName = ko.observable("");
     self.filterOprCode = ko.observable("");
     self.filterOprName = ko.observable("");
-
-
-
+    self.filterAccF01 = ko.observable("");
+    self.filterAccF02 = ko.observable("");
+    self.filterAccF03 = ko.observable("");
+    self.filterAccF04 = ko.observable("");
+    self.filterAccF05 = ko.observable("");
+    self.filterAccF06 = ko.observable("");
+    self.filterAccF07 = ko.observable("");
+    self.filterAccF08 = ko.observable("");
+    self.filterAccF09 = ko.observable("");
+    self.filterAccF10 = ko.observable("");
+    self.filterAccF11 = ko.observable("");
+    self.filterAccF12 = ko.observable("");
+    self.filterAccF13 = ko.observable("");
+    self.filterAccF14 = ko.observable("");
+    self.filterAccF15 = ko.observable("");
+    self.filterAccF16 = ko.observable("");
+    self.filterAccF17 = ko.observable("");
+    self.filterAccF18 = ko.observable("");
+    self.filterAccF19 = ko.observable("");
+    self.filterAccF20 = ko.observable("");
     self.filterBede = ko.observable("");
     self.filterBest = ko.observable("");
     self.filterMonBede = ko.observable("");
@@ -393,6 +451,26 @@
         var filterMkzName = self.filterMkzName();
         var filterOprCode = self.filterOprCode();
         var filterOprName = self.filterOprName();
+        var filterAccF01 = self.filterAccF01();
+        var filterAccF02 = self.filterAccF02();
+        var filterAccF03 = self.filterAccF03();
+        var filterAccF04 = self.filterAccF04();
+        var filterAccF05 = self.filterAccF05();
+        var filterAccF06 = self.filterAccF06();
+        var filterAccF07 = self.filterAccF07();
+        var filterAccF08 = self.filterAccF08();
+        var filterAccF09 = self.filterAccF09();
+        var filterAccF10 = self.filterAccF10();
+        var filterAccF11 = self.filterAccF11();
+        var filterAccF12 = self.filterAccF12();
+        var filterAccF13 = self.filterAccF13();
+        var filterAccF14 = self.filterAccF14();
+        var filterAccF15 = self.filterAccF15();
+        var filterAccF16 = self.filterAccF16();
+        var filterAccF17 = self.filterAccF17();
+        var filterAccF18 = self.filterAccF18();
+        var filterAccF19 = self.filterAccF19();
+        var filterAccF20 = self.filterAccF20();
         var filterBede = self.filterBede();
         var filterBest = self.filterBest();
         var filterMonBede = self.filterMonBede();
@@ -413,6 +491,26 @@
                 (item.MkzName == null ? '' : item.MkzName.toString().search(filterMkzName) >= 0) &&
                 (item.OprCode == null ? '' : item.OprCode.toString().search(filterOprCode) >= 0) &&
                 (item.OprName == null ? '' : item.OprName.toString().search(filterOprName) >= 0) &&
+                (item.AccF01 == null ? '' : item.AccF01.toString().search(filterAccF01) >= 0) &&
+                (item.AccF02 == null ? '' : item.AccF02.toString().search(filterAccF02) >= 0) &&
+                (item.AccF03 == null ? '' : item.AccF03.toString().search(filterAccF03) >= 0) &&
+                (item.AccF04 == null ? '' : item.AccF04.toString().search(filterAccF04) >= 0) &&
+                (item.AccF05 == null ? '' : item.AccF05.toString().search(filterAccF05) >= 0) &&
+                (item.AccF06 == null ? '' : item.AccF06.toString().search(filterAccF06) >= 0) &&
+                (item.AccF07 == null ? '' : item.AccF07.toString().search(filterAccF07) >= 0) &&
+                (item.AccF08 == null ? '' : item.AccF08.toString().search(filterAccF08) >= 0) &&
+                (item.AccF09 == null ? '' : item.AccF09.toString().search(filterAccF09) >= 0) &&
+                (item.AccF10 == null ? '' : item.AccF10.toString().search(filterAccF10) >= 0) &&
+                (item.AccF11 == null ? '' : item.AccF11.toString().search(filterAccF11) >= 0) &&
+                (item.AccF12 == null ? '' : item.AccF12.toString().search(filterAccF12) >= 0) &&
+                (item.AccF13 == null ? '' : item.AccF13.toString().search(filterAccF13) >= 0) &&
+                (item.AccF14 == null ? '' : item.AccF14.toString().search(filterAccF14) >= 0) &&
+                (item.AccF15 == null ? '' : item.AccF15.toString().search(filterAccF15) >= 0) &&
+                (item.AccF16 == null ? '' : item.AccF16.toString().search(filterAccF16) >= 0) &&
+                (item.AccF17 == null ? '' : item.AccF17.toString().search(filterAccF17) >= 0) &&
+                (item.AccF18 == null ? '' : item.AccF18.toString().search(filterAccF18) >= 0) &&
+                (item.AccF19 == null ? '' : item.AccF19.toString().search(filterAccF19) >= 0) &&
+                (item.AccF20 == null ? '' : item.AccF20.toString().search(filterAccF20) >= 0) &&
                 ko.utils.stringStartsWith(item.Bede.toString().toLowerCase(), filterBede) &&
                 ko.utils.stringStartsWith(item.Best.toString().toLowerCase(), filterBest) &&
                 ko.utils.stringStartsWith(item.MonBede.toString().toLowerCase(), filterMonBede) &&
@@ -520,6 +618,26 @@
         self.iconTypeMkzName('');
         self.iconTypeOprCode('');
         self.iconTypeOprName('');
+        self.iconTypeAccF01('');
+        self.iconTypeAccF02('');
+        self.iconTypeAccF03('');
+        self.iconTypeAccF04('');
+        self.iconTypeAccF05('');
+        self.iconTypeAccF06('');
+        self.iconTypeAccF07('');
+        self.iconTypeAccF08('');
+        self.iconTypeAccF09('');
+        self.iconTypeAccF10('');
+        self.iconTypeAccF11('');
+        self.iconTypeAccF12('');
+        self.iconTypeAccF13('');
+        self.iconTypeAccF14('');
+        self.iconTypeAccF15('');
+        self.iconTypeAccF16('');
+        self.iconTypeAccF17('');
+        self.iconTypeAccF18('');
+        self.iconTypeAccF19('');
+        self.iconTypeAccF20('');
         self.iconTypeBede('');
         self.iconTypeBest('');
         self.iconTypeMonBede('');
@@ -529,10 +647,32 @@
 
         if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'SortMkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
+        if (orderProp == 'AccF01') self.iconTypeAccF01((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF02') self.iconTypeAccF02((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF03') self.iconTypeAccF03((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF04') self.iconTypeAccF04((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF05') self.iconTypeAccF05((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF06') self.iconTypeAccF06((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF07') self.iconTypeAccF07((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF08') self.iconTypeAccF08((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF09') self.iconTypeAccF09((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF10') self.iconTypeAccF10((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF11') self.iconTypeAccF11((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF12') self.iconTypeAccF12((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF13') self.iconTypeAccF13((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF14') self.iconTypeAccF14((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF15') self.iconTypeAccF15((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF16') self.iconTypeAccF16((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF17') self.iconTypeAccF17((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF18') self.iconTypeAccF18((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF19') self.iconTypeAccF19((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccF20') self.iconTypeAccF20((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+
         if (orderProp == 'Bede') self.iconTypeBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Best') self.iconTypeBest((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MonBede') self.iconTypeMonBede((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1304,20 +1444,6 @@
 
 
 
-    /*   self.ShowKhlAcc_Riz = function (Band) {
-        SetFilter();
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlKhlAcc, '_blank');
-    }
 
     self.ShowDftr = function (Band) {
         SetFilter();
@@ -1334,22 +1460,6 @@
         window.open(sessionStorage.urlDftr, '_blank');
     }
 
-    self.ShowADocR = function (Band) {
-        SetFilter();
-        localStorage.setItem("AzTarikhReport", azTarikh);
-        localStorage.setItem("TaTarikhReport", taTarikh);
-        localStorage.setItem("AccCodeReport", Band.AccCode);
-        localStorage.setItem("AccNameReport", Band.AccName);
-        localStorage.setItem("AModeCodeReport", aModeCode);
-        localStorage.setItem("AModeNameReport", aModeName);
-        localStorage.setItem("MkzCodeReport", mkzcode);
-        localStorage.setItem("MkzNameReport", mkzname);
-        localStorage.setItem("OprCodeReport", oprcode);
-        localStorage.setItem("OprNameReport", oprname);
-        window.open(sessionStorage.urlADocR, '_blank');
-    }
-
-*/
 
 
     AccCodeReport = localStorage.getItem("AccCodeReport");
@@ -1448,6 +1558,26 @@
             CreateTableTh('MkzName', data) +
             CreateTableTh('OprCode', data) +
             CreateTableTh('OprName', data) +
+            CreateTableTh('AccF01', data) +
+            CreateTableTh('AccF02', data) +
+            CreateTableTh('AccF03', data) +
+            CreateTableTh('AccF04', data) +
+            CreateTableTh('AccF05', data) +
+            CreateTableTh('AccF06', data) +
+            CreateTableTh('AccF07', data) +
+            CreateTableTh('AccF08', data) +
+            CreateTableTh('AccF09', data) +
+            CreateTableTh('AccF10', data) +
+            CreateTableTh('AccF11', data) +
+            CreateTableTh('AccF12', data) +
+            CreateTableTh('AccF13', data) +
+            CreateTableTh('AccF14', data) +
+            CreateTableTh('AccF15', data) +
+            CreateTableTh('AccF16', data) +
+            CreateTableTh('AccF17', data) +
+            CreateTableTh('AccF18', data) +
+            CreateTableTh('AccF19', data) +
+            CreateTableTh('AccF20', data) +
             CreateTableTh('Bede', data) +
             CreateTableTh('Best', data) +
             CreateTableTh('MonBede', data) +
@@ -1458,11 +1588,11 @@
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKhlAcc}" style="cursor: default;">';
 
-        createTable += '     <tr>'
-        //createTable += '     <tr data-bind="style: { \'background-color\': Level == 1 && MainLevel > 1 ? \'#f5efeb\' : \'\' }" >'
-
+        //createTable += '     <tr>'
+        //createTable += '<tr data-bind="style: { \'background-color\': Tag == 1 ? \'#f5efeb\' : \'#ffffff\' }" >';
 
         createTable +=
+            '<tr data-bind="style: { \'background-color\': Tag == 1 ? \'#f5efeb\' : \'\' }" >' +
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('AccCode', 0, 0, data) +
             CreateTableTd('AccName', 0, 0, data) +
@@ -1470,17 +1600,37 @@
             CreateTableTd('MkzName', 0, 0, data) +
             CreateTableTd('OprCode', 0, 0, data) +
             CreateTableTd('OprName', 0, 0, data) +
+            CreateTableTd('AccF01', 0, 0, data) +
+            CreateTableTd('AccF02', 0, 0, data) +
+            CreateTableTd('AccF03', 0, 0, data) +
+            CreateTableTd('AccF04', 0, 0, data) +
+            CreateTableTd('AccF05', 0, 0, data) +
+            CreateTableTd('AccF06', 0, 0, data) +
+            CreateTableTd('AccF07', 0, 0, data) +
+            CreateTableTd('AccF08', 0, 0, data) +
+            CreateTableTd('AccF09', 0, 0, data) +
+            CreateTableTd('AccF10', 0, 0, data) +
+            CreateTableTd('AccF11', 0, 0, data) +
+            CreateTableTd('AccF12', 0, 0, data) +
+            CreateTableTd('AccF13', 0, 0, data) +
+            CreateTableTd('AccF14', 0, 0, data) +
+            CreateTableTd('AccF15', 0, 0, data) +
+            CreateTableTd('AccF16', 0, 0, data) +
+            CreateTableTd('AccF17', 0, 0, data) +
+            CreateTableTd('AccF18', 0, 0, data) +
+            CreateTableTd('AccF19', 0, 0, data) +
+            CreateTableTd('AccF20', 0, 0, data) +
             CreateTableTd('Bede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('Best', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
-            /* '<td>' +
+             '<td>' +
              '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
              '    <span class="caret"></span>' +
              '</a>' +
              '<ul class="dropdown-menu">' +
-             '    <li>' +
+             /*'    <li>' +
              '        <a  data-bind="click: $root.ShowADocR , visible: $root.AccessAction(\'ADocR\') == true" style="font-size: 11px;text-align: right;">' +
              '            <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
              '            دفتر روزنامه' +
@@ -1491,14 +1641,14 @@
              '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
              '             تراز زیر حساب ها' +
              '        </a>' +
-             '    </li>' +
+             '    </li>' +*/
              '    <li>' +
              '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
              '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
              '            دفتر حساب ' +
              '        </a>' +
              '    </li>' +
-             '</td >' +*/
+             '</td >' +
             '</tr>' +
             '</tbody>' +
             ' <tfoot>' +
@@ -1510,6 +1660,26 @@
             CreateTableTdSum('MkzName', 1, data) +
             CreateTableTdSum('OprCode', 1, data) +
             CreateTableTdSum('OprName', 1, data) +
+            CreateTableTdSum('AccF01', 1, data) +
+            CreateTableTdSum('AccF02', 1, data) +
+            CreateTableTdSum('AccF03', 1, data) +
+            CreateTableTdSum('AccF04', 1, data) +
+            CreateTableTdSum('AccF05', 1, data) +
+            CreateTableTdSum('AccF06', 1, data) +
+            CreateTableTdSum('AccF07', 1, data) +
+            CreateTableTdSum('AccF08', 1, data) +
+            CreateTableTdSum('AccF09', 1, data) +
+            CreateTableTdSum('AccF10', 1, data) +
+            CreateTableTdSum('AccF11', 1, data) +
+            CreateTableTdSum('AccF12', 1, data) +
+            CreateTableTdSum('AccF13', 1, data) +
+            CreateTableTdSum('AccF14', 1, data) +
+            CreateTableTdSum('AccF15', 1, data) +
+            CreateTableTdSum('AccF16', 1, data) +
+            CreateTableTdSum('AccF17', 1, data) +
+            CreateTableTdSum('AccF18', 1, data) +
+            CreateTableTdSum('AccF19', 1, data) +
+            CreateTableTdSum('AccF20', 1, data) +
             CreateTableTdSum('Bede', 2, data) +
             CreateTableTdSum('Best', 2, data) +
             CreateTableTdSum('MonBede', 2, data) +
@@ -1525,6 +1695,26 @@
             CreateTableTdSearch('MkzName', data) +
             CreateTableTdSearch('OprCode', data) +
             CreateTableTdSearch('OprName', data) +
+            CreateTableTdSearch('AccF01', data) +
+            CreateTableTdSearch('AccF02', data) +
+            CreateTableTdSearch('AccF03', data) +
+            CreateTableTdSearch('AccF04', data) +
+            CreateTableTdSearch('AccF05', data) +
+            CreateTableTdSearch('AccF06', data) +
+            CreateTableTdSearch('AccF07', data) +
+            CreateTableTdSearch('AccF08', data) +
+            CreateTableTdSearch('AccF09', data) +
+            CreateTableTdSearch('AccF10', data) +
+            CreateTableTdSearch('AccF11', data) +
+            CreateTableTdSearch('AccF12', data) +
+            CreateTableTdSearch('AccF13', data) +
+            CreateTableTdSearch('AccF14', data) +
+            CreateTableTdSearch('AccF15', data) +
+            CreateTableTdSearch('AccF16', data) +
+            CreateTableTdSearch('AccF17', data) +
+            CreateTableTdSearch('AccF18', data) +
+            CreateTableTdSearch('AccF19', data) +
+            CreateTableTdSearch('AccF20', data) +
             CreateTableTdSearch('Bede', data) +
             CreateTableTdSearch('Best', data) +
             CreateTableTdSearch('MonBede', data) +
@@ -1545,7 +1735,10 @@
 
         TextField = FindTextField(field, data);
 
-        sortField =  field == 'AccCode' ? 'SortAccCode' :  field
+        sortField =
+            field == 'MkzCode' ? 'SortMkzCode' :
+                field == 'AccCode' ? 'SortAccCode' :
+                    field
 
         if (TextField == 0)
             text += 'Hidden ';
