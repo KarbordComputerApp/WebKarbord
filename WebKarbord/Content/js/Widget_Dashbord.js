@@ -1,4 +1,13 @@
-﻿$.widget("ui.D_TChk", {
+﻿var cssMaximin = {
+    "top": "0px",
+    "left": "0px",
+    
+    "width": "100%",
+    "height": "100vh",
+    "z-index": "10000"
+};
+
+$.widget("ui.D_TChk", {
     options: {
         id: null,
         caption: null,
@@ -52,6 +61,7 @@
         var li_Line = $('<li class="divider"></li>');
         var li_Close = $('<li><a href="#">بستن</a></li>');
 
+        var b_Maximum = $('<a style="padding-left: 5px;"><img src="/Content/img/window-max.png" width ="17" title="تغییر سایز"></span>');
         var b_Menu = $('<button class="dropdown dropdown-toggle" data-toggle="dropdown" style="border: none;background-color: white;height: 24px;"><span class="caret"></span>');
 
         var ui_Menu = $('<ul class="dropdown-menu dropdown-menu-dashbord">');
@@ -61,27 +71,29 @@
         ui_Menu.append(li_Close);
 
         b_Menu.append(ui_Menu);
-
+        div.append(b_Maximum);
         div.append(b_Menu);
 
         var h4 = $('<h4 class="modal-title" style="width: 90%;">' + options.caption + '</h4>');
 
         divHeader.append(h4);
         divHeader.append(div);
-        divContent.append(divHeader);
 
-        var divSum = $('<div class="form-inline" style="padding:10px">');
+
+        var divSum = $('<div class="form-inline" style="padding-top: 10px;width: 100%;">');
         div = $('<div class="form-inline" style="margin-left:auto">');
-        h4 = $('<h4>مجموع : </h4> <h4 id="' + options.id + '_LSum" style="padding-right:5px">0</h4>');
-        div.append(h4);
+        h5 = $('<h5>مجموع : </h5> <h5 id="' + options.id + '_LSum" style="padding-right:5px">0</h5>');
+        div.append(h5);
         divSum.append(div);
 
         div = $('<div class="form-inline" style="margin-right:auto">');
-        h4 = $('<h4>تعداد : </h4> <h4 id="' + options.id + '_LCount" style="padding-right:5px">0</h4>');
-        div.append(h4);
+        h5 = $('<h5>تعداد : </h5> <h5 id="' + options.id + '_LCount" style="padding-right:5px">0</h5>');
+        div.append(h5);
         divSum.append(div);
 
-        divContent.append(divSum);
+        divHeader.append(divSum)
+        divContent.append(divHeader);
+
         //End Header
 
         //Content
@@ -91,6 +103,23 @@
 
         divCart.append(divContent);
 
+        var styleMaximum;
+
+        b_Maximum.click(function (e) {
+            var a = $("#" + options.id);
+            styleMaximum = a[0].style;
+            var zIndex = a.css("z-index");
+
+            if (zIndex == "auto") {
+                $("#" + options.id).css(cssMaximin);
+                var path = "/Content/img/window.png";
+            }
+            else {
+                var path = "/Content/img/window-max.png";
+                a[0].style = styleMaximum;
+            }
+            $(this).find("img").attr("src", path);
+        });
 
         li_Setting.click(function (e) {
             $("#" + options.id + "_modal").modal('show');
@@ -353,6 +382,7 @@ $.widget("ui.D_TChk_Sum", {
         var li_Line = $('<li class="divider"></li>');
         var li_Close = $('<li><a href="#">بستن</a></li>');
 
+        var b_Maximum = $('<a style="padding-left: 5px;"><img src="/Content/img/window-max.png" width ="17" title="تغییر سایز"></span>');
         var b_Menu = $('<button class="dropdown dropdown-toggle" data-toggle="dropdown" style="border: none;background-color: white;height: 24px;"><span class="caret"></span>');
 
         var ui_Menu = $('<ul class="dropdown-menu dropdown-menu-dashbord">');
@@ -362,22 +392,24 @@ $.widget("ui.D_TChk_Sum", {
         ui_Menu.append(li_Close);
 
         b_Menu.append(ui_Menu);
-
+        div.append(b_Maximum);
         div.append(b_Menu);
 
         var h4 = $('<h4 class="modal-title" style="width: 90%;">' + options.caption + '</h4>');
 
         divHeader.append(h4);
         divHeader.append(div);
-        divContent.append(divHeader);
+        // divContent.append(divHeader);
 
-        var divSum = $('<div class="form-inline" style="padding:10px">');
+        var divSum = $('<div class="form-inline" style="padding-top: 10px;width: 100%;">');
         div = $('<div class="form-inline" style="margin-left:auto">');
-        h4 = $('<h4>مجموع : </h4> <h4 id="' + options.id + '_LSum" style="padding-right:5px">0</h4>');
-        div.append(h4);
+        h5 = $('<h5>مجموع : </h5> <h5 id="' + options.id + '_LSum" style="padding-right:5px">0</h5>');
+        div.append(h5);
         divSum.append(div);
 
-        divContent.append(divSum);
+        divHeader.append(divSum);
+        divContent.append(divHeader);
+
         //End Header
 
         //Content
@@ -387,6 +419,23 @@ $.widget("ui.D_TChk_Sum", {
 
         divCart.append(divContent);
 
+        var styleMaximum;
+
+        b_Maximum.click(function (e) {
+            var a = $("#" + options.id);
+            styleMaximum = a[0].style;
+            var zIndex = a.css("z-index");
+
+            if (zIndex == "auto") {
+                $("#" + options.id).css(cssMaximin);
+                var path = "/Content/img/window.png";
+            }
+            else {
+                var path = "/Content/img/window-max.png";
+                a[0].style = styleMaximum;
+            }
+            $(this).find("img").attr("src", path);
+        });
 
         li_Setting.click(function (e) {
             $("#" + options.id + "_modal").modal('show');
@@ -594,7 +643,6 @@ $.widget("ui.D_TChk_Sum", {
 });
 
 
-
 $.widget("ui.D_TrzFCust", {
     options: {
         id: null,
@@ -634,6 +682,7 @@ $.widget("ui.D_TrzFCust", {
             options.position = itemData.position;
         }
 
+
         var divCart = $('<div class="grid-stack-item ui-draggable ui-resizable ui-resizable-autohide" style ="visibility:' + (options.visible == false ? 'hidden' : 'visible') + '" id="' + options.id + '"  gs-x="' + options.position.x + '" gs-y="' + options.position.y + '" gs-w="' + options.position.w + '" gs-h="' + options.position.h + '">');
         var divContent = $('<div class="grid-stack-item-content" style="background-color:white">');
 
@@ -641,12 +690,16 @@ $.widget("ui.D_TrzFCust", {
         var divHeader = $('<div class="modal-header form-inline focused" style="position: sticky;top: 0px;background: white;">');
         var div = $('<div>');
 
+        //
+
         var li_Setting = $('<li><a><img src="/Content/img/streamline-icon-cog-1@48x48.png" width="20" height="20"><span> تنظیمات </span></a></li>');
         var li_Refresh = $('<li><a><img src="/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20"><span> بروز رسانی </span></a></li>');
         var li_Line = $('<li class="divider"></li>');
         var li_Close = $('<li><a href="#">بستن</a></li>');
 
+        var b_Maximum = $('<a style="padding-left: 5px;"><img src="/Content/img/window-max.png" width ="17" title="تغییر سایز"></span>');
         var b_Menu = $('<button class="dropdown dropdown-toggle" data-toggle="dropdown" style="border: none;background-color: white;height: 24px;"><span class="caret"></span>');
+
 
         var ui_Menu = $('<ul class="dropdown-menu dropdown-menu-dashbord">');
         ui_Menu.append(li_Refresh);
@@ -655,27 +708,31 @@ $.widget("ui.D_TrzFCust", {
         ui_Menu.append(li_Close);
 
         b_Menu.append(ui_Menu);
-
+        div.append(b_Maximum);
         div.append(b_Menu);
+
 
         var h4 = $('<h4 class="modal-title" style="width: 90%;">' + options.caption + '</h4>');
 
         divHeader.append(h4);
         divHeader.append(div);
-        divContent.append(divHeader);
 
-        var divSum = $('<div class="form-inline" style="padding:10px">');
+
+        var divSum = $('<div class="form-inline" style="padding-top: 10px;width: 100%;">');
         div = $('<div class="form-inline" style="margin-left:auto">');
-        h4 = $('<h4>مجموع : </h4> <h4 id="' + options.id + '_LSum" style="padding-right:5px">0</h4>');
-        div.append(h4);
+        h5 = $('<h5>مجموع : </h5> <h5 id="' + options.id + '_LSum" style="padding-right:5px">0</h5>');
+        div.append(h5);
         divSum.append(div);
 
         div = $('<div class="form-inline" style="margin-right:auto">');
-        h4 = $('<h4>تعداد : </h4> <h4 id="' + options.id + '_LCount" style="padding-right:5px">0</h4>');
-        div.append(h4);
+        h5 = $('<h5>تعداد : </h5> <h5 id="' + options.id + '_LCount" style="padding-right:5px">0</h5>');
+        div.append(h5);
         divSum.append(div);
 
-        divContent.append(divSum);
+        divHeader.append(divSum)
+        divContent.append(divHeader);
+
+        //divContent.append(divSum);
         //End Header
 
         //Content
@@ -685,6 +742,23 @@ $.widget("ui.D_TrzFCust", {
 
         divCart.append(divContent);
 
+        var styleMaximum;
+
+        b_Maximum.click(function (e) {
+            var a = $("#" + options.id);
+            styleMaximum = a[0].style;
+            var zIndex = a.css("z-index");
+
+            if (zIndex == "auto") {
+                $("#" + options.id).css(cssMaximin);
+                var path = "/Content/img/window.png";
+            }
+            else {
+                var path = "/Content/img/window-max.png";
+                a[0].style = styleMaximum;
+            }
+            $(this).find("img").attr("src", path);
+        });
 
         li_Setting.click(function (e) {
             $("#" + options.id + "_modal").modal('show');
@@ -1007,7 +1081,9 @@ $.widget("ui.D_TarazFasli", {
         var li_Line = $('<li class="divider"></li>');
         var li_Close = $('<li><a href="#">بستن</a></li>');
 
+        var b_Maximum = $('<a style="padding-left: 5px;"><img src="/Content/img/window-max.png" width ="17" title="تغییر سایز"></span>');
         var b_Menu = $('<button class="dropdown dropdown-toggle" data-toggle="dropdown" style="border: none;background-color: white;height: 24px;"><span class="caret"></span>');
+
         var ui_Menu = $('<ul class="dropdown-menu dropdown-menu-dashbord">');
         ui_Menu.append(li_Refresh);
         ui_Menu.append(li_Setting);
@@ -1015,7 +1091,7 @@ $.widget("ui.D_TarazFasli", {
         ui_Menu.append(li_Close);
 
         b_Menu.append(ui_Menu);
-
+        div.append(b_Maximum);
         div.append(b_Menu);
 
         var h4 = $('<h4 class="modal-title" style="width: 90%;">' + options.caption + '</h4>');
@@ -1030,9 +1106,9 @@ $.widget("ui.D_TarazFasli", {
 
         var divSum = $('<div style="padding:10px">');
 
-        h4 = $('<h4 id="' + options.id + '_LSum" style="padding-right:5px">0</h4>');
+        h5 = $('<h5 id="' + options.id + '_LSum" style="padding-right:5px">0</h5>');
         h6 = $('<h6 id="' + options.id + '_LTitle" style="padding-right:5px;padding-top:15px;color:#dcdcdc">0</h6>');
-        divSum.append(h4);
+        divSum.append(h5);
         divSum.append(h6);
         divContent.append(divSum);
 
@@ -1041,6 +1117,23 @@ $.widget("ui.D_TarazFasli", {
 
         divCart.append(divContent);
 
+        var styleMaximum;
+
+        b_Maximum.click(function (e) {
+            var a = $("#" + options.id);
+            styleMaximum = a[0].style;
+            var zIndex = a.css("z-index");
+
+            if (zIndex == "auto") {
+                $("#" + options.id).css(cssMaximin);
+                var path = "/Content/img/window.png";
+            }
+            else {
+                var path = "/Content/img/window-max.png";
+                a[0].style = styleMaximum;
+            }
+            $(this).find("img").attr("src", path);
+        });
 
         li_Setting.click(function (e) {
             $("#" + options.id + "_modal").modal('show');
@@ -1177,47 +1270,9 @@ $.widget("ui.D_TarazFasli", {
             $("#" + options.id + "_Chart").empty();
             $(options.Chart).remove();
             //if (options.Chart == null) {
-                options.Chart = new Chart(options.id + "_Chart", {
-                    type: 'bar',
-                    data: {
-                        labels: trzFDoreh_labels,
-                        datasets: [{
-                            label: '',
-                            data: trzFDoreh_data,
-                            backgroundColor: "#ff2d2d",
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        animation: false,
-                        responsive: true,
-                        responsiveAnimationDuration: 0,
-                        legend: {
-                            display: false
-                        },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    callback: function (value, index, values) {
-                                        value = (value / 1000000).toFixed(0);
-                                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
-                                    }
-                                }
-                            }]
-                        },
-                        tooltips: {
-                            callbacks: {
-                                label: function (tooltipItem, data) {
-                                    return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
-                                }
-                            }
-                        }
-                    }
-                });
-            //}
-            //else {
-                /*var dataChart = {
+            options.Chart = new Chart(options.id + "_Chart", {
+                type: 'bar',
+                data: {
                     labels: trzFDoreh_labels,
                     datasets: [{
                         label: '',
@@ -1226,34 +1281,72 @@ $.widget("ui.D_TarazFasli", {
                         borderWidth: 1
                     }]
                 },
-                    options = {
-                        animation: false,
-                        responsive: true,
-                        responsiveAnimationDuration: 0,
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    callback: function (value, index, values) {
-                                        value = (value / 1000000).toFixed(0);
-                                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
-                                    }
-                                }
-                            }]
-                        },
-                        tooltips: {
-                            callbacks: {
-                                label: function (tooltipItem, data) {
-                                    return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                options: {
+                    animation: false,
+                    responsive: true,
+                    responsiveAnimationDuration: 0,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function (value, index, values) {
+                                    value = (value / 1000000).toFixed(0);
+                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
                                 }
                             }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                            }
                         }
-                    };
-
-                options.Chart.data = dataChart;
-                options.Chart.update();*/
+                    }
+                }
+            });
             //}
-            
+            //else {
+            /*var dataChart = {
+                labels: trzFDoreh_labels,
+                datasets: [{
+                    label: '',
+                    data: trzFDoreh_data,
+                    backgroundColor: "#ff2d2d",
+                    borderWidth: 1
+                }]
+            },
+                options = {
+                    animation: false,
+                    responsive: true,
+                    responsiveAnimationDuration: 0,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function (value, index, values) {
+                                    value = (value / 1000000).toFixed(0);
+                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
+                                }
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'ریال';
+                            }
+                        }
+                    }
+                };
+
+            options.Chart.data = dataChart;
+            options.Chart.update();*/
+            //}
+
 
             options.data = response;
             var itemData = dashbordData.find(c => c.id == options.id);

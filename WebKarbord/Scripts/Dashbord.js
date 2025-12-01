@@ -6,132 +6,6 @@ var barColors = ["#ff2d2d", "#00ccff", "#00ffff", "#336600", "#ffcc00", "#ff9e3a
 var orgProgName = localStorage.getItem('OrgProgName');
 
 
-/*
-var groupsAcount;
-if (ace == 'Web8') {
-    groupsAcount = localStorage.getItem('afi8List');
-}
-else if (ace == 'Web1') {
-    groupsAcount = localStorage.getItem('afi1List');
-}
-
-var orgProgName = localStorage.getItem('OrgProgName');
-
-var GroupsObject = {
-    ProgName: orgProgName,
-    User: sessionStorage.userName,
-    Groups: groups.replaceAll('-', ',')
-}
-
-ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
-    localStorage.setItem('afiList', JSON.stringify(data));
-});
-
-*/
-
-/*
-    $.widget("custom.colorize", {
-        options: {
-            red: 255,
-            green: 0,
-            blue: 0,
-            change: null,
-            random: null
-        },
-
-
-        _create: function () {
-            this.element.addClass("custom-colorize");
-            this.changer = $("<button>", {
-                text: "change",
-                "class": "custom-colorize-changer"
-            })
-                .appendTo(this.element)
-                .button();
-
-            this._on(this.changer, {
-                click: "random"
-            });
-            this._refresh();
-        },
-
-        _refresh: function () {
-            this.element.css("background-color", "rgb(" +
-                this.options.red + "," +
-                this.options.green + "," +
-                this.options.blue + ")"
-            );
-            this._trigger("change");
-        },
-
-        random: function (event) {
-            var colors = {
-                red: Math.floor(Math.random() * 256),
-                green: Math.floor(Math.random() * 256),
-                blue: Math.floor(Math.random() * 256)
-            };
-            if (this._trigger("random", event, colors) !== false) {
-                this.option(colors);
-            }
-        },
-
-        _destroy: function () {
-            this.changer.remove();
-
-            this.element
-                .removeClass("custom-colorize")
-                .enableSelection()
-                .css("background-color", "transparent");
-        },
-
-        _setOptions: function () {
-            this._superApply(arguments);
-            this._refresh();
-        },
-
-        _setOption: function (key, value) {
-            if (/red|green|blue/.test(key) && (value < 0 || value > 255)) {
-                return;
-            }
-            this._super(key, value);
-        }
-    });
-
-    $("#my-widget1").colorize();
-
-    $("#my-widget2").colorize({
-        red: 60,
-        blue: 60
-    });
-
-    $("#my-widget3").colorize({
-        green: 128,
-        random: function (event, ui) {
-            return ui.green > 128;
-        }
-    });
-
-    $("#disable").on("click", function () {
-        // use the custom selector created for each widget to find all instances
-        // all instances are toggled together, so we can check the state from the first
-        if ($(":custom-colorize").colorize("option", "disabled")) {
-            $(":custom-colorize").colorize("enable");
-        } else {
-            $(":custom-colorize").colorize("disable");
-        }
-    });
-
-    $("#green").on("click", function () {
-        $(":custom-colorize").colorize("option", {
-            red: 64,
-            green: 250,
-            blue: 8
-        });
-    });
-    */
-
-
-
 var dayCheckPardakht = localStorage.getItem("dayCheckPardakht");
 var dayCheckPardakht_Sum = localStorage.getItem("dayCheckPardakht_Sum");
 
@@ -201,7 +75,7 @@ let grid = GridStack.init({
     cellHeight: 'initial', // start square but will set to % of window width later
     animate: true, // show immediate (animate: true is nice for user dragging though)
     disableOneColumnMode: true, // will manually do 1 column
-    float: true
+    lazyLoad: true,
 });
 
 var cols = '';
@@ -230,6 +104,62 @@ $('#modal-DesktopItem').on('show.bs.modal', function () {
     }
 });
 
+var object = $('<div id="widget_Kala" style="background-color: white;padding: 10px;">');
+$("#objectBase").append(object);
+
+$("#widget_Kala").Base(
+    {
+        id: 'Kala',
+        caption: 'کالا',
+        baseValue: {
+            ace: ace,
+            group: group,
+            sal: sal
+        }
+    }
+);
+
+
+
+
+uri = server + '/api/Web_Data/Kala/' + ace + '/' + sal + '/' + group;
+whereKala = localStorage.getItem('whereKala');
+var object = {
+    withimage: false,
+    updatedate: null,
+    Mode: 0,
+    UserCode: sessionStorage.userName,
+    where: whereKala,
+    KalaCode: ''
+}
+ajaxFunction(uri, 'POST', object, false).done(function (response) {
+    baseData["Table"] = response;
+});
+
+const type_Int = 0;
+const type_Float = 1;
+const type_Currency = 2;
+const type_String = 3;
+const type_WideString = 4;
+
+var objectTable = $('<div id="widget_table" style="background-color: white;padding: 10px;">');
+$("#objectBase").append(objectTable);
+
+var columns = [
+    { name: 'Code', caption: 'کد', type: type_Int },
+    { name: 'Name', caption: 'نام', type: type_WideString },
+    { name: 'FanniNo', caption: 'شماره فنی', type: type_String },
+    { name: 'Spec', caption: 'ملاحظات', type: type_WideString },
+]
+
+$("#widget_table").Table(
+    {
+        data: baseData["Table"],
+        columns: columns,
+        defultSort: 'Code',
+        pageCount: 10
+    }
+);
 
 
 
@@ -755,6 +685,31 @@ var ViewModel = function () {
         $('#show_RepairDatabaseConfig').hide();
         $('#show_RepairDatabase').hide();
     }
+
+    self.currentPageIndexPrintForms = ko.observable(0);
+    self.filterPrintForms0 = ko.observable("");
+    self.filterPrintForms1 = ko.observable("");
+    self.pageSizePrintForms = ko.observable(0);
+    self.currentPageIndexKhdt = ko.observable(0);
+    self.CodePrint = ko.observable();
+
+    self.sortTablePrintForms = function (viewModel, e) { };
+    self.currentPagePrintForms = ko.computed(function () { });
+
+    self.nextPagePrintForms = function () { };
+
+    self.previousPagePrintForms = function () { };
+
+    self.firstPagePrintForms = function () { };
+
+
+    self.lastPagePrintForms = function () { };
+
+
+    self.PageIndexPrintForms = function (item) {
+        return 0;
+    };
+
 
 
     /*
@@ -1534,3 +1489,127 @@ function GetIconCustomer(code) {
     return '/Content/img/profile.png'
 }
 
+
+/*
+var groupsAcount;
+if (ace == 'Web8') {
+    groupsAcount = localStorage.getItem('afi8List');
+}
+else if (ace == 'Web1') {
+    groupsAcount = localStorage.getItem('afi1List');
+}
+
+var orgProgName = localStorage.getItem('OrgProgName');
+
+var GroupsObject = {
+    ProgName: orgProgName,
+    User: sessionStorage.userName,
+    Groups: groups.replaceAll('-', ',')
+}
+
+ajaxFunction(server + '/api/Web_Data/Groups', 'POST', GroupsObject).done(function (data) {
+    localStorage.setItem('afiList', JSON.stringify(data));
+});
+
+*/
+
+/*
+    $.widget("custom.colorize", {
+        options: {
+            red: 255,
+            green: 0,
+            blue: 0,
+            change: null,
+            random: null
+        },
+
+
+        _create: function () {
+            this.element.addClass("custom-colorize");
+            this.changer = $("<button>", {
+                text: "change",
+                "class": "custom-colorize-changer"
+            })
+                .appendTo(this.element)
+                .button();
+
+            this._on(this.changer, {
+                click: "random"
+            });
+            this._refresh();
+        },
+
+        _refresh: function () {
+            this.element.css("background-color", "rgb(" +
+                this.options.red + "," +
+                this.options.green + "," +
+                this.options.blue + ")"
+            );
+            this._trigger("change");
+        },
+
+        random: function (event) {
+            var colors = {
+                red: Math.floor(Math.random() * 256),
+                green: Math.floor(Math.random() * 256),
+                blue: Math.floor(Math.random() * 256)
+            };
+            if (this._trigger("random", event, colors) !== false) {
+                this.option(colors);
+            }
+        },
+
+        _destroy: function () {
+            this.changer.remove();
+
+            this.element
+                .removeClass("custom-colorize")
+                .enableSelection()
+                .css("background-color", "transparent");
+        },
+
+        _setOptions: function () {
+            this._superApply(arguments);
+            this._refresh();
+        },
+
+        _setOption: function (key, value) {
+            if (/red|green|blue/.test(key) && (value < 0 || value > 255)) {
+                return;
+            }
+            this._super(key, value);
+        }
+    });
+
+    $("#my-widget1").colorize();
+
+    $("#my-widget2").colorize({
+        red: 60,
+        blue: 60
+    });
+
+    $("#my-widget3").colorize({
+        green: 128,
+        random: function (event, ui) {
+            return ui.green > 128;
+        }
+    });
+
+    $("#disable").on("click", function () {
+        // use the custom selector created for each widget to find all instances
+        // all instances are toggled together, so we can check the state from the first
+        if ($(":custom-colorize").colorize("option", "disabled")) {
+            $(":custom-colorize").colorize("enable");
+        } else {
+            $(":custom-colorize").colorize("disable");
+        }
+    });
+
+    $("#green").on("click", function () {
+        $(":custom-colorize").colorize("option", {
+            red: 64,
+            green: 250,
+            blue: 8
+        });
+    });
+    */

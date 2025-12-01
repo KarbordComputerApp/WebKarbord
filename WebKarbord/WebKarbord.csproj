@@ -857,6 +857,8 @@
     <Content Include="Content\img\Sweet\streamline-icon-alert-triangle%4048x48.png" />
     <Content Include="Content\img\Sweet\streamline-icon-check-circle-1-alternate%4048x48.png" />
     <Content Include="Content\img\Sweet\streamline-icon-question-help-circle%4048x48.png" />
+    <Content Include="Content\img\window-max.png" />
+    <Content Include="Content\img\window.png" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\Chart.js" />
     <Content Include="Content\js\gridstack-all.js" />
@@ -867,6 +869,7 @@
     <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\js\knockout-3.5.0.js" />
     <Content Include="Content\js\sweet2.js" />
+    <Content Include="Content\js\Widget_Base.js" />
     <Content Include="Content\js\Widget_Dashbord.js" />
     <Content Include="Content\loading1.png" />
     <Content Include="Content\new\css\all-themes.css" />

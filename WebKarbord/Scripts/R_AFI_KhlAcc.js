@@ -340,7 +340,7 @@
         for (var i = 0; i < list.length; ++i) {
             KhlAccData = list[i];
 
-            if (KhlAccData.Tag > 1 && KhlAccData.HasChild == 1) {
+            if (KhlAccData.Tag > 1) {
                 totalBede += KhlAccData.Bede;
                 totalBest += KhlAccData.Best;
             }
@@ -645,9 +645,9 @@
         self.iconTypeMonTotal('');
 
 
-        if (orderProp == 'SortAccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'AccCode') self.iconTypeAccCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'AccName') self.iconTypeAccName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SortMkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'MkzCode') self.iconTypeMkzCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'MkzName') self.iconTypeMkzName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprCode') self.iconTypeOprCode((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'OprName') self.iconTypeOprName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
@@ -1736,8 +1736,8 @@
         TextField = FindTextField(field, data);
 
         sortField =
-            field == 'MkzCode' ? 'SortMkzCode' :
-                field == 'AccCode' ? 'SortAccCode' :
+           // field == 'MkzCode' ? 'SortMkzCode' :
+               // field == 'AccCode' ? 'SortAccCode' :
                     field
 
         if (TextField == 0)
