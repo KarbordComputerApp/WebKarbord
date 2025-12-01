@@ -340,7 +340,7 @@
         for (var i = 0; i < list.length; ++i) {
             KhlAccData = list[i];
 
-            if (KhlAccData.Tag = 1) {
+            if (KhlAccData.Tag == 1) {
                 totalBede += KhlAccData.Bede;
                 totalBest += KhlAccData.Best;
             }
@@ -1583,7 +1583,7 @@
             CreateTableTh('MonBede', data) +
             CreateTableTh('MonBest', data) +
             CreateTableTh('MonTotal', data) +
-            '<th>' + translate('عملیات') + '</th>' +
+            '<th hidden>' + translate('عملیات') + '</th>' +
             '      </tr>' +
             '   </thead >' +
             ' <tbody data-bind=" {foreach: currentPageKhlAcc}" style="cursor: default;">';
@@ -1625,7 +1625,7 @@
             CreateTableTd('MonBede', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonBest', sessionStorage.Deghat, 2, data) +
             CreateTableTd('MonTotal', sessionStorage.Deghat, 2, data) +
-             '<td>' +
+             '<td hidden>' +
              '<a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px">' +
              '    <span class="caret"></span>' +
              '</a>' +
@@ -1685,7 +1685,7 @@
             CreateTableTdSum('MonBede', 2, data) +
             CreateTableTdSum('MonBest', 2, data) +
             CreateTableTdSum('MonTotal', 2, data) +
-            '<td style="background-color: #e37d228f !important;"></td>' +
+            '<td style="background-color: #e37d228f !important;" hidden></td>' +
             ' </tr>' +
             '  <tr style="background-color: #efb68399;">' +
             '<td></td>' +
@@ -1720,7 +1720,7 @@
             CreateTableTdSearch('MonBede', data) +
             CreateTableTdSearch('MonBest', data) +
             CreateTableTdSearch('MonTotal', data) +
-            '<td style="background-color: #efb683;"></td>' +
+            '<td hidden style="background-color: #efb683;"></td>' +
             '      </tr>' +
             '  </tfoot>' +
             '</table >'
@@ -1790,7 +1790,7 @@
                 text += '></td>'
                 break;
             case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                text = '<td style="background-color: #e37d228f !important; direction: ltr;" id="total' + field + '"></td>'
                 break;
         }
         return text;

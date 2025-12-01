@@ -1600,7 +1600,7 @@
                 text += '></td>'
                 break;
             case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
+                text = '<td style="background-color: #e37d228f !important; direction: ltr;" id="total' + field + '"></td>'
                 break;
         }
         return text;

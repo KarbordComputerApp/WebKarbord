@@ -157,7 +157,10 @@ $("#widget_table").Table(
         data: baseData["Table"],
         columns: columns,
         defultSort: 'Code',
-        pageCount: 10
+        defultSort: 0,
+        pageCount: 0,
+        pageSize: 10,
+        currentPageIndex: 0
     }
 );
 
