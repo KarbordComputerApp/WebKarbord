@@ -340,7 +340,7 @@
         for (var i = 0; i < list.length; ++i) {
             KhlAccData = list[i];
 
-            if (KhlAccData.Tag > 1) {
+            if (KhlAccData.Tag = 1) {
                 totalBede += KhlAccData.Bede;
                 totalBest += KhlAccData.Best;
             }
