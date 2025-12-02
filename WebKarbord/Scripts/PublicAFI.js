@@ -1385,6 +1385,8 @@ if (ace != 'Web2' && ace != null) {
         afiaccess[AP_SHVL] = false; //SHVL
         afiaccess[AP_SEXT] = false; //SEXT
         afiaccess[AP_PFORD] = false; //PFORD
+        afiaccess[AP_KhlAcc] = false; //AP_KhlAcc
+        afiaccess[AP_KhlZAcc] = false; //AP_KhlZAcc
     }
 
 }
@@ -2898,6 +2900,8 @@ function getAccessList(GoHome) {
                         afiaccess[AP_SHVL] = false; //SHVL
                         afiaccess[AP_SEXT] = false; //SEXT
                         afiaccess[AP_PFORD] = false; //PFORD
+                        afiaccess[AP_KhlAcc] = false; //AP_KhlAcc
+                        afiaccess[AP_KhlZAcc] = false; //AP_KhlZAcc
                     }
 
                 }
