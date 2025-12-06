@@ -119,9 +119,6 @@ $("#widget_Kala").Base(
     }
 );
 
-
-
-
 uri = server + '/api/Web_Data/Kala/' + ace + '/' + sal + '/' + group;
 whereKala = localStorage.getItem('whereKala');
 var object = {
@@ -160,6 +157,27 @@ $("#widget_table").Table(
         defultSort: 0,
         pageCount: 0,
         pageSize: 10,
+        currentPageIndex: 0
+    }
+);
+
+
+var objectTable = $('<div id="widget_table1" style="background-color: white;padding: 10px;">');
+$("#objectBase").append(objectTable);
+
+var columns = [
+    { name: 'Code', caption: 'کد', type: type_Int },
+    { name: 'Name', caption: 'نام', type: type_WideString },
+]
+
+$("#widget_table1").Table(
+    {
+        data: baseData["Table"],
+        columns: columns,
+        defultSort: 'Code',
+        defultSort: 0,
+        pageCount: 0,
+        pageSize: 20,
         currentPageIndex: 0
     }
 );

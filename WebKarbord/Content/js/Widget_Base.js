@@ -122,8 +122,11 @@ $.widget("ui.Table", {
             obj._CreateBody(0, last);
         });
 
-
-        _aNextPage.click(function (e) {
+        _aNextPage.click(function () {
+            obj.NextPage();
+/*
+            var obj = this;
+            var options = obj.options;
             var currentIndexTemp = options.currentPageIndex;
             currentIndexTemp++;
             first = currentIndexTemp * options.pageSize;
@@ -133,7 +136,7 @@ $.widget("ui.Table", {
                 last = options.pageSize + first;
                 last = last >= rowAllCount ? rowAllCount : last;
                 obj._CreateBody(first, last);
-            }
+            }*/
         });
 
         _aPreviousPage.click(function (e) {
@@ -164,6 +167,29 @@ $.widget("ui.Table", {
         return _divFinal;
     },
 
+    NextPage: function () {
+        obj = this;
+        var options = obj.options;
+        var list = options.data;
+        rowAllCount = list.length;
+        var currentIndexTemp = options.currentPageIndex;
+        currentIndexTemp++;
+        first = currentIndexTemp * options.pageSize;
+        if (first <= rowAllCount) {
+            options.currentPageIndex++;
+            //$(_bPage).text(options.currentPageIndex + 1);
+            last = options.pageSize + first;
+            last = last >= rowAllCount ? rowAllCount : last;
+            obj._CreateBody(first, last);
+        }
+
+
+       /* if (((obj.currentPage + 1) * obj.options.countPage) < obj.source.length) {
+            obj.currentPage++;
+            obj._CreateBody();
+        }
+        sessionStorage[obj.options.name + '_CurrentPage'] = obj.currentPage;*/
+    },
 
     _CreateBody: function (first, last) {
         var obj = this;
@@ -171,16 +197,21 @@ $.widget("ui.Table", {
         var list = options.data;
         var _columns = options.columns;
 
-        _tbody = $(_table).find('tbody');
-        _tbody.empty();
+        var table = $(obj.bindings[0]).find('.table-hover');
+
+        body = table.find('tbody');
+        if (body.length > 0) {
+            body.empty();
+        }
+        //table.append("<tbody></tbody>");
 
         for (var i = first; i < last; i++) {
-            _tr = $('<tr>');
+            var _tr = $('<tr>');
             for (var j = 0; j < _columns.length; j++) {
                 _td = $('<td data-name="' + _columns[j].name + '" ' + (_columns[j].type == type_WideString ? 'class="ellipsis"' : '') + '>' + list[i][_columns[j].name] + '</td>');
                 _tr.append(_td);
             }
-            _tBody.append(_tr);
+            body.append(_tr);
         }
     },
 
