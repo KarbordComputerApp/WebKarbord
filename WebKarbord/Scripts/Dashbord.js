@@ -142,6 +142,7 @@ const type_WideString = 4;
 var objectTable = $('<div id="widget_table" style="background-color: white;padding: 10px;">');
 $("#objectBase").append(objectTable);
 
+
 var columns = [
     { name: 'Code', caption: 'کد', type: type_Int },
     { name: 'Name', caption: 'نام', type: type_WideString },
@@ -160,7 +161,6 @@ $("#widget_table").Table(
         currentPageIndex: 0
     }
 );
-
 
 var objectTable = $('<div id="widget_table1" style="background-color: white;padding: 10px;">');
 $("#objectBase").append(objectTable);

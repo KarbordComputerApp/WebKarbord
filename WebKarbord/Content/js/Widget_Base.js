@@ -25,6 +25,8 @@ $.widget("ui.Table", {
         var options = obj.options;
         var table = obj._CreateTable();
         this.element.append(table);
+        obj._Sort('Name', 'des');
+        obj._CreateBody(0, options.pageSize);
     },
 
     _CreateTable: function () {
@@ -33,18 +35,19 @@ $.widget("ui.Table", {
         var list = options.data;
         var _columns = options.columns;
 
-
         _divFinal = $('<div>')
         _divTable = $('<div style="height:420px;overflow:auto;border: 1px #ddd solid;">');
-        _table = $('<table class="table table-hover table-striped tableFixList">');
+        _table = $('<table class="table table-hover table-striped tableFixList K_DataGrid">');
         _tHead = $('<thead style="cursor: pointer;">');
         _tr = $('<tr>');
         for (var i = 0; i < _columns.length; i++) {
             _th = $('<th data-column="' + _columns[i].name + '">');
             _thSpan = $('<span>' + _columns[i].caption + '</span>');
-            _thIcon = $('<i class="glyphicon glyphicon-chevron-up"></i>');
             _th.append(_thSpan);
-            _th.append(_thIcon);
+
+            /*_thIcon = $('<i class="glyphicon glyphicon-chevron-up"></i>');
+            _th.append(_thIcon);*/
+
             _tr.append(_th);
         }
         _tHead.append(_tr);
@@ -97,7 +100,7 @@ $.widget("ui.Table", {
 
         _aFirstPage = $('<a><img class="firstPage-img" src="/Content/img/list/streamline-icon-navigation-first.png" width="14" height="14" title="اولین"></a>');
         _aPreviousPage = $('<a><img class="previousPage-img"  src="/Content/img/list/streamline-icon-navigation-back.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" title="قبلی"></a>');
-        _bPage = $('<b style="margin: 0px 5px 0px 5px; color: #ec8121;">1 از 1</b>');
+        _bPage = $('<b class="l_PageCount" style="margin: 0px 5px 0px 5px; color: #ec8121;">' + (options.currentPageIndex + 1) + ' از ' + Math.ceil(rowAllCount / options.pageSize) + '</b>');
         _aNextPage = $('<a><img class="nextPage-img" src="/Content/img/list/streamline-icon-navigation-next.png" width="14" height="14" style="margin: 0px 5px 0px 5px;" title="بعدی"></a>');
         _aLastPage = $('<a><img class="lastPage-img" src="/Content/img/list/streamline-icon-navigation-last.png" width="14" height="14" title="آخرین"></a>');
 
@@ -111,84 +114,85 @@ $.widget("ui.Table", {
 
         _divFinal.append(_divTable);
         _divFinal.append(_div);
-        obj._CreateBody(0, last);
-
 
         _aFirstPage.click(function (e) {
-            options.currentPageIndex = 0;
-            $(_bPage).text('1');
-            var last = options.pageSize;
-            last = last >= rowAllCount ? rowAllCount : last;
-            obj._CreateBody(0, last);
+            obj._FirstPage();
         });
 
         _aNextPage.click(function () {
-            obj.NextPage();
-/*
-            var obj = this;
-            var options = obj.options;
-            var currentIndexTemp = options.currentPageIndex;
-            currentIndexTemp++;
-            first = currentIndexTemp * options.pageSize;
-            if (first <= rowAllCount) {
-                options.currentPageIndex++;
-                $(_bPage).text(options.currentPageIndex + 1);
-                last = options.pageSize + first;
-                last = last >= rowAllCount ? rowAllCount : last;
-                obj._CreateBody(first, last);
-            }*/
+            obj._NextPage();
         });
 
         _aPreviousPage.click(function (e) {
-            var currentIndexTemp = options.currentPageIndex;
-            currentIndexTemp--;
-            first = currentIndexTemp * options.pageSize;
-            if (first <= rowAllCount && currentIndexTemp >= 0) {
-                options.currentPageIndex--;
-                $(_bPage).text(options.currentPageIndex + 1);
-
-                last = options.pageSize + first;
-                last = last >= rowAllCount ? rowAllCount : last;
-                obj._CreateBody(first, last);
-            }
+            obj._PreviousPage();
         });
 
         _aLastPage.click(function (e) {
-            var currentIndexTemp = parseInt(rowAllCount / options.pageSize);
-            if (currentIndexTemp >= 0) {
-                options.currentPageIndex = currentIndexTemp;
-                $(_bPage).text(options.currentPageIndex + 1);
-                first = currentIndexTemp * options.pageSize;
-                last = rowAllCount;
-                obj._CreateBody(first, last);
-            }
+            obj._LastPage();
         });
 
         return _divFinal;
     },
 
-    NextPage: function () {
+    _FirstPage: function () {
         obj = this;
-        var options = obj.options;
-        var list = options.data;
-        rowAllCount = list.length;
-        var currentIndexTemp = options.currentPageIndex;
-        currentIndexTemp++;
-        first = currentIndexTemp * options.pageSize;
+        var o = obj.options;
+        var l_PageCount = $(obj.bindings[0]).find('.l_PageCount');
+        var rowAllCount = o.data.length;
+        o.currentPageIndex = 0;
+        l_PageCount.text('1' + ' از ' + Math.ceil(rowAllCount / o.pageSize));
+        var last = o.pageSize;
+        last = last >= rowAllCount ? rowAllCount : last;
+        obj._CreateBody(0, last);
+    },
+    _NextPage: function () {
+        obj = this;
+        var o = obj.options;
+        var l_PageCount = $(obj.bindings[0]).find('.l_PageCount');
+        var rowAllCount = o.data.length;
+        var first = (o.currentPageIndex + 1) * o.pageSize;
         if (first <= rowAllCount) {
-            options.currentPageIndex++;
-            //$(_bPage).text(options.currentPageIndex + 1);
-            last = options.pageSize + first;
+            o.currentPageIndex++;
+            l_PageCount.text((o.currentPageIndex + 1) + ' از ' + Math.ceil(rowAllCount / o.pageSize));
+            last = o.pageSize + first;
+            last = last >= rowAllCount ? rowAllCount : last;
+            obj._CreateBody(first, last);
+        }
+    },
+    _PreviousPage: function () {
+        obj = this;
+        var o = obj.options;
+        var l_PageCount = $(obj.bindings[0]).find('.l_PageCount');
+        var rowAllCount = o.data.length;
+
+        var currentIndexTemp = o.currentPageIndex;
+        currentIndexTemp--;
+        first = currentIndexTemp * o.pageSize;
+        if (first <= rowAllCount && currentIndexTemp >= 0) {
+            o.currentPageIndex--;
+            l_PageCount.text((o.currentPageIndex + 1) + ' از ' + Math.ceil(rowAllCount / o.pageSize));
+            last = o.pageSize + first;
             last = last >= rowAllCount ? rowAllCount : last;
             obj._CreateBody(first, last);
         }
 
+    },
+    _LastPage: function () {
+        obj = this;
+        var o = obj.options;
+        var l_PageCount = $(obj.bindings[0]).find('.l_PageCount');
+        var rowAllCount = o.data.length;
+        o.currentPageIndex = 0;
 
-       /* if (((obj.currentPage + 1) * obj.options.countPage) < obj.source.length) {
-            obj.currentPage++;
-            obj._CreateBody();
+
+        var currentIndexTemp = parseInt(rowAllCount / o.pageSize);
+        if (currentIndexTemp >= 0) {
+            o.currentPageIndex = currentIndexTemp;
+            l_PageCount.text(Math.ceil(o.currentPageIndex + 1) + ' از ' + Math.ceil(rowAllCount / o.pageSize));
+            first = currentIndexTemp * o.pageSize;
+            last = rowAllCount;
+            obj._CreateBody(first, last);
         }
-        sessionStorage[obj.options.name + '_CurrentPage'] = obj.currentPage;*/
     },
 
     _CreateBody: function (first, last) {
@@ -197,7 +201,7 @@ $.widget("ui.Table", {
         var list = options.data;
         var _columns = options.columns;
 
-        var table = $(obj.bindings[0]).find('.table-hover');
+        var table = $(obj.bindings[0]).find('.K_DataGrid');
 
         body = table.find('tbody');
         if (body.length > 0) {
@@ -215,6 +219,24 @@ $.widget("ui.Table", {
         }
     },
 
+    _Sort: function (Column, Mode) {
+        var obj = this;
+        var options = obj.options;
+        var list = options.data;
+        list.sort(function (a, b) {
+            _a = FixSortName(a[Column]);
+            _b = FixSortName(b[Column]);
+
+            return Mode == "des" ? (_a < _b ? 1 : -1) : (_a > _b ? 1 : -1);
+        });
+
+        var table = $(obj.bindings[0]).find('.K_DataGrid thead tr');
+        table.find('.iconSort').empty();
+        _th = table.find("[data-column=" + Column + "]");
+        icon = Mode == "des" ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-up";
+        _thIcon = $('<i class="iconSort ' + icon + '"></i>');
+        _th.append(_thIcon);
+    },
     _Refresh: function () {
         var obj = this;
         var options = obj.options;
@@ -396,3 +418,51 @@ $.widget("ui.Base", {
 
 });
 
+
+
+
+function FixSortName(name) {
+    if (typeof name == "string" && name != "" && name.substring(0, 4) != '    ') {
+        str = name.trim();
+        str = str.replaceAll('آ', String.fromCharCode(1000));
+        str = str.replaceAll('ا', String.fromCharCode(1001));
+        str = str.replaceAll('ب', String.fromCharCode(1002));
+        str = str.replaceAll('پ', String.fromCharCode(1003));
+        str = str.replaceAll('ت', String.fromCharCode(1004));
+        str = str.replaceAll('ث', String.fromCharCode(1005));
+        str = str.replaceAll('ج', String.fromCharCode(1006));
+        str = str.replaceAll('چ', String.fromCharCode(1007));
+        str = str.replaceAll('ح', String.fromCharCode(1008));
+        str = str.replaceAll('خ', String.fromCharCode(1009));
+        str = str.replaceAll('د', String.fromCharCode(1010));
+        str = str.replaceAll('ذ', String.fromCharCode(1011));
+        str = str.replaceAll('ر', String.fromCharCode(1012));
+        str = str.replaceAll('ز', String.fromCharCode(1013));
+        str = str.replaceAll('ژ', String.fromCharCode(1014));
+        str = str.replaceAll('س', String.fromCharCode(1015));
+        str = str.replaceAll('ش', String.fromCharCode(1016));
+        str = str.replaceAll('ص', String.fromCharCode(1017));
+        str = str.replaceAll('ض', String.fromCharCode(1018));
+        str = str.replaceAll('ط', String.fromCharCode(1019));
+        str = str.replaceAll('ظ', String.fromCharCode(1020));
+        str = str.replaceAll('ع', String.fromCharCode(1021));
+        str = str.replaceAll('غ', String.fromCharCode(1022));
+        str = str.replaceAll('ف', String.fromCharCode(1023));
+        str = str.replaceAll('ق', String.fromCharCode(1024));
+        str = str.replaceAll('ك', String.fromCharCode(1025));
+        str = str.replaceAll('ک', String.fromCharCode(1026));
+        str = str.replaceAll('گ', String.fromCharCode(1027));
+        str = str.replaceAll('ل', String.fromCharCode(1028));
+        str = str.replaceAll('م', String.fromCharCode(1029));
+        str = str.replaceAll('ن', String.fromCharCode(1030));
+        str = str.replaceAll('و', String.fromCharCode(1031));
+        str = str.replaceAll('ه', String.fromCharCode(1032));
+        str = str.replaceAll('ی', String.fromCharCode(1033));
+        str = str.replaceAll('ي', String.fromCharCode(1033));
+    }
+    else {
+        str = name;
+    }
+
+    return str
+}

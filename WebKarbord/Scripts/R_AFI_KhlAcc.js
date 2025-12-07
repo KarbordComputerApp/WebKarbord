@@ -693,7 +693,6 @@
     self.filterAcc0 = ko.observable("");
     self.filterAcc1 = ko.observable("");
     self.filterAcc2 = ko.observable("");
-    self.filterAcc3 = ko.observable("");
 
     self.filterAccList = ko.computed(function () {
 
@@ -701,17 +700,15 @@
         var filter0 = self.filterAcc0().toUpperCase();
         var filter1 = self.filterAcc1();
         var filter2 = self.filterAcc2();
-        var filter3 = self.filterAcc3();
 
-        if (!filter0 && !filter1 && !filter2 && !filter3) {
+        if (!filter0 && !filter1 && !filter2) {
             return self.AccList();
         } else {
             tempData = ko.utils.arrayFilter(self.AccList(), function (item) {
                 result =
                     ko.utils.stringStartsWith(item.Code.toString().toLowerCase(), filter0) &&
                         (item.Name == null ? '' : item.Name.toString().search(filter1) >= 0) &&
-                        (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0) &&
-                        filter3 != '' ? item.Level <= filter3 : ''
+                        (item.Spec == null ? '' : item.Spec.toString().search(filter2) >= 0)
                 return result;
             })
             return tempData;
