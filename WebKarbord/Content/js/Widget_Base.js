@@ -2,6 +2,7 @@
 
 const d_kala = 'Kala';
 
+
 var translateColumn = {
     Code: "کد",
     Name: "نام",
@@ -14,7 +15,8 @@ $.widget("ui.Table", {
     options: {
         data: [],
         columns: [],
-        defultSort: 0,
+        sort: '',
+        sortMode: '',
         pageCount: 0,
         pageSize: 0,
         currentPageIndex: 0
@@ -25,8 +27,24 @@ $.widget("ui.Table", {
         var options = obj.options;
         var table = obj._CreateTable();
         this.element.append(table);
-        obj._Sort('Name', 'des');
+        obj._Sort(options.sort, options.sortMode);
+
         obj._CreateBody(0, options.pageSize);
+
+        var th = table.find('thead th');
+        var tr = table.find('tbody tr');
+
+        th.click(function (e) {
+            var columnName = $(this).attr('ColumnName');
+            var iconMode = $(this).find('.' + mode_Sort_DESC);
+            obj._Sort(columnName, iconMode.length > 0 ? '' : mode_Sort_DESC);
+            obj._FirstPage();
+        });
+
+        tr.click(function (e) {
+            var a = this;
+        });
+
     },
 
     _CreateTable: function () {
@@ -41,7 +59,7 @@ $.widget("ui.Table", {
         _tHead = $('<thead style="cursor: pointer;">');
         _tr = $('<tr>');
         for (var i = 0; i < _columns.length; i++) {
-            _th = $('<th data-column="' + _columns[i].name + '">');
+            _th = $('<th ColumnName="' + _columns[i].name + '">');
             _thSpan = $('<span>' + _columns[i].caption + '</span>');
             _th.append(_thSpan);
 
@@ -114,6 +132,7 @@ $.widget("ui.Table", {
 
         _divFinal.append(_divTable);
         _divFinal.append(_div);
+
 
         _aFirstPage.click(function (e) {
             obj._FirstPage();
@@ -226,17 +245,17 @@ $.widget("ui.Table", {
         list.sort(function (a, b) {
             _a = FixSortName(a[Column]);
             _b = FixSortName(b[Column]);
-
-            return Mode == "des" ? (_a < _b ? 1 : -1) : (_a > _b ? 1 : -1);
+            return Mode == mode_Sort_DESC ? (_a < _b ? 1 : -1) : (_a > _b ? 1 : -1);
         });
 
         var table = $(obj.bindings[0]).find('.K_DataGrid thead tr');
-        table.find('.iconSort').empty();
-        _th = table.find("[data-column=" + Column + "]");
-        icon = Mode == "des" ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-up";
-        _thIcon = $('<i class="iconSort ' + icon + '"></i>');
+        table.find('.iconSort').remove();
+        _th = table.find("[ColumnName=" + Column + "]");
+        icon = Mode == "DESC" ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-up";
+        _thIcon = $('<i class="iconSort ' + Mode + ' ' + icon + '"></i>');
         _th.append(_thIcon);
     },
+
     _Refresh: function () {
         var obj = this;
         var options = obj.options;

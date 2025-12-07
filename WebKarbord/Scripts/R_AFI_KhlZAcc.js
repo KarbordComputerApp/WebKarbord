@@ -1265,7 +1265,7 @@
 
 
 
-    ZAccCodeReport = localStorage.getItem("ZAccCodeReport");
+  /*  ZAccCodeReport = localStorage.getItem("ZAccCodeReport");
     localStorage.setItem("ZAccCodeReport", null);
     if (ZAccCodeReport != "null") {
 
@@ -1321,7 +1321,7 @@
 
         getKhlZAcc();
     }
-
+*/
 
 
 
@@ -1335,14 +1335,6 @@
     }
 
 
-    self.AccessAction = function (nameRprt) {
-        if (nameRprt == "ADocR")
-            res = $("#ADocR").css("display") != "none"
-        else if (nameRprt == "Dftr")
-            res = $("#Dftr").css("display") != "none"
-
-        return res;
-    }
 
     //$("#ADocR").hide();
     //$("#Dftr").hide();

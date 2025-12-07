@@ -139,6 +139,8 @@ const type_Currency = 2;
 const type_String = 3;
 const type_WideString = 4;
 
+const mode_Sort_DESC = 'DESC';
+
 var objectTable = $('<div id="widget_table" style="background-color: white;padding: 10px;">');
 $("#objectBase").append(objectTable);
 
@@ -154,8 +156,8 @@ $("#widget_table").Table(
     {
         data: baseData["Table"],
         columns: columns,
-        defultSort: 'Code',
-        defultSort: 0,
+        sort: 'Code',
+        sortMode: '',
         pageCount: 0,
         pageSize: 10,
         currentPageIndex: 0
@@ -174,8 +176,8 @@ $("#widget_table1").Table(
     {
         data: baseData["Table"],
         columns: columns,
-        defultSort: 'Code',
-        defultSort: 0,
+        sort: 'Code',
+        sortMode: '',
         pageCount: 0,
         pageSize: 20,
         currentPageIndex: 0

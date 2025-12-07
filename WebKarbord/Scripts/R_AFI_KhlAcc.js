@@ -1458,7 +1458,7 @@
     }
 
 
-
+    /*
     AccCodeReport = localStorage.getItem("AccCodeReport");
     localStorage.setItem("AccCodeReport", null);
     if (AccCodeReport != "null") {
@@ -1516,7 +1516,7 @@
         getKhlAcc();
     }
 
-
+*/
 
 
 
@@ -1528,15 +1528,6 @@
         return index + calc;
     }
 
-
-    self.AccessAction = function (nameRprt) {
-        if (nameRprt == "ADocR")
-            res = $("#ADocR").css("display") != "none"
-        else if (nameRprt == "Dftr")
-            res = $("#Dftr").css("display") != "none"
-
-        return res;
-    }
 
     //$("#ADocR").hide();
     //$("#Dftr").hide();
@@ -1638,13 +1629,13 @@
              '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
              '             تراز زیر حساب ها' +
              '        </a>' +
-             '    </li>' +*/
+             '    </li>' +
              '    <li>' +
              '        <a  data-bind="click: $root.ShowDftr, visible: $root.AccessAction(\'Dftr\') == true" style="font-size: 11px;text-align: right;">' +
              '           <img src="/Content/img/view.svg" width="18" height="18" style="margin-left:10px">' +
              '            دفتر حساب ' +
              '        </a>' +
-             '    </li>' +
+             '    </li>' +*/
              '</td >' +
             '</tr>' +
             '</tbody>' +
