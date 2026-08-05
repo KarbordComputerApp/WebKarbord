@@ -1983,9 +1983,10 @@
         var listSumReport = self.KhlAccList();
         for (var i = 0; i < listSumReport.length; ++i) {
             KhlAccData = listSumReport[i];
-
-            totalBede += KhlAccData.Bede;
-            totalBest += KhlAccData.Best;
+            if (KhlAccData.Tag == 1) {
+                totalBede += KhlAccData.Bede;
+                totalBest += KhlAccData.Best;
+            }
         }
 
         totalMonTotal = totalBede - totalBest;

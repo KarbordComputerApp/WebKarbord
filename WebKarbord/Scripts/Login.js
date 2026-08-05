@@ -13,7 +13,7 @@
     var LoginTestUri;
 
     //var serverAccount = 'http://192.168.0.106:902/api/';
-    var serverAccount = 'http://127.0.0.1:902/api/';
+    var serverAccount = 'http://localhost:902/api/';
 
     //var serverAccount = 'http://185.208.174.64:902/api/';
 
