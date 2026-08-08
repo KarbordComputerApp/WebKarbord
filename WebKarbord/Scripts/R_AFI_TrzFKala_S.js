@@ -381,7 +381,7 @@
             Mode: 0,
             UserCode: sessionStorage.userName,
             Where: whereCust,
-            CustCode: '' 
+            CustCode: ''
         }
         ajaxFunction(CustUri + ace + '/' + sal + '/' + group, 'POST', CustObject, true).done(function (data) {
             self.CustList(data);
@@ -2960,7 +2960,7 @@
                 text += '></td>'
                 break;
             case 2:
-                text = '<td style="background-color: #e37d228f !important; direction: ltr;" id="total' + field + '"></td>'
+                text = '<td style="background-color: #e37d228f !important; direction: ltr;" id="total' + field + '"  ' + (TextField == 0 ? "Hidden" : "") + ' ></td>'
                 break;
         }
         return text;

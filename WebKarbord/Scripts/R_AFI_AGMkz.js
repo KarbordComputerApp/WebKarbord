@@ -1595,7 +1595,7 @@
                 text += '></td>'
                 break;
             case 2:
-                text = '<td style="background-color: #e37d228f !important; direction: ltr;" id="total' + field + '"></td>'
+                text = '<td style="background-color: #e37d228f !important; direction: ltr;" id="total' + field + '"  ' + (TextField == 0 ? "Hidden" : "") + ' ></td>'
                 break;
         }
         return text;
